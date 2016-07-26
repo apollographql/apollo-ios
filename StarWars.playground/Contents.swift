@@ -1,11 +1,12 @@
 import PlaygroundSupport
 import Apollo
+import StarWars
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
-let client = ApolloClient(url: URL(string: "http://localhost:3000/graphql")!)
+let client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 
-client.fetch(query: EntryQuery(repoFullName: "apollostack/apollo-client")) { (result, error) in
+client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error) in
   defer { PlaygroundPage.current.finishExecution() }
   
   if let error = error { NSLog("Error while fetching query: \(error)");  return }
@@ -17,11 +18,14 @@ client.fetch(query: EntryQuery(repoFullName: "apollostack/apollo-client")) { (re
   
   guard let data = result.data else { NSLog("No query result data");  return }
   
-  let entry = data.entry
+  data.hero.name
   
-  entry.repository.description
-  entry.repository.fullName
-  entry.score
-  entry.postedBy.login
-  entry.postedBy.avatarURL
+  switch data.hero {
+  case let human as HeroDetails_Human:
+    human.homePlanet
+  case let droid as HeroDetails_Droid:
+    droid.primaryFunction
+  default:
+    break
+  }
 }
