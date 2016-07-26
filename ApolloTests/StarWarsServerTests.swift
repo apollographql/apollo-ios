@@ -20,6 +20,7 @@
 
 import XCTest
 @testable import Apollo
+import StarWars
 
 class StarWarsServerTests: XCTestCase {
   var client: ApolloClient!

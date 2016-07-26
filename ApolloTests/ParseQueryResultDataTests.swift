@@ -20,6 +20,7 @@
 
 import XCTest
 @testable import Apollo
+import StarWars
 
 class ParseQueryResultDataTests: XCTestCase {
   func testHeroNameQuery() throws {

@@ -1,28 +1,33 @@
 import Apollo
 
-public class HeroAppearsInQuery: GraphQLQuery {
+public class TwoHeroesQuery: GraphQLQuery {
+  public init() {
+  }
+  
   public var operationDefinition =
     "{" +
-    "  hero {" +
+    "  r2: hero {" +
     "    name" +
-    "    appearsIn" +
+    "  }" +
+    "  luke: hero(episode: EMPIRE) {" +
+    "    name" +
     "  }" +
     "}"
   
   public struct Data: GraphQLMapConvertible {
-    public let hero: Hero
+    public let r2: Hero
+    public let luke: Hero
     
     public init(map: GraphQLMap) throws {
-      hero = try map.value(forKey: "hero")
+      r2 = try map.value(forKey: "r2")
+      luke = try map.value(forKey: "luke")
     }
     
     public struct Hero: GraphQLMapConvertible {
       public let name: String
-      public let appearsIn: [Episode]
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
-        appearsIn = try map.list(forKey: "appearsIn")
       }
     }
   }
