@@ -1,7 +1,7 @@
 import Apollo
 
 public class WithNestedFragmentsQuery: GraphQLQuery {
-  public let queryString =
+  public let operationDefinition =
     "query withFragments {" +
     "  user(id: 4) {" +
     "    friends(first: 10) {" +
@@ -57,13 +57,11 @@ public class WithNestedFragmentsQuery: GraphQLQuery {
 }
 
 private class FriendFragment: GraphQLFragment {
-  let fragmentString =
-    "{" +
-    "  fragment friend on User {" +
-    "      id" +
-    "      name" +
-    "      ...standardProfilePic" +
-    "  }" +
+  static let fragmentDefinition =
+    "fragment friend on User {" +
+    "  id" +
+    "  name" +
+    "  ...standardProfilePic" +
     "}"
   
   typealias Data = Friend
@@ -75,11 +73,9 @@ private protocol Friend: StandardProfilePic {
 }
 
 private class StandardProfilePicFragment: GraphQLFragment {
-  let fragmentString =
-    "{" +
-    "  fragment standardProfilePic on User {" +
-    "      profilePic(size: 50)" +
-    "  }" +
+  static let fragmentDefinition =
+    "fragment standardProfilePic on User {" +
+    "  profilePic(size: 50)" +
     "}"
   
   typealias Data = StandardProfilePic

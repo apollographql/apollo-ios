@@ -1,7 +1,7 @@
 import Apollo
 
 public class FragmentTypingQuery: GraphQLQuery {
-  public let queryString =
+  public let operationDefinition =
     "query FragmentTyping {" +
     "  profiles(handles: [\"zuck\", \"cocacola\"]) {" +
     "    handle" +
@@ -46,12 +46,10 @@ public protocol FragmentTypingQuery_Profile {
 }
 
 public class UserFragment: GraphQLFragment {
-  public let fragmentString =
-    "{" +
-    "  fragment userFragment on User {" +
-    "    friends {" +
-    "      count" +
-    "    }" +
+  public static let fragmentDefinition =
+    "fragment userFragment on User {" +
+    "  friends {" +
+    "    count" +
     "  }" +
     "}"
   
@@ -71,12 +69,10 @@ public struct UserDetails_Friends: GraphQLMapConvertible {
 }
 
 public class PageFragment: GraphQLFragment {
-  public let fragmentString =
-    "{" +
-    "  fragment pageFragment on User {" +
-    "    likers {" +
-    "      count" +
-    "    }" +
+  public static let fragmentDefinition =
+    "fragment pageFragment on User {" +
+    "  likers {" +
+    "    count" +
     "  }" +
     "}"
   

@@ -1,7 +1,7 @@
 import Apollo
 
 public class HeroNameQuery: GraphQLQuery {
-  public var queryString =
+  public var operationDefinition =
     "{" +
     "  hero {" +
     "    name" +

@@ -1,12 +1,31 @@
 import Apollo
 
 public class HeroDetailsFragmentQuery: GraphQLQuery {
-  public var queryString =
-    "{" +
-    "  hero {" +
+  let episode: Episode?
+  
+  public init(episode: Episode? = nil) {
+    self.episode = episode
+  }
+  
+  public var operationDefinition =
+    "query HeroDetailsFragmentQuery($episode: Episode) {" +
+    "  hero(episode: $episode) {" +
     "    ...HeroDetails" +
     "  }" +
     "}"
+  
+  public var queryDocument: String {
+    return operationDefinition.appending(HeroDetailsFragment.fragmentDefinition)
+  }
+  
+  public var variables: GraphQLMap? {
+    guard let episode = episode else { return nil }
+    return ["episode": episode]
+  }
+  
+  func addFragmentDefinitions(to queryDocument: inout String) {
+    queryDocument.append(HeroDetailsFragment.fragmentDefinition)
+  }
   
   public struct Data: GraphQLMapConvertible {
     public let hero: HeroDetails
@@ -38,17 +57,15 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
 }
 
 public class HeroDetailsFragment: GraphQLFragment {
-  public var fragmentString =
-    "{" +
-    "  fragment HeroDetails on Hero {" +
-    "    __typename" +
-    "    name" +
-    "    ... on Human {" +
-    "      homePlanet" +
-    "    }" +
-    "    ... on Droid {" +
-    "      primaryFunction" +
-    "    }" +
+  public static let fragmentDefinition =
+    "fragment HeroDetails on Character {" +
+    "  __typename" +
+    "  name" +
+    "  ... on Human {" +
+    "    homePlanet" +
+    "  }" +
+    "  ... on Droid {" +
+    "    primaryFunction" +
     "  }" +
     "}"
   

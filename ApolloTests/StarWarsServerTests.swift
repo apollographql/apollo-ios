@@ -75,6 +75,18 @@ class StarWarsServerTests: XCTestCase {
     }
   }
   
+  func testHeroDetailsFragmentQueryHuman() {
+    fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (data) in
+      XCTAssertEqual(data.hero.name, "Luke Skywalker")
+      
+      guard let human = data.hero as? HeroDetails_Human else {
+        XCTFail("Wrong type")
+        return
+      }
+      XCTAssertEqual(human.homePlanet, "Tatooine")
+    }
+  }
+  
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (data: Query.Data) -> Void) {
     let expectation = self.expectation(description: "Fetching query")
     

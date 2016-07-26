@@ -1,7 +1,7 @@
 import Apollo
 
 public class TwoHeroesQuery: GraphQLQuery {
-  public var queryString =
+  public var operationDefinition =
     "{" +
     "  r2: hero {" +
     "    name" +

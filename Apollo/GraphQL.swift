@@ -39,7 +39,8 @@ extension GraphQLError: GraphQLMapConvertible {
 }
 
 public protocol GraphQLQuery {
-  var queryString: String { get }
+  var operationDefinition: String { get }
+  var queryDocument: String { get }
   var variables: GraphQLMap? { get }
   
   associatedtype Data: GraphQLMapConvertible
@@ -50,13 +51,17 @@ public extension GraphQLQuery {
     return nil
   }
   
+  var queryDocument: String {
+    return operationDefinition
+  }
+  
   func parse(data: JSONObject) throws -> Data {
     return try Data(map: GraphQLMap(jsonObject: data))
   }
 }
 
 public protocol GraphQLFragment {
-  var fragmentString: String { get }
+  static var fragmentDefinition: String { get }
   
   associatedtype Data
 }

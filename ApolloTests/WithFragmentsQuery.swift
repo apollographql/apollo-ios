@@ -1,7 +1,7 @@
 import Apollo
 
 public class WithFragmentsQuery: GraphQLQuery {
-  public let queryString =
+  public let operationDefinition =
     "query withFragments {" +
     "  user(id: 4) {" +
     "    friends(first: 10) {" +
@@ -57,13 +57,11 @@ public class WithFragmentsQuery: GraphQLQuery {
 }
 
 private class FriendFragment: GraphQLFragment {
-  let fragmentString =
-    "{" +
-    "  fragment Friend on User {" +
-    "      id" +
-    "      name" +
-    "      profilePic(size: 50)" +
-    "  }" +
+  static let fragmentDefinition =
+    "fragment Friend on User {" +
+    "    id" +
+    "    name" +
+    "    profilePic(size: 50)" +
     "}"
   
   typealias Data = Friend
