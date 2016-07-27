@@ -152,15 +152,17 @@ If a query contains fragments with type conditions (either named or inline), thi
 For example, given the following query and fragment definitions:
 
 ```graphql
-query HeroDetailsFragmentQuery($episode: Episode) {
+query HeroAndFriendsDetails($episode: Episode) {
   hero(episode: $episode) {
     ...HeroDetails
+    friends {
+      ...HeroDetails
+    }
   }
 }
 
 fragment HeroDetails on Character {
   __typename
-  id
   name
   appearsIn
   ... on Human {
@@ -175,15 +177,27 @@ fragment HeroDetails on Character {
 You will be able to write the following code:
 
 ```swift
-client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error) in
+client.fetch(query: HeroAndFriendsDetailsQuery(episode: .empire)) { (result, error) in
   guard let data = result?.data else { return }
 
-  print(data.hero.dynamicType) // Hero_Human (actually HeroDetailsFragmentQuery.Data.Hero_Human)
-  print(data.hero.name) // Luke Skywalker
+  print(data.hero.dynamicType) // Hero_Human (actually HeroAndFriendsDetailsQuery.Data.Hero_Human)
 
-  switch data.hero {
+  describe(hero: data.hero)
+
+  guard let friends = data.hero.friends else { return }
+
+  for friend in friends {
+    describe(hero: friend)
+  }
+}
+
+func describe(hero: HeroDetails) {
+  print(hero.name) // e.g. Luke Skywalker
+  print(hero.appearsIn) // e.g. [StarWars.Episode.newhope, StarWars.Episode.empire, StarWars.Episode.jedi]
+
+  switch hero {
   case let human as HeroDetails_Human:
-    print(human.homePlanet) // Tatooine
+    print(human.homePlanet) // e.g. Tatooine
   case let droid as HeroDetails_Droid:
     print(droid.primaryFunction)
   default:
@@ -191,3 +205,7 @@ client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error
   }
 }
 ```
+
+While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human`, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`. The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. (From within `describe(hero:)`, you wouldn't be able to access `friends` for example, because that field is not part of the fragment and may not be fetched for every query that uses the fragment.)
+
+The subprotocols `HeroDetails_Human` and `HeroDetails_Droid` can be used to access the type-specific fields from the inline fragments.
