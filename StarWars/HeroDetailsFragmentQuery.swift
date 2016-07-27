@@ -31,20 +31,24 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
     
     public struct Hero_Human: HeroDetails_Human, GraphQLMapConvertible {
       public let name: String
+      public let appearsIn: [Episode]?
       public let homePlanet: String?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
+        appearsIn = try map.list(forKey: "appearsIn")
         homePlanet = try map.value(forKey: "homePlanet")
       }
     }
     
     public struct Hero_Droid: HeroDetails_Droid, GraphQLMapConvertible {
       public let name: String
+      public let appearsIn: [Episode]?
       public let primaryFunction: String?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
+        appearsIn = try map.list(forKey: "appearsIn")
         primaryFunction = try map.value(forKey: "primaryFunction")
       }
     }

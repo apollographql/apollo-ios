@@ -36,11 +36,13 @@ public class HeroAndFriendsDetailsQuery: GraphQLQuery {
     
     public struct Hero_Human: HeroAndFriendsDetailsQuery_Hero, HeroDetails_Human, GraphQLMapConvertible {
       public let name: String
+      public let appearsIn: [Episode]?
       public let friends: [Hero]?
       public let homePlanet: String?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
+        appearsIn = try map.list(forKey: "appearsIn")
         friends = try map.list(forKey: "friends", possibleTypes: ["Human": Hero_Human.self, "Droid": Hero_Droid.self])
         homePlanet = try map.value(forKey: "homePlanet")
       }
@@ -48,11 +50,13 @@ public class HeroAndFriendsDetailsQuery: GraphQLQuery {
     
     public struct Hero_Droid: HeroAndFriendsDetailsQuery_Hero, HeroDetails_Droid, GraphQLMapConvertible {
       public let name: String
+      public let appearsIn: [Episode]?
       public let friends: [Hero]?
       public let primaryFunction: String?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
+        appearsIn = try map.list(forKey: "appearsIn")
         friends = try map.list(forKey: "friends", possibleTypes: ["Human": Hero_Human.self, "Droid": Hero_Droid.self])
         primaryFunction = try map.value(forKey: "primaryFunction")
       }
@@ -61,6 +65,5 @@ public class HeroAndFriendsDetailsQuery: GraphQLQuery {
 }
 
 public protocol HeroAndFriendsDetailsQuery_Hero: HeroDetails {
-  var name: String { get }
   var friends: [HeroAndFriendsDetailsQuery_Hero]? { get }
 }

@@ -21,9 +21,9 @@ client.fetch(query: HeroAndFriendsDetailsQuery(episode: .empire)) { (result, err
   func describe(hero: HeroDetails) -> String? {
     switch hero {
     case let human as HeroDetails_Human:
-      return "Human(name: \(human.name), homePlanet: \(human.homePlanet)"
+      return "Human(name: \(human.name), appearsIn: \(human.appearsIn), homePlanet: \(human.homePlanet)"
     case let droid as HeroDetails_Droid:
-      return "Droid(name: \(droid.name), primaryFunction: \(droid.primaryFunction)"
+      return "Droid(name: \(droid.name), appearsIn: \(droid.appearsIn), primaryFunction: \(droid.primaryFunction)"
     default:
       return nil
     }
