@@ -70,6 +70,16 @@ extension Double: JSONDecodable, JSONEncodable {
   }
 }
 
+extension Optional where Wrapped: JSONDecodable {
+  public init(jsonValue value: JSONValue) throws {
+    if value is NSNull {
+      self = .none
+    } else {
+      self = .some(try Wrapped(jsonValue: value))
+    }
+  }
+}
+
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)

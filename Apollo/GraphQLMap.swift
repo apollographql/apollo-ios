@@ -49,7 +49,7 @@ public struct GraphQLMap {
   
   public func value<T: JSONDecodable>(forKey key: String) throws -> T? {
     guard let jsonValue = optionalJSONValue(forKey: key) else { return nil }
-    return try? T.init(jsonValue: jsonValue)
+    return try Optional<T>.init(jsonValue: jsonValue)
   }
   
   public func list<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T] {
@@ -62,6 +62,8 @@ public struct GraphQLMap {
   
   public func list<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T]? {
     guard let value = optionalJSONValue(forKey: key) else { return nil }
+    if value is NSNull { return nil }
+    
     guard let array = value as? JSONArray else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
     }
@@ -80,7 +82,15 @@ public struct GraphQLMap {
     return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }
   
+  public func value<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T? {
+    return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
+  }
+  
   public func list<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> [T] {
+    return try list(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
+  }
+  
+  public func list<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> [T]? {
     return try list(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }
   
@@ -97,7 +107,6 @@ public struct GraphQLMap {
       guard let ObjectType = possibleTypes[typename] as? GraphQLMapConvertible.Type else {
         throw JSONDecodingError.unknownObjectType(forTypename: typename)
       }
-      
       return try ObjectType.init(map: map) as! T
     }
   }
@@ -116,6 +125,12 @@ extension GraphQLMap: DictionaryLiteralConvertible {
       jsonObject[key] = value.jsonValue
     }
     self.init(jsonObject: jsonObject)
+  }
+}
+
+extension GraphQLMap: CustomStringConvertible {
+  public var description: String {
+    return jsonObject.description
   }
 }
 
