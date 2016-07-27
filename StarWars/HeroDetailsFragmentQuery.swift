@@ -19,7 +19,6 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
   }
   
   public var variables: GraphQLMap? {
-    guard let episode = episode else { return nil }
     return ["episode": episode]
   }
   
