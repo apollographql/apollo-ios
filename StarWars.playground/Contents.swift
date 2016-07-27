@@ -18,22 +18,22 @@ client.fetch(query: HeroAndFriendsDetailsQuery(episode: .empire)) { (result, err
   
   guard let data = result.data else { NSLog("No query result data");  return }
   
-  print(description(hero: data.hero))
+  func describe(hero: HeroDetails) -> String? {
+    switch hero {
+    case let human as HeroDetails_Human:
+      return "Human(name: \(human.name), homePlanet: \(human.homePlanet)"
+    case let droid as HeroDetails_Droid:
+      return "Droid(name: \(droid.name), primaryFunction: \(droid.primaryFunction)"
+    default:
+      return nil
+    }
+  }
+  
+  describe(hero: data.hero)
   
   guard let friends = data.hero.friends else { return }
   
   for friend in friends {
-    print(description(hero: friend))
-  }
-}
-
-func description(hero: HeroDetails) -> String? {
-  switch hero {
-  case let human as HeroDetails_Human:
-    return "Human(name: \(human.name), homePlanet: \(human.homePlanet)"
-  case let droid as HeroDetails_Droid:
-    return "Droid(name: \(droid.name), primaryFunction: \(droid.primaryFunction)"
-  default:
-    return nil
+    describe(hero: friend)
   }
 }
