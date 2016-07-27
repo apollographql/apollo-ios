@@ -1,18 +1,26 @@
 import Apollo
 
 public class HeroAndFriendsNamesQuery: GraphQLQuery {
-  public init() {
+  let episode: Episode?
+  
+  public init(episode: Episode? = nil) {
+    self.episode = episode
   }
   
   public var operationDefinition =
-    "{" +
-    "  hero {" +
+    "query HeroAndFriendsNames($episode: Episode) {" +
+    "  hero(episode: $episode) {" +
     "    name" +
     "    friends {" +
     "      name" +
     "    }" +
     "  }" +
     "}"
+  
+  public var variables: GraphQLMap? {
+    guard let episode = episode else { return nil }
+    return ["episode": episode]
+  }
   
   public struct Data: GraphQLMapConvertible {
     public let hero: Hero

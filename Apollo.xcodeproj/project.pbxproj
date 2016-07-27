@@ -158,12 +158,12 @@
 		9FC750461D2A532C00458D91 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
-				9FC750491D2A532C00458D91 /* Info.plist */,
-				9FC750471D2A532C00458D91 /* Apollo.h */,
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9F27D4601D40363A00715680 /* GraphQL */,
 				9FC4B9231D2BE4F00046A641 /* JSON */,
+				9FC750471D2A532C00458D91 /* Apollo.h */,
+				9FC750491D2A532C00458D91 /* Info.plist */,
 			);
 			path = Apollo;
 			sourceTree = "<group>";
@@ -171,10 +171,10 @@
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
-				9FC750551D2A532D00458D91 /* Info.plist */,
 				9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */,
 				9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */,
 				9F7461E51D3ED38E0023ADDA /* GraphQL spec examples */,
+				9FC750551D2A532D00458D91 /* Info.plist */,
 			);
 			path = ApolloTests;
 			sourceTree = "<group>";
@@ -182,8 +182,6 @@
 		9FE8556E1D4815C9006874BA /* StarWars */ = {
 			isa = PBXGroup;
 			children = (
-				9FE8556F1D4815C9006874BA /* StarWars.h */,
-				9FE855701D4815C9006874BA /* Info.plist */,
 				9FE855881D48167D006874BA /* HeroNameQuery.swift */,
 				9FE855891D48167D006874BA /* TwoHeroesQuery.swift */,
 				9FE855841D48167D006874BA /* HeroAndFriendsNamesQuery.swift */,
@@ -191,6 +189,8 @@
 				9FE855871D48167D006874BA /* HeroDetailsQuery.swift */,
 				9FE855861D48167D006874BA /* HeroDetailsFragmentQuery.swift */,
 				9FE8558A1D48167D006874BA /* Types.swift */,
+				9FE8556F1D4815C9006874BA /* StarWars.h */,
+				9FE855701D4815C9006874BA /* Info.plist */,
 			);
 			path = StarWars;
 			sourceTree = "<group>";
