@@ -26,14 +26,14 @@ public class HeroDetailsQuery: GraphQLQuery {
     return ["episode": episode]
   }
   
+  public typealias Hero = HeroDetailsQuery_Hero
+  
   public struct Data: GraphQLMapConvertible {
     public let hero: Hero
     
     public init(map: GraphQLMap) throws {
       hero = try map.value(forKey: "hero", possibleTypes: ["Human": Human.self, "Droid": Droid.self])
     }
-    
-    public typealias Hero = HeroDetailsQuery_Hero
     
     public struct Human: Hero, GraphQLMapConvertible {
       public var name: String

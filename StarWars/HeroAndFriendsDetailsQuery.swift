@@ -1,6 +1,6 @@
 import Apollo
 
-public class HeroDetailsFragmentQuery: GraphQLQuery {
+public class HeroAndFriendsDetailsQuery: GraphQLQuery {
   let episode: Episode?
   
   public init(episode: Episode? = nil) {
@@ -8,9 +8,12 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
   }
   
   public var operationDefinition =
-    "query HeroDetailsFragmentQuery($episode: Episode) {" +
+    "query HeroAndFriendsDetails($episode: Episode) {" +
     "  hero(episode: $episode) {" +
     "    ...HeroDetails" +
+    "    friends {" +
+    "      ...HeroDetails" +
+    "    }" +
     "  }" +
     "}"
   
@@ -23,31 +26,42 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
     return ["episode": episode]
   }
   
+  public typealias Hero = HeroAndFriendsDetailsQuery_Hero
+  
   public struct Data: GraphQLMapConvertible {
-    public let hero: HeroDetails
+    public let hero: Hero
     
     public init(map: GraphQLMap) throws {
       hero = try map.value(forKey: "hero", possibleTypes: ["Human": Hero_Human.self, "Droid": Hero_Droid.self])
     }
     
-    public struct Hero_Human: HeroDetails_Human, GraphQLMapConvertible {
+    public struct Hero_Human: HeroAndFriendsDetailsQuery_Hero, HeroDetails_Human, GraphQLMapConvertible {
       public let name: String
+      public let friends: [Hero]?
       public let homePlanet: String?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
+        friends = try map.list(forKey: "friends", possibleTypes: ["Human": Hero_Human.self, "Droid": Hero_Droid.self])
         homePlanet = try map.value(forKey: "homePlanet")
       }
     }
     
-    public struct Hero_Droid: HeroDetails_Droid, GraphQLMapConvertible {
+    public struct Hero_Droid: HeroAndFriendsDetailsQuery_Hero, HeroDetails_Droid, GraphQLMapConvertible {
       public let name: String
+      public let friends: [Hero]?
       public let primaryFunction: String?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
+        friends = try map.list(forKey: "friends", possibleTypes: ["Human": Hero_Human.self, "Droid": Hero_Droid.self])
         primaryFunction = try map.value(forKey: "primaryFunction")
       }
     }
   }
+}
+
+public protocol HeroAndFriendsDetailsQuery_Hero: HeroDetails {
+  var name: String { get }
+  var friends: [HeroAndFriendsDetailsQuery_Hero]? { get }
 }

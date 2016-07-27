@@ -6,7 +6,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 let client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 
-client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error) in
+client.fetch(query: HeroAndFriendsDetailsQuery(episode: .empire)) { (result, error) in
   defer { PlaygroundPage.current.finishExecution() }
   
   if let error = error { NSLog("Error while fetching query: \(error)");  return }
@@ -18,14 +18,22 @@ client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error
   
   guard let data = result.data else { NSLog("No query result data");  return }
   
-  data.hero.name
+  print(description(hero: data.hero))
   
-  switch data.hero {
+  guard let friends = data.hero.friends else { return }
+  
+  for friend in friends {
+    print(description(hero: friend))
+  }
+}
+
+func description(hero: HeroDetails) -> String? {
+  switch hero {
   case let human as HeroDetails_Human:
-    human.homePlanet
+    return "Human(name: \(human.name), homePlanet: \(human.homePlanet)"
   case let droid as HeroDetails_Droid:
-    droid.primaryFunction
+    return "Droid(name: \(droid.name), primaryFunction: \(droid.primaryFunction)"
   default:
-    break
+    return nil
   }
 }
