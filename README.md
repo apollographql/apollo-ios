@@ -71,6 +71,7 @@ let client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 
 client.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error) in
   guard let data = result?.data else { return }
+  print(data.hero.dynamicType) // Hero (actually HeroAndFriendsNamesQuery.Data.Hero)
   print(data.hero.name) // Luke Skywalker
   print(data.hero.friends.map { $0.name }.joined(separator: ", ")) // Han Solo, Leia Organa, C-3PO, R2-D2
 }
@@ -177,11 +178,12 @@ You will be able to write the following code:
 client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error) in
   guard let data = result?.data else { return }
 
-  print(data.hero.name)
+  print(data.hero.dynamicType) // Hero_Human (actually HeroDetailsFragmentQuery.Data.Hero_Human)
+  print(data.hero.name) // Luke Skywalker
 
   switch data.hero {
   case let human as HeroDetails_Human:
-    print(human.homePlanet)
+    print(human.homePlanet) // Tatooine
   case let droid as HeroDetails_Droid:
     print(droid.primaryFunction)
   default:
