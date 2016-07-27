@@ -54,10 +54,6 @@ public extension GraphQLQuery {
   var queryDocument: String {
     return operationDefinition
   }
-  
-  func parse(data: JSONObject) throws -> Data {
-    return try Data(map: GraphQLMap(jsonObject: data))
-  }
 }
 
 public protocol GraphQLFragment {

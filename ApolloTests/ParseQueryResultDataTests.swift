@@ -22,6 +22,12 @@ import XCTest
 @testable import Apollo
 import StarWars
 
+private extension GraphQLQuery {
+  func parse(data: JSONObject) throws -> Data {
+    return try Data(map: GraphQLMap(jsonObject: data))
+  }
+}
+
 class ParseQueryResultDataTests: XCTestCase {
   func testHeroNameQuery() throws {
     let data = ["hero": ["name": "R2-D2"]]
