@@ -2,7 +2,7 @@
 
 This is an early prototype of Apollo client for iOS, written in Swift.
 
-The focus of this prototype is to validate some ideas about the mapping of GraphQL query results to typed structures. It contains tests for a variety of GraphQL queries, and handwritten query classes with nested types that define the mapping. These query classes will eventually be code generated from a GraphQL schema and query documents, so the current example queries are meant mostly as a validation of the mapping design before starting work on the code generator.
+The focus of this prototype is to validate some ideas about the mapping of GraphQL query results to typed structures. It contains tests for a variety of GraphQL queries, and handwritten query classes with nested types that define the mappings. These query classes will eventually be automatically generated from a GraphQL schema and query documents, so the current example queries are meant mostly as a validation of the mapping design before starting work on the code generator.
 
 ## Usage
 
@@ -18,6 +18,54 @@ The project also includes a simple playground that allows you to fetch a query a
 
 ## Design
 
+Although JSON responses are convenient to work with in dynamic languages like JavaScript, dealing with dictionaries and untyped values is a pain in statically typed languages such as Swift or Java.
+
+The main design goal of the current version of Apollo client for iOS is therefore to return typed results for GraphQL queries. Instead of passing around dictionaries and making clients cast field values to the right type manually, the types returned should allow you to access data and navigate relationships using the appropriate native types directly.
+
+For example, given the following schema:
+
+```graphql
+enum Episode { NEWHOPE, EMPIRE, JEDI }
+
+interface Character {
+  id: String!
+  name: String
+  friends: [Character]
+  appearsIn: [Episode]
+ }
+
+ type Human : Character {
+   id: String!
+   name: String
+   friends: [Character]
+   appearsIn: [Episode]
+   homePlanet: String
+ }
+
+ type Droid : Character {
+   id: String!
+   name: String
+   friends: [Character]
+   appearsIn: [Episode]
+   primaryFunction: String
+}
+```
+
+And the following query:
+
+```graphql
+query HeroAndFriendsNames($episode: Episode) {
+  hero(episode: $episode) {
+    name
+    friends {
+      name
+    }
+  }
+}
+```
+
+You can fetch results and access data using the following code:
+
 ```swift
 let client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 
@@ -28,9 +76,11 @@ client.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error
 }
 ```
 
-Queries are represented as instances of classes implementing the `GraphQLQuery` protocol. The constructor can be used to pass in query parameters.
+Query results are defined as nested immutable structs that at each level only contain the properties defined in the corresponding part of the query definition. This means the type system won't allow you to access fields that are not actually fetched by the query, even if they *are* part of the schema. For example, the above query won't fetch `appearsIn`, so this property is not part of the returned result type.
 
-Query results are defined as nested structs that at each level only contain the properties contained in the query definition. This means the type system will only allow you to access fields that are actually fetched.
+---
+
+Queries are represented as instances of code generated classes implementing the `GraphQLQuery` protocol. The constructor can be used to pass in query parameters.
 
 `ApolloClient#fetch(query:)` is a generic function that uses type constraints to express the relationship between the query and the  result:
 
@@ -38,7 +88,9 @@ Query results are defined as nested structs that at each level only contain the 
 public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: ErrorProtocol?) -> Void)
 ```
 
-While query classes are meant to be code generated, some example code might help better understand the mapping:
+The `error` parameter to the completion handler signals network or response format errors (such as invalid JSON). `GraphQLResult` contains an optional `errors` array (see the sections on [error handling](https://facebook.github.io/graphql/#sec-Error-handling) and the [errors response](https://facebook.github.io/graphql/#sec-Errors) in the GraphQL specification).
+
+While query classes are meant to be code generated, they end up being fairly readable so it might help understanding to see how they are defined:
 
 ```swift
 public class HeroAndFriendsNamesQuery: GraphQLQuery {
@@ -59,7 +111,6 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
     "}"
 
   public var variables: GraphQLMap? {
-    guard let episode = episode else { return nil }
     return ["episode": episode]
   }
 
@@ -91,12 +142,26 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
 }
 ```
 
-If a query contains fragments with type conditions (either named or inline), this will result in polymorphic results. You will be able to use runtime type checks (including pattern matching) to access type specific fields. (More information about the precise mapping is forthcoming.)
+`GraphQLMap` is a struct that wraps a JSON object and is responsible for converting field values to the appropriate types. `map.value(forKey:)` and `map.list(forKey:)` are generic methods that are specialized based on the return type. This means they will be defined for every type that implements the `JSONDecodable` protocol (which will be defined for most standard types). They will throw an error when a field is missing (for non-optional types) or when a value cannot be converted to the right type.
+
+---
+
+If a query contains fragments with type conditions (either named or inline), this will result in polymorphic results based on the returned `__typename`. You will be able to use runtime type checks (including pattern matching) to access type specific fields.
+
+For example, given the following query and fragment definitions:
 
 ```graphql
+query HeroDetailsFragmentQuery($episode: Episode) {
+  hero(episode: $episode) {
+    ...HeroDetails
+  }
+}
+
 fragment HeroDetails on Character {
   __typename
+  id
   name
+  appearsIn
   ... on Human {
     homePlanet
   }
@@ -106,9 +171,12 @@ fragment HeroDetails on Character {
 }
 ```
 
+You will be able to write the following code:
+
 ```swift
 client.fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (result, error) in
   guard let data = result?.data else { return }
+
   print(data.hero.name)
 
   switch data.hero {
