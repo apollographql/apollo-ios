@@ -15,6 +15,9 @@
 		9F7461E91D3ED9A20023ADDA /* WithFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7461E81D3ED9A20023ADDA /* WithFragmentsQuery.swift */; };
 		9F7461EB1D3EDBEE0023ADDA /* WithNestedFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7461EA1D3EDBEE0023ADDA /* WithNestedFragmentsQuery.swift */; };
 		9F7461EF1D3EE02B0023ADDA /* FragmentTypingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7461EE1D3EE02B0023ADDA /* FragmentTypingQuery.swift */; };
+		9F91F1BB1D483A7900579E74 /* HeroDetailsFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F91F1BA1D483A7900579E74 /* HeroDetailsFragment.swift */; };
+		9F91F1BD1D483AB000579E74 /* HeroAndFriendsDetailsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F91F1BC1D483AB000579E74 /* HeroAndFriendsDetailsQuery.swift */; };
+		9F9EB9511D486BAE00789F8A /* GraphQLMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */; };
 		9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
 		9FC750481D2A532C00458D91 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FC7504F1D2A532D00458D91 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
@@ -46,6 +49,13 @@
 			remoteGlobalIDString = 9FE8556C1D4815C9006874BA;
 			remoteInfo = StarWars;
 		};
+		9FE6C0EF1D48466000CB0D14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC750431D2A532C00458D91;
+			remoteInfo = Apollo;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +67,9 @@
 		9F7461E81D3ED9A20023ADDA /* WithFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithFragmentsQuery.swift; sourceTree = "<group>"; };
 		9F7461EA1D3EDBEE0023ADDA /* WithNestedFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithNestedFragmentsQuery.swift; sourceTree = "<group>"; };
 		9F7461EE1D3EE02B0023ADDA /* FragmentTypingQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentTypingQuery.swift; sourceTree = "<group>"; };
+		9F91F1BA1D483A7900579E74 /* HeroDetailsFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsFragment.swift; sourceTree = "<group>"; };
+		9F91F1BC1D483AB000579E74 /* HeroAndFriendsDetailsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroAndFriendsDetailsQuery.swift; sourceTree = "<group>"; };
+		9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLMapTests.swift; sourceTree = "<group>"; };
 		9FC4B91F1D2A6F8D0046A641 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		9FC750441D2A532C00458D91 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC750471D2A532C00458D91 /* Apollo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Apollo.h; sourceTree = "<group>"; };
@@ -172,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */,
+				9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */,
 				9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */,
 				9F7461E51D3ED38E0023ADDA /* GraphQL spec examples */,
 				9FC750551D2A532D00458D91 /* Info.plist */,
@@ -187,7 +201,9 @@
 				9FE855841D48167D006874BA /* HeroAndFriendsNamesQuery.swift */,
 				9FE855851D48167D006874BA /* HeroAppearsInQuery.swift */,
 				9FE855871D48167D006874BA /* HeroDetailsQuery.swift */,
+				9F91F1BA1D483A7900579E74 /* HeroDetailsFragment.swift */,
 				9FE855861D48167D006874BA /* HeroDetailsFragmentQuery.swift */,
+				9F91F1BC1D483AB000579E74 /* HeroAndFriendsDetailsQuery.swift */,
 				9FE8558A1D48167D006874BA /* Types.swift */,
 				9FE8556F1D4815C9006874BA /* StarWars.h */,
 				9FE855701D4815C9006874BA /* Info.plist */,
@@ -266,6 +282,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9FE6C0F01D48466000CB0D14 /* PBXTargetDependency */,
 			);
 			name = StarWars;
 			productName = StarWars;
@@ -369,6 +386,7 @@
 				9F69FFA71D4271F400E000B1 /* StarWarsServerTests.swift in Sources */,
 				9F7461EB1D3EDBEE0023ADDA /* WithNestedFragmentsQuery.swift in Sources */,
 				9F7461E91D3ED9A20023ADDA /* WithFragmentsQuery.swift in Sources */,
+				9F9EB9511D486BAE00789F8A /* GraphQLMapTests.swift in Sources */,
 				9FC750541D2A532D00458D91 /* ParseQueryResultDataTests.swift in Sources */,
 				9F7461E71D3ED79D0023ADDA /* NoFragmentsQuery.swift in Sources */,
 			);
@@ -380,8 +398,10 @@
 			files = (
 				9FE8558D1D48167D006874BA /* HeroDetailsFragmentQuery.swift in Sources */,
 				9FE855901D48167D006874BA /* TwoHeroesQuery.swift in Sources */,
+				9F91F1BD1D483AB000579E74 /* HeroAndFriendsDetailsQuery.swift in Sources */,
 				9FE8558F1D48167D006874BA /* HeroNameQuery.swift in Sources */,
 				9FE855911D48167D006874BA /* Types.swift in Sources */,
+				9F91F1BB1D483A7900579E74 /* HeroDetailsFragment.swift in Sources */,
 				9FE8558C1D48167D006874BA /* HeroAppearsInQuery.swift in Sources */,
 				9FE8558B1D48167D006874BA /* HeroAndFriendsNamesQuery.swift in Sources */,
 				9FE8558E1D48167D006874BA /* HeroDetailsQuery.swift in Sources */,
@@ -400,6 +420,11 @@
 			isa = PBXTargetDependency;
 			target = 9FE8556C1D4815C9006874BA /* StarWars */;
 			targetProxy = 9FE10EBE1D48175C007C1AA4 /* PBXContainerItemProxy */;
+		};
+		9FE6C0F01D48466000CB0D14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FC750431D2A532C00458D91 /* Apollo */;
+			targetProxy = 9FE6C0EF1D48466000CB0D14 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
