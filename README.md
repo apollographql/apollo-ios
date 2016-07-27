@@ -78,7 +78,7 @@ client.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error
 
 Query results are defined as nested immutable structs that at each level only contain the properties defined in the corresponding part of the query definition. This means the type system won't allow you to access fields that are not actually fetched by the query, even if they *are* part of the schema. For example, the above query won't fetch `appearsIn`, so this property is not part of the returned result type.
 
----
+### Query classes
 
 Queries are represented as instances of code generated classes implementing the `GraphQLQuery` protocol. The constructor can be used to pass in query parameters.
 
@@ -144,7 +144,7 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
 
 `GraphQLMap` is a struct that wraps a JSON object and is responsible for converting field values to the appropriate types. `map.value(forKey:)` and `map.list(forKey:)` are generic methods that are specialized based on the return type. This means they will be defined for every type that implements the `JSONDecodable` protocol (which will be defined for most standard types). They will throw an error when a field is missing (for non-optional types) or when a value cannot be converted to the right type.
 
----
+### Polymorphic results
 
 If a query contains fragments with type conditions (either named or inline), this will result in polymorphic results based on the returned `__typename`. You will be able to use runtime type checks (including pattern matching) to access type specific fields.
 
