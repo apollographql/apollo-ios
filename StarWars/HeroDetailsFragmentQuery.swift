@@ -23,10 +23,6 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
     return ["episode": episode]
   }
   
-  func addFragmentDefinitions(to queryDocument: inout String) {
-    queryDocument.append(HeroDetailsFragment.fragmentDefinition)
-  }
-  
   public struct Data: GraphQLMapConvertible {
     public let hero: HeroDetails
     
