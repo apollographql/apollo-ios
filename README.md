@@ -207,6 +207,8 @@ func describe(hero: HeroDetails) {
 }
 ```
 
-While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human`, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`. The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. (From within `describe(hero:)`, you wouldn't be able to access `friends` for example, because that field is not part of the fragment and may not be fetched for every query that uses the fragment.)
+Notice that you are not able to access `friend.friends` from a hero's friend, because the query only specifies fetching friends one level deep.
+
+While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human`, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`. The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. From within `describe(hero:)` for example, you won't be able to access any fields that are not part of the fragment and may not be fetched for every query that uses the fragment.)
 
 The subprotocols `HeroDetails_Human` and `HeroDetails_Droid` can be used to access the type-specific fields from the inline fragments.
