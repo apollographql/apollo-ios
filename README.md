@@ -187,6 +187,7 @@ client.fetch(query: HeroAndFriendsDetailsQuery(episode: .empire)) { (result, err
   guard let friends = data.hero.friends else { return }
 
   for friend in friends {
+    // You can't access friend.friends here
     describe(hero: friend)
   }
 }
