@@ -143,7 +143,7 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
 }
 ```
 
-`GraphQLMap` is a struct that wraps a JSON object and is responsible for converting field values to the appropriate types. `map.value(forKey:)` and `map.list(forKey:)` are generic methods that are specialized based on the return type. This means they will be defined for every type that implements the `JSONDecodable` protocol (which will be defined for most standard types). They will throw an error when a field is missing (for non-optional types) or when a value cannot be converted to the right type.
+`GraphQLMap` is a struct that wraps a JSON object and is responsible for converting field values to the appropriate types. `map.value(forKey:)` and `map.list(forKey:)` are generic methods that are specialized based on the return type. They will work with every type that implements the `JSONDecodable` protocol (which has been defined for most standard types, including enums and optionals). They will throw an error when a field is missing (for non-optional types) or when a value cannot be converted to the right type. `GraphQLMapConvertible` inherits from `JSONDecodable`, which is how nested objects are decoded.
 
 ### Polymorphic results
 
@@ -207,8 +207,8 @@ func describe(hero: HeroDetails) {
 }
 ```
 
-Notice that you are not able to access `friend.friends` from a hero's friend, because the query only specifies fetching friends one level deep.
-
-While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human`, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`. The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. From within `describe(hero:)` for example, you won't be able to access any fields that are not part of the fragment and may not be fetched for every query that uses the fragment.)
+While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human`, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`. The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. From within `describe(hero:)` for example, you won't be able to access any fields that are not part of the fragment (and may not be fetched for every query that uses the fragment).
 
 The subprotocols `HeroDetails_Human` and `HeroDetails_Droid` can be used to access the type-specific fields from the inline fragments.
+
+Notice that you are not able to access `friend.friends` from a hero's friend, because the query only specifies fetching friends one level deep. This is enforced by the type system (`data.hero` and `friend` are of type `Hero` and `Hero_Friend` respectively, although they both implement `HeroDetails`).
