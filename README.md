@@ -77,21 +77,23 @@ client.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error
 }
 ```
 
-Query results are defined as nested immutable structs that at each level only contain the properties defined in the corresponding part of the query definition. This means the type system won't allow you to access fields that are not actually fetched by the query, even if they *are* part of the schema. For example, the above query won't fetch `appearsIn`, so this property is not part of the returned result type.
+Query results are defined as nested immutable structs that at each level only contain the properties defined in the corresponding part of the query definition. This means the type system won't allow you to access fields that are not actually fetched by the query, even if they *are* part of the schema. For example, the above query won't fetch `appearsIn`, so this property is not part of the returned result type and cannot be accessed here.
 
 ### Query classes
 
 Queries are represented as instances of code generated classes implementing the `GraphQLQuery` protocol. The constructor can be used to pass in query parameters.
 
-`ApolloClient#fetch(query:)` is a generic function that uses type constraints to express the relationship between the query and the  result:
+`ApolloClient#fetch(query:)` is a generic method that uses type constraints to express the relationship between the query and the  result:
 
 ```swift
 public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: ErrorProtocol?) -> Void)
 ```
 
-The `error` parameter to the completion handler signals network or response format errors (such as invalid JSON). `GraphQLResult` contains an optional `errors` array (see the sections on [error handling](https://facebook.github.io/graphql/#sec-Error-handling) and the [errors response](https://facebook.github.io/graphql/#sec-Errors) in the GraphQL specification).
+The `error` parameter to the completion handler signals network or response format errors (such as invalid JSON).
 
-While query classes are meant to be code generated, they end up being fairly readable so it might help understanding to see how they are defined:
+In addition to an optional `data` property, `GraphQLResult` contains an optional `errors` array with GraphQL errors (for more on this, see the sections on [error handling](https://facebook.github.io/graphql/#sec-Error-handling) and the [response format](https://facebook.github.io/graphql/#sec-Response-Format) in the GraphQL specification).
+
+While query classes are meant to be code generated, they end up being fairly readable, so it might help understanding to see how they are defined:
 
 ```swift
 public class HeroAndFriendsNamesQuery: GraphQLQuery {
@@ -143,11 +145,13 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
 }
 ```
 
-`GraphQLMap` is a struct that wraps a JSON object and is responsible for converting field values to the appropriate types. `map.value(forKey:)` and `map.list(forKey:)` are generic methods that are specialized based on the return type. They will work with every type that implements the `JSONDecodable` protocol (which has been defined for most standard types, including enums and optionals). They will throw an error when a field is missing (for non-optional types) or when a value cannot be converted to the right type. `GraphQLMapConvertible` inherits from `JSONDecodable`, which is how nested objects are decoded.
+`GraphQLMap` is a struct that wraps a JSON object and is responsible for converting field values to the appropriate types. `map.value(forKey:)` and `map.list(forKey:)` are generic methods that are specialized based on the return type.
+
+These methods will throw an error when a field is missing (for non-optional types) or when a value cannot be converted to the right type. They will work with every type that implements the `JSONDecodable` protocol (which has been defined here for most standard types, including enums and optionals). `GraphQLMapConvertible` inherits from `JSONDecodable`, which is how nested objects (and lists of objects) are decoded.
 
 ### Polymorphic results
 
-If a query contains fragments with type conditions (either named or inline), this will result in polymorphic results based on the returned `__typename`. You will be able to use runtime type checks (including pattern matching) to access type specific fields.
+If a query contains fragments with type conditions (either named or inline), this will result in polymorphic results based on the returned `__typename`. You will be able to use runtime type checks (including pattern matching) to access type specific properties.
 
 For example, given the following query and fragment definitions:
 
@@ -200,15 +204,17 @@ func describe(hero: HeroDetails) {
   case let human as HeroDetails_Human:
     print(human.homePlanet) // e.g. Tatooine
   case let droid as HeroDetails_Droid:
-    print(droid.primaryFunction)
+    print(droid.primaryFunction) // e.g. Astromech
   default:
     break
   }
 }
 ```
 
-While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human`, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`. The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. From within `describe(hero:)` for example, you won't be able to access any fields that are not part of the fragment (and may not be fetched for every query that uses the fragment).
+While the runtime type of `data.hero` is `HeroAndFriendsDetailsQuery.Data.Hero_Human` here, that type implements the fragment-specific protocol `HeroDetails`, which is the reason you can pass it to `describe(hero:)`.
 
-The subprotocols `HeroDetails_Human` and `HeroDetails_Droid` can be used to access the type-specific fields from the inline fragments.
+The use of fragments is a good way to make sure your code is reusable and doesn't depend on the result of specific queries. From within `describe(hero:)` for example, you won't be able to access any properties that are not part of the fragment (and may not be fetched for every query that uses the fragment).
 
-Notice that you are not able to access `friend.friends` from a hero's friend, because the query only specifies fetching friends one level deep. This is enforced by the type system (`data.hero` and `friend` are of type `Hero` and `Hero_Friend` respectively, although they both implement `HeroDetails`).
+The subprotocols `HeroDetails_Human` and `HeroDetails_Droid` can be used to access the type-specific properties from the inline fragments.
+
+The result types follow the query structure exactly. You are not able to access `friends` from a hero's friend for example, because the query only specifies fetching friends one level deep. This is enforced by the type system: `data.hero` and `friend` are of a type that implements the `Hero` and `Hero_Friend` protocols respectively (although both of these inherit from `HeroDetails`).
