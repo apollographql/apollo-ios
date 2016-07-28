@@ -1,8 +1,8 @@
 # Apollo iOS client
 
-This is an early prototype of Apollo client for iOS, written in Swift.
+This is an early prototype of a GraphQL client for iOS, written in Swift.
 
-The focus of this prototype is to validate some ideas about the mapping of GraphQL query results to typed structures. It contains tests for a variety of GraphQL queries, and handwritten query classes with nested types that define the mappings. These query classes will eventually be automatically generated from a GraphQL schema and query documents, so the current example queries are meant mostly as a validation of the mapping design before starting work on the code generator.
+The focus of this prototype is to validate some ideas about the mapping of GraphQL query results to typed structs. It contains tests for a variety of GraphQL queries, and handwritten query classes with nested types that define the mappings. These query classes will eventually be automatically generated from a GraphQL schema and query documents, so the current example queries are meant mostly as a validation of the mapping design before starting work on the code generator.
 
 ## Usage
 
