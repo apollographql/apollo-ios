@@ -118,7 +118,7 @@ extension GraphQLMap: JSONEncodable {
   }
 }
 
-extension GraphQLMap: DictionaryLiteralConvertible {
+extension GraphQLMap: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (String, JSONEncodable?)...) {
     var jsonObject = JSONObject(minimumCapacity: elements.count)
     for case let (key, value?) in elements {

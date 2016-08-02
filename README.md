@@ -86,7 +86,7 @@ Queries are represented as instances of code generated classes implementing the 
 `ApolloClient#fetch(query:)` is a generic method that uses type constraints to express the relationship between the query and the  result:
 
 ```swift
-public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: ErrorProtocol?) -> Void)
+public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: Error?) -> Void)
 ```
 
 The `error` parameter to the completion handler signals network or response format errors (such as invalid JSON).

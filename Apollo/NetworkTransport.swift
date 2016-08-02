@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public enum ResponseFormatError: ErrorProtocol {
+public enum ResponseFormatError: Error {
   case missingData
 }
 
 public protocol NetworkTransport {
-  func send<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: ErrorProtocol?) -> Void)
+  func send<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: Error?) -> Void)
 }
 
 public class HTTPNetworkTransport: NetworkTransport {
@@ -34,14 +34,14 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.url = url
   }
   
-  public func send<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: ErrorProtocol?) -> Void) {
+  public func send<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: Error?) -> Void) {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     let body: GraphQLMap = ["query": query.queryDocument, "variables": query.variables]
     request.httpBody = try! JSONSerialization.data(withJSONObject: body.jsonValue, options: [])
     
-    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: NSError?) in
+    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
         completionHandler(result: nil, error: error)
         return

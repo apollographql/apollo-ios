@@ -102,6 +102,6 @@ extension URL: JSONDecodable, JSONEncodable {
   }
   
   public var jsonValue: JSONValue {
-    return self.absoluteString!
+    return self.absoluteString
   }
 }

@@ -30,7 +30,7 @@ public protocol JSONEncodable {
   var jsonValue: JSONValue { get }
 }
 
-public enum JSONDecodingError: ErrorProtocol {
+public enum JSONDecodingError: Error {
   case missingValue(forKey: String)
   case couldNotConvert(value: JSONValue, to: Any.Type)
   case unknownObjectType(forTypename: String)

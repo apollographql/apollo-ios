@@ -28,7 +28,7 @@ public struct GraphQLResult<Data> {
   }
 }
 
-public struct GraphQLError: ErrorProtocol {
+public struct GraphQLError: Error {
   let message: String
 }
 
