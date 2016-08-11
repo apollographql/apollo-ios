@@ -83,7 +83,7 @@ class ParseQueryResultDataTests: XCTestCase {
     let result = try query.parse(data: data)
         
     XCTAssertEqual(result.hero.name, "R2-D2")
-    let friendsNames = result.hero.friends.map({$0.name})
+    let friendsNames = result.hero.friends.map { $0.name }
     XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
   }
   

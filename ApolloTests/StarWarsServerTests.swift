@@ -40,7 +40,7 @@ class StarWarsServerTests: XCTestCase {
   func testHeroAndFriendsNamesQuery() {
     fetch(query: HeroAndFriendsNamesQuery()) { (data) in
       XCTAssertEqual(data.hero.name, "R2-D2")
-      let friendsNames = data.hero.friends.map({$0.name})
+      let friendsNames = data.hero.friends.map { $0.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
