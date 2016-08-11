@@ -78,6 +78,14 @@ public struct GraphQLMap {
     return try list(forKey: key, decoder: T.init(jsonValue:))
   }
   
+  public func list<T: JSONDecodable>(forKey key: String) throws -> [T?] {
+    return try list(forKey: key, decoder: Optional<T>.init(jsonValue:))
+  }
+  
+  public func list<T: JSONDecodable>(forKey key: String) throws -> [T?]? {
+    return try list(forKey: key, decoder: Optional<T>.init(jsonValue:))
+  }
+  
   public func value<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T {
     return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }

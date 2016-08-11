@@ -175,4 +175,16 @@ class GraphQLMapTests: XCTestCase {
       }
     }
   }
+  
+  func testGetListWithOptionalElements() throws {
+    let map = GraphQLMap(jsonObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let value: [Episode?] = try map.list(forKey: "appearsIn")
+    XCTAssertEqual(value.flatMap { $0 }, [.newhope, .empire, .jedi])
+  }
+  
+  func testGetOptionalListWithOptionalElements() throws {
+    let map = GraphQLMap(jsonObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let value: [Episode?]? = try map.list(forKey: "appearsIn")
+    XCTAssertEqual(value!.flatMap { $0 }, [.newhope, .empire, .jedi])
+  }
 }
