@@ -54,7 +54,7 @@ class GraphQLMapTests: XCTestCase {
 
     XCTAssertThrowsError(try with(returnType: String.self, map.value(forKey: "name"))) { (error) in
       if case JSONDecodingError.couldNotConvert(let value, let expectedType) = error {
-        XCTAssertTrue(value === NSNull())
+        XCTAssertEqual(value as? NSNull, NSNull())
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -67,7 +67,7 @@ class GraphQLMapTests: XCTestCase {
 
     XCTAssertThrowsError(try with(returnType: String.self, map.value(forKey: "name"))) { (error) in
       if case JSONDecodingError.couldNotConvert(let value, let expectedType) = error {
-        XCTAssertTrue(value === 10)
+        XCTAssertEqual(value as? Int, 10)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -98,7 +98,7 @@ class GraphQLMapTests: XCTestCase {
     
     XCTAssertThrowsError(try with(returnType: Optional<String>.self, map.value(forKey: "name"))) { (error) in
       if case JSONDecodingError.couldNotConvert(let value, let expectedType) = error {
-        XCTAssertTrue(value === 10)
+        XCTAssertEqual(value as? Int, 10)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -129,7 +129,7 @@ class GraphQLMapTests: XCTestCase {
     
     XCTAssertThrowsError(try with(returnType: Array<Episode>.self, map.list(forKey: "appearsIn"))) { (error) in
       if case JSONDecodingError.couldNotConvert(let value, _) = error {
-        XCTAssertTrue(value === NSNull())
+        XCTAssertEqual(value as? NSNull, NSNull())
       } else {
         XCTFail("Unexpected error: \(error)")
       }

@@ -23,7 +23,7 @@ public enum ResponseFormatError: Error {
 }
 
 public protocol NetworkTransport {
-  func send<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: Error?) -> Void)
+  func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void)
 }
 
 public class HTTPNetworkTransport: NetworkTransport {
@@ -34,7 +34,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.url = url
   }
   
-  public func send<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: Error?) -> Void) {
+  public func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -43,26 +43,26 @@ public class HTTPNetworkTransport: NetworkTransport {
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
-        completionHandler(result: nil, error: error)
+        completionHandler(nil, error)
         return
       }
       
       guard let data = data else {
-        completionHandler(result: nil, error: ResponseFormatError.missingData)
+        completionHandler(nil, ResponseFormatError.missingData)
         return
       }
       
       do {
         guard let rootObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-          completionHandler(result: nil, error: ResponseFormatError.missingData)
+          completionHandler(nil, ResponseFormatError.missingData)
           return
         }
         
         let responseMap = GraphQLMap(jsonObject: rootObject)
         let result: GraphQLResult<Query.Data> = try self.parseResult(responseMap: responseMap)
-        completionHandler(result: result, error: nil)
+        completionHandler(result, nil)
       } catch {
-        completionHandler(result: nil, error: error)
+        completionHandler(nil, error)
       }
     }
     task.resume()

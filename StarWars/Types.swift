@@ -6,5 +6,4 @@ public enum Episode: String {
   case jedi = "JEDI"
 }
 
-extension Episode: JSONDecodable, JSONEncodable {
-}
+extension Episode: JSONDecodable, JSONEncodable {}

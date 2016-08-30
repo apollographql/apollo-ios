@@ -88,7 +88,7 @@ class StarWarsServerTests: XCTestCase {
     }
   }
   
-  private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (data: Query.Data) -> Void) {
+  private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     let expectation = self.expectation(description: "Fetching query")
     
     client.fetch(query: query) { (result, error) in
@@ -103,7 +103,7 @@ class StarWarsServerTests: XCTestCase {
       
       guard let data = result.data else { XCTFail("No query result data");  return }
       
-      completionHandler(data: data)
+      completionHandler(data)
     }
     
     waitForExpectations(timeout: 1, handler: nil)

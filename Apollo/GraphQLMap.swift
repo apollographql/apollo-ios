@@ -19,10 +19,10 @@
 // SOFTWARE.
 
 // For some reason, moving this to another file leads to a compiler crash...
-public typealias JSONDecoder<T> = (jsonValue: JSONValue) throws -> T
+public typealias JSONDecoder<T> = (_ jsonValue: JSONValue) throws -> T
 
 public struct GraphQLMap {
-  private let jsonObject: JSONObject
+  fileprivate let jsonObject: JSONObject
   
   public init(jsonObject: JSONObject) {
     self.jsonObject = jsonObject
@@ -40,7 +40,7 @@ public struct GraphQLMap {
   }
   
   public func value<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> T {
-    return try decoder(jsonValue: jsonValue(forKey: key))
+    return try decoder(jsonValue(forKey: key))
   }
   
   public func value<T: JSONDecodable>(forKey key: String) throws -> T {
@@ -57,7 +57,7 @@ public struct GraphQLMap {
     guard let array = value as? JSONArray else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
     }
-    return try array.map { try decoder(jsonValue: $0) }
+    return try array.map { try decoder($0) }
   }
   
   public func list<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T]? {
@@ -67,7 +67,7 @@ public struct GraphQLMap {
     guard let array = value as? JSONArray else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
     }
-    return try array.map { try decoder(jsonValue: $0) }
+    return try array.map { try decoder($0) }
   }
   
   public func list<T: JSONDecodable>(forKey key: String) throws -> [T] {

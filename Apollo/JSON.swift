@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public typealias JSONValue = AnyObject
-public typealias JSONObject = [String: AnyObject]
+public typealias JSONValue = Any
+public typealias JSONObject = [String: Any]
 public typealias JSONArray = [JSONValue]
 
 public protocol JSONDecodable {

@@ -59,7 +59,7 @@ class ParseQueryResultDataTests: XCTestCase {
     
     XCTAssertThrowsError(try query.parse(data: data)) { error in
       if case JSONDecodingError.couldNotConvert(let value, let expectedType) = error {
-        XCTAssertTrue(value === 10)
+        XCTAssertEqual(value as? Int, 10)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")

@@ -1,7 +1,7 @@
 import Apollo
 
 public class HeroAndFriendsNamesQuery: GraphQLQuery {
-  let episode: Episode?
+  public let episode: Episode?
   
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -30,14 +30,14 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
     
     public struct Hero: GraphQLMapConvertible {
       public let name: String
-      public let friends: [Friend]
+      public let friends: [Friends]
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
         friends = try map.list(forKey: "friends")
       }
       
-      public struct Friend: GraphQLMapConvertible {
+      public struct Friends: GraphQLMapConvertible {
         public let name: String
         
         public init(map: GraphQLMap) throws {

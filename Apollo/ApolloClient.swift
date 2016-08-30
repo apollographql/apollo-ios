@@ -29,7 +29,7 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
   
-  public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: (result: GraphQLResult<Query.Data>?, error: Error?) -> Void) {
+  public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
     networkTransport.send(query: query, completionHandler: completionHandler)
   }
 }
