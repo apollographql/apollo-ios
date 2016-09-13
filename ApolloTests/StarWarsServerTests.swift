@@ -20,7 +20,6 @@
 
 import XCTest
 @testable import Apollo
-import StarWars
 
 class StarWarsServerTests: XCTestCase {
   var client: ApolloClient!
@@ -33,22 +32,23 @@ class StarWarsServerTests: XCTestCase {
   
   func testHeroNameQuery() {
     fetch(query: HeroNameQuery()) { (data) in
-      XCTAssertEqual(data.hero.name, "R2-D2")
+      XCTAssertEqual(data.hero?.name, "R2-D2")
     }
   }
   
   func testHeroAndFriendsNamesQuery() {
-    fetch(query: HeroAndFriendsNamesQuery()) { (data) in
-      XCTAssertEqual(data.hero.name, "R2-D2")
-      let friendsNames = data.hero.friends.map { $0.name }
-      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+    fetch(query: HeroAndFriendsNamesQuery(episode: .jedi)) { (data) in
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      XCTAssertEqual(friendsNames!, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
   
   func testHeroAppearsInQuery() {
     fetch(query: HeroAppearsInQuery()) { (data) in
-      XCTAssertEqual(data.hero.name, "R2-D2")
-      XCTAssertEqual(data.hero.appearsIn, [.newhope, .empire, .jedi])
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let episodes = data.hero?.appearsIn.flatMap { $0 }
+      XCTAssertEqual(episodes!, [.newhope, .empire, .jedi])
     }
   }
   

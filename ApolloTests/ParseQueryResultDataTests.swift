@@ -20,7 +20,6 @@
 
 import XCTest
 @testable import Apollo
-import StarWars
 
 private extension GraphQLQuery {
   func parse(data: JSONObject) throws -> Data {
@@ -35,7 +34,7 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = HeroNameQuery()
     let result = try query.parse(data: data)
     
-    XCTAssertEqual(result.hero.name, "R2-D2")
+    XCTAssertEqual(result.hero?.name, "R2-D2")
   }
   
   func testHeroNameQueryWithMissingValue() {
@@ -79,12 +78,12 @@ class ParseQueryResultDataTests: XCTestCase {
       ]
     ]
     
-    let query = HeroAndFriendsNamesQuery()
+    let query = HeroAndFriendsNamesQuery(episode: .jedi)
     let result = try query.parse(data: data)
         
-    XCTAssertEqual(result.hero.name, "R2-D2")
-    let friendsNames = result.hero.friends.map { $0.name }
-    XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+    XCTAssertEqual(result.hero?.name, "R2-D2")
+    let friendsNames = result.hero?.friends?.flatMap { $0?.name }
+    XCTAssertEqual(friendsNames!, ["Luke Skywalker", "Han Solo", "Leia Organa"])
   }
   
   func testHeroAppearsInQuery() throws {
@@ -93,8 +92,9 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = HeroAppearsInQuery()
     let result = try query.parse(data: data)
     
-    XCTAssertEqual(result.hero.name, "R2-D2")
-    XCTAssertEqual(result.hero.appearsIn, [.newhope, .empire, .jedi])
+    XCTAssertEqual(result.hero?.name, "R2-D2")
+    let episodes = result.hero?.appearsIn.flatMap { $0 }
+    XCTAssertEqual(episodes!, [.newhope, .empire, .jedi])
   }
   
   func testTwoHeroesQuery() throws {
@@ -103,8 +103,8 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = TwoHeroesQuery()
     let result = try query.parse(data: data)
     
-    XCTAssertEqual(result.r2.name, "R2-D2")
-    XCTAssertEqual(result.luke.name, "Luke Skywalker")
+    XCTAssertEqual(result.r2?.name, "R2-D2")
+    XCTAssertEqual(result.luke?.name, "Luke Skywalker")
   }
   
   func testHeroDetailsQueryHuman() throws {

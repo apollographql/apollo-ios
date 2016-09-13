@@ -20,7 +20,6 @@
 
 import XCTest
 @testable import Apollo
-import StarWars
 
 // Because XCTAssertThrowsError expects an @autoclosure argument and that doesn't allow  
 // us to specify an explicit return type, we need this wrapper function to select
