@@ -128,7 +128,6 @@
 				9FC750461D2A532C00458D91 /* Apollo */,
 				9FC750521D2A532D00458D91 /* ApolloTests */,
 				9FC750451D2A532C00458D91 /* Products */,
-				9FEF44D11D86AA3E00A39594 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,13 +164,6 @@
 				9FC750551D2A532D00458D91 /* Info.plist */,
 			);
 			path = ApolloTests;
-			sourceTree = "<group>";
-		};
-		9FEF44D11D86AA3E00A39594 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
