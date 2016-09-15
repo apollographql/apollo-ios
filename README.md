@@ -8,7 +8,7 @@ The main design goal of the current version of Apollo iOS is therefore to return
 
 These result types are generated from a GraphQL schema and a set of query documents by [`apollo-codegen`](https://github.com/apollostack/apollo-codegen). It currently only generates code for a subset of GraphQL queries. Most importantly, fragments and mutations are not yet supported.
 
-For more details on the proposed mapping from GraphQL results to Swift types, see the [design docs](DESIGN.md].
+For more details on the proposed mapping from GraphQL results to Swift types, see the [design docs](DESIGN.md).
 
 ## Getting Started
 
