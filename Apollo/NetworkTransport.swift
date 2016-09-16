@@ -28,16 +28,19 @@ public protocol NetworkTransport {
 
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
-  let session = URLSession.shared
+  let session: URLSession
   
-  public init(url: URL) {
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
     self.url = url
+    self.session = URLSession(configuration: configuration)
   }
   
   public func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
     let body: GraphQLMap = ["query": query.queryDocument, "variables": query.variables]
     request.httpBody = try! JSONSerialization.data(withJSONObject: body.jsonValue, options: [])
     
