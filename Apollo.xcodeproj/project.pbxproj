@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9F27D4621D40364C00715680 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4611D40364C00715680 /* GraphQLMap.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
+		9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */; };
 		9F69FFA71D4271F400E000B1 /* StarWarsServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */; };
 		9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69FFA81D42855900E000B1 /* NetworkTransport.swift */; };
 		9F952B3B1D88320F009CE897 /* FragmentTypingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		9F27D4611D40364C00715680 /* GraphQLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLMap.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
+		9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsServerTests.swift; sourceTree = "<group>"; };
 		9F69FFA81D42855900E000B1 /* NetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTransport.swift; sourceTree = "<group>"; };
 		9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentTypingQuery.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
+				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
 				9F27D4601D40363A00715680 /* GraphQL */,
 				9FC4B9231D2BE4F00046A641 /* JSON */,
 				9FC750471D2A532C00458D91 /* Apollo.h */,
@@ -301,6 +304,7 @@
 			files = (
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
 				9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */,
+				9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
 				9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */,
 				9F27D4621D40364C00715680 /* GraphQLMap.swift in Sources */,

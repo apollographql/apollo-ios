@@ -18,12 +18,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public enum ResponseFormatError: Error {
-  case missingData
-}
-
 public protocol NetworkTransport {
   func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void)
+}
+
+struct GraphQLResponseError: Error, LocalizedError {
+  enum ErrorKind {
+    case errorResponse
+    case invalidResponse
+    
+    var description: String {
+      switch self {
+      case .errorResponse:
+        return "Received error response"
+      case .invalidResponse:
+        return "Received invalid response"
+      }
+    }
+  }
+  
+  let body: Data?
+  let response: HTTPURLResponse
+  let kind: ErrorKind
+  
+  var bodyDescription: String {
+    if let body = body {
+      if let description = String(data: body, encoding: response.textEncoding ?? .utf8) {
+        return description
+      } else {
+        return "Unreadable response body"
+      }
+    } else {
+      return "Empty response body"
+    }
+  }
+  
+  var errorDescription: String? {
+    return "\(kind.description) (\(response.statusCode) \(response.statusCodeDescription)): \(bodyDescription)"
+  }
 }
 
 public class HTTPNetworkTransport: NetworkTransport {
@@ -50,14 +82,23 @@ public class HTTPNetworkTransport: NetworkTransport {
         return
       }
       
+      guard let httpResponse = response as? HTTPURLResponse else {
+        fatalError("Response should be an HTTPURLResponse")
+      }
+      
+      if (!httpResponse.isSuccessful) {
+        completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .errorResponse))
+        return
+      }
+      
       guard let data = data else {
-        completionHandler(nil, ResponseFormatError.missingData)
+        completionHandler(nil, GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
         return
       }
       
       do {
         guard let rootObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-          completionHandler(nil, ResponseFormatError.missingData)
+          completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .invalidResponse))
           return
         }
         
