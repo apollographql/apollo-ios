@@ -12,11 +12,11 @@ For more details on the proposed mapping from GraphQL results to Swift types, se
 
 ## Getting Started
 
-[Apollo iOS Quickstart](https://github.com/apollostack/apollo-ios-quickstart) is a sample Xcode project that makes it easy to get started with a generated API for your own schema and queries.
+[Apollo iOS Quickstart](https://github.com/apollostack/apollo-ios-quickstart) is a collection of sample Xcode projects that makes it easy to get started with Apollo iOS.
 
 ## Development
 
-The project is being developed using Xcode 8 and Swift 3.
+This project is being developed using Xcode 8 and Swift 3.
 
 If you open `Apollo.xcodeproj`, you should be able to run the tests of the Apollo target.
 
