@@ -10,13 +10,6 @@ public enum Episode: String {
 
 extension Episode: JSONDecodable, JSONEncodable {}
 
-public enum LengthUnit: String {
-  case meter = "METER"
-  case foot = "FOOT"
-}
-
-extension LengthUnit: JSONDecodable, JSONEncodable {}
-
 public class HeroAndFriendsNamesQuery: GraphQLQuery {
   public let episode: Episode?
   
