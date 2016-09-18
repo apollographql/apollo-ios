@@ -94,7 +94,7 @@ class StarWarsServerTests: XCTestCase {
     client.fetch(query: query) { (result, error) in
       defer { expectation.fulfill() }
       
-      if let error = error { XCTFail("Error while fetching query: \(error)");  return }
+      if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
       guard let result = result else { XCTFail("No query result");  return }
       
       if let errors = result.errors {
