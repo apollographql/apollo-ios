@@ -5,7 +5,11 @@ order: 0
 
 This is the guide to using Apollo iOS, a GraphQL client for native iOS apps written in Swift.
 
+Apollo iOS is under active development, and there is plenty to work on, but we want to ensure we’re addressing real needs, and prioritize features accordingly. So if you’re using or planning to use GraphQL in an iOS app, please get in touch on the #ios channel on [Slack](http://apollostack.com/#slack).
+
 The Apollo team builds and maintains a collection of utilities designed to make it easier to use [GraphQL](http://graphql.org) across a range of front-end and server technologies. There are similar guides for [React](/react), [Angular 2](/angular2), and the [core](/core) `apollo-client` JavaScript package that can be used anywhere JavaScript runs.
+
+We’ve chosen to start with a native client for iOS, but we’re excited about bringing Apollo to more platforms in the future. There has been some interest from the community in helping to bring Apollo Android to life faster, so if you’d like to contribute to that effort, please let us know on the #android channel on [Slack](http://apollostack.com/#slack).
 
 Although this guide focuses on the integration with native iOS apps, the [React integration](/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android without changes.
 
@@ -25,4 +29,4 @@ For more details on the proposed mapping from GraphQL results to Swift types, se
 
 <h2 id="getting-started">Getting Started</h2>
 
-[Apollo iOS Quickstart](https://github.com/apollostack/apollo-ios-quickstart) is a collection of sample Xcode projects that makes it easy to get started with Apollo iOS.
+Apollo iOS is still at its early stages, but we hope you’ll want to give it a try and report back on your experiences. The easiest way to get started is through [Apollo iOS Quickstart](https://github.com/apollostack/apollo-ios-quickstart), which contains a sample app and playgrounds that allow you to experiment with query results for particular APIs (including your own).
