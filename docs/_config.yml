@@ -18,27 +18,33 @@ github_repo: apollostack/ios-docs
 content_root: source
 
 logo:
-  nav_mobile: logo/logo-apollo-space.svg
-  title: Apollo Developers
+  nav_mobile: logo/logo-apollo-space-left.svg
+  subbrand: logo/logo-apollo-subbrands-developers-space.svg
+  title: Apollo
   subtitle: Developers
+  url: http://dev.apollodata.com/
 favicon: logo/favicon.png
 
 nav_links:
-  'Apollo':
-    url: http://dev.apollodata.com/
-    target: _new
   'React':
     url: http://dev.apollodata.com/react
-  'Core JS':
-    url: http://dev.apollodata.com/core
+  'Angular 2':
+    url: http://dev.apollodata.com/angular2
   'iOS':
     url: http://dev.apollodata.com/ios
     active: true
-  'Tools':
+  'Android':
+    url: http://dev.apollodata.com/android
+  'Vanilla JS':
+    url: http://dev.apollodata.com/core
+  'Server':
     url: http://dev.apollodata.com/tools
+    separator: true
   'Blog':
     url: https://medium.com/apollo-stack
     target: _new
+  'Community':
+    url: http://dev.apollodata.com/community
 
 social_links:
   github: 'https://github.com/apollostack'
