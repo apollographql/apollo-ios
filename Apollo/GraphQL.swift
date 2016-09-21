@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+public typealias GraphQLID = String
+
 public struct GraphQLResult<Data> {
   public let data: Data?
   public let errors: [GraphQLError]?
