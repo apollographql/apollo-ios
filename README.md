@@ -6,7 +6,7 @@ Although JSON responses are convenient to work with in dynamic languages like Ja
 
 The main design goal of the current version of Apollo iOS is therefore to return typed results for GraphQL queries. Instead of passing around dictionaries and making clients cast field values to the right type manually, the types returned allow you to access data and navigate relationships using the appropriate native types directly.
 
-These result types are generated from a GraphQL schema and a set of query documents by [`apollo-codegen`](https://github.com/apollostack/apollo-codegen). It currently only generates code for a subset of GraphQL queries. Most importantly, fragments and mutations are not yet supported.
+These result types are generated from a GraphQL schema and a set of query documents by [`apollo-codegen`](https://github.com/apollostack/apollo-codegen). It currently only generates code for a subset of GraphQL queries. Most importantly, fragments with polymorphic type conditions and mutations are not yet supported.
 
 For more details on the proposed mapping from GraphQL results to Swift types, see the [design docs](DESIGN.md).
 
