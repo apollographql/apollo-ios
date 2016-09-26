@@ -1,7 +1,7 @@
 import Apollo
 
 public class NoFragmentsQuery: GraphQLQuery {
-  public var operationDefinition =
+  public static let operationDefinition =
     "query noFragments {" +
     "  user(id: 4) {" +
     "    friends(first: 10) {" +

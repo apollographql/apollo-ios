@@ -47,7 +47,7 @@ public struct GraphQLMap {
     return try value(forKey: key, decoder: T.init(jsonValue:))
   }
   
-  public func value<T: JSONDecodable>(forKey key: String) throws -> T? {
+  public func optionalValue<T: JSONDecodable>(forKey key: String) throws -> T? {
     guard let jsonValue = optionalJSONValue(forKey: key) else { return nil }
     return try Optional<T>.init(jsonValue: jsonValue)
   }
@@ -60,7 +60,7 @@ public struct GraphQLMap {
     return try array.map { try decoder($0) }
   }
   
-  public func list<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T]? {
+  public func optionalList<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T]? {
     guard let value = optionalJSONValue(forKey: key) else { return nil }
     if value is NSNull { return nil }
     
@@ -74,23 +74,23 @@ public struct GraphQLMap {
     return try list(forKey: key, decoder: T.init(jsonValue:))
   }
   
-  public func list<T: JSONDecodable>(forKey key: String) throws -> [T]? {
-    return try list(forKey: key, decoder: T.init(jsonValue:))
+  public func optionalList<T: JSONDecodable>(forKey key: String) throws -> [T]? {
+    return try optionalList(forKey: key, decoder: T.init(jsonValue:))
   }
   
   public func list<T: JSONDecodable>(forKey key: String) throws -> [T?] {
     return try list(forKey: key, decoder: Optional<T>.init(jsonValue:))
   }
   
-  public func list<T: JSONDecodable>(forKey key: String) throws -> [T?]? {
-    return try list(forKey: key, decoder: Optional<T>.init(jsonValue:))
+  public func optionalList<T: JSONDecodable>(forKey key: String) throws -> [T?]? {
+    return try optionalList(forKey: key, decoder: Optional<T>.init(jsonValue:))
   }
   
   public func value<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T {
     return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }
   
-  public func value<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T? {
+  public func optionalValue<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T? {
     return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }
   
@@ -98,7 +98,7 @@ public struct GraphQLMap {
     return try list(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }
   
-  public func list<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> [T]? {
+  public func optionalList<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> [T]? {
     return try list(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
   }
   

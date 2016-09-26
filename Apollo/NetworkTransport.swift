@@ -113,8 +113,8 @@ public class HTTPNetworkTransport: NetworkTransport {
   }
   
   private func parseResult<Data: GraphQLMapConvertible>(responseMap: GraphQLMap) throws -> GraphQLResult<Data> {
-    let data: Data? = try responseMap.value(forKey: "data")
-    let errors: [GraphQLError]? = try responseMap.list(forKey: "errors")
+    let data: Data? = try responseMap.optionalValue(forKey: "data")
+    let errors: [GraphQLError]? = try responseMap.optionalList(forKey: "errors")
     return GraphQLResult(data: data, errors: errors)
   }
 }

@@ -10,18 +10,20 @@ public enum Episode: String {
 
 extension Episode: JSONDecodable, JSONEncodable {}
 
-public class HeroAndFriendsNamesQuery: GraphQLQuery {
+public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   public let episode: Episode?
   
   public init(episode: Episode?) {
     self.episode = episode
   }
   
-  public let operationDefinition =
+  public static let operationDefinition =
     "query HeroAndFriendsNames($episode: Episode) {" +
     "  hero(episode: $episode) {" +
+    "    __typename" +
     "    name" +
     "    friends {" +
+    "      __typename" +
     "      name" +
     "    }" +
     "  }" +
@@ -35,19 +37,19 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
     public let hero: Hero?
     
     public init(map: GraphQLMap) throws {
-      hero = try map.value(forKey: "hero")
+      hero = try map.optionalValue(forKey: "hero")
     }
     
     public struct Hero: GraphQLMapConvertible {
       public let name: String
-      public let friends: [Friends?]?
+      public let friends: [Friend?]?
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
-        friends = try map.list(forKey: "friends")
+        friends = try map.optionalList(forKey: "friends")
       }
       
-      public struct Friends: GraphQLMapConvertible {
+      public struct Friend: GraphQLMapConvertible {
         public let name: String
         
         public init(map: GraphQLMap) throws {
@@ -58,12 +60,13 @@ public class HeroAndFriendsNamesQuery: GraphQLQuery {
   }
 }
 
-public class HeroAppearsInQuery: GraphQLQuery {
+public final class HeroAppearsInQuery: GraphQLQuery {
   public init() {}
   
-  public let operationDefinition =
+  public static let operationDefinition =
     "query HeroAppearsIn {" +
     "  hero {" +
+    "    __typename" +
     "    name" +
     "    appearsIn" +
     "  }" +
@@ -73,7 +76,7 @@ public class HeroAppearsInQuery: GraphQLQuery {
     public let hero: Hero?
     
     public init(map: GraphQLMap) throws {
-      hero = try map.value(forKey: "hero")
+      hero = try map.optionalValue(forKey: "hero")
     }
     
     public struct Hero: GraphQLMapConvertible {
@@ -88,12 +91,13 @@ public class HeroAppearsInQuery: GraphQLQuery {
   }
 }
 
-public class HeroNameQuery: GraphQLQuery {
+public final class HeroNameQuery: GraphQLQuery {
   public init() {}
   
-  public let operationDefinition =
+  public static let operationDefinition =
     "query HeroName {" +
     "  hero {" +
+    "    __typename" +
     "    name" +
     "  }" +
     "}"
@@ -102,7 +106,7 @@ public class HeroNameQuery: GraphQLQuery {
     public let hero: Hero?
     
     public init(map: GraphQLMap) throws {
-      hero = try map.value(forKey: "hero")
+      hero = try map.optionalValue(forKey: "hero")
     }
     
     public struct Hero: GraphQLMapConvertible {
@@ -115,15 +119,17 @@ public class HeroNameQuery: GraphQLQuery {
   }
 }
 
-public class TwoHeroesQuery: GraphQLQuery {
+public final class TwoHeroesQuery: GraphQLQuery {
   public init() {}
   
-  public let operationDefinition =
+  public static let operationDefinition =
     "query TwoHeroes {" +
     "  r2: hero {" +
+    "    __typename" +
     "    name" +
     "  }" +
     "  luke: hero(episode: EMPIRE) {" +
+    "    __typename" +
     "    name" +
     "  }" +
     "}"
@@ -133,8 +139,8 @@ public class TwoHeroesQuery: GraphQLQuery {
     public let luke: Luke?
     
     public init(map: GraphQLMap) throws {
-      r2 = try map.value(forKey: "r2")
-      luke = try map.value(forKey: "luke")
+      r2 = try map.optionalValue(forKey: "r2")
+      luke = try map.optionalValue(forKey: "luke")
     }
     
     public struct R2: GraphQLMapConvertible {

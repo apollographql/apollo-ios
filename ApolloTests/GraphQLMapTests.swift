@@ -76,26 +76,26 @@ class GraphQLMapTests: XCTestCase {
   
   func testGetOptionalValue() throws {
     let map = GraphQLMap(jsonObject: ["name": "Luke Skywalker"])
-    let value: String? = try map.value(forKey: "name")
+    let value: String? = try map.optionalValue(forKey: "name")
     XCTAssertEqual(value, "Luke Skywalker")
   }
   
   func testGetOptionalValueWithMissingKey() throws {
     let map = GraphQLMap(jsonObject: [:])
-    let value: String? = try map.value(forKey: "name")
+    let value: String? = try map.optionalValue(forKey: "name")
     XCTAssertNil(value)
   }
   
   func testGetOptionalValueWithNull() throws {
     let map = GraphQLMap(jsonObject: ["name": NSNull()])
-    let value: Int? = try map.value(forKey: "name")
+    let value: Int? = try map.optionalValue(forKey: "name")
     XCTAssertNil(value)
   }
   
   func testGetOptionalValueWithWrongType() throws {
     let map = GraphQLMap(jsonObject: ["name": 10])
     
-    XCTAssertThrowsError(try with(returnType: Optional<String>.self, map.value(forKey: "name"))) { (error) in
+    XCTAssertThrowsError(try with(returnType: Optional<String>.self, map.optionalValue(forKey: "name"))) { (error) in
       if case JSONDecodingError.couldNotConvert(let value, let expectedType) = error {
         XCTAssertEqual(value as? Int, 10)
         XCTAssertTrue(expectedType == String.self)
@@ -154,13 +154,13 @@ class GraphQLMapTests: XCTestCase {
   
   func testGetOptionalListWithMissingKey() throws {
     let map = GraphQLMap(jsonObject: [:])
-    let value: [Episode]? = try map.list(forKey: "appearsIn")
+    let value: [Episode]? = try map.optionalList(forKey: "appearsIn")
     XCTAssertNil(value)
   }
   
   func testGetOptionalListWithNull() throws {
     let map = GraphQLMap(jsonObject: ["appearsIn": NSNull()])
-    let value: [Episode]? = try map.list(forKey: "appearsIn")
+    let value: [Episode]? = try map.optionalList(forKey: "appearsIn")
     XCTAssertNil(value)
   }
   

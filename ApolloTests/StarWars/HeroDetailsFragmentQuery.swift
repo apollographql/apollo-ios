@@ -7,16 +7,14 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
     self.episode = episode
   }
   
-  public var operationDefinition =
+  public static let operationDefinition =
     "query HeroDetailsFragmentQuery($episode: Episode) {" +
     "  hero(episode: $episode) {" +
     "    ...HeroDetails" +
     "  }" +
     "}"
   
-  public var queryDocument: String {
-    return operationDefinition.appending(HeroDetailsFragment.fragmentDefinition)
-  }
+  public static let queryDocument = operationDefinition.appending(HeroDetailsFragment.fragmentDefinition)
   
   public var variables: GraphQLMap? {
     return ["episode": episode]
@@ -36,8 +34,8 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
-        appearsIn = try map.list(forKey: "appearsIn")
-        homePlanet = try map.value(forKey: "homePlanet")
+        appearsIn = try map.optionalList(forKey: "appearsIn")
+        homePlanet = try map.optionalValue(forKey: "homePlanet")
       }
     }
     
@@ -48,8 +46,8 @@ public class HeroDetailsFragmentQuery: GraphQLQuery {
       
       public init(map: GraphQLMap) throws {
         name = try map.value(forKey: "name")
-        appearsIn = try map.list(forKey: "appearsIn")
-        primaryFunction = try map.value(forKey: "primaryFunction")
+        appearsIn = try map.optionalList(forKey: "appearsIn")
+        primaryFunction = try map.optionalValue(forKey: "primaryFunction")
       }
     }
   }

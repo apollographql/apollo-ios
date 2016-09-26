@@ -1,7 +1,7 @@
 import Apollo
 
 public class WithNestedFragmentsQuery: GraphQLQuery {
-  public let operationDefinition =
+  public static let operationDefinition =
     "query withFragments {" +
     "  user(id: 4) {" +
     "    friends(first: 10) {" +

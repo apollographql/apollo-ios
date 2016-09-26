@@ -1,7 +1,7 @@
 import Apollo
 
 public class FragmentTypingQuery: GraphQLQuery {
-  public let operationDefinition =
+  public static let operationDefinition =
     "query FragmentTyping {" +
     "  profiles(handles: [\"zuck\", \"cocacola\"]) {" +
     "    handle" +

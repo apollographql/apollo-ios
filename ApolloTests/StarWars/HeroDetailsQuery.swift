@@ -7,7 +7,7 @@ public class HeroDetailsQuery: GraphQLQuery {
     self.episode = episode
   }
   
-  public var operationDefinition =
+  public static let operationDefinition =
     "query HeroDetailsQuery($episode: Episode) {" +
     "  hero(episode: $episode) {" +
     "    __typename" +
