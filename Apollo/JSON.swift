@@ -30,14 +30,12 @@ public protocol JSONEncodable {
   var jsonValue: JSONValue { get }
 }
 
-public enum JSONDecodingError: Error {
+public enum JSONDecodingError: Error, LocalizedError {
   case missingValue(forKey: String)
   case couldNotConvert(value: JSONValue, to: Any.Type)
   case unknownObjectType(forTypename: String)
-}
-
-extension JSONDecodingError: CustomStringConvertible {
-  public var description: String {
+  
+  public var errorDescription: String? {
     switch self {
     case .missingValue(let key):
       return "Missing value for key: \(key)"
