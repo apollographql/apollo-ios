@@ -41,8 +41,8 @@ extension GraphQLError: GraphQLMapConvertible {
 }
 
 public protocol GraphQLQuery {
-  var operationDefinition: String { get }
-  var queryDocument: String { get }
+  static var operationDefinition: String { get }
+  static var queryDocument: String { get }
   var variables: GraphQLMap? { get }
   
   associatedtype Data: GraphQLMapConvertible
@@ -53,7 +53,7 @@ public extension GraphQLQuery {
     return nil
   }
   
-  var queryDocument: String {
+  static var queryDocument: String {
     return operationDefinition
   }
 }
