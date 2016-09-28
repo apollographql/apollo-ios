@@ -54,9 +54,9 @@ class StarWarsServerTests: XCTestCase {
   
   func testHeroDetailsQueryDroid() {
     fetch(query: HeroDetailsQuery()) { (data) in
-      XCTAssertEqual(data.hero.name, "R2-D2")
+      XCTAssertEqual(data.hero?.name, "R2-D2")
       
-      guard let droid = data.hero as? HeroDetailsQuery.Data.Droid else {
+      guard let droid = data.hero?.asDroid else {
         XCTFail("Wrong type")
         return
       }
@@ -66,25 +66,25 @@ class StarWarsServerTests: XCTestCase {
   
   func testHeroDetailsQueryHuman() {
     fetch(query: HeroDetailsQuery(episode: .empire)) { (data) in
-      XCTAssertEqual(data.hero.name, "Luke Skywalker")
+      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
       
-      guard let human = data.hero as? HeroDetailsQuery.Data.Human else {
+      guard let human = data.hero?.asHuman else {
         XCTFail("Wrong type")
         return
       }
-      XCTAssertEqual(human.homePlanet, "Tatooine")
+      XCTAssertEqual(human.height, 1.72)
     }
   }
   
   func testHeroDetailsFragmentQueryHuman() {
-    fetch(query: HeroDetailsFragmentQuery(episode: .empire)) { (data) in
-      XCTAssertEqual(data.hero.name, "Luke Skywalker")
+    fetch(query: HeroDetailsWithFragmentQuery(episode: .empire)) { (data) in
+      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
       
-      guard let human = data.hero as? HeroDetails_Human else {
+      guard let human = data.hero?.asHuman else {
         XCTFail("Wrong type")
         return
       }
-      XCTAssertEqual(human.homePlanet, "Tatooine")
+      XCTAssertEqual(human.height, 1.72)
     }
   }
   

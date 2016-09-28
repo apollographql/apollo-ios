@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */; };
+		9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D071D9BCB990042B71A /* HeroName.graphql */; };
+		9F057D0B1D9BCB990042B71A /* TwoHeroes.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D081D9BCB990042B71A /* TwoHeroes.graphql */; };
+		9F057D0D1D9BCBB70042B71A /* HeroDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */; };
+		9F057D0F1D9BCC460042B71A /* HeroDetailsWithFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */; };
 		9F27D4621D40364C00715680 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4611D40364C00715680 /* GraphQLMap.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */; };
 		9F69FFA71D4271F400E000B1 /* StarWarsServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */; };
 		9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69FFA81D42855900E000B1 /* NetworkTransport.swift */; };
-		9F952B3B1D88320F009CE897 /* FragmentTypingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */; };
-		9F952B3C1D88320F009CE897 /* NoFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2E1D88320F009CE897 /* NoFragmentsQuery.swift */; };
-		9F952B3D1D88320F009CE897 /* WithFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2F1D88320F009CE897 /* WithFragmentsQuery.swift */; };
-		9F952B3E1D88320F009CE897 /* WithNestedFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B301D88320F009CE897 /* WithNestedFragmentsQuery.swift */; };
-		9F952B411D88320F009CE897 /* HeroDetailsFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B341D88320F009CE897 /* HeroDetailsFragment.swift */; };
-		9F952B421D88320F009CE897 /* HeroDetailsFragmentQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B351D88320F009CE897 /* HeroDetailsFragmentQuery.swift */; };
-		9F952B431D88320F009CE897 /* HeroDetailsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B361D88320F009CE897 /* HeroDetailsQuery.swift */; };
 		9F952B461D88320F009CE897 /* StarWarsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B391D88320F009CE897 /* StarWarsAPI.swift */; };
 		9F9EB9511D486BAE00789F8A /* GraphQLMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */; };
 		9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
@@ -40,18 +38,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAppearsIn.graphql; sourceTree = "<group>"; };
+		9F057D071D9BCB990042B71A /* HeroName.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroName.graphql; sourceTree = "<group>"; };
+		9F057D081D9BCB990042B71A /* TwoHeroes.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
+		9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetails.graphql; sourceTree = "<group>"; };
+		9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetailsWithFragment.graphql; sourceTree = "<group>"; };
 		9F27D4611D40364C00715680 /* GraphQLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLMap.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsServerTests.swift; sourceTree = "<group>"; };
 		9F69FFA81D42855900E000B1 /* NetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTransport.swift; sourceTree = "<group>"; };
-		9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentTypingQuery.swift; sourceTree = "<group>"; };
-		9F952B2E1D88320F009CE897 /* NoFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoFragmentsQuery.swift; sourceTree = "<group>"; };
-		9F952B2F1D88320F009CE897 /* WithFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithFragmentsQuery.swift; sourceTree = "<group>"; };
-		9F952B301D88320F009CE897 /* WithNestedFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithNestedFragmentsQuery.swift; sourceTree = "<group>"; };
-		9F952B341D88320F009CE897 /* HeroDetailsFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsFragment.swift; sourceTree = "<group>"; };
-		9F952B351D88320F009CE897 /* HeroDetailsFragmentQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsFragmentQuery.swift; sourceTree = "<group>"; };
-		9F952B361D88320F009CE897 /* HeroDetailsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsQuery.swift; sourceTree = "<group>"; };
 		9F952B391D88320F009CE897 /* StarWarsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsAPI.swift; sourceTree = "<group>"; };
 		9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLMapTests.swift; sourceTree = "<group>"; };
 		9FC4B91F1D2A6F8D0046A641 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -93,24 +89,15 @@
 			name = GraphQL;
 			sourceTree = "<group>";
 		};
-		9F952B2C1D88320F009CE897 /* GraphQLSpecExamples */ = {
-			isa = PBXGroup;
-			children = (
-				9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */,
-				9F952B2E1D88320F009CE897 /* NoFragmentsQuery.swift */,
-				9F952B2F1D88320F009CE897 /* WithFragmentsQuery.swift */,
-				9F952B301D88320F009CE897 /* WithNestedFragmentsQuery.swift */,
-			);
-			path = GraphQLSpecExamples;
-			sourceTree = "<group>";
-		};
 		9F952B311D88320F009CE897 /* StarWars */ = {
 			isa = PBXGroup;
 			children = (
+				9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */,
+				9F057D071D9BCB990042B71A /* HeroName.graphql */,
+				9F057D081D9BCB990042B71A /* TwoHeroes.graphql */,
+				9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */,
+				9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */,
 				9F952B391D88320F009CE897 /* StarWarsAPI.swift */,
-				9F952B341D88320F009CE897 /* HeroDetailsFragment.swift */,
-				9F952B351D88320F009CE897 /* HeroDetailsFragmentQuery.swift */,
-				9F952B361D88320F009CE897 /* HeroDetailsQuery.swift */,
 			);
 			path = StarWars;
 			sourceTree = "<group>";
@@ -159,7 +146,6 @@
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
-				9F952B2C1D88320F009CE897 /* GraphQLSpecExamples */,
 				9F952B311D88320F009CE897 /* StarWars */,
 				9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */,
 				9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */,
@@ -275,6 +261,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F057D0D1D9BCBB70042B71A /* HeroDetails.graphql in Resources */,
+				9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */,
+				9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */,
+				9F057D0F1D9BCC460042B71A /* HeroDetailsWithFragment.graphql in Resources */,
+				9F057D0B1D9BCB990042B71A /* TwoHeroes.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,15 +307,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F952B3D1D88320F009CE897 /* WithFragmentsQuery.swift in Sources */,
 				9F69FFA71D4271F400E000B1 /* StarWarsServerTests.swift in Sources */,
-				9F952B3B1D88320F009CE897 /* FragmentTypingQuery.swift in Sources */,
-				9F952B421D88320F009CE897 /* HeroDetailsFragmentQuery.swift in Sources */,
-				9F952B3C1D88320F009CE897 /* NoFragmentsQuery.swift in Sources */,
-				9F952B411D88320F009CE897 /* HeroDetailsFragment.swift in Sources */,
 				9F952B461D88320F009CE897 /* StarWarsAPI.swift in Sources */,
-				9F952B3E1D88320F009CE897 /* WithNestedFragmentsQuery.swift in Sources */,
-				9F952B431D88320F009CE897 /* HeroDetailsQuery.swift in Sources */,
 				9F9EB9511D486BAE00789F8A /* GraphQLMapTests.swift in Sources */,
 				9FC750541D2A532D00458D91 /* ParseQueryResultDataTests.swift in Sources */,
 			);
