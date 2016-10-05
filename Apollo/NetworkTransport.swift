@@ -19,7 +19,7 @@
 // SOFTWARE.
 
 public protocol NetworkTransport {
-  func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void)
+    func send<Query: GraphQLQuery>(query: Query, onCompletion: @escaping (GraphQLResult<Query.Data>) -> Void, onError: @escaping ( _ error: Error) -> Void)
 }
 
 struct GraphQLResponseError: Error, LocalizedError {
@@ -67,7 +67,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.session = URLSession(configuration: configuration)
   }
   
-  public func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
+  public func send<Query: GraphQLQuery>(query: Query, onCompletion: @escaping (GraphQLResult<Query.Data>) -> Void, onError: @escaping ( _ error: Error) -> Void) {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
@@ -77,8 +77,8 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.httpBody = try! JSONSerialization.data(withJSONObject: body.jsonValue, options: [])
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-      if error != nil {
-        completionHandler(nil, error)
+      if let error = error {
+        onError(error)
         return
       }
       
@@ -87,26 +87,26 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
       
       if (!httpResponse.isSuccessful) {
-        completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .errorResponse))
+        onError(GraphQLResponseError(body: data, response: httpResponse, kind: .errorResponse))
         return
       }
       
       guard let data = data else {
-        completionHandler(nil, GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
+        onError(GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
         return
       }
       
       do {
         guard let rootObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-          completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .invalidResponse))
+          onError(GraphQLResponseError(body: data, response: httpResponse, kind: .invalidResponse))
           return
         }
         
         let responseMap = GraphQLMap(jsonObject: rootObject)
         let result: GraphQLResult<Query.Data> = try self.parseResult(responseMap: responseMap)
-        completionHandler(result, nil)
+        onCompletion(result)
       } catch {
-        completionHandler(nil, error)
+        onError(error)
       }
     }
     task.resume()
