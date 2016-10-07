@@ -58,8 +58,20 @@ public extension GraphQLQuery {
   }
 }
 
-public protocol GraphQLFragment {
-  static var fragmentDefinition: String { get }
+public protocol GraphQLConditionalFragment: GraphQLMapConvertible {
+  static var possibleTypes: [String] { get }
   
-  associatedtype Data
+  init?(map: GraphQLMap, ifTypeMatches typeName: String) throws
+}
+
+public extension GraphQLConditionalFragment {
+  init?(map: GraphQLMap, ifTypeMatches typeName: String) throws {
+    if !Self.possibleTypes.contains(typeName) { return nil }
+    
+    try self.init(map: map)
+  }
+}
+
+public protocol GraphQLNamedFragment: GraphQLConditionalFragment {
+  static var fragmentDefinition: String { get }
 }
