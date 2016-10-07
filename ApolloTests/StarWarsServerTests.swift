@@ -78,9 +78,9 @@ class StarWarsServerTests: XCTestCase {
   
   func testHeroDetailsFragmentQueryHuman() {
     fetch(query: HeroDetailsWithFragmentQuery(episode: .empire)) { (data) in
-      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+      XCTAssertEqual(data.hero?.fragments.heroDetails.name, "Luke Skywalker")
       
-      guard let human = data.hero?.asHuman else {
+      guard let human = data.hero?.fragments.heroDetails.asHuman else {
         XCTFail("Wrong type")
         return
       }
