@@ -40,15 +40,15 @@ extension GraphQLError: GraphQLMapConvertible {
   }
 }
 
-public protocol GraphQLQuery {
+public protocol GraphQLOperation {
   static var operationDefinition: String { get }
   static var queryDocument: String { get }
   var variables: GraphQLMap? { get }
   
-  associatedtype Data: GraphQLMapConvertible
+  associatedtype Data: GraphQLMapConvertible  
 }
 
-public extension GraphQLQuery {
+public extension GraphQLOperation {
   var variables: GraphQLMap? {
     return nil
   }
@@ -57,6 +57,10 @@ public extension GraphQLQuery {
     return operationDefinition
   }
 }
+
+public protocol GraphQLQuery: GraphQLOperation {}
+
+public protocol GraphQLMutation: GraphQLOperation {}
 
 public protocol GraphQLConditionalFragment: GraphQLMapConvertible {
   static var possibleTypes: [String] { get }

@@ -29,7 +29,19 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
   
-  public func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
-    networkTransport.send(query: query, completionHandler: completionHandler)
+  public func fetch<Query: GraphQLQuery>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
+    networkTransport.send(operation: query) { (result, error) in
+      queue.async {
+        completionHandler(result, error)
+      }
+    }
+  }
+  
+  public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (_ result: GraphQLResult<Mutation.Data>?, _ error: Error?) -> Void) {
+    networkTransport.send(operation: mutation) { (result, error) in
+      queue.async {
+        completionHandler(result, error)
+      }
+    }
   }
 }
