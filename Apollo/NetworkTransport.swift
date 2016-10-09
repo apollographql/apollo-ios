@@ -19,7 +19,7 @@
 // SOFTWARE.
 
 public protocol NetworkTransport {
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: GraphQLResult<Operation.Data>?, _ error: Error?) -> Void)
+  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>)
 }
 
 struct GraphQLResponseError: Error, LocalizedError {
@@ -67,7 +67,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.session = URLSession(configuration: configuration)
   }
   
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: GraphQLResult<Operation.Data>?, _ error: Error?) -> Void) {
+  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     

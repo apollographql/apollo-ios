@@ -40,6 +40,8 @@ extension GraphQLError: GraphQLMapConvertible {
   }
 }
 
+public typealias GraphQLOperationResponseHandler<Operation: GraphQLOperation> = (GraphQLResult<Operation.Data>?, Error?) -> Void
+
 public protocol GraphQLOperation {
   static var operationDefinition: String { get }
   static var queryDocument: String { get }
