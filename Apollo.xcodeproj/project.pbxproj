@@ -25,6 +25,7 @@
 		9FC750541D2A532D00458D91 /* ParseQueryResultDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */; };
 		9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQL.swift */; };
 		9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750621D2A59F600458D91 /* ApolloClient.swift */; };
+		9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		9FC750551D2A532D00458D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FC750601D2A59C300458D91 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9FC750621D2A59F600458D91 /* ApolloClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
+		9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "check-and-run-apollo-codegen.sh"; path = "scripts/check-and-run-apollo-codegen.sh"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 		9FC750461D2A532C00458D91 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
+				9FE3F3961DADBD0D0072078F /* Supporting Files */,
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
@@ -153,6 +156,14 @@
 				9FC750551D2A532D00458D91 /* Info.plist */,
 			);
 			path = ApolloTests;
+			sourceTree = "<group>";
+		};
+		9FE3F3961DADBD0D0072078F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +265,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
