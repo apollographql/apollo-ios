@@ -1,4 +1,4 @@
-# Apollo iOS [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollostack/apollo-ios/master/LICENSE.md) [![GitHub release](https://img.shields.io/github/release/apollostack/apollo-ios.svg?maxAge=2592000)](https://github.com/apollostack/apollo-ios/releases) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)  [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg?maxAge=2592000)](https://cocoapods.org/pods/Apollo)
+# Apollo iOS [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollostack/apollo-ios/master/LICENSE.md) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)  [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg?maxAge=2592000)](https://cocoapods.org/pods/Apollo)
 
 Apollo iOS is a GraphQL client for iOS, written in Swift.
 
