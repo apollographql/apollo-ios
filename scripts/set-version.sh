@@ -11,4 +11,4 @@ xcrun agvtool new-version $NEW_VERSION &> /dev/null
 xcrun agvtool new-marketing-version $NEW_VERSION &> /dev/null
 
 git add -A && git commit -m "$NEW_VERSION"
-git tag 'v$NEW_VERSION'
+git tag "v$NEW_VERSION"
