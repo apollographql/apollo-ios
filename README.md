@@ -1,6 +1,6 @@
 # Apollo iOS
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollostack/apollo-ios/master/LICENSE.md) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg?maxAge=2592000)](https://cocoapods.org/pods/Apollo) [![Get on Slack](https://img.shields.io/badge/slack-join-orange.svg)](http://www.apollostack.com/#slack)
+[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollostack/apollo-ios/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg?maxAge=2592000)](https://cocoapods.org/pods/Apollo) [![Get on Slack](https://img.shields.io/badge/slack-join-orange.svg)](http://www.apollostack.com/#slack)
 
 Apollo iOS is a GraphQL client for iOS, written in Swift.
 
@@ -14,7 +14,7 @@ Because the generated types are query-specific, you're only able to access data 
 
 ![Xcode data access error](/screenshots/xcode-data-access-error.png)
 
-As you can see, you can conveniently work with your UI code and corresponding GraphQL definitions side by side. Our Xcode integration will even validate your query documents and show errors inline:
+As you can see above, you can conveniently work with your UI code and corresponding GraphQL definitions side by side. Our Xcode integration will even validate your query documents and show errors inline:
 
 ![Xcode data access error](/screenshots/xcode-query-validation.png)
 
