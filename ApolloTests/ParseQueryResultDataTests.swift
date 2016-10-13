@@ -29,7 +29,7 @@ private extension GraphQLQuery {
 
 class ParseQueryResultDataTests: XCTestCase {
   func testHeroNameQuery() throws {
-    let data = ["hero": ["name": "R2-D2"]]
+    let data = ["hero": ["__typename": "Droid", "name": "R2-D2"]]
     
     let query = HeroNameQuery()
     let result = try query.parse(data: data)
@@ -38,7 +38,7 @@ class ParseQueryResultDataTests: XCTestCase {
   }
   
   func testHeroNameQueryWithMissingValue() {
-    let data = ["hero": [:]]
+    let data = ["hero": ["__typename": "Droid"]]
     
     let query = HeroNameQuery()
     
@@ -52,7 +52,7 @@ class ParseQueryResultDataTests: XCTestCase {
   }
   
   func testHeroNameQueryWithWrongType() {
-    let data = ["hero": ["name": 10]]
+    let data = ["hero": ["__typename": "Droid", "name": 10]]
     
     let query = HeroNameQuery()
     
@@ -70,10 +70,11 @@ class ParseQueryResultDataTests: XCTestCase {
     let data = [
       "hero": [
         "name": "R2-D2",
+        "__typename": "Droid",
          "friends": [
-          ["name": "Luke Skywalker"],
-          ["name": "Han Solo"],
-          ["name": "Leia Organa"]
+          ["__typename": "Human", "name": "Luke Skywalker"],
+          ["__typename": "Human", "name": "Han Solo"],
+          ["__typename": "Human", "name": "Leia Organa"]
         ]
       ]
     ]
@@ -87,7 +88,7 @@ class ParseQueryResultDataTests: XCTestCase {
   }
   
   func testHeroAppearsInQuery() throws {
-    let data = ["hero": ["name": "R2-D2", "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]]]
+    let data = ["hero": ["__typename": "Droid", "name": "R2-D2", "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]]]
     
     let query = HeroAppearsInQuery()
     let result = try query.parse(data: data)
@@ -98,7 +99,7 @@ class ParseQueryResultDataTests: XCTestCase {
   }
   
   func testTwoHeroesQuery() throws {
-    let data = ["r2": ["name": "R2-D2"], "luke": ["name": "Luke Skywalker"]]
+    let data = ["r2": ["__typename": "Droid", "name": "R2-D2"], "luke": ["__typename": "Human", "name": "Luke Skywalker"]]
     
     let query = TwoHeroesQuery()
     let result = try query.parse(data: data)
@@ -108,16 +109,16 @@ class ParseQueryResultDataTests: XCTestCase {
   }
   
   func testHeroDetailsQueryHuman() throws {
-    let data = ["hero": ["__typename": "Human", "name": "Luke Skywalker", "homePlanet": "Tatooine"]]
+    let data = ["hero": ["__typename": "Human", "name": "Luke Skywalker", "height": 1.72]]
     
     let query = HeroDetailsQuery(episode: .empire)
     let result = try query.parse(data: data)
     
-    guard let human = result.hero as? HeroDetailsQuery.Data.Human else {
+    guard let human = result.hero?.asHuman else {
       XCTFail("Wrong type")
       return
     }
-    XCTAssertEqual(human.homePlanet, "Tatooine")
+    XCTAssertEqual(human.height, 1.72)
   }
   
   func testHeroDetailsQueryDroid() throws {
@@ -126,7 +127,7 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = HeroDetailsQuery()
     let result = try query.parse(data: data)
     
-    guard let droid = result.hero as? HeroDetailsQuery.Data.Droid else {
+    guard let droid = result.hero?.asDroid else {
       XCTFail("Wrong type")
       return
     }
@@ -136,19 +137,14 @@ class ParseQueryResultDataTests: XCTestCase {
   func testHeroDetailsQueryUnknownTypename() throws {
     let data = ["hero": ["__typename": "Pokemon", "name": "Charmander"]]
     
-    let query = HeroDetailsQuery()
+    let query = HeroDetailsQuery()    
+    let result = try query.parse(data: data)
     
-    XCTAssertThrowsError(try query.parse(data: data)) { error in
-      if case JSONDecodingError.unknownObjectType(let typename) = error {
-        XCTAssertEqual(typename, "Pokemon")
-      } else {
-        XCTFail("Unexpected error: \(error)")
-      }
-    }
+    XCTAssertEqual(result.hero?.name, "Charmander")
   }
   
   func testHeroDetailsQueryMissingTypename() throws {
-    let data = ["hero": ["name": "Luke Skywalker", "homePlanet": "Tatooine"]]
+    let data = ["hero": ["name": "Luke Skywalker", "height": 1.72]]
     
     let query = HeroDetailsQuery(episode: .empire)
 
@@ -162,37 +158,15 @@ class ParseQueryResultDataTests: XCTestCase {
   }
   
   func testHeroDetailsFragmentQueryHuman() throws {
-    let data = ["hero": ["__typename": "Human", "name": "Luke Skywalker", "homePlanet": "Tatooine"]]
+    let data = ["hero": ["__typename": "Human", "name": "Luke Skywalker", "height": 1.72]]
     
-    let query = HeroDetailsFragmentQuery()
+    let query = HeroDetailsWithFragmentQuery()
     let result = try query.parse(data: data)
     
-    guard let human = result.hero as? HeroDetails_Human else {
+    guard let human = result.hero?.fragments.heroDetails.asHuman else {
       XCTFail("Wrong type")
       return
     }
-    XCTAssertEqual(human.homePlanet, "Tatooine")
-  }
-  
-  func testFragmentTypingQuery() throws {
-    let data = ["profiles": [
-      ["__typename": "User", "handle": "zuck", "friends": ["count": 1234]],
-      ["__typename": "Page", "handle": "cocacola", "likers": ["count": 90234512]]
-    ]]
-    
-    let query = FragmentTypingQuery()
-    let result = try query.parse(data: data)
-    
-    guard let zuck = result.profiles[0] as? UserDetails else {
-      XCTFail("Wrong type")
-      return
-    }
-    XCTAssertEqual(zuck.friends.count, 1234)
-    
-    guard let cocacola = result.profiles[1] as? PageDetails else {
-      XCTFail("Wrong type")
-      return
-    }
-    XCTAssertEqual(cocacola.likers.count, 90234512)
+    XCTAssertEqual(human.height, 1.72)
   }
 }

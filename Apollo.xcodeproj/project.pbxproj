@@ -7,19 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */; };
+		9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D071D9BCB990042B71A /* HeroName.graphql */; };
+		9F057D0B1D9BCB990042B71A /* TwoHeroes.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D081D9BCB990042B71A /* TwoHeroes.graphql */; };
+		9F057D0D1D9BCBB70042B71A /* HeroDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */; };
+		9F057D0F1D9BCC460042B71A /* HeroDetailsWithFragment.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */; };
+		9F20CBC21DAF03F900A139BB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F20CBC11DAF03F900A139BB /* API.swift */; };
 		9F27D4621D40364C00715680 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4611D40364C00715680 /* GraphQLMap.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */; };
 		9F69FFA71D4271F400E000B1 /* StarWarsServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */; };
 		9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69FFA81D42855900E000B1 /* NetworkTransport.swift */; };
-		9F952B3B1D88320F009CE897 /* FragmentTypingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */; };
-		9F952B3C1D88320F009CE897 /* NoFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2E1D88320F009CE897 /* NoFragmentsQuery.swift */; };
-		9F952B3D1D88320F009CE897 /* WithFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B2F1D88320F009CE897 /* WithFragmentsQuery.swift */; };
-		9F952B3E1D88320F009CE897 /* WithNestedFragmentsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B301D88320F009CE897 /* WithNestedFragmentsQuery.swift */; };
-		9F952B411D88320F009CE897 /* HeroDetailsFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B341D88320F009CE897 /* HeroDetailsFragment.swift */; };
-		9F952B421D88320F009CE897 /* HeroDetailsFragmentQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B351D88320F009CE897 /* HeroDetailsFragmentQuery.swift */; };
-		9F952B431D88320F009CE897 /* HeroDetailsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B361D88320F009CE897 /* HeroDetailsQuery.swift */; };
-		9F952B461D88320F009CE897 /* StarWarsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952B391D88320F009CE897 /* StarWarsAPI.swift */; };
 		9F9EB9511D486BAE00789F8A /* GraphQLMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */; };
 		9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4B91F1D2A6F8D0046A641 /* JSON.swift */; };
 		9FC750481D2A532C00458D91 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,6 +25,7 @@
 		9FC750541D2A532D00458D91 /* ParseQueryResultDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */; };
 		9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQL.swift */; };
 		9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750621D2A59F600458D91 /* ApolloClient.swift */; };
+		9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,19 +39,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAppearsIn.graphql; sourceTree = "<group>"; };
+		9F057D071D9BCB990042B71A /* HeroName.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroName.graphql; sourceTree = "<group>"; };
+		9F057D081D9BCB990042B71A /* TwoHeroes.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
+		9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetails.graphql; sourceTree = "<group>"; };
+		9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetailsWithFragment.graphql; sourceTree = "<group>"; };
+		9F20CBC11DAF03F900A139BB /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9F27D4611D40364C00715680 /* GraphQLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLMap.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsServerTests.swift; sourceTree = "<group>"; };
 		9F69FFA81D42855900E000B1 /* NetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTransport.swift; sourceTree = "<group>"; };
-		9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentTypingQuery.swift; sourceTree = "<group>"; };
-		9F952B2E1D88320F009CE897 /* NoFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoFragmentsQuery.swift; sourceTree = "<group>"; };
-		9F952B2F1D88320F009CE897 /* WithFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithFragmentsQuery.swift; sourceTree = "<group>"; };
-		9F952B301D88320F009CE897 /* WithNestedFragmentsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithNestedFragmentsQuery.swift; sourceTree = "<group>"; };
-		9F952B341D88320F009CE897 /* HeroDetailsFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsFragment.swift; sourceTree = "<group>"; };
-		9F952B351D88320F009CE897 /* HeroDetailsFragmentQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsFragmentQuery.swift; sourceTree = "<group>"; };
-		9F952B361D88320F009CE897 /* HeroDetailsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroDetailsQuery.swift; sourceTree = "<group>"; };
-		9F952B391D88320F009CE897 /* StarWarsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsAPI.swift; sourceTree = "<group>"; };
 		9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLMapTests.swift; sourceTree = "<group>"; };
 		9FC4B91F1D2A6F8D0046A641 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		9FC750441D2A532C00458D91 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +60,7 @@
 		9FC750551D2A532D00458D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FC750601D2A59C300458D91 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9FC750621D2A59F600458D91 /* ApolloClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
+		9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "check-and-run-apollo-codegen.sh"; path = "scripts/check-and-run-apollo-codegen.sh"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F17BC471DAF055A00138496 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9FC750551D2A532D00458D91 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		9F27D4601D40363A00715680 /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,24 +99,15 @@
 			name = GraphQL;
 			sourceTree = "<group>";
 		};
-		9F952B2C1D88320F009CE897 /* GraphQLSpecExamples */ = {
-			isa = PBXGroup;
-			children = (
-				9F952B2D1D88320F009CE897 /* FragmentTypingQuery.swift */,
-				9F952B2E1D88320F009CE897 /* NoFragmentsQuery.swift */,
-				9F952B2F1D88320F009CE897 /* WithFragmentsQuery.swift */,
-				9F952B301D88320F009CE897 /* WithNestedFragmentsQuery.swift */,
-			);
-			path = GraphQLSpecExamples;
-			sourceTree = "<group>";
-		};
 		9F952B311D88320F009CE897 /* StarWars */ = {
 			isa = PBXGroup;
 			children = (
-				9F952B391D88320F009CE897 /* StarWarsAPI.swift */,
-				9F952B341D88320F009CE897 /* HeroDetailsFragment.swift */,
-				9F952B351D88320F009CE897 /* HeroDetailsFragmentQuery.swift */,
-				9F952B361D88320F009CE897 /* HeroDetailsQuery.swift */,
+				9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */,
+				9F057D071D9BCB990042B71A /* HeroName.graphql */,
+				9F057D081D9BCB990042B71A /* TwoHeroes.graphql */,
+				9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */,
+				9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */,
+				9F20CBC11DAF03F900A139BB /* API.swift */,
 			);
 			path = StarWars;
 			sourceTree = "<group>";
@@ -150,8 +147,7 @@
 				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
 				9F27D4601D40363A00715680 /* GraphQL */,
 				9FC4B9231D2BE4F00046A641 /* JSON */,
-				9FC750471D2A532C00458D91 /* Apollo.h */,
-				9FC750491D2A532C00458D91 /* Info.plist */,
+				9FE3F3961DADBD0D0072078F /* Supporting Files */,
 			);
 			path = Apollo;
 			sourceTree = "<group>";
@@ -159,14 +155,23 @@
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
-				9F952B2C1D88320F009CE897 /* GraphQLSpecExamples */,
 				9F952B311D88320F009CE897 /* StarWars */,
 				9F9EB9501D486BAE00789F8A /* GraphQLMapTests.swift */,
 				9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */,
 				9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */,
-				9FC750551D2A532D00458D91 /* Info.plist */,
+				9F17BC471DAF055A00138496 /* Supporting Files */,
 			);
 			path = ApolloTests;
+			sourceTree = "<group>";
+		};
+		9FE3F3961DADBD0D0072078F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9FC750471D2A532C00458D91 /* Apollo.h */,
+				9FC750491D2A532C00458D91 /* Info.plist */,
+				9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +281,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F057D0D1D9BCBB70042B71A /* HeroDetails.graphql in Resources */,
+				9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */,
+				9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */,
+				9F057D0F1D9BCC460042B71A /* HeroDetailsWithFragment.graphql in Resources */,
+				9F057D0B1D9BCB990042B71A /* TwoHeroes.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +304,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ". ~/.nvm/nvm.sh\ncd ${SRCROOT}/${TARGET_NAME}\napollo-codegen generate StarWars/*.graphql --schema StarWars/schema.json --output StarWars/StarWarsAPI.swift";
+			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/${TARGET_NAME}/StarWars\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema schema.json --output API.swift";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -316,16 +327,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F952B3D1D88320F009CE897 /* WithFragmentsQuery.swift in Sources */,
 				9F69FFA71D4271F400E000B1 /* StarWarsServerTests.swift in Sources */,
-				9F952B3B1D88320F009CE897 /* FragmentTypingQuery.swift in Sources */,
-				9F952B421D88320F009CE897 /* HeroDetailsFragmentQuery.swift in Sources */,
-				9F952B3C1D88320F009CE897 /* NoFragmentsQuery.swift in Sources */,
-				9F952B411D88320F009CE897 /* HeroDetailsFragment.swift in Sources */,
-				9F952B461D88320F009CE897 /* StarWarsAPI.swift in Sources */,
-				9F952B3E1D88320F009CE897 /* WithNestedFragmentsQuery.swift in Sources */,
-				9F952B431D88320F009CE897 /* HeroDetailsQuery.swift in Sources */,
 				9F9EB9511D486BAE00789F8A /* GraphQLMapTests.swift in Sources */,
+				9F20CBC21DAF03F900A139BB /* API.swift in Sources */,
 				9FC750541D2A532D00458D91 /* ParseQueryResultDataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,7 +366,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0.2.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -413,7 +417,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 0.2.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -442,7 +446,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 0.2.3;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Apollo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -461,7 +465,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 0.2.3;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Apollo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -476,10 +480,7 @@
 		9FC7505C1D2A532D00458D91 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/StarWarsAPI/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ApolloTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
@@ -491,10 +492,7 @@
 		9FC7505D1D2A532D00458D91 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/StarWarsAPI/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ApolloTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;

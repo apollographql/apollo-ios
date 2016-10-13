@@ -19,7 +19,7 @@
 // SOFTWARE.
 
 public protocol NetworkTransport {
-  func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void)
+  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>)
 }
 
 struct GraphQLResponseError: Error, LocalizedError {
@@ -67,13 +67,13 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.session = URLSession(configuration: configuration)
   }
   
-  public func send<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ result: GraphQLResult<Query.Data>?, _ error: Error?) -> Void) {
+  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
-    let body: GraphQLMap = ["query": type(of: query).queryDocument, "variables": query.variables]
+    let body: GraphQLMap = ["query": type(of: operation).queryDocument, "variables": operation.variables]
     request.httpBody = try! JSONSerialization.data(withJSONObject: body.jsonValue, options: [])
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -103,7 +103,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         }
         
         let responseMap = GraphQLMap(jsonObject: rootObject)
-        let result: GraphQLResult<Query.Data> = try self.parseResult(responseMap: responseMap)
+        let result: GraphQLResult<Operation.Data> = try self.parseResult(responseMap: responseMap)
         completionHandler(result, nil)
       } catch {
         completionHandler(nil, error)

@@ -86,23 +86,23 @@ public struct GraphQLMap {
     return try optionalList(forKey: key, decoder: Optional<T>.init(jsonValue:))
   }
   
-  public func value<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T {
-    return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
+  public func value<T: Any>(forKey key: String, baseType: Any.Type, subTypes: [String: Any.Type]) throws -> T {
+    return try value(forKey: key, decoder: polymorphicObjectDecoder(baseType: baseType, subTypes: subTypes))
   }
   
-  public func optionalValue<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> T? {
-    return try value(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
+  public func optionalValue<T: Any>(forKey key: String, baseType: Any.Type, subTypes: [String: Any.Type]) throws -> T? {
+    return try value(forKey: key, decoder: polymorphicObjectDecoder(baseType: baseType, subTypes: subTypes))
   }
   
-  public func list<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> [T] {
-    return try list(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
+  public func list<T: Any>(forKey key: String, baseType: Any.Type, subTypes: [String: Any.Type]) throws -> [T] {
+    return try list(forKey: key, decoder: polymorphicObjectDecoder(baseType: baseType, subTypes: subTypes))
   }
   
-  public func optionalList<T: Any>(forKey key: String, possibleTypes: [String: Any.Type]) throws -> [T]? {
-    return try list(forKey: key, decoder: polymorphicObjectDecoder(possibleTypes: possibleTypes))
+  public func optionalList<T: Any>(forKey key: String, baseType: Any.Type, subTypes: [String: Any.Type]) throws -> [T]? {
+    return try list(forKey: key, decoder: polymorphicObjectDecoder(baseType: baseType, subTypes: subTypes))
   }
   
-  private func polymorphicObjectDecoder<T: Any>(possibleTypes: [String: Any.Type]) -> JSONDecoder<T> {
+  private func polymorphicObjectDecoder<T: Any>(baseType: Any.Type, subTypes: [String: Any.Type]) -> JSONDecoder<T> {
     return { (value) -> T in
       guard let jsonObject = value as? JSONObject else {
         throw JSONDecodingError.couldNotConvert(value: value, to: JSONObject.self)
@@ -112,9 +112,10 @@ public struct GraphQLMap {
       
       let typename: String = try map.value(forKey: "__typename")
       
-      guard let ObjectType = possibleTypes[typename] as? GraphQLMapConvertible.Type else {
-        throw JSONDecodingError.unknownObjectType(forTypename: typename)
+      guard let ObjectType = (subTypes[typename] ?? baseType) as? GraphQLMapConvertible.Type else {
+        fatalError("Expected polymorphic types to be GraphQLMapConvertible")
       }
+      
       return try ObjectType.init(map: map) as! T
     }
   }

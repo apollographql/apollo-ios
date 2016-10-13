@@ -40,15 +40,17 @@ extension GraphQLError: GraphQLMapConvertible {
   }
 }
 
-public protocol GraphQLQuery {
+public typealias GraphQLOperationResponseHandler<Operation: GraphQLOperation> = (GraphQLResult<Operation.Data>?, Error?) -> Void
+
+public protocol GraphQLOperation {
   static var operationDefinition: String { get }
   static var queryDocument: String { get }
   var variables: GraphQLMap? { get }
   
-  associatedtype Data: GraphQLMapConvertible
+  associatedtype Data: GraphQLMapConvertible  
 }
 
-public extension GraphQLQuery {
+public extension GraphQLOperation {
   var variables: GraphQLMap? {
     return nil
   }
@@ -58,8 +60,24 @@ public extension GraphQLQuery {
   }
 }
 
-public protocol GraphQLFragment {
-  static var fragmentDefinition: String { get }
+public protocol GraphQLQuery: GraphQLOperation {}
+
+public protocol GraphQLMutation: GraphQLOperation {}
+
+public protocol GraphQLConditionalFragment: GraphQLMapConvertible {
+  static var possibleTypes: [String] { get }
   
-  associatedtype Data
+  init?(map: GraphQLMap, ifTypeMatches typeName: String) throws
+}
+
+public extension GraphQLConditionalFragment {
+  init?(map: GraphQLMap, ifTypeMatches typeName: String) throws {
+    if !Self.possibleTypes.contains(typeName) { return nil }
+    
+    try self.init(map: map)
+  }
+}
+
+public protocol GraphQLNamedFragment: GraphQLConditionalFragment {
+  static var fragmentDefinition: String { get }
 }
