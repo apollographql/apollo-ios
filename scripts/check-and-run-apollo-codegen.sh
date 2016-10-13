@@ -36,7 +36,15 @@ are_versions_compatible() {
   [[ "$(cut -d. -f1-2 <<< $1)" == "$(cut -d. -f1-2 <<< $2)" ]]
 }
 
-INSTALLED_APOLLO_CODEGEN_VERSION=$(apollo-codegen --version) || "an unknown older version"
+get_installed_version() {
+  version=$(apollo-codegen --version)
+  if [[ $? -eq 0 ]]; then
+    echo "$version"
+  else
+    echo "an unknown older version"
+  fi
+}
+INSTALLED_APOLLO_CODEGEN_VERSION="$(get_installed_version)"
 
 if ! are_versions_compatible $INSTALLED_APOLLO_CODEGEN_VERSION $REQUIRED_APOLLO_CODEGEN_VERSION; then
   echo "error: The version of Apollo.framework in your project requires the use of version $REQUIRED_APOLLO_CODEGEN_VERSION of apollo-codegen, \
