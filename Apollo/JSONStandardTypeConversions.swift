@@ -93,8 +93,6 @@ extension Optional where Wrapped: JSONDecodable {
   }
 }
 
-
-
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)
