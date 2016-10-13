@@ -70,6 +70,19 @@ extension Double: JSONDecodable, JSONEncodable {
   }
 }
 
+extension Bool: JSONDecodable, JSONEncodable {
+    public init(jsonValue value: JSONValue) throws {
+        guard let bool = value as? Bool else {
+            throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
+        }
+        self = bool
+    }
+    
+    public var jsonValue: JSONValue {
+        return self
+    }
+}
+
 extension Optional where Wrapped: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     if value is NSNull {
@@ -79,6 +92,8 @@ extension Optional where Wrapped: JSONDecodable {
     }
   }
 }
+
+
 
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
