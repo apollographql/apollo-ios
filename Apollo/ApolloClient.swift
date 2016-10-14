@@ -34,6 +34,7 @@ public class ApolloClient {
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Mutation>) {
     send(operation: mutation, queue: queue, completionHandler: completionHandler)
   }
+    
     private func send<Operation: GraphQLOperation>(operation: Operation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) {
         let request = try! createRequest(from: operation, with: url)
         networkTransport.send(request: request) { data, response, error in
@@ -57,26 +58,26 @@ public class ApolloClient {
             }
             
             do {
-                guard let rootObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
+                guard let rootObject = try JSONSerialization.jsonObject(with: data) as? JSONObject else {
                     completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .invalidResponse))
                     return
                 }
                 
-                let responseMap = GraphQLMap(jsonObject: rootObject)
-                let result: GraphQLResult<Operation.Data> = try self.parseResult(responseMap: responseMap)
+                let result: GraphQLResult<Operation.Data> = try parseResult(from: rootObject)
                 completionHandler(result, nil)
             } catch {
                 completionHandler(nil, error)
             }
         }
     }
+}
+
+public func parseResult<Data: GraphQLMapConvertible>(from jsonRootObject: JSONObject) throws -> GraphQLResult<Data> {
+    let responseMap = GraphQLMap(jsonObject: jsonRootObject)
+    let data: Data? = try responseMap.optionalValue(forKey: "data")
+    let errors: [GraphQLError]? = try responseMap.optionalList(forKey: "errors")
     
-    private func parseResult<Data: GraphQLMapConvertible>(responseMap: GraphQLMap) throws -> GraphQLResult<Data> {
-        let data: Data? = try responseMap.optionalValue(forKey: "data")
-        let errors: [GraphQLError]? = try responseMap.optionalList(forKey: "errors")
-        
-        return GraphQLResult(data: data, errors: errors)
-    }
+    return GraphQLResult(data: data, errors: errors)
 }
 
 public func createRequest<Operation: GraphQLOperation>(from operation: Operation, with baseURL: URL) throws -> URLRequest {
