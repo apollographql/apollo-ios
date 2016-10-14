@@ -1,34 +1,14 @@
-// Copyright (c) 2016 Meteor Development Group, Inc.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
 public class ApolloClient {
   let networkTransport: NetworkTransport
-  
+
   public init(networkTransport: NetworkTransport) {
     self.networkTransport = networkTransport
   }
-  
+
   public convenience init(url: URL) {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
-  
+
   public func fetch<Query: GraphQLQuery>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Query>) {
     networkTransport.send(operation: query) { (result, error) in
       queue.async {
@@ -36,7 +16,7 @@ public class ApolloClient {
       }
     }
   }
-  
+
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Mutation>) {
     networkTransport.send(operation: mutation) { (result, error) in
       queue.async {
