@@ -26,6 +26,7 @@
 		9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQL.swift */; };
 		9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750621D2A59F600458D91 /* ApolloClient.swift */; };
 		9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
+		C68DDDEB1DAFBF540026D640 /* GraphQLResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68DDDEA1DAFBF540026D640 /* GraphQLResponseError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		9FC750601D2A59C300458D91 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9FC750621D2A59F600458D91 /* ApolloClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
 		9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "check-and-run-apollo-codegen.sh"; path = "scripts/check-and-run-apollo-codegen.sh"; sourceTree = SOURCE_ROOT; };
+		C68DDDEA1DAFBF540026D640 /* GraphQLResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResponseError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
+				C68DDDEA1DAFBF540026D640 /* GraphQLResponseError.swift */,
 				9F27D4601D40363A00715680 /* GraphQL */,
 				9FC4B9231D2BE4F00046A641 /* JSON */,
 				9FE3F3961DADBD0D0072078F /* Supporting Files */,
@@ -318,6 +321,7 @@
 				9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
 				9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */,
+				C68DDDEB1DAFBF540026D640 /* GraphQLResponseError.swift in Sources */,
 				9F27D4621D40364C00715680 /* GraphQLMap.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 			);

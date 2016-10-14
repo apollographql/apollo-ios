@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Meteor Development Group, Inc.
+// Copyright (c) 2016 Lukas Schmidt
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,13 +18,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public protocol NetworkTransport {
-    func send(request: URLRequest, callback: @escaping (Data?, URLResponse?, Error?) -> Void)
-}
+import Foundation
 
-extension URLSession: NetworkTransport {
-    public func send(request: URLRequest, callback: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let task = dataTask(with: request, completionHandler: callback)
-        task.resume()
+struct GraphQLResponseError: Error, LocalizedError {
+    enum ErrorKind {
+        case errorResponse
+        case invalidResponse
+        
+        var description: String {
+            switch self {
+            case .errorResponse:
+                return "Received error response"
+            case .invalidResponse:
+                return "Received invalid response"
+            }
+        }
+    }
+    
+    let body: Data?
+    let response: HTTPURLResponse
+    let kind: ErrorKind
+    
+    var bodyDescription: String {
+        if let body = body {
+            if let description = String(data: body, encoding: response.textEncoding ?? .utf8) {
+                return description
+            } else {
+                return "Unreadable response body"
+            }
+        } else {
+            return "Empty response body"
+        }
+    }
+    
+    var errorDescription: String? {
+        return "\(kind.description) (\(response.statusCode) \(response.statusCodeDescription)): \(bodyDescription)"
     }
 }

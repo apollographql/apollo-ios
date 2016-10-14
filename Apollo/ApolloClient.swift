@@ -19,29 +19,75 @@
 // SOFTWARE.
 
 public class ApolloClient {
-  let networkTransport: NetworkTransport
+    let networkTransport: NetworkTransport
+    let url: URL
   
-  public init(networkTransport: NetworkTransport) {
+  public init(url: URL, networkTransport: NetworkTransport = URLSession(configuration: .default)) {
     self.networkTransport = networkTransport
-  }
-  
-  public convenience init(url: URL) {
-    self.init(networkTransport: HTTPNetworkTransport(url: url))
+    self.url = url
   }
   
   public func fetch<Query: GraphQLQuery>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Query>) {
-    networkTransport.send(operation: query) { (result, error) in
-      queue.async {
-        completionHandler(result, error)
-      }
-    }
+    send(operation: query, queue: queue, completionHandler: completionHandler)
   }
   
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Mutation>) {
-    networkTransport.send(operation: mutation) { (result, error) in
-      queue.async {
-        completionHandler(result, error)
-      }
-    }
+    send(operation: mutation, queue: queue, completionHandler: completionHandler)
   }
+    
+    private func send<Operation: GraphQLOperation>(operation: Operation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) {
+        let request = try! createRequest(from: operation, with: url)
+        networkTransport.send(request: request) { data, response, error in
+            if error != nil {
+                completionHandler(nil, error)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                fatalError("Response should be an HTTPURLResponse")
+            }
+            
+            if (!httpResponse.isSuccessful) {
+                completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .errorResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(nil, GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
+                return
+            }
+            
+            do {
+                guard let rootObject = try JSONSerialization.jsonObject(with: data) as? JSONObject else {
+                    completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .invalidResponse))
+                    return
+                }
+                
+                let result: GraphQLResult<Operation.Data> = try parseResult(from: rootObject)
+                completionHandler(result, nil)
+            } catch {
+                completionHandler(nil, error)
+            }
+        }
+    }
+}
+
+public func parseResult<Data: GraphQLMapConvertible>(from jsonRootObject: JSONObject) throws -> GraphQLResult<Data> {
+    let responseMap = GraphQLMap(jsonObject: jsonRootObject)
+    let data: Data? = try responseMap.optionalValue(forKey: "data")
+    let errors: [GraphQLError]? = try responseMap.optionalList(forKey: "errors")
+    
+    return GraphQLResult(data: data, errors: errors)
+}
+
+public func createRequest<Operation: GraphQLOperation>(from operation: Operation, with baseURL: URL) throws -> URLRequest {
+    var request = URLRequest(url: baseURL)
+    request.httpMethod = "POST"
+    
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    let body: GraphQLMap = ["query": type(of: operation).queryDocument, "variables": operation.variables]
+    request.httpBody = try JSONSerialization.data(withJSONObject: body.jsonValue)
+    
+    return request
 }
