@@ -26,7 +26,9 @@ As you can see above, you can conveniently work with your UI code and correspond
 
 If you want the same syntax highlighting for your .graphql files showed in the screenshots above, you can install our [Xcode add-ons](https://github.com/apollostack/xcode-apollo).
 
-## Development
+## Contributing
+
+[![Build status](https://travis-ci.org/apollostack/apollo-ios.svg?branch=master)](https://travis-ci.org/apollostack/apollo-ios)
 
 This project is being developed using Xcode 8 and Swift 3.
 
