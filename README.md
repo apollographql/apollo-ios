@@ -32,4 +32,4 @@ This project is being developed using Xcode 8 and Swift 3.
 
 If you open `Apollo.xcodeproj`, you should be able to run the tests of the Apollo target.
 
-Some of the tests run against [an example GraphQL server](https://github.com/jahewson/graphql-starwars) (see installation instructions there).
+Some of the tests run against [a simple GraphQL server serving the Star Wars example schema](https://github.com/apollostack/starwars-server) (see installation instructions there).
