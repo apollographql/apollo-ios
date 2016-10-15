@@ -14,6 +14,7 @@ versions:
 sidebar_categories:
   null:
     - index
+    - installation
 github_repo: apollostack/ios-docs
 content_root: source
 
