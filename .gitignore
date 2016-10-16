@@ -47,7 +47,3 @@ playground.xcworkspace
 # Carthage/Checkouts
 
 Carthage/Build
-
-# Project-specific
-
-/starwars-server
