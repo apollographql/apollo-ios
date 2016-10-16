@@ -26,6 +26,7 @@
 		9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQL.swift */; };
 		9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750621D2A59F600458D91 /* ApolloClient.swift */; };
 		9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
+		9FF1F2361DB318250011DE94 /* CreateReviewForEpisode.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9FF1F2351DB318250011DE94 /* CreateReviewForEpisode.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		9FC750601D2A59C300458D91 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
 		9FC750621D2A59F600458D91 /* ApolloClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
 		9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "check-and-run-apollo-codegen.sh"; path = "scripts/check-and-run-apollo-codegen.sh"; sourceTree = SOURCE_ROOT; };
+		9FF1F2351DB318250011DE94 /* CreateReviewForEpisode.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateReviewForEpisode.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				9F057D081D9BCB990042B71A /* TwoHeroes.graphql */,
 				9F057D0C1D9BCBB70042B71A /* HeroDetails.graphql */,
 				9F057D0E1D9BCC460042B71A /* HeroDetailsWithFragment.graphql */,
+				9FF1F2351DB318250011DE94 /* CreateReviewForEpisode.graphql */,
 				9F20CBC11DAF03F900A139BB /* API.swift */,
 			);
 			path = StarWars;
@@ -282,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F057D0D1D9BCBB70042B71A /* HeroDetails.graphql in Resources */,
+				9FF1F2361DB318250011DE94 /* CreateReviewForEpisode.graphql in Resources */,
 				9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */,
 				9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */,
 				9F057D0F1D9BCC460042B71A /* HeroDetailsWithFragment.graphql in Resources */,

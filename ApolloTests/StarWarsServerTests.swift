@@ -67,6 +67,13 @@ class StarWarsServerTests: XCTestCase {
       XCTAssertEqual(human.height, 1.72)
     }
   }
+  
+  func testCreateReviewForEpisode() {
+    perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 5, commentary: "This is a great movie!"))) { (data) in
+      XCTAssertEqual(data.createReview?.stars, 5)
+      XCTAssertEqual(data.createReview?.commentary, "This is a great movie!")
+    }
+  }
 
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     let expectation = self.expectation(description: "Fetching query")
@@ -86,6 +93,27 @@ class StarWarsServerTests: XCTestCase {
       completionHandler(data)
     }
 
+    waitForExpectations(timeout: 1, handler: nil)
+  }
+  
+  private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
+    let expectation = self.expectation(description: "Performing mutation")
+    
+    client.perform(mutation: mutation) { (result, error) in
+      defer { expectation.fulfill() }
+      
+      if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
+      guard let result = result else { XCTFail("No mutation result");  return }
+      
+      if let errors = result.errors {
+        XCTFail("Errors in mutation result: \(errors)")
+      }
+      
+      guard let data = result.data else { XCTFail("No mutation result data");  return }
+      
+      completionHandler(data)
+    }
+    
     waitForExpectations(timeout: 1, handler: nil)
   }
 }
