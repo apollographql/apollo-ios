@@ -51,16 +51,16 @@ extension Double: JSONDecodable, JSONEncodable {
 }
 
 extension Bool: JSONDecodable, JSONEncodable {
-    public init(jsonValue value: JSONValue) throws {
-        guard let bool = value as? Bool else {
-            throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
-        }
-        self = bool
+  public init(jsonValue value: JSONValue) throws {
+    guard let bool = value as? Bool else {
+        throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
     }
+    self = bool
+  }
 
-    public var jsonValue: JSONValue {
-        return self
-    }
+  public var jsonValue: JSONValue {
+    return self
+  }
 }
 
 extension Optional where Wrapped: JSONDecodable {
