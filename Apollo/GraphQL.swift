@@ -14,7 +14,7 @@ public struct GraphQLError: Error {
   let message: String
 }
 
-extension GraphQLError: GraphQLMapConvertible {
+extension GraphQLError: GraphQLMapDecodable {
   public init(map: GraphQLMap) throws {
     message = try map.value(forKey: "message")
   }
@@ -27,7 +27,7 @@ public protocol GraphQLOperation {
   static var queryDocument: String { get }
   var variables: GraphQLMap? { get }
 
-  associatedtype Data: GraphQLMapConvertible
+  associatedtype Data: GraphQLMapDecodable
 }
 
 public extension GraphQLOperation {
@@ -44,7 +44,7 @@ public protocol GraphQLQuery: GraphQLOperation {}
 
 public protocol GraphQLMutation: GraphQLOperation {}
 
-public protocol GraphQLConditionalFragment: GraphQLMapConvertible {
+public protocol GraphQLConditionalFragment: GraphQLMapDecodable {
   static var possibleTypes: [String] { get }
 
   init?(map: GraphQLMap, ifTypeMatches typeName: String) throws

@@ -42,14 +42,14 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
     return ["episode": episode, "review": review]
   }
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let createReview: CreateReview?
 
     public init(map: GraphQLMap) throws {
       createReview = try map.optionalValue(forKey: "createReview")
     }
 
-    public struct CreateReview: GraphQLMapConvertible {
+    public struct CreateReview: GraphQLMapDecodable {
       public let __typename = "Review"
       public let stars: Int
       public let commentary: String?
@@ -85,14 +85,14 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let hero: Hero?
 
     public init(map: GraphQLMap) throws {
       hero = try map.optionalValue(forKey: "hero")
     }
 
-    public struct Hero: GraphQLMapConvertible {
+    public struct Hero: GraphQLMapDecodable {
       public let __typename: String
       public let name: String
       public let friends: [Friend?]?
@@ -103,7 +103,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
         friends = try map.optionalList(forKey: "friends")
       }
 
-      public struct Friend: GraphQLMapConvertible {
+      public struct Friend: GraphQLMapDecodable {
         public let __typename: String
         public let name: String
 
@@ -126,14 +126,14 @@ public final class HeroAppearsInQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let hero: Hero?
 
     public init(map: GraphQLMap) throws {
       hero = try map.optionalValue(forKey: "hero")
     }
 
-    public struct Hero: GraphQLMapConvertible {
+    public struct Hero: GraphQLMapDecodable {
       public let __typename: String
       public let name: String
       public let appearsIn: [Episode?]
@@ -172,14 +172,14 @@ public final class HeroDetailsQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let hero: Hero?
 
     public init(map: GraphQLMap) throws {
       hero = try map.optionalValue(forKey: "hero")
     }
 
-    public struct Hero: GraphQLMapConvertible {
+    public struct Hero: GraphQLMapDecodable {
       public let __typename: String
       public let name: String
 
@@ -243,14 +243,14 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let hero: Hero?
 
     public init(map: GraphQLMap) throws {
       hero = try map.optionalValue(forKey: "hero")
     }
 
-    public struct Hero: GraphQLMapConvertible {
+    public struct Hero: GraphQLMapDecodable {
       public let __typename: String
 
       public let fragments: Fragments
@@ -278,14 +278,14 @@ public final class HeroNameQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let hero: Hero?
 
     public init(map: GraphQLMap) throws {
       hero = try map.optionalValue(forKey: "hero")
     }
 
-    public struct Hero: GraphQLMapConvertible {
+    public struct Hero: GraphQLMapDecodable {
       public let __typename: String
       public let name: String
 
@@ -310,7 +310,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public struct Data: GraphQLMapConvertible {
+  public struct Data: GraphQLMapDecodable {
     public let r2: R2?
     public let luke: Luke?
 
@@ -319,7 +319,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
       luke = try map.optionalValue(forKey: "luke")
     }
 
-    public struct R2: GraphQLMapConvertible {
+    public struct R2: GraphQLMapDecodable {
       public let __typename: String
       public let name: String
 
@@ -329,7 +329,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
       }
     }
 
-    public struct Luke: GraphQLMapConvertible {
+    public struct Luke: GraphQLMapDecodable {
       public let __typename: String
       public let name: String
 

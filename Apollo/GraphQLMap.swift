@@ -89,7 +89,7 @@ public struct GraphQLMap {
 
       let typename: String = try map.value(forKey: "__typename")
 
-      guard let ObjectType = (subTypes[typename] ?? baseType) as? GraphQLMapConvertible.Type else {
+      guard let ObjectType = (subTypes[typename] ?? baseType) as? GraphQLMapDecodable.Type else {
         fatalError("Expected polymorphic types to be GraphQLMapConvertible")
       }
 
@@ -120,11 +120,11 @@ extension GraphQLMap: CustomStringConvertible {
   }
 }
 
-public protocol GraphQLMapConvertible: JSONDecodable {
+public protocol GraphQLMapDecodable: JSONDecodable {
   init(map: GraphQLMap) throws
 }
 
-public extension GraphQLMapConvertible {
+public extension GraphQLMapDecodable {
   public init(jsonValue value: JSONValue) throws {
     guard let jsonObject = value as? JSONObject else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONObject.self)
