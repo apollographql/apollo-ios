@@ -2,6 +2,8 @@ public typealias JSONValue = Any
 public typealias JSONObject = [String: Any]
 public typealias JSONArray = [JSONValue]
 
+public typealias JSONDecoder<T> = (_ jsonValue: JSONValue) throws -> T
+
 public protocol JSONDecodable {
   init(jsonValue value: JSONValue) throws
 }

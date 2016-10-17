@@ -1,6 +1,3 @@
-// For some reason, moving this to another file leads to a compiler crash...
-public typealias JSONDecoder<T> = (_ jsonValue: JSONValue) throws -> T
-
 public struct GraphQLMap {
   fileprivate let jsonObject: JSONObject
 
