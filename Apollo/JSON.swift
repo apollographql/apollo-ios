@@ -13,7 +13,6 @@ public protocol JSONEncodable {
 public enum JSONDecodingError: Error, LocalizedError {
   case missingValue(forKey: String)
   case couldNotConvert(value: JSONValue, to: Any.Type)
-  case unknownObjectType(forTypename: String)
 
   public var errorDescription: String? {
     switch self {
@@ -21,8 +20,6 @@ public enum JSONDecodingError: Error, LocalizedError {
       return "Missing value for key: \(key)"
     case .couldNotConvert(let value, let expectedType):
       return "Could not convert \"\(value)\" to \(expectedType)"
-    case .unknownObjectType(let typename):
-      return "Unknown object type \"\(typename)\""
     }
   }
 }
