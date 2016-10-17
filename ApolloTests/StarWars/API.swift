@@ -2,13 +2,65 @@
 
 import Apollo
 
+/// The episodes in the Star Wars trilogy
 public enum Episode: String {
-  case newhope = "NEWHOPE"
-  case empire = "EMPIRE"
-  case jedi = "JEDI"
+  case newhope = "NEWHOPE" /// Star Wars Episode IV: A New Hope, released in 1977.
+  case empire = "EMPIRE" /// Star Wars Episode V: The Empire Strikes Back, released in 1980.
+  case jedi = "JEDI" /// Star Wars Episode VI: Return of the Jedi, released in 1983.
 }
 
 extension Episode: JSONDecodable, JSONEncodable {}
+
+/// The input object sent when someone is creating a new review
+public struct ReviewInput: GraphQLMapEncodable {
+  public let stars: Int /// 0-5 stars
+  public let commentary: String? /// Comment about the movie, optional
+
+  public var graphQLMap: GraphQLMap {
+    return ["stars": stars, "commentary": commentary]
+  }
+}
+
+public final class CreateReviewForEpisodeMutation: GraphQLMutation {
+  public static let operationDefinition =
+    "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {" +
+    "  createReview(episode: $episode, review: $review) {" +
+    "    stars" +
+    "    commentary" +
+    "  }" +
+    "}"
+
+  public let episode: Episode
+  public let review: ReviewInput
+
+  public init(episode: Episode, review: ReviewInput) {
+    self.episode = episode
+    self.review = review
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode, "review": review]
+  }
+
+  public struct Data: GraphQLMapConvertible {
+    public let createReview: CreateReview?
+
+    public init(map: GraphQLMap) throws {
+      createReview = try map.optionalValue(forKey: "createReview")
+    }
+
+    public struct CreateReview: GraphQLMapConvertible {
+      public let __typename = "Review"
+      public let stars: Int
+      public let commentary: String?
+
+      public init(map: GraphQLMap) throws {
+        stars = try map.value(forKey: "stars")
+        commentary = try map.optionalValue(forKey: "commentary")
+      }
+    }
+  }
+}
 
 public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   public static let operationDefinition =

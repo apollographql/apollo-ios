@@ -134,3 +134,13 @@ public extension GraphQLMapConvertible {
     try self.init(map: map)
   }
 }
+
+public protocol GraphQLMapEncodable: JSONEncodable {
+  var graphQLMap: GraphQLMap { get }
+}
+
+public extension GraphQLMapEncodable {
+  public var jsonValue: JSONValue {
+    return graphQLMap.jsonValue
+  }
+}

@@ -9,7 +9,7 @@ private func with<T>(returnType: T.Type, _ closure: @autoclosure () throws -> T)
   return value
 }
 
-class GraphQLMapTests: XCTestCase {
+class GraphQLMapDecodingTests: XCTestCase {
   func testGetValue() throws {
     let map = GraphQLMap(jsonObject: ["name": "Luke Skywalker"])
     let value: String = try map.value(forKey: "name")
