@@ -41,6 +41,7 @@ struct GraphQLResponseError: Error, LocalizedError {
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
+  let serializationFormat = JSONSerializationFormat()
 
   public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
     self.url = url
@@ -53,8 +54,8 @@ public class HTTPNetworkTransport: NetworkTransport {
 
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-    let body: GraphQLMap = ["query": type(of: operation).queryDocument, "variables": operation.variables]
-    request.httpBody = try! JSONSerialization.data(withJSONObject: body.jsonValue, options: [])
+    let body: GraphQLMap = ["query": type(of: operation).queryDocument, "variables": operation.variables ?? [:]]
+    request.httpBody = try! serializationFormat.serialize(map: body)
 
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -77,12 +78,7 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
 
       do {
-        guard let rootObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-          completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .invalidResponse))
-          return
-        }
-
-        let responseMap = GraphQLMap(jsonObject: rootObject)
+        let responseMap = try self.serializationFormat.deserialize(data: data)
         let result: GraphQLResult<Operation.Data> = try self.parseResult(responseMap: responseMap)
         completionHandler(result, nil)
       } catch {

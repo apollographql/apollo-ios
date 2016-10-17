@@ -13,11 +13,14 @@ public protocol JSONEncodable {
 }
 
 public enum JSONDecodingError: Error, LocalizedError {
+  case invalidData
   case missingValue(forKey: String)
   case couldNotConvert(value: JSONValue, to: Any.Type)
 
   public var errorDescription: String? {
     switch self {
+    case .invalidData:
+      return "Invalid JSON data"
     case .missingValue(let key):
       return "Missing value for key: \(key)"
     case .couldNotConvert(let value, let expectedType):
