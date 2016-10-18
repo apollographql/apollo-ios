@@ -157,7 +157,8 @@
 				9FC4B9231D2BE4F00046A641 /* JSON */,
 				9FE3F3961DADBD0D0072078F /* Supporting Files */,
 			);
-			path = Apollo;
+			name = Apollo;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
@@ -170,7 +171,8 @@
 				9F69FFA61D4271F400E000B1 /* StarWarsServerTests.swift */,
 				9F17BC471DAF055A00138496 /* Supporting Files */,
 			);
-			path = ApolloTests;
+			name = ApolloTests;
+			path = Tests/ApolloTests;
 			sourceTree = "<group>";
 		};
 		9FE3F3961DADBD0D0072078F /* Supporting Files */ = {
@@ -314,7 +316,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/${TARGET_NAME}/StarWars\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema schema.json --output API.swift";
+			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/${TARGET_NAME}/StarWars\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema schema.json --output API.swift";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -460,7 +462,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 0.3.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Apollo/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.Apollo;
@@ -479,7 +481,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 0.3.0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Apollo/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.Apollo;
@@ -493,7 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ApolloTests/Info.plist;
+				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -505,7 +507,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = ApolloTests/Info.plist;
+				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

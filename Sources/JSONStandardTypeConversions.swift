@@ -1,3 +1,5 @@
+import Foundation
+
 extension String: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let string = value as? String else {

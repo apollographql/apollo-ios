@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol NetworkTransport {
   func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>)
 }

@@ -8,6 +8,22 @@ private extension GraphQLQuery {
 }
 
 class ParseQueryResultDataTests: XCTestCase {
+  static var allTests : [(String, (ParseQueryResultDataTests) -> () throws -> Void)] {
+    return [
+      ("testHeroNameQuery", testHeroNameQuery),
+      ("testHeroNameQueryWithMissingValue", testHeroNameQueryWithMissingValue),
+      ("testHeroNameQueryWithWrongType", testHeroNameQueryWithWrongType),
+      ("testHeroAndFriendsNamesQuery", testHeroAndFriendsNamesQuery),
+      ("testHeroAppearsInQuery", testHeroAppearsInQuery),
+      ("testTwoHeroesQuery", testTwoHeroesQuery),
+      ("testHeroDetailsQueryHuman", testHeroDetailsQueryHuman),
+      ("testHeroDetailsQueryDroid", testHeroDetailsQueryDroid),
+      ("testHeroDetailsQueryUnknownTypename", testHeroDetailsQueryUnknownTypename),
+      ("testHeroDetailsQueryMissingTypename", testHeroDetailsQueryMissingTypename),
+      ("testHeroDetailsFragmentQueryHuman", testHeroDetailsFragmentQueryHuman),
+    ]
+  }
+  
   func testHeroNameQuery() throws {
     let data = ["hero": ["__typename": "Droid", "name": "R2-D2"]]
 

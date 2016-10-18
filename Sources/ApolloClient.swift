@@ -1,3 +1,5 @@
+import Foundation
+
 public class ApolloClient {
   let networkTransport: NetworkTransport
 
