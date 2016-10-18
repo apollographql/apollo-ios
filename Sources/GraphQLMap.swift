@@ -1,3 +1,5 @@
+import Foundation
+
 public struct GraphQLMap {
   fileprivate let jsonObject: JSONObject
 

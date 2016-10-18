@@ -2,6 +2,15 @@ import XCTest
 @testable import Apollo
 
 class GraphQLMapEncodingTests: XCTestCase {
+  static var allTests : [(String, (GraphQLMapEncodingTests) -> () throws -> Void)] {
+    return [
+      ("testEncodeValue", testEncodeValue),
+      ("testEncodeOptionalValue", testEncodeOptionalValue),
+      ("testEncodeInputObject", testEncodeInputObject),
+      ("testEncodeInputObjectWithOptionalValue", testEncodeInputObjectWithOptionalValue),
+    ]
+  }
+  
   func testEncodeValue() {
     let map: GraphQLMap = ["name": "Luke Skywalker"]
     XCTAssertEqual(map.jsonValue as! NSDictionary, ["name": "Luke Skywalker"])

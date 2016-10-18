@@ -10,6 +10,29 @@ private func with<T>(returnType: T.Type, _ closure: @autoclosure () throws -> T)
 }
 
 class GraphQLMapDecodingTests: XCTestCase {
+  static var allTests : [(String, (GraphQLMapDecodingTests) -> () throws -> Void)] {
+    return [
+      ("testGetValue", testGetValue),
+      ("testGetValueWithMissingKey", testGetValueWithMissingKey),
+      ("testGetValueWithNull", testGetValueWithNull),
+      ("testGetValueWithWrongType", testGetValueWithWrongType),
+      ("testGetOptionalValue", testGetOptionalValue),
+      ("testGetOptionalValueWithMissingKey", testGetOptionalValueWithMissingKey),
+      ("testGetOptionalValueWithNull", testGetOptionalValueWithNull),
+      ("testGetOptionalValueWithWrongType", testGetOptionalValueWithWrongType),
+      ("testGetList", testGetList),
+      ("testGetListWithMissingKey", testGetListWithMissingKey),
+      ("testGetListWithNull", testGetListWithNull),
+      ("testGetListWithWrongType", testGetListWithWrongType),
+      ("testGetOptionalList", testGetOptionalList),
+      ("testGetOptionalListWithNull", testGetOptionalList),
+      ("testGetOptionalListWithWrongType", testGetOptionalListWithWrongType),
+      ("testGetOptionalListWithMissingKey", testGetOptionalListWithMissingKey),
+      ("testGetListWithOptionalElements", testGetListWithOptionalElements),
+      ("testGetOptionalListWithOptionalElements", testGetOptionalListWithOptionalElements)
+    ]
+  }
+  
   func testGetValue() throws {
     let map = GraphQLMap(jsonObject: ["name": "Luke Skywalker"])
     let value: String = try map.value(forKey: "name")
