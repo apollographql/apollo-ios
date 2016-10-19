@@ -39,10 +39,10 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 
 ### CocoaPods
 
- 1. Because Apollo iOS has been written using Swift 3, it requires CocoaPods 1.1.0, which is still in prerelease at the moment (currently at `rc.3`). You can install it using:
+ 1. Because Apollo iOS has been written using Swift 3, it requires CocoaPods 1.1.0. You can install it using:
 
  ```sh
- gem install cocoapods --pre
+ gem install cocoapods
  ```
 
  1. Add `pod "Apollo"` to your Podfile.
