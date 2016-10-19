@@ -15,6 +15,12 @@ sidebar_categories:
   null:
     - index
     - installation
+  Usage:
+  - downloading-schema
+  - initialization
+  - queries
+  - fragments
+  - mutations
 github_repo: apollostack/ios-docs
 content_root: source
 
