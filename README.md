@@ -12,20 +12,11 @@ Because the generated types are query-specific, you're only able to access data 
 
 You can conveniently work with your UI code and corresponding GraphQL definitions side by side. Our Xcode integration will even validate your query documents and show errors inline.
 
-<script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script>
-<div class="gfyitem" data-title=false data-autoplay=true data-controls=false data-responsive=true data-id="PracticalSmoggyGlassfrog"></div>
+<div style="position: relative; padding: 0px; display: inline-block; overflow: hidden; box-sizing: border-box;"><video class="gfyVid" autoplay="" loop="" poster="https://thumbs.gfycat.com/PracticalSmoggyGlassfrog-poster.jpg" style="width: 100%; height: auto;"><source src="https://fat.gfycat.com/PracticalSmoggyGlassfrog.webm" type="video/webm" class="webmsource"><source src="https://giant.gfycat.com/PracticalSmoggyGlassfrog.mp4" type="video/mp4" class="mp4source"></video><div style="position: absolute; background-color: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); font-family: Arial, sans-serif; font-size: 20px; padding: 10px; left: 0px; top: 0px; display: none; width: 903px;">Using Apollo iOS in Xcode</div><canvas width="923" height="577" style="position: absolute; left: 0px; top: 0px;"></canvas></div>
 
 ## Documentation
 
 Documentation can be found [here](http://dev.apollodata.com/ios/).
-
-## Getting Started
-
-[Front Page](https://github.com/apollostack/frontpage-ios-app) is the iOS version of the simple "Hello World" app that lives on our [developer site](http://dev.apollodata.com).
-
-[Apollo iOS Quickstart](https://github.com/apollostack/apollo-ios-quickstart) is a collection of sample Xcode projects that make it easy to get started with Apollo iOS.
-
-If you want the same syntax highlighting for your .graphql files showed in the screenshots above, you can install our [Xcode add-ons](https://github.com/apollostack/xcode-apollo).
 
 ## Contributing
 
