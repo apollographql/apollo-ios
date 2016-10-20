@@ -88,7 +88,8 @@ You can fetch results and access data using the following code:
 apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error) in
   guard let data = result?.data else { return }
   print(data.hero?.name) // Luke Skywalker
-  print(data.hero?.friends?.flatMap { $0?.name }.joined(separator: ", ")) // Han Solo, Leia Organa, C-3PO, R2-D2
+  print(data.hero?.friends?.flatMap { $0?.name }.joined(separator: ", "))
+  // Prints: Han Solo, Leia Organa, C-3PO, R2-D2
 }
 ```
 
