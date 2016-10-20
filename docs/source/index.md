@@ -12,7 +12,8 @@ Because the generated types are query-specific, you're only able to access data 
 
 You can conveniently work with your UI code and corresponding GraphQL definitions side by side. Our Xcode integration will even validate your query documents and show errors inline.
 
-![Xcode](screenshots/xcode.png)
+<script type="text/javascript" src="https://assets.gfycat.com/gfycat.js"></script>
+<div class="gfyitem" data-title=false data-autoplay=true data-controls=false data-responsive=true data-id="PracticalSmoggyGlassfrog"></div>
 
 <h2 id="getting-started">Getting Started</h2>
 
