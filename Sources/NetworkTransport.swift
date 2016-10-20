@@ -1,8 +1,10 @@
 import Foundation
 
 public protocol NetworkTransport {
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>)
+  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) -> Cancellable
 }
+
+extension URLSessionTask : Cancellable { }
 
 struct GraphQLResponseError: Error, LocalizedError {
   enum ErrorKind {
@@ -50,7 +52,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.session = URLSession(configuration: configuration)
   }
 
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) {
+  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
 
@@ -88,6 +90,7 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
     }
     task.resume()
+    return task
   }
 
   private func parseResult<Data: GraphQLMapDecodable>(responseMap: GraphQLMap) throws -> GraphQLResult<Data> {
