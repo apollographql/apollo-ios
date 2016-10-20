@@ -12,8 +12,6 @@ Because the generated types are query-specific, you're only able to access data 
 
 You can conveniently work with your UI code and corresponding GraphQL definitions side by side. Our Xcode integration will even validate your query documents and show errors inline.
 
-<div style="position: relative; padding: 0px; display: inline-block; overflow: hidden; box-sizing: border-box;"><video class="gfyVid" autoplay="" loop="" poster="https://thumbs.gfycat.com/PracticalSmoggyGlassfrog-poster.jpg" style="width: 100%; height: auto;"><source src="https://fat.gfycat.com/PracticalSmoggyGlassfrog.webm" type="video/webm" class="webmsource"><source src="https://giant.gfycat.com/PracticalSmoggyGlassfrog.mp4" type="video/mp4" class="mp4source"></video><div style="position: absolute; background-color: rgba(0, 0, 0, 0.4); color: rgb(255, 255, 255); font-family: Arial, sans-serif; font-size: 20px; padding: 10px; left: 0px; top: 0px; display: none; width: 903px;">Using Apollo iOS in Xcode</div><canvas width="923" height="577" style="position: absolute; left: 0px; top: 0px;"></canvas></div>
-
 ## Documentation
 
 Documentation can be found [here](http://dev.apollodata.com/ios/).
