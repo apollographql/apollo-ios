@@ -2,7 +2,7 @@
 title: Introduction
 ---
 
-Apollo iOS is a GraphQL client for iOS, written in Swift.
+[Apollo iOS](https://github.com/apollostack/apollo-ios) is a GraphQL client for iOS, written in Swift.
 
 It allows you to execute queries and mutations against a GraphQL server, and returns results as query-specific Swift types.
 
