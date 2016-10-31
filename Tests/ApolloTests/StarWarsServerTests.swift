@@ -90,7 +90,7 @@ class StarWarsServerTests: XCTestCase {
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     let expectation = self.expectation(description: "Fetching query")
 
-    client.fetch(query: query) { (result, error) in
+    _  = client.fetch(query: query) { (result, error) in
       defer { expectation.fulfill() }
 
       if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
@@ -111,7 +111,7 @@ class StarWarsServerTests: XCTestCase {
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     let expectation = self.expectation(description: "Performing mutation")
     
-    client.perform(mutation: mutation) { (result, error) in
+    _ = client.perform(mutation: mutation) { (result, error) in
       defer { expectation.fulfill() }
       
       if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
