@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C4DBCE71DD21CF0005B61D0 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C4DBCDE1DD21CEF005B61D0 /* Apollo.framework */; };
+		3C4DBD031DD21D54005B61D0 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C4DBCFA1DD21D53005B61D0 /* Apollo.framework */; };
 		9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */; };
 		9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D071D9BCB990042B71A /* HeroName.graphql */; };
 		9F057D0B1D9BCB990042B71A /* TwoHeroes.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D081D9BCB990042B71A /* TwoHeroes.graphql */; };
@@ -32,6 +34,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3C4DBCE81DD21CF0005B61D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C4DBCDD1DD21CEF005B61D0;
+			remoteInfo = ApolloTvOS;
+		};
+		3C4DBD041DD21D54005B61D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C4DBCF91DD21D53005B61D0;
+			remoteInfo = ApolloMacOS;
+		};
 		9FC750501D2A532D00458D91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -42,6 +58,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C4DBCD11DD21C9D005B61D0 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C4DBCDE1DD21CEF005B61D0 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C4DBCE61DD21CF0005B61D0 /* ApolloTests tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ApolloTests tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C4DBCFA1DD21D53005B61D0 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C4DBD021DD21D53005B61D0 /* ApolloTests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ApolloTests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAppearsIn.graphql; sourceTree = "<group>"; };
 		9F057D071D9BCB990042B71A /* HeroName.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroName.graphql; sourceTree = "<group>"; };
 		9F057D081D9BCB990042B71A /* TwoHeroes.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
@@ -58,7 +79,7 @@
 		9FC750441D2A532C00458D91 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC750471D2A532C00458D91 /* Apollo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Apollo.h; sourceTree = "<group>"; };
 		9FC750491D2A532C00458D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FC7504E1D2A532D00458D91 /* ApolloTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FC7504E1D2A532D00458D91 /* ApolloTests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ApolloTests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC750531D2A532D00458D91 /* ParseQueryResultDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseQueryResultDataTests.swift; sourceTree = "<group>"; };
 		9FC750551D2A532D00458D91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FC750601D2A59C300458D91 /* GraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQL.swift; sourceTree = "<group>"; };
@@ -70,6 +91,43 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3C4DBCCD1DD21C9D005B61D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCDA1DD21CEF005B61D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCE31DD21CF0005B61D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C4DBCE71DD21CF0005B61D0 /* Apollo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCF61DD21D53005B61D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCFF1DD21D53005B61D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C4DBD031DD21D54005B61D0 /* Apollo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9FC750401D2A532C00458D91 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,7 +200,12 @@
 			isa = PBXGroup;
 			children = (
 				9FC750441D2A532C00458D91 /* Apollo.framework */,
-				9FC7504E1D2A532D00458D91 /* ApolloTests.xctest */,
+				9FC7504E1D2A532D00458D91 /* ApolloTests iOS.xctest */,
+				3C4DBCD11DD21C9D005B61D0 /* Apollo.framework */,
+				3C4DBCDE1DD21CEF005B61D0 /* Apollo.framework */,
+				3C4DBCE61DD21CF0005B61D0 /* ApolloTests tvOS.xctest */,
+				3C4DBCFA1DD21D53005B61D0 /* Apollo.framework */,
+				3C4DBD021DD21D53005B61D0 /* ApolloTests macOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,6 +251,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3C4DBCCE1DD21C9D005B61D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCDB1DD21CEF005B61D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCF71DD21D53005B61D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9FC750411D2A532C00458D91 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,9 +283,99 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9FC750431D2A532C00458D91 /* Apollo */ = {
+		3C4DBCD01DD21C9D005B61D0 /* Apollo watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FC750581D2A532D00458D91 /* Build configuration list for PBXNativeTarget "Apollo" */;
+			buildConfigurationList = 3C4DBCD61DD21C9D005B61D0 /* Build configuration list for PBXNativeTarget "Apollo watchOS" */;
+			buildPhases = (
+				3C4DBCCC1DD21C9D005B61D0 /* Sources */,
+				3C4DBCCD1DD21C9D005B61D0 /* Frameworks */,
+				3C4DBCCE1DD21C9D005B61D0 /* Headers */,
+				3C4DBCCF1DD21C9D005B61D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Apollo watchOS";
+			productName = ApolloWatchOS;
+			productReference = 3C4DBCD11DD21C9D005B61D0 /* Apollo.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3C4DBCDD1DD21CEF005B61D0 /* Apollo tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C4DBCEF1DD21CF0005B61D0 /* Build configuration list for PBXNativeTarget "Apollo tvOS" */;
+			buildPhases = (
+				3C4DBCD91DD21CEF005B61D0 /* Sources */,
+				3C4DBCDA1DD21CEF005B61D0 /* Frameworks */,
+				3C4DBCDB1DD21CEF005B61D0 /* Headers */,
+				3C4DBCDC1DD21CEF005B61D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Apollo tvOS";
+			productName = ApolloTvOS;
+			productReference = 3C4DBCDE1DD21CEF005B61D0 /* Apollo.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3C4DBCE51DD21CF0005B61D0 /* ApolloTests tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C4DBCF21DD21CF0005B61D0 /* Build configuration list for PBXNativeTarget "ApolloTests tvOS" */;
+			buildPhases = (
+				3C4DBCE21DD21CF0005B61D0 /* Sources */,
+				3C4DBCE31DD21CF0005B61D0 /* Frameworks */,
+				3C4DBCE41DD21CF0005B61D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3C4DBCE91DD21CF0005B61D0 /* PBXTargetDependency */,
+			);
+			name = "ApolloTests tvOS";
+			productName = ApolloTvOSTests;
+			productReference = 3C4DBCE61DD21CF0005B61D0 /* ApolloTests tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3C4DBCF91DD21D53005B61D0 /* Apollo macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C4DBD0B1DD21D54005B61D0 /* Build configuration list for PBXNativeTarget "Apollo macOS" */;
+			buildPhases = (
+				3C4DBCF51DD21D53005B61D0 /* Sources */,
+				3C4DBCF61DD21D53005B61D0 /* Frameworks */,
+				3C4DBCF71DD21D53005B61D0 /* Headers */,
+				3C4DBCF81DD21D53005B61D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Apollo macOS";
+			productName = ApolloMacOS;
+			productReference = 3C4DBCFA1DD21D53005B61D0 /* Apollo.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3C4DBD011DD21D53005B61D0 /* ApolloTests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C4DBD0E1DD21D54005B61D0 /* Build configuration list for PBXNativeTarget "ApolloTests macOS" */;
+			buildPhases = (
+				3C4DBCFE1DD21D53005B61D0 /* Sources */,
+				3C4DBCFF1DD21D53005B61D0 /* Frameworks */,
+				3C4DBD001DD21D53005B61D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3C4DBD051DD21D54005B61D0 /* PBXTargetDependency */,
+			);
+			name = "ApolloTests macOS";
+			productName = ApolloMacOSTests;
+			productReference = 3C4DBD021DD21D53005B61D0 /* ApolloTests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9FC750431D2A532C00458D91 /* Apollo iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FC750581D2A532D00458D91 /* Build configuration list for PBXNativeTarget "Apollo iOS" */;
 			buildPhases = (
 				9FC7503F1D2A532C00458D91 /* Sources */,
 				9FC750401D2A532C00458D91 /* Frameworks */,
@@ -212,14 +386,14 @@
 			);
 			dependencies = (
 			);
-			name = Apollo;
+			name = "Apollo iOS";
 			productName = Apollo;
 			productReference = 9FC750441D2A532C00458D91 /* Apollo.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9FC7504D1D2A532D00458D91 /* ApolloTests */ = {
+		9FC7504D1D2A532D00458D91 /* ApolloTests iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FC7505B1D2A532D00458D91 /* Build configuration list for PBXNativeTarget "ApolloTests" */;
+			buildConfigurationList = 9FC7505B1D2A532D00458D91 /* Build configuration list for PBXNativeTarget "ApolloTests iOS" */;
 			buildPhases = (
 				9F952B2B1D882F53009CE897 /* Generate Apollo Client API */,
 				9FC7504A1D2A532D00458D91 /* Sources */,
@@ -231,9 +405,9 @@
 			dependencies = (
 				9FC750511D2A532D00458D91 /* PBXTargetDependency */,
 			);
-			name = ApolloTests;
+			name = "ApolloTests iOS";
 			productName = ApolloTests;
-			productReference = 9FC7504E1D2A532D00458D91 /* ApolloTests.xctest */;
+			productReference = 9FC7504E1D2A532D00458D91 /* ApolloTests iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -246,6 +420,26 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Meteor Development Group";
 				TargetAttributes = {
+					3C4DBCD01DD21C9D005B61D0 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					3C4DBCDD1DD21CEF005B61D0 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					3C4DBCE51DD21CF0005B61D0 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					3C4DBCF91DD21D53005B61D0 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					3C4DBD011DD21D53005B61D0 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
 					9FC750431D2A532C00458D91 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 5TL236FN6U;
@@ -273,13 +467,53 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9FC750431D2A532C00458D91 /* Apollo */,
-				9FC7504D1D2A532D00458D91 /* ApolloTests */,
+				9FC750431D2A532C00458D91 /* Apollo iOS */,
+				9FC7504D1D2A532D00458D91 /* ApolloTests iOS */,
+				3C4DBCD01DD21C9D005B61D0 /* Apollo watchOS */,
+				3C4DBCDD1DD21CEF005B61D0 /* Apollo tvOS */,
+				3C4DBCE51DD21CF0005B61D0 /* ApolloTests tvOS */,
+				3C4DBCF91DD21D53005B61D0 /* Apollo macOS */,
+				3C4DBD011DD21D53005B61D0 /* ApolloTests macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3C4DBCCF1DD21C9D005B61D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCDC1DD21CEF005B61D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCE41DD21CF0005B61D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCF81DD21D53005B61D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBD001DD21D53005B61D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9FC750421D2A532C00458D91 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,6 +555,41 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3C4DBCCC1DD21C9D005B61D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCD91DD21CEF005B61D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCE21DD21CF0005B61D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCF51DD21D53005B61D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C4DBCFE1DD21D53005B61D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9FC7503F1D2A532C00458D91 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -351,14 +620,226 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3C4DBCE91DD21CF0005B61D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C4DBCDD1DD21CEF005B61D0 /* Apollo tvOS */;
+			targetProxy = 3C4DBCE81DD21CF0005B61D0 /* PBXContainerItemProxy */;
+		};
+		3C4DBD051DD21D54005B61D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C4DBCF91DD21D53005B61D0 /* Apollo macOS */;
+			targetProxy = 3C4DBD041DD21D54005B61D0 /* PBXContainerItemProxy */;
+		};
 		9FC750511D2A532D00458D91 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9FC750431D2A532C00458D91 /* Apollo */;
+			target = 9FC750431D2A532C00458D91 /* Apollo iOS */;
 			targetProxy = 9FC750501D2A532D00458D91 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3C4DBCD71DD21C9D005B61D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloWatchOS;
+				PRODUCT_NAME = Apollo;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		3C4DBCD81DD21C9D005B61D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloWatchOS;
+				PRODUCT_NAME = Apollo;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		3C4DBCF01DD21CF0005B61D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTvOS;
+				PRODUCT_NAME = Apollo;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		3C4DBCF11DD21CF0005B61D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTvOS;
+				PRODUCT_NAME = Apollo;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		3C4DBCF31DD21CF0005B61D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTvOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		3C4DBCF41DD21CF0005B61D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTvOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		3C4DBD0C1DD21D54005B61D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloMacOS;
+				PRODUCT_NAME = Apollo;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		3C4DBD0D1DD21D54005B61D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloMacOS;
+				PRODUCT_NAME = Apollo;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		3C4DBD0F1DD21D54005B61D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloMacOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		3C4DBD101DD21D54005B61D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloMacOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		9FC750561D2A532D00458D91 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -471,7 +952,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.Apollo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Apollo;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -491,7 +972,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.Apollo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Apollo;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -524,6 +1005,46 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3C4DBCD61DD21C9D005B61D0 /* Build configuration list for PBXNativeTarget "Apollo watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4DBCD71DD21C9D005B61D0 /* Debug */,
+				3C4DBCD81DD21C9D005B61D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3C4DBCEF1DD21CF0005B61D0 /* Build configuration list for PBXNativeTarget "Apollo tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4DBCF01DD21CF0005B61D0 /* Debug */,
+				3C4DBCF11DD21CF0005B61D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3C4DBCF21DD21CF0005B61D0 /* Build configuration list for PBXNativeTarget "ApolloTests tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4DBCF31DD21CF0005B61D0 /* Debug */,
+				3C4DBCF41DD21CF0005B61D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3C4DBD0B1DD21D54005B61D0 /* Build configuration list for PBXNativeTarget "Apollo macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4DBD0C1DD21D54005B61D0 /* Debug */,
+				3C4DBD0D1DD21D54005B61D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3C4DBD0E1DD21D54005B61D0 /* Build configuration list for PBXNativeTarget "ApolloTests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C4DBD0F1DD21D54005B61D0 /* Debug */,
+				3C4DBD101DD21D54005B61D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		9FC7503E1D2A532C00458D91 /* Build configuration list for PBXProject "Apollo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -533,7 +1054,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FC750581D2A532D00458D91 /* Build configuration list for PBXNativeTarget "Apollo" */ = {
+		9FC750581D2A532D00458D91 /* Build configuration list for PBXNativeTarget "Apollo iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FC750591D2A532D00458D91 /* Debug */,
@@ -542,7 +1063,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FC7505B1D2A532D00458D91 /* Build configuration list for PBXNativeTarget "ApolloTests" */ = {
+		9FC7505B1D2A532D00458D91 /* Build configuration list for PBXNativeTarget "ApolloTests iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FC7505C1D2A532D00458D91 /* Debug */,
