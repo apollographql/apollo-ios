@@ -33,9 +33,9 @@
 		3C4DBD281DD231FB005B61D0 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		3C4DBD291DD231FC005B61D0 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		3C4DBD2A1DD231FD005B61D0 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
-		3C4DBD2B1DD23202005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; };
-		3C4DBD2C1DD23203005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; };
-		3C4DBD2D1DD23203005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; };
+		3C4DBD2B1DD23202005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C4DBD2C1DD23203005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C4DBD2D1DD23203005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C4DBD2E1DD23209005B61D0 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
 		3C4DBD2F1DD2320B005B61D0 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
 		3C4DBD301DD2320C005B61D0 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
