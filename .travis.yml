@@ -3,7 +3,7 @@ language: objective-c
 osx_image: xcode8
 
 xcode_project: Apollo.xcodeproj
-xcode_scheme: Apollo
+xcode_scheme: Apollo iOS
 
 xcode_sdk: iphonesimulator10.0
 
