@@ -6,7 +6,7 @@ title: Introduction
 
 It allows you to execute queries and mutations against a GraphQL server, and returns results as query-specific Swift types.
 
-This means you don't have to deal with parsing JSON, or passing around around dictionaries and making clients cast values to the right type manually. Instead, the structs returned allow you to access data and navigate relationships using the appropriate native types directly. This also gives you nice features like code completion.
+This means you don't have to deal with parsing JSON, or passing around dictionaries and making clients cast values to the right type manually. Instead, the structs returned allow you to access data and navigate relationships using the appropriate native types directly. This also gives you nice features like code completion.
 
 Because the generated types are query-specific, you're only able to access data you actually specify as part of a query. If you don't ask for a field, you won't be able to access the corresponding property. In effect, this means you can now rely on the Swift type checker to make sure errors in data access show up at compile time.
 
@@ -28,7 +28,7 @@ To learn more about Apollo and GraphQL, visit:
 - [Our website](http://www.apollostack.com/) to learn about Apollo open source tools,
 - [Our Medium blog](https://medium.com/apollo-stack) for detailed insights about GraphQL.
 
-Apollo iOS is under active development, and there is plenty to work on, but we want to ensure we’re addressing real needs, and prioritize features accordingly. So if you’re using or planning to use GraphQL in an iOS app, please get in touch on the `#ios` channel on [Slack](http://apollostack.com/#slack).
+Apollo iOS is under active development, and there is plenty to work on, but we want to ensure we’re addressing real needs and prioritize features accordingly. If you’re using or planning to use GraphQL in an iOS app, please get in touch in the `#ios` channel on our [Slack](http://apollostack.com/#slack).
 
 The Apollo team builds and maintains a collection of utilities designed to make it easier to use [GraphQL](http://graphql.org) across a range of front-end and server technologies. There are similar guides for [React](/react), [Angular 2](/angular2), and the [core](/core) `apollo-client` JavaScript package that can be used anywhere JavaScript runs.
 
