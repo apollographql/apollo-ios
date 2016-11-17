@@ -19,34 +19,54 @@ public struct GraphQLMap {
   }
 
   public func value<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> T {
-    return try decoder(jsonValue(forKey: key))
+    do {
+      return try decoder(jsonValue(forKey: key))
+    } catch let error as JSONDecodingError {
+      throw GraphQLMapDecodingError(error: error, key: key, localizedJson: jsonObject)
+    }
   }
 
   public func value<T: JSONDecodable>(forKey key: String) throws -> T {
-    return try value(forKey: key, decoder: T.init(jsonValue:))
+    do {
+      return try value(forKey: key, decoder: T.init(jsonValue:))
+    } catch let error as JSONDecodingError {
+      throw GraphQLMapDecodingError(error: error, key: key, localizedJson: jsonObject)
+    }
   }
 
   public func optionalValue<T: JSONDecodable>(forKey key: String) throws -> T? {
     guard let jsonValue = optionalJSONValue(forKey: key) else { return nil }
-    return try Optional<T>.init(jsonValue: jsonValue)
+    do {
+      return try Optional<T>.init(jsonValue: jsonValue)
+    } catch let error as JSONDecodingError {
+      throw GraphQLMapDecodingError(error: error, key: key, localizedJson: jsonObject)
+    }
   }
 
   public func list<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T] {
-    let value = try jsonValue(forKey: key)
-    guard let array = value as? JSONArray else {
-      throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
+    do {
+      let value = try jsonValue(forKey: key)
+      guard let array = value as? JSONArray else {
+        throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
+      }
+      return try array.map { try decoder($0) }
+    } catch let error as JSONDecodingError {
+      throw GraphQLMapDecodingError(error: error, key: key, localizedJson: jsonObject)
     }
-    return try array.map { try decoder($0) }
   }
 
   public func optionalList<T>(forKey key: String, decoder: JSONDecoder<T>) throws -> [T]? {
     guard let value = optionalJSONValue(forKey: key) else { return nil }
     if value is NSNull { return nil }
 
-    guard let array = value as? JSONArray else {
-      throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
+    do {
+      guard let array = value as? JSONArray else {
+        throw JSONDecodingError.couldNotConvert(value: value, to: JSONArray.self)
+      }
+      return try array.map { try decoder($0) }
+    } catch let error as JSONDecodingError {
+      throw GraphQLMapDecodingError(error: error, key: key, localizedJson: jsonObject)
     }
-    return try array.map { try decoder($0) }
   }
 
   public func list<T: JSONDecodable>(forKey key: String) throws -> [T] {
@@ -144,5 +164,22 @@ public protocol GraphQLMapEncodable: JSONEncodable {
 public extension GraphQLMapEncodable {
   public var jsonValue: JSONValue {
     return graphQLMap.jsonValue
+  }
+}
+
+public struct GraphQLMapDecodingError: Error, LocalizedError {
+
+  public let jsonDecodingError: JSONDecodingError
+  public let localizedJson: JSONObject
+  public let key: String
+
+  init(error: JSONDecodingError, key: String, localizedJson: JSONObject) {
+    self.jsonDecodingError = error
+    self.localizedJson = localizedJson
+    self.key = key
+  }
+
+  public var errorDescription: String? {
+    return jsonDecodingError.errorDescription
   }
 }

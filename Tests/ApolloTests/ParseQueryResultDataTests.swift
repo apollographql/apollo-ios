@@ -39,7 +39,8 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = HeroNameQuery()
 
     XCTAssertThrowsError(try query.parse(data: data)) { error in
-      if case JSONDecodingError.missingValue(let key) = error {
+      if let error = error as? GraphQLMapDecodingError,
+         case JSONDecodingError.missingValue(let key) = error.jsonDecodingError {
         XCTAssertEqual(key, "name")
       } else {
         XCTFail("Unexpected error: \(error)")
@@ -53,7 +54,8 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = HeroNameQuery()
 
     XCTAssertThrowsError(try query.parse(data: data)) { error in
-      if case JSONDecodingError.couldNotConvert(let value, let expectedType) = error {
+      if let error = error as? GraphQLMapDecodingError,
+         case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.jsonDecodingError {
         XCTAssertEqual(value as? Int, 10)
         XCTAssertTrue(expectedType == String.self)
       } else {
@@ -145,7 +147,8 @@ class ParseQueryResultDataTests: XCTestCase {
     let query = HeroDetailsQuery(episode: .empire)
 
     XCTAssertThrowsError(try query.parse(data: data)) { error in
-      if case JSONDecodingError.missingValue(let key) = error {
+      if let error = error as? GraphQLMapDecodingError,
+         case JSONDecodingError.missingValue(let key) = error.jsonDecodingError {
         XCTAssertEqual(key, "__typename")
       } else {
         XCTFail("Unexpected error: \(error)")
