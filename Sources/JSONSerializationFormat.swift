@@ -1,15 +1,9 @@
-import Foundation
-
 final class JSONSerializationFormat {
-  func serialize(map: GraphQLMap) throws -> Data {
-    return try JSONSerialization.data(withJSONObject: map.jsonValue, options: [])
+  class func serialize(value: GraphQLInputValue) throws -> Data {
+    return try JSONSerialization.data(withJSONObject: value.jsonValue, options: [])
   }
   
-  func deserialize(data: Data) throws -> GraphQLMap {
-    guard let jsonObject = (try? JSONSerialization.jsonObject(with: data, options: [])) as? JSONObject else {
-      throw JSONDecodingError.invalidData
-    }
-    
-    return GraphQLMap(jsonObject: jsonObject)
+  class func deserialize(data: Data) throws -> Any {
+    return try JSONSerialization.jsonObject(with: data, options: [])
   }
 }

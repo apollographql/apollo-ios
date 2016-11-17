@@ -15,3 +15,8 @@ extension HTTPURLResponse {
     return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding(encodingName as CFString)))
   }
 }
+
+public protocol Matchable {
+  associatedtype Base
+  static func ~=(pattern: Self, value: Base) -> Bool
+}

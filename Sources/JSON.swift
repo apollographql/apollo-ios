@@ -1,10 +1,6 @@
-import Foundation
-
 public typealias JSONValue = Any
-public typealias JSONObject = [String: Any]
-public typealias JSONArray = [JSONValue]
 
-public typealias JSONDecoder<T> = (_ jsonValue: JSONValue) throws -> T
+public typealias JSONObject = [String: JSONValue]
 
 public protocol JSONDecodable {
   init(jsonValue value: JSONValue) throws
@@ -15,18 +11,34 @@ public protocol JSONEncodable {
 }
 
 public enum JSONDecodingError: Error, LocalizedError {
-  case invalidData
-  case missingValue(forKey: String)
-  case couldNotConvert(value: JSONValue, to: Any.Type)
-
+  case missingValue
+  case nullValue
+  case couldNotConvert(value: Any, to: Any.Type)
+  
   public var errorDescription: String? {
     switch self {
-    case .invalidData:
-      return "Invalid JSON data"
-    case .missingValue(let key):
-      return "Missing value for key: \(key)"
+    case .missingValue:
+      return "Missing value"
+    case .nullValue:
+      return "Unexpected null value"
     case .couldNotConvert(let value, let expectedType):
       return "Could not convert \"\(value)\" to \(expectedType)"
+    }
+  }
+}
+
+extension JSONDecodingError: Matchable {
+  public typealias Base = Error
+  public static func ~=(pattern: JSONDecodingError, value: Error) -> Bool {
+    guard let value = value as? JSONDecodingError else {
+      return false
+    }
+    
+    switch (value, pattern) {
+    case (.missingValue, .missingValue), (.nullValue, .nullValue), (.couldNotConvert, .couldNotConvert):
+      return true
+    default:
+      return false
     }
   }
 }

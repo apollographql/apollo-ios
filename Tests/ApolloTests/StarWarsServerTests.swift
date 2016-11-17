@@ -13,7 +13,7 @@ class StarWarsServerTests: XCTestCase {
       ("testCreateReviewForEpisode", testCreateReviewForEpisode),
     ]
   }
-  
+
   var client: ApolloClient!
 
   override func setUp() {
@@ -32,15 +32,21 @@ class StarWarsServerTests: XCTestCase {
     fetch(query: HeroAndFriendsNamesQuery(episode: .jedi)) { (data) in
       XCTAssertEqual(data.hero?.name, "R2-D2")
       let friendsNames = data.hero?.friends?.flatMap { $0?.name }
-      XCTAssertEqual(friendsNames!, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
 
   func testHeroAppearsInQuery() {
     fetch(query: HeroAppearsInQuery()) { (data) in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let episodes = data.hero?.appearsIn.flatMap { $0 }
-      XCTAssertEqual(episodes!, [.newhope, .empire, .jedi])
+      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
+    }
+  }
+
+  func testHumanWithNullHeightQuery() {
+    fetch(query: HumanWithNullHeightQuery()) { (data) in
+      XCTAssertEqual(data.human?.name, "Wilhuff Tarkin")
+      XCTAssertNil(data.human?.mass)
     }
   }
 
@@ -79,7 +85,7 @@ class StarWarsServerTests: XCTestCase {
       XCTAssertEqual(human.height, 1.72)
     }
   }
-  
+
   func testCreateReviewForEpisode() {
     perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 5, commentary: "This is a great movie!"))) { (data) in
       XCTAssertEqual(data.createReview?.stars, 5)
@@ -107,25 +113,25 @@ class StarWarsServerTests: XCTestCase {
 
     waitForExpectations(timeout: 1, handler: nil)
   }
-  
+
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     let expectation = self.expectation(description: "Performing mutation")
-    
+
     _ = client.perform(mutation: mutation) { (result, error) in
       defer { expectation.fulfill() }
-      
+
       if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
       guard let result = result else { XCTFail("No mutation result");  return }
-      
+
       if let errors = result.errors {
         XCTFail("Errors in mutation result: \(errors)")
       }
-      
+
       guard let data = result.data else { XCTFail("No mutation result data");  return }
-      
+
       completionHandler(data)
     }
-    
+
     waitForExpectations(timeout: 1, handler: nil)
   }
 }

@@ -1,10 +1,10 @@
 import Foundation
 
 public protocol NetworkTransport {
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) -> Cancellable
+  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable
 }
 
-extension URLSessionTask : Cancellable { }
+extension URLSessionTask: Cancellable {}
 
 struct GraphQLResponseError: Error, LocalizedError {
   enum ErrorKind {
@@ -45,21 +45,21 @@ struct GraphQLResponseError: Error, LocalizedError {
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
-  let serializationFormat = JSONSerializationFormat()
+  let serializationFormat = JSONSerializationFormat.self
 
   public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
     self.url = url
     self.session = URLSession(configuration: configuration)
   }
 
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping GraphQLOperationResponseHandler<Operation>) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
 
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
     let body: GraphQLMap = ["query": type(of: operation).queryDocument, "variables": operation.variables]
-    request.httpBody = try! serializationFormat.serialize(map: body)
+    request.httpBody = try! serializationFormat.serialize(value: body)
 
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -82,20 +82,16 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
 
       do {
-        let responseMap = try self.serializationFormat.deserialize(data: data)
-        let result: GraphQLResult<Operation.Data> = try self.parseResult(responseMap: responseMap)
-        completionHandler(result, nil)
+        guard let rootObject = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
+          throw GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse)
+        }
+        let response = GraphQLResponse(operation: operation, rootObject: rootObject)
+        completionHandler(response, nil)
       } catch {
         completionHandler(nil, error)
       }
     }
     task.resume()
     return task
-  }
-
-  private func parseResult<Data: GraphQLMapDecodable>(responseMap: GraphQLMap) throws -> GraphQLResult<Data> {
-    let data: Data? = try responseMap.optionalValue(forKey: "data")
-    let errors: [GraphQLError]? = try responseMap.optionalList(forKey: "errors")
-    return GraphQLResult(data: data, errors: errors)
   }
 }
