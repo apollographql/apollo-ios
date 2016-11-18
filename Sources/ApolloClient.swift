@@ -15,11 +15,11 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
 
-  public func fetch<Query: GraphQLQuery>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Query.Data>?, Error?) -> Void) -> Cancellable {
+  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Query.Data>?, Error?) -> Void) -> Cancellable {
     return perform(operation: query, completionHandler: completionHandler)
   }
   
-  public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Mutation.Data>?, Error?) -> Void) -> Cancellable {
+  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Mutation.Data>?, Error?) -> Void) -> Cancellable {
     return perform(operation: mutation, completionHandler: completionHandler)
   }
 
