@@ -92,6 +92,32 @@ class StarWarsServerTests: XCTestCase {
       XCTAssertEqual(data.createReview?.commentary, "This is a great movie!")
     }
   }
+  
+  func testHeroTypeDependentAliasedFieldDroid() {
+    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .jedi)) { (data) in
+      XCTAssertEqual(data.hero?.asDroid?.property, "Astromech")
+      XCTAssertNil(data.hero?.asHuman?.property)
+    }
+  }
+  
+  func testHeroTypeDependentAliasedFieldHuman() {
+    fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .empire)) { (data) in
+      XCTAssertEqual(data.hero?.asHuman?.property, "Tatooine")
+      XCTAssertNil(data.hero?.asDroid?.property)
+    }
+  }
+  
+  func testHeroParentTypeDependentFieldDroid() {
+    fetch(query: HeroParentTypeDependentFieldQuery(episode: .jedi)) { (data) in
+      XCTAssertEqual(data.hero?.asDroid?.friends?.first??.asHuman?.height?.rounded(), 2)
+    }
+  }
+  
+  func testHeroParentTypeDependentFieldHuman() {
+    fetch(query: HeroParentTypeDependentFieldQuery(episode: .empire)) { (data) in
+      XCTAssertEqual(data.hero?.asHuman?.friends?.first??.asHuman?.height?.rounded(), 6)
+    }
+  }
 
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     let expectation = self.expectation(description: "Fetching query")
