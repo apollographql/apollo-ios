@@ -33,9 +33,6 @@
 		3C4DBD2B1DD23202005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C4DBD2C1DD23203005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C4DBD2D1DD23203005B61D0 /* Apollo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC750471D2A532C00458D91 /* Apollo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3C4DBD2E1DD23209005B61D0 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
-		3C4DBD2F1DD2320B005B61D0 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
-		3C4DBD301DD2320C005B61D0 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
 		9F057D091D9BCB990042B71A /* HeroAppearsIn.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D061D9BCB990042B71A /* HeroAppearsIn.graphql */; };
 		9F057D0A1D9BCB990042B71A /* HeroName.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D071D9BCB990042B71A /* HeroName.graphql */; };
 		9F057D0B1D9BCB990042B71A /* TwoHeroes.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9F057D081D9BCB990042B71A /* TwoHeroes.graphql */; };
@@ -57,7 +54,6 @@
 		9FC7504F1D2A532D00458D91 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
 		9FC750611D2A59C300458D91 /* GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQL.swift */; };
 		9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750621D2A59F600458D91 /* ApolloClient.swift */; };
-		9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3F3971DADBD870072078F /* check-and-run-apollo-codegen.sh */; };
 		9FEB050D1DB5732300DA3B44 /* JSONSerializationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB050C1DB5732300DA3B44 /* JSONSerializationFormat.swift */; };
 		9FF1F2361DB318250011DE94 /* CreateReviewForEpisode.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 9FF1F2351DB318250011DE94 /* CreateReviewForEpisode.graphql */; };
 		9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */; };
@@ -544,7 +540,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C4DBD2E1DD23209005B61D0 /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,7 +547,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C4DBD2F1DD2320B005B61D0 /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,7 +561,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C4DBD301DD2320C005B61D0 /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,7 +578,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,7 +612,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/ApolloTests/StarWars\n$APOLLO_FRAMEWORK_PATH/Resources/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema schema.json --output API.swift";
+			shellScript = "PODS_APOLLO_SCRIPTS_PATH=\"$PODS_ROOT/Apollo/scripts\"\nCARTHAGE_APOLLO_SCRIPTS_PATH=\"$PROJECT_DIR/Carthage/Checkouts/apollo-ios/scripts\"\n\nif [ -d \"$PODS_APOLLO_SCRIPTS_PATH\" ]; then\n\tAPOLLO_CODEGEN_SCRIPT_PATH=\"$PODS_APOLLO_SCRIPTS_PATH/check-and-run-apollo-codegen.sh\"\nelif [ -d \"$CARTHAGE_APOLLO_SCRIPTS_PATH\" ]; then\n\tAPOLLO_CODEGEN_SCRIPT_PATH=\"$CARTHAGE_APOLLO_SCRIPTS_PATH/check-and-run-apollo-codegen.sh\"\nelse\n\tAPOLLO_CODEGEN_SCRIPT_PATH=$(find $PROJECT_DIR -name \"check-and-run-apollo-codegen.sh\" -maxdepth 2)\nfi\n\nif [ -z \"$APOLLO_CODEGEN_SCRIPT_PATH\" ]; then\n\techo \"error: Couldn't find Apollo codegen script.\"\n\texit 1\nfi\n\ncd ${SRCROOT}/Tests/ApolloTests/StarWars\n\"$APOLLO_CODEGEN_SCRIPT_PATH\" generate $(find . -name '*.graphql') --schema schema.json --output API.swift\n";
 		};
 		9F952B2B1D882F53009CE897 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -634,7 +626,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/ApolloTests/StarWars\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema schema.json --output API.swift";
+			shellScript = "PODS_APOLLO_SCRIPTS_PATH=\"$PODS_ROOT/Apollo/scripts\"\nCARTHAGE_APOLLO_SCRIPTS_PATH=\"$PROJECT_DIR/Carthage/Checkouts/apollo-ios/scripts\"\n\nif [ -d \"$PODS_APOLLO_SCRIPTS_PATH\" ]; then\n\tAPOLLO_CODEGEN_SCRIPT_PATH=\"$PODS_APOLLO_SCRIPTS_PATH/check-and-run-apollo-codegen.sh\"\nelif [ -d \"$CARTHAGE_APOLLO_SCRIPTS_PATH\" ]; then\n\tAPOLLO_CODEGEN_SCRIPT_PATH=\"$CARTHAGE_APOLLO_SCRIPTS_PATH/check-and-run-apollo-codegen.sh\"\nelse\n\tAPOLLO_CODEGEN_SCRIPT_PATH=$(find $PROJECT_DIR -name \"check-and-run-apollo-codegen.sh\" -maxdepth 2)\nfi\n\nif [ -z \"$APOLLO_CODEGEN_SCRIPT_PATH\" ]; then\n\techo \"error: Couldn't find Apollo codegen script.\"\n\texit 1\nfi\n\ncd ${SRCROOT}/Tests/ApolloTests/StarWars\n\"$APOLLO_CODEGEN_SCRIPT_PATH\" generate $(find . -name '*.graphql') --schema schema.json --output API.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
 
-  s.source_files = 'Sources/**/*.swift'
-  s.resource = 'scripts/check-and-run-apollo-codegen.sh'
+  s.source_files  = 'Sources/**/*.swift'
+  s.preserve_path = 'scripts/check-and-run-apollo-codegen.sh'
 end
