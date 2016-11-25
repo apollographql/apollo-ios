@@ -27,6 +27,26 @@ class StarWarsServerTests: XCTestCase {
       XCTAssertEqual(data.hero?.name, "R2-D2")
     }
   }
+  
+  func testHeroNameConditionalInclusionQuery() {
+    fetch(query: HeroNameConditionalInclusionQuery(includeName: true)) { (data) in
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+    }
+    
+    fetch(query: HeroNameConditionalInclusionQuery(includeName: false)) { (data) in
+      XCTAssertNil(data.hero?.name)
+    }
+  }
+  
+  func testHeroNameConditionalExclusionQuery() {
+    fetch(query: HeroNameConditionalExclusionQuery(skipName: true)) { (data) in
+      XCTAssertNil(data.hero?.name)
+    }
+    
+    fetch(query: HeroNameConditionalExclusionQuery(skipName: false)) { (data) in
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+    }
+  }
 
   func testHeroAndFriendsNamesQuery() {
     fetch(query: HeroAndFriendsNamesQuery(episode: .jedi)) { (data) in

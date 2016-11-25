@@ -307,6 +307,86 @@ public final class HeroNameQuery: GraphQLQuery {
   }
 }
 
+public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
+  public static let operationDefinition =
+    "query HeroNameConditionalInclusion($episode: Episode, $includeName: Boolean!) {" +
+    "  hero(episode: $episode) {" +
+    "    __typename" +
+    "    name @include(if: $includeName)" +
+    "  }" +
+    "}"
+
+  public let episode: Episode?
+  public let includeName: Bool
+
+  public init(episode: Episode? = nil, includeName: Bool) {
+    self.episode = episode
+    self.includeName = includeName
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode, "includeName": includeName]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let hero: Hero?
+
+    public init(reader: GraphQLResultReader) throws {
+      hero = try reader.optionalValue(for: Field(responseName: "hero"))
+    }
+
+    public struct Hero: GraphQLMappable {
+      public let __typename: String
+      public let name: String?
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+        name = try reader.optionalValue(for: Field(responseName: "name"))
+      }
+    }
+  }
+}
+
+public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
+  public static let operationDefinition =
+    "query HeroNameConditionalExclusion($episode: Episode, $skipName: Boolean!) {" +
+    "  hero(episode: $episode) {" +
+    "    __typename" +
+    "    name @skip(if: $skipName)" +
+    "  }" +
+    "}"
+
+  public let episode: Episode?
+  public let skipName: Bool
+
+  public init(episode: Episode? = nil, skipName: Bool) {
+    self.episode = episode
+    self.skipName = skipName
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode, "skipName": skipName]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let hero: Hero?
+
+    public init(reader: GraphQLResultReader) throws {
+      hero = try reader.optionalValue(for: Field(responseName: "hero"))
+    }
+
+    public struct Hero: GraphQLMappable {
+      public let __typename: String
+      public let name: String?
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+        name = try reader.optionalValue(for: Field(responseName: "name"))
+      }
+    }
+  }
+}
+
 public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let operationDefinition =
     "query HeroParentTypeDependentField($episode: Episode) {" +
