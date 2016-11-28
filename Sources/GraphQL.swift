@@ -10,7 +10,7 @@ public protocol GraphQLMapConvertible: JSONEncodable {
 
 extension GraphQLMapConvertible {
   public var jsonValue: JSONValue {
-    return graphQLMap
+    return graphQLMap.jsonValue
   }
 }
 
