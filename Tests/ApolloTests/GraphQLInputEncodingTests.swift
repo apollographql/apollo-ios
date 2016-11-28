@@ -15,8 +15,10 @@ class GraphQLInputEncodingTests: XCTestCase {
       ("testEncodeOptionalList", testEncodeOptionalList),
       ("testEncodeNilList", testEncodeNilList),
       ("testEncodeInputObject", testEncodeInputObject),
-      ("testEncodeInputObjectWithOptionalValue", testEncodeInputObjectWithOptionalValue),
-      ("testEncodeInputObjectWithNilValue", testEncodeInputObjectWithNilValue),
+      ("testEncodeInputObjectWithExplicitOptionalValue", testEncodeInputObjectWithExplicitOptionalValue),
+      ("testEncodeInputObjectWithoutOptionalValue", testEncodeInputObjectWithoutOptionalValue),
+      ("testEncodeInputObjectWithExplicitNilValue", testEncodeInputObjectWithExplicitNilValue),
+      ("testEncodeInputObjectWithNestedInputObject", testEncodeInputObjectWithNestedInputObject),
     ]
   }
   
@@ -81,15 +83,27 @@ class GraphQLInputEncodingTests: XCTestCase {
     XCTAssertEqual(serialize(value: map), ["review": ["stars": 5, "commentary": "This is a great movie!"]])
   }
   
-  func testEncodeInputObjectWithOptionalValue() {
+  func testEncodeInputObjectWithExplicitOptionalValue() {
     let review = ReviewInput(stars: 5, commentary: "This is a great movie!" as String?)
     let map: GraphQLMap = ["review": review]
     XCTAssertEqual(serialize(value: map), ["review": ["stars": 5, "commentary": "This is a great movie!"]])
   }
   
-  func testEncodeInputObjectWithNilValue() {
+  func testEncodeInputObjectWithoutOptionalValue() {
+    let review = ReviewInput(stars: 5)
+    let map: GraphQLMap = ["review": review]
+    XCTAssertEqual(serialize(value: map), ["review": ["stars": 5]])
+  }
+  
+  func testEncodeInputObjectWithExplicitNilValue() {
     let review = ReviewInput(stars: 5, commentary: nil)
     let map: GraphQLMap = ["review": review]
     XCTAssertEqual(serialize(value: map), ["review": ["stars": 5, "commentary": NSNull()]])
+  }
+  
+  func testEncodeInputObjectWithNestedInputObject() {
+    let review = ReviewInput(stars: 5, favoriteColor: ColorInput(red: 0, green: 0, blue: 0))
+    let map: GraphQLMap = ["review": review]
+    XCTAssertEqual(serialize(value: map), ["review": ["stars": 5, "favoriteColor": ["red": 0, "blue": 0, "green": 0]]])
   }
 }
