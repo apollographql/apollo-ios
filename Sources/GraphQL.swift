@@ -29,7 +29,7 @@ public struct GraphQLResult<Data> {
 }
 
 public struct GraphQLError: Error {
-  let message: String
+  public let message: String
 }
 
 extension GraphQLError: GraphQLMappable {
