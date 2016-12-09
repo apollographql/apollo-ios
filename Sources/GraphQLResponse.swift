@@ -2,7 +2,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
   let operation: Operation
   let rootObject: JSONObject
   
-  init(operation: Operation, rootObject: JSONObject) {
+  public init(operation: Operation, rootObject: JSONObject) {
     self.operation = operation
     self.rootObject = rootObject
   }
