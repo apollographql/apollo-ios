@@ -6,8 +6,8 @@ public protocol NetworkTransport {
 
 extension URLSessionTask: Cancellable {}
 
-struct GraphQLResponseError: Error, LocalizedError {
-  enum ErrorKind {
+public struct GraphQLHTTPResponseError: Error, LocalizedError {
+  public enum ErrorKind {
     case errorResponse
     case invalidResponse
 
@@ -21,11 +21,11 @@ struct GraphQLResponseError: Error, LocalizedError {
     }
   }
 
-  let body: Data?
-  let response: HTTPURLResponse
-  let kind: ErrorKind
+  public let body: Data?
+  public let response: HTTPURLResponse
+  public let kind: ErrorKind
 
-  var bodyDescription: String {
+  public var bodyDescription: String {
     if let body = body {
       if let description = String(data: body, encoding: response.textEncoding ?? .utf8) {
         return description
@@ -37,7 +37,7 @@ struct GraphQLResponseError: Error, LocalizedError {
     }
   }
 
-  var errorDescription: String? {
+  public var errorDescription: String? {
     return "\(kind.description) (\(response.statusCode) \(response.statusCodeDescription)): \(bodyDescription)"
   }
 }
@@ -72,18 +72,18 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
 
       if (!httpResponse.isSuccessful) {
-        completionHandler(nil, GraphQLResponseError(body: data, response: httpResponse, kind: .errorResponse))
+        completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
         return
       }
 
       guard let data = data else {
-        completionHandler(nil, GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
+        completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
         return
       }
 
       do {
         guard let rootObject = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
-          throw GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse)
+          throw GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse)
         }
         let response = GraphQLResponse(operation: operation, rootObject: rootObject)
         completionHandler(response, nil)
