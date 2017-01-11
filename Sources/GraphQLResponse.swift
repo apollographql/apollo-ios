@@ -1,4 +1,4 @@
-public final class GraphQLResponse<Operation: GraphQLOperation> {
+public final class GraphQLResponse<Operation: GraphQLOperation, GraphQLErrorType> where GraphQLErrorType: GraphQLMappable {
   let operation: Operation
   let rootObject: JSONObject
   
@@ -7,13 +7,13 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     self.rootObject = rootObject
   }
   
-  public func parseResult() throws -> GraphQLResult<Operation.Data> {
+  public func parseResult() throws -> GraphQLResult<Operation.Data, GraphQLErrorType> {
     let reader = GraphQLResultReader { field, object, info in
       return (object ?? self.rootObject)[field.responseName]
     }
     
     let data: Operation.Data? = try reader.parse(object: rootObject["data"])
-    let errors: [GraphQLError]? = try reader.parse(array: rootObject["errors"])
+    let errors: [GraphQLErrorType]? = try reader.parse(array: rootObject["errors"])
     
     return GraphQLResult(data: data, errors: errors)
   }

@@ -15,16 +15,16 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
 
-  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Query.Data>?, Error?) -> Void) -> Cancellable {
+  @discardableResult public func fetch<Query: GraphQLQuery, GraphQLErrorType: GraphQLMappable>(query: Query, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Query.Data, GraphQLErrorType>?, Error?) -> Void) -> Cancellable {
     return perform(operation: query, completionHandler: completionHandler)
   }
   
-  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Mutation.Data>?, Error?) -> Void) -> Cancellable {
+  @discardableResult public func perform<Mutation: GraphQLMutation, GraphQLErrorType: GraphQLMappable>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Mutation.Data, GraphQLErrorType>?, Error?) -> Void) -> Cancellable {
     return perform(operation: mutation, completionHandler: completionHandler)
   }
 
-  private func perform<Operation: GraphQLOperation>(operation: Operation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Operation.Data>?, Error?) -> Void) -> Cancellable {
-    return networkTransport.send(operation: operation) { (response, error) in
+  private func perform<Operation: GraphQLOperation, GraphQLErrorType: GraphQLMappable>(operation: Operation, queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (GraphQLResult<Operation.Data, GraphQLErrorType>?, Error?) -> Void) -> Cancellable {
+    return networkTransport.send(operation: operation) { (response: GraphQLResponse<Operation, GraphQLErrorType>?, error: Error?) in
       guard let response = response else {
         queue.async {
           completionHandler(nil, error)

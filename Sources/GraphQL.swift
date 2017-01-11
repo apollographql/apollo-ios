@@ -18,11 +18,11 @@ public protocol GraphQLMappable {
   init(reader: GraphQLResultReader) throws
 }
 
-public struct GraphQLResult<Data> {
+public struct GraphQLResult<Data, GraphQLErrorType> {
   public let data: Data?
-  public let errors: [GraphQLError]?
+  public let errors: [GraphQLErrorType]?
   
-  init(data: Data?, errors: [GraphQLError]?) {
+  init(data: Data?, errors: [GraphQLErrorType]?) {
     self.data = data
     self.errors = errors
   }
