@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol NetworkTransport {
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable
+    func send<Operation: GraphQLOperation, GraphQLErrorType: GraphQLMappable>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation, GraphQLErrorType>?, Error?) -> Void) -> Cancellable
 }
 
 extension URLSessionTask: Cancellable {}
@@ -43,6 +43,7 @@ struct GraphQLResponseError: Error, LocalizedError {
 }
 
 public class HTTPNetworkTransport: NetworkTransport {
+
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
@@ -52,7 +53,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.session = URLSession(configuration: configuration)
   }
 
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation, GraphQLErrorType : GraphQLMappable>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation, GraphQLErrorType>?, Error?) -> Void) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
 
@@ -85,7 +86,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         guard let rootObject = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLResponseError(body: nil, response: httpResponse, kind: .invalidResponse)
         }
-        let response = GraphQLResponse(operation: operation, rootObject: rootObject)
+        let response = GraphQLResponse<Operation, GraphQLErrorType>(operation: operation, rootObject: rootObject)
         completionHandler(response, nil)
       } catch {
         completionHandler(nil, error)
