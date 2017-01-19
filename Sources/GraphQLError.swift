@@ -1,21 +1,25 @@
 public struct GraphQLError: Error {
-  public let object: JSONObject
+  private let object: JSONObject
   
   init(_ object: JSONObject) {
     self.object = object
   }
   
-  var message: String {
-    return object["message"] as! String
+  public subscript(key: String) -> Any? {
+    return object[key]
   }
   
-  var locations: [Location]? {
-    return (object["locations"] as? [JSONObject])?.map(Location.init)
+  public var message: String {
+    return self["message"] as! String
   }
   
-  struct Location {
-    let line: Int
-    let column: Int
+  public var locations: [Location]? {
+    return (self["locations"] as? [JSONObject])?.map(Location.init)
+  }
+  
+  public struct Location {
+    public let line: Int
+    public let column: Int
     
     init(_ object: JSONObject) {
       line = object["line"] as! Int
@@ -24,8 +28,8 @@ public struct GraphQLError: Error {
   }
 }
 
-extension GraphQLError: CustomDebugStringConvertible {
-  public var debugDescription: String {
+extension GraphQLError: CustomStringConvertible {
+  public var description: String {
     return self.message
   }
 }

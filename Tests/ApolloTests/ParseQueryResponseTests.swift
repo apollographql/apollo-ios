@@ -16,7 +16,8 @@ class ParseQueryResponseTests: XCTestCase {
       ("testHeroDetailsQueryMissingTypename", testHeroDetailsQueryMissingTypename),
       ("testHeroDetailsWithFragmentQueryDroid", testHeroDetailsWithFragmentQueryDroid),
       ("testHeroDetailsWithFragmentQueryHuman", testHeroDetailsWithFragmentQueryHuman),
-      ("testErrorResponse", testErrorResponse),
+      ("testErrorResponseWithoutLocation", testErrorResponseWithoutLocation),
+      ("testErrorResponseWithLocation", testErrorResponseWithLocation),
     ]
   }
   
@@ -258,7 +259,25 @@ class ParseQueryResponseTests: XCTestCase {
   
   // MARK: - Error responses
   
-  func testErrorResponse() throws {
+  func testErrorResponseWithoutLocation() throws {
+    let query = HeroNameQuery()
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "errors": [
+        [
+          "message": "Some error",
+        ]
+      ]
+      ])
+    
+    let result = try response.parseResult()
+    
+    XCTAssertNil(result.data)
+    XCTAssertEqual(result.errors?.first?.message, "Some error")
+    XCTAssertNil(result.errors?.first?.locations)
+  }
+  
+  func testErrorResponseWithLocation() throws {
     let query = HeroNameQuery()
     
     let response = GraphQLResponse(operation: query, body: [
@@ -278,5 +297,24 @@ class ParseQueryResponseTests: XCTestCase {
     XCTAssertEqual(result.errors?.first?.message, "Some error")
     XCTAssertEqual(result.errors?.first?.locations?.first?.line, 1)
     XCTAssertEqual(result.errors?.first?.locations?.first?.column, 2)
+  }
+  
+  func testErrorResponseWithCustomError() throws {
+    let query = HeroNameQuery()
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "errors": [
+        [
+          "message": "Some error",
+          "userMessage": "Some message"
+        ]
+      ]
+    ])
+    
+    let result = try response.parseResult()
+    
+    XCTAssertNil(result.data)
+    XCTAssertEqual(result.errors?.first?.message, "Some error")
+    XCTAssertEqual(result.errors?.first?["userMessage"] as? String, "Some message")
   }
 }
