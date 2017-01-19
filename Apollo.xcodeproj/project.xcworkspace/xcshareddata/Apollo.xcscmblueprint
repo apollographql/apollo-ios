@@ -10,7 +10,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3C9A0C1C-4254-4350-9916-D2A90026CA42",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "FF5E57E11CB20B5623A697D8A51544D5E81FBD84" : "",
-    "11467B891B05E74285D0FDA7F262E859A9337C82" : "apollo-ios-master\/"
+    "11467B891B05E74285D0FDA7F262E859A9337C82" : "apollo-ios\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Apollo",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
