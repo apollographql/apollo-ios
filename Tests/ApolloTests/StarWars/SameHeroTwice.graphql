@@ -1,0 +1,8 @@
+query SameHeroTwice {
+  hero {
+    name
+  }
+  r2: hero {
+    appearsIn
+  }
+}

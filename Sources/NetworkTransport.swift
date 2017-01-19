@@ -82,10 +82,10 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
 
       do {
-        guard let rootObject = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
+        guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse)
         }
-        let response = GraphQLResponse(operation: operation, rootObject: rootObject)
+        let response = GraphQLResponse(operation: operation, body: body)
         completionHandler(response, nil)
       } catch {
         completionHandler(nil, error)

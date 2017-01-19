@@ -4,3 +4,10 @@ mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {
     commentary
   }
 }
+
+mutation CreateAwesomeReview {
+  createReview(episode: JEDI, review: { stars: 10, commentary: "This is awesome!" }) {
+    stars
+    commentary
+  }
+}

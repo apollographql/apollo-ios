@@ -1,14 +1,18 @@
 import Foundation
 
 public protocol Cancellable {
-    func cancel()
+  func cancel()
 }
 
 public class ApolloClient {
   let networkTransport: NetworkTransport
+  let store: ApolloStore
+  
+  var cacheKeyForObject: CacheKeyForObject?
 
   public init(networkTransport: NetworkTransport) {
     self.networkTransport = networkTransport
+    self.store = ApolloStore()
   }
 
   public convenience init(url: URL) {
@@ -33,10 +37,16 @@ public class ApolloClient {
       }
       
       do {
-        let result = try response.parseResult()
+        let normalizer = GraphQLResultNormalizer()
+        normalizer.cacheKeyForObject = self.cacheKeyForObject
+        
+        let result = try response.parseResult(delegate: normalizer)
+        
         queue.async {
           completionHandler(result, nil)
         }
+        
+        self.store.publish(changedRecords: normalizer.records)
       } catch {
         queue.async {
           completionHandler(nil, error)

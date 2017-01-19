@@ -16,7 +16,7 @@ private func read(from rootObject: JSONObject) -> GraphQLResultReader {
 }
 
 class GraphQLResultReaderTests: XCTestCase {
-  static var allTests : [(String, (GraphQLResultReaderTests) -> () throws -> Void)] {
+  static var allTests: [(String, (GraphQLResultReaderTests) -> () throws -> Void)] {
     return [
       ("testGetValue", testGetValue),
       ("testGetValueWithMissingKey", testGetValueWithMissingKey),
@@ -93,8 +93,15 @@ class GraphQLResultReaderTests: XCTestCase {
 
   func testGetOptionalValueWithMissingKey() throws {
     let reader = read(from: [:])
-    let value: String? = try reader.optionalValue(for: Field(responseName: "name"))
-    XCTAssertNil(value)
+    
+    XCTAssertThrowsError(try with(returnType: Optional<String>.self, reader.optionalValue(for: Field(responseName: "name")))) { (error) in
+      if case let error as GraphQLResultError = error {
+        XCTAssertEqual(error.path, ["name"])
+        XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+      } else {
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
   }
   
   func testGetOptionalValueWithNull() throws {
@@ -171,8 +178,15 @@ class GraphQLResultReaderTests: XCTestCase {
 
   func testGetOptionalListWithMissingKey() throws {
     let reader = read(from: [:])
-    let value: [Episode]? = try reader.optionalList(for: Field(responseName: "appearsIn"))
-    XCTAssertNil(value)
+    
+    XCTAssertThrowsError(try with(returnType: Optional<Array<Episode>>.self, reader.optionalList(for: Field(responseName: "appearsIn")))) { (error) in
+      if case let error as GraphQLResultError = error {
+        XCTAssertEqual(error.path, ["appearsIn"])
+        XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+      } else {
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
   }
   
   func testGetOptionalListWithNull() throws {

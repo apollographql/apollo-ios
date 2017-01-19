@@ -42,3 +42,34 @@ extension JSONDecodingError: Matchable {
     }
   }
 }
+
+// MARK: Helpers
+
+func optional(_ optionalValue: JSONValue?) throws -> JSONValue? {
+  guard let value = optionalValue else {
+    throw JSONDecodingError.missingValue
+  }
+  
+  if value is NSNull { return nil }
+  
+  return value
+}
+
+func required(_ optionalValue: JSONValue?) throws -> JSONValue {
+  guard let value = optionalValue else {
+    throw JSONDecodingError.missingValue
+  }
+  
+  if value is NSNull {
+    throw JSONDecodingError.nullValue
+  }
+  
+  return value
+}
+
+func cast<T>(_ value: JSONValue) throws -> T {
+  guard let castValue = value as? T else {
+    throw JSONDecodingError.couldNotConvert(value: value, to: T.self)
+  }
+  return castValue
+}
