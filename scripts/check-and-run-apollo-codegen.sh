@@ -1,4 +1,4 @@
-REQUIRED_APOLLO_CODEGEN_VERSION=0.9
+REQUIRED_APOLLO_CODEGEN_VERSION=0.10
 
 # Part of this code has been adapted from https://github.com/facebook/react-native/blob/master/packager/react-native-xcode.sh
 
