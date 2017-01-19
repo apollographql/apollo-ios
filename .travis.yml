@@ -7,10 +7,10 @@ xcode_project: Apollo.xcodeproj
 matrix:
   include:
   - xcode_scheme: Apollo iOS
-    xcode_sdk: iphonesimulator10.1
-    env: DESTINATION="platform=iOS Simulator,OS=10.1,name=iPhone 7"
+    xcode_sdk: iphonesimulator10.2
+    env: DESTINATION="platform=iOS Simulator,OS=10.2,name=iPhone 7"
   - xcode_scheme: Apollo iOS
-    xcode_sdk: iphonesimulator10.1
+    xcode_sdk: iphonesimulator10.2
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_scheme: Apollo macOS
     xcode_sdk: macosx10.12
