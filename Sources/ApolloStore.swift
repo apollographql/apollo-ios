@@ -1,29 +1,31 @@
 public final class ApolloStore {
-  private var records: RecordSet
+  private let queue: DispatchQueue
   
-  private var queryRoot: Record {
-    return self.records["QUERY_ROOT"]!
+  private var records: RecordSet
+  private var queryRoot: Record? {
+    return self.records["QUERY_ROOT"]
   }
   
   init(records: RecordSet = RecordSet()) {
+    queue = DispatchQueue(label: "com.apollographql.ApolloStore", qos: .default, attributes: .concurrent)
     self.records = records
   }
   
   func publish(changedRecords: RecordSet) {
-    records.merge(recordSet: changedRecords)
-  }
-  
-  func lookup(key: Key) -> Record? {
-    return records[key]
-  }
-  
-  public func load<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
-    let reader = GraphQLResultReader(variables: query.variables) { [unowned self] field, object, info in
-      let value = (object ?? self.queryRoot.fields)[field.cacheKey]
-      return self.complete(value: value)
+    queue.async(flags: .barrier) {
+      self.records.merge(recordSet: changedRecords)
     }
-    
-    return try Query.Data(reader: reader)
+  }
+  
+  func load<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
+    return try queue.sync {
+      let reader = GraphQLResultReader(variables: query.variables) { [unowned self] field, object, info in
+        let value = (object ?? self.queryRoot?.fields)?[field.cacheKey]
+        return self.complete(value: value)
+      }
+      
+      return try Query.Data(reader: reader)
+    }
   }
   
   private func complete(value: JSONValue?) -> JSONValue? {
