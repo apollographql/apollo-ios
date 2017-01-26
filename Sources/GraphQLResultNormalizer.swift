@@ -66,6 +66,7 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
     path = pathStack.removeLast()
     
     valueStack.append(Reference(key: currentRecord.key))
+    dependentKeys.insert(currentRecord.key)
     records.merge(record: currentRecord)
     
     currentRecord = recordStack.removeLast()
