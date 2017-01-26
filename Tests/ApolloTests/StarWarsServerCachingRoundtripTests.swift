@@ -45,9 +45,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
   private func fetchAndLoadFromStore<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     let expectation = self.expectation(description: "Fetching query")
     
-    _  = client.fetch(query: query) { (result, error) in
-      defer { expectation.fulfill() }
-      
+    client.fetch(query: query) { (result, error) in
       if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
       guard let result = result else { XCTFail("No query result");  return }
       
@@ -55,13 +53,16 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
         XCTFail("Errors in query result: \(errors)")
       }
       
-      guard let _ = result.data else { XCTFail("No query result data");  return }
-      
-      do {
-        let data = try self.client.store.load(query: query)
+      guard result.data != nil else { XCTFail("No query result data");  return }
+            
+      self.client.store.load(query: query, cacheKeyForObject: self.client.cacheKeyForObject) { (result, error) in
+        defer { expectation.fulfill() }
+        
+        if let error = error { XCTFail("Error while loading query from store: \(error.localizedDescription)");  return }
+        
+        guard let data = result?.data else { XCTFail("No query result data");  return }
+        
         completionHandler(data)
-      } catch {
-        XCTFail("Error loading query from store: \(error)");  return
       }
     }
     

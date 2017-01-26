@@ -30,7 +30,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
   }
@@ -83,7 +83,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
       ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.hero?.appearsIn, [.newhope, .empire, .jedi])
   }
@@ -105,7 +105,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
     let friendsNames = result.data?.hero?.friends?.flatMap { $0?.name }
@@ -122,7 +122,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.r2?.name, "R2-D2")
     XCTAssertEqual(result.data?.luke?.name, "Luke Skywalker")
@@ -137,7 +137,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     guard let droid = result.data?.hero?.asDroid else {
       XCTFail("Wrong type")
@@ -156,7 +156,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
 
     guard let human = result.data?.hero?.asHuman else {
       XCTFail("Wrong type")
@@ -175,7 +175,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.hero?.name, "Charmander")
   }
@@ -208,7 +208,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     guard let droid = result.data?.hero?.fragments.heroDetails.asDroid else {
       XCTFail("Wrong type")
@@ -227,7 +227,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
 
     guard let human = result.data?.hero?.fragments.heroDetails.asHuman else {
       XCTFail("Wrong type")
@@ -251,7 +251,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.createReview?.stars, 5)
     XCTAssertEqual(result.data?.createReview?.commentary, "This is a great movie!")
@@ -270,7 +270,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
       ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")
@@ -291,7 +291,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")
@@ -311,7 +311,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let result = try response.parseResult()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")

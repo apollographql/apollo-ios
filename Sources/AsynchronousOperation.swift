@@ -21,7 +21,6 @@ class AsynchronousOperation: Operation {
       willChangeValue(forKey: "state")
     }
     didSet {
-      print(state)
       didChangeValue(forKey: "state")
     }
   }

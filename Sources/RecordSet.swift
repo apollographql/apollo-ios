@@ -1,5 +1,5 @@
 public struct RecordSet {
-  fileprivate var storage: [Key: Record] = [:]
+  fileprivate var storage: [CacheKey: Record] = [:]
   
   init(records: [Record]) {
     for record in records {
@@ -11,7 +11,7 @@ public struct RecordSet {
     return storage.isEmpty
   }
   
-  subscript(key: Key) -> Record? {
+  subscript(key: CacheKey) -> Record? {
     get {
       return storage[key]
     }
@@ -20,40 +20,38 @@ public struct RecordSet {
     }
   }
   
-  subscript(key: Key, fieldKey: Key) -> JSONValue? {
-    get {
-      return storage[key]?[fieldKey]
+  @discardableResult mutating func merge(records: RecordSet) -> Set<CacheKey> {
+    var changedKeys: Set<CacheKey> = Set()
+    
+    for (_, record) in records.storage {
+      changedKeys.formUnion(merge(record: record))
     }
-    set {
-      if var oldRecord = storage.removeValue(forKey: key) {
-        oldRecord[fieldKey] = newValue
-        storage[key] = oldRecord
-      } else {
-        storage[key] = Record(key: key, [fieldKey: newValue as Any])
-      }
-    }
+    
+    return changedKeys
   }
   
-  mutating func merge(record: Record) {
+  @discardableResult mutating func merge(record: Record) -> Set<CacheKey> {
     if var oldRecord = storage.removeValue(forKey: record.key) {
+      var changedKeys: Set<CacheKey> = Set()
+      
       for (key, value) in record.fields {
+        if let oldValue = oldRecord.fields[key], equals(oldValue, value) {
+          continue
+        }
         oldRecord[key] = value
+        changedKeys.insert([record.key, key].joined(separator: "."))
       }
       storage[record.key] = oldRecord
+      return changedKeys
     } else {
       storage[record.key] = record
-    }
-  }
-  
-  mutating func merge(recordSet: RecordSet) {
-    for (_, record) in recordSet.storage {
-      merge(record: record)
+      return Set(record.fields.keys.map { [record.key, $0].joined(separator: ".") })
     }
   }
 }
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
-  public init(dictionaryLiteral elements: (Key, JSONObject)...) {
+  public init(dictionaryLiteral elements: (CacheKey, JSONObject)...) {
     self.init(records: elements.map { Record(key: $0.0, $0.1) })
   }
 }

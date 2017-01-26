@@ -1,11 +1,11 @@
-public typealias CacheKeyForObject = (JSONObject) -> JSONValue?
-
 final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
   var records: RecordSet
+  var dependentKeys: Set<CacheKey> = Set()
+  
   var cacheKeyForObject: CacheKeyForObject?
   
-  private var recordStack: [Record] = []
-  private var currentRecord: Record?
+  private var recordStack: [Record]
+  private var currentRecord: Record
   
   typealias Path = [String]
   private var pathStack: [Path] = []
@@ -13,8 +13,11 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
   
   private var valueStack: [JSONValue?] = []
   
-  init(records: RecordSet = RecordSet()) {
-    self.records = records
+  init(rootKey: CacheKey) {
+    records = RecordSet()
+    
+    recordStack = []
+    currentRecord = Record(key: rootKey)
   }
   
   func willResolve(field: Field, info: GraphQLResolveInfo) {
@@ -26,10 +29,13 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
     
     let value = valueStack.removeLast()
     
-    if currentRecord != nil {
-      currentRecord![field.cacheKey] = value
-    } else {
-      records["QUERY_ROOT", field.cacheKey] = value
+    let dependentKey = [currentRecord.key, field.cacheKey].joined(separator: ".")
+    dependentKeys.insert(dependentKey)
+    
+    currentRecord[field.cacheKey] = value
+    
+    if recordStack.isEmpty {
+      records.merge(record: currentRecord)
     }
   }
   
@@ -42,13 +48,9 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
   }
   
   func willParse(object: JSONObject) {
-    if let parentRecord = currentRecord {
-      recordStack.append(parentRecord)
-    }
-    
     pathStack.append(path)
     
-    let cacheKey: Key
+    let cacheKey: CacheKey
     if let value = cacheKeyForObject?(object) {
       cacheKey = String(describing: value)
       path = [cacheKey]
@@ -56,18 +58,17 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
       cacheKey = path.joined(separator: ".")
     }
     
+    recordStack.append(currentRecord)
     currentRecord = Record(key: cacheKey)
   }
   
   func didParse(object: JSONObject) {
-    guard let record = currentRecord else { preconditionFailure() }
-    
-    records.merge(record: record)
-    
-    valueStack.append(Reference(key: record.key))
-    
     path = pathStack.removeLast()
-    currentRecord = recordStack.popLast()
+    
+    valueStack.append(Reference(key: currentRecord.key))
+    records.merge(record: currentRecord)
+    
+    currentRecord = recordStack.removeLast()
   }
   
   func willParse<Element>(array: [Element]) {

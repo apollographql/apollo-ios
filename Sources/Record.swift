@@ -1,15 +1,15 @@
-public typealias Key = String
+public typealias CacheKey = String
 
 public struct Record {
-  let key: Key
+  let key: CacheKey
   var fields: JSONObject
   
-  init(key: Key, _ fields: JSONObject = [:]) {
+  init(key: CacheKey, _ fields: JSONObject = [:]) {
     self.key = key
     self.fields = fields
   }
   
-  subscript(key: Key) -> JSONValue? {
+  subscript(key: CacheKey) -> JSONValue? {
     get {
       return fields[key]
     }
@@ -20,11 +20,11 @@ public struct Record {
 }
 
 public struct Reference {
-  let key: Key
+  let key: CacheKey
 }
 
 extension Reference: Equatable {
-  public static func == (lhs: Reference, rhs: Reference) -> Bool {
+  public static func ==(lhs: Reference, rhs: Reference) -> Bool {
     return lhs.key == rhs.key
   }
 }

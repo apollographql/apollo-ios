@@ -1,18 +1,19 @@
-public protocol GraphQLOperation {
+public protocol GraphQLOperation: class {
   static var operationDefinition: String { get }
   static var queryDocument: String { get }
+  
   var variables: GraphQLMap? { get }
   
   associatedtype Data: GraphQLMappable
 }
 
 public extension GraphQLOperation {
-  var variables: GraphQLMap? {
-    return nil
-  }
-  
   static var queryDocument: String {
     return operationDefinition
+  }
+  
+  var variables: GraphQLMap? {
+    return nil
   }
 }
 

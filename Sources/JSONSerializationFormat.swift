@@ -3,7 +3,7 @@ final class JSONSerializationFormat {
     return try JSONSerialization.data(withJSONObject: value.jsonValue, options: [])
   }
   
-  class func deserialize(data: Data) throws -> Any {
+  class func deserialize(data: Data) throws -> JSONValue {
     return try JSONSerialization.jsonObject(with: data, options: [])
   }
 }

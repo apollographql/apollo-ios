@@ -4,5 +4,9 @@ query HeroName($episode: Episode) {
   }
 }
 
-
-
+query HeroNameWithID($episode: Episode) {
+  hero(episode: $episode) {
+    id
+    name
+  }
+}

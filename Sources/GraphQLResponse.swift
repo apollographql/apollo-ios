@@ -7,19 +7,28 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     self.body = body
   }
 
-  func parseResult(delegate: GraphQLResultReaderDelegate? = nil) throws -> GraphQLResult<Operation.Data>  {
+  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Operation.Data>, RecordSet?)  {
     let data: Operation.Data?
+    let dependentKeys: Set<CacheKey>?
+    let records: RecordSet?
 
     if let dataEntry = body["data"] as? JSONObject {
       let reader = GraphQLResultReader(variables: operation.variables) { field, object, info in
         return (object ?? dataEntry)[field.responseName]
       }
-
-      reader.delegate = delegate
+      
+      let normalizer = GraphQLResultNormalizer(rootKey: rootKey(forOperation: operation))
+      normalizer.cacheKeyForObject = cacheKeyForObject
+      reader.delegate = normalizer
 
       data = try Operation.Data(reader: reader)
+      
+      records = normalizer.records
+      dependentKeys = normalizer.dependentKeys
     } else {
       data = nil
+      dependentKeys = nil
+      records = nil
     }
 
     let errors: [GraphQLError]?
@@ -30,6 +39,6 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       errors = nil
     }
 
-    return GraphQLResult(data: data, errors: errors)
+    return (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
   }
 }

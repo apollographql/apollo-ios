@@ -474,6 +474,47 @@ public final class HeroNameQuery: GraphQLQuery {
   }
 }
 
+public final class HeroNameWithIdQuery: GraphQLQuery {
+  public static let operationDefinition =
+    "query HeroNameWithID($episode: Episode) {" +
+    "  hero(episode: $episode) {" +
+    "    __typename" +
+    "    id" +
+    "    name" +
+    "  }" +
+    "}"
+
+  public let episode: Episode?
+
+  public init(episode: Episode? = nil) {
+    self.episode = episode
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let hero: Hero?
+
+    public init(reader: GraphQLResultReader) throws {
+      hero = try reader.optionalValue(for: Field(responseName: "hero", arguments: ["episode": reader.variables["episode"]]))
+    }
+
+    public struct Hero: GraphQLMappable {
+      public let __typename: String
+      public let id: GraphQLID
+      public let name: String
+
+      public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+        id = try reader.value(for: Field(responseName: "id"))
+        name = try reader.value(for: Field(responseName: "name"))
+      }
+    }
+  }
+}
+
 public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public static let operationDefinition =
     "query HeroNameConditionalInclusion($episode: Episode, $includeName: Boolean!) {" +

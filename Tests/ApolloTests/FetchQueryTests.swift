@@ -194,30 +194,12 @@ class FetchQueryTests: XCTestCase {
     
     let expectation = self.expectation(description: "Fetching query")
     
-    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
+    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, handlerQueue: queue) { (result, error) in
       defer { expectation.fulfill() }
       
       XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
     }
     
     waitForExpectations(timeout: 1, handler: nil)
-  }
-}
-
-private final class MockNetworkTransport: NetworkTransport {
-  let body: JSONObject
-  
-  init(body: JSONObject) {
-    self.body = body
-  }
-  
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
-    completionHandler(GraphQLResponse(operation: operation, body: body), nil)
-    return MockTask()
-  }
-}
-
-private struct MockTask: Cancellable {
-  func cancel() {
   }
 }
