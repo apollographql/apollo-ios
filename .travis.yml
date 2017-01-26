@@ -15,6 +15,9 @@ matrix:
   - xcode_scheme: Apollo macOS
     xcode_sdk: macosx10.12
     env: DESTINATION="platform=macOS,arch=x86_64"
+  - xcode_scheme: Apollo tvOS
+    xcode_sdk: appletvsimulator10.1
+    env: DESTINATION="platform=tvOS,OS=10.1"
 
 cache:
   directories:
