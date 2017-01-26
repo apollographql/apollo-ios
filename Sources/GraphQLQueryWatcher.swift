@@ -39,6 +39,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     guard let client = client else { return }
     
     if context == &self.context { return }
+    
+    print("changedKeys: \(changedKeys)")
         
     if let dependentKeys = dependentKeys, dependentKeys.isDisjoint(with: changedKeys) {
       return
