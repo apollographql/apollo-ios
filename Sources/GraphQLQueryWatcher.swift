@@ -36,21 +36,12 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
   
   func store(_ store: ApolloStore, didChangeKeys changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?) {
-    guard let client = client else { return }
-    
     if context == &self.context { return }
     
-    print("changedKeys: \(changedKeys)")
-        
     if let dependentKeys = dependentKeys, dependentKeys.isDisjoint(with: changedKeys) {
       return
     }
     
-    store.load(query: query, cacheKeyForObject: client.cacheKeyForObject) { (result, error) in
-      self.handlerQueue.async {
-        self.dependentKeys = result?.dependentKeys
-        self.resultHandler(result, error)
-      }
-    }
+    fetch(cachePolicy: .returnCacheDataElseFetch)
   }
 }
