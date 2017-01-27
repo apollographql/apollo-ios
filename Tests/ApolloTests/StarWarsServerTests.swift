@@ -139,6 +139,13 @@ class StarWarsServerTests: XCTestCase {
       XCTAssertEqual(data.hero?.asHuman?.friends?.first??.asHuman?.height, 5.905512)
     }
   }
+  
+  func testStarshipCoordinates() {
+    fetch(query: StarshipQuery()) { data in
+      XCTAssertEqual(data.starship?.coordinates?[0], [1, 2])
+      XCTAssertEqual(data.starship?.coordinates?[1], [3, 4])
+    }
+  }
 
   // MARK: Mutations
 

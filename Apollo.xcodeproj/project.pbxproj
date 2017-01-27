@@ -188,6 +188,7 @@
 		9F295E301E27534800A24949 /* NormalizeQueryResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizeQueryResults.swift; sourceTree = "<group>"; };
 		9F295E341E2773D900A24949 /* SameHeroTwice.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SameHeroTwice.graphql; sourceTree = "<group>"; };
 		9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
+		9F4352A61E3ACB1700FA1B11 /* Starship.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Starship.graphql; sourceTree = "<group>"; };
 		9F5534731DDDF59400E54264 /* HeroParentTypeDependentField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroParentTypeDependentField.graphql; sourceTree = "<group>"; };
 		9F5534761DDDF5C700E54264 /* HeroTypeDependentAliasedField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroTypeDependentAliasedField.graphql; sourceTree = "<group>"; };
 		9F55347A1DE1DB2100E54264 /* ApolloStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloStore.swift; sourceTree = "<group>"; };
@@ -322,6 +323,7 @@
 				9F5534731DDDF59400E54264 /* HeroParentTypeDependentField.graphql */,
 				9FF1F2351DB318250011DE94 /* CreateReviewForEpisode.graphql */,
 				9F20CBC11DAF03F900A139BB /* API.swift */,
+				9F4352A61E3ACB1700FA1B11 /* Starship.graphql */,
 			);
 			path = StarWars;
 			sourceTree = "<group>";

@@ -61,11 +61,27 @@ public final class GraphQLResultReader {
     return try resolve(field: field) { try parse(array: $0) }
   }
   
+  public func list<T: JSONDecodable>(for field: Field) throws -> [[T]] {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
+  public func list<T: JSONDecodable>(for field: Field) throws -> [[T?]] {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
   public func optionalList<T: JSONDecodable>(for field: Field) throws -> [T]? {
     return try resolve(field: field) { try parse(array: $0) }
   }
   
   public func optionalList<T: JSONDecodable>(for field: Field) throws -> [T?]? {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
+  public func optionalList<T: JSONDecodable>(for field: Field) throws -> [[T]]? {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
+  public func optionalList<T: JSONDecodable>(for field: Field) throws -> [[T?]]? {
     return try resolve(field: field) { try parse(array: $0) }
   }
   
@@ -77,6 +93,14 @@ public final class GraphQLResultReader {
     return try resolve(field: field) { try parse(array: $0) }
   }
   
+  public func list<T: GraphQLMappable>(for field: Field) throws -> [[T]] {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
+  public func list<T: GraphQLMappable>(for field: Field) throws -> [[T?]] {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
   public func optionalList<T: GraphQLMappable>(for field: Field) throws -> [T]? {
     return try resolve(field: field) { try parse(array: $0) }
   }
@@ -84,6 +108,15 @@ public final class GraphQLResultReader {
   public func optionalList<T: GraphQLMappable>(for field: Field) throws -> [T?]? {
     return try resolve(field: field) { try parse(array: $0) }
   }
+    
+  public func optionalList<T: GraphQLMappable>(for field: Field) throws -> [[T]]? {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+  
+  public func optionalList<T: GraphQLMappable>(for field: Field) throws -> [[T?]]? {
+    return try resolve(field: field) { try parse(array: $0) }
+  }
+    
   
   // MARK: -
   
@@ -136,21 +169,63 @@ public final class GraphQLResultReader {
   }
   
   private func parse<T: JSONDecodable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [T]? {
-    return try optional(array).map { try parse(array: cast($0), elementType: elementType) }
+    return try optional(array).map {
+      try parse(array: cast($0), elementType: elementType)
+    }
   }
   
   private func parse<T: JSONDecodable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [T?]? {
-    return try optional(array).map { try parse(array: cast($0), elementType: elementType) }
+    return try optional(array).map {
+      try parse(array: cast($0), elementType: elementType)
+    }
+  }
+  
+  private func parse<T: JSONDecodable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T]] {
+    return try parse(array: cast(required(array)), elementType: elementType)
+  }
+  
+  private func parse<T: JSONDecodable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T?]] {
+    return try parse(array: cast(required(array)), elementType: elementType)
+  }
+  
+  private func parse<T: JSONDecodable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T]]? {
+    return try optional(array).map {
+      return try parse(array: cast(required($0)), elementType: elementType)
+    }
+  }
+  
+  private func parse<T: JSONDecodable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T?]]? {
+    return try optional(array).map {
+      return try parse(array: cast(required($0)), elementType: elementType)
+    }
   }
   
   private func parse<T: JSONDecodable>(array: [JSONValue], elementType: T.Type = T.self) throws -> [T] {
-    return try map(array: array) { try parse(value: $0, intoType: elementType) }
+    return try map(array: array) {
+      try parse(value: $0, intoType: elementType)
+    }
   }
   
   private func parse<T: JSONDecodable>(array: [JSONValue], elementType: T.Type = T.self) throws -> [T?] {
     return try map(array: array) {
       try optional($0).map {
         try parse(value: $0, intoType: elementType)
+      }
+    }
+  }
+  
+  private func parse<T: JSONDecodable>(array: [JSONValue], elementType: T.Type = T.self) throws -> [[T]] {
+    return try map(array: array) {
+      try map(array: cast(required($0))) {
+        try parse(value: required($0), intoType: elementType)
+      }
+    }
+  }
+  
+  private func parse<T: JSONDecodable>(array: [JSONValue], elementType: T.Type = T.self) throws -> [[T?]] {
+    return try map(array: array) {
+      try map(array: cast(required($0))) {
+        try parse(value: optional($0), intoType: elementType)
       }
     }
   }
@@ -173,6 +248,26 @@ public final class GraphQLResultReader {
     return try optional(array).map { try parse(array: cast($0), elementType: elementType) }
   }
   
+  private func parse<T: GraphQLMappable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T]] {
+    return try parse(array: cast(required(array)), elementType: elementType)
+  }
+  
+  private func parse<T: GraphQLMappable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T?]] {
+    return try parse(array: cast(required(array)), elementType: elementType)
+  }
+  
+  private func parse<T: GraphQLMappable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T]]? {
+    return try optional(array).map {
+      return try parse(array: cast(required($0)), elementType: elementType)
+    }
+  }
+  
+  private func parse<T: GraphQLMappable>(array: JSONValue?, elementType: T.Type = T.self) throws -> [[T?]]? {
+    return try optional(array).map {
+      return try parse(array: cast(required($0)), elementType: elementType)
+    }
+  }
+  
   private func parse<T: GraphQLMappable>(array: [JSONObject], elementType: T.Type) throws -> [T] {
     return try map(array: array) { try parse(object: $0, intoType: elementType) }
   }
@@ -181,6 +276,22 @@ public final class GraphQLResultReader {
     return try map(array: array) {
       try optional($0).map {
         try parse(object: $0, intoType: elementType)
+      }
+    }
+  }
+  
+  private func parse<T: GraphQLMappable>(array: [JSONObject], elementType: T.Type = T.self) throws -> [[T]] {
+    return try map(array: array) {
+      try map(array: cast(required($0))) {
+        try parse(object: required($0), intoType: elementType)
+      }
+    }
+  }
+  
+  private func parse<T: GraphQLMappable>(array: [JSONObject], elementType: T.Type = T.self) throws -> [[T?]] {
+    return try map(array: array) {
+      try map(array: cast(required($0))) {
+        try parse(object: optional($0), intoType: elementType)
       }
     }
   }

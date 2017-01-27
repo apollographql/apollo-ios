@@ -15,24 +15,12 @@ extension Episode: JSONDecodable, JSONEncodable {}
 public struct ReviewInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(stars: Int) {
-    graphQLMap = ["stars": stars]
-  }
-
-  public init(stars: Int, favoriteColor: ColorInput?) {
-    graphQLMap = ["stars": stars, "favoriteColor": favoriteColor]
-  }
-
-  public init(stars: Int, commentary: String?) {
-    graphQLMap = ["stars": stars, "commentary": commentary]
-  }
-
-  public init(stars: Int, commentary: String?, favoriteColor: ColorInput?) {
+  public init(stars: Int, commentary: String? = nil, favoriteColor: ColorInput? = nil) {
     graphQLMap = ["stars": stars, "commentary": commentary, "favoriteColor": favoriteColor]
   }
 }
 
-/// The input object sent when passing a color
+/// The input object sent when passing in a color
 public struct ColorInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
@@ -878,6 +866,37 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
       public init(reader: GraphQLResultReader) throws {
         __typename = try reader.value(for: Field(responseName: "__typename"))
         appearsIn = try reader.list(for: Field(responseName: "appearsIn"))
+      }
+    }
+  }
+}
+
+public final class StarshipQuery: GraphQLQuery {
+  public static let operationDefinition =
+    "query Starship {" +
+    "  starship(id: 3000) {" +
+    "    name" +
+    "    coordinates" +
+    "  }" +
+    "}"
+  public init() {
+  }
+
+  public struct Data: GraphQLMappable {
+    public let starship: Starship?
+
+    public init(reader: GraphQLResultReader) throws {
+      starship = try reader.optionalValue(for: Field(responseName: "starship", arguments: ["id": 3000]))
+    }
+
+    public struct Starship: GraphQLMappable {
+      public let __typename = "Starship"
+      public let name: String
+      public let coordinates: [[Double]]?
+
+      public init(reader: GraphQLResultReader) throws {
+        name = try reader.value(for: Field(responseName: "name"))
+        coordinates = try reader.optionalList(for: Field(responseName: "coordinates"))
       }
     }
   }
