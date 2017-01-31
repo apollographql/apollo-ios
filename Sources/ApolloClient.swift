@@ -58,6 +58,10 @@ public class ApolloClient {
   }
   
   @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>?) -> Cancellable {
+    return _perform(mutation: mutation, queue: queue, resultHandler: resultHandler)
+  }
+  
+  func _perform<Mutation: GraphQLMutation>(mutation: Mutation, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue, resultHandler: OperationResultHandler<Mutation>?) -> Cancellable {
     return send(operation: mutation, context: context, handlerQueue: queue, resultHandler: resultHandler)
   }
 
