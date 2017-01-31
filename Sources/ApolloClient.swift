@@ -35,7 +35,11 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
   
-  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy = .returnCacheDataElseFetch, context: UnsafeMutableRawPointer? = nil, handlerQueue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Query>? = nil) -> Cancellable {
+  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy = .returnCacheDataElseFetch, handlerQueue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Query>? = nil) -> Cancellable {
+    return _fetch(query: query, cachePolicy: cachePolicy, handlerQueue: handlerQueue, resultHandler: resultHandler)
+  }
+  
+  func _fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy, context: UnsafeMutableRawPointer? = nil, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Query>?) -> Cancellable {
     // If we don't have to go through the cache, there is no need to create an operation 
     // and we can return a network task directly
     if cachePolicy == .fetchIgnoringCacheData {
