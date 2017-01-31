@@ -194,7 +194,7 @@ class FetchQueryTests: XCTestCase {
     
     let expectation = self.expectation(description: "Fetching query")
     
-    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, handlerQueue: queue) { (result, error) in
+    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
       defer { expectation.fulfill() }
       
       XCTAssertNotNil(DispatchQueue.getSpecific(key: key))

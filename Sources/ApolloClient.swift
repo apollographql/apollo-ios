@@ -35,33 +35,33 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
   
-  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy = .returnCacheDataElseFetch, handlerQueue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Query>? = nil) -> Cancellable {
-    return _fetch(query: query, cachePolicy: cachePolicy, handlerQueue: handlerQueue, resultHandler: resultHandler)
+  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Query>? = nil) -> Cancellable {
+    return _fetch(query: query, cachePolicy: cachePolicy, queue: queue, resultHandler: resultHandler)
   }
   
-  func _fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy, context: UnsafeMutableRawPointer? = nil, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Query>?) -> Cancellable {
+  func _fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue, resultHandler: OperationResultHandler<Query>?) -> Cancellable {
     // If we don't have to go through the cache, there is no need to create an operation 
     // and we can return a network task directly
     if cachePolicy == .fetchIgnoringCacheData {
-      return send(operation: query, context: context, handlerQueue: handlerQueue, resultHandler: resultHandler)
+      return send(operation: query, context: context, handlerQueue: queue, resultHandler: resultHandler)
     } else {
-      let operation = FetchQueryOperation(client: self, query: query, cachePolicy: cachePolicy, context: context, handlerQueue: handlerQueue, resultHandler: resultHandler)
+      let operation = FetchQueryOperation(client: self, query: query, cachePolicy: cachePolicy, context: context, handlerQueue: queue, resultHandler: resultHandler)
       operationQueue.addOperation(operation)
       return operation
     }
   }
   
-  public func watch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy = .returnCacheDataElseFetch, handlerQueue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLQueryWatcher<Query> {
-    let watcher = GraphQLQueryWatcher(client: self, query: query, handlerQueue: handlerQueue, resultHandler: resultHandler)
+  public func watch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLQueryWatcher<Query> {
+    let watcher = GraphQLQueryWatcher(client: self, query: query, handlerQueue: queue, resultHandler: resultHandler)
     watcher.fetch(cachePolicy: cachePolicy)
     return watcher
   }
   
-  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, context: UnsafeMutableRawPointer? = nil, handlerQueue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>?) -> Cancellable {
-    return send(operation: mutation, context: context, handlerQueue: handlerQueue, resultHandler: resultHandler)
+  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>?) -> Cancellable {
+    return send(operation: mutation, context: context, handlerQueue: queue, resultHandler: resultHandler)
   }
 
-  fileprivate func send<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer?,handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
+  fileprivate func send<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer?, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
     func notifyResultHandler(result: GraphQLResult<Operation.Data>?, error: Error?) {
       guard let resultHandler = resultHandler else { return }
       
