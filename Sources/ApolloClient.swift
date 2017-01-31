@@ -20,12 +20,14 @@ public class ApolloClient {
   let networkTransport: NetworkTransport
   let store: ApolloStore
   
+  private let queue: DispatchQueue
   private let operationQueue: OperationQueue
   
   public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore()) {
     self.networkTransport = networkTransport
     self.store = store
     
+    queue = DispatchQueue(label: "com.apollographql.ApolloClient", attributes: .concurrent)
     operationQueue = OperationQueue()
   }
 
@@ -70,7 +72,7 @@ public class ApolloClient {
         return
       }
       
-      DispatchQueue.global(qos: .default).async {
+      self.queue.async {
         do {
           let (result, records) = try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
           

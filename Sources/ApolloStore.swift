@@ -20,7 +20,7 @@ public final class ApolloStore {
   
   init(records: RecordSet = RecordSet()) {
     self.records = records
-    queue = DispatchQueue(label: "com.apollographql.ApolloStore", qos: .default, attributes: .concurrent)
+    queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
   }
   
   func publish(records: RecordSet, context: UnsafeMutableRawPointer?) {
