@@ -617,7 +617,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0810;
-				ORGANIZATIONNAME = "Meteor Development Group";
+				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					3C4DBCD01DD21C9D005B61D0 = {
 						CreatedOnToolsVersion = 8.0;
@@ -986,7 +986,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloWatchOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1010,7 +1010,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloWatchOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1034,7 +1034,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTvOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -1058,7 +1058,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTvOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -1117,7 +1117,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloMacOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1142,7 +1142,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloMacOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1296,7 +1296,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.Apollo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1317,7 +1317,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.Apollo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
