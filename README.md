@@ -1,6 +1,6 @@
 # Apollo iOS
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollostack/apollo-ios/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg)](https://cocoapods.org/pods/Apollo) [![Get on Slack](https://img.shields.io/badge/slack-join-orange.svg)](http://www.apollostack.com/#slack)
+[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollographql/apollo-ios/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg)](https://cocoapods.org/pods/Apollo) [![Get on Slack](https://img.shields.io/badge/slack-join-orange.svg)](http://www.apollodata.com/#slack)
 
 Apollo iOS is a GraphQL client for iOS, written in Swift.
 
@@ -18,10 +18,10 @@ Documentation can be found [here](http://dev.apollodata.com/ios/).
 
 ## Contributing
 
-[![Build status](https://travis-ci.org/apollostack/apollo-ios.svg?branch=master)](https://travis-ci.org/apollostack/apollo-ios)
+[![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios)
 
 This project is being developed using Xcode 8 and Swift 3.
 
 If you open `Apollo.xcodeproj`, you should be able to run the tests of the Apollo target.
 
-Some of the tests run against [a simple GraphQL server serving the Star Wars example schema](https://github.com/apollostack/starwars-server) (see installation instructions there).
+Some of the tests run against [a simple GraphQL server serving the Star Wars example schema](https://github.com/apollographql/starwars-server) (see installation instructions there).
