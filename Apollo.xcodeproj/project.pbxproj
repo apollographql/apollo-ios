@@ -642,7 +642,6 @@
 					};
 					9FC750431D2A532C00458D91 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 5TL236FN6U;
 						DevelopmentTeamName = "Martijn Walraven";
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
