@@ -1,5 +1,7 @@
+/// A cache key for a record.
 public typealias CacheKey = String
 
+/// A cache record.
 public struct Record {
   let key: CacheKey
   var fields: JSONObject
@@ -19,6 +21,7 @@ public struct Record {
   }
 }
 
+/// A reference to a cache record.
 public struct Reference {
   let key: CacheKey
 }

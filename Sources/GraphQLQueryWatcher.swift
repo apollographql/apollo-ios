@@ -1,3 +1,4 @@
+/// A `GraphQLQueryWatcher` is responsible for watching query results in the store, and calling a result handler whenever any of the data the results depend on change.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
   weak var client: ApolloClient?
   let query: Query
@@ -19,6 +20,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     client.store.subscribe(self)
   }
   
+  /// Refetch a query from the server.
   public func refetch() {
     fetch(cachePolicy: .fetchIgnoringCacheData)
   }
@@ -30,6 +32,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     }
   }
   
+  /// Cancel any in progress fetching operations and unsubscribe from the store.
   public func cancel() {
     fetching?.cancel()
     client?.store.unsubscribe(self)

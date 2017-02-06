@@ -13,6 +13,7 @@ protocol ApolloStoreSubscriber: class {
   func store(_ store: ApolloStore, didChangeKeys changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?)
 }
 
+/// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
 public final class ApolloStore {  
   private let queue: DispatchQueue
   private var records: RecordSet

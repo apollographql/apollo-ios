@@ -1,0 +1,35 @@
+# Jazzy config
+module:      Apollo
+
+author:      Apollo GraphQL
+author_url:  https://github.com/apollographql
+github_url:  https://github.com/apollographql/apollo-ios
+
+theme:       fullwidth
+readme:      README.md
+
+hide_documentation_coverage: true
+skip_undocumented: true
+
+exclude: [Sources/JSONStandardTypeConversions.swift]
+
+custom_categories:
+  - name: Core
+    children:
+      - ApolloClient
+      - GraphQLResult
+      - GraphQLError
+      - GraphQLQueryWatcher
+
+  - name: Networking
+    children:
+      - NetworkTransport
+      - HTTPNetworkTransport
+
+  - name: Store
+    children:
+      - ApolloStore
+      - RecordSet
+      - Record
+      - CacheKey
+      - Reference

@@ -1,3 +1,4 @@
+/// A set of cache records.
 public struct RecordSet {
   fileprivate var storage: [CacheKey: Record] = [:]
   
