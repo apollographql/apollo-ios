@@ -167,6 +167,7 @@ class FetchQueryTests: XCTestCase {
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
       defer { expectation.fulfill() }
       
+      XCTAssertNil(error)
       XCTAssertNil(result)
     }
     
