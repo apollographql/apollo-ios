@@ -7,7 +7,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     self.body = body
   }
 
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Operation.Data>, RecordSet?)  {
+  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Operation.Data>, RecordSet?)  {
     let data: Operation.Data?
     let dependentKeys: Set<CacheKey>?
     let records: RecordSet?
