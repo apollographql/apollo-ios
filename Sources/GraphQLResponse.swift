@@ -1,3 +1,4 @@
+/// Represents a GraphQL response received from a server.
 public final class GraphQLResponse<Operation: GraphQLOperation> {
   let operation: Operation
   let body: JSONObject

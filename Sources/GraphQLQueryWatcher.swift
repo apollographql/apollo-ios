@@ -1,4 +1,4 @@
-/// A `GraphQLQueryWatcher` is responsible for watching query results in the store, and calling a result handler whenever any of the data the results depend on change.
+/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
   weak var client: ApolloClient?
   let query: Query

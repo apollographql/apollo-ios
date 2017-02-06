@@ -17,8 +17,10 @@ custom_categories:
   - name: Core
     children:
       - ApolloClient
+      - ApolloClientDelegate
       - GraphQLResult
       - GraphQLError
+      - Cancellable
       - GraphQLQueryWatcher
 
   - name: Networking

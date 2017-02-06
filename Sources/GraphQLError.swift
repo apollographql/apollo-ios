@@ -23,11 +23,11 @@ public struct GraphQLError: Error {
     return (self["locations"] as? [JSONObject])?.map(Location.init)
   }
   
-  /// A `Location` struct represents a location in a GraphQL document.
+  /// Represents a location in a GraphQL document.
   public struct Location {
-    /// A positive number starting from 1 describing the line of a syntax element.
+    /// The line number of a syntax element.
     public let line: Int
-    /// A positive number starting from 1 describing the column of a syntax element.
+    /// The column number of a syntax element.
     public let column: Int
     
     init(_ object: JSONObject) {

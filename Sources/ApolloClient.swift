@@ -53,9 +53,9 @@ public class ApolloClient {
     operationQueue = OperationQueue()
   }
 
-  /// Creates a client with an HTTP network transport connecting to the specified URL, and an empty store.
+  /// Creates a client with an HTTP network transport connecting to the specified URL.
   ///
-  /// - Parameter url: The URL of a GraphQL endpoint to connect to.
+  /// - Parameter url: The URL of a GraphQL server to connect to.
   public convenience init(url: URL) {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
