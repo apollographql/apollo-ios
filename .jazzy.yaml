@@ -20,6 +20,7 @@ custom_categories:
       - ApolloClientDelegate
       - GraphQLResult
       - GraphQLError
+      - CachePolicy
       - Cancellable
       - GraphQLQueryWatcher
 
