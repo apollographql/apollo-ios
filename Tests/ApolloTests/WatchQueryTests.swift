@@ -207,7 +207,7 @@ class WatchQueryTests: XCTestCase {
     ])
     
     let client = ApolloClient(networkTransport: networkTransport, store: store)
-    client.cacheKeyForObject = { $0["id"] }
+    client.delegate = clientDelegate(cacheKeyForObject: { $0["id"] })
     
     var verifyResult: OperationResultHandler<HeroNameWithIdQuery>
     

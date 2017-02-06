@@ -16,14 +16,23 @@ public enum CachePolicy {
   case returnCacheDataDontFetch
 }
 
+public typealias OperationResultHandler<Operation: GraphQLOperation> = (_ result: GraphQLResult<Operation.Data>?, _ error: Error?) -> Void
+
 /// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
 public typealias CacheKeyForObject = (_ object: JSONObject) -> JSONValue?
 
-public typealias OperationResultHandler<Operation: GraphQLOperation> = (_ result: GraphQLResult<Operation.Data>?, _ error: Error?) -> Void
+/// The `ApolloClientDelegate` protocol describes the methods that `ApolloClient` objects call on their delegates.
+public protocol ApolloClientDelegate: class {
+  /// Asks for a cache key for a particular result object.
+  ///
+  /// - Parameter object: A result object.
+  /// - Returns: A JSON value that will be converted to a string cache key. If `nil`, a default cache key based on the field path will be used.
+  func cacheKeyForObject(object: JSONObject) -> JSONValue?
+}
 
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public class ApolloClient {
-  public var cacheKeyForObject: CacheKeyForObject?
+  public weak var delegate: ApolloClientDelegate?
   
   let networkTransport: NetworkTransport
   let store: ApolloStore
@@ -127,7 +136,7 @@ public class ApolloClient {
       
       self.queue.async {
         do {
-          let (result, records) = try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+          let (result, records) = try response.parseResult(cacheKeyForObject: self.delegate?.cacheKeyForObject)
           
           notifyResultHandler(result: result, error: nil)
           
@@ -174,7 +183,7 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
       return
     }
     
-    client.store.load(query: query, cacheKeyForObject: client.cacheKeyForObject) { (result, error) in
+    client.store.load(query: query, cacheKeyForObject: client.delegate?.cacheKeyForObject) { (result, error) in
       if error == nil {
         self.notifyResultHandler(result: result, error: nil)
         self.state = .finished

@@ -1,6 +1,22 @@
 import XCTest
 import Apollo
 
+public func clientDelegate(cacheKeyForObject: CacheKeyForObject?) -> ApolloClientDelegate {
+  class Delegate: ApolloClientDelegate {
+    let _cacheKeyForObject: CacheKeyForObject?
+    
+    init(cacheKeyForObject: CacheKeyForObject?) {
+      _cacheKeyForObject = cacheKeyForObject
+    }
+    func cacheKeyForObject(object: JSONObject) -> JSONValue? {
+      return _cacheKeyForObject?(object)
+    }
+  }
+  
+  let delegate = Delegate(cacheKeyForObject: cacheKeyForObject)
+  return delegate
+}
+
 public func XCTAssertEqual<T: Equatable>(_ expression1: @autoclosure () throws -> [T?]?, _ expression2: @autoclosure () throws -> [T?]?, file: StaticString = #file, line: UInt = #line) rethrows {
   let optionalValue1 = try expression1()
   let optionalValue2 = try expression2()

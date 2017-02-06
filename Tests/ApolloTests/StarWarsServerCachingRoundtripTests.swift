@@ -31,7 +31,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
   }
   
   func testHeroAndFriendsNamesWithIDsQuery() {
-    client.cacheKeyForObject = { $0["id"] }
+    client.delegate = clientDelegate(cacheKeyForObject: { $0["id"] })
     
     let query = HeroAndFriendsNamesWithIDsQuery()
     
@@ -55,7 +55,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
       
       guard result.data != nil else { XCTFail("No query result data");  return }
             
-      self.client.store.load(query: query, cacheKeyForObject: self.client.cacheKeyForObject) { (result, error) in
+      self.client.store.load(query: query, cacheKeyForObject: self.client.delegate?.cacheKeyForObject) { (result, error) in
         defer { expectation.fulfill() }
         
         if let error = error { XCTFail("Error while loading query from store: \(error.localizedDescription)");  return }
