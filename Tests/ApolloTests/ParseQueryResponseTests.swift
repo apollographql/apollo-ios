@@ -245,6 +245,7 @@ class ParseQueryResponseTests: XCTestCase {
     let response = GraphQLResponse(operation: mutation, body: [
       "data": [
         "createReview": [
+          "__typename": "Review",
           "stars": 5,
           "commentary": "This is a great movie!"
         ]
