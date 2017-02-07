@@ -51,12 +51,20 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
-  ///   - configuration: A URLSessionConfiguration used to configure the session. Defaults to `URLSessionConfiguration.default`.
+  ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
     self.url = url
     self.session = URLSession(configuration: configuration)
   }
   
+  /// Send a GraphQL operation to a server and return a response.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send.
+  ///   - completionHandler: A closure to call when a request completes.
+  ///   - response: The response received from the server, or `nil` if an error occurred.
+  ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
+  /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

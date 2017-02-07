@@ -27,7 +27,9 @@ custom_categories:
   - name: Networking
     children:
       - NetworkTransport
+      - GraphQLResponse
       - HTTPNetworkTransport
+      - GraphQLHTTPError
 
   - name: Store
     children:
