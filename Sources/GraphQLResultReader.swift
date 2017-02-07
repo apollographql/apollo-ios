@@ -35,6 +35,13 @@ public final class GraphQLResultReader {
     resolveInfo = GraphQLResolveInfo()
   }
   
+  /// Init a GraphQLResultReader using a JSONObject that has come from an external source
+  public convenience init(rootObject: JSONObject) {
+    self.init() { field, object, info in
+      return (object ?? rootObject)[field.responseName]
+    }
+  }
+  
   // MARK: -
   
   public func value<T: JSONDecodable>(for field: Field) throws -> T {
