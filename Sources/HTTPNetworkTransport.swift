@@ -41,7 +41,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   }
 }
 
-/// A network transport that uses HTTP post requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
+/// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession

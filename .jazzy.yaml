@@ -17,7 +17,6 @@ custom_categories:
   - name: Core
     children:
       - ApolloClient
-      - ApolloClientDelegate
       - GraphQLResult
       - GraphQLError
       - CachePolicy
@@ -37,4 +36,5 @@ custom_categories:
       - RecordSet
       - Record
       - CacheKey
+      - CacheKeyForObject
       - Reference
