@@ -36,9 +36,9 @@ public final class GraphQLResultReader {
   }
   
   /// Init a GraphQLResultReader using a JSONObject that has come from an external source
-  public convenience init(jsonMap: JSONObject, variables: GraphQLMap? = [:]) {
-    self.init(variables: variables) { field, object, info in
-      return (object ?? jsonMap)[field.responseName]
+  public convenience init(rootObject: JSONObject) {
+    self.init() { field, object, info in
+      return (object ?? rootObject)[field.responseName]
     }
   }
   
