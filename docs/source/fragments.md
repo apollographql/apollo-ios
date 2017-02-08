@@ -1,5 +1,5 @@
 ---
-title: Fragments
+title: Using fragments
 ---
 
 In GraphQL, [fragments](http://graphql.org/learn/queries/#fragments) define pieces of data you may want to reuse in multiple places:
@@ -127,4 +127,4 @@ apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { (result, error) in
 }
 ```
 
-Apollo iOS automaticaly adds a `__typename` field to selection sets for abstract types, and generates a constant `__typename` property for concrete types. This is used primarily to support conditional fragments, but it means a `__typename` property is always defined and can be used to differentiate between object types manually if needed.
+Apollo iOS automatically augments your queries to add a `__typename` field to selection sets. This is used primarily to support conditional fragments, but it means a `__typename` property is always defined and can be used to differentiate between object types manually if needed.

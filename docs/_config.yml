@@ -15,11 +15,13 @@ sidebar_categories:
   null:
     - index
     - installation
+    - api-reference
   Usage:
   - downloading-schema
   - initialization
-  - queries
+  - fetching-queries
   - fragments
+  - watching-queries
   - mutations
 github_repo: apollographql/ios-docs
 content_root: source

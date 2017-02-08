@@ -101,24 +101,24 @@ At this point, you can try building your target in Xcode.  This will verify that
 
 1. Drag the generated `API.swift` file to your target.
 
-> Note that because Apollo iOS generates query-specific result types, `Api.swift` will be mostly empty at this point unless you've already added some `.graphql` files with queries or mutations to your target directory.
+> Note that because Apollo iOS generates query-specific result types, `API.swift` will be mostly empty at this point unless you've already added some `.graphql` files with queries or mutations to your target directory.
 
 <h2 id="installing-xcode-add-ons">Installing the Xcode add-ons to get syntax highlighting</h2>
 
 1. Clone the [`xcode-apollo` repository](https://github.com/apollostack/xcode-apollo) to your computer.
 1. Close Xcode if it is currently running.
 1. You may need to create these folders inside of `~/Library/Developer/Xcode`:
- 
+
  `mkdir ~/Library/Developer/Xcode/Plug-ins ~/Library/Developer/Xcode/Specifications`
- 
+
 1. Copy `GraphQL.ideplugin` to `~/Library/Developer/Xcode/Plug-ins`.
- 
+
  `cp -R GraphQL.ideplugin ~/Library/Developer/Xcode/Plug-ins`
- 
+
 1. Copy `GraphQL.xclangspec` to `~/Library/Developer/Xcode/Specifications`.
- 
+
  `cp -R GraphQL.xclangspec ~/Library/Developer/Xcode/Specifications`
- 
+
 You may receive a warning when you first start up Xcode after installing these add-ons.
 
 <h2 id="creating-query-documents">Create `.graphql` files with your queries or mutations</h2>

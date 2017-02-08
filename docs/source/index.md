@@ -2,15 +2,15 @@
 title: Introduction
 ---
 
-[Apollo iOS](https://github.com/apollostack/apollo-ios) is a GraphQL client for iOS, written in Swift.
+[Apollo iOS](https://github.com/apollostack/apollo-ios) is a strongly-typed, caching GraphQL client for iOS, written in Swift.
 
-It allows you to execute queries and mutations against a GraphQL server, and returns results as query-specific Swift types.
+It allows you to execute queries and mutations against a GraphQL server, and returns results as query-specific Swift types. This means you don’t have to deal with parsing JSON, or passing around dictionaries and making clients cast values to the right type manually. You also don't have to write model types yourself, because these are generated from the GraphQL definitions your UI uses.
 
-This means you don't have to deal with parsing JSON, or passing around dictionaries and making clients cast values to the right type manually. Instead, the structs returned allow you to access data and navigate relationships using the appropriate native types directly. This also gives you nice features like code completion.
+As the generated types are query-specific, you're only able to access data you actually specify as part of a query. If you don't ask for a field, you won't be able to access the corresponding property. In effect, this means you can now rely on the Swift type checker to make sure errors in data access show up at compile time. With our Xcode integration, you can conveniently work with your UI code and corresponding GraphQL definitions side by side, and it will even validate your query documents, and show errors inline.
 
-Because the generated types are query-specific, you're only able to access data you actually specify as part of a query. If you don't ask for a field, you won't be able to access the corresponding property. In effect, this means you can now rely on the Swift type checker to make sure errors in data access show up at compile time.
+Apollo iOS does more than simply run your queries against a GraphQL server however. It normalizes query results to construct a client-side cache of your data, which is kept up to date as further queries and mutations are run. This means your UI is always internally consistent, and can be kept fully up-to-date with the state on the server with the minimum number of queries required.
 
-You can conveniently work with your UI code and corresponding GraphQL definitions side by side. Our Xcode integration will even validate your query documents and show errors inline.
+This combination of immutable models, one way data flow, and automatic consistency management, leads to a very powerful and elegant programming model that allows you to eliminate common glue code and greatly simplifies app development.
 
 <style>.embed-container { position: relative; padding-bottom: 62.49%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://player.vimeo.com/video/188363242?autoplay=1&loop=1' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 
