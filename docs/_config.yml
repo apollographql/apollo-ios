@@ -21,12 +21,12 @@ sidebar_categories:
   - queries
   - fragments
   - mutations
-github_repo: apollostack/ios-docs
+github_repo: apollographql/ios-docs
 content_root: source
 
 social_links:
-  github: 'https://github.com/apollostack'
-  twitter: '@apollostack'
+  github: 'https://github.com/apollographql'
+  twitter: '@apollographql'
 
 # API keys
 apis:
