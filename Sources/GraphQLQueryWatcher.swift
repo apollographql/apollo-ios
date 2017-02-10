@@ -41,10 +41,10 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   func store(_ store: ApolloStore, didChangeKeys changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?) {
     if context == &self.context { return }
     
-    if let dependentKeys = dependentKeys, dependentKeys.isDisjoint(with: changedKeys) {
-      return
-    }
+    guard let dependentKeys = dependentKeys else { return }
     
-    fetch(cachePolicy: .returnCacheDataElseFetch)
+    if (!dependentKeys.isDisjoint(with: changedKeys)) {
+      fetch(cachePolicy: .returnCacheDataElseFetch)
+    }
   }
 }
