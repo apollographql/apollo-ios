@@ -11,7 +11,7 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
   private var pathStack: [Path] = []
   private var path: Path = []
   
-  private var valueStack: [JSONValue?] = []
+  private var valueStack: [JSONValue] = []
   
   init(rootKey: CacheKey) {
     records = RecordSet()
@@ -44,7 +44,7 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
   }
   
   func didParseNull() {
-    valueStack.append(nil)
+    valueStack.append(NSNull())
   }
   
   func willParse(object: JSONObject) {
