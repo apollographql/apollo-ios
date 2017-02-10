@@ -43,7 +43,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     
     guard let dependentKeys = dependentKeys else { return }
     
-    if (!dependentKeys.isDisjoint(with: changedKeys)) {
+    if !dependentKeys.isDisjoint(with: changedKeys) {
       fetch(cachePolicy: .returnCacheDataElseFetch)
     }
   }
