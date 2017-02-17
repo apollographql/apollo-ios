@@ -2,23 +2,6 @@ import XCTest
 @testable import Apollo
 
 class StarWarsServerTests: XCTestCase {
-  static var allTests: [(String, (StarWarsServerTests) -> () throws -> Void)] {
-    return [
-      ("testHeroNameQuery", testHeroNameQuery),
-      ("testHeroAppearsInQuery", testHeroAppearsInQuery),
-      ("testHeroAndFriendsNamesQuery", testHeroAndFriendsNamesQuery),
-      ("testHeroDetailsQueryDroid", testHeroDetailsQueryDroid),
-      ("testHeroDetailsQueryHuman", testHeroDetailsQueryHuman),
-      ("testHeroDetailsWithFragmentQueryDroid", testHeroDetailsWithFragmentQueryDroid),
-      ("testHeroDetailsWithFragmentQueryHuman", testHeroDetailsWithFragmentQueryHuman),
-      ("testHeroTypeDependentAliasedFieldDroid", testHeroTypeDependentAliasedFieldDroid),
-      ("testHeroTypeDependentAliasedFieldHuman", testHeroTypeDependentAliasedFieldHuman),
-      ("testHeroParentTypeDependentFieldDroid", testHeroParentTypeDependentFieldDroid),
-      ("testHeroParentTypeDependentFieldHuman", testHeroParentTypeDependentFieldHuman),
-      ("testCreateReviewForEpisode", testCreateReviewForEpisode),
-    ]
-  }
-
   var client: ApolloClient!
 
   override func setUp() {

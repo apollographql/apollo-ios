@@ -53,7 +53,8 @@ public final class ApolloStore {
         let rootObject = self.records[rootKey]?.fields
         
         let reader = GraphQLResultReader(variables: query.variables) { field, object, info in
-          let value = (object ?? rootObject)?[field.cacheKey]
+          let cacheKey = try! field.cacheKey(with: info.variables)
+          let value = (object ?? rootObject)?[cacheKey]
           return self.complete(value: value)
         }
         
@@ -62,7 +63,7 @@ public final class ApolloStore {
         
         reader.delegate = normalizer
         
-        let data = try Query.Data(reader: reader)
+        let data = try query.parseData(reader: reader)
         
         let dependentKeys = normalizer.dependentKeys
         

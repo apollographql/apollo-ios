@@ -21,18 +21,20 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
   }
   
   func willResolve(field: Field, info: GraphQLResolveInfo) {
-    path.append(field.cacheKey)
+    path.append(try! field.cacheKey(with: info.variables))
   }
   
   func didResolve(field: Field, info: GraphQLResolveInfo) {
+    let cacheKey = try! field.cacheKey(with: info.variables)
+    
     path.removeLast()
     
     let value = valueStack.removeLast()
     
-    let dependentKey = [currentRecord.key, field.cacheKey].joined(separator: ".")
+    let dependentKey = [currentRecord.key, cacheKey].joined(separator: ".")
     dependentKeys.insert(dependentKey)
     
-    currentRecord[field.cacheKey] = value
+    currentRecord[cacheKey] = value
     
     if recordStack.isEmpty {
       records.merge(record: currentRecord)

@@ -1,54 +1,33 @@
 import XCTest
 @testable import Apollo
 
-// Because XCTAssertThrowsError expects an @autoclosure argument and that doesn't allow
-// us to specify an explicit return type, we need this wrapper function to select
-// the right overloaded version of the GraphQLDataReader method under test
-private func with<T>(returnType: T.Type, _ body: @autoclosure () throws -> T) rethrows -> T {
-  let value: T = try body()
-  return value
-}
-
 private func read(from rootObject: JSONObject) -> GraphQLResultReader {
   return GraphQLResultReader { field, _, _ in
     return rootObject[field.responseName]
   }
 }
 
-class GraphQLResultReaderTests: XCTestCase {
-  static var allTests: [(String, (GraphQLResultReaderTests) -> () throws -> Void)] {
-    return [
-      ("testGetValue", testGetValue),
-      ("testGetValueWithMissingKey", testGetValueWithMissingKey),
-      ("testGetValueWithNull", testGetValueWithNull),
-      ("testGetValueWithWrongType", testGetValueWithWrongType),
-      ("testGetOptionalValue", testGetOptionalValue),
-      ("testGetOptionalValueWithMissingKey", testGetOptionalValueWithMissingKey),
-      ("testGetOptionalValueWithNull", testGetOptionalValueWithNull),
-      ("testGetOptionalValueWithWrongType", testGetOptionalValueWithWrongType),
-      ("testGetList", testGetList),
-      ("testGetListWithMissingKey", testGetListWithMissingKey),
-      ("testGetListWithNull", testGetListWithNull),
-      ("testGetListWithWrongType", testGetListWithWrongType),
-      ("testGetOptionalList", testGetOptionalList),
-      ("testGetOptionalListWithNull", testGetOptionalListWithNull),
-      ("testGetOptionalListWithWrongType", testGetOptionalListWithWrongType),
-      ("testGetOptionalListWithMissingKey", testGetOptionalListWithMissingKey),
-      ("testGetListWithOptionalElements", testGetListWithOptionalElements),
-      ("testGetOptionalListWithOptionalElements", testGetOptionalListWithOptionalElements)
-    ]
+private extension GraphQLResultReader {
+  func read(_ field: Field) throws -> Any? {
+    return try execute(selectionSet: [field])[0]
   }
-  
-  func testGetValue() throws {
+}
+
+class GraphQLResultReaderTests: XCTestCase {
+  func testGetScalar() throws {
     let reader = read(from: ["name": "Luke Skywalker"])
-    let value: String = try reader.value(for: Field(responseName: "name"))
+    let field = Field("name", type: .nonNull(.scalar(String.self)))
+    
+    let value = try reader.read(field) as! String
+    
     XCTAssertEqual(value, "Luke Skywalker")
   }
 
-  func testGetValueWithMissingKey() {
+  func testGetScalarWithMissingKey() {
     let reader = read(from: [:])
+    let field = Field("name", type: .nonNull(.scalar(String.self)))
 
-    XCTAssertThrowsError(try with(returnType: String.self, reader.value(for: Field(responseName: "name")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -58,10 +37,11 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
   
-  func testGetValueWithNull() throws {
+  func testGetScalarWithNull() throws {
     let reader = read(from: ["name": NSNull()])
+    let field = Field("name", type: .nonNull(.scalar(String.self)))
     
-    XCTAssertThrowsError(try with(returnType: String.self, reader.value(for: Field(responseName: "name")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
@@ -71,10 +51,11 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetValueWithWrongType() throws {
+  func testGetScalarWithWrongType() throws {
     let reader = read(from: ["name": 10])
+    let field = Field("name", type: .nonNull(.scalar(String.self)))
 
-    XCTAssertThrowsError(try with(returnType: String.self, reader.value(for: Field(responseName: "name")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
           XCTAssertEqual(error.path, ["name"])
           XCTAssertEqual(value as? Int, 10)
@@ -85,16 +66,19 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetOptionalValue() throws {
+  func testGetOptionalScalar() throws {
     let reader = read(from: ["name": "Luke Skywalker"])
-    let value: String? = try reader.optionalValue(for: Field(responseName: "name"))
+    let field = Field("name", type: .scalar(String.self))
+    
+    let value = try reader.read(field) as! String?
     XCTAssertEqual(value, "Luke Skywalker")
   }
 
-  func testGetOptionalValueWithMissingKey() throws {
+  func testGetOptionalScalarWithMissingKey() throws {
     let reader = read(from: [:])
+    let field = Field("name", type: .scalar(String.self))
     
-    XCTAssertThrowsError(try with(returnType: Optional<String>.self, reader.optionalValue(for: Field(responseName: "name")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -104,16 +88,20 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
   
-  func testGetOptionalValueWithNull() throws {
+  func testGetOptionalScalarWithNull() throws {
     let reader = read(from: ["name": NSNull()])
-    let value: String? = try reader.optionalValue(for: Field(responseName: "name"))
+    let field = Field("name", type: .scalar(String.self))
+
+    let value = try reader.read(field) as! String?
+    
     XCTAssertNil(value)
   }
 
-  func testGetOptionalValueWithWrongType() throws {
+  func testGetOptionalScalarWithWrongType() throws {
     let reader = read(from: ["name": 10])
+    let field = Field("name", type: .scalar(String.self))
 
-    XCTAssertThrowsError(try with(returnType: Optional<String>.self, reader.optionalValue(for: Field(responseName: "name")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertEqual(value as? Int, 10)
@@ -124,16 +112,20 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetList() throws {
+  func testGetScalarList() throws {
     let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
-    let value: [Episode] = try reader.list(for: Field(responseName: "appearsIn"))
+    let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
+
+    let value = try reader.read(field) as! [Episode]
+    
     XCTAssertEqual(value, [.newhope, .empire, .jedi])
   }
 
-  func testGetListWithMissingKey() {
+  func testGetScalarListWithMissingKey() {
     let reader = read(from: [:])
+    let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
-    XCTAssertThrowsError(try with(returnType: Array<Episode>.self, reader.list(for: Field(responseName: "appearsIn")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -143,10 +135,11 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetListWithNull() throws {
+  func testGetScalarListWithNull() throws {
     let reader = read(from: ["appearsIn": NSNull()])
+    let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
-    XCTAssertThrowsError(try with(returnType: Array<Episode>.self, reader.list(for: Field(responseName: "appearsIn")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
@@ -156,12 +149,13 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetListWithWrongType() throws {
+  func testGetScalarListWithWrongType() throws {
     let reader = read(from: ["appearsIn": [4, 5, 6]])
+    let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
-    XCTAssertThrowsError(try with(returnType: Array<Episode>.self, reader.list(for: Field(responseName: "appearsIn")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-        XCTAssertEqual(error.path, ["appearsIn", "0"])
+        XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertEqual(value as? Int, 4)
         XCTAssertTrue(expectedType == String.self)
       } else {
@@ -170,16 +164,20 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetOptionalList() throws {
+  func testGetOptionalScalarList() throws {
     let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
-    let value: [Episode]? = try reader.optionalList(for: Field(responseName: "appearsIn"))
+    let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
+
+    let value = try reader.read(field) as! [Episode]?
+    
     XCTAssertEqual(value!, [.newhope, .empire, .jedi])
   }
 
-  func testGetOptionalListWithMissingKey() throws {
+  func testGetOptionalScalarListWithMissingKey() throws {
     let reader = read(from: [:])
-    
-    XCTAssertThrowsError(try with(returnType: Optional<Array<Episode>>.self, reader.optionalList(for: Field(responseName: "appearsIn")))) { (error) in
+    let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
+
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -189,18 +187,22 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
   
-  func testGetOptionalListWithNull() throws {
+  func testGetOptionalScalarListWithNull() throws {
     let reader = read(from: ["appearsIn": NSNull()])
-    let value: [Episode]? = try reader.optionalList(for: Field(responseName: "appearsIn"))
+    let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
+
+    let value = try reader.read(field) as! [Episode]?
+    
     XCTAssertNil(value)
   }
 
-  func testGetOptionalListWithWrongType() throws {
+  func testGetOptionalScalarListWithWrongType() throws {
     let reader = read(from: ["appearsIn": [4, 5, 6]])
+    let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
 
-    XCTAssertThrowsError(try with(returnType: Optional<Array<Episode>>.self, reader.optionalList(for: Field(responseName: "appearsIn")))) { (error) in
+    XCTAssertThrowsError(try reader.read(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-        XCTAssertEqual(error.path, ["appearsIn", "0"])
+        XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertEqual(value as? Int, 4)
         XCTAssertTrue(expectedType == String.self)
       } else {
@@ -209,15 +211,21 @@ class GraphQLResultReaderTests: XCTestCase {
     }
   }
 
-  func testGetListWithOptionalElements() throws {
+  func testGetScalarListWithOptionalElements() throws {
     let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
-    let value: [Episode?] = try reader.list(for: Field(responseName: "appearsIn"))
+    let field = Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self))))
+
+    let value = try reader.read(field) as! [Episode?]
+
     XCTAssertEqual(value, [.newhope, .empire, .jedi] as [Episode?])
   }
 
-  func testGetOptionalListWithOptionalElements() throws {
+  func testGetOptionalScalarListWithOptionalElements() throws {
     let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
-    let value: [Episode?]? = try reader.optionalList(for: Field(responseName: "appearsIn"))
+    let field = Field("appearsIn", type: .list(.scalar(Episode.self)))
+
+    let value = try reader.read(field) as! [Episode?]?
+
     XCTAssertEqual(value, [.newhope, .empire, .jedi] as [Episode?])
   }
 }

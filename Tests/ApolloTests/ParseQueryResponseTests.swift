@@ -2,25 +2,6 @@ import XCTest
 @testable import Apollo
 
 class ParseQueryResponseTests: XCTestCase {
-  static var allTests : [(String, (ParseQueryResponseTests) -> () throws -> Void)] {
-    return [
-      ("testHeroNameQuery", testHeroNameQuery),
-      ("testHeroNameQueryWithMissingValue", testHeroNameQueryWithMissingValue),
-      ("testHeroNameQueryWithWrongType", testHeroNameQueryWithWrongType),
-      ("testHeroAppearsInQuery", testHeroAppearsInQuery),
-      ("testHeroAndFriendsNamesQuery", testHeroAndFriendsNamesQuery),
-      ("testTwoHeroesQuery", testTwoHeroesQuery),
-      ("testHeroDetailsQueryDroid", testHeroDetailsQueryDroid),
-      ("testHeroDetailsQueryHuman", testHeroDetailsQueryHuman),
-      ("testHeroDetailsQueryUnknownTypename", testHeroDetailsQueryUnknownTypename),
-      ("testHeroDetailsQueryMissingTypename", testHeroDetailsQueryMissingTypename),
-      ("testHeroDetailsWithFragmentQueryDroid", testHeroDetailsWithFragmentQueryDroid),
-      ("testHeroDetailsWithFragmentQueryHuman", testHeroDetailsWithFragmentQueryHuman),
-      ("testErrorResponseWithoutLocation", testErrorResponseWithoutLocation),
-      ("testErrorResponseWithLocation", testErrorResponseWithLocation),
-    ]
-  }
-  
   func testHeroNameQuery() throws {
     let query = HeroNameQuery()
     

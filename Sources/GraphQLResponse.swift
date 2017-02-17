@@ -22,7 +22,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       normalizer.cacheKeyForObject = cacheKeyForObject
       reader.delegate = normalizer
 
-      data = try Operation.Data(reader: reader)
+      data = try operation.parseData(reader: reader)
       
       records = normalizer.records
       dependentKeys = normalizer.dependentKeys
