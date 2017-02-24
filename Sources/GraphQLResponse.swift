@@ -14,15 +14,15 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     let records: RecordSet?
 
     if let dataEntry = body["data"] as? JSONObject {
-      let reader = GraphQLResultReader(variables: operation.variables) { field, object, info in
-        return (object ?? dataEntry)[field.responseName]
+      let executor = GraphQLExecutor(variables: operation.variables) { field, object, info in
+        return (object ?? dataEntry)[field.responseKey]
       }
       
       let normalizer = GraphQLResultNormalizer(rootKey: rootKey(forOperation: operation))
       normalizer.cacheKeyForObject = cacheKeyForObject
-      reader.delegate = normalizer
+      executor.delegate = normalizer
 
-      data = try operation.parseData(reader: reader)
+      data = try operation.parseData(executor: executor)
       
       records = normalizer.records
       dependentKeys = normalizer.dependentKeys

@@ -13,7 +13,3 @@ public indirect enum GraphQLOutputType {
     }
   }
 }
-
-public protocol GraphQLMappable {
-  init(values: [Any?])
-}

@@ -11,7 +11,9 @@ readme:      README.md
 hide_documentation_coverage: true
 skip_undocumented: true
 
-exclude: [Sources/JSONStandardTypeConversions.swift]
+exclude:
+  - Sources/JSONStandardTypeConversions.swift
+  - Sources/Utilities.swift
 
 custom_categories:
   - name: Core
@@ -38,3 +40,8 @@ custom_categories:
       - CacheKey
       - CacheKeyForObject
       - Reference
+
+  - name: Execution
+    children:
+      - GraphQLExecutor
+      - GraphQLMappable

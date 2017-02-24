@@ -6,7 +6,7 @@ public struct Field: Selection {
   let alias: String?
   let arguments: [String: GraphQLInputValue]?
   
-  var responseName: String {
+  var responseKey: String {
     return alias ?? name
   }
   

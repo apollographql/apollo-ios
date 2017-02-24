@@ -1,4 +1,4 @@
-final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
+final class GraphQLResultNormalizer: GraphQLExecutorDelegate {
   var records: RecordSet
   var dependentKeys: Set<CacheKey> = Set()
   
@@ -41,15 +41,15 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
     }
   }
   
-  func didParse(value: JSONValue) {
-    valueStack.append(value)
+  func didComplete(scalar: JSONValue) {
+    valueStack.append(scalar)
   }
   
-  func didParseNull() {
+  func didCompleteValueWithNull() {
     valueStack.append(NSNull())
   }
   
-  func willParse(object: JSONObject) {
+  func willComplete(object: JSONObject) {
     pathStack.append(path)
     
     let cacheKey: CacheKey
@@ -64,7 +64,7 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
     currentRecord = Record(key: cacheKey)
   }
   
-  func didParse(object: JSONObject) {
+  func didComplete(object: JSONObject) {
     path = pathStack.removeLast()
     
     valueStack.append(Reference(key: currentRecord.key))
@@ -74,21 +74,21 @@ final class GraphQLResultNormalizer: GraphQLResultReaderDelegate {
     currentRecord = recordStack.removeLast()
   }
   
-  func willParse<Element>(array: [Element]) {
+  func willComplete<Element>(array: [Element]) {
     valueStack.reserveCapacity(valueStack.count + array.count)
   }
   
-  func willParseElement(at index: Int) {
+  func willCompleteElement(at index: Int) {
     path.append(String(index))
   }
   
-  func didParseElement(at index: Int) {
+  func didCompleteElement(at index: Int) {
     path.removeLast()
   }
   
-  func didParse<Element>(array: [Element]) {
-    let parsedArray = Array(valueStack.suffix(array.count))
+  func didComplete<Element>(array: [Element]) {
+    let CompletedArray = Array(valueStack.suffix(array.count))
     valueStack.removeLast(array.count)
-    valueStack.append(parsedArray)
+    valueStack.append(CompletedArray)
   }
 }

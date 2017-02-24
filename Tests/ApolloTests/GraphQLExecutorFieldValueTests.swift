@@ -1,30 +1,24 @@
 import XCTest
 @testable import Apollo
 
-private func read(from rootObject: JSONObject) -> GraphQLResultReader {
-  return GraphQLResultReader { field, _, _ in
-    return rootObject[field.responseName]
-  }
-}
-
-private extension GraphQLResultReader {
+private extension GraphQLExecutor {
   func read(_ field: Field) throws -> Any? {
     return try execute(selectionSet: [field])[0]
   }
 }
 
-class GraphQLResultReaderTests: XCTestCase {
+class GraphQLExecutorFieldValueTests: XCTestCase {
   func testGetScalar() throws {
-    let reader = read(from: ["name": "Luke Skywalker"])
+    let executor = GraphQLExecutor(rootObject: ["name": "Luke Skywalker"])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
     
-    let value = try reader.read(field) as! String
+    let value = try executor.read(field) as! String
     
     XCTAssertEqual(value, "Luke Skywalker")
   }
 
   func testGetScalarWithMissingKey() {
-    let reader = read(from: [:])
+    let reader = GraphQLExecutor(rootObject: [:])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -38,7 +32,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
   
   func testGetScalarWithNull() throws {
-    let reader = read(from: ["name": NSNull()])
+    let reader = GraphQLExecutor(rootObject: ["name": NSNull()])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
     
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -52,7 +46,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetScalarWithWrongType() throws {
-    let reader = read(from: ["name": 10])
+    let reader = GraphQLExecutor(rootObject: ["name": 10])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -67,7 +61,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalar() throws {
-    let reader = read(from: ["name": "Luke Skywalker"])
+    let reader = GraphQLExecutor(rootObject: ["name": "Luke Skywalker"])
     let field = Field("name", type: .scalar(String.self))
     
     let value = try reader.read(field) as! String?
@@ -75,7 +69,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalarWithMissingKey() throws {
-    let reader = read(from: [:])
+    let reader = GraphQLExecutor(rootObject: [:])
     let field = Field("name", type: .scalar(String.self))
     
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -89,7 +83,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
   
   func testGetOptionalScalarWithNull() throws {
-    let reader = read(from: ["name": NSNull()])
+    let reader = GraphQLExecutor(rootObject: ["name": NSNull()])
     let field = Field("name", type: .scalar(String.self))
 
     let value = try reader.read(field) as! String?
@@ -98,7 +92,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalarWithWrongType() throws {
-    let reader = read(from: ["name": 10])
+    let reader = GraphQLExecutor(rootObject: ["name": 10])
     let field = Field("name", type: .scalar(String.self))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -113,7 +107,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetScalarList() throws {
-    let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
     let value = try reader.read(field) as! [Episode]
@@ -122,7 +116,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetScalarListWithMissingKey() {
-    let reader = read(from: [:])
+    let reader = GraphQLExecutor(rootObject: [:])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -136,7 +130,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetScalarListWithNull() throws {
-    let reader = read(from: ["appearsIn": NSNull()])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": NSNull()])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -150,7 +144,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetScalarListWithWrongType() throws {
-    let reader = read(from: ["appearsIn": [4, 5, 6]])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": [4, 5, 6]])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -165,7 +159,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalarList() throws {
-    let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
 
     let value = try reader.read(field) as! [Episode]?
@@ -174,7 +168,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalarListWithMissingKey() throws {
-    let reader = read(from: [:])
+    let reader = GraphQLExecutor(rootObject: [:])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -188,7 +182,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
   
   func testGetOptionalScalarListWithNull() throws {
-    let reader = read(from: ["appearsIn": NSNull()])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": NSNull()])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
 
     let value = try reader.read(field) as! [Episode]?
@@ -197,7 +191,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalarListWithWrongType() throws {
-    let reader = read(from: ["appearsIn": [4, 5, 6]])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": [4, 5, 6]])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
 
     XCTAssertThrowsError(try reader.read(field)) { (error) in
@@ -212,7 +206,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetScalarListWithOptionalElements() throws {
-    let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self))))
 
     let value = try reader.read(field) as! [Episode?]
@@ -221,7 +215,7 @@ class GraphQLResultReaderTests: XCTestCase {
   }
 
   func testGetOptionalScalarListWithOptionalElements() throws {
-    let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .list(.scalar(Episode.self)))
 
     let value = try reader.read(field) as! [Episode?]?

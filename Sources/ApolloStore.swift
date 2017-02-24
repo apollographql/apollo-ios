@@ -52,7 +52,7 @@ public final class ApolloStore {
         let rootKey = Apollo.rootKey(forOperation: query)
         let rootObject = self.records[rootKey]?.fields
         
-        let reader = GraphQLResultReader(variables: query.variables) { field, object, info in
+        let executor = GraphQLExecutor(variables: query.variables) { field, object, info in
           let cacheKey = try! field.cacheKey(with: info.variables)
           let value = (object ?? rootObject)?[cacheKey]
           return self.complete(value: value)
@@ -61,9 +61,9 @@ public final class ApolloStore {
         let normalizer = GraphQLResultNormalizer(rootKey: rootKey)
         normalizer.cacheKeyForObject = cacheKeyForObject
         
-        reader.delegate = normalizer
+        executor.delegate = normalizer
         
-        let data = try query.parseData(reader: reader)
+        let data = try query.parseData(executor: executor)
         
         let dependentKeys = normalizer.dependentKeys
         

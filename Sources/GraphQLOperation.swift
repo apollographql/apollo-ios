@@ -7,7 +7,7 @@ public protocol GraphQLOperation: class {
   var variables: GraphQLMap? { get }
   
   associatedtype Data
-  func parseData(reader: GraphQLResultReader) throws -> Data
+  func parseData(executor: GraphQLExecutor) throws -> Data
 }
 
 public extension GraphQLOperation {
@@ -21,9 +21,8 @@ public extension GraphQLOperation {
 }
 
 public extension GraphQLOperation where Data: GraphQLMappable {
-  func parseData(reader: GraphQLResultReader) throws -> Data {
-    let values = try reader.execute(selectionSet: type(of: self).selectionSet)
-    return Data.init(values: values)
+  func parseData(executor: GraphQLExecutor) throws -> Data {
+    return try executor.execute(selectionSet: type(of: self).selectionSet)
   }
 }
 
