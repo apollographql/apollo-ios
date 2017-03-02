@@ -6,8 +6,7 @@ public protocol GraphQLOperation: class {
   
   var variables: GraphQLMap? { get }
   
-  associatedtype Data
-  func parseData(executor: GraphQLExecutor) throws -> Data
+  associatedtype Data: GraphQLMappable
 }
 
 public extension GraphQLOperation {
@@ -17,12 +16,6 @@ public extension GraphQLOperation {
   
   var variables: GraphQLMap? {
     return nil
-  }
-}
-
-public extension GraphQLOperation where Data: GraphQLMappable {
-  func parseData(executor: GraphQLExecutor) throws -> Data {
-    return try executor.execute(selectionSet: type(of: self).selectionSet)
   }
 }
 

@@ -46,3 +46,9 @@ extension GraphQLError: CustomStringConvertible {
     return self.message
   }
 }
+
+extension GraphQLError: LocalizedError {
+  public var errorDescription: String? {
+    return description
+  }
+}

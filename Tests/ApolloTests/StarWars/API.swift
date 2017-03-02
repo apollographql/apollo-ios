@@ -329,6 +329,83 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
   }
 }
 
+public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
+  public static let operationString =
+    "query HeroAndFriendsNamesWithFragment($episode: Episode) {" +
+    "  hero(episode: $episode) {" +
+    "    __typename" +
+    "    name" +
+    "    ...FriendsNames" +
+    "    friends {" +
+    "      __typename" +
+    "      name" +
+    "    }" +
+    "  }" +
+    "}"
+  public static var requestString: String { return operationString.appending(FriendsNames.fragmentString) }
+
+  public static let selectionSet: [Selection] = [
+    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
+      Field("__typename", type: .nonNull(.scalar(String.self))),
+      Field("name", type: .nonNull(.scalar(String.self))),
+      Field("friends", type: .list(.object(Data.Hero.Friend.self)), selectionSet: [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]),
+      FragmentSpread(FriendsNames.self),
+    ]),
+  ]
+
+  public let episode: Episode?
+
+  public init(episode: Episode? = nil) {
+    self.episode = episode
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode]
+  }
+
+  public struct Data: GraphQLMappable {
+    public let hero: Hero?
+
+    public init(values: [Any?]) {
+      hero = values[0] as! Hero?
+    }
+
+    public struct Hero: GraphQLMappable {
+      public let __typename: String
+      public let name: String
+      public let friends: [Friend?]?
+
+      public let fragments: Fragments
+
+      public init(values: [Any?]) {
+        __typename = values[0] as! String
+        name = values[1] as! String
+        friends = values[2] as! [Friend?]?
+        let friendsNames = values[3] as! FriendsNames
+
+        fragments = Fragments(friendsNames: friendsNames)
+      }
+
+      public struct Fragments {
+        public let friendsNames: FriendsNames
+      }
+
+      public struct Friend: GraphQLMappable {
+        public let __typename: String
+        public let name: String
+
+        public init(values: [Any?]) {
+          __typename = values[0] as! String
+          name = values[1] as! String
+        }
+      }
+    }
+  }
+}
+
 public final class HeroAppearsInQuery: GraphQLQuery {
   public static let operationString =
     "query HeroAppearsIn {" +
@@ -1177,6 +1254,45 @@ public final class TwoHeroesQuery: GraphQLQuery {
         __typename = values[0] as! String
         name = values[1] as! String
       }
+    }
+  }
+}
+
+public struct FriendsNames: GraphQLFragment {
+  public static let fragmentString =
+    "fragment FriendsNames on Character {" +
+    "  __typename" +
+    "  friends {" +
+    "    __typename" +
+    "    name" +
+    "  }" +
+    "}"
+
+  public static let possibleTypes = ["Human", "Droid"]
+
+  public static let selectionSet: [Selection] = [
+    Field("__typename", type: .nonNull(.scalar(String.self))),
+    Field("friends", type: .list(.object(FriendsNames.Friend.self)), selectionSet: [
+      Field("__typename", type: .nonNull(.scalar(String.self))),
+      Field("name", type: .nonNull(.scalar(String.self))),
+    ]),
+  ]
+
+  public let __typename: String
+  public let friends: [Friend?]?
+
+  public init(values: [Any?]) {
+    __typename = values[0] as! String
+    friends = values[1] as! [Friend?]?
+  }
+
+  public struct Friend: GraphQLMappable {
+    public let __typename: String
+    public let name: String
+
+    public init(values: [Any?]) {
+      __typename = values[0] as! String
+      name = values[1] as! String
     }
   }
 }

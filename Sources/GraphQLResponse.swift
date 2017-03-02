@@ -8,38 +8,32 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     self.body = body
   }
 
-  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Operation.Data>, RecordSet?)  {
-    let data: Operation.Data?
-    let dependentKeys: Set<CacheKey>?
-    let records: RecordSet?
-
-    if let dataEntry = body["data"] as? JSONObject {
-      let executor = GraphQLExecutor(variables: operation.variables) { field, object, info in
-        return (object ?? dataEntry)[field.responseKey]
-      }
-      
-      let normalizer = GraphQLResultNormalizer(rootKey: rootKey(forOperation: operation))
-      normalizer.cacheKeyForObject = cacheKeyForObject
-      executor.delegate = normalizer
-
-      data = try operation.parseData(executor: executor)
-      
-      records = normalizer.records
-      dependentKeys = normalizer.dependentKeys
-    } else {
-      data = nil
-      dependentKeys = nil
-      records = nil
-    }
-
+  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
     let errors: [GraphQLError]?
-
+    
     if let errorsEntry = body["errors"] as? [JSONObject] {
       errors = errorsEntry.map(GraphQLError.init)
     } else {
       errors = nil
     }
 
-    return (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
+    if let dataEntry = body["data"] as? JSONObject {
+      let executor = GraphQLExecutor { object, info in
+        return Promise(fulfilled: (object ?? dataEntry)[info.responseKeyForField])
+      }
+      
+      executor.cacheKeyForObject = cacheKeyForObject
+      
+      let mapper = GraphQLResultMapper<Operation.Data>()
+      let normalizer = GraphQLResultNormalizer()
+      let dependencyTracker = GraphQLDependencyTracker()
+
+      return try executor.execute(selectionSet: Operation.selectionSet, rootKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker)
+        ).then(on: DispatchQueue.global()) { (data, records, dependentKeys) in
+        return (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
+      }
+    } else {
+      return Promise(fulfilled: (GraphQLResult(data: nil, errors: errors, dependentKeys: nil), nil))
+    }
   }
 }

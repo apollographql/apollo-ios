@@ -48,26 +48,25 @@ public final class ApolloStore {
   
   func load<Query: GraphQLQuery>(query: Query, cacheKeyForObject: CacheKeyForObject?, resultHandler: @escaping OperationResultHandler<Query>) {
     queue.async {
+      let rootKey = Apollo.rootKey(forOperation: query)
+      let rootObject = self.records[rootKey]?.fields
+      
+      let executor = GraphQLExecutor { object, info in
+        let value = (object ?? rootObject)?[info.cacheKeyForField]
+        return Promise(fulfilled: self.complete(value: value))
+      }
+      
+      executor.cacheKeyForObject = cacheKeyForObject
+      
+      let mapper = GraphQLResultMapper<Query.Data>()
+      let dependencyTracker = GraphQLDependencyTracker()
+      
       do {
-        let rootKey = Apollo.rootKey(forOperation: query)
-        let rootObject = self.records[rootKey]?.fields
-        
-        let executor = GraphQLExecutor(variables: query.variables) { field, object, info in
-          let cacheKey = try! field.cacheKey(with: info.variables)
-          let value = (object ?? rootObject)?[cacheKey]
-          return self.complete(value: value)
+        try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker)).then(on: self.queue) { (data, dependentKeys) in
+          resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
+        }.catch(on: self.queue) { error in
+          resultHandler(nil, error)
         }
-        
-        let normalizer = GraphQLResultNormalizer(rootKey: rootKey)
-        normalizer.cacheKeyForObject = cacheKeyForObject
-        
-        executor.delegate = normalizer
-        
-        let data = try query.parseData(executor: executor)
-        
-        let dependentKeys = normalizer.dependentKeys
-        
-        resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
       } catch {
         resultHandler(nil, error)
       }

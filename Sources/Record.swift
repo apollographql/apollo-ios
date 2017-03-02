@@ -21,6 +21,12 @@ public struct Record {
   }
 }
 
+extension Record: CustomStringConvertible {
+  public var description: String {
+    return "#\(key) -> \(fields)"
+  }
+}
+
 /// A reference to a cache record.
 public struct Reference {
   let key: CacheKey
@@ -29,5 +35,11 @@ public struct Reference {
 extension Reference: Equatable {
   public static func ==(lhs: Reference, rhs: Reference) -> Bool {
     return lhs.key == rhs.key
+  }
+}
+
+extension Reference: CustomStringConvertible {
+  public var description: String {
+    return "-> #\(key)"
   }
 }

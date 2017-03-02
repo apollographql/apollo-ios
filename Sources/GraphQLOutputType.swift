@@ -12,4 +12,15 @@ public indirect enum GraphQLOutputType {
       return self
     }
   }
+  
+  var actualType: Any.Type {
+    switch namedType {
+    case .scalar(let decodable):
+      return decodable
+    case .object(let mappable):
+      return mappable
+    default:
+      preconditionFailure()
+    }
+  }
 }

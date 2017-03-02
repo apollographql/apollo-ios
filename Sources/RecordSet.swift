@@ -57,8 +57,14 @@ extension RecordSet: ExpressibleByDictionaryLiteral {
   }
 }
 
-extension RecordSet: CustomDebugStringConvertible {
-  public var debugDescription: String {
-    return storage.debugDescription
+extension RecordSet: CustomStringConvertible {
+  public var description: String {
+    return String(describing: Array(storage.values))
+  }
+}
+
+extension RecordSet: CustomPlaygroundQuickLookable {
+  public var customPlaygroundQuickLook: PlaygroundQuickLook {
+    return .text(description)
   }
 }

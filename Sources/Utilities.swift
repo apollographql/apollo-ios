@@ -38,16 +38,4 @@ func isNil(_ value: Any) -> Bool {
   }
 }
 
-extension Dictionary {
-  subscript(key: Key, withDefault value: @autoclosure () -> Value) -> Value {
-    mutating get {
-      if self[key] == nil {
-        self[key] = value()
-      }
-      return self[key]!
-    }
-    set {
-      self[key] = newValue
-    }
-  }
-}
+
