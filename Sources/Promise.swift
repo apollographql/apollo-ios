@@ -1,14 +1,13 @@
-public func whenAll<Value>(elementsOf array: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
+public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()
     
-    for promise in array {
+    for promise in promises {
       group.enter()
       
       promise.andThen { value in
         group.leave()
       }.catch { error in
-        print(error)
         queue.async {
           reject(error)
         }
@@ -16,7 +15,7 @@ public func whenAll<Value>(elementsOf array: [Promise<Value>], notifyOn queue: D
     }
     
     group.notify(queue: queue) {
-      fulfill(array.flatMap { $0.result?.value })
+      fulfill(promises.flatMap { $0.result?.value })
     }
   }
 }

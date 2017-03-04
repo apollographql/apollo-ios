@@ -223,8 +223,13 @@ class PromiseTests: XCTestCase {
   func testWhenAll() throws {
     let promises: [Promise<String>] = [Promise(fulfilled: "foo"), Promise(fulfilled: "bar")]
     
-    let values = try whenAll(elementsOf: promises, notifyOn: DispatchQueue.global()).wait()
+    let expectation = self.expectation(description: "Waiting for all elements of array")
     
-    XCTAssertEqual(values, ["foo", "bar"])
+    whenAll(promises, notifyOn: DispatchQueue.global()).andThen { values in
+      XCTAssertEqual(values, ["foo", "bar"])
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
   }
 }

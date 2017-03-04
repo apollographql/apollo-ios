@@ -133,7 +133,7 @@ public final class GraphQLExecutor {
       fieldEntries.append(fieldEntry)
     }
     
-    return whenAll(elementsOf: fieldEntries, notifyOn: queue).map {
+    return whenAll(fieldEntries, notifyOn: queue).map {
       try accumulator.accept(fieldEntries: $0, info: info)
     }
   }
@@ -223,7 +223,7 @@ public final class GraphQLExecutor {
     case .list(let innerType):
       guard let array = value as? [JSONValue] else { return Promise(rejected: JSONDecodingError.wrongType) }
       
-      return try whenAll(elementsOf: array.enumerated().map { index, element -> Promise<Accumulator.PartialResult> in
+      return try whenAll(array.enumerated().map { index, element -> Promise<Accumulator.PartialResult> in
         var info = info
         
         let indexSegment = String(index)
