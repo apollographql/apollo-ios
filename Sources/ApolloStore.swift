@@ -61,13 +61,11 @@ public final class ApolloStore {
       let mapper = GraphQLResultMapper<Query.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
       
-      do {
-        try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker)).then(on: self.queue) { (data, dependentKeys) in
-          resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
-        }.catch(on: self.queue) { error in
-          resultHandler(nil, error)
-        }
-      } catch {
+      firstly {
+        try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker))
+      }.andThen { (data, dependentKeys) in
+        resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
+      }.catch { error in
         resultHandler(nil, error)
       }
     }

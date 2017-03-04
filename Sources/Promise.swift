@@ -1,62 +1,60 @@
-public func whenAll<Key, Value>(valuesOf dictionary: [Key: Promise<Value>], on queue: DispatchQueue) -> Promise<[Key: Value]> {
+public func whenAll<Value>(elementsOf array: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
-    var values: [Key: Value] = [:]
+    let group = DispatchGroup()
     
-    for (key, promise) in dictionary {
-      promise.then(on: queue) { value in
-        values[key] = value
-        
-        if values.count == dictionary.count {
-          fulfill(values)
+    for promise in array {
+      group.enter()
+      
+      promise.andThen { value in
+        group.leave()
+      }.catch { error in
+        print(error)
+        queue.async {
+          reject(error)
         }
-      }.catch(on: queue) { error in
-        reject(error)
       }
+    }
+    
+    group.notify(queue: queue) {
+      fulfill(array.flatMap { $0.result?.value })
     }
   }
 }
 
-public func whenAll<Value>(elementsOf array: [Promise<Value>], on queue: DispatchQueue) -> Promise<[Value]> {
-  return Promise { (fulfill, reject) in
-    for promise in array {
-      promise.then(on: queue) { value in
-        if !array.contains(where: { $0.isPending }) {
-          fulfill(array.flatMap { $0.value })
-        }
-      }.catch(on: queue) { error in
-        reject(error)
-      }
-    }
+public func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
+  do {
+    return try body()
+  } catch {
+    return Promise(rejected: error)
   }
 }
 
 public final class Promise<Value> {
   private var lock = os_unfair_lock_s()
-  private var state: State<Value>
-  private var handlers: [Handler<Value>] = []
   
-  public init() {
-    state = .pending
-  }
+  private var state: State<Value>
+  
+  private typealias ResultHandler<Value> = (Result<Value>) -> Void
+  private var resultHandlers: [ResultHandler<Value>] = []
   
   public init(fulfilled value: Value) {
-    state = .fulfilled(value)
+    state = .resolved(.success(value))
   }
   
   public init(rejected error: Error) {
-    state = .rejected(error)
+    state = .resolved(.failure(error))
   }
   
   public init(_ body: () throws -> Value) {
     do {
       let value = try body()
-      state = .fulfilled(value)
+      state = .resolved(.success(value))
     } catch {
-      state = .rejected(error)
+      state = .resolved(.failure(error))
     }
   }
   
-  public init(_ body: @escaping (_ fulfill: @escaping (Value) -> (), _ reject: @escaping (Error) -> () ) throws -> ()) {
+  public init(_ body: (_ fulfill: @escaping (Value) -> Void, _ reject: @escaping (Error) -> Void) throws -> Void) {
     state = .pending
     
     do {
@@ -78,166 +76,158 @@ public final class Promise<Value> {
     }
   }
   
-  private func fulfill(_ value: Value) {
-    setState(.fulfilled(value))
-  }
-  
-  private func reject(_ error: Error) {
-    setState(.rejected(error))
-  }
-  
-  public func map<NewValue>(on queue: DispatchQueue, _ transform: @escaping (Value) throws -> NewValue) -> Promise<NewValue> {
-    return then(on: queue, transform)
-  }
-  
-  public func flatMap<NewValue>(on queue: DispatchQueue, _ transform: @escaping (Value) throws -> Promise<NewValue>) -> Promise<NewValue> {
-    return then(on: queue, transform)
-  }
-  
-  @discardableResult public func then<T>(on queue: DispatchQueue, _ whenFulfilled: @escaping (Value) throws -> Promise<T>) -> Promise<T> {
-    return Promise<T>(on: queue) { fulfill, reject in
-      self.addHandler(
-        queue: queue,
-        whenFulfilled: { value in
+  @discardableResult public func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
+    return Promise<Value> { fulfill, reject in
+      whenResolved { result in
+        switch result {
+        case .success(let value):
           do {
-            try whenFulfilled(value).then(on: queue, fulfill, reject)
-          } catch let error {
+            try whenFulfilled(value)
+            fulfill(value)
+          } catch {
             reject(error)
           }
-        },
-        whenRejected: reject
-      )
-    }
-  }
-  
-  @discardableResult public func then<T>(on queue: DispatchQueue, _ whenFulfilled: @escaping (Value) throws -> T) -> Promise<T> {
-    return then(on: queue, { value -> Promise<T> in
-      do {
-        return Promise<T>(fulfilled: try whenFulfilled(value))
-      } catch let error {
-        return Promise<T>(rejected: error)
-      }
-    })
-  }
-  
-  @discardableResult private func then(on queue: DispatchQueue, _ whenFulfilled: @escaping (Value) -> (), _ whenRejected: @escaping (Error) -> () = { _ in }) -> Promise<Value> {
-    _ = Promise<Value>(on: queue) { fulfill, reject in
-      self.addHandler(
-        queue: queue,
-        whenFulfilled: { value in
-          fulfill(value)
-          whenFulfilled(value)
-        },
-        whenRejected: { error in
+        case .failure(let error):
           reject(error)
-          whenRejected(error)
         }
-      )
+      }
     }
-    return self
   }
   
-  @discardableResult public func `catch`(on queue: DispatchQueue, _ whenRejected: @escaping (Error) throws -> ()) -> Promise<Value> {
-    // return then(on: queue, { _ in }, whenRejected)
-    
-    return Promise<Value>(on: queue) { fulfill, reject in
-      self.addHandler(
-        queue: queue,
-        whenFulfilled: fulfill,
-        whenRejected: { error in
+  @discardableResult public func `catch`(_ whenRejected: @escaping (Error) throws -> Void) -> Promise<Value> {
+    return Promise<Value> { fulfill, reject in
+      whenResolved { result in
+        switch result {
+        case .success(let value):
+          fulfill(value)
+        case .failure(let error):
           do {
             try whenRejected(error)
             reject(error)
-          } catch let error {
+          } catch {
             reject(error)
           }
-      })
+        }
+      }
     }
   }
   
-  var isPending: Bool {
+  public func map<T>(_ transform: @escaping (Value) throws -> T) -> Promise<T> {
+    return Promise<T> { fulfill, reject in
+      whenResolved { result in
+        switch result {
+        case .success(let value):
+          do {
+            fulfill(try transform(value))
+          } catch {
+            reject(error)
+          }
+        case .failure(let error):
+          reject(error)
+        }
+      }
+    }
+  }
+  
+  public func flatMap<T>(_ transform: @escaping (Value) throws -> Promise<T>) -> Promise<T> {
+    return Promise<T> { fulfill, reject in
+      whenResolved { result in
+        switch result {
+        case .success(let value):
+          do {
+            try transform(value).andThen(fulfill).catch(reject)
+          } catch {
+            reject(error)
+          }
+        case .failure(let error):
+          reject(error)
+        }
+      }
+    }
+  }
+  
+  public func on(queue: DispatchQueue) -> Promise<Value> {
+    return Promise<Value> { fulfill, reject in
+      whenResolved { result in
+        switch result {
+        case .success(let value):
+          queue.async {
+            fulfill(value)
+          }
+        case .failure(let error):
+          queue.async {
+            reject(error)
+          }
+        }
+      }
+    }
+  }
+  
+  public var isPending: Bool {
     return lock {
       state.isPending
     }
   }
   
-  public var value: Value? {
+  public var result: Result<Value>? {
     return lock {
-      switch state {
-      case .fulfilled(let value):
-        return value
-      default:
-        return nil
-      }
-    }
-  }
-  
-  func valueOrThrow() throws -> Value {
-    return try lock {
       switch state {
       case .pending:
-        preconditionFailure()
-      case .fulfilled(let value):
-        return value
-      case .rejected(let error):
-        throw error
-      }
-    }
-  }
-  
-  public var error: Error? {
-    return lock {
-      switch state {
-      case .rejected(let error):
-        return error
-      default:
         return nil
+      case .resolved(let result):
+        return result
       }
     }
   }
   
-  func wait() throws -> Value {
+  public func wait() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
-    then(on: DispatchQueue.global(), { _ in
+    
+    var receivedResult: Result<Value>? = nil
+    
+    whenResolved { result in
+      receivedResult = result
       semaphore.signal()
-    }, { _ in
-      semaphore.signal()
-    })
+    }
+    
     semaphore.wait()
-    return try valueOrThrow()
+    
+    return try receivedResult!.valueOrThrow()
   }
   
-  private func setState(_ newState: State<Value>) {
+  private func fulfill(_ value: Value) {
+    resolve(.success(value))
+  }
+  
+  private func reject(_ error: Error) {
+    resolve(.failure(error))
+  }
+  
+  private func resolve(_ result: Result<Value>) {
     lock {
       guard state.isPending else { return }
       
-      state = newState
+      state = .resolved(result)
       
-      notifyHandlers()
+      notifyResultHandlers()
     }
   }
   
-  private func addHandler(queue: DispatchQueue, whenFulfilled: @escaping (Value) -> (), whenRejected: @escaping (Error) -> ()) {
+  private func whenResolved(_ handler: @escaping ResultHandler<Value>) {
     lock {
-      let handler = Handler(queue: queue, whenFulfilled: whenFulfilled, whenRejected: whenRejected)
-      handlers.append(handler)
-      notifyHandlers()
+      resultHandlers.append(handler)
+      notifyResultHandlers()
     }
   }
   
-  private func notifyHandlers() {
-    guard !state.isPending else { return }
-    for handler in handlers {
-      switch state {
-      case let .fulfilled(value):
-        handler.notifyFulfilled(value)
-      case let .rejected(error):
-        handler.notifyRejected(error)
-      default:
-        break
-      }
+  private func notifyResultHandlers() {
+    guard case .resolved(let result) = state else { return }
+    
+    for handler in resultHandlers {
+      handler(result)
     }
-    handlers.removeAll()
+    
+    resultHandlers.removeAll()
   }
   
   private func lock<T>(_ body: () throws -> T) rethrows -> T {
@@ -249,8 +239,7 @@ public final class Promise<Value> {
 
 private enum State<Value> {
   case pending
-  case fulfilled(Value)
-  case rejected(Error)
+  case resolved(Result<Value>)
   
   var isPending: Bool {
     if case .pending = self {
@@ -259,67 +248,15 @@ private enum State<Value> {
       return false
     }
   }
-  
-  var isFulfilled: Bool {
-    if case .fulfilled = self {
-      return true
-    } else {
-      return false
-    }
-  }
-  
-  var isRejected: Bool {
-    if case .rejected = self {
-      return true
-    } else {
-      return false
-    }
-  }
-  
-  var value: Value? {
-    if case let .fulfilled(value) = self {
-      return value
-    } else {
-      return nil
-    }
-  }
-  
-  var error: Error? {
-    if case let .rejected(error) = self {
-      return error
-    } else {
-      return nil
-    }
-  }
 }
 
 extension State: CustomStringConvertible {
   var description: String {
     switch self {
-    case .fulfilled(let value):
-      return "Fulfilled (\(value))"
-    case .rejected(let error):
-      return "Rejected (\(error))"
     case .pending:
-      return "Pending"
-    }
-  }
-}
-
-private struct Handler<Value> {
-  let queue: DispatchQueue
-  let whenFulfilled: (Value) -> ()
-  let whenRejected: (Error) -> ()
-  
-  func notifyFulfilled(_ value: Value) {
-    queue.async {
-      self.whenFulfilled(value)
-    }
-  }
-  
-  func notifyRejected(_ error: Error) {
-    queue.async {
-      self.whenRejected(error)
+      return "Promise(Pending)"
+    case .resolved(let result):
+      return "Promise(\(result))"
     }
   }
 }

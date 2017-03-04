@@ -25,9 +25,6 @@ struct GroupedSequence<Key: Equatable, Value> {
   private(set) var keys: [Key] = []
   fileprivate var groupsForKeys: [[Value]] = []
   
-  init() {
-  }
-  
   mutating func append(value: Value, forKey key: Key) -> (Int, Int) {
     if let index = keys.index(where: { $0 == key }) {
       groupsForKeys[index].append(value)

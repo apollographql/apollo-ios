@@ -71,7 +71,7 @@ let accumulator = zip(mapper, normalizer, responseGenerator)
 let (typedResults, records, json) = try executor.execute(selectionSet: selectionSet, rootKey: "foo", variables: ["episode": "JEDI"], accumulator: accumulator).wait()
 
 
-typedResults.hero?.name
+typedResults.hero?.friends
 
 records
 

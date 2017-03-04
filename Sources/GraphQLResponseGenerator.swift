@@ -19,8 +19,8 @@ final class GraphQLResponseGenerator: GraphQLResultAccumulator {
     return JSONObject(fieldEntries)
   }
   
-  func finish(rootValue: JSONValue, info: GraphQLResolveInfo) -> String {
-    let data = try! JSONSerialization.data(withJSONObject: rootValue, options: [])
+  func finish(rootValue: JSONValue, info: GraphQLResolveInfo) throws -> String {
+    let data = try JSONSerialization.data(withJSONObject: rootValue, options: [])
     return String(data: data, encoding: .utf8)!
   }
 }

@@ -1,72 +1,72 @@
 import XCTest
 @testable import Apollo
 
-struct TestError: Error {
-}
+struct TestError: Error {}
+struct OtherTestError: Error {}
 
 class PromiseTests: XCTestCase {
-  func testImmediatelyFulfilledPromise() {
+  func testResultOfFulfilledPromise() {
     let promise = Promise<String>(fulfilled: "foo")
     
-    XCTAssertEqual(promise.value, "foo")
+    XCTAssertEqual(promise.result?.value, "foo")
   }
   
-  func testImmediatelyRejectedPromise() {
+  func testResultOfRejectedPromise() {
     let promise = Promise<String>(rejected: TestError())
     
-    XCTAssertNil(promise.value)
-    XCTAssert(promise.error is TestError)
+    XCTAssertNil(promise.result?.value)
+    XCTAssert(promise.result?.error is TestError)
   }
   
-  func testImmediatelyFulfilledPromiseWait() throws {
+  func testWaitForResultOfFulfilledPromise() throws {
     let promise = Promise<String>(fulfilled: "foo")
     
     XCTAssertEqual(try promise.wait(), "foo")
   }
   
-  func testImmediatelyRejectedPromiseWait() {
+  func testWaitForResultOfRejectedPromise() {
     let promise = Promise<String>(rejected: TestError())
     
     XCTAssertThrowsError(try promise.wait()) { error in
-      XCTAssert(promise.error is TestError)
+      XCTAssert(error is TestError)
     }
   }
   
-  func testImmediatelyFulfilledPromiseThen() {
+  func testFulfilledPromiseAndThen() {
     let promise = Promise<String>(fulfilled: "foo")
     
     let expectation = self.expectation(description: "Waiting for promise then()")
     
-    promise.then(on: DispatchQueue.global()) { value in
+    promise.andThen { value in
       XCTAssertEqual(value, "foo")
       expectation.fulfill()
     }
     
-    waitForExpectations(timeout: 1, handler: nil)
+    waitForExpectations(timeout: 1)
   }
   
-  func testImmediatelyRejectedPromiseCatch() {
+  func tesRejectedPromiseCatch() {
     let promise = Promise<String>(rejected: TestError())
     
     let expectation = self.expectation(description: "Waiting for promise then()")
     
-    promise.catch(on: DispatchQueue.global()) { error in
+    promise.catch { error in
       XCTAssert(error is TestError)
       expectation.fulfill()
     }
     
-    waitForExpectations(timeout: 1, handler: nil)
+    waitForExpectations(timeout: 1)
   }
   
-  func testManuallyFulfilledPromise() {
+  func testResultOfImmediatelyFulfilledPromise() {
     let promise = Promise<String> { (fulfill, reject) in
       fulfill("foo")
     }
     
-    XCTAssertEqual(promise.value, "foo")
+    XCTAssertEqual(promise.result?.value, "foo")
   }
   
-  func testManuallyFulfilledPromiseWait() throws {
+  func testWaitForResultOfImmediatelyFulfilledPromise() throws {
     let promise = Promise<String> { (fulfill, reject) in
       fulfill("foo")
     }
@@ -74,32 +74,157 @@ class PromiseTests: XCTestCase {
     XCTAssertEqual(try promise.wait(), "foo")
   }
   
-  func testManuallyRejectedPromise() {
+  func testResultOfImmediatelyRejectedPromise() {
     let promise = Promise<String> { (fulfill, reject) in
       reject(TestError())
     }
 
-    XCTAssert(promise.error is TestError)
+    XCTAssert(promise.result?.error is TestError)
   }
   
-  func testManuallyRejectedPromiseWait() {
+  func testWaitForResultOfImmediatelyRejectedPromise() {
     let promise = Promise<String> { (fulfill, reject) in
       reject(TestError())
     }
     
     XCTAssertThrowsError(try promise.wait()) { error in
-      XCTAssert(promise.error is TestError)
+      XCTAssert(error is TestError)
     }
   }
   
-  func testAllDictionary() throws {
-    let promises = [
-      "name": Promise(fulfilled: "Luke Skywalker"),
-      "age": Promise(fulfilled: 18)
-    ] as [String : Promise<Any>]
+  // Error handling
+  
+  func testAndThenPropagatesError() {
+    let promise = Promise<String> { (fulfill, reject) in
+      reject(TestError())
+    }.andThen { (_) in }
     
-    let values = try whenAll(valuesOf: promises, on: DispatchQueue(label: "test")).wait()
+    XCTAssertThrowsError(try promise.wait()) { error in
+      XCTAssert(error is TestError)
+    }
+  }
+  
+  func testMapPropagatesError() {
+    let promise = Promise<String> { (fulfill, reject) in
+      reject(TestError())
+    }.map { (value) in
+      return "bar"
+    }
     
-    XCTAssertEqual(values, ["name": "Luke Skywalker", "age": 18])
+    XCTAssertThrowsError(try promise.wait()) { error in
+      XCTAssert(error is TestError)
+    }
+  }
+  
+  func testErrorThrownFromMapIsPropagated() {
+    let promise = Promise<String> { (fulfill, reject) in
+      fulfill("bar")
+    }.map { (value) in
+      throw TestError()
+    }
+    
+    XCTAssertThrowsError(try promise.wait()) { error in
+      XCTAssert(error is TestError)
+    }
+  }
+  
+  func testFlatMapPropagatesError() {
+    let promise = Promise<String> { (fulfill, reject) in
+      reject(TestError())
+    }.flatMap { (value) in
+      Promise<String> { (fulfill, reject) in
+        return fulfill("bar")
+      }
+    }
+    
+    XCTAssertThrowsError(try promise.wait()) { error in
+      XCTAssert(error is TestError)
+    }
+  }
+  
+  func testErrorReturnedFromFlatMapIsPropagated() {
+    let promise = Promise<String> { (fulfill, reject) in
+      fulfill("bar")
+    }.flatMap { (value) in
+      Promise<String> { (fulfill, reject) in
+        reject(TestError())
+      }
+    }
+    
+    XCTAssertThrowsError(try promise.wait()) { error in
+      XCTAssert(error is TestError)
+    }
+  }
+  
+  func testRejectedPromiseSkipsAndThen() {
+    let expectation = self.expectation(description: "Caught error")
+    
+    _ = Promise<String> { (fulfill, reject) in
+      reject(TestError())
+    }.andThen { value in
+      XCTFail()
+    }.catch { error in
+      XCTAssert(error is TestError)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testCatchPropagatesError() {
+    let expectation = self.expectation(description: "Caught error")
+    
+    _ = Promise<String> { (fulfill, reject) in
+      reject(TestError())
+    }.catch { error in
+      XCTAssert(error is TestError)
+    }.catch { error in
+      XCTAssert(error is TestError)
+      expectation.fulfill()
+    }.andThen { _ in
+      XCTFail()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testErrorThrownFromAndThenIsPropagated() {
+    let expectation = self.expectation(description: "Caught error")
+    
+    _ = Promise<String> { (fulfill, reject) in
+      fulfill("foo")
+    }.andThen { value in
+      throw TestError()
+    }.catch { error in
+      XCTAssert(error is TestError)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testErrorThrownFromCatchIsPropagated() {
+    let expectation = self.expectation(description: "Caught error")
+    
+    _ = Promise<String> { (fulfill, reject) in
+      reject(TestError())
+    }.catch { error in
+      throw OtherTestError()
+    }.catch { error in
+      XCTAssert(error is OtherTestError)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  // Combinators
+  
+  func testWhenAll() throws {
+    let promises: [Promise<String>] = [Promise(fulfilled: "foo"), Promise(fulfilled: "bar")]
+    
+    let values = try whenAll(elementsOf: promises, notifyOn: DispatchQueue.global()).wait()
+    
+    XCTAssertEqual(values, ["foo", "bar"])
   }
 }

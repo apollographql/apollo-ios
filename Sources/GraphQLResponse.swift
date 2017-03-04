@@ -27,10 +27,11 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       let mapper = GraphQLResultMapper<Operation.Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
-
-      return try executor.execute(selectionSet: Operation.selectionSet, rootKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker)
-        ).then(on: DispatchQueue.global()) { (data, records, dependentKeys) in
-        return (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
+      
+      return firstly {
+        try executor.execute(selectionSet: Operation.selectionSet, rootKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
+      }.map { (data, records, dependentKeys) in
+        (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
       }
     } else {
       return Promise(fulfilled: (GraphQLResult(data: nil, errors: errors, dependentKeys: nil), nil))

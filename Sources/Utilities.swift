@@ -37,5 +37,3 @@ func isNil(_ value: Any) -> Bool {
     return isNil(mirror.children.first!.value)
   }
 }
-
-

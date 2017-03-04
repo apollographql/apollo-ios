@@ -114,7 +114,7 @@ public final class GraphQLExecutor {
   func execute<Accumulator: GraphQLResultAccumulator>(selectionSet: [Selection], rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: rootKey, variables: variables)
     
-    return try execute(selectionSet: selectionSet, on: nil, info: info, accumulator: accumulator).map(on: queue) {
+    return try execute(selectionSet: selectionSet, on: nil, info: info, accumulator: accumulator).map {
       try accumulator.finish(rootValue: $0, info: info)
     }
   }
@@ -133,8 +133,8 @@ public final class GraphQLExecutor {
       fieldEntries.append(fieldEntry)
     }
     
-    return whenAll(elementsOf: fieldEntries, on: queue).map(on: queue) {
-      return try accumulator.accept(fieldEntries: $0, info: info)
+    return whenAll(elementsOf: fieldEntries, notifyOn: queue).map {
+      try accumulator.accept(fieldEntries: $0, info: info)
     }
   }
   
@@ -188,15 +188,15 @@ public final class GraphQLExecutor {
     
     let promise = resolver(object, info)
     
-    return promise.then(on: queue) { value in
+    return promise.on(queue: queue).flatMap { value in
       guard let value = value else {
         throw JSONDecodingError.missingValue
       }
       
-      return try self.complete(value: value, ofType: firstField.type, info: info, accumulator: accumulator).map(on: self.queue) {
-        return try accumulator.accept(fieldEntry: $0, info: info)
-      }
-    }.catch(on: queue) { error in
+      return try self.complete(value: value, ofType: firstField.type, info: info, accumulator: accumulator)
+    }.map {
+        try accumulator.accept(fieldEntry: $0, info: info)
+    }.catch { error in
       if !(error is GraphQLResultError) {
        throw GraphQLResultError(path: info.responsePath, underlying: error)
       }
@@ -231,7 +231,7 @@ public final class GraphQLExecutor {
         info.cachePath.append(indexSegment)
         
         return try self.complete(value: element, ofType: innerType, info: info, accumulator: accumulator)
-      }, on: queue).map(on: queue) { completedArray in
+      }, notifyOn: queue).map { completedArray in
         return try accumulator.accept(list: completedArray, info: info)
       }
     case .object:

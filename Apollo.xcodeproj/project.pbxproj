@@ -147,6 +147,10 @@
 		9FEC15B51E681DAD00D461B4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B31E681DAD00D461B4 /* Collections.swift */; };
 		9FEC15B61E681DAD00D461B4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B31E681DAD00D461B4 /* Collections.swift */; };
 		9FEC15B71E681DAD00D461B4 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B31E681DAD00D461B4 /* Collections.swift */; };
+		9FEC15B91E6965E300D461B4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B81E6965E300D461B4 /* Result.swift */; };
+		9FEC15BA1E6965E300D461B4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B81E6965E300D461B4 /* Result.swift */; };
+		9FEC15BB1E6965E300D461B4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B81E6965E300D461B4 /* Result.swift */; };
+		9FEC15BC1E6965E300D461B4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEC15B81E6965E300D461B4 /* Result.swift */; };
 		9FF263FA1E302123005F074E /* RecordSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9BC1E2C271C0023C4D5 /* RecordSet.swift */; };
 		9FF33D811E48B98200F608A4 /* HTTPNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */; };
 		9FF33D821E48B9B700F608A4 /* HTTPNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */; };
@@ -253,6 +257,7 @@
 		9FEB050C1DB5732300DA3B44 /* JSONSerializationFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializationFormat.swift; sourceTree = "<group>"; };
 		9FEC15B21E67320D00D461B4 /* ExecutorExperiments.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ExecutorExperiments.playground; sourceTree = "<group>"; };
 		9FEC15B31E681DAD00D461B4 /* Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
+		9FEC15B81E6965E300D461B4 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		9FF1F2351DB318250011DE94 /* CreateReviewForEpisode.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateReviewForEpisode.graphql; sourceTree = "<group>"; };
 		9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResponse.swift; sourceTree = "<group>"; };
 		9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLExecutor.swift; sourceTree = "<group>"; };
@@ -473,6 +478,7 @@
 			children = (
 				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
 				9FCDFD221E33A0D8007519DC /* AsynchronousOperation.swift */,
+				9FEC15B81E6965E300D461B4 /* Result.swift */,
 				9FE941CF1E62C771007CDD89 /* Promise.swift */,
 				9FEC15B31E681DAD00D461B4 /* Collections.swift */,
 			);
@@ -848,6 +854,7 @@
 				9FEC15B51E681DAD00D461B4 /* Collections.swift in Sources */,
 				9FF90A621DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				3C4DBD241DD231F5005B61D0 /* JSONSerializationFormat.swift in Sources */,
+				9FEC15BA1E6965E300D461B4 /* Result.swift in Sources */,
 				9F6291AB1E39771D00CDA57B /* GraphQLQueryWatcher.swift in Sources */,
 				9F6291B81E39773000CDA57B /* GraphQLValues.swift in Sources */,
 				9FA6F3691E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
@@ -882,6 +889,7 @@
 				9FEC15B61E681DAD00D461B4 /* Collections.swift in Sources */,
 				9FF90A631DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				3C4DBD261DD231F7005B61D0 /* JSONSerializationFormat.swift in Sources */,
+				9FEC15BB1E6965E300D461B4 /* Result.swift in Sources */,
 				9F6291A81E39771C00CDA57B /* GraphQLQueryWatcher.swift in Sources */,
 				9F6291B41E39773000CDA57B /* GraphQLValues.swift in Sources */,
 				9FA6F36A1E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
@@ -937,6 +945,7 @@
 				9FEC15B71E681DAD00D461B4 /* Collections.swift in Sources */,
 				3C4DBD131DD231D3005B61D0 /* ApolloClient.swift in Sources */,
 				9FF263FA1E302123005F074E /* RecordSet.swift in Sources */,
+				9FEC15BC1E6965E300D461B4 /* Result.swift in Sources */,
 				9FF90A641DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				3C4DBD271DD231F8005B61D0 /* JSONSerializationFormat.swift in Sources */,
 				9FA6F36B1E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
@@ -992,6 +1001,7 @@
 				9FEC15B41E681DAD00D461B4 /* Collections.swift in Sources */,
 				9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
+				9FEC15B91E6965E300D461B4 /* Result.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
 				9FA6F3681E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
