@@ -31,13 +31,15 @@ class PromiseTests: XCTestCase {
     let queue = DispatchQueue.global()
     
     let range = 1...10000
-    
+        
     measure {
       let promise: Promise<[Int]> = range.reduce(Promise(fulfilled: [])) { promise, number in
         return promise.flatMap { values in
           return Promise { fulfill, reject in
             queue.async {
-              fulfill(values + [number])
+              var values = values
+              values.append(number)
+              fulfill(values)
             }
           }
         }

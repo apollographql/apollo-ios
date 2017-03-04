@@ -29,8 +29,8 @@ public func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
 }
 
 public final class Promise<Value> {
-  private var lock = os_unfair_lock_s()
-  
+  private let locking = Locking()
+
   private var state: State<Value>
   
   private typealias ResultHandler<Value> = (Result<Value>) -> Void
@@ -73,6 +73,14 @@ public final class Promise<Value> {
         self.reject(error)
       }
     }
+  }
+  
+  private func lock<T>(_ body: () throws -> T) rethrows -> T {
+    return try locking.lock(body)
+  }
+  
+  deinit {
+    // locking.deinit()
   }
   
   @discardableResult public func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
@@ -226,11 +234,6 @@ public final class Promise<Value> {
         resultHandlers.append(handler)
       }
     }
-  
-  private func lock<T>(_ body: () throws -> T) rethrows -> T {
-    os_unfair_lock_lock(&lock)
-    defer { os_unfair_lock_unlock(&lock) }
-    return try body()
   }
 }
 
