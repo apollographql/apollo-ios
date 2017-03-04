@@ -208,26 +208,24 @@ public final class Promise<Value> {
       
       state = .resolved(result)
       
-      notifyResultHandlers()
+      for handler in resultHandlers {
+        handler(result)
+      }
+      
+      resultHandlers = []
     }
   }
   
   private func whenResolved(_ handler: @escaping ResultHandler<Value>) {
     lock {
-      resultHandlers.append(handler)
-      notifyResultHandlers()
+      // If the promise has been resolved and there are no existing result handlers,
+      // there is no need to append the handler to the array first
+      if case .resolved(let result) = state, resultHandlers.isEmpty {
+        handler(result)
+      } else {
+        resultHandlers.append(handler)
+      }
     }
-  }
-  
-  private func notifyResultHandlers() {
-    guard case .resolved(let result) = state else { return }
-    
-    for handler in resultHandlers {
-      handler(result)
-    }
-    
-    resultHandlers.removeAll()
-  }
   
   private func lock<T>(_ body: () throws -> T) rethrows -> T {
     os_unfair_lock_lock(&lock)
