@@ -34,6 +34,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>StarWarsAPI.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>TestHost iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -88,6 +93,11 @@
 			<true/>
 		</dict>
 		<key>9FC7504D1D2A532D00458D91</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9FCE2CF91E6C213D00E34457</key>
 		<dict>
 			<key>primary</key>
 			<true/>

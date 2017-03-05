@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 extension Field {
   var cacheKey: String {

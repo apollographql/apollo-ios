@@ -68,7 +68,7 @@ let responseGenerator = GraphQLResponseGenerator()
 
 let accumulator = zip(mapper, normalizer, responseGenerator)
 
-let (typedResults, records, json) = try executor.execute(selectionSet: selectionSet, rootKey: "foo", variables: ["episode": "JEDI"], accumulator: accumulator).wait()
+let (typedResults, records, json) = try executor.execute(selectionSet: selectionSet, rootKey: "foo", variables: ["episode": "JEDI"], accumulator: accumulator).await()
 
 
 typedResults.hero?.friends
@@ -76,4 +76,3 @@ typedResults.hero?.friends
 records
 
 json
-

@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class GraphQLInputValueEncodingTests: XCTestCase {
   private func serializeAndDeserialize(value: JSONEncodable) -> NSDictionary {

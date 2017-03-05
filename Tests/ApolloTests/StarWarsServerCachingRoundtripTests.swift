@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class StarWarsServerCachingRoundtripTests: XCTestCase {
   var client: ApolloClient!

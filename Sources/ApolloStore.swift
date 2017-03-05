@@ -16,17 +16,22 @@ protocol ApolloStoreSubscriber: class {
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
 public final class ApolloStore {  
   private let queue: DispatchQueue
-  private var records: RecordSet
+  
+  private let cache: NormalizedCache
   private var subscribers: [ApolloStoreSubscriber] = []
   
-  init(records: RecordSet = RecordSet()) {
-    self.records = records
+  public init(cache: NormalizedCache) {
+    self.cache = cache
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
+  }
+  
+  convenience init(records: RecordSet = RecordSet()) {
+    self.init(cache: InMemoryCache(records: records))
   }
   
   func publish(records: RecordSet, context: UnsafeMutableRawPointer?) {
     queue.async(flags: .barrier) {
-      let changedKeys = self.records.merge(records: records)
+      let changedKeys =  self.cache.merge(records: records)
       
       for subscriber in self.subscribers {
         subscriber.store(self, didChangeKeys: changedKeys, context: context)
@@ -49,35 +54,37 @@ public final class ApolloStore {
   func load<Query: GraphQLQuery>(query: Query, cacheKeyForObject: CacheKeyForObject?, resultHandler: @escaping OperationResultHandler<Query>) {
     queue.async {
       let rootKey = Apollo.rootKey(forOperation: query)
-      let rootObject = self.records[rootKey]?.fields
       
-      let executor = GraphQLExecutor { object, info in
-        let value = (object ?? rootObject)?[info.cacheKeyForField]
-        return Promise(fulfilled: self.complete(value: value))
-      }
-      
-      executor.cacheKeyForObject = cacheKeyForObject
-      
-      let mapper = GraphQLResultMapper<Query.Data>()
-      let dependencyTracker = GraphQLDependencyTracker()
-      
-      firstly {
-        try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker))
-      }.andThen { (data, dependentKeys) in
+      self.cache.loadRecord(forKey: rootKey).flatMap { rootRecord in
+        let rootObject = rootRecord?.fields
+        
+        let executor = GraphQLExecutor { object, info in
+          let value = (object ?? rootObject)?[info.cacheKeyForField]
+          return self.complete(value: value)
+        }
+        
+        executor.cacheKeyForObject = cacheKeyForObject
+        
+        let mapper = GraphQLResultMapper<Query.Data>()
+        let dependencyTracker = GraphQLDependencyTracker()
+        
+        return try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker))
+      }.andThen { (data: Query.Data, dependentKeys: Set<CacheKey>) in
         resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
       }.catch { error in
         resultHandler(nil, error)
-      }
+      }.wait()
     }
   }
   
-  private func complete(value: JSONValue?) -> JSONValue? {
+  private func complete(value: Any?) -> Promise<JSONValue?> {
     if let reference = value as? Reference {
-      return self.records[reference.key]?.fields
-    } else if let array = value as? Array<JSONValue> {
-      return array.map(complete)
+      return self.cache.loadRecord(forKey: reference.key).map { $0?.fields }
+    } else if let array = value as? Array<Any?> {
+      let completedValues = array.map(complete)
+      return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
     } else {
-      return value
+      return Promise(fulfilled: value)
     }
   }
 }

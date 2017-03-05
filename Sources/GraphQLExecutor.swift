@@ -82,7 +82,7 @@ public final class GraphQLExecutor {
   private let queue: DispatchQueue
   
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
-  init(resolver: @escaping GraphQLResolver) {
+  public init(resolver: @escaping GraphQLResolver) {
     queue = DispatchQueue(label: "com.apollographql.GraphQLExecutor")
     
     self.resolver = resolver

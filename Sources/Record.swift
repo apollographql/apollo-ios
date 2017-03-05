@@ -30,6 +30,10 @@ extension Record: CustomStringConvertible {
 /// A reference to a cache record.
 public struct Reference {
   let key: CacheKey
+  
+  public init(key: CacheKey) {
+    self.key = key
+  }
 }
 
 extension Reference: Equatable {

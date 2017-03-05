@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 private struct SingleValue: GraphQLMappable {
   let value: Any?
@@ -11,7 +12,7 @@ private struct SingleValue: GraphQLMappable {
 
 private extension GraphQLExecutor {
   func readSingleValue(_ field: Field) throws -> Any? {
-    return try execute(selectionSet: [field], rootKey: "", variables: [:], accumulator: GraphQLResultMapper<SingleValue>()).wait().value
+    return try execute(selectionSet: [field], rootKey: "", variables: [:], accumulator: GraphQLResultMapper<SingleValue>()).await().value
   }
 }
 

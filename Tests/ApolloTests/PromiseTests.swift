@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 struct TestError: Error {}
 struct OtherTestError: Error {}
@@ -21,13 +22,13 @@ class PromiseTests: XCTestCase {
   func testWaitForResultOfFulfilledPromise() throws {
     let promise = Promise<String>(fulfilled: "foo")
     
-    XCTAssertEqual(try promise.wait(), "foo")
+    XCTAssertEqual(try promise.await(), "foo")
   }
   
   func testWaitForResultOfRejectedPromise() {
     let promise = Promise<String>(rejected: TestError())
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }
@@ -71,7 +72,7 @@ class PromiseTests: XCTestCase {
       fulfill("foo")
     }
     
-    XCTAssertEqual(try promise.wait(), "foo")
+    XCTAssertEqual(try promise.await(), "foo")
   }
   
   func testResultOfImmediatelyRejectedPromise() {
@@ -87,7 +88,7 @@ class PromiseTests: XCTestCase {
       reject(TestError())
     }
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }
@@ -99,7 +100,7 @@ class PromiseTests: XCTestCase {
       reject(TestError())
     }.andThen { (_) in }
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }
@@ -111,7 +112,7 @@ class PromiseTests: XCTestCase {
       return "bar"
     }
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }
@@ -123,7 +124,7 @@ class PromiseTests: XCTestCase {
       throw TestError()
     }
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }
@@ -137,7 +138,7 @@ class PromiseTests: XCTestCase {
       }
     }
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }
@@ -151,7 +152,7 @@ class PromiseTests: XCTestCase {
       }
     }
     
-    XCTAssertThrowsError(try promise.wait()) { error in
+    XCTAssertThrowsError(try promise.await()) { error in
       XCTAssert(error is TestError)
     }
   }

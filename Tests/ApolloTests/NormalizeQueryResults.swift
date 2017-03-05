@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class NormalizeQueryResults: XCTestCase {
   func testHeroNameQuery() throws {
@@ -11,7 +12,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
     
@@ -28,7 +29,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
@@ -45,7 +46,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
     
@@ -70,7 +71,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
@@ -100,7 +101,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).wait()
+    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
     
@@ -130,7 +131,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).wait()
+    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
     
@@ -152,7 +153,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["__typename"] as? String, "Droid")
@@ -169,7 +170,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["primaryFunction"] as? String, "Astromech")
@@ -184,7 +185,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["homePlanet"] as? String, "Tatooine")
@@ -205,7 +206,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     guard let luke = records?["QUERY_ROOT.hero.friends.0"] else { XCTFail(); return }
     XCTAssertEqual(luke["height(unit:METER)"] as? Double, 1.72)
@@ -226,7 +227,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().wait()
+    let (_, records) = try response.parseResult().await()
     
     guard let han = records?["QUERY_ROOT.hero.friends.0"] else { XCTFail(); return }
     XCTAssertEqual(han["height(unit:FOOT)"] as? Double, 5.905512)

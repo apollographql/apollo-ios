@@ -75,14 +75,6 @@ public final class Promise<Value> {
     }
   }
   
-  private func lock<T>(_ body: () throws -> T) rethrows -> T {
-    return try locking.lock(body)
-  }
-  
-  deinit {
-    // locking.deinit()
-  }
-  
   @discardableResult public func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
@@ -119,6 +111,11 @@ public final class Promise<Value> {
     }
   }
   
+  @discardableResult public func finally(_ whenResolved: @escaping () -> Void) -> Promise<Value> {
+    self.whenResolved { _ in whenResolved() }
+    return self
+  }
+
   public func map<T>(_ transform: @escaping (Value) throws -> T) -> Promise<T> {
     return Promise<T> { fulfill, reject in
       whenResolved { result in
@@ -171,13 +168,13 @@ public final class Promise<Value> {
   }
   
   public var isPending: Bool {
-    return lock {
+    return locking.lock {
       state.isPending
     }
   }
   
   public var result: Result<Value>? {
-    return lock {
+    return locking.lock {
       switch state {
       case .pending:
         return nil
@@ -187,7 +184,17 @@ public final class Promise<Value> {
     }
   }
   
-  public func wait() throws -> Value {
+  public func wait() {
+    let semaphore = DispatchSemaphore(value: 0)
+    
+    whenResolved { result in
+      semaphore.signal()
+    }
+    
+    semaphore.wait()
+  }
+  
+  public func await() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
     
     var receivedResult: Result<Value>? = nil
@@ -211,7 +218,7 @@ public final class Promise<Value> {
   }
   
   private func resolve(_ result: Result<Value>) {
-    lock {
+    locking.lock {
       guard state.isPending else { return }
       
       state = .resolved(result)
@@ -225,9 +232,9 @@ public final class Promise<Value> {
   }
   
   private func whenResolved(_ handler: @escaping ResultHandler<Value>) {
-    lock {
+    locking.lock {
       // If the promise has been resolved and there are no existing result handlers,
-      // there is no need to append the handler to the array first
+      // there is no need to append the handler to the array first.
       if case .resolved(let result) = state, resultHandlers.isEmpty {
         handler(result)
       } else {
