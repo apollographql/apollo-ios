@@ -1,4 +1,4 @@
-public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
+func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()
     
@@ -20,7 +20,7 @@ public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: Dispatc
   }
 }
 
-public func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
+func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
   do {
     return try body()
   } catch {
@@ -29,22 +29,21 @@ public func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
 }
 
 public final class Promise<Value> {
-  private let locking = Locking()
-
+  private let lock = Mutex()
   private var state: State<Value>
   
   private typealias ResultHandler<Value> = (Result<Value>) -> Void
   private var resultHandlers: [ResultHandler<Value>] = []
   
-  public init(fulfilled value: Value) {
+  init(fulfilled value: Value) {
     state = .resolved(.success(value))
   }
   
-  public init(rejected error: Error) {
+  init(rejected error: Error) {
     state = .resolved(.failure(error))
   }
   
-  public init(_ body: () throws -> Value) {
+  init(_ body: () throws -> Value) {
     do {
       let value = try body()
       state = .resolved(.success(value))
@@ -53,7 +52,7 @@ public final class Promise<Value> {
     }
   }
   
-  public init(_ body: (_ fulfill: @escaping (Value) -> Void, _ reject: @escaping (Error) -> Void) throws -> Void) {
+  init(_ body: (_ fulfill: @escaping (Value) -> Void, _ reject: @escaping (Error) -> Void) throws -> Void) {
     state = .pending
     
     do {
@@ -63,7 +62,7 @@ public final class Promise<Value> {
     }
   }
   
-  public init(on queue: DispatchQueue, _ body: @escaping (_ fulfill: @escaping (Value) -> (), _ reject: @escaping (Error) -> () ) throws -> ()) {
+  init(on queue: DispatchQueue, _ body: @escaping (_ fulfill: @escaping (Value) -> (), _ reject: @escaping (Error) -> () ) throws -> ()) {
     state = .pending
     
     queue.async {
@@ -75,7 +74,7 @@ public final class Promise<Value> {
     }
   }
   
-  @discardableResult public func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
+  @discardableResult func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
         switch result {
@@ -93,7 +92,7 @@ public final class Promise<Value> {
     }
   }
   
-  @discardableResult public func `catch`(_ whenRejected: @escaping (Error) throws -> Void) -> Promise<Value> {
+  @discardableResult func `catch`(_ whenRejected: @escaping (Error) throws -> Void) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
         switch result {
@@ -111,12 +110,12 @@ public final class Promise<Value> {
     }
   }
   
-  @discardableResult public func finally(_ whenResolved: @escaping () -> Void) -> Promise<Value> {
+  @discardableResult func finally(_ whenResolved: @escaping () -> Void) -> Promise<Value> {
     self.whenResolved { _ in whenResolved() }
     return self
   }
 
-  public func map<T>(_ transform: @escaping (Value) throws -> T) -> Promise<T> {
+  func map<T>(_ transform: @escaping (Value) throws -> T) -> Promise<T> {
     return Promise<T> { fulfill, reject in
       whenResolved { result in
         switch result {
@@ -133,7 +132,7 @@ public final class Promise<Value> {
     }
   }
   
-  public func flatMap<T>(_ transform: @escaping (Value) throws -> Promise<T>) -> Promise<T> {
+  func flatMap<T>(_ transform: @escaping (Value) throws -> Promise<T>) -> Promise<T> {
     return Promise<T> { fulfill, reject in
       whenResolved { result in
         switch result {
@@ -150,7 +149,7 @@ public final class Promise<Value> {
     }
   }
   
-  public func on(queue: DispatchQueue) -> Promise<Value> {
+  func on(queue: DispatchQueue) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
         switch result {
@@ -167,14 +166,14 @@ public final class Promise<Value> {
     }
   }
   
-  public var isPending: Bool {
-    return locking.lock {
+  var isPending: Bool {
+    return lock.withLock {
       state.isPending
     }
   }
   
-  public var result: Result<Value>? {
-    return locking.lock {
+  var result: Result<Value>? {
+    return lock.withLock {
       switch state {
       case .pending:
         return nil
@@ -184,7 +183,7 @@ public final class Promise<Value> {
     }
   }
   
-  public func wait() {
+  func wait() {
     let semaphore = DispatchSemaphore(value: 0)
     
     whenResolved { result in
@@ -194,7 +193,7 @@ public final class Promise<Value> {
     semaphore.wait()
   }
   
-  public func await() throws -> Value {
+  func await() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
     
     var receivedResult: Result<Value>? = nil
@@ -218,7 +217,7 @@ public final class Promise<Value> {
   }
   
   private func resolve(_ result: Result<Value>) {
-    locking.lock {
+    lock.withLock {
       guard state.isPending else { return }
       
       state = .resolved(result)
@@ -232,7 +231,7 @@ public final class Promise<Value> {
   }
   
   private func whenResolved(_ handler: @escaping ResultHandler<Value>) {
-    locking.lock {
+    lock.withLock {
       // If the promise has been resolved and there are no existing result handlers,
       // there is no need to append the handler to the array first.
       if case .resolved(let result) = state, resultHandlers.isEmpty {

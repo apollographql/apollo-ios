@@ -31,18 +31,19 @@ public final class DataLoader<Key, Value> {
   
   private func dispatch() {
     queue.async {
-      let keys = self.loads.map { $0.key }
+      let loads = self.loads
+      self.loads = []
       
-      self.batchLoad(keys).andThen { values in
+      let keys = loads.map { $0.key }
+      
+      self.batchLoad(keys).on(queue: self.queue).andThen { values in
         // TODO: Using zip would have been the nicest solution, but it currently leads to a compiler crash. 
         // This seems to have been fixed in Xcode 8.3, so we can replace it once that is out.
         // for (load, value) in zip(loads, values) {
         for (index, value) in values.enumerated() {
-          let load = self.loads[index]
+          let load = loads[index]
           load.fulfill(value)
         }
-        
-        self.loads = []
       }
     }
   }

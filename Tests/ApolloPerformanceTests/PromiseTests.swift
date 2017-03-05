@@ -1,5 +1,5 @@
 import XCTest
-import Apollo
+@testable import Apollo
 
 class PromiseTests: XCTestCase {
   func testParallelPerformance() {
@@ -23,7 +23,7 @@ class PromiseTests: XCTestCase {
         expectation.fulfill()
       }
       
-      self.waitForExpectations(timeout: 1000)
+      self.waitForExpectations(timeout: 1)
     }
   }
   
@@ -52,7 +52,7 @@ class PromiseTests: XCTestCase {
         expectation.fulfill()
       }
       
-      self.waitForExpectations(timeout: 1000)
+      self.waitForExpectations(timeout: 1)
     }
   }
 }

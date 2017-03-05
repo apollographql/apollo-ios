@@ -16,6 +16,7 @@ protocol ApolloStoreSubscriber: class {
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
 public final class ApolloStore {  
   private let queue: DispatchQueue
+  private let lock = ReadWriteLock()
   
   private let cache: NormalizedCache
   private var subscribers: [ApolloStoreSubscriber] = []
@@ -31,7 +32,9 @@ public final class ApolloStore {
   
   func publish(records: RecordSet, context: UnsafeMutableRawPointer?) {
     queue.async(flags: .barrier) {
-      let changedKeys =  self.cache.merge(records: records)
+      let changedKeys = self.lock.withWriteLock {
+        self.cache.merge(records: records)
+      }
       
       for subscriber in self.subscribers {
         subscriber.store(self, didChangeKeys: changedKeys, context: context)
@@ -53,6 +56,8 @@ public final class ApolloStore {
   
   func load<Query: GraphQLQuery>(query: Query, cacheKeyForObject: CacheKeyForObject?, resultHandler: @escaping OperationResultHandler<Query>) {
     queue.async {
+      self.lock.lockForReading()
+      
       let rootKey = Apollo.rootKey(forOperation: query)
       
       self.cache.loadRecord(forKey: rootKey).flatMap { rootRecord in
@@ -73,7 +78,9 @@ public final class ApolloStore {
         resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
       }.catch { error in
         resultHandler(nil, error)
-      }.wait()
+      }.finally {
+        self.lock.unlock()
+      }
     }
   }
   
@@ -82,6 +89,8 @@ public final class ApolloStore {
       return self.cache.loadRecord(forKey: reference.key).map { $0?.fields }
     } else if let array = value as? Array<Any?> {
       let completedValues = array.map(complete)
+      // Make sure to dispatch on a global queue, and not on the serial queue
+      // because that would result in a deadlock.
       return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
     } else {
       return Promise(fulfilled: value)
