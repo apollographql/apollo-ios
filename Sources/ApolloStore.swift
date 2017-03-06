@@ -36,12 +36,14 @@ public final class ApolloStore {
   
   func publish(records: RecordSet, context: UnsafeMutableRawPointer?) {
     queue.async(flags: .barrier) {
-      let changedKeys = self.cacheLock.withWriteLock {
+      self.cacheLock.withWriteLock {
         self.cache.merge(records: records)
-      }
-      
-      for subscriber in self.subscribers {
-        subscriber.store(self, didChangeKeys: changedKeys, context: context)
+      }.andThen { changedKeys in
+        for subscriber in self.subscribers {
+          subscriber.store(self, didChangeKeys: changedKeys, context: context)
+        }
+      }.catch { error in
+        preconditionFailure(String(describing: error))
       }
     }
   }

@@ -1,6 +1,6 @@
 public protocol NormalizedCache {
   func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]>
-  func merge(records: RecordSet) -> Set<CacheKey>
+  func merge(records: RecordSet) -> Promise<Set<CacheKey>>
 }
 
 final class InMemoryNormalizedCache: NormalizedCache {
@@ -15,7 +15,7 @@ final class InMemoryNormalizedCache: NormalizedCache {
     return Promise(fulfilled: records)
   }
   
-  func merge(records: RecordSet) -> Set<CacheKey> {
-    return self.records.merge(records: records)
+  func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
+    return Promise(fulfilled: self.records.merge(records: records))
   }
 }

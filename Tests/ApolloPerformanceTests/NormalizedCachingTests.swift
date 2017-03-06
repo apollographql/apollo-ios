@@ -18,8 +18,13 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
-  func merge(records: RecordSet) -> Set<CacheKey> {
-    return self.records.merge(records: records)
+  func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
+    return Promise { fulfill, reject in
+      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(100)) {
+        let changedKeys = self.records.merge(records: records)
+        fulfill(changedKeys)
+      }
+    }
   }
 }
 
