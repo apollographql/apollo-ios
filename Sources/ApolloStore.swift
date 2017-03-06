@@ -69,12 +69,12 @@ public final class ApolloStore {
       
       let rootKey = Apollo.rootKey(forOperation: query)
       
-      loader.load(key: rootKey).flatMap { rootRecord in
+      loader[rootKey].flatMap { rootRecord in
         let rootObject = rootRecord?.fields
         
         func complete(value: Any?) -> Promise<JSONValue?> {
           if let reference = value as? Reference {
-            return loader.load(key: reference.key).map { $0?.fields }
+            return loader[reference.key].map { $0?.fields }
           } else if let array = value as? Array<Any?> {
             let completedValues = array.map(complete)
             // Make sure to dispatch on a global queue and not on the local queue,

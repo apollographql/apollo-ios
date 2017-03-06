@@ -1,22 +1,32 @@
-public final class DataLoader<Key, Value> {
+public final class DataLoader<Key: Hashable, Value> {
   public typealias BatchLoad = ([Key]) -> Promise<[Value]>
   typealias Load = (key: Key, fulfill: (Value) -> Void, reject: (Error) -> Void)
   
   private let queue: DispatchQueue
   
   private var batchLoad: BatchLoad
+  
+  private var cache: [Key: Promise<Value>] = [:]
   private var loads: [Load] = []
   
   public init(_ batchLoad: @escaping BatchLoad) {
-    self.batchLoad = batchLoad
-
     queue = DispatchQueue(label: "com.apollographql.DataLoader")
+    
+    self.batchLoad = batchLoad
   }
   
-  public func load(key: Key) -> Promise<Value> {
-    return Promise { fulfill, reject in
+  subscript(key: Key) -> Promise<Value> {
+    if let promise = cache[key] {
+      return promise
+    }
+    
+    let promise = Promise<Value> { fulfill, reject in
       enqueue(load: (key, fulfill, reject))
     }
+    
+    cache[key] = promise
+    
+    return promise
   }
   
   private func enqueue(load: Load) {
