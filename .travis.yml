@@ -3,17 +3,20 @@ language: objective-c
 osx_image: xcode8.2
 
 xcode_project: Apollo.xcodeproj
-xcode_scheme: Apollo
 
 matrix:
   include:
-  - xcode_sdk: iphonesimulator10.2
+  - xcode_scheme: Apollo
+    xcode_sdk: iphonesimulator10.2
     env: DESTINATION="platform=iOS Simulator,OS=10.1,name=iPhone 7"
-  - xcode_sdk: iphonesimulator10.2
+  - xcode_scheme: Apollo
+    xcode_sdk: iphonesimulator10.2
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
-  - xcode_sdk: macosx10.12
+  - xcode_scheme: Apollo
+    xcode_sdk: macosx10.12
     env: DESTINATION="platform=macOS,arch=x86_64"
-  - xcode_sdk: appletvsimulator10.1
+  - xcode_scheme: Apollo
+    xcode_sdk: appletvsimulator10.1
     env: DESTINATION="platform=tvOS Simulator,OS=10.1,name=Apple TV 1080p"
 
 cache:
