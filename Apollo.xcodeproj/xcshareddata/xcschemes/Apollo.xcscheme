@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3C4DBCD01DD21C9D005B61D0"
+               BlueprintIdentifier = "9FC750431D2A532C00458D91"
                BuildableName = "Apollo.framework"
-               BlueprintName = "Apollo watchOS"
+               BlueprintName = "Apollo"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9FC7504D1D2A532D00458D91"
+               BuildableName = "ApolloTests.xctest"
+               BlueprintName = "ApolloTests"
+               ReferencedContainer = "container:Apollo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9FC750431D2A532C00458D91"
+            BuildableName = "Apollo.framework"
+            BlueprintName = "Apollo"
+            ReferencedContainer = "container:Apollo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3C4DBCD01DD21C9D005B61D0"
+            BlueprintIdentifier = "9FC750431D2A532C00458D91"
             BuildableName = "Apollo.framework"
-            BlueprintName = "Apollo watchOS"
+            BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3C4DBCD01DD21C9D005B61D0"
+            BlueprintIdentifier = "9FC750431D2A532C00458D91"
             BuildableName = "Apollo.framework"
-            BlueprintName = "Apollo watchOS"
+            BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

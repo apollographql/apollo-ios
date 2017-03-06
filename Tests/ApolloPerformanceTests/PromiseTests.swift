@@ -5,7 +5,7 @@ class PromiseTests: XCTestCase {
   func testParallelPerformance() {
     let queue = DispatchQueue.global()
     
-    let range = 1...10000
+    let range = 1...1000
     
     measure {
       let promises = range.map { number in
@@ -30,7 +30,7 @@ class PromiseTests: XCTestCase {
   func testSerialPerformance() {
     let queue = DispatchQueue.global()
     
-    let range = 1...10000
+    let range = 1...1000
         
     measure {
       let promise: Promise<[Int]> = range.reduce(Promise(fulfilled: [])) { promise, number in

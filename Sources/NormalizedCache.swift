@@ -19,4 +19,3 @@ final class InMemoryNormalizedCache: NormalizedCache {
     return self.records.merge(records: records)
   }
 }
-
