@@ -15,6 +15,8 @@ class DataLoaderTests: XCTestCase {
       expectation.fulfill()
     }
     
+    loader.dispatch()
+    
     waitForExpectations(timeout: 1)
   }
   
@@ -35,6 +37,8 @@ class DataLoaderTests: XCTestCase {
       XCTAssertEqual(numberOfBatchLoads, 1)
       expectation.fulfill()
     }
+    
+    loader.dispatch()
     
     waitForExpectations(timeout: 1)
   }

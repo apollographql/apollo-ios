@@ -3,12 +3,12 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
   let operation: Operation
   let body: JSONObject
 
-  public init(operation: Operation, body: JSONObject) {
+  init(operation: Operation, body: JSONObject) {
     self.operation = operation
     self.body = body
   }
 
-  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
+  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
     let errors: [GraphQLError]?
     
     if let errorsEntry = body["errors"] as? [JSONObject] {

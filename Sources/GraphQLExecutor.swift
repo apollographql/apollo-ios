@@ -76,10 +76,13 @@ func joined(path: [String]) -> String {
 /// These values then get passed into a generated `GraphQLMappable` initializer, and this is how type safe results get built up.
 ///
 public final class GraphQLExecutor {
-  let resolver: GraphQLResolver
-  var cacheKeyForObject: CacheKeyForObject?
-  
   private let queue: DispatchQueue
+  
+  private let resolver: GraphQLResolver
+  var dispatchDataLoads: (() -> Void)? = nil
+  var dispatchDataLoadsScheduled: Bool = false
+  
+  var cacheKeyForObject: CacheKeyForObject?
   
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
   public init(resolver: @escaping GraphQLResolver) {
@@ -131,6 +134,15 @@ public final class GraphQLExecutor {
     for (_, fields) in groupedFields {
       let fieldEntry = try execute(fields: fields, on: object, info: info, accumulator: accumulator)
       fieldEntries.append(fieldEntry)
+    }
+    
+    if let dispatchDataLoads = dispatchDataLoads, !dispatchDataLoadsScheduled {
+      dispatchDataLoadsScheduled = true
+      
+      queue.async {
+        self.dispatchDataLoadsScheduled = false
+        dispatchDataLoads()
+      }
     }
     
     return whenAll(fieldEntries, notifyOn: queue).map {

@@ -145,7 +145,7 @@
 		9FCDFD2A1E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */; };
 		9FCDFD2C1E35784B007519DC /* WatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDFD2B1E35784B007519DC /* WatchQueryTests.swift */; };
 		9FCDFD2D1E35784B007519DC /* WatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDFD2B1E35784B007519DC /* WatchQueryTests.swift */; };
-		9FCE2CEC1E6BDAD100E34457 /* BatchedResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE2CEB1E6BDAD100E34457 /* BatchedResolverTests.swift */; };
+		9FCE2CEC1E6BDAD100E34457 /* NormalizedCachingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE2CEB1E6BDAD100E34457 /* NormalizedCachingTests.swift */; };
 		9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */; };
 		9FCE2CEF1E6BE2D900E34457 /* NormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */; };
 		9FCE2CF01E6BE2D900E34457 /* NormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */; };
@@ -334,7 +334,7 @@
 		9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLQueryWatcher.swift; sourceTree = "<group>"; };
 		9FCDFD2B1E35784B007519DC /* WatchQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchQueryTests.swift; sourceTree = "<group>"; };
 		9FCDFD2E1E3579B6007519DC /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
-		9FCE2CEB1E6BDAD100E34457 /* BatchedResolverTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedResolverTests.swift; sourceTree = "<group>"; };
+		9FCE2CEB1E6BDAD100E34457 /* NormalizedCachingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedCachingTests.swift; sourceTree = "<group>"; };
 		9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedCache.swift; sourceTree = "<group>"; };
 		9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StarWarsAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCE2CFC1E6C213D00E34457 /* StarWarsAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarWarsAPI.h; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				9FC631351E6AE2080062707E /* PromiseTests.swift */,
-				9FCE2CEB1E6BDAD100E34457 /* BatchedResolverTests.swift */,
+				9FCE2CEB1E6BDAD100E34457 /* NormalizedCachingTests.swift */,
 				9FC631371E6AE2080062707E /* Info.plist */,
 			);
 			path = ApolloPerformanceTests;
@@ -575,10 +575,10 @@
 			isa = PBXGroup;
 			children = (
 				9F55347A1DE1DB2100E54264 /* ApolloStore.swift */,
+				9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */,
 				9FC9A9BC1E2C271C0023C4D5 /* RecordSet.swift */,
 				9FC9A9CB1E2FD0760023C4D5 /* Record.swift */,
 				9FADC84E1E6B865E00C677E6 /* DataLoader.swift */,
-				9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */,
 			);
 			name = Store;
 			sourceTree = "<group>";
@@ -1270,7 +1270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FC631361E6AE2080062707E /* PromiseTests.swift in Sources */,
-				9FCE2CEC1E6BDAD100E34457 /* BatchedResolverTests.swift in Sources */,
+				9FCE2CEC1E6BDAD100E34457 /* NormalizedCachingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

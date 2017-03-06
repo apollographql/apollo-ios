@@ -2,26 +2,29 @@
 public struct RecordSet {
   fileprivate var storage: [CacheKey: Record] = [:]
   
-  public init(records: [Record]) {
+  init<S: Sequence>(records: S) where S.Iterator.Element == Record {
+    insert(contentsOf: records)
+  }
+  
+  mutating func insert(_ record: Record) {
+    storage[record.key] = record
+  }
+  
+  mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
     for record in records {
-      storage[record.key] = record
+      insert(record)
     }
   }
   
-  public var isEmpty: Bool {
+  subscript(key: CacheKey) -> Record? {
+    return storage[key]
+  }
+  
+  var isEmpty: Bool {
     return storage.isEmpty
   }
   
-  public subscript(key: CacheKey) -> Record? {
-    get {
-      return storage[key]
-    }
-    set {
-      storage[key] = newValue
-    }
-  }
-  
-  @discardableResult public mutating func merge(records: RecordSet) -> Set<CacheKey> {
+  @discardableResult mutating func merge(records: RecordSet) -> Set<CacheKey> {
     var changedKeys: Set<CacheKey> = Set()
     
     for (_, record) in records.storage {
@@ -31,7 +34,7 @@ public struct RecordSet {
     return changedKeys
   }
   
-  @discardableResult public mutating func merge(record: Record) -> Set<CacheKey> {
+  @discardableResult mutating func merge(record: Record) -> Set<CacheKey> {
     if var oldRecord = storage.removeValue(forKey: record.key) {
       var changedKeys: Set<CacheKey> = Set()
       
