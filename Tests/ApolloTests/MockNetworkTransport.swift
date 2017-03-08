@@ -1,4 +1,4 @@
-import Apollo
+@testable import Apollo
 
 final class MockNetworkTransport: NetworkTransport {
   let body: JSONObject

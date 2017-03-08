@@ -3,43 +3,38 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
   let operation: Operation
   let body: JSONObject
 
-  public init(operation: Operation, body: JSONObject) {
+  init(operation: Operation, body: JSONObject) {
     self.operation = operation
     self.body = body
   }
 
-  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Operation.Data>, RecordSet?)  {
-    let data: Operation.Data?
-    let dependentKeys: Set<CacheKey>?
-    let records: RecordSet?
-
-    if let dataEntry = body["data"] as? JSONObject {
-      let reader = GraphQLResultReader(variables: operation.variables) { field, object, info in
-        return (object ?? dataEntry)[field.responseName]
-      }
-      
-      let normalizer = GraphQLResultNormalizer(rootKey: rootKey(forOperation: operation))
-      normalizer.cacheKeyForObject = cacheKeyForObject
-      reader.delegate = normalizer
-
-      data = try Operation.Data(reader: reader)
-      
-      records = normalizer.records
-      dependentKeys = normalizer.dependentKeys
-    } else {
-      data = nil
-      dependentKeys = nil
-      records = nil
-    }
-
+  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
     let errors: [GraphQLError]?
-
+    
     if let errorsEntry = body["errors"] as? [JSONObject] {
       errors = errorsEntry.map(GraphQLError.init)
     } else {
       errors = nil
     }
 
-    return (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
+    if let dataEntry = body["data"] as? JSONObject {
+      let executor = GraphQLExecutor { object, info in
+        return Promise(fulfilled: (object ?? dataEntry)[info.responseKeyForField])
+      }
+      
+      executor.cacheKeyForObject = cacheKeyForObject
+      
+      let mapper = GraphQLResultMapper<Operation.Data>()
+      let normalizer = GraphQLResultNormalizer()
+      let dependencyTracker = GraphQLDependencyTracker()
+      
+      return firstly {
+        try executor.execute(selectionSet: Operation.selectionSet, rootKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
+      }.map { (data, records, dependentKeys) in
+        (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
+      }
+    } else {
+      return Promise(fulfilled: (GraphQLResult(data: nil, errors: errors, dependentKeys: nil), nil))
+    }
   }
 }

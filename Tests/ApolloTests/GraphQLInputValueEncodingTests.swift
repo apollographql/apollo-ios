@@ -1,29 +1,9 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class GraphQLInputValueEncodingTests: XCTestCase {
-  static var allTests : [(String, (GraphQLInputValueEncodingTests) -> () throws -> Void)] {
-    return [
-      ("testEncodeValue", testEncodeValue),
-      ("testEncodeOptionalValue", testEncodeOptionalValue),
-      ("testEncodeNilValue", testEncodeNilValue),
-      ("testEncodeNullValue", testEncodeNilValue),
-      ("testEncodeEnumValue", testEncodeEnumValue),
-      ("testEncodeMap", testEncodeMap),
-      ("testEncodeOptionalMap", testEncodeOptionalMap),
-      ("testEncodeNilMap", testEncodeNilMap),
-      ("testEncodeList", testEncodeList),
-      ("testEncodeOptionalList", testEncodeOptionalList),
-      ("testEncodeNilList", testEncodeNilList),
-      ("testEncodeInputObject", testEncodeInputObject),
-      ("testEncodeInputObjectWithExplicitOptionalValue", testEncodeInputObjectWithExplicitOptionalValue),
-      ("testEncodeInputObjectWithoutOptionalValue", testEncodeInputObjectWithoutOptionalValue),
-      ("testEncodeInputObjectWithExplicitNilValue", testEncodeInputObjectWithExplicitNilValue),
-      ("testEncodeInputObjectWithNestedInputObject", testEncodeInputObjectWithNestedInputObject),
-    ]
-  }
-  
-  private func serializeAndDeserialize(value: GraphQLInputValue) -> NSDictionary {
+  private func serializeAndDeserialize(value: JSONEncodable) -> NSDictionary {
     let data = try! JSONSerializationFormat.serialize(value: value)
     return try! JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
   }

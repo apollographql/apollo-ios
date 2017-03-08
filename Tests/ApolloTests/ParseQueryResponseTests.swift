@@ -1,26 +1,8 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class ParseQueryResponseTests: XCTestCase {
-  static var allTests : [(String, (ParseQueryResponseTests) -> () throws -> Void)] {
-    return [
-      ("testHeroNameQuery", testHeroNameQuery),
-      ("testHeroNameQueryWithMissingValue", testHeroNameQueryWithMissingValue),
-      ("testHeroNameQueryWithWrongType", testHeroNameQueryWithWrongType),
-      ("testHeroAppearsInQuery", testHeroAppearsInQuery),
-      ("testHeroAndFriendsNamesQuery", testHeroAndFriendsNamesQuery),
-      ("testTwoHeroesQuery", testTwoHeroesQuery),
-      ("testHeroDetailsQueryDroid", testHeroDetailsQueryDroid),
-      ("testHeroDetailsQueryHuman", testHeroDetailsQueryHuman),
-      ("testHeroDetailsQueryUnknownTypename", testHeroDetailsQueryUnknownTypename),
-      ("testHeroDetailsQueryMissingTypename", testHeroDetailsQueryMissingTypename),
-      ("testHeroDetailsWithFragmentQueryDroid", testHeroDetailsWithFragmentQueryDroid),
-      ("testHeroDetailsWithFragmentQueryHuman", testHeroDetailsWithFragmentQueryHuman),
-      ("testErrorResponseWithoutLocation", testErrorResponseWithoutLocation),
-      ("testErrorResponseWithLocation", testErrorResponseWithLocation),
-    ]
-  }
-  
   func testHeroNameQuery() throws {
     let query = HeroNameQuery()
     
@@ -30,7 +12,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
 
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
   }
@@ -44,7 +26,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertThrowsError(try response.parseResult()) { error in
+    XCTAssertThrowsError(try response.parseResult().await()) { error in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["hero", "name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -63,7 +45,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertThrowsError(try response.parseResult()) { error in
+    XCTAssertThrowsError(try response.parseResult().await()) { error in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["hero", "name"])
         XCTAssertEqual(value as? Int, 10)
@@ -81,9 +63,9 @@ class ParseQueryResponseTests: XCTestCase {
       "data": [
         "hero": ["__typename": "Droid", "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]]
       ]
-      ])
+    ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     XCTAssertEqual(result.data?.hero?.appearsIn, [.newhope, .empire, .jedi])
   }
@@ -105,8 +87,32 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
 
+    XCTAssertEqual(result.data?.hero?.name, "R2-D2")
+    let friendsNames = result.data?.hero?.friends?.flatMap { $0?.name }
+    XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+  }
+  
+  func testHeroAndFriendsNamesWithFragmentQuery() throws {
+    let query = HeroAndFriendsNamesWithFragmentQuery()
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "data": [
+        "hero": [
+          "name": "R2-D2",
+          "__typename": "Droid",
+          "friends": [
+            ["__typename": "Human", "name": "Luke Skywalker"],
+            ["__typename": "Human", "name": "Han Solo"],
+            ["__typename": "Human", "name": "Leia Organa"]
+          ]
+        ]
+      ]
+    ])
+    
+    let (result, _) = try response.parseResult().await()
+    
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
     let friendsNames = result.data?.hero?.friends?.flatMap { $0?.name }
     XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
@@ -122,7 +128,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
 
     XCTAssertEqual(result.data?.r2?.name, "R2-D2")
     XCTAssertEqual(result.data?.luke?.name, "Luke Skywalker")
@@ -137,7 +143,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     guard let droid = result.data?.hero?.asDroid else {
       XCTFail("Wrong type")
@@ -156,7 +162,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
 
     guard let human = result.data?.hero?.asHuman else {
       XCTFail("Wrong type")
@@ -175,7 +181,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
 
     XCTAssertEqual(result.data?.hero?.name, "Charmander")
   }
@@ -189,7 +195,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertThrowsError(try response.parseResult()) { error in
+    XCTAssertThrowsError(try response.parseResult().await()) { error in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["hero", "__typename"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -208,7 +214,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     guard let droid = result.data?.hero?.fragments.heroDetails.asDroid else {
       XCTFail("Wrong type")
@@ -227,7 +233,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
 
     guard let human = result.data?.hero?.fragments.heroDetails.asHuman else {
       XCTFail("Wrong type")
@@ -252,7 +258,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     XCTAssertEqual(result.data?.createReview?.stars, 5)
     XCTAssertEqual(result.data?.createReview?.commentary, "This is a great movie!")
@@ -271,7 +277,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
       ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")
@@ -292,7 +298,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")
@@ -312,7 +318,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult()
+    let (result, _) = try response.parseResult().await()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")

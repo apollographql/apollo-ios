@@ -1,5 +1,5 @@
 final class JSONSerializationFormat {
-  class func serialize(value: GraphQLInputValue) throws -> Data {
+  class func serialize(value: JSONEncodable) throws -> Data {
     return try JSONSerialization.data(withJSONObject: value.jsonValue, options: [])
   }
   

@@ -6,13 +6,14 @@ public protocol JSONDecodable {
   init(jsonValue value: JSONValue) throws
 }
 
-public protocol JSONEncodable {
+public protocol JSONEncodable: GraphQLInputValue {
   var jsonValue: JSONValue { get }
 }
 
 public enum JSONDecodingError: Error, LocalizedError {
   case missingValue
   case nullValue
+  case wrongType
   case couldNotConvert(value: Any, to: Any.Type)
   
   public var errorDescription: String? {
@@ -21,6 +22,8 @@ public enum JSONDecodingError: Error, LocalizedError {
       return "Missing value"
     case .nullValue:
       return "Unexpected null value"
+    case .wrongType:
+      return "Wrong type"
     case .couldNotConvert(let value, let expectedType):
       return "Could not convert \"\(value)\" to \(expectedType)"
     }
@@ -44,35 +47,6 @@ extension JSONDecodingError: Matchable {
 }
 
 // MARK: Helpers
-
-func optional(_ optionalValue: JSONValue?) throws -> JSONValue? {
-  guard let value = optionalValue else {
-    throw JSONDecodingError.missingValue
-  }
-  
-  if value is NSNull { return nil }
-  
-  return value
-}
-
-func required(_ optionalValue: JSONValue?) throws -> JSONValue {
-  guard let value = optionalValue else {
-    throw JSONDecodingError.missingValue
-  }
-  
-  if value is NSNull {
-    throw JSONDecodingError.nullValue
-  }
-  
-  return value
-}
-
-func cast<T>(_ value: JSONValue) throws -> T {
-  guard let castValue = value as? T else {
-    throw JSONDecodingError.couldNotConvert(value: value, to: T.self)
-  }
-  return castValue
-}
 
 func equals(_ lhs: Any, _ rhs: Any) -> Bool {
   if let lhs = lhs as? Reference, let rhs = rhs as? Reference {

@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class NormalizeQueryResults: XCTestCase {
   func testHeroNameQuery() throws {
@@ -11,11 +12,11 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "hero"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
     
-    guard let hero = records?["hero"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
   }
   
@@ -28,11 +29,11 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "hero(episode:JEDI)"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
-    guard let hero = records?["hero(episode:JEDI)"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero(episode:JEDI)"] else { XCTFail(); return }
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
   }
   
@@ -45,11 +46,11 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "hero"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
     
-    guard let hero = records?["hero"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["appearsIn"] as? [String], ["NEWHOPE", "EMPIRE", "JEDI"])
   }
   
@@ -70,15 +71,15 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "hero(episode:JEDI)"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
-    guard let hero = records?["hero(episode:JEDI)"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero(episode:JEDI)"] else { XCTFail(); return }
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
-    XCTAssertEqual(hero["friends"] as? [Reference], [Reference(key: "hero(episode:JEDI).friends.0"), Reference(key: "hero(episode:JEDI).friends.1"), Reference(key: "hero(episode:JEDI).friends.2")])
+    XCTAssertEqual(hero["friends"] as? [Reference], [Reference(key: "QUERY_ROOT.hero(episode:JEDI).friends.0"), Reference(key: "QUERY_ROOT.hero(episode:JEDI).friends.1"), Reference(key: "QUERY_ROOT.hero(episode:JEDI).friends.2")])
     
-    guard let luke = records?["hero(episode:JEDI).friends.0"] else { XCTFail(); return }
+    guard let luke = records?["QUERY_ROOT.hero(episode:JEDI).friends.0"] else { XCTFail(); return }
     XCTAssertEqual(luke["name"] as? String, "Luke Skywalker")
   }
   
@@ -100,7 +101,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] })
+    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
     
@@ -130,7 +131,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] })
+    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).await()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
     
@@ -152,9 +153,9 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    guard let hero = records?["hero"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["__typename"] as? String, "Droid")
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
     XCTAssertEqual(hero["appearsIn"] as? [String], ["NEWHOPE", "EMPIRE", "JEDI"])
@@ -169,9 +170,9 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    guard let hero = records?["hero"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["primaryFunction"] as? String, "Astromech")
   }
   
@@ -184,9 +185,9 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    guard let hero = records?["hero"] else { XCTFail(); return }
+    guard let hero = records?["QUERY_ROOT.hero"] else { XCTFail(); return }
     XCTAssertEqual(hero["homePlanet"] as? String, "Tatooine")
   }
   
@@ -205,9 +206,9 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    guard let luke = records?["hero.friends.0"] else { XCTFail(); return }
+    guard let luke = records?["QUERY_ROOT.hero.friends.0"] else { XCTFail(); return }
     XCTAssertEqual(luke["height(unit:METER)"] as? Double, 1.72)
   }
   
@@ -226,9 +227,9 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult()
+    let (_, records) = try response.parseResult().await()
     
-    guard let han = records?["hero.friends.0"] else { XCTFail(); return }
+    guard let han = records?["QUERY_ROOT.hero.friends.0"] else { XCTFail(); return }
     XCTAssertEqual(han["height(unit:FOOT)"] as? Double, 5.905512)
   }
 }

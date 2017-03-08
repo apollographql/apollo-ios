@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class WatchQueryTests: XCTestCase {
   func testRefetchWatchedQuery() throws {
@@ -58,19 +59,19 @@ class WatchQueryTests: XCTestCase {
   
   func testWatchedQueryGetsUpdatedWithResultFromOtherQuery() throws {
     let store = ApolloStore(records: [
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
-      "hero": [
+      "QUERY_ROOT": ["hero": Reference(key: "QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "hero.friends.0"),
-          Reference(key: "hero.friends.1"),
-          Reference(key: "hero.friends.2")
+          Reference(key: "QUERY_ROOT.hero.friends.0"),
+          Reference(key: "QUERY_ROOT.hero.friends.1"),
+          Reference(key: "QUERY_ROOT.hero.friends.2")
         ]
       ],
-      "hero.friends.0": ["__typename": "Human", "name": "Luke Skywalker"],
-      "hero.friends.1": ["__typename": "Human", "name": "Han Solo"],
-      "hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
+      "QUERY_ROOT.hero.friends.0": ["__typename": "Human", "name": "Luke Skywalker"],
+      "QUERY_ROOT.hero.friends.1": ["__typename": "Human", "name": "Han Solo"],
+      "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
     ])
     
     let networkTransport = MockNetworkTransport(body: [
@@ -101,6 +102,7 @@ class WatchQueryTests: XCTestCase {
     var expectation = self.expectation(description: "Fetching query")
     
     _ = client.watch(query: query) { (result, error) in
+      print("result: \(result?.data?.hero?.name)")
       verifyResult(result, error)
       expectation.fulfill()
     }
@@ -119,26 +121,28 @@ class WatchQueryTests: XCTestCase {
     
     expectation = self.expectation(description: "Updated after fetching other query")
     
-    client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
+    client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { result, error in
+      print("result2: \(result?.data?.hero?.name)")
+    }
 
     waitForExpectations(timeout: 1.0, handler: nil)
   }
   
   func testWatchedQueryDoesNotRefetchAfterUnrelatedQuery() throws {
     let store = ApolloStore(records: [
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
-      "hero": [
+      "QUERY_ROOT": ["hero": Reference(key: "QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "hero.friends.0"),
-          Reference(key: "hero.friends.1"),
-          Reference(key: "hero.friends.2")
+          Reference(key: "QUERY_ROOT.hero.friends.0"),
+          Reference(key: "QUERY_ROOT.hero.friends.1"),
+          Reference(key: "QUERY_ROOT.hero.friends.2")
         ]
       ],
-      "hero.friends.0": ["__typename": "Human", "name": "Luke Skywalker"],
-      "hero.friends.1": ["__typename": "Human", "name": "Han Solo"],
-      "hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
+      "QUERY_ROOT.hero.friends.0": ["__typename": "Human", "name": "Luke Skywalker"],
+      "QUERY_ROOT.hero.friends.1": ["__typename": "Human", "name": "Han Solo"],
+      "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
     ])
     
     let networkTransport = MockNetworkTransport(body: [

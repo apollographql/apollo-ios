@@ -125,18 +125,16 @@ public class ApolloClient {
         return
       }
       
-      self.queue.async {
-        do {
-          let (result, records) = try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
-          
-          notifyResultHandler(result: result, error: nil)
-          
-          if let records = records {
-            self.store.publish(records: records, context: context)
-          }
-        } catch {
-          notifyResultHandler(result: nil, error: error)
+      firstly {
+        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+      }.andThen { (result, records) in
+        notifyResultHandler(result: result, error: nil)
+        
+        if let records = records {
+          self.store.publish(records: records, context: context)
         }
+      }.catch { error in
+        notifyResultHandler(result: nil, error: error)
       }
     }
   }

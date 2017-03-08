@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import StarWarsAPI
 
 class LoadQueryFromStoreTests: XCTestCase {
   var store: ApolloStore!

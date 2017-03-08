@@ -16,20 +16,34 @@ protocol ApolloStoreSubscriber: class {
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
 public final class ApolloStore {  
   private let queue: DispatchQueue
-  private var records: RecordSet
+  
+  private let cache: NormalizedCache
+
+  // We need a separate read/write lock for cache access because cache operations are
+  // asynchronous and we don't want to block the dispatch threads
+  private let cacheLock = ReadWriteLock()
+  
   private var subscribers: [ApolloStoreSubscriber] = []
   
-  init(records: RecordSet = RecordSet()) {
-    self.records = records
+  public init(cache: NormalizedCache) {
+    self.cache = cache
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
+  }
+  
+  convenience init(records: RecordSet = RecordSet()) {
+    self.init(cache: InMemoryNormalizedCache(records: records))
   }
   
   func publish(records: RecordSet, context: UnsafeMutableRawPointer?) {
     queue.async(flags: .barrier) {
-      let changedKeys = self.records.merge(records: records)
-      
-      for subscriber in self.subscribers {
-        subscriber.store(self, didChangeKeys: changedKeys, context: context)
+      self.cacheLock.withWriteLock {
+        self.cache.merge(records: records)
+      }.andThen { changedKeys in
+        for subscriber in self.subscribers {
+          subscriber.store(self, didChangeKeys: changedKeys, context: context)
+        }
+      }.catch { error in
+        preconditionFailure(String(describing: error))
       }
     }
   }
@@ -48,38 +62,50 @@ public final class ApolloStore {
   
   func load<Query: GraphQLQuery>(query: Query, cacheKeyForObject: CacheKeyForObject?, resultHandler: @escaping OperationResultHandler<Query>) {
     queue.async {
-      do {
-        let rootKey = Apollo.rootKey(forOperation: query)
-        let rootObject = self.records[rootKey]?.fields
+      self.cacheLock.lockForReading()
+      
+      let loader: DataLoader<CacheKey, Record?>
+      loader = DataLoader(self.cache.loadRecords)
+      
+      let rootKey = Apollo.rootKey(forOperation: query)
+      
+      loader[rootKey].flatMap { rootRecord in
+        let rootObject = rootRecord?.fields
         
-        let reader = GraphQLResultReader(variables: query.variables) { field, object, info in
-          let value = (object ?? rootObject)?[field.cacheKey]
-          return self.complete(value: value)
+        func complete(value: Any?) -> Promise<JSONValue?> {
+          if let reference = value as? Reference {
+            return loader[reference.key].map { $0?.fields }
+          } else if let array = value as? Array<Any?> {
+            let completedValues = array.map(complete)
+            // Make sure to dispatch on a global queue and not on the local queue,
+            // because that could result in a deadlock (if someone is waiting for the write lock).
+            return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
+          } else {
+            return Promise(fulfilled: value)
+          }
         }
         
-        let normalizer = GraphQLResultNormalizer(rootKey: rootKey)
-        normalizer.cacheKeyForObject = cacheKeyForObject
+        let executor = GraphQLExecutor { object, info in
+          let value = (object ?? rootObject)?[info.cacheKeyForField]
+          return complete(value: value)
+        }
         
-        reader.delegate = normalizer
+        executor.dispatchDataLoads = loader.dispatch
+        executor.cacheKeyForObject = cacheKeyForObject
         
-        let data = try Query.Data(reader: reader)
+        let mapper = GraphQLResultMapper<Query.Data>()
+        let dependencyTracker = GraphQLDependencyTracker()
         
-        let dependentKeys = normalizer.dependentKeys
-        
+        return try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker))
+      }.andThen { (data: Query.Data, dependentKeys: Set<CacheKey>) in
         resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
-      } catch {
+      }.catch { error in
         resultHandler(nil, error)
+      }.finally {
+        self.cacheLock.unlock()
       }
-    }
-  }
-  
-  private func complete(value: JSONValue?) -> JSONValue? {
-    if let reference = value as? Reference {
-      return self.records[reference.key]?.fields
-    } else if let array = value as? Array<JSONValue> {
-      return array.map(complete)
-    } else {
-      return value
+      
+      loader.dispatch()
     }
   }
 }

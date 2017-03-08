@@ -1,6 +1,8 @@
 public protocol GraphQLOperation: class {
-  static var operationDefinition: String { get }
-  static var queryDocument: String { get }
+  static var operationString: String { get }
+  static var requestString: String { get }
+  
+  static var selectionSet: [Selection] { get }
   
   var variables: GraphQLMap? { get }
   
@@ -8,8 +10,8 @@ public protocol GraphQLOperation: class {
 }
 
 public extension GraphQLOperation {
-  static var queryDocument: String {
-    return operationDefinition
+  static var requestString: String {
+    return operationString
   }
   
   var variables: GraphQLMap? {
@@ -20,3 +22,8 @@ public extension GraphQLOperation {
 public protocol GraphQLQuery: GraphQLOperation {}
 
 public protocol GraphQLMutation: GraphQLOperation {}
+
+public protocol GraphQLFragment: GraphQLMappable {
+  static var possibleTypes: [String] { get }
+  static var selectionSet: [Selection] { get }
+}

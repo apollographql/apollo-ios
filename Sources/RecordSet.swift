@@ -2,23 +2,26 @@
 public struct RecordSet {
   fileprivate var storage: [CacheKey: Record] = [:]
   
-  init(records: [Record]) {
+  init<S: Sequence>(records: S) where S.Iterator.Element == Record {
+    insert(contentsOf: records)
+  }
+  
+  mutating func insert(_ record: Record) {
+    storage[record.key] = record
+  }
+  
+  mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
     for record in records {
-      storage[record.key] = record
+      insert(record)
     }
+  }
+  
+  subscript(key: CacheKey) -> Record? {
+    return storage[key]
   }
   
   var isEmpty: Bool {
     return storage.isEmpty
-  }
-  
-  subscript(key: CacheKey) -> Record? {
-    get {
-      return storage[key]
-    }
-    set {
-      storage[key] = newValue
-    }
   }
   
   @discardableResult mutating func merge(records: RecordSet) -> Set<CacheKey> {
@@ -57,8 +60,14 @@ extension RecordSet: ExpressibleByDictionaryLiteral {
   }
 }
 
-extension RecordSet: CustomDebugStringConvertible {
-  public var debugDescription: String {
-    return storage.debugDescription
+extension RecordSet: CustomStringConvertible {
+  public var description: String {
+    return String(describing: Array(storage.values))
+  }
+}
+
+extension RecordSet: CustomPlaygroundQuickLookable {
+  public var customPlaygroundQuickLook: PlaygroundQuickLook {
+    return .text(description)
   }
 }

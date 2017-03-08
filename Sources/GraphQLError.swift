@@ -8,6 +8,10 @@ public struct GraphQLError: Error {
     self.object = object
   }
   
+  init(_ message: String) {
+    self.init(["message": message])
+  }
+  
   /// GraphQL servers may provide additional entries as they choose to produce more helpful or machine‐readable errors.
   public subscript(key: String) -> Any? {
     return object[key]
@@ -40,5 +44,11 @@ public struct GraphQLError: Error {
 extension GraphQLError: CustomStringConvertible {
   public var description: String {
     return self.message
+  }
+}
+
+extension GraphQLError: LocalizedError {
+  public var errorDescription: String? {
+    return description
   }
 }
