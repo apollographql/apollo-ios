@@ -45,6 +45,13 @@ public struct RecordSet {
         oldRecord[key] = value
         changedKeys.insert([record.key, key].joined(separator: "."))
       }
+      
+      let removedFieldKeys = Set(oldRecord.fields.keys).subtracting(record.fields.keys)
+      for removedFieldKey in removedFieldKeys {
+        oldRecord[removedFieldKey] = nil
+        changedKeys.insert([oldRecord.key, removedFieldKey].joined(separator: "."))
+      }
+      
       storage[record.key] = oldRecord
       return changedKeys
     } else {
