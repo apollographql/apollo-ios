@@ -39,7 +39,7 @@ public final class ApolloStore {
     self.init(cache: InMemoryNormalizedCache(records: records))
   }
   
-  func publish(records: RecordSet, context: UnsafeMutableRawPointer?) -> Promise<Void> {
+  func publish(records: RecordSet, context: UnsafeMutableRawPointer? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
@@ -71,10 +71,7 @@ public final class ApolloStore {
       self.queue.async {
         self.cacheLock.lockForReading()
         
-        let loader: DataLoader<CacheKey, Record?>
-        loader = DataLoader(self.cache.loadRecords)
-        
-        fulfill(ReadTransaction(loader: loader, cacheKeyForObject: self.cacheKeyForObject))
+        fulfill(ReadTransaction(cache: self.cache, cacheKeyForObject: self.cacheKeyForObject))
       }
     }.flatMap(body)
      .finally {
@@ -93,10 +90,7 @@ public final class ApolloStore {
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
         
-        let loader: DataLoader<CacheKey, Record?>
-        loader = DataLoader(self.cache.loadRecords)
-        
-        fulfill(ReadWriteTransaction(loader: loader, cacheKeyForObject: self.cacheKeyForObject, merge: self.cache.merge))
+        fulfill(ReadWriteTransaction(cache: self.cache, cacheKeyForObject: self.cacheKeyForObject))
       }
     }.flatMap(body)
      .finally {
@@ -130,24 +124,34 @@ public final class ApolloStore {
   }
   
   public class ReadTransaction {
-    fileprivate let loader: DataLoader<CacheKey, Record?>
-    fileprivate var executor: GraphQLExecutor!
+    fileprivate let cache: NormalizedCache
+    fileprivate let cacheKeyForObject: CacheKeyForObject?
     
-    init(loader: DataLoader<CacheKey, Record?>, cacheKeyForObject: CacheKeyForObject?) {
-      self.loader = loader
-      
-      executor = GraphQLExecutor { object, info in
+    fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecords)
+    
+    fileprivate lazy var executor: GraphQLExecutor = {
+      let executor = GraphQLExecutor { object, info in
         let value = object?[info.cacheKeyForField]
         return self.complete(value: value)
       }
       
-      executor.dispatchDataLoads = loader.dispatch
-      executor.cacheKeyForObject = cacheKeyForObject
+      executor.dispatchDataLoads = self.loader.dispatch
+      executor.cacheKeyForObject = self.cacheKeyForObject
+      return executor
+    }()
+    
+    init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?) {
+      self.cache = cache
+      self.cacheKeyForObject = cacheKeyForObject
     }
     
     public func readObject<Query: GraphQLQuery>(forQuery query: Query, variables: GraphQLMap? = nil) throws -> JSONObject {
       let responseGenerator = GraphQLResponseGenerator()
       return try execute(selectionSet: Query.selectionSet, onObjectWithKey: rootKey(forOperation: query), variables: query.variables, accumulator: responseGenerator).await()
+    }
+    
+    public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
+      return cache.loadRecords(forKeys: keys)
     }
     
     private final func complete(value: Any?) -> Promise<JSONValue?> {
@@ -180,18 +184,11 @@ public final class ApolloStore {
   }
   
   public final class ReadWriteTransaction: ReadTransaction {
-    let merge: (_ records: RecordSet) -> Promise<Set<CacheKey>>
-    
-    init(loader: DataLoader<CacheKey, Record?>, cacheKeyForObject: CacheKeyForObject?, merge: @escaping (_ records: RecordSet) -> Promise<Set<CacheKey>>) {
-      self.merge = merge
-      super.init(loader: loader, cacheKeyForObject: cacheKeyForObject)
-    }
-    
     public func write<Query: GraphQLQuery>(object: JSONObject, forQuery query: Query) throws {
       let normalizer = GraphQLResultNormalizer()
       return try self.executor.execute(selectionSet: Query.selectionSet, on: object, withKey: rootKey(forOperation: query), variables: query.variables, accumulator: normalizer)
       .flatMap { records in
-        self.merge(records)
+        self.cache.merge(records: records)
       .map { _ in }
       }.await()
     }
