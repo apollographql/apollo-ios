@@ -126,7 +126,9 @@ public class ApolloClient {
         notifyResultHandler(result: result, error: nil)
         
         if let records = records {
-          self.store.publish(records: records, context: context)
+          self.store.publish(records: records, context: context).catch { error in
+            preconditionFailure(String(describing: error))
+          }
         }
       }.catch { error in
         notifyResultHandler(result: nil, error: error)
