@@ -54,7 +54,7 @@ class BatchedLoadTests: XCTestCase {
     
     let expectation = self.expectation(description: "Loading query from store")
     
-    store.load(query: query, cacheKeyForObject: nil) { (result, error) in
+    store.load(query: query) { (result, error) in
       XCTAssertNil(error)
       XCTAssertNil(result?.errors)
       
@@ -95,7 +95,7 @@ class BatchedLoadTests: XCTestCase {
     (1...10).forEach { number in
       let expectation = self.expectation(description: "Loading query #\(number) from store")
       
-      store.load(query: query, cacheKeyForObject: nil) { (result, error) in
+      store.load(query: query) { (result, error) in
         XCTAssertNil(error)
         XCTAssertNil(result?.errors)
         

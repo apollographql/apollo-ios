@@ -16,15 +16,10 @@ public enum CachePolicy {
   case returnCacheDataDontFetch
 }
 
-/// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
-public typealias CacheKeyForObject = (_ object: JSONObject) -> JSONValue?
-
 public typealias OperationResultHandler<Operation: GraphQLOperation> = (_ result: GraphQLResult<Operation.Data>?, _ error: Error?) -> Void
 
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public class ApolloClient {
-  public var cacheKeyForObject: CacheKeyForObject?
-  
   let networkTransport: NetworkTransport
   let store: ApolloStore
   
@@ -126,7 +121,7 @@ public class ApolloClient {
       }
       
       firstly {
-        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+        try response.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
       }.andThen { (result, records) in
         notifyResultHandler(result: result, error: nil)
         
@@ -172,7 +167,7 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
       return
     }
     
-    client.store.load(query: query, cacheKeyForObject: client.cacheKeyForObject) { (result, error) in
+    client.store.load(query: query) { (result, error) in
       if error == nil {
         self.notifyResultHandler(result: result, error: nil)
         self.state = .finished

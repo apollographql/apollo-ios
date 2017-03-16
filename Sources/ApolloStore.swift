@@ -9,12 +9,17 @@ func rootKey<Operation: GraphQLOperation>(forOperation operation: Operation) -> 
   }
 }
 
+/// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
+public typealias CacheKeyForObject = (_ object: JSONObject) -> JSONValue?
+
 protocol ApolloStoreSubscriber: class {
   func store(_ store: ApolloStore, didChangeKeys changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?)
 }
 
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
-public final class ApolloStore {  
+public final class ApolloStore {
+  public var cacheKeyForObject: CacheKeyForObject?
+
   private let queue: DispatchQueue
   
   private let cache: NormalizedCache
@@ -60,7 +65,7 @@ public final class ApolloStore {
     }
   }
   
-  func load<Query: GraphQLQuery>(query: Query, cacheKeyForObject: CacheKeyForObject?, resultHandler: @escaping OperationResultHandler<Query>) {
+  func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping OperationResultHandler<Query>) {
     queue.async {
       self.cacheLock.lockForReading()
       
@@ -91,7 +96,7 @@ public final class ApolloStore {
         }
         
         executor.dispatchDataLoads = loader.dispatch
-        executor.cacheKeyForObject = cacheKeyForObject
+        executor.cacheKeyForObject = self.cacheKeyForObject
         
         let mapper = GraphQLResultMapper<Query.Data>()
         let dependencyTracker = GraphQLDependencyTracker()

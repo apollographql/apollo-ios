@@ -182,7 +182,7 @@ class LoadQueryFromStoreTests: XCTestCase {
   private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping OperationResultHandler<Query>) {
     let expectation = self.expectation(description: "Loading query from store")
     
-    store.load(query: query, cacheKeyForObject: nil) { (result, error) in
+    store.load(query: query) { (result, error) in
       resultHandler(result, error)
       expectation.fulfill()
     }
