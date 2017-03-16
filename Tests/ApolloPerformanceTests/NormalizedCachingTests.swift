@@ -55,7 +55,7 @@ class NormalizedCachingTests: XCTestCase {
       (1...100).forEach { number in
         let expectation = self.expectation(description: "Loading query #\(number) from store")
         
-        store.load(query: query, cacheKeyForObject: nil) { (result, error) in
+        store.load(query: query) { (result, error) in
           XCTAssertEqual(result?.data?.hero?.name, "R2-D2")
           expectation.fulfill()
         }
@@ -101,7 +101,7 @@ class NormalizedCachingTests: XCTestCase {
         (1...10).forEach { _ in
           let expectation = self.expectation(description: "Loading query #\(number) from store")
           
-          store.load(query: query, cacheKeyForObject: nil) { (result, error) in
+          store.load(query: query) { (result, error) in
             XCTAssertEqual(result?.data?.hero?.friends?.first??.name, "Droid #\(number)")
             expectation.fulfill()
           }

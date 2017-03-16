@@ -65,52 +65,83 @@ public final class ApolloStore {
     }
   }
   
+  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
+    return Promise<ReadTransaction> { fulfill, reject in
+      self.queue.async {
+        self.cacheLock.lockForReading()
+        
+        let loader: DataLoader<CacheKey, Record?>
+        loader = DataLoader(self.cache.loadRecords)
+        
+        fulfill(ReadTransaction(loader: loader, cacheKeyForObject: self.cacheKeyForObject))
+      }
+    }.flatMap(body)
+     .finally {
+      self.cacheLock.unlock()
+    }
+  }
+  
+  func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
+    return withinReadTransaction { transaction in
+      let mapper = GraphQLResultMapper<Query.Data>()
+      let dependencyTracker = GraphQLDependencyTracker()
+      
+      return try transaction.execute(selectionSet: Query.selectionSet, onObjectWithKey: rootKey(forOperation: query), variables: query.variables, accumulator: zip(mapper, dependencyTracker))
+    }.map { (data: Query.Data, dependentKeys: Set<CacheKey>) in
+      GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys)
+    }
+  }
+  
   func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping OperationResultHandler<Query>) {
-    queue.async {
-      self.cacheLock.lockForReading()
+    load(query: query).andThen { result in
+      resultHandler(result, nil)
+    }.catch { error in
+      resultHandler(nil, error)
+    }
+  }
+  
+  public class ReadTransaction {
+    private let loader: DataLoader<CacheKey, Record?>
+    private var executor: GraphQLExecutor!
+    
+    init(loader: DataLoader<CacheKey, Record?>, cacheKeyForObject: CacheKeyForObject?) {
+      self.loader = loader
       
-      let loader: DataLoader<CacheKey, Record?>
-      loader = DataLoader(self.cache.loadRecords)
-      
-      let rootKey = Apollo.rootKey(forOperation: query)
-      
-      loader[rootKey].flatMap { rootRecord in
-        let rootObject = rootRecord?.fields
-        
-        func complete(value: Any?) -> Promise<JSONValue?> {
-          if let reference = value as? Reference {
-            return loader[reference.key].map { $0?.fields }
-          } else if let array = value as? Array<Any?> {
-            let completedValues = array.map(complete)
-            // Make sure to dispatch on a global queue and not on the local queue,
-            // because that could result in a deadlock (if someone is waiting for the write lock).
-            return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
-          } else {
-            return Promise(fulfilled: value)
-          }
-        }
-        
-        let executor = GraphQLExecutor { object, info in
-          let value = (object ?? rootObject)?[info.cacheKeyForField]
-          return complete(value: value)
-        }
-        
-        executor.dispatchDataLoads = loader.dispatch
-        executor.cacheKeyForObject = self.cacheKeyForObject
-        
-        let mapper = GraphQLResultMapper<Query.Data>()
-        let dependencyTracker = GraphQLDependencyTracker()
-        
-        return try executor.execute(selectionSet: Query.selectionSet, rootKey: rootKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker))
-      }.andThen { (data: Query.Data, dependentKeys: Set<CacheKey>) in
-        resultHandler(GraphQLResult(data: data, errors: nil, dependentKeys: dependentKeys), nil)
-      }.catch { error in
-        resultHandler(nil, error)
-      }.finally {
-        self.cacheLock.unlock()
+      executor = GraphQLExecutor { object, info in
+        let value = object?[info.cacheKeyForField]
+        return self.complete(value: value)
       }
       
-      loader.dispatch()
+      executor.dispatchDataLoads = loader.dispatch
+      executor.cacheKeyForObject = cacheKeyForObject
+    }
+    
+    private final func complete(value: Any?) -> Promise<JSONValue?> {
+      if let reference = value as? Reference {
+        return loader[reference.key].map { $0?.fields }
+      } else if let array = value as? Array<Any?> {
+        let completedValues = array.map(complete)
+        // Make sure to dispatch on a global queue and not on the local queue,
+        // because that could result in a deadlock (if someone is waiting for the write lock).
+        return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
+      } else {
+        return Promise(fulfilled: value)
+      }
+    }
+    
+    final func execute<Accumulator: GraphQLResultAccumulator>(selectionSet: [Selection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+      return loadObject(forKey: key).flatMap { object in
+        try self.executor.execute(selectionSet: selectionSet, on: object, withKey: key, variables: variables, accumulator: accumulator)
+      }
+    }
+    
+    private final func loadObject(forKey key: CacheKey) -> Promise<JSONObject> {
+      defer { loader.dispatch() }
+      
+      return loader[key].map { record in
+        guard let object = record?.fields else { throw JSONDecodingError.missingValue }
+        return object
+      }
     }
   }
 }

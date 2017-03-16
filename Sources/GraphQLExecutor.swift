@@ -114,10 +114,10 @@ public final class GraphQLExecutor {
   
   // MARK: - Execution
   
-  func execute<Accumulator: GraphQLResultAccumulator>(selectionSet: [Selection], rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+  func execute<Accumulator: GraphQLResultAccumulator>(selectionSet: [Selection], on object: JSONObject? = nil, withKey rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: rootKey, variables: variables)
     
-    return try execute(selectionSet: selectionSet, on: nil, info: info, accumulator: accumulator).map {
+    return try execute(selectionSet: selectionSet, on: object, info: info, accumulator: accumulator).map {
       try accumulator.finish(rootValue: $0, info: info)
     }
   }

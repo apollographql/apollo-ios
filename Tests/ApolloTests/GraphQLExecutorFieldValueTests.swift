@@ -12,7 +12,7 @@ private struct SingleValue: GraphQLMappable {
 
 private extension GraphQLExecutor {
   func readSingleValue(_ field: Field) throws -> Any? {
-    return try execute(selectionSet: [field], rootKey: "", variables: [:], accumulator: GraphQLResultMapper<SingleValue>()).await().value
+    return try execute(selectionSet: [field], withKey: "", variables: [:], accumulator: GraphQLResultMapper<SingleValue>()).await().value
   }
 }
 
