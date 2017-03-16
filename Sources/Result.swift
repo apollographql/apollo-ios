@@ -33,7 +33,7 @@ extension Result {
     }
   }
   
-  func valueOrThrow() throws -> Value {
+  func valueOrError() throws -> Value {
     switch self {
     case .success(let value):
       return value

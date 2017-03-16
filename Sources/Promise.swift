@@ -62,18 +62,6 @@ public final class Promise<Value> {
     }
   }
   
-  init(on queue: DispatchQueue, _ body: @escaping (_ fulfill: @escaping (Value) -> (), _ reject: @escaping (Error) -> () ) throws -> ()) {
-    state = .pending
-    
-    queue.async {
-      do {
-        try body(self.fulfill, self.reject)
-      } catch {
-        self.reject(error)
-      }
-    }
-  }
-  
   @discardableResult func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
@@ -196,16 +184,16 @@ public final class Promise<Value> {
   func await() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
     
-    var receivedResult: Result<Value>? = nil
+    var result: Result<Value>? = nil
     
-    whenResolved { result in
-      receivedResult = result
+    whenResolved {
+      result = $0
       semaphore.signal()
     }
     
     semaphore.wait()
     
-    return try receivedResult!.valueOrThrow()
+    return try result!.valueOrError()
   }
   
   private func fulfill(_ value: Value) {
