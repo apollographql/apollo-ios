@@ -82,6 +82,34 @@ public final class ApolloStore {
     }
   }
   
+  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T> {
+    return withinReadTransaction {
+      Promise(fulfilled: try body($0))
+    }
+  }
+  
+  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
+    return Promise<ReadWriteTransaction> { fulfill, reject in
+      self.queue.async(flags: .barrier) {
+        self.cacheLock.lockForWriting()
+        
+        let loader: DataLoader<CacheKey, Record?>
+        loader = DataLoader(self.cache.loadRecords)
+        
+        fulfill(ReadWriteTransaction(loader: loader, cacheKeyForObject: self.cacheKeyForObject, merge: self.cache.merge))
+      }
+    }.flatMap(body)
+     .finally {
+      self.cacheLock.unlock()
+    }
+  }
+  
+  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T> {
+    return withinReadWriteTransaction {
+      Promise(fulfilled: try body($0))
+    }
+  }
+  
   func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
     return withinReadTransaction { transaction in
       let mapper = GraphQLResultMapper<Query.Data>()
@@ -102,8 +130,8 @@ public final class ApolloStore {
   }
   
   public class ReadTransaction {
-    private let loader: DataLoader<CacheKey, Record?>
-    private var executor: GraphQLExecutor!
+    fileprivate let loader: DataLoader<CacheKey, Record?>
+    fileprivate var executor: GraphQLExecutor!
     
     init(loader: DataLoader<CacheKey, Record?>, cacheKeyForObject: CacheKeyForObject?) {
       self.loader = loader
@@ -115,6 +143,11 @@ public final class ApolloStore {
       
       executor.dispatchDataLoads = loader.dispatch
       executor.cacheKeyForObject = cacheKeyForObject
+    }
+    
+    public func readObject<Query: GraphQLQuery>(forQuery query: Query, variables: GraphQLMap? = nil) throws -> JSONObject {
+      let responseGenerator = GraphQLResponseGenerator()
+      return try execute(selectionSet: Query.selectionSet, onObjectWithKey: rootKey(forOperation: query), variables: query.variables, accumulator: responseGenerator).await()
     }
     
     private final func complete(value: Any?) -> Promise<JSONValue?> {
@@ -143,6 +176,24 @@ public final class ApolloStore {
         guard let object = record?.fields else { throw JSONDecodingError.missingValue }
         return object
       }
+    }
+  }
+  
+  public final class ReadWriteTransaction: ReadTransaction {
+    let merge: (_ records: RecordSet) -> Promise<Set<CacheKey>>
+    
+    init(loader: DataLoader<CacheKey, Record?>, cacheKeyForObject: CacheKeyForObject?, merge: @escaping (_ records: RecordSet) -> Promise<Set<CacheKey>>) {
+      self.merge = merge
+      super.init(loader: loader, cacheKeyForObject: cacheKeyForObject)
+    }
+    
+    public func write<Query: GraphQLQuery>(object: JSONObject, forQuery query: Query) throws {
+      let normalizer = GraphQLResultNormalizer()
+      return try self.executor.execute(selectionSet: Query.selectionSet, on: object, withKey: rootKey(forOperation: query), variables: query.variables, accumulator: normalizer)
+      .flatMap { records in
+        self.merge(records)
+      .map { _ in }
+      }.await()
     }
   }
 }

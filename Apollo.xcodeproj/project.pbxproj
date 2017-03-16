@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0F98D41E7AC17D00BF0371 /* StoreTransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F98D31E7AC17D00BF0371 /* StoreTransactionTests.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		9F295E2D1E27419800A24949 /* StarWarsServerCachingRoundtripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E2B1E27418F00A24949 /* StarWarsServerCachingRoundtripTests.swift */; };
 		9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E301E27534800A24949 /* NormalizeQueryResults.swift */; };
@@ -143,6 +144,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9F0F98D31E7AC17D00BF0371 /* StoreTransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreTransactionTests.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F295E2B1E27418F00A24949 /* StarWarsServerCachingRoundtripTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsServerCachingRoundtripTests.swift; sourceTree = "<group>"; };
 		9F295E301E27534800A24949 /* NormalizeQueryResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizeQueryResults.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
 				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
 				9F55347D1DE1DB3500E54264 /* LoadQueryFromStoreTests.swift */,
+				9F0F98D31E7AC17D00BF0371 /* StoreTransactionTests.swift */,
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
 				9FF90A6A1DDDEB420034C3B6 /* GraphQLInputValueEncodingTests.swift */,
 				9FF90A6B1DDDEB420034C3B6 /* GraphQLExecutorFieldValueTests.swift */,
@@ -785,6 +788,7 @@
 				9FCDFD1F1E32EABB007519DC /* FetchQueryTests.swift in Sources */,
 				9FADC8541E6B86D900C677E6 /* DataLoaderTests.swift in Sources */,
 				9FF90A711DDDEB420034C3B6 /* GraphQLExecutorFieldValueTests.swift in Sources */,
+				9F0F98D41E7AC17D00BF0371 /* StoreTransactionTests.swift in Sources */,
 				9FCDFD2C1E35784B007519DC /* WatchQueryTests.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
