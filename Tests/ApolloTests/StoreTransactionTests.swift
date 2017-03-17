@@ -28,11 +28,7 @@ class StoreTransactionTests: XCTestCase {
     
     try await(store.withinReadWriteTransaction { transaction in
       var data = try transaction.readObject(forQuery: query)
-      
-      var hero = data["hero"] as? JSONObject
-      hero?["name"] = "Artoo"
-      data["hero"] = hero
-      
+      data[keyPath: "hero.name"] = "Artoo"
       try transaction.write(object: data, forQuery: query)
     })
     
@@ -99,13 +95,7 @@ class StoreTransactionTests: XCTestCase {
     
     try await(store.withinReadWriteTransaction { transaction in
       var data = try transaction.readObject(forQuery: query)
-      
-      var hero = data["hero"] as? JSONObject
-      var friends = hero?["friends"] as? [JSONObject]
-      friends?.append(["__typename": "Droid", "name": "C-3PO"])
-      hero?["friends"] = friends
-      data["hero"] = hero
-      
+      data[arrayAt: "hero.friends"]?.append(["__typename": "Droid", "name": "C-3PO"])
       try transaction.write(object: data, forQuery: query)
     })
     
