@@ -106,7 +106,7 @@ public class ApolloClient {
   ///   - result: The result of the performed mutation, or `nil` if an error occurred.
   ///   - error: An error that indicates why the mutation failed, or `nil` if the mutation was succesful.
   /// - Returns: An object that can be used to cancel an in progress mutation.
-  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>?) -> Cancellable {
+  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>? = nil) -> Cancellable {
     return _perform(mutation: mutation, queue: queue, resultHandler: resultHandler)
   }
   
