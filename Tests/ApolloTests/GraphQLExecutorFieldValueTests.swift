@@ -123,6 +123,15 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
     
     XCTAssertEqual(value, [.newhope, .empire, .jedi])
   }
+  
+  func testGetEmptyScalarList() throws {
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": []])
+    let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
+    
+    let value = try reader.readSingleValue(field) as! [Episode]
+    
+    XCTAssertEqual(value, [])
+  }
 
   func testGetScalarListWithMissingKey() {
     let reader = GraphQLExecutor(rootObject: [:])
@@ -174,6 +183,15 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
     let value = try reader.readSingleValue(field) as! [Episode]?
     
     XCTAssertEqual(value!, [.newhope, .empire, .jedi])
+  }
+  
+  func testGetEmptyOptionalScalarList() throws {
+    let reader = GraphQLExecutor(rootObject: ["appearsIn": []])
+    let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
+    
+    let value = try reader.readSingleValue(field) as! [Episode]
+    
+    XCTAssertEqual(value, [])
   }
 
   func testGetOptionalScalarListWithMissingKey() throws {

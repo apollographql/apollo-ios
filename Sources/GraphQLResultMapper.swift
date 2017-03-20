@@ -23,7 +23,7 @@ final class GraphQLResultMapper<Mappable: GraphQLMappable>: GraphQLResultAccumul
   }
   
   func accept(list: [[Any?]], info: GraphQLResolveInfo) -> [Any?] {
-    return unzip(list)
+    return unzip(list, count: info.fields.count)
   }
   
   func accept(fieldEntry: [Any?], info: GraphQLResolveInfo) -> [Any?] {
@@ -31,6 +31,7 @@ final class GraphQLResultMapper<Mappable: GraphQLMappable>: GraphQLResultAccumul
   }
   
   func accept(fieldEntries: [[Any?]], info: GraphQLResolveInfo) throws -> [Any?] {
+    // Flatten values when we're at the root
     if info.fields.isEmpty {
       return fieldEntries.map { $0[0] }
     }

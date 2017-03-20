@@ -69,6 +69,20 @@ class ParseQueryResponseTests: XCTestCase {
     
     XCTAssertEqual(result.data?.hero?.appearsIn, [.newhope, .empire, .jedi])
   }
+  
+  func testHeroAppearsInQueryWithEmptyList() throws {
+    let query = HeroAppearsInQuery()
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "data": [
+        "hero": ["__typename": "Droid", "appearsIn": []]
+      ]
+      ])
+    
+    let (result, _) = try response.parseResult().await()
+    
+    XCTAssertEqual(result.data?.hero?.appearsIn, [])
+  }
 
   func testHeroAndFriendsNamesQuery() throws {
     let query = HeroAndFriendsNamesQuery()
@@ -92,6 +106,25 @@ class ParseQueryResponseTests: XCTestCase {
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
     let friendsNames = result.data?.hero?.friends?.flatMap { $0?.name }
     XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+  }
+  
+  func testHeroAndFriendsNamesQueryWithEmptyList() throws {
+    let query = HeroAndFriendsNamesQuery()
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "data": [
+        "hero": [
+          "name": "R2-D2",
+          "__typename": "Droid",
+          "friends": []
+        ]
+      ]
+      ])
+    
+    let (result, _) = try response.parseResult().await()
+    
+    XCTAssertEqual(result.data?.hero?.name, "R2-D2")
+    XCTAssertEqual(result.data?.hero?.friends?.isEmpty, true)
   }
   
   func testHeroAndFriendsNamesWithFragmentQuery() throws {
