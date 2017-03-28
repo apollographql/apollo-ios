@@ -1,4 +1,4 @@
-func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
+public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()
     
@@ -20,7 +20,7 @@ func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue)
   }
 }
 
-func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
+public func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
   do {
     return try body()
   } catch {
@@ -35,15 +35,15 @@ public final class Promise<Value> {
   private typealias ResultHandler<Value> = (Result<Value>) -> Void
   private var resultHandlers: [ResultHandler<Value>] = []
   
-  init(fulfilled value: Value) {
+  public init(fulfilled value: Value) {
     state = .resolved(.success(value))
   }
   
-  init(rejected error: Error) {
+  public init(rejected error: Error) {
     state = .resolved(.failure(error))
   }
   
-  init(_ body: () throws -> Value) {
+  public init(_ body: () throws -> Value) {
     do {
       let value = try body()
       state = .resolved(.success(value))
@@ -52,7 +52,7 @@ public final class Promise<Value> {
     }
   }
   
-  init(_ body: (_ fulfill: @escaping (Value) -> Void, _ reject: @escaping (Error) -> Void) throws -> Void) {
+  public init(_ body: (_ fulfill: @escaping (Value) -> Void, _ reject: @escaping (Error) -> Void) throws -> Void) {
     state = .pending
     
     do {

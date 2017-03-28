@@ -3,15 +3,15 @@ public typealias CacheKey = String
 
 /// A cache record.
 public struct Record {
-  let key: CacheKey
-  var fields: JSONObject
+  public let key: CacheKey
+  public private(set) var fields: JSONObject
   
-  init(key: CacheKey, _ fields: JSONObject = [:]) {
+  public init(key: CacheKey, _ fields: JSONObject = [:]) {
     self.key = key
     self.fields = fields
   }
   
-  subscript(key: CacheKey) -> JSONValue? {
+  public subscript(key: CacheKey) -> JSONValue? {
     get {
       return fields[key]
     }
@@ -29,7 +29,7 @@ extension Record: CustomStringConvertible {
 
 /// A reference to a cache record.
 public struct Reference {
-  let key: CacheKey
+  public let key: CacheKey
   
   public init(key: CacheKey) {
     self.key = key
