@@ -1,7 +1,7 @@
 /// Represents a GraphQL response received from a server.
 public final class GraphQLResponse<Operation: GraphQLOperation> {
-  let operation: Operation
-  let body: JSONObject
+  public let operation: Operation
+  public let body: JSONObject
 
   public init(operation: Operation, body: JSONObject) {
     self.operation = operation
