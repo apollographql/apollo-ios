@@ -16,6 +16,32 @@ This combination of immutable models, one way data flow, and automatic consisten
 
 Documentation can be found [here](http://dev.apollodata.com/ios/).
 
+## Installation
+
+### Cocoapods
+
+Include the following in your `Podfile`:
+
+```ruby
+pod 'Apollo'
+```
+
+This will come with both an in-memory cache and a SQLite-based persistent cache. If you only need the in-memory cache, you can exclude `ApolloSQLite` by using the following:
+
+```ruby
+pod 'Apollo/Core'
+```
+
+### Carthage
+
+Include the following in your `Cartfile`:
+
+```
+github "https://github.com/apollographql/apollo-ios.git"
+```
+
+This will come with both an in-memory cache and a SQLite-based persistent cache. If you only need the in-memory cache, only drag `Apollo` into your project, avoiding `ApolloSQLite` and `SQLite.swift`.
+
 ## Contributing
 
 [![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios)

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/version-constants.sh"
+
 NEW_VERSION="$1"
 
  if [[ -z "NEW_VERSION" ]]; then
@@ -7,8 +9,7 @@ NEW_VERSION="$1"
      exit 1
  fi
 
-xcrun agvtool new-version $NEW_VERSION &> /dev/null
-xcrun agvtool new-marketing-version $NEW_VERSION &> /dev/null
+echo "$VERSION_CONFIG_VAR = $NEW_VERSION" > $VERSION_CONFIG_FILE
 
 git add -A && git commit -m "$NEW_VERSION"
 git tag "$NEW_VERSION"
