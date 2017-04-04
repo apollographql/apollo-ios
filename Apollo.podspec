@@ -18,4 +18,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Sources/**/*.swift'
   s.resource = 'scripts/check-and-run-apollo-codegen.sh'
+
+  s.dependency 'SQLite.swift', '~> 0.11'
 end
