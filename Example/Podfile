@@ -1,0 +1,13 @@
+platform :ios, '8.0'
+
+target 'ApolloExample' do
+  use_frameworks!
+
+  # Pods for ApolloExample
+  pod 'Apollo', path: '../'
+
+  target 'ApolloExampleTests' do
+    inherit! :search_paths
+  end
+
+end

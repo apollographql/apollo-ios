@@ -1,0 +1,21 @@
+PODS:
+  - Apollo (0.5.6):
+    - SQLite.swift (~> 0.11)
+  - SQLite.swift (0.11.2):
+    - SQLite.swift/standard (= 0.11.2)
+  - SQLite.swift/standard (0.11.2)
+
+DEPENDENCIES:
+  - Apollo (from `../`)
+
+EXTERNAL SOURCES:
+  Apollo:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Apollo: 6ced3e5ebf99730856f5c3643eb2cfe781d719b1
+  SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
+
+PODFILE CHECKSUM: ee061f3c4d84b796dbd982d1f0974254f2444ed7
+
+COCOAPODS: 1.2.0
