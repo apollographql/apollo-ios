@@ -23,6 +23,10 @@ public struct RecordSet {
   public var isEmpty: Bool {
     return storage.isEmpty
   }
+
+  public var keys: [CacheKey] {
+    return Array(storage.keys)
+  }
   
   @discardableResult public mutating func merge(records: RecordSet) -> Set<CacheKey> {
     var changedKeys: Set<CacheKey> = Set()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		18CAED8E9CA518A8387C31B5 /* Pods_ApolloTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81EA39E0FF49825755B1B12F /* Pods_ApolloTests.framework */; };
 		5454C0881E944FD400661138 /* StarWarsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5454C0861E944FD400661138 /* StarWarsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		54B59A561E94828100EB1B2B /* SqliteNormalizedCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B59A551E94828100EB1B2B /* SqliteNormalizedCacheTests.swift */; };
 		54E966D41E9447F7002884AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E966D31E9447F7002884AD /* AppDelegate.swift */; };
 		54E966D61E9447F7002884AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E966D51E9447F7002884AD /* ViewController.swift */; };
 		54E966D91E9447F7002884AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54E966D71E9447F7002884AD /* Main.storyboard */; };
@@ -98,6 +99,7 @@
 		5454C0841E944FD400661138 /* StarWarsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StarWarsAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5454C0861E944FD400661138 /* StarWarsAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StarWarsAPI.h; sourceTree = "<group>"; };
 		5454C0871E944FD400661138 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54B59A551E94828100EB1B2B /* SqliteNormalizedCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteNormalizedCacheTests.swift; sourceTree = "<group>"; };
 		54E966D01E9447F7002884AD /* ApolloExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApolloExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E966D31E9447F7002884AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54E966D51E9447F7002884AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				54FFC82C1E9478A300C72D16 /* NormalizeQueryResults.swift */,
 				54FFC82D1E9478A300C72D16 /* ParseQueryResponseTests.swift */,
 				54FFC82E1E9478A300C72D16 /* PromiseTests.swift */,
+				54B59A551E94828100EB1B2B /* SqliteNormalizedCacheTests.swift */,
 				54FFC82F1E9478A300C72D16 /* StarWarsServerCachingRoundtripTests.swift */,
 				54FFC8301E9478A300C72D16 /* StarWarsServerTests.swift */,
 				54FFC8311E9478A300C72D16 /* StoreTransactionTests.swift */,
@@ -781,6 +784,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54B59A561E94828100EB1B2B /* SqliteNormalizedCacheTests.swift in Sources */,
 				54FFC8361E9478A300C72D16 /* DataLoaderTests.swift in Sources */,
 				54FFC8381E9478A300C72D16 /* GraphQLExecutorFieldValueTests.swift in Sources */,
 				54FFC83D1E9478A300C72D16 /* ParseQueryResponseTests.swift in Sources */,
