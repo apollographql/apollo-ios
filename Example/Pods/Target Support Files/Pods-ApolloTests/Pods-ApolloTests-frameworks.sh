@@ -87,6 +87,15 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Apollo/Apollo.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SQLite.swift/SQLite.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Apollo/Apollo.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SQLite.swift/SQLite.framework"
+fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
 fi

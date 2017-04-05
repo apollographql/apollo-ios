@@ -16,6 +16,8 @@ target 'ApolloExample' do
 
   target 'StarWarsAPI' do
     inherit! :search_paths
+    # For some reason this is needed to ensure that Apollo.framework is built before StarWarsAPI
+    pod 'Apollo', path: '../'
   end
 
 end
