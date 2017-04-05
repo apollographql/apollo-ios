@@ -6,7 +6,15 @@ target 'ApolloExample' do
   # Pods for ApolloExample
   pod 'Apollo', path: '../'
 
-  target 'ApolloExampleTests' do
+  target 'ApolloTests' do
+    inherit! :search_paths
+  end
+
+  target 'ApolloPerformanceTests' do
+    inherit! :search_paths
+  end
+
+  target 'StarWarsAPI' do
     inherit! :search_paths
   end
 

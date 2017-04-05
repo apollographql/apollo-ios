@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_ApolloExampleTestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_ApolloExampleTestsVersionString[];
+FOUNDATION_EXPORT double Pods_ApolloPerformanceTestsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_ApolloPerformanceTestsVersionString[];
 
