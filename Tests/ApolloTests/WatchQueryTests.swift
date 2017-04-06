@@ -102,7 +102,6 @@ class WatchQueryTests: XCTestCase {
     var expectation = self.expectation(description: "Fetching query")
     
     _ = client.watch(query: query) { (result, error) in
-      print("result: \(result?.data?.hero?.name)")
       verifyResult(result, error)
       expectation.fulfill()
     }
@@ -121,10 +120,8 @@ class WatchQueryTests: XCTestCase {
     
     expectation = self.expectation(description: "Updated after fetching other query")
     
-    client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { result, error in
-      print("result2: \(result?.data?.hero?.name)")
-    }
-
+    client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
+    
     waitForExpectations(timeout: 1.0, handler: nil)
   }
   
