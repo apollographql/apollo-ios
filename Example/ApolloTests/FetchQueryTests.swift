@@ -42,8 +42,8 @@ class FetchQueryTests: XCTestCase {
     let query = HeroNameQuery()
     
     let store = ApolloStore(records: [
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
-      "hero": [
+      "QUERY_ROOT": ["hero": Reference(key: "QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": [
         "name": "R2-D2",
         "__typename": "Droid",
       ]

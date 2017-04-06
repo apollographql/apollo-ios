@@ -11,6 +11,8 @@ final class InMemoryNormalizedCache: NormalizedCache {
   }
 
   func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise(fulfilled: self.records.merge(records: records))
+    // TODO: revert
+    let changedKeys = self.records.merge(records: records)
+    return Promise(fulfilled: changedKeys)
   }
 }

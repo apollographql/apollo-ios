@@ -22,23 +22,24 @@ final class SqliteNormalizedCache: NormalizedCache {
     return Promise<Set<CacheKey>> { fulfill, reject in
       do {
         var recordSet = RecordSet(records: try select(withKeys: records.keys))
-        let changedKeys = recordSet.merge(records: records)
+        let changedFieldKeys = recordSet.merge(records: records)
         // Shouldn't changedKeys contain full cache key (rather than just one level deep from QUERY_ROOT)?
         // (e.g. it has "QUERY_ROOT.hero" but it wouldn't have anything nested any further than that)
         // Also, shouldn't it rely on the passed-in cache key function rather than response shape path with periods?
-        for changedKey in changedKeys {
-          if let key = changedKey.components(separatedBy: ".").first,
-            let recordFields = recordSet[key]?.fields
+        // TODO: first map and unique first components, to avoid duplicate work
+        for changedFieldKey in changedFieldKeys {
+          if let recordKey = recordCacheKey(forFieldCacheKey: changedFieldKey),
+            let recordFields = recordSet[recordKey]?.fields
           {
-            print("\tupdating record: \(recordFields)...")
-            let recordData = try JSONSerializationFormat.serialize(value: recordFields)
-            let recordString = String(data: recordData, encoding: .utf8)!
-            let rowid = try db.run(self.records.insert(or: .replace, self.key <- key, self.record <- recordString))
-            print("\t\ttrowid: \(rowid)")
+            let recordData = try SqliteJSONSerializationFormat.serialize(value: recordFields)
+            let recordString = String(data: recordData, encoding: .utf8)! // TODO: remove !
+            print("\tupdating record: \(recordKey): \(recordString)...")
+            let rowid = try db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
+            print("\t\trowid: \(rowid)")
           }
         }
-        print("updated records: \(changedKeys)")
-        fulfill(Set(changedKeys))
+        print("updated records: \(changedFieldKeys)")
+        fulfill(Set(changedFieldKeys))
       }
       catch {
         print("failed updating records: \(error.localizedDescription)")
@@ -51,7 +52,7 @@ final class SqliteNormalizedCache: NormalizedCache {
     return Promise<[Record?]> { fulfill, reject in
       print("\n\nloading records: \(keys)...") // TODO: remove
       do {
-        // TODO: one line
+        // TODO: do on one line
         let records = try select(withKeys: keys)
         fulfill(records)
         print("finished loading records")
@@ -69,6 +70,15 @@ final class SqliteNormalizedCache: NormalizedCache {
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
 
+  private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey? {
+    var components = fieldCacheKey.components(separatedBy: ".")
+    components.removeLast()
+    guard components.count > 0 else {
+      return nil
+    }
+    return components.joined(separator: ".")
+  }
+
   private func createTableIfNeeded() throws {
     try db.run(records.create(ifNotExists: true) { table in
       table.column(id, primaryKey: .autoincrement)
@@ -79,28 +89,68 @@ final class SqliteNormalizedCache: NormalizedCache {
   }
 
   private func select(withKeys keys: [CacheKey]) throws -> [Record] {
-    // TODO: revert
-//    let query = records.filter(keys.contains(key))
-//    return try db.prepare(query).map { try parse(row: $0) }
-    let query = records
-    for row in try db.prepare(records) {
-      print("row: \(row)")
-    }
-    return []
+    let query = records.filter(keys.contains(key))
+    return try db.prepare(query).map { try parse(row: $0) }
   }
 
   private func parse(row: Row) throws -> Record {
     let record = row[self.record]
 
-    // TODO: why don't we have to encode *into* utf8 when writing to db?
     guard let recordData = record.data(using: .utf8) else {
       throw SqliteNormalizedCacheError.invalidRecordEncoding(record: record)
     }
 
-    guard let recordJSON = (try JSONSerializationFormat.deserialize(data: recordData)) as? JSONObject else {
+    guard let recordJSON = (try SqliteJSONSerializationFormat.deserialize(data: recordData)) as? JSONObject else {
       throw SqliteNormalizedCacheError.invalidRecordShape(record: record)
     }
 
     return Record(key: row[key], recordJSON)
   }
 }
+
+final class SqliteJSONSerializationFormat {
+  class func serialize(value: JSONEncodable) throws -> Data {
+    return try JSONSerializationFormat.serialize(value: value)
+  }
+
+  class func deserialize(data: Data) throws -> JSONValue {
+    let json = try JSONSerializationFormat.deserialize(data: data)
+    return deserializeReferences(json: json)
+  }
+
+  private class func deserializeReferences(json: JSONValue) -> JSONValue {
+    switch json {
+    case var dictionary as NSDictionary:
+      var newDictionary = NSMutableDictionary()
+      for (key, value) in dictionary {
+        newDictionary[key] = deserializeReferences(json: value)
+      }
+      return newDictionary
+    case var array as NSArray:
+      return array.map { deserializeReferences(json: $0) }
+    case var string as String:
+      if let prefixRange = string.range(of: "ApolloCacheReference:") {
+        return Reference(key: string.substring(from: prefixRange.upperBound))
+      }
+      return string
+    default:
+      return json
+    }
+  }
+}
+
+// TODO: ask about doing this
+extension Reference: JSONEncodable {
+  public var jsonValue: JSONValue {
+    return "ApolloCacheReference:\(self.key)"
+  }
+}
+
+//extension Reference: JSONDecodable {
+//  public init(jsonValue value: JSONValue) throws {
+//    guard let key = value as? CacheKey else {
+//      throw JSONDecodingError.couldNotConvert(value: value, to: Reference.self)
+//    }
+//    self.init(key: key)
+//  }
+//}
