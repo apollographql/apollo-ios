@@ -120,15 +120,15 @@ final class SqliteJSONSerializationFormat {
 
   private class func deserializeReferences(json: JSONValue) -> JSONValue {
     switch json {
-    case var dictionary as NSDictionary:
-      var newDictionary = NSMutableDictionary()
+    case let dictionary as JSONObject:
+      var newDictionary = JSONObject()
       for (key, value) in dictionary {
         newDictionary[key] = deserializeReferences(json: value)
       }
       return newDictionary
-    case var array as NSArray:
+    case let array as [JSONValue]:
       return array.map { deserializeReferences(json: $0) }
-    case var string as String:
+    case let string as String:
       if let prefixRange = string.range(of: "ApolloCacheReference:") {
         return Reference(key: string.substring(from: prefixRange.upperBound))
       }
