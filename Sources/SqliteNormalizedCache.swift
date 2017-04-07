@@ -7,14 +7,8 @@ enum SqliteNormalizedCacheError: Error {
 
 final class SqliteNormalizedCache: NormalizedCache {
 
-//  init(fileURI: URL) throws {
-//    db = try Connection(.uri(fileURI.absoluteString), readonly: false)
-//    try createTableIfNeeded()
-//  }
-
-  // TODO: we shouldn't have this in-memory initializer here - just for testing
-  init() throws {
-    db = try Connection(readonly: false)
+  init(fileURL: URL) throws {
+    db = try Connection(.uri(fileURL.absoluteString), readonly: false)
     try createTableIfNeeded()
   }
 
