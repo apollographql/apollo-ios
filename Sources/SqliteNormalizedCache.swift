@@ -17,14 +17,9 @@ final class SqliteNormalizedCache: NormalizedCache {
       do {
         var recordSet = RecordSet(records: try select(withKeys: records.keys))
         let changedFieldKeys = recordSet.merge(records: records)
-        // Shouldn't changedKeys contain full cache key (rather than just one level deep from QUERY_ROOT)?
-        // (e.g. it has "QUERY_ROOT.hero" but it wouldn't have anything nested any further than that)
-        // Also, shouldn't it rely on the passed-in cache key function rather than response shape path with periods?
-        // TODO: first map and unique first components, to avoid duplicate work
-        for changedFieldKey in changedFieldKeys {
-          if let recordKey = recordCacheKey(forFieldCacheKey: changedFieldKey),
-            let recordFields = recordSet[recordKey]?.fields
-          {
+        let changedRecordKeys = changedFieldKeys.map { recordCacheKey(forFieldCacheKey: $0) }
+        for recordKey in Set(changedRecordKeys) {
+          if let recordFields = recordSet[recordKey]?.fields {
             let recordData = try SqliteJSONSerializationFormat.serialize(value: recordFields)
             let recordString = String(data: recordData, encoding: .utf8)! // TODO: remove !
             print("\tupdating record: \(recordKey): \(recordString)...")
@@ -64,11 +59,10 @@ final class SqliteNormalizedCache: NormalizedCache {
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
 
-  private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey? {
+  private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
     var components = fieldCacheKey.components(separatedBy: ".")
-    components.removeLast()
-    guard components.count > 0 else {
-      return nil
+    if components.count > 1 {
+      components.removeLast()
     }
     return components.joined(separator: ".")
   }
@@ -123,7 +117,7 @@ final class SqliteJSONSerializationFormat {
     case let array as [JSONValue]:
       return array.map { deserializeReferences(json: $0) }
     case let string as String:
-      if let prefixRange = string.range(of: "ApolloCacheReference:") {
+      if let prefixRange = string.range(of: "Reference:") {
         return Reference(key: string.substring(from: prefixRange.upperBound))
       }
       return string
@@ -136,7 +130,7 @@ final class SqliteJSONSerializationFormat {
 // TODO: ask about doing this
 extension Reference: JSONEncodable {
   public var jsonValue: JSONValue {
-    return "ApolloCacheReference:\(self.key)"
+    return "Reference:\(self.key)"
   }
 }
 
