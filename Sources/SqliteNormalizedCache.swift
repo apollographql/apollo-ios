@@ -15,23 +15,9 @@ final class SqliteNormalizedCache: NormalizedCache {
   public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
     return Promise<Set<CacheKey>> { fulfill, reject in
       do {
-        var recordSet = RecordSet(records: try select(withKeys: records.keys))
-        let changedFieldKeys = recordSet.merge(records: records)
-        let changedRecordKeys = changedFieldKeys.map { recordCacheKey(forFieldCacheKey: $0) }
-        for recordKey in Set(changedRecordKeys) {
-          if let recordFields = recordSet[recordKey]?.fields {
-            let recordData = try SqliteJSONSerializationFormat.serialize(value: recordFields)
-            let recordString = String(data: recordData, encoding: .utf8)! // TODO: remove !
-            print("\tupdating record: \(recordKey): \(recordString)...")
-            let rowid = try db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
-            print("\t\trowid: \(rowid)")
-          }
-        }
-        print("updated records: \(changedFieldKeys)")
-        fulfill(Set(changedFieldKeys))
+        fulfill(try mergeRecords(records: records))
       }
       catch {
-        print("failed updating records: \(error.localizedDescription)")
         reject(error)
       }
     }
@@ -39,15 +25,10 @@ final class SqliteNormalizedCache: NormalizedCache {
 
   public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
     return Promise<[Record?]> { fulfill, reject in
-      print("\n\nloading records: \(keys)...") // TODO: remove
       do {
-        // TODO: do on one line
-        let records = try select(withKeys: keys)
-        fulfill(records)
-        print("finished loading records")
+        fulfill(try selectRecords(forKeys: keys))
       }
       catch {
-        print("failed loading records: \(error.localizedDescription)")
         reject(error)
       }
     }
@@ -76,7 +57,24 @@ final class SqliteNormalizedCache: NormalizedCache {
     try db.run(records.createIndex([key], unique: true, ifNotExists: true))
   }
 
-  private func select(withKeys keys: [CacheKey]) throws -> [Record] {
+  private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
+    var recordSet = RecordSet(records: try selectRecords(forKeys: records.keys))
+    let changedFieldKeys = recordSet.merge(records: records)
+    let changedRecordKeys = changedFieldKeys.map { recordCacheKey(forFieldCacheKey: $0) }
+    for recordKey in Set(changedRecordKeys) {
+      if let recordFields = recordSet[recordKey]?.fields {
+        let recordData = try SqliteJSONSerializationFormat.serialize(value: recordFields)
+        guard let recordString = String(data: recordData, encoding: .utf8) else {
+          assertionFailure() // Serialization should yield UTF-8 data
+          continue
+        }
+        try db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
+      }
+    }
+    return Set(changedFieldKeys)
+  }
+
+  private func selectRecords(forKeys keys: [CacheKey]) throws -> [Record] {
     let query = records.filter(keys.contains(key))
     return try db.prepare(query).map { try parse(row: $0) }
   }
@@ -127,18 +125,8 @@ final class SqliteJSONSerializationFormat {
   }
 }
 
-// TODO: ask about doing this
 extension Reference: JSONEncodable {
   public var jsonValue: JSONValue {
     return "Reference:\(self.key)"
   }
 }
-
-//extension Reference: JSONDecodable {
-//  public init(jsonValue value: JSONValue) throws {
-//    guard let key = value as? CacheKey else {
-//      throw JSONDecodingError.couldNotConvert(value: value, to: Reference.self)
-//    }
-//    self.init(key: key)
-//  }
-//}
