@@ -121,7 +121,16 @@ extension Dictionary: JSONEncodable {
         if !isNil(value) {
           jsonObject[key] = value.jsonValue
         }
-      } else {
+      }
+        // TODO: temporary
+      else if case let (key as String, value as NSString) = (key, value) {
+        if !isNil(value) {
+          jsonObject[key] = (value as String).jsonValue
+        }
+      }
+      else {
+        print("key: \(type(of: key))")
+        print("value: \(type(of: value))")
         fatalError("Dictionary is only JSONEncodable if Value is (and if Key is String)")
       }
     }
