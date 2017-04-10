@@ -2,7 +2,8 @@ import SQLite
 
 enum SqliteNormalizedCacheError: Error {
   case invalidRecordEncoding(record: String)
-  case invalidRecordShape(record: String)
+  case invalidRecordShape(object: Any)
+  case invalidRecordValue(value: Any)
 }
 
 final class SqliteNormalizedCache: NormalizedCache {
@@ -64,9 +65,9 @@ final class SqliteNormalizedCache: NormalizedCache {
     let changedRecordKeys = changedFieldKeys.map { recordCacheKey(forFieldCacheKey: $0) }
     for recordKey in Set(changedRecordKeys) {
       if let recordFields = recordSet[recordKey]?.fields {
-        let recordData = try SqliteJSONSerializationFormat.serialize(value: recordFields)
+        let recordData = try SqliteSerialization.serialize(fields: recordFields)
         guard let recordString = String(data: recordData, encoding: .utf8) else {
-          assertionFailure() // Serialization should yield UTF-8 data
+          assertionFailure("Serialization should yield UTF-8 data")
           continue
         }
         try db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
@@ -87,47 +88,60 @@ final class SqliteNormalizedCache: NormalizedCache {
       throw SqliteNormalizedCacheError.invalidRecordEncoding(record: record)
     }
 
-    guard let recordJSON = (try SqliteJSONSerializationFormat.deserialize(data: recordData)) as? JSONObject else {
-      throw SqliteNormalizedCacheError.invalidRecordShape(record: record)
-    }
-
+    let recordJSON = try SqliteSerialization.deserialize(data: recordData)
     return Record(key: row[key], recordJSON)
   }
 }
 
-final class SqliteJSONSerializationFormat {
-  class func serialize(value: JSONEncodable) throws -> Data {
-    return try JSONSerializationFormat.serialize(value: value)
+private let serializedReferenceKey = "reference"
+
+final class SqliteSerialization {
+  static func serialize(fields: JSONObject) throws -> Data {
+    var objectToSerialize = JSONObject()
+    for (key, value) in fields {
+      objectToSerialize[key] = try serialize(value: value)
+    }
+    return try JSONSerializationFormat.serialize(value: objectToSerialize)
   }
 
-  class func deserialize(data: Data) throws -> JSONValue {
-    let json = try JSONSerializationFormat.deserialize(data: data)
-    return deserializeReferences(json: json)
+  static func deserialize(data: Data) throws -> JSONObject {
+    let object = try JSONSerializationFormat.deserialize(data: data)
+    guard let jsonObject = object as? JSONObject else {
+      throw SqliteNormalizedCacheError.invalidRecordShape(object: object)
+    }
+    var deserializedObject = JSONObject()
+    for (key, value) in jsonObject {
+      deserializedObject[key] = try deserialize(valueJSON: value)
+    }
+    return deserializedObject
   }
 
-  private class func deserializeReferences(json: JSONValue) -> JSONValue {
-    switch json {
+  private static func deserialize(valueJSON: Any) throws -> Any {
+    switch valueJSON {
     case let dictionary as JSONObject:
-      var newDictionary = JSONObject()
-      for (key, value) in dictionary {
-        newDictionary[key] = deserializeReferences(json: value)
+      guard let reference = dictionary[serializedReferenceKey] as? String else {
+        throw SqliteNormalizedCacheError.invalidRecordValue(value: valueJSON)
       }
-      return newDictionary
-    case let array as [JSONValue]:
-      return array.map { deserializeReferences(json: $0) }
-    case let string as String:
-      if let prefixRange = string.range(of: "Reference:") {
-        return Reference(key: string.substring(from: prefixRange.upperBound))
-      }
-      return string
+      return Reference(key: reference)
+    case let array as NSArray:
+      return try array.map { try deserialize(valueJSON: $0) }
     default:
-      return json
+      return valueJSON
     }
   }
-}
 
-extension Reference: JSONEncodable {
-  public var jsonValue: JSONValue {
-    return "Reference:\(self.key)"
+  private static func serialize(value: Any) throws -> Any {
+    switch value {
+    case let reference as Reference:
+      return [serializedReferenceKey: reference.key]
+    case let array as NSArray:
+      return try array.map { try serialize(value: $0) }
+    case let string as NSString:
+      return string as String
+    case let number as NSNumber:
+      return number.doubleValue
+    default:
+      return value
+    }
   }
 }
