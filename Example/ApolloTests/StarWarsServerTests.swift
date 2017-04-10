@@ -3,13 +3,6 @@ import XCTest
 import StarWarsAPI
 
 class StarWarsServerTests: XCTestCase {
-  var client: ApolloClient!
-
-  override func setUp() {
-    super.setUp()
-
-    client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
-  }
 
   // MARK: Queries
 
@@ -143,44 +136,56 @@ class StarWarsServerTests: XCTestCase {
   // MARK: - Helpers
 
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
-    let expectation = self.expectation(description: "Fetching query")
+    withEachCacheType { (cache) in
+      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+      let store = ApolloStore(cache: cache)
+      let client = ApolloClient(networkTransport: network, store: store)
 
-    client.fetch(query: query) { (result, error) in
-      defer { expectation.fulfill() }
+      let expectation = self.expectation(description: "Fetching query")
 
-      if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
-      guard let result = result else { XCTFail("No query result");  return }
+      client.fetch(query: query) { (result, error) in
+        defer { expectation.fulfill() }
 
-      if let errors = result.errors {
-        XCTFail("Errors in query result: \(errors)")
+        if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
+        guard let result = result else { XCTFail("No query result");  return }
+
+        if let errors = result.errors {
+          XCTFail("Errors in query result: \(errors)")
+        }
+
+        guard let data = result.data else { XCTFail("No query result data");  return }
+
+        completionHandler(data)
       }
-
-      guard let data = result.data else { XCTFail("No query result data");  return }
-
-      completionHandler(data)
+      
+      waitForExpectations(timeout: 1, handler: nil)
     }
-
-    waitForExpectations(timeout: 1, handler: nil)
   }
 
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
-    let expectation = self.expectation(description: "Performing mutation")
+    withEachCacheType { (cache) in
+      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+      let store = ApolloStore(cache: cache)
+      let client = ApolloClient(networkTransport: network, store: store)
 
-    client.perform(mutation: mutation) { (result, error) in
-      defer { expectation.fulfill() }
+      let expectation = self.expectation(description: "Performing mutation")
 
-      if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
-      guard let result = result else { XCTFail("No mutation result");  return }
+      client.perform(mutation: mutation) { (result, error) in
+        defer { expectation.fulfill() }
 
-      if let errors = result.errors {
-        XCTFail("Errors in mutation result: \(errors)")
+        if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
+        guard let result = result else { XCTFail("No mutation result");  return }
+
+        if let errors = result.errors {
+          XCTFail("Errors in mutation result: \(errors)")
+        }
+
+        guard let data = result.data else { XCTFail("No mutation result data");  return }
+
+        completionHandler(data)
       }
-
-      guard let data = result.data else { XCTFail("No mutation result data");  return }
-
-      completionHandler(data)
+      
+      waitForExpectations(timeout: 1, handler: nil)
     }
-
-    waitForExpectations(timeout: 1, handler: nil)
   }
 }
