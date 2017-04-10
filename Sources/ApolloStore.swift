@@ -35,13 +35,6 @@ public final class ApolloStore {
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
   }
   
-  convenience init(records: RecordSet = RecordSet()) {
-//    self.init(cache: InMemoryNormalizedCache(records: records))
-    let cache = try! SqliteNormalizedCache()
-    cache.merge(records: records)
-    self.init(cache: cache)
-  }
-  
   func publish(records: RecordSet, context: UnsafeMutableRawPointer? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
