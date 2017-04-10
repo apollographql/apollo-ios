@@ -26,7 +26,8 @@ final class SqliteNormalizedCache: NormalizedCache {
   public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
     return Promise<[Record?]> { fulfill, reject in
       do {
-        fulfill(try selectRecords(forKeys: keys))
+        let records = try selectRecords(forKeys: keys)
+        fulfill(records.count == 0 ? [nil] : records)
       }
       catch {
         reject(error)
