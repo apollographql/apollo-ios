@@ -64,3 +64,20 @@ public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure (
   
   XCTFail(message(), file: file, line: line)
 }
+
+public func withEachCacheType(test: (NormalizedCache) -> Void) {
+  withInMemoryCache(test: test)
+  withSqliteCache(test: test)
+}
+
+private func withInMemoryCache(test: (NormalizedCache) -> Void) {
+  test(InMemoryNormalizedCache())
+}
+
+private func withSqliteCache(test: (NormalizedCache) -> Void) {
+  let docDirURL = URL(fileURLWithPath:NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!)
+  let dbURL = docDirURL.appendingPathComponent("db.sqlite3")
+  try? FileManager.default.removeItem(at: dbURL)
+  let cache = try! SqliteNormalizedCache(fileURL: dbURL)
+  test(cache)
+}

@@ -1,7 +1,7 @@
 final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
 
-  init(records: RecordSet) {
+  init(records: RecordSet = RecordSet()) {
     self.records = records
   }
 
