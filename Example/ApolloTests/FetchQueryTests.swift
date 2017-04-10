@@ -14,33 +14,31 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    withEachCacheType { (cache) in
+    withEachCacheType(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let networkTransport = MockNetworkTransport(body: [
+        "data": [
+          "hero": [
+            "name": "Luke Skywalker",
+            "__typename": "Human"
+          ]
+        ]
+        ])
+
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+
       let expectation = self.expectation(description: "Fetching query")
 
-      cache.merge(records: initialRecords).andThen({ _ in
-        let store = ApolloStore(cache: cache)
+      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+        defer { expectation.fulfill() }
 
-        let networkTransport = MockNetworkTransport(body: [
-          "data": [
-            "hero": [
-              "name": "Luke Skywalker",
-              "__typename": "Human"
-            ]
-          ]
-          ])
+        guard let result = result else { XCTFail("No query result");  return }
 
-        let client = ApolloClient(networkTransport: networkTransport, store: store)
+        XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
+      }
 
-        client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
-          defer { expectation.fulfill() }
-
-          guard let result = result else { XCTFail("No query result");  return }
-
-          XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
-        }
-        
-        self.waitForExpectations(timeout: 1, handler: nil)
-      })
+      self.waitForExpectations(timeout: 1, handler: nil)
     }
   }
   
@@ -55,33 +53,31 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    withEachCacheType { (cache) in
+    withEachCacheType(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let networkTransport = MockNetworkTransport(body: [
+        "data": [
+          "hero": [
+            "name": "Luke Skywalker",
+            "__typename": "Human"
+          ]
+        ]
+        ])
+
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+
       let expectation = self.expectation(description: "Fetching query")
 
-      cache.merge(records: initialRecords).andThen({ _ in
-        let store = ApolloStore(cache: cache)
+      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
+        defer { expectation.fulfill() }
 
-        let networkTransport = MockNetworkTransport(body: [
-          "data": [
-            "hero": [
-              "name": "Luke Skywalker",
-              "__typename": "Human"
-            ]
-          ]
-          ])
+        guard let result = result else { XCTFail("No query result");  return }
 
-        let client = ApolloClient(networkTransport: networkTransport, store: store)
+        XCTAssertEqual(result.data?.hero?.name, "R2-D2")
+      }
 
-        client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
-          defer { expectation.fulfill() }
-
-          guard let result = result else { XCTFail("No query result");  return }
-
-          XCTAssertEqual(result.data?.hero?.name, "R2-D2")
-        }
-        
-        self.waitForExpectations(timeout: 1, handler: nil)
-      })
+      self.waitForExpectations(timeout: 1, handler: nil)
     }
   }
   
@@ -95,33 +91,31 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    withEachCacheType { (cache) in
+    withEachCacheType(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let networkTransport = MockNetworkTransport(body: [
+        "data": [
+          "hero": [
+            "name": "Luke Skywalker",
+            "__typename": "Human"
+          ]
+        ]
+        ])
+
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+
       let expectation = self.expectation(description: "Fetching query")
 
-      cache.merge(records: initialRecords).andThen({ _ in
-        let store = ApolloStore(cache: cache)
+      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
+        defer { expectation.fulfill() }
 
-        let networkTransport = MockNetworkTransport(body: [
-          "data": [
-            "hero": [
-              "name": "Luke Skywalker",
-              "__typename": "Human"
-            ]
-          ]
-          ])
+        guard let result = result else { XCTFail("No query result");  return }
 
-        let client = ApolloClient(networkTransport: networkTransport, store: store)
+        XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
+      }
 
-        client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
-          defer { expectation.fulfill() }
-
-          guard let result = result else { XCTFail("No query result");  return }
-
-          XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
-        }
-        
-        self.waitForExpectations(timeout: 1, handler: nil)
-      })
+      self.waitForExpectations(timeout: 1, handler: nil)
     }
   }
   
@@ -136,33 +130,31 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    withEachCacheType { (cache) in
+    withEachCacheType(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let networkTransport = MockNetworkTransport(body: [
+        "data": [
+          "hero": [
+            "name": "Luke Skywalker",
+            "__typename": "Human"
+          ]
+        ]
+        ])
+
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+
       let expectation = self.expectation(description: "Fetching query")
 
-      cache.merge(records: initialRecords).andThen({ _ in
-        let store = ApolloStore(cache: cache)
+      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        defer { expectation.fulfill() }
 
-        let networkTransport = MockNetworkTransport(body: [
-          "data": [
-            "hero": [
-              "name": "Luke Skywalker",
-              "__typename": "Human"
-            ]
-          ]
-          ])
+        guard let result = result else { XCTFail("No query result");  return }
 
-        let client = ApolloClient(networkTransport: networkTransport, store: store)
+        XCTAssertEqual(result.data?.hero?.name, "R2-D2")
+      }
 
-        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
-          defer { expectation.fulfill() }
-
-          guard let result = result else { XCTFail("No query result");  return }
-
-          XCTAssertEqual(result.data?.hero?.name, "R2-D2")
-        }
-        
-        self.waitForExpectations(timeout: 1, handler: nil)
-      })
+      self.waitForExpectations(timeout: 1, handler: nil)
     }
   }
   
@@ -176,32 +168,30 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    withEachCacheType { (cache) in
+    withEachCacheType(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let networkTransport = MockNetworkTransport(body: [
+        "data": [
+          "hero": [
+            "name": "Luke Skywalker",
+            "__typename": "Human"
+          ]
+        ]
+        ])
+
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+
       let expectation = self.expectation(description: "Fetching query")
 
-      cache.merge(records: initialRecords).andThen({ _ in
-        let store = ApolloStore(cache: cache)
+      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        defer { expectation.fulfill() }
 
-        let networkTransport = MockNetworkTransport(body: [
-          "data": [
-            "hero": [
-              "name": "Luke Skywalker",
-              "__typename": "Human"
-            ]
-          ]
-          ])
+        XCTAssertNil(error)
+        XCTAssertNil(result)
+      }
 
-        let client = ApolloClient(networkTransport: networkTransport, store: store)
-
-        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
-          defer { expectation.fulfill() }
-
-          XCTAssertNil(error)
-          XCTAssertNil(result)
-        }
-        
-        self.waitForExpectations(timeout: 1, handler: nil)
-      })
+      self.waitForExpectations(timeout: 1, handler: nil)
     }
   }
   

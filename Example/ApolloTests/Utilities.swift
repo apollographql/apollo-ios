@@ -65,19 +65,22 @@ public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure (
   XCTFail(message(), file: file, line: line)
 }
 
-public func withEachCacheType(test: (NormalizedCache) -> Void) {
-  withInMemoryCache(test: test)
-  withSqliteCache(test: test)
+public func withEachCacheType(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
+  withInMemoryCache(initialRecords: initialRecords, test: test)
+  withSqliteCache(initialRecords: initialRecords, test: test)
 }
 
-private func withInMemoryCache(test: (NormalizedCache) -> Void) {
-  test(InMemoryNormalizedCache())
+private func withInMemoryCache(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
+  test(InMemoryNormalizedCache(records: initialRecords ?? RecordSet()))
 }
 
-private func withSqliteCache(test: (NormalizedCache) -> Void) {
+private func withSqliteCache(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
   let docDirURL = URL(fileURLWithPath:NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!)
   let dbURL = docDirURL.appendingPathComponent("db.sqlite3")
   try? FileManager.default.removeItem(at: dbURL)
   let cache = try! SqliteNormalizedCache(fileURL: dbURL)
+  if let initialRecords = initialRecords {
+    _ = cache.merge(records: initialRecords) // This is synchronous
+  }
   test(cache)
 }
