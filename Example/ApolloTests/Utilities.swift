@@ -70,17 +70,20 @@ public func withEachCacheType(initialRecords: RecordSet? = nil, test: (Normalize
   withSqliteCache(initialRecords: initialRecords, test: test)
 }
 
-private func withInMemoryCache(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
+public func withInMemoryCache(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
   test(InMemoryNormalizedCache(records: initialRecords ?? RecordSet()))
 }
 
-private func withSqliteCache(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
-  let docDirURL = URL(fileURLWithPath:NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!)
-  let dbURL = docDirURL.appendingPathComponent("db.sqlite3")
-  try? FileManager.default.removeItem(at: dbURL)
-  let cache = try! SqliteNormalizedCache(fileURL: dbURL)
+public func withSqliteCache(initialRecords: RecordSet? = nil, test: (NormalizedCache) -> Void) {
+  try? FileManager.default.removeItem(at: sqliteFileURL)
+  let cache = try! SqliteNormalizedCache(fileURL: sqliteFileURL)
   if let initialRecords = initialRecords {
     _ = cache.merge(records: initialRecords) // This is synchronous
   }
   test(cache)
+}
+
+public var sqliteFileURL: URL {
+  let docDirURL = URL(fileURLWithPath:NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!)
+  return docDirURL.appendingPathComponent("db.sqlite3")
 }
