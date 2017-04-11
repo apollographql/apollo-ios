@@ -1,5 +1,7 @@
 PODS:
   - Apollo (0.5.6):
+    - Apollo/SqliteNormalizedCache (= 0.5.6)
+  - Apollo/SqliteNormalizedCache (0.5.6):
     - SQLite.swift (~> 0.11)
   - SQLite.swift (0.11.2):
     - SQLite.swift/standard (= 0.11.2)
@@ -13,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Apollo: 6ced3e5ebf99730856f5c3643eb2cfe781d719b1
+  Apollo: f119dae7a0a9c09cd7aa133152066f05e7f77225
   SQLite.swift: 670c3e9e0a806bbfd56a3de5d530768dc0e6fe7c
 
 PODFILE CHECKSUM: 9bd64f1e501820f8e5f1371c1e93f80107c6bb1f

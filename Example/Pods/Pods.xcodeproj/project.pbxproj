@@ -7,82 +7,82 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01CD0AAF59D458AC3EF2601332DC362C /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8AF61E57D939C975D9A6B03DF50CC7 /* SqliteNormalizedCache.swift */; };
+		01CD0AAF59D458AC3EF2601332DC362C /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5900DA33E216DB7A1CCDB272F1B0CFE /* SqliteNormalizedCache.swift */; };
 		108A1CBD5D0C9FC34DD2B5C2B8DD0E1F /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF98B7BBADF63A0AF80D7829FA6F77B9 /* Schema.swift */; };
 		1105737F12067068DF24A2FD70FC93A3 /* Pods-ApolloPerformanceTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 975269A36A5CF422A22E5D5DA93EAB28 /* Pods-ApolloPerformanceTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11D8F132B7F8704E64825695F6B0DC91 /* fts3_tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AE2EFBEFDE20C4DDD8B3398D8AE5AE8 /* fts3_tokenizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1569991C9A095D1FCE6B235BD63B51A4 /* Apollo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B5C756BCE1977B310FBCDFC81E7CB726 /* Apollo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1569991C9A095D1FCE6B235BD63B51A4 /* Apollo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FCEE66B62EAC19AF05896543B1CC20DB /* Apollo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		15E73F1CED9B85C8E03C6134581D2ED0 /* CoreFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FAE93532FD5578A02AF3CC523A3408 /* CoreFunctions.swift */; };
 		16822C933B2ADA1EA5F2EB694F3DA728 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */; };
-		20C306F7AA685281AAEADDEF70FE27B4 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616AA09AE6625A279D08C4E95BBF8FAF /* Record.swift */; };
+		20C306F7AA685281AAEADDEF70FE27B4 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32ADDCAC7A45EFB20A30DA69CF38976B /* Record.swift */; };
 		2232C53C6D807D0DA97BBB9E4523412C /* Pods-ApolloPerformanceTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E664068C762C5F1811AB06C5856E5BC7 /* Pods-ApolloPerformanceTests-dummy.m */; };
-		24401D6F94D534811685D1F542F93892 /* GraphQLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95684FC3AB25B49063D525A7C78F0B17 /* GraphQLResponse.swift */; };
-		2650B6BD41F1BDFF5A15F9C4C8E61A37 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35069E56A5D5D4923A18BA7A092E73D4 /* Utilities.swift */; };
-		2664C21FA05281B3AEC72F71EA44028A /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918C3B2E22CB999534D187039A4D52A /* Collections.swift */; };
-		2C64BE3142AB8955A8F1B7ED8C4AC1FD /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5D8EED2099F4E9AC37C5EC2D95A738 /* AsynchronousOperation.swift */; };
+		24401D6F94D534811685D1F542F93892 /* GraphQLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD0FB59CA8C02E9DFE2C186DF8A6AB2 /* GraphQLResponse.swift */; };
+		2650B6BD41F1BDFF5A15F9C4C8E61A37 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF7A27967561797D7548C7F8496B176 /* Utilities.swift */; };
+		2664C21FA05281B3AEC72F71EA44028A /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65505F835204A94A5D03AB3FA68B1D3 /* Collections.swift */; };
+		2C64BE3142AB8955A8F1B7ED8C4AC1FD /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6231A3C03C676AA5C3645BE51E42184 /* AsynchronousOperation.swift */; };
 		30382E91D15E7ED4E930564DE86EAF27 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE37E8BF436A90A9C40AD27A182DB2 /* Expression.swift */; };
 		3046B5C2E5FFE5A008023E939500A575 /* Pods-StarWarsAPI-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 179109F8B259422432C0355515576040 /* Pods-StarWarsAPI-dummy.m */; };
 		3401D945C9C21F03B6E5100F26DF231C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */; };
 		35E5EEDB90225D140DCA57800CD5A2CD /* AggregateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E934E5F923C9742E63347D5512C322 /* AggregateFunctions.swift */; };
-		3D85E3F5AB73653A962BCF09ED74A8C0 /* JSONSerializationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DAD61D66BBDE6441131A52D95BDB04 /* JSONSerializationFormat.swift */; };
+		3D85E3F5AB73653A962BCF09ED74A8C0 /* JSONSerializationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5187F20FDC2CCB00F92F8634B15C62C /* JSONSerializationFormat.swift */; };
 		3EB8845BB3EB8B7E031BCA86CEC2F0D2 /* FTS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4C8E0D8DB99B4482E2549FEAE620B8 /* FTS5.swift */; };
-		3EEC07CDEFE2204C5CFC1E1B10B6537F /* GraphQLResultNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF17E380BFA697F14018DED6126C8AC8 /* GraphQLResultNormalizer.swift */; };
+		3EEC07CDEFE2204C5CFC1E1B10B6537F /* GraphQLResultNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC35D07889D7B7A9717D60C50C0649BF /* GraphQLResultNormalizer.swift */; };
 		415B7E98D356AE4B47C6FD5D11E11C99 /* Pods-ApolloExample-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F2AA223F544DC4835618D4D4A2FAA05 /* Pods-ApolloExample-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F81544370E1853391B67D56656A0C3 /* CustomFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348491EAD9C18B0EEB2E855815254774 /* CustomFunctions.swift */; };
 		44C82D3863ECC8C395C961C46C2F756B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */; };
 		47628EC1F1DDCC60DF83EA01A277919E /* SQLite-Bridging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E070D9E44393CD520D0B1AF87A6736D /* SQLite-Bridging.m */; };
-		47B4F5C1BFB40746F552A6D5CE482DC3 /* Locking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9090E10380883B7CA79EE41C691650F7 /* Locking.swift */; };
+		47B4F5C1BFB40746F552A6D5CE482DC3 /* Locking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B149332CA02057A2C99DAD2391F92FB0 /* Locking.swift */; };
 		49876A987CA44C386457D31880AE1BD6 /* SQLite.swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B2D491F0A9B062233011B873DC118C /* SQLite.swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A23CC3D6A3579C9F12AE00384A7A4F3 /* RTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F331ABE5223829EDFFC088184DFA981 /* RTree.swift */; };
-		4DCCD02DB715AC161B0774E0C137353E /* NetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BBD89CF65425C4A9DD8F6390DF859D /* NetworkTransport.swift */; };
+		4DCCD02DB715AC161B0774E0C137353E /* NetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB067970EBEEE32B9F9B8CF8FA457C9 /* NetworkTransport.swift */; };
 		4FFB64EBCE34E07A60C74F1957B34A7B /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCCE88ECC9D892349AB6CB3160246D9 /* Query.swift */; };
 		54050A3940A7AAF2A4166F6B4027F1D0 /* Pods-StarWarsAPI-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 03D7BFAC37C274E39C5162127AEB6199 /* Pods-StarWarsAPI-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		54CFD21E9012A2554410D08EF63E42CB /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B42D8D8A4E18179F37824F2695F75F3 /* ApolloClient.swift */; };
+		54CFD21E9012A2554410D08EF63E42CB /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B785FCECF6FFA0348FE3961AFDC5C0AF /* ApolloClient.swift */; };
 		5C154FC66B0272E926E740EB0D5DDF3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */; };
 		6263A24701DED2E7A447C0313C7C555D /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7CCC1A073BC5540EA969CA71F0C552 /* Setter.swift */; };
 		636C2473106673D1432A22A0B7D6A2C9 /* Pods-ApolloExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD2E12182B5FA8C0EC9565A13BB8D01 /* Pods-ApolloExample-dummy.m */; };
 		63D650CA310911FBCB77C3E6229330A7 /* SQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = B88C5FD0C85A5AE4583CC7DB512E6820 /* SQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6C5A957F0E47791FFA662827ADBA67A9 /* GraphQLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB17F37738DF3903DEB18A03BAA3C0D8 /* GraphQLResult.swift */; };
-		6CC6B8EEDAA285718533CC1482D13B61 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993F928AC8B4275D32665A6205AE456 /* Result.swift */; };
-		6F378D7233AC3E51B00DB180BF8D6066 /* Selections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DE78C37EE122AA21BA986A77BB162 /* Selections.swift */; };
-		6FCDA3222BB1A7CADC500C19CA4A6611 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = 872EA0E9B1EC6684546BEFF234C61E6E /* check-and-run-apollo-codegen.sh */; };
-		77E05C7059DFD498C2B323C3A707C0E8 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078C996EB71DC4EA36311067B6D81A3E /* Promise.swift */; };
-		787BB17CD95328B14A766F6BC04D2148 /* HTTPNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D40A77826E6FE48F27E93C4A66DD9C /* HTTPNetworkTransport.swift */; };
-		7FF4749CC9A33C7B79FE51E0962A4E8A /* Dictionary+KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA62E20AC29F9ECA17CDE346F83E445 /* Dictionary+KeyPath.swift */; };
-		853B5034825B85498FE7857957760849 /* NormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6DD22A402D834518D62E49A6D34114 /* NormalizedCache.swift */; };
+		6C5A957F0E47791FFA662827ADBA67A9 /* GraphQLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74920BE3F88237C4C3DDA76227BDF2E1 /* GraphQLResult.swift */; };
+		6CC6B8EEDAA285718533CC1482D13B61 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53166497143EB24EE51313830B0378AA /* Result.swift */; };
+		6F378D7233AC3E51B00DB180BF8D6066 /* Selections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9F12AB5DA3FD3FAB850FD3819EBD3D /* Selections.swift */; };
+		6FCDA3222BB1A7CADC500C19CA4A6611 /* check-and-run-apollo-codegen.sh in Resources */ = {isa = PBXBuildFile; fileRef = C1365465663268B61753BF27B647DA39 /* check-and-run-apollo-codegen.sh */; };
+		77E05C7059DFD498C2B323C3A707C0E8 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715E2F902F7A750814E054D46287C284 /* Promise.swift */; };
+		787BB17CD95328B14A766F6BC04D2148 /* HTTPNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F59A34F6FBBC01495FA0EEFC7CFF5A1 /* HTTPNetworkTransport.swift */; };
+		7FF4749CC9A33C7B79FE51E0962A4E8A /* Dictionary+KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941EEC1220197E2B07C634E14D4E319E /* Dictionary+KeyPath.swift */; };
+		853B5034825B85498FE7857957760849 /* NormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0B42CB8E4BF2A6661253EFD4F57F6 /* NormalizedCache.swift */; };
 		87109E7659BAF278C52455C1D6529DF6 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE06F129836BA95B0BE2222991D2BD0 /* Value.swift */; };
-		8916D47EB3F95315F2020922A6130D8D /* GraphQLExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909F358C8C8DF9392766416B86EACE63 /* GraphQLExecutor.swift */; };
-		8D2A9E5942209EC7EAE309C3BDEC344E /* GraphQLQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0324BDEF4908733765A4E8909A7F10 /* GraphQLQueryWatcher.swift */; };
+		8916D47EB3F95315F2020922A6130D8D /* GraphQLExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED715F438CFACC415B97B86CFD6422 /* GraphQLExecutor.swift */; };
+		8D2A9E5942209EC7EAE309C3BDEC344E /* GraphQLQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411C56E0121FFBAE30473AE1E25AB56 /* GraphQLQueryWatcher.swift */; };
 		94C4501EC15533C68551FCFD9896339D /* Pods-ApolloTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E12D36800035FA4AEBD5CCA0E467F5C2 /* Pods-ApolloTests-dummy.m */; };
 		94ECE937BFDFCDBD700A107B1DC40CA9 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96600A78FEC066BF8931D7A58FBF0F16 /* Statement.swift */; };
 		990D4881FF22A80867C475FB9823817A /* Pods-ApolloTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A750E6B16B43489DE32A5211D58F9FBA /* Pods-ApolloTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A11B9C4B8DC4AF252BA2727D21A1EEF1 /* Collation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7855DE178D22988512E88C68325BE /* Collation.swift */; };
 		A3FF4B5B363E91C3BE7FC3294C555032 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E667D63233F61B551F3B93AF184020E0 /* Foundation.swift */; };
-		A54DF0B95FE0DAD23D2A81D408683D03 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A54E2C9EAC29BCD0767F9CF54EB79 /* DataLoader.swift */; };
+		A54DF0B95FE0DAD23D2A81D408683D03 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80C65010D5FF9DA75FE564B3B16DE81 /* DataLoader.swift */; };
 		A60D999F6C5C2A7030430FBB2644A85D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */; };
 		AB1840F1E49F6C17A8A12662445629C3 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA86AD441076D928D0621530CD5E745 /* Operators.swift */; };
-		AC87CC13FC22BD408AA235121C216C85 /* ApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962E4B167BCDE8CACFF3DC269212EE7 /* ApolloStore.swift */; };
+		AC87CC13FC22BD408AA235121C216C85 /* ApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1BCE14534E37F1E56DA924CE5D2621 /* ApolloStore.swift */; };
 		AFC4EF684AAE208082F88A746E8799D5 /* SQLite-Bridging.h in Headers */ = {isa = PBXBuildFile; fileRef = AF7F8DDFC50FE6ACA57F6A16E253F8DC /* SQLite-Bridging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B27809FB8835D7719B0AD7337D908431 /* SQLite.swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D30459F9DC30876AF6C299D26C7CE48 /* SQLite.swift-dummy.m */; };
 		B6F6F22A0B59D1A386C7AC19789B74C0 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB44F0C85553660857F351B59660E399 /* SQLite.framework */; };
-		B8354678757BF7E72C8E638F8FD096ED /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72488E3CB82621BCD287255DE4F91E6 /* JSON.swift */; };
-		B948E00EC8119CFD8B9E55DBBDA5A4E3 /* GraphQLOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BFA28F22BF54064B21348557B64BD3 /* GraphQLOperation.swift */; };
-		BA32663AD51B09E7997DD5871D7FE383 /* GraphQLDependencyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399B342ADA72E237E0EBF1EEAA28FB25 /* GraphQLDependencyTracker.swift */; };
+		B8354678757BF7E72C8E638F8FD096ED /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA61605E0CF60C23447BD3645A7F6C6 /* JSON.swift */; };
+		B948E00EC8119CFD8B9E55DBBDA5A4E3 /* GraphQLOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B1238E9781F0C22EE5733626AB01 /* GraphQLOperation.swift */; };
+		BA32663AD51B09E7997DD5871D7FE383 /* GraphQLDependencyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3834589AEC46AFC5618EDEB84BFDDC67 /* GraphQLDependencyTracker.swift */; };
 		C02AE58DC3E78ACB817163011C7A6734 /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680617B7B3999D016982CD479DADCCB0 /* Blob.swift */; };
 		D850BB2A3E7B9A6AAEB54FA9A8B7AD4F /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF813C6D3C0824E1BCFDACADE6109F5 /* Connection.swift */; };
-		D99283BAF5F146D362611679A5ED1A5D /* Apollo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E5BB833C4CF9D696FCF839FB705C1A91 /* Apollo-dummy.m */; };
-		DA0CEB1E0989DCA89796ABDF7267A7B0 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA52A0176DDC85E070F4BA3E088EDF79 /* InMemoryNormalizedCache.swift */; };
+		D99283BAF5F146D362611679A5ED1A5D /* Apollo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A30E06FEAB733A1938FDAA6CB0C7CAF4 /* Apollo-dummy.m */; };
+		DA0CEB1E0989DCA89796ABDF7267A7B0 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503243847991ECCB90434FCB18B8113B /* InMemoryNormalizedCache.swift */; };
 		DD139C21BC1B51C5078B8F9C2F55D0A3 /* FTS4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A99896DB5D793228657B5F5EC525DA /* FTS4.swift */; };
-		E13D7AA4EFBA1345BDC2E05B4BD67F2A /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74015506E81FA3C19EB6D906D81024AB /* GraphQLError.swift */; };
-		E2D3B028353BC0FA74DA8536C717B9E4 /* GraphQLValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23BAD010DBCF8C2B764B7E2E9895805 /* GraphQLValues.swift */; };
-		EB775615489CE36C2D86C4EB279F3FF5 /* GraphQLResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BED4FF18AC316194A81FD5C33ED9C5 /* GraphQLResultMapper.swift */; };
-		EEA27311E6D18D94F27E12D2F0BE7BF0 /* GraphQLOutputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A2AD2C9998545CA1776374D0EB8D35 /* GraphQLOutputType.swift */; };
-		F0EF5885BD48A9B939F3FF9C1DC1A965 /* GraphQLResultAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C326DB4844A6FBD86CFBA30BDD08DB6 /* GraphQLResultAccumulator.swift */; };
-		F4DAAE8A4DF58A14A2B8A6272ED102C7 /* RecordSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35A20B8A16FA8E837FAEA496B53CBE /* RecordSet.swift */; };
-		F86D649610E4878DE71D25AA9CC614A2 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F6997F619DB12A60F7EA5B8005190 /* JSONStandardTypeConversions.swift */; };
+		E13D7AA4EFBA1345BDC2E05B4BD67F2A /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974545E3C8A36D55A3FD3DCC46166F6D /* GraphQLError.swift */; };
+		E2D3B028353BC0FA74DA8536C717B9E4 /* GraphQLValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = C070371DEFF116F4E1181DE8DD58D0A9 /* GraphQLValues.swift */; };
+		EB775615489CE36C2D86C4EB279F3FF5 /* GraphQLResultMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC36364F2001FAE110A5756E8B9B04B5 /* GraphQLResultMapper.swift */; };
+		EEA27311E6D18D94F27E12D2F0BE7BF0 /* GraphQLOutputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6476D8DF83CC5E44AC295CA811992A17 /* GraphQLOutputType.swift */; };
+		F0EF5885BD48A9B939F3FF9C1DC1A965 /* GraphQLResultAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC7CF56F4E8EFC98F4FE6FB20E6384 /* GraphQLResultAccumulator.swift */; };
+		F4DAAE8A4DF58A14A2B8A6272ED102C7 /* RecordSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBABBFA8407D460F35404C52E1C0C74 /* RecordSet.swift */; };
+		F86D649610E4878DE71D25AA9CC614A2 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B258D77C330EC72CA1F86CFADB9702 /* JSONStandardTypeConversions.swift */; };
 		FAB10CD9CFBBFB7DE9F271B434380C16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */; };
 		FDA57D0DA6CBE5083CAF08A8B2F86AC9 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C5D76BD109C46DEC526A712FC4A8BB /* Helpers.swift */; };
-		FF53DDD16D8FC3431D3F148AC7FD56CD /* GraphQLResponseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7156C5037F2DC118EFF48E601858205 /* GraphQLResponseGenerator.swift */; };
+		FF53DDD16D8FC3431D3F148AC7FD56CD /* GraphQLResponseGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE9722636C12702C05748430E53F78 /* GraphQLResponseGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,119 +154,119 @@
 /* Begin PBXFileReference section */
 		01C3FA9C5081FAF3B433C1CAC200835C /* Pods-ApolloPerformanceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ApolloPerformanceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		03D7BFAC37C274E39C5162127AEB6199 /* Pods-StarWarsAPI-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-StarWarsAPI-umbrella.h"; sourceTree = "<group>"; };
-		078C996EB71DC4EA36311067B6D81A3E /* Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		0411C56E0121FFBAE30473AE1E25AB56 /* GraphQLQueryWatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLQueryWatcher.swift; sourceTree = "<group>"; };
 		08674A30761B25CB7AE0CE4CFFBFF205 /* Pods-ApolloTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ApolloTests.release.xcconfig"; sourceTree = "<group>"; };
 		0AB6C025AC773267F2034B391653AEF6 /* Pods-ApolloTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ApolloTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0CBABBFA8407D460F35404C52E1C0C74 /* RecordSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecordSet.swift; sourceTree = "<group>"; };
 		0E070D9E44393CD520D0B1AF87A6736D /* SQLite-Bridging.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SQLite-Bridging.m"; path = "Sources/SQLiteObjc/SQLite-Bridging.m"; sourceTree = "<group>"; };
 		0F331ABE5223829EDFFC088184DFA981 /* RTree.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RTree.swift; path = Sources/SQLite/Extensions/RTree.swift; sourceTree = "<group>"; };
 		10FA3C1A5006EC52FC44C8EB07B5BDAE /* Pods-ApolloTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ApolloTests.modulemap"; sourceTree = "<group>"; };
+		1542AA29919683732D5C2CDAC80381BE /* Apollo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Apollo.modulemap; sourceTree = "<group>"; };
 		160F355101277829561FC9CDD0D3F16B /* Pods-ApolloPerformanceTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ApolloPerformanceTests-frameworks.sh"; sourceTree = "<group>"; };
 		179109F8B259422432C0355515576040 /* Pods-StarWarsAPI-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-StarWarsAPI-dummy.m"; sourceTree = "<group>"; };
-		180A54E2C9EAC29BCD0767F9CF54EB79 /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
-		1A8AF61E57D939C975D9A6B03DF50CC7 /* SqliteNormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SqliteNormalizedCache.swift; sourceTree = "<group>"; };
 		1AD67889E8665E2406E38CC279A50DB7 /* Pods-ApolloPerformanceTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ApolloPerformanceTests-resources.sh"; sourceTree = "<group>"; };
 		1D7DA9FB08FD2A913967F0D7996B8701 /* SQLite.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SQLite.swift.modulemap; sourceTree = "<group>"; };
 		1EC3C1E6C3B57B46326B94BAB568B649 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F4445F089281553CC23A453DBF203C7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F59A34F6FBBC01495FA0EEFC7CFF5A1 /* HTTPNetworkTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTTPNetworkTransport.swift; sourceTree = "<group>"; };
 		23E934E5F923C9742E63347D5512C322 /* AggregateFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AggregateFunctions.swift; path = Sources/SQLite/Typed/AggregateFunctions.swift; sourceTree = "<group>"; };
 		261B0C331D5E3A2F400B2EC0F77CC1F7 /* Pods_StarWarsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_StarWarsAPI.framework; path = "Pods-StarWarsAPI.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		269A666530B42952FF00B5B4A1844F67 /* Apollo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Apollo.xcconfig; sourceTree = "<group>"; };
 		27B2D491F0A9B062233011B873DC118C /* SQLite.swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SQLite.swift-umbrella.h"; sourceTree = "<group>"; };
+		2D1BCE14534E37F1E56DA924CE5D2621 /* ApolloStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ApolloStore.swift; sourceTree = "<group>"; };
 		2D30459F9DC30876AF6C299D26C7CE48 /* SQLite.swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SQLite.swift-dummy.m"; sourceTree = "<group>"; };
 		2DE423399B21C05322619DF24D280234 /* Pods-StarWarsAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-StarWarsAPI.debug.xcconfig"; sourceTree = "<group>"; };
-		2FA62E20AC29F9ECA17CDE346F83E445 /* Dictionary+KeyPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyPath.swift"; sourceTree = "<group>"; };
-		2FF924421EAF21716DEF0AE07417770D /* Apollo-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Apollo-prefix.pch"; sourceTree = "<group>"; };
-		30DAD61D66BBDE6441131A52D95BDB04 /* JSONSerializationFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSONSerializationFormat.swift; sourceTree = "<group>"; };
+		2FB067970EBEEE32B9F9B8CF8FA457C9 /* NetworkTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkTransport.swift; sourceTree = "<group>"; };
+		32ADDCAC7A45EFB20A30DA69CF38976B /* Record.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		348491EAD9C18B0EEB2E855815254774 /* CustomFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomFunctions.swift; path = Sources/SQLite/Typed/CustomFunctions.swift; sourceTree = "<group>"; };
-		35069E56A5D5D4923A18BA7A092E73D4 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		37BFA28F22BF54064B21348557B64BD3 /* GraphQLOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLOperation.swift; sourceTree = "<group>"; };
-		399B342ADA72E237E0EBF1EEAA28FB25 /* GraphQLDependencyTracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLDependencyTracker.swift; sourceTree = "<group>"; };
-		3B42D8D8A4E18179F37824F2695F75F3 /* ApolloClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
-		3C0324BDEF4908733765A4E8909A7F10 /* GraphQLQueryWatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLQueryWatcher.swift; sourceTree = "<group>"; };
+		3834589AEC46AFC5618EDEB84BFDDC67 /* GraphQLDependencyTracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLDependencyTracker.swift; sourceTree = "<group>"; };
 		3C7116256A907933BD6C8D01B5E5D592 /* Pods-ApolloPerformanceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ApolloPerformanceTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D54BDE67F2AF934CA35178FCC1165EB /* Pods-ApolloPerformanceTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ApolloPerformanceTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3F2AA223F544DC4835618D4D4A2FAA05 /* Pods-ApolloExample-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ApolloExample-umbrella.h"; sourceTree = "<group>"; };
 		3FA13D59DC7D79809DCEF476848EAED0 /* Pods_ApolloExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ApolloExample.framework; path = "Pods-ApolloExample.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FCCE88ECC9D892349AB6CB3160246D9 /* Query.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Query.swift; path = Sources/SQLite/Typed/Query.swift; sourceTree = "<group>"; };
-		42BBD89CF65425C4A9DD8F6390DF859D /* NetworkTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkTransport.swift; sourceTree = "<group>"; };
 		44EE37E8BF436A90A9C40AD27A182DB2 /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Expression.swift; path = Sources/SQLite/Typed/Expression.swift; sourceTree = "<group>"; };
 		4B4C8E0D8DB99B4482E2549FEAE620B8 /* FTS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS5.swift; path = Sources/SQLite/Extensions/FTS5.swift; sourceTree = "<group>"; };
-		4E1F6997F619DB12A60F7EA5B8005190 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
+		4C9F12AB5DA3FD3FAB850FD3819EBD3D /* Selections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Selections.swift; sourceTree = "<group>"; };
+		503243847991ECCB90434FCB18B8113B /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
+		53166497143EB24EE51313830B0378AA /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		550DCFFB3AF38FE48668B410DCC530D2 /* Pods-ApolloPerformanceTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ApolloPerformanceTests.modulemap"; sourceTree = "<group>"; };
 		58EA58A33C79BB0F400C14494D1142CC /* Pods-ApolloTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ApolloTests-frameworks.sh"; sourceTree = "<group>"; };
 		5AE2EFBEFDE20C4DDD8B3398D8AE5AE8 /* fts3_tokenizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fts3_tokenizer.h; path = Sources/SQLiteObjc/fts3_tokenizer.h; sourceTree = "<group>"; };
 		60FAE93532FD5578A02AF3CC523A3408 /* CoreFunctions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreFunctions.swift; path = Sources/SQLite/Typed/CoreFunctions.swift; sourceTree = "<group>"; };
-		616AA09AE6625A279D08C4E95BBF8FAF /* Record.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		6476D8DF83CC5E44AC295CA811992A17 /* GraphQLOutputType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLOutputType.swift; sourceTree = "<group>"; };
 		6690FA900A959073D6602DDA8B9B96FC /* Pods-StarWarsAPI-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-StarWarsAPI-acknowledgements.plist"; sourceTree = "<group>"; };
 		680617B7B3999D016982CD479DADCCB0 /* Blob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blob.swift; path = Sources/SQLite/Core/Blob.swift; sourceTree = "<group>"; };
-		6962E4B167BCDE8CACFF3DC269212EE7 /* ApolloStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ApolloStore.swift; sourceTree = "<group>"; };
-		6C326DB4844A6FBD86CFBA30BDD08DB6 /* GraphQLResultAccumulator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResultAccumulator.swift; sourceTree = "<group>"; };
+		6B2FAE16B52E13F2255D8D8D439C1466 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		715E2F902F7A750814E054D46287C284 /* Promise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		724B09788D59362DE110F9760831B30B /* Pods-StarWarsAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-StarWarsAPI.release.xcconfig"; sourceTree = "<group>"; };
-		74015506E81FA3C19EB6D906D81024AB /* GraphQLError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLError.swift; sourceTree = "<group>"; };
-		76D40A77826E6FE48F27E93C4A66DD9C /* HTTPNetworkTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HTTPNetworkTransport.swift; sourceTree = "<group>"; };
-		7A5D8EED2099F4E9AC37C5EC2D95A738 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
+		74920BE3F88237C4C3DDA76227BDF2E1 /* GraphQLResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResult.swift; sourceTree = "<group>"; };
 		7AF34EB0D4F25CC4FBA1A60724BBC66A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7ED2D87037EC2D5F09173EE9E979C813 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FD2E12182B5FA8C0EC9565A13BB8D01 /* Pods-ApolloExample-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ApolloExample-dummy.m"; sourceTree = "<group>"; };
-		82A2AD2C9998545CA1776374D0EB8D35 /* GraphQLOutputType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLOutputType.swift; sourceTree = "<group>"; };
 		8378EF5103C93E048B7DF8B41415FF63 /* Pods-ApolloExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ApolloExample.debug.xcconfig"; sourceTree = "<group>"; };
-		872EA0E9B1EC6684546BEFF234C61E6E /* check-and-run-apollo-codegen.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "check-and-run-apollo-codegen.sh"; sourceTree = "<group>"; };
 		88BFCDC2C48A9AAC024D78C7786357F9 /* SQLite.swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SQLite.swift.xcconfig; sourceTree = "<group>"; };
+		8910258E5AD30319CA72E05B90C4AC6D /* Apollo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Apollo.xcconfig; sourceTree = "<group>"; };
 		8AA0C69818598EB79B91BCA0BE698842 /* Pods-ApolloExample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ApolloExample-frameworks.sh"; sourceTree = "<group>"; };
+		8BF7A27967561797D7548C7F8496B176 /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8C1BB3B1629831A0860FA95DD624C9F4 /* Pods-ApolloTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ApolloTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		8F3DE78C37EE122AA21BA986A77BB162 /* Selections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Selections.swift; sourceTree = "<group>"; };
 		904829AAE2B1DE6B6F2CE13CDD6EDE22 /* Pods-ApolloExample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ApolloExample-acknowledgements.plist"; sourceTree = "<group>"; };
-		9090E10380883B7CA79EE41C691650F7 /* Locking.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Locking.swift; sourceTree = "<group>"; };
-		909F358C8C8DF9392766416B86EACE63 /* GraphQLExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLExecutor.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		941EEC1220197E2B07C634E14D4E319E /* Dictionary+KeyPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyPath.swift"; sourceTree = "<group>"; };
 		949A295ACAD1338645F511B3B615304F /* Pods-StarWarsAPI.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-StarWarsAPI.modulemap"; sourceTree = "<group>"; };
-		94D650A756B69071D262EFC78E0E69F0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95684FC3AB25B49063D525A7C78F0B17 /* GraphQLResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResponse.swift; sourceTree = "<group>"; };
 		96600A78FEC066BF8931D7A58FBF0F16 /* Statement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Statement.swift; path = Sources/SQLite/Core/Statement.swift; sourceTree = "<group>"; };
+		96B258D77C330EC72CA1F86CFADB9702 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
+		974545E3C8A36D55A3FD3DCC46166F6D /* GraphQLError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLError.swift; sourceTree = "<group>"; };
 		975269A36A5CF422A22E5D5DA93EAB28 /* Pods-ApolloPerformanceTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ApolloPerformanceTests-umbrella.h"; sourceTree = "<group>"; };
 		9ADC492098AB1E55A5C9644F01624CA8 /* Pods-ApolloExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ApolloExample.release.xcconfig"; sourceTree = "<group>"; };
+		9BFE9722636C12702C05748430E53F78 /* GraphQLResponseGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResponseGenerator.swift; sourceTree = "<group>"; };
 		9DE06F129836BA95B0BE2222991D2BD0 /* Value.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Value.swift; path = Sources/SQLite/Core/Value.swift; sourceTree = "<group>"; };
 		A2C5D76BD109C46DEC526A712FC4A8BB /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Sources/SQLite/Helpers.swift; sourceTree = "<group>"; };
-		A7156C5037F2DC118EFF48E601858205 /* GraphQLResponseGenerator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResponseGenerator.swift; sourceTree = "<group>"; };
-		A72488E3CB82621BCD287255DE4F91E6 /* JSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		A30E06FEAB733A1938FDAA6CB0C7CAF4 /* Apollo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Apollo-dummy.m"; sourceTree = "<group>"; };
+		A5900DA33E216DB7A1CCDB272F1B0CFE /* SqliteNormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SqliteNormalizedCache.swift; sourceTree = "<group>"; };
+		A6231A3C03C676AA5C3645BE51E42184 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		A750E6B16B43489DE32A5211D58F9FBA /* Pods-ApolloTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ApolloTests-umbrella.h"; sourceTree = "<group>"; };
-		A918C3B2E22CB999534D187039A4D52A /* Collections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
+		AAFC7CF56F4E8EFC98F4FE6FB20E6384 /* GraphQLResultAccumulator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResultAccumulator.swift; sourceTree = "<group>"; };
+		ABD0FB59CA8C02E9DFE2C186DF8A6AB2 /* GraphQLResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResponse.swift; sourceTree = "<group>"; };
+		AC36364F2001FAE110A5756E8B9B04B5 /* GraphQLResultMapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResultMapper.swift; sourceTree = "<group>"; };
 		AC7E77DE5E2272297487C6FDD2A16513 /* Pods-ApolloPerformanceTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ApolloPerformanceTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		AF7F8DDFC50FE6ACA57F6A16E253F8DC /* SQLite-Bridging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SQLite-Bridging.h"; path = "Sources/SQLiteObjc/include/SQLite-Bridging.h"; sourceTree = "<group>"; };
-		B23BAD010DBCF8C2B764B7E2E9895805 /* GraphQLValues.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLValues.swift; sourceTree = "<group>"; };
+		B149332CA02057A2C99DAD2391F92FB0 /* Locking.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Locking.swift; sourceTree = "<group>"; };
+		B3A2B1238E9781F0C22EE5733626AB01 /* GraphQLOperation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLOperation.swift; sourceTree = "<group>"; };
+		B5187F20FDC2CCB00F92F8634B15C62C /* JSONSerializationFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSONSerializationFormat.swift; sourceTree = "<group>"; };
 		B5A51A258D56CEEC8707C43B4CA66D57 /* Pods-ApolloTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ApolloTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		B5BED4FF18AC316194A81FD5C33ED9C5 /* GraphQLResultMapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResultMapper.swift; sourceTree = "<group>"; };
-		B5C756BCE1977B310FBCDFC81E7CB726 /* Apollo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Apollo-umbrella.h"; sourceTree = "<group>"; };
+		B785FCECF6FFA0348FE3961AFDC5C0AF /* ApolloClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
 		B7A99896DB5D793228657B5F5EC525DA /* FTS4.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FTS4.swift; path = Sources/SQLite/Extensions/FTS4.swift; sourceTree = "<group>"; };
 		B88C5FD0C85A5AE4583CC7DB512E6820 /* SQLite.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SQLite.h; path = Sources/SQLite/SQLite.h; sourceTree = "<group>"; };
 		B9CA5768D35422C7387D78822AB2AA46 /* Pods-ApolloExample-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ApolloExample-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BA52A0176DDC85E070F4BA3E088EDF79 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
-		BB17F37738DF3903DEB18A03BAA3C0D8 /* GraphQLResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResult.swift; sourceTree = "<group>"; };
 		BDA86AD441076D928D0621530CD5E745 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/SQLite/Typed/Operators.swift; sourceTree = "<group>"; };
-		BF17E380BFA697F14018DED6126C8AC8 /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
+		C070371DEFF116F4E1181DE8DD58D0A9 /* GraphQLValues.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLValues.swift; sourceTree = "<group>"; };
 		C08D4B7E051B2878FD9A1DB195944C60 /* Pods_ApolloTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ApolloTests.framework; path = "Pods-ApolloTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C12EBB64588697C58EB83E3A1D147FA8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1365465663268B61753BF27B647DA39 /* check-and-run-apollo-codegen.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "check-and-run-apollo-codegen.sh"; sourceTree = "<group>"; };
 		C1FDE43D56FD01FEC6EC0EC50C96A22D /* Pods-ApolloExample.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ApolloExample.modulemap"; sourceTree = "<group>"; };
 		C97E29747EDD103755CD3BBB58DB0042 /* Pods_ApolloPerformanceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ApolloPerformanceTests.framework; path = "Pods-ApolloPerformanceTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1C6F1BBEC2162E2BA5E756F9B77A2C /* Pods-ApolloTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ApolloTests-resources.sh"; sourceTree = "<group>"; };
 		CA3ED8D54211455DE25A4DA036694445 /* SQLite.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SQLite.swift-prefix.pch"; sourceTree = "<group>"; };
-		CB35A20B8A16FA8E837FAEA496B53CBE /* RecordSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RecordSet.swift; sourceTree = "<group>"; };
 		CCF813C6D3C0824E1BCFDACADE6109F5 /* Connection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Connection.swift; path = Sources/SQLite/Core/Connection.swift; sourceTree = "<group>"; };
 		CE010265104DFCB5F6118970E4A336F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D7B7855DE178D22988512E88C68325BE /* Collation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Collation.swift; path = Sources/SQLite/Typed/Collation.swift; sourceTree = "<group>"; };
+		D80C65010D5FF9DA75FE564B3B16DE81 /* DataLoader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		DA7CCC1A073BC5540EA969CA71F0C552 /* Setter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Setter.swift; path = Sources/SQLite/Typed/Setter.swift; sourceTree = "<group>"; };
 		DB44F0C85553660857F351B59660E399 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBD0B42CB8E4BF2A6661253EFD4F57F6 /* NormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NormalizedCache.swift; sourceTree = "<group>"; };
+		DED7DCCFD5741991CA593441684AF181 /* Apollo-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Apollo-prefix.pch"; sourceTree = "<group>"; };
+		DFA61605E0CF60C23447BD3645A7F6C6 /* JSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		E12D36800035FA4AEBD5CCA0E467F5C2 /* Pods-ApolloTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ApolloTests-dummy.m"; sourceTree = "<group>"; };
 		E4C251316F1350DC62A6C4843F9E8DAC /* Pods-StarWarsAPI-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-StarWarsAPI-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E4DDFDE7D66D82B6084F70FC8DE5F14D /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SQLite.framework; path = SQLite.swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5BB833C4CF9D696FCF839FB705C1A91 /* Apollo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Apollo-dummy.m"; sourceTree = "<group>"; };
+		E65505F835204A94A5D03AB3FA68B1D3 /* Collections.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		E664068C762C5F1811AB06C5856E5BC7 /* Pods-ApolloPerformanceTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ApolloPerformanceTests-dummy.m"; sourceTree = "<group>"; };
 		E667D63233F61B551F3B93AF184020E0 /* Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Foundation.swift; path = Sources/SQLite/Foundation.swift; sourceTree = "<group>"; };
-		E993F928AC8B4275D32665A6205AE456 /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		ED6DD22A402D834518D62E49A6D34114 /* NormalizedCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NormalizedCache.swift; sourceTree = "<group>"; };
+		EBED715F438CFACC415B97B86CFD6422 /* GraphQLExecutor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLExecutor.swift; sourceTree = "<group>"; };
 		F4E94D9B3A51997F835199160D3A6204 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Apollo.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7AB6C9064A19E5E00C2C7B6CF7D38DD /* Apollo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Apollo.modulemap; sourceTree = "<group>"; };
+		FC35D07889D7B7A9717D60C50C0649BF /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
 		FC7AB7465546FD30A69F21B534830CF6 /* Pods-ApolloExample-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ApolloExample-resources.sh"; sourceTree = "<group>"; };
+		FCEE66B62EAC19AF05896543B1CC20DB /* Apollo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Apollo-umbrella.h"; sourceTree = "<group>"; };
 		FF72FDA919EE62C2297D3C1EF8E50F18 /* Pods-StarWarsAPI-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-StarWarsAPI-resources.sh"; sourceTree = "<group>"; };
 		FF98B7BBADF63A0AF80D7829FA6F77B9 /* Schema.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Schema.swift; path = Sources/SQLite/Typed/Schema.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -324,6 +324,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		035B096F07B7DC66E76DA60E02CC4F2A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7D4C8FC23C42C3AE0AED166522F344E4 /* SqliteNormalizedCache */,
+			);
+			name = Sources;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		036E276F1B88E1EA4E926674B067BEAF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				336DEC5C1518FB1515B412820E1B8EBB /* scripts */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		0780AE62F17E1B780D8C4170D5F2E768 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84AAC42334BA0A537FA21127F98BCE42 /* Apollo */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
 		0874F9F078F1BB1E246AE7183E7C233E /* Pods-ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,12 +390,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1801812D8CCA5E614AF5B2E5A40FD00E /* Resources */ = {
+		336DEC5C1518FB1515B412820E1B8EBB /* scripts */ = {
 			isa = PBXGroup;
 			children = (
-				56260A0EEDA671CDB9D2E9F617A8E776 /* scripts */,
+				C1365465663268B61753BF27B647DA39 /* check-and-run-apollo-codegen.sh */,
 			);
-			name = Resources;
+			name = scripts;
+			path = scripts;
 			sourceTree = "<group>";
 		};
 		41EC9D1139C8584AC99C2D542C204E67 /* Pods-StarWarsAPI */ = {
@@ -388,6 +414,20 @@
 			);
 			name = "Pods-StarWarsAPI";
 			path = "Target Support Files/Pods-StarWarsAPI";
+			sourceTree = "<group>";
+		};
+		423A21A61CA455A6041B1607B8A6FF33 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1542AA29919683732D5C2CDAC80381BE /* Apollo.modulemap */,
+				8910258E5AD30319CA72E05B90C4AC6D /* Apollo.xcconfig */,
+				A30E06FEAB733A1938FDAA6CB0C7CAF4 /* Apollo-dummy.m */,
+				DED7DCCFD5741991CA593441684AF181 /* Apollo-prefix.pch */,
+				FCEE66B62EAC19AF05896543B1CC20DB /* Apollo-umbrella.h */,
+				6B2FAE16B52E13F2255D8D8D439C1466 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/Apollo";
 			sourceTree = "<group>";
 		};
 		42A565AFFAD6D5669C3E9A617B18206F /* Pods */ = {
@@ -424,13 +464,45 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		56260A0EEDA671CDB9D2E9F617A8E776 /* scripts */ = {
+		5647491FC16879125D472701DA7D8074 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				872EA0E9B1EC6684546BEFF234C61E6E /* check-and-run-apollo-codegen.sh */,
+				B785FCECF6FFA0348FE3961AFDC5C0AF /* ApolloClient.swift */,
+				2D1BCE14534E37F1E56DA924CE5D2621 /* ApolloStore.swift */,
+				A6231A3C03C676AA5C3645BE51E42184 /* AsynchronousOperation.swift */,
+				E65505F835204A94A5D03AB3FA68B1D3 /* Collections.swift */,
+				D80C65010D5FF9DA75FE564B3B16DE81 /* DataLoader.swift */,
+				941EEC1220197E2B07C634E14D4E319E /* Dictionary+KeyPath.swift */,
+				3834589AEC46AFC5618EDEB84BFDDC67 /* GraphQLDependencyTracker.swift */,
+				974545E3C8A36D55A3FD3DCC46166F6D /* GraphQLError.swift */,
+				EBED715F438CFACC415B97B86CFD6422 /* GraphQLExecutor.swift */,
+				B3A2B1238E9781F0C22EE5733626AB01 /* GraphQLOperation.swift */,
+				6476D8DF83CC5E44AC295CA811992A17 /* GraphQLOutputType.swift */,
+				0411C56E0121FFBAE30473AE1E25AB56 /* GraphQLQueryWatcher.swift */,
+				ABD0FB59CA8C02E9DFE2C186DF8A6AB2 /* GraphQLResponse.swift */,
+				9BFE9722636C12702C05748430E53F78 /* GraphQLResponseGenerator.swift */,
+				74920BE3F88237C4C3DDA76227BDF2E1 /* GraphQLResult.swift */,
+				AAFC7CF56F4E8EFC98F4FE6FB20E6384 /* GraphQLResultAccumulator.swift */,
+				AC36364F2001FAE110A5756E8B9B04B5 /* GraphQLResultMapper.swift */,
+				FC35D07889D7B7A9717D60C50C0649BF /* GraphQLResultNormalizer.swift */,
+				C070371DEFF116F4E1181DE8DD58D0A9 /* GraphQLValues.swift */,
+				1F59A34F6FBBC01495FA0EEFC7CFF5A1 /* HTTPNetworkTransport.swift */,
+				503243847991ECCB90434FCB18B8113B /* InMemoryNormalizedCache.swift */,
+				DFA61605E0CF60C23447BD3645A7F6C6 /* JSON.swift */,
+				B5187F20FDC2CCB00F92F8634B15C62C /* JSONSerializationFormat.swift */,
+				96B258D77C330EC72CA1F86CFADB9702 /* JSONStandardTypeConversions.swift */,
+				B149332CA02057A2C99DAD2391F92FB0 /* Locking.swift */,
+				2FB067970EBEEE32B9F9B8CF8FA457C9 /* NetworkTransport.swift */,
+				DBD0B42CB8E4BF2A6661253EFD4F57F6 /* NormalizedCache.swift */,
+				715E2F902F7A750814E054D46287C284 /* Promise.swift */,
+				32ADDCAC7A45EFB20A30DA69CF38976B /* Record.swift */,
+				0CBABBFA8407D460F35404C52E1C0C74 /* RecordSet.swift */,
+				53166497143EB24EE51313830B0378AA /* Result.swift */,
+				4C9F12AB5DA3FD3FAB850FD3819EBD3D /* Selections.swift */,
+				8BF7A27967561797D7548C7F8496B176 /* Utilities.swift */,
 			);
-			name = scripts;
-			path = scripts;
+			name = Sources;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		6BF538A5818A9423DCAFBA3FE993650B /* SQLite.swift */ = {
@@ -472,19 +544,20 @@
 			name = standard;
 			sourceTree = "<group>";
 		};
-		768337ED42456230A0A77624D4991E13 /* Development Pods */ = {
+		7D4C8FC23C42C3AE0AED166522F344E4 /* SqliteNormalizedCache */ = {
 			isa = PBXGroup;
 			children = (
-				8389C6E68002254991191670D7F6BF1D /* Apollo */,
+				A5900DA33E216DB7A1CCDB272F1B0CFE /* SqliteNormalizedCache.swift */,
 			);
-			name = "Development Pods";
+			name = SqliteNormalizedCache;
+			path = SqliteNormalizedCache;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				768337ED42456230A0A77624D4991E13 /* Development Pods */,
+				0780AE62F17E1B780D8C4170D5F2E768 /* Development Pods */,
 				0E9CC0217CE03B66912982F024F7C64D /* Frameworks */,
 				42A565AFFAD6D5669C3E9A617B18206F /* Pods */,
 				CADF8E7A438C737280A69D0E24D5BDDC /* Products */,
@@ -492,26 +565,13 @@
 			);
 			sourceTree = "<group>";
 		};
-		82017056B1CC49B3DC02060971D2C82D /* Support Files */ = {
+		84AAC42334BA0A537FA21127F98BCE42 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
-				F7AB6C9064A19E5E00C2C7B6CF7D38DD /* Apollo.modulemap */,
-				269A666530B42952FF00B5B4A1844F67 /* Apollo.xcconfig */,
-				E5BB833C4CF9D696FCF839FB705C1A91 /* Apollo-dummy.m */,
-				2FF924421EAF21716DEF0AE07417770D /* Apollo-prefix.pch */,
-				B5C756BCE1977B310FBCDFC81E7CB726 /* Apollo-umbrella.h */,
-				94D650A756B69071D262EFC78E0E69F0 /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/Apollo";
-			sourceTree = "<group>";
-		};
-		8389C6E68002254991191670D7F6BF1D /* Apollo */ = {
-			isa = PBXGroup;
-			children = (
-				1801812D8CCA5E614AF5B2E5A40FD00E /* Resources */,
-				B28E56D49879D9E081C62CD89EE29101 /* Sources */,
-				82017056B1CC49B3DC02060971D2C82D /* Support Files */,
+				036E276F1B88E1EA4E926674B067BEAF /* Resources */,
+				5647491FC16879125D472701DA7D8074 /* Sources */,
+				C30F51D1002D9EE51192D5EB07AC8CDF /* SqliteNormalizedCache */,
+				423A21A61CA455A6041B1607B8A6FF33 /* Support Files */,
 			);
 			name = Apollo;
 			path = ../..;
@@ -528,46 +588,12 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		B28E56D49879D9E081C62CD89EE29101 /* Sources */ = {
+		C30F51D1002D9EE51192D5EB07AC8CDF /* SqliteNormalizedCache */ = {
 			isa = PBXGroup;
 			children = (
-				3B42D8D8A4E18179F37824F2695F75F3 /* ApolloClient.swift */,
-				6962E4B167BCDE8CACFF3DC269212EE7 /* ApolloStore.swift */,
-				7A5D8EED2099F4E9AC37C5EC2D95A738 /* AsynchronousOperation.swift */,
-				A918C3B2E22CB999534D187039A4D52A /* Collections.swift */,
-				180A54E2C9EAC29BCD0767F9CF54EB79 /* DataLoader.swift */,
-				2FA62E20AC29F9ECA17CDE346F83E445 /* Dictionary+KeyPath.swift */,
-				399B342ADA72E237E0EBF1EEAA28FB25 /* GraphQLDependencyTracker.swift */,
-				74015506E81FA3C19EB6D906D81024AB /* GraphQLError.swift */,
-				909F358C8C8DF9392766416B86EACE63 /* GraphQLExecutor.swift */,
-				37BFA28F22BF54064B21348557B64BD3 /* GraphQLOperation.swift */,
-				82A2AD2C9998545CA1776374D0EB8D35 /* GraphQLOutputType.swift */,
-				3C0324BDEF4908733765A4E8909A7F10 /* GraphQLQueryWatcher.swift */,
-				95684FC3AB25B49063D525A7C78F0B17 /* GraphQLResponse.swift */,
-				A7156C5037F2DC118EFF48E601858205 /* GraphQLResponseGenerator.swift */,
-				BB17F37738DF3903DEB18A03BAA3C0D8 /* GraphQLResult.swift */,
-				6C326DB4844A6FBD86CFBA30BDD08DB6 /* GraphQLResultAccumulator.swift */,
-				B5BED4FF18AC316194A81FD5C33ED9C5 /* GraphQLResultMapper.swift */,
-				BF17E380BFA697F14018DED6126C8AC8 /* GraphQLResultNormalizer.swift */,
-				B23BAD010DBCF8C2B764B7E2E9895805 /* GraphQLValues.swift */,
-				76D40A77826E6FE48F27E93C4A66DD9C /* HTTPNetworkTransport.swift */,
-				BA52A0176DDC85E070F4BA3E088EDF79 /* InMemoryNormalizedCache.swift */,
-				A72488E3CB82621BCD287255DE4F91E6 /* JSON.swift */,
-				30DAD61D66BBDE6441131A52D95BDB04 /* JSONSerializationFormat.swift */,
-				4E1F6997F619DB12A60F7EA5B8005190 /* JSONStandardTypeConversions.swift */,
-				9090E10380883B7CA79EE41C691650F7 /* Locking.swift */,
-				42BBD89CF65425C4A9DD8F6390DF859D /* NetworkTransport.swift */,
-				ED6DD22A402D834518D62E49A6D34114 /* NormalizedCache.swift */,
-				078C996EB71DC4EA36311067B6D81A3E /* Promise.swift */,
-				616AA09AE6625A279D08C4E95BBF8FAF /* Record.swift */,
-				CB35A20B8A16FA8E837FAEA496B53CBE /* RecordSet.swift */,
-				E993F928AC8B4275D32665A6205AE456 /* Result.swift */,
-				8F3DE78C37EE122AA21BA986A77BB162 /* Selections.swift */,
-				1A8AF61E57D939C975D9A6B03DF50CC7 /* SqliteNormalizedCache.swift */,
-				35069E56A5D5D4923A18BA7A092E73D4 /* Utilities.swift */,
+				035B096F07B7DC66E76DA60E02CC4F2A /* Sources */,
 			);
-			name = Sources;
-			path = Sources;
+			name = SqliteNormalizedCache;
 			sourceTree = "<group>";
 		};
 		CADF8E7A438C737280A69D0E24D5BDDC /* Products */ = {
@@ -1376,7 +1402,7 @@
 		};
 		BF59425203BD23DBB85AF465D9BB20B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 269A666530B42952FF00B5B4A1844F67 /* Apollo.xcconfig */;
+			baseConfigurationReference = 8910258E5AD30319CA72E05B90C4AC6D /* Apollo.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1409,7 +1435,7 @@
 		};
 		D72042F45DC3C77B677875802D08ECDF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 269A666530B42952FF00B5B4A1844F67 /* Apollo.xcconfig */;
+			baseConfigurationReference = 8910258E5AD30319CA72E05B90C4AC6D /* Apollo.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";

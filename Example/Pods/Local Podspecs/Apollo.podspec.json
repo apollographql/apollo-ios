@@ -18,11 +18,21 @@
     "tvos": "9.0",
     "osx": "10.10"
   },
-  "source_files": "Sources/**/*.swift",
+  "source_files": "Sources/*.swift",
   "resources": "scripts/check-and-run-apollo-codegen.sh",
-  "dependencies": {
-    "SQLite.swift": [
-      "~> 0.11"
-    ]
-  }
+  "subspecs": [
+    {
+      "name": "SqliteNormalizedCache",
+      "platforms": {
+        "ios": "8.0",
+        "osx": "10.10"
+      },
+      "source_files": "Sources/SqliteNormalizedCache/*.swift",
+      "dependencies": {
+        "SQLite.swift": [
+          "~> 0.11"
+        ]
+      }
+    }
+  ]
 }
