@@ -10,20 +10,20 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
 
   s.requires_arc = true
-  s.platform     = :ios, :osx, :tvos
 
-  s.ios.deployment_target = '8.0'
-  s.tvos.deployment_target = '9.0'
-  s.osx.deployment_target = '10.10'
-
-  s.source_files = 'Sources/*.swift'
   s.resource = 'scripts/check-and-run-apollo-codegen.sh'
 
-  s.subspec 'SqliteNormalizedCache' do |ss|
-    ss.platform     = :ios, :osx
-    ss.source_files = "Sources/SqliteNormalizedCache/*.swift" 
+  s.subspec 'Core' do |ss|
     ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.10'
+    ss.tvos.deployment_target = '9.0'
+    ss.source_files = 'Sources/*.swift'
+  end
+
+  s.subspec 'SqliteNormalizedCache' do |ss|
+    ss.ios.deployment_target = '8.0'
+    ss.osx.deployment_target = '10.10'
+    ss.source_files = "Sources/SqliteNormalizedCache/*.swift"
     ss.dependency 'SQLite.swift', '~> 0.11'
   end
 end
