@@ -13,14 +13,23 @@
     "tag": "0.5.6"
   },
   "requires_arc": true,
-  "platforms": {
-    "ios": "8.0",
-    "tvos": "9.0",
-    "osx": "10.10"
-  },
-  "source_files": "Sources/*.swift",
   "resources": "scripts/check-and-run-apollo-codegen.sh",
+  "platforms": {
+    "osx": null,
+    "ios": null,
+    "tvos": null,
+    "watchos": null
+  },
   "subspecs": [
+    {
+      "name": "Core",
+      "platforms": {
+        "ios": "8.0",
+        "osx": "10.10",
+        "tvos": "9.0"
+      },
+      "source_files": "Sources/*.swift"
+    },
     {
       "name": "SqliteNormalizedCache",
       "platforms": {
