@@ -1,14 +1,14 @@
 import SQLite
 
-enum SqliteNormalizedCacheError: Error {
+public enum SqliteNormalizedCacheError: Error {
   case invalidRecordEncoding(record: String)
   case invalidRecordShape(object: Any)
   case invalidRecordValue(value: Any)
 }
 
-final class SqliteNormalizedCache: NormalizedCache {
+public final class SqliteNormalizedCache: NormalizedCache {
 
-  init(fileURL: URL) throws {
+  public init(fileURL: URL) throws {
     db = try Connection(.uri(fileURL.absoluteString), readonly: false)
     try createTableIfNeeded()
   }
