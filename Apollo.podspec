@@ -11,13 +11,12 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.resource = 'scripts/check-and-run-apollo-codegen.sh'
-
   s.subspec 'Core' do |ss|
     ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.10'
     ss.tvos.deployment_target = '9.0'
     ss.source_files = 'Sources/*.swift'
+    ss.resource = 'scripts/check-and-run-apollo-codegen.sh'
   end
 
   s.subspec 'SqliteNormalizedCache' do |ss|
