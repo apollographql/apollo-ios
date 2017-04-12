@@ -123,6 +123,8 @@ class WatchQueryTests: XCTestCase {
       }
 
       expectation = self.expectation(description: "Updated after fetching other query")
+
+      client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
       
       waitForExpectations(timeout: 1.0, handler: nil)
     }
