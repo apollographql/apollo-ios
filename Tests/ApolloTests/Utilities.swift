@@ -20,7 +20,7 @@ public func XCTAssertEqual<T: Equatable>(_ expression1: @autoclosure () throws -
   let optionalValue2 = try expression2()
   
   let message = {
-    "(\"\(optionalValue1)\") is not equal to (\"\(optionalValue2)\")"
+    "(\"\(String(describing: optionalValue1))\") is not equal to (\"\(String(describing: optionalValue2))\")"
   }
   
   switch (optionalValue1, optionalValue2) {
@@ -39,7 +39,7 @@ public func XCTAssertEqual<T, U>(_ expression1: @autoclosure () throws -> [T : U
   let optionalValue2 = try expression2()
   
   let message = {
-    "(\"\(optionalValue1)\") is not equal to (\"\(optionalValue2)\")"
+    "(\"\(String(describing: optionalValue1))\") is not equal to (\"\(String(describing: optionalValue2))\")"
   }
   
   switch (optionalValue1, optionalValue2) {

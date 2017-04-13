@@ -50,7 +50,7 @@ class LoadQueryFromStoreTests: XCTestCase {
         XCTAssertEqual(error.path, ["hero", "name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
-        XCTFail("Unexpected error: \(error)")
+        XCTFail("Unexpected error: \(String(describing: error))")
       }
     }
   }
@@ -70,7 +70,7 @@ class LoadQueryFromStoreTests: XCTestCase {
         XCTAssertEqual(error.path, ["hero", "name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
       } else {
-        XCTFail("Unexpected error: \(error)")
+        XCTFail("Unexpected error: \(String(describing: error))")
       }
     }
   }
@@ -172,7 +172,7 @@ class LoadQueryFromStoreTests: XCTestCase {
         XCTAssertEqual(error.path, ["hero", "friends"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
       } else {
-        XCTFail("Unexpected error: \(error)")
+        XCTFail("Unexpected error: \(String(describing: error))")
       }
     }
   }
