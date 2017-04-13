@@ -36,7 +36,7 @@ public final class ApolloStore {
   }
   
   convenience init(records: RecordSet = RecordSet()) {
-    self.init(cache: InMemoryNormalizedCache(records: records))
+    self.init(cache: InMemoryCache(records: records))
   }
   
   func publish(records: RecordSet, context: UnsafeMutableRawPointer? = nil) -> Promise<Void> {

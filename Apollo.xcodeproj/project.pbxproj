@@ -75,6 +75,7 @@
 		9FF90A711DDDEB420034C3B6 /* GraphQLExecutorFieldValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6B1DDDEB420034C3B6 /* GraphQLExecutorFieldValueTests.swift */; };
 		9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */; };
 		9FF90A761DDDEB4C0034C3B6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A751DDDEB4C0034C3B6 /* Utilities.swift */; };
+		D0448BCD1EA008A200649144 /* InMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0448BCC1EA008A200649144 /* InMemoryCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -228,6 +229,7 @@
 		9FF90A6B1DDDEB420034C3B6 /* GraphQLExecutorFieldValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLExecutorFieldValueTests.swift; sourceTree = "<group>"; };
 		9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseQueryResponseTests.swift; sourceTree = "<group>"; };
 		9FF90A751DDDEB4C0034C3B6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		D0448BCC1EA008A200649144 /* InMemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +393,7 @@
 				9FC9A9BC1E2C271C0023C4D5 /* RecordSet.swift */,
 				9FC9A9CB1E2FD0760023C4D5 /* Record.swift */,
 				9FADC84E1E6B865E00C677E6 /* DataLoader.swift */,
+				D0448BCC1EA008A200649144 /* InMemoryCache.swift */,
 			);
 			name = Store;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */,
 				9FEC15B41E681DAD00D461B4 /* Collections.swift in Sources */,
 				9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */,
+				D0448BCD1EA008A200649144 /* InMemoryCache.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
 				9FEC15B91E6965E300D461B4 /* Result.swift in Sources */,
 				9FADC84F1E6B865E00C677E6 /* DataLoader.swift in Sources */,
