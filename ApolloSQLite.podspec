@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = 'Apollo'
+  s.name         = 'ApolloSQLite'
   s.version      = `scripts/get-version.sh`
   s.author       = 'Meteor Development Group'
   s.homepage     = 'https://github.com/apollographql/apollo-ios'
@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.10'
-  s.tvos.deployment_target = '9.0'
-  s.source_files = 'Sources/*.swift'
-  s.resource = 'scripts/check-and-run-apollo-codegen.sh'
+  s.source_files = "Sources/SqliteNormalizedCache/*.swift"
+  s.dependency 'SQLite.swift', '~> 0.11'
 end
