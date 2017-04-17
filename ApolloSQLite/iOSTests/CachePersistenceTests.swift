@@ -7,7 +7,7 @@ class CachePersistenceTests: XCTestCase {
   func testFetchAndPersist() {
     let query = HeroNameQuery()
 
-    withSqliteCache { (cache) in
+    TestCacheProvider.withCache { (cache) in
       let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
@@ -29,14 +29,15 @@ class CachePersistenceTests: XCTestCase {
 
         // Do another fetch from cache to ensure that data is cached before creating new cache
         client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
-          let newCache = try! SqliteNormalizedCache(fileURL: sqliteFileURL)
-          let newStore = ApolloStore(cache: newCache)
-          let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
-          newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
-            defer { newCacheExpectation.fulfill() }
-            guard let result = result else { XCTFail("No query result");  return }
-            XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
-            _ = newClient // Workaround for a bug - ensure that newClient is retained until this block is run
+          TestCacheProvider.withCache(clearCache: false) { (cache) in
+            let newStore = ApolloStore(cache: cache)
+            let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
+            newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+              defer { newCacheExpectation.fulfill() }
+              guard let result = result else { XCTFail("No query result");  return }
+              XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
+              _ = newClient // Workaround for a bug - ensure that newClient is retained until this block is run
+            }
           }
         }
       }
