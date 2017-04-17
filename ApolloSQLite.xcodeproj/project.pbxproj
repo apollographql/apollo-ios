@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		54DDB0DE1EA1562B0009DD99 /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0DD1EA1562B0009DD99 /* SqliteNormalizedCache.swift */; };
 		54DDB0F71EA157870009DD99 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0D41EA156170009DD99 /* Apollo.framework */; };
 		54DDB1091EA53FD30009DD99 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0EA1EA1573C0009DD99 /* SQLite.framework */; };
 		54DDB1461EA544700009DD99 /* ApolloSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DDB1411EA544700009DD99 /* ApolloSQLite.h */; };
 		54DDB1471EA544700009DD99 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54DDB1421EA544700009DD99 /* Info.plist */; };
 		54DDB1481EA544700009DD99 /* ApolloSQLiteMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DDB1441EA544700009DD99 /* ApolloSQLiteMac.h */; };
 		54DDB1491EA544700009DD99 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54DDB1451EA544700009DD99 /* Info.plist */; };
-		54DDB14A1EA544EB0009DD99 /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0DD1EA1562B0009DD99 /* SqliteNormalizedCache.swift */; };
 		54DDB14B1EA545500009DD99 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0D41EA156170009DD99 /* Apollo.framework */; };
 		54DDB14C1EA545560009DD99 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0EE1EA1573C0009DD99 /* SQLite.framework */; };
 		54DDB1561EA546840009DD99 /* ApolloSQLiteIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0BE1EA1523E0009DD99 /* ApolloSQLiteIOS.framework */; };
@@ -38,6 +36,8 @@
 		54DDB1A71EA54A820009DD99 /* WatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1961EA54A820009DD99 /* WatchQueryTests.swift */; };
 		54DDB1A91EA54ACE0009DD99 /* TestCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1A81EA54ACE0009DD99 /* TestCacheProvider.swift */; };
 		54DDB1AC1EA54B740009DD99 /* CachePersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AB1EA54B740009DD99 /* CachePersistenceTests.swift */; };
+		54DDB1AF1EA54F7E0009DD99 /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */; };
+		54DDB1B01EA54F7F0009DD99 /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +144,6 @@
 /* Begin PBXFileReference section */
 		54DDB0BE1EA1523E0009DD99 /* ApolloSQLiteIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloSQLiteIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DDB0CB1EA156170009DD99 /* Apollo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Apollo.xcodeproj; sourceTree = "<group>"; };
-		54DDB0DD1EA1562B0009DD99 /* SqliteNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SqliteNormalizedCache.swift; path = Sources/SqliteNormalizedCache/SqliteNormalizedCache.swift; sourceTree = SOURCE_ROOT; };
 		54DDB0DF1EA1573C0009DD99 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = Carthage/Checkouts/SQLite.swift/SQLite.xcodeproj; sourceTree = "<group>"; };
 		54DDB1381EA543F80009DD99 /* ApolloSQLiteMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloSQLiteMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DDB1411EA544700009DD99 /* ApolloSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApolloSQLite.h; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		54DDB1961EA54A820009DD99 /* WatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WatchQueryTests.swift; path = ../../Tests/ApolloTests/WatchQueryTests.swift; sourceTree = "<group>"; };
 		54DDB1A81EA54ACE0009DD99 /* TestCacheProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCacheProvider.swift; sourceTree = "<group>"; };
 		54DDB1AB1EA54B740009DD99 /* CachePersistenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachePersistenceTests.swift; sourceTree = "<group>"; };
+		54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteNormalizedCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,10 +227,10 @@
 		54DDB0C01EA1523E0009DD99 /* ApolloSQLite */ = {
 			isa = PBXGroup;
 			children = (
+				54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */,
 				54DDB1401EA544700009DD99 /* iOS */,
 				54DDB1831EA549ED0009DD99 /* iOSTests */,
 				54DDB1431EA544700009DD99 /* Mac */,
-				54DDB0DD1EA1562B0009DD99 /* SqliteNormalizedCache.swift */,
 			);
 			path = ApolloSQLite;
 			sourceTree = "<group>";
@@ -562,7 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DDB0DE1EA1562B0009DD99 /* SqliteNormalizedCache.swift in Sources */,
+				54DDB1AF1EA54F7E0009DD99 /* SqliteNormalizedCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,7 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DDB14A1EA544EB0009DD99 /* SqliteNormalizedCache.swift in Sources */,
+				54DDB1B01EA54F7F0009DD99 /* SqliteNormalizedCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +804,7 @@
 		54DDB15A1EA546840009DD99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = ApolloSQLite/iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloSQLiteIOSTests;
@@ -815,6 +816,7 @@
 		54DDB15B1EA546840009DD99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = ApolloSQLite/iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloSQLiteIOSTests;
