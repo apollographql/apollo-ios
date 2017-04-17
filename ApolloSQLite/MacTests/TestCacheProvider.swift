@@ -1,5 +1,5 @@
 import Apollo
-import ApolloSQLiteMac
+import ApolloSQLite
 
 enum TestCacheProvider {
 
