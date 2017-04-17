@@ -19,10 +19,10 @@ Pod::Spec.new do |s|
     ss.resource = 'scripts/check-and-run-apollo-codegen.sh'
   end
 
-  s.subspec 'SqliteNormalizedCache' do |ss|
+  s.subspec 'SQLite' do |ss|
     ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.10'
-    ss.source_files = "Sources/SqliteNormalizedCache/*.swift"
-    ss.dependency 'SQLite.swift', '~> 0.11'
+    ss.source_files = "ApolloSQLite/*.swift"
+    ss.dependency 'SQLite.swift', '0.11.2' # 0.11.3 doesn't support iOS < 9
   end
 end
