@@ -149,6 +149,10 @@
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		54DDB0931EA13C1B0009DD99 /* TestCacheProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCacheProvider.swift; sourceTree = "<group>"; };
+		54DDB1111EA5402C0009DD99 /* ApolloSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloSQLite.h; sourceTree = "<group>"; };
+		54DDB1121EA5402C0009DD99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54DDB11F1EA541150009DD99 /* ApolloSQLiteMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloSQLiteMac.h; sourceTree = "<group>"; };
+		54DDB1201EA541150009DD99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F0F98D31E7AC17D00BF0371 /* StoreTransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreTransactionTests.swift; sourceTree = "<group>"; };
 		9F0F98E01E7BCC3400BF0371 /* Dictionary+KeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyPath.swift"; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
@@ -280,6 +284,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54DDB1101EA5402C0009DD99 /* ApolloSQLite */ = {
+			isa = PBXGroup;
+			children = (
+				54DDB1111EA5402C0009DD99 /* ApolloSQLite.h */,
+				54DDB1121EA5402C0009DD99 /* Info.plist */,
+			);
+			path = ApolloSQLite;
+			sourceTree = "<group>";
+		};
+		54DDB11E1EA541150009DD99 /* ApolloSQLiteMac */ = {
+			isa = PBXGroup;
+			children = (
+				54DDB11F1EA541150009DD99 /* ApolloSQLiteMac.h */,
+				54DDB1201EA541150009DD99 /* Info.plist */,
+			);
+			path = ApolloSQLiteMac;
+			sourceTree = "<group>";
+		};
 		9F17BC471DAF055A00138496 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +351,8 @@
 			children = (
 				9FC750461D2A532C00458D91 /* Apollo */,
 				9FCE2CF41E6C20E000E34457 /* Tests */,
+				54DDB1101EA5402C0009DD99 /* ApolloSQLite */,
+				54DDB11E1EA541150009DD99 /* ApolloSQLiteMac */,
 				9FC750451D2A532C00458D91 /* Products */,
 			);
 			sourceTree = "<group>";
