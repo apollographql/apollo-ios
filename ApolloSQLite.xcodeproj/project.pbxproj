@@ -180,7 +180,7 @@
 		54DDB1381EA543F80009DD99 /* ApolloSQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloSQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DDB1411EA544700009DD99 /* ApolloSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApolloSQLite.h; sourceTree = "<group>"; };
 		54DDB1421EA544700009DD99 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54DDB1441EA544700009DD99 /* ApolloSQLiteMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApolloSQLiteMac.h; sourceTree = "<group>"; };
+		54DDB1441EA544700009DD99 /* ApolloSQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApolloSQLite.h; sourceTree = "<group>"; };
 		54DDB1451EA544700009DD99 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54DDB1841EA549ED0009DD99 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54DDB1861EA54A820009DD99 /* BatchedLoadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchedLoadTests.swift; path = ../../Tests/ApolloTests/BatchedLoadTests.swift; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 		54DDB1431EA544700009DD99 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				54DDB1441EA544700009DD99 /* ApolloSQLiteMac.h */,
+				54DDB1441EA544700009DD99 /* ApolloSQLite.h */,
 				54DDB1451EA544700009DD99 /* Info.plist */,
 			);
 			path = Mac;
