@@ -29,7 +29,13 @@ public final class SQLiteNormalizedCache: NormalizedCache {
     return Promise<[Record?]> { fulfill, reject in
       do {
         let records = try selectRecords(forKeys: keys)
-        fulfill(records.count == 0 ? [nil] : records)
+        let recordsOrNil: [Record?] = keys.map { key in
+          if let recordIndex = records.index(where: { $0.key == key }) {
+            return records[recordIndex]
+          }
+          return nil
+        }
+        fulfill(recordsOrNil)
       }
       catch {
         reject(error)
