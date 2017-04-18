@@ -35,8 +35,8 @@
 		54DDB1461EA544700009DD99 /* ApolloSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 54DDB1411EA544700009DD99 /* ApolloSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54DDB14B1EA545500009DD99 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0D41EA156170009DD99 /* Apollo.framework */; };
 		54DDB14C1EA545560009DD99 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB0EE1EA1573C0009DD99 /* SQLite.framework */; };
-		54DDB1AF1EA54F7E0009DD99 /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */; };
-		54DDB1B01EA54F7F0009DD99 /* SqliteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */; };
+		54DDB1AF1EA54F7E0009DD99 /* SQLiteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AD1EA54F770009DD99 /* SQLiteNormalizedCache.swift */; };
+		54DDB1B01EA54F7F0009DD99 /* SQLiteNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1AD1EA54F770009DD99 /* SQLiteNormalizedCache.swift */; };
 		54DDB1BA1EA550550009DD99 /* ApolloSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DDB1381EA543F80009DD99 /* ApolloSQLite.framework */; };
 		54DDB1C81EA551E60009DD99 /* BatchedLoadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1861EA54A820009DD99 /* BatchedLoadTests.swift */; };
 		54DDB1C91EA551E60009DD99 /* CacheKeyForFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB1871EA54A820009DD99 /* CacheKeyForFieldTests.swift */; };
@@ -199,7 +199,7 @@
 		54DDB1941EA54A820009DD99 /* StoreTransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreTransactionTests.swift; path = ../../Tests/ApolloTests/StoreTransactionTests.swift; sourceTree = "<group>"; };
 		54DDB1951EA54A820009DD99 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = ../../Tests/ApolloTests/Utilities.swift; sourceTree = "<group>"; };
 		54DDB1961EA54A820009DD99 /* WatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WatchQueryTests.swift; path = ../../Tests/ApolloTests/WatchQueryTests.swift; sourceTree = "<group>"; };
-		54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SqliteNormalizedCache.swift; sourceTree = "<group>"; };
+		54DDB1AD1EA54F770009DD99 /* SQLiteNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteNormalizedCache.swift; sourceTree = "<group>"; };
 		54DDB1B51EA550540009DD99 /* ApolloSQLiteMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloSQLiteMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54DDB1C21EA5508A0009DD99 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54DDB1DB1EA558220009DD99 /* CachePersistenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachePersistenceTests.swift; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 		54DDB0C01EA1523E0009DD99 /* ApolloSQLite */ = {
 			isa = PBXGroup;
 			children = (
-				54DDB1AD1EA54F770009DD99 /* SqliteNormalizedCache.swift */,
+				54DDB1AD1EA54F770009DD99 /* SQLiteNormalizedCache.swift */,
 				54DDB1401EA544700009DD99 /* iOS */,
 				54DDB1831EA549ED0009DD99 /* iOSTests */,
 				54DDB1431EA544700009DD99 /* Mac */,
@@ -665,7 +665,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DDB1AF1EA54F7E0009DD99 /* SqliteNormalizedCache.swift in Sources */,
+				54DDB1AF1EA54F7E0009DD99 /* SQLiteNormalizedCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,7 +673,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DDB1B01EA54F7F0009DD99 /* SqliteNormalizedCache.swift in Sources */,
+				54DDB1B01EA54F7F0009DD99 /* SQLiteNormalizedCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

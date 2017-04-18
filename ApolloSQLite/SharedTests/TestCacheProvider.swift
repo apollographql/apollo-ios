@@ -9,7 +9,7 @@ enum TestCacheProvider {
     if clearCache {
       try? FileManager.default.removeItem(at: sqliteFileURL)
     }
-    let cache = try! SqliteNormalizedCache(fileURL: sqliteFileURL)
+    let cache = try! SQLiteNormalizedCache(fileURL: sqliteFileURL)
     if let initialRecords = initialRecords {
       _ = cache.merge(records: initialRecords) // This is synchronous
     }

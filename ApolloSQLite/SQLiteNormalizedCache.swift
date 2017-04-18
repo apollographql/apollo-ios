@@ -1,13 +1,13 @@
 import Apollo
 import SQLite
 
-public enum SqliteNormalizedCacheError: Error {
+public enum SQLiteNormalizedCacheError: Error {
   case invalidRecordEncoding(record: String)
   case invalidRecordShape(object: Any)
   case invalidRecordValue(value: Any)
 }
 
-public final class SqliteNormalizedCache: NormalizedCache {
+public final class SQLiteNormalizedCache: NormalizedCache {
 
   public init(fileURL: URL) throws {
     db = try Connection(.uri(fileURL.absoluteString), readonly: false)
@@ -66,7 +66,7 @@ public final class SqliteNormalizedCache: NormalizedCache {
     let changedRecordKeys = changedFieldKeys.map { recordCacheKey(forFieldCacheKey: $0) }
     for recordKey in Set(changedRecordKeys) {
       if let recordFields = recordSet[recordKey]?.fields {
-        let recordData = try SqliteSerialization.serialize(fields: recordFields)
+        let recordData = try SQLiteSerialization.serialize(fields: recordFields)
         guard let recordString = String(data: recordData, encoding: .utf8) else {
           assertionFailure("Serialization should yield UTF-8 data")
           continue
@@ -86,17 +86,17 @@ public final class SqliteNormalizedCache: NormalizedCache {
     let record = row[self.record]
 
     guard let recordData = record.data(using: .utf8) else {
-      throw SqliteNormalizedCacheError.invalidRecordEncoding(record: record)
+      throw SQLiteNormalizedCacheError.invalidRecordEncoding(record: record)
     }
 
-    let recordJSON = try SqliteSerialization.deserialize(data: recordData)
+    let recordJSON = try SQLiteSerialization.deserialize(data: recordData)
     return Record(key: row[key], recordJSON)
   }
 }
 
 private let serializedReferenceKey = "reference"
 
-final class SqliteSerialization {
+final class SQLiteSerialization {
   static func serialize(fields: JSONObject) throws -> Data {
     var objectToSerialize = JSONObject()
     for (key, value) in fields {
@@ -108,7 +108,7 @@ final class SqliteSerialization {
   static func deserialize(data: Data) throws -> JSONObject {
     let object = try JSONSerializationFormat.deserialize(data: data)
     guard let jsonObject = object as? JSONObject else {
-      throw SqliteNormalizedCacheError.invalidRecordShape(object: object)
+      throw SQLiteNormalizedCacheError.invalidRecordShape(object: object)
     }
     var deserializedObject = JSONObject()
     for (key, value) in jsonObject {
@@ -121,7 +121,7 @@ final class SqliteSerialization {
     switch valueJSON {
     case let dictionary as JSONObject:
       guard let reference = dictionary[serializedReferenceKey] as? String else {
-        throw SqliteNormalizedCacheError.invalidRecordValue(value: valueJSON)
+        throw SQLiteNormalizedCacheError.invalidRecordValue(value: valueJSON)
       }
       return Reference(key: reference)
     case let array as NSArray:
