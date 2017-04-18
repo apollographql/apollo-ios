@@ -19,6 +19,8 @@ Pod::Spec.new do |s|
     ss.resource = 'scripts/check-and-run-apollo-codegen.sh'
   end
 
+  # Apollo provides exactly one persistent cache out-of-the-box, as a reasonable default choice for
+  # those who require cache persistence. Third-party caches may use different storage mechanisms.
   s.subspec 'SQLite' do |ss|
     ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.10'
