@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "54DDB1371EA543F80009DD99"
+               BlueprintIdentifier = "54DDB0BD1EA1523E0009DD99"
                BuildableName = "ApolloSQLite.framework"
-               BlueprintName = "ApolloSQLiteMac"
+               BlueprintName = "ApolloSQLite"
                ReferencedContainer = "container:ApolloSQLite.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "543806941EA56C2200F55B72"
+               BuildableName = "ApolloSQLiteTests.xctest"
+               BlueprintName = "ApolloSQLiteTests"
+               ReferencedContainer = "container:ApolloSQLite.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "54DDB0BD1EA1523E0009DD99"
+            BuildableName = "ApolloSQLite.framework"
+            BlueprintName = "ApolloSQLite"
+            ReferencedContainer = "container:ApolloSQLite.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "54DDB1371EA543F80009DD99"
+            BlueprintIdentifier = "54DDB0BD1EA1523E0009DD99"
             BuildableName = "ApolloSQLite.framework"
-            BlueprintName = "ApolloSQLiteMac"
+            BlueprintName = "ApolloSQLite"
             ReferencedContainer = "container:ApolloSQLite.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "54DDB1371EA543F80009DD99"
+            BlueprintIdentifier = "54DDB0BD1EA1523E0009DD99"
             BuildableName = "ApolloSQLite.framework"
-            BlueprintName = "ApolloSQLiteMac"
+            BlueprintName = "ApolloSQLite"
             ReferencedContainer = "container:ApolloSQLite.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
