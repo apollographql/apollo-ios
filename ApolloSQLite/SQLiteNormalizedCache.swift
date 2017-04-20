@@ -15,31 +15,19 @@ public final class SQLiteNormalizedCache: NormalizedCache {
   }
 
   public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise<Set<CacheKey>> { fulfill, reject in
-      do {
-        fulfill(try mergeRecords(records: records))
-      }
-      catch {
-        reject(error)
-      }
-    }
+    return Promise { try mergeRecords(records: records) }
   }
 
   public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
-    return Promise<[Record?]> { fulfill, reject in
-      do {
-        let records = try selectRecords(forKeys: keys)
-        let recordsOrNil: [Record?] = keys.map { key in
-          if let recordIndex = records.index(where: { $0.key == key }) {
-            return records[recordIndex]
-          }
-          return nil
+    return Promise {
+      let records = try selectRecords(forKeys: keys)
+      let recordsOrNil: [Record?] = keys.map { key in
+        if let recordIndex = records.index(where: { $0.key == key }) {
+          return records[recordIndex]
         }
-        fulfill(recordsOrNil)
+        return nil
       }
-      catch {
-        reject(error)
-      }
+      return recordsOrNil
     }
   }
 
