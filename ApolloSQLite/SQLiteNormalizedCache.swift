@@ -88,7 +88,7 @@ public final class SQLiteNormalizedCache: NormalizedCache {
   }
 }
 
-private let serializedReferenceKey = "reference"
+private let serializedReferenceKey = "$reference"
 
 final class SQLiteSerialization {
   static func serialize(fields: Record.Fields) throws -> Data {
