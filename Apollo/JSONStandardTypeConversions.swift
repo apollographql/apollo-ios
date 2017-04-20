@@ -117,14 +117,13 @@ extension Dictionary: JSONEncodable {
   public var jsonObject: JSONObject {
     var jsonObject = JSONObject(minimumCapacity: count)
     for (key, value) in self {
+      print("key: \(key), \(type(of: key))")
+      print("value: \(value), \(type(of: value))")
       if case let (key as String, value as JSONEncodable) = (key, value) {
         if !isNil(value) {
           jsonObject[key] = value.jsonValue
         }
-      }
-      else {
-        print("key: \(type(of: key))")
-        print("value: \(type(of: value))")
+      } else {
         fatalError("Dictionary is only JSONEncodable if Value is (and if Key is String)")
       }
     }

@@ -4,14 +4,17 @@ public typealias CacheKey = String
 /// A cache record.
 public struct Record {
   public let key: CacheKey
-  public private(set) var fields: JSONObject
   
-  public init(key: CacheKey, _ fields: JSONObject = [:]) {
+  public typealias Value = Any
+  public typealias Fields = [CacheKey: Value]
+  public private(set) var fields: Fields
+  
+  public init(key: CacheKey, _ fields: Fields = [:]) {
     self.key = key
     self.fields = fields
   }
   
-  public subscript(key: CacheKey) -> JSONValue? {
+  public subscript(key: CacheKey) -> Value? {
     get {
       return fields[key]
     }

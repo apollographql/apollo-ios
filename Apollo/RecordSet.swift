@@ -59,7 +59,7 @@ public struct RecordSet {
 }
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
-  public init(dictionaryLiteral elements: (CacheKey, JSONObject)...) {
+  public init(dictionaryLiteral elements: (CacheKey, Record.Fields)...) {
     self.init(records: elements.map { Record(key: $0.0, $0.1) })
   }
 }

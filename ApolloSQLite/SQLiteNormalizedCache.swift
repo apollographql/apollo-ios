@@ -83,60 +83,56 @@ public final class SQLiteNormalizedCache: NormalizedCache {
       throw SQLiteNormalizedCacheError.invalidRecordEncoding(record: record)
     }
 
-    let recordJSON = try SQLiteSerialization.deserialize(data: recordData)
-    return Record(key: row[key], recordJSON)
+    let fields = try SQLiteSerialization.deserialize(data: recordData)
+    return Record(key: row[key], fields)
   }
 }
 
 private let serializedReferenceKey = "reference"
 
 final class SQLiteSerialization {
-  static func serialize(fields: JSONObject) throws -> Data {
+  static func serialize(fields: Record.Fields) throws -> Data {
     var objectToSerialize = JSONObject()
     for (key, value) in fields {
       objectToSerialize[key] = try serialize(value: value)
     }
-    return try JSONSerializationFormat.serialize(value: objectToSerialize)
+    return try JSONSerialization.data(withJSONObject: objectToSerialize, options: [])
   }
-
-  static func deserialize(data: Data) throws -> JSONObject {
-    let object = try JSONSerializationFormat.deserialize(data: data)
-    guard let jsonObject = object as? JSONObject else {
-      throw SQLiteNormalizedCacheError.invalidRecordShape(object: object)
-    }
-    var deserializedObject = JSONObject()
-    for (key, value) in jsonObject {
-      deserializedObject[key] = try deserialize(valueJSON: value)
-    }
-    return deserializedObject
-  }
-
-  private static func deserialize(valueJSON: Any) throws -> Any {
-    switch valueJSON {
-    case let dictionary as JSONObject:
-      guard let reference = dictionary[serializedReferenceKey] as? String else {
-        throw SQLiteNormalizedCacheError.invalidRecordValue(value: valueJSON)
-      }
-      return Reference(key: reference)
-    case let array as NSArray:
-      return try array.map { try deserialize(valueJSON: $0) }
-    default:
-      return valueJSON
-    }
-  }
-
-  private static func serialize(value: Any) throws -> Any {
+  
+  private static func serialize(value: Record.Value) throws -> JSONValue {
     switch value {
     case let reference as Reference:
       return [serializedReferenceKey: reference.key]
-    case let array as NSArray:
+    case let array as [Record.Value]:
       return try array.map { try serialize(value: $0) }
-    case let string as NSString:
-      return string as String
-    case let number as NSNumber:
-      return number.doubleValue
     default:
       return value
+    }
+  }
+
+  static func deserialize(data: Data) throws -> Record.Fields {
+    let object = try JSONSerialization.jsonObject(with: data, options: [])
+    guard let jsonObject = object as? JSONObject else {
+      throw SQLiteNormalizedCacheError.invalidRecordShape(object: object)
+    }
+    var fields = Record.Fields()
+    for (key, value) in jsonObject {
+      fields[key] = try deserialize(jsonValue: value)
+    }
+    return fields
+  }
+
+  private static func deserialize(jsonValue: JSONValue) throws -> Record.Value {
+    switch jsonValue {
+    case let dictionary as JSONObject:
+      guard let reference = dictionary[serializedReferenceKey] as? String else {
+        throw SQLiteNormalizedCacheError.invalidRecordValue(value: jsonValue)
+      }
+      return Reference(key: reference)
+    case let array as [JSONValue]:
+      return try array.map { try deserialize(jsonValue: $0) }
+    default:
+      return jsonValue
     }
   }
 }
