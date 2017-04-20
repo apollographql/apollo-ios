@@ -90,23 +90,23 @@ public final class SQLiteNormalizedCache: NormalizedCache {
 
 private let serializedReferenceKey = "$reference"
 
-final class SQLiteSerialization {
+private final class SQLiteSerialization {
   static func serialize(fields: Record.Fields) throws -> Data {
     var objectToSerialize = JSONObject()
     for (key, value) in fields {
-      objectToSerialize[key] = try serialize(value: value)
+      objectToSerialize[key] = try serialize(fieldValue: value)
     }
     return try JSONSerialization.data(withJSONObject: objectToSerialize, options: [])
   }
   
-  private static func serialize(value: Record.Value) throws -> JSONValue {
-    switch value {
+  private static func serialize(fieldValue: Record.Value) throws -> JSONValue {
+    switch fieldValue {
     case let reference as Reference:
       return [serializedReferenceKey: reference.key]
     case let array as [Record.Value]:
-      return try array.map { try serialize(value: $0) }
+      return try array.map { try serialize(fieldValue: $0) }
     default:
-      return value
+      return fieldValue
     }
   }
 
@@ -117,22 +117,22 @@ final class SQLiteSerialization {
     }
     var fields = Record.Fields()
     for (key, value) in jsonObject {
-      fields[key] = try deserialize(jsonValue: value)
+      fields[key] = try deserialize(fieldJSONValue: value)
     }
     return fields
   }
 
-  private static func deserialize(jsonValue: JSONValue) throws -> Record.Value {
-    switch jsonValue {
+  private static func deserialize(fieldJSONValue: JSONValue) throws -> Record.Value {
+    switch fieldJSONValue {
     case let dictionary as JSONObject:
       guard let reference = dictionary[serializedReferenceKey] as? String else {
-        throw SQLiteNormalizedCacheError.invalidRecordValue(value: jsonValue)
+        throw SQLiteNormalizedCacheError.invalidRecordValue(value: fieldJSONValue)
       }
       return Reference(key: reference)
     case let array as [JSONValue]:
-      return try array.map { try deserialize(jsonValue: $0) }
+      return try array.map { try deserialize(fieldJSONValue: $0) }
     default:
-      return jsonValue
+      return fieldJSONValue
     }
   }
 }
