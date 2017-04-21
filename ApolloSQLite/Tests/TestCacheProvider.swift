@@ -5,24 +5,23 @@ enum TestCacheProvider {
 
   /// Execute a test block rather than return a cache synchronously, since cache setup may be
   /// asynchronous at some point.
-  static func withCache(initialRecords: RecordSet? = nil, clearCache: Bool = true, execute test: (NormalizedCache) -> ()) {
-    if clearCache {
-      try? FileManager.default.removeItem(at: sqliteFileURL)
-    }
-    let cache = try! SQLiteNormalizedCache(fileURL: sqliteFileURL)
+  static func withCache(initialRecords: RecordSet? = nil, fileURL: URL? = nil, execute test: (NormalizedCache) -> ()) {
+    let fileURL = fileURL ?? temporarySQLiteFileURL()
+    let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
     if let initialRecords = initialRecords {
       _ = cache.merge(records: initialRecords) // This is synchronous
     }
     test(cache)
   }
 
-  private static var sqliteFileURL: URL {
-    #if os(OSX)
-      let directoryPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
-    #else
-      let directoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-    #endif
-    let directoryURL = URL(fileURLWithPath: directoryPath)
-    return directoryURL.appendingPathComponent("db.sqlite3")
+  static func temporarySQLiteFileURL() -> URL {
+    let applicationSupportPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
+    let applicationSupportURL = URL(fileURLWithPath: applicationSupportPath)
+    let temporaryDirectoryURL = try! FileManager.default.url(
+      for: .itemReplacementDirectory,
+      in: .userDomainMask,
+      appropriateFor: applicationSupportURL,
+      create: true)
+    return temporaryDirectoryURL.appendingPathComponent("db.sqlite3")
   }
 }

@@ -6,8 +6,9 @@ class CachePersistenceTests: XCTestCase {
 
   func testFetchAndPersist() {
     let query = HeroNameQuery()
+    let sqliteFileURL = TestCacheProvider.temporarySQLiteFileURL()
 
-    TestCacheProvider.withCache { (cache) in
+    TestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
       let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
@@ -29,7 +30,7 @@ class CachePersistenceTests: XCTestCase {
 
         // Do another fetch from cache to ensure that data is cached before creating new cache
         client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
-          TestCacheProvider.withCache(clearCache: false) { (cache) in
+          TestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
             let newStore = ApolloStore(cache: cache)
             let newClient = ApolloClient(networkTransport: networkTransport, store: newStore)
             newClient.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
