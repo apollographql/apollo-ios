@@ -17,8 +17,12 @@ enum TestCacheProvider {
   }
 
   private static var sqliteFileURL: URL {
-    let appSupportPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
-    let appSupportURL = URL(fileURLWithPath: appSupportPath)
-    return appSupportURL.appendingPathComponent("db.sqlite3")
+    #if os(OSX)
+      let directoryPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
+    #else
+      let directoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+    #endif
+    let directoryURL = URL(fileURLWithPath: directoryPath)
+    return directoryURL.appendingPathComponent("db.sqlite3")
   }
 }
