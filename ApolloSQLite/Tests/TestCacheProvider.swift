@@ -19,17 +19,6 @@ enum TestCacheProvider {
   private static var sqliteFileURL: URL {
     let appSupportPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
     let appSupportURL = URL(fileURLWithPath: appSupportPath)
-    let directoryURL: URL
-    if let bundleIdentifier = Bundle.main.bundleIdentifier {
-      directoryURL = appSupportURL.appendingPathComponent(bundleIdentifier)
-    }
-    else {
-      directoryURL = appSupportURL
-    }
-    try! FileManager.default.createDirectory(
-      atPath: directoryURL.path,
-      withIntermediateDirectories: true,
-      attributes: nil)
-    return directoryURL.appendingPathComponent("db.sqlite3")
+    return appSupportURL.appendingPathComponent("db.sqlite3")
   }
 }
