@@ -707,6 +707,7 @@
 				5438069F1EA56C2200F55B72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		54DDB0B81EA1523E0009DD99 /* Build configuration list for PBXProject "ApolloSQLite" */ = {
 			isa = XCConfigurationList;
