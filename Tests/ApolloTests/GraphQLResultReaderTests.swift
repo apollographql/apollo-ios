@@ -35,7 +35,8 @@ class GraphQLResultReaderTests: XCTestCase {
       ("testGetOptionalListWithWrongType", testGetOptionalListWithWrongType),
       ("testGetOptionalListWithMissingKey", testGetOptionalListWithMissingKey),
       ("testGetListWithOptionalElements", testGetListWithOptionalElements),
-      ("testGetOptionalListWithOptionalElements", testGetOptionalListWithOptionalElements)
+      ("testGetOptionalListWithOptionalElements", testGetOptionalListWithOptionalElements),
+      ("testGetValueWithMissingEnumCase", testGetValueWithMissingEnumCase)
     ]
   }
   
@@ -219,5 +220,18 @@ class GraphQLResultReaderTests: XCTestCase {
     let reader = read(from: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let value: [Episode?]? = try reader.optionalList(for: Field(responseName: "appearsIn"))
     XCTAssertEqual(value, [.newhope, .empire, .jedi] as [Episode?])
+  }
+    
+  func testGetValueWithMissingEnumCase() throws {
+    let reader = read(from: ["episode": "NOT AN EPISODE"])
+    
+    XCTAssertThrowsError(try with(returnType: Episode.self, reader.value(for: Field(responseName: "episode")))) { (error) in
+      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
+        XCTAssertEqual(value as? String , "NOT AN EPISODE")
+        XCTAssert(expectedType == Episode.self)
+      } else {
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
   }
 }
