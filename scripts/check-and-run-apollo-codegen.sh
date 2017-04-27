@@ -1,15 +1,13 @@
 # Only major and minor version should be specified here
 REQUIRED_APOLLO_CODEGEN_VERSION=0.11
 
-REQUIRED_APOLLO_CODEGEN_SEMVER="$REQUIRED_APOLLO_CODEGEN_VERSION.x"
-
 # Part of this code has been adapted from https://github.com/facebook/react-native/blob/master/packager/react-native-xcode.sh
 
 # This script is supposed to be invoked as part of the Xcode build process
 # and relies on environment variables set by Xcode
 
 install_apollo_codegen() {
-  npm install -g apollo-codegen@"$REQUIRED_APOLLO_CODEGEN_SEMVER"
+  npm install -g apollo-codegen@$REQUIRED_APOLLO_CODEGEN_VERSION
 }
 
 # We consider versions to be compatible if the major and minor versions match
@@ -53,7 +51,7 @@ fi
 INSTALLED_APOLLO_CODEGEN_VERSION="$(get_installed_version)"
 
 if ! are_versions_compatible $INSTALLED_APOLLO_CODEGEN_VERSION $REQUIRED_APOLLO_CODEGEN_VERSION; then
-  echo "The version of Apollo.framework in your project requires apollo-codegen $REQUIRED_APOLLO_CODEGEN_SEMVER, \
+  echo "The version of Apollo.framework in your project requires apollo-codegen $REQUIRED_APOLLO_CODEGEN_VERSION, \
 but $INSTALLED_APOLLO_CODEGEN_VERSION seems to be installed. Installing..."
   install_apollo_codegen
 fi
