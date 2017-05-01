@@ -2,7 +2,7 @@
 title: Introduction
 ---
 
-[Apollo iOS](https://github.com/apollostack/apollo-ios) is a strongly-typed, caching GraphQL client for iOS, written in Swift.
+[Apollo iOS](https://github.com/apollographql/apollo-ios) is a strongly-typed, caching GraphQL client for native iOS apps, written in Swift.
 
 It allows you to execute queries and mutations against a GraphQL server, and returns results as query-specific Swift types. This means you don’t have to deal with parsing JSON, or passing around dictionaries and making clients cast values to the right type manually. You also don't have to write model types yourself, because these are generated from the GraphQL definitions your UI uses.
 
@@ -16,22 +16,21 @@ This combination of immutable models, one way data flow, and automatic consisten
 
 <h2 id="getting-started">Getting Started</h2>
 
-[Front Page](https://github.com/apollostack/frontpage-ios-app) is the iOS version of the simple "Hello World" app that lives on our [developer site](http://dev.apollodata.com).
+[Front Page](https://github.com/apollographql/frontpage-ios-app) is the iOS version of the simple "Hello World" app that lives on our [developer site](http://dev.apollodata.com).
 
-[Apollo iOS Quickstart](https://github.com/apollostack/apollo-ios-quickstart) is a collection of sample Xcode projects that make it easy to get started with Apollo iOS.
+[Apollo iOS Quickstart](https://github.com/apollographql/apollo-ios-quickstart) is a collection of sample Xcode projects that make it easy to get started with Apollo iOS.
 
-<h2 id="learn-more">Learn more</h2>
+If you have questions or would like to contribute, please join the `#ios` channel on [Slack](http://www.apollodata.com/#slack).
 
-To learn more about Apollo and GraphQL, visit:
+[Apollo Android](https://github.com/apollographql/apollo-android) is a GraphQL client for native Android apps, written in Java.
 
-- [GraphQL.org](http://graphql.org) for an introduction to GraphQL,
-- [Our website](http://www.apollostack.com/) to learn about Apollo open source tools,
-- [Our Medium blog](https://medium.com/apollo-stack) for detailed insights about GraphQL.
+Apollo Client for JavaScript's [React integration](/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android.
 
-Apollo iOS is under active development, and there is plenty to work on, but we want to ensure we’re addressing real needs and prioritize features accordingly. If you’re using or planning to use GraphQL in an iOS app, please get in touch in the `#ios` channel on our [Slack](http://apollostack.com/#slack).
+We're excited about the prospects of further [unifying the clients for JavaScript, iOS and Android](https://dev-blog.apollodata.com/one-graphql-client-for-javascript-ios-and-android-64993c1b7991), including sharing a cache between native and React Native.
 
-The Apollo team builds and maintains a collection of utilities designed to make it easier to use [GraphQL](http://graphql.org) across a range of front-end and server technologies. There are similar guides for [React](/react), [Angular 2](/angular2), and the [core](/core) `apollo-client` JavaScript package that can be used anywhere JavaScript runs.
+<h2 id="learn-more">Other resources</h2>
 
-We’ve chosen to start with a native client for iOS, but we’re excited about bringing Apollo to more platforms in the future. There has been some interest from the community in helping to bring Apollo Android to life faster, so if you’d like to contribute to that effort, please let us know on the `#android` channel on [Slack](http://apollostack.com/#slack).
-
-Although this guide focuses on the integration with native iOS apps, the [React integration](/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android without changes.
+- [GraphQL.org](http://graphql.org) for an introduction and reference to the GraphQL itself, partially written and maintained by the Apollo team.
+- [Our website](http://www.apollodata.com/) to learn about Apollo open source and commercial tools.
+- [Our blog](https://dev-blog.apollodata.com) for long-form articles about GraphQL, feature announcements for Apollo, and guest articles from the community.
+- [Our Twitter](https://twitter.com/apollographql) for in-the-moment news.
