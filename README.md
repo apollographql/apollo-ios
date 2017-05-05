@@ -37,7 +37,7 @@ pod 'Apollo/Core'
 Include the following in your `Cartfile`:
 
 ```
-github "https://github.com/apollographql/apollo-ios.git"
+github "apollographql/apollo-ios"
 ```
 
 This will come with both an in-memory cache and a SQLite-based persistent cache. If you only need the in-memory cache, only drag `Apollo` into your project, avoiding `ApolloSQLite` and `SQLite.swift`.
