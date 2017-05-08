@@ -87,6 +87,13 @@
 			remoteGlobalIDString = 9FCE2CF91E6C213D00E34457;
 			remoteInfo = StarWarsAPI;
 		};
+		9FA5FBB51EC05CE900304A9D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC750431D2A532C00458D91;
+			remoteInfo = Apollo;
+		};
 		9FC631391E6AE2080062707E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -592,6 +599,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9FA5FBB61EC05CE900304A9D /* PBXTargetDependency */,
 			);
 			name = StarWarsAPI;
 			productName = StarWarsAPI;
@@ -839,6 +847,11 @@
 			isa = PBXTargetDependency;
 			target = 9FCE2CF91E6C213D00E34457 /* StarWarsAPI */;
 			targetProxy = 9F438D091E6C30C3007BDC1A /* PBXContainerItemProxy */;
+		};
+		9FA5FBB61EC05CE900304A9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FC750431D2A532C00458D91 /* Apollo */;
+			targetProxy = 9FA5FBB51EC05CE900304A9D /* PBXContainerItemProxy */;
 		};
 		9FC6313A1E6AE2080062707E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
