@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
     ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.10'
     ss.tvos.deployment_target = '9.0'
-    ss.source_files = 'Apollo/*.swift'
+    ss.source_files = 'Sources/Apollo/*.swift'
     ss.resource = 'scripts/check-and-run-apollo-codegen.sh'
   end
 
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.ios.deployment_target = '8.0'
     ss.osx.deployment_target = '10.10'
-    ss.source_files = "ApolloSQLite/*.swift"
+    ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'SQLite.swift', '0.11.2' # 0.11.3 doesn't support iOS < 9
   end
 end

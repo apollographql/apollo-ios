@@ -29,6 +29,7 @@ public struct ColorInput: GraphQLMapConvertible {
   }
 }
 
+
 public final class CreateReviewForEpisodeMutation: GraphQLMutation {
   public static let operationString =
     "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {" +
@@ -80,6 +81,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
   }
 }
 
+
 public final class CreateAwesomeReviewMutation: GraphQLMutation {
   public static let operationString =
     "mutation CreateAwesomeReview {" +
@@ -121,6 +123,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
     }
   }
 }
+
 
 public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   public static let operationString =
@@ -186,6 +189,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
   public static let operationString =
@@ -260,6 +264,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
   public static let operationString =
     "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {" +
@@ -328,6 +333,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
   public static let operationString =
@@ -406,6 +412,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroAppearsInQuery: GraphQLQuery {
   public static let operationString =
     "query HeroAppearsIn {" +
@@ -443,6 +450,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class HeroDetailsQuery: GraphQLQuery {
   public static let operationString =
@@ -543,6 +551,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
   public static let operationString =
     "query HeroDetailsWithFragment($episode: Episode) {" +
@@ -596,6 +605,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroNameQuery: GraphQLQuery {
   public static let operationString =
     "query HeroName($episode: Episode) {" +
@@ -640,6 +650,7 @@ public final class HeroNameQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class HeroNameWithIdQuery: GraphQLQuery {
   public static let operationString =
@@ -690,6 +701,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public static let operationString =
     "query HeroNameConditionalInclusion($episode: Episode, $includeName: Boolean!) {" +
@@ -737,6 +749,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
   public static let operationString =
     "query HeroNameConditionalExclusion($episode: Episode, $skipName: Boolean!) {" +
@@ -783,6 +796,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let operationString =
@@ -969,6 +983,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   }
 }
 
+
 public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   public static let operationString =
     "query HeroTypeDependentAliasedField($episode: Episode) {" +
@@ -1058,6 +1073,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   }
 }
 
+
 public final class HumanWithNullMassQuery: GraphQLQuery {
   public static let operationString =
     "query HumanWithNullMass {" +
@@ -1099,6 +1115,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class SameHeroTwiceQuery: GraphQLQuery {
   public static let operationString =
@@ -1158,6 +1175,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
   }
 }
 
+
 public final class StarshipQuery: GraphQLQuery {
   public static let operationString =
     "query Starship {" +
@@ -1199,6 +1217,7 @@ public final class StarshipQuery: GraphQLQuery {
     }
   }
 }
+
 
 public final class TwoHeroesQuery: GraphQLQuery {
   public static let operationString =
