@@ -8,10 +8,10 @@ matrix:
     xcode_scheme: Apollo
     xcode_sdk: iphonesimulator10.3
     env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
-  # - xcode_project: Apollo.xcodeproj
-  #   xcode_scheme: Apollo
-  #   xcode_sdk: iphonesimulator10.3
-  #   env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
+  - xcode_project: Apollo.xcodeproj
+    xcode_scheme: Apollo
+    xcode_sdk: iphonesimulator10.3
+    env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
     xcode_sdk: macosx10.12
@@ -24,10 +24,10 @@ matrix:
     xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator10.3
     env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
-  # - xcode_project: ApolloSQLite.xcodeproj
-  #   xcode_scheme: ApolloSQLite
-  #   xcode_sdk: iphonesimulator10.3
-  #   env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
+  - xcode_project: ApolloSQLite.xcodeproj
+    xcode_scheme: ApolloSQLite
+    xcode_sdk: iphonesimulator10.3
+    env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
     xcode_sdk: macosx10.12
