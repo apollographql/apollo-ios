@@ -2,15 +2,15 @@ import XCTest
 @testable import Apollo
 
 public protocol TestCacheProvider: class {
-  static func withCache(initialRecords: RecordSet?, execute test: (NormalizedCache) -> ())
+  static func withCache(initialRecords: RecordSet?, execute test: (NormalizedCache) throws -> ()) rethrows
 }
 
 public class InMemoryTestCacheProvider: TestCacheProvider {
   /// Execute a test block rather than return a cache synchronously, since cache setup may be
   /// asynchronous at some point.
-  public static func withCache(initialRecords: RecordSet? = nil, execute test: (NormalizedCache) -> ()) {
+  public static func withCache(initialRecords: RecordSet? = nil, execute test: (NormalizedCache) throws -> ()) rethrows {
     let cache = InMemoryNormalizedCache(records: initialRecords ?? [:])
-    test(cache)
+    try test(cache)
   }
 }
 
@@ -47,7 +47,7 @@ extension XCTestCase {
     return cacheProviderClass
   }
   
-  public func withCache(initialRecords: RecordSet? = nil, execute test: (NormalizedCache) -> ()) {
-    return type(of: self).cacheProviderClass.withCache(initialRecords: initialRecords, execute: test)
+  public func withCache(initialRecords: RecordSet? = nil, execute test: (NormalizedCache) throws -> ()) rethrows {
+    return try type(of: self).cacheProviderClass.withCache(initialRecords: initialRecords, execute: test)
   }
 }
