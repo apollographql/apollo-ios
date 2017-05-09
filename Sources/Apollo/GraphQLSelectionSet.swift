@@ -1,3 +1,12 @@
+public typealias Snapshot = [String: Any?]
+
+public protocol GraphQLSelectionSet {
+  static var selections: [Selection] { get }
+  
+  var snapshot: Snapshot { get }
+  init(snapshot: Snapshot)
+}
+
 public protocol Selection {
 }
 
@@ -11,16 +20,14 @@ public struct Field: Selection {
   }
   
   let type: GraphQLOutputType
-  let selectionSet: [Selection]?
   
-  public init(_ name: String, alias: String? = nil, arguments: [String: GraphQLInputValue]? = nil, type: GraphQLOutputType, selectionSet: [Selection]? = nil) {
+  public init(_ name: String, alias: String? = nil, arguments: [String: GraphQLInputValue]? = nil, type: GraphQLOutputType) {
     self.name = name
     self.alias = alias
     
     self.arguments = arguments
     
     self.type = type
-    self.selectionSet = selectionSet
   }
   
   func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {

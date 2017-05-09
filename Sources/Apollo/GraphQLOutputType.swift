@@ -1,6 +1,6 @@
 public indirect enum GraphQLOutputType {
   case scalar(JSONDecodable.Type)
-  case object(GraphQLMappable.Type)
+  case object(GraphQLSelectionSet.Type)
   case nonNull(GraphQLOutputType)
   case list(GraphQLOutputType)
   
@@ -10,17 +10,6 @@ public indirect enum GraphQLOutputType {
       return innerType.namedType
     case .scalar, .object:
       return self
-    }
-  }
-  
-  var actualType: Any.Type {
-    switch namedType {
-    case .scalar(let decodable):
-      return decodable
-    case .object(let mappable):
-      return mappable
-    default:
-      preconditionFailure()
     }
   }
 }

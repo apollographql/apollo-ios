@@ -2,11 +2,9 @@ public protocol GraphQLOperation: class {
   static var operationString: String { get }
   static var requestString: String { get }
   
-  static var selectionSet: [Selection] { get }
-  
   var variables: GraphQLMap? { get }
   
-  associatedtype Data: GraphQLMappable
+  associatedtype Data: GraphQLSelectionSet
 }
 
 public extension GraphQLOperation {
@@ -23,7 +21,6 @@ public protocol GraphQLQuery: GraphQLOperation {}
 
 public protocol GraphQLMutation: GraphQLOperation {}
 
-public protocol GraphQLFragment: GraphQLMappable {
+public protocol GraphQLFragment: GraphQLSelectionSet {
   static var possibleTypes: [String] { get }
-  static var selectionSet: [Selection] { get }
 }
