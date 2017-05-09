@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class GraphQLInputValueEncodingTests: XCTestCase {

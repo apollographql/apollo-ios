@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class WatchQueryTests: XCTestCase {
@@ -15,7 +16,7 @@ class WatchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -77,7 +78,7 @@ class WatchQueryTests: XCTestCase {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -147,7 +148,7 @@ class WatchQueryTests: XCTestCase {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -204,7 +205,7 @@ class WatchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [

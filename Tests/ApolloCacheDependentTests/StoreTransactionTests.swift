@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class StoreTransactionTests: XCTestCase {
@@ -10,7 +11,7 @@ class StoreTransactionTests: XCTestCase {
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let query = HeroNameQuery()
@@ -29,7 +30,7 @@ class StoreTransactionTests: XCTestCase {
       "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let query = HeroNameQuery()
@@ -64,7 +65,7 @@ class StoreTransactionTests: XCTestCase {
       "1003": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let query = HeroAndFriendsNamesQuery()
@@ -104,7 +105,7 @@ class StoreTransactionTests: XCTestCase {
       "1003": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let query = HeroAndFriendsNamesQuery()
@@ -141,7 +142,7 @@ class StoreTransactionTests: XCTestCase {
       "1003": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       try! await(store.withinReadTransaction { transaction in
@@ -176,7 +177,7 @@ class StoreTransactionTests: XCTestCase {
       "1003": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       try! await(store.withinReadWriteTransaction { transaction in

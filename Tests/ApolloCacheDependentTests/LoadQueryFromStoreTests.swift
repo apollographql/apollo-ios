@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class LoadQueryFromStoreTests: XCTestCase {
@@ -11,7 +12,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroNameQuery()
@@ -30,7 +31,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroNameQuery(episode: .jedi)
@@ -49,7 +50,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "hero": ["__typename": "Droid"]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroNameQuery()
@@ -73,7 +74,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "hero": ["__typename": "Droid", "name": NSNull()]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroNameQuery()
@@ -108,7 +109,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "hero(episode:JEDI).friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroAndFriendsNamesQuery(episode: .jedi)
@@ -142,7 +143,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "1003": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroAndFriendsNamesQuery()
@@ -169,7 +170,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroAndFriendsNamesQuery()
@@ -191,7 +192,7 @@ class LoadQueryFromStoreTests: XCTestCase {
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
       let query = HeroAndFriendsNamesQuery()

@@ -1,20 +1,6 @@
 import XCTest
 @testable import Apollo
 
-extension XCTestCase {
-  func await<T>(_ promise: Promise<T>) throws -> T {
-    let expectation = self.expectation(description: "Expected promise to be resolved")
-    
-    promise.finally {
-      expectation.fulfill()
-    }
-    
-    waitForExpectations(timeout: 1.0)
-    
-    return try promise.result!.valueOrError()
-  }
-}
-
 public func XCTAssertEqual<T: Equatable>(_ expression1: @autoclosure () throws -> [T?]?, _ expression2: @autoclosure () throws -> [T?]?, file: StaticString = #file, line: UInt = #line) rethrows {
   let optionalValue1 = try expression1()
   let optionalValue2 = try expression2()

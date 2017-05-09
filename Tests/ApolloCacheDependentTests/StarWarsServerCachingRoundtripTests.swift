@@ -1,9 +1,9 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class StarWarsServerCachingRoundtripTests: XCTestCase {
-
   func testHeroAndFriendsNamesQuery() {
     let query = HeroAndFriendsNamesQuery()
     
@@ -35,8 +35,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
   }
   
   private func fetchAndLoadFromStore<Query: GraphQLQuery>(query: Query, setupClient: ((ApolloClient) -> Void)? = nil, completionHandler: @escaping (_ data: Query.Data) -> Void) {
-
-    TestCacheProvider.withCache { (cache) in
+    withCache { (cache) in
       let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)

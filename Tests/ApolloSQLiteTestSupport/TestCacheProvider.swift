@@ -1,11 +1,15 @@
 import Apollo
+import ApolloTestSupport
 import ApolloSQLite
 
-enum TestCacheProvider {
-
+public class SQLiteTestCacheProvider: TestCacheProvider {
+  public static func withCache(initialRecords: RecordSet? = nil, execute test: (NormalizedCache) -> ()) {
+    return withCache(initialRecords: initialRecords, fileURL: nil, execute: test)
+  }
+  
   /// Execute a test block rather than return a cache synchronously, since cache setup may be
   /// asynchronous at some point.
-  static func withCache(initialRecords: RecordSet? = nil, fileURL: URL? = nil, execute test: (NormalizedCache) -> ()) {
+  public static func withCache(initialRecords: RecordSet? = nil, fileURL: URL? = nil, execute test: (NormalizedCache) -> ()) {
     let fileURL = fileURL ?? temporarySQLiteFileURL()
     let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
     if let initialRecords = initialRecords {
@@ -14,7 +18,7 @@ enum TestCacheProvider {
     test(cache)
   }
 
-  static func temporarySQLiteFileURL() -> URL {
+  public static func temporarySQLiteFileURL() -> URL {
     let applicationSupportPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
     let applicationSupportURL = URL(fileURLWithPath: applicationSupportPath)
     let temporaryDirectoryURL = try! FileManager.default.url(

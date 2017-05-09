@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class FetchQueryTests: XCTestCase {
@@ -14,7 +15,7 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
       let store = ApolloStore(cache: cache)
 
       let networkTransport = MockNetworkTransport(body: [
@@ -53,7 +54,7 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let networkTransport = MockNetworkTransport(body: [
@@ -91,7 +92,7 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let networkTransport = MockNetworkTransport(body: [
@@ -130,7 +131,7 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let networkTransport = MockNetworkTransport(body: [
@@ -168,7 +169,7 @@ class FetchQueryTests: XCTestCase {
       ]
     ]
 
-    TestCacheProvider.withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let store = ApolloStore(cache: cache)
 
       let networkTransport = MockNetworkTransport(body: [
@@ -212,7 +213,7 @@ class FetchQueryTests: XCTestCase {
       ]
     ])
 
-    TestCacheProvider.withCache { (cache) in
+    withCache { (cache) in
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
