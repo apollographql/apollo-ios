@@ -141,6 +141,19 @@ public final class ApolloStore {
       self.cacheKeyForObject = cacheKeyForObject
     }
     
+    public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
+      return try readSelectionSet(ofType: Query.Data.self, withKey: rootKey(forOperation: query), variables: query.variables)
+    }
+    
+    public func readFragment<Fragment: GraphQLFragment>(ofType fragmentType: Fragment.Type, withKey key: CacheKey, variables: GraphQLMap? = nil) throws -> Fragment {
+      return try readSelectionSet(ofType: Fragment.self, withKey: key, variables: variables)
+    }
+    
+    func readSelectionSet<SelectionSet: GraphQLSelectionSet>(ofType selectionSetType: SelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws -> SelectionSet {
+      let mapper = GraphQLSelectionSetMapper<SelectionSet>()
+      return try execute(selections: selectionSetType.selections, onObjectWithKey: key, variables: variables, accumulator: mapper).await()
+    }
+    
     public func readObject<Query: GraphQLQuery>(forQuery query: Query) throws -> JSONObject {
       return try readObject(forSelectionSet: Query.Data.self, withKey: rootKey(forOperation: query), variables: query.variables)
     }
@@ -188,6 +201,19 @@ public final class ApolloStore {
   }
   
   public final class ReadWriteTransaction: ReadTransaction {
+    public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
+      return try write(selectionSet: data, withKey: rootKey(forOperation: query), variables: query.variables)
+    }
+    
+    public func write(fragment: GraphQLFragment, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
+      return try write(selectionSet: fragment, withKey: key, variables: variables)
+    }
+    
+    func write(selectionSet: GraphQLSelectionSet, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
+      let object = try selectionSet.jsonObject(variables: variables)
+      return try write(object: object, forSelectionSet: type(of: selectionSet), withKey: key, variables: variables)
+    }
+    
     public func write<Query: GraphQLQuery>(object: JSONObject, forQuery query: Query) throws {
       try write(object: object, forSelectionSet: Query.Data.self, withKey: rootKey(forOperation: query), variables: query.variables)
     }

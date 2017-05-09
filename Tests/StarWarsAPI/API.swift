@@ -1336,6 +1336,101 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
 }
 
 
+public final class HeroNameWithFragmentQuery: GraphQLQuery {
+  public static let operationString =
+    "query HeroNameWithFragment($episode: Episode) {" +
+    "  hero(episode: $episode) {" +
+    "    __typename" +
+    "    ...HeroName" +
+    "  }" +
+    "}"
+  public static var requestString: String { return operationString.appending(HeroName.fragmentString) }
+
+  public var episode: Episode?
+
+  public init(episode: Episode? = nil) {
+    self.episode = episode
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
+
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        FragmentSpread(HeroName.self),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String) {
+        self.snapshot = ["__typename": __typename]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot = newValue.snapshot
+        }
+      }
+
+      public struct Fragments {
+        public var snapshot: Snapshot
+
+        public var heroName: HeroName {
+          get {
+            return HeroName(snapshot: snapshot)
+          }
+          set {
+            snapshot = newValue.snapshot
+          }
+        }
+      }
+    }
+  }
+}
+
+
 public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public static let operationString =
     "query HeroNameConditionalInclusion($episode: Episode, $includeName: Boolean!) {" +
@@ -2748,6 +2843,49 @@ public struct HeroDetails: GraphQLFragment {
       set {
         snapshot["primaryFunction"] = newValue
       }
+    }
+  }
+}
+
+public struct HeroName: GraphQLFragment {
+  public static let fragmentString =
+    "fragment HeroName on Character {" +
+    "  __typename" +
+    "  name" +
+    "}"
+
+  public static let possibleTypes = ["Human", "Droid"]
+
+  public static let selections: [Selection] = [
+    Field("__typename", type: .nonNull(.scalar(String.self))),
+    Field("name", type: .nonNull(.scalar(String.self))),
+  ]
+
+  public var snapshot: Snapshot
+
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  public init(__typename: String, name: String) {
+    self.snapshot = ["__typename": __typename, "name": name]
+  }
+
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot["__typename"] = newValue
+    }
+  }
+
+  public var name: String {
+    get {
+      return snapshot["name"]! as! String
+    }
+    set {
+      snapshot["name"] = newValue
     }
   }
 }
