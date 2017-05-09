@@ -40,16 +40,8 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("createReview", arguments: ["episode": Variable("episode"), "review": Variable("review")], type: .object(Data.CreateReview.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("stars", type: .nonNull(.scalar(Int.self))),
-      Field("commentary", type: .scalar(String.self)),
-    ]),
-  ]
-
-  public let episode: Episode
-  public let review: ReviewInput
+  public var episode: Episode
+  public var review: ReviewInput
 
   public init(episode: Episode, review: ReviewInput) {
     self.episode = episode
@@ -60,22 +52,72 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
     return ["episode": episode, "review": review]
   }
 
-  public struct Data: GraphQLMappable {
-    public let createReview: CreateReview?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("createReview", arguments: ["episode": Variable("episode"), "review": Variable("review")], type: .object(Data.CreateReview.self)),
+    ]
 
-    public init(values: [Any?]) {
-      createReview = values[0] as! CreateReview?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct CreateReview: GraphQLMappable {
-      public let __typename: String
-      public let stars: Int
-      public let commentary: String?
+    public init(createReview: CreateReview? = nil) {
+      self.snapshot = ["createReview": createReview]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        stars = values[1] as! Int
-        commentary = values[2] as! String?
+    public var createReview: CreateReview? {
+      get {
+        return CreateReview(snapshot: snapshot["createReview"]! as! Snapshot)
+      }
+      set {
+        snapshot["createReview"] = newValue?.snapshot
+      }
+    }
+
+    public struct CreateReview: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("stars", type: .nonNull(.scalar(Int.self))),
+        Field("commentary", type: .scalar(String.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, stars: Int, commentary: String? = nil) {
+        self.snapshot = ["__typename": __typename, "stars": stars, "commentary": commentary]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var stars: Int {
+        get {
+          return snapshot["stars"]! as! Int
+        }
+        set {
+          snapshot["stars"] = newValue
+        }
+      }
+
+      public var commentary: String? {
+        get {
+          return snapshot["commentary"]! as! String?
+        }
+        set {
+          snapshot["commentary"] = newValue
+        }
       }
     }
   }
@@ -92,33 +134,75 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("createReview", arguments: ["episode": "JEDI", "review": ["stars": 10, "commentary": "This is awesome!"]], type: .object(Data.CreateReview.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("stars", type: .nonNull(.scalar(Int.self))),
-      Field("commentary", type: .scalar(String.self)),
-    ]),
-  ]
-
   public init() {
   }
 
-  public struct Data: GraphQLMappable {
-    public let createReview: CreateReview?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("createReview", arguments: ["episode": "JEDI", "review": ["stars": 10, "commentary": "This is awesome!"]], type: .object(Data.CreateReview.self)),
+    ]
 
-    public init(values: [Any?]) {
-      createReview = values[0] as! CreateReview?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct CreateReview: GraphQLMappable {
-      public let __typename: String
-      public let stars: Int
-      public let commentary: String?
+    public init(createReview: CreateReview? = nil) {
+      self.snapshot = ["createReview": createReview]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        stars = values[1] as! Int
-        commentary = values[2] as! String?
+    public var createReview: CreateReview? {
+      get {
+        return CreateReview(snapshot: snapshot["createReview"]! as! Snapshot)
+      }
+      set {
+        snapshot["createReview"] = newValue?.snapshot
+      }
+    }
+
+    public struct CreateReview: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("stars", type: .nonNull(.scalar(Int.self))),
+        Field("commentary", type: .scalar(String.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, stars: Int, commentary: String? = nil) {
+        self.snapshot = ["__typename": __typename, "stars": stars, "commentary": commentary]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var stars: Int {
+        get {
+          return snapshot["stars"]! as! Int
+        }
+        set {
+          snapshot["stars"] = newValue
+        }
+      }
+
+      public var commentary: String? {
+        get {
+          return snapshot["commentary"]! as! String?
+        }
+        set {
+          snapshot["commentary"] = newValue
+        }
       }
     }
   }
@@ -138,18 +222,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      Field("friends", type: .list(.object(Data.Hero.Friend.self)), selectionSet: [
-        Field("__typename", type: .nonNull(.scalar(String.self))),
-        Field("name", type: .nonNull(.scalar(String.self))),
-      ]),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -159,31 +232,106 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String
-      public let friends: [Friend?]?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
-        friends = values[2] as! [Friend?]?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        Field("friends", type: .list(.object(Hero.Friend.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
       }
 
-      public struct Friend: GraphQLMappable {
-        public let __typename: String
-        public let name: String
+      public init(__typename: String, name: String, friends: [Friend?]? = nil) {
+        self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+      }
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var friends: [Friend?]? {
+        get {
+          return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+        }
+        set {
+          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+        }
+      }
+
+      public struct Friend: GraphQLSelectionSet {
+        public static let selections: [Selection] = [
+          Field("__typename", type: .nonNull(.scalar(String.self))),
+          Field("name", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, name: String) {
+          self.snapshot = ["__typename": __typename, "name": name]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
         }
       }
     }
@@ -206,20 +354,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("id", type: .nonNull(.scalar(GraphQLID.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      Field("friends", type: .list(.object(Data.Hero.Friend.self)), selectionSet: [
-        Field("__typename", type: .nonNull(.scalar(String.self))),
-        Field("id", type: .nonNull(.scalar(GraphQLID.self))),
-        Field("name", type: .nonNull(.scalar(String.self))),
-      ]),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -229,35 +364,126 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let id: GraphQLID
-      public let name: String
-      public let friends: [Friend?]?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        id = values[1] as! GraphQLID
-        name = values[2] as! String
-        friends = values[3] as! [Friend?]?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("id", type: .nonNull(.scalar(GraphQLID.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        Field("friends", type: .list(.object(Hero.Friend.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
       }
 
-      public struct Friend: GraphQLMappable {
-        public let __typename: String
-        public let id: GraphQLID
-        public let name: String
+      public init(__typename: String, id: GraphQLID, name: String, friends: [Friend?]? = nil) {
+        self.snapshot = ["__typename": __typename, "id": id, "name": name, "friends": friends]
+      }
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          id = values[1] as! GraphQLID
-          name = values[2] as! String
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot["id"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var friends: [Friend?]? {
+        get {
+          return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+        }
+        set {
+          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+        }
+      }
+
+      public struct Friend: GraphQLSelectionSet {
+        public static let selections: [Selection] = [
+          Field("__typename", type: .nonNull(.scalar(String.self))),
+          Field("id", type: .nonNull(.scalar(GraphQLID.self))),
+          Field("name", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, id: GraphQLID, name: String) {
+          self.snapshot = ["__typename": __typename, "id": id, "name": name]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot["id"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
         }
       }
     }
@@ -279,19 +505,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("id", type: .nonNull(.scalar(GraphQLID.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      Field("friends", type: .list(.object(Data.Hero.Friend.self)), selectionSet: [
-        Field("__typename", type: .nonNull(.scalar(String.self))),
-        Field("name", type: .nonNull(.scalar(String.self))),
-      ]),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -301,33 +515,116 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let id: GraphQLID
-      public let name: String
-      public let friends: [Friend?]?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        id = values[1] as! GraphQLID
-        name = values[2] as! String
-        friends = values[3] as! [Friend?]?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("id", type: .nonNull(.scalar(GraphQLID.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        Field("friends", type: .list(.object(Hero.Friend.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
       }
 
-      public struct Friend: GraphQLMappable {
-        public let __typename: String
-        public let name: String
+      public init(__typename: String, id: GraphQLID, name: String, friends: [Friend?]? = nil) {
+        self.snapshot = ["__typename": __typename, "id": id, "name": name, "friends": friends]
+      }
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot["id"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var friends: [Friend?]? {
+        get {
+          return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+        }
+        set {
+          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+        }
+      }
+
+      public struct Friend: GraphQLSelectionSet {
+        public static let selections: [Selection] = [
+          Field("__typename", type: .nonNull(.scalar(String.self))),
+          Field("name", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, name: String) {
+          self.snapshot = ["__typename": __typename, "name": name]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
         }
       }
     }
@@ -350,19 +647,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     "}"
   public static var requestString: String { return operationString.appending(FriendsNames.fragmentString) }
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      Field("friends", type: .list(.object(Data.Hero.Friend.self)), selectionSet: [
-        Field("__typename", type: .nonNull(.scalar(String.self))),
-        Field("name", type: .nonNull(.scalar(String.self))),
-      ]),
-      FragmentSpread(FriendsNames.self),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -372,40 +657,129 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String
-      public let friends: [Friend?]?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public let fragments: Fragments
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
-        friends = values[2] as! [Friend?]?
-        let friendsNames = values[3] as! FriendsNames
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        Field("friends", type: .list(.object(Hero.Friend.self))),
+        FragmentSpread(FriendsNames.self),
+      ]
 
-        fragments = Fragments(friendsNames: friendsNames)
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String, friends: [Friend?]? = nil) {
+        self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var friends: [Friend?]? {
+        get {
+          return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+        }
+        set {
+          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+        }
+      }
+
+      public var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot = newValue.snapshot
+        }
       }
 
       public struct Fragments {
-        public let friendsNames: FriendsNames
+        public var snapshot: Snapshot
+
+        public var friendsNames: FriendsNames {
+          get {
+            return FriendsNames(snapshot: snapshot)
+          }
+          set {
+            snapshot = newValue.snapshot
+          }
+        }
       }
 
-      public struct Friend: GraphQLMappable {
-        public let __typename: String
-        public let name: String
+      public struct Friend: GraphQLSelectionSet {
+        public static let selections: [Selection] = [
+          Field("__typename", type: .nonNull(.scalar(String.self))),
+          Field("name", type: .nonNull(.scalar(String.self))),
+        ]
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
+        public var snapshot: Snapshot
+
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, name: String) {
+          self.snapshot = ["__typename": __typename, "name": name]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
         }
       }
     }
@@ -422,30 +796,65 @@ public final class HeroAppearsInQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
-    ]),
-  ]
-
   public init() {
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let appearsIn: [Episode?]
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        appearsIn = values[1] as! [Episode?]
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, appearsIn: [Episode?]) {
+        self.snapshot = ["__typename": __typename, "appearsIn": appearsIn]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var appearsIn: [Episode?] {
+        get {
+          return snapshot["appearsIn"]! as! [Episode?]
+        }
+        set {
+          snapshot["appearsIn"] = newValue
+        }
       }
     }
   }
@@ -469,16 +878,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      FragmentSpread(Data.Hero.AsHuman.self),
-      FragmentSpread(Data.Hero.AsDroid.self),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -488,63 +888,179 @@ public final class HeroDetailsQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String
-      public let asHuman: AsHuman?
-      public let asDroid: AsDroid?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
-        asHuman = values[2] as! AsHuman?
-        asDroid = values[3] as! AsDroid?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        FragmentSpread(Hero.AsHuman.self),
+        FragmentSpread(Hero.AsDroid.self),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var asHuman: AsHuman? {
+        get {
+          if !AsHuman.possibleTypes.contains(__typename) { return nil }
+          return AsHuman(snapshot: snapshot)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          snapshot = newValue.snapshot
+        }
+      }
+
+      public var asDroid: AsDroid? {
+        get {
+          if !AsDroid.possibleTypes.contains(__typename) { return nil }
+          return AsDroid(snapshot: snapshot)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          snapshot = newValue.snapshot
+        }
       }
 
       public struct AsHuman: GraphQLFragment {
         public static let possibleTypes = ["Human"]
 
-        public static let selectionSet: [Selection] = [
+        public static let selections: [Selection] = [
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("name", type: .nonNull(.scalar(String.self))),
           Field("height", type: .scalar(Double.self)),
         ]
 
-        public let __typename: String
-        public let name: String
-        public let height: Double?
+        public var snapshot: Snapshot
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
-          height = values[2] as! Double?
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, name: String, height: Double? = nil) {
+          self.snapshot = ["__typename": __typename, "name": name, "height": height]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
+        }
+
+        public var height: Double? {
+          get {
+            return snapshot["height"]! as! Double?
+          }
+          set {
+            snapshot["height"] = newValue
+          }
         }
       }
 
       public struct AsDroid: GraphQLFragment {
         public static let possibleTypes = ["Droid"]
 
-        public static let selectionSet: [Selection] = [
+        public static let selections: [Selection] = [
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("name", type: .nonNull(.scalar(String.self))),
           Field("primaryFunction", type: .scalar(String.self)),
         ]
 
-        public let __typename: String
-        public let name: String
-        public let primaryFunction: String?
+        public var snapshot: Snapshot
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
-          primaryFunction = values[2] as! String?
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, name: String, primaryFunction: String? = nil) {
+          self.snapshot = ["__typename": __typename, "name": name, "primaryFunction": primaryFunction]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
+        }
+
+        public var primaryFunction: String? {
+          get {
+            return snapshot["primaryFunction"]! as! String?
+          }
+          set {
+            snapshot["primaryFunction"] = newValue
+          }
         }
       }
     }
@@ -562,14 +1078,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     "}"
   public static var requestString: String { return operationString.appending(HeroDetails.fragmentString) }
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      FragmentSpread(HeroDetails.self),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -579,27 +1088,75 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public let fragments: Fragments
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        let heroDetails = values[1] as! HeroDetails
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        FragmentSpread(HeroDetails.self),
+      ]
 
-        fragments = Fragments(heroDetails: heroDetails)
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String) {
+        self.snapshot = ["__typename": __typename]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot = newValue.snapshot
+        }
       }
 
       public struct Fragments {
-        public let heroDetails: HeroDetails
+        public var snapshot: Snapshot
+
+        public var heroDetails: HeroDetails {
+          get {
+            return HeroDetails(snapshot: snapshot)
+          }
+          set {
+            snapshot = newValue.snapshot
+          }
+        }
       }
     }
   }
@@ -615,14 +1172,7 @@ public final class HeroNameQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -632,20 +1182,62 @@ public final class HeroNameQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
       }
     }
   }
@@ -662,15 +1254,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("id", type: .nonNull(.scalar(GraphQLID.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -680,22 +1264,72 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let id: GraphQLID
-      public let name: String
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        id = values[1] as! GraphQLID
-        name = values[2] as! String
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("id", type: .nonNull(.scalar(GraphQLID.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, id: GraphQLID, name: String) {
+        self.snapshot = ["__typename": __typename, "id": id, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot["id"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
       }
     }
   }
@@ -711,15 +1345,8 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-  ]
-
-  public let episode: Episode?
-  public let includeName: Bool
+  public var episode: Episode?
+  public var includeName: Bool
 
   public init(episode: Episode? = nil, includeName: Bool) {
     self.episode = episode
@@ -730,20 +1357,62 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
     return ["episode": episode, "includeName": includeName]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String? = nil) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String? {
+        get {
+          return snapshot["name"]! as! String?
+        }
+        set {
+          snapshot["name"] = newValue
+        }
       }
     }
   }
@@ -759,15 +1428,8 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-  ]
-
-  public let episode: Episode?
-  public let skipName: Bool
+  public var episode: Episode?
+  public var skipName: Bool
 
   public init(episode: Episode? = nil, skipName: Bool) {
     self.episode = episode
@@ -778,20 +1440,62 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
     return ["episode": episode, "skipName": skipName]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String? = nil) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String? {
+        get {
+          return snapshot["name"]! as! String?
+        }
+        set {
+          snapshot["name"] = newValue
+        }
       }
     }
   }
@@ -829,16 +1533,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      FragmentSpread(Data.Hero.AsHuman.self),
-      FragmentSpread(Data.Hero.AsDroid.self),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -848,77 +1543,224 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String
-      public let asHuman: AsHuman?
-      public let asDroid: AsDroid?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
-        asHuman = values[2] as! AsHuman?
-        asDroid = values[3] as! AsDroid?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        FragmentSpread(Hero.AsHuman.self),
+        FragmentSpread(Hero.AsDroid.self),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var asHuman: AsHuman? {
+        get {
+          if !AsHuman.possibleTypes.contains(__typename) { return nil }
+          return AsHuman(snapshot: snapshot)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          snapshot = newValue.snapshot
+        }
+      }
+
+      public var asDroid: AsDroid? {
+        get {
+          if !AsDroid.possibleTypes.contains(__typename) { return nil }
+          return AsDroid(snapshot: snapshot)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          snapshot = newValue.snapshot
+        }
       }
 
       public struct AsHuman: GraphQLFragment {
         public static let possibleTypes = ["Human"]
 
-        public static let selectionSet: [Selection] = [
+        public static let selections: [Selection] = [
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("name", type: .nonNull(.scalar(String.self))),
-          Field("friends", type: .list(.object(AsHuman.Friend.self)), selectionSet: [
-            Field("__typename", type: .nonNull(.scalar(String.self))),
-            Field("name", type: .nonNull(.scalar(String.self))),
-            FragmentSpread(AsHuman.Friend.AsHuman.self),
-          ]),
+          Field("friends", type: .list(.object(AsHuman.Friend.self))),
         ]
 
-        public let __typename: String
-        public let name: String
-        public let friends: [Friend?]?
+        public var snapshot: Snapshot
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
-          friends = values[2] as! [Friend?]?
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
         }
 
-        public struct Friend: GraphQLMappable {
-          public let __typename: String
-          public let name: String
-          public let asHuman: AsHuman?
+        public init(__typename: String, name: String, friends: [Friend?]? = nil) {
+          self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+        }
 
-          public init(values: [Any?]) {
-            __typename = values[0] as! String
-            name = values[1] as! String
-            asHuman = values[2] as! AsHuman?
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
+        }
+
+        public var friends: [Friend?]? {
+          get {
+            return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          }
+          set {
+            snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+          }
+        }
+
+        public struct Friend: GraphQLSelectionSet {
+          public static let selections: [Selection] = [
+            Field("__typename", type: .nonNull(.scalar(String.self))),
+            Field("name", type: .nonNull(.scalar(String.self))),
+            FragmentSpread(Friend.AsHuman.self),
+          ]
+
+          public var snapshot: Snapshot
+
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          public init(__typename: String, name: String) {
+            self.snapshot = ["__typename": __typename, "name": name]
+          }
+
+          public var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot["__typename"] = newValue
+            }
+          }
+
+          public var name: String {
+            get {
+              return snapshot["name"]! as! String
+            }
+            set {
+              snapshot["name"] = newValue
+            }
+          }
+
+          public var asHuman: AsHuman? {
+            get {
+              if !AsHuman.possibleTypes.contains(__typename) { return nil }
+              return AsHuman(snapshot: snapshot)
+            }
+            set {
+              guard let newValue = newValue else { return }
+              snapshot = newValue.snapshot
+            }
           }
 
           public struct AsHuman: GraphQLFragment {
             public static let possibleTypes = ["Human"]
 
-            public static let selectionSet: [Selection] = [
+            public static let selections: [Selection] = [
               Field("__typename", type: .nonNull(.scalar(String.self))),
               Field("name", type: .nonNull(.scalar(String.self))),
               Field("height", arguments: ["unit": "FOOT"], type: .scalar(Double.self)),
             ]
 
-            public let __typename: String
-            public let name: String
-            public let height: Double?
+            public var snapshot: Snapshot
 
-            public init(values: [Any?]) {
-              __typename = values[0] as! String
-              name = values[1] as! String
-              height = values[2] as! Double?
+            public init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            public init(__typename: String, name: String, height: Double? = nil) {
+              self.snapshot = ["__typename": __typename, "name": name, "height": height]
+            }
+
+            public var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot["__typename"] = newValue
+              }
+            }
+
+            public var name: String {
+              get {
+                return snapshot["name"]! as! String
+              }
+              set {
+                snapshot["name"] = newValue
+              }
+            }
+
+            public var height: Double? {
+              get {
+                return snapshot["height"]! as! Double?
+              }
+              set {
+                snapshot["height"] = newValue
+              }
             }
           }
         }
@@ -927,54 +1769,139 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
       public struct AsDroid: GraphQLFragment {
         public static let possibleTypes = ["Droid"]
 
-        public static let selectionSet: [Selection] = [
+        public static let selections: [Selection] = [
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("name", type: .nonNull(.scalar(String.self))),
-          Field("friends", type: .list(.object(AsDroid.Friend.self)), selectionSet: [
-            Field("__typename", type: .nonNull(.scalar(String.self))),
-            Field("name", type: .nonNull(.scalar(String.self))),
-            FragmentSpread(AsDroid.Friend.AsHuman.self),
-          ]),
+          Field("friends", type: .list(.object(AsDroid.Friend.self))),
         ]
 
-        public let __typename: String
-        public let name: String
-        public let friends: [Friend?]?
+        public var snapshot: Snapshot
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          name = values[1] as! String
-          friends = values[2] as! [Friend?]?
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
         }
 
-        public struct Friend: GraphQLMappable {
-          public let __typename: String
-          public let name: String
-          public let asHuman: AsHuman?
+        public init(__typename: String, name: String, friends: [Friend?]? = nil) {
+          self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+        }
 
-          public init(values: [Any?]) {
-            __typename = values[0] as! String
-            name = values[1] as! String
-            asHuman = values[2] as! AsHuman?
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var name: String {
+          get {
+            return snapshot["name"]! as! String
+          }
+          set {
+            snapshot["name"] = newValue
+          }
+        }
+
+        public var friends: [Friend?]? {
+          get {
+            return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          }
+          set {
+            snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+          }
+        }
+
+        public struct Friend: GraphQLSelectionSet {
+          public static let selections: [Selection] = [
+            Field("__typename", type: .nonNull(.scalar(String.self))),
+            Field("name", type: .nonNull(.scalar(String.self))),
+            FragmentSpread(Friend.AsHuman.self),
+          ]
+
+          public var snapshot: Snapshot
+
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          public init(__typename: String, name: String) {
+            self.snapshot = ["__typename": __typename, "name": name]
+          }
+
+          public var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot["__typename"] = newValue
+            }
+          }
+
+          public var name: String {
+            get {
+              return snapshot["name"]! as! String
+            }
+            set {
+              snapshot["name"] = newValue
+            }
+          }
+
+          public var asHuman: AsHuman? {
+            get {
+              if !AsHuman.possibleTypes.contains(__typename) { return nil }
+              return AsHuman(snapshot: snapshot)
+            }
+            set {
+              guard let newValue = newValue else { return }
+              snapshot = newValue.snapshot
+            }
           }
 
           public struct AsHuman: GraphQLFragment {
             public static let possibleTypes = ["Human"]
 
-            public static let selectionSet: [Selection] = [
+            public static let selections: [Selection] = [
               Field("__typename", type: .nonNull(.scalar(String.self))),
               Field("name", type: .nonNull(.scalar(String.self))),
               Field("height", arguments: ["unit": "METER"], type: .scalar(Double.self)),
             ]
 
-            public let __typename: String
-            public let name: String
-            public let height: Double?
+            public var snapshot: Snapshot
 
-            public init(values: [Any?]) {
-              __typename = values[0] as! String
-              name = values[1] as! String
-              height = values[2] as! Double?
+            public init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            public init(__typename: String, name: String, height: Double? = nil) {
+              self.snapshot = ["__typename": __typename, "name": name, "height": height]
+            }
+
+            public var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot["__typename"] = newValue
+              }
+            }
+
+            public var name: String {
+              get {
+                return snapshot["name"]! as! String
+              }
+              set {
+                snapshot["name"] = newValue
+              }
+            }
+
+            public var height: Double? {
+              get {
+                return snapshot["height"]! as! Double?
+              }
+              set {
+                snapshot["height"] = newValue
+              }
             }
           }
         }
@@ -1000,15 +1927,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      FragmentSpread(Data.Hero.AsHuman.self),
-      FragmentSpread(Data.Hero.AsDroid.self),
-    ]),
-  ]
-
-  public let episode: Episode?
+  public var episode: Episode?
 
   public init(episode: Episode? = nil) {
     self.episode = episode
@@ -1018,55 +1937,149 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     return ["episode": episode]
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let asHuman: AsHuman?
-      public let asDroid: AsDroid?
+    public init(hero: Hero? = nil) {
+      self.snapshot = ["hero": hero]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        asHuman = values[1] as! AsHuman?
-        asDroid = values[2] as! AsDroid?
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        FragmentSpread(Hero.AsHuman.self),
+        FragmentSpread(Hero.AsDroid.self),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String) {
+        self.snapshot = ["__typename": __typename]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var asHuman: AsHuman? {
+        get {
+          if !AsHuman.possibleTypes.contains(__typename) { return nil }
+          return AsHuman(snapshot: snapshot)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          snapshot = newValue.snapshot
+        }
+      }
+
+      public var asDroid: AsDroid? {
+        get {
+          if !AsDroid.possibleTypes.contains(__typename) { return nil }
+          return AsDroid(snapshot: snapshot)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          snapshot = newValue.snapshot
+        }
       }
 
       public struct AsHuman: GraphQLFragment {
         public static let possibleTypes = ["Human"]
 
-        public static let selectionSet: [Selection] = [
+        public static let selections: [Selection] = [
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("homePlanet", alias: "property", type: .scalar(String.self)),
         ]
 
-        public let __typename: String
-        public let property: String?
+        public var snapshot: Snapshot
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          property = values[1] as! String?
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, property: String? = nil) {
+          self.snapshot = ["__typename": __typename, "property": property]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var property: String? {
+          get {
+            return snapshot["property"]! as! String?
+          }
+          set {
+            snapshot["property"] = newValue
+          }
         }
       }
 
       public struct AsDroid: GraphQLFragment {
         public static let possibleTypes = ["Droid"]
 
-        public static let selectionSet: [Selection] = [
+        public static let selections: [Selection] = [
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("primaryFunction", alias: "property", type: .scalar(String.self)),
         ]
 
-        public let __typename: String
-        public let property: String?
+        public var snapshot: Snapshot
 
-        public init(values: [Any?]) {
-          __typename = values[0] as! String
-          property = values[1] as! String?
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        public init(__typename: String, property: String? = nil) {
+          self.snapshot = ["__typename": __typename, "property": property]
+        }
+
+        public var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot["__typename"] = newValue
+          }
+        }
+
+        public var property: String? {
+          get {
+            return snapshot["property"]! as! String?
+          }
+          set {
+            snapshot["property"] = newValue
+          }
         }
       }
     }
@@ -1084,33 +2097,75 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("human", arguments: ["id": 1004], type: .object(Data.Human.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      Field("mass", type: .scalar(Double.self)),
-    ]),
-  ]
-
   public init() {
   }
 
-  public struct Data: GraphQLMappable {
-    public let human: Human?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("human", arguments: ["id": 1004], type: .object(Data.Human.self)),
+    ]
 
-    public init(values: [Any?]) {
-      human = values[0] as! Human?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Human: GraphQLMappable {
-      public let __typename: String
-      public let name: String
-      public let mass: Double?
+    public init(human: Human? = nil) {
+      self.snapshot = ["human": human]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
-        mass = values[2] as! Double?
+    public var human: Human? {
+      get {
+        return Human(snapshot: snapshot["human"]! as! Snapshot)
+      }
+      set {
+        snapshot["human"] = newValue?.snapshot
+      }
+    }
+
+    public struct Human: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        Field("mass", type: .scalar(Double.self)),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String, mass: Double? = nil) {
+        self.snapshot = ["__typename": __typename, "name": name, "mass": mass]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var mass: Double? {
+        get {
+          return snapshot["mass"]! as! Double?
+        }
+        set {
+          snapshot["mass"] = newValue
+        }
       }
     }
   }
@@ -1130,46 +2185,110 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", type: .object(Data.Hero.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-    Field("hero", alias: "r2", type: .object(Data.R2.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
-    ]),
-  ]
-
   public init() {
   }
 
-  public struct Data: GraphQLMappable {
-    public let hero: Hero?
-    public let r2: R2?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", type: .object(Data.Hero.self)),
+      Field("hero", alias: "r2", type: .object(Data.R2.self)),
+    ]
 
-    public init(values: [Any?]) {
-      hero = values[0] as! Hero?
-      r2 = values[1] as! R2?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Hero: GraphQLMappable {
-      public let __typename: String
-      public let name: String
+    public init(hero: Hero? = nil, r2: R2? = nil) {
+      self.snapshot = ["hero": hero, "r2": r2]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
+    public var hero: Hero? {
+      get {
+        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+      }
+      set {
+        snapshot["hero"] = newValue?.snapshot
       }
     }
 
-    public struct R2: GraphQLMappable {
-      public let __typename: String
-      public let appearsIn: [Episode?]
+    public var r2: R2? {
+      get {
+        return R2(snapshot: snapshot["r2"]! as! Snapshot)
+      }
+      set {
+        snapshot["r2"] = newValue?.snapshot
+      }
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        appearsIn = values[1] as! [Episode?]
+    public struct Hero: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+    }
+
+    public struct R2: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, appearsIn: [Episode?]) {
+        self.snapshot = ["__typename": __typename, "appearsIn": appearsIn]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var appearsIn: [Episode?] {
+        get {
+          return snapshot["appearsIn"]! as! [Episode?]
+        }
+        set {
+          snapshot["appearsIn"] = newValue
+        }
       }
     }
   }
@@ -1186,33 +2305,75 @@ public final class StarshipQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("starship", arguments: ["id": 3000], type: .object(Data.Starship.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-      Field("coordinates", type: .list(.nonNull(.list(.nonNull(.scalar(Double.self)))))),
-    ]),
-  ]
-
   public init() {
   }
 
-  public struct Data: GraphQLMappable {
-    public let starship: Starship?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("starship", arguments: ["id": 3000], type: .object(Data.Starship.self)),
+    ]
 
-    public init(values: [Any?]) {
-      starship = values[0] as! Starship?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct Starship: GraphQLMappable {
-      public let __typename: String
-      public let name: String
-      public let coordinates: [[Double]]?
+    public init(starship: Starship? = nil) {
+      self.snapshot = ["starship": starship]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
-        coordinates = values[2] as! [[Double]]?
+    public var starship: Starship? {
+      get {
+        return Starship(snapshot: snapshot["starship"]! as! Snapshot)
+      }
+      set {
+        snapshot["starship"] = newValue?.snapshot
+      }
+    }
+
+    public struct Starship: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+        Field("coordinates", type: .list(.nonNull(.list(.nonNull(.scalar(Double.self)))))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String, coordinates: [[Double]]? = nil) {
+        self.snapshot = ["__typename": __typename, "name": name, "coordinates": coordinates]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+
+      public var coordinates: [[Double]]? {
+        get {
+          return snapshot["coordinates"]! as! [[Double]]?
+        }
+        set {
+          snapshot["coordinates"] = newValue
+        }
       }
     }
   }
@@ -1232,46 +2393,110 @@ public final class TwoHeroesQuery: GraphQLQuery {
     "  }" +
     "}"
 
-  public static let selectionSet: [Selection] = [
-    Field("hero", alias: "r2", type: .object(Data.R2.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-    Field("hero", alias: "luke", arguments: ["episode": "EMPIRE"], type: .object(Data.Luke.self), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
-  ]
-
   public init() {
   }
 
-  public struct Data: GraphQLMappable {
-    public let r2: R2?
-    public let luke: Luke?
+  public struct Data: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("hero", alias: "r2", type: .object(Data.R2.self)),
+      Field("hero", alias: "luke", arguments: ["episode": "EMPIRE"], type: .object(Data.Luke.self)),
+    ]
 
-    public init(values: [Any?]) {
-      r2 = values[0] as! R2?
-      luke = values[1] as! Luke?
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
-    public struct R2: GraphQLMappable {
-      public let __typename: String
-      public let name: String
+    public init(r2: R2? = nil, luke: Luke? = nil) {
+      self.snapshot = ["r2": r2, "luke": luke]
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
+    public var r2: R2? {
+      get {
+        return R2(snapshot: snapshot["r2"]! as! Snapshot)
+      }
+      set {
+        snapshot["r2"] = newValue?.snapshot
       }
     }
 
-    public struct Luke: GraphQLMappable {
-      public let __typename: String
-      public let name: String
+    public var luke: Luke? {
+      get {
+        return Luke(snapshot: snapshot["luke"]! as! Snapshot)
+      }
+      set {
+        snapshot["luke"] = newValue?.snapshot
+      }
+    }
 
-      public init(values: [Any?]) {
-        __typename = values[0] as! String
-        name = values[1] as! String
+    public struct R2: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
+      }
+    }
+
+    public struct Luke: GraphQLSelectionSet {
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot["__typename"] = newValue
+        }
+      }
+
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot["name"] = newValue
+        }
       }
     }
   }
@@ -1289,29 +2514,71 @@ public struct FriendsNames: GraphQLFragment {
 
   public static let possibleTypes = ["Human", "Droid"]
 
-  public static let selectionSet: [Selection] = [
+  public static let selections: [Selection] = [
     Field("__typename", type: .nonNull(.scalar(String.self))),
-    Field("friends", type: .list(.object(FriendsNames.Friend.self)), selectionSet: [
-      Field("__typename", type: .nonNull(.scalar(String.self))),
-      Field("name", type: .nonNull(.scalar(String.self))),
-    ]),
+    Field("friends", type: .list(.object(FriendsNames.Friend.self))),
   ]
 
-  public let __typename: String
-  public let friends: [Friend?]?
+  public var snapshot: Snapshot
 
-  public init(values: [Any?]) {
-    __typename = values[0] as! String
-    friends = values[1] as! [Friend?]?
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
   }
 
-  public struct Friend: GraphQLMappable {
-    public let __typename: String
-    public let name: String
+  public init(__typename: String, friends: [Friend?]? = nil) {
+    self.snapshot = ["__typename": __typename, "friends": friends]
+  }
 
-    public init(values: [Any?]) {
-      __typename = values[0] as! String
-      name = values[1] as! String
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot["__typename"] = newValue
+    }
+  }
+
+  public var friends: [Friend?]? {
+    get {
+      return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+    }
+    set {
+      snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+    }
+  }
+
+  public struct Friend: GraphQLSelectionSet {
+    public static let selections: [Selection] = [
+      Field("__typename", type: .nonNull(.scalar(String.self))),
+      Field("name", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(__typename: String, name: String) {
+      self.snapshot = ["__typename": __typename, "name": name]
+    }
+
+    public var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot["__typename"] = newValue
+      }
+    }
+
+    public var name: String {
+      get {
+        return snapshot["name"]! as! String
+      }
+      set {
+        snapshot["name"] = newValue
+      }
     }
   }
 }
@@ -1333,62 +2600,154 @@ public struct HeroDetails: GraphQLFragment {
 
   public static let possibleTypes = ["Human", "Droid"]
 
-  public static let selectionSet: [Selection] = [
+  public static let selections: [Selection] = [
     Field("__typename", type: .nonNull(.scalar(String.self))),
     Field("name", type: .nonNull(.scalar(String.self))),
     FragmentSpread(HeroDetails.AsHuman.self),
     FragmentSpread(HeroDetails.AsDroid.self),
   ]
 
-  public let __typename: String
-  public let name: String
-  public let asHuman: AsHuman?
-  public let asDroid: AsDroid?
+  public var snapshot: Snapshot
 
-  public init(values: [Any?]) {
-    __typename = values[0] as! String
-    name = values[1] as! String
-    asHuman = values[2] as! AsHuman?
-    asDroid = values[3] as! AsDroid?
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  public init(__typename: String, name: String) {
+    self.snapshot = ["__typename": __typename, "name": name]
+  }
+
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot["__typename"] = newValue
+    }
+  }
+
+  public var name: String {
+    get {
+      return snapshot["name"]! as! String
+    }
+    set {
+      snapshot["name"] = newValue
+    }
+  }
+
+  public var asHuman: AsHuman? {
+    get {
+      if !AsHuman.possibleTypes.contains(__typename) { return nil }
+      return AsHuman(snapshot: snapshot)
+    }
+    set {
+      guard let newValue = newValue else { return }
+      snapshot = newValue.snapshot
+    }
+  }
+
+  public var asDroid: AsDroid? {
+    get {
+      if !AsDroid.possibleTypes.contains(__typename) { return nil }
+      return AsDroid(snapshot: snapshot)
+    }
+    set {
+      guard let newValue = newValue else { return }
+      snapshot = newValue.snapshot
+    }
   }
 
   public struct AsHuman: GraphQLFragment {
     public static let possibleTypes = ["Human"]
 
-    public static let selectionSet: [Selection] = [
+    public static let selections: [Selection] = [
       Field("__typename", type: .nonNull(.scalar(String.self))),
       Field("name", type: .nonNull(.scalar(String.self))),
       Field("height", type: .scalar(Double.self)),
     ]
 
-    public let __typename: String
-    public let name: String
-    public let height: Double?
+    public var snapshot: Snapshot
 
-    public init(values: [Any?]) {
-      __typename = values[0] as! String
-      name = values[1] as! String
-      height = values[2] as! Double?
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(__typename: String, name: String, height: Double? = nil) {
+      self.snapshot = ["__typename": __typename, "name": name, "height": height]
+    }
+
+    public var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot["__typename"] = newValue
+      }
+    }
+
+    public var name: String {
+      get {
+        return snapshot["name"]! as! String
+      }
+      set {
+        snapshot["name"] = newValue
+      }
+    }
+
+    public var height: Double? {
+      get {
+        return snapshot["height"]! as! Double?
+      }
+      set {
+        snapshot["height"] = newValue
+      }
     }
   }
 
   public struct AsDroid: GraphQLFragment {
     public static let possibleTypes = ["Droid"]
 
-    public static let selectionSet: [Selection] = [
+    public static let selections: [Selection] = [
       Field("__typename", type: .nonNull(.scalar(String.self))),
       Field("name", type: .nonNull(.scalar(String.self))),
       Field("primaryFunction", type: .scalar(String.self)),
     ]
 
-    public let __typename: String
-    public let name: String
-    public let primaryFunction: String?
+    public var snapshot: Snapshot
 
-    public init(values: [Any?]) {
-      __typename = values[0] as! String
-      name = values[1] as! String
-      primaryFunction = values[2] as! String?
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(__typename: String, name: String, primaryFunction: String? = nil) {
+      self.snapshot = ["__typename": __typename, "name": name, "primaryFunction": primaryFunction]
+    }
+
+    public var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot["__typename"] = newValue
+      }
+    }
+
+    public var name: String {
+      get {
+        return snapshot["name"]! as! String
+      }
+      set {
+        snapshot["name"] = newValue
+      }
+    }
+
+    public var primaryFunction: String? {
+      get {
+        return snapshot["primaryFunction"]! as! String?
+      }
+      set {
+        snapshot["primaryFunction"] = newValue
+      }
     }
   }
 }

@@ -3,35 +3,43 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-private struct SingleValue: GraphQLMappable {
-  let value: Any?
+private struct MockSelectionSet: GraphQLSelectionSet {
+  public static let selections: [Selection] = []
   
-  init(values: [Any?]) {
-    value = values[0]
+  public var snapshot: Snapshot
+  
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
   }
 }
 
 private extension GraphQLExecutor {
-  func readSingleValue(_ field: Field) throws -> Any? {
-    return try execute(selectionSet: [field], withKey: "", variables: [:], accumulator: GraphQLResultMapper<SingleValue>()).await().value
+  convenience init(rootObject: JSONObject) {
+    self.init { object, info in
+      return Promise(fulfilled: (object ?? rootObject)[info.responseKeyForField])
+    }
+  }
+  
+  func readFieldValue(_ field: Field) throws -> Any? {
+    return try execute(selections: [field], withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).await().snapshot[field.responseKey]!
   }
 }
 
-class GraphQLExecutorFieldValueTests: XCTestCase {
+class ReadFieldValueTests: XCTestCase {
   func testGetScalar() throws {
     let executor = GraphQLExecutor(rootObject: ["name": "Luke Skywalker"])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
     
-    let value = try executor.readSingleValue(field) as! String
+    let value = try executor.readFieldValue(field) as! String
     
     XCTAssertEqual(value, "Luke Skywalker")
   }
-
+  
   func testGetScalarWithMissingKey() {
-    let reader = GraphQLExecutor(rootObject: [:])
+    let executor = GraphQLExecutor(rootObject: [:])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -42,10 +50,10 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
   }
   
   func testGetScalarWithNull() throws {
-    let reader = GraphQLExecutor(rootObject: ["name": NSNull()])
+    let executor = GraphQLExecutor(rootObject: ["name": NSNull()])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
     
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
@@ -54,35 +62,35 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
       }
     }
   }
-
+  
   func testGetScalarWithWrongType() throws {
-    let reader = GraphQLExecutor(rootObject: ["name": 10])
+    let executor = GraphQLExecutor(rootObject: ["name": 10])
     let field = Field("name", type: .nonNull(.scalar(String.self)))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-          XCTAssertEqual(error.path, ["name"])
-          XCTAssertEqual(value as? Int, 10)
-          XCTAssertTrue(expectedType == String.self)
+        XCTAssertEqual(error.path, ["name"])
+        XCTAssertEqual(value as? Int, 10)
+        XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
       }
     }
   }
-
+  
   func testGetOptionalScalar() throws {
-    let reader = GraphQLExecutor(rootObject: ["name": "Luke Skywalker"])
+    let executor = GraphQLExecutor(rootObject: ["name": "Luke Skywalker"])
     let field = Field("name", type: .scalar(String.self))
     
-    let value = try reader.readSingleValue(field) as! String?
+    let value = try executor.readFieldValue(field) as! String?
     XCTAssertEqual(value, "Luke Skywalker")
   }
-
+  
   func testGetOptionalScalarWithMissingKey() throws {
-    let reader = GraphQLExecutor(rootObject: [:])
+    let executor = GraphQLExecutor(rootObject: [:])
     let field = Field("name", type: .scalar(String.self))
     
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -93,19 +101,19 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
   }
   
   func testGetOptionalScalarWithNull() throws {
-    let reader = GraphQLExecutor(rootObject: ["name": NSNull()])
+    let executor = GraphQLExecutor(rootObject: ["name": NSNull()])
     let field = Field("name", type: .scalar(String.self))
-
-    let value = try reader.readSingleValue(field) as! String?
+    
+    let value = try executor.readFieldValue(field) as! String?
     
     XCTAssertNil(value)
   }
-
+  
   func testGetOptionalScalarWithWrongType() throws {
-    let reader = GraphQLExecutor(rootObject: ["name": 10])
+    let executor = GraphQLExecutor(rootObject: ["name": 10])
     let field = Field("name", type: .scalar(String.self))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["name"])
         XCTAssertEqual(value as? Int, 10)
@@ -115,30 +123,30 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
       }
     }
   }
-
+  
   func testGetScalarList() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
-
-    let value = try reader.readSingleValue(field) as! [Episode]
+    
+    let value = try executor.readFieldValue(field) as! [Episode]
     
     XCTAssertEqual(value, [.newhope, .empire, .jedi])
   }
   
   func testGetEmptyScalarList() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": []])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": []])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
     
-    let value = try reader.readSingleValue(field) as! [Episode]
+    let value = try executor.readFieldValue(field) as! [Episode]
     
     XCTAssertEqual(value, [])
   }
-
+  
   func testGetScalarListWithMissingKey() {
-    let reader = GraphQLExecutor(rootObject: [:])
+    let executor = GraphQLExecutor(rootObject: [:])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -147,12 +155,12 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
       }
     }
   }
-
+  
   func testGetScalarListWithNull() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": NSNull()])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": NSNull()])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
@@ -161,12 +169,12 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
       }
     }
   }
-
+  
   func testGetScalarListWithWrongType() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": [4, 5, 6]])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": [4, 5, 6]])
     let field = Field("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertEqual(value as? Int, 4)
@@ -176,30 +184,30 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
       }
     }
   }
-
+  
   func testGetOptionalScalarList() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
-
-    let value = try reader.readSingleValue(field) as! [Episode]?
+    
+    let value = try executor.readFieldValue(field) as! [Episode]?
     
     XCTAssertEqual(value!, [.newhope, .empire, .jedi])
   }
   
   func testGetEmptyOptionalScalarList() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": []])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": []])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
     
-    let value = try reader.readSingleValue(field) as! [Episode]
+    let value = try executor.readFieldValue(field) as! [Episode]
     
     XCTAssertEqual(value, [])
   }
-
+  
   func testGetOptionalScalarListWithMissingKey() throws {
-    let reader = GraphQLExecutor(rootObject: [:])
+    let executor = GraphQLExecutor(rootObject: [:])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -210,19 +218,19 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
   }
   
   func testGetOptionalScalarListWithNull() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": NSNull()])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": NSNull()])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
-
-    let value = try reader.readSingleValue(field) as! [Episode]?
+    
+    let value = try executor.readFieldValue(field) as! [Episode]?
     
     XCTAssertNil(value)
   }
-
+  
   func testGetOptionalScalarListWithWrongType() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": [4, 5, 6]])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": [4, 5, 6]])
     let field = Field("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
-
-    XCTAssertThrowsError(try reader.readSingleValue(field)) { (error) in
+    
+    XCTAssertThrowsError(try executor.readFieldValue(field)) { (error) in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["appearsIn"])
         XCTAssertEqual(value as? Int, 4)
@@ -232,22 +240,22 @@ class GraphQLExecutorFieldValueTests: XCTestCase {
       }
     }
   }
-
+  
   func testGetScalarListWithOptionalElements() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self))))
-
-    let value = try reader.readSingleValue(field) as! [Episode?]
-
+    
+    let value = try executor.readFieldValue(field) as! [Episode?]
+    
     XCTAssertEqual(value, [.newhope, .empire, .jedi] as [Episode?])
   }
-
+  
   func testGetOptionalScalarListWithOptionalElements() throws {
-    let reader = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    let executor = GraphQLExecutor(rootObject: ["appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
     let field = Field("appearsIn", type: .list(.scalar(Episode.self)))
-
-    let value = try reader.readSingleValue(field) as! [Episode?]?
-
+    
+    let value = try executor.readFieldValue(field) as! [Episode?]?
+    
     XCTAssertEqual(value, [.newhope, .empire, .jedi] as [Episode?])
   }
 }

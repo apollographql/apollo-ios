@@ -24,12 +24,12 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       
       executor.cacheKeyForObject = cacheKeyForObject
       
-      let mapper = GraphQLResultMapper<Operation.Data>()
+      let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
       
       return firstly {
-        try executor.execute(selectionSet: Operation.selectionSet, withKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
+        try executor.execute(selections: Operation.Data.selections, withKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
       }.map { (data, records, dependentKeys) in
         (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
       }

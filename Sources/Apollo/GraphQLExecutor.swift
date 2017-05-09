@@ -12,8 +12,6 @@ public struct GraphQLResolveInfo {
   
   var fields: [Field] = []
   
-  var resultMappings: [ResultMapping] = []
-  
   public init(rootKey: CacheKey, variables: GraphQLMap?) {
     self.variables = variables
     
@@ -114,19 +112,17 @@ public final class GraphQLExecutor {
   
   // MARK: - Execution
   
-  func execute<Accumulator: GraphQLResultAccumulator>(selectionSet: [Selection], on object: JSONObject? = nil, withKey rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject? = nil, withKey rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: rootKey, variables: variables)
     
-    return try execute(selectionSet: selectionSet, on: object, info: info, accumulator: accumulator).map {
+    return try execute(selections: selections, on: object, info: info, accumulator: accumulator).map {
       try accumulator.finish(rootValue: $0, info: info)
     }
   }
   
-  private func execute<Accumulator: GraphQLResultAccumulator>(selectionSet: [Selection], on object: JSONObject? = nil, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<  Accumulator.PartialResult> {
-    var info = info
-    
+  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject? = nil, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<  Accumulator.ObjectResult> {
     var groupedFields = GroupedSequence<String, Field>()
-    info.resultMappings = collectFields(selectionSet: selectionSet, forRuntimeType: runtimeType(of: object), into: &groupedFields)
+    collectFields(selections: selections, forRuntimeType: runtimeType(of: object), into: &groupedFields)
     
     var fieldEntries: [Promise<Accumulator.FieldEntry>] = []
     fieldEntries.reserveCapacity(groupedFields.keys.count)
@@ -151,33 +147,22 @@ public final class GraphQLExecutor {
   }
   
   /// Before execution, the selection set is converted to a grouped field set. Each entry in the grouped field set is a list of fields that share a response key. This ensures all fields with the same response key (alias or field name) included via referenced fragments are executed at the same time.
-  private func collectFields(selectionSet: [Selection], forRuntimeType runtimeType: String?, into groupedFields: inout GroupedSequence<String, Field>) -> [ResultMapping] {
-    var resultMapping: [ResultMapping] = []
-    resultMapping.reserveCapacity(selectionSet.count)
-    
-    for selection in selectionSet {
+  private func collectFields(selections: [Selection], forRuntimeType runtimeType: String?, into groupedFields: inout GroupedSequence<String, Field>) {
+    for selection in selections {
       switch selection {
       case let field as Field:
-        let (index, indexInGroup) = groupedFields.append(value: field, forKey: field.responseKey)
-        resultMapping.append(.value(index: index, indexInGroup: indexInGroup))
+        _ = groupedFields.append(value: field, forKey: field.responseKey)
       case let fragmentSpread as FragmentSpread:
         let fragment = fragmentSpread.fragment
         
         if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
-          let fragmentSelectionSet = fragment.selectionSet
-          
-          let fragmentValueMappings = collectFields(selectionSet: fragmentSelectionSet, forRuntimeType: runtimeType, into: &groupedFields)
-          
-          resultMapping.append(.mappable(fragment, valueMappings: fragmentValueMappings))
-        } else {
-          resultMapping.append(.none)
+          let fragmentSelections = fragment.selections
+          collectFields(selections: fragmentSelections, forRuntimeType: runtimeType, into: &groupedFields)
         }
       default:
         preconditionFailure()
       }
     }
-    
-    return resultMapping
   }
   
   /// Each field requested in the grouped field set that is defined on the selected objectType will result in an entry in the response map. Field execution first coerces any provided argument values, then resolves a value for the field, and finally completes that value either by recursively executing another selection set or coercing a scalar value.
@@ -250,7 +235,7 @@ public final class GraphQLExecutor {
       guard let object = value as? JSONObject else { return Promise(rejected: JSONDecodingError.wrongType) }
       
       // The merged selection set is a list of fields from all sub‐selection sets of the original fields.
-      let selectionSet = mergeSelectionSets(for: info.fields)
+      let selections = mergeSelectionSets(for: info.fields)
       
       var info = info
       if let cacheKeyForObject = self.cacheKey(for: object) {
@@ -258,7 +243,7 @@ public final class GraphQLExecutor {
       }
       
       // We execute the merged selection set on the object to complete the value. This is the recursive step in the GraphQL execution model.
-      return try execute(selectionSet: selectionSet, on: object, info: info, accumulator: accumulator)
+      return try execute(selections: selections, on: object, info: info, accumulator: accumulator).map { return $0 as! Accumulator.PartialResult }
     default:
       preconditionFailure()
     }
@@ -266,13 +251,13 @@ public final class GraphQLExecutor {
   
   /// When fields are selected multiple times, their selection sets are merged together when completing the value in order to continue execution of the sub‐selection sets.
   private func mergeSelectionSets(for fields: [Field]) -> [Selection] {
-    var selectionSet: [Selection] = []
+    var selections: [Selection] = []
     for field in fields {
-      if let fieldSelectionSet = field.selectionSet {
-        selectionSet.append(contentsOf: fieldSelectionSet)
+      if case let .object(fieldSelectionSet) = field.type.namedType {
+        selections.append(contentsOf: fieldSelectionSet.selections)
       }
     }
-    return selectionSet
+    return selections
   }
 }
 

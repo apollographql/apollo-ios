@@ -3,7 +3,7 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class GraphQLInputValueEncodingTests: XCTestCase {
+class InputValueEncodingTests: XCTestCase {
   private func serializeAndDeserialize(value: JSONEncodable) -> NSDictionary {
     let data = try! JSONSerializationFormat.serialize(value: value)
     return try! JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
