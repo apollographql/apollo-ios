@@ -32,9 +32,6 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {
   hero(episode: $episode) {
     name
     ...FriendsNames
-    friends {
-      name
-    }
   }
 }
 
