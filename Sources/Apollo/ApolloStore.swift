@@ -154,19 +154,6 @@ public final class ApolloStore {
       return try execute(selections: selectionSetType.selections, onObjectWithKey: key, variables: variables, accumulator: mapper).await()
     }
     
-    public func readObject<Query: GraphQLQuery>(forQuery query: Query) throws -> JSONObject {
-      return try readObject(forSelectionSet: Query.Data.self, withKey: rootKey(forOperation: query), variables: query.variables)
-    }
-    
-    public func readObject<Fragment: GraphQLFragment>(forFragment fragment: Fragment.Type, withKey key: CacheKey, variables: GraphQLMap? = nil) throws -> JSONObject {
-      return try readObject(forSelectionSet: fragment, withKey: key, variables: variables)
-    }
-    
-    func readObject(forSelectionSet selectionSet: GraphQLSelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws -> JSONObject {
-      let responseGenerator = GraphQLResponseGenerator()
-      return try execute(selections: selectionSet.selections, onObjectWithKey: key, variables: variables, accumulator: responseGenerator).await()
-    }
-    
     public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
       return cache.loadRecords(forKeys: keys)
     }
@@ -214,15 +201,7 @@ public final class ApolloStore {
       return try write(object: object, forSelectionSet: type(of: selectionSet), withKey: key, variables: variables)
     }
     
-    public func write<Query: GraphQLQuery>(object: JSONObject, forQuery query: Query) throws {
-      try write(object: object, forSelectionSet: Query.Data.self, withKey: rootKey(forOperation: query), variables: query.variables)
-    }
-    
-    public func write<Fragment: GraphQLFragment>(object: JSONObject, forFragment fragment: Fragment.Type, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
-      try write(object: object, forSelectionSet: fragment, withKey: key, variables: variables)
-    }
-    
-    func write(object: JSONObject, forSelectionSet selectionSet: GraphQLSelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws {
+    private func write(object: JSONObject, forSelectionSet selectionSet: GraphQLSelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
       return try self.executor.execute(selections: selectionSet.selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
