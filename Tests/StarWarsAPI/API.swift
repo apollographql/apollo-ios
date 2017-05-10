@@ -639,10 +639,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     "    __typename" +
     "    name" +
     "    ...FriendsNames" +
-    "    friends {" +
-    "      __typename" +
-    "      name" +
-    "    }" +
     "  }" +
     "}"
   public static var requestString: String { return operationString.appending(FriendsNames.fragmentString) }
@@ -685,7 +681,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
       public static let selections: [Selection] = [
         Field("__typename", type: .nonNull(.scalar(String.self))),
         Field("name", type: .nonNull(.scalar(String.self))),
-        Field("friends", type: .list(.object(Hero.Friend.self))),
         FragmentSpread(FriendsNames.self),
       ]
 
@@ -695,8 +690,8 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(__typename: String, name: String, friends: [Friend?]? = nil) {
-        self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+      public init(__typename: String, name: String) {
+        self.snapshot = ["__typename": __typename, "name": name]
       }
 
       public var __typename: String {
@@ -714,15 +709,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         }
         set {
           snapshot["name"] = newValue
-        }
-      }
-
-      public var friends: [Friend?]? {
-        get {
-          return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
-        }
-        set {
-          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
         }
       }
 
@@ -744,41 +730,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
           }
           set {
             snapshot = newValue.snapshot
-          }
-        }
-      }
-
-      public struct Friend: GraphQLSelectionSet {
-        public static let selections: [Selection] = [
-          Field("__typename", type: .nonNull(.scalar(String.self))),
-          Field("name", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public var snapshot: Snapshot
-
-        public init(snapshot: Snapshot) {
-          self.snapshot = snapshot
-        }
-
-        public init(__typename: String, name: String) {
-          self.snapshot = ["__typename": __typename, "name": name]
-        }
-
-        public var __typename: String {
-          get {
-            return snapshot["__typename"]! as! String
-          }
-          set {
-            snapshot["__typename"] = newValue
-          }
-        }
-
-        public var name: String {
-          get {
-            return snapshot["name"]! as! String
-          }
-          set {
-            snapshot["name"] = newValue
           }
         }
       }
