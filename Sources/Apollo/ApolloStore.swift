@@ -127,7 +127,7 @@ public final class ApolloStore {
     
     fileprivate lazy var executor: GraphQLExecutor = {
       let executor = GraphQLExecutor { object, info in
-        let value = object?[info.cacheKeyForField]
+        let value = object[info.cacheKeyForField]
         return self.complete(value: value)
       }
       

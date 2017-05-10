@@ -10,17 +10,23 @@ public protocol GraphQLSelectionSet {
 extension GraphQLSelectionSet {
   init(jsonObject: JSONObject, variables: GraphQLMap? = nil) throws {
     let executor = GraphQLExecutor { object, info in
-      Promise(fulfilled: (object ?? jsonObject)[info.responseKeyForField])
+      Promise(fulfilled: object[info.responseKeyForField])
     }
-    self = try executor.execute(selections: Self.selections, withKey: "", variables: variables, accumulator: GraphQLSelectionSetMapper<Self>()).await()
+    self = try executor.execute(selections: Self.selections, on: jsonObject, withKey: "", variables: variables, accumulator: GraphQLSelectionSetMapper<Self>()).await()
   }
   
   func jsonObject(variables: GraphQLMap? = nil) throws -> JSONObject {
     let executor = GraphQLExecutor { object, info in
-      Promise(fulfilled: object?[info.responseKeyForField].jsonValue)
+      Promise(fulfilled: object[info.responseKeyForField].jsonValue)
     }
     
     return try executor.execute(selections: Self.selections, on: snapshot.jsonObject, withKey: "", variables: variables, accumulator: GraphQLResponseGenerator()).await().jsonObject
+  }
+}
+
+extension GraphQLSelectionSet {
+  public init(_ selectionSet: GraphQLSelectionSet) throws {
+    try self.init(jsonObject: try selectionSet.jsonObject())
   }
 }
 

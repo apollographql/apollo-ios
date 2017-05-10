@@ -1,5 +1,5 @@
 /// A resolver is responsible for resolving a value for a field.
-public typealias GraphQLResolver = (_ object: JSONObject?, _ info: GraphQLResolveInfo) -> Promise<JSONValue?>
+public typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> Promise<JSONValue?>
 
 public struct GraphQLResolveInfo {
   let variables: GraphQLMap?
@@ -89,15 +89,8 @@ public final class GraphQLExecutor {
     self.resolver = resolver
   }
   
-  /// Creates a GraphQLExecutor that resolves field values starting from the specified JSON root object. This could be used to execute selection sets against a JSON object received from an external source without constructing your own resolver.
-  public convenience init(rootObject: JSONObject) {
-    self.init { object, info in
-      Promise(fulfilled: (object ?? rootObject)[info.responseKeyForField])
-    }
-  }
-  
-  private func runtimeType(of object: JSONObject?) -> String? {
-    return object?["__typename"] as? String
+  private func runtimeType(of object: JSONObject) -> String? {
+    return object["__typename"] as? String
   }
   
   private func cacheKey(for object: JSONObject) -> String? {
@@ -112,7 +105,7 @@ public final class GraphQLExecutor {
   
   // MARK: - Execution
   
-  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject? = nil, withKey rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, withKey rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: rootKey, variables: variables)
     
     return try execute(selections: selections, on: object, info: info, accumulator: accumulator).map {
@@ -120,7 +113,7 @@ public final class GraphQLExecutor {
     }
   }
   
-  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject? = nil, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<  Accumulator.ObjectResult> {
+  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<  Accumulator.ObjectResult> {
     var groupedFields = GroupedSequence<String, Field>()
     collectFields(selections: selections, forRuntimeType: runtimeType(of: object), into: &groupedFields)
     
@@ -155,6 +148,8 @@ public final class GraphQLExecutor {
       case let fragmentSpread as FragmentSpread:
         let fragment = fragmentSpread.fragment
         
+        print("runtimeType: \(runtimeType), possibleTypes: \(fragment.possibleTypes)")
+        
         if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
           let fragmentSelections = fragment.selections
           collectFields(selections: fragmentSelections, forRuntimeType: runtimeType, into: &groupedFields)
@@ -166,7 +161,7 @@ public final class GraphQLExecutor {
   }
   
   /// Each field requested in the grouped field set that is defined on the selected objectType will result in an entry in the response map. Field execution first coerces any provided argument values, then resolves a value for the field, and finally completes that value either by recursively executing another selection set or coercing a scalar value.
-  private func execute<Accumulator: GraphQLResultAccumulator>(fields: [Field], on object: JSONObject?, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<Accumulator.FieldEntry> {
+  private func execute<Accumulator: GraphQLResultAccumulator>(fields: [Field], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<Accumulator.FieldEntry> {
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
     let firstField = fields[0]
     
