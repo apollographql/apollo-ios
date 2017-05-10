@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
-		9F0F98E11E7BCC3400BF0371 /* Dictionary+KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F98E01E7BCC3400BF0371 /* Dictionary+KeyPath.swift */; };
 		9F10A51E1EC1BA0F0045E62B /* MockNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E301E27534800A24949 /* NormalizeQueryResults.swift */; };
@@ -207,7 +206,6 @@
 
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
-		9F0F98E01E7BCC3400BF0371 /* Dictionary+KeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+KeyPath.swift"; sourceTree = "<group>"; };
 		9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F295E301E27534800A24949 /* NormalizeQueryResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizeQueryResults.swift; sourceTree = "<group>"; };
@@ -539,7 +537,6 @@
 				9FEC15B81E6965E300D461B4 /* Result.swift */,
 				9FE941CF1E62C771007CDD89 /* Promise.swift */,
 				9FEC15B31E681DAD00D461B4 /* Collections.swift */,
-				9F0F98E01E7BCC3400BF0371 /* Dictionary+KeyPath.swift */,
 				9FADC8491E6B0B2300C677E6 /* Locking.swift */,
 			);
 			name = Utilities;
@@ -971,7 +968,6 @@
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
 				9FCDFD291E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */,
 				9FC2333D1E66BBF7001E4541 /* GraphQLDependencyTracker.swift in Sources */,
-				9F0F98E11E7BCC3400BF0371 /* Dictionary+KeyPath.swift in Sources */,
 				9FC9A9BF1E2C27FB0023C4D5 /* GraphQLResult.swift in Sources */,
 				9FC9A9D31E2FD48B0023C4D5 /* GraphQLError.swift in Sources */,
 				9FEB050D1DB5732300DA3B44 /* JSONSerializationFormat.swift in Sources */,
