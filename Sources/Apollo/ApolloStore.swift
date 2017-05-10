@@ -149,7 +149,7 @@ public final class ApolloStore {
       return try readSelectionSet(ofType: Fragment.self, withKey: key, variables: variables)
     }
     
-    func readSelectionSet<SelectionSet: GraphQLSelectionSet>(ofType selectionSetType: SelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws -> SelectionSet {
+    public func readSelectionSet<SelectionSet: GraphQLSelectionSet>(ofType selectionSetType: SelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap? = nil) throws -> SelectionSet {
       let mapper = GraphQLSelectionSetMapper<SelectionSet>()
       return try execute(selections: selectionSetType.selections, onObjectWithKey: key, variables: variables, accumulator: mapper).await()
     }
@@ -196,7 +196,7 @@ public final class ApolloStore {
       return try write(selectionSet: fragment, withKey: key, variables: variables)
     }
     
-    func write(selectionSet: GraphQLSelectionSet, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
+    public func write(selectionSet: GraphQLSelectionSet, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
       let object = try selectionSet.jsonObject(variables: variables)
       return try write(object: object, forSelectionSet: type(of: selectionSet), withKey: key, variables: variables)
     }
