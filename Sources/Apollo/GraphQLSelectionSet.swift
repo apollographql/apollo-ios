@@ -17,10 +17,10 @@ extension GraphQLSelectionSet {
   
   func jsonObject(variables: GraphQLMap? = nil) throws -> JSONObject {
     let executor = GraphQLExecutor { object, info in
-      Promise(fulfilled: object[info.responseKeyForField].jsonValue)
+      Promise(fulfilled: object[info.responseKeyForField])
     }
     
-    return try executor.execute(selections: Self.selections, on: snapshot.jsonObject, withKey: "", variables: variables, accumulator: GraphQLResponseGenerator()).await().jsonObject
+    return try executor.execute(selections: Self.selections, on: snapshot.jsonObject, withKey: "", variables: variables, accumulator: GraphQLResponseGenerator()).await()
   }
 }
 
