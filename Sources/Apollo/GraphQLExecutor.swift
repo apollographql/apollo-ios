@@ -147,9 +147,7 @@ public final class GraphQLExecutor {
         _ = groupedFields.append(value: field, forKey: field.responseKey)
       case let fragmentSpread as FragmentSpread:
         let fragment = fragmentSpread.fragment
-        
-        print("runtimeType: \(runtimeType), possibleTypes: \(fragment.possibleTypes)")
-        
+                
         if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
           let fragmentSelections = fragment.selections
           collectFields(selections: fragmentSelections, forRuntimeType: runtimeType, into: &groupedFields)
