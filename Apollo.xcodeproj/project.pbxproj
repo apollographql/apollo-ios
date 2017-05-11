@@ -217,6 +217,7 @@
 		9F69FFA81D42855900E000B1 /* NetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTransport.swift; sourceTree = "<group>"; };
 		9F8622F71EC2004200C38162 /* ReadWriteFromStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteFromStoreTests.swift; sourceTree = "<group>"; };
 		9F8622F91EC2117C00C38162 /* SelectionSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTests.swift; sourceTree = "<group>"; };
+		9F8622FE1EC44A8600C38162 /* HeroNameAndAppearsIn.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroNameAndAppearsIn.graphql; sourceTree = "<group>"; };
 		9F86B68A1E6438D700B885FF /* GraphQLSelectionSetMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLSelectionSetMapper.swift; sourceTree = "<group>"; };
 		9F86B68F1E65533D00B885FF /* GraphQLResponseGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResponseGenerator.swift; sourceTree = "<group>"; };
 		9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,7 +270,6 @@
 		9FCE2D0D1E6C259B00E34457 /* HeroAndFriendsNames.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAndFriendsNames.graphql; sourceTree = "<group>"; };
 		9FCE2D0E1E6C259B00E34457 /* HeroAppearsIn.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAppearsIn.graphql; sourceTree = "<group>"; };
 		9FCE2D0F1E6C259B00E34457 /* HeroDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetails.graphql; sourceTree = "<group>"; };
-		9FCE2D101E6C259B00E34457 /* HeroDetailsWithFragment.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetailsWithFragment.graphql; sourceTree = "<group>"; };
 		9FCE2D111E6C259B00E34457 /* HeroName.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroName.graphql; sourceTree = "<group>"; };
 		9FCE2D121E6C259B00E34457 /* HeroNameConditional.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroNameConditional.graphql; sourceTree = "<group>"; };
 		9FCE2D131E6C259B00E34457 /* HeroParentTypeDependentField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroParentTypeDependentField.graphql; sourceTree = "<group>"; };
@@ -558,19 +558,19 @@
 		9FCE2CFB1E6C213D00E34457 /* StarWarsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9FCE2D0C1E6C259B00E34457 /* CreateReviewForEpisode.graphql */,
-				9FCE2D0D1E6C259B00E34457 /* HeroAndFriendsNames.graphql */,
-				9FCE2D0E1E6C259B00E34457 /* HeroAppearsIn.graphql */,
-				9FCE2D0F1E6C259B00E34457 /* HeroDetails.graphql */,
-				9FCE2D101E6C259B00E34457 /* HeroDetailsWithFragment.graphql */,
 				9FCE2D111E6C259B00E34457 /* HeroName.graphql */,
 				9FCE2D121E6C259B00E34457 /* HeroNameConditional.graphql */,
+				9FCE2D0E1E6C259B00E34457 /* HeroAppearsIn.graphql */,
+				9F8622FE1EC44A8600C38162 /* HeroNameAndAppearsIn.graphql */,
+				9FCE2D0D1E6C259B00E34457 /* HeroAndFriendsNames.graphql */,
+				9FCE2D0F1E6C259B00E34457 /* HeroDetails.graphql */,
 				9FCE2D131E6C259B00E34457 /* HeroParentTypeDependentField.graphql */,
 				9FCE2D141E6C259B00E34457 /* HeroTypeDependentAliasedField.graphql */,
 				9FCE2D151E6C259B00E34457 /* HumanWithNullMass.graphql */,
+				9FCE2D181E6C259B00E34457 /* TwoHeroes.graphql */,
 				9FCE2D161E6C259B00E34457 /* SameHeroTwice.graphql */,
 				9FCE2D171E6C259B00E34457 /* Starship.graphql */,
-				9FCE2D181E6C259B00E34457 /* TwoHeroes.graphql */,
+				9FCE2D0C1E6C259B00E34457 /* CreateReviewForEpisode.graphql */,
 				9FCE2D0A1E6C258A00E34457 /* API.swift */,
 				9FCE2CFC1E6C213D00E34457 /* StarWarsAPI.h */,
 				9FCE2CFD1E6C213D00E34457 /* Info.plist */,
