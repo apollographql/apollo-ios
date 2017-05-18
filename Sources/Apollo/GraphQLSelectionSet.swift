@@ -15,18 +15,14 @@ extension GraphQLSelectionSet {
     self = try executor.execute(selections: Self.selections, on: jsonObject, withKey: "", variables: variables, accumulator: GraphQLSelectionSetMapper<Self>()).await()
   }
   
-  func jsonObject(variables: GraphQLMap? = nil) throws -> JSONObject {
-    let executor = GraphQLExecutor { object, info in
-      Promise(fulfilled: object[info.responseKeyForField])
-    }
-    
-    return try executor.execute(selections: Self.selections, on: snapshot.jsonObject, withKey: "", variables: variables, accumulator: GraphQLResponseGenerator()).await()
+  var jsonObject: JSONObject {
+    return snapshot.jsonObject
   }
 }
 
 extension GraphQLSelectionSet {
   public init(_ selectionSet: GraphQLSelectionSet) throws {
-    try self.init(jsonObject: try selectionSet.jsonObject())
+    try self.init(jsonObject: selectionSet.jsonObject)
   }
 }
 
