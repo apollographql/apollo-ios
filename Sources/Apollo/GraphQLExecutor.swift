@@ -17,6 +17,10 @@ public struct GraphQLResolveInfo {
     
     cachePath = [rootKey]
   }
+  
+  public init(variables: GraphQLMap?) {
+    self.variables = variables
+  }
 }
 
 func joined(path: [String]) -> String {
@@ -105,8 +109,8 @@ public final class GraphQLExecutor {
   
   // MARK: - Execution
   
-  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, withKey rootKey: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-    let info = GraphQLResolveInfo(rootKey: rootKey, variables: variables)
+  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, withKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+    let info = GraphQLResolveInfo(rootKey: key, variables: variables)
     
     return try execute(selections: selections, on: object, info: info, accumulator: accumulator).map {
       try accumulator.finish(rootValue: $0, info: info)
