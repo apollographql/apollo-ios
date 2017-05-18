@@ -215,8 +215,7 @@ public final class ApolloStore {
     }
     
     public func write(selectionSet: GraphQLSelectionSet, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
-      let object = try selectionSet.jsonObject(variables: variables)
-      try write(object: object, forSelectionSet: type(of: selectionSet), withKey: key, variables: variables)
+      try write(object: selectionSet.jsonObject, forSelectionSet: type(of: selectionSet), withKey: key, variables: variables)
     }
     
     private func write(object: JSONObject, forSelectionSet selectionSet: GraphQLSelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws {

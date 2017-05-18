@@ -49,26 +49,26 @@ class SelectionSetTests: XCTestCase {
   func testJSONObjectFromHeroNameFragment() throws {
     let r2d2 = HeroName(__typename: "Droid", name: "R2-D2")
     
-    try XCTAssertEqual(try r2d2.jsonObject(), ["__typename": "Droid", "name": "R2-D2"])
+    XCTAssertEqual(r2d2.jsonObject, ["__typename": "Droid", "name": "R2-D2"])
   }
   
   func testJSONObjectFromHeroAppearsInFragment() throws {
     let r2d2 = HeroAppearsIn(__typename: "Droid", appearsIn: [.newhope, .empire, .jedi])
     
-    try XCTAssertEqual(try r2d2.jsonObject(), ["__typename": "Droid", "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
+    XCTAssertEqual(r2d2.jsonObject, ["__typename": "Droid", "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
   }
   
   func testJSONObjectFromHeroDetailsFragmentWithTypeSpecificProperty() throws {
     var r2d2 = HeroDetails(__typename: "Droid", name: "R2-D2")
     r2d2.asDroid?.primaryFunction = "Protocol"
     
-    try XCTAssertEqual(try r2d2.jsonObject(), ["__typename": "Droid", "name": "R2-D2", "primaryFunction": "Protocol"])
+    XCTAssertEqual(r2d2.jsonObject, ["__typename": "Droid", "name": "R2-D2", "primaryFunction": "Protocol"])
   }
   
   func testJSONObjectFromHeroDetailsFragmentWithMissingTypeSpecificProperty() throws {
     let r2d2 = HeroDetails(__typename: "Droid", name: "R2-D2")
     
-    XCTAssertThrowsError(try r2d2.jsonObject()) { error in
+    XCTAssertThrowsError(r2d2.jsonObject) { error in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["primaryFunction"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
