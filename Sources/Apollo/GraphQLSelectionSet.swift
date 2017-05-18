@@ -8,11 +8,11 @@ public protocol GraphQLSelectionSet {
 }
 
 extension GraphQLSelectionSet {
-  init(jsonObject: JSONObject, variables: GraphQLMap? = nil) throws {
+  init(jsonObject: JSONObject) throws {
     let executor = GraphQLExecutor { object, info in
       Promise(fulfilled: object[info.responseKeyForField])
     }
-    self = try executor.execute(selections: Self.selections, on: jsonObject, withKey: "", variables: variables, accumulator: GraphQLSelectionSetMapper<Self>()).await()
+    self = try executor.execute(selections: Self.selections, on: jsonObject, withKey: "", variables: nil, accumulator: GraphQLSelectionSetMapper<Self>()).await()
   }
   
   var jsonObject: JSONObject {
@@ -20,7 +20,7 @@ extension GraphQLSelectionSet {
   }
 }
 
-extension GraphQLSelectionSet {
+extension GraphQLSelectionSet {  
   public init(_ selectionSet: GraphQLSelectionSet) throws {
     try self.init(jsonObject: selectionSet.jsonObject)
   }

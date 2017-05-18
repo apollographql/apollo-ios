@@ -15,7 +15,7 @@ extension Episode: JSONDecodable, JSONEncodable {}
 public struct ReviewInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(stars: Int, commentary: String? = nil, favoriteColor: ColorInput? = nil) {
+  public init(stars: Int, commentary: Optional<String?> = nil, favoriteColor: Optional<ColorInput?> = nil) {
     graphQLMap = ["stars": stars, "commentary": commentary, "favoriteColor": favoriteColor]
   }
 }
@@ -64,7 +64,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
     }
 
     public init(createReview: CreateReview? = nil) {
-      self.snapshot = ["createReview": createReview]
+      self.init(snapshot: ["createReview": createReview])
     }
 
     public var createReview: CreateReview? {
@@ -72,7 +72,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
         return CreateReview(snapshot: snapshot["createReview"]! as! Snapshot)
       }
       set {
-        snapshot["createReview"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "createReview")
       }
     }
 
@@ -90,7 +90,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
       }
 
       public init(__typename: String, stars: Int, commentary: String? = nil) {
-        self.snapshot = ["__typename": __typename, "stars": stars, "commentary": commentary]
+        self.init(snapshot: ["__typename": __typename, "stars": stars, "commentary": commentary])
       }
 
       public var __typename: String {
@@ -98,7 +98,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -107,7 +107,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
           return snapshot["stars"]! as! Int
         }
         set {
-          snapshot["stars"] = newValue
+          snapshot.updateValue(newValue, forKey: "stars")
         }
       }
 
@@ -116,7 +116,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
           return snapshot["commentary"]! as! String?
         }
         set {
-          snapshot["commentary"] = newValue
+          snapshot.updateValue(newValue, forKey: "commentary")
         }
       }
     }
@@ -149,7 +149,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
     }
 
     public init(createReview: CreateReview? = nil) {
-      self.snapshot = ["createReview": createReview]
+      self.init(snapshot: ["createReview": createReview])
     }
 
     public var createReview: CreateReview? {
@@ -157,7 +157,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
         return CreateReview(snapshot: snapshot["createReview"]! as! Snapshot)
       }
       set {
-        snapshot["createReview"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "createReview")
       }
     }
 
@@ -175,7 +175,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
       }
 
       public init(__typename: String, stars: Int, commentary: String? = nil) {
-        self.snapshot = ["__typename": __typename, "stars": stars, "commentary": commentary]
+        self.init(snapshot: ["__typename": __typename, "stars": stars, "commentary": commentary])
       }
 
       public var __typename: String {
@@ -183,7 +183,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -192,7 +192,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
           return snapshot["stars"]! as! Int
         }
         set {
-          snapshot["stars"] = newValue
+          snapshot.updateValue(newValue, forKey: "stars")
         }
       }
 
@@ -201,7 +201,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
           return snapshot["commentary"]! as! String?
         }
         set {
-          snapshot["commentary"] = newValue
+          snapshot.updateValue(newValue, forKey: "commentary")
         }
       }
     }
@@ -244,7 +244,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -252,7 +252,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -270,7 +270,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String, friends: [Friend?]? = nil) {
-        self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+        self.init(snapshot: ["__typename": __typename, "name": name, "friends": friends])
       }
 
       public var __typename: String {
@@ -278,7 +278,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -287,7 +287,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -296,7 +296,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
         }
         set {
-          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -313,7 +313,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
         }
 
         public init(__typename: String, name: String) {
-          self.snapshot = ["__typename": __typename, "name": name]
+          self.init(snapshot: ["__typename": __typename, "name": name])
         }
 
         public var __typename: String {
@@ -321,7 +321,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -330,7 +330,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
       }
@@ -376,7 +376,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -384,7 +384,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -403,7 +403,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
       }
 
       public init(__typename: String, id: GraphQLID, name: String, friends: [Friend?]? = nil) {
-        self.snapshot = ["__typename": __typename, "id": id, "name": name, "friends": friends]
+        self.init(snapshot: ["__typename": __typename, "id": id, "name": name, "friends": friends])
       }
 
       public var __typename: String {
@@ -411,7 +411,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -420,7 +420,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           return snapshot["id"]! as! GraphQLID
         }
         set {
-          snapshot["id"] = newValue
+          snapshot.updateValue(newValue, forKey: "id")
         }
       }
 
@@ -429,7 +429,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -438,7 +438,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
         }
         set {
-          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -456,7 +456,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         }
 
         public init(__typename: String, id: GraphQLID, name: String) {
-          self.snapshot = ["__typename": __typename, "id": id, "name": name]
+          self.init(snapshot: ["__typename": __typename, "id": id, "name": name])
         }
 
         public var __typename: String {
@@ -464,7 +464,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -473,7 +473,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
             return snapshot["id"]! as! GraphQLID
           }
           set {
-            snapshot["id"] = newValue
+            snapshot.updateValue(newValue, forKey: "id")
           }
         }
 
@@ -482,7 +482,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
       }
@@ -527,7 +527,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -535,7 +535,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -554,7 +554,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
       }
 
       public init(__typename: String, id: GraphQLID, name: String, friends: [Friend?]? = nil) {
-        self.snapshot = ["__typename": __typename, "id": id, "name": name, "friends": friends]
+        self.init(snapshot: ["__typename": __typename, "id": id, "name": name, "friends": friends])
       }
 
       public var __typename: String {
@@ -562,7 +562,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -571,7 +571,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
           return snapshot["id"]! as! GraphQLID
         }
         set {
-          snapshot["id"] = newValue
+          snapshot.updateValue(newValue, forKey: "id")
         }
       }
 
@@ -580,7 +580,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -589,7 +589,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
         }
         set {
-          snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -606,7 +606,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
         }
 
         public init(__typename: String, name: String) {
-          self.snapshot = ["__typename": __typename, "name": name]
+          self.init(snapshot: ["__typename": __typename, "name": name])
         }
 
         public var __typename: String {
@@ -614,7 +614,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -623,7 +623,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
       }
@@ -665,7 +665,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -673,7 +673,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -691,7 +691,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -699,7 +699,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -708,7 +708,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -762,7 +762,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -770,7 +770,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -787,7 +787,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
       }
 
       public init(__typename: String, appearsIn: [Episode?]) {
-        self.snapshot = ["__typename": __typename, "appearsIn": appearsIn]
+        self.init(snapshot: ["__typename": __typename, "appearsIn": appearsIn])
       }
 
       public var __typename: String {
@@ -795,7 +795,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -804,7 +804,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
           return snapshot["appearsIn"]! as! [Episode?]
         }
         set {
-          snapshot["appearsIn"] = newValue
+          snapshot.updateValue(newValue, forKey: "appearsIn")
         }
       }
     }
@@ -844,7 +844,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -852,7 +852,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -869,7 +869,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
       }
 
       public init(__typename: String) {
-        self.snapshot = ["__typename": __typename]
+        self.init(snapshot: ["__typename": __typename])
       }
 
       public var __typename: String {
@@ -877,7 +877,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -946,7 +946,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -954,7 +954,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -972,8 +972,12 @@ public final class HeroDetailsQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+      public static func makeHuman(name: String, height: Double? = nil) -> Hero {
+        return Hero(snapshot: ["__typename": "Human", "name": name, "height": height])
+      }
+
+      public static func makeDroid(name: String, primaryFunction: String? = nil) -> Hero {
+        return Hero(snapshot: ["__typename": "Droid", "name": name, "primaryFunction": primaryFunction])
       }
 
       public var __typename: String {
@@ -981,7 +985,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -990,7 +994,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -1032,7 +1036,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
         }
 
         public init(__typename: String, name: String, height: Double? = nil) {
-          self.snapshot = ["__typename": __typename, "name": name, "height": height]
+          self.init(snapshot: ["__typename": __typename, "name": name, "height": height])
         }
 
         public var __typename: String {
@@ -1040,7 +1044,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -1049,7 +1053,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
 
@@ -1058,7 +1062,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
             return snapshot["height"]! as! Double?
           }
           set {
-            snapshot["height"] = newValue
+            snapshot.updateValue(newValue, forKey: "height")
           }
         }
       }
@@ -1079,7 +1083,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
         }
 
         public init(__typename: String, name: String, primaryFunction: String? = nil) {
-          self.snapshot = ["__typename": __typename, "name": name, "primaryFunction": primaryFunction]
+          self.init(snapshot: ["__typename": __typename, "name": name, "primaryFunction": primaryFunction])
         }
 
         public var __typename: String {
@@ -1087,7 +1091,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -1096,7 +1100,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
 
@@ -1105,7 +1109,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
             return snapshot["primaryFunction"]! as! String?
           }
           set {
-            snapshot["primaryFunction"] = newValue
+            snapshot.updateValue(newValue, forKey: "primaryFunction")
           }
         }
       }
@@ -1146,7 +1150,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1154,7 +1158,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1171,7 +1175,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
       }
 
       public init(__typename: String) {
-        self.snapshot = ["__typename": __typename]
+        self.init(snapshot: ["__typename": __typename])
       }
 
       public var __typename: String {
@@ -1179,7 +1183,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1240,7 +1244,7 @@ public final class HeroNameQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1248,7 +1252,7 @@ public final class HeroNameQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1265,7 +1269,7 @@ public final class HeroNameQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -1273,7 +1277,7 @@ public final class HeroNameQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1282,7 +1286,7 @@ public final class HeroNameQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -1322,7 +1326,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1330,7 +1334,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1348,7 +1352,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
       }
 
       public init(__typename: String, id: GraphQLID, name: String) {
-        self.snapshot = ["__typename": __typename, "id": id, "name": name]
+        self.init(snapshot: ["__typename": __typename, "id": id, "name": name])
       }
 
       public var __typename: String {
@@ -1356,7 +1360,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1365,7 +1369,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
           return snapshot["id"]! as! GraphQLID
         }
         set {
-          snapshot["id"] = newValue
+          snapshot.updateValue(newValue, forKey: "id")
         }
       }
 
@@ -1374,7 +1378,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -1414,7 +1418,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1422,7 +1426,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1439,7 +1443,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
       }
 
       public init(__typename: String) {
-        self.snapshot = ["__typename": __typename]
+        self.init(snapshot: ["__typename": __typename])
       }
 
       public var __typename: String {
@@ -1447,7 +1451,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1509,7 +1513,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1517,7 +1521,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1534,7 +1538,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
       }
 
       public init(__typename: String) {
-        self.snapshot = ["__typename": __typename]
+        self.init(snapshot: ["__typename": __typename])
       }
 
       public var __typename: String {
@@ -1542,7 +1546,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1605,7 +1609,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1613,7 +1617,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1630,7 +1634,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String? = nil) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -1638,7 +1642,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1647,7 +1651,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
           return snapshot["name"]! as! String?
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -1688,7 +1692,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1696,7 +1700,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1713,7 +1717,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String? = nil) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -1721,7 +1725,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1730,7 +1734,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
           return snapshot["name"]! as! String?
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -1791,7 +1795,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -1799,7 +1803,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -1817,8 +1821,12 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+      public static func makeHuman(name: String, friends: [AsHuman.Friend?]? = nil) -> Hero {
+        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends])
+      }
+
+      public static func makeDroid(name: String, friends: [AsDroid.Friend?]? = nil) -> Hero {
+        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends])
       }
 
       public var __typename: String {
@@ -1826,7 +1834,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -1835,7 +1843,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -1877,7 +1885,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         }
 
         public init(__typename: String, name: String, friends: [Friend?]? = nil) {
-          self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+          self.init(snapshot: ["__typename": __typename, "name": name, "friends": friends])
         }
 
         public var __typename: String {
@@ -1885,7 +1893,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -1894,7 +1902,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
 
@@ -1903,7 +1911,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
           }
           set {
-            snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+            snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
           }
         }
 
@@ -1920,8 +1928,8 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(__typename: String, name: String) {
-            self.snapshot = ["__typename": __typename, "name": name]
+          public static func makeHuman(name: String, height: Double? = nil) -> Friend {
+            return Friend(snapshot: ["__typename": "Human", "name": name, "height": height])
           }
 
           public var __typename: String {
@@ -1929,7 +1937,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               return snapshot["__typename"]! as! String
             }
             set {
-              snapshot["__typename"] = newValue
+              snapshot.updateValue(newValue, forKey: "__typename")
             }
           }
 
@@ -1938,7 +1946,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               return snapshot["name"]! as! String
             }
             set {
-              snapshot["name"] = newValue
+              snapshot.updateValue(newValue, forKey: "name")
             }
           }
 
@@ -1969,7 +1977,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             }
 
             public init(__typename: String, name: String, height: Double? = nil) {
-              self.snapshot = ["__typename": __typename, "name": name, "height": height]
+              self.init(snapshot: ["__typename": __typename, "name": name, "height": height])
             }
 
             public var __typename: String {
@@ -1977,7 +1985,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 return snapshot["__typename"]! as! String
               }
               set {
-                snapshot["__typename"] = newValue
+                snapshot.updateValue(newValue, forKey: "__typename")
               }
             }
 
@@ -1986,7 +1994,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 return snapshot["name"]! as! String
               }
               set {
-                snapshot["name"] = newValue
+                snapshot.updateValue(newValue, forKey: "name")
               }
             }
 
@@ -1995,7 +2003,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 return snapshot["height"]! as! Double?
               }
               set {
-                snapshot["height"] = newValue
+                snapshot.updateValue(newValue, forKey: "height")
               }
             }
           }
@@ -2018,7 +2026,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         }
 
         public init(__typename: String, name: String, friends: [Friend?]? = nil) {
-          self.snapshot = ["__typename": __typename, "name": name, "friends": friends]
+          self.init(snapshot: ["__typename": __typename, "name": name, "friends": friends])
         }
 
         public var __typename: String {
@@ -2026,7 +2034,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -2035,7 +2043,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             return snapshot["name"]! as! String
           }
           set {
-            snapshot["name"] = newValue
+            snapshot.updateValue(newValue, forKey: "name")
           }
         }
 
@@ -2044,7 +2052,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
           }
           set {
-            snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+            snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
           }
         }
 
@@ -2061,8 +2069,8 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          public init(__typename: String, name: String) {
-            self.snapshot = ["__typename": __typename, "name": name]
+          public static func makeHuman(name: String, height: Double? = nil) -> Friend {
+            return Friend(snapshot: ["__typename": "Human", "name": name, "height": height])
           }
 
           public var __typename: String {
@@ -2070,7 +2078,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               return snapshot["__typename"]! as! String
             }
             set {
-              snapshot["__typename"] = newValue
+              snapshot.updateValue(newValue, forKey: "__typename")
             }
           }
 
@@ -2079,7 +2087,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               return snapshot["name"]! as! String
             }
             set {
-              snapshot["name"] = newValue
+              snapshot.updateValue(newValue, forKey: "name")
             }
           }
 
@@ -2110,7 +2118,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             }
 
             public init(__typename: String, name: String, height: Double? = nil) {
-              self.snapshot = ["__typename": __typename, "name": name, "height": height]
+              self.init(snapshot: ["__typename": __typename, "name": name, "height": height])
             }
 
             public var __typename: String {
@@ -2118,7 +2126,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 return snapshot["__typename"]! as! String
               }
               set {
-                snapshot["__typename"] = newValue
+                snapshot.updateValue(newValue, forKey: "__typename")
               }
             }
 
@@ -2127,7 +2135,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 return snapshot["name"]! as! String
               }
               set {
-                snapshot["name"] = newValue
+                snapshot.updateValue(newValue, forKey: "name")
               }
             }
 
@@ -2136,7 +2144,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 return snapshot["height"]! as! Double?
               }
               set {
-                snapshot["height"] = newValue
+                snapshot.updateValue(newValue, forKey: "height")
               }
             }
           }
@@ -2185,7 +2193,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.snapshot = ["hero": hero]
+      self.init(snapshot: ["hero": hero])
     }
 
     public var hero: Hero? {
@@ -2193,7 +2201,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -2210,8 +2218,12 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      public init(__typename: String) {
-        self.snapshot = ["__typename": __typename]
+      public static func makeHuman(property: String? = nil) -> Hero {
+        return Hero(snapshot: ["__typename": "Human", "property": property])
+      }
+
+      public static func makeDroid(property: String? = nil) -> Hero {
+        return Hero(snapshot: ["__typename": "Droid", "property": property])
       }
 
       public var __typename: String {
@@ -2219,7 +2231,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2260,7 +2272,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         }
 
         public init(__typename: String, property: String? = nil) {
-          self.snapshot = ["__typename": __typename, "property": property]
+          self.init(snapshot: ["__typename": __typename, "property": property])
         }
 
         public var __typename: String {
@@ -2268,7 +2280,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -2277,7 +2289,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
             return snapshot["property"]! as! String?
           }
           set {
-            snapshot["property"] = newValue
+            snapshot.updateValue(newValue, forKey: "property")
           }
         }
       }
@@ -2297,7 +2309,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         }
 
         public init(__typename: String, property: String? = nil) {
-          self.snapshot = ["__typename": __typename, "property": property]
+          self.init(snapshot: ["__typename": __typename, "property": property])
         }
 
         public var __typename: String {
@@ -2305,7 +2317,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
             return snapshot["__typename"]! as! String
           }
           set {
-            snapshot["__typename"] = newValue
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
@@ -2314,7 +2326,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
             return snapshot["property"]! as! String?
           }
           set {
-            snapshot["property"] = newValue
+            snapshot.updateValue(newValue, forKey: "property")
           }
         }
       }
@@ -2348,7 +2360,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
     }
 
     public init(human: Human? = nil) {
-      self.snapshot = ["human": human]
+      self.init(snapshot: ["human": human])
     }
 
     public var human: Human? {
@@ -2356,7 +2368,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
         return Human(snapshot: snapshot["human"]! as! Snapshot)
       }
       set {
-        snapshot["human"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "human")
       }
     }
 
@@ -2374,7 +2386,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String, mass: Double? = nil) {
-        self.snapshot = ["__typename": __typename, "name": name, "mass": mass]
+        self.init(snapshot: ["__typename": __typename, "name": name, "mass": mass])
       }
 
       public var __typename: String {
@@ -2382,7 +2394,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2391,7 +2403,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -2400,7 +2412,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
           return snapshot["mass"]! as! Double?
         }
         set {
-          snapshot["mass"] = newValue
+          snapshot.updateValue(newValue, forKey: "mass")
         }
       }
     }
@@ -2437,7 +2449,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil, r2: R2? = nil) {
-      self.snapshot = ["hero": hero, "r2": r2]
+      self.init(snapshot: ["hero": hero, "r2": r2])
     }
 
     public var hero: Hero? {
@@ -2445,7 +2457,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
         return Hero(snapshot: snapshot["hero"]! as! Snapshot)
       }
       set {
-        snapshot["hero"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
       }
     }
 
@@ -2454,7 +2466,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
         return R2(snapshot: snapshot["r2"]! as! Snapshot)
       }
       set {
-        snapshot["r2"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "r2")
       }
     }
 
@@ -2471,7 +2483,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -2479,7 +2491,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2488,7 +2500,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -2506,7 +2518,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
       }
 
       public init(__typename: String, appearsIn: [Episode?]) {
-        self.snapshot = ["__typename": __typename, "appearsIn": appearsIn]
+        self.init(snapshot: ["__typename": __typename, "appearsIn": appearsIn])
       }
 
       public var __typename: String {
@@ -2514,7 +2526,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2523,7 +2535,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
           return snapshot["appearsIn"]! as! [Episode?]
         }
         set {
-          snapshot["appearsIn"] = newValue
+          snapshot.updateValue(newValue, forKey: "appearsIn")
         }
       }
     }
@@ -2556,7 +2568,7 @@ public final class StarshipQuery: GraphQLQuery {
     }
 
     public init(starship: Starship? = nil) {
-      self.snapshot = ["starship": starship]
+      self.init(snapshot: ["starship": starship])
     }
 
     public var starship: Starship? {
@@ -2564,7 +2576,7 @@ public final class StarshipQuery: GraphQLQuery {
         return Starship(snapshot: snapshot["starship"]! as! Snapshot)
       }
       set {
-        snapshot["starship"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "starship")
       }
     }
 
@@ -2582,7 +2594,7 @@ public final class StarshipQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String, coordinates: [[Double]]? = nil) {
-        self.snapshot = ["__typename": __typename, "name": name, "coordinates": coordinates]
+        self.init(snapshot: ["__typename": __typename, "name": name, "coordinates": coordinates])
       }
 
       public var __typename: String {
@@ -2590,7 +2602,7 @@ public final class StarshipQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2599,7 +2611,7 @@ public final class StarshipQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -2608,7 +2620,7 @@ public final class StarshipQuery: GraphQLQuery {
           return snapshot["coordinates"]! as! [[Double]]?
         }
         set {
-          snapshot["coordinates"] = newValue
+          snapshot.updateValue(newValue, forKey: "coordinates")
         }
       }
     }
@@ -2645,7 +2657,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
     }
 
     public init(r2: R2? = nil, luke: Luke? = nil) {
-      self.snapshot = ["r2": r2, "luke": luke]
+      self.init(snapshot: ["r2": r2, "luke": luke])
     }
 
     public var r2: R2? {
@@ -2653,7 +2665,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
         return R2(snapshot: snapshot["r2"]! as! Snapshot)
       }
       set {
-        snapshot["r2"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "r2")
       }
     }
 
@@ -2662,7 +2674,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
         return Luke(snapshot: snapshot["luke"]! as! Snapshot)
       }
       set {
-        snapshot["luke"] = newValue?.snapshot
+        snapshot.updateValue(newValue?.snapshot, forKey: "luke")
       }
     }
 
@@ -2679,7 +2691,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -2687,7 +2699,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2696,7 +2708,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -2714,7 +2726,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
       }
 
       public init(__typename: String, name: String) {
-        self.snapshot = ["__typename": __typename, "name": name]
+        self.init(snapshot: ["__typename": __typename, "name": name])
       }
 
       public var __typename: String {
@@ -2722,7 +2734,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
           return snapshot["__typename"]! as! String
         }
         set {
-          snapshot["__typename"] = newValue
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
@@ -2731,7 +2743,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
           return snapshot["name"]! as! String
         }
         set {
-          snapshot["name"] = newValue
+          snapshot.updateValue(newValue, forKey: "name")
         }
       }
     }
@@ -2762,7 +2774,7 @@ public struct FriendsNames: GraphQLFragment {
   }
 
   public init(__typename: String, friends: [Friend?]? = nil) {
-    self.snapshot = ["__typename": __typename, "friends": friends]
+    self.init(snapshot: ["__typename": __typename, "friends": friends])
   }
 
   public var __typename: String {
@@ -2770,7 +2782,7 @@ public struct FriendsNames: GraphQLFragment {
       return snapshot["__typename"]! as! String
     }
     set {
-      snapshot["__typename"] = newValue
+      snapshot.updateValue(newValue, forKey: "__typename")
     }
   }
 
@@ -2779,7 +2791,7 @@ public struct FriendsNames: GraphQLFragment {
       return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
     }
     set {
-      snapshot["friends"] = newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }
+      snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
     }
   }
 
@@ -2796,7 +2808,7 @@ public struct FriendsNames: GraphQLFragment {
     }
 
     public init(__typename: String, name: String) {
-      self.snapshot = ["__typename": __typename, "name": name]
+      self.init(snapshot: ["__typename": __typename, "name": name])
     }
 
     public var __typename: String {
@@ -2804,7 +2816,7 @@ public struct FriendsNames: GraphQLFragment {
         return snapshot["__typename"]! as! String
       }
       set {
-        snapshot["__typename"] = newValue
+        snapshot.updateValue(newValue, forKey: "__typename")
       }
     }
 
@@ -2813,7 +2825,7 @@ public struct FriendsNames: GraphQLFragment {
         return snapshot["name"]! as! String
       }
       set {
-        snapshot["name"] = newValue
+        snapshot.updateValue(newValue, forKey: "name")
       }
     }
   }
@@ -2840,7 +2852,7 @@ public struct HeroAppearsIn: GraphQLFragment {
   }
 
   public init(__typename: String, appearsIn: [Episode?]) {
-    self.snapshot = ["__typename": __typename, "appearsIn": appearsIn]
+    self.init(snapshot: ["__typename": __typename, "appearsIn": appearsIn])
   }
 
   public var __typename: String {
@@ -2848,7 +2860,7 @@ public struct HeroAppearsIn: GraphQLFragment {
       return snapshot["__typename"]! as! String
     }
     set {
-      snapshot["__typename"] = newValue
+      snapshot.updateValue(newValue, forKey: "__typename")
     }
   }
 
@@ -2857,7 +2869,7 @@ public struct HeroAppearsIn: GraphQLFragment {
       return snapshot["appearsIn"]! as! [Episode?]
     }
     set {
-      snapshot["appearsIn"] = newValue
+      snapshot.updateValue(newValue, forKey: "appearsIn")
     }
   }
 }
@@ -2892,8 +2904,12 @@ public struct HeroDetails: GraphQLFragment {
     self.snapshot = snapshot
   }
 
-  public init(__typename: String, name: String) {
-    self.snapshot = ["__typename": __typename, "name": name]
+  public static func makeHuman(name: String, height: Double? = nil) -> HeroDetails {
+    return HeroDetails(snapshot: ["__typename": "Human", "name": name, "height": height])
+  }
+
+  public static func makeDroid(name: String, primaryFunction: String? = nil) -> HeroDetails {
+    return HeroDetails(snapshot: ["__typename": "Droid", "name": name, "primaryFunction": primaryFunction])
   }
 
   public var __typename: String {
@@ -2901,7 +2917,7 @@ public struct HeroDetails: GraphQLFragment {
       return snapshot["__typename"]! as! String
     }
     set {
-      snapshot["__typename"] = newValue
+      snapshot.updateValue(newValue, forKey: "__typename")
     }
   }
 
@@ -2910,7 +2926,7 @@ public struct HeroDetails: GraphQLFragment {
       return snapshot["name"]! as! String
     }
     set {
-      snapshot["name"] = newValue
+      snapshot.updateValue(newValue, forKey: "name")
     }
   }
 
@@ -2952,7 +2968,7 @@ public struct HeroDetails: GraphQLFragment {
     }
 
     public init(__typename: String, name: String, height: Double? = nil) {
-      self.snapshot = ["__typename": __typename, "name": name, "height": height]
+      self.init(snapshot: ["__typename": __typename, "name": name, "height": height])
     }
 
     public var __typename: String {
@@ -2960,7 +2976,7 @@ public struct HeroDetails: GraphQLFragment {
         return snapshot["__typename"]! as! String
       }
       set {
-        snapshot["__typename"] = newValue
+        snapshot.updateValue(newValue, forKey: "__typename")
       }
     }
 
@@ -2969,7 +2985,7 @@ public struct HeroDetails: GraphQLFragment {
         return snapshot["name"]! as! String
       }
       set {
-        snapshot["name"] = newValue
+        snapshot.updateValue(newValue, forKey: "name")
       }
     }
 
@@ -2978,7 +2994,7 @@ public struct HeroDetails: GraphQLFragment {
         return snapshot["height"]! as! Double?
       }
       set {
-        snapshot["height"] = newValue
+        snapshot.updateValue(newValue, forKey: "height")
       }
     }
   }
@@ -2999,7 +3015,7 @@ public struct HeroDetails: GraphQLFragment {
     }
 
     public init(__typename: String, name: String, primaryFunction: String? = nil) {
-      self.snapshot = ["__typename": __typename, "name": name, "primaryFunction": primaryFunction]
+      self.init(snapshot: ["__typename": __typename, "name": name, "primaryFunction": primaryFunction])
     }
 
     public var __typename: String {
@@ -3007,7 +3023,7 @@ public struct HeroDetails: GraphQLFragment {
         return snapshot["__typename"]! as! String
       }
       set {
-        snapshot["__typename"] = newValue
+        snapshot.updateValue(newValue, forKey: "__typename")
       }
     }
 
@@ -3016,7 +3032,7 @@ public struct HeroDetails: GraphQLFragment {
         return snapshot["name"]! as! String
       }
       set {
-        snapshot["name"] = newValue
+        snapshot.updateValue(newValue, forKey: "name")
       }
     }
 
@@ -3025,7 +3041,7 @@ public struct HeroDetails: GraphQLFragment {
         return snapshot["primaryFunction"]! as! String?
       }
       set {
-        snapshot["primaryFunction"] = newValue
+        snapshot.updateValue(newValue, forKey: "primaryFunction")
       }
     }
   }
@@ -3052,7 +3068,7 @@ public struct HeroName: GraphQLFragment {
   }
 
   public init(__typename: String, name: String) {
-    self.snapshot = ["__typename": __typename, "name": name]
+    self.init(snapshot: ["__typename": __typename, "name": name])
   }
 
   public var __typename: String {
@@ -3060,7 +3076,7 @@ public struct HeroName: GraphQLFragment {
       return snapshot["__typename"]! as! String
     }
     set {
-      snapshot["__typename"] = newValue
+      snapshot.updateValue(newValue, forKey: "__typename")
     }
   }
 
@@ -3069,7 +3085,7 @@ public struct HeroName: GraphQLFragment {
       return snapshot["name"]! as! String
     }
     set {
-      snapshot["name"] = newValue
+      snapshot.updateValue(newValue, forKey: "name")
     }
   }
 }
@@ -3097,7 +3113,7 @@ public struct HeroNameAndAppearsIn: GraphQLFragment {
   }
 
   public init(__typename: String, name: String, appearsIn: [Episode?]) {
-    self.snapshot = ["__typename": __typename, "name": name, "appearsIn": appearsIn]
+    self.init(snapshot: ["__typename": __typename, "name": name, "appearsIn": appearsIn])
   }
 
   public var __typename: String {
@@ -3105,7 +3121,7 @@ public struct HeroNameAndAppearsIn: GraphQLFragment {
       return snapshot["__typename"]! as! String
     }
     set {
-      snapshot["__typename"] = newValue
+      snapshot.updateValue(newValue, forKey: "__typename")
     }
   }
 
@@ -3114,7 +3130,7 @@ public struct HeroNameAndAppearsIn: GraphQLFragment {
       return snapshot["name"]! as! String
     }
     set {
-      snapshot["name"] = newValue
+      snapshot.updateValue(newValue, forKey: "name")
     }
   }
 
@@ -3123,7 +3139,7 @@ public struct HeroNameAndAppearsIn: GraphQLFragment {
       return snapshot["appearsIn"]! as! [Episode?]
     }
     set {
-      snapshot["appearsIn"] = newValue
+      snapshot.updateValue(newValue, forKey: "appearsIn")
     }
   }
 }
