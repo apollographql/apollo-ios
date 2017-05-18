@@ -4,93 +4,88 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class InputValueEncodingTests: XCTestCase {
-  private func serializeAndDeserialize(value: JSONEncodable) -> NSDictionary {
-    let data = try! JSONSerializationFormat.serialize(value: value)
+  private func serializeAndDeserialize(_ map: GraphQLMap) -> NSDictionary {
+    let data = try! JSONSerializationFormat.serialize(value: map.withNilValuesRemoved)
     return try! JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
   }
   
   func testEncodeValue() {
     let map: GraphQLMap = ["name": "Luke Skywalker"]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["name": "Luke Skywalker"])
+    XCTAssertEqual(serializeAndDeserialize(map), ["name": "Luke Skywalker"])
   }
   
   func testEncodeOptionalValue() {
-    let map: GraphQLMap = ["name": "Luke Skywalker" as String?]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["name": "Luke Skywalker"])
+    let map: GraphQLMap = ["name": "Luke Skywalker" as Optional<String?>]
+    XCTAssertEqual(serializeAndDeserialize(map), ["name": "Luke Skywalker"])
   }
   
-  func testEncodeNilValue() {
-    let map: GraphQLMap = ["name": nil as String?]
-    XCTAssertEqual(serializeAndDeserialize(value: map), [:])
+  func testEncodeOptionalValueWithValueMissing() {
+    let map: GraphQLMap = ["name": Optional<String?>.none]
+    XCTAssertEqual(serializeAndDeserialize(map), [:])
   }
   
-  func testEncodeNullValue() {
-    let map: GraphQLMap = ["name": NSNull()]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["name": NSNull()])
+  func testEncodeOptionalValueWithExplicitNull() {
+    let map: GraphQLMap = ["name": Optional<String?>.some(.none)]
+    XCTAssertEqual(serializeAndDeserialize(map), ["name": NSNull()])
   }
   
   func testEncodeEnumValue() {
     let map: GraphQLMap = ["favoriteEpisode": Episode.jedi]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["favoriteEpisode": "JEDI"])
+    XCTAssertEqual(serializeAndDeserialize(map), ["favoriteEpisode": "JEDI"])
   }
   
   func testEncodeMap() {
     let map: GraphQLMap = ["hero": ["name": "Luke Skywalker"]]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["hero": ["name": "Luke Skywalker"]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["hero": ["name": "Luke Skywalker"]])
   }
   
-  func testEncodeOptionalMap() {
-    let map: GraphQLMap = ["hero": ["name": "Luke Skywalker"] as GraphQLMap?]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["hero": ["name": "Luke Skywalker"]])
-  }
-  
-  func testEncodeNilMap() {
-    let map: GraphQLMap = ["hero": nil as GraphQLMap?]
-    XCTAssertEqual(serializeAndDeserialize(value: map), [:])
+  func testEncodeOptionalMapWithValueMissing() {
+    let map: GraphQLMap = ["hero": Optional<GraphQLMap?>.none]
+    XCTAssertEqual(serializeAndDeserialize(map), [:])
   }
   
   func testEncodeList() {
     let map: GraphQLMap = ["appearsIn": [.jedi, .empire] as [Episode]]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["appearsIn": ["JEDI", "EMPIRE"]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["appearsIn": ["JEDI", "EMPIRE"]])
   }
   
   func testEncodeOptionalList() {
-    let map: GraphQLMap = ["appearsIn": [.jedi, .empire] as [Episode]?]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["appearsIn": ["JEDI", "EMPIRE"]])
+    let map: GraphQLMap = ["appearsIn": [.jedi, .empire] as Optional<[Episode]?>]
+    XCTAssertEqual(serializeAndDeserialize(map), ["appearsIn": ["JEDI", "EMPIRE"]])
   }
   
-  func testEncodeNilList() {
-    let map: GraphQLMap = ["appearsIn": nil as [Episode]?]
-    XCTAssertEqual(serializeAndDeserialize(value: map), [:])
+  func testEncodeOptionalListWithValueMissing() {
+    let map: GraphQLMap = ["appearsIn": Optional<[Episode]?>.none]
+    XCTAssertEqual(serializeAndDeserialize(map), [:])
   }
   
   func testEncodeInputObject() {
     let review = ReviewInput(stars: 5, commentary: "This is a great movie!")
     let map: GraphQLMap = ["review": review]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["review": ["stars": 5, "commentary": "This is a great movie!"]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5, "commentary": "This is a great movie!"]])
   }
   
-  func testEncodeInputObjectWithExplicitOptionalValue() {
-    let review = ReviewInput(stars: 5, commentary: "This is a great movie!" as String?)
-    let map: GraphQLMap = ["review": review]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["review": ["stars": 5, "commentary": "This is a great movie!"]])
-  }
-  
-  func testEncodeInputObjectWithoutOptionalValue() {
+  func testEncodeInputObjectWithOptionalPropertyMissing() {
     let review = ReviewInput(stars: 5)
     let map: GraphQLMap = ["review": review]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["review": ["stars": 5]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5]])
   }
   
-  func testEncodeInputObjectWithExplicitNilValue() {
+  func testEncodeInputObjectWithExplicitNilForOptionalProperty() {
     let review = ReviewInput(stars: 5, commentary: nil)
     let map: GraphQLMap = ["review": review]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["review": ["stars": 5]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5]])
+  }
+  
+  func testEncodeInputObjectWithExplicitSomeNilForOptionalProperty() {
+    let review = ReviewInput(stars: 5, commentary: .some(nil))
+    let map: GraphQLMap = ["review": review]
+    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5, "commentary": NSNull()]])
   }
   
   func testEncodeInputObjectWithNestedInputObject() {
     let review = ReviewInput(stars: 5, favoriteColor: ColorInput(red: 0, green: 0, blue: 0))
     let map: GraphQLMap = ["review": review]
-    XCTAssertEqual(serializeAndDeserialize(value: map), ["review": ["stars": 5, "favoriteColor": ["red": 0, "blue": 0, "green": 0]]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5, "favoriteColor": ["red": 0, "blue": 0, "green": 0]]])
   }
 }

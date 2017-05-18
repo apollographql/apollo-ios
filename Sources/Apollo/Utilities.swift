@@ -21,7 +21,7 @@ public protocol Matchable {
   static func ~=(pattern: Self, value: Base) -> Bool
 }
 
-func isNil(_ value: Any) -> Bool {
+func isNil(_ value: Any, nested: Bool = false) -> Bool {
   // We can't compare a non-optional Any with nil, so we have to use reflection as a workaround
   
   let mirror = Mirror(reflecting: value)
@@ -32,8 +32,10 @@ func isNil(_ value: Any) -> Bool {
   
   if mirror.children.isEmpty {
     return true
+  } else if !nested {
+    return false
   } else {
     // Recurse to deal with nested optionals
-    return isNil(mirror.children.first!.value)
+    return isNil(mirror.children.first!.value, nested: nested)
   }
 }
