@@ -148,7 +148,7 @@ class ReadWriteFromStoreTests: XCTestCase {
 
       try await(store.withinReadWriteTransaction { transaction in
         try transaction.update(query: query) { (data: inout HeroAndFriendsNamesQuery.Data) in
-          data.hero?.friends?.append(.init(__typename: "Droid", name: "C-3PO"))
+          data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
         }
       })
       
@@ -250,7 +250,7 @@ class ReadWriteFromStoreTests: XCTestCase {
 
       try await(store.withinReadWriteTransaction { transaction in
         try transaction.updateFragment(ofType: FriendsNames.self, withKey: "2001") { (friendsNames: inout FriendsNames) in
-          friendsNames.friends?.append(.init(__typename: "Droid", name: "C-3PO"))
+          friendsNames.friends?.append(.makeDroid(name: "C-3PO"))
         }
       })
 

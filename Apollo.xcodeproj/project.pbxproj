@@ -210,6 +210,7 @@
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F295E301E27534800A24949 /* NormalizeQueryResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizeQueryResults.swift; sourceTree = "<group>"; };
 		9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
+		9F3750501ECEFD2300C68F5E /* DroidDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = DroidDetails.graphql; sourceTree = "<group>"; };
 		9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedLoadTests.swift; sourceTree = "<group>"; };
 		9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPNetworkTransport.swift; sourceTree = "<group>"; };
 		9F55347A1DE1DB2100E54264 /* ApolloStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloStore.swift; sourceTree = "<group>"; };
@@ -563,6 +564,7 @@
 				9FCE2D0E1E6C259B00E34457 /* HeroAppearsIn.graphql */,
 				9F8622FE1EC44A8600C38162 /* HeroNameAndAppearsIn.graphql */,
 				9FCE2D0D1E6C259B00E34457 /* HeroAndFriendsNames.graphql */,
+				9F3750501ECEFD2300C68F5E /* DroidDetails.graphql */,
 				9FCE2D0F1E6C259B00E34457 /* HeroDetails.graphql */,
 				9FCE2D131E6C259B00E34457 /* HeroParentTypeDependentField.graphql */,
 				9FCE2D141E6C259B00E34457 /* HeroTypeDependentAliasedField.graphql */,

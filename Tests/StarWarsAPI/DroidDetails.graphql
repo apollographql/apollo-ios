@@ -1,0 +1,10 @@
+query DroidDetailsWithFragment($id: ID!) {
+  droid(id: $id) {
+    ...DroidDetails
+  }
+}
+
+fragment DroidDetails on Droid {
+  name
+  primaryFunction
+}
