@@ -5,20 +5,28 @@ import StarWarsAPI
 
 class SelectionSetTests: XCTestCase {
   func testConstructHeroNameFragment() throws {
-    let r2d2 = HeroName(__typename: "Droid", name: "R2-D2")
+    let r2d2 = HeroName.makeDroid(name: "R2-D2")
     
     XCTAssertEqual(r2d2.__typename, "Droid")
     XCTAssertEqual(r2d2.name, "R2-D2")
   }
   
   func testConstructHeroAppearsInFragment() throws {
-    let r2d2 = HeroAppearsIn(__typename: "Droid", appearsIn: [.newhope, .empire, .jedi])
+    let r2d2 = HeroAppearsIn.makeDroid(appearsIn: [.newhope, .empire, .jedi])
     
     XCTAssertEqual(r2d2.__typename, "Droid")
     XCTAssertEqual(r2d2.appearsIn, [.newhope, .empire, .jedi])
   }
   
-  func testConstructHeroDetailsFragmentWithTypeSpecificProperty() throws {
+  func testConstructDroidDetailsFragment() throws {
+    let r2d2 = DroidDetails(name: "R2-D2", primaryFunction: "Protocol")
+    
+    XCTAssertEqual(r2d2.__typename, "Droid")
+    XCTAssertEqual(r2d2.name, "R2-D2")
+    XCTAssertEqual(r2d2.primaryFunction, "Protocol")
+  }
+  
+  func testConstructHeroDetailsFragmentWithDroidSpecificProperty() throws {
     let r2d2 = HeroDetails.makeDroid(name: "R2-D2", primaryFunction: "Protocol")
     
     XCTAssertEqual(r2d2.__typename, "Droid")
@@ -26,7 +34,7 @@ class SelectionSetTests: XCTestCase {
     XCTAssertEqual(r2d2.asDroid?.primaryFunction, "Protocol")
   }
   
-  func testConstructHeroDetailsFragmentWithMissingTypeSpecificProperty() throws {
+  func testConstructHeroDetailsFragmentWithMissingDroidSpecificProperty() throws {
     let r2d2 = HeroDetails.makeDroid(name: "R2-D2")
     
     XCTAssertEqual(r2d2.__typename, "Droid")
@@ -34,7 +42,7 @@ class SelectionSetTests: XCTestCase {
     XCTAssertNil(r2d2.asDroid?.primaryFunction)
   }
   
-  func testConstructHeroDetailsFragmentWithNullTypeSpecificProperty() throws {
+  func testConstructHeroDetailsFragmentWithNullDroidSpecificProperty() throws {
     let r2d2 = HeroDetails.makeDroid(name: "R2-D2", primaryFunction: nil)
     
     XCTAssertEqual(r2d2.__typename, "Droid")
@@ -42,14 +50,53 @@ class SelectionSetTests: XCTestCase {
     XCTAssertNil(r2d2.asDroid?.primaryFunction)
   }
   
+  func testConstructHeroDetailsFragmentWithHumanSpecificProperty() throws {
+    let luke = HeroDetails.makeHuman(name: "Luke Skywalker", height: 1.72)
+    
+    XCTAssertEqual(luke.__typename, "Human")
+    XCTAssertEqual(luke.name, "Luke Skywalker")
+    XCTAssertEqual(luke.asHuman?.height, 1.72)
+  }
+  
+  func testConstructHeroDetailsFragmentWithMissingHumanSpecificProperty() throws {
+    let luke = HeroDetails.makeHuman(name: "Luke Skywalker")
+    
+    XCTAssertEqual(luke.__typename, "Human")
+    XCTAssertEqual(luke.name, "Luke Skywalker")
+    XCTAssertNil(luke.asHuman?.height)
+  }
+  
+  func testConstructHeroDetailsFragmentWithNullHumanSpecificProperty() throws {
+    let luke = HeroDetails.makeHuman(name: "Luke Skywalker", height: nil)
+    
+    XCTAssertEqual(luke.__typename, "Human")
+    XCTAssertEqual(luke.name, "Luke Skywalker")
+    XCTAssertNil(luke.asHuman?.height)
+  }
+  
+  func testConstructHeroDroidOnlyDetailsFragmentAsDroid() throws {
+    let r2d2 = HeroDroidOnlyDetails.makeDroid(name: "R2-D2", primaryFunction: "Protocol")
+    
+    XCTAssertEqual(r2d2.__typename, "Droid")
+    XCTAssertEqual(r2d2.name, "R2-D2")
+    XCTAssertEqual(r2d2.asDroid?.primaryFunction, "Protocol")
+  }
+  
+  func testConstructHeroDroidOnlyDetailsFragmentAsHuman() throws {
+    let luke = HeroDroidOnlyDetails.makeHuman(name: "Luke Skywalker")
+    
+    XCTAssertEqual(luke.__typename, "Human")
+    XCTAssertEqual(luke.name, "Luke Skywalker")
+  }
+  
   func testJSONObjectFromHeroNameFragment() throws {
-    let r2d2 = HeroName(__typename: "Droid", name: "R2-D2")
+    let r2d2 = HeroName.makeDroid(name: "R2-D2")
     
     XCTAssertEqual(r2d2.jsonObject, ["__typename": "Droid", "name": "R2-D2"])
   }
   
   func testJSONObjectFromHeroAppearsInFragment() throws {
-    let r2d2 = HeroAppearsIn(__typename: "Droid", appearsIn: [.newhope, .empire, .jedi])
+    let r2d2 = HeroAppearsIn.makeDroid(appearsIn: [.newhope, .empire, .jedi])
     
     XCTAssertEqual(r2d2.jsonObject, ["__typename": "Droid", "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"]])
   }
@@ -130,7 +177,7 @@ class SelectionSetTests: XCTestCase {
   }
   
   func testConvertHeroNameAndapearsInIntoHeroNameFragment() throws {
-    let heroNameAndAppearsIn = HeroNameAndAppearsIn(__typename: "Droid", name: "R2-D2", appearsIn: [.newhope, .empire, .jedi])
+    let heroNameAndAppearsIn = HeroNameAndAppearsIn.makeDroid(name: "R2-D2", appearsIn: [.newhope, .empire, .jedi])
     
     let heroName = try HeroName(heroNameAndAppearsIn)
     
@@ -139,7 +186,7 @@ class SelectionSetTests: XCTestCase {
   }
   
   func testConvertHeroNameIntoHeroNameAndAppearsInFragment() throws {
-    let heroName = HeroName(__typename: "Droid", name: "R2-D2")
+    let heroName = HeroName.makeDroid(name: "R2-D2")
     
     XCTAssertThrowsError(try HeroDetails(heroName)) { error in
       if case let error as GraphQLResultError = error {
@@ -161,7 +208,7 @@ class SelectionSetTests: XCTestCase {
   }
   
   func testConvertHeroNameIntoHeroDetailsFragment() throws {
-    let heroName = HeroName(__typename: "Droid", name: "R2-D2")
+    let heroName = HeroName.makeDroid(name: "R2-D2")
     
     XCTAssertThrowsError(try HeroDetails(heroName)) { error in
       if case let error as GraphQLResultError = error {

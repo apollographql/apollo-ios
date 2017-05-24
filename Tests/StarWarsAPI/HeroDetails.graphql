@@ -25,3 +25,16 @@ fragment HeroDetails on Character {
     primaryFunction
   }
 }
+
+query HeroDroidOnlyDetailsWithFragment($episode: Episode) {
+  hero(episode: $episode) {
+    ...HeroDroidOnlyDetails
+  }
+}
+
+fragment HeroDroidOnlyDetails on Character {
+  name
+  ... on Droid {
+    primaryFunction
+  }
+}
