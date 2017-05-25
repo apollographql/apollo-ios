@@ -13,10 +13,10 @@ query HeroNameWithID($episode: Episode) {
 
 query HeroNameWithFragment($episode: Episode) {
   hero(episode: $episode) {
-    ...HeroName
+    ...CharacterName
   }
 }
 
-fragment HeroName on Character {
+fragment CharacterName on Character {
   name
 }

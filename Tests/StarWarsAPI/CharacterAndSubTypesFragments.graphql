@@ -1,0 +1,24 @@
+fragment DroidNameAndPrimaryFunction on Droid {
+  ...CharacterName
+  ...DroidPrimaryFunction
+}
+
+fragment CharacterNameAndDroidPrimaryFunction on Character {
+  ...CharacterName
+  ...DroidPrimaryFunction
+}
+
+fragment CharacterNameAndDroidAppearsIn on Character {
+  name
+  ... on Droid {
+    appearsIn
+  }
+}
+
+fragment DroidName on Droid {
+  name
+}
+
+fragment DroidPrimaryFunction on Droid {
+  primaryFunction
+}

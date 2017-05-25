@@ -1,10 +1,10 @@
 query HeroNameAndAppearsInWithFragment($episode: Episode) {
   hero(episode: $episode) {
-    ...HeroNameAndAppearsIn
+    ...CharacterNameAndAppearsIn
   }
 }
 
-fragment HeroNameAndAppearsIn on Character {
+fragment CharacterNameAndAppearsIn on Character {
   name
   appearsIn
 }
