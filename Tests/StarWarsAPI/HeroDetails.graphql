@@ -26,15 +26,3 @@ fragment HeroDetails on Character {
   }
 }
 
-query HeroDroidOnlyDetailsWithFragment($episode: Episode) {
-  hero(episode: $episode) {
-    ...HeroDroidOnlyDetails
-  }
-}
-
-fragment HeroDroidOnlyDetails on Character {
-  name
-  ... on Droid {
-    primaryFunction
-  }
-}
