@@ -3597,6 +3597,49 @@ public struct DroidPrimaryFunction: GraphQLFragment {
   }
 }
 
+public struct HumanHeightWithVariable: GraphQLFragment {
+  public static let fragmentString =
+    "fragment HumanHeightWithVariable on Human {" +
+    "  __typename" +
+    "  height(unit: $heightUnit)" +
+    "}"
+
+  public static let possibleTypes = ["Human"]
+
+  public static let selections: [Selection] = [
+    Field("__typename", type: .nonNull(.scalar(String.self))),
+    Field("height", arguments: ["unit": Variable("heightUnit")], type: .scalar(Double.self)),
+  ]
+
+  public var snapshot: Snapshot
+
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  public init(height: Double? = nil) {
+    self.init(snapshot: ["__typename": "Human", "height": height])
+  }
+
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  public var height: Double? {
+    get {
+      return snapshot["height"]! as! Double?
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "height")
+    }
+  }
+}
+
 public struct FriendsNames: GraphQLFragment {
   public static let fragmentString =
     "fragment FriendsNames on Character {" +

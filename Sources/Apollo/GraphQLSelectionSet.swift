@@ -12,7 +12,8 @@ extension GraphQLSelectionSet {
     let executor = GraphQLExecutor { object, info in
       Promise(fulfilled: object[info.responseKeyForField])
     }
-    self = try executor.execute(selections: Self.selections, on: jsonObject, withKey: "", variables: nil, accumulator: GraphQLSelectionSetMapper<Self>()).await()
+    executor.shouldComputeCachePath = false
+    self = try executor.execute(selections: Self.selections, on: jsonObject, accumulator: GraphQLSelectionSetMapper<Self>()).await()
   }
   
   var jsonObject: JSONObject {
