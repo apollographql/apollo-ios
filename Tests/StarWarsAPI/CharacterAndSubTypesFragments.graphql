@@ -22,3 +22,7 @@ fragment DroidName on Droid {
 fragment DroidPrimaryFunction on Droid {
   primaryFunction
 }
+
+fragment HumanHeightWithVariable on Human {
+  height(unit: $heightUnit)
+}

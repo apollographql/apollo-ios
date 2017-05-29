@@ -6,6 +6,13 @@ import StarWarsAPI
 class FragmentConstructionAndConversionTests: XCTestCase {
   // MARK: - Manually constructing fragments
   
+  func testConstructDroidNameFragment() throws {
+    let r2d2 = DroidName(name: "R2-D2")
+    
+    XCTAssertEqual(r2d2.__typename, "Droid")
+    XCTAssertEqual(r2d2.name, "R2-D2")
+  }
+  
   func testConstructCharacterNameFragmentForDroid() throws {
     let r2d2 = CharacterName.makeDroid(name: "R2-D2")
     
@@ -118,6 +125,13 @@ class FragmentConstructionAndConversionTests: XCTestCase {
     XCTAssertNil(luke.asDroid)
   }
   
+  func testConstructHumanHeightWithVariableFragment() throws {
+    let luke = HumanHeightWithVariable(height: 1.72)
+    
+    XCTAssertEqual(luke.__typename, "Human")
+    XCTAssertEqual(luke.height, 1.72)
+  }
+  
   // MARK: - Converting fragments into JSON objects
   
   func testJSONObjectFromCharacterNameFragment() throws {
@@ -154,6 +168,12 @@ class FragmentConstructionAndConversionTests: XCTestCase {
     let r2d2 = HeroDetails.makeDroid(name: "R2-D2")
     
     XCTAssertEqual(r2d2.jsonObject, ["__typename": "Droid", "name": "R2-D2", "primaryFunction": NSNull()])
+  }
+  
+  func testJSONObjectFromHumanHeightWithVariableFragment() throws {
+    let luke = HumanHeightWithVariable(height: 1.72)
+    
+    XCTAssertEqual(luke.jsonObject, ["__typename": "Human", "height": 1.72])
   }
   
   // MARK: - Converting JSON objects into fragments
@@ -269,7 +289,14 @@ class FragmentConstructionAndConversionTests: XCTestCase {
     XCTAssertNil(r2d2.asHuman)
   }
   
-  // MARK: Converting fragments into another type of fragment
+  func testHumanHeightWithVariableFragmentFromJSONObject() throws {
+    let luke = try HumanHeightWithVariable(jsonObject: ["__typename": "Human", "height": 1.72])
+    
+    XCTAssertEqual(luke.__typename, "Human")
+    XCTAssertEqual(luke.height, 1.72)
+  }
+  
+  // MARK: - Converting fragments into another type of fragment
   
   func testConvertCharacterNameAndApearsInFragmentIntoCharacterNameFragment() throws {
     let characterNameAndAppearsIn = CharacterNameAndAppearsIn.makeDroid(name: "R2-D2", appearsIn: [.newhope, .empire, .jedi])

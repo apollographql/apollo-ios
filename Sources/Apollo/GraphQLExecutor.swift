@@ -12,19 +12,26 @@ public struct GraphQLResolveInfo {
   
   var fields: [Field] = []
   
-  public init(rootKey: CacheKey, variables: GraphQLMap?) {
+  init(rootKey: CacheKey?, variables: GraphQLMap?) {
     self.variables = variables
     
-    cachePath = [rootKey]
-  }
-  
-  public init(variables: GraphQLMap?) {
-    self.variables = variables
+    if let rootKey = rootKey {
+      cachePath = [rootKey]
+    }
   }
 }
 
 func joined(path: [String]) -> String {
   return path.joined(separator: ".")
+}
+
+public struct GraphQLResultError: Error, LocalizedError {
+  let path: [String]
+  let underlying: Error
+  
+  public var errorDescription: String? {
+    return "Error at path \"\(joined(path: path))\": \(underlying)"
+  }
 }
 
 /// A GraphQL executor is responsible for executing a selection set and generating a result. It is initialized with a resolver closure that gets called repeatedly to resolve field values.
@@ -85,6 +92,7 @@ public final class GraphQLExecutor {
   var dispatchDataLoadsScheduled: Bool = false
   
   var cacheKeyForObject: CacheKeyForObject?
+  var shouldComputeCachePath = true
   
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
   public init(resolver: @escaping GraphQLResolver) {
@@ -109,7 +117,7 @@ public final class GraphQLExecutor {
   
   // MARK: - Execution
   
-  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, withKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, withKey key: CacheKey? = nil, variables: GraphQLMap? = nil, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: key, variables: variables)
     
     return try execute(selections: selections, on: object, info: info, accumulator: accumulator).map {
@@ -117,7 +125,7 @@ public final class GraphQLExecutor {
     }
   }
   
-  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<  Accumulator.ObjectResult> {
+  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> Promise<Accumulator.ObjectResult> {
     var groupedFields = GroupedSequence<String, Field>()
     collectFields(selections: selections, forRuntimeType: runtimeType(of: object), into: &groupedFields)
     
@@ -173,9 +181,11 @@ public final class GraphQLExecutor {
     info.responseKeyForField = responseKey
     info.responsePath.append(responseKey)
     
-    let cacheKey = try firstField.cacheKey(with: info.variables)
-    info.cacheKeyForField = cacheKey
-    info.cachePath.append(cacheKey)
+    if shouldComputeCachePath {
+      let cacheKey = try firstField.cacheKey(with: info.variables)
+      info.cacheKeyForField = cacheKey
+      info.cachePath.append(cacheKey)
+    }
     
     // We still need all fields to complete the value, because they may have different selection sets.
     info.fields = fields
@@ -235,7 +245,7 @@ public final class GraphQLExecutor {
       let selections = mergeSelectionSets(for: info.fields)
       
       var info = info
-      if let cacheKeyForObject = self.cacheKey(for: object) {
+      if shouldComputeCachePath, let cacheKeyForObject = self.cacheKey(for: object) {
         info.cachePath = [cacheKeyForObject]
       }
       
@@ -255,14 +265,5 @@ public final class GraphQLExecutor {
       }
     }
     return selections
-  }
-}
-
-public struct GraphQLResultError: Error, LocalizedError {
-  let path: [String]
-  let underlying: Error
-  
-  public var errorDescription: String? {
-    return "Error at path \"\(joined(path: path))\": \(underlying)"
   }
 }
