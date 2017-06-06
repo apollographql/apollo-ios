@@ -21,6 +21,4 @@ public protocol GraphQLQuery: GraphQLOperation {}
 
 public protocol GraphQLMutation: GraphQLOperation {}
 
-public protocol GraphQLFragment: GraphQLSelectionSet {
-  static var possibleTypes: [String] { get }
-}
+public protocol GraphQLFragment: GraphQLSelectionSet {}

@@ -2,6 +2,7 @@ public typealias Snapshot = [String: Any?]
 
 public protocol GraphQLSelectionSet {
   static var selections: [Selection] { get }
+  static var possibleTypes: [String] { get }
   
   var snapshot: Snapshot { get }
   init(snapshot: Snapshot)

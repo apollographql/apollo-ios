@@ -9,23 +9,42 @@ public enum Episode: String {
   case jedi = "JEDI" /// Star Wars Episode VI: Return of the Jedi, released in 1983.
 }
 
-extension Episode: JSONDecodable, JSONEncodable {}
+extension Episode: Apollo.JSONDecodable, Apollo.JSONEncodable {}
 
 /// The input object sent when someone is creating a new review
 public struct ReviewInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+  /// 0-5 stars
+  public var stars: Int
+  /// Comment about the movie, optional
+  public var commentary: Optional<String?>
+  /// Favorite color, optional
+  public var favoriteColor: Optional<ColorInput?>
 
   public init(stars: Int, commentary: Optional<String?> = nil, favoriteColor: Optional<ColorInput?> = nil) {
-    graphQLMap = ["stars": stars, "commentary": commentary, "favoriteColor": favoriteColor]
+    self.stars = stars
+    self.commentary = commentary
+    self.favoriteColor = favoriteColor
+  }
+
+  public var graphQLMap: GraphQLMap {
+    return ["stars": stars, "commentary": commentary, "favoriteColor": favoriteColor]
   }
 }
 
 /// The input object sent when passing in a color
 public struct ColorInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+  public var red: Int
+  public var green: Int
+  public var blue: Int
 
   public init(red: Int, green: Int, blue: Int) {
-    graphQLMap = ["red": red, "green": green, "blue": blue]
+    self.red = red
+    self.green = green
+    self.blue = blue
+  }
+
+  public var graphQLMap: GraphQLMap {
+    return ["red": red, "green": green, "blue": blue]
   }
 }
 
@@ -52,6 +71,8 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
     public static let selections: [Selection] = [
       Field("createReview", arguments: ["episode": Variable("episode"), "review": Variable("review")], type: .object(Data.CreateReview.self)),
     ]
@@ -63,7 +84,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
     }
 
     public init(createReview: CreateReview? = nil) {
-      self.init(snapshot: ["createReview": createReview])
+      self.init(snapshot: ["__typename": "Mutation", "createReview": createReview])
     }
 
     public var createReview: CreateReview? {
@@ -103,6 +124,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
         }
       }
 
+      /// The number of stars this review gave, 1-5
       public var stars: Int {
         get {
           return snapshot["stars"]! as! Int
@@ -112,6 +134,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
         }
       }
 
+      /// Comment about the movie
       public var commentary: String? {
         get {
           return snapshot["commentary"]! as! String?
@@ -138,6 +161,8 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
     public static let selections: [Selection] = [
       Field("createReview", arguments: ["episode": "JEDI", "review": ["stars": 10, "commentary": "This is awesome!"]], type: .object(Data.CreateReview.self)),
     ]
@@ -149,7 +174,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
     }
 
     public init(createReview: CreateReview? = nil) {
-      self.init(snapshot: ["createReview": createReview])
+      self.init(snapshot: ["__typename": "Mutation", "createReview": createReview])
     }
 
     public var createReview: CreateReview? {
@@ -189,6 +214,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
         }
       }
 
+      /// The number of stars this review gave, 1-5
       public var stars: Int {
         get {
           return snapshot["stars"]! as! Int
@@ -198,6 +224,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
         }
       }
 
+      /// Comment about the movie
       public var commentary: String? {
         get {
           return snapshot["commentary"]! as! String?
@@ -234,6 +261,8 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -245,7 +274,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -289,6 +318,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -298,6 +328,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
         }
       }
 
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -338,6 +369,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
           }
         }
 
+        /// The name of the character
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -377,6 +409,8 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -388,7 +422,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -433,6 +467,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         }
       }
 
+      /// The ID of the character
       public var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -442,6 +477,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -451,6 +487,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         }
       }
 
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -492,6 +529,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           }
         }
 
+        /// The ID of the character
         public var id: GraphQLID {
           get {
             return snapshot["id"]! as! GraphQLID
@@ -501,6 +539,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           }
         }
 
+        /// The name of the character
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -539,6 +578,8 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -550,7 +591,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -595,6 +636,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
         }
       }
 
+      /// The ID of the character
       public var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -604,6 +646,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -613,6 +656,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
         }
       }
 
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -653,6 +697,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
           }
         }
 
+        /// The name of the character
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -688,6 +733,8 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -699,7 +746,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -718,7 +765,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         Field("__typename", type: .nonNull(.scalar(String.self))),
         Field("name", type: .nonNull(.scalar(String.self))),
         Field("friends", type: .list(.object(Hero.Friend.self))),
-        FragmentSpread(FriendsNames.self),
       ]
 
       public var snapshot: Snapshot
@@ -744,6 +790,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -753,6 +800,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
           return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -815,6 +863,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
           }
         }
 
+        /// The name of the character
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -841,6 +890,8 @@ public final class HeroAppearsInQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", type: .object(Data.Hero.self)),
     ]
@@ -852,7 +903,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -895,6 +946,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
         }
       }
 
+      /// The movies this character appears in
       public var appearsIn: [Episode?] {
         get {
           return snapshot["appearsIn"]! as! [Episode?]
@@ -928,6 +980,8 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -939,7 +993,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -957,7 +1011,6 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
       public static let selections: [Selection] = [
         Field("__typename", type: .nonNull(.scalar(String.self))),
         Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
-        FragmentSpread(CharacterAppearsIn.self),
       ]
 
       public var snapshot: Snapshot
@@ -983,6 +1036,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The movies this character appears in
       public var appearsIn: [Episode?] {
         get {
           return snapshot["appearsIn"]! as! [Episode?]
@@ -1045,6 +1099,8 @@ public final class HeroDetailsQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1056,7 +1112,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1101,6 +1157,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -1160,6 +1217,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           }
         }
 
+        /// What this human calls themselves
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -1169,6 +1227,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           }
         }
 
+        /// Height in the preferred unit, default is meters
         public var height: Double? {
           get {
             return snapshot["height"]! as! Double?
@@ -1207,6 +1266,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           }
         }
 
+        /// What others call this droid
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -1216,6 +1276,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           }
         }
 
+        /// This droid's primary function
         public var primaryFunction: String? {
           get {
             return snapshot["primaryFunction"]! as! String?
@@ -1250,6 +1311,8 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1261,7 +1324,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1281,7 +1344,6 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
         Field("name", type: .nonNull(.scalar(String.self))),
         FragmentSpread(Hero.AsHuman.self),
         FragmentSpread(Hero.AsDroid.self),
-        FragmentSpread(HeroDetails.self),
       ]
 
       public var snapshot: Snapshot
@@ -1307,6 +1369,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -1354,7 +1417,6 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("name", type: .nonNull(.scalar(String.self))),
           Field("height", type: .scalar(Double.self)),
-          FragmentSpread(HeroDetails.self),
         ]
 
         public var snapshot: Snapshot
@@ -1376,6 +1438,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           }
         }
 
+        /// What this human calls themselves
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -1385,6 +1448,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           }
         }
 
+        /// Height in the preferred unit, default is meters
         public var height: Double? {
           get {
             return snapshot["height"]! as! Double?
@@ -1424,7 +1488,6 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           Field("__typename", type: .nonNull(.scalar(String.self))),
           Field("name", type: .nonNull(.scalar(String.self))),
           Field("primaryFunction", type: .scalar(String.self)),
-          FragmentSpread(HeroDetails.self),
         ]
 
         public var snapshot: Snapshot
@@ -1446,6 +1509,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           }
         }
 
+        /// What others call this droid
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -1455,6 +1519,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           }
         }
 
+        /// This droid's primary function
         public var primaryFunction: String? {
           get {
             return snapshot["primaryFunction"]! as! String?
@@ -1523,6 +1588,8 @@ public final class HeroNameQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1534,7 +1601,7 @@ public final class HeroNameQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1577,6 +1644,7 @@ public final class HeroNameQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -1610,6 +1678,8 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1621,7 +1691,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1665,6 +1735,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
         }
       }
 
+      /// The ID of the character
       public var id: GraphQLID {
         get {
           return snapshot["id"]! as! GraphQLID
@@ -1674,6 +1745,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -1707,6 +1779,8 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1718,7 +1792,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1736,7 +1810,6 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
       public static let selections: [Selection] = [
         Field("__typename", type: .nonNull(.scalar(String.self))),
         Field("name", type: .nonNull(.scalar(String.self))),
-        FragmentSpread(CharacterName.self),
       ]
 
       public var snapshot: Snapshot
@@ -1762,6 +1835,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -1817,6 +1891,8 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1828,7 +1904,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1847,7 +1923,6 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         Field("__typename", type: .nonNull(.scalar(String.self))),
         Field("name", type: .nonNull(.scalar(String.self))),
         Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
-        FragmentSpread(CharacterNameAndAppearsIn.self),
       ]
 
       public var snapshot: Snapshot
@@ -1873,6 +1948,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -1882,6 +1958,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         }
       }
 
+      /// The movies this character appears in
       public var appearsIn: [Episode?] {
         get {
           return snapshot["appearsIn"]! as! [Episode?]
@@ -1938,6 +2015,8 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -1949,7 +2028,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -1992,6 +2071,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String? {
         get {
           return snapshot["name"]! as! String?
@@ -2026,6 +2106,8 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -2037,7 +2119,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -2080,6 +2162,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String? {
         get {
           return snapshot["name"]! as! String?
@@ -2134,6 +2217,8 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -2145,7 +2230,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -2190,6 +2275,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -2249,6 +2335,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           }
         }
 
+        /// What this human calls themselves
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -2258,6 +2345,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           }
         }
 
+        /// This human's friends, or an empty list if they have none
         public var friends: [Friend?]? {
           get {
             return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -2299,6 +2387,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             }
           }
 
+          /// The name of the character
           public var name: String {
             get {
               return snapshot["name"]! as! String
@@ -2347,6 +2436,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               }
             }
 
+            /// What this human calls themselves
             public var name: String {
               get {
                 return snapshot["name"]! as! String
@@ -2356,6 +2446,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               }
             }
 
+            /// Height in the preferred unit, default is meters
             public var height: Double? {
               get {
                 return snapshot["height"]! as! Double?
@@ -2396,6 +2487,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           }
         }
 
+        /// What others call this droid
         public var name: String {
           get {
             return snapshot["name"]! as! String
@@ -2405,6 +2497,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           }
         }
 
+        /// This droid's friends, or an empty list if they have none
         public var friends: [Friend?]? {
           get {
             return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -2446,6 +2539,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             }
           }
 
+          /// The name of the character
           public var name: String {
             get {
               return snapshot["name"]! as! String
@@ -2494,6 +2588,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               }
             }
 
+            /// What this human calls themselves
             public var name: String {
               get {
                 return snapshot["name"]! as! String
@@ -2503,6 +2598,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               }
             }
 
+            /// Height in the preferred unit, default is meters
             public var height: Double? {
               get {
                 return snapshot["height"]! as! Double?
@@ -2545,6 +2641,8 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", arguments: ["episode": Variable("episode")], type: .object(Data.Hero.self)),
     ]
@@ -2556,7 +2654,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["hero": hero])
+      self.init(snapshot: ["__typename": "Query", "hero": hero])
     }
 
     public var hero: Hero? {
@@ -2649,6 +2747,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           }
         }
 
+        /// The home planet of the human, or null if unknown
         public var property: String? {
           get {
             return snapshot["property"]! as! String?
@@ -2686,6 +2785,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           }
         }
 
+        /// This droid's primary function
         public var property: String? {
           get {
             return snapshot["property"]! as! String?
@@ -2713,6 +2813,8 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("human", arguments: ["id": 1004], type: .object(Data.Human.self)),
     ]
@@ -2724,7 +2826,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
     }
 
     public init(human: Human? = nil) {
-      self.init(snapshot: ["human": human])
+      self.init(snapshot: ["__typename": "Query", "human": human])
     }
 
     public var human: Human? {
@@ -2764,6 +2866,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
         }
       }
 
+      /// What this human calls themselves
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -2773,6 +2876,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
         }
       }
 
+      /// Mass in kilograms, or null if unknown
       public var mass: Double? {
         get {
           return snapshot["mass"]! as! Double?
@@ -2802,6 +2906,8 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", type: .object(Data.Hero.self)),
       Field("hero", alias: "r2", type: .object(Data.R2.self)),
@@ -2814,7 +2920,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil, r2: R2? = nil) {
-      self.init(snapshot: ["hero": hero, "r2": r2])
+      self.init(snapshot: ["__typename": "Query", "hero": hero, "r2": r2])
     }
 
     public var hero: Hero? {
@@ -2866,6 +2972,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -2907,6 +3014,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
         }
       }
 
+      /// The movies this character appears in
       public var appearsIn: [Episode?] {
         get {
           return snapshot["appearsIn"]! as! [Episode?]
@@ -2933,6 +3041,8 @@ public final class StarshipQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("starship", arguments: ["id": 3000], type: .object(Data.Starship.self)),
     ]
@@ -2944,7 +3054,7 @@ public final class StarshipQuery: GraphQLQuery {
     }
 
     public init(starship: Starship? = nil) {
-      self.init(snapshot: ["starship": starship])
+      self.init(snapshot: ["__typename": "Query", "starship": starship])
     }
 
     public var starship: Starship? {
@@ -2984,6 +3094,7 @@ public final class StarshipQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the starship
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -3022,6 +3133,8 @@ public final class TwoHeroesQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
     public static let selections: [Selection] = [
       Field("hero", alias: "r2", type: .object(Data.R2.self)),
       Field("hero", alias: "luke", arguments: ["episode": "EMPIRE"], type: .object(Data.Luke.self)),
@@ -3034,7 +3147,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
     }
 
     public init(r2: R2? = nil, luke: Luke? = nil) {
-      self.init(snapshot: ["r2": r2, "luke": luke])
+      self.init(snapshot: ["__typename": "Query", "r2": r2, "luke": luke])
     }
 
     public var r2: R2? {
@@ -3086,6 +3199,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -3127,6 +3241,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
         }
       }
 
+      /// The name of the character
       public var name: String {
         get {
           return snapshot["name"]! as! String
@@ -3153,8 +3268,6 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
     Field("__typename", type: .nonNull(.scalar(String.self))),
     Field("name", type: .nonNull(.scalar(String.self))),
     Field("primaryFunction", type: .scalar(String.self)),
-    FragmentSpread(CharacterName.self),
-    FragmentSpread(DroidPrimaryFunction.self),
   ]
 
   public var snapshot: Snapshot
@@ -3176,6 +3289,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
     }
   }
 
+  /// What others call this droid
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -3185,6 +3299,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
     }
   }
 
+  /// This droid's primary function
   public var primaryFunction: String? {
     get {
       return snapshot["primaryFunction"]! as! String?
@@ -3240,8 +3355,6 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
     Field("__typename", type: .nonNull(.scalar(String.self))),
     Field("name", type: .nonNull(.scalar(String.self))),
     FragmentSpread(CharacterNameAndDroidPrimaryFunction.AsDroid.self),
-    FragmentSpread(CharacterName.self),
-    FragmentSpread(DroidPrimaryFunction.self),
   ]
 
   public var snapshot: Snapshot
@@ -3267,6 +3380,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
     }
   }
 
+  /// The name of the character
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -3303,8 +3417,6 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
       Field("__typename", type: .nonNull(.scalar(String.self))),
       Field("name", type: .nonNull(.scalar(String.self))),
       Field("primaryFunction", type: .scalar(String.self)),
-      FragmentSpread(CharacterName.self),
-      FragmentSpread(DroidPrimaryFunction.self),
     ]
 
     public var snapshot: Snapshot
@@ -3326,6 +3438,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
       }
     }
 
+    /// What others call this droid
     public var name: String {
       get {
         return snapshot["name"]! as! String
@@ -3335,6 +3448,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
       }
     }
 
+    /// This droid's primary function
     public var primaryFunction: String? {
       get {
         return snapshot["primaryFunction"]! as! String?
@@ -3443,6 +3557,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
     }
   }
 
+  /// The name of the character
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -3491,6 +3606,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
       }
     }
 
+    /// What others call this droid
     public var name: String {
       get {
         return snapshot["name"]! as! String
@@ -3500,6 +3616,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
       }
     }
 
+    /// The movies this droid appears in
     public var appearsIn: [Episode?] {
       get {
         return snapshot["appearsIn"]! as! [Episode?]
@@ -3544,6 +3661,7 @@ public struct DroidName: GraphQLFragment {
     }
   }
 
+  /// What others call this droid
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -3587,6 +3705,7 @@ public struct DroidPrimaryFunction: GraphQLFragment {
     }
   }
 
+  /// This droid's primary function
   public var primaryFunction: String? {
     get {
       return snapshot["primaryFunction"]! as! String?
@@ -3630,12 +3749,459 @@ public struct HumanHeightWithVariable: GraphQLFragment {
     }
   }
 
+  /// Height in the preferred unit, default is meters
   public var height: Double? {
     get {
       return snapshot["height"]! as! Double?
     }
     set {
       snapshot.updateValue(newValue, forKey: "height")
+    }
+  }
+}
+
+public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
+  public static let fragmentString =
+    "fragment CharacterNameAndAppearsInWithNestedFragments on Character {" +
+    "  __typename" +
+    "  ...CharacterNameWithNestedAppearsInFragment" +
+    "}"
+
+  public static let possibleTypes = ["Human", "Droid"]
+
+  public static let selections: [Selection] = [
+    Field("__typename", type: .nonNull(.scalar(String.self))),
+    Field("name", type: .nonNull(.scalar(String.self))),
+    Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+  ]
+
+  public var snapshot: Snapshot
+
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  public static func makeHuman(name: String, appearsIn: [Episode?]) -> CharacterNameAndAppearsInWithNestedFragments {
+    return CharacterNameAndAppearsInWithNestedFragments(snapshot: ["__typename": "Human", "name": name, "appearsIn": appearsIn])
+  }
+
+  public static func makeDroid(name: String, appearsIn: [Episode?]) -> CharacterNameAndAppearsInWithNestedFragments {
+    return CharacterNameAndAppearsInWithNestedFragments(snapshot: ["__typename": "Droid", "name": name, "appearsIn": appearsIn])
+  }
+
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  /// The name of the character
+  public var name: String {
+    get {
+      return snapshot["name"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "name")
+    }
+  }
+
+  /// The movies this character appears in
+  public var appearsIn: [Episode?] {
+    get {
+      return snapshot["appearsIn"]! as! [Episode?]
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "appearsIn")
+    }
+  }
+
+  public var fragments: Fragments {
+    get {
+      return Fragments(snapshot: snapshot)
+    }
+    set {
+      snapshot = newValue.snapshot
+    }
+  }
+
+  public struct Fragments {
+    public var snapshot: Snapshot
+
+    public var characterNameWithNestedAppearsInFragment: CharacterNameWithNestedAppearsInFragment {
+      get {
+        return CharacterNameWithNestedAppearsInFragment(snapshot: snapshot)
+      }
+      set {
+        snapshot = newValue.snapshot
+      }
+    }
+
+    public var characterAppearsIn: CharacterAppearsIn {
+      get {
+        return CharacterAppearsIn(snapshot: snapshot)
+      }
+      set {
+        snapshot = newValue.snapshot
+      }
+    }
+  }
+}
+
+public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
+  public static let fragmentString =
+    "fragment CharacterNameWithNestedAppearsInFragment on Character {" +
+    "  __typename" +
+    "  name" +
+    "  ...CharacterAppearsIn" +
+    "}"
+
+  public static let possibleTypes = ["Human", "Droid"]
+
+  public static let selections: [Selection] = [
+    Field("__typename", type: .nonNull(.scalar(String.self))),
+    Field("name", type: .nonNull(.scalar(String.self))),
+    Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+  ]
+
+  public var snapshot: Snapshot
+
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  public static func makeHuman(name: String, appearsIn: [Episode?]) -> CharacterNameWithNestedAppearsInFragment {
+    return CharacterNameWithNestedAppearsInFragment(snapshot: ["__typename": "Human", "name": name, "appearsIn": appearsIn])
+  }
+
+  public static func makeDroid(name: String, appearsIn: [Episode?]) -> CharacterNameWithNestedAppearsInFragment {
+    return CharacterNameWithNestedAppearsInFragment(snapshot: ["__typename": "Droid", "name": name, "appearsIn": appearsIn])
+  }
+
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  /// The name of the character
+  public var name: String {
+    get {
+      return snapshot["name"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "name")
+    }
+  }
+
+  /// The movies this character appears in
+  public var appearsIn: [Episode?] {
+    get {
+      return snapshot["appearsIn"]! as! [Episode?]
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "appearsIn")
+    }
+  }
+
+  public var fragments: Fragments {
+    get {
+      return Fragments(snapshot: snapshot)
+    }
+    set {
+      snapshot = newValue.snapshot
+    }
+  }
+
+  public struct Fragments {
+    public var snapshot: Snapshot
+
+    public var characterAppearsIn: CharacterAppearsIn {
+      get {
+        return CharacterAppearsIn(snapshot: snapshot)
+      }
+      set {
+        snapshot = newValue.snapshot
+      }
+    }
+  }
+}
+
+public struct CharacterNameWithInlineFragment: GraphQLFragment {
+  public static let fragmentString =
+    "fragment CharacterNameWithInlineFragment on Character {" +
+    "  __typename" +
+    "  ... on Human {" +
+    "    __typename" +
+    "    friends {" +
+    "      __typename" +
+    "      appearsIn" +
+    "    }" +
+    "  }" +
+    "  ... on Droid {" +
+    "    __typename" +
+    "    ...CharacterName" +
+    "    ...FriendsNames" +
+    "  }" +
+    "}"
+
+  public static let possibleTypes = ["Human", "Droid"]
+
+  public static let selections: [Selection] = [
+    Field("__typename", type: .nonNull(.scalar(String.self))),
+    FragmentSpread(CharacterNameWithInlineFragment.AsHuman.self),
+    FragmentSpread(CharacterNameWithInlineFragment.AsDroid.self),
+  ]
+
+  public var snapshot: Snapshot
+
+  public init(snapshot: Snapshot) {
+    self.snapshot = snapshot
+  }
+
+  public static func makeHuman(friends: [AsHuman.Friend?]? = nil) -> CharacterNameWithInlineFragment {
+    return CharacterNameWithInlineFragment(snapshot: ["__typename": "Human", "friends": friends])
+  }
+
+  public static func makeDroid(friends: [AsDroid.Friend?]? = nil, name: String) -> CharacterNameWithInlineFragment {
+    return CharacterNameWithInlineFragment(snapshot: ["__typename": "Droid", "friends": friends, "name": name])
+  }
+
+  public var __typename: String {
+    get {
+      return snapshot["__typename"]! as! String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  public var asHuman: AsHuman? {
+    get {
+      if !AsHuman.possibleTypes.contains(__typename) { return nil }
+      return AsHuman(snapshot: snapshot)
+    }
+    set {
+      guard let newValue = newValue else { return }
+      snapshot = newValue.snapshot
+    }
+  }
+
+  public var asDroid: AsDroid? {
+    get {
+      if !AsDroid.possibleTypes.contains(__typename) { return nil }
+      return AsDroid(snapshot: snapshot)
+    }
+    set {
+      guard let newValue = newValue else { return }
+      snapshot = newValue.snapshot
+    }
+  }
+
+  public struct AsHuman: GraphQLFragment {
+    public static let possibleTypes = ["Human"]
+
+    public static let selections: [Selection] = [
+      Field("__typename", type: .nonNull(.scalar(String.self))),
+      Field("friends", type: .list(.object(AsHuman.Friend.self))),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(friends: [Friend?]? = nil) {
+      self.init(snapshot: ["__typename": "Human", "friends": friends])
+    }
+
+    public var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// This human's friends, or an empty list if they have none
+    public var friends: [Friend?]? {
+      get {
+        return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+      }
+      set {
+        snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+      }
+    }
+
+    public struct Friend: GraphQLSelectionSet {
+      public static let possibleTypes = ["Human", "Droid"]
+
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public static func makeHuman(appearsIn: [Episode?]) -> Friend {
+        return Friend(snapshot: ["__typename": "Human", "appearsIn": appearsIn])
+      }
+
+      public static func makeDroid(appearsIn: [Episode?]) -> Friend {
+        return Friend(snapshot: ["__typename": "Droid", "appearsIn": appearsIn])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The movies this character appears in
+      public var appearsIn: [Episode?] {
+        get {
+          return snapshot["appearsIn"]! as! [Episode?]
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "appearsIn")
+        }
+      }
+    }
+  }
+
+  public struct AsDroid: GraphQLFragment {
+    public static let possibleTypes = ["Droid"]
+
+    public static let selections: [Selection] = [
+      Field("__typename", type: .nonNull(.scalar(String.self))),
+      Field("friends", type: .list(.object(AsDroid.Friend.self))),
+      Field("name", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(friends: [Friend?]? = nil, name: String) {
+      self.init(snapshot: ["__typename": "Droid", "friends": friends, "name": name])
+    }
+
+    public var __typename: String {
+      get {
+        return snapshot["__typename"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// This droid's friends, or an empty list if they have none
+    public var friends: [Friend?]? {
+      get {
+        return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+      }
+      set {
+        snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+      }
+    }
+
+    /// What others call this droid
+    public var name: String {
+      get {
+        return snapshot["name"]! as! String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "name")
+      }
+    }
+
+    public var fragments: Fragments {
+      get {
+        return Fragments(snapshot: snapshot)
+      }
+      set {
+        snapshot = newValue.snapshot
+      }
+    }
+
+    public struct Fragments {
+      public var snapshot: Snapshot
+
+      public var characterName: CharacterName {
+        get {
+          return CharacterName(snapshot: snapshot)
+        }
+        set {
+          snapshot = newValue.snapshot
+        }
+      }
+
+      public var friendsNames: FriendsNames {
+        get {
+          return FriendsNames(snapshot: snapshot)
+        }
+        set {
+          snapshot = newValue.snapshot
+        }
+      }
+    }
+
+    public struct Friend: GraphQLSelectionSet {
+      public static let possibleTypes = ["Human", "Droid"]
+
+      public static let selections: [Selection] = [
+        Field("__typename", type: .nonNull(.scalar(String.self))),
+        Field("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public static func makeHuman(name: String) -> Friend {
+        return Friend(snapshot: ["__typename": "Human", "name": name])
+      }
+
+      public static func makeDroid(name: String) -> Friend {
+        return Friend(snapshot: ["__typename": "Droid", "name": name])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The name of the character
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "name")
+        }
+      }
     }
   }
 }
@@ -3680,6 +4246,7 @@ public struct FriendsNames: GraphQLFragment {
     }
   }
 
+  /// The friends of the character, or an empty list if they have none
   public var friends: [Friend?]? {
     get {
       return (snapshot["friends"]! as! [Snapshot?]?).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
@@ -3720,6 +4287,7 @@ public struct FriendsNames: GraphQLFragment {
       }
     }
 
+    /// The name of the character
     public var name: String {
       get {
         return snapshot["name"]! as! String
@@ -3768,6 +4336,7 @@ public struct CharacterAppearsIn: GraphQLFragment {
     }
   }
 
+  /// The movies this character appears in
   public var appearsIn: [Episode?] {
     get {
       return snapshot["appearsIn"]! as! [Episode?]
@@ -3825,6 +4394,7 @@ public struct HeroDetails: GraphQLFragment {
     }
   }
 
+  /// The name of the character
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -3884,6 +4454,7 @@ public struct HeroDetails: GraphQLFragment {
       }
     }
 
+    /// What this human calls themselves
     public var name: String {
       get {
         return snapshot["name"]! as! String
@@ -3893,6 +4464,7 @@ public struct HeroDetails: GraphQLFragment {
       }
     }
 
+    /// Height in the preferred unit, default is meters
     public var height: Double? {
       get {
         return snapshot["height"]! as! Double?
@@ -3931,6 +4503,7 @@ public struct HeroDetails: GraphQLFragment {
       }
     }
 
+    /// What others call this droid
     public var name: String {
       get {
         return snapshot["name"]! as! String
@@ -3940,6 +4513,7 @@ public struct HeroDetails: GraphQLFragment {
       }
     }
 
+    /// This droid's primary function
     public var primaryFunction: String? {
       get {
         return snapshot["primaryFunction"]! as! String?
@@ -3988,6 +4562,7 @@ public struct CharacterName: GraphQLFragment {
     }
   }
 
+  /// The name of the character
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -4037,6 +4612,7 @@ public struct CharacterNameAndAppearsIn: GraphQLFragment {
     }
   }
 
+  /// The name of the character
   public var name: String {
     get {
       return snapshot["name"]! as! String
@@ -4046,6 +4622,7 @@ public struct CharacterNameAndAppearsIn: GraphQLFragment {
     }
   }
 
+  /// The movies this character appears in
   public var appearsIn: [Episode?] {
     get {
       return snapshot["appearsIn"]! as! [Episode?]

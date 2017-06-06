@@ -26,3 +26,25 @@ fragment DroidPrimaryFunction on Droid {
 fragment HumanHeightWithVariable on Human {
   height(unit: $heightUnit)
 }
+
+fragment CharacterNameAndAppearsInWithNestedFragments on Character {
+  ...CharacterNameWithNestedAppearsInFragment
+}
+
+fragment CharacterNameWithNestedAppearsInFragment on Character {
+  name
+  ...CharacterAppearsIn
+}
+
+fragment CharacterNameWithInlineFragment on Character {
+  ... on Human {
+    friends {
+      appearsIn
+    }
+  }
+  
+  ... on Droid {
+    ...CharacterName
+    ...FriendsNames
+  }
+}

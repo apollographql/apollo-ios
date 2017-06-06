@@ -5,6 +5,7 @@ import StarWarsAPI
 
 private struct MockSelectionSet: GraphQLSelectionSet {
   public static let selections: [Selection] = []
+  static var possibleTypes = ["Mock"]
   
   public var snapshot: Snapshot
   
