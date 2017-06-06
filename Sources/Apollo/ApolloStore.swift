@@ -62,7 +62,7 @@ public final class ApolloStore {
     }
   }
   
-  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
+  public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadTransaction> { fulfill, reject in
       self.queue.async {
         self.cacheLock.lockForReading()
@@ -75,13 +75,13 @@ public final class ApolloStore {
     }
   }
   
-  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T> {
+  public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T> {
     return withinReadTransaction {
       Promise(fulfilled: try body($0))
     }
   }
   
-  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
+  public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadWriteTransaction> { fulfill, reject in
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
@@ -94,7 +94,7 @@ public final class ApolloStore {
     }
   }
   
-  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T> {
+  public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T> {
     return withinReadWriteTransaction {
       Promise(fulfilled: try body($0))
     }
