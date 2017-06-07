@@ -68,7 +68,11 @@ extension Bool: JSONDecodable, JSONEncodable {
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)
-    self.init(rawValue: rawValue)!
+    if let tempSelf = Self(rawValue: rawValue) {
+      self = tempSelf
+    } else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Self.self)
+    }
   }
 }
 

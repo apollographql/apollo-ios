@@ -255,4 +255,19 @@ class ReadFieldValueTests: XCTestCase {
     
     XCTAssertEqual(value, [.newhope, .empire, .jedi] as [Episode?])
   }
+  
+  func testGetOptionalScalarListWithUnknownEnumCase() throws {
+    let object: JSONObject = ["appearsIn": ["TWOTOWERS"]]
+    let field = Field("appearsIn", type: .list(.scalar(Episode.self)))
+    
+    XCTAssertThrowsError(try readFieldValue(field, from: object)) { (error) in
+      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
+        XCTAssertEqual(error.path, ["appearsIn"])
+        XCTAssertEqual(value as? String, "TWOTOWERS")
+        XCTAssertTrue(expectedType == Episode.self)
+      } else {
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
+  }
 }
