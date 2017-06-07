@@ -11,10 +11,13 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
+  s.default_subspecs = 'Core'
+
+  s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
+  s.tvos.deployment_target = '9.0'
+
   s.subspec 'Core' do |ss|
-    ss.ios.deployment_target = '8.0'
-    ss.osx.deployment_target = '10.10'
-    ss.tvos.deployment_target = '9.0'
     ss.source_files = 'Sources/Apollo/*.swift'
     ss.resource = 'scripts/check-and-run-apollo-codegen.sh'
   end
@@ -22,9 +25,8 @@ Pod::Spec.new do |s|
   # Apollo provides exactly one persistent cache out-of-the-box, as a reasonable default choice for
   # those who require cache persistence. Third-party caches may use different storage mechanisms.
   s.subspec 'SQLite' do |ss|
-    ss.ios.deployment_target = '8.0'
-    ss.osx.deployment_target = '10.10'
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
+    ss.dependency 'Apollo/Core'
     ss.dependency 'SQLite.swift', '0.11.2' # 0.11.3 doesn't support iOS < 9
   end
 end
