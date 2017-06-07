@@ -44,7 +44,7 @@ class WatchQueryTests: XCTestCase {
         expectation.fulfill()
       }
 
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
@@ -57,7 +57,7 @@ class WatchQueryTests: XCTestCase {
 
       watcher.refetch()
       
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -111,7 +111,7 @@ class WatchQueryTests: XCTestCase {
         expectation.fulfill()
       }
 
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
@@ -127,7 +127,7 @@ class WatchQueryTests: XCTestCase {
 
       client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
       
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -181,7 +181,7 @@ class WatchQueryTests: XCTestCase {
         expectation.fulfill()
       }
 
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
 
       verifyResult = { (result, error) in
         XCTFail()
@@ -235,7 +235,7 @@ class WatchQueryTests: XCTestCase {
         expectation.fulfill()
       }
 
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
@@ -248,7 +248,7 @@ class WatchQueryTests: XCTestCase {
 
       client.fetch(query: HeroNameWithIdQuery(), cachePolicy: .fetchIgnoringCacheData)
       
-      waitForExpectations(timeout: 1.0, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
     }
   }
   

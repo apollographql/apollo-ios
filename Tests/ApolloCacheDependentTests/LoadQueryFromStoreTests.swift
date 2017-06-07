@@ -220,6 +220,6 @@ class LoadQueryFromStoreTests: XCTestCase {
       expectation.fulfill()
     }
     
-    waitForExpectations(timeout: 1, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
   }
 }

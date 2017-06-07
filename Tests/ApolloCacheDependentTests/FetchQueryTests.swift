@@ -39,7 +39,7 @@ class FetchQueryTests: XCTestCase {
         XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
       }
 
-      self.waitForExpectations(timeout: 1, handler: nil)
+      self.waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -78,7 +78,7 @@ class FetchQueryTests: XCTestCase {
         XCTAssertEqual(result.data?.hero?.name, "R2-D2")
       }
 
-      self.waitForExpectations(timeout: 1, handler: nil)
+      self.waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -116,7 +116,7 @@ class FetchQueryTests: XCTestCase {
         XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
       }
 
-      self.waitForExpectations(timeout: 1, handler: nil)
+      self.waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -155,7 +155,7 @@ class FetchQueryTests: XCTestCase {
         XCTAssertEqual(result.data?.hero?.name, "R2-D2")
       }
 
-      self.waitForExpectations(timeout: 1, handler: nil)
+      self.waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -192,7 +192,7 @@ class FetchQueryTests: XCTestCase {
         XCTAssertNil(result)
       }
 
-      self.waitForExpectations(timeout: 1, handler: nil)
+      self.waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -225,7 +225,7 @@ class FetchQueryTests: XCTestCase {
         XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
       }
 
-      waitForExpectations(timeout: 1, handler: nil)
+      waitForExpectations(timeout: 5, handler: nil)
     }
   }
 }

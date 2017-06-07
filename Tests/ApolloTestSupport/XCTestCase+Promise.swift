@@ -9,7 +9,7 @@ extension XCTestCase {
       expectation.fulfill()
     }
     
-    waitForExpectations(timeout: 2.0)
+    waitForExpectations(timeout: 5)
     
     return try promise.result!.valueOrError()
   }
