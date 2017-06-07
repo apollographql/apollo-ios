@@ -2,9 +2,11 @@
 
 ### vNEXT
 
+### v0.6.0
+
 - Added read and write functions for fine-grained manual store updates.
 
-- Added support for pluggable asynchronous caches, with a WIP SQLite implementation included.
+- Added support for pluggable asynchronous caches, with an optional experimental SQLite implementation.
 
 - Fragments are now merged into the parent result, so you only need to go through `fragments` when you want to pass a fragment explicitly.
 
