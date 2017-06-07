@@ -13,7 +13,7 @@ TARGETED_DEVICE_FAMILY[sdk=iphone*]  = 1,2
 LD_RUNPATH_SEARCH_PATHS[sdk=iphone*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
 SDKROOT[sdk=appletv*] = appletvos
-TVOS_DEPLOYMENT_TARGET = 9.0
+TVOS_DEPLOYMENT_TARGET = 9.1
 TARGETED_DEVICE_FAMILY[sdk=appletv*] = 3
 LD_RUNPATH_SEARCH_PATHS[sdk=appletv*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
