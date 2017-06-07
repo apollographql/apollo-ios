@@ -89,7 +89,7 @@ class NormalizedCachingTests: XCTestCase {
     
     measure {
       (1...10).forEach { number in
-        store.publish(records: [
+        _ = store.publish(records: [
           "2001": [
             "friends": [
               Reference(key: "new_\(number)"),
