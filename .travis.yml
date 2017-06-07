@@ -7,7 +7,7 @@ matrix:
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
     xcode_sdk: iphonesimulator10.3
-    env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
+    env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
     xcode_sdk: iphonesimulator10.3
@@ -23,7 +23,7 @@ matrix:
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator10.3
-    env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
+    env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator10.3
