@@ -89,7 +89,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
 
     public var createReview: CreateReview? {
       get {
-        return CreateReview(snapshot: snapshot["createReview"]! as! Snapshot)
+        return (snapshot["createReview"]! as! Snapshot?).flatMap { CreateReview(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "createReview")
@@ -179,7 +179,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
 
     public var createReview: CreateReview? {
       get {
-        return CreateReview(snapshot: snapshot["createReview"]! as! Snapshot)
+        return (snapshot["createReview"]! as! Snapshot?).flatMap { CreateReview(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "createReview")
@@ -279,7 +279,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -427,7 +427,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -596,7 +596,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -751,7 +751,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -908,7 +908,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -998,7 +998,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -1117,7 +1117,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -1329,7 +1329,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -1606,7 +1606,7 @@ public final class HeroNameQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -1696,7 +1696,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -1797,7 +1797,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -1909,7 +1909,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -2033,7 +2033,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -2124,7 +2124,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -2235,7 +2235,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -2659,7 +2659,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -2799,24 +2799,31 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   }
 }
 
-public final class HumanWithNullMassQuery: GraphQLQuery {
+public final class HumanQuery: GraphQLQuery {
   public static let operationString =
-    "query HumanWithNullMass {" +
-    "  human(id: 1004) {" +
+    "query Human($id: ID!) {" +
+    "  human(id: $id) {" +
     "    __typename" +
     "    name" +
     "    mass" +
     "  }" +
     "}"
 
-  public init() {
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [Selection] = [
-      Field("human", arguments: ["id": 1004], type: .object(Data.Human.self)),
+      Field("human", arguments: ["id": Variable("id")], type: .object(Data.Human.self)),
     ]
 
     public var snapshot: Snapshot
@@ -2831,7 +2838,7 @@ public final class HumanWithNullMassQuery: GraphQLQuery {
 
     public var human: Human? {
       get {
-        return Human(snapshot: snapshot["human"]! as! Snapshot)
+        return (snapshot["human"]! as! Snapshot?).flatMap { Human(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "human")
@@ -2925,7 +2932,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
 
     public var hero: Hero? {
       get {
-        return Hero(snapshot: snapshot["hero"]! as! Snapshot)
+        return (snapshot["hero"]! as! Snapshot?).flatMap { Hero(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "hero")
@@ -2934,7 +2941,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
 
     public var r2: R2? {
       get {
-        return R2(snapshot: snapshot["r2"]! as! Snapshot)
+        return (snapshot["r2"]! as! Snapshot?).flatMap { R2(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "r2")
@@ -3059,7 +3066,7 @@ public final class StarshipQuery: GraphQLQuery {
 
     public var starship: Starship? {
       get {
-        return Starship(snapshot: snapshot["starship"]! as! Snapshot)
+        return (snapshot["starship"]! as! Snapshot?).flatMap { Starship(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "starship")
@@ -3152,7 +3159,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
 
     public var r2: R2? {
       get {
-        return R2(snapshot: snapshot["r2"]! as! Snapshot)
+        return (snapshot["r2"]! as! Snapshot?).flatMap { R2(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "r2")
@@ -3161,7 +3168,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
 
     public var luke: Luke? {
       get {
-        return Luke(snapshot: snapshot["luke"]! as! Snapshot)
+        return (snapshot["luke"]! as! Snapshot?).flatMap { Luke(snapshot: $0) }
       }
       set {
         snapshot.updateValue(newValue?.snapshot, forKey: "luke")

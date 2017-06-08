@@ -1,6 +1,0 @@
-query HumanWithNullMass {
-  human(id: 1004) {
-    name
-    mass
-  }
-}

@@ -285,7 +285,7 @@
 		9FCE2D121E6C259B00E34457 /* HeroNameConditional.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroNameConditional.graphql; sourceTree = "<group>"; };
 		9FCE2D131E6C259B00E34457 /* HeroParentTypeDependentField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroParentTypeDependentField.graphql; sourceTree = "<group>"; };
 		9FCE2D141E6C259B00E34457 /* HeroTypeDependentAliasedField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroTypeDependentAliasedField.graphql; sourceTree = "<group>"; };
-		9FCE2D151E6C259B00E34457 /* HumanWithNullMass.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HumanWithNullMass.graphql; sourceTree = "<group>"; };
+		9FCE2D151E6C259B00E34457 /* Human.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Human.graphql; sourceTree = "<group>"; };
 		9FCE2D161E6C259B00E34457 /* SameHeroTwice.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SameHeroTwice.graphql; sourceTree = "<group>"; };
 		9FCE2D171E6C259B00E34457 /* Starship.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Starship.graphql; sourceTree = "<group>"; };
 		9FCE2D181E6C259B00E34457 /* TwoHeroes.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
@@ -579,7 +579,7 @@
 				9FCE2D0F1E6C259B00E34457 /* HeroDetails.graphql */,
 				9FCE2D131E6C259B00E34457 /* HeroParentTypeDependentField.graphql */,
 				9FCE2D141E6C259B00E34457 /* HeroTypeDependentAliasedField.graphql */,
-				9FCE2D151E6C259B00E34457 /* HumanWithNullMass.graphql */,
+				9FCE2D151E6C259B00E34457 /* Human.graphql */,
 				9FCE2D181E6C259B00E34457 /* TwoHeroes.graphql */,
 				9FCE2D161E6C259B00E34457 /* SameHeroTwice.graphql */,
 				9FCE2D171E6C259B00E34457 /* Starship.graphql */,
