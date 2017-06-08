@@ -32,14 +32,14 @@ class StarWarsServerTests: XCTestCase {
     }
   }
 
-  func testHumanWithNullMassQuery() {
+  func testHumanQueryWithNullMass() {
     fetch(query: HumanQuery(id: "1004")) { data in
       XCTAssertEqual(data.human?.name, "Wilhuff Tarkin")
       XCTAssertNil(data.human?.mass)
     }
   }
   
-  func testHumanWithNullQuery() {
+  func testHumanQueryWithNullResult() {
     fetch(query: HumanQuery(id: "9999")) { data in
       XCTAssertNil(data.human)
     }

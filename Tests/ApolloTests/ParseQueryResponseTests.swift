@@ -277,6 +277,37 @@ class ParseQueryResponseTests: XCTestCase {
     XCTAssertEqual(human.height, 1.72)
   }
   
+  func testHumanQueryWithNullResult() throws {
+    let query = HumanQuery(id: "9999")
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "data": [
+        "human": NSNull()
+      ]
+    ])
+    
+    let (result, _) = try response.parseResult().await()
+    
+    XCTAssertNil(result.data?.human)
+  }
+  
+  func testHumanQueryWithMissingResult() throws {
+    let query = HumanQuery(id: "9999")
+    
+    let response = GraphQLResponse(operation: query, body: [
+      "data": [:]
+    ])
+    
+    XCTAssertThrowsError(try response.parseResult().await()) { error in
+      if case let error as GraphQLResultError = error {
+        XCTAssertEqual(error.path, ["human"])
+        XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+      } else {
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
+  }
+  
   // MARK: Mutations
   
   func testCreateReviewForEpisode() throws {
