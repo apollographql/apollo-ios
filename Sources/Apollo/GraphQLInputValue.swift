@@ -26,6 +26,12 @@ extension JSONEncodable {
 }
 
 extension Dictionary: GraphQLInputValue {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
+    return try evaluate(with: variables) as JSONObject
+  }
+}
+
+extension Dictionary {
   public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONObject {
     var jsonObject = JSONObject(minimumCapacity: count)
     for (key, value) in self {
