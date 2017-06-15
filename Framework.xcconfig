@@ -8,7 +8,7 @@ SUPPORTED_PLATFORMS = iphoneos iphonesimulator appletvsimulator appletvos watchs
 
 SDKROOT[sdk=iphone*] = iphoneos
 VALID_ARCHS[sdk=iphone*] = arm64 armv7 armv7s
-IPHONEOS_DEPLOYMENT_TARGET = 8.0
+IPHONEOS_DEPLOYMENT_TARGET = 9.0
 TARGETED_DEVICE_FAMILY[sdk=iphone*]  = 1,2
 LD_RUNPATH_SEARCH_PATHS[sdk=iphone*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
