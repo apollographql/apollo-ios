@@ -158,16 +158,16 @@ public final class ApolloStore {
       return cache.loadRecords(forKeys: keys)
     }
     
-    private final func complete(value: Any?) -> Promise<JSONValue?> {
+    private final func complete(value: Any?) -> ResultOrPromise<JSONValue?> {
       if let reference = value as? Reference {
-        return loader[reference.key].map { $0?.fields }
+        return .promise(loader[reference.key].map { $0?.fields })
       } else if let array = value as? Array<Any?> {
         let completedValues = array.map(complete)
         // Make sure to dispatch on a global queue and not on the local queue,
         // because that could result in a deadlock (if someone is waiting for the write lock).
         return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
       } else {
-        return Promise(fulfilled: value)
+        return .result(.success(value))
       }
     }
     

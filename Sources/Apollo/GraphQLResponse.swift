@@ -19,7 +19,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
 
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
-        return Promise(fulfilled: object[info.responseKeyForField])
+        return .result(.success(object[info.responseKeyForField]))
       }
       
       executor.cacheKeyForObject = cacheKeyForObject

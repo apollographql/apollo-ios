@@ -16,7 +16,7 @@ private struct MockSelectionSet: GraphQLSelectionSet {
 
 func readFieldValue(_ field: Field, from object: JSONObject) throws -> Any? {
   let executor = GraphQLExecutor { object, info in
-    return Promise(fulfilled: object[info.responseKeyForField])
+    return .result(.success(object[info.responseKeyForField]))
   }
   
   return try executor.execute(selections: [field], on: object, withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).await().snapshot[field.responseKey]!

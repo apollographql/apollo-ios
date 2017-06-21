@@ -3,8 +3,8 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-struct TestError: Error {}
-struct OtherTestError: Error {}
+private struct TestError: Error {}
+private struct OtherTestError: Error {}
 
 class PromiseTests: XCTestCase {
   func testResultOfFulfilledPromise() {
@@ -37,7 +37,7 @@ class PromiseTests: XCTestCase {
   func testFulfilledPromiseAndThen() {
     let promise = Promise<String>(fulfilled: "foo")
     
-    let expectation = self.expectation(description: "Waiting for promise then()")
+    let expectation = self.expectation(description: "andThen handler invoked")
     
     promise.andThen { value in
       XCTAssertEqual(value, "foo")
@@ -47,10 +47,10 @@ class PromiseTests: XCTestCase {
     waitForExpectations(timeout: 1)
   }
   
-  func tesRejectedPromiseCatch() {
+  func testRejectedPromiseCatch() {
     let promise = Promise<String>(rejected: TestError())
     
-    let expectation = self.expectation(description: "Waiting for promise then()")
+    let expectation = self.expectation(description: "catch handler invoked")
     
     promise.catch { error in
       XCTAssert(error is TestError)
@@ -159,7 +159,7 @@ class PromiseTests: XCTestCase {
   }
   
   func testRejectedPromiseSkipsAndThen() {
-    let expectation = self.expectation(description: "Caught error")
+    let expectation = self.expectation(description: "catch handler invoked")
     
     _ = Promise<String> { (fulfill, reject) in
       reject(TestError())
@@ -174,7 +174,7 @@ class PromiseTests: XCTestCase {
   }
   
   func testCatchPropagatesError() {
-    let expectation = self.expectation(description: "Caught error")
+    let expectation = self.expectation(description: "catch handler invoked")
     
     _ = Promise<String> { (fulfill, reject) in
       reject(TestError())
@@ -191,7 +191,7 @@ class PromiseTests: XCTestCase {
   }
   
   func testErrorThrownFromAndThenIsPropagated() {
-    let expectation = self.expectation(description: "Caught error")
+    let expectation = self.expectation(description: "catch handler invoked")
     
     _ = Promise<String> { (fulfill, reject) in
       fulfill("foo")
@@ -206,7 +206,7 @@ class PromiseTests: XCTestCase {
   }
   
   func testErrorThrownFromCatchIsPropagated() {
-    let expectation = self.expectation(description: "Caught error")
+    let expectation = self.expectation(description: "catch handler invoked")
     
     _ = Promise<String> { (fulfill, reject) in
       reject(TestError())
@@ -220,15 +220,42 @@ class PromiseTests: XCTestCase {
     waitForExpectations(timeout: 1)
   }
   
-  // Combinators
+  // When all
   
   func testWhenAll() throws {
+    let queue = DispatchQueue(label: "notificationQueue")
+    
+    let key = DispatchSpecificKey<Void>()
+    queue.setSpecific(key: key, value: ())
+    
     let promises: [Promise<String>] = [Promise(fulfilled: "foo"), Promise(fulfilled: "bar")]
     
-    let expectation = self.expectation(description: "Waiting for all elements of array")
+    let expectation = self.expectation(description: "whenAll andThen handler invoked")
     
-    whenAll(promises, notifyOn: DispatchQueue.global()).andThen { values in
+    whenAll(promises, notifyOn: queue).andThen { values in
       XCTAssertEqual(values, ["foo", "bar"])
+      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testWhenAllRejectsWhenAnyOfThePromisesRejects() throws {
+    let queue = DispatchQueue(label: "notificationQueue")
+    
+    let key = DispatchSpecificKey<Void>()
+    queue.setSpecific(key: key, value: ())
+    
+    let promises: [Promise<String>] = [Promise(fulfilled: "foo"), Promise(rejected: TestError()), Promise(fulfilled: "bar")]
+    
+    let expectation = self.expectation(description: "whenAll catch handler invoked")
+    
+    whenAll(promises, notifyOn: queue).catch { error in
+      XCTAssert(error is TestError)
+      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
+      
       expectation.fulfill()
     }
     

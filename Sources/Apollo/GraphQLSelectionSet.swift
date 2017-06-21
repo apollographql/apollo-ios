@@ -11,7 +11,7 @@ public protocol GraphQLSelectionSet {
 extension GraphQLSelectionSet {
   init(jsonObject: JSONObject) throws {
     let executor = GraphQLExecutor { object, info in
-      Promise(fulfilled: object[info.responseKeyForField])
+      .result(.success(object[info.responseKeyForField]))
     }
     executor.shouldComputeCachePath = false
     self = try executor.execute(selections: Self.selections, on: jsonObject, accumulator: GraphQLSelectionSetMapper<Self>()).await()
