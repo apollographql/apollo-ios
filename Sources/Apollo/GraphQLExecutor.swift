@@ -192,7 +192,7 @@ public final class GraphQLExecutor {
     
     let resultOrPromise = resolver(object, info)
     
-    return resultOrPromise.flatMap { value in
+    return resultOrPromise.on(queue: queue).flatMap { value in
       guard let value = value else {
         throw JSONDecodingError.missingValue
       }

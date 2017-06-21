@@ -1,4 +1,4 @@
-public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notifyOn queue: DispatchQueue) -> ResultOrPromise<[Value]> {
+public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notifyOn queue: DispatchQueue = .global()) -> ResultOrPromise<[Value]> {
   onlyResults: do {
     var results: [Result<Value>] = []
     for resultOrPromise in resultsOrPromises {
@@ -24,9 +24,7 @@ public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notify
       resultOrPromise.andThen { value in
         group.leave()
       }.catch { error in
-        queue.async {
-          reject(error)
-        }
+        reject(error)
       }
     }
     
@@ -139,6 +137,14 @@ public enum ResultOrPromise<Value> {
       return .promise(promise.flatMap { value in
         return try transform(value).asPromise()
       })
+    }
+  }
+  
+  public func on(queue: DispatchQueue) -> ResultOrPromise<Value> {
+    if case .promise(let promise) = self {
+      return .promise(promise.on(queue: queue))
+    } else {
+      return self
     }
   }
 }

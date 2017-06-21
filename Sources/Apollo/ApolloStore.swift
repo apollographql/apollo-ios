@@ -165,7 +165,7 @@ public final class ApolloStore {
         let completedValues = array.map(complete)
         // Make sure to dispatch on a global queue and not on the local queue,
         // because that could result in a deadlock (if someone is waiting for the write lock).
-        return whenAll(completedValues, notifyOn: DispatchQueue.global()).map { $0 }
+        return whenAll(completedValues, notifyOn: .global()).map { $0 }
       } else {
         return .result(.success(value))
       }

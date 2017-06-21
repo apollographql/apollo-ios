@@ -126,7 +126,7 @@ class ResultOrPromiseTests: XCTestCase {
     let expectation = self.expectation(description: "whenAll andThen handler invoked")
     
     queue.async {
-      whenAll(resultOrPromises, notifyOn: DispatchQueue.global()).andThen { values in
+      whenAll(resultOrPromises).andThen { values in
         XCTAssertEqual(values, ["foo", "bar"])
         XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
         
@@ -138,18 +138,12 @@ class ResultOrPromiseTests: XCTestCase {
   }
   
   func testWhenAllWithFulfilledPromises() throws {
-    let queue = DispatchQueue(label: "notificationQueue")
-    
-    let key = DispatchSpecificKey<Void>()
-    queue.setSpecific(key: key, value: ())
-    
     let resultOrPromises: [ResultOrPromise<String>] = [.promise(Promise(fulfilled: "foo")), .promise(Promise(fulfilled: "bar"))]
     
     let expectation = self.expectation(description: "whenAll andThen handler invoked")
     
-    whenAll(resultOrPromises, notifyOn: queue).andThen { values in
+    whenAll(resultOrPromises).andThen { values in
       XCTAssertEqual(values, ["foo", "bar"])
-      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
       
       expectation.fulfill()
     }
@@ -158,18 +152,12 @@ class ResultOrPromiseTests: XCTestCase {
   }
   
   func testWhenAllWithBothSuccessResultsAndFulfilledPromises() throws {
-    let queue = DispatchQueue(label: "notificationQueue")
-    
-    let key = DispatchSpecificKey<Void>()
-    queue.setSpecific(key: key, value: ())
-    
     let resultOrPromises: [ResultOrPromise<String>] = [.promise(Promise(fulfilled: "foo")), .result(.success("bar"))]
     
     let expectation = self.expectation(description: "whenAll andThen handler invoked")
     
-    whenAll(resultOrPromises, notifyOn: queue).andThen { values in
+    whenAll(resultOrPromises).andThen { values in
       XCTAssertEqual(values, ["foo", "bar"])
-      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
       
       expectation.fulfill()
     }
@@ -188,7 +176,7 @@ class ResultOrPromiseTests: XCTestCase {
     let expectation = self.expectation(description: "whenAll catch handler invoked")
     
     queue.async {
-      whenAll(resultOrPromises, notifyOn: DispatchQueue.global()).catch { error in
+      whenAll(resultOrPromises).catch { error in
         XCTAssert(error is TestError)
         XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
         
@@ -200,18 +188,40 @@ class ResultOrPromiseTests: XCTestCase {
   }
   
   func testWhenAllRejectsWhenAnyOfThePromisesRejects() throws {
-    let queue = DispatchQueue(label: "notificationQueue")
-    
-    let key = DispatchSpecificKey<Void>()
-    queue.setSpecific(key: key, value: ())
-    
     let resultOrPromises: [ResultOrPromise<String>] = [.promise(Promise(fulfilled: "foo")), .promise(Promise(rejected: TestError())), .promise(Promise(fulfilled: "bar"))]
     
     let expectation = self.expectation(description: "whenAll catch handler invoked")
     
-    whenAll(resultOrPromises, notifyOn: queue).catch { error in
+    whenAll(resultOrPromises).catch { error in
       XCTAssert(error is TestError)
-      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testWhenAllRejectsWhenAnyOfThePromisesRejectsInAListThatAlsoContainsSuccessResults() throws {
+    let resultOrPromises: [ResultOrPromise<String>] = [.result(.success("foo")), .promise(Promise(rejected: TestError())), .result(.success("bar"))]
+    
+    let expectation = self.expectation(description: "whenAll catch handler invoked")
+    
+    whenAll(resultOrPromises).catch { error in
+      XCTAssert(error is TestError)
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testWhenAllRejectsWhenAnyOfTheResultsIsAFailureInAListThatAlsoContainsFulfilledPromises() throws {
+    let resultOrPromises: [ResultOrPromise<String>] = [.promise(Promise(fulfilled: "foo")), .result(.failure(TestError())), .promise(Promise(fulfilled: "bar"))]
+    
+    let expectation = self.expectation(description: "whenAll catch handler invoked")
+    
+    whenAll(resultOrPromises).catch { error in
+      XCTAssert(error is TestError)
       
       expectation.fulfill()
     }

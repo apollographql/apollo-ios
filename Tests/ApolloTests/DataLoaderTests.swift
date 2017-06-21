@@ -33,7 +33,7 @@ class DataLoaderTests: XCTestCase {
     
     let promises = [loader[1], loader[2]]
     
-    whenAll(promises, notifyOn: DispatchQueue.global()).andThen { values in
+    whenAll(promises).andThen { values in
       XCTAssertEqual(values, [1, 2])
       XCTAssertEqual(numberOfBatchLoads, 1)
       expectation.fulfill()
@@ -56,7 +56,7 @@ class DataLoaderTests: XCTestCase {
     
     let promises = [loader[1], loader[1]]
     
-    whenAll(promises, notifyOn: DispatchQueue.global()).andThen { values in
+    whenAll(promises).andThen { values in
       XCTAssertEqual(values, [1, 1])
       XCTAssertEqual(batchLoads.count, 1)
       XCTAssertEqual(batchLoads[0], [1])
@@ -80,7 +80,7 @@ class DataLoaderTests: XCTestCase {
     
     let promises1 = [loader["A"], loader["B"]]
     
-    whenAll(promises1, notifyOn: DispatchQueue.global()).andThen { values in
+    whenAll(promises1).andThen { values in
       XCTAssertEqual(values, ["A", "B"])
       XCTAssertEqual(batchLoads.count, 1)
       XCTAssertEqual(batchLoads[0], ["A", "B"])
@@ -95,7 +95,7 @@ class DataLoaderTests: XCTestCase {
     
     let promises2 = [loader["A"], loader["C"]]
     
-    whenAll(promises2, notifyOn: DispatchQueue.global()).andThen { values in
+    whenAll(promises2).andThen { values in
       XCTAssertEqual(values, ["A", "C"])
       XCTAssertEqual(batchLoads.count, 2)
       XCTAssertEqual(batchLoads[1], ["C"])
@@ -110,7 +110,7 @@ class DataLoaderTests: XCTestCase {
     
     let promises3 = [loader["A"], loader["B"], loader["C"]]
     
-    whenAll(promises3, notifyOn: DispatchQueue.global()).andThen { values in
+    whenAll(promises3).andThen { values in
       XCTAssertEqual(values, ["A", "B", "C"])
       XCTAssertEqual(batchLoads.count, 2)
       expectation3.fulfill()

@@ -1,4 +1,4 @@
-public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue) -> Promise<[Value]> {
+public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue = .global()) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()
     
@@ -8,9 +8,7 @@ public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: Dispatc
       promise.andThen { value in
         group.leave()
       }.catch { error in
-        queue.async {
-          reject(error)
-        }
+        reject(error)
       }
     }
     
@@ -178,6 +176,23 @@ public final class Promise<Value> {
           }
         case .failure(let error):
           reject(error)
+        }
+      }
+    }
+  }
+  
+  public func on(queue: DispatchQueue) -> Promise<Value> {
+    return Promise<Value> { fulfill, reject in
+      whenResolved { result in
+        switch result {
+        case .success(let value):
+          queue.async {
+            fulfill(value)
+          }
+        case .failure(let error):
+          queue.async {
+            reject(error)
+          }
         }
       }
     }

@@ -223,18 +223,12 @@ class PromiseTests: XCTestCase {
   // When all
   
   func testWhenAll() throws {
-    let queue = DispatchQueue(label: "notificationQueue")
-    
-    let key = DispatchSpecificKey<Void>()
-    queue.setSpecific(key: key, value: ())
-    
     let promises: [Promise<String>] = [Promise(fulfilled: "foo"), Promise(fulfilled: "bar")]
     
     let expectation = self.expectation(description: "whenAll andThen handler invoked")
     
-    whenAll(promises, notifyOn: queue).andThen { values in
+    whenAll(promises).andThen { values in
       XCTAssertEqual(values, ["foo", "bar"])
-      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
       
       expectation.fulfill()
     }
@@ -243,18 +237,12 @@ class PromiseTests: XCTestCase {
   }
   
   func testWhenAllRejectsWhenAnyOfThePromisesRejects() throws {
-    let queue = DispatchQueue(label: "notificationQueue")
-    
-    let key = DispatchSpecificKey<Void>()
-    queue.setSpecific(key: key, value: ())
-    
     let promises: [Promise<String>] = [Promise(fulfilled: "foo"), Promise(rejected: TestError()), Promise(fulfilled: "bar")]
     
     let expectation = self.expectation(description: "whenAll catch handler invoked")
     
-    whenAll(promises, notifyOn: queue).catch { error in
+    whenAll(promises).catch { error in
       XCTAssert(error is TestError)
-      XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
       
       expectation.fulfill()
     }
