@@ -29,13 +29,13 @@ npm install -g apollo-codegen@next
 Include the following in your `Podfile`:
 
 ```ruby
-pod 'Apollo', '~> 0.6.0-beta'
+pod 'Apollo', '~> 0.6.0'
 ```
 
 The core `Apollo` framework comes with an in-memory cache. You can include an experimental SQLite-based persistent cache by adding the following:
 
 ```ruby
-pod 'Apollo/SQLite', '~> 0.6.0-beta'
+pod 'Apollo/SQLite', '~> 0.6.0'
 ```
 
 ### Carthage
@@ -43,7 +43,7 @@ pod 'Apollo/SQLite', '~> 0.6.0-beta'
 Include the following in your `Cartfile`:
 
 ```
-github "apollographql/apollo-ios" "0.6.0-beta.1"
+github "apollographql/apollo-ios" "0.6.0"
 ```
 
 Unfortunately Carthage doesn't support resolving prelease versions, so you'll have to update this for new betas.
