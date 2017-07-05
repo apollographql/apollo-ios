@@ -1,6 +1,7 @@
 public protocol GraphQLOperation: class {
   static var operationString: String { get }
   static var requestString: String { get }
+  static var operationIdentifier: String { get }
   
   var variables: GraphQLMap? { get }
   
@@ -11,7 +12,11 @@ public extension GraphQLOperation {
   static var requestString: String {
     return operationString
   }
-  
+
+  static var operationIdentifier: String {
+    return ""
+  }
+
   var variables: GraphQLMap? {
     return nil
   }

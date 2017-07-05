@@ -52,9 +52,11 @@ public class HTTPNetworkTransport: NetworkTransport {
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
+  ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
     self.url = url
     self.session = URLSession(configuration: configuration)
+    self.sendOperationIdentifiers = sendOperationIdentifiers
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -70,8 +72,8 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.httpMethod = "POST"
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    let body: GraphQLMap = ["query": type(of: operation).requestString, "variables": operation.variables]
+
+    let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -108,5 +110,18 @@ public class HTTPNetworkTransport: NetworkTransport {
     task.resume()
     
     return task
+  }
+
+  private let sendOperationIdentifiers: Bool
+
+  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
+    if sendOperationIdentifiers {
+      let operationIdentifier = type(of: operation).operationIdentifier
+      guard !operationIdentifier.isEmpty else {
+        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
+      }
+      return ["id": operationIdentifier, "variables": operation.variables]
+    }
+    return ["query": type(of: operation).requestString, "variables": operation.variables]
   }
 }
