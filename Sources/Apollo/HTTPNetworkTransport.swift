@@ -46,7 +46,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
-  
+    
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
@@ -65,48 +65,55 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    let body: GraphQLMap = ["query": type(of: operation).requestString, "variables": operation.variables]
-    request.httpBody = try! serializationFormat.serialize(value: body)
-    
-    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-      if error != nil {
-        completionHandler(nil, error)
-        return
-      }
-      
-      guard let httpResponse = response as? HTTPURLResponse else {
-        fatalError("Response should be an HTTPURLResponse")
-      }
-      
-      if (!httpResponse.isSuccessful) {
-        completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
-        return
-      }
-      
-      guard let data = data else {
-        completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
-        return
-      }
-      
-      do {
-        guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
-          throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
+    public func send<Operation: GraphQLOperation>(operation: Operation, additionalHeaders: [String: String]?, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let headers = additionalHeaders {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
         }
-        let response = GraphQLResponse(operation: operation, body: body)
-        completionHandler(response, nil)
-      } catch {
-        completionHandler(nil, error)
-      }
+                
+        let body: GraphQLMap = ["query": type(of: operation).requestString, "variables": operation.variables]
+        request.httpBody = try! serializationFormat.serialize(value: body)
+        
+        let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error != nil {
+                completionHandler(nil, error)
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                fatalError("Response should be an HTTPURLResponse")
+            }
+            
+            if (!httpResponse.isSuccessful) {
+                completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
+                return
+            }
+            
+            do {
+                guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
+                    throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
+                }
+                let response = GraphQLResponse(operation: operation, body: body)
+                completionHandler(response, nil)
+            } catch {
+                completionHandler(nil, error)
+            }
+        }
+        
+        task.resume()
+        
+        return task
     }
-    
-    task.resume()
-    
-    return task
-  }
 }
+
