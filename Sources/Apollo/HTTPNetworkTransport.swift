@@ -52,9 +52,11 @@ public class HTTPNetworkTransport: NetworkTransport {
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
+  ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
     self.url = url
     self.session = URLSession(configuration: configuration)
+    self.sendOperationIdentifiers = sendOperationIdentifiers
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -65,16 +67,16 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-    public func send<Operation: GraphQLOperation>(operation: Operation, additionalHeaders: [String: String]?, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(operation: Operation, additionalHeaders: [String: String]?, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
+    
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         if let headers = additionalHeaders {
-            for (key, value) in headers {
-                request.setValue(value, forHTTPHeaderField: key)
-            }
+          for (key, value) in headers {
+           request.setValue(value, forHTTPHeaderField: key)
+          }
         }
                 
         let body: GraphQLMap = ["query": type(of: operation).requestString, "variables": operation.variables]
@@ -115,5 +117,17 @@ public class HTTPNetworkTransport: NetworkTransport {
         
         return task
     }
+
+  private let sendOperationIdentifiers: Bool
+
+  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
+    if sendOperationIdentifiers {
+      guard let operationIdentifier = type(of: operation).operationIdentifier else {
+        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
+      }
+      return ["id": operationIdentifier, "variables": operation.variables]
+    }
+    return ["query": type(of: operation).requestString, "variables": operation.variables]
+  }
 }
 
