@@ -720,6 +720,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     "    ...FriendsNames" +
     "  }" +
     "}"
+
   public static var requestString: String { return operationString.appending(FriendsNames.fragmentString) }
 
   public var episode: Episode?
@@ -967,6 +968,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
     "    ...CharacterAppearsIn" +
     "  }" +
     "}"
+
   public static var requestString: String { return operationString.appending(CharacterAppearsIn.fragmentString) }
 
   public var episode: Episode?
@@ -1298,6 +1300,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     "    ...HeroDetails" +
     "  }" +
     "}"
+
   public static var requestString: String { return operationString.appending(HeroDetails.fragmentString) }
 
   public var episode: Episode?
@@ -1766,6 +1769,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
     "    ...CharacterName" +
     "  }" +
     "}"
+
   public static var requestString: String { return operationString.appending(CharacterName.fragmentString) }
 
   public var episode: Episode?
@@ -1878,6 +1882,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
     "    ...CharacterNameAndAppearsIn" +
     "  }" +
     "}"
+
   public static var requestString: String { return operationString.appending(CharacterNameAndAppearsIn.fragmentString) }
 
   public var episode: Episode?
