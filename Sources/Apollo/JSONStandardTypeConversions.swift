@@ -151,3 +151,10 @@ extension URL: JSONDecodable, JSONEncodable {
     return self.absoluteString
   }
 }
+
+// Fix for crash when performing mutation that contains variables in the graphQL query
+extension Variable : JSONEncodable {
+    public var jsonValue: JSONValue {
+        return self.name
+    }
+}
