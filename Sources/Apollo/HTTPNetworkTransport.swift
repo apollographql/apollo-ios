@@ -63,18 +63,24 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
+  ///   - files: A list of files to send as a multipart request.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, files: [GraphQLFile]? = nil, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-    let body = requestBody(for: operation)
-    request.httpBody = try! serializationFormat.serialize(value: body)
+    if let files = files, !files.isEmpty {
+      let formData = requestMultipartFormData(for: operation, files: files)
+      request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
+      request.httpBody = formData.toData()
+    } else {
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      let body = requestBody(for: operation)
+      request.httpBody = try! serializationFormat.serialize(value: body)
+    }
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -122,5 +128,27 @@ public class HTTPNetworkTransport: NetworkTransport {
       return ["id": operationIdentifier, "variables": operation.variables]
     }
     return ["query": type(of: operation).requestString, "variables": operation.variables]
+  }
+  
+  private func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]) -> MultipartFormData {
+    let formData = MultipartFormData()
+    
+    let fields = requestBody(for: operation)
+    for (name, data) in fields {
+      if let data = data as? GraphQLMap {
+        let data = try! serializationFormat.serialize(value: data)
+        formData.appendPart(data: data, name: name)
+      } else if let data = data as? String {
+        formData.appendPartWithString(string: data, name: name)
+      } else {
+        formData.appendPartWithString(string: data.debugDescription, name: name)
+      }
+    }
+    
+    for f in files {
+      formData.appendPart(data: f.data, name: f.fieldName, contentType: f.mimeType, filename: f.originalName)
+    }
+    
+    return formData
   }
 }
