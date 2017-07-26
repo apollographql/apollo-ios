@@ -45,6 +45,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
+  let sessionDelegate: SessionDelegate
   let serializationFormat = JSONSerializationFormat.self
   
   /// Creates a network transport with the specified server URL and session configuration.
@@ -55,7 +56,8 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
   public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
     self.url = url
-    self.session = URLSession(configuration: configuration)
+    self.sessionDelegate = SessionDelegate()
+    self.session = URLSession(configuration: configuration, delegate: self.sessionDelegate, delegateQueue: nil)
     self.sendOperationIdentifiers = sendOperationIdentifiers
   }
   
@@ -63,19 +65,32 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
-  ///   - files: A list of files to send as a multipart request.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, files: [GraphQLFile]? = nil, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+    return self.upload(operation: operation, files: nil, progressHandler: nil, completionHandler: completionHandler)
+  }
+  
+  /// Send a GraphQL operation to a server and return a response.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send.
+  ///   - files: A list of files to send as a multipart request.
+  ///   - progressHandler: A closure to call periodically as the request is sent.
+  ///   - completionHandler: A closure to call when a request completes.
+  ///   - response: The response received from the server, or `nil` if an error occurred.
+  ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
+  /// - Returns: An object that can be used to cancel an in progress request.
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile]? = nil, progressHandler: ((Progress) -> Void)? = nil, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
     if let files = files, !files.isEmpty {
       let formData = requestMultipartFormData(for: operation, files: files)
       request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
-      request.httpBody = formData.toData()
+      request.httpBody = formData.encode()
     } else {
       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
       let body = requestBody(for: operation)
@@ -113,6 +128,10 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
     }
     
+    if let progressHandler = progressHandler {
+      self.sessionDelegate.add(task: task, progressHandler: progressHandler)
+    }
+    
     task.resume()
     
     return task
@@ -139,14 +158,14 @@ public class HTTPNetworkTransport: NetworkTransport {
         let data = try! serializationFormat.serialize(value: data)
         formData.appendPart(data: data, name: name)
       } else if let data = data as? String {
-        formData.appendPartWithString(string: data, name: name)
+        formData.appendPart(string: data, name: name)
       } else {
-        formData.appendPartWithString(string: data.debugDescription, name: name)
+        formData.appendPart(string: data.debugDescription, name: name)
       }
     }
     
     for f in files {
-      formData.appendPart(data: f.data, name: f.fieldName, contentType: f.mimeType, filename: f.originalName)
+      formData.appendPart(inputStream: f.inputStream, contentLength: f.contentLength, name: f.fieldName, contentType: f.mimeType, filename: f.originalName)
     }
     
     return formData

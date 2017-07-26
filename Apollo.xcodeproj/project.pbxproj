@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3DC490521F29252700D1D1AE /* GraphQLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC490511F29252700D1D1AE /* GraphQLFile.swift */; };
 		3DC490541F29254C00D1D1AE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC490531F29254C00D1D1AE /* MultipartFormData.swift */; };
+		3DC490561F29541000D1D1AE /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC490551F29541000D1D1AE /* SessionDelegate.swift */; };
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		9F0CA4461EE7F9E90032DD39 /* ApolloTestSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -231,6 +232,7 @@
 /* Begin PBXFileReference section */
 		3DC490511F29252700D1D1AE /* GraphQLFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLFile.swift; sourceTree = "<group>"; };
 		3DC490531F29254C00D1D1AE /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		3DC490551F29541000D1D1AE /* SessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
 		9F19D8431EED568200C57247 /* ResultOrPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromise.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
 				3DC490531F29254C00D1D1AE /* MultipartFormData.swift */,
+				3DC490551F29541000D1D1AE /* SessionDelegate.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1085,6 +1088,7 @@
 				9FF33D811E48B98200F608A4 /* HTTPNetworkTransport.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
 				9FADC84A1E6B0B2300C677E6 /* Locking.swift in Sources */,
+				3DC490561F29541000D1D1AE /* SessionDelegate.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				9FE941CB1E5F20CA007CDD89 /* GraphQLOutputType.swift in Sources */,
 				3DC490521F29252700D1D1AE /* GraphQLFile.swift in Sources */,
