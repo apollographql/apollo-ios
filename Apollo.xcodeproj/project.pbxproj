@@ -293,6 +293,7 @@
 		9FCE2D161E6C259B00E34457 /* SameHeroTwice.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SameHeroTwice.graphql; sourceTree = "<group>"; };
 		9FCE2D171E6C259B00E34457 /* Starship.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Starship.graphql; sourceTree = "<group>"; };
 		9FCE2D181E6C259B00E34457 /* TwoHeroes.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
+		9FD111D31F2A179A00E7B586 /* HeroFriendsOfFriends.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroFriendsOfFriends.graphql; sourceTree = "<group>"; };
 		9FD637E11E6ACF88001EDBC8 /* TestHost iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestHost iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD637E31E6ACF88001EDBC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FD637E51E6ACF88001EDBC8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -581,6 +582,7 @@
 				9F8622FE1EC44A8600C38162 /* HeroNameAndAppearsIn.graphql */,
 				9FCE2D121E6C259B00E34457 /* HeroNameConditional.graphql */,
 				9FCE2D0D1E6C259B00E34457 /* HeroAndFriendsNames.graphql */,
+				9FD111D31F2A179A00E7B586 /* HeroFriendsOfFriends.graphql */,
 				9F3750501ECEFD2300C68F5E /* CharacterAndSubTypesFragments.graphql */,
 				9FCE2D0F1E6C259B00E34457 /* HeroDetails.graphql */,
 				9FCE2D131E6C259B00E34457 /* HeroParentTypeDependentField.graphql */,

@@ -10,7 +10,7 @@ public struct GraphQLResolveInfo {
   var cachePath: [String] = []
   var cacheKeyForField: String = ""
   
-  var fields: [Field] = []
+  var fields: [GraphQLField] = []
   
   init(rootKey: CacheKey?, variables: GraphQLMap?) {
     self.variables = variables
@@ -117,7 +117,7 @@ public final class GraphQLExecutor {
   
   // MARK: - Execution
   
-  func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, withKey key: CacheKey? = nil, variables: GraphQLMap? = nil, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+  func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], on object: JSONObject, withKey key: CacheKey? = nil, variables: GraphQLMap? = nil, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: key, variables: variables)
     
     return try execute(selections: selections, on: object, info: info, accumulator: accumulator).map {
@@ -125,8 +125,8 @@ public final class GraphQLExecutor {
     }.asPromise()
   }
   
-  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
-    var groupedFields = GroupedSequence<String, Field>()
+  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
+    var groupedFields = GroupedSequence<String, GraphQLField>()
     collectFields(selections: selections, forRuntimeType: runtimeType(of: object), into: &groupedFields)
     
     var fieldEntries: [ResultOrPromise<Accumulator.FieldEntry>] = []
@@ -152,12 +152,12 @@ public final class GraphQLExecutor {
   }
   
   /// Before execution, the selection set is converted to a grouped field set. Each entry in the grouped field set is a list of fields that share a response key. This ensures all fields with the same response key (alias or field name) included via referenced fragments are executed at the same time.
-  private func collectFields(selections: [Selection], forRuntimeType runtimeType: String?, into groupedFields: inout GroupedSequence<String, Field>) {
+  private func collectFields(selections: [GraphQLSelection], forRuntimeType runtimeType: String?, into groupedFields: inout GroupedSequence<String, GraphQLField>) {
     for selection in selections {
       switch selection {
-      case let field as Field:
+      case let field as GraphQLField:
         _ = groupedFields.append(value: field, forKey: field.responseKey)
-      case let fragmentSpread as FragmentSpread:
+      case let fragmentSpread as GraphQLFragmentSpread:
         let fragment = fragmentSpread.fragment
                 
         if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
@@ -171,7 +171,7 @@ public final class GraphQLExecutor {
   }
   
   /// Each field requested in the grouped field set that is defined on the selected objectType will result in an entry in the response map. Field execution first coerces any provided argument values, then resolves a value for the field, and finally completes that value either by recursively executing another selection set or coercing a scalar value.
-  private func execute<Accumulator: GraphQLResultAccumulator>(fields: [Field], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
+  private func execute<Accumulator: GraphQLResultAccumulator>(fields: [GraphQLField], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
     let firstField = fields[0]
     
@@ -257,8 +257,8 @@ public final class GraphQLExecutor {
   }
   
   /// When fields are selected multiple times, their selection sets are merged together when completing the value in order to continue execution of the sub‐selection sets.
-  private func mergeSelectionSets(for fields: [Field]) -> [Selection] {
-    var selections: [Selection] = []
+  private func mergeSelectionSets(for fields: [GraphQLField]) -> [GraphQLSelection] {
+    var selections: [GraphQLSelection] = []
     for field in fields {
       if case let .object(fieldSelectionSet) = field.type.namedType {
         selections.append(contentsOf: fieldSelectionSet.selections)

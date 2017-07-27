@@ -171,7 +171,7 @@ public final class ApolloStore {
       }
     }
     
-    final func execute<Accumulator: GraphQLResultAccumulator>(selections: [Selection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+    final func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
       return loadObject(forKey: key).flatMap { object in
         try self.executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: accumulator)
       }

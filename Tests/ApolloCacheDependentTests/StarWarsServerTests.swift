@@ -31,6 +31,13 @@ class StarWarsServerTests: XCTestCase {
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
+  
+  func testHeroFriendsOfFriendsNamesQuery() {
+    fetch(query: HeroFriendsOfFriendsNamesQuery()) { data in
+      let friendsOfFirstFriendNames = data.hero?.friends?.first??.friends?.flatMap { $0?.name }
+      XCTAssertEqual(friendsOfFirstFriendNames, ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"])
+    }
+  }
 
   func testHumanQueryWithNullMass() {
     fetch(query: HumanQuery(id: "1004")) { data in
