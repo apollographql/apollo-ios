@@ -1,38 +1,67 @@
 class SessionDelegate: NSObject {
-  
-  private var tasks: [Int: (Progress) -> Void] = [:]
-  private let lock = NSLock()
-  
-  func add(task: URLSessionTask, progressHandler: @escaping (Progress) -> Void) {
-    lock.lock()
-    defer { lock.unlock() }
+  class SessionDelegateTask {
+    let completionHandler: (Data?, URLResponse?, Error?) -> Void
+    let progressHandler: ((Progress) -> Void)?
+    var data = Data()
     
-    self.tasks[task.taskIdentifier] = progressHandler
+    init(completionHandler: @escaping  (Data?, URLResponse?, Error?) -> Void, progressHandler: ((Progress) -> Void)? = nil) {
+      self.completionHandler = completionHandler
+      self.progressHandler = progressHandler
+    }
+    
+    func didReceiveData(data: Data) {
+      self.data.append(data)
+    }
   }
   
-  func get(task: URLSessionTask) -> ((Progress) -> Void)? {
-    lock.lock()
-    defer { lock.unlock() }
+  private var tasks: [Int: SessionDelegateTask] = [:]
+  private let lock = Mutex()
+  
+  func add(task: URLSessionTask, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, progressHandler: ((Progress) -> Void)? = nil) {
+    self.lock.lock()
+    defer { self.lock.unlock() }
     
-    return self.tasks[task.taskIdentifier]
+    self.tasks[task.taskIdentifier] = SessionDelegateTask(completionHandler: completionHandler, progressHandler: progressHandler)
+  }
+  
+  func get(task: URLSessionTask) -> SessionDelegateTask? {
+    return lock.withLock {
+      return self.tasks[task.taskIdentifier]
+    }
   }
   
   func remove(task: URLSessionTask) {
-    lock.lock()
-    defer { lock.unlock() }
+    self.lock.lock()
+    defer { self.lock.unlock() }
     
     self.tasks.removeValue(forKey: task.taskIdentifier)
   }
 }
 
+extension SessionDelegate: URLSessionDataDelegate {
+  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void) {
+    completionHandler(URLSession.ResponseDisposition.allow)
+  }
+}
+
 extension SessionDelegate: URLSessionTaskDelegate {
   func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-    if let progressHandler = self.get(task: task) {
+    if let sessionTask = self.get(task: task), let progressHandler = sessionTask.progressHandler {
       progressHandler(Progress((totalBytesSent/totalBytesExpectedToSend)) * 100)
     }
   }
   
+  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    if let sessionTask = self.get(task: dataTask) {
+      sessionTask.didReceiveData(data: data)
+    }
+  }
+  
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-    self.remove(task: task)
+    if let sessionTask = self.get(task: task) {
+      self.remove(task: task)
+      
+      sessionTask.completionHandler(sessionTask.data, task.response, error)
+    }
   }
 }

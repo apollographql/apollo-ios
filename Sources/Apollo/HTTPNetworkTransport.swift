@@ -97,7 +97,7 @@ public class HTTPNetworkTransport: NetworkTransport {
       request.httpBody = try! serializationFormat.serialize(value: body)
     }
     
-    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+    func notifyCompletionHandler(data: Data?, response: URLResponse?, error: Error?) {
       if error != nil {
         completionHandler(nil, error)
         return
@@ -128,9 +128,9 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
     }
     
-    if let progressHandler = progressHandler {
-      self.sessionDelegate.add(task: task, progressHandler: progressHandler)
-    }
+    let task = session.dataTask(with: request)
+    
+    self.sessionDelegate.add(task: task, completionHandler: notifyCompletionHandler, progressHandler: progressHandler)
     
     task.resume()
     
