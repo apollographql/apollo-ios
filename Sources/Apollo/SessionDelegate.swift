@@ -24,13 +24,13 @@ class SessionDelegate: NSObject {
     self.tasks[task.taskIdentifier] = SessionDelegateTask(completionHandler: completionHandler, progressHandler: progressHandler)
   }
   
-  func get(task: URLSessionTask) -> SessionDelegateTask? {
+  fileprivate func get(task: URLSessionTask) -> SessionDelegateTask? {
     return lock.withLock {
       return self.tasks[task.taskIdentifier]
     }
   }
   
-  func remove(task: URLSessionTask) {
+  fileprivate func remove(task: URLSessionTask) {
     self.lock.lock()
     defer { self.lock.unlock() }
     
@@ -47,7 +47,8 @@ extension SessionDelegate: URLSessionDataDelegate {
 extension SessionDelegate: URLSessionTaskDelegate {
   func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
     if let sessionTask = self.get(task: task), let progressHandler = sessionTask.progressHandler {
-      progressHandler(Progress((totalBytesSent/totalBytesExpectedToSend)) * 100)
+      let progress = Float(totalBytesSent)/Float(totalBytesExpectedToSend)
+      progressHandler(Progress(progress * 100))
     }
   }
   
