@@ -70,7 +70,7 @@ class FetchQueryTests: XCTestCase {
       
       let expectation = self.expectation(description: "Fetching query")
       
-      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+      client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch) { (result, error) in
         // ignore first result assuming from cache, and then make sure we get fetched result
         if result?.data?.hero?.name != "R2-D2" {
           defer { expectation.fulfill() }
