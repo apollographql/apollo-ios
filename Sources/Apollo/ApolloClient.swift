@@ -183,11 +183,11 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
     client.store.load(query: query) { (result, error) in
       if error == nil {
         self.notifyResultHandler(result: result, error: nil)
-		
-		if self.cachePolicy != .returnCacheDataAndFetch {
-			self.state = .finished
-			return
-		}
+        
+        if self.cachePolicy != .returnCacheDataAndFetch {
+          self.state = .finished
+          return
+        }
       }
       
       if self.isCancelled {
