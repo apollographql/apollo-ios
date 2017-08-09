@@ -18,10 +18,12 @@ Documentation can be found [here](http://dev.apollodata.com/ios/).
 
 ## Installation
 
-The most recent version of Apollo iOS is currently in beta. Documentation will be updated over the next few days, but for now note that you'll have to install a prerelease version of `apollo-codegen` to use it:
+### Apollo-codegen
+
+Install `apollo-codegen` using `npm`:
 
 ```sh
-npm install -g apollo-codegen@next
+npm install -g apollo-codegen
 ```
 
 ### Cocoapods
