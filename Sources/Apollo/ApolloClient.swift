@@ -14,6 +14,8 @@ public enum CachePolicy {
   case fetchIgnoringCacheData
   /// Return data from the cache if available, else return nil.
   case returnCacheDataDontFetch
+  /// Return data from the cache if available, and always fetch results from the server.
+  case returnCacheDataAndFetch
 }
 
 public typealias OperationResultHandler<Operation: GraphQLOperation> = (_ result: GraphQLResult<Operation.Data>?, _ error: Error?) -> Void
@@ -181,8 +183,11 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
     client.store.load(query: query) { (result, error) in
       if error == nil {
         self.notifyResultHandler(result: result, error: nil)
-        self.state = .finished
-        return
+        
+        if self.cachePolicy != .returnCacheDataAndFetch {
+          self.state = .finished
+          return
+        }
       }
       
       if self.isCancelled {
