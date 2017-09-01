@@ -125,7 +125,7 @@ public final class ApolloStore {
     
     fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecords)
     
-    fileprivate lazy var executor: GraphQLExecutor = {
+    fileprivate func makeExecutor() -> GraphQLExecutor {
       let executor = GraphQLExecutor { object, info in
         let value = object[info.cacheKeyForField]
         return self.complete(value: value)
@@ -134,7 +134,7 @@ public final class ApolloStore {
       executor.dispatchDataLoads = self.loader.dispatch
       executor.cacheKeyForObject = self.cacheKeyForObject
       return executor
-    }()
+    }
     
     init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?) {
       self.cache = cache
@@ -173,7 +173,7 @@ public final class ApolloStore {
     
     final func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
       return loadObject(forKey: key).flatMap { object in
-        try self.executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: accumulator)
+        try self.makeExecutor().execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: accumulator)
       }
     }
     
@@ -220,7 +220,7 @@ public final class ApolloStore {
     
     private func write(object: JSONObject, forSelectionSet selectionSet: GraphQLSelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
-      try self.executor.execute(selections: selectionSet.selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
+      try self.makeExecutor().execute(selections: selectionSet.selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
         self.cache.merge(records: $0).map { _ in }
       }.await()
