@@ -8,7 +8,7 @@ public protocol GraphQLSelectionSet {
   init(snapshot: Snapshot)
 }
 
-extension GraphQLSelectionSet {
+public extension GraphQLSelectionSet {
   init(jsonObject: JSONObject) throws {
     let executor = GraphQLExecutor { object, info in
       .result(.success(object[info.responseKeyForField]))
