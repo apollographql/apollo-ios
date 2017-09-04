@@ -149,7 +149,7 @@ public class ApolloClient {
 }
 
 private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperation, Cancellable {
-  unowned let client: ApolloClient
+  let client: ApolloClient
   let query: Query
   let cachePolicy: CachePolicy
   let context: UnsafeMutableRawPointer?
