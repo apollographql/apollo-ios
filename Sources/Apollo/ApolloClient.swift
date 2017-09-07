@@ -1,4 +1,5 @@
 import Foundation
+import Dispatch
 
 /// An object that can be used to cancel an in progress action.
 public protocol Cancellable: class {

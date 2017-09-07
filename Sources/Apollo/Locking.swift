@@ -1,3 +1,5 @@
+import Foundation
+
 final class Mutex {
   private var _lock = pthread_mutex_t()
   

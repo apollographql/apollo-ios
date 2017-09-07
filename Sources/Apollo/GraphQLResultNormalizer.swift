@@ -1,3 +1,5 @@
+import Foundation
+
 final class GraphQLResultNormalizer: GraphQLResultAccumulator {
   private var records: RecordSet = [:]
   

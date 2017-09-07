@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol GraphQLInputValue {
   func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue
 }

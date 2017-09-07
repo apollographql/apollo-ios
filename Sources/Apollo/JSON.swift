@@ -1,3 +1,5 @@
+import Foundation
+
 public typealias JSONValue = Any
 
 public typealias JSONObject = [String: JSONValue]

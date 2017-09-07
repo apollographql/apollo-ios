@@ -1,3 +1,5 @@
+import Dispatch
+
 func rootKey<Operation: GraphQLOperation>(forOperation operation: Operation) -> CacheKey {
   switch operation {
   case is GraphQLQuery:

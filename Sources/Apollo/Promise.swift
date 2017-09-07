@@ -1,3 +1,5 @@
+import Dispatch
+
 public func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue = .global()) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()

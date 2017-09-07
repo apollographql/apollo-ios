@@ -1,3 +1,5 @@
+import Foundation
+
 final class GraphQLResponseGenerator: GraphQLResultAccumulator {
   func accept(scalar: JSONValue, info: GraphQLResolveInfo) -> JSONValue {
     return scalar
