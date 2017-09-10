@@ -1,3 +1,5 @@
+import Dispatch
+
 public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notifyOn queue: DispatchQueue = .global()) -> ResultOrPromise<[Value]> {
   onlyResults: do {
     var results: [Result<Value>] = []

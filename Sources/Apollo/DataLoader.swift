@@ -1,3 +1,5 @@
+import Dispatch
+
 public final class DataLoader<Key: Hashable, Value> {
   public typealias BatchLoad = ([Key]) -> Promise<[Value]>
   typealias Load = (key: Key, fulfill: (Value) -> Void, reject: (Error) -> Void)
