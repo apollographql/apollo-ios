@@ -8,7 +8,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     self.body = body
   }
 
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
+  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
     let errors: [GraphQLError]?
     
     if let errorsEntry = body["errors"] as? [JSONObject] {
