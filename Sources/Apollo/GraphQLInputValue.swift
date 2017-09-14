@@ -4,7 +4,7 @@ public protocol GraphQLInputValue {
   func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue
 }
 
-public struct Variable {
+public struct GraphQLVariable {
   let name: String
   
   public init(_ name: String) {
@@ -12,7 +12,7 @@ public struct Variable {
   }
 }
 
-extension Variable: GraphQLInputValue {
+extension GraphQLVariable: GraphQLInputValue {
   public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     guard let value = variables?[name] else {
       throw GraphQLError("Variable \(name) was not provided.")

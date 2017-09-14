@@ -16,6 +16,12 @@ query HeroDetailsWithFragment($episode: Episode) {
   }
 }
 
+query DroidDetailsWithFragment($episode: Episode) {
+  hero(episode: $episode) {
+    ...DroidDetails
+  }
+}
+
 fragment HeroDetails on Character {
   name
   ... on Human {
@@ -26,3 +32,7 @@ fragment HeroDetails on Character {
   }
 }
 
+fragment DroidDetails on Droid {
+  name
+  primaryFunction
+}

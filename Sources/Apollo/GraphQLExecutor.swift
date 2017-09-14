@@ -130,7 +130,7 @@ public final class GraphQLExecutor {
   
   private func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], on object: JSONObject, info: GraphQLResolveInfo, accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
     var groupedFields = GroupedSequence<String, GraphQLField>()
-    collectFields(selections: selections, forRuntimeType: runtimeType(of: object), into: &groupedFields)
+    try collectFields(selections: selections, forRuntimeType: runtimeType(of: object), into: &groupedFields, info: info)
     
     var fieldEntries: [ResultOrPromise<Accumulator.FieldEntry>] = []
     fieldEntries.reserveCapacity(groupedFields.keys.count)
@@ -155,18 +155,32 @@ public final class GraphQLExecutor {
   }
   
   /// Before execution, the selection set is converted to a grouped field set. Each entry in the grouped field set is a list of fields that share a response key. This ensures all fields with the same response key (alias or field name) included via referenced fragments are executed at the same time.
-  private func collectFields(selections: [GraphQLSelection], forRuntimeType runtimeType: String?, into groupedFields: inout GroupedSequence<String, GraphQLField>) {
+  private func collectFields(selections: [GraphQLSelection], forRuntimeType runtimeType: String?, into groupedFields: inout GroupedSequence<String, GraphQLField>, info: GraphQLResolveInfo) throws {
     for selection in selections {
       switch selection {
       case let field as GraphQLField:
         _ = groupedFields.append(value: field, forKey: field.responseKey)
+      case let booleanCondition as GraphQLBooleanCondition:
+        guard let value = info.variables?[booleanCondition.variableName] else {
+          throw GraphQLError("Variable \(booleanCondition.variableName) was not provided.")
+        }
+        if value as? Bool == !booleanCondition.inverted {
+          try collectFields(selections: booleanCondition.selections, forRuntimeType: runtimeType, into: &groupedFields, info: info)
+        }
       case let fragmentSpread as GraphQLFragmentSpread:
         let fragment = fragmentSpread.fragment
-                
+        
         if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
-          let fragmentSelections = fragment.selections
-          collectFields(selections: fragmentSelections, forRuntimeType: runtimeType, into: &groupedFields)
+          try collectFields(selections: fragment.selections, forRuntimeType: runtimeType, into: &groupedFields, info: info)
         }
+      case let typeCase as GraphQLTypeCase:
+        let selections: [GraphQLSelection]
+        if let runtimeType = runtimeType {
+          selections = typeCase.variants[runtimeType] ?? typeCase.default
+        } else {
+          selections = typeCase.default
+        }
+        try collectFields(selections: selections, forRuntimeType: runtimeType, into: &groupedFields, info: info)
       default:
         preconditionFailure()
       }
@@ -263,8 +277,8 @@ public final class GraphQLExecutor {
   private func mergeSelectionSets(for fields: [GraphQLField]) -> [GraphQLSelection] {
     var selections: [GraphQLSelection] = []
     for field in fields {
-      if case let .object(fieldSelectionSet) = field.type.namedType {
-        selections.append(contentsOf: fieldSelectionSet.selections)
+      if case let .object(fieldSelections) = field.type.namedType {
+        selections.append(contentsOf: fieldSelections)
       }
     }
     return selections

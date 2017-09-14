@@ -36,7 +36,7 @@ class CacheKeyForFieldTests: XCTestCase {
   }
   
   func testFieldWithInputObjectArgumentWithVariables() throws {
-    let field = GraphQLField("hero", arguments: ["nested": ["foo": Variable("a"), "bar": Variable("b")]], type: .scalar(String.self))
+    let field = GraphQLField("hero", arguments: ["nested": ["foo": GraphQLVariable("a"), "bar": GraphQLVariable("b")]], type: .scalar(String.self))
     let variables: GraphQLMap = ["a": 1, "b": 2]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero([nested:bar:2,foo:1])")
   }
@@ -54,13 +54,13 @@ class CacheKeyForFieldTests: XCTestCase {
   }
   
   func testFieldWithVariableArgument() throws {
-    let field = GraphQLField("hero", arguments: ["episode": Variable("episode")], type: .scalar(String.self))
+    let field = GraphQLField("hero", arguments: ["episode": GraphQLVariable("episode")], type: .scalar(String.self))
     let variables = ["episode": Episode.jedi]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero(episode:JEDI)")
   }
   
   func testFieldWithVariableArgumentWithNil() throws {
-    let field = GraphQLField("hero", arguments: ["episode": Variable("episode")], type: .scalar(String.self))
+    let field = GraphQLField("hero", arguments: ["episode": GraphQLVariable("episode")], type: .scalar(String.self))
     let variables: GraphQLMap = ["episode": nil as Optional<Episode>]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero")
   }
