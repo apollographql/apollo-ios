@@ -858,7 +858,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -870,7 +870,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
             return FriendsNames(snapshot: snapshot)
           }
           set {
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -1096,7 +1096,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -1108,7 +1108,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
             return CharacterAppearsIn(snapshot: snapshot)
           }
           set {
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -1700,7 +1700,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -1712,7 +1712,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
             return HeroDetails(snapshot: snapshot)
           }
           set {
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -2326,7 +2326,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -2338,7 +2338,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
             return HeroDetails(snapshot: snapshot)
           }
           set {
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -2555,7 +2555,7 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -2569,7 +2569,7 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
           }
           set {
             guard let newValue = newValue else { return }
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -3113,7 +3113,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -3125,7 +3125,133 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
             return CharacterName(snapshot: snapshot)
           }
           set {
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
+  public static let operationString =
+    "query HeroNameWithFragmentAndID($episode: Episode) {" +
+    "  hero(episode: $episode) {" +
+    "    __typename" +
+    "    id" +
+    "    ...CharacterName" +
+    "  }" +
+    "}"
+
+  public static var requestString: String { return operationString.appending(CharacterName.fragmentString) }
+
+  public var episode: Episode?
+
+  public init(episode: Episode? = nil) {
+    self.episode = episode
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("hero", arguments: ["episode": GraphQLVariable("episode")], type: .object(Hero.selections)),
+    ]
+
+    public var snapshot: Snapshot
+
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    public init(hero: Hero? = nil) {
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+    }
+
+    public var hero: Hero? {
+      get {
+        return (snapshot["hero"] as! Snapshot?).flatMap { Hero(snapshot: $0) }
+      }
+      set {
+        snapshot.updateValue(newValue?.snapshot, forKey: "hero")
+      }
+    }
+
+    public struct Hero: GraphQLSelectionSet {
+      public static let possibleTypes = ["Human", "Droid"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public var snapshot: Snapshot
+
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      public static func makeHuman(id: GraphQLID, name: String) -> Hero {
+        return Hero(snapshot: ["__typename": "Human", "id": id, "name": name])
+      }
+
+      public static func makeDroid(id: GraphQLID, name: String) -> Hero {
+        return Hero(snapshot: ["__typename": "Droid", "id": id, "name": name])
+      }
+
+      public var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The ID of the character
+      public var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      /// The name of the character
+      public var name: String {
+        get {
+          return snapshot["name"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "name")
+        }
+      }
+
+      public var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      public struct Fragments {
+        public var snapshot: Snapshot
+
+        public var characterName: CharacterName {
+          get {
+            return CharacterName(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -3238,7 +3364,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
           return Fragments(snapshot: snapshot)
         }
         set {
-          snapshot = newValue.snapshot
+          snapshot += newValue.snapshot
         }
       }
 
@@ -3250,7 +3376,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
             return CharacterNameAndAppearsIn(snapshot: snapshot)
           }
           set {
-            snapshot = newValue.snapshot
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -4414,7 +4540,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
       return Fragments(snapshot: snapshot)
     }
     set {
-      snapshot = newValue.snapshot
+      snapshot += newValue.snapshot
     }
   }
 
@@ -4426,7 +4552,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
         return CharacterName(snapshot: snapshot)
       }
       set {
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
 
@@ -4435,7 +4561,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
         return DroidPrimaryFunction(snapshot: snapshot)
       }
       set {
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
   }
@@ -4500,7 +4626,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
       return Fragments(snapshot: snapshot)
     }
     set {
-      snapshot = newValue.snapshot
+      snapshot += newValue.snapshot
     }
   }
 
@@ -4512,7 +4638,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
         return CharacterName(snapshot: snapshot)
       }
       set {
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
 
@@ -4523,7 +4649,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
       }
       set {
         guard let newValue = newValue else { return }
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
   }
@@ -4904,7 +5030,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
       return Fragments(snapshot: snapshot)
     }
     set {
-      snapshot = newValue.snapshot
+      snapshot += newValue.snapshot
     }
   }
 
@@ -4916,7 +5042,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
         return CharacterNameWithNestedAppearsInFragment(snapshot: snapshot)
       }
       set {
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
 
@@ -4925,7 +5051,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
         return CharacterAppearsIn(snapshot: snapshot)
       }
       set {
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
   }
@@ -4996,7 +5122,7 @@ public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
       return Fragments(snapshot: snapshot)
     }
     set {
-      snapshot = newValue.snapshot
+      snapshot += newValue.snapshot
     }
   }
 
@@ -5008,7 +5134,7 @@ public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
         return CharacterAppearsIn(snapshot: snapshot)
       }
       set {
-        snapshot = newValue.snapshot
+        snapshot += newValue.snapshot
       }
     }
   }

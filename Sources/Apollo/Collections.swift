@@ -12,6 +12,18 @@ extension Dictionary {
   }
 }
 
+public extension Dictionary {
+  static func += (lhs: inout Dictionary, rhs: Dictionary) {
+    #if swift(>=3.2)
+    lhs.merge(rhs) { (_, new) in new }
+    #else
+    for (key, value) in rhs {
+      lhs[key] = value
+    }
+    #endif
+  }
+}
+
 extension Dictionary {
   init<S: Sequence>(_ entries: S) where S.Iterator.Element == Element {
     self = Dictionary(minimumCapacity: entries.underestimatedCount)
