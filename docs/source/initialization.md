@@ -16,7 +16,7 @@ If you need to add additional headers to requests, to include authentication det
 let apollo: ApolloClient = {
   let configuration = URLSessionConfiguration.default
   // Add additional headers as needed
-  configuration.httpAdditionalHeaders = ["Authorization": "Bearer <token>"]
+  configuration.httpAdditionalHeaders = ["Authorization": "Bearer <token>"] // Replace `<token>`
 
   let url = URL(string: "http://localhost:8080/graphql")!
 
