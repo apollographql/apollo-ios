@@ -154,6 +154,20 @@
 			remoteGlobalIDString = 9F8A95781EC0FC1200304A2D;
 			remoteInfo = ApolloTestSupport;
 		};
+		9FED4B721F6C061400231768 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54DDB0CB1EA156170009DD99 /* Apollo.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC750431D2A532C00458D91;
+			remoteInfo = Apollo;
+		};
+		9FED4B7A1F6C061400231768 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 54DDB0CB1EA156170009DD99 /* Apollo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FACA9C61F42E67200AE2DBD;
+			remoteInfo = GitHubAPI;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -243,6 +257,7 @@
 				9FB9D1491EC102360086EEB5 /* ApolloCacheDependentTests.xctest */,
 				54DDB0D61EA156170009DD99 /* ApolloPerformanceTests.xctest */,
 				54DDB0DA1EA156170009DD99 /* StarWarsAPI.framework */,
+				9FED4B7B1F6C061400231768 /* GitHubAPI.framework */,
 				54DDB0DC1EA156170009DD99 /* TestHost iOS.app */,
 				9FB9D14B1EC102360086EEB5 /* ApolloTestSupport.framework */,
 			);
@@ -361,6 +376,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9FED4B731F6C061400231768 /* PBXTargetDependency */,
 			);
 			name = ApolloSQLite;
 			productName = ApolloSQLite;
@@ -541,6 +557,13 @@
 			remoteRef = 9FB9D14A1EC102360086EEB5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9FED4B7B1F6C061400231768 /* GitHubAPI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GitHubAPI.framework;
+			remoteRef = 9FED4B7A1F6C061400231768 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -620,6 +643,11 @@
 			target = 54DDB0BD1EA1523E0009DD99 /* ApolloSQLite */;
 			targetProxy = 9F65B1441EC1B6D80090B25F /* PBXContainerItemProxy */;
 		};
+		9FED4B731F6C061400231768 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Apollo;
+			targetProxy = 9FED4B721F6C061400231768 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -631,7 +659,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloSQLiteIOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -643,7 +670,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloSQLiteIOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -694,6 +720,7 @@
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -738,6 +765,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -761,7 +789,6 @@
 				PRODUCT_NAME = ApolloSQLite;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -781,7 +808,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloSQLite;
 				PRODUCT_NAME = ApolloSQLite;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -803,7 +829,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -824,7 +849,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloSQLiteTestSupport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

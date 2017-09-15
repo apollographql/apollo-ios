@@ -29,7 +29,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       let dependencyTracker = GraphQLDependencyTracker()
       
       return firstly {
-        try executor.execute(selections: Operation.Data.selections, on: dataEntry, withKey: rootKey(forOperation: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
+        try executor.execute(selections: Operation.Data.selections, on: dataEntry, withKey: Operation.rootCacheKey, variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
       }.map { (data, records, dependentKeys) in
         (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
       }
