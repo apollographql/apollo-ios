@@ -1,38 +1,60 @@
-sudo: false
-dist: trusty
-
 language: objective-c
-
-osx_image: xcode8.3
 
 matrix:
   include:
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
+    osx_image: xcode9
+    xcode_sdk: iphonesimulator11.0
+    env: DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 8"
+  - xcode_project: Apollo.xcodeproj
+    xcode_scheme: Apollo
+    osx_image: xcode9
+    xcode_sdk: macosx10.13
+    env: DESTINATION="platform=macOS,arch=x86_64"
+  - xcode_project: Apollo.xcodeproj
+    xcode_scheme: Apollo
+    osx_image: xcode8.3
     xcode_sdk: iphonesimulator10.3
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
+    osx_image: xcode8.3
     xcode_sdk: iphonesimulator10.3
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
+    osx_image: xcode8.3
     xcode_sdk: macosx10.12
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
+    osx_image: xcode8.3
     xcode_sdk: appletvsimulator10.2
     env: DESTINATION="platform=tvOS Simulator,OS=10.2,name=Apple TV 1080p"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
+    osx_image: xcode9
+    xcode_sdk: iphonesimulator11.0
+    env: DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 8"
+  - xcode_project: ApolloSQLite.xcodeproj
+    xcode_scheme: ApolloSQLite
+    osx_image: xcode9
+    xcode_sdk: macosx10.13
+    env: DESTINATION="platform=macOS,arch=x86_64"
+  - xcode_project: ApolloSQLite.xcodeproj
+    xcode_scheme: ApolloSQLite
+    osx_image: xcode8.3
     xcode_sdk: iphonesimulator10.3
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
+    osx_image: xcode8.3
     xcode_sdk: iphonesimulator10.3
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
+    osx_image: xcode8.3
     xcode_sdk: macosx10.12
     env: DESTINATION="platform=macOS,arch=x86_64"
 
