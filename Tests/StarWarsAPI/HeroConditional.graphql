@@ -46,3 +46,28 @@ query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: 
     }
   }
 }
+
+query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {
+  hero {
+    friends @include(if: $includeFriendsDetails) {
+      name
+      ... on Droid {
+        primaryFunction
+      }
+    }
+  }
+}
+
+query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {
+  hero {
+    friends {
+      name
+    }
+    friends @include(if: $includeFriendsDetails) {
+      name
+      ... on Droid {
+        primaryFunction
+      }
+    }
+  }
+}
