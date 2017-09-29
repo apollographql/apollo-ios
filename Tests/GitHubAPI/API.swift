@@ -4,33 +4,7 @@ import Apollo
 
 public final class RepositoryQuery: GraphQLQuery {
   public static let operationString =
-    "query Repository {" +
-    "  repository(owner: \"apollographql\", name: \"apollo-ios\") {" +
-    "    __typename" +
-    "    issueOrPullRequest(number: 13) {" +
-    "      __typename" +
-    "      ... on Issue {" +
-    "        body" +
-    "        ... on UniformResourceLocatable {" +
-    "          url" +
-    "        }" +
-    "        author {" +
-    "          __typename" +
-    "          avatarUrl" +
-    "        }" +
-    "      }" +
-    "      ... on Reactable {" +
-    "        viewerCanReact" +
-    "        ... on Comment {" +
-    "          author {" +
-    "            __typename" +
-    "            login" +
-    "          }" +
-    "        }" +
-    "      }" +
-    "    }" +
-    "  }" +
-    "}"
+    "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        body\n        ... on UniformResourceLocatable {\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        viewerCanReact\n        ... on Comment {\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
 
   public init() {
   }
@@ -153,6 +127,52 @@ public final class RepositoryQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue?.snapshot, forKey: "author")
+          }
+        }
+
+        public struct Author: GraphQLSelectionSet {
+          public static let possibleTypes = ["Organization", "User", "Bot"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("login", type: .nonNull(.scalar(String.self))),
+          ]
+
+          public var snapshot: Snapshot
+
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          public static func makeOrganization(login: String) -> Author {
+            return Author(snapshot: ["__typename": "Organization", "login": login])
+          }
+
+          public static func makeUser(login: String) -> Author {
+            return Author(snapshot: ["__typename": "User", "login": login])
+          }
+
+          public static func makeBot(login: String) -> Author {
+            return Author(snapshot: ["__typename": "Bot", "login": login])
+          }
+
+          public var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The username of the actor.
+          public var login: String {
+            get {
+              return snapshot["login"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "login")
+            }
           }
         }
 
@@ -293,52 +313,6 @@ public final class RepositoryQuery: GraphQLQuery {
               set {
                 snapshot.updateValue(newValue, forKey: "login")
               }
-            }
-          }
-        }
-
-        public struct Author: GraphQLSelectionSet {
-          public static let possibleTypes = ["Organization", "User", "Bot"]
-
-          public static let selections: [GraphQLSelection] = [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("login", type: .nonNull(.scalar(String.self))),
-          ]
-
-          public var snapshot: Snapshot
-
-          public init(snapshot: Snapshot) {
-            self.snapshot = snapshot
-          }
-
-          public static func makeOrganization(login: String) -> Author {
-            return Author(snapshot: ["__typename": "Organization", "login": login])
-          }
-
-          public static func makeUser(login: String) -> Author {
-            return Author(snapshot: ["__typename": "User", "login": login])
-          }
-
-          public static func makeBot(login: String) -> Author {
-            return Author(snapshot: ["__typename": "Bot", "login": login])
-          }
-
-          public var __typename: String {
-            get {
-              return snapshot["__typename"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          /// The username of the actor.
-          public var login: String {
-            get {
-              return snapshot["login"]! as! String
-            }
-            set {
-              snapshot.updateValue(newValue, forKey: "login")
             }
           }
         }
