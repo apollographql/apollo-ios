@@ -13,19 +13,19 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
-    xcode_sdk: iphonesimulator10.3
+    xcode_sdk: phonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
-    xcode_sdk: iphonesimulator10.3
+    xcode_sdk: phonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
-    xcode_sdk: macosx10.12
+    xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_project: Apollo.xcodeproj
     xcode_scheme: Apollo
-    xcode_sdk: appletvsimulator10.2
+    xcode_sdk: appletvsimulator11.0
     env: DESTINATION="platform=tvOS Simulator,OS=10.2,name=Apple TV 1080p"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
@@ -37,15 +37,15 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
-    xcode_sdk: iphonesimulator10.3
+    xcode_sdk: phonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
-    xcode_sdk: iphonesimulator10.3
+    xcode_sdk: phonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_project: ApolloSQLite.xcodeproj
     xcode_scheme: ApolloSQLite
-    xcode_sdk: macosx10.12
+    xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
 
 cache:
