@@ -28,6 +28,6 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'SQLite.swift', '~> 0.11.0'
+    ss.dependency 'SQLite.swift', '~> 0.11.4'
   end
 end

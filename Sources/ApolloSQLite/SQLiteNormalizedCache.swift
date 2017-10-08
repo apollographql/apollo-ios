@@ -51,7 +51,7 @@ public final class SQLiteNormalizedCache: NormalizedCache {
       table.column(key, unique: true)
       table.column(record)
     })
-    try db.run(records.createIndex([key], unique: true, ifNotExists: true))
+    try db.run(records.createIndex(key, unique: true, ifNotExists: true))
   }
 
   private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
