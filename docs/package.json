@@ -19,12 +19,9 @@
     "lodash": "^4.13.1",
     "showdown": "^1.4.2"
   },
-  "devDependencies": {
-    "hexo-s3-deploy": "^1.2.1"
-  },
   "scripts": {
     "start": "hexo serve",
-    "deploy": "hexo-s3-deploy",
+    "build": "hexo generate",
     "develop-theme": "nodemon -x 'rm db.json; hexo serve' -w assets/ -w code/ -w source/ -w themes/ -w scripts/"
   }
 }
