@@ -90,11 +90,19 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.httpBody = try! serializationFormat.serialize(value: body)
     
     if let prepareRequest = prepareRequest {
+      var cancellable: PromisedCancellable?
       let promise = Promise<Cancellable> {
         (fulfill, reject) in
         
         prepareRequest(request) {
           (result) in
+          
+          // Check whether the operation was cancelled and stop here instead of trying to send the request.
+          if let cancellable = cancellable, cancellable.isCancelled {
+            let error = URLError(.cancelled)
+            reject(error)
+            completionHandler(nil, error)
+          }
           
           switch result {
           case .success(let preparedRequest):
@@ -106,7 +114,10 @@ public class HTTPNetworkTransport: NetworkTransport {
           }
         }
       }
-      return PromisedCancellable(promise: promise)
+      
+      let actualCancellable = PromisedCancellable(promise: promise)
+      cancellable = actualCancellable
+      return actualCancellable
       
     } else {
       return self.send(operation: operation, request: request, completionHandler: completionHandler)

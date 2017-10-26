@@ -60,5 +60,50 @@ class PromisedCancellableTests: XCTestCase {
     XCTAssertTrue(progress.isCancelled)
     XCTAssertTrue(cancellable.isCancelled)
   }
+  
+  func testAsynchronousFulfilledCancelWithRejection() {
+    let expectation = self.expectation(description: "async")
+
+    var cancellable: PromisedCancellable?
+    let promise = Promise<Cancellable> {
+      (fulfill, reject) in
+      
+      DispatchQueue.main.async {
+        // If the cancellable was cancelled before the asynchronous operation finished, reject the
+        // promise and don't even start the actual "work".
+        XCTAssertNotNil(cancellable)
+        if let cancellable = cancellable, cancellable.isCancelled {
+          reject(POSIXError(.ECANCELED))
+        } else {
+          fulfill(Progress(totalUnitCount: 1))
+        }
+        expectation.fulfill()
+      }
+    }
+    
+    let actualCancellable = PromisedCancellable(promise: promise)
+    cancellable = actualCancellable
+    
+    XCTAssertFalse(actualCancellable.isCancelled)
+    XCTAssertTrue(actualCancellable.promise.isPending)
+    
+    actualCancellable.cancel()
+
+    XCTAssertTrue(actualCancellable.isCancelled)
+    XCTAssertTrue(actualCancellable.promise.isPending)
+
+    waitForExpectations(timeout: 1)
+
+    // The promise should now have seen that the PromisedCancellable was cancelled before the async
+    // operation of the promise was able to execute. Instead of fulfilling the promise the block
+    // should have rejected it.
+    XCTAssertTrue(actualCancellable.isCancelled)
+    XCTAssertFalse(actualCancellable.promise.isPending)
+    if let error = actualCancellable.promise.result?.error as? POSIXError {
+      XCTAssertEqual(error, POSIXError(.ECANCELED))
+    } else {
+      XCTFail()
+    }
+  }
 
 }

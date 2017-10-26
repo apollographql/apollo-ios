@@ -2,7 +2,7 @@
 /// Wraps a promised cancellable as a normal cancellable.
 public class PromisedCancellable: Cancellable {
   /// The cancellable promise.
-  private let promise: Promise<Cancellable>
+  internal let promise: Promise<Cancellable>
   
   /// Whether the promised cancellable has been cancelled.
   private var isCancelledValue: Bool = false
