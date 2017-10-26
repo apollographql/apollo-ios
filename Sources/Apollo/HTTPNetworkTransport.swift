@@ -43,8 +43,19 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
+  
+  /// Allow to modify the request before it's sent.
+  ///
+  /// The block may modify the request for example by appending additional request headers. Once the delegate is done, the completion block must be called.
+  ///
+  /// - Parameters:
+  ///   - request: Request that is about to be sent.
+  ///   - completion: Block that must be called once the delegate has finished modifying the request. An error may be passed if the request should not be sent (for example, necessary authentication cannot be provided and the request would fail anyway).
+  public typealias PrepareRequest = (_ request: URLRequest, _ completion: @escaping (Result<URLRequest>)->Void) -> Void
+  
   let url: URL
   let session: URLSession
+  let prepareRequest: PrepareRequest?
   let serializationFormat = JSONSerializationFormat.self
   
   /// Creates a network transport with the specified server URL and session configuration.
@@ -52,10 +63,12 @@ public class HTTPNetworkTransport: NetworkTransport {
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
+  ///   - requestDelegate: Delegate that may modify requests before they are sent out (for example, by adding additional headers).
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, prepareRequest: PrepareRequest? = nil, sendOperationIdentifiers: Bool = false) {
     self.url = url
     self.session = URLSession(configuration: configuration)
+    self.prepareRequest = prepareRequest
     self.sendOperationIdentifiers = sendOperationIdentifiers
   }
   
@@ -76,8 +89,33 @@ public class HTTPNetworkTransport: NetworkTransport {
     let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
     
+    if let prepareRequest = prepareRequest {
+      let promise = Promise<Cancellable> {
+        (fulfill, reject) in
+        
+        prepareRequest(request) {
+          (result) in
+          
+          switch result {
+          case .success(let preparedRequest):
+            fulfill(self.send(operation: operation, request: preparedRequest, completionHandler: completionHandler))
+            
+          case .failure(let error):
+            reject(error)
+            completionHandler(nil, error)
+          }
+        }
+      }
+      return PromisedCancellable(promise: promise)
+      
+    } else {
+      return self.send(operation: operation, request: request, completionHandler: completionHandler)
+    }
+  }
+  
+  private func send<Operation>(operation: Operation, request: URLRequest, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-      if error != nil {
+      if let error = error {
         completionHandler(nil, error)
         return
       }
