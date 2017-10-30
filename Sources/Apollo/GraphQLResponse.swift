@@ -31,7 +31,8 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       return firstly {
         try executor.execute(selections: Operation.Data.selections, on: dataEntry, withKey: Operation.rootCacheKey, variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
       }.map { (data, records, dependentKeys) in
-        (GraphQLResult(data: data, errors: errors, dependentKeys: dependentKeys), records)
+        let dataSource:GraphQLDataSource? = errors == nil ? .server : nil
+        return (GraphQLResult(data: data, errors: errors, dataSource: dataSource, dependentKeys: dependentKeys), records)
       }
     } else {
       return Promise(fulfilled: (GraphQLResult(data: nil, errors: errors, dependentKeys: nil), nil))
