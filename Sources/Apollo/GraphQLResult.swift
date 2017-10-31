@@ -10,7 +10,7 @@ public struct GraphQLResult<Data> {
   public let data: Data?
   /// A list of errors, or `nil` if the operation completed without encountering any errors.
   public let errors: [GraphQLError]?
-  /// Source of data, or `nil` if their are any errors
+  /// Source of data, or `nil` if there are any errors
   public let dataSource:GraphQLDataSource?
     
   let dependentKeys: Set<CacheKey>?
