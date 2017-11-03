@@ -3,16 +3,26 @@
 import Apollo
 
 /// The episodes in the Star Wars trilogy
-public enum Episode: String {
+public enum Episode: String, Apollo.JSONDecodable, Apollo.JSONEncodable {
   /// Star Wars Episode IV: A New Hope, released in 1977.
   case newhope = "NEWHOPE"
   /// Star Wars Episode V: The Empire Strikes Back, released in 1980.
   case empire = "EMPIRE"
   /// Star Wars Episode VI: Return of the Jedi, released in 1983.
   case jedi = "JEDI"
-}
+  /// Auto generated constant for unknown enum values
+  case unknown
 
-extension Episode: Apollo.JSONDecodable, Apollo.JSONEncodable {}
+  public init(jsonValue value: JSONValue) throws {
+    let rawValue = try RawValue(jsonValue: value)
+    if let tempSelf = Episode(rawValue: rawValue) {
+      self = tempSelf
+    }
+    else {
+      self = .unknown
+    }
+  }
+}
 
 /// The input object sent when someone is creating a new review
 public struct ReviewInput: GraphQLMapConvertible {
