@@ -3,23 +3,42 @@
 import Apollo
 
 /// The episodes in the Star Wars trilogy
-public enum Episode: String, Apollo.JSONDecodable, Apollo.JSONEncodable {
+public enum Episode: RawRepresentable, Equatable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
   /// Star Wars Episode IV: A New Hope, released in 1977.
-  case newhope = "NEWHOPE"
+  case newhope
   /// Star Wars Episode V: The Empire Strikes Back, released in 1980.
-  case empire = "EMPIRE"
+  case empire
   /// Star Wars Episode VI: Return of the Jedi, released in 1983.
-  case jedi = "JEDI"
+  case jedi
   /// Auto generated constant for unknown enum values
-  case unknown
+  case unknown(RawValue)
 
-  public init(jsonValue value: JSONValue) throws {
-    let rawValue = try RawValue(jsonValue: value)
-    if let tempSelf = Episode(rawValue: rawValue) {
-      self = tempSelf
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "NEWHOPE": self = .newhope
+      case "EMPIRE": self = .empire
+      case "JEDI": self = .jedi
+      default: self = .unknown(rawValue)
     }
-    else {
-      self = .unknown
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .newhope: return "NEWHOPE"
+      case .empire: return "EMPIRE"
+      case .jedi: return "JEDI"
+      case .unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: Episode, rhs: Episode) -> Bool {
+    switch (lhs, rhs) {
+      case (.newhope, .newhope): return true
+      case (.empire, .empire): return true
+      case (.jedi, .jedi): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
     }
   }
 }

@@ -261,6 +261,6 @@ class ReadFieldValueTests: XCTestCase {
 
     let value = try readFieldValue(field, from: object) as! [Episode?]?
 
-    XCTAssertEqual(value, [.unknown] as [Episode?])
+    XCTAssertEqual(value, [.unknown("TWOTOWERS")] as [Episode?]?)
   }
 }
