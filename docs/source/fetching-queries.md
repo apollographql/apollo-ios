@@ -28,7 +28,7 @@ Apollo iOS will generate a `HeroNameQuery` class that you can construct (with va
 
 ```swift
 apollo.fetch(query: HeroNameQuery(episode: .empire)) { (result, error) in
-  print(data?.hero?.name) // Luke Skywalker
+  print(result?.data?.hero?.name) // Luke Skywalker
 }
 ```
 
