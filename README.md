@@ -14,7 +14,7 @@ This combination of models with value semantics, one way data flow, and automati
 
 ## Documentation
 
-Documentation can be found [here](http://dev.apollodata.com/ios/).
+[Read the full docs at apollographql.com/docs/ios/](https://www.apollographql.com/docs/ios/)
 
 ## Installation
 
