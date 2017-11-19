@@ -28,7 +28,7 @@ public typealias OperationResultHandler<Operation: GraphQLOperation> = (_ result
 
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public class ApolloClient {
-  let networkTransport: NetworkTransport
+  let link: TerminatingLink
   let store: ApolloStore
   public var cacheKeyForObject: CacheKeyForObject? {
     get {
@@ -43,17 +43,27 @@ public class ApolloClient {
   private let queue: DispatchQueue
   private let operationQueue: OperationQueue
   
+  
+  /// Creates a client with the specified link and store.
+  ///
+  /// - Parameters:
+  ///   - link: The {@link ApolloLink} over which GraphQL documents will be resolved into a response.
+  ///   - store: A store used as a local cache. Defaults to an empty store backed by an in memory cache.
+  public init(link: TerminatingLink, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
+    self.link = link
+    self.store = store
+    
+    queue = DispatchQueue(label: "com.apollographql.ApolloClient", attributes: .concurrent)
+    operationQueue = OperationQueue()
+  }
+  
   /// Creates a client with the specified network transport and store.
   ///
   /// - Parameters:
   ///   - networkTransport: A network transport used to send operations to a server.
   ///   - store: A store used as a local cache. Defaults to an empty store backed by an in memory cache.
-  public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
-    self.networkTransport = networkTransport
-    self.store = store
-    
-    queue = DispatchQueue(label: "com.apollographql.ApolloClient", attributes: .concurrent)
-    operationQueue = OperationQueue()
+  public convenience init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
+    self.init(link: NetworkTransportLink(networkTransport: networkTransport), store: store)
   }
   
   /// Creates a client with an HTTP network transport connecting to the specified URL.
@@ -125,26 +135,28 @@ public class ApolloClient {
       }
     }
     
-    return networkTransport.send(operation: operation) { (response, error) in
-      guard let response = response else {
-        notifyResultHandler(result: nil, error: error)
-        return
-      }
+    let controller = CancelController()
+    
+    var linkContext = LinkContext()
+    linkContext.signal = controller.signal
+    
+    link.request(operation: operation, context: linkContext).flatMap { response in
+      try response.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+    }.andThen { (result, records) in
+      notifyResultHandler(result: result, error: nil)
       
-      firstly {
-        try response.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
-      }.andThen { (result, records) in
-        notifyResultHandler(result: result, error: nil)
-        
-        if let records = records {
-          self.store.publish(records: records, context: context).catch { error in
-            preconditionFailure(String(describing: error))
-          }
+      if let records = records {
+        self.store.publish(records: records, context: context).catch { error in
+          preconditionFailure(String(describing: error))
         }
-      }.catch { error in
-        notifyResultHandler(result: nil, error: error)
       }
+    }.catch { error in
+      notifyResultHandler(result: nil, error: error)
     }
+    
+        
+    
+    return controller
   }
 }
 
