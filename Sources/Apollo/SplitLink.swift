@@ -8,7 +8,7 @@ extension NonTerminatingLink {
   }
 }
 
-fileprivate class TerminatingSplitLink: TerminatingLink {
+fileprivate final class TerminatingSplitLink: TerminatingLink {
   private var first: TerminatingLink
   private var second: TerminatingLink
   private var test: (GraphQLOperationBase) -> Bool
@@ -29,7 +29,7 @@ fileprivate class TerminatingSplitLink: TerminatingLink {
   }
 }
 
-fileprivate class NonTerminatingSplitLink: NonTerminatingLink {
+fileprivate final class NonTerminatingSplitLink: NonTerminatingLink {
   private var first: NonTerminatingLink
   private var second: NonTerminatingLink
   private var test: (GraphQLOperationBase) -> Bool

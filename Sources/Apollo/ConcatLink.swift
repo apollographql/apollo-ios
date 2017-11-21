@@ -8,7 +8,7 @@ extension NonTerminatingLink {
   }
 }
 
-fileprivate class NonTerminatingConcatLink: NonTerminatingLink {
+fileprivate final class NonTerminatingConcatLink: NonTerminatingLink {
   private var first: NonTerminatingLink
   private var second: NonTerminatingLink
   
@@ -24,7 +24,7 @@ fileprivate class NonTerminatingConcatLink: NonTerminatingLink {
   }
 }
 
-fileprivate class TerminatingConcatLink: TerminatingLink {
+fileprivate final class TerminatingConcatLink: TerminatingLink {
   private var first: NonTerminatingLink
   private var second: TerminatingLink
   

@@ -91,9 +91,8 @@ fileprivate class InfiniteLink: TerminatingLink {
       context.signal.onCancel {
         reject(CancelError())
       }
-      
-      }.finally {
-        swiftIsHappy = false
+    }.finally {
+      swiftIsHappy = false
     }
   }
 }
@@ -112,6 +111,15 @@ fileprivate class SemaLink: TerminatingLink {
         reject(CancelError())
       }
     }
+  }
+}
+
+// EarlyTerminatingLink is non-terminating, but will never call forward.
+fileprivate class EarlyTerminatingLink: NonTerminatingLink {
+  let terminatingLink: TerminatingLink = SyncLink()
+  
+  func request<Operation>(operation: Operation, context: LinkContext, forward: @escaping NextLink<Operation>) -> Promise<GraphQLResponse<Operation>> {
+      return terminatingLink.request(operation: operation, context: context)
   }
 }
 
@@ -166,6 +174,71 @@ class LinkTests: XCTestCase {
     
     link.execute(operation: query).andThen { response in
       XCTAssertEqual(response.body.count, 0)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 0.1)
+  }
+  
+  func testMakeTerminating() {
+    let link = EarlyTerminatingLink().makeTerminating()
+    
+    let expectation = self.expectation(description: "link executed")
+    
+    link.execute(operation: query).andThen { response in
+      XCTAssertEqual(response.body["counter"] as? Int, 0)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 0.1)
+  }
+  
+  func testLinkConstructionFromNonTerminatingLinks() {
+    let terminatingLink = link(from: [
+      SetContextLink.incrementCounter(by: 1),
+      SetContextLink.incrementCounter(by: 2),
+      SetContextLink.incrementCounter(by: 3),
+    ]).concat(SyncLink())
+    
+    let expectation = self.expectation(description: "link executed")
+    
+    terminatingLink.execute(operation: query).andThen { response in
+      XCTAssertEqual(response.body["counter"] as? Int, 6)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 0.1)
+  }
+  
+  func testLinkConstructionFromNonTerminatingLinksAndTerminatingLink() {
+    let terminatingLink = link(from: [
+      SetContextLink.incrementCounter(by: 1),
+      SetContextLink.incrementCounter(by: 2),
+      SetContextLink.incrementCounter(by: 3),
+    ], terminating: SyncLink())
+    
+    let expectation = self.expectation(description: "link executed")
+    
+    terminatingLink.execute(operation: query).andThen { response in
+      XCTAssertEqual(response.body["counter"] as? Int, 6)
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 0.1)
+  }
+  
+  func testTerminatingLinkConstructionFromNonTerminatingLinks() {
+    let terminatingLink: TerminatingLink = link(from: [
+      SetContextLink.incrementCounter(by: 1),
+      SetContextLink.incrementCounter(by: 2),
+      SetContextLink.incrementCounter(by: 3),
+      EarlyTerminatingLink()
+    ])
+    
+    let expectation = self.expectation(description: "link executed")
+    
+    terminatingLink.execute(operation: query).andThen { response in
+      XCTAssertEqual(response.body["counter"] as? Int, 6)
       expectation.fulfill()
     }
     

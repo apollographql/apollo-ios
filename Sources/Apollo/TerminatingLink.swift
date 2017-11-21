@@ -1,4 +1,4 @@
-public protocol TerminatingLink {
+public protocol TerminatingLink: class {
   func request<Operation>(operation: Operation, context: LinkContext) -> Promise<GraphQLResponse<Operation>>
 }
 

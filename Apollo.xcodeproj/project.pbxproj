@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
+		5DD12DEB1FC4BCE80022E38B /* LimboLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD12DEA1FC4BCE80022E38B /* LimboLink.swift */; };
 		5DD6DA651FC21EA900199464 /* LinkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA641FC21EA900199464 /* LinkContext.swift */; };
 		5DD6DA671FC21ED100199464 /* ConcatLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA661FC21ED100199464 /* ConcatLink.swift */; };
 		5DD6DA691FC21F4F00199464 /* SplitLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD6DA681FC21F4F00199464 /* SplitLink.swift */; };
@@ -240,6 +241,7 @@
 
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
+		5DD12DEA1FC4BCE80022E38B /* LimboLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimboLink.swift; sourceTree = "<group>"; };
 		5DD6DA641FC21EA900199464 /* LinkContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkContext.swift; sourceTree = "<group>"; };
 		5DD6DA661FC21ED100199464 /* ConcatLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcatLink.swift; sourceTree = "<group>"; };
 		5DD6DA681FC21F4F00199464 /* SplitLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitLink.swift; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 				5DD6DA721FC2289100199464 /* PassthroughLink.swift */,
 				5DD6DA661FC21ED100199464 /* ConcatLink.swift */,
 				5DD6DA681FC21F4F00199464 /* SplitLink.swift */,
+				5DD12DEA1FC4BCE80022E38B /* LimboLink.swift */,
 			);
 			name = Link;
 			sourceTree = "<group>";
@@ -1161,6 +1164,7 @@
 				5DD6DA671FC21ED100199464 /* ConcatLink.swift in Sources */,
 				9F86B6901E65533D00B885FF /* GraphQLResponseGenerator.swift in Sources */,
 				9FC9A9C21E2D3CAF0023C4D5 /* GraphQLInputValue.swift in Sources */,
+				5DD12DEB1FC4BCE80022E38B /* LimboLink.swift in Sources */,
 				5DD6DA751FC22E6D00199464 /* NetworkTransportLink.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
