@@ -275,7 +275,7 @@ class LinkTests: XCTestCase {
     let queryLink = SetContextLink.incrementCounter(by: 1)
     let mutationLink = SetContextLink.incrementCounter(by: -1)
     
-    let splitLink = passthroughLink.split(first: queryLink, second: mutationLink) { op in
+    let splitLink = passthroughLink.split(first: queryLink, second: mutationLink) { op, _  in
       type(of: op).rootCacheKey == "QUERY_ROOT"
     }
     
@@ -295,7 +295,7 @@ class LinkTests: XCTestCase {
     let queryLink = SetContextLink.incrementCounter(by: 1)
     let mutationLink = SetContextLink.incrementCounter(by: -1)
     
-    let splitLink = passthroughLink.split(first: queryLink, second: mutationLink) { op in
+    let splitLink = passthroughLink.split(first: queryLink, second: mutationLink) { op, _ in
       type(of: op).rootCacheKey == "QUERY_ROOT"
     }
     
@@ -315,7 +315,7 @@ class LinkTests: XCTestCase {
     let queryLink = SetContextLink.incrementCounter(by: 1).concat(SyncLink())
     let mutationLink = SetContextLink.incrementCounter(by: -1).concat(SyncLink())
     
-    let link = passthroughLink.split(first: queryLink, second: mutationLink) { op in
+    let link = passthroughLink.split(first: queryLink, second: mutationLink) { op, _ in
       type(of: op).rootCacheKey == "QUERY_ROOT"
     }
     
@@ -333,7 +333,7 @@ class LinkTests: XCTestCase {
     let queryLink = SetContextLink.incrementCounter(by: 1)
     let mutationLink = SetContextLink.incrementCounter(by: -1)
     
-    let splitLink = passthroughLink.split(first: queryLink, second: mutationLink) { op in
+    let splitLink = passthroughLink.split(first: queryLink, second: mutationLink) { op, _ in
       type(of: op).rootCacheKey == "QUERY_ROOT"
     }
     
