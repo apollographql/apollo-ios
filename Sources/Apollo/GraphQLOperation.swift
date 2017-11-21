@@ -1,4 +1,4 @@
-public protocol GraphQLOperation: class {
+public protocol GraphQLOperationBase {
   static var rootCacheKey: String { get }
   
   static var operationString: String { get }
@@ -6,7 +6,9 @@ public protocol GraphQLOperation: class {
   static var operationIdentifier: String? { get }
   
   var variables: GraphQLMap? { get }
-  
+}
+
+public protocol GraphQLOperation: class, GraphQLOperationBase {
   associatedtype Data: GraphQLSelectionSet
 }
 
