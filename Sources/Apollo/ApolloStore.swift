@@ -77,7 +77,9 @@ public final class ApolloStore {
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
 
-        fulfill(ReadWriteTransaction(cache: self.cache, cacheKeyForObject: self.cacheKeyForObject))
+        fulfill(ReadWriteTransaction(cache: self.cache,
+                                     cacheKeyForObject: self.cacheKeyForObject,
+                                     store: self))
       }
     }.flatMap(body)
      .finally {
@@ -175,6 +177,14 @@ public final class ApolloStore {
   }
 
   public final class ReadWriteTransaction: ReadTransaction {
+
+    fileprivate var store: ApolloStore
+
+    init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?, store: ApolloStore) {
+        self.store = store
+        super.init(cache: cache, cacheKeyForObject: cacheKeyForObject)
+    }
+
     public func update<Query: GraphQLQuery>(query: Query, _ body: (inout Query.Data) throws -> Void) throws {
       var data = try read(query: query)
       try body(&data)
@@ -199,7 +209,11 @@ public final class ApolloStore {
       let normalizer = GraphQLResultNormalizer()
       try self.makeExecutor().execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
-        self.cache.merge(records: $0).map { _ in }
+        self.cache.merge(records: $0)
+      }.andThen { changedKeys in
+        for subscriber in self.store.subscribers {
+            subscriber.store(self.store, didChangeKeys: changedKeys, context: nil)
+        }
       }.await()
     }
   }
