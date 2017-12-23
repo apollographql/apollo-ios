@@ -26,7 +26,7 @@ Install `apollo-codegen` using `npm`:
 npm install -g apollo-codegen
 ```
 
-### Cocoapods
+### CocoaPods
 
 Include the following in your `Podfile`:
 
