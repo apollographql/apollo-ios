@@ -56,7 +56,7 @@ Because Carthage doesn't allow specifying individual targets, this will build bo
 
 [![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios)
 
-This project is being developed using Xcode 8 and Swift 3.
+This project is being developed using Xcode 9 and Swift 4.
 
 If you open `Apollo.xcodeproj`, you should be able to run the tests of the Apollo target.
 
