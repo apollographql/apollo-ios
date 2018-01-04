@@ -20,13 +20,13 @@ public struct GraphQLError: Error {
   }
   
   /// A description of the error.
-  public var message: String {
-    return self["message"] as! String
+  public var message: String? {
+    return self["message"] as? String
   }
   
   /// A list of locations in the requested GraphQL document associated with the error.
   public var locations: [Location]? {
-    return (self["locations"] as? [JSONObject])?.map(Location.init)
+    return (self["locations"] as? [JSONObject])?.flatMap(Location.init)
   }
   
   /// Represents a location in a GraphQL document.
@@ -36,16 +36,17 @@ public struct GraphQLError: Error {
     /// The column number of a syntax element.
     public let column: Int
     
-    init(_ object: JSONObject) {
-      line = object["line"] as! Int
-      column = object["column"] as! Int
+    init?(_ object: JSONObject) {
+      guard let line = object["line"] as? Int, let column = object["column"] as? Int else { return nil }
+      self.line = line
+      self.column = column
     }
   }
 }
 
 extension GraphQLError: CustomStringConvertible {
   public var description: String {
-    return self.message
+    return self.message ?? "GraphQL Error"
   }
 }
 
