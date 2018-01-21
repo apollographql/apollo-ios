@@ -38,7 +38,7 @@ public final class ApolloStore {
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
           self.cache.clear()
-        }.andThen { changedKeys in
+        }.andThen {
           fulfill(())
         }
       }
