@@ -198,6 +198,7 @@ class FetchQueryTests: XCTestCase {
       }
 
       self.waitForExpectations(timeout: 5, handler: nil)
+	}
   }
 
   func testClearCache() throws {
