@@ -33,6 +33,18 @@ public final class ApolloStore {
     }
   }
 
+  func clearCache() -> Promise<Void> {
+    return Promise<Void> { fulfill, reject in
+      queue.async(flags: .barrier) {
+        self.cacheLock.withWriteLock {
+          self.cache.clear()
+        }.andThen { changedKeys in
+          fulfill(())
+        }
+      }
+    }
+  }
+
   func publish(records: RecordSet, context: UnsafeMutableRawPointer? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {

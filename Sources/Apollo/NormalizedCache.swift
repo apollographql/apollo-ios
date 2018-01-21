@@ -10,4 +10,7 @@ public protocol NormalizedCache {
   ///            changed (i.e. QUERY_ROOT.Foo.myField). These are the same type of keys as are 
   ///            returned by RecordSet.merge(records:).
   func merge(records: RecordSet) -> Promise<Set<CacheKey>>
+
+  // Clears all records
+  func clear() -> Promise<Void>
 }

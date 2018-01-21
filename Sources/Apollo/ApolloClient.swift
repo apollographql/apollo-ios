@@ -62,6 +62,13 @@ public class ApolloClient {
   public convenience init(url: URL) {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
+
+  /// Clears apollo cache
+  ///
+  /// - Returns: Promise
+  public func clearCache() -> Promise<Void> {
+    return store.clearCache()
+  }
   
   /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
   ///
