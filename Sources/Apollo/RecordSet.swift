@@ -9,6 +9,10 @@ public struct RecordSet {
   public mutating func insert(_ record: Record) {
     storage[record.key] = record
   }
+
+  public mutating func clear() {
+    storage.removeAll()
+  }
   
   public mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
     for record in records {

@@ -198,7 +198,57 @@ class FetchQueryTests: XCTestCase {
       }
 
       self.waitForExpectations(timeout: 5, handler: nil)
-    }
+	}
+  }
+
+  func testClearCache() throws {
+    let query = HeroNameQuery()
+
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+      ]
+    ]
+
+    withCache(initialRecords: initialRecords) { (cache) in
+        let store = ApolloStore(cache: cache)
+
+        let networkTransport = MockNetworkTransport(body: [
+          "data": [
+            "hero": [
+              "name": "Luke Skywalker",
+              "__typename": "Human"
+            ]
+          ]
+        ])
+
+        let client = ApolloClient(networkTransport: networkTransport, store: store)
+
+        let expectation = self.expectation(description: "Fetching query")
+
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+          defer { expectation.fulfill() }
+          guard let result = result else { XCTFail("No query result");  return }
+          XCTAssertEqual(result.data?.hero?.name, "R2-D2")
+        }
+
+        self.waitForExpectations(timeout: 5, handler: nil)
+
+        do { try client.clearCache().await() }
+        catch { XCTFail() }
+
+        let expectation2 = self.expectation(description: "Fetching query")
+
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+          defer { expectation2.fulfill() }
+          XCTAssertNil(result)
+          XCTAssertNil(error)
+        }
+
+        self.waitForExpectations(timeout: 5, handler: nil)
+      }
   }
   
   func testReturnCacheDataDontFetchWithMissingData() throws {

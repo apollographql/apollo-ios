@@ -31,6 +31,15 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
       }
     }
   }
+	
+  func clear() -> Promise<Void> {
+    return Promise { fulfill, reject in
+      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
+        self.records.clear()
+        fulfill(())
+      }
+    }
+  }
 }
 
 class BatchedLoadTests: XCTestCase {  
