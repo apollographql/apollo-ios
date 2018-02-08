@@ -144,7 +144,12 @@ extension URL: JSONDecodable, JSONEncodable {
     guard let string = value as? String else {
       throw JSONDecodingError.couldNotConvert(value: value, to: URL.self)
     }
-    self.init(string: string)!
+    
+    if let url = URL(string: string) {
+        self = url
+    } else {
+        throw JSONDecodingError.couldNotConvert(value: value, to: URL.self)
+    }
   }
 
   public var jsonValue: JSONValue {
