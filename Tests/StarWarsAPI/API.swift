@@ -148,7 +148,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
     }
 
     public init(createReview: CreateReview? = nil) {
-      self.init(snapshot: ["__typename": "Mutation", "createReview": createReview.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Mutation", "createReview": createReview.flatMap { (value: CreateReview) in value.snapshot }])
     }
 
     public var createReview: CreateReview? {
@@ -232,7 +232,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
     }
 
     public init(createReview: CreateReview? = nil) {
-      self.init(snapshot: ["__typename": "Mutation", "createReview": createReview.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Mutation", "createReview": createReview.flatMap { (value: CreateReview) in value.snapshot }])
     }
 
     public var createReview: CreateReview? {
@@ -323,7 +323,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -351,11 +351,11 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
       }
 
       public static func makeHuman(name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -380,10 +380,10 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -460,7 +460,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -489,11 +489,11 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
       }
 
       public static func makeHuman(id: GraphQLID, name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "id": id, "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "id": id, "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(id: GraphQLID, name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "id": id, "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "id": id, "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -528,10 +528,10 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -619,7 +619,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -648,11 +648,11 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
       }
 
       public static func makeHuman(id: GraphQLID, name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "id": id, "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "id": id, "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(id: GraphQLID, name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "id": id, "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "id": id, "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -687,10 +687,10 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -769,7 +769,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -798,11 +798,11 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
       }
 
       public static func makeHuman(name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -827,10 +827,10 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -931,7 +931,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -963,11 +963,11 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       }
 
       public static func makeHuman(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(friends: [AsDroid.Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { (value: [AsDroid.Friend?]) in value.map { (value: AsDroid.Friend?) in value.flatMap { (value: AsDroid.Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -982,10 +982,10 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -1081,7 +1081,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         }
 
         public init(friends: [Friend?]? = nil) {
-          self.init(snapshot: ["__typename": "Droid", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+          self.init(snapshot: ["__typename": "Droid", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
         }
 
         public var __typename: String {
@@ -1096,10 +1096,10 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         /// This droid's friends, or an empty list if they have none
         public var friends: [Friend?]? {
           get {
-            return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+            return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
           }
           set {
-            snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+            snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
           }
         }
 
@@ -1194,7 +1194,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1280,7 +1280,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1387,7 +1387,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1473,7 +1473,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1561,7 +1561,7 @@ public final class HeroNameConditionalBothQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1651,7 +1651,7 @@ public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1740,7 +1740,7 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -1839,7 +1839,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -2137,7 +2137,7 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -2280,7 +2280,7 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -2309,11 +2309,11 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
       }
 
       public static func makeHuman(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -2328,10 +2328,10 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -2473,7 +2473,7 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -2503,11 +2503,11 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
       }
 
       public static func makeHuman(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -2522,10 +2522,10 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -2679,7 +2679,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -2890,7 +2890,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3174,7 +3174,7 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3359,7 +3359,7 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3386,11 +3386,11 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
       }
 
       public static func makeHuman(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(friends: [Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -3405,10 +3405,10 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? {
         get {
-          return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+          return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
         }
         set {
-          snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+          snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
         }
       }
 
@@ -3428,11 +3428,11 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
         }
 
         public static func makeHuman(id: GraphQLID, friends: [Friend?]? = nil) -> Friend {
-          return Friend(snapshot: ["__typename": "Human", "id": id, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+          return Friend(snapshot: ["__typename": "Human", "id": id, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
         }
 
         public static func makeDroid(id: GraphQLID, friends: [Friend?]? = nil) -> Friend {
-          return Friend(snapshot: ["__typename": "Droid", "id": id, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+          return Friend(snapshot: ["__typename": "Droid", "id": id, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
         }
 
         public var __typename: String {
@@ -3457,10 +3457,10 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
         /// The friends of the character, or an empty list if they have none
         public var friends: [Friend?]? {
           get {
-            return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+            return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
           }
           set {
-            snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+            snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
           }
         }
 
@@ -3538,7 +3538,7 @@ public final class HeroNameQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3622,7 +3622,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3719,7 +3719,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3828,7 +3828,7 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -3948,7 +3948,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -4066,7 +4066,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -4098,11 +4098,11 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
       }
 
       public static func makeHuman(name: String, friends: [AsHuman.Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { (value: [AsHuman.Friend?]) in value.map { (value: AsHuman.Friend?) in value.flatMap { (value: AsHuman.Friend) in value.snapshot } } }])
       }
 
       public static func makeDroid(name: String, friends: [AsDroid.Friend?]? = nil) -> Hero {
-        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+        return Hero(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [AsDroid.Friend?]) in value.map { (value: AsDroid.Friend?) in value.flatMap { (value: AsDroid.Friend) in value.snapshot } } }])
       }
 
       public var __typename: String {
@@ -4151,7 +4151,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         }
 
         public init(name: String, friends: [Friend?]? = nil) {
-          self.init(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+          self.init(snapshot: ["__typename": "Human", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
         }
 
         public var __typename: String {
@@ -4176,10 +4176,10 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         /// This human's friends, or an empty list if they have none
         public var friends: [Friend?]? {
           get {
-            return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+            return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
           }
           set {
-            snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+            snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
           }
         }
 
@@ -4318,7 +4318,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         }
 
         public init(name: String, friends: [Friend?]? = nil) {
-          self.init(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+          self.init(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
         }
 
         public var __typename: String {
@@ -4343,10 +4343,10 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         /// This droid's friends, or an empty list if they have none
         public var friends: [Friend?]? {
           get {
-            return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+            return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
           }
           set {
-            snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+            snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
           }
         }
 
@@ -4489,7 +4489,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -4665,7 +4665,7 @@ public final class HumanQuery: GraphQLQuery {
     }
 
     public init(human: Human? = nil) {
-      self.init(snapshot: ["__typename": "Query", "human": human.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "human": human.flatMap { (value: Human) in value.snapshot }])
     }
 
     public var human: Human? {
@@ -4750,7 +4750,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
     }
 
     public init(hero: Hero? = nil, r2: R2? = nil) {
-      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { $0.snapshot }, "r2": r2.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "hero": hero.flatMap { (value: Hero) in value.snapshot }, "r2": r2.flatMap { (value: R2) in value.snapshot }])
     }
 
     public var hero: Hero? {
@@ -4878,7 +4878,7 @@ public final class StarshipQuery: GraphQLQuery {
     }
 
     public init(starship: Starship? = nil) {
-      self.init(snapshot: ["__typename": "Query", "starship": starship.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "starship": starship.flatMap { (value: Starship) in value.snapshot }])
     }
 
     public var starship: Starship? {
@@ -4962,7 +4962,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
     }
 
     public init(r2: R2? = nil, luke: Luke? = nil) {
-      self.init(snapshot: ["__typename": "Query", "r2": r2.flatMap { $0.snapshot }, "luke": luke.flatMap { $0.snapshot }])
+      self.init(snapshot: ["__typename": "Query", "r2": r2.flatMap { (value: R2) in value.snapshot }, "luke": luke.flatMap { (value: Luke) in value.snapshot }])
     }
 
     public var r2: R2? {
@@ -5754,11 +5754,11 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
   }
 
   public static func makeHuman(friends: [AsHuman.Friend?]? = nil) -> CharacterNameWithInlineFragment {
-    return CharacterNameWithInlineFragment(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+    return CharacterNameWithInlineFragment(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [AsHuman.Friend?]) in value.map { (value: AsHuman.Friend?) in value.flatMap { (value: AsHuman.Friend) in value.snapshot } } }])
   }
 
   public static func makeDroid(name: String, friends: [AsDroid.Friend?]? = nil) -> CharacterNameWithInlineFragment {
-    return CharacterNameWithInlineFragment(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+    return CharacterNameWithInlineFragment(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [AsDroid.Friend?]) in value.map { (value: AsDroid.Friend?) in value.flatMap { (value: AsDroid.Friend) in value.snapshot } } }])
   }
 
   public var __typename: String {
@@ -5796,7 +5796,7 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
     }
 
     public init(friends: [Friend?]? = nil) {
-      self.init(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+      self.init(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
     }
 
     public var __typename: String {
@@ -5811,10 +5811,10 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
     /// This human's friends, or an empty list if they have none
     public var friends: [Friend?]? {
       get {
-        return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+        return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
       }
       set {
-        snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+        snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
       }
     }
 
@@ -5890,7 +5890,7 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
     }
 
     public init(name: String, friends: [Friend?]? = nil) {
-      self.init(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+      self.init(snapshot: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
     }
 
     public var __typename: String {
@@ -5915,10 +5915,10 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
     /// This droid's friends, or an empty list if they have none
     public var friends: [Friend?]? {
       get {
-        return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+        return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
       }
       set {
-        snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+        snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
       }
     }
 
@@ -6015,11 +6015,11 @@ public struct FriendsNames: GraphQLFragment {
   }
 
   public static func makeHuman(friends: [Friend?]? = nil) -> FriendsNames {
-    return FriendsNames(snapshot: ["__typename": "Human", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+    return FriendsNames(snapshot: ["__typename": "Human", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
   }
 
   public static func makeDroid(friends: [Friend?]? = nil) -> FriendsNames {
-    return FriendsNames(snapshot: ["__typename": "Droid", "friends": friends.flatMap { $0.map { $0.flatMap { $0.snapshot } } }])
+    return FriendsNames(snapshot: ["__typename": "Droid", "friends": friends.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }])
   }
 
   public var __typename: String {
@@ -6034,10 +6034,10 @@ public struct FriendsNames: GraphQLFragment {
   /// The friends of the character, or an empty list if they have none
   public var friends: [Friend?]? {
     get {
-      return (snapshot["friends"] as? [Snapshot?]).flatMap { $0.map { $0.flatMap { Friend(snapshot: $0) } } }
+      return (snapshot["friends"] as? [Snapshot?]).flatMap { (value: [Snapshot?]) in value.map { (value: Snapshot?) in value.flatMap { (value: Snapshot) in Friend(snapshot: value) } } }
     }
     set {
-      snapshot.updateValue(newValue.flatMap { $0.map { $0.flatMap { $0.snapshot } } }, forKey: "friends")
+      snapshot.updateValue(newValue.flatMap { (value: [Friend?]) in value.map { (value: Friend?) in value.flatMap { (value: Friend) in value.snapshot } } }, forKey: "friends")
     }
   }
 
