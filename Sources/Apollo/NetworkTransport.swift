@@ -10,3 +10,4 @@ public protocol NetworkTransport {
   /// - Returns: An object that can be used to cancel an in progress request.
   func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable
 }
+

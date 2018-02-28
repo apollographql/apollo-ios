@@ -119,7 +119,7 @@ public struct ColorInput: GraphQLMapConvertible {
 }
 
 public final class CreateReviewForEpisodeMutation: GraphQLMutation {
-  public static let operationString =
+  public let operationDefinition =
     "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {\n  createReview(episode: $episode, review: $review) {\n    __typename\n    stars\n    commentary\n  }\n}"
 
   public var episode: Episode
@@ -212,7 +212,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
 }
 
 public final class CreateAwesomeReviewMutation: GraphQLMutation {
-  public static let operationString =
+  public let operationDefinition =
     "mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome!\"}) {\n    __typename\n    stars\n    commentary\n  }\n}"
 
   public init() {
@@ -296,7 +296,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
 }
 
 public final class HeroAndFriendsNamesQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -433,7 +433,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAndFriendsNamesWithIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n      name\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -592,7 +592,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -740,10 +740,10 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(FriendsNames.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(FriendsNames.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -902,10 +902,10 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(CharacterName.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(CharacterName.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -1174,7 +1174,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 }
 
 public final class HeroAppearsInQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAppearsIn {\n  hero {\n    __typename\n    appearsIn\n  }\n}"
 
   public init() {
@@ -1251,10 +1251,10 @@ public final class HeroAppearsInQuery: GraphQLQuery {
 }
 
 public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterAppearsIn\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(CharacterAppearsIn.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(CharacterAppearsIn.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -1360,7 +1360,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n  }\n}"
 
   public var skipName: Bool
@@ -1446,7 +1446,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __typename\n    name @include(if: $includeName)\n  }\n}"
 
   public var includeName: Bool
@@ -1532,7 +1532,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalBothQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName) @include(if: $includeName)\n  }\n}"
 
   public var skipName: Bool
@@ -1622,7 +1622,7 @@ public final class HeroNameConditionalBothQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n    name @include(if: $includeName)\n  }\n}"
 
   public var skipName: Bool
@@ -1713,7 +1713,7 @@ public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
 }
 
 public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ... @include(if: $includeDetails) {\n      name\n      appearsIn\n    }\n  }\n}"
 
   public var includeDetails: Bool
@@ -1810,10 +1810,10 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(HeroDetails.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(HeroDetails.fragmentDefinition) }
 
   public var includeDetails: Bool
 
@@ -2108,7 +2108,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {\n  hero(episode: $episode) {\n    __typename\n    name @include(if: $includeName)\n    ... on Droid {\n      name\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -2253,7 +2253,7 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}"
 
   public var includeFriendsDetails: Bool
@@ -2446,7 +2446,7 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends {\n      __typename\n      name\n    }\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}"
 
   public var includeFriendsDetails: Bool
@@ -2652,7 +2652,7 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
 }
 
 public final class HeroDetailsQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      height\n    }\n    ... on Droid {\n      primaryFunction\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -2861,10 +2861,10 @@ public final class HeroDetailsQuery: GraphQLQuery {
 }
 
 public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(HeroDetails.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(HeroDetails.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -3145,10 +3145,10 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
 }
 
 public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(DroidDetails.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(DroidDetails.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -3332,7 +3332,7 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroFriendsOfFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      id\n      friends {\n        __typename\n        name\n      }\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -3511,7 +3511,7 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
 }
 
 public final class HeroNameQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroName($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n  }\n}"
 
   public var episode: Episode?
@@ -3595,7 +3595,7 @@ public final class HeroNameQuery: GraphQLQuery {
 }
 
 public final class HeroNameWithIdQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameWithID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n  }\n}"
 
   public var episode: Episode?
@@ -3690,10 +3690,10 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
 }
 
 public final class HeroNameWithFragmentQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterName\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(CharacterName.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(CharacterName.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -3799,10 +3799,10 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(CharacterName.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(CharacterName.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -3919,10 +3919,10 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
 }
 
 public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}"
 
-  public static var requestString: String { return operationString.appending(CharacterNameAndAppearsIn.fragmentString) }
+  public var queryDocument: String { return operationDefinition.appending(CharacterNameAndAppearsIn.fragmentDefinition) }
 
   public var episode: Episode?
 
@@ -4039,7 +4039,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroParentTypeDependentField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: FOOT)\n        }\n      }\n    }\n    ... on Droid {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: METER)\n        }\n      }\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -4462,7 +4462,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 }
 
 public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query HeroTypeDependentAliasedField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ... on Human {\n      property: homePlanet\n    }\n    ... on Droid {\n      property: primaryFunction\n    }\n  }\n}"
 
   public var episode: Episode?
@@ -4638,7 +4638,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 }
 
 public final class HumanQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query Human($id: ID!) {\n  human(id: $id) {\n    __typename\n    name\n    mass\n  }\n}"
 
   public var id: GraphQLID
@@ -4729,7 +4729,7 @@ public final class HumanQuery: GraphQLQuery {
 }
 
 public final class SameHeroTwiceQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}"
 
   public init() {
@@ -4858,7 +4858,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
 }
 
 public final class StarshipQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query Starship {\n  starship(id: 3000) {\n    __typename\n    name\n    coordinates\n  }\n}"
 
   public init() {
@@ -4941,7 +4941,7 @@ public final class StarshipQuery: GraphQLQuery {
 }
 
 public final class TwoHeroesQuery: GraphQLQuery {
-  public static let operationString =
+  public let operationDefinition =
     "query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(episode: EMPIRE) {\n    __typename\n    name\n  }\n}"
 
   public init() {
@@ -5070,7 +5070,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
 }
 
 public struct DroidNameAndPrimaryFunction: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment DroidNameAndPrimaryFunction on Droid {\n  __typename\n  ...CharacterName\n  ...DroidPrimaryFunction\n}"
 
   public static let possibleTypes = ["Droid"]
@@ -5155,7 +5155,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
 }
 
 public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterNameAndDroidPrimaryFunction on Character {\n  __typename\n  ...CharacterName\n  ...DroidPrimaryFunction\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -5332,7 +5332,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
 }
 
 public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterNameAndDroidAppearsIn on Character {\n  __typename\n  name\n  ... on Droid {\n    appearsIn\n  }\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -5442,7 +5442,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
 }
 
 public struct DroidName: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment DroidName on Droid {\n  __typename\n  name\n}"
 
   public static let possibleTypes = ["Droid"]
@@ -5483,7 +5483,7 @@ public struct DroidName: GraphQLFragment {
 }
 
 public struct DroidPrimaryFunction: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment DroidPrimaryFunction on Droid {\n  __typename\n  primaryFunction\n}"
 
   public static let possibleTypes = ["Droid"]
@@ -5524,7 +5524,7 @@ public struct DroidPrimaryFunction: GraphQLFragment {
 }
 
 public struct HumanHeightWithVariable: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment HumanHeightWithVariable on Human {\n  __typename\n  height(unit: $heightUnit)\n}"
 
   public static let possibleTypes = ["Human"]
@@ -5565,7 +5565,7 @@ public struct HumanHeightWithVariable: GraphQLFragment {
 }
 
 public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterNameAndAppearsInWithNestedFragments on Character {\n  __typename\n  ...CharacterNameWithNestedAppearsInFragment\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -5654,7 +5654,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
 }
 
 public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterNameWithNestedAppearsInFragment on Character {\n  __typename\n  name\n  ...CharacterAppearsIn\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -5733,7 +5733,7 @@ public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
 }
 
 public struct CharacterNameWithInlineFragment: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterNameWithInlineFragment on Character {\n  __typename\n  ... on Human {\n    friends {\n      __typename\n      appearsIn\n    }\n  }\n  ... on Droid {\n    ...CharacterName\n    ...FriendsNames\n  }\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -5998,7 +5998,7 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
 }
 
 public struct FriendsNames: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -6085,7 +6085,7 @@ public struct FriendsNames: GraphQLFragment {
 }
 
 public struct CharacterAppearsIn: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterAppearsIn on Character {\n  __typename\n  appearsIn\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -6130,7 +6130,7 @@ public struct CharacterAppearsIn: GraphQLFragment {
 }
 
 public struct HeroDetails: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -6300,7 +6300,7 @@ public struct HeroDetails: GraphQLFragment {
 }
 
 public struct DroidDetails: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment DroidDetails on Droid {\n  __typename\n  name\n  primaryFunction\n}"
 
   public static let possibleTypes = ["Droid"]
@@ -6352,7 +6352,7 @@ public struct DroidDetails: GraphQLFragment {
 }
 
 public struct CharacterName: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterName on Character {\n  __typename\n  name\n}"
 
   public static let possibleTypes = ["Human", "Droid"]
@@ -6397,7 +6397,7 @@ public struct CharacterName: GraphQLFragment {
 }
 
 public struct CharacterNameAndAppearsIn: GraphQLFragment {
-  public static let fragmentString =
+  public static let fragmentDefinition =
     "fragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}"
 
   public static let possibleTypes = ["Human", "Droid"]

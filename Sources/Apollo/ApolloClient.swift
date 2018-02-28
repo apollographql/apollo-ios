@@ -139,7 +139,7 @@ public class ApolloClient {
       }
       
       firstly {
-        try response.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
       }.andThen { (result, records) in
         notifyResultHandler(result: result, error: nil)
         
