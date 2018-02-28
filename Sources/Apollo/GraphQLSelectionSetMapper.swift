@@ -17,11 +17,11 @@ final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQ
     return (info.responseKeyForField, fieldEntry)
   }
   
-  func accept(fieldEntries: [(key: String, value: Any?)], info: GraphQLResolveInfo) throws -> Snapshot {
-    return Snapshot(fieldEntries)
+  func accept(fieldEntries: [(key: String, value: Any?)], info: GraphQLResolveInfo) throws -> ResultMap {
+    return ResultMap(fieldEntries)
   }
   
-  func finish(rootValue: Snapshot, info: GraphQLResolveInfo) -> SelectionSet {
-    return SelectionSet.init(snapshot: rootValue)
+  func finish(rootValue: ResultMap, info: GraphQLResolveInfo) -> SelectionSet {
+    return SelectionSet.init(unsafeResultMap: rootValue)
   }
 }
