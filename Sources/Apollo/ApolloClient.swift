@@ -123,6 +123,26 @@ public class ApolloClient {
     return send(operation: mutation, context: context, handlerQueue: queue, resultHandler: resultHandler)
   }
 
+    /// Subscribe to a subscription
+    ///
+    /// - Parameters:
+    ///   - subscription: The subscription to subscribe to.
+    ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+    ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
+    /// - Returns: An object that can be used to cancel an in progress mutation.
+    public func subscribe<Query: GraphQLSubscription>(subscription: Query, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLSubscriptionWatcher<Query> {
+        
+        let watcher = GraphQLSubscriptionWatcher(client: self, subscribe: subscription, handlerQueue: queue, resultHandler: resultHandler)
+        
+        watcher.subscribe()
+        return watcher
+    }
+    
+    func _subscribe<Subscription: GraphQLSubscription>(subscribe: Subscription, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue, resultHandler: OperationResultHandler<Subscription>?) -> Cancellable? {
+        return send(operation: subscribe, context: context, handlerQueue: queue, resultHandler: resultHandler)
+    }
+    
+    
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer?, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
     func notifyResultHandler(result: GraphQLResult<Operation.Data>?, error: Error?) {
       guard let resultHandler = resultHandler else { return }
