@@ -201,11 +201,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     }
     
     private func write(_ str: String, force forced: Bool = false) {
-        
         if let websocket = websocket {
-            websocket.isConnected && (acked || forced) ?
-                print("write:: string=\(str)") : print("queueing:: string=\(str)")
-        
             websocket.isConnected && (acked || forced) ? websocket.write(string: str) : queue.append(str)
         }
     }
