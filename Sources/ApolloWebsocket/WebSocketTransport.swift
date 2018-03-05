@@ -24,11 +24,11 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   
   var reconnect : Bool = false
   var acked : Bool = false
-  var reconnected : Bool = false
   
   private var queue: [Int:String] = [:]
   private var params: [String:String]?
-  
+  private var connectingParams: [String:String]?
+
   private var subscribers = [String: (JSONObject?, Error?) -> Void]()
   private var subscriptions : [String: String] = [:]
   
@@ -36,8 +36,9 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
   
-  public init(url: URL, sendOperationIdentifiers: Bool = false, params: [String:String]? = nil) {
+  public init(url: URL, sendOperationIdentifiers: Bool = false, params: [String:String]? = nil, connectingParams: [String:String]? = [:]) {
     self.params = params
+    self.connectingParams = connectingParams
     self.sendOperationIdentifiers = sendOperationIdentifiers
     var request = URLRequest(url: url)
     if let params = self.params {
@@ -49,8 +50,9 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.websocket?.connect()
   }
   
-  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  params: [String:String]? = nil) {
+  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  params: [String:String]? = nil,  connectingParams: [String:String]? = [:]) {
     self.params = params
+    self.connectingParams = connectingParams
     self.sendOperationIdentifiers = sendOperationIdentifiers
     if var request = request {
       if let params = self.params {
@@ -149,10 +151,14 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     print("WebSocketTransport::unprocessed event \(data)")
   }
   
+  fileprivate var reconnected : Bool = false
+  
   public func websocketDidConnect(socket: WebSocketClient) {
     self.error = nil
     initServer()
     if reconnected {
+      // re-send the subscriptions whenever we are re-connected
+      // for the first connect, any subscriptions are already in queue
       for (_,msg) in self.subscriptions {
         write(msg)
       }
@@ -190,8 +196,9 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   
   public func initServer(reconnect: Bool = true) {
     self.reconnect = reconnect
+    self.acked = false
     
-    if let str = OperationMessage(type: .CONNECTION_INIT).rawValue {
+    if let str = OperationMessage(payload: self.connectingParams, type: .CONNECTION_INIT).rawValue {
       write(str, force:true)
     }
     
@@ -213,9 +220,14 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
         websocket.write(string: str)
       } else {
         // using sequence number to make sure that the queue is processed correctly
-        // either assigning the current sequence number or using the earlier assigned
-        let id = (id != nil) ? id! : seqNo()
-        self.queue[id] = str
+        // either using the earlier assigned id or with the next higher key
+        if let id = id {
+          queue[id] = str
+        } else if let id = queue.keys.max() {
+          queue[id+1] = str
+        } else {
+          queue[1] = str
+        }
       }
     }
   }
@@ -232,10 +244,6 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     return sequenceNumber
   }
   
-  fileprivate func seqNo() -> Int {
-    return sequenceNumber
-  }
-  
   fileprivate func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ response: JSONObject?, _ error: Error?) -> Void) -> String? {
     
     let body = requestBody(for: operation)
@@ -246,7 +254,9 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
       write(str)
       
       subscribers[seqNo] = resultHandler
-      subscriptions[seqNo] = str
+      if operation.operationType == .subscription {
+        subscriptions[seqNo] = str
+      }
       
       return seqNo
     }
