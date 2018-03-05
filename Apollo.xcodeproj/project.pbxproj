@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
-		726DC331204DB12C0087DEC0 /* GraphQLSubscriptionWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DC330204DB12C0087DEC0 /* GraphQLSubscriptionWatcher.swift */; };
 		726DC334204DB1370087DEC0 /* SplitNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DC332204DB1370087DEC0 /* SplitNetworkTransport.swift */; };
 		726DC335204DB1370087DEC0 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DC333204DB1370087DEC0 /* WebSocketTransport.swift */; };
 		726DC3BD204DF8E30087DEC0 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 726DC3BC204DF8E30087DEC0 /* Starscream.framework */; };
@@ -246,7 +245,6 @@
 
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
-		726DC330204DB12C0087DEC0 /* GraphQLSubscriptionWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLSubscriptionWatcher.swift; sourceTree = "<group>"; };
 		726DC332204DB1370087DEC0 /* SplitNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitNetworkTransport.swift; sourceTree = "<group>"; };
 		726DC333204DB1370087DEC0 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
 		726DC3B3204DF8B50087DEC0 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = Carthage/Checkouts/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
@@ -566,7 +564,6 @@
 				9FC9A9BE1E2C27FB0023C4D5 /* GraphQLResult.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
-				726DC330204DB12C0087DEC0 /* GraphQLSubscriptionWatcher.swift */,
 				9FC9A9CE1E2FD0CC0023C4D5 /* Network */,
 				9FC9A9CA1E2FD05C0023C4D5 /* Store */,
 				9F27D4601D40363A00715680 /* Execution */,
@@ -1171,7 +1168,6 @@
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9F86B6901E65533D00B885FF /* GraphQLResponseGenerator.swift in Sources */,
 				9FC9A9C21E2D3CAF0023C4D5 /* GraphQLInputValue.swift in Sources */,
-				726DC331204DB12C0087DEC0 /* GraphQLSubscriptionWatcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
