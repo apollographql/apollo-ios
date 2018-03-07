@@ -7,7 +7,6 @@ Apollo iOS requires Xcode 8, which you can install from the [Mac App Store](http
 Follow along with these steps (described in detail below) to use Apollo iOS in your app:
 
 1. Install the Apollo framework into your project and link it to your application target
-1. Install `apollo-codegen` globally through npm
 1. Add a code generation build step to your target
 1. Add a schema file to your target directory
 1. Build your target
@@ -57,14 +56,6 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 ### Manual integration
 
 You can also manually clone the [`apollo-ios` repository](https://github.com/apollostack/apollo-ios), drag `Apollo.xcodeproj` into your project or workspace, add a dependency on `Apollo.framework` to your target.
-
-<h2 id="installing-apollo-codegen">Installing `apollo-codegen`</h2>
-
-You will have to install the `apollo-codegen` command globally through npm:
-
-```sh
-npm install -g apollo-codegen
-```
 
 <h2 id="adding-build-step">Adding a code generation build step</h2>
 
