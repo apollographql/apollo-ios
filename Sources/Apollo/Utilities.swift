@@ -16,7 +16,7 @@ extension HTTPURLResponse {
   }
 }
 
-public protocol Matchable {
+public protocol ApolloMatchable {
   associatedtype Base
   static func ~=(pattern: Self, value: Base) -> Bool
 }

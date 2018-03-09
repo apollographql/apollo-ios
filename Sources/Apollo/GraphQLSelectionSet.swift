@@ -50,7 +50,7 @@ public struct GraphQLField: GraphQLSelection {
     self.type = type
   }
   
-  func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
+  func cacheKey(with variables: [String: ApolloJSONEncodable]?) throws -> String {
     if let argumentValues = try arguments?.evaluate(with: variables), !argumentValues.isEmpty {
       let argumentsKey = orderIndependentKey(for: argumentValues)
       return "\(name)(\(argumentsKey))"
@@ -61,7 +61,7 @@ public struct GraphQLField: GraphQLSelection {
 }
 
 public indirect enum GraphQLOutputType {
-  case scalar(JSONDecodable.Type)
+  case scalar(ApolloJSONDecodable.Type)
   case object([GraphQLSelection])
   case nonNull(GraphQLOutputType)
   case list(GraphQLOutputType)
