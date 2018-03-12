@@ -100,7 +100,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
-        let response = GraphQLResponse(operation: operation, body: body)
+        let response = GraphQLResponse(operation: operation, body: body, response: httpResponse)
         completionHandler(response, nil)
       } catch {
         completionHandler(nil, error)
