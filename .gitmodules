@@ -2,6 +2,3 @@
 	path = Carthage/Checkouts/SQLite.swift
 	url = https://github.com/stephencelis/SQLite.swift.git
 
-[submodule "docs/themes/meteor"]
-	path = docs/themes/meteor
-	url = https://github.com/meteor/hexo-theme-meteor.git
