@@ -21,7 +21,7 @@
     "lodash": "4.17.5",
     "meteor-theme-hexo": "1.0.3",
     "nodemon": "1.17.2",
-    "showdown": "1.7.6"
+    "showdown": "1.8.6"
   },
   "scripts": {
     "start": "npm run build && chexo apollo-hexo-config -- server",
