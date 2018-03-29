@@ -13,14 +13,14 @@
 		720F14A8206ADB6700D061DB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720F149E206AD79500D061DB /* XCTest.framework */; };
 		720F14AA206ADCCD00D061DB /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720F149B206AD15300D061DB /* Starscream.framework */; };
 		720F14AB206ADD0000D061DB /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 720F149B206AD15300D061DB /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		72A1C9E3206BC0E1005EB7B8 /* SplitNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E0206BC0E1005EB7B8 /* SplitNetworkTransport.swift */; };
-		72A1C9E4206BC0E1005EB7B8 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E1206BC0E1005EB7B8 /* WebSocketTransport.swift */; };
-		72A1C9F1206BC128005EB7B8 /* MockWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E7206BC0F0005EB7B8 /* MockWebSocket.swift */; };
-		72A1C9F2206BC128005EB7B8 /* MockWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E8206BC0F0005EB7B8 /* MockWebSocketTests.swift */; };
-		72A1C9F3206BC128005EB7B8 /* StarWarsWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9EA206BC0F0005EB7B8 /* StarWarsWebSocketTests.swift */; };
+		7270746D206D111A00C131F6 /* SplitNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */; };
+		7270746E206D111A00C131F6 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7270746B206D111A00C131F6 /* WebSocketTransport.swift */; };
+		7270747B206D13F400C131F6 /* MockWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707471206D112900C131F6 /* MockWebSocket.swift */; };
+		7270747C206D13F400C131F6 /* StarWarsSubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707472206D112900C131F6 /* StarWarsSubscriptionTests.swift */; };
+		7270747D206D13F400C131F6 /* MockWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707473206D112900C131F6 /* MockWebSocketTests.swift */; };
+		7270747E206D13F400C131F6 /* StarWarsWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707475206D112900C131F6 /* StarWarsWebSocketTests.swift */; };
 		72A1C9F4206BC7E3005EB7B8 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A1C9F5206BC7E3005EB7B8 /* ApolloTestSupport.framework */; };
 		72A1C9F6206BCCF0005EB7B8 /* ApolloTestSupport.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 72A1C9F5206BC7E3005EB7B8 /* ApolloTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		72A1C9F8206C3FC0005EB7B8 /* StarWarsSubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9F7206C3FC0005EB7B8 /* StarWarsSubscriptionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,15 +54,15 @@
 		720F148A206AC3E100D061DB /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		720F149B206AD15300D061DB /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		720F149E206AD79500D061DB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		72A1C9E0206BC0E1005EB7B8 /* SplitNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitNetworkTransport.swift; sourceTree = "<group>"; };
-		72A1C9E1206BC0E1005EB7B8 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
-		72A1C9E2206BC0E1005EB7B8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72A1C9E7206BC0F0005EB7B8 /* MockWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebSocket.swift; sourceTree = "<group>"; };
-		72A1C9E8206BC0F0005EB7B8 /* MockWebSocketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebSocketTests.swift; sourceTree = "<group>"; };
-		72A1C9E9206BC0F0005EB7B8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72A1C9EA206BC0F0005EB7B8 /* StarWarsWebSocketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsWebSocketTests.swift; sourceTree = "<group>"; };
+		7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitNetworkTransport.swift; sourceTree = "<group>"; };
+		7270746B206D111A00C131F6 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
+		7270746C206D111A00C131F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72707471206D112900C131F6 /* MockWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebSocket.swift; sourceTree = "<group>"; };
+		72707472206D112900C131F6 /* StarWarsSubscriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsSubscriptionTests.swift; sourceTree = "<group>"; };
+		72707473206D112900C131F6 /* MockWebSocketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebSocketTests.swift; sourceTree = "<group>"; };
+		72707474206D112900C131F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72707475206D112900C131F6 /* StarWarsWebSocketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsWebSocketTests.swift; sourceTree = "<group>"; };
 		72A1C9F5206BC7E3005EB7B8 /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		72A1C9F7206C3FC0005EB7B8 /* StarWarsSubscriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsSubscriptionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +92,8 @@
 		720160C1206AB3D30052B2EE = {
 			isa = PBXGroup;
 			children = (
-				72A1C9E6206BC0F0005EB7B8 /* ApolloWebsocketTests */,
-				72A1C9DF206BC0E1005EB7B8 /* ApolloWebsocket */,
+				72707469206D111A00C131F6 /* ApolloWebsocket */,
+				72707470206D112900C131F6 /* ApolloWebsocketTests */,
 				720160CC206AB3D30052B2EE /* Products */,
 				720F147A206AB52F00D061DB /* Frameworks */,
 			);
@@ -120,25 +120,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		72A1C9DF206BC0E1005EB7B8 /* ApolloWebsocket */ = {
+		72707469206D111A00C131F6 /* ApolloWebsocket */ = {
 			isa = PBXGroup;
 			children = (
-				72A1C9E0206BC0E1005EB7B8 /* SplitNetworkTransport.swift */,
-				72A1C9E1206BC0E1005EB7B8 /* WebSocketTransport.swift */,
-				72A1C9E2206BC0E1005EB7B8 /* Info.plist */,
+				7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */,
+				7270746B206D111A00C131F6 /* WebSocketTransport.swift */,
+				7270746C206D111A00C131F6 /* Info.plist */,
 			);
 			name = ApolloWebsocket;
 			path = Sources/ApolloWebsocket;
 			sourceTree = "<group>";
 		};
-		72A1C9E6206BC0F0005EB7B8 /* ApolloWebsocketTests */ = {
+		72707470206D112900C131F6 /* ApolloWebsocketTests */ = {
 			isa = PBXGroup;
 			children = (
-				72A1C9E7206BC0F0005EB7B8 /* MockWebSocket.swift */,
-				72A1C9E8206BC0F0005EB7B8 /* MockWebSocketTests.swift */,
-				72A1C9E9206BC0F0005EB7B8 /* Info.plist */,
-				72A1C9EA206BC0F0005EB7B8 /* StarWarsWebSocketTests.swift */,
-				72A1C9F7206C3FC0005EB7B8 /* StarWarsSubscriptionTests.swift */,
+				72707471206D112900C131F6 /* MockWebSocket.swift */,
+				72707472206D112900C131F6 /* StarWarsSubscriptionTests.swift */,
+				72707473206D112900C131F6 /* MockWebSocketTests.swift */,
+				72707474206D112900C131F6 /* Info.plist */,
+				72707475206D112900C131F6 /* StarWarsWebSocketTests.swift */,
 			);
 			name = ApolloWebsocketTests;
 			path = Tests/ApolloWebsocketTests;
@@ -255,8 +255,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72A1C9E3206BC0E1005EB7B8 /* SplitNetworkTransport.swift in Sources */,
-				72A1C9E4206BC0E1005EB7B8 /* WebSocketTransport.swift in Sources */,
+				7270746D206D111A00C131F6 /* SplitNetworkTransport.swift in Sources */,
+				7270746E206D111A00C131F6 /* WebSocketTransport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,10 +264,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72A1C9F1206BC128005EB7B8 /* MockWebSocket.swift in Sources */,
-				72A1C9F8206C3FC0005EB7B8 /* StarWarsSubscriptionTests.swift in Sources */,
-				72A1C9F2206BC128005EB7B8 /* MockWebSocketTests.swift in Sources */,
-				72A1C9F3206BC128005EB7B8 /* StarWarsWebSocketTests.swift in Sources */,
+				7270747B206D13F400C131F6 /* MockWebSocket.swift in Sources */,
+				7270747C206D13F400C131F6 /* StarWarsSubscriptionTests.swift in Sources */,
+				7270747D206D13F400C131F6 /* MockWebSocketTests.swift in Sources */,
+				7270747E206D13F400C131F6 /* StarWarsWebSocketTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +469,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = ApolloWebsocketTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebsocketTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebsocketTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -490,7 +490,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = ApolloWebsocketTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebsocketTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebsocketTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
