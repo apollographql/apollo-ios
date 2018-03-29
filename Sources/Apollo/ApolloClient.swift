@@ -134,7 +134,7 @@ public class ApolloClient {
     return send(operation: subscription, context: nil, handlerQueue: queue, resultHandler: resultHandler)
   }
   
-  
+    
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer?, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
     func notifyResultHandler(result: GraphQLResult<Operation.Data>?, error: Error?) {
       guard let resultHandler = resultHandler else { return }
