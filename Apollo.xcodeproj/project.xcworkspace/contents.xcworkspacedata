@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../ApolloWebsocket.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "self:">
+      location = "self:Apollo.xcodeproj">
    </FileRef>
 </Workspace>

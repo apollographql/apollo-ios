@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
-		72A1C9FA206C4441005EB7B8 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 72A1C9F9206C4440005EB7B8 /* schema.json */; };
-		72F969AA206AE5FE00F9C2E0 /* SubscribeReview.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 72F969A9206AE5FE00F9C2E0 /* SubscribeReview.graphql */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		9F0CA4461EE7F9E90032DD39 /* ApolloTestSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F10A51E1EC1BA0F0045E62B /* MockNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */; };
@@ -230,9 +228,6 @@
 
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
-		720F1499206AC96D00D061DB /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = ../ApolloWebsocket/Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
-		72A1C9F9206C4440005EB7B8 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		72F969A9206AE5FE00F9C2E0 /* SubscribeReview.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SubscribeReview.graphql; sourceTree = "<group>"; };
 		9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
 		9F19D8431EED568200C57247 /* ResultOrPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromise.swift; sourceTree = "<group>"; };
 		9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromiseTests.swift; sourceTree = "<group>"; };
@@ -477,7 +472,6 @@
 		9FB9D1531EC102CB0086EEB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				720F1499206AC96D00D061DB /* Starscream.framework */,
 				9FB9D1541EC102CB0086EEB5 /* XCTest.framework */,
 			);
 			name = Frameworks;
@@ -621,7 +615,6 @@
 		9FCE2CFB1E6C213D00E34457 /* StarWarsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				72A1C9F9206C4440005EB7B8 /* schema.json */,
 				9FCE2D111E6C259B00E34457 /* HeroName.graphql */,
 				9FCE2D0E1E6C259B00E34457 /* HeroAppearsIn.graphql */,
 				9F8622FE1EC44A8600C38162 /* HeroNameAndAppearsIn.graphql */,
@@ -637,7 +630,6 @@
 				9FCE2D161E6C259B00E34457 /* SameHeroTwice.graphql */,
 				9FCE2D171E6C259B00E34457 /* Starship.graphql */,
 				9FCE2D0C1E6C259B00E34457 /* CreateReviewForEpisode.graphql */,
-				72F969A9206AE5FE00F9C2E0 /* SubscribeReview.graphql */,
 				9FCE2D0A1E6C258A00E34457 /* API.swift */,
 				9FCE2CFC1E6C213D00E34457 /* StarWarsAPI.h */,
 				9FCE2CFD1E6C213D00E34457 /* Info.plist */,
@@ -977,8 +969,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72F969AA206AE5FE00F9C2E0 /* SubscribeReview.graphql in Resources */,
-				72A1C9FA206C4441005EB7B8 /* schema.json in Resources */,
 				9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

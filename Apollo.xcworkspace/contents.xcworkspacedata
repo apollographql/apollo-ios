@@ -5,9 +5,9 @@
       location = "container:Apollo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ApolloSQLite.xcodeproj">
+      location = "group:ApolloWebsocket.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ApolloWebsocket.xcodeproj">
+      location = "group:ApolloSQLite.xcodeproj">
    </FileRef>
 </Workspace>
