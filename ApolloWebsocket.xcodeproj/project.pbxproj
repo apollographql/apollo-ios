@@ -14,6 +14,7 @@
 		720F14AA206ADCCD00D061DB /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720F149B206AD15300D061DB /* Starscream.framework */; };
 		720F14AB206ADD0000D061DB /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 720F149B206AD15300D061DB /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72A1C9E3206BC0E1005EB7B8 /* SplitNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E0206BC0E1005EB7B8 /* SplitNetworkTransport.swift */; };
+		72A1C9E4206BC0E1005EB7B8 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E1206BC0E1005EB7B8 /* WebSocketTransport.swift */; };
 		72A1C9F1206BC128005EB7B8 /* MockWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E7206BC0F0005EB7B8 /* MockWebSocket.swift */; };
 		72A1C9F2206BC128005EB7B8 /* MockWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9E8206BC0F0005EB7B8 /* MockWebSocketTests.swift */; };
 		72A1C9F3206BC128005EB7B8 /* StarWarsWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A1C9EA206BC0F0005EB7B8 /* StarWarsWebSocketTests.swift */; };

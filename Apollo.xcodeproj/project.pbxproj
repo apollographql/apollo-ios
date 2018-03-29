@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
-		726DC334204DB1370087DEC0 /* SplitNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DC332204DB1370087DEC0 /* SplitNetworkTransport.swift */; };
-		726DC335204DB1370087DEC0 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726DC333204DB1370087DEC0 /* WebSocketTransport.swift */; };
-		726DC3BD204DF8E30087DEC0 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 726DC3BC204DF8E30087DEC0 /* Starscream.framework */; };
+		72A1C9FA206C4441005EB7B8 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 72A1C9F9206C4440005EB7B8 /* schema.json */; };
+		72F969AA206AE5FE00F9C2E0 /* SubscribeReview.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 72F969A9206AE5FE00F9C2E0 /* SubscribeReview.graphql */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		9F0CA4461EE7F9E90032DD39 /* ApolloTestSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F10A51E1EC1BA0F0045E62B /* MockNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */; };
@@ -99,20 +98,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		726DC3B8204DF8B50087DEC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 726DC3B3204DF8B50087DEC0 /* Starscream.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 33CCF0921F5DDC030099B092;
-			remoteInfo = Starscream;
-		};
-		726DC3BA204DF8B50087DEC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 726DC3B3204DF8B50087DEC0 /* Starscream.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 335FA2021F5DF71D00F6D2EC;
-			remoteInfo = "Starscream Tests";
-		};
 		9F0CA4471EE7F9E90032DD39 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -245,10 +230,9 @@
 
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
-		726DC332204DB1370087DEC0 /* SplitNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitNetworkTransport.swift; sourceTree = "<group>"; };
-		726DC333204DB1370087DEC0 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
-		726DC3B3204DF8B50087DEC0 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = Carthage/Checkouts/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
-		726DC3BC204DF8E30087DEC0 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		720F1499206AC96D00D061DB /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = ../ApolloWebsocket/Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		72A1C9F9206C4440005EB7B8 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		72F969A9206AE5FE00F9C2E0 /* SubscribeReview.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SubscribeReview.graphql; sourceTree = "<group>"; };
 		9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
 		9F19D8431EED568200C57247 /* ResultOrPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromise.swift; sourceTree = "<group>"; };
 		9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromiseTests.swift; sourceTree = "<group>"; };
@@ -394,7 +378,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				726DC3BD204DF8E30087DEC0 /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,15 +412,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		726DC3B4204DF8B50087DEC0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				726DC3B9204DF8B50087DEC0 /* Starscream.framework */,
-				726DC3BB204DF8B50087DEC0 /* Starscream Tests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9F27D4601D40363A00715680 /* Execution */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,8 +477,7 @@
 		9FB9D1531EC102CB0086EEB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				726DC3BC204DF8E30087DEC0 /* Starscream.framework */,
-				726DC3B3204DF8B50087DEC0 /* Starscream.xcodeproj */,
+				720F1499206AC96D00D061DB /* Starscream.framework */,
 				9FB9D1541EC102CB0086EEB5 /* XCTest.framework */,
 			);
 			name = Frameworks;
@@ -610,8 +583,6 @@
 		9FC9A9CE1E2FD0CC0023C4D5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				726DC332204DB1370087DEC0 /* SplitNetworkTransport.swift */,
-				726DC333204DB1370087DEC0 /* WebSocketTransport.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
@@ -650,6 +621,7 @@
 		9FCE2CFB1E6C213D00E34457 /* StarWarsAPI */ = {
 			isa = PBXGroup;
 			children = (
+				72A1C9F9206C4440005EB7B8 /* schema.json */,
 				9FCE2D111E6C259B00E34457 /* HeroName.graphql */,
 				9FCE2D0E1E6C259B00E34457 /* HeroAppearsIn.graphql */,
 				9F8622FE1EC44A8600C38162 /* HeroNameAndAppearsIn.graphql */,
@@ -665,6 +637,7 @@
 				9FCE2D161E6C259B00E34457 /* SameHeroTwice.graphql */,
 				9FCE2D171E6C259B00E34457 /* Starship.graphql */,
 				9FCE2D0C1E6C259B00E34457 /* CreateReviewForEpisode.graphql */,
+				72F969A9206AE5FE00F9C2E0 /* SubscribeReview.graphql */,
 				9FCE2D0A1E6C258A00E34457 /* API.swift */,
 				9FCE2CFC1E6C213D00E34457 /* StarWarsAPI.h */,
 				9FCE2CFD1E6C213D00E34457 /* Info.plist */,
@@ -957,12 +930,6 @@
 			mainGroup = 9FC7503A1D2A532C00458D91;
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 726DC3B4204DF8B50087DEC0 /* Products */;
-					ProjectRef = 726DC3B3204DF8B50087DEC0 /* Starscream.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9FC750431D2A532C00458D91 /* Apollo */,
@@ -976,23 +943,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		726DC3B9204DF8B50087DEC0 /* Starscream.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Starscream.framework;
-			remoteRef = 726DC3B8204DF8B50087DEC0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		726DC3BB204DF8B50087DEC0 /* Starscream Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Starscream Tests.xctest";
-			remoteRef = 726DC3BA204DF8B50087DEC0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9F8A95761EC0FC1200304A2D /* Resources */ = {
@@ -1027,6 +977,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72F969AA206AE5FE00F9C2E0 /* SubscribeReview.graphql in Resources */,
+				72A1C9FA206C4441005EB7B8 /* schema.json in Resources */,
 				9FE3F3981DADBD870072078F /* check-and-run-apollo-codegen.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1135,8 +1087,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FF33D811E48B98200F608A4 /* HTTPNetworkTransport.swift in Sources */,
-				726DC334204DB1370087DEC0 /* SplitNetworkTransport.swift in Sources */,
-				726DC335204DB1370087DEC0 /* WebSocketTransport.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
 				9FADC84A1E6B0B2300C677E6 /* Locking.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
@@ -1633,10 +1583,6 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
@@ -1651,10 +1597,6 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
@@ -1801,10 +1743,6 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
