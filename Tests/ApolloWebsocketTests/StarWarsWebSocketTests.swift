@@ -1,13 +1,12 @@
 import XCTest
 import Apollo
 import ApolloTestSupport
-@testable import ApolloWebsocket
+@testable import ApolloWebSocket
 import StarWarsAPI
 
 // import StarWarsAPI
 
 class StarWarsWebsSocketTests: XCTestCase {
-  
   let SERVER = "http://localhost:8080/websocket"
 
   // MARK: Queries
@@ -297,7 +296,7 @@ class StarWarsWebsSocketTests: XCTestCase {
     }
   }
 
-  private func perform<Mutation: GraphQLMutation>(wait: Bool = true, mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
+  private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     withCache { (cache) in
       let network = WebSocketTransport(url: URL(string: SERVER)!)
       let store = ApolloStore(cache: cache)
@@ -320,11 +319,7 @@ class StarWarsWebsSocketTests: XCTestCase {
         completionHandler(data)
       }
       
-      if wait {
-        waitForExpectations(timeout: 5, handler: nil)
-      }
-      
+      waitForExpectations(timeout: 5, handler: nil)
     }
   }
-  
 }

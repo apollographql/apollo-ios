@@ -5,7 +5,7 @@
       location = "container:Apollo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:ApolloWebsocket.xcodeproj">
+      location = "group:/Users/martijnwalraven/Development/Apollo/apollo-ios-subscriptions/ApolloWebSocket.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:ApolloSQLite.xcodeproj">

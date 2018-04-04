@@ -1,4 +1,3 @@
-import Foundation
 import Apollo
 import Starscream
 
@@ -404,7 +403,4 @@ public struct WebSocketError: Error, LocalizedError {
   public let payload: JSONObject?
   public let error: Error?
   public let kind: ErrorKind
-  
 }
-
-

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		720160D5206AB3D30052B2EE /* ApolloWebsocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720160CB206AB3D30052B2EE /* ApolloWebsocket.framework */; };
+		720160D5206AB3D30052B2EE /* ApolloWebSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720160CB206AB3D30052B2EE /* ApolloWebSocket.framework */; };
 		7270746D206D111A00C131F6 /* SplitNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */; };
 		7270746E206D111A00C131F6 /* WebSocketTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7270746B206D111A00C131F6 /* WebSocketTransport.swift */; };
 		7270747B206D13F400C131F6 /* MockWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707471206D112900C131F6 /* MockWebSocket.swift */; };
@@ -58,8 +58,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		720160CB206AB3D30052B2EE /* ApolloWebsocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloWebsocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		720160D4206AB3D30052B2EE /* ApolloWebsocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloWebsocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		720160CB206AB3D30052B2EE /* ApolloWebSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloWebSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		720160D4206AB3D30052B2EE /* ApolloWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitNetworkTransport.swift; sourceTree = "<group>"; };
 		7270746B206D111A00C131F6 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
 		7270746C206D111A00C131F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 			files = (
 				9F28B6DB2072101200144A00 /* StarWarsAPI.framework in Frameworks */,
 				9F28B6D920720FD200144A00 /* ApolloTestSupport.framework in Frameworks */,
-				720160D5206AB3D30052B2EE /* ApolloWebsocket.framework in Frameworks */,
+				720160D5206AB3D30052B2EE /* ApolloWebSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,8 +112,8 @@
 		720160CC206AB3D30052B2EE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				720160CB206AB3D30052B2EE /* ApolloWebsocket.framework */,
-				720160D4206AB3D30052B2EE /* ApolloWebsocketTests.xctest */,
+				720160CB206AB3D30052B2EE /* ApolloWebSocket.framework */,
+				720160D4206AB3D30052B2EE /* ApolloWebSocketTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,9 +183,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		720160CA206AB3D30052B2EE /* ApolloWebsocket */ = {
+		720160CA206AB3D30052B2EE /* ApolloWebSocket */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 720160DF206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebsocket" */;
+			buildConfigurationList = 720160DF206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebSocket" */;
 			buildPhases = (
 				720160C6206AB3D30052B2EE /* Sources */,
 				720160C7206AB3D30052B2EE /* Frameworks */,
@@ -196,14 +196,14 @@
 			);
 			dependencies = (
 			);
-			name = ApolloWebsocket;
+			name = ApolloWebSocket;
 			productName = ApolloWebsocket;
-			productReference = 720160CB206AB3D30052B2EE /* ApolloWebsocket.framework */;
+			productReference = 720160CB206AB3D30052B2EE /* ApolloWebSocket.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		720160D3206AB3D30052B2EE /* ApolloWebsocketTests */ = {
+		720160D3206AB3D30052B2EE /* ApolloWebSocketTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 720160E2206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebsocketTests" */;
+			buildConfigurationList = 720160E2206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebSocketTests" */;
 			buildPhases = (
 				720160D0206AB3D30052B2EE /* Sources */,
 				720160D1206AB3D30052B2EE /* Frameworks */,
@@ -215,9 +215,9 @@
 			dependencies = (
 				720160D7206AB3D30052B2EE /* PBXTargetDependency */,
 			);
-			name = ApolloWebsocketTests;
+			name = ApolloWebSocketTests;
 			productName = ApolloWebsocketTests;
-			productReference = 720160D4206AB3D30052B2EE /* ApolloWebsocketTests.xctest */;
+			productReference = 720160D4206AB3D30052B2EE /* ApolloWebSocketTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -228,7 +228,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = Johannessen;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					720160CA206AB3D30052B2EE = {
 						CreatedOnToolsVersion = 9.2;
@@ -241,7 +241,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 720160C5206AB3D30052B2EE /* Build configuration list for PBXProject "ApolloWebsocket" */;
+			buildConfigurationList = 720160C5206AB3D30052B2EE /* Build configuration list for PBXProject "ApolloWebSocket" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -259,8 +259,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				720160CA206AB3D30052B2EE /* ApolloWebsocket */,
-				720160D3206AB3D30052B2EE /* ApolloWebsocketTests */,
+				720160CA206AB3D30052B2EE /* ApolloWebSocket */,
+				720160D3206AB3D30052B2EE /* ApolloWebSocketTests */,
 			);
 		};
 /* End PBXProject section */
@@ -326,7 +326,7 @@
 /* Begin PBXTargetDependency section */
 		720160D7206AB3D30052B2EE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 720160CA206AB3D30052B2EE /* ApolloWebsocket */;
+			target = 720160CA206AB3D30052B2EE /* ApolloWebSocket */;
 			targetProxy = 720160D6206AB3D30052B2EE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -463,10 +463,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/ApolloWebsocket/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/ApolloWebSocket/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebsocket;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocket;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -494,10 +494,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/ApolloWebsocket/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/ApolloWebSocket/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebsocket;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocket;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -518,9 +518,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebsocketTests/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebSocketTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebsocketTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocketTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -540,9 +540,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebsocketTests/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebSocketTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebsocketTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocketTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -553,7 +553,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		720160C5206AB3D30052B2EE /* Build configuration list for PBXProject "ApolloWebsocket" */ = {
+		720160C5206AB3D30052B2EE /* Build configuration list for PBXProject "ApolloWebSocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				720160DD206AB3D30052B2EE /* Debug */,
@@ -562,7 +562,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		720160DF206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebsocket" */ = {
+		720160DF206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebSocket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				720160E0206AB3D30052B2EE /* Debug */,
@@ -571,7 +571,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		720160E2206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebsocketTests" */ = {
+		720160E2206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebSocketTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				720160E3206AB3D30052B2EE /* Debug */,

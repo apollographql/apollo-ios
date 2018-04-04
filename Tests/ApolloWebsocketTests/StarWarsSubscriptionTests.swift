@@ -1,11 +1,10 @@
 import XCTest
 import Apollo
 import ApolloTestSupport
-@testable import ApolloWebsocket
+@testable import ApolloWebSocket
 import StarWarsAPI
 
 class StarWarsSubscriptionTests: XCTestCase {
-  
   let SERVER : String = "http://localhost:8080/websocket"
   
   var client: ApolloClient!
@@ -20,11 +19,9 @@ class StarWarsSubscriptionTests: XCTestCase {
   // MARK: Subscriptions
   
   func testSubscribeReviewJediEpisode() {
-    
     let expectation = self.expectation(description: "Subscribe single review")
     
     let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
-      
       guard let data = result?.data else { XCTFail("No subscription result data");  return }
       
       XCTAssertEqual(data.reviewAdded?.episode, .jedi)
@@ -32,36 +29,30 @@ class StarWarsSubscriptionTests: XCTestCase {
       XCTAssertEqual(data.reviewAdded?.commentary, "This is the greatest movie!")
       
       expectation.fulfill()
-      
     }
     
     client.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
     
     waitForExpectations(timeout: 10, handler: nil)
     sub.cancel()
-    
   }
   
   func testSubscribeReviewAnyEpisode() {
-
     let expectation = self.expectation(description: "Subscribe any episode")
     
     let sub = client.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
-      
       guard let data = result?.data else { XCTFail("No subscription result data");  return }
       
       XCTAssertEqual(data.reviewAdded?.stars, 13)
       XCTAssertEqual(data.reviewAdded?.commentary, "This is an even greater movie!")
       
       expectation.fulfill()
-      
     }
     
     client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 13, commentary: "This is an even greater movie!")))
     
     waitForExpectations(timeout: 2, handler: nil)
     sub.cancel()
-    
   }
   
   func testSubscribeReviewDifferentEpisode() {
@@ -69,20 +60,17 @@ class StarWarsSubscriptionTests: XCTestCase {
     expectation.isInverted = true
     
     let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
-      
       guard let data = result?.data else { XCTFail("No subscription result data");  return }
       
       XCTAssertNotEqual(data.reviewAdded?.episode, .jedi)
       
       expectation.fulfill()
-      
     }
     
     client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")))
     
     waitForExpectations(timeout: 3, handler: nil)
     sub.cancel()
-    
   }
   
   func testSubscribeThenCancel() {
@@ -106,7 +94,6 @@ class StarWarsSubscriptionTests: XCTestCase {
     expectation.expectedFulfillmentCount = count
 
     let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
-
       if let error = error { XCTFail("Error while performing subscription: \(error.localizedDescription)");  return }
       guard let result = result else { XCTFail("No subscription result");  return }
 
@@ -118,22 +105,18 @@ class StarWarsSubscriptionTests: XCTestCase {
 
       XCTAssertEqual(data.reviewAdded?.episode, .empire)
       expectation.fulfill()
-
     }
 
     for i in 1...count {
       let review = ReviewInput(stars: i, commentary: "The greatest movie ever!")
-      _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: review)) { (result,error) in
-      }
+      _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: review))
     }
 
     waitForExpectations(timeout: 10, handler: nil)
     sub.cancel()
-    
   }
   
   func testMultipleSubscriptions() {
-    
     // Multiple subscriptions, one for any episode and one for each of the episode
     // We send count reviews and expect to receive twice that number of subscriptions
     
@@ -175,15 +158,12 @@ class StarWarsSubscriptionTests: XCTestCase {
     subEmpire.cancel()
     subJedi.cancel()
     subNewHope.cancel()
-    
-    
   }
 }
 
 // MARK: - Helpers
 
 extension Collection where Index == Int {
-  
   /**
    Picks a random element of the collection.
    
@@ -192,5 +172,4 @@ extension Collection where Index == Int {
   func sample() -> Iterator.Element? {
     return isEmpty ? nil : self[Int(arc4random_uniform(UInt32(endIndex)))]
   }
-  
 }
