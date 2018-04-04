@@ -27,7 +27,7 @@
 			containerPortal = 720160C2206AB3D30052B2EE /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 720160CA206AB3D30052B2EE;
-			remoteInfo = ApolloWebsocket;
+			remoteInfo = ApolloWebSocket;
 		};
 		9F28B6CB206E487200144A00 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -101,8 +101,8 @@
 		720160C1206AB3D30052B2EE = {
 			isa = PBXGroup;
 			children = (
-				72707469206D111A00C131F6 /* ApolloWebsocket */,
-				72707470206D112900C131F6 /* ApolloWebsocketTests */,
+				72707469206D111A00C131F6 /* ApolloWebSocket */,
+				72707470206D112900C131F6 /* ApolloWebSocketTests */,
 				720F147A206AB52F00D061DB /* Frameworks */,
 				9F0733C7206E191800C2AC65 /* Configuration */,
 				720160CC206AB3D30052B2EE /* Products */,
@@ -129,18 +129,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		72707469206D111A00C131F6 /* ApolloWebsocket */ = {
+		72707469206D111A00C131F6 /* ApolloWebSocket */ = {
 			isa = PBXGroup;
 			children = (
 				7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */,
 				7270746B206D111A00C131F6 /* WebSocketTransport.swift */,
 				7270746C206D111A00C131F6 /* Info.plist */,
 			);
-			name = ApolloWebsocket;
-			path = Sources/ApolloWebsocket;
+			name = ApolloWebSocket;
+			path = Sources/ApolloWebSocket;
 			sourceTree = "<group>";
 		};
-		72707470206D112900C131F6 /* ApolloWebsocketTests */ = {
+		72707470206D112900C131F6 /* ApolloWebSocketTests */ = {
 			isa = PBXGroup;
 			children = (
 				72707471206D112900C131F6 /* MockWebSocket.swift */,
@@ -149,8 +149,8 @@
 				72707474206D112900C131F6 /* Info.plist */,
 				72707475206D112900C131F6 /* StarWarsWebSocketTests.swift */,
 			);
-			name = ApolloWebsocketTests;
-			path = Tests/ApolloWebsocketTests;
+			name = ApolloWebSocketTests;
+			path = Tests/ApolloWebSocketTests;
 			sourceTree = "<group>";
 		};
 		9F0733C7206E191800C2AC65 /* Configuration */ = {
@@ -197,7 +197,7 @@
 			dependencies = (
 			);
 			name = ApolloWebSocket;
-			productName = ApolloWebsocket;
+			productName = ApolloWebSocket;
 			productReference = 720160CB206AB3D30052B2EE /* ApolloWebSocket.framework */;
 			productType = "com.apple.product-type.framework";
 		};
@@ -216,7 +216,7 @@
 				720160D7206AB3D30052B2EE /* PBXTargetDependency */,
 			);
 			name = ApolloWebSocketTests;
-			productName = ApolloWebsocketTests;
+			productName = ApolloWebSocketTests;
 			productReference = 720160D4206AB3D30052B2EE /* ApolloWebSocketTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
