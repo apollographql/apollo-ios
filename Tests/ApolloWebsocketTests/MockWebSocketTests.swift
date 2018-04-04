@@ -1,46 +1,32 @@
-//
-//  ApolloWebsocketTests.swift
-//  ApolloWebsocketTests
-//
-//  Created by Knut Johannessen on 23/03/2018.
-//  Copyright © 2018 Johannessen. All rights reserved.
-//
-
 import XCTest
 import Apollo
 @testable import ApolloWebsocket
 import StarWarsAPI
 
 extension WebSocketTransport {
-    func write(message: GraphQLMap) {
-        let serialized = try! JSONSerializationFormat.serialize(value: message)
-        if let str = String(data: serialized, encoding: .utf8) {
-            self.websocket?.write(string: str)
-        }
+  func write(message: GraphQLMap) {
+    let serialized = try! JSONSerializationFormat.serialize(value: message)
+    if let str = String(data: serialized, encoding: .utf8) {
+      self.websocket?.write(string: str)
     }
+  }
 }
 
 class MockWebsocketTests: XCTestCase {
-
-    var networkTransport : WebSocketTransport?
-    var store : ApolloStore?
-    var client : ApolloClient?
+    var networkTransport: WebSocketTransport!
+    var client: ApolloClient!
     
     override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-      
-        WebSocketTransport.provider = MockWebSocket.self
-        networkTransport = WebSocketTransport(url: URL(string: "http://localhost/dummy_url")!)
-      
-        store = ApolloStore(cache: InMemoryNormalizedCache())
-        client = ApolloClient(networkTransport: networkTransport!)
-        
+      super.setUp()
+    
+      WebSocketTransport.provider = MockWebSocket.self
+      networkTransport = WebSocketTransport(url: URL(string: "http://localhost/dummy_url")!)
+      client = ApolloClient(networkTransport: networkTransport!)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+      super.tearDown()
+      WebSocketTransport.provider = ApolloWebSocket.self
     }
     
     func testLocalSingleSubscription() throws {

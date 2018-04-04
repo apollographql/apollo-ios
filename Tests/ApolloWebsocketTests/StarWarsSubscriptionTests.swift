@@ -4,23 +4,17 @@ import ApolloTestSupport
 @testable import ApolloWebsocket
 import StarWarsAPI
 
-// import StarWarsAPI
-
 class StarWarsSubscriptionTests: XCTestCase {
   
   let SERVER : String = "http://localhost:8080/websocket"
   
-  var networkTransport : WebSocketTransport?
-  var store : ApolloStore?
-  var client : ApolloClient?
+  var client: ApolloClient!
   
   override func setUp() {
     super.setUp()
     
-    networkTransport = WebSocketTransport(url: URL(string: SERVER)!)
-    store = ApolloStore(cache: InMemoryNormalizedCache())
-    client = ApolloClient(networkTransport: networkTransport!)
-    
+    let networkTransport = WebSocketTransport(url: URL(string: SERVER)!)
+    client = ApolloClient(networkTransport: networkTransport)
   }
   
   // MARK: Subscriptions
@@ -29,7 +23,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     let expectation = self.expectation(description: "Subscribe single review")
     
-    let sub = client?.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
       
       guard let data = result?.data else { XCTFail("No subscription result data");  return }
       
@@ -41,10 +35,10 @@ class StarWarsSubscriptionTests: XCTestCase {
       
     }
     
-    client?.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
+    client.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
     
     waitForExpectations(timeout: 10, handler: nil)
-    sub?.cancel()
+    sub.cancel()
     
   }
   
@@ -52,7 +46,7 @@ class StarWarsSubscriptionTests: XCTestCase {
 
     let expectation = self.expectation(description: "Subscribe any episode")
     
-    let sub = client?.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
       
       guard let data = result?.data else { XCTFail("No subscription result data");  return }
       
@@ -63,10 +57,10 @@ class StarWarsSubscriptionTests: XCTestCase {
       
     }
     
-    client?.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 13, commentary: "This is an even greater movie!")))
+    client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 13, commentary: "This is an even greater movie!")))
     
     waitForExpectations(timeout: 2, handler: nil)
-    sub?.cancel()
+    sub.cancel()
     
   }
   
@@ -74,7 +68,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Subscription to specific episode - expecting timeout")
     expectation.isInverted = true
     
-    let sub = client?.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
       
       guard let data = result?.data else { XCTFail("No subscription result data");  return }
       
@@ -84,10 +78,10 @@ class StarWarsSubscriptionTests: XCTestCase {
       
     }
     
-    client?.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")))
+    client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")))
     
     waitForExpectations(timeout: 3, handler: nil)
-    sub?.cancel()
+    sub.cancel()
     
   }
   
@@ -95,13 +89,13 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Subscription then cancel - expecting timeput")
     expectation.isInverted = true
     
-    let sub = client?.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
       XCTFail("Received subscription after cancel")
     }
     
-    sub?.cancel()
+    sub.cancel()
     
-    client?.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")))
+    client.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")))
     
     waitForExpectations(timeout: 3, handler: nil)
   }
@@ -111,7 +105,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Multiple reviews")
     expectation.expectedFulfillmentCount = count
 
-    let sub = client?.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
 
       if let error = error { XCTFail("Error while performing subscription: \(error.localizedDescription)");  return }
       guard let result = result else { XCTFail("No subscription result");  return }
@@ -129,12 +123,12 @@ class StarWarsSubscriptionTests: XCTestCase {
 
     for i in 1...count {
       let review = ReviewInput(stars: i, commentary: "The greatest movie ever!")
-      _ = client?.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: review)) { (result,error) in
+      _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: review)) { (result,error) in
       }
     }
 
     waitForExpectations(timeout: 10, handler: nil)
-    sub?.cancel()
+    sub.cancel()
     
   }
   
@@ -148,22 +142,22 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Multiple reviews")
     expectation.expectedFulfillmentCount = count*2
     
-    let subAll = client?.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
+    let subAll = client.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
       guard let _ = result?.data else { XCTFail("No subscription result data");  return }
       expectation.fulfill()
     }
     
-    let subEmpire = client?.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
+    let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
       guard let _ = result?.data else { XCTFail("No subscription result data");  return }
       expectation.fulfill()
     }
     
-    let subJedi = client?.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
+    let subJedi = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
       guard let _ = result?.data else { XCTFail("No subscription result data");  return }
       expectation.fulfill()
     }
     
-    let subNewHope = client?.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { (result, error) in
+    let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { (result, error) in
       guard let _ = result?.data else { XCTFail("No subscription result data");  return }
       expectation.fulfill()
     }
@@ -173,15 +167,14 @@ class StarWarsSubscriptionTests: XCTestCase {
     for i in 1...count {
       let review = ReviewInput(stars: i, commentary: "The greatest movie ever!")
       let episode = episodes.sample()
-      _ = client?.perform(mutation: CreateReviewForEpisodeMutation(episode: episode!, review: review)) { (result,error) in
-      }
+      _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: episode!, review: review))
     }
     
     waitForExpectations(timeout: 10, handler: nil)
-    subAll?.cancel()
-    subEmpire?.cancel()
-    subJedi?.cancel()
-    subNewHope?.cancel()
+    subAll.cancel()
+    subEmpire.cancel()
+    subJedi.cancel()
+    subNewHope.cancel()
     
     
   }
