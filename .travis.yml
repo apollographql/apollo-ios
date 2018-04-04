@@ -47,7 +47,7 @@ matrix:
     xcode_scheme: ApolloSQLite
     xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
- - xcode_project: ApolloWebSocket.xcodeproj
+  - xcode_project: ApolloWebSocket.xcodeproj
     xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 8"
