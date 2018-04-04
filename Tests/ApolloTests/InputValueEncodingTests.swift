@@ -86,6 +86,6 @@ class InputValueEncodingTests: XCTestCase {
   func testEncodeInputObjectWithNestedInputObject() {
     let review = ReviewInput(stars: 5, favoriteColor: ColorInput(red: 0, green: 0, blue: 0))
     let map: GraphQLMap = ["review": review]
-    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5, "favoriteColor": ["red": 0, "blue": 0, "green": 0]]])
+    XCTAssertEqual(serializeAndDeserialize(map), ["review": ["stars": 5, "favorite_color": ["red": 0, "blue": 0, "green": 0]]])
   }
 }

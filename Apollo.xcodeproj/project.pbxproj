@@ -869,13 +869,11 @@
 				TargetAttributes = {
 					9F8A95771EC0FC1200304A2D = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 5TL236FN6U;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					9FA6ABBB1EC0A988000017BE = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 5TL236FN6U;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -893,14 +891,12 @@
 					};
 					9FC7504D1D2A532D00458D91 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 5TL236FN6U;
 						DevelopmentTeamName = "Martijn Walraven";
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					9FCE2CF91E6C213D00E34457 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 5TL236FN6U;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -1260,7 +1256,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5TL236FN6U;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1295,7 +1291,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5TL236FN6U;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1329,7 +1325,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5TL236FN6U;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1360,7 +1356,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5TL236FN6U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/ApolloCacheDependentTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1376,7 +1372,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5TL236FN6U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/ApolloCacheDependentTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1391,7 +1387,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5TL236FN6U;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/ApolloCacheDependentTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1436,11 +1432,14 @@
 		9FC6313C1E6AE2080062707E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TL236FN6U;
 				INFOPLIST_FILE = Tests/ApolloPerformanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloPerformanceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestHost iOS.app/TestHost iOS";
 			};
 			name = Debug;
@@ -1448,11 +1447,14 @@
 		9FC6313D1E6AE2080062707E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TL236FN6U;
 				INFOPLIST_FILE = Tests/ApolloPerformanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloPerformanceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestHost iOS.app/TestHost iOS";
 			};
 			name = Release;
@@ -1599,6 +1601,7 @@
 			baseConfigurationReference = 9F98C84D1EC085C400FFD919 /* Framework.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
@@ -1611,6 +1614,7 @@
 			baseConfigurationReference = 9F98C84D1EC085C400FFD919 /* Framework.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
@@ -1623,6 +1627,7 @@
 			baseConfigurationReference = 9F98C84D1EC085C400FFD919 /* Framework.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/StarWarsAPI/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.StarWarsAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1634,6 +1639,7 @@
 			baseConfigurationReference = 9F98C84D1EC085C400FFD919 /* Framework.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/StarWarsAPI/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.StarWarsAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1743,11 +1749,14 @@
 		9FEFCFCF1E6C65CE0061834C /* PerformanceTesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TL236FN6U;
 				INFOPLIST_FILE = Tests/ApolloPerformanceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloPerformanceTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestHost iOS.app/TestHost iOS";
 			};
 			name = PerformanceTesting;
@@ -1757,6 +1766,7 @@
 			baseConfigurationReference = 9F98C84D1EC085C400FFD919 /* Framework.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
@@ -1769,6 +1779,7 @@
 			baseConfigurationReference = 9F98C84D1EC085C400FFD919 /* Framework.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/StarWarsAPI/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.StarWarsAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";

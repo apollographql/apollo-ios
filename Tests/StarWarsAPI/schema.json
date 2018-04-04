@@ -7,7 +7,9 @@
       "mutationType": {
         "name": "Mutation"
       },
-      "subscriptionType": null,
+      "subscriptionType": {
+        "name": "Subscription"
+      },
       "types": [
         {
           "kind": "OBJECT",
@@ -571,6 +573,18 @@
           "name": "Review",
           "description": "Represents a review for a movie",
           "fields": [
+            {
+              "name": "episode",
+              "description": "The movie",
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "Episode",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "stars",
               "description": "The number of stars this review gave, 1-5",
@@ -1156,7 +1170,7 @@
               "defaultValue": null
             },
             {
-              "name": "favoriteColor",
+              "name": "favorite_color",
               "description": "Favorite color, optional",
               "type": {
                 "kind": "INPUT_OBJECT",
@@ -1220,6 +1234,40 @@
             }
           ],
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Subscription",
+          "description": "The subscription type, represents all subscriptions we can make to our data",
+          "fields": [
+            {
+              "name": "reviewAdded",
+              "description": "",
+              "args": [
+                {
+                  "name": "episode",
+                  "description": "",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "Episode",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Review",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },

@@ -48,7 +48,7 @@ public struct ReviewInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
   public init(stars: Int, commentary: Optional<String?> = nil, favoriteColor: Optional<ColorInput?> = nil) {
-    graphQLMap = ["stars": stars, "commentary": commentary, "favoriteColor": favoriteColor]
+    graphQLMap = ["stars": stars, "commentary": commentary, "favorite_color": favoriteColor]
   }
 
   /// 0-5 stars
@@ -4994,6 +4994,108 @@ public final class StarshipQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "coordinates")
+        }
+      }
+    }
+  }
+}
+
+public final class ReviewAddedSubscription: GraphQLSubscription {
+  public let operationDefinition =
+    "subscription ReviewAdded($episode: Episode) {\n  reviewAdded(episode: $episode) {\n    __typename\n    episode\n    stars\n    commentary\n  }\n}"
+
+  public var episode: Episode?
+
+  public init(episode: Episode? = nil) {
+    self.episode = episode
+  }
+
+  public var variables: GraphQLMap? {
+    return ["episode": episode]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Subscription"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("reviewAdded", arguments: ["episode": GraphQLVariable("episode")], type: .object(ReviewAdded.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(reviewAdded: ReviewAdded? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Subscription", "reviewAdded": reviewAdded.flatMap { (value: ReviewAdded) -> ResultMap in value.resultMap }])
+    }
+
+    public var reviewAdded: ReviewAdded? {
+      get {
+        return (resultMap["reviewAdded"] as? ResultMap).flatMap { ReviewAdded(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "reviewAdded")
+      }
+    }
+
+    public struct ReviewAdded: GraphQLSelectionSet {
+      public static let possibleTypes = ["Review"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("episode", type: .scalar(Episode.self)),
+        GraphQLField("stars", type: .nonNull(.scalar(Int.self))),
+        GraphQLField("commentary", type: .scalar(String.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(episode: Episode? = nil, stars: Int, commentary: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Review", "episode": episode, "stars": stars, "commentary": commentary])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The movie
+      public var episode: Episode? {
+        get {
+          return resultMap["episode"] as? Episode
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "episode")
+        }
+      }
+
+      /// The number of stars this review gave, 1-5
+      public var stars: Int {
+        get {
+          return resultMap["stars"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "stars")
+        }
+      }
+
+      /// Comment about the movie
+      public var commentary: String? {
+        get {
+          return resultMap["commentary"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "commentary")
         }
       }
     }

@@ -1,50 +1,55 @@
 language: objective-c
 osx_image: xcode9
+xcode_workspace: Apollo.xcworkspace
 
 matrix:
   include:
-  - xcode_project: Apollo.xcodeproj
-    xcode_scheme: Apollo
+  - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 8"
-  - xcode_project: Apollo.xcodeproj
-    xcode_scheme: Apollo
+  - xcode_scheme: Apollo
     xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
-  - xcode_project: Apollo.xcodeproj
-    xcode_scheme: Apollo
+  - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
-  - xcode_project: Apollo.xcodeproj
-    xcode_scheme: Apollo
+  - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
-  - xcode_project: Apollo.xcodeproj
-    xcode_scheme: Apollo
+  - xcode_scheme: Apollo
     xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
-  - xcode_project: Apollo.xcodeproj
-    xcode_scheme: Apollo
+  - xcode_scheme: Apollo
     xcode_sdk: appletvsimulator11.0
     env: DESTINATION="platform=tvOS Simulator,OS=10.2,name=Apple TV 1080p"
-  - xcode_project: ApolloSQLite.xcodeproj
-    xcode_scheme: ApolloSQLite
+  - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 8"
-  - xcode_project: ApolloSQLite.xcodeproj
-    xcode_scheme: ApolloSQLite
+  - xcode_scheme: ApolloSQLite
     xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
-  - xcode_project: ApolloSQLite.xcodeproj
-    xcode_scheme: ApolloSQLite
+  - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
-  - xcode_project: ApolloSQLite.xcodeproj
-    xcode_scheme: ApolloSQLite
+  - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator11.0
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
-  - xcode_project: ApolloSQLite.xcodeproj
-    xcode_scheme: ApolloSQLite
+  - xcode_scheme: ApolloSQLite
+    xcode_sdk: macosx10.13
+    env: DESTINATION="platform=macOS,arch=x86_64"
+  - xcode_scheme: ApolloWebSocket
+    xcode_sdk: iphonesimulator11.0
+    env: DESTINATION="platform=iOS Simulator,OS=11.0,name=iPhone 8"
+  - xcode_scheme: ApolloWebSocket
+    xcode_sdk: macosx10.13
+    env: DESTINATION="platform=macOS,arch=x86_64"
+  - xcode_scheme: ApolloWebSocket
+    xcode_sdk: iphonesimulator11.0
+    env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
+  - xcode_scheme: ApolloWebSocket
+    xcode_sdk: iphonesimulator11.0
+    env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
+  - xcode_scheme: ApolloWebSocket
     xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
 
@@ -59,5 +64,5 @@ before_install:
 
 script:
   - set -o pipefail
-  - xcodebuild clean build build-for-testing -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
-  - xcodebuild test-without-building -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+  - xcodebuild clean build build-for-testing -workspace "${TRAVIS_XCODE_WORKSPACE}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+  - xcodebuild test-without-building -workspace "${TRAVIS_XCODE_WORKSPACE}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
