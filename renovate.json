@@ -1,3 +1,6 @@
 {
-  "packageFiles": ["docs/package.json"]
+  "packageFiles": ["docs/package.json"],
+  "extends": [
+    "apollo-docs"
+  ]
 }
