@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
+		5B53E4E3207FC1A900878639 /* HTTPNetworkTransportDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53E4E2207FC1A900878639 /* HTTPNetworkTransportDelegateTests.swift */; };
+		5B53E4E6207FCC9C00878639 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53E4E4207FCC9300878639 /* MockURLProtocol.swift */; };
 		5B565283207FA0010022C67C /* URLRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B565282207FA0010022C67C /* URLRequestOperation.swift */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		9F0CA4461EE7F9E90032DD39 /* ApolloTestSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -230,6 +232,8 @@
 /* Begin PBXFileReference section */
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5B565282207FA0010022C67C /* URLRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestOperation.swift; sourceTree = "<group>"; };
+		5B53E4E2207FC1A900878639 /* HTTPNetworkTransportDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPNetworkTransportDelegateTests.swift; sourceTree = "<group>"; };
+		5B53E4E4207FCC9300878639 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
 		9F19D8431EED568200C57247 /* ResultOrPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromise.swift; sourceTree = "<group>"; };
 		9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromiseTests.swift; sourceTree = "<group>"; };
@@ -430,6 +434,7 @@
 				9F8A95811EC0FD3300304A2D /* XCTAssertHelpers.swift */,
 				9F8A95831EC0FD6100304A2D /* XCTestCase+Promise.swift */,
 				9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */,
+				5B53E4E4207FCC9300878639 /* MockURLProtocol.swift */,
 				9F8A95851EC0FD9800304A2D /* TestCacheProvider.swift */,
 				9F8A957A1EC0FC1200304A2D /* ApolloTestSupport.h */,
 				9F8A957B1EC0FC1200304A2D /* Info.plist */,
@@ -558,6 +563,7 @@
 				9FE1C6E61E634C8D00C02284 /* PromiseTests.swift */,
 				9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
+				5B53E4E2207FC1A900878639 /* HTTPNetworkTransportDelegateTests.swift */,
 				9FC750551D2A532D00458D91 /* Info.plist */,
 			);
 			path = ApolloTests;
@@ -1036,6 +1042,7 @@
 			files = (
 				9F8A95841EC0FD6100304A2D /* XCTestCase+Promise.swift in Sources */,
 				9F8A95821EC0FD3300304A2D /* XCTAssertHelpers.swift in Sources */,
+				5B53E4E6207FCC9C00878639 /* MockURLProtocol.swift in Sources */,
 				9F10A51E1EC1BA0F0045E62B /* MockNetworkTransport.swift in Sources */,
 				9F8A95861EC0FD9800304A2D /* TestCacheProvider.swift in Sources */,
 			);
@@ -1122,6 +1129,7 @@
 				9FF90A6F1DDDEB420034C3B6 /* InputValueEncodingTests.swift in Sources */,
 				9FE1C6E71E634C8D00C02284 /* PromiseTests.swift in Sources */,
 				9FADC8541E6B86D900C677E6 /* DataLoaderTests.swift in Sources */,
+				5B53E4E3207FC1A900878639 /* HTTPNetworkTransportDelegateTests.swift in Sources */,
 				9F8622FA1EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift in Sources */,
 				9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,

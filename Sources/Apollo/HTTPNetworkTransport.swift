@@ -53,7 +53,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
-  weak var delegate: HTTPNetworkTransportDelegate?
+  public weak var delegate: HTTPNetworkTransportDelegate?
 
   /// Creates a network transport with the specified server URL and session configuration.
   ///
