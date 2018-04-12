@@ -86,7 +86,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
     
-    let operation = URLRequestOperation(session: session, request: request) { (data: Data?, response: URLResponse?, error: Error?) in
+    let requestOperation = URLRequestOperation(session: session, request: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
         completionHandler(nil, error)
         return
@@ -119,14 +119,14 @@ public class HTTPNetworkTransport: NetworkTransport {
     
     if let delegate = delegate {
       delegate.networkTransport(self, prepareRequest: request) { (modifiedRequest: URLRequest) in
-        operation.request = modifiedRequest
-        operation.start()
+        requestOperation.request = modifiedRequest
+        requestOperation.start()
       }
     } else {
-      operation.start()
+      requestOperation.start()
     }
 
-    return operation
+    return requestOperation
   }
 
   private let sendOperationIdentifiers: Bool
