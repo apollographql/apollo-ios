@@ -41,22 +41,32 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   }
 }
 
+/// Delegate to respond to hooks in the network request lifecycle.
+public protocol HTTPNetworkTransportDelegate: class {
+  /// Opportunity for the delegate to modify the URLRequest before it is sent. `completionHandler` must be called with the
+  /// desired URLRequest to send. 
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, prepareRequest request: URLRequest, completionHandler: @escaping (URLRequest) -> Void)
+}
+
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
-  
+  weak var delegate: HTTPNetworkTransportDelegate?
+
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  ///   - delegate: Delegate to respond to hooks in the network request lifecycle. Defaults to nil.
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false, delegate: HTTPNetworkTransportDelegate? = nil) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
+    self.delegate = delegate
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -76,7 +86,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
     
-    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+    let operation = URLRequestOperation(session: session, request: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
         completionHandler(nil, error)
         return
@@ -107,9 +117,16 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
     }
     
-    task.resume()
-    
-    return task
+    if let delegate = delegate {
+      delegate.networkTransport(self, prepareRequest: request) { (modifiedRequest: URLRequest) in
+        operation.request = modifiedRequest
+        operation.start()
+      }
+    } else {
+      operation.start()
+    }
+
+    return operation
   }
 
   private let sendOperationIdentifiers: Bool
