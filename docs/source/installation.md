@@ -2,7 +2,7 @@
 title: Installation
 ---
 
-Apollo iOS requires Xcode 8, which you can install from the [Mac App Store](https://itunes.apple.com/en/app/xcode/id497799835?mt=12).
+Apollo iOS requires the latest Xcode, which can be installed from the [Mac App Store](http://appstore.com/mac/apple/xcode).
 
 Follow along with these steps (described in detail below) to use Apollo iOS in your app:
 
