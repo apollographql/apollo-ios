@@ -24,15 +24,15 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 
 1. Run `carthage update`.
 
-1. Drag and drop `Apollo.framework` from the `Carthage/Build/iOS` folder to the “Linked Frameworks and Libraries” section of your application targets’ “General” settings tab.
+1. Drag and drop `Apollo.framework` from the `Carthage/Build/iOS` folder to the "Linked Frameworks and Libraries" section of your application targets' "General" settings tab.
 
-1. On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script in which you specify your shell (ex: `bin/sh`), add the following contents to the script area below the shell:
+1. On your application targets’ "Build Phases" settings tab, click the "+" icon and choose "New Run Script Phase". Create a Run Script in which you specify your shell (ex: `bin/sh`), add the following contents to the script area below the shell:
 
  ```sh
  /usr/local/bin/carthage copy-frameworks
  ```
 
- and add the paths to the frameworks you want to use under “Input Files”, e.g.:
+ and add the paths to the frameworks you want to use under "Input Files", e.g.:
 
  ```
  $(SRCROOT)/Carthage/Build/iOS/Apollo.framework
@@ -59,9 +59,9 @@ You can also manually clone the [`apollo-ios` repository](https://github.com/apo
 
 <h2 id="adding-build-step">Adding a code generation build step</h2>
 
-In order to invoke `apollo-codegen` as part of the Xcode build process, create a build step that runs before “Compile Sources”.
+In order to invoke `apollo-codegen` as part of the Xcode build process, create a build step that runs before "Compile Sources".
 
-1. On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script, change its name to “Generate Apollo GraphQL API” and drag it just above “Compile Sources”. Then add the following contents to the script area below the shell:
+1. On your application targets’ "Build Phases" settings tab, click the "+" icon and choose "New Run Script Phase". Create a Run Script, change its name to "Generate Apollo GraphQL API" and drag it just above "Compile Sources". Then add the following contents to the script area below the shell:
 
 for iOS Project
 ```sh
