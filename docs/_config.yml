@@ -15,7 +15,7 @@ sidebar_categories:
   - watching-queries
   - mutations
 github_repo: apollographql/apollo-ios
-content_root: source
+content_root: docs/source
 
 url: https://www.apollographql.com/docs/ios/
 root: /docs/ios/
