@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
 
   s.summary      = "A GraphQL client for iOS, written in Swift."
 
-  s.source       = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
+  s.source       = { :git => 'https://github.com/mikengyn/apollo-ios.git', :tag => s.version }
 
   s.requires_arc = true
 
