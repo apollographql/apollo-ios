@@ -53,9 +53,20 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  public convenience init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+    self.init(url: url, session: URLSession(configuration: configuration),
+              sendOperationIdentifiers: sendOperationIdentifiers)
+  }
+
+  /// Creates a network transport with the specified server URL and session.
+  ///
+  /// - Parameters:
+  ///   - url: The URL of a GraphQL server to connect to.
+  ///   - session: An URLSession instance to be used for ensuing operations.
+  ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
+  public init(url: URL, session: URLSession, sendOperationIdentifiers: Bool = false) {
     self.url = url
-    self.session = URLSession(configuration: configuration)
+    self.session = session
     self.sendOperationIdentifiers = sendOperationIdentifiers
   }
   
