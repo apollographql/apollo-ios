@@ -93,7 +93,7 @@ public final class Promise<Value> {
     semaphore.wait()
   }
   
-  public func await() throws -> Value {
+  @discardableResult public func await() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
     
     var result: Result<Value>? = nil
