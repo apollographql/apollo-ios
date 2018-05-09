@@ -47,7 +47,7 @@ public enum Episode: RawRepresentable, Equatable, Apollo.JSONDecodable, Apollo.J
 public struct ReviewInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(stars: Int, commentary: Optional<String?> = nil, favoriteColor: Optional<ColorInput?> = nil) {
+  public init(stars: Int, commentary: Swift.Optional<String?> = nil, favoriteColor: Swift.Optional<ColorInput?> = nil) {
     graphQLMap = ["stars": stars, "commentary": commentary, "favorite_color": favoriteColor]
   }
 
@@ -62,9 +62,9 @@ public struct ReviewInput: GraphQLMapConvertible {
   }
 
   /// Comment about the movie, optional
-  public var commentary: Optional<String?> {
+  public var commentary: Swift.Optional<String?> {
     get {
-      return graphQLMap["commentary"] as! Optional<String?>
+      return graphQLMap["commentary"] as! Swift.Optional<String?>
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "commentary")
@@ -72,12 +72,12 @@ public struct ReviewInput: GraphQLMapConvertible {
   }
 
   /// Favorite color, optional
-  public var favoriteColor: Optional<ColorInput?> {
+  public var favoriteColor: Swift.Optional<ColorInput?> {
     get {
-      return graphQLMap["favoriteColor"] as! Optional<ColorInput?>
+      return graphQLMap["favorite_color"] as! Swift.Optional<ColorInput?>
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "favoriteColor")
+      graphQLMap.updateValue(newValue, forKey: "favorite_color")
     }
   }
 }

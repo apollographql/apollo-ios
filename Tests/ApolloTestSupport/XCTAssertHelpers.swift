@@ -14,7 +14,7 @@ public func XCTAssertEqual<T: Equatable>(_ expression1: @autoclosure () throws -
     break
   case let (value1?, value2?):
     // FIXME: This ignores nil values in both lists, which is probably not what you want for true equality checking
-    XCTAssertEqual(value1.flatMap { $0 }, value2.flatMap { $0 }, message(), file: file, line: line)
+    XCTAssertEqual(value1.compactMap { $0 }, value2.compactMap { $0 }, message(), file: file, line: line)
   default:
     XCTFail(message(), file: file, line: line)
   }

@@ -105,7 +105,7 @@ class ParseQueryResponseTests: XCTestCase {
     let (result, _) = try response.parseResult().await()
 
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
-    let friendsNames = result.data?.hero?.friends?.flatMap { $0?.name }
+    let friendsNames = result.data?.hero?.friends?.compactMap { $0?.name }
     XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
   }
   
@@ -148,7 +148,7 @@ class ParseQueryResponseTests: XCTestCase {
     let (result, _) = try response.parseResult().await()
     
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
-    let friendsNames = result.data?.hero?.fragments.friendsNames.friends?.flatMap { $0?.name }
+    let friendsNames = result.data?.hero?.fragments.friendsNames.friends?.compactMap { $0?.name }
     XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
   }
 
