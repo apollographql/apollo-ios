@@ -1,4 +1,2 @@
-github "daltoniam/Starscream" "3.0.4"
-github "daltoniam/common-crypto-spm" "1.1.0"
-github "daltoniam/zlib-spm" "1.1.0"
-github "stephencelis/SQLite.swift" "0.11.4"
+github "daltoniam/Starscream" "3.0.5"
+github "stephencelis/SQLite.swift" "0.11.5"
