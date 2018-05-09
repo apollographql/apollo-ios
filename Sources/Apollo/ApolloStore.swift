@@ -239,7 +239,7 @@ public final class ApolloStore {
         if let didChangeKeysFunc = self.updateChangedKeysFunc {
             didChangeKeysFunc(changedKeys, nil)
         }
-      }.await()
+      }.wait()
     }
   }
 }
