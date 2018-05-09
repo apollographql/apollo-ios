@@ -12,7 +12,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator11.3
-    env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
+    env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator11.3
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
@@ -30,7 +30,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator11.3
-    env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
+    env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator11.3
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
@@ -45,7 +45,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator11.3
-    env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7"
+    env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator11.3
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
