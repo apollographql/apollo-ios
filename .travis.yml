@@ -51,9 +51,9 @@ cache:
 before_install:
   - (./scripts/install-or-update-starwars-server.sh)
   - (cd ../starwars-server && npm start) &
-  - npm install -g apollo-codegen
+  - npm install -g apollo-codegen@0.20.0-alpha.943ba290
 
 script:
   - set -o pipefail
-  - xcodebuild clean build build-for-testing -workspace "${TRAVIS_XCODE_WORKSPACE}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+  - xcodebuild clean build build-for-testing -workspace "${TRAVIS_XCODE_WORKSPACE}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}"
   - xcodebuild test-without-building -workspace "${TRAVIS_XCODE_WORKSPACE}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
