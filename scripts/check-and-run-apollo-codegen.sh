@@ -1,5 +1,5 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CODEGEN_VERSION=0.19
+REQUIRED_APOLLO_CODEGEN_VERSION=0.20.0-alpha.f3534c9a
 
 # Part of this code has been adapted from
 # https://github.com/facebook/react-native/blob/master/scripts/react-native-xcode.sh
