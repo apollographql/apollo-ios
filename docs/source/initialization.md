@@ -10,7 +10,7 @@ let apollo = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 
 <h2 id="adding-headers">Adding additional headers</h2>
 
-If you need to add additional headers to requests, to include authentication details for example, you need to create an instance of `HTTPNetworkTransport` and use `set(httpHeaders:)`. can be called at any time, just keep in mind that it will override any previously set headers.
+If you need to add additional headers to requests, to include authentication details for example, you need to create an instance of `HTTPNetworkTransport` and use `set(httpHeaders:)`. This function can be called at any time, just keep in mind that it will override any previously set headers.
 
 ```swift
 let url = URL(string: "http://localhost:8080/graphql")!
