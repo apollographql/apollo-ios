@@ -18,7 +18,7 @@ matrix:
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_scheme: Apollo
     xcode_sdk: appletvsimulator11.4
-    env: DESTINATION="platform=tvOS Simulator,OS=10.2,name=Apple TV 1080p"
+    env: DESTINATION="platform=tvOS Simulator,OS=11.4,name=Apple TV 1080p"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: macosx10.13
     env: DESTINATION="platform=macOS,arch=x86_64"
