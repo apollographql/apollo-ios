@@ -1,0 +1,6 @@
+[submodule "Carthage/Checkouts/Starscream"]
+	path = Carthage/Checkouts/Starscream
+	url = https://github.com/daltoniam/Starscream.git
+[submodule "Carthage/Checkouts/SQLite.swift"]
+	path = Carthage/Checkouts/SQLite.swift
+	url = https://github.com/stephencelis/SQLite.swift.git
