@@ -47,5 +47,6 @@ public extension GraphQLSubscription {
 }
 
 public protocol GraphQLFragment: GraphQLSelectionSet {
+  static var fragmentDefinition: String { get }
   static var possibleTypes: [String] { get }
 }
