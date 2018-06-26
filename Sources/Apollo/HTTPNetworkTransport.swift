@@ -23,6 +23,12 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   /// Information about the response as provided by the server.
   public let response: HTTPURLResponse
   public let kind: ErrorKind
+
+    public init(responseBody body: Data? = nil, httpResponse response: HTTPURLResponse, errorKind kind: ErrorKind) {
+        self.body = body
+        self.response = response
+        self.kind = kind
+    }
   
   public var bodyDescription: String {
     if let body = body {
@@ -87,18 +93,18 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
       
       if (!httpResponse.isSuccessful) {
-        completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
+        completionHandler(nil, GraphQLHTTPResponseError(responseBody: data, httpResponse: httpResponse, errorKind: .errorResponse))
         return
       }
       
       guard let data = data else {
-        completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
+        completionHandler(nil, GraphQLHTTPResponseError(responseBody: nil, httpResponse: httpResponse, errorKind: .invalidResponse))
         return
       }
       
       do {
         guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
-          throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
+          throw GraphQLHTTPResponseError(responseBody: data, httpResponse: httpResponse, errorKind: .invalidResponse)
         }
         let response = GraphQLResponse(operation: operation, body: body)
         completionHandler(response, nil)
