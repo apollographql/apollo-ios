@@ -26,7 +26,7 @@ public struct GraphQLError: Error {
   
   /// A list of locations in the requested GraphQL document associated with the error.
   public var locations: [Location]? {
-    return (self["locations"] as? [JSONObject])?.flatMap(Location.init)
+    return (self["locations"] as? [JSONObject])?.compactMap(Location.init)
   }
   
   /// Represents a location in a GraphQL document.
