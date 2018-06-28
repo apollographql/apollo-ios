@@ -6,7 +6,7 @@ import Foundation
 public struct GraphQLError: Error {
   private let object: JSONObject
   
-  init(_ object: JSONObject) {
+  public init(_ object: JSONObject) {
     self.object = object
   }
   
