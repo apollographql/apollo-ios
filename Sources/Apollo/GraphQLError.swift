@@ -28,6 +28,11 @@ public struct GraphQLError: Error {
   public var locations: [Location]? {
     return (self["locations"] as? [JSONObject])?.compactMap(Location.init)
   }
+
+  /// A map which services can use however they see fit to provide additional information in errors to clients.
+  public var extensions: [String : Any]? {
+    return self["extensions"] as? [String : Any]
+  }
   
   /// Represents a location in a GraphQL document.
   public struct Location {
