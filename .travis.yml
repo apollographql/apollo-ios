@@ -51,7 +51,7 @@ cache:
 before_install:
   - (./scripts/install-or-update-starwars-server.sh)
   - (cd ../starwars-server && npm start) &
-  - npm install -g apollo-codegen
+  - npm install -g apollo
 
 script:
   - set -o pipefail
