@@ -5,7 +5,7 @@ import Foundation
 ///  - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
 public struct GraphQLError: Error {
   private let object: JSONObject
-
+  
   public init(_ object: JSONObject) {
     self.object = object
   }
