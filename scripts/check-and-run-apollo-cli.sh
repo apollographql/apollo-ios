@@ -1,5 +1,5 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CLI_VERSION=1.1.1
+REQUIRED_APOLLO_CLI_VERSION=1.2.0-alpha.c03e4b26
 
 # Part of this code has been adapted from
 # https://github.com/facebook/react-native/blob/master/scripts/react-native-xcode.sh
