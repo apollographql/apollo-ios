@@ -85,7 +85,7 @@ exit 1
 fi
 
 cd "${SRCROOT}/${TARGET_NAME}"
-$APOLLO_FRAMEWORK_PATH/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema schema.json API.swift
+$APOLLO_FRAMEWORK_PATH/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
 ```
 
 
