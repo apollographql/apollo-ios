@@ -16,10 +16,10 @@ public protocol ApolloWebSocketClient: WebSocketClient {
 public class WebSocketTransport {
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
   let serializationFormat = JSONSerializationFormat.self
+  var reconnect = false
 
   private let protocols = ["graphql-ws"]
   internal let websocket: WebSocketClient
-  private var reconnect = false
   private var acked = false
 
   private var messageQueue: [Int: String] = [:]
@@ -102,8 +102,7 @@ public class WebSocketTransport {
     print("WebSocketTransport::unprocessed event \(data)")
   }
 
-  public func initServer(reconnect: Bool = true) {
-    self.reconnect = reconnect
+  private func initServer() {
     self.acked = false
 
     if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
