@@ -25,6 +25,9 @@ public class WebSocketTransport {
   private var messageQueue: [Int: String] = [:]
   private var connectingPayload: GraphQLMap?
 
+  private let processingQueue = DispatchQueue(label: "com.apollographql.websocket-processing")
+  private let lock = NSLock()
+
   private var subscribers = [String: (JSONObject?, Error?) -> Void]()
   private var subscriptions : [String: String] = [:]
 
@@ -63,14 +66,18 @@ public class WebSocketTransport {
         if let id = id {
           // remove the callback if NOT a subscription
           if subscriptions[id] == nil {
+            lock.lock()
             subscribers.removeValue(forKey: id)
+            lock.unlock()
           }
         } else {
           notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
         }
 
       case .connectionAck:
+        lock.lock()
         acked = true
+        lock.unlock()
         processWriteQueue()
 
       case .connectionKeepAlive:
@@ -89,10 +96,16 @@ public class WebSocketTransport {
   }
 
   private func processWriteQueue() {
-    guard !self.messageQueue.isEmpty else { return }
+    lock.lock()
+    guard !self.messageQueue.isEmpty else {
+      lock.unlock()
+      return
+    }
 
     let queue = self.messageQueue.sorted(by: { $0.0 < $1.0 })
     self.messageQueue.removeAll()
+    lock.unlock()
+
     for (id, msg) in queue {
       write(msg,id: id)
     }
@@ -154,10 +167,12 @@ public class WebSocketTransport {
     if let str = OperationMessage(payload: body, id: sequenceNumber).rawMessage {
       write(str)
 
+      lock.lock()
       subscribers[sequenceNumber] = resultHandler
       if operation.operationType == .subscription {
         subscriptions[sequenceNumber] = str
       }
+      lock.unlock()
 
       return sequenceNumber
     }
@@ -180,8 +195,10 @@ public class WebSocketTransport {
     if let str = OperationMessage(id: subscriptionId, type: .stop).rawMessage {
       write(str)
     }
+    lock.lock()
     subscribers.removeValue(forKey: subscriptionId)
     subscriptions.removeValue(forKey: subscriptionId)
+    lock.unlock()
   }
 
   fileprivate final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
@@ -289,15 +306,17 @@ extension WebSocketTransport: NetworkTransport {
 
 extension WebSocketTransport: WebSocketDelegate {
   public func websocketDidConnect(socket: WebSocketClient) {
-    initServer()
-    if reconnected {
-      // re-send the subscriptions whenever we are re-connected
-      // for the first connect, any subscriptions are already in queue
-      for (_, msg) in self.subscriptions {
-        write(msg)
+    processingQueue.async {
+      self.initServer()
+      if self.reconnected {
+        // re-send the subscriptions whenever we are re-connected
+        // for the first connect, any subscriptions are already in queue
+        for (_, msg) in self.subscriptions {
+          self.write(msg)
+        }
       }
+      self.reconnected = true
     }
-    reconnected = true
   }
 
   public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
@@ -309,19 +328,27 @@ extension WebSocketTransport: WebSocketDelegate {
       }
     }
 
-    acked = false // need new connect and ack before sending
+    lock.lock()
+    self.acked = false // need new connect and ack before sending
+    lock.unlock()
 
-    if (reconnect) {
-      websocket.connect();
+    processingQueue.async {
+      if self.reconnect {
+        self.websocket.connect();
+      }
     }
   }
 
   public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-    processMessage(socket: socket, text: text)
+    processingQueue.async {
+      self.processMessage(socket: socket, text: text)
+    }
   }
 
   public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-    processMessage(socket: socket, data: data)
+    processingQueue.async {
+      self.processMessage(socket: socket, data: data)
+    }
   }
 }
 
