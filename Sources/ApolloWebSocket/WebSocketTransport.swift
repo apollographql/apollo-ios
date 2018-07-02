@@ -26,7 +26,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   private var acked = false
 
   private var messageQueue: [Int: String] = [:]
-  private var connectingParams: [String: String]?
+  private var connectingPayload: GraphQLMap?
 
   private var subscribers = [String: (JSONObject?, Error?) -> Void]()
   private var subscriptions : [String: String] = [:]
@@ -35,8 +35,8 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
 
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
 
-  public init(url: URL, sendOperationIdentifiers: Bool = false, requestHeaders: [String: String] = [:], connectingParams: [String:String]? = [:]) {
-    self.connectingParams = connectingParams
+  public init(url: URL, sendOperationIdentifiers: Bool = false, requestHeaders: [String: String] = [:], connectingPayload: GraphQLMap? = [:]) {
+    self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     var request = URLRequest(url: url)
     request.allHTTPHeaderFields = requestHeaders
@@ -46,8 +46,8 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.websocket?.connect()
   }
 
-  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  requestHeaders: [String: String] = [:],  connectingParams: [String:String]? = [:]) {
-    self.connectingParams = connectingParams
+  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  requestHeaders: [String: String] = [:],  connectingPayload: GraphQLMap? = [:]) {
+    self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     if var request = request {
       request.allHTTPHeaderFields = requestHeaders
@@ -186,7 +186,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.reconnect = reconnect
     self.acked = false
 
-    if let str = OperationMessage(payload: self.connectingParams, type: .connectionInit).rawMessage {
+    if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
       write(str, force:true)
     }
   }
