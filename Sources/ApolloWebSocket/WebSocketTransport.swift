@@ -15,11 +15,10 @@ public protocol ApolloWebSocketClient: WebSocketClient {
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
 public class WebSocketTransport {
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
-  var websocket: WebSocketClient? = nil
   let serializationFormat = JSONSerializationFormat.self
 
   private let protocols = ["graphql-ws"]
-
+  internal let websocket: WebSocketClient
   private var reconnect = false
   private var acked = false
 
@@ -39,30 +38,21 @@ public class WebSocketTransport {
     var request = URLRequest(url: url)
     request.allHTTPHeaderFields = requestHeaders
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
-
-    self.websocket?.delegate = self
-    self.websocket?.connect()
+    self.websocket.delegate = self
+    self.websocket.connect()
   }
 
-  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  requestHeaders: [String: String] = [:],  connectingPayload: GraphQLMap? = [:]) {
+  public init(request: URLRequest, sendOperationIdentifiers: Bool = false,  connectingPayload: GraphQLMap? = [:]) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
-    if var request = request {
-      request.allHTTPHeaderFields = requestHeaders
-      self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
-      self.websocket?.delegate = self
-      self.websocket?.connect()
-    }
-  }
 
-  public func connect(request: URLRequest) {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
-    self.websocket?.delegate = self
-    self.websocket?.connect()
+    self.websocket.delegate = self
+    self.websocket.connect()
   }
 
   public func isConnected() -> Bool {
-    return websocket?.isConnected ?? false
+    return websocket.isConnected
   }
 
   private func processMessage(socket: WebSocketClient, text: String) {
@@ -142,8 +132,6 @@ public class WebSocketTransport {
   }
 
   private func write(_ str: String, force forced: Bool = false, id : Int? = nil) {
-    guard let websocket = websocket else { return }
-
     if websocket.isConnected && (acked || forced) {
       websocket.write(string: str)
     } else {
@@ -160,8 +148,8 @@ public class WebSocketTransport {
   }
 
   deinit {
-    websocket?.disconnect()
-    websocket?.delegate = nil
+    websocket.disconnect()
+    websocket.delegate = nil
   }
 
   fileprivate func nextSequenceNumber() -> Int {
@@ -335,7 +323,7 @@ extension WebSocketTransport: WebSocketDelegate {
     acked = false // need new connect and ack before sending
 
     if (reconnect) {
-      websocket?.connect();
+      websocket.connect();
     }
   }
 

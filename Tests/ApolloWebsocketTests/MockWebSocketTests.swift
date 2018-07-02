@@ -7,7 +7,7 @@ extension WebSocketTransport {
   func write(message: GraphQLMap) {
     let serialized = try! JSONSerializationFormat.serialize(value: message)
     if let str = String(data: serialized, encoding: .utf8) {
-      self.websocket?.write(string: str)
+      self.websocket.write(string: str)
     }
   }
 }
