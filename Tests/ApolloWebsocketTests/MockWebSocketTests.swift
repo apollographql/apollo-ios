@@ -20,7 +20,7 @@ class MockWebSocketTests: XCTestCase {
     super.setUp()
   
     WebSocketTransport.provider = MockWebSocket.self
-    networkTransport = WebSocketTransport(url: URL(string: "http://localhost/dummy_url")!)
+    networkTransport = WebSocketTransport(request: URLRequest(url: URL(string: "http://localhost/dummy_url")!))
     client = ApolloClient(networkTransport: networkTransport!)
   }
     

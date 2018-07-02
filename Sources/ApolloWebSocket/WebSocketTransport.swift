@@ -32,16 +32,6 @@ public class WebSocketTransport {
   private var reconnected: Bool = false
   private var sequenceNumber: Int = 0
 
-  public init(url: URL, sendOperationIdentifiers: Bool = false, requestHeaders: [String: String] = [:], connectingPayload: GraphQLMap? = [:]) {
-    self.connectingPayload = connectingPayload
-    self.sendOperationIdentifiers = sendOperationIdentifiers
-    var request = URLRequest(url: url)
-    request.allHTTPHeaderFields = requestHeaders
-    self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
-    self.websocket.delegate = self
-    self.websocket.connect()
-  }
-
   public init(request: URLRequest, sendOperationIdentifiers: Bool = false,  connectingPayload: GraphQLMap? = [:]) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers

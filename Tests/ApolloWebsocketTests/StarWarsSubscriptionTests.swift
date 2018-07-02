@@ -12,7 +12,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   override func setUp() {
     super.setUp()
     
-    let networkTransport = WebSocketTransport(url: URL(string: SERVER)!)
+    let networkTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
     client = ApolloClient(networkTransport: networkTransport)
   }
   
