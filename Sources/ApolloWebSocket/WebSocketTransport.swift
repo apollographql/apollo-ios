@@ -26,7 +26,6 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   private var acked = false
 
   private var messageQueue: [Int: String] = [:]
-  private var params: [String: String]?
   private var connectingParams: [String: String]?
 
   private var subscribers = [String: (JSONObject?, Error?) -> Void]()
@@ -36,28 +35,22 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
 
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
 
-  public init(url: URL, sendOperationIdentifiers: Bool = false, params: [String:String]? = nil, connectingParams: [String:String]? = [:]) {
-    self.params = params
+  public init(url: URL, sendOperationIdentifiers: Bool = false, requestHeaders: [String: String] = [:], connectingParams: [String:String]? = [:]) {
     self.connectingParams = connectingParams
     self.sendOperationIdentifiers = sendOperationIdentifiers
     var request = URLRequest(url: url)
-    if let params = self.params {
-      request.allHTTPHeaderFields = params
-    }
+    request.allHTTPHeaderFields = requestHeaders
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
 
     self.websocket?.delegate = self
     self.websocket?.connect()
   }
 
-  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  params: [String:String]? = nil,  connectingParams: [String:String]? = [:]) {
-    self.params = params
+  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  requestHeaders: [String: String] = [:],  connectingParams: [String:String]? = [:]) {
     self.connectingParams = connectingParams
     self.sendOperationIdentifiers = sendOperationIdentifiers
     if var request = request {
-      if let params = self.params {
-        request.allHTTPHeaderFields = params
-      }
+      request.allHTTPHeaderFields = requestHeaders
       self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
       self.websocket?.delegate = self
       self.websocket?.connect()
