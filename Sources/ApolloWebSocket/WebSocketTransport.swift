@@ -116,12 +116,13 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
             notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
           }
           
-        case OperationMessage.Types.CONNECTION_ACK.rawValue,
-             OperationMessage.Types.CONNECTION_KEEP_ALIVE.rawValue:
-          
-          acked = (type == OperationMessage.Types.CONNECTION_ACK.rawValue)
+        case OperationMessage.Types.CONNECTION_ACK.rawValue:
+          acked = true
           writeQueue()
-          
+
+        case OperationMessage.Types.CONNECTION_KEEP_ALIVE.rawValue:
+          writeQueue()
+
         default:
           notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
         }
