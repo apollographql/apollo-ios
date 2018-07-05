@@ -17,7 +17,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
 
   var reconnect = false
-  var websocket: WebSocketClient? = nil
+  var websocket: ApolloWebSocketClient
   var error: Error? = nil
   let serializationFormat = JSONSerializationFormat.self
 
@@ -26,8 +26,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   private var acked = false
   
   private var queue: [Int: String] = [:]
-  private var params: [String: String]?
-  private var connectingParams: GraphQLMap?
+  private var connectingPayload: GraphQLMap?
 
   private var subscribers = [String: (JSONObject?, Error?) -> Void]()
   private var subscriptions : [String: String] = [:]
@@ -35,30 +34,14 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   private let sendOperationIdentifiers: Bool
   fileprivate var sequenceNumber = 0
   fileprivate var reconnected = false
-  
-  public convenience init(url: URL, sendOperationIdentifiers: Bool = false, params: [String:String]? = nil, connectingParams: GraphQLMap? = [:]) {
-    let request = URLRequest(url: url)
-    self.init(request: request, sendOperationIdentifiers: sendOperationIdentifiers, params: params, connectingParams: connectingParams)
-  }
-  
-  public init(request: URLRequest? = nil, sendOperationIdentifiers: Bool = false,  params: [String:String]? = nil,  connectingParams: GraphQLMap? = [:]) {
-    self.params = params
-    self.connectingParams = connectingParams
+
+  public init(request: URLRequest, sendOperationIdentifiers: Bool = false,  connectingPayload: GraphQLMap? = [:]) {
+    self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
-    if var request = request {
-      if let params = self.params {
-        request.allHTTPHeaderFields = params
-      }
-      self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
-      self.websocket?.delegate = self
-      self.websocket?.connect()
-    }
-  }
-  
-  public func connect(request: URLRequest) {
+
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
-    self.websocket?.delegate = self
-    self.websocket?.connect()
+    self.websocket.delegate = self
+    self.websocket.connect()
   }
   
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
@@ -78,7 +61,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   }
   
   public func isConnected() -> Bool {
-    return websocket?.isConnected ?? false
+    return websocket.isConnected
   }
   
   private func processMessage(socket: WebSocketClient, text: String) {
@@ -165,7 +148,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     acked = false // need new connect and ack before sending
     
     if reconnect {
-      websocket?.connect();
+      websocket.connect();
     }
   }
   
@@ -181,7 +164,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.reconnect = reconnect
     self.acked = false
     
-    if let str = OperationMessage(payload: self.connectingParams, type: .connectionInit).rawMessage {
+    if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
       write(str, force:true)
     }
     
@@ -197,10 +180,6 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   }
   
   private func write(_ str: String, force forced: Bool = false, id: Int? = nil) {
-    guard let websocket = websocket else {
-      return
-    }
-
     if websocket.isConnected && (acked || forced) {
       websocket.write(string: str)
     } else {
@@ -217,8 +196,8 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   }
   
   deinit {
-    websocket?.disconnect()
-    websocket?.delegate = nil
+    websocket.disconnect()
+    websocket.delegate = nil
   }
   
   fileprivate func nextSequenceNumber() -> Int {

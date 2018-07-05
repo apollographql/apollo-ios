@@ -271,7 +271,7 @@ class StarWarsWebsSocketTests: XCTestCase {
   
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = WebSocketTransport(url: URL(string: SERVER)!)
+      let network = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 
@@ -298,7 +298,7 @@ class StarWarsWebsSocketTests: XCTestCase {
 
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     withCache { (cache) in
-      let network = WebSocketTransport(url: URL(string: SERVER)!)
+      let network = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 

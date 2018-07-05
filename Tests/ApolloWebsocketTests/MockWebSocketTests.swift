@@ -7,7 +7,7 @@ extension WebSocketTransport {
   func write(message: GraphQLMap) {
     let serialized = try! JSONSerializationFormat.serialize(value: message)
     if let str = String(data: serialized, encoding: .utf8) {
-      self.websocket?.write(string: str)
+      self.websocket.write(string: str)
     }
   }
 }
@@ -20,7 +20,7 @@ class MockWebSocketTests: XCTestCase {
     super.setUp()
   
     WebSocketTransport.provider = MockWebSocket.self
-    networkTransport = WebSocketTransport(url: URL(string: "http://localhost/dummy_url")!)
+    networkTransport = WebSocketTransport(request: URLRequest(url: URL(string: "http://localhost/dummy_url")!))
     client = ApolloClient(networkTransport: networkTransport!)
   }
     
