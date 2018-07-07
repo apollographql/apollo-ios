@@ -49,9 +49,11 @@ cache:
     - ../starwars-server
 
 before_install:
+  - nvm install 8
+  - nvm alias default 8
   - (./scripts/install-or-update-starwars-server.sh)
   - (cd ../starwars-server && npm start) &
-  - npm install -g apollo-codegen
+  - npm install -g apollo
 
 script:
   - set -o pipefail

@@ -8,7 +8,7 @@ Note that when using Apollo iOS, you don't have to learn anything special about 
 
 Apollo iOS takes a schema and a set of `.graphql` files and uses these to generate code you can use to execute queries and access typed results.
 
-> All `.graphql` files in your project (or the subset you specify as input to `apollo-codegen` if you customize the script you define as the code generation build phase) will be combined and treated as one big GraphQL document. That means fragments defined in one `.graphql` file are available to all other `.graphql` files for example, but it also means operation names and fragment names have to be unique and you will receive validation errors if they are not.
+> All `.graphql` files in your project (or the subset you specify as input to `apollo` if you customize the script you define as the code generation build phase) will be combined and treated as one big GraphQL document. That means fragments defined in one `.graphql` file are available to all other `.graphql` files for example, but it also means operation names and fragment names have to be unique and you will receive validation errors if they are not.
 
 <h2 id="creating-queries">Creating queries</h2>
 

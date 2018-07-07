@@ -1,5 +1,5 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CODEGEN_VERSION=0.20
+REQUIRED_APOLLO_CLI_VERSION=1.2.0
 
 # Part of this code has been adapted from
 # https://github.com/facebook/react-native/blob/master/scripts/react-native-xcode.sh
@@ -7,20 +7,20 @@ REQUIRED_APOLLO_CODEGEN_VERSION=0.20
 # This script is supposed to be invoked as part of the Xcode build process
 # and relies on environment variables set by Xcode
 
-install_apollo_codegen() {
+install_apollo_cli() {
   # Exit immediately if the command fails
   set -e
-  npm install -g apollo-codegen@$REQUIRED_APOLLO_CODEGEN_VERSION
+  npm install -g apollo@$REQUIRED_APOLLO_CLI_VERSION
   set +e
 }
 
 # We consider versions to be compatible if the major and minor versions match
 are_versions_compatible() {
-  [[ "$(cut -d. -f1-2 <<< $1)" == "$(cut -d. -f1-2 <<< $2)" ]]
+  [[ "$(cut -d/ -f2 <<< $1 | cut -d. -f1-2)" == "$(cut -d/ -f2 <<< $2 | cut -d. -f1-2)" ]]
 }
 
 get_installed_version() {
-  version=$(apollo-codegen --version)
+  version=$(apollo -v)
   if [[ $? -eq 0 ]]; then
     echo "$version"
   else
@@ -47,28 +47,28 @@ if [[ -x "$HOME/.nodenv/bin/nodenv" ]]; then
   eval "$("$HOME/.nodenv/bin/nodenv" init -)"
 fi
 
-if [[ -s "$SRCROOT/node_modules/.bin/apollo-codegen" ]]; then
+if [[ -s "$SRCROOT/node_modules/.bin/apollo" ]]; then
   # If it's installed locally, use version build instead
   set -x
 
-  exec "$SRCROOT/node_modules/.bin/apollo-codegen" "$@"
+  exec "$SRCROOT/node_modules/.bin/apollo" "$@"
 else
   # Otherwise use a global install
-  if ! type "apollo-codegen" >/dev/null 2>&1; then
-    echo "Can't find apollo-codegen. Installing..."
-    install_apollo_codegen
+  if ! type "apollo" >/dev/null 2>&1; then
+    echo "Can't find Apollo CLI. Installing..."
+    install_apollo_cli
   fi
 
-  INSTALLED_APOLLO_CODEGEN_VERSION="$(get_installed_version)"
+  INSTALLED_APOLLO_CLI_VERSION="$(get_installed_version)"
 
-  if ! are_versions_compatible $INSTALLED_APOLLO_CODEGEN_VERSION $REQUIRED_APOLLO_CODEGEN_VERSION; then
-    echo "The version of Apollo.framework in your project requires apollo-codegen $REQUIRED_APOLLO_CODEGEN_VERSION, \
-  but $INSTALLED_APOLLO_CODEGEN_VERSION seems to be installed. Installing..."
-    install_apollo_codegen
+  if ! are_versions_compatible $INSTALLED_APOLLO_CLI_VERSION $REQUIRED_APOLLO_CLI_VERSION; then
+    echo "The version of Apollo.framework in your project requires Apollo CLI $REQUIRED_APOLLO_CLI_VERSION, \
+  but $INSTALLED_APOLLO_CLI_VERSION seems to be installed. Installing..."
+    install_apollo_cli
   fi
 
   # Print commands before executing them (useful for troubleshooting)
   set -x
 
-  exec apollo-codegen "$@"
+  exec apollo "$@"
 fi
