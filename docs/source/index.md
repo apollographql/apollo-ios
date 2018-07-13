@@ -24,7 +24,7 @@ If you have questions or would like to contribute, please join the `#ios` channe
 
 Apollo Client for JavaScript's [React integration](https://apollographql.com/docs/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android.
 
-We're excited about the prospects of further [unifying the clients for JavaScript, iOS and Android](https://dev-blog.apollodata.com/one-graphql-client-for-javascript-ios-and-android-64993c1b7991), including sharing a cache between native and React Native.
+We're excited about the prospects of further [unifying the clients for JavaScript, iOS and Android](https://blog.apollographql.com/one-graphql-client-for-javascript-ios-and-android-64993c1b7991), including sharing a cache between native and React Native.
 
 <h2 id="learn-more">Other resources</h2>
 
