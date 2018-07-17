@@ -79,11 +79,12 @@ public class HTTPNetworkTransport: NetworkTransport {
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
+    let body = requestBody(for: operation)
+
     if sendOperationIdentifiers, let operationIdentifier = operation.operationIdentifier {
         request.setValue(operationIdentifier, forHTTPHeaderField: "x-Apollo-Operation-Id")
     }
 
-    let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
