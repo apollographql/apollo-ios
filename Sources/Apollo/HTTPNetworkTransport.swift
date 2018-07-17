@@ -80,7 +80,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
     if sendOperationIdentifiers, let operationIdentifier = operation.operationIdentifier {
-        request.setValue(operationIdentifier, forHTTPHeaderField: "Apollo-Operation-Id")
+        request.setValue(operationIdentifier, forHTTPHeaderField: "x-Apollo-Operation-Id")
     }
 
     let body = requestBody(for: operation)
