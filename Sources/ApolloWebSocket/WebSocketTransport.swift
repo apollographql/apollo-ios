@@ -89,8 +89,11 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
           notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
         }
 
-      case .connectionAck, .connectionKeepAlive:
-        acked = (type == OperationMessage.Types.connectionAck.rawValue)
+      case .connectionAck:
+        acked = true
+        writeQueue()
+
+      case .connectionKeepAlive:
         writeQueue()
 
       case .connectionInit, .connectionTerminate, .start, .stop, .connectionError:
