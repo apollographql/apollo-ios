@@ -2,6 +2,10 @@
 
 ### vNEXT
 
+### v0.9.1
+
+- Since `apollo-codegen` is now part of the new [`apollo-cli`](https://github.com/apollographql/apollo-cli), the build script used to generate `API.swift` needs to be updated. See [the docs](https://www.apollographql.com/docs/ios/installation.html#adding-build-step) for the updated script.
+
 ### v0.6.0
 
 - Added read and write functions for fine-grained manual store updates.
