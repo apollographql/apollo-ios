@@ -10,7 +10,7 @@ REQUIRED_APOLLO_CLI_VERSION=1.2.0
 install_apollo_cli() {
   # Exit immediately if the command fails
   set -e
-  npm install -g apollo@$REQUIRED_APOLLO_CLI_VERSION
+  npm install --prefix $SRCROOT apollo@$REQUIRED_APOLLO_CLI_VERSION
   set +e
 }
 
@@ -20,7 +20,7 @@ are_versions_compatible() {
 }
 
 get_installed_version() {
-  version=$(apollo -v)
+  version=$($SRCROOT/node_modules/.bin/apollo -v)
   if [[ $? -eq 0 ]]; then
     echo "$version"
   else
@@ -51,14 +51,6 @@ if [[ -s "$SRCROOT/node_modules/.bin/apollo" ]]; then
   # If it's installed locally, use version build instead
   set -x
 
-  exec "$SRCROOT/node_modules/.bin/apollo" "$@"
-else
-  # Otherwise use a global install
-  if ! type "apollo" >/dev/null 2>&1; then
-    echo "Can't find Apollo CLI. Installing..."
-    install_apollo_cli
-  fi
-
   INSTALLED_APOLLO_CLI_VERSION="$(get_installed_version)"
 
   if ! are_versions_compatible $INSTALLED_APOLLO_CLI_VERSION $REQUIRED_APOLLO_CLI_VERSION; then
@@ -67,8 +59,14 @@ else
     install_apollo_cli
   fi
 
+  exec "$SRCROOT/node_modules/.bin/apollo" "$@"
+else
+  # Otherwise install locally
+  echo "Can't find Apollo CLI. Installing..."
+  install_apollo_cli
+
   # Print commands before executing them (useful for troubleshooting)
   set -x
 
-  exec apollo "$@"
+  exec "$SRCROOT/node_modules/.bin/apollo" "$@"
 fi

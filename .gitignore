@@ -49,3 +49,7 @@ playground.xcworkspace
 # Carthage/Checkouts
 
 Carthage/Build
+
+# Local Node Modules for Apollo CLI
+node_modules/
+package-lock.json
