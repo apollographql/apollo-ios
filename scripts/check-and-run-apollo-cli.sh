@@ -53,7 +53,7 @@ if [[ -s "$SRCROOT/node_modules/.bin/apollo" ]]; then
 
   INSTALLED_APOLLO_CLI_VERSION="$(get_installed_version)"
 
-  if ! are_versions_compatible $INSTALLED_APOLLO_CLI_VERSION $REQUIRED_APOLLO_CLI_VERSION; then
+  if ! are_versions_compatible "$INSTALLED_APOLLO_CLI_VERSION" $REQUIRED_APOLLO_CLI_VERSION; then
     echo "The version of Apollo.framework in your project requires Apollo CLI $REQUIRED_APOLLO_CLI_VERSION, \
   but $INSTALLED_APOLLO_CLI_VERSION seems to be installed. Installing..."
     install_apollo_cli
