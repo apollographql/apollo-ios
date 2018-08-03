@@ -1,3 +1,5 @@
+import SQLite
+
 public enum SQLiteNormalizedCacheError: Error {
   case invalidRecordEncoding(record: String)
   case invalidRecordShape(object: Any)
