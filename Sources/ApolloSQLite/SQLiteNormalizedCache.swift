@@ -1,4 +1,3 @@
-import Apollo
 import SQLite
 
 public enum SQLiteNormalizedCacheError: Error {
