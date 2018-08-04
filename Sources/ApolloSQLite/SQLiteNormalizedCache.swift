@@ -1,4 +1,4 @@
-import Apollo
+import SQLite
 #if !COCOAPODS
 import Apollo
 #endif
