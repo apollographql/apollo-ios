@@ -1,5 +1,7 @@
-import Apollo
 import SQLite
+#if !COCOAPODS
+import Apollo
+#endif
 
 public enum SQLiteNormalizedCacheError: Error {
   case invalidRecordEncoding(record: String)
