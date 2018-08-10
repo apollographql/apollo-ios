@@ -13,5 +13,5 @@ apollo schema:download --endpoint=http://localhost:8080/graphql schema.json
 If needed, you can use the `header` option to add additional HTTP headers to the request. For example, to include an authentication token, use `--header "Authorization: Bearer <token>"`:
 
 ```sh
-apollo schema:download --endpoint=http://localhost:8080/graphql --header="Authorization: Bearer <token>" schema.json
+apollo schema:download --endpoint=http://localhost:8080/graphql --header="Authorization: Bearer <token>"
 ```
