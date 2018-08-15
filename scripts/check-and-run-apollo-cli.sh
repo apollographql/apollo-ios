@@ -10,7 +10,7 @@ REQUIRED_APOLLO_CLI_VERSION=1.2.0
 install_apollo_cli() {
   # Exit immediately if the command fails
   set -e
-  npm install --prefix $SRCROOT apollo@$REQUIRED_APOLLO_CLI_VERSION
+  npm install --prefix "$SRCROOT" apollo@$REQUIRED_APOLLO_CLI_VERSION
   set +e
 }
 
