@@ -64,7 +64,19 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
   }
-  
+
+  /// Creates a network transport with the specified server URL and session configuration.
+  ///
+  /// - Parameters:
+  ///   - url: The URL of a GraphQL server to connect to.
+  ///   - session: An initialized session used to e.g. receive authentication challenge.
+  ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
+  public init(url: URL, session: URLSession, sendOperationIdentifiers: Bool = false) {
+    self.url = url
+    self.session = session
+    self.sendOperationIdentifiers = sendOperationIdentifiers
+  }
+
   /// Send a GraphQL operation to a server and return a response.
   ///
   /// - Parameters:
