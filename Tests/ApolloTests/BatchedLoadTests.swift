@@ -4,6 +4,15 @@ import ApolloTestSupport
 import StarWarsAPI
 
 private final class MockBatchedNormalizedCache: NormalizedCache {
+  func deleteRecord(forKey key: CacheKey) -> Promise<Set<CacheKey>> {
+    return Promise { fulfill, reject in
+      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
+        let records = self.records.removeValue(forKey: key)
+        fulfill(records)
+      }
+    }
+  }
+  
   private var records: RecordSet
   
   var numberOfBatchLoads: Int32 = 0

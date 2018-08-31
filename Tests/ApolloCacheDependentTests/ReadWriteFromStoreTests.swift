@@ -262,4 +262,94 @@ class ReadWriteFromStoreTests: XCTestCase {
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }
+  
+  func testDeleteFriend() throws {
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "2001": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+        "friends": [
+          Reference(key: "1000"),
+          Reference(key: "1002"),
+          Reference(key: "1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
+      "1002": ["__typename": "Human", "name": "Han Solo"],
+      "1003": ["__typename": "Human", "name": "Leia Organa"],
+      ]
+    
+    try withCache(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+      
+      try await(store.withinReadWriteTransaction { transaction in
+        transaction.delete(withId: "1000")
+      })
+      
+      let result = try await(store.load(query: HeroAndFriendsNamesQuery()))
+      guard let data = result.data else { XCTFail(); return }
+      
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Han Solo", "Leia Organa"])
+    }
+  }
+  
+  func testDeleteFriendOfFriend() throws {
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "2001": [
+        "name": "R2-D2",
+        "id": "2001",
+        "__typename": "Droid",
+        "friends": [
+          Reference(key: "1000"),
+          Reference(key: "1002"),
+          Reference(key: "1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "id": "1000", "name": "Luke Skywalker", "friends": [
+        Reference(key: "1002"),
+        Reference(key: "1003"),
+        Reference(key: "2000"),
+        Reference(key: "2001")
+        ]
+      ],
+    "1002": ["__typename": "Human", "id": "1002", "name": "Han Solo", "friends": [
+        Reference(key: "1000"),
+        Reference(key: "1003"),
+        Reference(key: "2001")
+        ]
+      ],
+    "1003": ["__typename": "Human", "id": "1003", "name": "Leia Organa", "friends": [
+        Reference(key: "1000"),
+        Reference(key: "1002"),
+        Reference(key: "2000"),
+        Reference(key: "2001")
+        ]
+      ],
+    "2000": ["__typename": "Droid", "name": "C-3PO", "id": "2000"]
+      ]
+    
+    try withCache(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+      
+      var result = try await(store.load(query: HeroFriendsOfFriendsNamesQuery()))
+      guard let beforeData = result.data else { XCTFail(); return }
+      
+      try await(store.withinReadWriteTransaction { transaction in
+        transaction.delete(withId: "1000")
+      })
+      
+      result = try await(store.load(query: HeroFriendsOfFriendsNamesQuery()))
+      guard let data = result.data else { XCTFail(); return }
+      
+      let friendsFriendsNames = data.hero?.friends?.reduce(Set<String>(), { set, friend in
+        guard let names = friend?.friends?.compactMap({ $0?.name }) else { return set }
+        return set.union(names)
+      })
+      XCTAssertFalse(friendsFriendsNames!.contains("Luke Skywalker"))
+    }
+  }
 }

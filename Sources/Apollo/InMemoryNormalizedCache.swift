@@ -1,4 +1,9 @@
 public final class InMemoryNormalizedCache: NormalizedCache {
+  public func deleteRecord(forKey key: CacheKey) -> Promise<Set<CacheKey>> {
+    let v = records.removeValue(forKey: key)
+    return Promise(fulfilled: v)
+  }
+    
   private var records: RecordSet
 
   public init(records: RecordSet = RecordSet()) {

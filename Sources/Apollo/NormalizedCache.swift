@@ -13,4 +13,9 @@ public protocol NormalizedCache {
 
   // Clears all records
   func clear() -> Promise<Void>
+    
+  // Removes data associated with a single key from the cache
+  /// - returns: A promise that fulfils with a set of keys corresponding to the fields that have
+  ///            changed, including the key passed in if it was removed.
+  func deleteRecord(forKey: CacheKey) -> Promise<Set<CacheKey>>
 }

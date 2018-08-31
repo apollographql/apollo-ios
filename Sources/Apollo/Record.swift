@@ -7,7 +7,7 @@ public struct Record {
   
   public typealias Value = Any
   public typealias Fields = [CacheKey: Value]
-  public private(set) var fields: Fields
+  public var fields: Fields
   
   public init(key: CacheKey, _ fields: Fields = [:]) {
     self.key = key

@@ -10,9 +10,13 @@ public enum SQLiteNormalizedCacheError: Error {
 }
 
 public final class SQLiteNormalizedCache: NormalizedCache {
-
+  
   public init(fileURL: URL) throws {
     db = try Connection(.uri(fileURL.absoluteString), readonly: false)
+    db.trace {
+        print($0)
+        
+    }
     try createTableIfNeeded()
   }
 
@@ -39,6 +43,20 @@ public final class SQLiteNormalizedCache: NormalizedCache {
     }
   }
 
+  public func deleteRecord(forKey key: CacheKey) -> Promise<Set<CacheKey>> {
+    return Promise {
+      // Remove the record
+      let query = records.filter(key == self.key).delete()
+      try db.run(query)
+      // remove references
+      let refStr = "{\"\(serializedReferenceKey)\":\"\(key)\"}"
+      let descendantsQuery: QueryType = records.where(record.like("%\(refStr)%"))
+      let descendants = try db.prepare(descendantsQuery).map { try parse(row: $0, removing: key) }
+      let mergedKeys = try merge(records: RecordSet(records: descendants)).await()
+      return mergedKeys.union([key])
+    }
+  }
+  
   private let db: Connection
   private let records = Table("records")
   private let id = Expression<Int64>("_id")
@@ -88,14 +106,14 @@ public final class SQLiteNormalizedCache: NormalizedCache {
     try db.run(records.delete())
   }
 
-  private func parse(row: Row) throws -> Record {
+  private func parse(row: Row, removing cacheKey: CacheKey? = nil) throws -> Record {
     let record = row[self.record]
 
     guard let recordData = record.data(using: .utf8) else {
       throw SQLiteNormalizedCacheError.invalidRecordEncoding(record: record)
     }
 
-    let fields = try SQLiteSerialization.deserialize(data: recordData)
+    let fields = try SQLiteSerialization.deserialize(data: recordData, removing: cacheKey)
     return Record(key: row[key], fields)
   }
 }
@@ -122,27 +140,32 @@ private final class SQLiteSerialization {
     }
   }
 
-  static func deserialize(data: Data) throws -> Record.Fields {
+  static func deserialize(data: Data, removing keyToRemove: CacheKey? = nil) throws -> Record.Fields {
     let object = try JSONSerialization.jsonObject(with: data, options: [])
     guard let jsonObject = object as? JSONObject else {
       throw SQLiteNormalizedCacheError.invalidRecordShape(object: object)
     }
     var fields = Record.Fields()
     for (key, value) in jsonObject {
-      fields[key] = try deserialize(fieldJSONValue: value)
+      if let val = try deserialize(fieldJSONValue: value, removing: keyToRemove) {
+        fields[key] = val
+      }
     }
     return fields
   }
 
-  private static func deserialize(fieldJSONValue: JSONValue) throws -> Record.Value {
+  private static func deserialize(fieldJSONValue: JSONValue, removing keyToRemove: CacheKey? = nil) throws -> Record.Value? {
     switch fieldJSONValue {
     case let dictionary as JSONObject:
       guard let reference = dictionary[serializedReferenceKey] as? String else {
         throw SQLiteNormalizedCacheError.invalidRecordValue(value: fieldJSONValue)
       }
+      if reference == keyToRemove {
+        return nil
+      }
       return Reference(key: reference)
     case let array as [JSONValue]:
-      return try array.map { try deserialize(fieldJSONValue: $0) }
+      return try array.map { try deserialize(fieldJSONValue: $0, removing: keyToRemove) }
     default:
       return fieldJSONValue
     }

@@ -241,5 +241,13 @@ public final class ApolloStore {
         }
       }.wait()
     }
+    
+    public func delete(withId key: CacheKey) {
+      cache.deleteRecord(forKey: key).andThen { keys in
+        self.updateChangedKeysFunc?(keys, nil)
+      }.wait()
+    }
+    
   }
+  
 }
