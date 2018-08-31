@@ -1,5 +1,5 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CLI_VERSION=1.2
+REQUIRED_APOLLO_CLI_VERSION=1.8
 # Only major version should be specified here
 REQUIRED_NODE_VERSION=8
 
