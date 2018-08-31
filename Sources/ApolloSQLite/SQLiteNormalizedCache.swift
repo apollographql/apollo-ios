@@ -10,13 +10,8 @@ public enum SQLiteNormalizedCacheError: Error {
 }
 
 public final class SQLiteNormalizedCache: NormalizedCache {
-  
   public init(fileURL: URL) throws {
     db = try Connection(.uri(fileURL.absoluteString), readonly: false)
-    db.trace {
-        print($0)
-        
-    }
     try createTableIfNeeded()
   }
 

@@ -247,7 +247,5 @@ public final class ApolloStore {
         self.updateChangedKeysFunc?(keys, nil)
       }.wait()
     }
-    
   }
-  
 }
