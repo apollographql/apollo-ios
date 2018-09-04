@@ -19,7 +19,7 @@ public protocol GraphQLOperation: class {
 
 public extension GraphQLOperation {
   var queryDocument: String {
-    return operationDefinition
+    return type(of: self).operationDefinition
   }
 
   var operationIdentifier: String? {
