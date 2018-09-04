@@ -7,7 +7,7 @@ public enum GraphQLOperationType {
 public protocol GraphQLOperation: class {
   var operationType: GraphQLOperationType { get }
   
-  var operationDefinition: String { get }
+  static var operationDefinition: String { get }
   var operationIdentifier: String? { get }
   
   var queryDocument: String { get }
