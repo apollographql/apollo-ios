@@ -254,12 +254,3 @@ class LoadQueryFromStoreTests: XCTestCase {
     waitForExpectations(timeout: 5, handler: nil)
   }
 }
-
-//class JSON: JSONEncodable, JSONDecodable {
-//  var jsonValue: JSONValue {
-//    return ["asdf": "123"]
-//  }
-//  required init(jsonValue value: JSONValue) throws {
-//    return
-//  }
-//}
