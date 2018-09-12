@@ -223,8 +223,7 @@ class LoadQueryFromStoreTests: XCTestCase {
           Reference(key: "1003")
         ]
       ],
-      "1000": ["__typename": "Human", "name": "Luke Skywalker", "badField":
-        ["dictionary": "badValues", "nested bad val": ["subdictionary": "some value"] ]
+      "1000": ["__typename": "Human", "name": ["dictionary": "badValues", "nested bad val": ["subdictionary": "some value"] ]
       ],
       "1002": ["__typename": "Human", "name": "Han Solo"],
       "1003": ["__typename": "Human", "name": "Leia Organa"],
