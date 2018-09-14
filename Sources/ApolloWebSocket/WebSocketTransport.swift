@@ -32,12 +32,14 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   private var subscriptions : [String: String] = [:]
   
   private let sendOperationIdentifiers: Bool
+  private let reconnectionInterval: TimeInterval
   fileprivate var sequenceNumber = 0
   fileprivate var reconnected = false
 
-  public init(request: URLRequest, sendOperationIdentifiers: Bool = false,  connectingPayload: GraphQLMap? = [:]) {
+  public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:]) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
+    self.reconnectionInterval = reconnectionInterval
 
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.websocket.delegate = self
@@ -151,7 +153,9 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     acked = false // need new connect and ack before sending
     
     if reconnect {
-      websocket.connect();
+      DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) {
+        self.websocket.connect();
+      }
     }
   }
   
