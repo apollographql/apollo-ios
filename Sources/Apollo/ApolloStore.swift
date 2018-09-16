@@ -118,7 +118,7 @@ public final class ApolloStore {
     }
   }
 
-  func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
+  public func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
     return withinReadTransaction { transaction in
       let mapper = GraphQLSelectionSetMapper<Query.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
@@ -129,7 +129,7 @@ public final class ApolloStore {
     }
   }
 
-  func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping OperationResultHandler<Query>) {
+  public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping OperationResultHandler<Query>) {
     load(query: query).andThen { result in
       resultHandler(result, nil)
     }.catch { error in
