@@ -30,7 +30,7 @@ public typealias OperationResultHandler<Operation: GraphQLOperation> = (_ result
 public class ApolloClient {
   public let networkTransport: NetworkTransport
   public let store: ApolloStore
-    
+
   public var cacheKeyForObject: CacheKeyForObject? {
     get {
       return store.cacheKeyForObject
