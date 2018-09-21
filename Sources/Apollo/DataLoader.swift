@@ -47,10 +47,16 @@ public final class DataLoader<Key: Hashable, Value> {
       
       let keys = loads.map { $0.key }
       
-      self.batchLoad(keys).andThen { values in
-        for (load, value) in zip(loads, values) {
-          load.fulfill(value)
+      self.batchLoad(keys)
+        .andThen { values in
+          for (load, value) in zip(loads, values) {
+            load.fulfill(value)
+          }
         }
+        .catch { error in
+          for load in loads {
+            load.reject(error)
+          }
       }
     }
   }

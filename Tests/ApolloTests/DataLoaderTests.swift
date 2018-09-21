@@ -3,6 +3,8 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
+private struct TestError: Error {}
+
 class DataLoaderTests: XCTestCase {
   func testSingleLoad() {
     let loader = DataLoader<Int, Int> { keys in
@@ -18,6 +20,24 @@ class DataLoaderTests: XCTestCase {
     
     loader.dispatch()
     
+    waitForExpectations(timeout: 1)
+  }
+
+
+  func testDispatchError() {
+    let loader = DataLoader<Int, Int> { keys in
+      return Promise(rejected: TestError())
+    }
+
+    let expectation = self.expectation(description: "Waiting for error")
+
+    loader[1].catch { error in
+      XCTAssert(error is TestError)
+      expectation.fulfill()
+    }
+
+    loader.dispatch()
+
     waitForExpectations(timeout: 1)
   }
   
