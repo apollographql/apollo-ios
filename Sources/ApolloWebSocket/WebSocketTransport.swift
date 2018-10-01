@@ -12,10 +12,23 @@ public protocol ApolloWebSocketClient: WebSocketClient {
   init(request: URLRequest, protocols: [String]?)
 }
 
+public protocol WebSocketTransportDelegate: class {
+    func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
+    func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
+    func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
+}
+
+public extension WebSocketTransportDelegate {
+    func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {}
+    func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {}
+    func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?) {}
+}
+
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
 public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
-
+  public weak var delegate: WebSocketTransportDelegate?
+    
   var reconnect = false
   var websocket: ApolloWebSocketClient
   var error: Error? = nil
@@ -128,12 +141,16 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.error = nil
     initServer()
     if reconnected {
+        self.delegate?.webSocketTransportDidReconnect(self)
       // re-send the subscriptions whenever we are re-connected
       // for the first connect, any subscriptions are already in queue
       for (_,msg) in self.subscriptions {
         write(msg)
       }
+    } else {
+        self.delegate?.webSocketTransportDidConnect(self)
     }
+    
     reconnected = true
   }
   
@@ -148,6 +165,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
       self.error = nil
     }
     
+    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error)
     acked = false // need new connect and ack before sending
     
     if reconnect {
