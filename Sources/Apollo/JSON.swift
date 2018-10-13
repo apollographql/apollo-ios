@@ -40,7 +40,7 @@ extension JSONDecodingError: Matchable {
     }
     
     switch (value, pattern) {
-    case (.missingValue, .missingValue), (.nullValue, .nullValue), (.couldNotConvert, .couldNotConvert):
+    case (.missingValue, .missingValue), (.nullValue, .nullValue), (.wrongType, .wrongType),  (.couldNotConvert, .couldNotConvert):
       return true
     default:
       return false

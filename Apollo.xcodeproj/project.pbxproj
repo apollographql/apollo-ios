@@ -94,6 +94,7 @@
 		9FF90A6F1DDDEB420034C3B6 /* InputValueEncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */; };
 		9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */; };
 		9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */; };
+		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -331,6 +332,7 @@
 		9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputValueEncodingTests.swift; sourceTree = "<group>"; };
 		9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadFieldValueTests.swift; sourceTree = "<group>"; };
 		9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseQueryResponseTests.swift; sourceTree = "<group>"; };
+		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -547,18 +549,19 @@
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
-				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
-				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
-				9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */,
-				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
-				9F8622F91EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift */,
-				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
 				9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */,
-				9FE1C6E61E634C8D00C02284 /* PromiseTests.swift */,
-				9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
+				9F8622F91EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift */,
 				9FC750551D2A532D00458D91 /* Info.plist */,
+				9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */,
+				E86D8E03214B32DA0028EFE1 /* JSONTests.swift */,
+				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
+				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
+				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
+				9FE1C6E61E634C8D00C02284 /* PromiseTests.swift */,
+				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
+				9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */,
 			);
 			path = ApolloTests;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 				9FF90A6F1DDDEB420034C3B6 /* InputValueEncodingTests.swift in Sources */,
 				9FE1C6E71E634C8D00C02284 /* PromiseTests.swift in Sources */,
 				9FADC8541E6B86D900C677E6 /* DataLoaderTests.swift in Sources */,
+				E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */,
 				9F8622FA1EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift in Sources */,
 				9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
