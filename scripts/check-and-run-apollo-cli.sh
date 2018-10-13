@@ -75,7 +75,7 @@ install_apollo_cli() {
   echo "note: Installing apollo@$REQUIRED_APOLLO_CLI_VERSION in your project directory to avoid version conflicts..."
   # Exit immediately if the command fails
   set -e
-  npm install --prefix $PROJECT_DIR --no-package-lock apollo@$REQUIRED_APOLLO_CLI_VERSION
+  npm install --prefix "$PROJECT_DIR" --no-package-lock apollo@$REQUIRED_APOLLO_CLI_VERSION
   set +e
 }
 
