@@ -16,6 +16,9 @@ This combination of models with value semantics, one way data flow, and automati
 
 [Read the full docs at apollographql.com/docs/ios/](https://www.apollographql.com/docs/ios/)
 
+## Changelog
+[Read about the latest changes to the library](https://github.com/apollographql/apollo-ios/blob/master/CHANGELOG.md)
+
 ## Contributing
 
 [![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios)
