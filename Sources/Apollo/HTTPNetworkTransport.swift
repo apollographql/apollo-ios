@@ -69,6 +69,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
+  /// - Returns: A URLRequest
   public func createRequest(url: URL) -> URLRequest {
     return URLRequest(url: url)
   }
