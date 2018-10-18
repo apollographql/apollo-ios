@@ -65,6 +65,14 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.sendOperationIdentifiers = sendOperationIdentifiers
   }
   
+  /// Initializes a URLRequest object. Override this in your implementation to customize the request.
+  ///
+  /// - Parameters:
+  ///   - url: The URL of a GraphQL server to connect to.
+  public func createRequest(url: URL) -> URLRequest {
+    return URLRequest(url: url)
+  }
+  
   /// Send a GraphQL operation to a server and return a response.
   ///
   /// - Parameters:
@@ -74,7 +82,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    var request = URLRequest(url: url)
+    var request = createRequest(url: url)
     request.httpMethod = "POST"
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
