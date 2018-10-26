@@ -43,7 +43,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       })
     }
   }
-  
+
   func testReadHeroNameQueryWithMissingName() throws {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
@@ -161,7 +161,7 @@ class ReadWriteFromStoreTests: XCTestCase {
     }
   }
 
-  func testUpdateHeroAndFriendsNamesQueryWithEpisode() throws {
+  func testUpdateHeroAndFriendsNamesQueryWithVariable() throws {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero(episode:NEWHOPE)": Reference(key: "2001")],
       "2001": [
