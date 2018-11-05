@@ -82,7 +82,7 @@ for macOS Project
 FIXED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
 IFS=$'\n'
 APOLLO_FRAMEWORK_PATH="$(eval find $FIXED_FRAMEWORK_SEARCH_PATHS -name "Apollo.framework" -maxdepth 1)"
-if [ -z "$APOLLO_FRAMEWORK_PATH" ]; then
+if [ -z "{$APOLLO_FRAMEWORK_PATH}" ]; then
 echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
 exit 1
 fi
