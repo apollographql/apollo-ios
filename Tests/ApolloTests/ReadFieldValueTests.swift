@@ -59,19 +59,13 @@ class ReadFieldValueTests: XCTestCase {
     }
   }
   
-  func testGetScalarWithWrongType() throws {
+  func testGetScalarWithDifferentType() throws {
     let object: JSONObject = ["name": 10]
     let field = GraphQLField("name", type: .nonNull(.scalar(String.self)))
-    
-    XCTAssertThrowsError(try readFieldValue(field, from: object)) { (error) in
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-        XCTAssertEqual(error.path, ["name"])
-        XCTAssertEqual(value as? Int, 10)
-        XCTAssertTrue(expectedType == String.self)
-      } else {
-        XCTFail("Unexpected error: \(error)")
-      }
-    }
+
+    let value = try readFieldValue(field, from: object) as! String
+
+    XCTAssertEqual(value, "10")
   }
   
   func testGetOptionalScalar() throws {
@@ -105,19 +99,13 @@ class ReadFieldValueTests: XCTestCase {
     XCTAssertNil(value)
   }
   
-  func testGetOptionalScalarWithWrongType() throws {
+  func testGetOptionalScalarWithDifferentType() throws {
     let object: JSONObject = ["name": 10]
     let field = GraphQLField("name", type: .scalar(String.self))
     
-    XCTAssertThrowsError(try readFieldValue(field, from: object)) { (error) in
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-        XCTAssertEqual(error.path, ["name"])
-        XCTAssertEqual(value as? Int, 10)
-        XCTAssertTrue(expectedType == String.self)
-      } else {
-        XCTFail("Unexpected error: \(error)")
-      }
-    }
+    let value = try readFieldValue(field, from: object) as! String
+
+    XCTAssertEqual(value, "10")
   }
   
   func testGetScalarList() throws {
@@ -169,16 +157,10 @@ class ReadFieldValueTests: XCTestCase {
   func testGetScalarListWithWrongType() throws {
     let object: JSONObject = ["appearsIn": [4, 5, 6]]
     let field = GraphQLField("appearsIn", type: .nonNull(.list(.nonNull(.scalar(Episode.self)))))
-    
-    XCTAssertThrowsError(try readFieldValue(field, from: object)) { (error) in
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-        XCTAssertEqual(error.path, ["appearsIn"])
-        XCTAssertEqual(value as? Int, 4)
-        XCTAssertTrue(expectedType == String.self)
-      } else {
-        XCTFail("Unexpected error: \(error)")
-      }
-    }
+
+    let value = try readFieldValue(field, from: object) as! [Episode]
+
+    XCTAssertEqual(value, [.__unknown("4"), .__unknown("5"), .__unknown("6")])
   }
   
   func testGetOptionalScalarList() throws {
@@ -226,15 +208,9 @@ class ReadFieldValueTests: XCTestCase {
     let object: JSONObject = ["appearsIn": [4, 5, 6]]
     let field = GraphQLField("appearsIn", type: .list(.nonNull(.scalar(Episode.self))))
     
-    XCTAssertThrowsError(try readFieldValue(field, from: object)) { (error) in
-      if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
-        XCTAssertEqual(error.path, ["appearsIn"])
-        XCTAssertEqual(value as? Int, 4)
-        XCTAssertTrue(expectedType == String.self)
-      } else {
-        XCTFail("Unexpected error: \(error)")
-      }
-    }
+    let value = try readFieldValue(field, from: object) as! [Episode]
+
+    XCTAssertEqual(value, [.__unknown("4"), .__unknown("5"), .__unknown("6")])
   }
   
   func testGetScalarListWithOptionalElements() throws {
