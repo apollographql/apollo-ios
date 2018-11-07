@@ -3,4 +3,4 @@
 	url = https://github.com/daltoniam/Starscream.git
 [submodule "Carthage/Checkouts/SQLite.swift"]
 	path = Carthage/Checkouts/SQLite.swift
-	url = https://github.com/stephencelis/SQLite.swift.git
+	url = https://github.com/ecobee/SQLite.swift.git
