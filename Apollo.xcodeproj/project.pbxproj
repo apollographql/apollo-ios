@@ -1571,6 +1571,8 @@
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
+				SWIFT_VERSION = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 5.0;
 			};
 			name = Debug;
 		};
@@ -1583,6 +1585,8 @@
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
+				SWIFT_VERSION = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 5.0;
 			};
 			name = Release;
 		};
@@ -1726,6 +1730,8 @@
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
+				SWIFT_VERSION = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 5.0;
 			};
 			name = PerformanceTesting;
 		};
