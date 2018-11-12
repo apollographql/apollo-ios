@@ -875,12 +875,12 @@
 				TargetAttributes = {
 					9F8A95771EC0FC1200304A2D = {
 						CreatedOnToolsVersion = 8.3.2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 					9FA6ABBB1EC0A988000017BE = {
 						CreatedOnToolsVersion = 8.3.2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 					9FACA9B71F42E67200AE2DBD = {
@@ -900,12 +900,12 @@
 					9FC7504D1D2A532D00458D91 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeamName = "Martijn Walraven";
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 					9FCE2CF91E6C213D00E34457 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 					9FD637E01E6ACF88001EDBC8 = {
@@ -1284,6 +1284,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1316,6 +1317,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloTestSupport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1348,6 +1350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloTestSupport;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1365,6 +1368,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloCacheDependentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1379,6 +1383,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloCacheDependentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1393,6 +1398,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloCacheDependentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = PerformanceTesting;
 		};
@@ -1571,6 +1577,7 @@
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1583,6 +1590,7 @@
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1595,6 +1603,7 @@
 				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1607,6 +1616,7 @@
 				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1618,6 +1628,7 @@
 				INFOPLIST_FILE = Tests/StarWarsAPI/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.StarWarsAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1629,6 +1640,7 @@
 				INFOPLIST_FILE = Tests/StarWarsAPI/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.StarWarsAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1726,6 +1738,7 @@
 				INFOPLIST_FILE = Sources/Apollo/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.Apollo;
 				PRODUCT_NAME = Apollo;
+				SWIFT_VERSION = 4.2;
 			};
 			name = PerformanceTesting;
 		};
@@ -1749,6 +1762,7 @@
 				INFOPLIST_FILE = Tests/ApolloTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollostack.ApolloTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = PerformanceTesting;
 		};
@@ -1760,6 +1774,7 @@
 				INFOPLIST_FILE = Tests/StarWarsAPI/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.StarWarsAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = PerformanceTesting;
 		};
