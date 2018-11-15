@@ -7,7 +7,8 @@ SKIP_INSTALL = YES
 SUPPORTED_PLATFORMS = iphoneos iphonesimulator appletvsimulator appletvos watchsimulator watchos macosx
 
 SDKROOT[sdk=iphone*] = iphoneos
-VALID_ARCHS[sdk=iphone*] = arm64 armv7 armv7s
+VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
+VALID_ARCHS[sdk=iphonesimulator*] = x86_64 i386
 IPHONEOS_DEPLOYMENT_TARGET = 9.0
 TARGETED_DEVICE_FAMILY[sdk=iphone*]  = 1,2
 LD_RUNPATH_SEARCH_PATHS[sdk=iphone*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
