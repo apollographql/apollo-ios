@@ -43,7 +43,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       })
     }
   }
-  
+
   func testReadHeroNameQueryWithMissingName() throws {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
@@ -160,7 +160,44 @@ class ReadWriteFromStoreTests: XCTestCase {
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }
-  
+
+  func testUpdateHeroAndFriendsNamesQueryWithVariable() throws {
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero(episode:NEWHOPE)": Reference(key: "2001")],
+      "2001": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+        "friends": [
+          Reference(key: "1000"),
+          Reference(key: "1002"),
+          Reference(key: "1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
+      "1002": ["__typename": "Human", "name": "Han Solo"],
+      "1003": ["__typename": "Human", "name": "Leia Organa"],
+      ]
+
+    try withCache(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let query = HeroAndFriendsNamesQuery(episode: Episode.newhope)
+
+      try await(store.withinReadWriteTransaction { transaction in
+        try transaction.update(query: query) { (data: inout HeroAndFriendsNamesQuery.Data) in
+          data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
+        }
+      })
+
+      let result = try await(store.load(query: query))
+      guard let data = result.data else { XCTFail(); return }
+
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+    }
+  }
+
   func testReadHeroDetailsFragmentWithTypeSpecificProperty() throws {
     let initialRecords: RecordSet = [
       "2001": ["name": "R2-D2", "__typename": "Droid", "primaryFunction": "Protocol"]
