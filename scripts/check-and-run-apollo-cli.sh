@@ -1,5 +1,5 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CLI_VERSION=1.8
+REQUIRED_APOLLO_CLI_VERSION=1.9
 # Only major version should be specified here
 REQUIRED_NODE_VERSION=8
 
@@ -72,10 +72,10 @@ are_versions_compatible() {
 }
 
 install_apollo_cli() {
-  echo "note: Installing apollo@$REQUIRED_APOLLO_CLI_VERSION in your project directory to avoid version conflicts..."
+  echo "warning: Installing apollo@$REQUIRED_APOLLO_CLI_VERSION in your project directory to avoid version conflicts..."
   # Exit immediately if the command fails
   set -e
-  npm install --prefix $PROJECT_DIR --no-package-lock apollo@$REQUIRED_APOLLO_CLI_VERSION
+  npm install --prefix "$PROJECT_DIR" --no-package-lock apollo@$REQUIRED_APOLLO_CLI_VERSION
   set +e
 }
 
