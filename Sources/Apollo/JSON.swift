@@ -55,6 +55,6 @@ func equals(_ lhs: Any, _ rhs: Any) -> Bool {
     return lhs == rhs
   }
   
-  let lhs = lhs as AnyObject, rhs = rhs as AnyObject
+  let lhs = lhs as! NSObject, rhs = rhs as! NSObject
   return lhs.isEqual(rhs)
 }
