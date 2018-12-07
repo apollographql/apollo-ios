@@ -63,7 +63,13 @@ In order to invoke `apollo` as part of the Xcode build process, create a build s
 
 1. On your application targets’ "Build Phases" settings tab, click the "+" icon and choose "New Run Script Phase". Create a Run Script, change its name to "Generate Apollo GraphQL API" and drag it just above "Compile Sources". Then add the following contents to the script area below the shell:
 
-for iOS Project
+If you're using Cocoapods:
+```sh
+set -exu
+sh $PODS_ROOT/Apollo/scripts/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema 'PayPlus/Apollo/schema.json' --output ApolloAPI.swift
+```
+
+For an iOS project that doesn't use Cocoapods:
 ```sh
 APOLLO_FRAMEWORK_PATH="$(eval find $FRAMEWORK_SEARCH_PATHS -name "Apollo.framework" -maxdepth 1)"
 
@@ -75,7 +81,8 @@ fi
 cd "${SRCROOT}/${TARGET_NAME}"
 $APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
 ```
-for macOS Project
+
+For a macOS project that doesn't use Cocoapods:
 ```sh
 APOLLO_FRAMEWORK_PATH="$(eval find $FRAMEWORK_SEARCH_PATHS -name "Apollo.framework" -maxdepth 1)"
 
