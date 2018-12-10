@@ -66,7 +66,7 @@ In order to invoke `apollo` as part of the Xcode build process, create a build s
 If you're using Cocoapods:
 ```sh
 set -exu
-sh $PODS_ROOT/Apollo/scripts/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema 'PayPlus/Apollo/schema.json' --output ApolloAPI.swift
+sh $PODS_ROOT/Apollo/scripts/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema 'path/to/your/schema.json' --output ApolloAPI.swift
 ```
 
 For an iOS project that doesn't use Cocoapods:
