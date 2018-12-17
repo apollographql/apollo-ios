@@ -31,8 +31,8 @@ public protocol GraphQLSelection {
 }
 
 public struct GraphQLField: GraphQLSelection {
-  let name: String
-  let alias: String?
+  public let name: String
+  public let alias: String?
   let arguments: [String: GraphQLInputValue]?
   
   var responseKey: String {
