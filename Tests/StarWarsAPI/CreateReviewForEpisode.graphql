@@ -11,3 +11,12 @@ mutation CreateAwesomeReview {
     commentary
   }
 }
+
+mutation SingleUpload($file: Upload!) {
+  singleUpload(file: $file) {
+    filename
+    mimetype
+    encoding
+  }
+}
+

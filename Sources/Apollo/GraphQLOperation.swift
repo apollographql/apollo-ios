@@ -13,6 +13,12 @@ public protocol GraphQLOperation: class {
   var queryDocument: String { get }
   
   var variables: GraphQLMap? { get }
+
+  ///Used for multi-part form uploading
+  var map: GraphQLMap? { get }
+
+  ///Used for multi-part form uploading
+  var uploads: [GraphQLUpload]? { get }
   
   associatedtype Data: GraphQLSelectionSet
 }
@@ -27,6 +33,16 @@ public extension GraphQLOperation {
   }
 
   var variables: GraphQLMap? {
+    return nil
+  }
+
+  ///Used for multi-part form uploading
+  var map: GraphQLMap? {
+    return nil
+  }
+
+  ///Used for multi-part form uploading
+  var uploads: [GraphQLUpload]? {
     return nil
   }
 }

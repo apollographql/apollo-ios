@@ -74,13 +74,14 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+    let boundary = generateBoundaryString()
+
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
-    let body = requestBody(for: operation)
-    request.httpBody = try! serializationFormat.serialize(value: body)
+    request.httpBody = requestBodyData(for: operation, boundary: boundary)
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -129,4 +130,51 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     return ["query": operation.queryDocument, "variables": operation.variables]
   }
+
+  func generateBoundaryString() -> String {
+    return "Boundary-\(UUID().uuidString)"
+  }
+
+  private func requestBodyData<Operation: GraphQLOperation>(for operation: Operation, boundary: String) -> Data {
+    var body = Data()
+
+    //Operations
+    let operations = try! serializationFormat.serialize(value: requestBody(for: operation))
+
+    body.appendString("--\(boundary)\r\n")
+    body.appendString("Content-Disposition: form-data; name=\"operations\"\r\n\r\n")
+    body.append(operations)
+    body.append(.CRLF)
+
+    //Map
+    let map = try! serializationFormat.serialize(value: operation.map ?? [:])
+    body.appendString("--\(boundary)\r\n")
+    body.appendString("Content-Disposition: form-data; name=\"map\"\r\n\r\n")
+    body.append(map)
+    body.append(.CRLF)
+
+    //Files
+    for (index, upload) in (operation.uploads ?? []).enumerated() {
+      body.appendString("--\(boundary)\r\n")
+      body.appendString("Content-Disposition: form-data; name=\"\(index)\"; filename=\"\(upload.fileName)\"\r\n")
+      body.appendString("Content-Type: \(upload.mimeType)\r\n\r\n")
+      body.append(upload.data)
+      body.append(.CRLF)
+    }
+
+    body.appendString("--\(boundary)--\r\n")
+
+    return body
+  }
+}
+
+fileprivate extension Data {
+  mutating func appendString(_ string: String) {
+    let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+    append(data!)
+  }
+}
+
+fileprivate extension Data {
+  static let CRLF: Data = "\r\n".data(using: .ascii)!
 }

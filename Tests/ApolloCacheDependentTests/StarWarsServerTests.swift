@@ -262,11 +262,21 @@ class StarWarsServerTests: XCTestCase {
     }
   }
 
+  func testSingleUpload() {
+    let file = DataUpload(data: "Alpha file content.".data(using: .utf8)!,
+                          mimeType: "text/plain",
+                          fileName: "a.txt")
+    perform(mutation: SingleUploadMutation(file: file)) { data in
+      XCTAssertEqual(data.singleUpload.mimetype, "text/plain")
+      XCTAssertEqual(data.singleUpload.filename, "a.txt")
+    }
+  }
+
   // MARK: - Helpers
 
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+      let network = HTTPNetworkTransport(url: URL(string: "http://localhost.charlesproxy.com:8080/graphql")!)
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 
@@ -293,7 +303,7 @@ class StarWarsServerTests: XCTestCase {
 
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+      let network = HTTPNetworkTransport(url: URL(string: "http://localhost.charlesproxy.com:8080/graphql")!)
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 
