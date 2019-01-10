@@ -276,7 +276,7 @@ class StarWarsServerTests: XCTestCase {
 
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost.charlesproxy.com:8080/graphql")!)
+      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 
@@ -303,7 +303,7 @@ class StarWarsServerTests: XCTestCase {
 
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost.charlesproxy.com:8080/graphql")!)
+      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 
