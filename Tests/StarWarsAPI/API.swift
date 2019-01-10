@@ -5338,6 +5338,117 @@ public final class SingleUploadMutation: GraphQLMutation {
   }
 }
 
+public final class MultipleUploadMutation: GraphQLMutation {
+  public let operationDefinition =
+    "mutation MultipleUpload($files: [Upload!]!) {\n  multipleUpload(files: $files) {\n    __typename\n    filename\n    mimetype\n    encoding\n  }\n}"
+
+  public var files: [Upload]
+
+  public init(files: [Upload]) {
+    self.files = files
+  }
+
+  public var variables: GraphQLMap? {
+    return ["files": files]
+  }
+
+  public var map: GraphQLMap? {
+    return [
+      "0": ["variables.files.0"],
+      "1": ["variables.files.1"],
+      "2": ["variables.files.2"]
+    ]
+  }
+
+  public var uploads: [GraphQLUpload]? {
+    return files
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Mutation"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("multipleUpload", arguments: ["files": GraphQLVariable("files")], type: .nonNull(.list(.nonNull(.object(MultipleUpload.selections))))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(multipleUpload: [MultipleUpload]) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "multipleUpload": multipleUpload.map { (value: MultipleUpload) -> ResultMap in value.resultMap }])
+    }
+
+    public var multipleUpload: [MultipleUpload] {
+      get {
+        return (resultMap["multipleUpload"] as! [ResultMap]).map { (value: ResultMap) -> MultipleUpload in MultipleUpload(unsafeResultMap: value) }
+      }
+      set {
+        resultMap.updateValue(newValue.map { (value: MultipleUpload) -> ResultMap in value.resultMap }, forKey: "multipleUpload")
+      }
+    }
+
+    public struct MultipleUpload: GraphQLSelectionSet {
+      public static let possibleTypes = ["File"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("filename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("mimetype", type: .nonNull(.scalar(String.self))),
+        GraphQLField("encoding", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(filename: String, mimetype: String, encoding: String) {
+        self.init(unsafeResultMap: ["__typename": "File", "filename": filename, "mimetype": mimetype, "encoding": encoding])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var filename: String {
+        get {
+          return resultMap["filename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "filename")
+        }
+      }
+
+      public var mimetype: String {
+        get {
+          return resultMap["mimetype"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "mimetype")
+        }
+      }
+
+      public var encoding: String {
+        get {
+          return resultMap["encoding"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "encoding")
+        }
+      }
+    }
+  }
+}
+
 public struct FriendsNames: GraphQLFragment {
   public static let fragmentDefinition =
     "fragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}"

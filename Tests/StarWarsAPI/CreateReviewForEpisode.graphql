@@ -20,3 +20,10 @@ mutation SingleUpload($file: Upload!) {
   }
 }
 
+mutation MultipleUpload($files: [Upload!]!) {
+  multipleUpload(files: $files) {
+    filename
+    mimetype
+    encoding
+  }
+}

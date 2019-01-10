@@ -272,6 +272,25 @@ class StarWarsServerTests: XCTestCase {
     }
   }
 
+  func testMultipleUpload() {
+    let mimeType = "text/plain"
+
+    let files = [
+      (data: "Alpha File Conent".data(using: .utf8)!, mimeType: mimeType, fileName: "a.txt"),
+      (data: "Bravo File Conent".data(using: .utf8)!, mimeType: mimeType, fileName: "b.txt"),
+      (data: "Charlie File Conent".data(using: .utf8)!, mimeType: mimeType, fileName: "c.txt")
+    ].map {
+      return DataUpload(data: $0.data, mimeType: $0.mimeType, fileName: $0.fileName)
+    }
+
+    perform(mutation: MultipleUploadMutation(files: files)) { data in
+      for (originalFile, uploadedFile) in zip(files, data.multipleUpload) {
+        XCTAssertEqual(originalFile.fileName, uploadedFile.filename)
+        XCTAssertEqual(originalFile.mimeType, uploadedFile.mimetype)
+      }
+    }
+  }
+
   // MARK: - Helpers
 
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
