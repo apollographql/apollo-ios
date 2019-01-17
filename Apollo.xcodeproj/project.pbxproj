@@ -1010,10 +1010,11 @@
 			files = (
 			);
 			inputPaths = (
+				"$TEMP_DIR/apollo-lastrun",
 			);
 			name = "Generate Apollo Client API";
 			outputPaths = (
-				"$(SRCROOT)/Tests/GitHubAPI/API.swift",
+				$SRCROOT/Tests/GitHubAPI/API.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1025,10 +1026,11 @@
 			files = (
 			);
 			inputPaths = (
+				"$TEMP_DIR/apollo-lastrun",
 			);
 			name = "Generate Apollo Client API";
 			outputPaths = (
-				"$(SRCROOT)/Tests/StarWarsAPI/API.swift",
+				$SRCROOT/Tests/StarWarsAPI/API.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
