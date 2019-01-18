@@ -1010,7 +1010,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$TEMP_DIR/apollo-lastrun",
 			);
 			name = "Generate Apollo Client API";
 			outputPaths = (
@@ -1026,7 +1025,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$TEMP_DIR/apollo-lastrun",
 			);
 			name = "Generate Apollo Client API";
 			outputPaths = (
