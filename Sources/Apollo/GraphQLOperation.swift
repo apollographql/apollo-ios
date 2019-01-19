@@ -13,12 +13,6 @@ public protocol GraphQLOperation: class {
   var queryDocument: String { get }
   
   var variables: GraphQLMap? { get }
-
-  ///Used for multi-part form uploading
-  var map: GraphQLMap? { get }
-
-  ///Used for multi-part form uploading
-  var uploads: [GraphQLUpload]? { get }
   
   associatedtype Data: GraphQLSelectionSet
 }
@@ -35,13 +29,19 @@ public extension GraphQLOperation {
   var variables: GraphQLMap? {
     return nil
   }
+}
 
-  ///Used for multi-part form uploading
+public protocol GraphQLUploadOperation: GraphQLOperation {
+  var map: GraphQLMap? { get }
+
+  var uploads: [GraphQLUpload]? { get }
+}
+
+public extension GraphQLUploadOperation {
   var map: GraphQLMap? {
     return nil
   }
 
-  ///Used for multi-part form uploading
   var uploads: [GraphQLUpload]? {
     return nil
   }
@@ -54,6 +54,11 @@ public extension GraphQLQuery {
 
 public protocol GraphQLMutation: GraphQLOperation {}
 public extension GraphQLMutation {
+  var operationType: GraphQLOperationType { return .mutation }
+}
+
+public protocol GraphQLUploadMutation: GraphQLUploadOperation {}
+public extension GraphQLUploadMutation {
   var operationType: GraphQLOperationType { return .mutation }
 }
 

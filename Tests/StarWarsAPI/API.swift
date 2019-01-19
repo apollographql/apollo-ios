@@ -5231,7 +5231,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
   }
 }
 
-public final class SingleUploadMutation: GraphQLMutation {
+public final class SingleUploadMutation: GraphQLUploadMutation {
   public let operationDefinition =
     "mutation SingleUpload($file: Upload!) {\n  singleUpload(file: $file) {\n    __typename\n    filename\n    mimetype\n    encoding\n  }\n}"
 
@@ -5338,7 +5338,7 @@ public final class SingleUploadMutation: GraphQLMutation {
   }
 }
 
-public final class MultipleUploadMutation: GraphQLMutation {
+public final class MultipleUploadMutation: GraphQLUploadMutation {
   public let operationDefinition =
     "mutation MultipleUpload($files: [Upload!]!) {\n  multipleUpload(files: $files) {\n    __typename\n    filename\n    mimetype\n    encoding\n  }\n}"
 

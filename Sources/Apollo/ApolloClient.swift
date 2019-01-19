@@ -123,6 +123,21 @@ public class ApolloClient {
     return send(operation: mutation, context: context, handlerQueue: queue, resultHandler: resultHandler)
   }
 
+  /// Performs a mutation by sending it to the server.
+  ///
+  /// - Parameters:
+  ///   - mutation: The mutation to perform.
+  ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
+  /// - Returns: An object that can be used to cancel an in progress mutation.
+  @discardableResult public func perform<Mutation: GraphQLUploadMutation>(mutation: Mutation, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>? = nil) -> Cancellable {
+    return _perform(mutation: mutation, queue: queue, resultHandler: resultHandler)
+  }
+
+  func _perform<Mutation: GraphQLUploadMutation>(mutation: Mutation, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue, resultHandler: OperationResultHandler<Mutation>?) -> Cancellable {
+    return send(operation: mutation, context: context, handlerQueue: queue, resultHandler: resultHandler)
+  }
+
   /// Subscribe to a subscription
   ///
   /// - Parameters:
@@ -133,8 +148,7 @@ public class ApolloClient {
   @discardableResult public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Subscription>) -> Cancellable {
     return send(operation: subscription, context: nil, handlerQueue: queue, resultHandler: resultHandler)
   }
-  
-    
+
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer?, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
     func notifyResultHandler(result: GraphQLResult<Operation.Data>?, error: Error?) {
       guard let resultHandler = resultHandler else { return }
@@ -162,6 +176,37 @@ public class ApolloClient {
         }
       }.catch { error in
         notifyResultHandler(result: nil, error: error)
+      }
+    }
+  }
+
+  fileprivate func send<Operation: GraphQLUploadOperation>(operation: Operation, context: UnsafeMutableRawPointer?, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
+    func notifyResultHandler(result: GraphQLResult<Operation.Data>?, error: Error?) {
+      guard let resultHandler = resultHandler else { return }
+
+      handlerQueue.async {
+        resultHandler(result, error)
+      }
+    }
+
+    return networkTransport.send(operation: operation) { (response, error) in
+      guard let response = response else {
+        notifyResultHandler(result: nil, error: error)
+        return
+      }
+
+      firstly {
+        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+        }.andThen { (result, records) in
+          notifyResultHandler(result: result, error: nil)
+
+          if let records = records {
+            self.store.publish(records: records, context: context).catch { error in
+              preconditionFailure(String(describing: error))
+            }
+          }
+        }.catch { error in
+          notifyResultHandler(result: nil, error: error)
       }
     }
   }
