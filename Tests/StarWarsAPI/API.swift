@@ -5356,7 +5356,8 @@ public final class MultipleUploadMutation: GraphQLUploadMutation {
     return [
       "0": ["variables.files.0"],
       "1": ["variables.files.1"],
-      "2": ["variables.files.2"]
+      "2": ["variables.files.2"],
+      "3": ["variables.files.3"],
     ]
   }
 

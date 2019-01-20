@@ -262,31 +262,29 @@ class StarWarsServerTests: XCTestCase {
     }
   }
 
+  // MARK: Upload Mutations
   func testSingleUpload() {
-    let file = DataUpload(data: "Alpha file content.".data(using: .utf8)!,
-                          mimeType: "text/plain",
-                          fileName: "a.txt")
-    perform(mutation: SingleUploadMutation(file: file)) { data in
-      XCTAssertEqual(data.singleUpload.mimetype, "text/plain")
-      XCTAssertEqual(data.singleUpload.filename, "a.txt")
+    let testFile = UploadTestFixtures.AlphaUpload()
+
+    perform(mutation: SingleUploadMutation(file: testFile.upload)) { data in
+      let uploadedFile = data.singleUpload
+      XCTAssertEqual(uploadedFile.mimetype, testFile.mimeType)
+      XCTAssertEqual(uploadedFile.filename, testFile.fileName)
     }
   }
 
   func testMultipleUpload() {
-    let mimeType = "text/plain"
+    let testFiles: [UploadRepresentable] = [
+      UploadTestFixtures.AlphaUpload(),
+      UploadTestFixtures.BravoUpload(),
+      UploadTestFixtures.CharlieUpload(),
+      UploadTestFixtures.DeltaUpload()
+    ]
 
-    let files = [
-      (data: "Alpha File Conent".data(using: .utf8)!, mimeType: mimeType, fileName: "a.txt"),
-      (data: "Bravo File Conent".data(using: .utf8)!, mimeType: mimeType, fileName: "b.txt"),
-      (data: "Charlie File Conent".data(using: .utf8)!, mimeType: mimeType, fileName: "c.txt")
-    ].map {
-      return DataUpload(data: $0.data, mimeType: $0.mimeType, fileName: $0.fileName)
-    }
-
-    perform(mutation: MultipleUploadMutation(files: files)) { data in
-      for (originalFile, uploadedFile) in zip(files, data.multipleUpload) {
-        XCTAssertEqual(originalFile.fileName, uploadedFile.filename)
-        XCTAssertEqual(originalFile.mimeType, uploadedFile.mimetype)
+    perform(mutation: MultipleUploadMutation(files: testFiles.map { $0.upload })) { data in
+      for (testFile, uploadedFile) in zip(testFiles, data.multipleUpload) {
+        XCTAssertEqual(uploadedFile.filename, testFile.fileName)
+        XCTAssertEqual(uploadedFile.mimetype, testFile.mimeType)
       }
     }
   }
@@ -371,6 +369,84 @@ class StarWarsServerTests: XCTestCase {
       }
 
       waitForExpectations(timeout: 5, handler: nil)
+    }
+  }
+}
+
+// MARK: Upload Text Fixtures
+
+fileprivate protocol UploadRepresentable {
+  var fileName: String { get }
+  var mimeType: String { get }
+  var upload: Upload { get }
+}
+
+fileprivate struct UploadTestFixtures {
+  static let textPlainMimeType = "text/plain"
+  static let richTextMimeType = "text/rtf"
+  static let jpgMimeType = "image/jpg"
+
+  struct AlphaUpload: UploadRepresentable {
+    let content = "Alpha file content."
+    let fileName = "a.txt"
+    let mimeType = UploadTestFixtures.textPlainMimeType
+
+    var upload: Upload {
+      return DataGraphQLUpload(data: content.data(using: .utf8)!,
+                               mimeType: mimeType,
+                               fileName: fileName)
+    }
+  }
+
+  struct BravoUpload: UploadRepresentable {
+    let content = "Bravo file content."
+    let fileName = "b.txt"
+    let mimeType = UploadTestFixtures.textPlainMimeType
+
+    var upload: Upload {
+      return DataGraphQLUpload(data: content.data(using: .utf8)!,
+                               mimeType: mimeType,
+                               fileName: fileName)
+    }
+  }
+
+  struct CharlieUpload: UploadRepresentable {
+    let content = "Charlie file content."
+    let resourceName = "CharlieUpload"
+    let fileExtension = "rtf"
+    let mimeType = UploadTestFixtures.richTextMimeType
+
+    var fileName: String {
+      return "\(resourceName).\(fileExtension)"
+    }
+
+    var upload: Upload {
+      let bundle = Bundle(for: StarWarsServerTests.self)
+      let url = bundle.url(forResource: resourceName, withExtension: fileExtension)!
+
+      return FileGraphQLUpload(fileURL: url)
+    }
+  }
+
+  public struct DeltaUpload: UploadRepresentable {
+    let resourceName = "DeltaUpload"
+    let fileExtension = "jpg"
+    let mimeType = UploadTestFixtures.jpgMimeType
+
+    var fileName: String {
+      return "\(resourceName).\(fileExtension)"
+    }
+
+    var upload: Upload {
+      let bundle = Bundle(for: StarWarsServerTests.self)
+      let url = bundle.url(forResource: resourceName, withExtension: fileExtension)!
+      let resources = try! url.resourceValues(forKeys: [.fileSizeKey])
+      let length = UInt64(resources.fileSize!)
+
+      return InputStreamGraphQLUpload(stream: InputStream(url: url)!,
+                                      length: length,
+                                      fileName: fileName,
+                                      mimeType: mimeType)
     }
   }
 }

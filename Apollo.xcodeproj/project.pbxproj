@@ -95,6 +95,11 @@
 		9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */; };
 		9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */; };
 		D084808721E311C20091178C /* GraphQLUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D084808621E311C20091178C /* GraphQLUpload.swift */; };
+		D0C89E3421F3E39900FC08BE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3321F3E39900FC08BE /* MultipartFormData.swift */; };
+		D0C89E3621F3E3DD00FC08BE /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3521F3E3DD00FC08BE /* HTTPHeaders.swift */; };
+		D0C89E3821F3E4DB00FC08BE /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3721F3E4DB00FC08BE /* AFError.swift */; };
+		D0C89E3C21F529CF00FC08BE /* CharlieUpload.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D0C89E3B21F529CF00FC08BE /* CharlieUpload.rtf */; };
+		D0C89E3E21F5306C00FC08BE /* DeltaUpload.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D0C89E3D21F5306B00FC08BE /* DeltaUpload.jpg */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -334,6 +339,11 @@
 		9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadFieldValueTests.swift; sourceTree = "<group>"; };
 		9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseQueryResponseTests.swift; sourceTree = "<group>"; };
 		D084808621E311C20091178C /* GraphQLUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLUpload.swift; sourceTree = "<group>"; };
+		D0C89E3321F3E39900FC08BE /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		D0C89E3521F3E3DD00FC08BE /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		D0C89E3721F3E4DB00FC08BE /* AFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
+		D0C89E3B21F529CF00FC08BE /* CharlieUpload.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = CharlieUpload.rtf; sourceTree = "<group>"; };
+		D0C89E3D21F5306B00FC08BE /* DeltaUpload.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DeltaUpload.jpg; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -452,6 +462,7 @@
 		9FA6ABBD1EC0A988000017BE /* ApolloCacheDependentTests */ = {
 			isa = PBXGroup;
 			children = (
+				D0C89E3A21F5296D00FC08BE /* TestFixtures */,
 				9FA6ABC51EC0A9F7000017BE /* FetchQueryTests.swift */,
 				9FA6ABC61EC0A9F7000017BE /* LoadQueryFromStoreTests.swift */,
 				9FA6ABC81EC0A9F7000017BE /* StarWarsServerCachingRoundtripTests.swift */,
@@ -585,9 +596,10 @@
 		9FC9A9CE1E2FD0CC0023C4D5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
-				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
+				D0C89E3921F3EA4B00FC08BE /* AlamoFire */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
+				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
+				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -667,6 +679,25 @@
 				9F2A74DA2137C21500E63C85 /* check-and-run-apollo-codegen.sh */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0C89E3921F3EA4B00FC08BE /* AlamoFire */ = {
+			isa = PBXGroup;
+			children = (
+				D0C89E3321F3E39900FC08BE /* MultipartFormData.swift */,
+				D0C89E3521F3E3DD00FC08BE /* HTTPHeaders.swift */,
+				D0C89E3721F3E4DB00FC08BE /* AFError.swift */,
+			);
+			name = AlamoFire;
+			sourceTree = "<group>";
+		};
+		D0C89E3A21F5296D00FC08BE /* TestFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				D0C89E3D21F5306B00FC08BE /* DeltaUpload.jpg */,
+				D0C89E3B21F529CF00FC08BE /* CharlieUpload.rtf */,
+			);
+			path = TestFixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -954,6 +985,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C89E3E21F5306C00FC08BE /* DeltaUpload.jpg in Resources */,
+				D0C89E3C21F529CF00FC08BE /* CharlieUpload.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,6 +1118,7 @@
 			files = (
 				9FF33D811E48B98200F608A4 /* HTTPNetworkTransport.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
+				D0C89E3621F3E3DD00FC08BE /* HTTPHeaders.swift in Sources */,
 				9FADC84A1E6B0B2300C677E6 /* Locking.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
@@ -1105,11 +1139,13 @@
 				9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
 				9FEC15B91E6965E300D461B4 /* Result.swift in Sources */,
+				D0C89E3421F3E39900FC08BE /* MultipartFormData.swift in Sources */,
 				9FADC84F1E6B865E00C677E6 /* DataLoader.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
 				9FA6F3681E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
 				9FF90A651DDDEB100034C3B6 /* GraphQLExecutor.swift in Sources */,
+				D0C89E3821F3E4DB00FC08BE /* AFError.swift in Sources */,
 				9FC750611D2A59C300458D91 /* GraphQLOperation.swift in Sources */,
 				9FE941D01E62C771007CDD89 /* Promise.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,

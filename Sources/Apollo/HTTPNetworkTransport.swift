@@ -49,6 +49,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
+  let fileManager: FileManager
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
@@ -59,7 +60,8 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false, fileManager: FileManager = .default) {
+    self.fileManager = fileManager
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
@@ -127,14 +129,15 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation: GraphQLUploadOperation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    let boundary = generateBoundaryString()
+    let formData = buildMultipartFormData(for: operation)
 
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
 
-    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+    request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
 
-    request.httpBody = requestBodyData(for: operation, boundary: boundary)
+    //TODO: Memory Thresholds
+    request.httpBody = try! formData.encode()
 
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -184,50 +187,44 @@ public class HTTPNetworkTransport: NetworkTransport {
     return ["query": operation.queryDocument, "variables": operation.variables]
   }
 
-  func generateBoundaryString() -> String {
-    return "Boundary-\(UUID().uuidString)"
-  }
-
-  private func requestBodyData<Operation: GraphQLUploadOperation>(for operation: Operation, boundary: String) -> Data {
-    var body = Data()
+  private func buildMultipartFormData<Operation: GraphQLUploadOperation>(for operation: Operation) -> MultipartFormData {
+    let formData = MultipartFormData(fileManager: fileManager)
 
     //Operations
     let operations = try! serializationFormat.serialize(value: requestBody(for: operation))
-
-    body.appendString("--\(boundary)\r\n")
-    body.appendString("Content-Disposition: form-data; name=\"operations\"\r\n\r\n")
-    body.append(operations)
-    body.append(.CRLF)
+    formData.append(operations, withName: "operations")
 
     //Map
     let map = try! serializationFormat.serialize(value: operation.map ?? [:])
-    body.appendString("--\(boundary)\r\n")
-    body.appendString("Content-Disposition: form-data; name=\"map\"\r\n\r\n")
-    body.append(map)
-    body.append(.CRLF)
+    formData.append(map, withName: "map")
 
     //Files
     for (index, upload) in (operation.uploads ?? []).enumerated() {
-      body.appendString("--\(boundary)\r\n")
-      body.appendString("Content-Disposition: form-data; name=\"\(index)\"; filename=\"\(upload.fileName)\"\r\n")
-      body.appendString("Content-Type: \(upload.mimeType)\r\n\r\n")
-      body.append(upload.data)
-      body.append(.CRLF)
+      let name = "\(index)"
+      switch upload {
+      case let dataUpload as DataGraphQLUpload:
+        if let fileName = dataUpload.fileName {
+          formData.append(dataUpload.data, withName: name, fileName: fileName, mimeType: dataUpload.mimeType)
+        } else {
+          formData.append(dataUpload.data, withName: name, mimeType: dataUpload.mimeType)
+        }
+      case let fileUpload as FileGraphQLUpload:
+        if let fileName = fileUpload.fileName, let mimeType = fileUpload.mimeType {
+          formData.append(fileUpload.fileURL, withName: name, fileName: fileName, mimeType: mimeType)
+        } else {
+          formData.append(fileUpload.fileURL, withName: name)
+        }
+      case let inputStreamUpload as InputStreamGraphQLUpload:
+          formData.append(inputStreamUpload.stream,
+                          withLength: inputStreamUpload.length,
+                          name: name,
+                          fileName: inputStreamUpload.fileName,
+                          mimeType: inputStreamUpload.mimeType)
+      default:
+        fatalError("Unexpected upload type.")
+      }
     }
 
-    body.appendString("--\(boundary)--\r\n")
-
-    return body
+    return formData
   }
-}
-
-fileprivate extension Data {
-  mutating func appendString(_ string: String) {
-    let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
-    append(data!)
-  }
-}
-
-fileprivate extension Data {
-  static let CRLF: Data = "\r\n".data(using: .ascii)!
 }
