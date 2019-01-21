@@ -1066,7 +1066,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "exit 0\n\nAPOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads --passthroughCustomScalars API.swift\n";
+			shellScript = "echo \"TODO: Remove `exit 0` once apollo-cli can generate GraphQLUploadMutations\"\nexit 0\n\nAPOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads --passthroughCustomScalars API.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
