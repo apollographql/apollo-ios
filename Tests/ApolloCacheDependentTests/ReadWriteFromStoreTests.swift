@@ -160,7 +160,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }
-
+    
   func testUpdateHeroAndFriendsNamesQueryWithVariable() throws {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero(episode:NEWHOPE)": Reference(key: "2001")],

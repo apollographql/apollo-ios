@@ -143,18 +143,6 @@ public final class ApolloStore {
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecords)
 
-    fileprivate func makeExecutor(keySelector: @escaping (GraphQLResolveInfo) -> String = { $0.cacheKeyForField }) -> GraphQLExecutor {
-      let executor = GraphQLExecutor { object, info in
-        let key = keySelector(info)
-        let value = object[key]
-        return self.complete(value: value)
-      }
-
-      executor.dispatchDataLoads = self.loader.dispatch
-      executor.cacheKeyForObject = self.cacheKeyForObject
-      return executor
-    }
-
     init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?) {
       self.cache = cache
       self.cacheKeyForObject = cacheKeyForObject
@@ -188,7 +176,16 @@ public final class ApolloStore {
 
     final func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
       return loadObject(forKey: key).flatMap { object in
-        try self.makeExecutor().execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: accumulator)
+        let executor = GraphQLExecutor { object, info in
+          let value = object[info.cacheKeyForField]
+          return self.complete(value: value)
+        }
+        
+        
+        executor.dispatchDataLoads = self.loader.dispatch
+        executor.cacheKeyForObject = self.cacheKeyForObject
+        
+        return try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: accumulator)
       }
     }
 
@@ -233,7 +230,12 @@ public final class ApolloStore {
 
     private func write(object: JSONObject, forSelections selections: [GraphQLSelection], withKey key: CacheKey, variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
-      let executor = makeExecutor { $0.responseKeyForField }
+      let executor = GraphQLExecutor { object, info in
+        return .result(.success(object[info.responseKeyForField]))
+      }
+      
+      executor.cacheKeyForObject = self.cacheKeyForObject
+      
       try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
         self.cache.merge(records: $0)
