@@ -2,6 +2,10 @@ import Starscream
 @testable import ApolloWebSocket
 
 class MockWebSocket: ApolloWebSocketClient {
+  var pongDelegate: WebSocketPongDelegate?
+  
+  var sslClientCertificate: SSLClientCertificate?
+  
   required init(request: URLRequest, protocols: [String]?) {
   }
   

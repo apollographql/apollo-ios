@@ -3,10 +3,20 @@ import XCTest
 import StarWarsAPI
 
 private final class MockBatchedNormalizedCache: NormalizedCache {
+  
   private var records: RecordSet
   
   init(records: RecordSet) {
     self.records = records
+  }
+  
+  func clear() -> Promise<Void> {
+    return Promise { fulfill, reject in
+      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(100)) {
+        self.records.clear()
+        fulfill(())
+      }
+    }
   }
   
   func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
