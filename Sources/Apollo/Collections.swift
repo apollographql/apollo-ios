@@ -58,7 +58,7 @@ extension GroupedSequence: Sequence {
 struct GroupedSequenceIterator<Key: Equatable, Value>: IteratorProtocol {
   private var base: GroupedSequence<Key, Value>
   
-  private var keyIterator: EnumeratedIterator<IndexingIterator<Array<Key>>>
+  private var keyIterator: EnumeratedSequence<[Key]>.Iterator
   
   init(base: GroupedSequence<Key, Value>) {
     self.base = base
