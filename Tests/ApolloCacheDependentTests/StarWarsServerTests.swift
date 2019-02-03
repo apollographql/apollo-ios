@@ -344,33 +344,6 @@ class StarWarsServerTests: XCTestCase {
       waitForExpectations(timeout: 5, handler: nil)
     }
   }
-
-//  private func perform<Mutation: GraphQLUploadMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
-//    withCache { (cache) in
-//      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
-//      let store = ApolloStore(cache: cache)
-//      let client = ApolloClient(networkTransport: network, store: store)
-//
-//      let expectation = self.expectation(description: "Performing mutation")
-//
-//      client.perform(mutation: mutation) { (result, error) in
-//        defer { expectation.fulfill() }
-//
-//        if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
-//        guard let result = result else { XCTFail("No mutation result");  return }
-//
-//        if let errors = result.errors {
-//          XCTFail("Errors in mutation result: \(errors)")
-//        }
-//
-//        guard let data = result.data else { XCTFail("No mutation result data");  return }
-//
-//        completionHandler(data)
-//      }
-//
-//      waitForExpectations(timeout: 5, handler: nil)
-//    }
-//  }
 }
 
 // MARK: Upload Text Fixtures
