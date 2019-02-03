@@ -9,15 +9,4 @@ public protocol NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable
-
-  /// Send a GraphQL upload operation to a server and return a response.
-  ///
-  /// - Parameters:
-  ///   - operation: The upload operation to send.
-  ///   - completionHandler: A closure to call when a request completes.
-  ///   - response: The response received from the server, or `nil` if an error occurred.
-  ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
-  /// - Returns: An object that can be used to cancel an in progress request.
-  func send<Operation: GraphQLUploadOperation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable
 }
-

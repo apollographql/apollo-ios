@@ -5231,7 +5231,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
   }
 }
 
-public final class SingleUploadMutation: GraphQLUploadMutation {
+public final class SingleUploadMutation: GraphQLMutation & GraphQLUploadable {
   public let operationDefinition =
     "mutation SingleUpload($file: Upload!) {\n  singleUpload(file: $file) {\n    __typename\n    filename\n    mimetype\n    encoding\n  }\n}"
 
@@ -5245,11 +5245,11 @@ public final class SingleUploadMutation: GraphQLUploadMutation {
     return ["file": file]
   }
 
-  public var map: GraphQLMap? {
+  public var map: GraphQLMap {
     return ["0": ["variables.file"]]
   }
 
-  public var uploads: [GraphQLUpload]? {
+  public var uploads: [GraphQLUpload] {
     return [file]
   }
 
@@ -5338,7 +5338,7 @@ public final class SingleUploadMutation: GraphQLUploadMutation {
   }
 }
 
-public final class MultipleUploadMutation: GraphQLUploadMutation {
+public final class MultipleUploadMutation: GraphQLMutation & GraphQLUploadable {
   public let operationDefinition =
     "mutation MultipleUpload($files: [Upload!]!) {\n  multipleUpload(files: $files) {\n    __typename\n    filename\n    mimetype\n    encoding\n  }\n}"
 
@@ -5352,7 +5352,7 @@ public final class MultipleUploadMutation: GraphQLUploadMutation {
     return ["files": files]
   }
 
-  public var map: GraphQLMap? {
+  public var map: GraphQLMap {
     return [
       "0": ["variables.files.0"],
       "1": ["variables.files.1"],
@@ -5361,7 +5361,7 @@ public final class MultipleUploadMutation: GraphQLUploadMutation {
     ]
   }
 
-  public var uploads: [GraphQLUpload]? {
+  public var uploads: [GraphQLUpload] {
     return files
   }
 
