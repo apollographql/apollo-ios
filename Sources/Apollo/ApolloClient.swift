@@ -112,6 +112,23 @@ public class ApolloClient {
     return watcher
   }
   
+  public func watch<Fragment: GraphQLFragment>(
+    forType: Fragment.Type,
+    cacheKey: CacheKey,
+    queue: DispatchQueue = DispatchQueue.main,
+    resultHandler: @escaping GraphQLFragmentWatcher<Fragment>.FragmentResultHandler
+  ) -> GraphQLFragmentWatcher<Fragment> {
+    let watcher = GraphQLFragmentWatcher(
+      client: self,
+      forType: forType,
+      cacheKey: cacheKey,
+      handlerQueue: queue,
+      resultHandler: resultHandler
+    )
+    watcher.fetch()
+    return watcher
+  }
+  
   /// Performs a mutation by sending it to the server.
   ///
   /// - Parameters:

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D91186A2208DD5600F23EFD /* GraphQLFragmentWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9118692208DD5600F23EFD /* GraphQLFragmentWatcher.swift */; };
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* FetchHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* FetchHTTPMethod.swift */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
@@ -230,6 +231,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D9118692208DD5600F23EFD /* GraphQLFragmentWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFragmentWatcher.swift; sourceTree = "<group>"; };
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5AC6CA4222AAF7B200B7C94D /* FetchHTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchHTTPMethod.swift; sourceTree = "<group>"; };
 		90690D05224333DA00FC2E54 /* Apollo-Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Project-Debug.xcconfig"; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
 				9FC9A9BE1E2C27FB0023C4D5 /* GraphQLResult.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
+				1D9118692208DD5600F23EFD /* GraphQLFragmentWatcher.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
 				9FC9A9CE1E2FD0CC0023C4D5 /* Network */,
 				9FC9A9CA1E2FD05C0023C4D5 /* Store */,
@@ -1066,6 +1069,7 @@
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
 				9FCDFD291E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */,
+				1D91186A2208DD5600F23EFD /* GraphQLFragmentWatcher.swift in Sources */,
 				9FC2333D1E66BBF7001E4541 /* GraphQLDependencyTracker.swift in Sources */,
 				9F19D8441EED568200C57247 /* ResultOrPromise.swift in Sources */,
 				9FC9A9BF1E2C27FB0023C4D5 /* GraphQLResult.swift in Sources */,
