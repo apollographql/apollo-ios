@@ -83,6 +83,9 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.httpBody = try! serializationFormat.serialize(value: body)
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+      
+      self.session.finishTasksAndInvalidate()
+      
       if error != nil {
         completionHandler(nil, error)
         return
