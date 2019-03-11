@@ -324,7 +324,7 @@ class WatchQueryTests: XCTestCase {
     let untilDate = Date(timeIntervalSinceNow: timeInterval)
 
     while untilDate.timeIntervalSinceNow > 0 {
-      RunLoop.current.run(mode: .defaultRunLoopMode, before: untilDate)
+      RunLoop.current.run(mode: RunLoopMode.defaultRunLoopMode, before: untilDate)
     }
   }
 }
