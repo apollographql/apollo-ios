@@ -1,0 +1,6 @@
+[build]
+  base    = "docs/"
+  publish = "docs/public/"
+  command = "gatsby build --prefix-paths && mkdir -p docs/ios && mv public/* docs/ios && mv docs public/"
+[build.environment]
+  NPM_VERSION = "6"
