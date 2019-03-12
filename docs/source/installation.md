@@ -73,7 +73,7 @@ if [ -z "$APOLLO_FRAMEWORK_PATH" ]; then
 fi
 
 cd "${SRCROOT}/${TARGET_NAME}"
-$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh client:codegen --includes="$(find . -name '*.graphql')" --schema=schema.json --target=swift API.swift
 ```
 for macOS Project
 ```sh
