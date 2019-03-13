@@ -18,10 +18,10 @@ let watcher = apollo.watch(query: HeroNameQuery(episode: .empire)) { (result, er
 
 While Apollo can do basic caching based on the shape of GraphQL queries and their results, Apollo won't be able to associate objects fetched by different queries without additional information about the identities of the objects returned from the server. This is referred to as [cache normalization](http://dev.apollodata.com/core/how-it-works.html#normalize). You can read about our caching model in detail in our blog post, ["GraphQL Concepts Visualized"](https://medium.com/apollo-stack/the-concepts-of-graphql-bc68bd819be3).
 
-By default, Apollo does not use object IDs at all, doing caching based only on the path to the object from the root query. However, if you specify a function to generate IDs from each object, and supply it as `cacheKeyFromObject` to an `ApolloClient` instance, you can decide how Apollo will identify and de-duplicate the objects returned from the server:
+By default, Apollo does not use object IDs at all, doing caching based only on the path to the object from the root query. However, if you specify a function to generate IDs from each object, and supply it as `cacheKeyForObject` to an `ApolloClient` instance, you can decide how Apollo will identify and de-duplicate the objects returned from the server:
 
 ```swift
 apollo.cacheKeyForObject = { $0["id"] }
 ```
 
-> In some cases, just using `cacheKeyFromObject` is not enough for your application UI to update correctly. For example, if you want to add something to a list of objects without refetching the entire list, or if there are some objects that to which you can't assign an object identifier, Apollo cannot automatically update existing queries for you.
+> In some cases, just using `cacheKeyForObject` is not enough for your application UI to update correctly. For example, if you want to add something to a list of objects without refetching the entire list, or if there are some objects that to which you can't assign an object identifier, Apollo cannot automatically update existing queries for you.

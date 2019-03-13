@@ -6,10 +6,10 @@ import StarWarsAPI
 private struct MockSelectionSet: GraphQLSelectionSet {
   public static let selections: [GraphQLSelection] = []
   
-  public var snapshot: Snapshot
+  public var resultMap: ResultMap
   
-  public init(snapshot: Snapshot) {
-    self.snapshot = snapshot
+  public init(unsafeResultMap: ResultMap) {
+    self.resultMap = unsafeResultMap
   }
 }
 
@@ -18,7 +18,7 @@ func readFieldValue(_ field: GraphQLField, from object: JSONObject) throws -> An
     return .result(.success(object[info.responseKeyForField]))
   }
   
-  return try executor.execute(selections: [field], on: object, withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).await().snapshot[field.responseKey]!
+  return try executor.execute(selections: [field], on: object, withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).await().resultMap[field.responseKey]!
 }
 
 class ReadFieldValueTests: XCTestCase {
@@ -261,6 +261,6 @@ class ReadFieldValueTests: XCTestCase {
 
     let value = try readFieldValue(field, from: object) as! [Episode?]?
 
-    XCTAssertEqual(value, [.unknown("TWOTOWERS")] as [Episode?]?)
+    XCTAssertEqual(value, [.__unknown("TWOTOWERS")] as [Episode?]?)
   }
 }

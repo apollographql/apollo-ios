@@ -14,6 +14,7 @@ final class GraphQLDependencyTracker: GraphQLResultAccumulator {
   }
   
   func accept(fieldEntry: Void, info: GraphQLResolveInfo) {
+    dependentKeys.insert(joined(path: info.cachePath))
   }
   
   func accept(fieldEntries: [Void], info: GraphQLResolveInfo) {

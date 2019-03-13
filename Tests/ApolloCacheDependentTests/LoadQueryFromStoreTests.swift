@@ -120,7 +120,7 @@ class LoadQueryFromStoreTests: XCTestCase {
 
         guard let data = result?.data else { XCTFail(); return }
         XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
     }
@@ -154,7 +154,7 @@ class LoadQueryFromStoreTests: XCTestCase {
 
         guard let data = result?.data else { XCTFail(); return }
         XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
     }

@@ -1,7 +1,8 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CODEGEN_VERSION=0.18
+REQUIRED_APOLLO_CODEGEN_VERSION=0.20
 
-# Part of this code has been adapted from https://github.com/facebook/react-native/blob/master/packager/react-native-xcode.sh
+# Part of this code has been adapted from
+# https://github.com/facebook/react-native/blob/master/scripts/react-native-xcode.sh
 
 # This script is supposed to be invoked as part of the Xcode build process
 # and relies on environment variables set by Xcode
@@ -46,20 +47,28 @@ if [[ -x "$HOME/.nodenv/bin/nodenv" ]]; then
   eval "$("$HOME/.nodenv/bin/nodenv" init -)"
 fi
 
-if ! type "apollo-codegen" >/dev/null 2>&1; then
-  echo "Can't find apollo-codegen. Installing..."
-  install_apollo_codegen
+if [[ -s "$SRCROOT/node_modules/.bin/apollo-codegen" ]]; then
+  # If it's installed locally, use version build instead
+  set -x
+
+  exec "$SRCROOT/node_modules/.bin/apollo-codegen" "$@"
+else
+  # Otherwise use a global install
+  if ! type "apollo-codegen" >/dev/null 2>&1; then
+    echo "Can't find apollo-codegen. Installing..."
+    install_apollo_codegen
+  fi
+
+  INSTALLED_APOLLO_CODEGEN_VERSION="$(get_installed_version)"
+
+  if ! are_versions_compatible $INSTALLED_APOLLO_CODEGEN_VERSION $REQUIRED_APOLLO_CODEGEN_VERSION; then
+    echo "The version of Apollo.framework in your project requires apollo-codegen $REQUIRED_APOLLO_CODEGEN_VERSION, \
+  but $INSTALLED_APOLLO_CODEGEN_VERSION seems to be installed. Installing..."
+    install_apollo_codegen
+  fi
+
+  # Print commands before executing them (useful for troubleshooting)
+  set -x
+
+  exec apollo-codegen "$@"
 fi
-
-INSTALLED_APOLLO_CODEGEN_VERSION="$(get_installed_version)"
-
-if ! are_versions_compatible $INSTALLED_APOLLO_CODEGEN_VERSION $REQUIRED_APOLLO_CODEGEN_VERSION; then
-  echo "The version of Apollo.framework in your project requires apollo-codegen $REQUIRED_APOLLO_CODEGEN_VERSION, \
-but $INSTALLED_APOLLO_CODEGEN_VERSION seems to be installed. Installing..."
-  install_apollo_codegen
-fi
-
-# Print commands before executing them (useful for troubleshooting)
-set -x
-
-exec apollo-codegen "$@"

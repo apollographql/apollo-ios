@@ -118,7 +118,7 @@ class ReadWriteFromStoreTests: XCTestCase {
         let data = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       })
     }
@@ -156,7 +156,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       guard let data = result.data else { XCTFail(); return }
       
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }
@@ -222,7 +222,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       try await(store.withinReadTransaction { transaction in
         let friendsNamesFragment = try transaction.readObject(ofType: FriendsNames.self, withKey: "2001")
 
-        let friendsNames = friendsNamesFragment.friends?.flatMap { $0?.name }
+        let friendsNames = friendsNamesFragment.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       })
     }
@@ -258,7 +258,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       guard let data = result.data else { XCTFail(); return }
 
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }

@@ -9,7 +9,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
     
     fetchAndLoadFromStore(query: query) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
@@ -19,7 +19,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
     
     fetchAndLoadFromStore(query: query) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
@@ -29,7 +29,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
     
     fetchAndLoadFromStore(query: query, setupClient: { $0.store.cacheKeyForObject = {$0["id"]} }) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }

@@ -112,7 +112,7 @@ public final class GraphQLExecutor {
     guard let value = cacheKeyForObject?(object) else { return nil }
     
     if let array = value as? [Any?] {
-      return array.flatMap { $0 }.map { String(describing: $0) }.joined(separator: "_")
+      return array.compactMap { String(describing: $0) }.joined(separator: "_")
     } else {
       return String(describing: value)
     }

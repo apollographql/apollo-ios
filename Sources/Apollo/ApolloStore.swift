@@ -4,6 +4,17 @@ import Dispatch
 public typealias CacheKeyForObject = (_ object: JSONObject) -> JSONValue?
 public typealias DidChangeKeysFunc = (Set<CacheKey>, UnsafeMutableRawPointer?) -> Void
 
+func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> String {
+  switch operation.operationType {
+  case .query:
+    return "QUERY_ROOT"
+  case .mutation:
+    return "MUTATION_ROOT"
+  case .subscription:
+    return "SUBSCRIPTION_ROOT"
+  }
+}
+
 protocol ApolloStoreSubscriber: class {
   func store(_ store: ApolloStore, didChangeKeys changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?)
 }
@@ -112,7 +123,7 @@ public final class ApolloStore {
       let mapper = GraphQLSelectionSetMapper<Query.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
 
-      return try transaction.execute(selections: Query.Data.selections, onObjectWithKey: Query.rootCacheKey, variables: query.variables, accumulator: zip(mapper, dependencyTracker))
+      return try transaction.execute(selections: Query.Data.selections, onObjectWithKey: rootCacheKey(for: query), variables: query.variables, accumulator: zip(mapper, dependencyTracker))
     }.map { (data: Query.Data, dependentKeys: Set<CacheKey>) in
       GraphQLResult(data: data, errors: nil, source:.cache, dependentKeys: dependentKeys)
     }
@@ -149,7 +160,7 @@ public final class ApolloStore {
     }
 
     public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
-      return try readObject(ofType: Query.Data.self, withKey: Query.rootCacheKey, variables: query.variables)
+      return try readObject(ofType: Query.Data.self, withKey: rootCacheKey(for: query), variables: query.variables)
     }
 
     public func readObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap? = nil) throws -> SelectionSet {
@@ -212,7 +223,7 @@ public final class ApolloStore {
     }
 
     public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
-      try write(object: data, withKey: Query.rootCacheKey, variables: query.variables)
+      try write(object: data, withKey: rootCacheKey(for: query), variables: query.variables)
     }
 
     public func write(object: GraphQLSelectionSet, withKey key: CacheKey, variables: GraphQLMap? = nil) throws {
@@ -228,7 +239,7 @@ public final class ApolloStore {
         if let didChangeKeysFunc = self.updateChangedKeysFunc {
             didChangeKeysFunc(changedKeys, nil)
         }
-      }.await()
+      }.wait()
     }
   }
 }
