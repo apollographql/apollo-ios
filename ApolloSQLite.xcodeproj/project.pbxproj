@@ -278,6 +278,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54DDB0C61EA1523E0009DD99 /* Build configuration list for PBXNativeTarget "ApolloSQLite" */;
 			buildPhases = (
+				90690D362243444D00FC2E54 /* Ensure no build settings are in the Xcode project */,
 				54DDB0B91EA1523E0009DD99 /* Sources */,
 				54DDB0BA1EA1523E0009DD99 /* Frameworks */,
 			);
@@ -410,6 +411,27 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		90690D362243444D00FC2E54 /* Ensure no build settings are in the Xcode project */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Ensure no build settings are in the Xcode project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT\"/scripts/ensure-no-build-settings-in-pbxproj.sh \"${PROJECT_FILE_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		543806911EA56C2200F55B72 /* Sources */ = {

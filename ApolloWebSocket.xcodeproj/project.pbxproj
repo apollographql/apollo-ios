@@ -171,6 +171,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 720160DF206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebSocket" */;
 			buildPhases = (
+				90690D332243444400FC2E54 /* Ensure no build settings are in the Xcode project */,
 				720160C6206AB3D30052B2EE /* Sources */,
 				720160C7206AB3D30052B2EE /* Frameworks */,
 			);
@@ -261,6 +262,27 @@
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		90690D332243444400FC2E54 /* Ensure no build settings are in the Xcode project */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Ensure no build settings are in the Xcode project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT\"/scripts/ensure-no-build-settings-in-pbxproj.sh \"${PROJECT_FILE_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		720160C6206AB3D30052B2EE /* Sources */ = {
