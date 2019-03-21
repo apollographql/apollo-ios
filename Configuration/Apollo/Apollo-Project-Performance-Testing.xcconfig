@@ -1,0 +1,4 @@
+#include "../Shared/Project-Release.xcconfig"
+
+ENABLE_TESTABILITY = YES
+TEST_HOST = $(BUILT_PRODUCTS_DIR)/TestHost iOS.app/TestHost iOS

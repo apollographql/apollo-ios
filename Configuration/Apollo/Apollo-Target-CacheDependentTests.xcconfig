@@ -1,0 +1,3 @@
+#include "../Shared/Workspace-Universal-Test.xcconfig"
+
+INFOPLIST_FILE = Tests/ApolloCacheDependentTests/Info.plist
