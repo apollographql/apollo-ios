@@ -41,8 +41,7 @@ public class ApolloClient {
       store.cacheKeyForObject = newValue
     }
   }
-    
-  private let queue: DispatchQueue
+
   private let operationQueue: OperationQueue
   
   /// Creates a client with the specified network transport and store.
@@ -53,8 +52,7 @@ public class ApolloClient {
   public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
     self.networkTransport = networkTransport
     self.store = store
-    
-    queue = DispatchQueue(label: "com.apollographql.ApolloClient", attributes: .concurrent)
+
     operationQueue = OperationQueue()
   }
   
