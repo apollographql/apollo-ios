@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
 
   s.requires_arc = true
-  
-  s.swift_version = '4.0'
+
+  s.swift_version = '5.0'
 
   s.default_subspecs = 'Core'
 
