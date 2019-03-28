@@ -52,6 +52,14 @@ matrix:
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator12.0
     env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
+  - osx_image: xcode10.2
+    xcode_scheme: Apollo
+    xcode_sdk: macosx10.14
+    env: DESTINATION="platform=macOS,arch=x86_64"
+  - osx_image: xcode10.2
+    xcode_scheme: Apollo
+    xcode_sdk: iphonesimulator12.2
+    env: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS"
 
 cache:
   directories:
