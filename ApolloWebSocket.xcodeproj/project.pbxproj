@@ -44,18 +44,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		720F14A9206ADB9000D061DB /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		720160CB206AB3D30052B2EE /* ApolloWebSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloWebSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		720160D4206AB3D30052B2EE /* ApolloWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,11 +55,14 @@
 		72707473206D112900C131F6 /* MockWebSocketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebSocketTests.swift; sourceTree = "<group>"; };
 		72707474206D112900C131F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72707475206D112900C131F6 /* StarWarsWebSocketTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsWebSocketTests.swift; sourceTree = "<group>"; };
+		90690D0C224334C000FC2E54 /* ApolloWebSocket-Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Project-Debug.xcconfig"; sourceTree = "<group>"; };
+		90690D0D224334C900FC2E54 /* ApolloWebSocket-Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Project-Release.xcconfig"; sourceTree = "<group>"; };
+		90690D12224334FD00FC2E54 /* ApolloWebSocket-Target-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Target-Framework.xcconfig"; sourceTree = "<group>"; };
+		90690D132243350400FC2E54 /* ApolloWebSocket-Target-Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Target-Tests.xcconfig"; sourceTree = "<group>"; };
 		9F28B6C6206E487200144A00 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = Carthage/Checkouts/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		9F28B6D420720F2F00144A00 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F28B6D820720FD100144A00 /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F28B6DA2072101200144A00 /* StarWarsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StarWarsAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FCEC848206E442000FB34B6 /* Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +93,8 @@
 			children = (
 				72707469206D111A00C131F6 /* ApolloWebSocket */,
 				72707470206D112900C131F6 /* ApolloWebSocketTests */,
+				90690D0A2243342000FC2E54 /* Configuration */,
 				720F147A206AB52F00D061DB /* Frameworks */,
-				9F0733C7206E191800C2AC65 /* Configuration */,
 				720160CC206AB3D30052B2EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,12 +143,16 @@
 			path = Tests/ApolloWebSocketTests;
 			sourceTree = "<group>";
 		};
-		9F0733C7206E191800C2AC65 /* Configuration */ = {
+		90690D0A2243342000FC2E54 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				9FCEC848206E442000FB34B6 /* Framework.xcconfig */,
+				90690D0C224334C000FC2E54 /* ApolloWebSocket-Project-Debug.xcconfig */,
+				90690D0D224334C900FC2E54 /* ApolloWebSocket-Project-Release.xcconfig */,
+				90690D12224334FD00FC2E54 /* ApolloWebSocket-Target-Framework.xcconfig */,
+				90690D132243350400FC2E54 /* ApolloWebSocket-Target-Tests.xcconfig */,
 			);
 			name = Configuration;
+			path = Configuration/ApolloWebSocket;
 			sourceTree = "<group>";
 		};
 		9F28B6C7206E487200144A00 /* Products */ = {
@@ -171,25 +166,14 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		720160C8206AB3D30052B2EE /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		720160CA206AB3D30052B2EE /* ApolloWebSocket */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 720160DF206AB3D30052B2EE /* Build configuration list for PBXNativeTarget "ApolloWebSocket" */;
 			buildPhases = (
+				90690D332243444400FC2E54 /* Ensure no build settings are in the Xcode project */,
 				720160C6206AB3D30052B2EE /* Sources */,
 				720160C7206AB3D30052B2EE /* Frameworks */,
-				720160C8206AB3D30052B2EE /* Headers */,
-				720160C9206AB3D30052B2EE /* Resources */,
 			);
 			buildRules = (
 			);
@@ -206,8 +190,6 @@
 			buildPhases = (
 				720160D0206AB3D30052B2EE /* Sources */,
 				720160D1206AB3D30052B2EE /* Frameworks */,
-				720160D2206AB3D30052B2EE /* Resources */,
-				720F14A9206ADB9000D061DB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -281,22 +263,26 @@
 		};
 /* End PBXReferenceProxy section */
 
-/* Begin PBXResourcesBuildPhase section */
-		720160C9206AB3D30052B2EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* Begin PBXShellScriptBuildPhase section */
+		90690D332243444400FC2E54 /* Ensure no build settings are in the Xcode project */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		720160D2206AB3D30052B2EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Ensure no build settings are in the Xcode project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT\"/scripts/ensure-no-build-settings-in-pbxproj.sh \"${PROJECT_FILE_PATH}\"\n";
 		};
-/* End PBXResourcesBuildPhase section */
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		720160C6206AB3D30052B2EE /* Sources */ = {
@@ -332,197 +318,43 @@
 /* Begin XCBuildConfiguration section */
 		720160DD206AB3D30052B2EE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90690D0C224334C000FC2E54 /* ApolloWebSocket-Project-Debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
 		720160DE206AB3D30052B2EE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90690D0D224334C900FC2E54 /* ApolloWebSocket-Project-Release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
 		720160E0206AB3D30052B2EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FCEC848206E442000FB34B6 /* Framework.xcconfig */;
+			baseConfigurationReference = 90690D12224334FD00FC2E54 /* ApolloWebSocket-Target-Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/ApolloWebSocket/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocket;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		720160E1206AB3D30052B2EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FCEC848206E442000FB34B6 /* Framework.xcconfig */;
+			baseConfigurationReference = 90690D12224334FD00FC2E54 /* ApolloWebSocket-Target-Framework.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/ApolloWebSocket/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocket;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		720160E3206AB3D30052B2EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FCEC848206E442000FB34B6 /* Framework.xcconfig */;
+			baseConfigurationReference = 90690D132243350400FC2E54 /* ApolloWebSocket-Target-Tests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebSocketTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocketTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
 			name = Debug;
 		};
 		720160E4206AB3D30052B2EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FCEC848206E442000FB34B6 /* Framework.xcconfig */;
+			baseConfigurationReference = 90690D132243350400FC2E54 /* ApolloWebSocket-Target-Tests.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/ApolloWebSocketTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloWebSocketTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3,4";
 			};
 			name = Release;
 		};
