@@ -121,12 +121,17 @@ public class HTTPNetworkTransport: NetworkTransport {
   private let sendOperationIdentifiers: Bool
 
   private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
+    var body: GraphQLMap = ["variables": operation.variables, "operationName": operation.operationName]
+
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {
         preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
       }
-      return ["id": operationIdentifier, "variables": operation.variables]
+      body["id"] = operationIdentifier
+    } else {
+      body["query"] = operation.queryDocument
     }
-    return ["query": operation.queryDocument, "variables": operation.variables]
+
+    return body
   }
 }
