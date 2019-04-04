@@ -31,4 +31,5 @@ ENABLE_BITCODE[sdk=appletvos*] = YES
 // Source: https://github.com/realm/realm-cocoa/pull/2567
 BITCODE_GENERATION_MODE[sdk=watchos*] = bitcode
 BITCODE_GENERATION_MODE[sdk=iphoneos*] = bitcode
+BITCODE_GENERATION_MODE[sdk=iphoneos*][config=Debug] = marker
 BITCODE_GENERATION_MODE[sdk=appletvos*] = bitcode
