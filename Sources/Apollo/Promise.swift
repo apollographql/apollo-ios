@@ -28,6 +28,18 @@ public func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
   }
 }
 
+public func firstly<T>(on queue: DispatchQueue, _ body: @escaping () throws -> Promise<T>) -> Promise<T> {
+  return Promise<T> { fulfill, reject in
+    queue.async {
+      do {
+        try body().andThen(fulfill).catch(reject)
+      } catch {
+        reject(error)
+      }
+    }
+  }
+}
+
 public final class Promise<Value> {
   private let lock = Mutex()
   private var state: State<Value>

@@ -249,4 +249,100 @@ class PromiseTests: XCTestCase {
     
     waitForExpectations(timeout: 1)
   }
+  
+  func testFirstlyFulfills() {
+    let promise = Promise(fulfilled: "test")
+    
+    let expectation = self.expectation(description: "firstly andThen handler invoked")
+    
+    firstly {
+      promise
+    }.andThen { value in
+      XCTAssertEqual(value, "test")
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testFirstlyRejects() {
+    let promise = Promise<Void>(rejected: TestError())
+    
+    let expectation = self.expectation(description: "firstly catch handler invoked")
+    
+    firstly {
+      promise
+    }.catch { error in
+      XCTAssert(error is TestError)
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testFirstlyThrows() {
+    let expectation = self.expectation(description: "firstly catch handler invoked")
+    
+    firstly { () throws -> Promise<Void> in
+      throw TestError()
+    }.catch { error in
+      XCTAssert(error is TestError)
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testFirstlyOnFulfills() {
+    let queue = DispatchQueue(label: "test queue")
+    let promise = Promise(fulfilled: "test")
+    
+    let expectation = self.expectation(description: "firstly(on:) andThen handler invoked")
+    
+    firstly(on: queue) { () throws -> Promise<String> in
+      return promise
+    }.andThen { value in
+      XCTAssertEqual(value, "test")
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testFirstlyOnRejects() {
+    let queue = DispatchQueue(label: "test queue")
+    let promise = Promise<Void>(rejected: TestError())
+    
+    let expectation = self.expectation(description: "firstly(on:) catch handler invoked")
+    
+    firstly(on: queue) { () throws -> Promise<Void> in
+      return promise
+    }.catch { error in
+      XCTAssert(error is TestError)
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
+  func testFirstlyOnThrows() {
+    let queue = DispatchQueue(label: "test queue")
+    
+    let expectation = self.expectation(description: "firstly(on:) catch handler invoked")
+    
+    firstly(on: queue) { () throws -> Promise<Void> in
+      throw TestError()
+    }.catch { error in
+      XCTAssert(error is TestError)
+      
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
 }
