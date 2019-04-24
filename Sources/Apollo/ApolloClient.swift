@@ -68,6 +68,7 @@ public class ApolloClient {
   /// Clears apollo cache
   ///
   /// - Returns: Promise
+  @available(*, deprecated, message: "No longer supported. User .store.clearCache() instead.")
   public func clearCache() -> Promise<Void> {
     return store.clearCache()
   }
