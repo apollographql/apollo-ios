@@ -52,6 +52,10 @@ public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
+
+  /// These additional headers get added to the request object before
+  /// it is sent to the server
+  public var additionalHeaders = [String: String]()
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -78,6 +82,10 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.httpMethod = "POST"
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    additionalHeaders.forEach {
+        request.setValue($0.value, forHTTPHeaderField: $0.key)
+    }
 
     let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
