@@ -44,7 +44,7 @@ public final class ApolloStore {
     }
   }
 
-  func clearCache() -> Promise<Void> {
+  public func clearCache() -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
