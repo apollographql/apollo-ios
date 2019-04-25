@@ -17,9 +17,6 @@ matrix:
     xcode_sdk: iphonesimulator12.2
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_scheme: Apollo
-    xcode_sdk: iphonesimulator12.2
-    env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
-  - xcode_scheme: Apollo
     xcode_sdk: appletvsimulator12.2
     env: DESTINATION="platform=tvOS Simulator,OS=12.2,name=Apple TV"
   - xcode_scheme: ApolloSQLite
@@ -34,9 +31,6 @@ matrix:
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator12.2
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
-  - xcode_scheme: ApolloSQLite
-    xcode_sdk: iphonesimulator12.2
-    env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: macosx10.14
     env: DESTINATION="platform=macOS,arch=x86_64"
@@ -49,9 +43,6 @@ matrix:
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator12.2
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
-  - xcode_scheme: ApolloWebSocket
-    xcode_sdk: iphonesimulator12.2
-    env: DESTINATION="platform=iOS Simulator,OS=9.3,name=iPhone 6s"
 
 cache:
   directories:
