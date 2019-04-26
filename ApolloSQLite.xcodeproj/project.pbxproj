@@ -316,7 +316,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1020;
 				TargetAttributes = {
 					543806941EA56C2200F55B72 = {
 						CreatedOnToolsVersion = 8.3.1;
@@ -336,11 +336,11 @@
 			};
 			buildConfigurationList = 54DDB0B81EA1523E0009DD99 /* Build configuration list for PBXProject "ApolloSQLite" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 54DDB0B41EA1523E0009DD99;
 			productRefGroup = 54DDB0BF1EA1523E0009DD99 /* Products */;
