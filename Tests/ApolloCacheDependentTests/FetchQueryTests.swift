@@ -321,3 +321,48 @@ class FetchQueryTests: XCTestCase {
     }
   }
 }
+
+// MARK: - Cancelled Fetching
+
+extension FetchQueryTests {
+  
+  func testCancelledFetchForAllPolicies() {
+    let query = HeroNameQuery()
+    
+    let networkTransport = MockNetworkTransport(body: [
+      "data": [
+        "hero": [
+          "name": "Luke Skywalker",
+          "__typename": "Human"
+        ]
+      ]
+      ])
+    
+    let exp = self.expectation(description: "fetching with all policies")
+    
+    func fetch(policies: [CachePolicy]) {
+      guard !policies.isEmpty else {
+        return exp.fulfill()
+      }
+      
+      var tmp = policies
+      withCache { (cache) in
+        let store = ApolloStore(cache: cache)
+        let client = ApolloClient(networkTransport: networkTransport, store: store)
+        let p = tmp.removeFirst()
+        
+        client.fetch(query: query, cachePolicy: p) { (result, error) in
+          XCTFail("should not be called: \(String(describing: p))")
+        }.cancel()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(20)) {
+          fetch(policies: tmp)
+        }
+      }
+    }
+    
+    fetch(policies: CachePolicy.allCases)
+    waitForExpectations(timeout: 5, handler: nil)
+  }
+  
+}

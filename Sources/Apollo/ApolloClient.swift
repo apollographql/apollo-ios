@@ -8,7 +8,7 @@ public protocol Cancellable: class {
 }
 
 /// A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
-public enum CachePolicy {
+public enum CachePolicy: CaseIterable {
   /// Return data from the cache if available, else fetch results from the server.
   case returnCacheDataElseFetch
   ///  Always fetch results from the server.
@@ -87,7 +87,9 @@ public class ApolloClient {
   func _fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue, resultHandler: OperationResultHandler<Query>?) -> Cancellable {
     // If we don't have to go through the cache, there is no need to create an operation 
     // and we can return a network task directly
-    if cachePolicy == .fetchIgnoringCacheData {
+    //
+    // But without an operation, we lose the ability to cancel properly.
+    if false, cachePolicy == .fetchIgnoringCacheData {
       return send(operation: query, context: context, handlerQueue: queue, resultHandler: resultHandler)
     } else {
       let operation = FetchQueryOperation(client: self, query: query, cachePolicy: cachePolicy, context: context, handlerQueue: queue, resultHandler: resultHandler)
@@ -140,7 +142,6 @@ public class ApolloClient {
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer?, handlerQueue: DispatchQueue, resultHandler: OperationResultHandler<Operation>?) -> Cancellable {
     func notifyResultHandler(result: GraphQLResult<Operation.Data>?, error: Error?) {
       guard let resultHandler = resultHandler else { return }
-      
       handlerQueue.async {
         resultHandler(result, error)
       }
@@ -228,6 +229,11 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
   
   func fetchFromNetwork() {
     networkTask = client.send(operation: query, context: context, handlerQueue: handlerQueue) { (result, error) in
+      guard !self.isCancelled else {
+        self.state = .finished
+        return
+      }
+      
       self.notifyResultHandler(result: result, error: error)
       self.state = .finished
       return
