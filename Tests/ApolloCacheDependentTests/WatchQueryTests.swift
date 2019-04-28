@@ -166,7 +166,9 @@ class WatchQueryTests: XCTestCase {
       var refetching: XCTestExpectation?
       
       let _ = client.watch(query: query) { (result, error) in
-        refetching?.fulfill()
+        guard refetching == nil else {
+          return refetching!.fulfill()
+        }
         
         XCTAssertNil(error)
         XCTAssertNil(result?.errors)
