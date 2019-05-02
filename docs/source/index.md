@@ -12,8 +12,6 @@ Apollo iOS does more than simply run your queries against a GraphQL server howev
 
 This combination of immutable models, one way data flow, and automatic consistency management, leads to a very powerful and elegant programming model that allows you to eliminate common glue code and greatly simplifies app development.
 
-<style>.embed-container { position: relative; padding-bottom: 62.49%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://player.vimeo.com/video/188363242?autoplay=1&loop=1' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
-
 <h2 id="getting-started">Getting Started</h2>
 
 [Front Page](https://github.com/apollographql/frontpage-ios-app) is the iOS version of the simple "Hello World" app that lives on our [developer site](http://dev.apollodata.com).
