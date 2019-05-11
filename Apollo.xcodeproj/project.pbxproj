@@ -98,7 +98,7 @@
 		D084808721E311C20091178C /* GraphQLUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D084808621E311C20091178C /* GraphQLUpload.swift */; };
 		D0C89E3421F3E39900FC08BE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3321F3E39900FC08BE /* MultipartFormData.swift */; };
 		D0C89E3621F3E3DD00FC08BE /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3521F3E3DD00FC08BE /* HTTPHeaders.swift */; };
-		D0C89E3821F3E4DB00FC08BE /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3721F3E4DB00FC08BE /* AFError.swift */; };
+		D0C89E3821F3E4DB00FC08BE /* MultipartEncodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C89E3721F3E4DB00FC08BE /* MultipartEncodingError.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 /* End PBXBuildFile section */
@@ -350,7 +350,7 @@
 		D084808621E311C20091178C /* GraphQLUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLUpload.swift; sourceTree = "<group>"; };
 		D0C89E3321F3E39900FC08BE /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D0C89E3521F3E3DD00FC08BE /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
-		D0C89E3721F3E4DB00FC08BE /* AFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
+		D0C89E3721F3E4DB00FC08BE /* MultipartEncodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartEncodingError.swift; sourceTree = "<group>"; };
 		D0C89E3B21F529CF00FC08BE /* CharlieUpload.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = CharlieUpload.rtf; sourceTree = "<group>"; };
 		D0C89E3D21F5306B00FC08BE /* DeltaUpload.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DeltaUpload.jpg; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
@@ -691,7 +691,7 @@
 			children = (
 				D0C89E3321F3E39900FC08BE /* MultipartFormData.swift */,
 				D0C89E3521F3E3DD00FC08BE /* HTTPHeaders.swift */,
-				D0C89E3721F3E4DB00FC08BE /* AFError.swift */,
+				D0C89E3721F3E4DB00FC08BE /* MultipartEncodingError.swift */,
 			);
 			name = AlamoFire;
 			sourceTree = "<group>";
@@ -1128,7 +1128,7 @@
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
 				9FA6F3681E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
 				9FF90A651DDDEB100034C3B6 /* GraphQLExecutor.swift in Sources */,
-				D0C89E3821F3E4DB00FC08BE /* AFError.swift in Sources */,
+				D0C89E3821F3E4DB00FC08BE /* MultipartEncodingError.swift in Sources */,
 				9FC750611D2A59C300458D91 /* GraphQLOperation.swift in Sources */,
 				9FE941D01E62C771007CDD89 /* Promise.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
