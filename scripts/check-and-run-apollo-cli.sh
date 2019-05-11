@@ -1,7 +1,7 @@
 # Only major and minor version should be specified here
 REQUIRED_APOLLO_CLI_VERSION=1.9
-# Only major version should be specified here
-REQUIRED_NODE_VERSION=8
+# Specify fully qualified version here. Ideally this should be a LTS version.
+REQUIRED_NODE_VERSION=8.15.0
 
 # Using npx to execute 'apollo' looks for a local install in node_modules before checking $PATH (for a global install)
 APOLLO_CLI="npx --no-install apollo"
@@ -17,18 +17,33 @@ if [[ -z "$CONFIGURATION" ]]; then
   exit 1
 fi
 
-# Define NVM_DIR and source the nvm.sh setup script
-[[ -z "$NVM_DIR" ]] && export NVM_DIR="$HOME/.nvm"
+use_correct_node_via_nvm() {
+  nvm version $REQUIRED_NODE_VERSION > /dev/null
+  if [[ $? -eq 0 ]]; then
+    # The version of node that we want is installed.
+    nvm use $REQUIRED_NODE_VERSION
+  else
+    nvm install $REQUIRED_NODE_VERSION
+  fi
+}
+
+use_correct_node_via_nodenv() {
+  nodenv install -s $REQUIRED_NODE_VERSION
+  nodenv shell $REQUIRED_NODE_VERSION
+}
 
 if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
   . "$HOME/.nvm/nvm.sh"
+  use_correct_node_via_nvm
 elif [[ -x "$(command -v brew)" && -s "$(brew --prefix nvm)/nvm.sh" ]]; then
   . "$(brew --prefix nvm)/nvm.sh"
+  use_correct_node_via_nvm
 fi
 
 # Set up the nodenv node version manager if present
 if [[ -x "$HOME/.nodenv/bin/nodenv" ]]; then
   eval "$("$HOME/.nodenv/bin/nodenv" init -)"
+  use_correct_node_via_nodenv
 fi
 
 parse_version() {
@@ -36,28 +51,6 @@ parse_version() {
     echo ${BASH_REMATCH[1]}
   fi
 }
-
-get_installed_node_version() {
-  version=$(node -v)
-  if [[ $? -eq 0 ]]; then
-    echo "$version"
-  fi
-}
-
-is_mimimum_major_version() {
-  [[ "$(parse_version $1 | cut -d. -f1)" -ge $2 ]]
-}
-
-# Check the installed version of Node, if available
-INSTALLED_NODE_VERSION="$(get_installed_node_version)"
-if [[ -z "$INSTALLED_NODE_VERSION" ]]; then
-  echo "error: Apollo CLI requires Node $REQUIRED_NODE_VERSION or higher to be installed."
-  exit 1
-elif ! is_mimimum_major_version "$INSTALLED_NODE_VERSION" $REQUIRED_NODE_VERSION; then
-  echo "error: Apollo CLI requires Node $REQUIRED_NODE_VERSION or higher, \
-but $INSTALLED_NODE_VERSION seems to be installed."
-  exit 1
-fi
 
 get_installed_cli_version() {
   version=$($APOLLO_CLI -v)

@@ -1,0 +1,35 @@
+#include "Workspace-Universal-Target.xcconfig"
+#include "Workspace-Target-Framework.xcconfig"
+
+SUPPORTED_PLATFORMS = iphoneos iphonesimulator appletvsimulator appletvos watchsimulator watchos macosx
+
+// iOS-specific default settings
+SDKROOT[sdk=iphone*] = iphoneos
+VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
+VALID_ARCHS[sdk=iphonesimulator*] = x86_64 i386
+TARGETED_DEVICE_FAMILY[sdk=iphone*]  = 1,2
+
+// TV-specific default settings
+SDKROOT[sdk=appletv*] = appletvos
+TARGETED_DEVICE_FAMILY[sdk=appletv*] = 3
+
+// Watch-specific default settings
+SDKROOT[sdk=watch*] = watchos
+TARGETED_DEVICE_FAMILY[sdk=watch*] = 4
+
+// macOS-specific default settings
+SDKROOT[sdk=macosx*] = macosx
+VALID_ARCHS[sdk=macosx*] = x86_64
+
+// Enable Bitcode only for actual devices, not for macOS or simulators
+ENABLE_BITCODE[sdk=watchos*] = YES
+ENABLE_BITCODE[sdk=iphoneos*] = YES
+ENABLE_BITCODE[sdk=appletvos*] = YES
+
+// By default, BITCODE_GENERATION_MODE is "marker".
+// Based on Realm's fix for Bitcode, this needs to be "bitcode"
+// Source: https://github.com/realm/realm-cocoa/pull/2567
+BITCODE_GENERATION_MODE[sdk=watchos*] = bitcode
+BITCODE_GENERATION_MODE[sdk=iphoneos*] = bitcode
+BITCODE_GENERATION_MODE[sdk=iphoneos*][config=Debug] = marker
+BITCODE_GENERATION_MODE[sdk=appletvos*] = bitcode

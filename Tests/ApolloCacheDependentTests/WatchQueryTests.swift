@@ -146,8 +146,8 @@ class WatchQueryTests: XCTestCase {
       "QUERY_ROOT.hero.friends.0": ["__typename": "Human", "name": "Luke Skywalker"],
       "QUERY_ROOT.hero.friends.1": ["__typename": "Human", "name": "Han Solo"],
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
-      ]
-
+    ]
+    
     withCache(initialRecords: initialRecords) { (cache) in
       let networkTransport = MockNetworkTransport(body: [
         "data": [
@@ -156,40 +156,41 @@ class WatchQueryTests: XCTestCase {
             "__typename": "Droid"
           ]
         ]
-        ])
+      ])
+      
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
-
       let query = HeroAndFriendsNamesQuery()
 
-      var verifyResult: OperationResultHandler<HeroAndFriendsNamesQuery>
-
-      verifyResult = { (result, error) in
+      let fetching = self.expectation(description: "Fetching query")
+      var refetching: XCTestExpectation?
+      
+      let _ = client.watch(query: query) { (result, error) in
+        guard refetching == nil else {
+          return refetching!.fulfill()
+        }
+        
         XCTAssertNil(error)
         XCTAssertNil(result?.errors)
-
-        guard let data = result?.data else { XCTFail(); return }
+        
+        guard let data = result?.data else { return XCTFail() }
+        
         XCTAssertEqual(data.hero?.name, "R2-D2")
+        
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        
+        fetching.fulfill()
       }
-
-      let expectation = self.expectation(description: "Fetching query")
-
-      _ = client.watch(query: query) { (result, error) in
-        verifyResult(result, error)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      verifyResult = { (result, error) in
-        XCTFail()
-      }
-
-      client.fetch(query: HeroNameQuery(episode: .empire), cachePolicy: .fetchIgnoringCacheData)
       
-      waitFor(timeInterval: 1.0)
+      wait(for: [fetching], timeout: 5)
+      
+      refetching = self.expectation(description: "Refetching query")
+      refetching?.isInverted = true
+      
+      client.fetch(query: HeroNameQuery(episode: .empire), cachePolicy: .fetchIgnoringCacheData)
+      wait(for: [refetching!], timeout: 1)
     }
   }
   
@@ -316,15 +317,6 @@ class WatchQueryTests: XCTestCase {
       expectation = self.expectation(description: "Updated after fetching other query")
       client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
       waitForExpectations(timeout: 5, handler: nil)
-    }
-  }
-
-  // TODO: Replace with .inverted on XCTestExpectation, which is new in Xcode 8.3
-  private func waitFor(timeInterval: TimeInterval) {
-    let untilDate = Date(timeIntervalSinceNow: timeInterval)
-
-    while untilDate.timeIntervalSinceNow > 0 {
-      RunLoop.current.run(mode: .defaultRunLoopMode, before: untilDate)
     }
   }
 }

@@ -1,17 +1,3 @@
-extension Dictionary {
-  subscript(key: Key, withDefault value: @autoclosure () -> Value) -> Value {
-    mutating get {
-      if self[key] == nil {
-        self[key] = value()
-      }
-      return self[key]!
-    }
-    set {
-      self[key] = newValue
-    }
-  }
-}
-
 public extension Dictionary {
   static func += (lhs: inout Dictionary, rhs: Dictionary) {
     #if swift(>=3.2)
@@ -38,7 +24,7 @@ struct GroupedSequence<Key: Equatable, Value> {
   fileprivate var groupsForKeys: [[Value]] = []
   
   mutating func append(value: Value, forKey key: Key) -> (Int, Int) {
-    if let index = keys.index(where: { $0 == key }) {
+    if let index = keys.firstIndex(where: { $0 == key }) {
       groupsForKeys[index].append(value)
       return (index, groupsForKeys[index].endIndex - 1)
     } else {
@@ -58,7 +44,7 @@ extension GroupedSequence: Sequence {
 struct GroupedSequenceIterator<Key: Equatable, Value>: IteratorProtocol {
   private var base: GroupedSequence<Key, Value>
   
-  private var keyIterator: EnumeratedIterator<IndexingIterator<Array<Key>>>
+  private var keyIterator: EnumeratedSequence<Array<Key>>.Iterator
   
   init(base: GroupedSequence<Key, Value>) {
     self.base = base

@@ -76,7 +76,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    let request = request(for: operation)
+    let request = makeRequest(for: operation)
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -116,7 +116,7 @@ public class HTTPNetworkTransport: NetworkTransport {
 
   private let sendOperationIdentifiers: Bool
     
-  private func request<Operation: GraphQLOperation>(for operation: Operation) -> URLRequest {
+  private func makeRequest<Operation: GraphQLOperation>(for operation: Operation) -> URLRequest {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     

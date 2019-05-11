@@ -25,3 +25,43 @@ apollo.cacheKeyForObject = { $0["id"] }
 ```
 
 > In some cases, just using `cacheKeyForObject` is not enough for your application UI to update correctly. For example, if you want to add something to a list of objects without refetching the entire list, or if there are some objects that to which you can't assign an object identifier, Apollo cannot automatically update existing queries for you.
+
+<h2 id="direct-cache-access">Direct cache access</h2>
+
+Similarly to the [Apollo React API](https://www.apollographql.com/docs/react/advanced/caching.html#direct), you can directly read and update the cache as needed using Swift's [inout parameters](https://docs.swift.org/swift-book/LanguageGuide/Functions.html#ID173). This functionality is useful when performing mutations or receiving subscription data, as you should always update the local cache to ensure consistency with the operation that was just performed. The ability to write to the cache directly also prevents you from needing to re-fetch data over the network after a mutation is performed.
+
+<h3 id="read">read</h3>
+
+The `read` function is similar to React Apollo's [`readQuery`](https://www.apollographql.com/docs/react/advanced/caching.html#readquery) method and will return the cached data for a given GraphQL query:
+
+```swift
+// Assuming we have defined an ApolloClient instance `client`:
+client.store.withinReadTransaction { transaction in
+  let data = try transaction.read(
+    query: HeroNameQuery(episode: .jedi)
+  )
+
+  // Prints "R2-D2"
+  print(data.hero?.name)
+}
+```
+
+<h3 id="update">update</h3>
+
+The `update` function is similar to React Apollo's [`writeQuery`](https://www.apollographql.com/docs/react/advanced/caching.html#writequery-and-writefragment) method and will update the Apollo cache and propagate changes to all listeners (queries using the `watch` method):
+
+```swift
+// Assuming we have defined an ApolloClient instance `client`:
+store.withinReadWriteTransaction { transaction in
+  let query = HeroNameQuery(episode: .jedi)
+
+  try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
+    data.hero?.name = "Artoo"
+
+    let result = store.load(query: query).result!.valueOrError()
+
+    // Prints "Artoo"
+    print(result.data?.hero?.name)
+  }
+})
+```

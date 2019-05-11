@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
 
   s.requires_arc = true
-  
-  s.swift_version = '4.0'
+
+  s.swift_version = '4.2'
 
   s.default_subspecs = 'Core'
 
@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
   s.subspec 'WebSocket' do |ss|
     ss.source_files = 'Sources/ApolloWebSocket/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'Starscream', '~> 3.0.2'
+    ss.dependency 'Starscream', '~> 3.1.0'
   end
 
 end

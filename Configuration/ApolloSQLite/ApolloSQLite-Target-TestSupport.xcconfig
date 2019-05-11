@@ -1,0 +1,7 @@
+#include "../Shared/Workspace-Universal-Framework.xcconfig"
+
+INFOPLIST_FILE = Tests/ApolloSQLiteTestSupport/Info.plist
+
+APPLICATION_EXTENSION_API_ONLY = NO
+FRAMEWORK_SEARCH_PATHS = $(DEVELOPER_FRAMEWORKS_DIR) $(PLATFORM_DIR)/Developer/Library/Frameworks
+OTHER_LDFLAGS = -weak_framework XCTest -weak-lswiftXCTest
