@@ -152,18 +152,21 @@ public class ApolloClient {
         return
       }
       
-      firstly {
-        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
-      }.andThen { (result, records) in
-        notifyResultHandler(result: result, error: nil)
+      handlerQueue.async {
         
-        if let records = records {
-          self.store.publish(records: records, context: context).catch { error in
-            preconditionFailure(String(describing: error))
-          }
+        firstly {
+          try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+          }.andThen { (result, records) in
+            notifyResultHandler(result: result, error: nil)
+            
+            if let records = records {
+              self.store.publish(records: records, context: context).catch { error in
+                preconditionFailure(String(describing: error))
+              }
+            }
+          }.catch { error in
+            notifyResultHandler(result: nil, error: error)
         }
-      }.catch { error in
-        notifyResultHandler(result: nil, error: error)
       }
     }
   }
