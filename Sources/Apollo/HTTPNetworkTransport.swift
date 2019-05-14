@@ -52,6 +52,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
+  var httpHeaders: [String: String]? = nil
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -63,6 +64,14 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
+  }
+    
+  /// Set HTTP Headers sent to GraphQL operations. Current headers will be overridden.
+  ///
+  /// - Parameters:
+  ///   - httpHeaders: A dictionary with the headers, or `nil` to remove the current ones.
+  public func set(httpHeaders: [String: String]?) {
+    self.httpHeaders = httpHeaders
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -76,6 +85,10 @@ public class HTTPNetworkTransport: NetworkTransport {
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
+    
+    httpHeaders?.forEach { header in
+      request.addValue(header.value, forHTTPHeaderField: header.key)
+    }
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
