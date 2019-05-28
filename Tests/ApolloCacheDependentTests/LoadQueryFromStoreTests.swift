@@ -212,7 +212,7 @@ class LoadQueryFromStoreTests: XCTestCase {
   
   // MARK: - Helpers
   
-  private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping OperationResultHandler<Query>) {
+  private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     let expectation = self.expectation(description: "Loading query from store")
     
     store.load(query: query) { (result, error) in
