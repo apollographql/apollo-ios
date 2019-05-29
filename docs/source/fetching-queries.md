@@ -10,7 +10,7 @@ Apollo iOS takes a schema and a set of `.graphql` files and uses these to genera
 
 > All `.graphql` files in your project (or the subset you specify as input to `apollo` if you customize the script you define as the code generation build phase) will be combined and treated as one big GraphQL document. That means fragments defined in one `.graphql` file are available to all other `.graphql` files for example, but it also means operation names and fragment names have to be unique and you will receive validation errors if they are not.
 
-<h2 id="creating-queries">Creating queries</h2>
+## Creating queries
 
 Queries are represented as instances of generated classes conforming to the `GraphQLQuery` protocol. Constructor arguments can be used to define query variables if needed. You pass a query object to `ApolloClient#fetch(query:)` to send the query to the server, execute it, and receive typed results.
 
@@ -38,7 +38,7 @@ The `error` parameter to the completion handler signals network or response form
 
 In addition to an optional `data` property, `result` contains an optional `errors` array with GraphQL errors (for more on this, see the sections on [error handling](https://facebook.github.io/graphql/#sec-Error-handling) and the [response format](https://facebook.github.io/graphql/#sec-Response-Format) in the GraphQL specification).
 
-<h2 id="typed-query-results">Typed query results</h2>
+## Typed query results
 
 Query results are defined as nested immutable structs that at each level only contain the properties defined in the corresponding part of the query definition. This means the type system won't allow you to access fields that are not actually fetched by the query, even if they *are* part of the schema.
 
@@ -97,9 +97,9 @@ apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error
 
 Because the above query won't fetch `appearsIn`, this property is not part of the returned result type and cannot be accessed here.
 
-<h2 id="cache-policy">Specifying a cache policy</h2>
+## Specifying a cache policy
 
-As explained in more detail in [the section on watching queries](watching-queries.html), Apollo iOS keeps a normalized client-side cache of query results and allows queries to be loaded from the cache.
+As explained in more detail in [the section on watching queries](/watching-queries/), Apollo iOS keeps a normalized client-side cache of query results and allows queries to be loaded from the cache.
 
 `fetch(query:)` takes an optional `cachePolicy` that allows you to specify when results should be fetched from the server, and when data should be loaded from the local cache.
 

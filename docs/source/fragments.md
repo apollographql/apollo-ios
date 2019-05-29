@@ -51,7 +51,7 @@ In most cases, you'll simply pass the whole fragment to a child view without nee
 cell.configure(with: hero?.fragments.heroDetails)
 ```
 
-<h2 id="type-conditions">Type conditions</h2>
+## Type conditions
 
 The GraphQL type system includes interfaces and unions as abstract types that object types can conform to. In the Star Wars example schema for example, both `Human`s and `Droid`s implement the `Character` interface. If we query for a hero, the result can be either a human or a droid, and if we want to access any type-specific properties we will have to use a fragment with a type condition:
 

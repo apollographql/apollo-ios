@@ -8,7 +8,7 @@ In most cases, you'll want to create a single shared instance of `ApolloClient` 
 let apollo = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 ```
 
-<h2 id="adding-headers">Adding additional headers</h2>
+## Adding additional headers
 
 If you need to add additional headers to requests, to include authentication details for example, you can create your own `URLSessionConfiguration` and use this to configure an `HTTPNetworkTransport`. If you want to define the client as a global variable, you can use an immediately invoked closure here:
 
