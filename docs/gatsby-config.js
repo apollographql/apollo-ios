@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/docs/ios',
   __experimentalThemes: [
     {
       resolve: 'gatsby-theme-apollo-docs',
@@ -6,8 +7,6 @@ module.exports = {
         root: __dirname,
         subtitle: 'Apollo iOS Guide',
         description: 'A guide to using Apollo with iOS',
-        contentDir: 'docs/source',
-        basePath: '/docs/ios',
         githubRepo: 'apollographql/apollo-ios',
         sidebarCategories: {
           null: [
