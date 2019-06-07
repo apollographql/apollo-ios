@@ -81,7 +81,7 @@ public class ApolloClient {
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
-  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, fetchOptions: FetchOptions, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Query>? = nil) -> Cancellable {
+  @discardableResult public func fetch<Query: GraphQLQuery>(query: Query, fetchOptions: FetchOptions = .POST, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Query>? = nil) -> Cancellable {
     return _fetch(query: query, fetchOptions: fetchOptions, cachePolicy: cachePolicy, queue: queue, resultHandler: resultHandler)
   }
   
