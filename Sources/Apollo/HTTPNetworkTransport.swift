@@ -69,18 +69,23 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
+  ///   - fetchOptions: The HTTP Method to be used.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+  public func send<Operation>(operation: Operation, fetchOptions: FetchOptions, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     let body = requestBody(for: operation)
-    request.httpBody = try! serializationFormat.serialize(value: body)
+    var request = URLRequest(url: url)
+    
+    if fetchOptions.rawValue == "GET", let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
+        request = URLRequest(url: urlForGet)
+    } else if fetchOptions.rawValue == "POST" {
+        request.httpBody = try! serializationFormat.serialize(value: body)
+    }
+    
+    request.httpMethod = fetchOptions.rawValue
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -128,5 +133,47 @@ public class HTTPNetworkTransport: NetworkTransport {
       return ["id": operationIdentifier, "variables": operation.variables]
     }
     return ["query": operation.queryDocument, "variables": operation.variables]
+  }
+    
+  private func mountUrlWithQueryParamsIfNeeded(body: GraphQLMap) -> URL? {
+    guard let query = body.jsonObject["query"], var queryParam = queryString(withItems:  [URLQueryItem(name: "query", value: "\(query)")]) else {
+        return self.url
+    }
+    if areThereVariables(in: body) {
+        guard let serializedVariables = try? serializationFormat.serialize(value: body.jsonObject["variables"]) else {
+            return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+        }
+        queryParam += getVariablesEncodedString(of: serializedVariables)
+    }
+    guard let urlForGet = URL(string: "\(self.url.absoluteString)?\(queryParam)") else {
+        return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+    }
+    return urlForGet
+  }
+
+  private func areThereVariables(in map: GraphQLMap) -> Bool {
+    if let variables = map.jsonObject["variables"], "\(variables)" != "<null>" {
+        return true
+    }
+    return false
+  }
+
+  private func getVariablesEncodedString(of data: Data) -> String {
+    var dataString = String(data: data, encoding: String.Encoding.utf8) ?? ""
+    dataString = dataString.replacingOccurrences(of: ";", with: ",")
+    dataString = dataString.replacingOccurrences(of: "=", with: ":")
+    guard let variablesEncoded = queryString(withItems:  [URLQueryItem(name: "variables", value: "\(dataString)")]) else { return "" }
+    return "&\(variablesEncoded)"
+  }
+
+  private func queryString(withItems items: [URLQueryItem], percentEncoded: Bool = true) -> String? {
+    let url = NSURLComponents()
+    url.queryItems = items
+    let queryString = percentEncoded ? url.percentEncodedQuery : url.query
+    
+    if let queryString = queryString {
+        return "\(queryString)"
+    }
+    return nil
   }
 }
