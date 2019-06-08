@@ -76,7 +76,7 @@ public class ApolloClient {
   ///
   /// - Parameters:
   ///   - query: The query to fetch.
-  ///   - fetchOptions: The HTTP Method to be used.
+  ///   - fetchOptions: The HTTP Method to be used. Default is POST.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when query results are available or when an error occurs.
@@ -101,12 +101,12 @@ public class ApolloClient {
   ///
   /// - Parameters:
   ///   - query: The query to fetch.
-  ///   - fetchOptions: The HTTP Method to be used.
+  ///   - fetchOptions: The HTTP Method to be used. Default is POST.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the local cache.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
-  public func watch<Query: GraphQLQuery>(query: Query, fetchOptions: FetchOptions, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLQueryWatcher<Query> {
+  public func watch<Query: GraphQLQuery>(query: Query, fetchOptions: FetchOptions = .POST, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLQueryWatcher<Query> {
     let watcher = GraphQLQueryWatcher(client: self, query: query, fetchOptions: fetchOptions, handlerQueue: queue, resultHandler: resultHandler)
     watcher.fetch(cachePolicy: cachePolicy)
     return watcher
@@ -132,11 +132,11 @@ public class ApolloClient {
   ///
   /// - Parameters:
   ///   - subscription: The subscription to subscribe to.
-  ///   - fetchOptions: The HTTP Method to be used.
+  ///   - fetchOptions: The HTTP Method to be used. Default is POST.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress subscription.
-  @discardableResult public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription, fetchOptions: FetchOptions, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Subscription>) -> Cancellable {
+  @discardableResult public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription, fetchOptions: FetchOptions = .POST, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Subscription>) -> Cancellable {
     return send(operation: subscription, fetchOptions: fetchOptions, context: nil, handlerQueue: queue, resultHandler: resultHandler)
   }
   
