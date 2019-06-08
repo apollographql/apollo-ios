@@ -116,11 +116,11 @@ public class ApolloClient {
   ///
   /// - Parameters:
   ///   - mutation: The mutation to perform.
-  ///   - fetchOptions: The HTTP Method to be used.
+  ///   - fetchOptions: The HTTP Method to be used. Default is POST.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
-  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, fetchOptions: FetchOptions, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>? = nil) -> Cancellable {
+  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, fetchOptions: FetchOptions = .POST, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>? = nil) -> Cancellable {
         return _perform(mutation: mutation, fetchOptions: fetchOptions, queue: queue, resultHandler: resultHandler)
   }
   
