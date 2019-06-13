@@ -343,6 +343,7 @@
 		9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseQueryResponseTests.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
+		F8E9D8AE22B2492C0065DA98 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -641,6 +642,7 @@
 				9FCE2D171E6C259B00E34457 /* Starship.graphql */,
 				9FCE2D0C1E6C259B00E34457 /* CreateReviewForEpisode.graphql */,
 				9FCE2D0A1E6C258A00E34457 /* API.swift */,
+				F8E9D8AE22B2492C0065DA98 /* schema.json */,
 				9FCE2CFC1E6C213D00E34457 /* StarWarsAPI.h */,
 				9FCE2CFD1E6C213D00E34457 /* Info.plist */,
 			);
@@ -991,7 +993,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/GitHubAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads API.swift";
+			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/GitHubAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --operationIdsPath=operationIdsPath  --mergeInFieldsFromFragmentSpreads API.swift\n";
 		};
 		9FCE2D061E6C251100E34457 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1005,7 +1007,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -x";
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads API.swift\n";
+			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --operationIdsPath=operationIdsPath --mergeInFieldsFromFragmentSpreads API.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

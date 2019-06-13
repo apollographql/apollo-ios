@@ -122,6 +122,8 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
 
+  public let operationIdentifier: String? = "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556"
+
   public var episode: Episode?
 
   public init(episode: Episode? = nil) {
@@ -258,6 +260,8 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
 public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAndFriendsNamesWithIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n      name\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "8e4ca76c63660898cfd5a3845e3709027750b5f0151c7f9be65759b869c5486d"
 
   public var episode: Episode?
 
@@ -418,6 +422,8 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
 
+  public let operationIdentifier: String? = "f091468a629f3b757c03a1b7710c6ede8b5c8f10df7ba3238f2bbcd71c56f90f"
+
   public var episode: Episode?
 
   public init(episode: Episode? = nil) {
@@ -565,6 +571,8 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
 public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}"
+
+  public let operationIdentifier: String? = "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26"
 
   public var queryDocument: String { return operationDefinition.appending(FriendsNames.fragmentDefinition) }
 
@@ -731,6 +739,8 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc"
 
   public var queryDocument: String { return operationDefinition.appending(CharacterName.fragmentDefinition) }
 
@@ -1012,6 +1022,8 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroFriendsOfFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      id\n      friends {\n        __typename\n        name\n      }\n    }\n  }\n}"
 
+  public let operationIdentifier: String? = "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01"
+
   public var episode: Episode?
 
   public init(episode: Episode? = nil) {
@@ -1191,6 +1203,8 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}"
 
+  public let operationIdentifier: String? = "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a"
+
   public var queryDocument: String { return operationDefinition.appending(CharacterNameAndAppearsIn.fragmentDefinition) }
 
   public var episode: Episode?
@@ -1315,6 +1329,8 @@ public final class StarshipQuery: GraphQLQuery {
   public let operationDefinition =
     "query Starship {\n  starship(id: 3000) {\n    __typename\n    name\n    coordinates\n  }\n}"
 
+  public let operationIdentifier: String? = "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a"
+
   public init() {
   }
 
@@ -1398,6 +1414,8 @@ public final class HeroAppearsInQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAppearsIn {\n  hero {\n    __typename\n    appearsIn\n  }\n}"
 
+  public let operationIdentifier: String? = "22d772c0fc813281705e8f0a55fc70e71eeff6e98f3f9ef96cf67fb896914522"
+
   public init() {
   }
 
@@ -1474,6 +1492,8 @@ public final class HeroAppearsInQuery: GraphQLQuery {
 public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterAppearsIn\n  }\n}"
+
+  public let operationIdentifier: String? = "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb"
 
   public var queryDocument: String { return operationDefinition.appending(CharacterAppearsIn.fragmentDefinition) }
 
@@ -1587,6 +1607,8 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
 public final class HeroDetailsQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      height\n    }\n    ... on Droid {\n      primaryFunction\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "2b67111fd3a1c6b2ac7d1ef7764e5cefa41d3f4218e1d60cb67c22feafbd43ec"
 
   public var episode: Episode?
 
@@ -1796,6 +1818,8 @@ public final class HeroDetailsQuery: GraphQLQuery {
 public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}"
+
+  public let operationIdentifier: String? = "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce"
 
   public var queryDocument: String { return operationDefinition.appending(HeroDetails.fragmentDefinition) }
 
@@ -2093,6 +2117,8 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
   public let operationDefinition =
     "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}"
 
+  public let operationIdentifier: String? = "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739"
+
   public var queryDocument: String { return operationDefinition.appending(DroidDetails.fragmentDefinition) }
 
   public var episode: Episode?
@@ -2288,6 +2314,8 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
   public let operationDefinition =
     "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}"
 
+  public let operationIdentifier: String? = "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364"
+
   public init() {
   }
 
@@ -2416,6 +2444,8 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
 public final class TwoHeroesQuery: GraphQLQuery {
   public let operationDefinition =
     "query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(episode: EMPIRE) {\n    __typename\n    name\n  }\n}"
+
+  public let operationIdentifier: String? = "b868fa9c48f19b8151c08c09f46831e3b9cd09f5c617d328647de785244b52bb"
 
   public init() {
   }
@@ -2546,6 +2576,8 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n  }\n}"
 
+  public let operationIdentifier: String? = "3dd42259adf2d0598e89e0279bee2c128a7913f02b1da6aa43f3b5def6a8a1f8"
+
   public var skipName: Bool
 
   public init(skipName: Bool) {
@@ -2632,6 +2664,8 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __typename\n    name @include(if: $includeName)\n  }\n}"
 
+  public let operationIdentifier: String? = "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8"
+
   public var includeName: Bool
 
   public init(includeName: Bool) {
@@ -2717,6 +2751,8 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
 public final class HeroNameConditionalBothQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName) @include(if: $includeName)\n  }\n}"
+
+  public let operationIdentifier: String? = "66f4dc124b6374b1912b22a2a208e34a4b1997349402a372b95bcfafc7884064"
 
   public var skipName: Bool
   public var includeName: Bool
@@ -2808,6 +2844,8 @@ public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n    name @include(if: $includeName)\n  }\n}"
 
+  public let operationIdentifier: String? = "d0f9e9205cdc09320035662f528a177654d3275b0bf94cf0e259a65fde33e7e5"
+
   public var skipName: Bool
   public var includeName: Bool
 
@@ -2898,6 +2936,8 @@ public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
 public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ... @include(if: $includeDetails) {\n      name\n      appearsIn\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "fcd9d7acb4e7c97e3ae5ad3cbf4e83556626149de589f0c2fce2f8ede31b0d90"
 
   public var includeDetails: Bool
 
@@ -2995,6 +3035,8 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
 public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}"
+
+  public let operationIdentifier: String? = "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f"
 
   public var queryDocument: String { return operationDefinition.appending(HeroDetails.fragmentDefinition) }
 
@@ -3306,6 +3348,8 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {\n  hero(episode: $episode) {\n    __typename\n    name @include(if: $includeName)\n    ... on Droid {\n      name\n    }\n  }\n}"
 
+  public let operationIdentifier: String? = "4d465fbc6e3731d011025048502f16278307d73300ea9329a709d7e2b6815e40"
+
   public var episode: Episode?
   public var includeName: Bool
 
@@ -3450,6 +3494,8 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
 public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "9bdfeee789c1d22123402a9c3e3edefeb66799b3436289751be8f47905e3babd"
 
   public var includeFriendsDetails: Bool
 
@@ -3643,6 +3689,8 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends {\n      __typename\n      name\n    }\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "501fcb710e5ffeeab2c65b7935fbded394ffea92e7b5dd904d05d5deab6f39c6"
 
   public var includeFriendsDetails: Bool
 
@@ -3850,6 +3898,8 @@ public final class HumanQuery: GraphQLQuery {
   public let operationDefinition =
     "query Human($id: ID!) {\n  human(id: $id) {\n    __typename\n    name\n    mass\n  }\n}"
 
+  public let operationIdentifier: String? = "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e"
+
   public var id: GraphQLID
 
   public init(id: GraphQLID) {
@@ -3941,6 +3991,8 @@ public final class HeroNameQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroName($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n  }\n}"
 
+  public let operationIdentifier: String? = "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671"
+
   public var episode: Episode?
 
   public init(episode: Episode? = nil) {
@@ -4024,6 +4076,8 @@ public final class HeroNameQuery: GraphQLQuery {
 public final class HeroNameWithIdQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameWithID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n  }\n}"
+
+  public let operationIdentifier: String? = "83c03f612c46fca72f6cb902df267c57bffc9209bc44dd87d2524fb2b34f6f18"
 
   public var episode: Episode?
 
@@ -4119,6 +4173,8 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
 public final class HeroNameWithFragmentQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterName\n  }\n}"
+
+  public let operationIdentifier: String? = "b952f0054915a32ec524ac0dde0244bcda246649debe149f9e32e303e21c8266"
 
   public var queryDocument: String { return operationDefinition.appending(CharacterName.fragmentDefinition) }
 
@@ -4232,6 +4288,8 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
 public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}"
+
+  public let operationIdentifier: String? = "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02"
 
   public var queryDocument: String { return operationDefinition.appending(CharacterName.fragmentDefinition) }
 
@@ -4356,6 +4414,8 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
 public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroTypeDependentAliasedField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ... on Human {\n      property: homePlanet\n    }\n    ... on Droid {\n      property: primaryFunction\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "b5838c22bac1c5626023dac4412ca9b86bebfe16608991fb632a37c44e12811e"
 
   public var episode: Episode?
 
@@ -4533,6 +4593,8 @@ public final class ReviewAddedSubscription: GraphQLSubscription {
   public let operationDefinition =
     "subscription ReviewAdded($episode: Episode) {\n  reviewAdded(episode: $episode) {\n    __typename\n    episode\n    stars\n    commentary\n  }\n}"
 
+  public let operationIdentifier: String? = "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe"
+
   public var episode: Episode?
 
   public init(episode: Episode? = nil) {
@@ -4634,6 +4696,8 @@ public final class ReviewAddedSubscription: GraphQLSubscription {
 public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public let operationDefinition =
     "query HeroParentTypeDependentField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: FOOT)\n        }\n      }\n    }\n    ... on Droid {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: METER)\n        }\n      }\n    }\n  }\n}"
+
+  public let operationIdentifier: String? = "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad"
 
   public var episode: Episode?
 
@@ -5058,6 +5122,8 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
   public let operationDefinition =
     "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {\n  createReview(episode: $episode, review: $review) {\n    __typename\n    stars\n    commentary\n  }\n}"
 
+  public let operationIdentifier: String? = "9bbf5b4074d0635fb19d17c621b7b04ebfb1920d468a94266819e149841e7d5d"
+
   public var episode: Episode
   public var review: ReviewInput
 
@@ -5150,6 +5216,8 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
 public final class CreateAwesomeReviewMutation: GraphQLMutation {
   public let operationDefinition =
     "mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome!\"}) {\n    __typename\n    stars\n    commentary\n  }\n}"
+
+  public let operationIdentifier: String? = "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374"
 
   public init() {
   }
