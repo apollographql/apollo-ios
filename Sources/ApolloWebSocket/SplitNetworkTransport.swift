@@ -1,5 +1,3 @@
-import Apollo
-
 public class SplitNetworkTransport: NetworkTransport {
   private let httpNetworkTransport: NetworkTransport
   private let webSocketNetworkTransport: NetworkTransport

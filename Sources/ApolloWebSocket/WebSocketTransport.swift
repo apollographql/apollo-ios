@@ -1,4 +1,3 @@
-import Apollo
 import Starscream
 
 // To allow for alternative implementations supporting the same WebSocketClient protocol
