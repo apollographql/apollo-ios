@@ -95,7 +95,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
-  ///   - fetchHTTPMethod: The HTTP Method to be used.
+  ///   - fetchHTTPMethod: The HTTP Method to be used in operation.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
