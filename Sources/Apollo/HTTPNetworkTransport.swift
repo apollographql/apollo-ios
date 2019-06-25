@@ -69,22 +69,22 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
-  ///   - fetchOptions: The HTTP Method to be used.
+  ///   - fetchHTTPMethod: The HTTP Method to be used.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, fetchOptions: FetchOptions, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     let body = requestBody(for: operation)
     var request = URLRequest(url: url)
     
-    if fetchOptions.rawValue == "GET", let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
+    if fetchHTTPMethod.rawValue == "GET", let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
         request = URLRequest(url: urlForGet)
-    } else if fetchOptions.rawValue == "POST" {
+    } else if fetchHTTPMethod.rawValue == "POST" {
         request.httpBody = try! serializationFormat.serialize(value: body)
     }
     
-    request.httpMethod = fetchOptions.rawValue
+    request.httpMethod = fetchHTTPMethod.rawValue
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum FetchOptions: String {
+public enum FetchHTTPMethod: String {
     case GET
     case POST
 }
