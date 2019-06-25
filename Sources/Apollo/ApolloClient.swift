@@ -120,7 +120,7 @@ public class ApolloClient {
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
-  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, fetchHTTPMethod: FetchHTTPMethod, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>? = nil) -> Cancellable {
+  @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, fetchHTTPMethod: FetchHTTPMethod = .POST, queue: DispatchQueue = DispatchQueue.main, resultHandler: OperationResultHandler<Mutation>? = nil) -> Cancellable {
         return _perform(mutation: mutation, fetchHTTPMethod: fetchHTTPMethod, queue: queue, resultHandler: resultHandler)
   }
   
@@ -136,7 +136,7 @@ public class ApolloClient {
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress subscription.
-  @discardableResult public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription, fetchHTTPMethod: FetchHTTPMethod, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Subscription>) -> Cancellable {
+  @discardableResult public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription, fetchHTTPMethod: FetchHTTPMethod = .POST, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Subscription>) -> Cancellable {
     return send(operation: subscription, fetchHTTPMethod: fetchHTTPMethod, context: nil, handlerQueue: queue, resultHandler: resultHandler)
   }
   
