@@ -3,7 +3,7 @@
 ### v0.10.1
 
 - Disabled bitcode in Debug builds for physical devices ([#499](https://github.com/apollographql/apollo-ios/pull/499))
-- Don't embed the Swift standard libraries by default ([#501](https://github.com/apollographql/apollo-ios/pull/501)
+- Don't embed the Swift standard libraries by default ([#501](https://github.com/apollographql/apollo-ios/pull/501))
 
 ### v0.10.0
 
