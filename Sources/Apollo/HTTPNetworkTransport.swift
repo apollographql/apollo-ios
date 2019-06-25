@@ -127,21 +127,21 @@ public class HTTPNetworkTransport: NetworkTransport {
         completionHandler(nil, error)
         return
       }
-      
+
       guard let httpResponse = response as? HTTPURLResponse else {
         fatalError("Response should be an HTTPURLResponse")
       }
-      
+
       if (!httpResponse.isSuccessful) {
         completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
         return
       }
-      
+
       guard let data = data else {
         completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
         return
       }
-      
+
       do {
         guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)

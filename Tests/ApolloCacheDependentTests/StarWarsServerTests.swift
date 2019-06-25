@@ -299,7 +299,7 @@ class StarWarsServerTests: XCTestCase {
 
       let expectation = self.expectation(description: "Performing mutation")
 
-      client.perform(mutation: mutation, fetchHTTPMethod: .POST) { (result, error) in
+      client.perform(mutation: mutation) { (result, error) in
         defer { expectation.fulfill() }
 
         if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
