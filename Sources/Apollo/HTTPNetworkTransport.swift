@@ -47,6 +47,32 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   }
 }
 
+public struct GraphQLHTTPRequestError: Error, LocalizedError {
+  public enum ErrorKind {
+    case serializedBodyMessageError
+    case serializedQueryParamsMessageError
+    
+    var description: String {
+      switch self {
+        case .serializedBodyMessageError:
+          return "JSONSerialization error: Error while serializing request's body"
+        case .serializedQueryParamsMessageError:
+          return "QueryParams error: Error while serializing variables as query parameters."
+        }
+      }
+    }
+    
+    public init(kind: ErrorKind) {
+      self.kind = kind
+    }
+    
+    public let kind: ErrorKind
+    
+    public var errorDescription: String? {
+      return "\(kind.description)"
+    }
+}
+
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
@@ -78,10 +104,19 @@ public class HTTPNetworkTransport: NetworkTransport {
     let body = requestBody(for: operation)
     var request = URLRequest(url: url)
     
-    if fetchHTTPMethod.rawValue == "GET", let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
+    switch fetchHTTPMethod {
+    case .GET:
+      if let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
         request = URLRequest(url: urlForGet)
-    } else if fetchHTTPMethod.rawValue == "POST" {
-        request.httpBody = try! serializationFormat.serialize(value: body)
+      } else {
+        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedQueryParamsMessageError))
+      }
+    default:
+      do {
+        request.httpBody = try serializationFormat.serialize(value: body)
+      } catch {
+        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedBodyMessageError))
+      }
     }
     
     request.httpMethod = fetchHTTPMethod.rawValue
