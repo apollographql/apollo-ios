@@ -272,7 +272,7 @@ class StarWarsServerTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchOptions: .POST) { (result, error) in
+      client.fetch(query: query, fetchHTTPMethod: .POST) { (result, error) in
         defer { expectation.fulfill() }
 
         if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
@@ -299,7 +299,7 @@ class StarWarsServerTests: XCTestCase {
 
       let expectation = self.expectation(description: "Performing mutation")
 
-      client.perform(mutation: mutation, fetchOptions: .POST) { (result, error) in
+      client.perform(mutation: mutation, fetchHTTPMethod: .POST) { (result, error) in
         defer { expectation.fulfill() }
 
         if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }

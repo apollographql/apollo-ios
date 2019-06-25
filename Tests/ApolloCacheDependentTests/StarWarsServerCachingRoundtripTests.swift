@@ -46,7 +46,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchOptions: .POST) { (result, error) in
+      client.fetch(query: query, fetchHTTPMethod: .POST) { (result, error) in
         if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
         guard let result = result else { XCTFail("No query result");  return }
 

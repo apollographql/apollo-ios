@@ -39,7 +39,7 @@ class WatchQueryTests: XCTestCase {
 
       var expectation = self.expectation(description: "Fetching query")
 
-      let watcher = client.watch(query: query, fetchOptions: .POST) { (result, error) in
+        let watcher = client.watch(query: query) { (result, error) in
         verifyResult(result, error)
         expectation.fulfill()
       }
@@ -106,7 +106,7 @@ class WatchQueryTests: XCTestCase {
 
       var expectation = self.expectation(description: "Fetching query")
 
-      _ = client.watch(query: query, fetchOptions: .POST) { (result, error) in
+      _ = client.watch(query: query, fetchHTTPMethod: .POST) { (result, error) in
         verifyResult(result, error)
         expectation.fulfill()
       }
@@ -125,7 +125,7 @@ class WatchQueryTests: XCTestCase {
 
       expectation = self.expectation(description: "Updated after fetching other query")
 
-      client.fetch(query: HeroNameQuery(), fetchOptions: .POST, cachePolicy: .fetchIgnoringCacheData)
+      client.fetch(query: HeroNameQuery(), fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData)
       
       waitForExpectations(timeout: 5, handler: nil)
     }
@@ -165,7 +165,7 @@ class WatchQueryTests: XCTestCase {
       let fetching = self.expectation(description: "Fetching query")
       var refetching: XCTestExpectation?
       
-      let _ = client.watch(query: query, fetchOptions: .POST) { (result, error) in
+      let _ = client.watch(query: query, fetchHTTPMethod: .POST) { (result, error) in
         guard refetching == nil else {
           return refetching!.fulfill()
         }
@@ -189,7 +189,7 @@ class WatchQueryTests: XCTestCase {
       refetching = self.expectation(description: "Refetching query")
       refetching?.isInverted = true
       
-      client.fetch(query: HeroNameQuery(episode: .empire), fetchOptions: .POST, cachePolicy: .fetchIgnoringCacheData)
+      client.fetch(query: HeroNameQuery(episode: .empire), fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData)
       wait(for: [refetching!], timeout: 1)
     }
   }
@@ -231,7 +231,7 @@ class WatchQueryTests: XCTestCase {
 
       var expectation = self.expectation(description: "Fetching query")
 
-      _ = client.watch(query: query, fetchOptions: .POST) { (result, error) in
+      _ = client.watch(query: query, fetchHTTPMethod: .POST) { (result, error) in
         verifyResult(result, error)
         expectation.fulfill()
       }
@@ -247,7 +247,7 @@ class WatchQueryTests: XCTestCase {
 
       expectation = self.expectation(description: "Fetching other query")
 
-      client.fetch(query: HeroNameWithIdQuery(), fetchOptions: .POST, cachePolicy: .fetchIgnoringCacheData)
+      client.fetch(query: HeroNameWithIdQuery(), fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData)
 
       waitForExpectations(timeout: 5, handler: nil)
     }
@@ -290,7 +290,7 @@ class WatchQueryTests: XCTestCase {
 
       var expectation = self.expectation(description: "Fetching query")
 
-      _ = client.watch(query: query, fetchOptions: .POST) { (result, error) in
+      _ = client.watch(query: query, fetchHTTPMethod: .POST) { (result, error) in
         verifyResult(result, error)
         expectation.fulfill()
       }
@@ -315,7 +315,7 @@ class WatchQueryTests: XCTestCase {
       }
 
       expectation = self.expectation(description: "Updated after fetching other query")
-      client.fetch(query: HeroNameQuery(), fetchOptions: .POST, cachePolicy: .fetchIgnoringCacheData)
+      client.fetch(query: HeroNameQuery(), fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData)
       waitForExpectations(timeout: 5, handler: nil)
     }
   }

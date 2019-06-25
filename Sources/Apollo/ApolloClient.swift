@@ -106,7 +106,7 @@ public class ApolloClient {
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
-  public func watch<Query: GraphQLQuery>(query: Query, fetchHTTPMethod: FetchHTTPMethod, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLQueryWatcher<Query> {
+  public func watch<Query: GraphQLQuery>(query: Query, fetchHTTPMethod: FetchHTTPMethod = .POST, cachePolicy: CachePolicy = .returnCacheDataElseFetch, queue: DispatchQueue = DispatchQueue.main, resultHandler: @escaping OperationResultHandler<Query>) -> GraphQLQueryWatcher<Query> {
     let watcher = GraphQLQueryWatcher(client: self, query: query, fetchHTTPMethod: fetchHTTPMethod, handlerQueue: queue, resultHandler: resultHandler)
     watcher.fetch(cachePolicy: cachePolicy)
     return watcher
