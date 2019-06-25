@@ -1,6 +1,23 @@
 # Change log
 
-### vNEXT
+### v0.10.1
+
+- Disabled bitcode in Debug builds for physical devices ([#499](https://github.com/apollographql/apollo-ios/pull/499))
+- Don't embed the Swift standard libraries by default ([#501](https://github.com/apollographql/apollo-ios/pull/501)
+
+### v0.10.0
+
+- Swift 5 support ([#427](https://github.com/apollographql/apollo-ios/pull/427), [#475](https://github.com/apollographql/apollo-ios/pull/475))
+- Update to newest version of Starscream ([#466](https://github.com/apollographql/apollo-ios/pull/466)
+- Add ability to directly update cache with write methods ([#413](https://github.com/apollographql/apollo-ios/pull/413))
+- Add docs for `read` and `update` operations ([#452](https://github.com/apollographql/apollo-ios/pull/452))
+
+### v0.9.5
+
+- Add ability to pass params to `Query.Data` ([#437](https://github.com/apollographql/apollo-ios/pull/437))
+- Provide separate archs for the iOS Simulator ([#410](https://github.com/apollographql/apollo-ios/pull/410))
+- Actually install the correct version of Node instead of just checking for it ([#434](https://github.com/apollographql/apollo-ios/pull/434))
+
 
 ### v0.9.4
 
