@@ -47,11 +47,22 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   }
 }
 
+/// Delegate to respond to hooks in the network request lifecycle.
+public protocol HTTPNetworkTransportDelegate: class {
+    /// Opportunity for the delegate to modify the URLRequest before it is sent. `completionHandler` must be called with the
+    /// desired URLRequest to send.
+    func networkTransport(_ networkTransport: HTTPNetworkTransport, prepareRequest request: URLRequest, completionHandler: @escaping (URLRequest) -> Void)
+    func networkTransport(_ networkTransport: HTTPNetworkTransport, request: URLRequest, didReceive response: URLResponse, data: Data)
+    func networkTransport(_ networkTransport: HTTPNetworkTransport, request: URLRequest, didFailWithError error: Error, retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
+}
+
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
+    
+  public weak var delegate: HTTPNetworkTransportDelegate?
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -59,10 +70,11 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false, delegate: HTTPNetworkTransportDelegate? = nil) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
+    self.delegate = delegate 
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -82,7 +94,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     let body = requestBody(for: operation)
     request.httpBody = try! serializationFormat.serialize(value: body)
     
-    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+    let requestOperation = URLRequestOperation(session: session, request: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
         completionHandler(nil, error)
         return
@@ -93,6 +105,7 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
       
       if (!httpResponse.isSuccessful) {
+        self.delegate?.networkTransport(self, request: request, didReceive: httpResponse, data: data!)
         completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
         return
       }
@@ -109,13 +122,24 @@ public class HTTPNetworkTransport: NetworkTransport {
         let response = GraphQLResponse(operation: operation, body: body)
         completionHandler(response, nil)
       } catch {
+        self.delegate?.networkTransport(self, request: request, didFailWithError: error, retryHandler: { _ in
+            return true
+        })
         completionHandler(nil, error)
       }
     }
     
-    task.resume()
+    if let delegate = delegate {
+        delegate.networkTransport(self, prepareRequest: request) { (modifiedRequest: URLRequest) in
+            requestOperation.request = modifiedRequest
+            requestOperation.start()
+        }
+        
+    } else {
+        requestOperation.start()
+    }
     
-    return task
+    return requestOperation
   }
 
   private let sendOperationIdentifiers: Bool
