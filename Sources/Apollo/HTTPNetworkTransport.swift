@@ -47,6 +47,32 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   }
 }
 
+public struct GraphQLHTTPRequestError: Error, LocalizedError {
+  public enum ErrorKind {
+    case serializedBodyMessageError
+    case serializedQueryParamsMessageError
+    
+    var description: String {
+      switch self {
+        case .serializedBodyMessageError:
+          return "JSONSerialization error: Error while serializing request's body"
+        case .serializedQueryParamsMessageError:
+          return "QueryParams error: Error while serializing variables as query parameters."
+        }
+      }
+    }
+    
+    public init(kind: ErrorKind) {
+      self.kind = kind
+    }
+    
+    public let kind: ErrorKind
+    
+    public var errorDescription: String? {
+      return "\(kind.description)"
+    }
+}
+
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
@@ -69,39 +95,53 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
+  ///   - fetchHTTPMethod: The HTTP Method to be used in operation.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     let body = requestBody(for: operation)
-    request.httpBody = try! serializationFormat.serialize(value: body)
+    var request = URLRequest(url: url)
+    
+    switch fetchHTTPMethod {
+    case .GET:
+      if let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
+        request = URLRequest(url: urlForGet)
+      } else {
+        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedQueryParamsMessageError))
+      }
+    default:
+      do {
+        request.httpBody = try serializationFormat.serialize(value: body)
+      } catch {
+        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedBodyMessageError))
+      }
+    }
+    
+    request.httpMethod = fetchHTTPMethod.rawValue
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
         completionHandler(nil, error)
         return
       }
-      
+
       guard let httpResponse = response as? HTTPURLResponse else {
         fatalError("Response should be an HTTPURLResponse")
       }
-      
+
       if (!httpResponse.isSuccessful) {
         completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
         return
       }
-      
+
       guard let data = data else {
         completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
         return
       }
-      
+
       do {
         guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
@@ -128,5 +168,47 @@ public class HTTPNetworkTransport: NetworkTransport {
       return ["id": operationIdentifier, "variables": operation.variables]
     }
     return ["query": operation.queryDocument, "variables": operation.variables]
+  }
+    
+  private func mountUrlWithQueryParamsIfNeeded(body: GraphQLMap) -> URL? {
+    guard let query = body.jsonObject["query"], var queryParam = queryString(withItems:  [URLQueryItem(name: "query", value: "\(query)")]) else {
+        return self.url
+    }
+    if areThereVariables(in: body) {
+        guard let serializedVariables = try? serializationFormat.serialize(value: body.jsonObject["variables"]) else {
+            return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+        }
+        queryParam += getVariablesEncodedString(of: serializedVariables)
+    }
+    guard let urlForGet = URL(string: "\(self.url.absoluteString)?\(queryParam)") else {
+        return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+    }
+    return urlForGet
+  }
+
+  private func areThereVariables(in map: GraphQLMap) -> Bool {
+    if let variables = map.jsonObject["variables"], "\(variables)" != "<null>" {
+        return true
+    }
+    return false
+  }
+
+  private func getVariablesEncodedString(of data: Data) -> String {
+    var dataString = String(data: data, encoding: String.Encoding.utf8) ?? ""
+    dataString = dataString.replacingOccurrences(of: ";", with: ",")
+    dataString = dataString.replacingOccurrences(of: "=", with: ":")
+    guard let variablesEncoded = queryString(withItems:  [URLQueryItem(name: "variables", value: "\(dataString)")]) else { return "" }
+    return "&\(variablesEncoded)"
+  }
+
+  private func queryString(withItems items: [URLQueryItem], percentEncoded: Bool = true) -> String? {
+    let url = NSURLComponents()
+    url.queryItems = items
+    let queryString = percentEncoded ? url.percentEncodedQuery : url.query
+    
+    if let queryString = queryString {
+        return "\(queryString)"
+    }
+    return nil
   }
 }
