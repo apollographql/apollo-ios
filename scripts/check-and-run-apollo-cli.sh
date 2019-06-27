@@ -17,6 +17,10 @@ if [[ -z "$CONFIGURATION" ]]; then
   exit 1
 fi
 
+if [[ -x /opt/local/bin/port ]]; then
+    PATH="$PATH:/opt/local/bin"
+fi
+
 use_correct_node_via_nvm() {
   nvm version $REQUIRED_NODE_VERSION > /dev/null
   if [[ $? -eq 0 ]]; then
