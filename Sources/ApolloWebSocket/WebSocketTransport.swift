@@ -1,3 +1,6 @@
+// NOTE: Cocoapods spec linting will complain about this import,
+//       but you should not remove it or things won't build.
+import Apollo
 import Starscream
 
 // To allow for alternative implementations supporting the same WebSocketClient protocol

@@ -1,3 +1,7 @@
+// NOTE: Cocoapods spec linting will complain about this import,
+//       but you should not remove it or things won't build.
+import Apollo
+
 public class SplitNetworkTransport: NetworkTransport {
   private let httpNetworkTransport: NetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
