@@ -17,6 +17,7 @@ if [[ -z "$CONFIGURATION" ]]; then
   exit 1
 fi
 
+# Add MacPorts default bin path if the user has `port` command.
 if [[ -x /opt/local/bin/port ]]; then
     PATH="$PATH:/opt/local/bin"
 fi
