@@ -45,30 +45,18 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   }
 }
 
-public struct GraphQLHTTPRequestError: Error, LocalizedError {
-  public enum ErrorKind {
-    case serializedBodyMessageError
-    case serializedQueryParamsMessageError
-    
-    var description: String {
-      switch self {
-        case .serializedBodyMessageError:
-          return "JSONSerialization error: Error while serializing request's body"
-        case .serializedQueryParamsMessageError:
-          return "QueryParams error: Error while serializing variables as query parameters."
-        }
-      }
+public enum GraphQLHTTPRequestError: Error, LocalizedError {
+  case serializedBodyMessageError
+  case serializedQueryParamsMessageError
+  
+  public var errorDescription: String? {
+    switch self {
+    case .serializedBodyMessageError:
+      return "JSONSerialization error: Error while serializing request's body"
+    case .serializedQueryParamsMessageError:
+      return "QueryParams error: Error while serializing variables as query parameters."
     }
-    
-    public init(kind: ErrorKind) {
-      self.kind = kind
-    }
-    
-    public let kind: ErrorKind
-    
-    public var errorDescription: String? {
-      return "\(kind.description)"
-    }
+  }
 }
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
