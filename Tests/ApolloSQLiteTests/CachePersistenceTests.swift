@@ -26,7 +26,7 @@ class CachePersistenceTests: XCTestCase {
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let newCacheExpectation = self.expectation(description: "Fetch query from new cache")
 
-      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
         defer { networkExpectation.fulfill() }
         guard let result = result else { XCTFail("No query result");  return }
         XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")
@@ -68,7 +68,7 @@ class CachePersistenceTests: XCTestCase {
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let emptyCacheExpectation = self.expectation(description: "Fetch query from empty cache")
 
-      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
         defer { networkExpectation.fulfill() }
         guard let result = result else { XCTFail("No query result");  return }
         XCTAssertEqual(result.data?.hero?.name, "Luke Skywalker")

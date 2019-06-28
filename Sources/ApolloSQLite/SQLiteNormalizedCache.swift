@@ -24,7 +24,7 @@ public final class SQLiteNormalizedCache: NormalizedCache {
     return Promise {
       let records = try selectRecords(forKeys: keys)
       let recordsOrNil: [Record?] = keys.map { key in
-        if let recordIndex = records.index(where: { $0.key == key }) {
+        if let recordIndex = records.firstIndex(where: { $0.key == key }) {
           return records[recordIndex]
         }
         return nil
