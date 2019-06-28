@@ -526,7 +526,9 @@
 				90690D04224333DA00FC2E54 /* Configuration */,
 				9FC750451D2A532C00458D91 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		9FC750451D2A532C00458D91 /* Products */ = {
 			isa = PBXGroup;
