@@ -11,7 +11,7 @@ public protocol Cancellable: class {
 extension URLSessionTask: Cancellable {}
 
 /// A class to return when an error that should cause us to bail out of something still needs to return `Cancellable`.
-public class ErrorCancellable: Cancellable {
+public final class ErrorCancellable: Cancellable {
     
     public func cancel() {
         // Do nothing, an error occured and there is nothing to cancel.
