@@ -31,7 +31,7 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
         defer { expectation.fulfill() }
 
         guard let result = result else { XCTFail("No query result");  return }
@@ -70,7 +70,7 @@ class FetchQueryTests: XCTestCase {
       
       let expectation = self.expectation(description: "Fetching query")
       
-      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataAndFetch) { (result, error) in
+      client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch) { (result, error) in
         // ignore first result assuming from cache, and then make sure we get fetched result
         if result?.data?.hero?.name != "R2-D2" {
           defer { expectation.fulfill() }
@@ -106,13 +106,13 @@ class FetchQueryTests: XCTestCase {
                     "__typename": "Human"
                 ]
             ]
-            ])
+        ])
         
         let client = ApolloClient(networkTransport: networkTransport, store: store)
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
+        client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { (result, error) in
             defer { expectation.fulfill() }
             
             guard let result = result else { XCTFail("No query result");  return }
@@ -151,7 +151,7 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
+      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
         defer { expectation.fulfill() }
 
         guard let result = result else { XCTFail("No query result");  return }
@@ -190,7 +190,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
             defer { expectation.fulfill() }
             
             guard let result = result else { XCTFail("No query result");  return }
@@ -228,7 +228,7 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
+      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
         defer { expectation.fulfill() }
 
         guard let result = result else { XCTFail("No query result");  return }
@@ -266,7 +266,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { (result, error) in
             defer { expectation.fulfill() }
             
             guard let result = result else { XCTFail("No query result");  return }
@@ -305,7 +305,7 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
         defer { expectation.fulfill() }
 
         guard let result = result else { XCTFail("No query result");  return }
@@ -344,7 +344,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
             defer { expectation.fulfill() }
             
             guard let result = result else { XCTFail("No query result");  return }
@@ -383,7 +383,7 @@ class FetchQueryTests: XCTestCase {
 
         let expectation = self.expectation(description: "Fetching query")
 
-        client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
           defer { expectation.fulfill() }
           guard let result = result else { XCTFail("No query result");  return }
           XCTAssertEqual(result.data?.hero?.name, "R2-D2")
@@ -396,7 +396,7 @@ class FetchQueryTests: XCTestCase {
 
         let expectation2 = self.expectation(description: "Fetching query")
 
-        client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
           defer { expectation2.fulfill() }
           XCTAssertNil(result)
           XCTAssertNil(error)
@@ -433,7 +433,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
             defer { expectation.fulfill() }
             guard let result = result else { XCTFail("No query result");  return }
             XCTAssertEqual(result.data?.hero?.name, "R2-D2")
@@ -446,7 +446,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation2 = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
             defer { expectation2.fulfill() }
             XCTAssertNil(result)
             XCTAssertNil(error)
@@ -482,7 +482,7 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
         defer { expectation.fulfill() }
 
         XCTAssertNil(error)
@@ -519,7 +519,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { (result, error) in
             defer { expectation.fulfill() }
             
             XCTAssertNil(error)
@@ -553,7 +553,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .POST, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
+        client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
             defer { expectation.fulfill() }
             
             XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
@@ -586,7 +586,7 @@ class FetchQueryTests: XCTestCase {
         
         let expectation = self.expectation(description: "Fetching query")
         
-        client.fetch(query: query, fetchHTTPMethod: .GET, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
+        client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
             defer { expectation.fulfill() }
             
             XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
