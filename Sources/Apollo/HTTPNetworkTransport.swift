@@ -29,15 +29,15 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
     }
   
   public var bodyDescription: String {
-    if let body = body {
-      if let description = String(data: body, encoding: response.textEncoding ?? .utf8) {
-        return description
-      } else {
-        return "Unreadable response body"
-      }
-    } else {
+    guard let body = body else {
       return "Empty response body"
     }
+    
+    guard let description = String(data: body, encoding: response.textEncoding ?? .utf8) else {
+      return "Unreadable response body"
+    }
+    
+    return description
   }
   
   public var errorDescription: String? {
@@ -95,14 +95,14 @@ public class HTTPNetworkTransport: NetworkTransport {
       if let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
         request = URLRequest(url: urlForGet)
       } else {
-        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedQueryParamsMessageError))
+        completionHandler(nil, GraphQLHTTPRequestError.serializedQueryParamsMessageError)
         return ErrorCancellable()
       }
     default:
       do {
         request.httpBody = try serializationFormat.serialize(value: body)
       } catch {
-        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedBodyMessageError))
+        completionHandler(nil, GraphQLHTTPRequestError.serializedBodyMessageError)
         return ErrorCancellable()
       }
     }

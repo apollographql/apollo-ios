@@ -393,4 +393,8 @@ public struct WebSocketError: Error, LocalizedError {
   public let payload: JSONObject?
   public let error: Error?
   public let kind: ErrorKind
+  
+  public var errorDescription: String? {
+    return "\(self.kind.description). Error: \(String(describing: self.error))"
+  }
 }
