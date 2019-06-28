@@ -1,6 +1,7 @@
-// NOTE: Cocoapods spec linting will complain about this import,
-//       but you should not remove it or things won't build.
+#if !COCOAPODS
 import Apollo
+#endif
+
 
 public class SplitNetworkTransport: NetworkTransport {
   private let httpNetworkTransport: NetworkTransport
