@@ -59,12 +59,18 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.websocket.connect()
   }
   
-  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  public func send<Operation>(
+    operation: Operation,
+    fetchHTTPMethod: FetchHTTPMethod,
+    includeQuery: Bool = true,
+    extensions: GraphQLMap? = nil,
+    completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void
+  ) -> Cancellable {
     if let error = self.error {
       completionHandler(nil,error)
     }
     
-    return WebSocketTask(self,operation) { (body, error) in
+    return WebSocketTask(self, operation, includeQuery, extensions) { (body, error) in
       if let body = body {
         let response = GraphQLResponse(operation: operation, body: body)
         completionHandler(response,error)
@@ -234,8 +240,13 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     return sequenceNumber
   }
   
-  fileprivate func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ response: JSONObject?, _ error: Error?) -> Void) -> String? {
-    let body = requestBody(for: operation)
+  fileprivate func sendHelper<Operation: GraphQLOperation>(
+    operation: Operation,
+    includeQuery: Bool,
+    extensions: GraphQLMap?,
+    resultHandler: @escaping (_ response: JSONObject?, _ error: Error?) -> Void
+  ) -> String? {
+    let body = requestBody(for: operation, includeQuery: includeQuery, extensions: extensions)
     let sequenceNumber = "\(nextSequenceNumber())"
     
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
@@ -252,14 +263,27 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     return sequenceNumber
   }
   
-  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
+  private func requestBody<Operation: GraphQLOperation>(
+    for operation: Operation,
+    includeQuery: Bool,
+    extensions: GraphQLMap?
+  ) -> GraphQLMap {
+    let commonBody: GraphQLMap = [
+      "variables": operation.queryDocument,
+    ]
+    
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {
         preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
       }
-      return ["id": operationIdentifier, "variables": operation.variables]
+      return commonBody.merging(["id": operationIdentifier], uniquingKeysWith: { $1 })
     }
-    return ["query": operation.queryDocument, "variables": operation.variables]
+    
+    return commonBody
+      .merging(
+        ["query": includeQuery ? operation.queryDocument : nil, "extensions": extensions],
+        uniquingKeysWith: { $1 }
+    )
   }
   
   public func unsubscribe(_ subscriptionId: String) {
@@ -274,8 +298,19 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     let sequenceNumber : String?
     let transport: WebSocketTransport
     
-    init(_ ws: WebSocketTransport, _ operation: Operation, _ completionHandler: @escaping (_ response: JSONObject?, _ error: Error?) -> Void) {
-      sequenceNumber = ws.sendHelper(operation: operation, resultHandler: completionHandler)
+    init(
+      _ ws: WebSocketTransport,
+      _ operation: Operation,
+      _ includeQuery: Bool,
+      _ extensions: GraphQLMap?,
+      _ completionHandler: @escaping (_ response: JSONObject?, _ error: Error?) -> Void
+    ) {
+      sequenceNumber = ws.sendHelper(
+        operation: operation,
+        includeQuery: includeQuery,
+        extensions: extensions,
+        resultHandler: completionHandler
+      )
       transport = ws
     }
     

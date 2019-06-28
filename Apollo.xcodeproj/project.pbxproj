@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1D91186A2208DD5600F23EFD /* GraphQLFragmentWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9118692208DD5600F23EFD /* GraphQLFragmentWatcher.swift */; };
+		1DAAEBC922C667CF00068B8F /* APQNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAAEBC822C667CF00068B8F /* APQNetworkTransport.swift */; };
+		1DAAEBEF22C6763700068B8F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DAAEBD922C6721E00068B8F /* CryptoSwift.framework */; };
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* FetchHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* FetchHTTPMethod.swift */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
@@ -100,6 +102,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1DAAEBD822C6721E00068B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		1DAAEBDA22C6721E00068B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 75211F92207249D8004E41F8;
+			remoteInfo = "CryptoSwift-TestHostApp";
+		};
+		1DAAEBDC22C6721E00068B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = Tests;
+		};
+		1DAAEBDE22C6721E00068B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
+			remoteInfo = "TestsPerformance-Mac";
+		};
+		1DAAEBE022C6721E00068B8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
+			remoteInfo = "TestsPerformance-iOS";
+		};
 		9F0CA4471EE7F9E90032DD39 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -232,6 +269,8 @@
 
 /* Begin PBXFileReference section */
 		1D9118692208DD5600F23EFD /* GraphQLFragmentWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFragmentWatcher.swift; sourceTree = "<group>"; };
+		1DAAEBC822C667CF00068B8F /* APQNetworkTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APQNetworkTransport.swift; sourceTree = "<group>"; };
+		1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = Carthage/Checkouts/CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5AC6CA4222AAF7B200B7C94D /* FetchHTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchHTTPMethod.swift; sourceTree = "<group>"; };
 		90690D05224333DA00FC2E54 /* Apollo-Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Project-Debug.xcconfig"; sourceTree = "<group>"; };
@@ -350,6 +389,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1DAAEBE922C6763000068B8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DAAEBEF22C6763700068B8F /* CryptoSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9F8A95741EC0FC1200304A2D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,6 +464,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DAAEBCD22C66FD300068B8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1DAAEBD122C6721E00068B8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DAAEBD922C6721E00068B8F /* CryptoSwift.framework */,
+				1DAAEBDB22C6721E00068B8F /* CryptoSwift-TestHostApp.app */,
+				1DAAEBDD22C6721E00068B8F /* Tests.xctest */,
+				1DAAEBDF22C6721E00068B8F /* TestsPerformance-Mac.xctest */,
+				1DAAEBE122C6721E00068B8F /* TestsPerformance-iOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		90690D04224333DA00FC2E54 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +584,7 @@
 				9FCE2CF41E6C20E000E34457 /* Tests */,
 				90690D04224333DA00FC2E54 /* Configuration */,
 				9FC750451D2A532C00458D91 /* Products */,
+				1DAAEBCD22C66FD300068B8F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -596,6 +664,7 @@
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
+				1DAAEBC822C667CF00068B8F /* APQNetworkTransport.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -799,6 +868,7 @@
 				9FC7503F1D2A532C00458D91 /* Sources */,
 				9FC750411D2A532C00458D91 /* Headers */,
 				9FC750421D2A532C00458D91 /* Resources */,
+				1DAAEBE922C6763000068B8F /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -930,6 +1000,12 @@
 			mainGroup = 9FC7503A1D2A532C00458D91;
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1DAAEBD122C6721E00068B8F /* Products */;
+					ProjectRef = 1DAAEBD022C6721E00068B8F /* CryptoSwift.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9FC750431D2A532C00458D91 /* Apollo */,
@@ -943,6 +1019,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1DAAEBD922C6721E00068B8F /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = 1DAAEBD822C6721E00068B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1DAAEBDB22C6721E00068B8F /* CryptoSwift-TestHostApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CryptoSwift-TestHostApp.app";
+			remoteRef = 1DAAEBDA22C6721E00068B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1DAAEBDD22C6721E00068B8F /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 1DAAEBDC22C6721E00068B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1DAAEBDF22C6721E00068B8F /* TestsPerformance-Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "TestsPerformance-Mac.xctest";
+			remoteRef = 1DAAEBDE22C6721E00068B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1DAAEBE122C6721E00068B8F /* TestsPerformance-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "TestsPerformance-iOS.xctest";
+			remoteRef = 1DAAEBE022C6721E00068B8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9FC750421D2A532C00458D91 /* Resources */ = {
@@ -1092,6 +1206,7 @@
 				9FC750611D2A59C300458D91 /* GraphQLOperation.swift in Sources */,
 				5AC6CA4322AAF7B200B7C94D /* FetchHTTPMethod.swift in Sources */,
 				9FE941D01E62C771007CDD89 /* Promise.swift in Sources */,
+				1DAAEBC922C667CF00068B8F /* APQNetworkTransport.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9F86B6901E65533D00B885FF /* GraphQLResponseGenerator.swift in Sources */,
 				9FC9A9C21E2D3CAF0023C4D5 /* GraphQLInputValue.swift in Sources */,

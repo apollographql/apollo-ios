@@ -85,7 +85,11 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  public init(
+    url: URL,
+    configuration: URLSessionConfiguration = URLSessionConfiguration.default,
+    sendOperationIdentifiers: Bool = false
+  ) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
@@ -100,8 +104,14 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    let body = requestBody(for: operation)
+  public func send<Operation>(
+    operation: Operation,
+    fetchHTTPMethod: FetchHTTPMethod,
+    includeQuery: Bool = true,
+    extensions: GraphQLMap? = nil,
+    completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void
+  ) -> Cancellable {
+    let body = requestBody(for: operation, includeQuery: includeQuery, extensions: extensions)
     var request = URLRequest(url: url)
     
     switch fetchHTTPMethod {
@@ -160,45 +170,69 @@ public class HTTPNetworkTransport: NetworkTransport {
 
   private let sendOperationIdentifiers: Bool
 
-  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
+  private func requestBody<Operation: GraphQLOperation>(
+    for operation: Operation,
+    includeQuery: Bool,
+    extensions: GraphQLMap?
+  ) -> GraphQLMap {
+    var body: GraphQLMap = [
+      "variables": operation.variables,
+    ]
+    
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {
         preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
       }
-      return ["id": operationIdentifier, "variables": operation.variables]
+      return body.merging(["id": operationIdentifier], uniquingKeysWith: { $1 })
     }
-    return ["query": operation.queryDocument, "variables": operation.variables]
+    
+    if let extensions = extensions {
+      body["extensions"] = extensions
+    }
+    
+    if includeQuery {
+      body["query"] = operation.queryDocument
+    }
+    
+    return body
   }
     
   private func mountUrlWithQueryParamsIfNeeded(body: GraphQLMap) -> URL? {
-    guard let query = body.jsonObject["query"], var queryParam = queryString(withItems:  [URLQueryItem(name: "query", value: "\(query)")]) else {
-        return self.url
+    var queryStringItems = [URLQueryItem]()
+    if let query = optionalValue(for: body, key: "query") {
+      queryStringItems.append(URLQueryItem(name: "query", value: "\(query.jsonValue)"))
     }
-    if areThereVariables(in: body) {
-        guard let serializedVariables = try? serializationFormat.serialize(value: body.jsonObject["variables"]) else {
-            return URL(string: "\(self.url.absoluteString)?\(queryParam)")
-        }
-        queryParam += getVariablesEncodedString(of: serializedVariables)
+    
+    if let variables = optionalValue(for: body, key: "variables"),
+      let serializedVariables = try? serializationFormat.serialize(value: variables) {
+      queryStringItems.append(URLQueryItem(name: "variables", value: getEncodedString(of: serializedVariables)))
     }
-    guard let urlForGet = URL(string: "\(self.url.absoluteString)?\(queryParam)") else {
-        return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+    
+    if let extensions = optionalValue(for: body, key: "extensions"),
+      let serializedExtensions = try? serializationFormat.serialize(value: extensions) {
+      queryStringItems.append(URLQueryItem(name: "extensions", value: getEncodedString(of: serializedExtensions)))
     }
-    return urlForGet
+    
+    guard !queryStringItems.isEmpty,
+      let queryString = queryString(withItems: queryStringItems) else {
+      return self.url
+    }
+    
+    return URL(string: "\(self.url.absoluteString)?\(queryString)")
+  }
+  
+  private func optionalValue(for body: GraphQLMap, key: String) -> JSONEncodable? {
+    if let value = body[key] {
+      return value
+    }
+    return nil
   }
 
-  private func areThereVariables(in map: GraphQLMap) -> Bool {
-    if let variables = map.jsonObject["variables"], "\(variables)" != "<null>" {
-        return true
-    }
-    return false
-  }
-
-  private func getVariablesEncodedString(of data: Data) -> String {
+  private func getEncodedString(of data: Data) -> String {
     var dataString = String(data: data, encoding: String.Encoding.utf8) ?? ""
     dataString = dataString.replacingOccurrences(of: ";", with: ",")
     dataString = dataString.replacingOccurrences(of: "=", with: ":")
-    guard let variablesEncoded = queryString(withItems:  [URLQueryItem(name: "variables", value: "\(dataString)")]) else { return "" }
-    return "&\(variablesEncoded)"
+    return dataString
   }
 
   private func queryString(withItems items: [URLQueryItem], percentEncoded: Bool = true) -> String? {

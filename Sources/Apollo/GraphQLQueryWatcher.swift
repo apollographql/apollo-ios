@@ -5,6 +5,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   weak var client: ApolloClient?
   let query: Query
   let fetchHTTPMethod: FetchHTTPMethod
+  let includeQuery: Bool
+  let extensions: GraphQLMap?
   let handlerQueue: DispatchQueue
   let resultHandler: OperationResultHandler<Query>
   
@@ -14,10 +16,12 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   
   private var dependentKeys: Set<CacheKey>?
   
-  init(client: ApolloClient, query: Query, fetchHTTPMethod: FetchHTTPMethod, handlerQueue: DispatchQueue, resultHandler: @escaping OperationResultHandler<Query>) {
+  init(client: ApolloClient, query: Query, fetchHTTPMethod: FetchHTTPMethod, includeQuery: Bool, extensions: GraphQLMap?, handlerQueue: DispatchQueue, resultHandler: @escaping OperationResultHandler<Query>) {
     self.client = client
     self.query = query
     self.fetchHTTPMethod = fetchHTTPMethod
+    self.includeQuery = includeQuery
+    self.extensions = extensions
     self.handlerQueue = handlerQueue
     self.resultHandler = resultHandler
     
@@ -30,7 +34,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
   
   func fetch(cachePolicy: CachePolicy) {
-    fetching = client?._fetch(query: query, fetchHTTPMethod: fetchHTTPMethod, cachePolicy: cachePolicy, context: &context, queue: handlerQueue) { [weak self] (result, error) in
+    fetching = client?._fetch(query: query, fetchHTTPMethod: fetchHTTPMethod, includeQuery: includeQuery, extensions: extensions, cachePolicy: cachePolicy, context: &context, queue: handlerQueue) { [weak self] (result, error) in
       guard let `self` = self else { return }
         
       self.dependentKeys = result?.dependentKeys

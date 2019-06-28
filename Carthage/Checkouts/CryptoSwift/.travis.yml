@@ -1,0 +1,11 @@
+os:
+    - linux
+    - osx
+language: generic
+sudo: required
+dist: trusty
+osx_image: xcode10
+install:
+    - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+script:
+    - swift test -c release -Xswiftc -enable-testing -Xswiftc -DCI -Xswiftc -Xfrontend -Xswiftc -solver-memory-threshold -Xswiftc -Xfrontend -Xswiftc 999999999
