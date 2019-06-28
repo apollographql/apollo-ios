@@ -1,7 +1,5 @@
 import Foundation
 
-extension URLSessionTask: Cancellable {}
-
 /// A transport-level, HTTP-specific error.
 public struct GraphQLHTTPResponseError: Error, LocalizedError {
   public enum ErrorKind {
@@ -110,12 +108,14 @@ public class HTTPNetworkTransport: NetworkTransport {
         request = URLRequest(url: urlForGet)
       } else {
         completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedQueryParamsMessageError))
+        return ErrorCancellable()
       }
     default:
       do {
         request.httpBody = try serializationFormat.serialize(value: body)
       } catch {
         completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedBodyMessageError))
+        return ErrorCancellable()
       }
     }
     

@@ -1,12 +1,6 @@
 import Foundation
 import Dispatch
 
-/// An object that can be used to cancel an in progress action.
-public protocol Cancellable: class {
-  /// Cancel an in progress action.
-  func cancel()
-}
-
 /// A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
 public enum CachePolicy {
   /// Return data from the cache if available, else fetch results from the server.

@@ -63,7 +63,8 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   
   public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     if let error = self.error {
-      completionHandler(nil,error)
+        completionHandler(nil,error)
+        return ErrorCancellable()
     }
     
     return WebSocketTask(self,operation) { (body, error) in
