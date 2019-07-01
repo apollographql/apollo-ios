@@ -15,15 +15,16 @@ class HTTPTransportTests: XCTestCase {
   private var updatedHeaders: [String: String]?
   private var shouldSend = true
 
-  private lazy var url = URL(string: "http://localhost:8080/")!
+  private lazy var url = URL(string: "http://localhost:8080/graphql")!
   private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
+                                                           useGETForQueries: true,
                                                            delegate: self)
   
   func testDelegateTellingRequestNotToSend() {
     self.shouldSend = false
     
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery(episode: .empire)) { response, error in
       
       defer {
         expectation.fulfill()
@@ -89,15 +90,58 @@ class HTTPTransportTests: XCTestCase {
     
     guard
       let task = cancellable as? URLSessionTask,
-      let url = task.currentRequest?.url,
       let headers = task.currentRequest?.allHTTPHeaderFields else {
         cancellable.cancel()
         expectation.fulfill()
         return
     }
     
-    XCTAssertEqual(url.absoluteString, "http://localhost:8080/graphql")
     XCTAssertEqual(headers["Authorization"], "Bearer HelloApollo")
+    
+    // This will come through after hitting the network.
+    self.wait(for: [expectation], timeout: 10)
+  }
+  
+  func testDelegateNeitherModifyingOrStoppingRequest() {
+    let expectation = self.expectation(description: "Send operation completed")
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { (response, error) in
+      
+      defer {
+        expectation.fulfill()
+      }
+      
+      if let responseError = error as? GraphQLHTTPResponseError {
+        print(responseError.bodyDescription)
+        XCTFail("Error!")
+        return
+      }
+      
+      guard let queryResponse = response else {
+        XCTFail("No response!")
+        return
+      }
+      
+      guard
+        let dictionary = queryResponse.body as? [String: AnyHashable],
+        let dataDict = dictionary["data"] as? [String: AnyHashable],
+        let heroDict = dataDict["hero"] as? [String: AnyHashable],
+        let name = heroDict["name"] as? String else {
+          XCTFail("No hero for you!")
+          return
+      }
+      
+      XCTAssertEqual(name, "R2-D2")
+    }
+    
+    guard
+      let task = cancellable as? URLSessionTask,
+      let headers = task.currentRequest?.allHTTPHeaderFields else {
+        cancellable.cancel()
+        expectation.fulfill()
+        return
+    }
+    
+    XCTAssertNil(headers["Authorization"])
     
     // This will come through after hitting the network.
     self.wait(for: [expectation], timeout: 10)
@@ -115,7 +159,6 @@ extension HTTPTransportTests: HTTPNetworkTransportDelegate {
       return
     }
     
-    request.url = URL(string: "http://localhost:8080/graphql")!
     headers.forEach { tuple in
       let (key, value) = tuple
       var headers = request.allHTTPHeaderFields ?? [String: String]()

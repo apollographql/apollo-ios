@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
+		9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */; };
 		9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43D022C6655200FD7C7F /* Cancellable.swift */; };
 		9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */; };
 		9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */; };
 		9BF1A94F22CA5784005292C2 /* HTTPTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */; };
+		9BF1A95122CA6E71005292C2 /* GraphQLGETTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */; };
 		9F0CA4451EE7F9E90032DD39 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		9F0CA4461EE7F9E90032DD39 /* ApolloTestSupport.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F10A51E1EC1BA0F0045E62B /* MockNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */; };
@@ -249,10 +251,12 @@
 		90690D2322433C5900FC2E54 /* Apollo-Target-CacheDependentTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CacheDependentTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
+		9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETTransformerTests.swift; sourceTree = "<group>"; };
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPResponseError.swift; sourceTree = "<group>"; };
 		9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPRequestError.swift; sourceTree = "<group>"; };
 		9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTransportTests.swift; sourceTree = "<group>"; };
+		9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLGETTransformer.swift; sourceTree = "<group>"; };
 		9F10A51D1EC1BA0F0045E62B /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
 		9F19D8431EED568200C57247 /* ResultOrPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromise.swift; sourceTree = "<group>"; };
 		9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultOrPromiseTests.swift; sourceTree = "<group>"; };
@@ -584,6 +588,7 @@
 				9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
 				9F8622F91EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift */,
+				9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */,
 				9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */,
 				9FC750551D2A532D00458D91 /* Info.plist */,
 				9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */,
@@ -621,6 +626,7 @@
 				9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */,
 				9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
+				9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1118,6 +1124,7 @@
 				9F578D901D8D2CB300C0EA36 /* Utilities.swift in Sources */,
 				9F7BA89922927A3700999B3B /* ResponsePath.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
+				9BF1A95122CA6E71005292C2 /* GraphQLGETTransformer.swift in Sources */,
 				9FEC15B91E6965E300D461B4 /* Result.swift in Sources */,
 				9FADC84F1E6B865E00C677E6 /* DataLoader.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
@@ -1142,6 +1149,7 @@
 				9F91CF8F1F6C0DB2008DD0BE /* MutatingResultsTests.swift in Sources */,
 				9F19D8461EED8D3B00C57247 /* ResultOrPromiseTests.swift in Sources */,
 				9F533AB31E6C4A4200CBE097 /* BatchedLoadTests.swift in Sources */,
+				9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */,
 				9FF90A6F1DDDEB420034C3B6 /* InputValueEncodingTests.swift in Sources */,
 				9FE1C6E71E634C8D00C02284 /* PromiseTests.swift in Sources */,
 				9FADC8541E6B86D900C677E6 /* DataLoaderTests.swift in Sources */,
