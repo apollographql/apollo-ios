@@ -10,9 +10,12 @@ public protocol Cancellable: class {
 
 extension URLSessionTask: Cancellable {}
 
+// MARK: - Early-Exit Helper
+
 /// A class to return when an error that should cause us to bail out of something still needs to return `Cancellable`.
 public final class ErrorCancellable: Cancellable {
   
+  // Needs to be public so this can be instantiated outside of the current framework.
   public init() {}
   
   public func cancel() {
