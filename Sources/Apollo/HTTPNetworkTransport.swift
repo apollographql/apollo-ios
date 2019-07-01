@@ -106,23 +106,23 @@ public class HTTPNetworkTransport: NetworkTransport {
     
   private func mountUrlWithQueryParamsIfNeeded(body: GraphQLMap) -> URL? {
     guard let query = body.jsonObject["query"], var queryParam = queryString(withItems:  [URLQueryItem(name: "query", value: "\(query)")]) else {
-        return self.url
+      return self.url
     }
     if areThereVariables(in: body) {
-        guard let serializedVariables = try? serializationFormat.serialize(value: body.jsonObject["variables"]) else {
-            return URL(string: "\(self.url.absoluteString)?\(queryParam)")
-        }
-        queryParam += getVariablesEncodedString(of: serializedVariables)
+      guard let serializedVariables = try? serializationFormat.serialize(value: body.jsonObject["variables"]) else {
+        return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+      }
+      queryParam += getVariablesEncodedString(of: serializedVariables)
     }
     guard let urlForGet = URL(string: "\(self.url.absoluteString)?\(queryParam)") else {
-        return URL(string: "\(self.url.absoluteString)?\(queryParam)")
+      return URL(string: "\(self.url.absoluteString)?\(queryParam)")
     }
     return urlForGet
   }
 
   private func areThereVariables(in map: GraphQLMap) -> Bool {
     if let variables = map.jsonObject["variables"], "\(variables)" != "<null>" {
-        return true
+      return true
     }
     return false
   }
@@ -141,7 +141,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     let queryString = percentEncoded ? url.percentEncodedQuery : url.query
     
     if let queryString = queryString {
-        return "\(queryString)"
+      return "\(queryString)"
     }
     return nil
   }
