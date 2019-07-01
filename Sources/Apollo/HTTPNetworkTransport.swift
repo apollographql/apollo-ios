@@ -1,11 +1,32 @@
 import Foundation
 
+public protocol HTTPNetworkTransportDelegate: class {
+  
+  /// Called when a request is about to send, to validate that it should be sent.
+  /// Good for early-exiting if your user is not logged in, for example.
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport which wants to send a request
+  ///   - request: The request, BEFORE it has been modified by `willSend`
+  /// - Returns: True if the request should proceed, false if not.
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, shouldSend request: URLRequest) -> Bool
+  
+  /// Called when a request is about to send. Allows last minute modification of any properties on the request,
+  ///
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport which is about to send a request
+  ///   - request: The request, as an `inout` variable for modification
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, willSend request: inout URLRequest)
+}
+
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
+  let delegate: HTTPNetworkTransportDelegate?
 
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -17,11 +38,13 @@ public class HTTPNetworkTransport: NetworkTransport {
   public init(url: URL,
               configuration: URLSessionConfiguration = .default,
               sendOperationIdentifiers: Bool = false,
-              useGETForQueries: Bool = false) {
+              useGETForQueries: Bool = false,
+              delegate: HTTPNetworkTransportDelegate? = nil) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
+    self.delegate = delegate
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -55,6 +78,16 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    // If there's a delegate, do a pre-flight check and allow modifications to the request.
+    if let delegate = self.delegate {
+      guard delegate.networkTransport(self, shouldSend: request) else {
+        completionHandler(nil, GraphQLHTTPRequestError.cancelledByDeveloper)
+        return ErrorCancellable()
+      }
+      
+      delegate.networkTransport(self, willSend: &request)
+    }
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
       if error != nil {
@@ -99,8 +132,10 @@ public class HTTPNetworkTransport: NetworkTransport {
       guard let operationIdentifier = operation.operationIdentifier else {
         preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
       }
+      
       return ["id": operationIdentifier, "variables": operation.variables]
     }
+    
     return ["query": operation.queryDocument, "variables": operation.variables]
   }
     
@@ -108,15 +143,18 @@ public class HTTPNetworkTransport: NetworkTransport {
     guard let query = body.jsonObject["query"], var queryParam = queryString(withItems:  [URLQueryItem(name: "query", value: "\(query)")]) else {
       return self.url
     }
+    
     if areThereVariables(in: body) {
       guard let serializedVariables = try? serializationFormat.serialize(value: body.jsonObject["variables"]) else {
         return URL(string: "\(self.url.absoluteString)?\(queryParam)")
       }
       queryParam += getVariablesEncodedString(of: serializedVariables)
     }
+    
     guard let urlForGet = URL(string: "\(self.url.absoluteString)?\(queryParam)") else {
       return URL(string: "\(self.url.absoluteString)?\(queryParam)")
     }
+    
     return urlForGet
   }
 
@@ -124,6 +162,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     if let variables = map.jsonObject["variables"], "\(variables)" != "<null>" {
       return true
     }
+    
     return false
   }
 
@@ -132,6 +171,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     dataString = dataString.replacingOccurrences(of: ";", with: ",")
     dataString = dataString.replacingOccurrences(of: "=", with: ":")
     guard let variablesEncoded = queryString(withItems:  [URLQueryItem(name: "variables", value: "\(dataString)")]) else { return "" }
+    
     return "&\(variablesEncoded)"
   }
 
@@ -143,6 +183,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     if let queryString = queryString {
       return "\(queryString)"
     }
+    
     return nil
   }
 }
