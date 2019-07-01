@@ -56,37 +56,12 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    let body = requestBody(for: operation)
-    var request = URLRequest(url: url)
- 
-    if self.useGETForQueries && operation.operationType == .query {
-      if let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
-        request = URLRequest(url: urlForGet)
-        request.httpMethod = GraphQLHTTPMethod.GET.rawValue
-      } else {
-        completionHandler(nil, GraphQLHTTPRequestError.serializedQueryParamsMessageError)
-        return EmptyCancellable()
-      }
-    } else {
-      do {
-        request.httpBody = try serializationFormat.serialize(value: body)
-        request.httpMethod = GraphQLHTTPMethod.POST.rawValue
-      } catch {
-        completionHandler(nil, GraphQLHTTPRequestError.serializedBodyMessageError)
-        return EmptyCancellable()
-      }
-    }
-    
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
-    // If there's a delegate, do a pre-flight check and allow modifications to the request.
-    if let delegate = self.delegate {
-      guard delegate.networkTransport(self, shouldSend: request) else {
-        completionHandler(nil, GraphQLHTTPRequestError.cancelledByDeveloper)
-        return ErrorCancellable()
-      }
-      
-      delegate.networkTransport(self, willSend: &request)
+    let request: URLRequest
+    do {
+      request = try self.createRequest(for: operation)
+    } catch {
+      completionHandler(nil, error)
+      return EmptyCancellable()
     }
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -126,6 +101,41 @@ public class HTTPNetworkTransport: NetworkTransport {
   }
 
   private let sendOperationIdentifiers: Bool
+  
+  private func createRequest<Operation: GraphQLOperation>(for operation: Operation) throws -> URLRequest {
+    let body = requestBody(for: operation)
+    var request = URLRequest(url: self.url)
+    
+    if self.useGETForQueries && operation.operationType == .query {
+      let transformer = GraphQLGETTransformer(body: body, url: self.url)
+      if let urlForGet = transformer.createGetURL() {
+        request = URLRequest(url: urlForGet)
+        request.httpMethod = GraphQLHTTPMethod.GET.rawValue
+      } else {
+        throw GraphQLHTTPRequestError.serializedQueryParamsMessageError
+      }
+    } else {
+      do {
+        request.httpBody = try serializationFormat.serialize(value: body)
+        request.httpMethod = GraphQLHTTPMethod.POST.rawValue
+      } catch {
+        throw GraphQLHTTPRequestError.serializedBodyMessageError
+      }
+    }
+    
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    // If there's a delegate, do a pre-flight check and allow modifications to the request.
+    if let delegate = self.delegate {
+      guard delegate.networkTransport(self, shouldSend: request) else {
+        throw GraphQLHTTPRequestError.cancelledByDeveloper
+      }
+      
+      delegate.networkTransport(self, willSend: &request)
+    }
+    
+    return request
+  }
 
   private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
     if sendOperationIdentifiers {
@@ -137,10 +147,5 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     return ["query": operation.queryDocument, "variables": operation.variables]
-  }
-    
-  private func mountUrlWithQueryParamsIfNeeded(body: GraphQLMap) -> URL? {
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
-    return transformer.mountUrlWithQueryParamsIfNeeded()
   }
 }
