@@ -36,7 +36,7 @@ public final class APQNetworkTransport: NetworkTransport {
     
     return networkTransport.send(
       operation: operation,
-      fetchHTTPMethod: isEnabled && useGETForPersistedQuery ? .GET :  fetchHTTPMethod,
+      fetchHTTPMethod: isEnabled && useGETForPersistedQuery && operation.operationType == .query ? .GET : fetchHTTPMethod,
       includeQuery: !isEnabled,
       extensions: newExtensions
     ) { [weak self] result, error in
