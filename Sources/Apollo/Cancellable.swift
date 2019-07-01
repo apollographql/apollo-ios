@@ -19,6 +19,3 @@ public final class ErrorCancellable: Cancellable {
     // Do nothing, an error occured and there is nothing to cancel.
   }
 }
-
-
-
