@@ -22,14 +22,13 @@ SDKROOT[sdk=macosx*] = macosx
 VALID_ARCHS[sdk=macosx*] = x86_64
 
 // Enable Bitcode only for actual devices, not for macOS or simulators
-ENABLE_BITCODE[sdk=watchos*] = YES
-ENABLE_BITCODE[sdk=iphoneos*] = YES
-ENABLE_BITCODE[sdk=appletvos*] = YES
+ENABLE_BITCODE[sdk=watchos*][config=Release] = YES
+ENABLE_BITCODE[sdk=iphoneos*][config=Release] = YES
+ENABLE_BITCODE[sdk=appletvos*][config=Release] = YES
 
 // By default, BITCODE_GENERATION_MODE is "marker".
 // Based on Realm's fix for Bitcode, this needs to be "bitcode"
 // Source: https://github.com/realm/realm-cocoa/pull/2567
-BITCODE_GENERATION_MODE[sdk=watchos*] = bitcode
-BITCODE_GENERATION_MODE[sdk=iphoneos*] = bitcode
-BITCODE_GENERATION_MODE[sdk=iphoneos*][config=Debug] = marker
-BITCODE_GENERATION_MODE[sdk=appletvos*] = bitcode
+BITCODE_GENERATION_MODE[sdk=watchos*][config=Release] = bitcode
+BITCODE_GENERATION_MODE[sdk=iphoneos*][config=Release] = bitcode
+BITCODE_GENERATION_MODE[sdk=appletvos*][config=Release] = bitcode

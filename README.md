@@ -23,7 +23,7 @@ This combination of models with value semantics, one way data flow, and automati
 
 [![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios)
 
-This project is being developed using Xcode 9 and Swift 4.
+This project is being developed using Xcode 10 and Swift 5.0.
 
 If you open `Apollo.xcodeproj`, you should be able to run the tests of the Apollo target.
 
