@@ -15,34 +15,34 @@ public protocol ApolloWebSocketClient: WebSocketClient {
 }
 
 public protocol WebSocketTransportDelegate: class {
-    func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
-    func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
-    func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
+  func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
+  func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
+  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
 }
 
 public extension WebSocketTransportDelegate {
-    func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {}
-    func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {}
-    func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?) {}
+  func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {}
+  func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {}
+  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?) {}
 }
 
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
 public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
-    
+  
   var reconnect = false
   var websocket: ApolloWebSocketClient
   var error: Error? = nil
   let serializationFormat = JSONSerializationFormat.self
-
+  
   private final let protocols = ["graphql-ws"]
-
+  
   private var acked = false
   
   private var queue: [Int: String] = [:]
   private var connectingPayload: GraphQLMap?
-
+  
   private var subscribers = [String: (JSONObject?, Error?) -> Void]()
   private var subscriptions : [String: String] = [:]
   
@@ -61,9 +61,10 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.websocket.connect()
   }
   
-  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     if let error = self.error {
       completionHandler(nil,error)
+      return EmptyCancellable()
     }
     
     return WebSocketTask(self,operation) { (body, error) in
@@ -149,14 +150,14 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.error = nil
     initServer()
     if reconnected {
-        self.delegate?.webSocketTransportDidReconnect(self)
+      self.delegate?.webSocketTransportDidReconnect(self)
       // re-send the subscriptions whenever we are re-connected
       // for the first connect, any subscriptions are already in queue
       for (_,msg) in self.subscriptions {
         write(msg)
       }
     } else {
-        self.delegate?.webSocketTransportDidConnect(self)
+      self.delegate?.webSocketTransportDidConnect(self)
     }
     
     reconnected = true
@@ -392,4 +393,8 @@ public struct WebSocketError: Error, LocalizedError {
   public let payload: JSONObject?
   public let error: Error?
   public let kind: ErrorKind
+  
+  public var errorDescription: String? {
+    return "\(self.kind.description). Error: \(String(describing: self.error))"
+  }
 }

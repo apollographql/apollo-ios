@@ -1,125 +1,59 @@
 import Foundation
 
-extension URLSessionTask: Cancellable {}
-
-/// A transport-level, HTTP-specific error.
-public struct GraphQLHTTPResponseError: Error, LocalizedError {
-  public enum ErrorKind {
-    case errorResponse
-    case invalidResponse
-    
-    var description: String {
-      switch self {
-      case .errorResponse:
-        return "Received error response"
-      case .invalidResponse:
-        return "Received invalid response"
-      }
-    }
-  }
-  
-  /// The body of the response.
-  public let body: Data?
-  /// Information about the response as provided by the server.
-  public let response: HTTPURLResponse
-  public let kind: ErrorKind
-
-    public init(body: Data? = nil, response: HTTPURLResponse, kind: ErrorKind) {
-        self.body = body
-        self.response = response
-        self.kind = kind
-    }
-  
-  public var bodyDescription: String {
-    if let body = body {
-      if let description = String(data: body, encoding: response.textEncoding ?? .utf8) {
-        return description
-      } else {
-        return "Unreadable response body"
-      }
-    } else {
-      return "Empty response body"
-    }
-  }
-  
-  public var errorDescription: String? {
-    return "\(kind.description) (\(response.statusCode) \(response.statusCodeDescription)): \(bodyDescription)"
-  }
-}
-
-public struct GraphQLHTTPRequestError: Error, LocalizedError {
-  public enum ErrorKind {
-    case serializedBodyMessageError
-    case serializedQueryParamsMessageError
-    
-    var description: String {
-      switch self {
-        case .serializedBodyMessageError:
-          return "JSONSerialization error: Error while serializing request's body"
-        case .serializedQueryParamsMessageError:
-          return "QueryParams error: Error while serializing variables as query parameters."
-        }
-      }
-    }
-    
-    public init(kind: ErrorKind) {
-      self.kind = kind
-    }
-    
-    public let kind: ErrorKind
-    
-    public var errorDescription: String? {
-      return "\(kind.description)"
-    }
-}
-
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
-  
+  let useGETForQueries: Bool
+
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, sendOperationIdentifiers: Bool = false) {
+  ///   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
+  public init(url: URL,
+              configuration: URLSessionConfiguration = .default,
+              sendOperationIdentifiers: Bool = false,
+              useGETForQueries: Bool = false) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
+    self.useGETForQueries = useGETForQueries
   }
   
   /// Send a GraphQL operation to a server and return a response.
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
-  ///   - fetchHTTPMethod: The HTTP Method to be used in operation.
   ///   - completionHandler: A closure to call when a request completes.
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     let body = requestBody(for: operation)
     var request = URLRequest(url: url)
-    
-    switch fetchHTTPMethod {
-    case .GET:
+ 
+    if self.useGETForQueries && operation.operationType == .query {
       if let urlForGet = mountUrlWithQueryParamsIfNeeded(body: body) {
         request = URLRequest(url: urlForGet)
+        request.httpMethod = GraphQLHTTPMethod.GET.rawValue
       } else {
-        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedQueryParamsMessageError))
+        completionHandler(nil, GraphQLHTTPRequestError.serializedQueryParamsMessageError)
+        return EmptyCancellable()
       }
-    default:
+    } else {
       do {
         request.httpBody = try serializationFormat.serialize(value: body)
+        request.httpMethod = GraphQLHTTPMethod.POST.rawValue
       } catch {
-        completionHandler(nil, GraphQLHTTPRequestError(kind: .serializedBodyMessageError))
+        completionHandler(nil, GraphQLHTTPRequestError.serializedBodyMessageError)
+        return EmptyCancellable()
       }
     }
     
-    request.httpMethod = fetchHTTPMethod.rawValue
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in

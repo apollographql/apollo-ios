@@ -12,11 +12,11 @@ public class SplitNetworkTransport: NetworkTransport {
     self.webSocketNetworkTransport = webSocketNetworkTransport
   }
   
-  public func send<Operation>(operation: Operation, fetchHTTPMethod: FetchHTTPMethod, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable {
     if operation.operationType == .subscription {
-        return webSocketNetworkTransport.send(operation: operation, fetchHTTPMethod: fetchHTTPMethod, completionHandler: completionHandler)
+        return webSocketNetworkTransport.send(operation: operation, completionHandler: completionHandler)
     } else {
-        return httpNetworkTransport.send(operation: operation, fetchHTTPMethod: fetchHTTPMethod, completionHandler: completionHandler)
+        return httpNetworkTransport.send(operation: operation, completionHandler: completionHandler)
     }
   }
 }

@@ -97,7 +97,9 @@
 				720F147A206AB52F00D061DB /* Frameworks */,
 				720160CC206AB3D30052B2EE /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		720160CC206AB3D30052B2EE /* Products */ = {
 			isa = PBXGroup;

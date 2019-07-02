@@ -272,7 +272,7 @@ class StarWarsServerTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, fetchHTTPMethod: .POST) { (result, error) in
+      client.fetch(query: query) { (result, error) in
         defer { expectation.fulfill() }
 
         if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
