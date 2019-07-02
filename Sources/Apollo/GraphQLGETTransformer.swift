@@ -13,9 +13,6 @@ struct GraphQLGETTransformer {
   let body: GraphQLMap
   let url: URL
   
-  private let variablesKey = "variables"
-  private let queryKey = "query"
-  
   /// A helper for transforming a GraphQLMap that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
   ///
   /// - Parameters:
@@ -35,26 +32,23 @@ struct GraphQLGETTransformer {
       return nil
     }
     
-    guard let query = self.body.jsonObject[self.queryKey] as? String else {
+    var queryItems: [URLQueryItem] = []
+    
+    do {
+      _ = try body.compactMap({ arg in
+        if let value = arg.value as? GraphQLMap {
+          let data = try JSONSerialization.dataSortedIfPossible(withJSONObject: value.jsonValue)
+          if let string = String(data: data, encoding: .utf8) {
+            queryItems.append(URLQueryItem(name: arg.key, value: string))
+          }
+        } else if let string = arg.value as? String {
+          queryItems.append(URLQueryItem(name: arg.key, value: string))
+        }
+      })
+    } catch {
       return nil
     }
-    
-    var queryItems = components.queryItems ?? [URLQueryItem]()
 
-    queryItems.append(URLQueryItem(name: self.queryKey, value: query))
-    components.queryItems = queryItems
-    
-    guard let variables = self.body.jsonObject[self.variablesKey] as? [String: Any] else {
-      return components.url
-    }
-    
-    guard
-      let serializedData = try? JSONSerialization.dataSortedIfPossible(withJSONObject: variables),
-      let jsonString = String(bytes: serializedData, encoding: .utf8) else {
-        return components.url
-    }
-    
-    queryItems.append(URLQueryItem(name: self.variablesKey, value: jsonString))
     components.queryItems = queryItems
     
     return components.url

@@ -69,30 +69,38 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
+  
   let url: URL
-  let session: URLSession
+  var session: URLSession
   let serializationFormat = JSONSerializationFormat.self
-  let useGETForQueries: Bool
   let delegate: HTTPNetworkTransportDelegate?
 
+  private let _useGETForQueries: Bool
+  private let _enableAutoPersistedQueries: Bool
+  private let _useHttpGetMethodForPersistedQueries: Bool
+  
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
-  ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
   ///   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
-  ///   - delegate: [Optional] A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`. Defaults to nil.
-  public init(url: URL,
-              configuration: URLSessionConfiguration = .default,
-              sendOperationIdentifiers: Bool = false,
+  ///   - enableAutoPersistedQueries: Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false.
+  ///   - useHttpGetMethodForPersistedQueries: Whether to send PersistedQuery supported request with HTTPGETMethod, retry with HTTPPOSTMethod if PersistedQuery not support/not found in server.
+  ///   - preflightDelegate: A delegate to check with before sending a request.
+  ///   - requestCompletionDelegate: A delegate to notify when the URLSessionTask has completed.
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default,
               useGETForQueries: Bool = false,
-              delegate: HTTPNetworkTransportDelegate? = nil) {
+              enableAutoPersistedQueries: Bool = false,
+              useHttpGetMethodForPersistedQueries: Bool = false,
+              delegate: HTTPNetworkTransportDelegate? = nil
+    ) {
     self.url = url
     self.session = URLSession(configuration: configuration)
-    self.sendOperationIdentifiers = sendOperationIdentifiers
-    self.useGETForQueries = useGETForQueries
     self.delegate = delegate
+    self._useGETForQueries = useGETForQueries
+    self._enableAutoPersistedQueries = enableAutoPersistedQueries
+    self._useHttpGetMethodForPersistedQueries = useHttpGetMethodForPersistedQueries
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -104,104 +112,166 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+    return send(operation: operation, retryFor: nil, completionHandler: completionHandler)
+  }
+  
+  private func send<Operation>(operation: Operation,
+                               retryFor reason:Error? = nil,
+                               completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+    
     let request: URLRequest
     do {
-      request = try self.createRequest(for: operation)
+      if operation.operationType != .query {
+        request = try self.createRequest(for: operation,
+                                         httpMethod: .POST,
+                                         sendQueryDocument: true,
+                                         autoPersistQueries: false)
+        
+      } else {
+        let useGetMethod: Bool
+        let sendQueryDocument: Bool
+        if let reason = reason as? GraphQLHTTPResponseError,
+          [GraphQLHTTPResponseError.ErrorKind.persistedQueryNotFound,
+           GraphQLHTTPResponseError.ErrorKind.persistedQueryNotSupported].contains(reason.kind) {
+          // retry for APQs, with document
+          useGetMethod = _useGETForQueries
+          sendQueryDocument = true
+        } else {
+          useGetMethod = _useGETForQueries || (_enableAutoPersistedQueries && _useHttpGetMethodForPersistedQueries)
+          sendQueryDocument = !_enableAutoPersistedQueries
+        }
+        
+        request = try self.createRequest(for: operation,
+                                         httpMethod: useGetMethod ? .GET : .POST,
+                                         sendQueryDocument: sendQueryDocument,
+                                         autoPersistQueries: _enableAutoPersistedQueries)
+      }
     } catch {
       completionHandler(nil, error)
       return EmptyCancellable()
     }
     
     let task = session.dataTask(with: request) { [weak self] data, response, error in
-      self?.rawTaskCompleted(request: request,
-                             data: data,
-                             response: response,
-                             error: error)
-
+      guard let self = self else { return }
+      
+      self.rawTaskCompleted(request: request,
+                            data: data,
+                            response: response,
+                            error: error)
+      
       if let receivedError = error {
-        self?.handleErrorOrRetry(operation: operation,
-                                 error: receivedError,
-                                 for: request,
-                                 response: response,
-                                 completionHandler: completionHandler)
+        self.handleErrorOrRetry(operation: operation,
+                                error: receivedError,
+                                for: request,
+                                response: response,
+                                completionHandler: completionHandler)
         return
       }
-
+      
       guard let httpResponse = response as? HTTPURLResponse else {
         fatalError("Response should be an HTTPURLResponse")
       }
-
+      
       guard httpResponse.isSuccessful else {
         let unsuccessfulError = GraphQLHTTPResponseError(body: data,
                                                          response: httpResponse,
                                                          kind: .errorResponse)
-        self?.handleErrorOrRetry(operation: operation,
-                                 error: unsuccessfulError,
-                                 for: request,
-                                 response: response,
-                                 completionHandler: completionHandler)
+        self.handleErrorOrRetry(operation: operation,
+                                error: unsuccessfulError,
+                                for: request,
+                                response: response,
+                                completionHandler: completionHandler)
         return
       }
-
+      
       guard let data = data else {
         let error = GraphQLHTTPResponseError(body: nil,
                                              response: httpResponse,
                                              kind: .invalidResponse)
-        self?.handleErrorOrRetry(operation: operation,
-                                 error: error,
-                                 for: request,
-                                 response: response,
-                                 completionHandler: completionHandler)
+        self.handleErrorOrRetry(operation: operation,
+                                error: error,
+                                for: request,
+                                response: response,
+                                completionHandler: completionHandler)
         return
       }
-
+      
       do {
-        guard let body = try self?.serializationFormat.deserialize(data: data) as? JSONObject else {
+        guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
-        let response = GraphQLResponse(operation: operation, body: body)
-        completionHandler(response, nil)
+        
+        if self._enableAutoPersistedQueries,
+          let error = body["errors"] as? [JSONObject],
+          let errorMsg = error.filter ({ $0["message"] as? String != nil }).first?["message"] as? String,
+          ["PersistedQueryNotFound","PersistedQueryNotSupported"].contains(errorMsg) {
+          
+          let errorKind: GraphQLHTTPResponseError.ErrorKind = (errorMsg == "PersistedQueryNotFound") ? .persistedQueryNotFound : .persistedQueryNotSupported
+          let apqsError = GraphQLHTTPResponseError(body: data,
+                                                   response: httpResponse,
+                                                   kind: errorKind)
+          
+          let retryByDefault: Bool
+          if let reason = reason as? GraphQLHTTPResponseError,
+            reason.kind == apqsError.kind {
+            // if the same error occurs, respect retry option from delegate
+            retryByDefault = false
+          } else {
+            retryByDefault = true
+          }
+          // Auto Persisted Query handling
+          self.handleErrorOrRetry(operation: operation,
+                                  error: apqsError,
+                                  for: request,
+                                  response: response,
+                                  retryByDefault: retryByDefault,
+                                  completionHandler: completionHandler)
+
+        }else {
+          // no errors
+          let response = GraphQLResponse(operation: operation, body: body)
+          completionHandler(response, nil)
+        }
       } catch let parsingError {
-        self?.handleErrorOrRetry(operation: operation,
-                                 error: parsingError,
-                                 for: request,
-                                 response: response,
-                                 completionHandler: completionHandler)
+        self.handleErrorOrRetry(operation: operation,
+                                error: parsingError,
+                                for: request,
+                                response: response,
+                                completionHandler: completionHandler)
+        
       }
     }
-    
     task.resume()
-    
     return task
   }
-
-  private let sendOperationIdentifiers: Bool
   
+  // retryByDefault: still retry if delegate is absent, otherwise repect the value from delegate
   private func handleErrorOrRetry<Operation>(operation: Operation,
                                              error: Error,
                                              for request: URLRequest,
                                              response: URLResponse?,
+                                             retryByDefault: Bool = false,
                                              completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) {
-    guard
-      let delegate = self.delegate,
-      let retrier = delegate as? HTTPNetworkTransportRetryDelegate else {
+    if let delegate = self.delegate,
+      let retrier = delegate as? HTTPNetworkTransportRetryDelegate {
+      retrier.networkTransport(
+        self,
+        receivedError: error,
+        for: request,
+        response: response,
+        retryHandler: { [weak self] shouldRetry in
+          guard let self = self, shouldRetry else {
+            completionHandler(nil, error)
+            return
+          }
+          _ = self.send(operation: operation, retryFor: error, completionHandler: completionHandler)
+      })
+    } else if retryByDefault {
+      _ = self.send(operation: operation, retryFor: error, completionHandler: completionHandler)
+    } else {
       completionHandler(nil, error)
       return
     }
-    
-    retrier.networkTransport(
-      self,
-      receivedError: error,
-      for: request,
-      response: response,
-      retryHandler: { [weak self] shouldRetry in
-        guard shouldRetry else {
-          completionHandler(nil, error)
-          return
-        }
-        
-        _ = self?.send(operation: operation, completionHandler: completionHandler)
-    })
   }
   
   private func rawTaskCompleted(request: URLRequest,
@@ -221,11 +291,16 @@ public class HTTPNetworkTransport: NetworkTransport {
                                   error: error)
   }
   
-  private func createRequest<Operation: GraphQLOperation>(for operation: Operation) throws -> URLRequest {
-    let body = requestBody(for: operation)
-    var request = URLRequest(url: self.url)
+  private func createRequest<Operation: GraphQLOperation>(for operation: Operation,
+                                                          httpMethod: GraphQLHTTPMethod,
+                                                          sendQueryDocument: Bool,
+                                                          autoPersistQueries: Bool
+        ) throws -> URLRequest {
     
-    if self.useGETForQueries && operation.operationType == .query {
+    var request: URLRequest
+    let body = requestBody(for: operation, sendQueryDocument: sendQueryDocument, autoPersistQueries: autoPersistQueries)
+    
+    if httpMethod == .GET {
       let transformer = GraphQLGETTransformer(body: body, url: self.url)
       if let urlForGet = transformer.createGetURL() {
         request = URLRequest(url: urlForGet)
@@ -235,14 +310,16 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
     } else {
       do {
-        request.httpBody = try serializationFormat.serialize(value: body)
+        request = URLRequest(url: self.url)
         request.httpMethod = GraphQLHTTPMethod.POST.rawValue
+        request.httpBody = try serializationFormat.serialize(value: body)
       } catch {
         throw GraphQLHTTPRequestError.serializedBodyMessageError
       }
     }
-    
+
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue(operation.operationIdentifier, forHTTPHeaderField: "X-APOLLO-OPERATION-ID")
     
     // If there's a delegate, do a pre-flight check and allow modifications to the request.
     if
@@ -258,15 +335,54 @@ public class HTTPNetworkTransport: NetworkTransport {
     return request
   }
 
-  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
-    if sendOperationIdentifiers {
+  private func requestBody<Operation: GraphQLOperation>(for operation: Operation,
+                                                        sendQueryDocument: Bool,
+                                                        autoPersistQueries: Bool) -> GraphQLMap {
+    
+    var payload: GraphQLMap = [:]
+    
+    if autoPersistQueries {
       guard let operationIdentifier = operation.operationIdentifier else {
-        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
+        preconditionFailure("To enabled autoPersistQueries, Apollo types must be generated with operationIdentifiers")
       }
-      
-      return ["id": operationIdentifier, "variables": operation.variables]
+      payload["extensions"] = [
+        "persistedQuery" : ["sha256Hash": operationIdentifier, "version": 1]
+      ]
     }
     
-    return ["query": operation.queryDocument, "variables": operation.variables]
+    if let variables = operation.variables?.compactMapValues({ $0 }), variables.count > 0 {
+      payload["variables"] = variables
+    }
+    
+    if sendQueryDocument {
+      // TODO: This work-around fix "operationId is invalid for swift codegen" (https://github.com/apollographql/apollo-tooling/issues/1362), please remove this work-around after it's fixed.
+      let modifiedQuery = operation.queryDocument.replacingOccurrences(of: "fragment", with: "\nfragment")
+      payload["query"] = modifiedQuery
+    }
+    
+    return payload
+  }
+}
+
+extension URLSession {
+  func synchronousDataTask(with request: URLRequest) -> (Data?, URLResponse?, Error?) {
+    var data: Data?
+    var response: URLResponse?
+    var error: Error?
+    
+    let semaphore = DispatchSemaphore(value: 0)
+    
+    let dataTask = self.dataTask(with: request) {
+      data = $0
+      response = $1
+      error = $2
+      
+      semaphore.signal()
+    }
+    dataTask.resume()
+    
+    _ = semaphore.wait(timeout: .distantFuture)
+    
+    return (data, response, error)
   }
 }

@@ -25,7 +25,10 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
+    let first = url?.absoluteString == "http://localhost:8080/graphql?query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+    let second = url?.absoluteString == "http://localhost:8080/graphql?variables=%7B%22episode%22:%22EMPIRE%22%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D"
+    
+    XCTAssertTrue(first || second)
   }
   
   func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() {
@@ -96,8 +99,11 @@ class GETTransformerTests: XCTestCase {
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
     let url = transformer.createGetURL()
+    let first = url?.absoluteString == "http://localhost:8080/graphql?variables=%7B%22episode%22:null%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D"
     
-    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D")
+    let second = url?.absoluteString == "http://localhost:8080/graphql?query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D"
+    
+    XCTAssertTrue(first || second)
   }
   
   func testMissingQueryParameterInBodyReturnsNil() {
@@ -109,6 +115,6 @@ class GETTransformerTests: XCTestCase {
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
     let url = transformer.createGetURL()
-    XCTAssertNil(url)
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?variables=%7B%22episode%22:%22EMPIRE%22%7D")
   }
 }
