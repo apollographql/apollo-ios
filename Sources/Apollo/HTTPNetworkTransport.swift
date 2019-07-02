@@ -1,6 +1,7 @@
 import Foundation
 
-public protocol HTTPNetworkTransportDelegate: class {
+/// Methods which will be called prior to a request being sent to the server.
+public protocol HTTPNetworkTransportPreflightDelegate: class {
   
   /// Called when a request is about to send, to validate that it should be sent.
   /// Good for early-exiting if your user is not logged in, for example.
@@ -20,13 +21,33 @@ public protocol HTTPNetworkTransportDelegate: class {
   func networkTransport(_ networkTransport: HTTPNetworkTransport, willSend request: inout URLRequest)
 }
 
+// MARK: -
+
+/// Methods which will be called after some kind of response has been received to a `URLSessionTask`.
+public protocol HTTPNetworkTransportTaskCompletedDelegate {
+  
+  /// A callback to allow hooking in URL session responses for things like logging and examining headers.
+  /// NOTE: This will call back on whatever thread the URL session calls back on, which is never the main thread. Call `DispatchQueue.main.async` before touching your UI!
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport that completed a task
+  ///   - request: The request which was completed by the task
+  ///   - data: [optional] Any data received. Passed through from `URLSession`.
+  ///   - response: [optional] Any response received. Passed through from `URLSession`.
+  ///   - error: [optional] Any error received. Passed through from `URLSession`.
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, completedRequest request: URLRequest, withData data: Data?, response: URLResponse?, error: Error?)
+}
+
+// MARK: -
+
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport: NetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
-  let delegate: HTTPNetworkTransportDelegate?
+  let preflightDelegate: HTTPNetworkTransportPreflightDelegate?
+  let taskCompletedDelegate: HTTPNetworkTransportTaskCompletedDelegate?
 
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -35,16 +56,20 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
   ///   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
+  ///   - preflightDelegate: A delegate to check with before sending a request.
+  ///   - requestCompletionDelegate: A delegate to notify when the URLSessionTask has completed.
   public init(url: URL,
               configuration: URLSessionConfiguration = .default,
               sendOperationIdentifiers: Bool = false,
               useGETForQueries: Bool = false,
-              delegate: HTTPNetworkTransportDelegate? = nil) {
+              preflightDelegate: HTTPNetworkTransportPreflightDelegate? = nil,
+              requestCompletionDelegate: HTTPNetworkTransportTaskCompletedDelegate? = nil) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
-    self.delegate = delegate
+    self.preflightDelegate = preflightDelegate
+    self.taskCompletedDelegate = requestCompletionDelegate
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -65,6 +90,14 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+      if let requestCompletion = self.taskCompletedDelegate {
+        requestCompletion.networkTransport(self,
+                                           completedRequest: request,
+                                           withData: data,
+                                           response: response,
+                                           error: error)
+      }
+      
       if error != nil {
         completionHandler(nil, error)
         return
@@ -126,7 +159,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     // If there's a delegate, do a pre-flight check and allow modifications to the request.
-    if let delegate = self.delegate {
+    if let delegate = self.preflightDelegate {
       guard delegate.networkTransport(self, shouldSend: request) else {
         throw GraphQLHTTPRequestError.cancelledByDeveloper
       }

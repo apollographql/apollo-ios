@@ -14,13 +14,19 @@ class HTTPTransportTests: XCTestCase {
   
   private var updatedHeaders: [String: String]?
   private var shouldSend = true
+  
+  private var completedRequest: URLRequest?
+  private var completedData: Data?
+  private var completedResponse: URLResponse?
+  private var completedError: Error?
 
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
   private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
                                                            useGETForQueries: true,
-                                                           delegate: self)
+                                                           preflightDelegate: self,
+                                                           requestCompletionDelegate: self)
   
-  func testDelegateTellingRequestNotToSend() {
+  func testPreflightDelegateTellingRequestNotToSend() {
     self.shouldSend = false
     
     let expectation = self.expectation(description: "Send operation completed")
@@ -44,7 +50,7 @@ class HTTPTransportTests: XCTestCase {
       }
     }
     
-    guard (cancellable as? ErrorCancellable) != nil else {
+    guard (cancellable as? EmptyCancellable) != nil else {
       XCTFail("Wrong cancellable type returned!")
       cancellable.cancel()
       expectation.fulfill()
@@ -53,9 +59,15 @@ class HTTPTransportTests: XCTestCase {
     
     // This should fail without hitting the network.
     self.wait(for: [expectation], timeout: 1)
+    
+    // The request shouldn't have fired, so all these objects should be nil
+    XCTAssertNil(self.completedRequest)
+    XCTAssertNil(self.completedData)
+    XCTAssertNil(self.completedResponse)
+    XCTAssertNil(self.completedError)
   }
   
-  func testDelgateModifyingRequest() {
+  func testPreflightDelgateModifyingRequest() {
     self.updatedHeaders = ["Authorization": "Bearer HelloApollo"]
 
     let expectation = self.expectation(description: "Send operation completed")
@@ -100,9 +112,15 @@ class HTTPTransportTests: XCTestCase {
     
     // This will come through after hitting the network.
     self.wait(for: [expectation], timeout: 10)
+    
+    // We should have everything except an error since the request should have proceeded
+    XCTAssertNotNil(self.completedRequest)
+    XCTAssertNotNil(self.completedData)
+    XCTAssertNotNil(self.completedResponse)
+    XCTAssertNil(self.completedError)
   }
   
-  func testDelegateNeitherModifyingOrStoppingRequest() {
+  func testPreflightDelegateNeitherModifyingOrStoppingRequest() {
     let expectation = self.expectation(description: "Send operation completed")
     let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { (response, error) in
       
@@ -145,10 +163,16 @@ class HTTPTransportTests: XCTestCase {
     
     // This will come through after hitting the network.
     self.wait(for: [expectation], timeout: 10)
+    
+    // We should have everything except an error since the request should have proceeded
+    XCTAssertNotNil(self.completedRequest)
+    XCTAssertNotNil(self.completedData)
+    XCTAssertNotNil(self.completedResponse)
+    XCTAssertNil(self.completedError)
   }
 }
 
-extension HTTPTransportTests: HTTPNetworkTransportDelegate {
+extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
   func networkTransport(_ networkTransport: HTTPNetworkTransport, shouldSend request: URLRequest) -> Bool {
     return self.shouldSend
   }
@@ -165,5 +189,15 @@ extension HTTPTransportTests: HTTPNetworkTransportDelegate {
       headers[key] = value
       request.allHTTPHeaderFields = headers
     }
+  }
+}
+
+extension HTTPTransportTests: HTTPNetworkTransportTaskCompletedDelegate {
+  
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, completedRequest request: URLRequest, withData data: Data?, response: URLResponse?, error: Error?) {
+    self.completedRequest = request
+    self.completedData = data
+    self.completedResponse = response
+    self.completedError = error
   }
 }

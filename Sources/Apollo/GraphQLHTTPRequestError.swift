@@ -7,7 +7,7 @@ public enum GraphQLHTTPRequestError: Error, LocalizedError {
   public var errorDescription: String? {
     switch self {
     case .cancelledByDeveloper:
-      return "The request was cancelled by the developer using the HTTPNetworkTransportDelegate."
+      return "The request was cancelled by the developer using the HTTPNetworkTransportPreflightDelegate."
     case .serializedBodyMessageError:
       return "JSONSerialization error: Error while serializing request's body"
     case .serializedQueryParamsMessageError:
