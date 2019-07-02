@@ -1,4 +1,7 @@
+#if !COCOAPODS
 import Apollo
+#endif
+
 
 public class SplitNetworkTransport: NetworkTransport {
   private let httpNetworkTransport: NetworkTransport

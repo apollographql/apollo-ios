@@ -149,7 +149,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     for i in 1...count {
       let review = ReviewInput(stars: i, commentary: "The greatest movie ever!")
-      let episode = episodes.sample()
+      let episode = episodes.randomElement()
       _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: episode!, review: review))
     }
     
@@ -158,18 +158,5 @@ class StarWarsSubscriptionTests: XCTestCase {
     subEmpire.cancel()
     subJedi.cancel()
     subNewHope.cancel()
-  }
-}
-
-// MARK: - Helpers
-
-extension Collection where Index == Int {
-  /**
-   Picks a random element of the collection.
-   
-   - returns: A random element of the collection.
-   */
-  func sample() -> Iterator.Element? {
-    return isEmpty ? nil : self[Int(arc4random_uniform(UInt32(endIndex)))]
   }
 }

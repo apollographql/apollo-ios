@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import Apollo
+#endif
 import Starscream
 
 // To allow for alternative implementations supporting the same WebSocketClient protocol
