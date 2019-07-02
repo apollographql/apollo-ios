@@ -12,8 +12,8 @@ extension URLSessionTask: Cancellable {}
 
 // MARK: - Early-Exit Helper
 
-/// A class to return when an error that should cause us to bail out of something still needs to return `Cancellable`.
-public final class ErrorCancellable: Cancellable {
+/// A class to return when we need to bail out of something which still needs to return `Cancellable`.
+public final class EmptyCancellable: Cancellable {
   
   // Needs to be public so this can be instantiated outside of the current framework.
   public init() {}
