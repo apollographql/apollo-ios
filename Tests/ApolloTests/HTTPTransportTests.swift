@@ -225,7 +225,7 @@ extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
 extension HTTPTransportTests: HTTPNetworkTransportTaskCompletedDelegate {
   
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        completedRawTaskForRequest request: URLRequest,
+                        didCompleteRawTaskForRequest request: URLRequest,
                         withData data: Data?,
                         response: URLResponse?,
                         error: Error?) {

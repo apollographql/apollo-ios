@@ -36,7 +36,7 @@ public protocol HTTPNetworkTransportTaskCompletedDelegate {
   ///   - response: [optional] Any response received. Passed through from `URLSession`.
   ///   - error: [optional] Any error received. Passed through from `URLSession`.
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        completedRawTaskForRequest request: URLRequest,
+                        didCompleteRawTaskForRequest request: URLRequest,
                         withData data: Data?,
                         response: URLResponse?,
                         error: Error?)
@@ -215,7 +215,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     taskDelegate.networkTransport(self,
-                                  completedRawTaskForRequest: request,
+                                  didCompleteRawTaskForRequest: request,
                                   withData: data,
                                   response: response,
                                   error: error)
