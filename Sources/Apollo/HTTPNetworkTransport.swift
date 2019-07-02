@@ -42,7 +42,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
       } else {
         completionHandler(nil, GraphQLHTTPRequestError.serializedQueryParamsMessageError)
-        return ErrorCancellable()
+        return EmptyCancellable()
       }
     } else {
       do {
@@ -50,7 +50,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         request.httpMethod = GraphQLHTTPMethod.POST.rawValue
       } catch {
         completionHandler(nil, GraphQLHTTPRequestError.serializedBodyMessageError)
-        return ErrorCancellable()
+        return EmptyCancellable()
       }
     }
     
