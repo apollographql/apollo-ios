@@ -19,12 +19,56 @@ class HTTPTransportTests: XCTestCase {
   private var completedData: Data?
   private var completedResponse: URLResponse?
   private var completedError: Error?
+  
+  private var shouldModifyURLInWillSend = false
+  private var retryCount = 0
 
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
   private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
                                                            useGETForQueries: true,
                                                            preflightDelegate: self,
-                                                           requestCompletionDelegate: self)
+                                                           taskCompletedDelegate: self,
+                                                           retryDelegate: self)
+  
+  private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(response: GraphQLResponse<Operation>?,
+                                                                          error: Error?,
+                                                                          expectation: XCTestExpectation,
+                                                                          file: StaticString = #file,
+                                                                          line: UInt = #line) {
+    defer {
+      expectation.fulfill()
+    }
+    
+    if let responseError = error as? GraphQLHTTPResponseError {
+      XCTFail("Unexpected response error: \(responseError.bodyDescription)",
+        file: file,
+        line: line)
+      return
+    }
+    
+    guard let queryResponse = response else {
+      XCTFail("No response!",
+              file: file,
+              line: line)
+      return
+    }
+    
+    guard
+      let dictionary = queryResponse.body as? [String: AnyHashable],
+      let dataDict = dictionary["data"] as? [String: AnyHashable],
+      let heroDict = dataDict["hero"] as? [String: AnyHashable],
+      let name = heroDict["name"] as? String else {
+        XCTFail("No hero for you!",
+                file: file,
+                line: line)
+        return
+    }
+    
+    XCTAssertEqual(name,
+                   "R2-D2",
+                   file: file,
+                   line: line)
+  }
   
   func testPreflightDelegateTellingRequestNotToSend() {
     self.shouldSend = false
@@ -65,39 +109,15 @@ class HTTPTransportTests: XCTestCase {
     XCTAssertNil(self.completedData)
     XCTAssertNil(self.completedResponse)
     XCTAssertNil(self.completedError)
+    XCTAssertEqual(self.retryCount, 0)
   }
   
   func testPreflightDelgateModifyingRequest() {
     self.updatedHeaders = ["Authorization": "Bearer HelloApollo"]
 
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { (response, error) in
-      
-      defer {
-        expectation.fulfill()
-      }
-      
-      if let responseError = error as? GraphQLHTTPResponseError {
-        print(responseError.bodyDescription)
-        XCTFail("Error!")
-        return
-      }
-      
-      guard let queryResponse = response else {
-        XCTFail("No response!")
-        return
-      }
-      
-      guard
-        let dictionary = queryResponse.body as? [String: AnyHashable],
-        let dataDict = dictionary["data"] as? [String: AnyHashable],
-        let heroDict = dataDict["hero"] as? [String: AnyHashable],
-        let name = heroDict["name"] as? String else {
-          XCTFail("No hero for you!")
-          return
-      }
-      
-      XCTAssertEqual(name, "R2-D2")
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
+      self.validateHeroNameQueryResponse(response: response, error: error, expectation: expectation)
     }
     
     guard
@@ -118,42 +138,19 @@ class HTTPTransportTests: XCTestCase {
     XCTAssertNotNil(self.completedData)
     XCTAssertNotNil(self.completedResponse)
     XCTAssertNil(self.completedError)
+    XCTAssertEqual(self.retryCount, 0)
   }
   
   func testPreflightDelegateNeitherModifyingOrStoppingRequest() {
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { (response, error) in
-      
-      defer {
-        expectation.fulfill()
-      }
-      
-      if let responseError = error as? GraphQLHTTPResponseError {
-        print(responseError.bodyDescription)
-        XCTFail("Error!")
-        return
-      }
-      
-      guard let queryResponse = response else {
-        XCTFail("No response!")
-        return
-      }
-      
-      guard
-        let dictionary = queryResponse.body as? [String: AnyHashable],
-        let dataDict = dictionary["data"] as? [String: AnyHashable],
-        let heroDict = dataDict["hero"] as? [String: AnyHashable],
-        let name = heroDict["name"] as? String else {
-          XCTFail("No hero for you!")
-          return
-      }
-      
-      XCTAssertEqual(name, "R2-D2")
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
+      self.validateHeroNameQueryResponse(response: response, error: error, expectation: expectation)
     }
     
     guard
       let task = cancellable as? URLSessionTask,
       let headers = task.currentRequest?.allHTTPHeaderFields else {
+        XCTFail("Couldn't access header fields!")
         cancellable.cancel()
         expectation.fulfill()
         return
@@ -169,8 +166,35 @@ class HTTPTransportTests: XCTestCase {
     XCTAssertNotNil(self.completedData)
     XCTAssertNotNil(self.completedResponse)
     XCTAssertNil(self.completedError)
+    XCTAssertEqual(self.retryCount, 0)
+  }
+  
+  func testRetryDelegateRetriesAfterUnsuccessfulAttempts() {
+    self.shouldModifyURLInWillSend = true
+    let expectation = self.expectation(description: "Send operation completed")
+
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
+      // This should have retried twice - the first time `shouldModifyURLInWillSend` shoud remain the same and it'll fail again.
+      XCTAssertEqual(self.retryCount, 2)
+      self.validateHeroNameQueryResponse(response: response, error: error, expectation: expectation)
+    }
+    
+    guard
+      let task = cancellable as? URLSessionTask,
+      let url = task.currentRequest?.url else {
+        XCTFail("Couldn't get url!")
+        cancellable.cancel()
+        expectation.fulfill()
+        return
+    }
+    
+    XCTAssertEqual(url, self.url)
+    
+    self.wait(for: [expectation], timeout: 10)
   }
 }
+
+// MARK: - HTTPNetworkTransportPreflightDelegate
 
 extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
   func networkTransport(_ networkTransport: HTTPNetworkTransport, shouldSend request: URLRequest) -> Bool {
@@ -178,8 +202,12 @@ extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
   }
   
   func networkTransport(_ networkTransport: HTTPNetworkTransport, willSend request: inout URLRequest) {
+    if self.shouldModifyURLInWillSend {
+      // This undoes any changes to the URL done by the GET request, which will cause the request to fail.
+      request.url = self.url
+    }
+    
     guard let headers = self.updatedHeaders else {
-      // Don't modify anything
       return
     }
     
@@ -192,12 +220,45 @@ extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
   }
 }
 
+// MARK: - HTTPNetworkTransportTaskCompletedDelegate
+
 extension HTTPTransportTests: HTTPNetworkTransportTaskCompletedDelegate {
   
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, completedRequest request: URLRequest, withData data: Data?, response: URLResponse?, error: Error?) {
+  func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                        completedRawTaskForRequest request: URLRequest,
+                        withData data: Data?,
+                        response: URLResponse?,
+                        error: Error?) {
     self.completedRequest = request
     self.completedData = data
     self.completedResponse = response
     self.completedError = error
+  }
+}
+
+// MARK: - HTTPNetworkTransportRetryDelegate
+
+extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
+  
+  func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                        receievedError error: Error,
+                        for request: URLRequest,
+                        response: URLResponse?,
+                        retryHandler: @escaping (Bool) -> Void) {
+    guard let graphQLError = error as? GraphQLHTTPResponseError else {
+      retryHandler(false)
+      return
+    }
+    
+    switch graphQLError.kind {
+    case .errorResponse:
+      self.retryCount += 1
+      if retryCount > 1 {
+        self.shouldModifyURLInWillSend = false
+      }
+      retryHandler(true)
+    case .invalidResponse:
+      retryHandler(false)
+    }
   }
 }

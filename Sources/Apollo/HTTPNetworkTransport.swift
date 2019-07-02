@@ -35,7 +35,31 @@ public protocol HTTPNetworkTransportTaskCompletedDelegate {
   ///   - data: [optional] Any data received. Passed through from `URLSession`.
   ///   - response: [optional] Any response received. Passed through from `URLSession`.
   ///   - error: [optional] Any error received. Passed through from `URLSession`.
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, completedRequest request: URLRequest, withData data: Data?, response: URLResponse?, error: Error?)
+  func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                        completedRawTaskForRequest request: URLRequest,
+                        withData data: Data?,
+                        response: URLResponse?,
+                        error: Error?)
+}
+
+// MARK: -
+
+public protocol HTTPNetworkTransportRetryDelegate: class {
+  
+  /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
+  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport which received the error
+  ///   - error: The received error
+  ///   - request: The URLRequest which generated the error
+  ///   - response: [Optional] Any response received when the error was generated
+  ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
+  func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                        receievedError error: Error,
+                        for request: URLRequest,
+                        response: URLResponse?,
+                        retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
 
 // MARK: -
@@ -48,6 +72,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let useGETForQueries: Bool
   let preflightDelegate: HTTPNetworkTransportPreflightDelegate?
   let taskCompletedDelegate: HTTPNetworkTransportTaskCompletedDelegate?
+  let retryDelegate: HTTPNetworkTransportRetryDelegate?
 
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -63,13 +88,15 @@ public class HTTPNetworkTransport: NetworkTransport {
               sendOperationIdentifiers: Bool = false,
               useGETForQueries: Bool = false,
               preflightDelegate: HTTPNetworkTransportPreflightDelegate? = nil,
-              requestCompletionDelegate: HTTPNetworkTransportTaskCompletedDelegate? = nil) {
+              taskCompletedDelegate: HTTPNetworkTransportTaskCompletedDelegate? = nil,
+              retryDelegate: HTTPNetworkTransportRetryDelegate? = nil) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
     self.preflightDelegate = preflightDelegate
-    self.taskCompletedDelegate = requestCompletionDelegate
+    self.taskCompletedDelegate = taskCompletedDelegate
+    self.retryDelegate = retryDelegate
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -89,17 +116,18 @@ public class HTTPNetworkTransport: NetworkTransport {
       return EmptyCancellable()
     }
     
-    let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-      if let requestCompletion = self.taskCompletedDelegate {
-        requestCompletion.networkTransport(self,
-                                           completedRequest: request,
-                                           withData: data,
-                                           response: response,
-                                           error: error)
-      }
-      
-      if error != nil {
-        completionHandler(nil, error)
+    let task = session.dataTask(with: request) { [weak self] data, response, error in
+      self?.rawTaskCompleted(request: request,
+                             data: data,
+                             response: response,
+                             error: error)
+
+      if let receivedError = error {
+        self?.handleErrorOrRetry(operation: operation,
+                                 error: receivedError,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
         return
       }
 
@@ -107,24 +135,42 @@ public class HTTPNetworkTransport: NetworkTransport {
         fatalError("Response should be an HTTPURLResponse")
       }
 
-      if (!httpResponse.isSuccessful) {
-        completionHandler(nil, GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .errorResponse))
+      guard httpResponse.isSuccessful else {
+        let unsuccessfulError = GraphQLHTTPResponseError(body: data,
+                                                         response: httpResponse,
+                                                         kind: .errorResponse)
+        self?.handleErrorOrRetry(operation: operation,
+                                 error: unsuccessfulError,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
         return
       }
 
       guard let data = data else {
-        completionHandler(nil, GraphQLHTTPResponseError(body: nil, response: httpResponse, kind: .invalidResponse))
+        let error = GraphQLHTTPResponseError(body: nil,
+                                             response: httpResponse,
+                                             kind: .invalidResponse)
+        self?.handleErrorOrRetry(operation: operation,
+                                 error: error,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
         return
       }
 
       do {
-        guard let body =  try self.serializationFormat.deserialize(data: data) as? JSONObject else {
+        guard let body = try self?.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
         let response = GraphQLResponse(operation: operation, body: body)
         completionHandler(response, nil)
-      } catch {
-        completionHandler(nil, error)
+      } catch let parsingError {
+        self?.handleErrorOrRetry(operation: operation,
+                                 error: parsingError,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
       }
     }
     
@@ -134,6 +180,46 @@ public class HTTPNetworkTransport: NetworkTransport {
   }
 
   private let sendOperationIdentifiers: Bool
+  
+  private func handleErrorOrRetry<Operation>(operation: Operation,
+                                             error: Error,
+                                             for request: URLRequest,
+                                             response: URLResponse?,
+                                             completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) {
+    guard let retrier = self.retryDelegate else {
+      completionHandler(nil, error)
+      return
+    }
+    
+    retrier.networkTransport(
+      self,
+      receievedError: error,
+      for: request,
+      response: response,
+      retryHandler: { [weak self] shouldRetry in
+        guard shouldRetry else {
+          completionHandler(nil, error)
+          return
+        }
+        
+        _ = self?.send(operation: operation, completionHandler: completionHandler)
+    })
+  }
+  
+  private func rawTaskCompleted(request: URLRequest,
+                                data: Data?,
+                                response: URLResponse?,
+                                error: Error?) {
+    guard let taskDelegate = self.taskCompletedDelegate else {
+      return
+    }
+    
+    taskDelegate.networkTransport(self,
+                                  completedRawTaskForRequest: request,
+                                  withData: data,
+                                  response: response,
+                                  error: error)
+  }
   
   private func createRequest<Operation: GraphQLOperation>(for operation: Operation) throws -> URLRequest {
     let body = requestBody(for: operation)
