@@ -7,11 +7,6 @@ class HttpNetworkTransportTests: XCTestCase {
 
   private final let endpoint = "http://localhost:8080/graphql"
   
-  var expect: XCTestExpectation = XCTestExpectation(description: "Send operation completed")
-  override func setUp() {
-    expect = self.expectation(description: "Send operation completed")
-  }
-  
   func testRequestBody() {
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!)
     let mockSession = MockURLSession()
@@ -26,10 +21,7 @@ class HttpNetworkTransportTests: XCTestCase {
     
     validatePostBody(with: request!,
                      query: query,
-                     queryDocument: true,
-                     expectation: expect)
-    
-    self.wait(for: [expect], timeout: 10)
+                     queryDocument: true)
   }
   
   func testRequestBodyWithVariable() {
@@ -47,9 +39,7 @@ class HttpNetworkTransportTests: XCTestCase {
     validatePostBody(with: request!,
                      query: query,
                      queryDocument: true,
-                     variable: true,
-                     expectation: expect)
-    self.wait(for: [expect], timeout: 10)
+                     variable: true)
   }
   
   
@@ -71,9 +61,7 @@ class HttpNetworkTransportTests: XCTestCase {
                      query: query,
                      queryDocument: false,
                      persistedQuery: true,
-                     variable: true,
-                     expectation: expect)
-    self.wait(for: [expect], timeout: 10)
+                     variable: true)
   }
   
   func testQueryStringForAPQsUseGetMethod() {
@@ -93,9 +81,7 @@ class HttpNetworkTransportTests: XCTestCase {
                       query: query,
                       queryDocument: false,
                       persistedQuery: true,
-                      variable: false,
-                      expectation: expect)
-    self.wait(for: [expect], timeout: 10)
+                      variable: false)
   }
   
   func testQueryStringForAPQsUseGetMethodWithVariable() {
@@ -116,9 +102,115 @@ class HttpNetworkTransportTests: XCTestCase {
                       query: query,
                       queryDocument: false,
                       persistedQuery: true,
-                      variable: true,
-                      expectation: expect)
-    self.wait(for: [expect], timeout: 10)
+                      variable: true)
+  }
+  
+  func testUseGETForQueriesRequest() {
+    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+                                       useGETForQueries: true,
+                                       enableAutoPersistedQueries: false,
+                                       useHttpGetMethodForPersistedQueries: false)
+    let mockSession = MockURLSession()
+    network.session = mockSession
+    let query = HeroNameQuery()
+    let _ = network.send(operation: query) { _,_ in }
+    let request = mockSession.lastRequest
+    
+    XCTAssertNotNil(request)
+    XCTAssert(request!.url?.host == network.url.host)
+    XCTAssert(request!.httpMethod == "GET")
+    
+    validateUrlParams(with: request!,
+                      query: query,
+                      queryDocument: true,
+                      persistedQuery: false,
+                      variable: false)
+  }
+  
+  func testNotUseGETForQueriesRequest() {
+    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+                                       useGETForQueries: false,
+                                       enableAutoPersistedQueries: false,
+                                       useHttpGetMethodForPersistedQueries: false)
+    let mockSession = MockURLSession()
+    network.session = mockSession
+    let query = HeroNameQuery()
+    let _ = network.send(operation: query) { _,_ in }
+    let request = mockSession.lastRequest
+    
+    XCTAssertNotNil(request)
+    XCTAssert(request!.url?.host == network.url.host)
+    XCTAssert(request!.httpMethod == "POST")
+    
+    validatePostBody(with: request!,
+                     query: query,
+                     queryDocument: true)
+  }
+  
+  func testNotUseGETForQueriesAPQsRequest() {
+    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+                                       useGETForQueries: false,
+                                       enableAutoPersistedQueries: true,
+                                       useHttpGetMethodForPersistedQueries: false)
+    let mockSession = MockURLSession()
+    network.session = mockSession
+    let query = HeroNameQuery(episode: .empire)
+    let _ = network.send(operation: query) { _,_ in }
+    let request = mockSession.lastRequest
+    
+    XCTAssertNotNil(request)
+    XCTAssert(request!.url?.host == network.url.host)
+    XCTAssert(request!.httpMethod == "POST")
+    
+    validatePostBody(with: request!,
+                     query: query,
+                     queryDocument: false,
+                     persistedQuery: true,
+                     variable: true)
+  }
+  
+  func testUseGETForQueriesAPQsRequest() {
+    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+                                       useGETForQueries: true,
+                                       enableAutoPersistedQueries: true,
+                                       useHttpGetMethodForPersistedQueries: false)
+    let mockSession = MockURLSession()
+    network.session = mockSession
+    let query = HeroNameQuery(episode: .empire)
+    let _ = network.send(operation: query) { _,_ in }
+    let request = mockSession.lastRequest
+    
+    XCTAssertNotNil(request)
+    XCTAssert(request!.url?.host == network.url.host)
+    XCTAssert(request!.httpMethod == "GET")
+    
+    validateUrlParams(with: request!,
+                      query: query,
+                      queryDocument: false,
+                      persistedQuery: true,
+                      variable: true)
+  }
+  
+  func testNotUseGETForQueriesAPQsGETRequest() {
+    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+                                       useGETForQueries: false,
+                                       enableAutoPersistedQueries: true,
+                                       useHttpGetMethodForPersistedQueries: true)
+    let mockSession = MockURLSession()
+    network.session = mockSession
+    let query = HeroNameQuery(episode: .empire)
+    let _ = network.send(operation: query) { _,_ in }
+    let request = mockSession.lastRequest
+    
+    XCTAssertNotNil(request)
+    XCTAssert(request!.url?.host == network.url.host)
+    XCTAssert(request!.httpMethod == "GET")
+    
+    validateUrlParams(with: request!,
+                      query: query,
+                      queryDocument: false,
+                      persistedQuery: true,
+                      variable: true)
   }
 }
 
@@ -128,8 +220,7 @@ private func validateUrlParams(with request: URLRequest,
                                query: HeroNameQuery,
                                queryDocument: Bool = false,
                                persistedQuery: Bool = false,
-                               variable: Bool = false,
-                               expectation: XCTestExpectation
+                               variable: Bool = false
                                ) {
   guard let url = request.url else {
     XCTFail("URL not valid")
@@ -151,7 +242,7 @@ private func validateUrlParams(with request: URLRequest,
     XCTAssertNil(variables)
   }
   
-  let ext = url.queryItems?["extensions"]!
+  let ext = url.queryItems?["extensions"]
   if persistedQuery {
     XCTAssertNotNil(ext)
     
@@ -168,16 +259,13 @@ private func validateUrlParams(with request: URLRequest,
   } else {
     XCTAssertNil(ext)
   }
-  
-  expectation.fulfill()
 }
 
 private func validatePostBody(with request: URLRequest,
                               query: HeroNameQuery,
                               queryDocument: Bool = false,
                               persistedQuery: Bool = false,
-                              variable: Bool = false,
-                              expectation: XCTestExpectation) {
+                              variable: Bool = false) {
   
   guard let httpBody = request.httpBody,
     let jsonBody = try? JSONSerializationFormat.deserialize(data: httpBody) as? JSONObject else {
@@ -208,7 +296,6 @@ private func validatePostBody(with request: URLRequest,
   } else {
     XCTAssertNil(ext)
   }
-  expectation.fulfill()
 }
 
 private final class MockURLSession: URLSession {

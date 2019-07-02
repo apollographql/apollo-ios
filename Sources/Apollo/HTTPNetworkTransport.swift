@@ -126,7 +126,6 @@ public class HTTPNetworkTransport: NetworkTransport {
                                          httpMethod: .POST,
                                          sendQueryDocument: true,
                                          autoPersistQueries: false)
-        
       } else {
         let useGetMethod: Bool
         let sendQueryDocument: Bool
@@ -200,7 +199,6 @@ public class HTTPNetworkTransport: NetworkTransport {
         guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
-        
         if self._enableAutoPersistedQueries,
           let error = body["errors"] as? [JSONObject],
           let errorMsg = error.filter ({ $0["message"] as? String != nil }).first?["message"] as? String,
