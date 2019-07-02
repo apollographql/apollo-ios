@@ -28,7 +28,7 @@ class WatchQueryTests: XCTestCase {
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
-      var verifyResult: OperationResultHandler<HeroNameQuery>
+      var verifyResult: GraphQLResultHandler<HeroNameQuery.Data>
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
@@ -92,7 +92,7 @@ class WatchQueryTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      var verifyResult: OperationResultHandler<HeroAndFriendsNamesQuery>
+      var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
@@ -220,7 +220,7 @@ class WatchQueryTests: XCTestCase {
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
 
-      var verifyResult: OperationResultHandler<HeroNameWithIdQuery>
+      var verifyResult: GraphQLResultHandler<HeroNameWithIdQuery.Data>
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
@@ -276,7 +276,7 @@ class WatchQueryTests: XCTestCase {
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
 
-      var verifyResult: OperationResultHandler<HeroAndFriendsNamesQuery>
+      var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
       verifyResult = { (result, error) in
         XCTAssertNil(error)
