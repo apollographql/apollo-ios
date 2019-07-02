@@ -241,7 +241,7 @@ extension HTTPTransportTests: HTTPNetworkTransportTaskCompletedDelegate {
 extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
   
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        receievedError error: Error,
+                        receivedError error: Error,
                         for request: URLRequest,
                         response: URLResponse?,
                         retryHandler: @escaping (Bool) -> Void) {

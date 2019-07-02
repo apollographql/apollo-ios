@@ -56,7 +56,7 @@ public protocol HTTPNetworkTransportRetryDelegate: class {
   ///   - response: [Optional] Any response received when the error was generated
   ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        receievedError error: Error,
+                        receivedError error: Error,
                         for request: URLRequest,
                         response: URLResponse?,
                         retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
@@ -193,7 +193,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     
     retrier.networkTransport(
       self,
-      receievedError: error,
+      receivedError: error,
       for: request,
       response: response,
       retryHandler: { [weak self] shouldRetry in
