@@ -86,7 +86,7 @@ class HTTPTransportTests: XCTestCase {
       }
       
       switch error {
-      case GraphQLHTTPRequestError.cancelledByDeveloper:
+      case GraphQLHTTPRequestError.cancelledByDelegate:
         // Correct!
         break
       default:
