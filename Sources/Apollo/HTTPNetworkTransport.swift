@@ -271,7 +271,7 @@ public class HTTPNetworkTransport: NetworkTransport {
       return
     }
   }
-  
+
   private func rawTaskCompleted(request: URLRequest,
                                 data: Data?,
                                 response: URLResponse?,
