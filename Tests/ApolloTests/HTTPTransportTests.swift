@@ -26,9 +26,7 @@ class HTTPTransportTests: XCTestCase {
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
   private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
                                                            useGETForQueries: true,
-                                                           preflightDelegate: self,
-                                                           taskCompletedDelegate: self,
-                                                           retryDelegate: self)
+                                                           delegate: self)
   
   private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(response: GraphQLResponse<Operation>?,
                                                                           error: Error?,
