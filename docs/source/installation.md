@@ -7,8 +7,8 @@ Apollo iOS requires the latest Xcode, which can be installed from the [Mac App S
 Follow along with these steps (described in detail below) to use Apollo iOS in your app:
 
 1. Install the Apollo framework into your project and link it to your application target
-1. Add a code generation build step to your target
 1. Add a schema file to your target directory
+1. Add a code generation build step to your target
 1. Build your target
 1. Add the generated API file to your target
 1. Install the Xcode add-ons to get syntax highlighting for your `.graphql` files (optional)
@@ -57,6 +57,13 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 
 You can also manually clone the [`apollo-ios` repository](https://github.com/apollostack/apollo-ios), drag `Apollo.xcodeproj` into your project or workspace, add a dependency on `Apollo.framework` to your target.
 
+## Adding a schema file to your target directory
+
+You'll have to copy or [download a schema](/downloading-schema/) to your target directory before generating code.
+
+Apollo iOS requires a GraphQL schema file as input to the code generation process. A schema file is a JSON file that contains the results of an an introspection query. Conventionally this file is called `schema.json`.
+
+
 ## Adding a code generation build step
 
 In order to invoke `apollo` as part of the Xcode build process, create a build step that runs before "Compile Sources".
@@ -92,11 +99,6 @@ $APOLLO_FRAMEWORK_PATH/Versions/Current/Resources/check-and-run-apollo-cli.sh co
 
 The script above will invoke `apollo` through the `check-and-run-apollo-cli.sh` wrapper script, which is actually contained in the `Apollo.framework` bundle. The main reason for this is to check whether the version of `apollo` installed on your system is compatible with the framework version installed in your project, and to warn you if it isn't. Without this check, you could end up generating code that is incompatible with the runtime code contained in the framework.
 
-## Adding a schema file to your target directory
-
-You'll have to copy or [download a schema](/downloading-schema/) to your target directory before generating code.
-
-Apollo iOS requires a GraphQL schema file as input to the code generation process. A schema file is a JSON file that contains the results of an an introspection query. Conventionally this file is called `schema.json`.
 
 ## Build your target
 
