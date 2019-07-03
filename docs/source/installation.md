@@ -152,7 +152,7 @@ At this point, you can try building your target in Xcode.  This will verify that
 
  `cp -R GraphQL.xclangspec ~/Library/Developer/Xcode/Specifications`
 
-You may receive a warning when you first start up Xcode after installing these add-ons.
+You may receive a warning the first time you start up Xcode after installing these add-ons - once you agree to load the plugin, you will no longer see this warning. 
 
 ## Create `.graphql` files with your queries or mutations
 
