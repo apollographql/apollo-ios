@@ -2,13 +2,21 @@
 title: Creating a client
 ---
 
-In most cases, you'll want to create a single shared instance of `ApolloClient` and point it at your GraphQL server. The easiest way to do this is to define a global variable in `AppDelegate.swift`:
+## Basic Client Creation
+
+In most cases, you'll want to create a single shared instance of `ApolloClient` and point it at your GraphQL server. The easiest way to do this is to create a singleton:
 
 ```swift
-let apollo = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
+class Apollo {
+  static let shared = Apollo() 
+    
+  private(set) lazy var client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
+}
 ```
 
-## Adding additional headers
+Under the hood, this will create a client using `HTTPNetworkTransport` with a default configuration. You can then use this client from anywhere in your code with `Apollo.shared.client`. 
+
+## Advanced Client Creation
 
 If you need to add additional headers to requests, to include authentication details for example, you can create your own `URLSessionConfiguration` and use this to configure an `HTTPNetworkTransport`. If you want to define the client as a global variable, you can use an immediately invoked closure here:
 
