@@ -7,8 +7,8 @@ Apollo iOS requires the latest Xcode, which can be installed from the [Mac App S
 Follow along with these steps (described in detail below) to use Apollo iOS in your app:
 
 1. Install the Apollo framework into your project and link it to your application target
-1. Add a code generation build step to your target
 1. Add a schema file to your target directory
+1. Add a code generation build step to your target
 1. Build your target
 1. Add the generated API file to your target
 1. Install the Xcode add-ons to get syntax highlighting for your `.graphql` files (optional)
@@ -41,7 +41,7 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 
 ### CocoaPods
 
- 1. Because Apollo iOS has been written using Swift 3, it requires CocoaPods 1.1.0. You can install it using:
+ 1. Because Apollo iOS has been written using Swift 5, you need to use version `1.5.0` or higher. You can install CocoaPods using:
 
  ```sh
  gem install cocoapods
@@ -57,46 +57,73 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 
 You can also manually clone the [`apollo-ios` repository](https://github.com/apollostack/apollo-ios), drag `Apollo.xcodeproj` into your project or workspace, add a dependency on `Apollo.framework` to your target.
 
-## Adding a code generation build step
-
-In order to invoke `apollo` as part of the Xcode build process, create a build step that runs before "Compile Sources".
-
-1. On your application targets’ "Build Phases" settings tab, click the "+" icon and choose "New Run Script Phase". Create a Run Script, change its name to "Generate Apollo GraphQL API" and drag it just above "Compile Sources". Then add the following contents to the script area below the shell:
-
-for iOS Project
-```sh
-APOLLO_FRAMEWORK_PATH="$(eval find $FRAMEWORK_SEARCH_PATHS -name "Apollo.framework" -maxdepth 1)"
-
-if [ -z "$APOLLO_FRAMEWORK_PATH" ]; then
-  echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
-  exit 1
-fi
-
-cd "${SRCROOT}/${TARGET_NAME}"
-$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
-```
-for macOS Project
-```sh
-APOLLO_FRAMEWORK_PATH="$(eval find $FRAMEWORK_SEARCH_PATHS -name "Apollo.framework" -maxdepth 1)"
-
-if [ -z "$APOLLO_FRAMEWORK_PATH" ]; then
-echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
-exit 1
-fi
-
-cd "${SRCROOT}/${TARGET_NAME}"
-$APOLLO_FRAMEWORK_PATH/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
-```
-
-
-
-The script above will invoke `apollo` through the `check-and-run-apollo-cli.sh` wrapper script, which is actually contained in the `Apollo.framework` bundle. The main reason for this is to check whether the version of `apollo` installed on your system is compatible with the framework version installed in your project, and to warn you if it isn't. Without this check, you could end up generating code that is incompatible with the runtime code contained in the framework.
-
 ## Adding a schema file to your target directory
 
 You'll have to copy or [download a schema](/downloading-schema/) to your target directory before generating code.
 
 Apollo iOS requires a GraphQL schema file as input to the code generation process. A schema file is a JSON file that contains the results of an an introspection query. Conventionally this file is called `schema.json`.
+
+
+## Adding a code generation build step
+
+In order to invoke `apollo` as part of the Xcode build process, create a build step that runs before "Compile Sources" to invoke `apollo` through the `check-and-run-apollo-cli.sh` wrapper script. 
+
+The main reason for calling the wrapper is to check whether the version of `apollo` installed on your system is compatible with the framework version installed in your project, and to warn you if it isn't. Without this check, you could end up generating code that is incompatible with the runtime code contained in the framework. 
+
+The location of this wrapper script is slightly different based on how you've integrated Apollo into you project, but the first steps are the same everywhere: 
+
+1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. 
+2. In the created Run Script, change its name to **Generate Apollo GraphQL API** 
+3. Drag this new run script just above **Compile Sources** in your list of **Build Phases** so that it executes before your code is compiled.
+4. Add the appropriate contents to the run script from the options below.
+
+### If you ARE integrating Apollo using CocoaPods
+
+Our CocoaPods install includes the code-generation script as a file which will not be added to the framework. Since this is always installed in a consistent place, you can use the same path to it. Add the following to the Run Script:
+
+```sh
+SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
+cd "${SRCROOT}/${TARGET_NAME}"
+"${SCRIPT_PATH}"/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+```
+
+### If you're NOT integrating Apollo using CocoaPods
+
+In this case, the `check-and-run-apollo-cli.sh` file is bundled into the framework. The procedures to call it are slightly different based on whether you're using an iOS or macOS target because of the way the frameworks are compiled. 
+
+📱 For an **iOS** target or a **Cocoa Touch Framework**, use the following: 
+
+```sh
+# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
+QUOTED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
+
+APOLLO_FRAMEWORK_PATH ="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1)"
+
+if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
+    echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
+    exit 1
+fi
+
+cd "${SRCROOT}/${TARGET_NAME}"
+"${APOLLO_FRAMEWORK_PATH}"/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+```
+
+💻 For a **macOS** or a **Cocoa Framework** target, use the following: 
+
+```sh
+# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
+QUOTED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
+
+APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1)"
+
+if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
+    echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
+    exit 1
+fi
+
+cd "${SRCROOT}/${TARGET_NAME}"
+"${APOLLO_FRAMEWORK_PATH}"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+```
 
 ## Build your target
 
@@ -125,7 +152,7 @@ At this point, you can try building your target in Xcode.  This will verify that
 
  `cp -R GraphQL.xclangspec ~/Library/Developer/Xcode/Specifications`
 
-You may receive a warning when you first start up Xcode after installing these add-ons.
+You may receive a warning the first time you start up Xcode after installing these add-ons - once you agree to load the plugin, you will no longer see this warning. 
 
 ## Create `.graphql` files with your queries or mutations
 
