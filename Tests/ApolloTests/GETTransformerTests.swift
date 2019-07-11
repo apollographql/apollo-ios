@@ -28,6 +28,20 @@ class GETTransformerTests: XCTestCase {
     XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
   }
   
+  func testEncodingQueryWithMoreThanOneParameterIncludingNonString() {
+    let operation = HeroNameTypeSpecificConditionalInclusionQuery(episode: .jedi, includeName: true)
+    let body: GraphQLMap = [
+      "query": operation.queryDocument,
+      "variables": operation.variables,
+    ]
+    
+    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    
+    let url = transformer.createGetURL()
+    
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22includeName%22:true,%22episode%22:%22JEDI%22%7D")
+  }
+  
   func testEncodingQueryWithNullDefaultParameter() {
     let operation = HeroNameQuery()
     let body: GraphQLMap = [
