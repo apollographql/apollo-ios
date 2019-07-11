@@ -103,4 +103,19 @@ As explained in more detail in [the section on watching queries](/watching-queri
 
 `fetch(query:)` takes an optional `cachePolicy` that allows you to specify when results should be fetched from the server, and when data should be loaded from the local cache.
 
-The default cache policy is `.returnCacheDataElseFetch`, which means data will be loaded from the cache when available, and fetched from the server otherwise. You can specify `.fetchIgnoringCacheData` to always fetch from the server, or `.returnCacheDataDontFetch` to returns data from the cache and never fetch from the server (it returns `nil` when cached data is not available).
+The default cache policy is `.returnCacheDataElseFetch`, which means data will be loaded from the cache when available, and fetched from the server otherwise. 
+
+Other cache polices which you can specify are: 
+
+- **`.fetchIgnoringCacheData`** to always fetch from the server, but still store results to the cache.
+- **`.fetchIgnoringCacheCompletely`** to always fetch from the server and not store results from the cache. If you're not using the cache at all, this method is preferred to `fetchIgnoringCacheData` for performance reasons.
+- **`.returnCacheDataDontFetch`** to return data from the cache and never fetch from the server. This policy will return `nil` when cached data is not available.
+- **`.returnCacheDataAndFetch`** to return cached data immediately, then perform a fetch to see if there are any updates. This is mostly useful if you're watching queries, since those will be updated when the call to the server returns. 
+
+## Using `GET` instead of `POST` for queries
+
+By default, Apollo constructs queries and sends them to your graphql endpoint using `POST` with the JSON generated. 
+
+If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `HTTPNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`. 
+
+>Please note that this is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`. 

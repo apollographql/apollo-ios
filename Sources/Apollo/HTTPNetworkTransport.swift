@@ -82,8 +82,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
   ///   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
-  ///   - preflightDelegate: A delegate to check with before sending a request.
-  ///   - requestCompletionDelegate: A delegate to notify when the URLSessionTask has completed.
+  ///   - delegate: [Optional] A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`. Defaults to nil.
   public init(url: URL,
               configuration: URLSessionConfiguration = .default,
               sendOperationIdentifiers: Bool = false,
