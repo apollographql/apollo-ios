@@ -2,6 +2,7 @@
 import Apollo
 #endif
 import Starscream
+import Foundation
 
 // To allow for alternative implementations supporting the same WebSocketClient protocol
 public class ApolloWebSocket: WebSocket, ApolloWebSocketClient {
