@@ -1,4 +1,5 @@
 import Dispatch
+import Foundation
 
 /// A resolver is responsible for resolving a value for a field.
 typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<JSONValue?>

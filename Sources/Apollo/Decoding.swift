@@ -1,3 +1,5 @@
+import Foundation
+
 private typealias GroupedFields = GroupedSequence<String, GraphQLField>
 
 func decode<SelectionSet: GraphQLSelectionSet>(selectionSet: SelectionSet.Type, from object: JSONObject, variables: GraphQLMap? = nil) throws -> SelectionSet {

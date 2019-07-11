@@ -1,3 +1,5 @@
+import Foundation
+
 /// A transport-level, HTTP-specific error.
 public struct GraphQLHTTPResponseError: Error, LocalizedError {
   public enum ErrorKind {
