@@ -44,7 +44,7 @@ struct GraphQLGETTransformer {
     queryItems.append(URLQueryItem(name: self.queryKey, value: query))
     components.queryItems = queryItems
     
-    guard let variables = self.body.jsonObject[self.variablesKey] as? [String: AnyHashable] else {
+    guard let variables = self.body.jsonObject[self.variablesKey] as? [String: Any] else {
       return components.url
     }
     
