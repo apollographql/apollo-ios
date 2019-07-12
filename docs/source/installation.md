@@ -97,7 +97,8 @@ In this case, the `check-and-run-apollo-cli.sh` file is bundled into the framewo
 # Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
 QUOTED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
 
-APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1)"
+# Get the first result searching for the framework
+APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1 -print | head -n 1)"
 
 if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
     echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
@@ -114,7 +115,8 @@ cd "${SRCROOT}/${TARGET_NAME}"
 # Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
 QUOTED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
 
-APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1)"
+# Get the first result searching for the framework
+APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1 -print | head -n 1)"
 
 if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
     echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
