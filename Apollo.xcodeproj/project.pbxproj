@@ -1038,7 +1038,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/GitHubAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads API.swift";
+			shellScript = "# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.\nQUOTED_FRAMEWORK_SEARCH_PATHS=\\\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '\"' | sed -e 's/ \\//\" \"\\//g')\\\"\n\n# Get the first result searching for the framework\nAPOLLO_FRAMEWORK_PATH=\"$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\"\n\nif [ -z \"${APOLLO_FRAMEWORK_PATH}\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/GitHubAPI\n\"${APOLLO_FRAMEWORK_PATH}\"/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads API.swift\n";
 		};
 		9FCE2D061E6C251100E34457 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1051,8 +1051,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/bin/sh -x";
-			shellScript = "APOLLO_FRAMEWORK_PATH=$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\n$(find $APOLLO_FRAMEWORK_PATH/ -name 'check-and-run-apollo-cli.sh') codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads API.swift\n";
+			shellPath = /bin/sh;
+			shellScript = "# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.\nQUOTED_FRAMEWORK_SEARCH_PATHS=\\\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '\"' | sed -e 's/ \\//\" \"\\//g')\\\"\n\n# Get the first result searching for the framework\nAPOLLO_FRAMEWORK_PATH=\"$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\"\n\nif [ -z \"${APOLLO_FRAMEWORK_PATH}\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\n\"${APOLLO_FRAMEWORK_PATH}\"/check-and-run-apollo-cli.sh codegen:generate --queries=\"$(find . -name '*.graphql')\" --schema=schema.json --mergeInFieldsFromFragmentSpreads API.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
