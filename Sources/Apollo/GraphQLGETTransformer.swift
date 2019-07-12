@@ -49,7 +49,7 @@ struct GraphQLGETTransformer {
     }
     
     guard
-      let serializedData = try? JSONSerialization.data(withJSONObject: variables),
+      let serializedData = try? JSONSerialization.dataSortedIfPossible(withJSONObject: variables),
       let jsonString = String(bytes: serializedData, encoding: .utf8) else {
         return components.url
     }
