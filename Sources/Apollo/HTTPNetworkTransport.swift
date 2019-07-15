@@ -74,7 +74,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
   let delegate: HTTPNetworkTransportDelegate?
-
+  
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
@@ -106,7 +106,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     return upload(operation: operation, completionHandler: completionHandler)
   }
-
+  
   public func upload<Operation>(operation: Operation, files: [GraphQLFile]? = nil, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     let request: URLRequest
     do {
@@ -115,13 +115,13 @@ public class HTTPNetworkTransport: NetworkTransport {
       completionHandler(nil, error)
       return EmptyCancellable()
     }
-
+    
     let task = session.dataTask(with: request) { [weak self] data, response, error in
       self?.rawTaskCompleted(request: request,
                              data: data,
                              response: response,
                              error: error)
-
+      
       if let receivedError = error {
         self?.handleErrorOrRetry(operation: operation,
                                  error: receivedError,
@@ -130,11 +130,11 @@ public class HTTPNetworkTransport: NetworkTransport {
                                  completionHandler: completionHandler)
         return
       }
-
+      
       guard let httpResponse = response as? HTTPURLResponse else {
         fatalError("Response should be an HTTPURLResponse")
       }
-
+      
       guard httpResponse.isSuccessful else {
         let unsuccessfulError = GraphQLHTTPResponseError(body: data,
                                                          response: httpResponse,
@@ -146,7 +146,7 @@ public class HTTPNetworkTransport: NetworkTransport {
                                  completionHandler: completionHandler)
         return
       }
-
+      
       guard let data = data else {
         let error = GraphQLHTTPResponseError(body: nil,
                                              response: httpResponse,
@@ -158,7 +158,7 @@ public class HTTPNetworkTransport: NetworkTransport {
                                  completionHandler: completionHandler)
         return
       }
-
+      
       do {
         guard let body = try self?.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
@@ -173,12 +173,12 @@ public class HTTPNetworkTransport: NetworkTransport {
                                  completionHandler: completionHandler)
       }
     }
-
+    
     task.resume()
-
+    
     return task
   }
-
+  
   private let sendOperationIdentifiers: Bool
   
   private func handleErrorOrRetry<Operation>(operation: Operation,
@@ -189,8 +189,8 @@ public class HTTPNetworkTransport: NetworkTransport {
     guard
       let delegate = self.delegate,
       let retrier = delegate as? HTTPNetworkTransportRetryDelegate else {
-      completionHandler(nil, error)
-      return
+        completionHandler(nil, error)
+        return
     }
     
     retrier.networkTransport(
@@ -215,7 +215,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     guard
       let delegate = self.delegate,
       let taskDelegate = delegate as? HTTPNetworkTransportTaskCompletedDelegate else {
-      return
+        return
     }
     
     taskDelegate.networkTransport(self,
@@ -246,7 +246,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         } else {
           request.httpBody = try serializationFormat.serialize(value: body)
         }
-
+        
         request.httpMethod = GraphQLHTTPMethod.POST.rawValue
       } catch {
         throw GraphQLHTTPRequestError.serializedBodyMessageError
@@ -259,16 +259,16 @@ public class HTTPNetworkTransport: NetworkTransport {
     if
       let delegate = self.delegate,
       let preflightDelegate = delegate as? HTTPNetworkTransportPreflightDelegate {
-        guard preflightDelegate.networkTransport(self, shouldSend: request) else {
-          throw GraphQLHTTPRequestError.cancelledByDelegate
-        }
+      guard preflightDelegate.networkTransport(self, shouldSend: request) else {
+        throw GraphQLHTTPRequestError.cancelledByDelegate
+      }
       
-        preflightDelegate.networkTransport(self, willSend: &request)
+      preflightDelegate.networkTransport(self, willSend: &request)
     }
     
     return request
   }
-
+  
   private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {
@@ -280,26 +280,26 @@ public class HTTPNetworkTransport: NetworkTransport {
     
     return ["query": operation.queryDocument, "variables": operation.variables]
   }
-
+  
   private func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]) -> MultipartFormData {
-	  let formData = MultipartFormData()
-
-	  let fields = requestBody(for: operation)
-	  for (name, data) in fields {
-	    if let data = data as? GraphQLMap {
-	      let data = try! serializationFormat.serialize(value: data)
-	      formData.appendPart(data: data, name: name)
-	    } else if let data = data as? String {
-	      formData.appendPart(string: data, name: name)
-	    } else {
-	      formData.appendPart(string: data.debugDescription, name: name)
-	    }
-	  }
-
-	  files.forEach {
-	    formData.appendPart(inputStream: $0.inputStream, contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
-	  }
-
-	  return formData
-	}
+    let formData = MultipartFormData()
+    
+    let fields = requestBody(for: operation)
+    for (name, data) in fields {
+      if let data = data as? GraphQLMap {
+        let data = try! serializationFormat.serialize(value: data)
+        formData.appendPart(data: data, name: name)
+      } else if let data = data as? String {
+        formData.appendPart(string: data, name: name)
+      } else {
+        formData.appendPart(string: data.debugDescription, name: name)
+      }
+    }
+    
+    files.forEach {
+      formData.appendPart(inputStream: $0.inputStream, contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
+    }
+    
+    return formData
+  }
 }
