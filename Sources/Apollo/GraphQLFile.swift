@@ -12,9 +12,6 @@ public struct GraphQLFile {
   }
 
   public init?(fieldName: String, originalName: String, mimeType: String = "application/octet-stream", fileURL: URL) {
-    // TODO: Better error handling
-
-
     guard let inputStream = InputStream(url: fileURL) else {
       return nil
     }
@@ -36,14 +33,11 @@ public struct GraphQLFile {
   }
 
   private static func getFileSize(fileURL: URL) -> UInt64? {
-    do {
-      guard let fileSize = try FileManager.default.attributesOfItem(atPath: fileURL.path)[.size] as? NSNumber else {
+    guard let fileSizeAttribute = try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.size],
+      let fileSize = fileSizeAttribute as? NSNumber else {
         return nil
-      }
-
-      return fileSize.uint64Value
-    } catch {
-      return nil
     }
+
+    return fileSize.uint64Value
   }
 }

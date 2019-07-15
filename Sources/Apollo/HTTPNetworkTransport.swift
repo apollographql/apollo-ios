@@ -282,24 +282,24 @@ public class HTTPNetworkTransport: NetworkTransport {
   }
 
   private func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]) -> MultipartFormData {
-	    let formData = MultipartFormData()
+	  let formData = MultipartFormData()
 
-	    let fields = requestBody(for: operation)
-	    for (name, data) in fields {
-	      if let data = data as? GraphQLMap {
-	        let data = try! serializationFormat.serialize(value: data)
-	        formData.appendPart(data: data, name: name)
-	      } else if let data = data as? String {
-	        formData.appendPart(string: data, name: name)
-	      } else {
-	        formData.appendPart(string: data.debugDescription, name: name)
-	      }
+	  let fields = requestBody(for: operation)
+	  for (name, data) in fields {
+	    if let data = data as? GraphQLMap {
+	      let data = try! serializationFormat.serialize(value: data)
+	      formData.appendPart(data: data, name: name)
+	    } else if let data = data as? String {
+	      formData.appendPart(string: data, name: name)
+	    } else {
+	      formData.appendPart(string: data.debugDescription, name: name)
 	    }
-
-	    for f in files {
-	      formData.appendPart(inputStream: f.inputStream, contentLength: f.contentLength, name: f.fieldName, contentType: f.mimeType, filename: f.originalName)
-	    }
-
-	    return formData
 	  }
+
+	  files.forEach {
+	    formData.appendPart(inputStream: $0.inputStream, contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
+	  }
+
+	  return formData
+	}
 }
