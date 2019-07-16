@@ -20,7 +20,7 @@ public enum CachePolicy {
 /// - Parameters:
 ///   - result: The result of the performed operation, or `nil` if an error occurred.
 ///   - error: An error that indicates why the mutation failed, or `nil` if the mutation was succesful.
-public typealias GraphQLResultHandler<Data> = (_ result: GraphQLResult<Data>?, _ error: Error?) -> Void
+public typealias GraphQLResultHandler<Data> = (Result< GraphQLResult<Data>, Error>) -> Void
 
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public class ApolloClient {
@@ -132,34 +132,34 @@ public class ApolloClient {
   }
   
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation, shouldPublishResultToStore: Bool, context: UnsafeMutableRawPointer?, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) -> Cancellable {
-    return networkTransport.send(operation: operation) { (response, error) in
-      guard let response = response else {
-        resultHandler(nil, error)
-        return
-      }
-      
-      // If there is no need to publish the result to the store, we can use a fast path.
-      if !shouldPublishResultToStore {
-        do {
-          let result = try response.parseResultFast()
-          resultHandler(result, nil)
-        } catch {
-          resultHandler(nil, error)
-        }
-        return
-      }
-      
-      firstly {
-        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
-      }.andThen { (result, records) in
-        if let records = records {
-          self.store.publish(records: records, context: context).catch { error in
-            preconditionFailure(String(describing: error))
+    return networkTransport.send(operation: operation) { result in
+      switch result {
+      case .failure(let error):
+        resultHandler(.failure(error))
+      case .success(let response):
+        // If there is no need to publish the result to the store, we can use a fast path.
+        if !shouldPublishResultToStore {
+          do {
+            let result = try response.parseResultFast()
+            resultHandler(.success(result))
+          } catch {
+            resultHandler(.failure(error))
           }
+          return
         }
-        resultHandler(result, nil)
-      }.catch { error in
-        resultHandler(nil, error)
+        
+        firstly {
+          try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+          }.andThen { (result, records) in
+            if let records = records {
+              self.store.publish(records: records, context: context).catch { error in
+                preconditionFailure(String(describing: error))
+              }
+            }
+            resultHandler(.success(result))
+          }.catch { error in
+            resultHandler(.failure(error))
+        }
       }
     }
   }
@@ -167,12 +167,12 @@ public class ApolloClient {
 
 private func wrapResultHandler<Data>(_ resultHandler: GraphQLResultHandler<Data>?, queue handlerQueue: DispatchQueue) -> GraphQLResultHandler<Data> {
   guard let resultHandler = resultHandler else {
-    return { _, _ in }
+    return { _ in }
   }
   
-  return { (result, error) in
+  return { result in
     handlerQueue.async {
-      resultHandler(result, error)
+      resultHandler(result)
     }
   }
 }
@@ -207,34 +207,35 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
       return
     }
     
-    client.store.load(query: query) { (result, error) in
-      if error == nil {
-        self.resultHandler(result, nil)
-        
-        if self.cachePolicy != .returnCacheDataAndFetch {
-          self.state = .finished
-          return
-        }
-      }
-      
+    client.store.load(query: query) { result in
       if self.isCancelled {
         self.state = .finished
         return
       }
       
-      if self.cachePolicy == .returnCacheDataDontFetch {
-        self.resultHandler(nil, nil)
-        self.state = .finished
-        return
+      switch result {
+      case .success:
+        self.resultHandler(result)
+        
+        if self.cachePolicy != .returnCacheDataAndFetch {
+          self.state = .finished
+          return
+        }
+      case .failure:
+        if self.cachePolicy == .returnCacheDataDontFetch {
+          self.resultHandler(result)
+          self.state = .finished
+          return
+        }
+        
+        self.fetchFromNetwork()
       }
-      
-      self.fetchFromNetwork()
     }
   }
   
   func fetchFromNetwork() {
-    networkTask = client.send(operation: query, shouldPublishResultToStore: true, context: context) { (result, error) in
-      self.resultHandler(result, error)
+    networkTask = client.send(operation: query, shouldPublishResultToStore: true, context: context) { result in
+      self.resultHandler(result)
       self.state = .finished
       return
     }

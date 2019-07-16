@@ -104,7 +104,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - response: The response received from the server, or `nil` if an error occurred.
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     return send(operation: operation, files: nil, completionHandler: completionHandler)
   }
   
@@ -115,16 +115,16 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - files: An array of `GraphQLFile` objects to send.
   ///   - completionHandler: The completion handler to execute when the request completes or errors
   /// - Returns: An object that can be used to cancel an in progress request.
-  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     return send(operation: operation, files: files, completionHandler: completionHandler)
   }
   
-  private func send<Operation>(operation: Operation, files: [GraphQLFile]?, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  private func send<Operation>(operation: Operation, files: [GraphQLFile]?, completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     let request: URLRequest
     do {
       request = try self.createRequest(for: operation, files: files)
     } catch {
-      completionHandler(nil, error)
+      completionHandler(.failure(error))
       return EmptyCancellable()
     }
     
@@ -176,7 +176,7 @@ public class HTTPNetworkTransport: NetworkTransport {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
         let response = GraphQLResponse(operation: operation, body: body)
-        completionHandler(response, nil)
+        completionHandler(.success(response))
       } catch let parsingError {
         self?.handleErrorOrRetry(operation: operation,
                                  error: parsingError,
@@ -195,11 +195,11 @@ public class HTTPNetworkTransport: NetworkTransport {
                                              error: Error,
                                              for request: URLRequest,
                                              response: URLResponse?,
-                                             completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) {
+                                             completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) {
     guard
       let delegate = self.delegate,
       let retrier = delegate as? HTTPNetworkTransportRetryDelegate else {
-        completionHandler(nil, error)
+        completionHandler(.failure(error))
         return
     }
     
@@ -210,7 +210,7 @@ public class HTTPNetworkTransport: NetworkTransport {
       response: response,
       retryHandler: { [weak self] shouldRetry in
         guard shouldRetry else {
-          completionHandler(nil, error)
+          completionHandler(.failure(error))
           return
         }
         
