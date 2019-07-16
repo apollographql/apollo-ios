@@ -21,22 +21,29 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 ### Carthage
 
 1. Add `github "apollographql/apollo-ios"` to your Cartfile. 
+  - If you also plan on using the `ApolloSQLite` framework, you should also add `github "stephencelis/SQLite.swift"`
+  - If you also plan on using the `ApolloWebSocket` framework, you should also add `github "daltoniam/Starscream"`
 
-1. Run `carthage update`.
+1. Run `carthage update --platform ios` (or `--platform ios,macos` to build both Mac and iOS). **NOTE:** There's an issue with Carthage that has been causing [some frustration](https://github.com/apollographql/apollo-ios/issues/386) for folks trying to build for watch and tvOS - don't build those targets if you don't need to. 
 
-1. Drag and drop `Apollo.framework` from the `Carthage/Build/iOS` folder to the "Linked Frameworks and Libraries" section of your application targets' "General" settings tab.
+1. Drag and drop `Apollo.framework` from the appropriate `Carthage/Build/iOS` or `Carthage/Build/Mac` folder to the **Embedded Binaries** section of your application target's **General** settings tab. This should also cause them to appear in the **Linked Frameworks And Libraries** section automatically.
+  - If you also plan on using the `ApolloSQLite` library, also drag `ApolloSQLite.framework` and `SQLite.framework` to this area as well.
+  - If you also plan on using the `ApolloWebSocket` library, also drag `ApolloWebSocket.framework` and `Starscream.framework` to this area as well.
 
-1. On your application targets’ "Build Phases" settings tab, click the "+" icon and choose "New Run Script Phase". Create a Run Script in which you specify your shell (ex: `bin/sh`), add the following contents to the script area below the shell:
+1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. Create a Run Script in which you specify your shell (ex: `bin/sh`), add the following contents to the script area below the shell:
 
  ```sh
  /usr/local/bin/carthage copy-frameworks
  ```
 
- and add the paths to the frameworks you want to use under "Input Files", e.g.:
+ and add the paths to the frameworks you want to use under **Input Files**, e.g.:
 
  ```
  $(SRCROOT)/Carthage/Build/iOS/Apollo.framework
  ```
+ 
+ Again, if you're adding `ApolloSQLite` or `ApolloWebSocket`, please make sure to add the other frameworks you added as Input Files. 
+ 
  This script works around an [App Store submission bug](http://www.openradar.me/radar?id=6409498411401216) triggered by universal binaries and ensures that necessary bitcode-related files and dSYMs are copied when archiving.
 
 ### CocoaPods
