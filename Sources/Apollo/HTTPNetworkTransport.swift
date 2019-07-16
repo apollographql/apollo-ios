@@ -240,7 +240,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     } else {
       do {
         if let files = files, !files.isEmpty {
-          let formData = requestMultipartFormData(for: operation, files: files)
+          let formData = try requestMultipartFormData(for: operation, files: files)
           request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
           request.httpBody = formData.encode()
         } else {
@@ -281,13 +281,13 @@ public class HTTPNetworkTransport: NetworkTransport {
     return ["query": operation.queryDocument, "variables": operation.variables]
   }
   
-  private func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]) -> MultipartFormData {
+  private func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]) throws -> MultipartFormData {
     let formData = MultipartFormData()
     
     let fields = requestBody(for: operation)
     for (name, data) in fields {
       if let data = data as? GraphQLMap {
-        let data = try! serializationFormat.serialize(value: data)
+        let data = try serializationFormat.serialize(value: data)
         formData.appendPart(data: data, name: name)
       } else if let data = data as? String {
         formData.appendPart(string: data, name: name)
