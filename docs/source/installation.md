@@ -36,9 +36,13 @@ You can install `Apollo.framework` into your project using CocoaPods, Carthage, 
 
 ### Carthage
 
+Since Carthage [does not allow choosing which schemes in a repo to build](https://github.com/Carthage/Carthage/issues/1874), we've moved our dependencies to a [`Cartfile.private`](https://github.com/apollographql/apollo-ios/blob/master/Cartfile.private) file so that those dependencies are not forced on people using only the `Apollo` framework and not either of our optional frameworks, `ApolloSQLite` or `ApolloWebSocket`. 
+
+This makes setup a hair more complicated if you *are* using those, but is a big help in preventing dependency conflicts if you're not. 
+
 1. Add `github "apollographql/apollo-ios"` to your Cartfile. 
-  - If you also plan on using the `ApolloSQLite` framework, you should also add `github "stephencelis/SQLite.swift"`
-  - If you also plan on using the `ApolloWebSocket` framework, you should also add `github "daltoniam/Starscream"`
+  - If you also plan on using the `ApolloSQLite` framework, you should also add `github "stephencelis/SQLite.swift"`. You may want to lock it to the version specified in `Cartfile.private` to prevent dependency conflicts. 
+  - If you also plan on using the `ApolloWebSocket` framework, you should also add `github "daltoniam/Starscream"`. You may want to lock it to the version specified in `Cartfile.private` to prevent dependency conflicts.
 
 1. Run `carthage update --platform ios` (or `--platform ios,macos` to build both Mac and iOS). **NOTE:** There's an issue with Carthage that has been causing [some frustration](https://github.com/apollographql/apollo-ios/issues/386) for folks trying to build for watch and tvOS - don't build those targets if you don't need to. 
 
