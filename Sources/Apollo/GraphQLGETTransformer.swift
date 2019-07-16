@@ -35,7 +35,7 @@ struct GraphQLGETTransformer {
     var queryItems: [URLQueryItem] = []
     
     do {
-      _ = try body.compactMap({ arg in
+      _ = try body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
         if let value = arg.value as? GraphQLMap {
           let data = try JSONSerialization.dataSortedIfPossible(withJSONObject: value.jsonValue)
           if let string = String(data: data, encoding: .utf8) {

@@ -75,9 +75,9 @@ public class HTTPNetworkTransport: NetworkTransport {
   let serializationFormat = JSONSerializationFormat.self
   let delegate: HTTPNetworkTransportDelegate?
 
-  private let _useGETForQueries: Bool
-  private let _enableAutoPersistedQueries: Bool
-  private let _useHttpGetMethodForPersistedQueries: Bool
+  private let useGETForQueries: Bool
+  private let enableAutoPersistedQueries: Bool
+  private let useHttpGetMethodForPersistedQueries: Bool
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -98,9 +98,9 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.delegate = delegate
-    self._useGETForQueries = useGETForQueries
-    self._enableAutoPersistedQueries = enableAutoPersistedQueries
-    self._useHttpGetMethodForPersistedQueries = useHttpGetMethodForPersistedQueries
+    self.useGETForQueries = useGETForQueries
+    self.enableAutoPersistedQueries = enableAutoPersistedQueries
+    self.useHttpGetMethodForPersistedQueries = useHttpGetMethodForPersistedQueries
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -115,9 +115,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     return send(operation: operation, retryFor: nil, completionHandler: completionHandler)
   }
   
-  private func send<Operation>(operation: Operation,
-                               retryFor reason:Error? = nil,
-                               completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  private func send<Operation>(operation: Operation, retryFor reason:Error? = nil, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     
     let request: URLRequest
     do {
@@ -133,17 +131,17 @@ public class HTTPNetworkTransport: NetworkTransport {
           [GraphQLHTTPResponseError.ErrorKind.persistedQueryNotFound,
            GraphQLHTTPResponseError.ErrorKind.persistedQueryNotSupported].contains(reason.kind) {
           // retry for APQs, with document
-          useGetMethod = _useGETForQueries
+          useGetMethod = useGETForQueries
           sendQueryDocument = true
         } else {
-          useGetMethod = _useGETForQueries || (_enableAutoPersistedQueries && _useHttpGetMethodForPersistedQueries)
-          sendQueryDocument = !_enableAutoPersistedQueries
+          useGetMethod = useGETForQueries || (enableAutoPersistedQueries && useHttpGetMethodForPersistedQueries)
+          sendQueryDocument = !enableAutoPersistedQueries
         }
         
         request = try self.createRequest(for: operation,
                                          httpMethod: useGetMethod ? .GET : .POST,
                                          sendQueryDocument: sendQueryDocument,
-                                         autoPersistQueries: _enableAutoPersistedQueries)
+                                         autoPersistQueries: enableAutoPersistedQueries)
       }
     } catch {
       completionHandler(nil, error)
@@ -199,7 +197,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
-        if self._enableAutoPersistedQueries,
+        if self.enableAutoPersistedQueries,
           let error = body["errors"] as? [JSONObject],
           let errorMsg = error.filter ({ $0["message"] as? String != nil }).first?["message"] as? String,
           ["PersistedQueryNotFound","PersistedQueryNotSupported"].contains(errorMsg) {
@@ -244,12 +242,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   }
   
   // retryByDefault: still retry if delegate is absent, otherwise repect the value from delegate
-  private func handleErrorOrRetry<Operation>(operation: Operation,
-                                             error: Error,
-                                             for request: URLRequest,
-                                             response: URLResponse?,
-                                             retryByDefault: Bool = false,
-                                             completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) {
+  private func handleErrorOrRetry<Operation>(operation: Operation, error: Error, for request: URLRequest, response: URLResponse?, retryByDefault: Bool = false, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) {
     if let delegate = self.delegate,
       let retrier = delegate as? HTTPNetworkTransportRetryDelegate {
       retrier.networkTransport(
@@ -272,10 +265,7 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
   }
 
-  private func rawTaskCompleted(request: URLRequest,
-                                data: Data?,
-                                response: URLResponse?,
-                                error: Error?) {
+  private func rawTaskCompleted(request: URLRequest, data: Data?, response: URLResponse?, error: Error?) {
     guard
       let delegate = self.delegate,
       let taskDelegate = delegate as? HTTPNetworkTransportTaskCompletedDelegate else {
@@ -289,11 +279,7 @@ public class HTTPNetworkTransport: NetworkTransport {
                                   error: error)
   }
   
-  private func createRequest<Operation: GraphQLOperation>(for operation: Operation,
-                                                          httpMethod: GraphQLHTTPMethod,
-                                                          sendQueryDocument: Bool,
-                                                          autoPersistQueries: Bool
-        ) throws -> URLRequest {
+  private func createRequest<Operation: GraphQLOperation>(for operation: Operation, httpMethod: GraphQLHTTPMethod, sendQueryDocument: Bool, autoPersistQueries: Bool) throws -> URLRequest {
     
     var request: URLRequest
     let body = requestBody(for: operation, sendQueryDocument: sendQueryDocument, autoPersistQueries: autoPersistQueries)
@@ -359,28 +345,5 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     return payload
-  }
-}
-
-extension URLSession {
-  func synchronousDataTask(with request: URLRequest) -> (Data?, URLResponse?, Error?) {
-    var data: Data?
-    var response: URLResponse?
-    var error: Error?
-    
-    let semaphore = DispatchSemaphore(value: 0)
-    
-    let dataTask = self.dataTask(with: request) {
-      data = $0
-      response = $1
-      error = $2
-      
-      semaphore.signal()
-    }
-    dataTask.resume()
-    
-    _ = semaphore.wait(timeout: .distantFuture)
-    
-    return (data, response, error)
   }
 }
