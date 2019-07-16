@@ -22,9 +22,6 @@ public enum CachePolicy {
 ///   - error: An error that indicates why the mutation failed, or `nil` if the mutation was succesful.
 public typealias GraphQLResultHandler<Data> = (_ result: GraphQLResult<Data>?, _ error: Error?) -> Void
 
-@available(*, deprecated, renamed: "GraphQLResultHandler")
-public typealias OperationResultHandler<Operation: GraphQLOperation> = GraphQLResultHandler<Operation.Data>
-
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public class ApolloClient {
   let networkTransport: NetworkTransport
