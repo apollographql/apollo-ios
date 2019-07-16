@@ -20,7 +20,7 @@ You can install `Apollo.framework` into your project using Carthage, CocoaPods, 
 
 ### Carthage
 
-1. Add `github "apollostack/apollo-ios"` to your Cartfile.
+1. Add `github "apollographql/apollo-ios"` to your Cartfile. 
 
 1. Run `carthage update`.
 
