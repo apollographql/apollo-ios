@@ -53,10 +53,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
           expectation.fulfill()
           return
         case .success(let fetchGraphQLResult):
-          if let errors = fetchGraphQLResult.errors {
-            // We aren't expecting errors, so fail the test, but don't kill the rest of the checks.
-            XCTFail("Errors in query result: \(errors)")
-          }
+          XCTAssertNil(fetchGraphQLResult.errors)
           
           guard fetchGraphQLResult.data != nil else {
             XCTFail("No query result data from fetching!")
