@@ -238,25 +238,38 @@ private func validateUrlParams(with request: URLRequest,
   let variables = url.queryItems?["variables"]
   if variable {
     XCTAssertNotNil(variables)
-    XCTAssert(variables! == "{\"episode\":\"\(query.episode!.rawValue)\"}")
+    XCTAssert(variables == "{\"episode\":\"\(query.episode?.rawValue ?? "")\"}")
   }else{
     XCTAssertNil(variables)
   }
   
   let ext = url.queryItems?["extensions"]
   if persistedQuery {
-    XCTAssertNotNil(ext)
+    guard let ext = ext,
+      let data = ext.data(using: .utf8),
+      let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
+    else {
+      XCTFail("extensions json data should not be nil")
+      return
+    }
     
-    let data = ext!.data(using: .utf8)!
-    let jsonBody = try! JSONSerializationFormat.deserialize(data: data) as! JSONObject
-    let persistedQuery = jsonBody["persistedQuery"] as? JSONObject
-    XCTAssertNotNil(persistedQuery)
+    guard let persistedQuery = jsonBody["persistedQuery"] as? JSONObject else {
+      XCTFail("persistedQuery is missing")
+      return
+    }
     
-    let sha256Hash = persistedQuery!["sha256Hash"] as? String
-    let version = persistedQuery!["version"] as? Int
+    guard let sha256Hash = persistedQuery["sha256Hash"] as? String else {
+      XCTFail("sha256Hash is missing")
+      return
+    }
+    
+    guard let version = persistedQuery["version"] as? Int else {
+      XCTFail("version is missing")
+      return
+    }
     
     XCTAssert(version == 1)
-    XCTAssert(sha256Hash == query.operationIdentifier!)
+    XCTAssert(sha256Hash == query.operationIdentifier)
   } else {
     XCTAssertNil(ext)
   }
@@ -279,14 +292,31 @@ private func validatePostBody(with request: URLRequest, query: HeroNameQuery, qu
   if variable {
     XCTAssertNotNil(variables)
     XCTAssert(variables?["episode"] as? String == query.episode?.rawValue)
+  }else{
+    XCTAssertNil(variables)
   }
   
   let ext = jsonBody["extensions"] as? JSONObject
   if persistedQuery {
-    XCTAssertNotNil(ext)
-    let persistedQuery = ext?["persistedQuery"] as? JSONObject
-    let version = persistedQuery?["version"] as? Int
-    let sha256Hash = persistedQuery?["sha256Hash"] as? String
+    guard let ext = ext else {
+        XCTFail("extensions json data should not be nil")
+        return
+    }
+
+    guard let persistedQuery = ext["persistedQuery"] as? JSONObject else {
+      XCTFail("persistedQuery is missing")
+      return
+    }
+    
+    guard let version = persistedQuery["version"] as? Int else {
+      XCTFail("version is missing")
+      return
+    }
+    
+    guard let sha256Hash = persistedQuery["sha256Hash"] as? String else {
+      XCTFail("sha256Hash is missing")
+      return
+    }
     
     XCTAssert(version == 1)
     XCTAssert(sha256Hash == query.operationIdentifier)
