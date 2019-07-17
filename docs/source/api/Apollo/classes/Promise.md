@@ -16,14 +16,14 @@ public var isPending: Bool
 ### `result`
 
 ```swift
-public var result: Result<Value>?
+public var result: Result<Value, Error>?
 ```
 
 ## Methods
 ### `init(resolved:)`
 
 ```swift
-public init(resolved result: Result<Value>)
+public init(resolved result: Result<Value, Error>)
 ```
 
 ### `init(fulfilled:)`

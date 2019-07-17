@@ -10,7 +10,7 @@ public enum ResultOrPromise<Value>
 ### `result(_:)`
 
 ```swift
-case result(Result<Value>)
+case result(Result<Value, Error>)
 ```
 
 ### `promise(_:)`
@@ -23,7 +23,7 @@ case promise(Promise<Value>)
 ### `result`
 
 ```swift
-public var result: Result<Value>?
+public var result: Result<Value, Error>?
 ```
 
 ## Methods

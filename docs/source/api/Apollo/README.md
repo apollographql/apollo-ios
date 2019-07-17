@@ -62,7 +62,6 @@ This Reference Documentation has been generated with
 -   [GraphQLOperationType](enums/GraphQLOperationType.md)
 -   [GraphQLOutputType](enums/GraphQLOutputType.md)
 -   [JSONDecodingError](enums/JSONDecodingError.md)
--   [Result](enums/Result.md)
 -   [ResultOrPromise](enums/ResultOrPromise.md)
 -   [Source](enums/Source.md)
 
@@ -89,6 +88,5 @@ This Reference Documentation has been generated with
 -   [Record](extensions/Record.md)
 -   [RecordSet](extensions/RecordSet.md)
 -   [Reference](extensions/Reference.md)
--   [Result](extensions/Result.md)
 -   [String](extensions/String.md)
 -   [URL](extensions/URL.md)
