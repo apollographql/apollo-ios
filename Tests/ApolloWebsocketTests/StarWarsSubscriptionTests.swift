@@ -21,14 +21,25 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testSubscribeReviewJediEpisode() {
     let expectation = self.expectation(description: "Subscribe single review")
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
-      guard let data = result?.data else { XCTFail("No subscription result data");  return }
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { outerResult in
+      defer {
+        expectation.fulfill()
+      }
       
-      XCTAssertEqual(data.reviewAdded?.episode, .jedi)
-      XCTAssertEqual(data.reviewAdded?.stars, 6)
-      XCTAssertEqual(data.reviewAdded?.commentary, "This is the greatest movie!")
-      
-      expectation.fulfill()
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        guard let data = graphQLResult.data else {
+          XCTFail("No subscription result data")
+          return
+        }
+        
+        XCTAssertEqual(data.reviewAdded?.episode, .jedi)
+        XCTAssertEqual(data.reviewAdded?.stars, 6)
+        XCTAssertEqual(data.reviewAdded?.commentary, "This is the greatest movie!")
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
     }
     
     client.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
@@ -40,13 +51,24 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testSubscribeReviewAnyEpisode() {
     let expectation = self.expectation(description: "Subscribe any episode")
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
-      guard let data = result?.data else { XCTFail("No subscription result data");  return }
+    let sub = client.subscribe(subscription: ReviewAddedSubscription()) { outerResult in
+      defer {
+        expectation.fulfill()
+      }
       
-      XCTAssertEqual(data.reviewAdded?.stars, 13)
-      XCTAssertEqual(data.reviewAdded?.commentary, "This is an even greater movie!")
-      
-      expectation.fulfill()
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        guard let data = graphQLResult.data else {
+          XCTFail("No subscription result data")
+          return
+        }
+        
+        XCTAssertEqual(data.reviewAdded?.stars, 13)
+        XCTAssertEqual(data.reviewAdded?.commentary, "This is an even greater movie!")
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
     }
     
     client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 13, commentary: "This is an even greater movie!")))
@@ -59,12 +81,23 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Subscription to specific episode - expecting timeout")
     expectation.isInverted = true
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
-      guard let data = result?.data else { XCTFail("No subscription result data");  return }
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { outerResult in
+      defer {
+        expectation.fulfill()
+      }
       
-      XCTAssertNotEqual(data.reviewAdded?.episode, .jedi)
-      
-      expectation.fulfill()
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        guard let data = graphQLResult.data else {
+          XCTFail("No subscription result data")
+          return
+        }
+        
+        XCTAssertNotEqual(data.reviewAdded?.episode, .jedi)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
     }
     
     client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 10, commentary: "This is an even greater movie!")))
@@ -77,7 +110,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Subscription then cancel - expecting timeput")
     expectation.isInverted = true
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { _ in
       XCTFail("Received subscription after cancel")
     }
     
@@ -93,18 +126,23 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Multiple reviews")
     expectation.expectedFulfillmentCount = count
 
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
-      if let error = error { XCTFail("Error while performing subscription: \(error.localizedDescription)");  return }
-      guard let result = result else { XCTFail("No subscription result");  return }
-
-      if let errors = result.errors {
-        XCTFail("Errors in subscription result: \(errors)")
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { outerResult in
+      defer {
+        expectation.fulfill()
       }
-
-      guard let data = result.data else { XCTFail("No subscription result data");  return }
-
-      XCTAssertEqual(data.reviewAdded?.episode, .empire)
-      expectation.fulfill()
+      
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        guard let data = graphQLResult.data else {
+          XCTFail("No subscription result data")
+          return
+        }
+        
+        XCTAssertEqual(data.reviewAdded?.episode, .empire)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
     }
 
     for i in 1...count {
@@ -123,25 +161,53 @@ class StarWarsSubscriptionTests: XCTestCase {
     let count = 20
     
     let expectation = self.expectation(description: "Multiple reviews")
-    expectation.expectedFulfillmentCount = count*2
+    expectation.expectedFulfillmentCount = count * 2
     
-    let subAll = client.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
-      guard let _ = result?.data else { XCTFail("No subscription result data");  return }
+    let subAll = client.subscribe(subscription: ReviewAddedSubscription()) { outerResult in
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        XCTAssertNotNil(graphQLResult.data)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
+      
       expectation.fulfill()
     }
     
-    let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { (result, error) in
-      guard let _ = result?.data else { XCTFail("No subscription result data");  return }
+    let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { outerResult in
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        XCTAssertNotNil(graphQLResult.data)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
+
       expectation.fulfill()
     }
     
-    let subJedi = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { (result, error) in
-      guard let _ = result?.data else { XCTFail("No subscription result data");  return }
+    let subJedi = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { outerResult in
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        XCTAssertNotNil(graphQLResult.data)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
+
       expectation.fulfill()
     }
     
-    let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { (result, error) in
-      guard let _ = result?.data else { XCTFail("No subscription result data");  return }
+    let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { outerResult in
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        XCTAssertNotNil(graphQLResult.data)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
+
       expectation.fulfill()
     }
     
