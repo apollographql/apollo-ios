@@ -28,8 +28,8 @@ public extension WebSocketTransportDelegate {
 }
 
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
-public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
-  public static var provider : ApolloWebSocketClient.Type = ApolloWebSocket.self
+public class WebSocketTransport {
+  public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
   
   var reconnect = false
@@ -60,23 +60,6 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.websocket.delegate = self
     self.websocket.connect()
-  }
-  
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>,Error>) -> Void) -> Cancellable {
-    if let error = self.error {
-      completionHandler(.failure(error))
-      return EmptyCancellable()
-    }
-    
-    return WebSocketTask(self, operation) { result in
-      switch result {
-      case .success(let jsonBody):
-        let response = GraphQLResponse(operation: operation, body: jsonBody)
-        completionHandler(.success(response))
-      case .failure(let error):
-        completionHandler(.failure(error))
-      }
-    }
   }
   
   public func isConnected() -> Bool {
@@ -161,50 +144,6 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   
   private func processMessage(socket: WebSocketClient, data: Data) {
     print("WebSocketTransport::unprocessed event \(data)")
-  }
-  
-  public func websocketDidConnect(socket: WebSocketClient) {
-    self.error = nil
-    initServer()
-    if reconnected {
-      self.delegate?.webSocketTransportDidReconnect(self)
-      // re-send the subscriptions whenever we are re-connected
-      // for the first connect, any subscriptions are already in queue
-      for (_,msg) in self.subscriptions {
-        write(msg)
-      }
-    } else {
-      self.delegate?.webSocketTransportDidConnect(self)
-    }
-    
-    reconnected = true
-  }
-  
-  public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-    // report any error to all subscribers
-    if let error = error {
-      self.error = WebSocketError(payload: nil, error: error, kind: .networkError)
-      self.notifyErrorAllHandlers(error)
-    } else {
-      self.error = nil
-    }
-    
-    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error)
-    acked = false // need new connect and ack before sending
-    
-    if reconnect {
-      DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) {
-        self.websocket.connect()
-      }
-    }
-  }
-  
-  public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-    processMessage(socket: socket, text: text)
-  }
-  
-  public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-    processMessage(socket: socket, data: data)
   }
   
   public func initServer(reconnect: Bool = true) {
@@ -371,6 +310,76 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     }
   }
   
+}
+
+// MARK: - HTTPNetworkTransport conformance
+
+extension WebSocketTransport: NetworkTransport {
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>,Error>) -> Void) -> Cancellable {
+    if let error = self.error {
+      completionHandler(.failure(error))
+      return EmptyCancellable()
+    }
+    
+    return WebSocketTask(self, operation) { result in
+      switch result {
+      case .success(let jsonBody):
+        let response = GraphQLResponse(operation: operation, body: jsonBody)
+        completionHandler(.success(response))
+      case .failure(let error):
+        completionHandler(.failure(error))
+      }
+    }
+  }
+}
+
+// MARK: - WebSocketDelegate implementation
+
+extension WebSocketTransport: WebSocketDelegate {
+  
+  public func websocketDidConnect(socket: WebSocketClient) {
+    self.error = nil
+    initServer()
+    if reconnected {
+      self.delegate?.webSocketTransportDidReconnect(self)
+      // re-send the subscriptions whenever we are re-connected
+      // for the first connect, any subscriptions are already in queue
+      for (_,msg) in self.subscriptions {
+        write(msg)
+      }
+    } else {
+      self.delegate?.webSocketTransportDidConnect(self)
+    }
+    
+    reconnected = true
+  }
+  
+  public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+    // report any error to all subscribers
+    if let error = error {
+      self.error = WebSocketError(payload: nil, error: error, kind: .networkError)
+      self.notifyErrorAllHandlers(error)
+    } else {
+      self.error = nil
+    }
+    
+    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error)
+    acked = false // need new connect and ack before sending
+    
+    if reconnect {
+      DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) {
+        self.websocket.connect()
+      }
+    }
+  }
+  
+  public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+    processMessage(socket: socket, text: text)
+  }
+  
+  public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+    processMessage(socket: socket, data: data)
+  }
 }
 
 public struct WebSocketError: Error, LocalizedError {
