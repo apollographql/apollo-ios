@@ -2,7 +2,7 @@
 import Apollo
 #endif
 
-/// A network transport that sends subscriptions using one network transport and other requests using another `NetworkTransport`.
+/// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP. 
 public class SplitNetworkTransport {
   private let httpNetworkTransport: NetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
