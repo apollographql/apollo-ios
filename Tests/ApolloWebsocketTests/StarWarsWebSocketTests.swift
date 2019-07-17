@@ -6,7 +6,7 @@ import StarWarsAPI
 
 // import StarWarsAPI
 
-class StarWarsWebsSocketTests: XCTestCase {
+class StarWarsWebSocketTests: XCTestCase {
   let SERVER = "http://localhost:8080/websocket"
 
   // MARK: Queries
