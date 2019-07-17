@@ -267,11 +267,20 @@ class FetchQueryTests: XCTestCase {
         client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { outerResult in
           defer { expectation2.fulfill() }
           switch outerResult {
-          case .success(let graphQLResult):
-            XCTAssertNil(graphQLResult.data)
+          case .success:
+            XCTFail("This should have returned an error")
           case .failure(let error):
-            #warning("Figure out if this failure is actually expected")
-            XCTFail("Unexpected error: \(error)")
+            if let resultError = error as? JSONDecodingError {
+              switch resultError {
+              case .missingValue:
+                // Correct error!
+                break
+              default:
+                XCTFail("Unexpected JSON error: \(error)")
+              }
+            } else {
+              XCTFail("Unexpected error: \(error)")
+            }
           }
         }
 
@@ -308,11 +317,22 @@ class FetchQueryTests: XCTestCase {
       client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { outerResult in
         defer { expectation.fulfill() }
         switch outerResult {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.data)
+        case .success:
+          XCTFail("This should have returned an error!")
         case .failure(let error):
-          #warning("Figure out if this failure is actually expected")
-          XCTFail("Unexpected Error: \(error)")
+          if
+            let resultError = error as? GraphQLResultError,
+            let underlyingError = resultError.underlying as? JSONDecodingError {
+              switch underlyingError {
+              case .missingValue:
+                // Correct error!
+                break
+              default:
+                XCTFail("Unexpected JSON error: \(error)")
+              }
+          } else {
+            XCTFail("Unexpected error: \(error)")
+          }
         }
       }
 
