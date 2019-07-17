@@ -68,7 +68,7 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
 // MARK: -
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
-public class HTTPNetworkTransport: NetworkTransport {
+public class HTTPNetworkTransport {
   let url: URL
   let session: URLSession
   let serializationFormat = JSONSerializationFormat.self
@@ -94,18 +94,6 @@ public class HTTPNetworkTransport: NetworkTransport {
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
     self.delegate = delegate
-  }
-  
-  /// Send a GraphQL operation to a server and return a response.
-  ///
-  /// - Parameters:
-  ///   - operation: The operation to send.
-  ///   - completionHandler: A closure to call when a request completes.
-  ///   - response: The response received from the server, or `nil` if an error occurred.
-  ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
-  /// - Returns: An object that can be used to cancel an in progress request.
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
-    return send(operation: operation, files: nil, completionHandler: completionHandler)
   }
   
   /// Uploads the given files with the given operation. 
@@ -282,5 +270,14 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     return request
+  }
+}
+
+// MARK: - NetworkTransport conformance
+
+extension HTTPNetworkTransport: NetworkTransport {
+  
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+    return send(operation: operation, files: nil, completionHandler: completionHandler)
   }
 }
