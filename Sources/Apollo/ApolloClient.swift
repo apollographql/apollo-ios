@@ -18,8 +18,7 @@ public enum CachePolicy {
 /// A handler for operation results.
 ///
 /// - Parameters:
-///   - result: The result of the performed operation, or `nil` if an error occurred.
-///   - error: An error that indicates why the mutation failed, or `nil` if the mutation was succesful.
+///   - result: The result of a performed operation. Will have a `GraphQLResult` with the data of the requested type on `success`, and an `Error` on `failure`.
 public typealias GraphQLResultHandler<Data> = (Result< GraphQLResult<Data>, Error>) -> Void
 
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
@@ -226,7 +225,7 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
           self.resultHandler(result)
           self.state = .finished
           return
-        }  
+        }
       }
       
       self.fetchFromNetwork()
