@@ -194,8 +194,6 @@ class LoadQueryFromStoreTests: XCTestCase {
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
         }
-        
-        
       }
     }
   }
