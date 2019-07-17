@@ -77,8 +77,7 @@ class FetchQueryTests: XCTestCase {
         
         switch result {
         case .success(let queryResult):
-          #warning("Fix failure")
-          if queryResult.data?.hero?.name != "R2-D2" {
+          if queryResult.data?.hero?.name == "R2-D2" {
             // ignore first result assuming from cache, and wait for second callback with fetched result
             return
           } else {

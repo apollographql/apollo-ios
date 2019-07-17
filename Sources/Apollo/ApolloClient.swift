@@ -226,10 +226,10 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
           self.resultHandler(result)
           self.state = .finished
           return
-        }
-        
-        self.fetchFromNetwork()
+        }  
       }
+      
+      self.fetchFromNetwork()
     }
   }
   
