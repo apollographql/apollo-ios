@@ -19,7 +19,7 @@ public enum CachePolicy {
 ///
 /// - Parameters:
 ///   - result: The result of a performed operation. Will have a `GraphQLResult` with the data of the requested type on `success`, and an `Error` on `failure`.
-public typealias GraphQLResultHandler<Data> = (Result< GraphQLResult<Data>, Error>) -> Void
+public typealias GraphQLResultHandler<Data> = (Result<GraphQLResult<Data>, Error>) -> Void
 
 /// The `ApolloClient` class provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public class ApolloClient {
