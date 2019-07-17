@@ -17,10 +17,14 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(error)
-        XCTAssertNil(result?.errors)
-        XCTAssertEqual(result?.data?.hero?.name, "R2-D2")
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
       }
     }
   }
@@ -36,10 +40,14 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery(episode: .jedi)
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(error)
-        XCTAssertNil(result?.errors)
-        XCTAssertEqual(result?.data?.hero?.name, "R2-D2")
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
       }
     }
   }
@@ -55,14 +63,17 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(result)
-
-        if case let error as GraphQLResultError = error {
-          XCTAssertEqual(error.path, ["hero", "name"])
-          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
-        } else {
-          XCTFail("Unexpected error: \(String(describing: error))")
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success:
+          XCTFail("This should not have succeeded!")
+        case .failure(let error):
+          if let graphQLError = error as? GraphQLResultError {
+            XCTAssertEqual(graphQLError.path, ["hero", "name"])
+            XCTAssertMatch(graphQLError.underlying, JSONDecodingError.missingValue)
+          } else {
+            XCTFail("Unexpected error: \(error)")
+          }
         }
       }
     }
@@ -79,14 +90,17 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(result)
-
-        if case let error as GraphQLResultError = error {
-          XCTAssertEqual(error.path, ["hero", "name"])
-          XCTAssertMatch(error.underlying, JSONDecodingError.nullValue)
-        } else {
-          XCTFail("Unexpected error: \(String(describing: error))")
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success:
+          XCTFail("This should not have succeeded!")
+        case .failure(let error):
+          if let graphQLError = error as? GraphQLResultError {
+            XCTAssertEqual(graphQLError.path, ["hero", "name"])
+            XCTAssertMatch(graphQLError.underlying, JSONDecodingError.nullValue)
+          } else {
+            XCTFail("Unexpected error: \(error)")
+          }
         }
       }
     }
@@ -114,14 +128,26 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery(episode: .jedi)
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(error)
-        XCTAssertNil(result?.errors)
-
-        guard let data = result?.data else { XCTFail(); return }
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          
+          guard let data = graphQLResult.data else {
+            XCTFail("No data returned with result")
+            return
+          }
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, [
+            "Luke Skywalker",
+            "Han Solo",
+            "Leia Organa",
+          ])
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
       }
     }
   }
@@ -135,7 +161,7 @@ class LoadQueryFromStoreTests: XCTestCase {
         "friends": [
           Reference(key: "1000"),
           Reference(key: "1002"),
-          Reference(key: "1003")
+          Reference(key: "1003"),
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -148,14 +174,28 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(error)
-        XCTAssertNil(result?.errors)
-
-        guard let data = result?.data else { XCTFail(); return }
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          
+          guard let data = graphQLResult.data else {
+            XCTFail("No data in result!")
+            return
+          }
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, [
+            "Luke Skywalker",
+            "Han Solo",
+            "Leia Organa",
+          ])
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
+        
+        
       }
     }
   }
@@ -175,13 +215,21 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(error)
-        XCTAssertNil(result?.errors)
-
-        guard let data = result?.data else { XCTFail(); return }
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        XCTAssertNil(data.hero?.friends)
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          
+          guard let data = graphQLResult.data else {
+            XCTFail("No data in result!")
+            return
+          }
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          XCTAssertNil(data.hero?.friends)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
       }
     }
   }
@@ -197,14 +245,17 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      load(query: query) { (result, error) in
-        XCTAssertNil(result)
-
-        if case let error as GraphQLResultError = error {
-          XCTAssertEqual(error.path, ["hero", "friends"])
-          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
-        } else {
-          XCTFail("Unexpected error: \(String(describing: error))")
+      load(query: query) { outerResult in
+        switch outerResult {
+        case .success:
+          XCTFail("This should not have succeeded!")
+        case .failure(let error):
+          if let graphQLError = error as? GraphQLResultError {
+            XCTAssertEqual(graphQLError.path, ["hero", "friends"])
+            XCTAssertMatch(graphQLError.underlying, JSONDecodingError.missingValue)
+          } else {
+            XCTFail("Unexpected error: \(String(describing: error))")
+          }
         }
       }
     }
@@ -215,8 +266,8 @@ class LoadQueryFromStoreTests: XCTestCase {
   private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     let expectation = self.expectation(description: "Loading query from store")
     
-    store.load(query: query) { (result, error) in
-      resultHandler(result, error)
+    store.load(query: query) { result in
+      resultHandler(result)
       expectation.fulfill()
     }
     

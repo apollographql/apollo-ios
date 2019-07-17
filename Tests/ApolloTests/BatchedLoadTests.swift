@@ -64,15 +64,25 @@ class BatchedLoadTests: XCTestCase {
     
     let expectation = self.expectation(description: "Loading query from store")
     
-    store.load(query: query) { (result, error) in
-      XCTAssertNil(error)
-      XCTAssertNil(result?.errors)
+    store.load(query: query) { outerResult in
+      defer {
+        expectation.fulfill()
+      }
       
-      guard let data = result?.data else { XCTFail(); return }
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.friends?.count, 100)
-      
-      expectation.fulfill()
+      switch outerResult {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+        
+        guard let data = graphQLResult.data else {
+          XCTFail("No data returned with result!")
+          return
+        }
+        
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        XCTAssertEqual(data.hero?.friends?.count, 100)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
     }
     
     self.waitForExpectations(timeout: 1)
@@ -105,16 +115,26 @@ class BatchedLoadTests: XCTestCase {
     (1...10).forEach { number in
       let expectation = self.expectation(description: "Loading query #\(number) from store")
       
-      store.load(query: query) { (result, error) in
-        XCTAssertNil(error)
-        XCTAssertNil(result?.errors)
+      store.load(query: query) { outerResult in
+        defer {
+          expectation.fulfill()
+        }
         
-        guard let data = result?.data else { XCTFail(); return }
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-        
-        expectation.fulfill()
+        switch outerResult {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          
+          guard let data = graphQLResult.data else {
+            XCTFail("No data returned with query!")
+            return
+          
+          }
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
       }
     }
     
