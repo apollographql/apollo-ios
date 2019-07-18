@@ -97,7 +97,7 @@ Our CocoaPods install includes the code-generation script as a file which will n
 ```sh
 SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
 cd "${SRCROOT}/${TARGET_NAME}"
-"${SCRIPT_PATH}"/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+"${SCRIPT_PATH}"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
 ### If you're NOT integrating Apollo using CocoaPods
@@ -119,7 +119,7 @@ if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
 fi
 
 cd "${SRCROOT}/${TARGET_NAME}"
-"${APOLLO_FRAMEWORK_PATH}"/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+"${APOLLO_FRAMEWORK_PATH}"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
 💻 For a **macOS** or a **Cocoa Framework** target, use the following: 
@@ -137,7 +137,7 @@ if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
 fi
 
 cd "${SRCROOT}/${TARGET_NAME}"
-"${APOLLO_FRAMEWORK_PATH}"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --queries="$(find . -name '*.graphql')" --schema=schema.json API.swift
+"${APOLLO_FRAMEWORK_PATH}"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
 ## Build your target
