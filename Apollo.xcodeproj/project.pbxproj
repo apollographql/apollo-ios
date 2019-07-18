@@ -584,7 +584,6 @@
 			children = (
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
-				C377CCA822D798BD00572E03 /* GraphQLFile.swift */,
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
 				9FC9A9BE1E2C27FB0023C4D5 /* GraphQLResult.swift */,
@@ -645,6 +644,7 @@
 			children = (
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
+				C377CCA822D798BD00572E03 /* GraphQLFile.swift */,
 				5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */,
 				9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */,
 				9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */,
