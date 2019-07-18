@@ -253,7 +253,7 @@ public class HTTPNetworkTransport: NetworkTransport {
         if let files = files, !files.isEmpty {
           let formData = try requestMultipartFormData(for: operation, files: files)
           request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
-          request.httpBody = formData.encode()
+          request.httpBody = try formData.encode()
         } else {
           request.httpBody = try serializationFormat.serialize(value: body)
         }
@@ -301,9 +301,9 @@ public class HTTPNetworkTransport: NetworkTransport {
         let data = try serializationFormat.serialize(value: data)
         formData.appendPart(data: data, name: name)
       } else if let data = data as? String {
-        formData.appendPart(string: data, name: name)
+        try formData.appendPart(string: data, name: name)
       } else {
-        formData.appendPart(string: data.debugDescription, name: name)
+        try formData.appendPart(string: data.debugDescription, name: name)
       }
     }
     
