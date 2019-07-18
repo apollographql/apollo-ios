@@ -6,6 +6,8 @@ public final class RepositoryQuery: GraphQLQuery {
   public let operationDefinition =
     "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        body\n        ... on UniformResourceLocatable {\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        viewerCanReact\n        ... on Comment {\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
 
+  public let operationName = "Repository"
+
   public init() {
   }
 
