@@ -104,10 +104,21 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
   /// - Returns: An object that can be used to cancel an in progress request.
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
-    return upload(operation: operation, completionHandler: completionHandler)
+    return send(operation: operation, files: nil, completionHandler: completionHandler)
   }
   
-  public func upload<Operation>(operation: Operation, files: [GraphQLFile]? = nil, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+  /// Uploads the given files with the given operation. 
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send
+  ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - completionHandler: The completion handler to execute when the request completes or errors
+  /// - Returns: An object that can be used to cancel an in progress request.
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
+    return send(operation: operation, files: files, completionHandler: completionHandler)
+  }
+  
+  private func send<Operation>(operation: Operation, files: [GraphQLFile]?, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     let request: URLRequest
     do {
       request = try self.createRequest(for: operation, files: files)
