@@ -588,7 +588,6 @@
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
 				9FC9A9BE1E2C27FB0023C4D5 /* GraphQLResult.swift */,
-				C377CCAA22D7992E00572E03 /* MultipartFormData.swift */,
 				9F27D4601D40363A00715680 /* Execution */,
 				9FC4B9231D2BE4F00046A641 /* JSON */,
 				9FC9A9CE1E2FD0CC0023C4D5 /* Network */,
@@ -651,6 +650,7 @@
 				9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
 				9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */,
+				C377CCAA22D7992E00572E03 /* MultipartFormData.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
