@@ -125,7 +125,7 @@ class GETTransformerTests: XCTestCase {
         XCTFail("variables should not nil")
         return
       }
-      XCTAssert(variables == "{\"episode\":\"EMPIRE\"}")
+      XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
       
       guard let ext = url?.queryItems?["extensions"],
         let data = ext.data(using: .utf8),
@@ -150,8 +150,8 @@ class GETTransformerTests: XCTestCase {
         return
       }
       
-      XCTAssert(version == 1)
-      XCTAssert(sha256Hash == "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
+      XCTAssertEqual(version, 1)
+      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
     }
   }
   
@@ -185,7 +185,7 @@ class GETTransformerTests: XCTestCase {
         XCTFail("variables should not nil")
         return
       }
-      XCTAssert(variables == "{\"episode\":\"EMPIRE\"}")
+      XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
       
       guard let ext = url?.queryItems?["extensions"],
         let data = ext.data(using: .utf8),
@@ -210,8 +210,8 @@ class GETTransformerTests: XCTestCase {
         return
       }
       
-      XCTAssert(version == 1)
-      XCTAssert(sha256Hash == "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
+      XCTAssertEqual(version, 1)
+      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
     }
   }
   
@@ -260,7 +260,7 @@ class GETTransformerTests: XCTestCase {
         XCTFail("variables should not nil")
         return
       }
-      XCTAssert(variables == "{\"episode\":null}")
+      XCTAssertEqual(variables, "{\"episode\":null}")
       
       guard let ext = url?.queryItems?["extensions"],
         let data = ext.data(using: .utf8),
@@ -285,8 +285,8 @@ class GETTransformerTests: XCTestCase {
         return
       }
       
-      XCTAssert(version == 1)
-      XCTAssert(sha256Hash == "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
+      XCTAssertEqual(version, 1)
+      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
     }
   }
   
