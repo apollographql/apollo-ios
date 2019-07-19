@@ -61,3 +61,25 @@ public func send<Operation>(operation: Operation, completionHandler: @escaping (
 | completionHandler | A closure to call when a request completes. |
 | response | The response received from the server, or `nil` if an error occurred. |
 | error | An error that indicates why a request failed, or `nil` if the request was succesful. |
+
+### `upload(operation:files:completionHandler:)`
+
+```swift
+public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable
+```
+
+> Uploads the given files with the given operation.
+>
+> - Parameters:
+>   - operation: The operation to send
+>   - files: An array of `GraphQLFile` objects to send.
+>   - completionHandler: The completion handler to execute when the request completes or errors
+> - Returns: An object that can be used to cancel an in progress request.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| operation | The operation to send |
+| files | An array of `GraphQLFile` objects to send. |
+| completionHandler | The completion handler to execute when the request completes or errors |

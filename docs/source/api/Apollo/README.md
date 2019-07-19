@@ -29,6 +29,7 @@ This Reference Documentation has been generated with
 -   [GraphQLBooleanCondition](structs/GraphQLBooleanCondition.md)
 -   [GraphQLError](structs/GraphQLError.md)
 -   [GraphQLField](structs/GraphQLField.md)
+-   [GraphQLFile](structs/GraphQLFile.md)
 -   [GraphQLFragmentSpread](structs/GraphQLFragmentSpread.md)
 -   [GraphQLHTTPResponseError](structs/GraphQLHTTPResponseError.md)
 -   [GraphQLResult](structs/GraphQLResult.md)
