@@ -10,17 +10,14 @@ protocol TestConfig {
 
 class DefaultConfig: TestConfig {
   func network() -> HTTPNetworkTransport {
-    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
-                                enableAutoPersistedQueries: false,
-                                useHttpGetMethodForPersistedQueries: false)
+    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
   }
 }
 
 class APQsConfig: TestConfig {
   func network() -> HTTPNetworkTransport {
     return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
-                                enableAutoPersistedQueries: true,
-                                useHttpGetMethodForPersistedQueries: false)
+                                enableAutoPersistedQueries: true)
   }
 }
 
@@ -32,7 +29,7 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
   func network() -> HTTPNetworkTransport {
     return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                 enableAutoPersistedQueries: true,
-                                useHttpGetMethodForPersistedQueries: true,
+                                useGETForPersistedQueryRetry: true,
                                 delegate: self)
   }
   

@@ -17,7 +17,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
       case .persistedQueryNotFound:
         return "Persisted query not found"
       case .persistedQueryNotSupported:
-        return "Persisted query not support"
+        return "Persisted query not supported"
       }
     }
   }

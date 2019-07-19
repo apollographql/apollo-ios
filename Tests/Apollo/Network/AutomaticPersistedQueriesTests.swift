@@ -3,7 +3,7 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class HttpNetworkTransportTests: XCTestCase {
+class AutomaticPersistedQueriesTests: XCTestCase {
 
   private final let endpoint = "http://localhost:8080/graphql"
   
@@ -18,8 +18,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "POST")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
     
     validatePostBody(with: request,
                      query: query,
@@ -37,8 +37,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "POST")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
 
     validatePostBody(with: request,
                      query: query,
@@ -59,8 +59,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "POST")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
     
     validatePostBody(with: request,
                      query: query,
@@ -71,7 +71,7 @@ class HttpNetworkTransportTests: XCTestCase {
   func testQueryStringForAPQsUseGetMethod() {
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        enableAutoPersistedQueries: true,
-                                       useHttpGetMethodForPersistedQueries: true)
+                                       useGETForPersistedQueryRetry: true)
     let mockSession = MockURLSession()
     network.session = mockSession
     let query = HeroNameQuery()
@@ -81,7 +81,7 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
+    XCTAssertEqual(request.url?.host, network.url.host)
     
     validateUrlParams(with: request,
                       query: query,
@@ -91,7 +91,7 @@ class HttpNetworkTransportTests: XCTestCase {
   func testQueryStringForAPQsUseGetMethodWithVariable() {
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        enableAutoPersistedQueries: true,
-                                       useHttpGetMethodForPersistedQueries: true)
+                                       useGETForPersistedQueryRetry: true)
     let mockSession = MockURLSession()
     network.session = mockSession
     let query = HeroNameQuery(episode: .empire)
@@ -101,8 +101,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "GET")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "GET")
     
     validateUrlParams(with: request,
                       query: query,
@@ -122,8 +122,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "GET")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "GET")
     
     validateUrlParams(with: request,
                       query: query,
@@ -141,8 +141,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "POST")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
     
     validatePostBody(with: request,
                      query: query,
@@ -161,8 +161,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "POST")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
     
     validatePostBody(with: request,
                      query: query,
@@ -183,8 +183,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "GET")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "GET")
     
     validateUrlParams(with: request,
                       query: query,
@@ -195,7 +195,7 @@ class HttpNetworkTransportTests: XCTestCase {
   func testNotUseGETForQueriesAPQsGETRequest() {
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        enableAutoPersistedQueries: true,
-                                       useHttpGetMethodForPersistedQueries: true)
+                                       useGETForPersistedQueryRetry: true)
     let mockSession = MockURLSession()
     network.session = mockSession
     let query = HeroNameQuery(episode: .empire)
@@ -205,8 +205,8 @@ class HttpNetworkTransportTests: XCTestCase {
       XCTFail("last request should not be nil")
       return
     }
-    XCTAssert(request.url?.host == network.url.host)
-    XCTAssert(request.httpMethod == "GET")
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "GET")
     
     validateUrlParams(with: request,
                       query: query,
@@ -217,12 +217,7 @@ class HttpNetworkTransportTests: XCTestCase {
 
 // MARK: Helpers
 
-private func validateUrlParams(with request: URLRequest,
-                               query: HeroNameQuery,
-                               queryDocument: Bool = false,
-                               persistedQuery: Bool = false,
-                               variable: Bool = false
-                               ) {
+private func validateUrlParams(with request: URLRequest, query: HeroNameQuery, queryDocument: Bool = false, persistedQuery: Bool = false, variable: Bool = false) {
   guard let url = request.url else {
     XCTFail("URL not valid")
     return
@@ -230,7 +225,7 @@ private func validateUrlParams(with request: URLRequest,
   
   let queryStting = url.queryItems?["query"]
   if queryDocument {
-    XCTAssert(queryStting == query.queryDocument)
+    XCTAssertEqual(queryStting, query.queryDocument)
   } else {
     XCTAssertNil(queryStting)
   }
@@ -238,7 +233,7 @@ private func validateUrlParams(with request: URLRequest,
   let variables = url.queryItems?["variables"]
   if variable {
     XCTAssertNotNil(variables)
-    XCTAssert(variables == "{\"episode\":\"\(query.episode?.rawValue ?? "")\"}")
+    XCTAssertEqual(variables, "{\"episode\":\"\(query.episode?.rawValue ?? "")\"}")
   }else{
     XCTAssertNil(variables)
   }
@@ -268,8 +263,8 @@ private func validateUrlParams(with request: URLRequest,
       return
     }
     
-    XCTAssert(version == 1)
-    XCTAssert(sha256Hash == query.operationIdentifier)
+    XCTAssertEqual(version, 1)
+    XCTAssertEqual(sha256Hash, query.operationIdentifier)
   } else {
     XCTAssertNil(ext)
   }
@@ -285,13 +280,13 @@ private func validatePostBody(with request: URLRequest, query: HeroNameQuery, qu
   
   let queryStting = jsonBody["query"] as? String
   if queryDocument {
-    XCTAssert(queryStting == query.queryDocument)
+    XCTAssertEqual(queryStting, query.queryDocument)
   }
   
   let variables = jsonBody["variables"] as? JSONObject
   if variable {
     XCTAssertNotNil(variables)
-    XCTAssert(variables?["episode"] as? String == query.episode?.rawValue)
+    XCTAssertEqual(variables?["episode"] as? String, query.episode?.rawValue)
   }else{
     XCTAssertNil(variables)
   }
@@ -318,29 +313,10 @@ private func validatePostBody(with request: URLRequest, query: HeroNameQuery, qu
       return
     }
     
-    XCTAssert(version == 1)
-    XCTAssert(sha256Hash == query.operationIdentifier)
+    XCTAssertEqual(version, 1)
+    XCTAssertEqual(sha256Hash, query.operationIdentifier)
   } else {
     XCTAssertNil(ext)
-  }
-}
-
-private final class MockURLSession: URLSession {
-  private (set) var lastRequest: URLRequest?
-
-  override public func dataTask(with request: URLRequest) -> URLSessionDataTask {
-    lastRequest = request
-    return URLSessionDataTaskMock()
-  }
-  
-  override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-    lastRequest = request
-    return URLSessionDataTaskMock()
-  }
-}
-
-private final class URLSessionDataTaskMock: URLSessionDataTask {
-  override func resume() {
   }
 }
 
@@ -349,7 +325,11 @@ extension URL {
     return URLComponents(url: self, resolvingAgainstBaseURL: false)?
       .queryItems?
       .compactMap { $0.dictionaryRepresentation }
-      .reduce([:], +)
+      .reduce([String:String]()) { dict, tuple in
+        var dict = dict
+        tuple.forEach { dict[$0] = $1 }
+        return dict
+    }
   }
 }
 
@@ -360,10 +340,4 @@ extension URLQueryItem {
     }
     return nil
   }
-}
-
-private func +<Key, Value> (lhs: [Key: Value], rhs: [Key: Value]) -> [Key: Value] {
-  var result = lhs
-  rhs.forEach{ result[$0] = $1 }
-  return result
 }

@@ -77,7 +77,7 @@ public class HTTPNetworkTransport: NetworkTransport {
 
   private let useGETForQueries: Bool
   private let enableAutoPersistedQueries: Bool
-  private let useHttpGetMethodForPersistedQueries: Bool
+  private let useGETForPersistedQueryRetry: Bool
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -86,21 +86,17 @@ public class HTTPNetworkTransport: NetworkTransport {
   ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
   ///   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
   ///   - enableAutoPersistedQueries: Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false.
-  ///   - useHttpGetMethodForPersistedQueries: Whether to send PersistedQuery supported request with HTTPGETMethod, retry with HTTPPOSTMethod if PersistedQuery not support/not found in server.
+  ///   - useGETForPersistedQueryRetry: Whether to retry persistedQuery request with HttpGetMethod.
   ///   - preflightDelegate: A delegate to check with before sending a request.
   ///   - requestCompletionDelegate: A delegate to notify when the URLSessionTask has completed.
-  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default,
-              useGETForQueries: Bool = false,
-              enableAutoPersistedQueries: Bool = false,
-              useHttpGetMethodForPersistedQueries: Bool = false,
-              delegate: HTTPNetworkTransportDelegate? = nil
+  public init(url: URL, configuration: URLSessionConfiguration = URLSessionConfiguration.default, useGETForQueries: Bool = false, enableAutoPersistedQueries: Bool = false, useGETForPersistedQueryRetry: Bool = false, delegate: HTTPNetworkTransportDelegate? = nil
     ) {
     self.url = url
     self.session = URLSession(configuration: configuration)
     self.delegate = delegate
     self.useGETForQueries = useGETForQueries
     self.enableAutoPersistedQueries = enableAutoPersistedQueries
-    self.useHttpGetMethodForPersistedQueries = useHttpGetMethodForPersistedQueries
+    self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
   }
   
   /// Send a GraphQL operation to a server and return a response.
@@ -134,7 +130,7 @@ public class HTTPNetworkTransport: NetworkTransport {
           useGetMethod = useGETForQueries
           sendQueryDocument = true
         } else {
-          useGetMethod = useGETForQueries || (enableAutoPersistedQueries && useHttpGetMethodForPersistedQueries)
+          useGetMethod = useGETForQueries || (enableAutoPersistedQueries && useGETForPersistedQueryRetry)
           sendQueryDocument = !enableAutoPersistedQueries
         }
         
