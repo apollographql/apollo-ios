@@ -21,12 +21,12 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testSubscribeReviewJediEpisode() {
     let expectation = self.expectation(description: "Subscribe single review")
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { outerResult in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { result in
       defer {
         expectation.fulfill()
       }
       
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         guard let data = graphQLResult.data else {
@@ -51,12 +51,12 @@ class StarWarsSubscriptionTests: XCTestCase {
   func testSubscribeReviewAnyEpisode() {
     let expectation = self.expectation(description: "Subscribe any episode")
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription()) { outerResult in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription()) { result in
       defer {
         expectation.fulfill()
       }
       
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         guard let data = graphQLResult.data else {
@@ -81,12 +81,12 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Subscription to specific episode - expecting timeout")
     expectation.isInverted = true
     
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { outerResult in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { result in
       defer {
         expectation.fulfill()
       }
       
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         guard let data = graphQLResult.data else {
@@ -126,12 +126,12 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Multiple reviews")
     expectation.expectedFulfillmentCount = count
 
-    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { outerResult in
+    let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { result in
       defer {
         expectation.fulfill()
       }
       
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         guard let data = graphQLResult.data else {
@@ -163,8 +163,8 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Multiple reviews")
     expectation.expectedFulfillmentCount = count * 2
     
-    let subAll = client.subscribe(subscription: ReviewAddedSubscription()) { outerResult in
-      switch outerResult {
+    let subAll = client.subscribe(subscription: ReviewAddedSubscription()) { result in
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         XCTAssertNotNil(graphQLResult.data)
@@ -175,8 +175,8 @@ class StarWarsSubscriptionTests: XCTestCase {
       expectation.fulfill()
     }
     
-    let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { outerResult in
-      switch outerResult {
+    let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { result in
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         XCTAssertNotNil(graphQLResult.data)
@@ -187,8 +187,8 @@ class StarWarsSubscriptionTests: XCTestCase {
       expectation.fulfill()
     }
     
-    let subJedi = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { outerResult in
-      switch outerResult {
+    let subJedi = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { result in
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         XCTAssertNotNil(graphQLResult.data)
@@ -199,8 +199,8 @@ class StarWarsSubscriptionTests: XCTestCase {
       expectation.fulfill()
     }
     
-    let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { outerResult in
-      switch outerResult {
+    let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { result in
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         XCTAssertNotNil(graphQLResult.data)

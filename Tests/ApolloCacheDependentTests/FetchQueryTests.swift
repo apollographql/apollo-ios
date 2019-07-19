@@ -121,10 +121,10 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { outerResult in
+      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { result in
         defer { expectation.fulfill() }
 
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
         case .failure(let error):
@@ -162,10 +162,10 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { outerResult in
+      client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch) { result in
         defer { expectation.fulfill() }
 
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
         case .failure(let error):
@@ -204,10 +204,10 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { outerResult in
+      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { result in
         defer { expectation.fulfill() }
         
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
         case .failure(let error):
@@ -246,10 +246,10 @@ class FetchQueryTests: XCTestCase {
 
         let expectation = self.expectation(description: "Fetching query")
 
-        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { outerResult in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { result in
           defer { expectation.fulfill() }
           
-          switch outerResult {
+          switch result {
           case .success(let graphQLResult):
             XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
           case .failure(let error):
@@ -264,9 +264,9 @@ class FetchQueryTests: XCTestCase {
 
         let expectation2 = self.expectation(description: "Fetching query")
 
-        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { outerResult in
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { result in
           defer { expectation2.fulfill() }
-          switch outerResult {
+          switch result {
           case .success:
             XCTFail("This should have returned an error")
           case .failure(let error):
@@ -314,9 +314,9 @@ class FetchQueryTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { outerResult in
+      client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { result in
         defer { expectation.fulfill() }
-        switch outerResult {
+        switch result {
         case .success:
           XCTFail("This should have returned an error!")
         case .failure(let error):

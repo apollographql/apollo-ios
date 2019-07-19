@@ -17,8 +17,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
@@ -40,8 +40,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery(episode: .jedi)
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
@@ -63,8 +63,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success:
           XCTFail("This should not have succeeded!")
         case .failure(let error):
@@ -90,8 +90,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success:
           XCTFail("This should not have succeeded!")
         case .failure(let error):
@@ -128,8 +128,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery(episode: .jedi)
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           
@@ -174,8 +174,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           
@@ -213,8 +213,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           
@@ -243,8 +243,8 @@ class LoadQueryFromStoreTests: XCTestCase {
 
       let query = HeroAndFriendsNamesQuery()
 
-      load(query: query) { outerResult in
-        switch outerResult {
+      load(query: query) { result in
+        switch result {
         case .success:
           XCTFail("This should not have succeeded!")
         case .failure(let error):

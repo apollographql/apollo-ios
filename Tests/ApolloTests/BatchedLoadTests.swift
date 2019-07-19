@@ -64,12 +64,12 @@ class BatchedLoadTests: XCTestCase {
     
     let expectation = self.expectation(description: "Loading query from store")
     
-    store.load(query: query) { outerResult in
+    store.load(query: query) { result in
       defer {
         expectation.fulfill()
       }
       
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         XCTAssertNil(graphQLResult.errors)
         
@@ -115,12 +115,12 @@ class BatchedLoadTests: XCTestCase {
     (1...10).forEach { number in
       let expectation = self.expectation(description: "Loading query #\(number) from store")
       
-      store.load(query: query) { outerResult in
+      store.load(query: query) { result in
         defer {
           expectation.fulfill()
         }
         
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           

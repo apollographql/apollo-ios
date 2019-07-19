@@ -33,9 +33,9 @@ class MockWebSocketTests: XCTestCase {
   func testLocalSingleSubscription() throws {
     let expectation = self.expectation(description: "Single subscription")
     
-    client.subscribe(subscription: ReviewAddedSubscription()) { outerResult in
+    client.subscribe(subscription: ReviewAddedSubscription()) { result in
       defer { expectation.fulfill() }
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.data?.reviewAdded?.stars, 5)
       case .failure(let error):
@@ -77,10 +77,10 @@ class MockWebSocketTests: XCTestCase {
   func testLocalErrorUnknownId() throws {
     let expectation = self.expectation(description: "Unknown id for subscription")
     
-    client.subscribe(subscription: ReviewAddedSubscription()) { outerResult in
+    client.subscribe(subscription: ReviewAddedSubscription()) { result in
       defer { expectation.fulfill() }
       
-      switch outerResult {
+      switch result {
       case .success:
         XCTFail("This should have caused an error!")
       case .failure(let error):

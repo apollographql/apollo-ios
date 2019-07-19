@@ -277,10 +277,10 @@ class StarWarsWebSocketTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query) { outerResult in
+      client.fetch(query: query) { result in
         defer { expectation.fulfill() }
 
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           guard let data = graphQLResult.data else {
@@ -306,10 +306,10 @@ class StarWarsWebSocketTests: XCTestCase {
 
       let expectation = self.expectation(description: "Performing mutation")
 
-      client.perform(mutation: mutation) { outerResult in
+      client.perform(mutation: mutation) { result in
         defer { expectation.fulfill() }
         
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           guard let data = graphQLResult.data else {

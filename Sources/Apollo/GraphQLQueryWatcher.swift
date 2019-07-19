@@ -26,17 +26,17 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
   
   func fetch(cachePolicy: CachePolicy) {
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context) { [weak self] outerResult in
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context) { [weak self] result in
       guard let `self` = self else { return }
       
-      switch outerResult {
+      switch result {
       case .success(let graphQLResult):
         self.dependentKeys = graphQLResult.dependentKeys
       case .failure:
         break
       }
       
-      self.resultHandler(outerResult)
+      self.resultHandler(result)
     }
   }
   

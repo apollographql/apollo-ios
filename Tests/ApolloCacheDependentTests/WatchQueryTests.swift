@@ -30,8 +30,8 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroNameQuery.Data>
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
@@ -49,8 +49,8 @@ class WatchQueryTests: XCTestCase {
 
       waitForExpectations(timeout: 5, handler: nil)
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Artoo")
@@ -100,8 +100,8 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           guard let data = graphQLResult.data else {
@@ -126,8 +126,8 @@ class WatchQueryTests: XCTestCase {
 
       waitForExpectations(timeout: 5, handler: nil)
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           guard let data = graphQLResult.data else {
@@ -188,7 +188,7 @@ class WatchQueryTests: XCTestCase {
       let fetching = self.expectation(description: "Fetching query")
       var refetching: XCTestExpectation?
       
-      let _ = client.watch(query: query) { outerResult in
+      let _ = client.watch(query: query) { result in
         guard refetching == nil else {
           return refetching!.fulfill()
         }
@@ -197,7 +197,7 @@ class WatchQueryTests: XCTestCase {
           fetching.fulfill()
         }
         
-        switch outerResult {
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           
@@ -259,8 +259,8 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroNameWithIdQuery.Data>
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
@@ -278,8 +278,8 @@ class WatchQueryTests: XCTestCase {
 
       waitForExpectations(timeout: 5, handler: nil)
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
@@ -321,8 +321,8 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
 
@@ -362,8 +362,8 @@ class WatchQueryTests: XCTestCase {
         }
       })
 
-      verifyResult = { outerResult in
-        switch outerResult {
+      verifyResult = { result in
+        switch result {
         case .success(let graphQLResult):
           XCTAssertNil(graphQLResult.errors)
           guard let data = graphQLResult.data else {
