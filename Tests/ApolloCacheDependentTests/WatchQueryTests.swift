@@ -341,9 +341,6 @@ class WatchQueryTests: XCTestCase {
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
         }
-
-
-        
       }
 
       var expectation = self.expectation(description: "Fetching query")
