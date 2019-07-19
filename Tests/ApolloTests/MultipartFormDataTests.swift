@@ -11,14 +11,14 @@ import XCTest
 
 class MultipartFormDataTests: XCTestCase {
 
-    func testSingleFile() {
+    func testSingleFile() throws {
       let alphaFileUrl = Bundle(for: type(of: self)).url(forResource: "a", withExtension: "txt")!
 
       let alphaData = try! Data(contentsOf: alphaFileUrl)
 
       let formData = MultipartFormData(boundary: "------------------------cec8e8123c05ba25")
-      formData.appendPart(string: "{ \"query\": \"mutation ($file: Upload!) { singleUpload(file: $file) { id } }\", \"variables\": { \"file\": null } }", name: "operations")
-      formData.appendPart(string: "{ \"0\": [\"variables.file\"] }", name: "map")
+      try formData.appendPart(string: "{ \"query\": \"mutation ($file: Upload!) { singleUpload(file: $file) { id } }\", \"variables\": { \"file\": null } }", name: "operations")
+      try formData.appendPart(string: "{ \"0\": [\"variables.file\"] }", name: "map")
       formData.appendPart(data: alphaData, name: "0", contentType: "text/plain", filename: "a.txt")
       
       let expectation = """
@@ -40,10 +40,10 @@ class MultipartFormDataTests: XCTestCase {
                         """
 
       // Replacing CRLF with new line as string literals uses new lines
-      XCTAssertEqual(String(data: formData.encode(), encoding: .utf8)!.replacingOccurrences(of: MultipartFormData.CRLF, with: "\n"), expectation)
+      XCTAssertEqual(String(data: try formData.encode(), encoding: .utf8)!.replacingOccurrences(of: MultipartFormData.CRLF, with: "\n"), expectation)
     }
 
-  func testMultifileFile() {
+  func testMultifileFile() throws {
     let bravoFileUrl = Bundle(for: type(of: self)).url(forResource: "b", withExtension: "txt")!
     let charlieFileUrl = Bundle(for: type(of: self)).url(forResource: "c", withExtension: "txt")!
 
@@ -51,8 +51,8 @@ class MultipartFormDataTests: XCTestCase {
     let charlieData = try! Data(contentsOf: charlieFileUrl)
 
     let formData = MultipartFormData(boundary: "------------------------ec62457de6331cad")
-    formData.appendPart(string: "{ \"query\": \"mutation($files: [Upload!]!) { multipleUpload(files: $files) { id } }\", \"variables\": { \"files\": [null, null] } }", name: "operations")
-    formData.appendPart(string: "{ \"0\": [\"variables.files.0\"], \"1\": [\"variables.files.1\"] }", name: "map")
+    try formData.appendPart(string: "{ \"query\": \"mutation($files: [Upload!]!) { multipleUpload(files: $files) { id } }\", \"variables\": { \"files\": [null, null] } }", name: "operations")
+    try formData.appendPart(string: "{ \"0\": [\"variables.files.0\"], \"1\": [\"variables.files.1\"] }", name: "map")
     formData.appendPart(data: bravoData, name: "0", contentType: "text/plain", filename: "b.txt")
     formData.appendPart(data: charlieData, name: "1", contentType: "text/plain", filename: "c.txt")
 
@@ -81,10 +81,10 @@ class MultipartFormDataTests: XCTestCase {
                         """
 
     // Replacing CRLF with new line as string literals uses new lines
-    XCTAssertEqual(String(data: formData.encode(), encoding: .utf8)!.replacingOccurrences(of: MultipartFormData.CRLF, with: "\n"), expectation)
+    XCTAssertEqual(String(data: try formData.encode(), encoding: .utf8)!.replacingOccurrences(of: MultipartFormData.CRLF, with: "\n"), expectation)
   }
 
-  func testBatchFile() {
+  func testBatchFile() throws {
     let alphaFileUrl = Bundle(for: type(of: self)).url(forResource: "a", withExtension: "txt")!
     let bravoFileUrl = Bundle(for: type(of: self)).url(forResource: "b", withExtension: "txt")!
     let charlieFileUrl = Bundle(for: type(of: self)).url(forResource: "c", withExtension: "txt")!
@@ -94,8 +94,8 @@ class MultipartFormDataTests: XCTestCase {
     let charlieData = try! Data(contentsOf: charlieFileUrl)
 
     let formData = MultipartFormData(boundary: "------------------------627436eaefdbc285")
-    formData.appendPart(string: "[{ \"query\": \"mutation ($file: Upload!) { singleUpload(file: $file) { id } }\", \"variables\": { \"file\": null } }, { \"query\": \"mutation($files: [Upload!]!) { multipleUpload(files: $files) { id } }\", \"variables\": { \"files\": [null, null] } }]", name: "operations")
-    formData.appendPart(string: "{ \"0\": [\"0.variables.file\"], \"1\": [\"1.variables.files.0\"], \"2\": [\"1.variables.files.1\"] }", name: "map")
+    try formData.appendPart(string: "[{ \"query\": \"mutation ($file: Upload!) { singleUpload(file: $file) { id } }\", \"variables\": { \"file\": null } }, { \"query\": \"mutation($files: [Upload!]!) { multipleUpload(files: $files) { id } }\", \"variables\": { \"files\": [null, null] } }]", name: "operations")
+    try formData.appendPart(string: "{ \"0\": [\"0.variables.file\"], \"1\": [\"1.variables.files.0\"], \"2\": [\"1.variables.files.1\"] }", name: "map")
     formData.appendPart(data: alphaData, name: "0", contentType: "text/plain", filename: "a.txt")
     formData.appendPart(data: bravoData, name: "1", contentType: "text/plain", filename: "b.txt")
     formData.appendPart(data: charlieData, name: "2", contentType: "text/plain", filename: "c.txt")
@@ -131,6 +131,6 @@ class MultipartFormDataTests: XCTestCase {
                       """
 
     // Replacing CRLF with new line as string literals uses new lines
-    XCTAssertEqual(String(data: formData.encode(), encoding: .utf8)!.replacingOccurrences(of: MultipartFormData.CRLF, with: "\n"), expectation)
+    XCTAssertEqual(String(data: try formData.encode(), encoding: .utf8)!.replacingOccurrences(of: MultipartFormData.CRLF, with: "\n"), expectation)
   }
 }
