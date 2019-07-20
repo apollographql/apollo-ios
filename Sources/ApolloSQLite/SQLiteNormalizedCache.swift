@@ -25,12 +25,12 @@ public final class SQLiteNormalizedCache: NormalizedCache {
   }
 
   public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise { try mergeRecords(records: records) }
+    return Promise { try self.mergeRecords(records: records) }
   }
 
   public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
     return Promise {
-      let records = try selectRecords(forKeys: keys)
+      let records = try self.selectRecords(forKeys: keys)
       let recordsOrNil: [Record?] = keys.map { key in
         if let recordIndex = records.firstIndex(where: { $0.key == key }) {
           return records[recordIndex]
@@ -43,7 +43,7 @@ public final class SQLiteNormalizedCache: NormalizedCache {
 
   public func clear() -> Promise<Void> {
     return Promise {
-      return try clearRecords()
+      return try self.clearRecords()
     }
   }
 
@@ -56,18 +56,18 @@ public final class SQLiteNormalizedCache: NormalizedCache {
   }
 
   private func createTableIfNeeded() throws {
-    try db.run(records.create(ifNotExists: true) { table in
+    try self.db.run(self.records.create(ifNotExists: true) { table in
       table.column(id, primaryKey: .autoincrement)
       table.column(key, unique: true)
       table.column(record)
     })
-    try db.run(records.createIndex(key, unique: true, ifNotExists: true))
+    try self.db.run(self.records.createIndex(key, unique: true, ifNotExists: true))
   }
 
   private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
-    var recordSet = RecordSet(records: try selectRecords(forKeys: records.keys))
+    var recordSet = RecordSet(records: try self.selectRecords(forKeys: records.keys))
     let changedFieldKeys = recordSet.merge(records: records)
-    let changedRecordKeys = changedFieldKeys.map { recordCacheKey(forFieldCacheKey: $0) }
+    let changedRecordKeys = changedFieldKeys.map { self.recordCacheKey(forFieldCacheKey: $0) }
     for recordKey in Set(changedRecordKeys) {
       if let recordFields = recordSet[recordKey]?.fields {
         let recordData = try SQLiteSerialization.serialize(fields: recordFields)
@@ -75,15 +75,15 @@ public final class SQLiteNormalizedCache: NormalizedCache {
           assertionFailure("Serialization should yield UTF-8 data")
           continue
         }
-        try db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
+        try self.db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
       }
     }
     return Set(changedFieldKeys)
   }
 
   private func selectRecords(forKeys keys: [CacheKey]) throws -> [Record] {
-    let query = records.filter(keys.contains(key))
-    return try db.prepare(query).map { try parse(row: $0) }
+    let query = self.records.filter(keys.contains(key))
+    return try self.db.prepare(query).map { try parse(row: $0) }
   }
 
   private func clearRecords() throws {
