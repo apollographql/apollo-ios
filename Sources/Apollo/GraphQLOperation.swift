@@ -8,6 +8,7 @@ public protocol GraphQLOperation: class {
   var operationType: GraphQLOperationType { get }
   
   var operationDefinition: String { get }
+  var operationName: String { get }
   var operationIdentifier: String? { get }
   
   var queryDocument: String { get }
