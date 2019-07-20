@@ -16,10 +16,12 @@ public final class SQLiteNormalizedCache: NormalizedCache {
   private let id = Expression<Int64>("_id")
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
+  private let shouldVacuumOnClear: Bool
 
-  public init(fileURL: URL) throws {
-    db = try Connection(.uri(fileURL.absoluteString), readonly: false)
-    try createTableIfNeeded()
+  public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
+    self.shouldVacuumOnClear = shouldVacuumOnClear
+    self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
+    try self.createTableIfNeeded()
   }
 
   public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
@@ -85,7 +87,10 @@ public final class SQLiteNormalizedCache: NormalizedCache {
   }
 
   private func clearRecords() throws {
-    try db.run(records.delete())
+    try self.db.run(records.delete())
+    if self.shouldVacuumOnClear {
+      try self.db.prepare("records VACUUM;").run()
+    }
   }
 
   private func parse(row: Row) throws -> Record {
