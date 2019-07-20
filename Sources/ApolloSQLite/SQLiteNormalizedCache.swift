@@ -9,7 +9,7 @@ public enum SQLiteNormalizedCacheError: Error {
   case invalidRecordValue(value: Any)
 }
 
-public final class SQLiteNormalizedCache: NormalizedCache {
+public final class SQLiteNormalizedCache {
   
   private let db: Connection
   private let records = Table("records")
@@ -22,29 +22,6 @@ public final class SQLiteNormalizedCache: NormalizedCache {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
     try self.createTableIfNeeded()
-  }
-
-  public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise { try self.mergeRecords(records: records) }
-  }
-
-  public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
-    return Promise {
-      let records = try self.selectRecords(forKeys: keys)
-      let recordsOrNil: [Record?] = keys.map { key in
-        if let recordIndex = records.firstIndex(where: { $0.key == key }) {
-          return records[recordIndex]
-        }
-        return nil
-      }
-      return recordsOrNil
-    }
-  }
-
-  public func clear() -> Promise<Void> {
-    return Promise {
-      return try self.clearRecords()
-    }
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
@@ -102,5 +79,33 @@ public final class SQLiteNormalizedCache: NormalizedCache {
 
     let fields = try SQLiteSerialization.deserialize(data: recordData)
     return Record(key: row[key], fields)
+  }
+}
+
+// MARK: - NormalizedCache conformance
+
+extension SQLiteNormalizedCache: NormalizedCache {
+  
+  public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
+    return Promise { try self.mergeRecords(records: records) }
+  }
+  
+  public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
+    return Promise {
+      let records = try self.selectRecords(forKeys: keys)
+      let recordsOrNil: [Record?] = keys.map { key in
+        if let recordIndex = records.firstIndex(where: { $0.key == key }) {
+          return records[recordIndex]
+        }
+        return nil
+      }
+      return recordsOrNil
+    }
+  }
+  
+  public func clear() -> Promise<Void> {
+    return Promise {
+      return try self.clearRecords()
+    }
   }
 }
