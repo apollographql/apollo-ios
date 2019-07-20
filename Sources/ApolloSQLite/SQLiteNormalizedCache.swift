@@ -10,6 +10,12 @@ public enum SQLiteNormalizedCacheError: Error {
 }
 
 public final class SQLiteNormalizedCache: NormalizedCache {
+  
+  private let db: Connection
+  private let records = Table("records")
+  private let id = Expression<Int64>("_id")
+  private let key = Expression<CacheKey>("key")
+  private let record = Expression<String>("record")
 
   public init(fileURL: URL) throws {
     db = try Connection(.uri(fileURL.absoluteString), readonly: false)
@@ -38,12 +44,6 @@ public final class SQLiteNormalizedCache: NormalizedCache {
       return try clearRecords()
     }
   }
-
-  private let db: Connection
-  private let records = Table("records")
-  private let id = Expression<Int64>("_id")
-  private let key = Expression<CacheKey>("key")
-  private let record = Expression<String>("record")
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
     var components = fieldCacheKey.components(separatedBy: ".")
