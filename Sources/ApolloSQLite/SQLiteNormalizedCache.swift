@@ -9,6 +9,7 @@ public enum SQLiteNormalizedCacheError: Error {
   case invalidRecordValue(value: Any)
 }
 
+/// A `NormalizedCache` implementation which uses a SQLite database to store data.
 public final class SQLiteNormalizedCache {
   
   private let db: Connection
@@ -18,6 +19,12 @@ public final class SQLiteNormalizedCache {
   private let record = Expression<String>("record")
   private let shouldVacuumOnClear: Bool
 
+  /// Designated initializer
+  ///
+  /// - Parameters:
+  ///   - fileURL: The file URL to use for your database.
+  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. 
+  /// - Throws: Any errors attempting to open or create the database.
   public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
