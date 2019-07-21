@@ -26,7 +26,7 @@ struct GraphQLResolveInfo {
 
 public struct GraphQLResultError: Error, LocalizedError {
   let path: ResponsePath
-  let underlying: Error
+  public let underlying: Error
   
   public var errorDescription: String? {
     return "Error at path \"\(path))\": \(underlying)"
