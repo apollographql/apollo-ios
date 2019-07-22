@@ -118,8 +118,7 @@ By default, Apollo constructs queries and sends them to your graphql endpoint us
 
 If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `HTTPNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`. 
 
->Please note that this is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`. 
->Please note that this is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`. 
+>Please note that this is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`.
 
 ## JSON serialization
 
