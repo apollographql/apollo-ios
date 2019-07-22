@@ -1,26 +1,26 @@
-# Reference Documentation
-This Reference Documentation has been generated with
-[SourceDocs](https://github.com/eneko/SourceDocs).
-
 ## Protocols
 
--   [ApolloWebSocketClient](protocols/ApolloWebSocketClient.md)
--   [WebSocketTransportDelegate](protocols/WebSocketTransportDelegate.md)
+-   [ApolloWebSocketClient](protocols/ApolloWebSocketClient/)
+-   [WebSocketTransportDelegate](protocols/WebSocketTransportDelegate/)
 
 ## Structs
 
--   [WebSocketError](structs/WebSocketError.md)
+-   [WebSocketError](structs/WebSocketError/)
 
 ## Classes
 
--   [ApolloWebSocket](classes/ApolloWebSocket.md)
--   [SplitNetworkTransport](classes/SplitNetworkTransport.md)
--   [WebSocketTransport](classes/WebSocketTransport.md)
+-   [ApolloWebSocket](classes/ApolloWebSocket/)
+-   [SplitNetworkTransport](classes/SplitNetworkTransport/)
+-   [WebSocketTransport](classes/WebSocketTransport/)
 
 ## Enums
 
--   [ErrorKind](enums/ErrorKind.md)
+-   [ErrorKind](enums/ErrorKind/)
 
 ## Extensions
 
--   [WebSocketTransportDelegate](extensions/WebSocketTransportDelegate.md)
+-   [WebSocketTransportDelegate](extensions/WebSocketTransportDelegate/)
+
+# Reference Documentation
+This reference documentation was generated with
+[SourceDocs](https://github.com/eneko/SourceDocs).
