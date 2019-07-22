@@ -1,11 +1,11 @@
 
 ## Classes
 
--   [SQLiteNormalizedCache](classes/SQLiteNormalizedCache/)
+-   [SQLiteNormalizedCache](../classes/SQLiteNormalizedCache/)
 
 ## Enums
 
--   [SQLiteNormalizedCacheError](enums/SQLiteNormalizedCacheError/)
+-   [SQLiteNormalizedCacheError](../enums/SQLiteNormalizedCacheError/)
 
 # Reference Documentation
 This reference documentation was generated with
