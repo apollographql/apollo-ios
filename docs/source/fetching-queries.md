@@ -138,4 +138,3 @@ apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { (result, error
   let heroAndFriendsNames = try! HeroAndFriendsNamesQuery.Data(jsonObject: deserialized)
 }
 ```
-```
