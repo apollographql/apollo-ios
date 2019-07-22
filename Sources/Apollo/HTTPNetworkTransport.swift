@@ -74,6 +74,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
   let delegate: HTTPNetworkTransportDelegate?
+  private let sendOperationIdentifiers: Bool
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -189,8 +190,6 @@ public class HTTPNetworkTransport: NetworkTransport {
     
     return task
   }
-  
-  private let sendOperationIdentifiers: Bool
   
   private func handleErrorOrRetry<Operation>(operation: Operation,
                                              error: Error,
