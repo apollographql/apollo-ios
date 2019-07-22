@@ -74,6 +74,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
   let delegate: HTTPNetworkTransportDelegate?
+  private let sendOperationIdentifiers: Bool
   
   /// Creates a network transport with the specified server URL and session configuration.
   ///
@@ -190,8 +191,6 @@ public class HTTPNetworkTransport: NetworkTransport {
     return task
   }
   
-  private let sendOperationIdentifiers: Bool
-  
   private func handleErrorOrRetry<Operation>(operation: Operation,
                                              error: Error,
                                              for request: URLRequest,
@@ -237,7 +236,7 @@ public class HTTPNetworkTransport: NetworkTransport {
   }
   
   private func createRequest<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]?) throws -> URLRequest {
-    let body = requestBody(for: operation)
+    let body = RequestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     var request = URLRequest(url: self.url)
     
     if self.useGETForQueries && operation.operationType == .query {
@@ -251,7 +250,12 @@ public class HTTPNetworkTransport: NetworkTransport {
     } else {
       do {
         if let files = files, !files.isEmpty {
-          let formData = try requestMultipartFormData(for: operation, files: files)
+          let formData = try RequestCreator.requestMultipartFormData(
+            for: operation,
+            files: files,
+            sendOperationIdentifiers: self.sendOperationIdentifiers,
+            serializationFormat: self.serializationFormat)
+          
           request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
           request.httpBody = try formData.encode()
         } else {
@@ -278,43 +282,5 @@ public class HTTPNetworkTransport: NetworkTransport {
     }
     
     return request
-  }
-  
-  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
-    if sendOperationIdentifiers {
-      guard let operationIdentifier = operation.operationIdentifier else {
-        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
-      }
-      
-      return ["id": operationIdentifier, "variables": operation.variables]
-    }
-    
-    return ["query": operation.queryDocument, "variables": operation.variables]
-  }
-  
-  private func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]) throws -> MultipartFormData {
-    let formData = MultipartFormData()
-    
-    let fields = requestBody(for: operation)
-    for (name, data) in fields {
-      if let data = data as? GraphQLMap {
-        let data = try serializationFormat.serialize(value: data)
-        formData.appendPart(data: data, name: name)
-      } else if let data = data as? String {
-        try formData.appendPart(string: data, name: name)
-      } else {
-        try formData.appendPart(string: data.debugDescription, name: name)
-      }
-    }
-    
-    files.forEach {
-      formData.appendPart(inputStream: $0.inputStream,
-                          contentLength: $0.contentLength,
-                          name: $0.fieldName,
-                          contentType: $0.mimeType,
-                          filename: $0.originalName)
-    }
-    
-    return formData
   }
 }
