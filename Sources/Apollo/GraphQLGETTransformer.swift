@@ -35,28 +35,26 @@ struct GraphQLGETTransformer {
       return nil
     }
     
-    guard let query = self.body.jsonObject[self.queryKey] as? String else {
+    var queryItems: [URLQueryItem] = []
+    
+    do {
+      _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
+        if let value = arg.value as? GraphQLMap {
+          let data = try JSONSerialization.dataSortedIfPossible(withJSONObject: value.jsonValue)
+          if let string = String(data: data, encoding: .utf8) {
+            queryItems.append(URLQueryItem(name: arg.key, value: string))
+          }
+        } else if let string = arg.value as? String {
+          queryItems.append(URLQueryItem(name: arg.key, value: string))
+        } else {
+          assertionFailure()
+        }
+      })
+    } catch {
       return nil
     }
     
-    var queryItems = components.queryItems ?? [URLQueryItem]()
-
-    queryItems.append(URLQueryItem(name: self.queryKey, value: query))
     components.queryItems = queryItems
-    
-    guard let variables = self.body.jsonObject[self.variablesKey] as? [String: Any] else {
-      return components.url
-    }
-    
-    guard
-      let serializedData = try? JSONSerialization.dataSortedIfPossible(withJSONObject: variables),
-      let jsonString = String(bytes: serializedData, encoding: .utf8) else {
-        return components.url
-    }
-    
-    queryItems.append(URLQueryItem(name: self.variablesKey, value: jsonString))
-    components.queryItems = queryItems
-    
     return components.url
   }
 }
