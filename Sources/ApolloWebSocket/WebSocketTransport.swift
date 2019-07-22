@@ -239,7 +239,7 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
   }
   
   fileprivate func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ response: JSONObject?, _ error: Error?) -> Void) -> String? {
-    let body = requestBody(for: operation)
+    let body = RequestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     let sequenceNumber = "\(nextSequenceNumber())"
     
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
@@ -254,16 +254,6 @@ public class WebSocketTransport: NetworkTransport, WebSocketDelegate {
     }
 
     return sequenceNumber
-  }
-  
-  private func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
-    if sendOperationIdentifiers {
-      guard let operationIdentifier = operation.operationIdentifier else {
-        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
-      }
-      return ["id": operationIdentifier, "variables": operation.variables]
-    }
-    return ["query": operation.queryDocument, "variables": operation.variables]
   }
   
   public func unsubscribe(_ subscriptionId: String) {

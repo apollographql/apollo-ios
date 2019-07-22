@@ -1,9 +1,15 @@
 import Foundation
 
 // Helper struct to create requests independently of HTTP operations.
-struct RequestCreator {
+public struct RequestCreator {
   
-  static func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool = false) -> GraphQLMap {
+  /// Creates a `GraphQLMap` out of the passed-in operation
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to use
+  ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
+  /// - Returns: The created `GraphQLMap`
+  public static func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool = false) -> GraphQLMap {
     var body: GraphQLMap = [
       "variables": operation.variables,
       "operationName": operation.operationName,
