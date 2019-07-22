@@ -268,6 +268,12 @@ public class HTTPNetworkTransport: NetworkTransport {
       }
     }
     
+    request.setValue(operation.operationName, forHTTPHeaderField: "X-APOLLO-OPERATION-NAME")
+    
+    if let operationID = operation.operationIdentifier {
+      request.setValue(operationID, forHTTPHeaderField: "X-APOLLO-OPERATION-ID")
+    }
+    
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     // If there's a delegate, do a pre-flight check and allow modifications to the request.
