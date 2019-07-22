@@ -29,6 +29,7 @@
 -   [GraphQLFragmentSpread](structs/GraphQLFragmentSpread/)
 -   [GraphQLHTTPResponseError](structs/GraphQLHTTPResponseError/)
 -   [GraphQLResult](structs/GraphQLResult/)
+-   [GraphQLResultError](structs/GraphQLResultError/)
 -   [GraphQLTypeCase](structs/GraphQLTypeCase/)
 -   [GraphQLTypeCondition](structs/GraphQLTypeCondition/)
 -   [GraphQLVariable](structs/GraphQLVariable/)
