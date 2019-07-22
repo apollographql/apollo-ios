@@ -68,7 +68,7 @@ class MockWebSocketTests: XCTestCase {
     expectation.isInverted = true
 
     client.subscribe(subscription: ReviewAddedSubscription()) { (result, error) in
-      defer { expectation.fulfill() }
+      expectation.fulfill()
     }
     
     waitForExpectations(timeout: 2, handler: nil)

@@ -1,2 +1,2 @@
 VERSION_CONFIG_VAR="CURRENT_PROJECT_VERSION"
-VERSION_CONFIG_FILE="Version.xcconfig"
+VERSION_CONFIG_FILE="Configuration/Shared/Project-Version.xcconfig"

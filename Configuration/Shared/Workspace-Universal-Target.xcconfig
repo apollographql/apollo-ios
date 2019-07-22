@@ -1,0 +1,3 @@
+#include "Workspace-Deployment-Targets.xcconfig"
+
+SUPPORTED_PLATFORMS = macosx iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator

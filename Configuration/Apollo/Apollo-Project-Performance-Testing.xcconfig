@@ -1,0 +1,9 @@
+#include "../Shared/Project-Release.xcconfig"
+
+COPY_PHASE_STRIP = NO
+ENABLE_BITCODE = NO
+ENABLE_TESTABILITY = YES
+TEST_HOST = $(BUILT_PRODUCTS_DIR)/TestHost iOS.app/TestHost iOS
+
+CODE_SIGN_IDENTITY = iPhone Developer;
+CODE_SIGN_STYLE = Automatic;

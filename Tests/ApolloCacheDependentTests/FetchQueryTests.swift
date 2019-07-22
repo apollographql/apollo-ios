@@ -198,7 +198,7 @@ class FetchQueryTests: XCTestCase {
       }
 
       self.waitForExpectations(timeout: 5, handler: nil)
-	}
+    }
   }
 
   func testClearCache() throws {
@@ -271,7 +271,7 @@ class FetchQueryTests: XCTestCase {
             "__typename": "Human"
           ]
         ]
-        ])
+      ])
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
@@ -287,7 +287,7 @@ class FetchQueryTests: XCTestCase {
       self.waitForExpectations(timeout: 5, handler: nil)
     }
   }
-  
+    
   func testCompletionHandlerIsCalledOnTheSpecifiedQueue() {
     let queue = DispatchQueue(label: "label")
     
@@ -297,27 +297,27 @@ class FetchQueryTests: XCTestCase {
     let query = HeroNameQuery()
     
     let networkTransport = MockNetworkTransport(body: [
-      "data": [
-        "hero": [
-          "name": "Luke Skywalker",
-          "__typename": "Human"
+        "data": [
+            "hero": [
+                "name": "Luke Skywalker",
+                "__typename": "Human"
+            ]
         ]
-      ]
-    ])
-
+        ])
+    
     withCache { (cache) in
-      let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: networkTransport, store: store)
-
-      let expectation = self.expectation(description: "Fetching query")
-
-      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
-        defer { expectation.fulfill() }
-
-        XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
+        let store = ApolloStore(cache: cache)
+        let client = ApolloClient(networkTransport: networkTransport, store: store)
+        
+        let expectation = self.expectation(description: "Fetching query")
+        
+        client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue) { (result, error) in
+            defer { expectation.fulfill() }
+            
+            XCTAssertNotNil(DispatchQueue.getSpecific(key: key))
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
     }
   }
 }

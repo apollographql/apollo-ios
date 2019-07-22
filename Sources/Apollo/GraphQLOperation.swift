@@ -9,6 +9,7 @@ public protocol GraphQLOperation: class {
   
   var operationDefinition: String { get }
   var operationIdentifier: String? { get }
+  var operationName: String { get }
   
   var queryDocument: String { get }
   
