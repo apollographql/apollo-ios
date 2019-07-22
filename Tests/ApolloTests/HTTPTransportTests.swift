@@ -28,8 +28,7 @@ class HTTPTransportTests: XCTestCase {
                                                            useGETForQueries: true,
                                                            delegate: self)
   
-  private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(response: GraphQLResponse<Operation>?,
-                                                                          error: Error?,
+  private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(result: Result<GraphQLResponse<Operation>, Error>,
                                                                           expectation: XCTestExpectation,
                                                                           file: StaticString = #file,
                                                                           line: UInt = #line) {
@@ -37,58 +36,51 @@ class HTTPTransportTests: XCTestCase {
       expectation.fulfill()
     }
     
-    if let responseError = error as? GraphQLHTTPResponseError {
-      XCTFail("Unexpected response error: \(responseError.bodyDescription)",
+    switch result {
+    case .success(let graphQLResponse):
+      guard
+        let dictionary = graphQLResponse.body as? [String: AnyHashable],
+        let dataDict = dictionary["data"] as? [String: AnyHashable],
+        let heroDict = dataDict["hero"] as? [String: AnyHashable],
+        let name = heroDict["name"] as? String else {
+          XCTFail("No hero for you!",
+                  file: file,
+                  line: line)
+          return
+      }
+      
+      XCTAssertEqual(name,
+                     "R2-D2",
+                     file: file,
+                     line: line)
+    case .failure(let error):
+      XCTFail("Unexpected response error: \(error)",
         file: file,
         line: line)
-      return
     }
-    
-    guard let queryResponse = response else {
-      XCTFail("No response!",
-              file: file,
-              line: line)
-      return
-    }
-    
-    guard
-      let dictionary = queryResponse.body as? [String: AnyHashable],
-      let dataDict = dictionary["data"] as? [String: AnyHashable],
-      let heroDict = dataDict["hero"] as? [String: AnyHashable],
-      let name = heroDict["name"] as? String else {
-        XCTFail("No hero for you!",
-                file: file,
-                line: line)
-        return
-    }
-    
-    XCTAssertEqual(name,
-                   "R2-D2",
-                   file: file,
-                   line: line)
   }
   
   func testPreflightDelegateTellingRequestNotToSend() {
     self.shouldSend = false
     
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery(episode: .empire)) { response, error in
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery(episode: .empire)) { result in
       
       defer {
         expectation.fulfill()
       }
       
-      guard let error = error else {
+      switch result {
+      case .success:
         XCTFail("Expected error not received when telling delegate not to send!")
-        return
-      }
-      
-      switch error {
-      case GraphQLHTTPRequestError.cancelledByDelegate:
-        // Correct!
-        break
-      default:
-        XCTFail("Expected `cancelledByDeveloper`, got \(error)")
+      case .failure(let error):
+        switch error {
+        case GraphQLHTTPRequestError.cancelledByDelegate:
+          // Correct!
+          break
+        default:
+          XCTFail("Expected `cancelledByDelegate`, got \(error)")
+        }
       }
     }
     
@@ -114,8 +106,8 @@ class HTTPTransportTests: XCTestCase {
     self.updatedHeaders = ["Authorization": "Bearer HelloApollo"]
 
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
-      self.validateHeroNameQueryResponse(response: response, error: error, expectation: expectation)
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { result in
+      self.validateHeroNameQueryResponse(result: result, expectation: expectation)
     }
     
     guard
@@ -141,8 +133,8 @@ class HTTPTransportTests: XCTestCase {
   
   func testPreflightDelegateNeitherModifyingOrStoppingRequest() {
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
-      self.validateHeroNameQueryResponse(response: response, error: error, expectation: expectation)
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { result in
+      self.validateHeroNameQueryResponse(result: result, expectation: expectation)
     }
     
     guard
@@ -171,10 +163,10 @@ class HTTPTransportTests: XCTestCase {
     self.shouldModifyURLInWillSend = true
     let expectation = self.expectation(description: "Send operation completed")
 
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { response, error in
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { result in
       // This should have retried twice - the first time `shouldModifyURLInWillSend` shoud remain the same and it'll fail again.
       XCTAssertEqual(self.retryCount, 2)
-      self.validateHeroNameQueryResponse(response: response, error: error, expectation: expectation)
+      self.validateHeroNameQueryResponse(result: result, expectation: expectation)
     }
     
     guard
