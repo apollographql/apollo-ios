@@ -170,10 +170,26 @@ cd "${SRCROOT}/${TARGET_NAME}"
 
 ## Build your target
 
-At this point, you can try building your target in Xcode.  This will verify that the `schema.json` file can be found by the `apollo` script created above, otherwise you'll get a build error such as:
-`Cannot find GraphQL schema file [...]`
+At this point, you can try building your target in Xcode.  This will verify that the `schema.json` file can be found by the `apollo` script created above. 
 
-If you don't have any `.graphql` files in your build tree, you'll get the `No operations or fragments found to generate code for` error, and all you need to do is create at least `.graphql` file with a valid query.  
+### Troubleshooting
+
+If you get this error: 
+
+> Cannot find GraphQL schema file [...]
+
+The script is not able to find your schema file - double check the path you've used.
+
+If you get this error: 
+
+> No operations or fragments found to generate code for.
+
+If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query.  
+
+> Ensure that there is only one instance of "graphql" in the node_modules directory. If different versions of "graphql" are the dependencies of other relied on modules, use "resolutions" to ensure only one version is installed.
+``` 
+
+Delete the `node_modules` folder in your source root and rebuild.
 
 ## Adding the generated API file to your target
 
