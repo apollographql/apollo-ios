@@ -8,11 +8,11 @@ Follow along with these steps (described in detail below) to use Apollo iOS in y
 
 1. Install the Apollo framework into your project and link it to your application target
 1. Add a schema file to your target directory
+1. (optional) Install the Xcode add-ons to get syntax highlighting for your `.graphql` files 
+1. Create `.graphql` files with your queries or mutations and add them to your target
 1. Add a code generation build step to your target
 1. Build your target
 1. Add the generated API file to your target
-1. Install the Xcode add-ons to get syntax highlighting for your `.graphql` files (optional)
-1. Create `.graphql` files with your queries or mutations and add them to your target
 
 ## Installing the Apollo framework
 
@@ -20,7 +20,7 @@ You can install `Apollo.framework` into your project using CocoaPods, Carthage, 
 
 ### CocoaPods
 
- 1. Because Apollo iOS has been written using Swift 5, you need to use version `1.5.0` or higher. You can install CocoaPods using:
+ 1. Because Apollo iOS has been written using Swift 5, you need to use version `1.7.0` or higher. You can install CocoaPods using:
 
  ```sh
  gem install cocoapods
@@ -76,6 +76,34 @@ You'll have to copy or [download a schema](/downloading-schema/) to your target 
 
 Apollo iOS requires a GraphQL schema file as input to the code generation process. A schema file is a JSON file that contains the results of an an introspection query. Conventionally this file is called `schema.json`.
 
+## [Optional] Installing the Xcode add-ons to get syntax highlighting
+
+1. Clone the [`xcode-apollo` repository](https://github.com/apollostack/xcode-apollo) to your computer.
+1. Close Xcode if it is currently running.
+1. You may need to create these folders inside of `~/Library/Developer/Xcode`:
+
+ `mkdir ~/Library/Developer/Xcode/Plug-ins ~/Library/Developer/Xcode/Specifications`
+
+1. Copy `GraphQL.ideplugin` to `~/Library/Developer/Xcode/Plug-ins`.
+
+ `cp -R GraphQL.ideplugin ~/Library/Developer/Xcode/Plug-ins`
+
+1. Copy `GraphQL.xclangspec` to `~/Library/Developer/Xcode/Specifications`.
+
+ `cp -R GraphQL.xclangspec ~/Library/Developer/Xcode/Specifications`
+
+You may receive a warning the first time you start up Xcode after installing these add-ons - once you agree to load the plugin, you will no longer see this warning. 
+
+
+## Creating `.graphql` files with your queries or mutations
+
+Apollo iOS will generate code from queries and mutations contained in `.graphql` files in your target.
+
+A useful convention is to colocate queries, mutations or fragments with the Swift code that uses them by creating `<name>.graphql` next to `<name>.swift`.
+
+If you have the Xcode add-ons installed, you can use the Xcode companion view to show a `.swift` file and the corresponding `.graphql` file side by side.
+
+> NOTE: If you don't have pre-existing `.graphql` files in your file tree, create a very simple query and add it to a `.graphql` file in your file tree so that when you run the code generation build step, it actually finds something. If you don't, you'll get the error `No operations or fragments found to generate code for`. 
 
 ## Adding a code generation build step
 
@@ -143,36 +171,12 @@ cd "${SRCROOT}/${TARGET_NAME}"
 ## Build your target
 
 At this point, you can try building your target in Xcode.  This will verify that the `schema.json` file can be found by the `apollo` script created above, otherwise you'll get a build error such as:
-> Cannot find GraphQL schema file [...]
+`Cannot find GraphQL schema file [...]`
+
+If you don't have any `.graphql` files in your build tree, you'll get the `No operations or fragments found to generate code for` error, and all you need to do is create at least `.graphql` file with a valid query.  
 
 ## Adding the generated API file to your target
 
 1. Drag the generated `API.swift` file to your target.
 
 > Note that because Apollo iOS generates query-specific result types, `API.swift` will be mostly empty at this point unless you've already added some `.graphql` files with queries or mutations to your target directory.
-
-## Installing the Xcode add-ons to get syntax highlighting
-
-1. Clone the [`xcode-apollo` repository](https://github.com/apollostack/xcode-apollo) to your computer.
-1. Close Xcode if it is currently running.
-1. You may need to create these folders inside of `~/Library/Developer/Xcode`:
-
- `mkdir ~/Library/Developer/Xcode/Plug-ins ~/Library/Developer/Xcode/Specifications`
-
-1. Copy `GraphQL.ideplugin` to `~/Library/Developer/Xcode/Plug-ins`.
-
- `cp -R GraphQL.ideplugin ~/Library/Developer/Xcode/Plug-ins`
-
-1. Copy `GraphQL.xclangspec` to `~/Library/Developer/Xcode/Specifications`.
-
- `cp -R GraphQL.xclangspec ~/Library/Developer/Xcode/Specifications`
-
-You may receive a warning the first time you start up Xcode after installing these add-ons - once you agree to load the plugin, you will no longer see this warning. 
-
-## Create `.graphql` files with your queries or mutations
-
-Apollo iOS generates code from queries and mutations contained in `.graphql` files in your target.
-
-A useful convention is to colocate queries, mutations or fragments with the Swift code that uses them by creating `<name>.graphql` next to `<name>.swift`.
-
-If you have the Xcode add-ons installed, you can use the Xcode companion view to show a `.swift` file and the corresponding `.graphql` file side by side.
