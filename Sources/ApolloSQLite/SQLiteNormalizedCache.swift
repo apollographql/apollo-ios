@@ -73,7 +73,7 @@ public final class SQLiteNormalizedCache {
   private func clearRecords() throws {
     try self.db.run(records.delete())
     if self.shouldVacuumOnClear {
-      try self.db.prepare("records VACUUM;").run()
+      try self.db.prepare("VACUUM;").run()
     }
   }
 
