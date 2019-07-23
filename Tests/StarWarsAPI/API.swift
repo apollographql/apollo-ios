@@ -4755,99 +4755,6 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   }
 }
 
-public final class HumanQuery: GraphQLQuery {
-  public let operationDefinition =
-    "query Human($id: ID!) {\n  human(id: $id) {\n    __typename\n    name\n    mass\n  }\n}"
-
-  public let operationName = "Human"
-
-  public var id: GraphQLID
-
-  public init(id: GraphQLID) {
-    self.id = id
-  }
-
-  public var variables: GraphQLMap? {
-    return ["id": id]
-  }
-
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
-
-    public static let selections: [GraphQLSelection] = [
-      GraphQLField("human", arguments: ["id": GraphQLVariable("id")], type: .object(Human.selections)),
-    ]
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(human: Human? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "human": human.flatMap { (value: Human) -> ResultMap in value.resultMap }])
-    }
-
-    public var human: Human? {
-      get {
-        return (resultMap["human"] as? ResultMap).flatMap { Human(unsafeResultMap: $0) }
-      }
-      set {
-        resultMap.updateValue(newValue?.resultMap, forKey: "human")
-      }
-    }
-
-    public struct Human: GraphQLSelectionSet {
-      public static let possibleTypes = ["Human"]
-
-      public static let selections: [GraphQLSelection] = [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("mass", type: .scalar(Double.self)),
-      ]
-
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public init(name: String, mass: Double? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Human", "name": name, "mass": mass])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// What this human calls themselves
-      public var name: String {
-        get {
-          return resultMap["name"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
-        }
-      }
-
-      /// Mass in kilograms, or null if unknown
-      public var mass: Double? {
-        get {
-          return resultMap["mass"] as? Double
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "mass")
-        }
-      }
-    }
-  }
-}
-
 public final class SameHeroTwiceQuery: GraphQLQuery {
   public let operationDefinition =
     "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}"
@@ -5162,6 +5069,99 @@ public final class ReviewAddedSubscription: GraphQLSubscription {
         }
         set {
           resultMap.updateValue(newValue, forKey: "commentary")
+        }
+      }
+    }
+  }
+}
+
+public final class HumanQuery: GraphQLQuery {
+  public let operationDefinition =
+    "query Human($id: ID!) {\n  human(id: $id) {\n    __typename\n    name\n    mass\n  }\n}"
+
+  public let operationName = "Human"
+
+  public var id: GraphQLID
+
+  public init(id: GraphQLID) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("human", arguments: ["id": GraphQLVariable("id")], type: .object(Human.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(human: Human? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "human": human.flatMap { (value: Human) -> ResultMap in value.resultMap }])
+    }
+
+    public var human: Human? {
+      get {
+        return (resultMap["human"] as? ResultMap).flatMap { Human(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "human")
+      }
+    }
+
+    public struct Human: GraphQLSelectionSet {
+      public static let possibleTypes = ["Human"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("mass", type: .scalar(Double.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(name: String, mass: Double? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Human", "name": name, "mass": mass])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// What this human calls themselves
+      public var name: String {
+        get {
+          return resultMap["name"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "name")
+        }
+      }
+
+      /// Mass in kilograms, or null if unknown
+      public var mass: Double? {
+        get {
+          return resultMap["mass"] as? Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "mass")
         }
       }
     }

@@ -262,6 +262,7 @@
 		90690D2322433C5900FC2E54 /* Apollo-Target-CacheDependentTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CacheDependentTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
+		9B8D864E22E7A846001F6D50 /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
 		9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETTransformerTests.swift; sourceTree = "<group>"; };
 		9BA1244922D8A8EA00BF1D24 /* JSONSerialziation+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONSerialziation+Sorting.swift"; sourceTree = "<group>"; };
 		9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Helpers.swift"; sourceTree = "<group>"; };
@@ -485,6 +486,30 @@
 			path = TestFolder2;
 			sourceTree = "<group>";
 		};
+		9B8D864C22E7A82A001F6D50 /* TestFolder */ = {
+			isa = PBXGroup;
+			children = (
+				9B8D864D22E7A831001F6D50 /* TestFolder2 */,
+			);
+			path = TestFolder;
+			sourceTree = "<group>";
+		};
+		9B8D864D22E7A831001F6D50 /* TestFolder2 */ = {
+			isa = PBXGroup;
+			children = (
+				9B8D865022E7A969001F6D50 /* TestFolder3 */,
+			);
+			path = TestFolder2;
+			sourceTree = "<group>";
+		};
+		9B8D865022E7A969001F6D50 /* TestFolder3 */ = {
+			isa = PBXGroup;
+			children = (
+				9B8D864E22E7A846001F6D50 /* RepoURL.graphql */,
+			);
+			path = TestFolder3;
+			sourceTree = "<group>";
+		};
 		9BDE43D222C6658D00FD7C7F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +565,7 @@
 		9FACA9C81F42E6E900AE2DBD /* GitHubAPI */ = {
 			isa = PBXGroup;
 			children = (
+				9B8D864C22E7A82A001F6D50 /* TestFolder */,
 				9FACA9C91F42E6E900AE2DBD /* API.swift */,
 				9FACA9CB1F42E6E900AE2DBD /* Repository.graphql */,
 				9FACA9CA1F42E6E900AE2DBD /* GitHubAPI.h */,
@@ -1092,7 +1118,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.\nQUOTED_FRAMEWORK_SEARCH_PATHS=\\\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '\"' | sed -e 's/ \\//\" \"\\//g')\\\"\n\n# Get the first result searching for the framework\nAPOLLO_FRAMEWORK_PATH=\"$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\"\n\nif [ -z \"${APOLLO_FRAMEWORK_PATH}\" ]; then\n    echo \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd ${SRCROOT}/Tests/GitHubAPI\nif [[ $SDK_NAME == *\"macos\"* ]]; then\n    # Run the mac script\n    \"${APOLLO_FRAMEWORK_PATH}\"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=.**/*.graphql --localSchemaFile=\"schema.json\" --mergeInFieldsFromFragmentSpreads API.swift\nelse\n    # Run the non-mac script\n\"${APOLLO_FRAMEWORK_PATH}\"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./*.graphql --localSchemaFile=\"schema.json\" --mergeInFieldsFromFragmentSpreads API.swift\nfi\n";
+			shellScript = "# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.\nQUOTED_FRAMEWORK_SEARCH_PATHS=\\\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '\"' | sed -e 's/ \\//\" \"\\//g')\\\"\n\n# Get the first result searching for the framework\nAPOLLO_FRAMEWORK_PATH=\"$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\"\n\nif [ -z \"${APOLLO_FRAMEWORK_PATH}\" ]; then\n    echo \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd ${SRCROOT}/Tests/GitHubAPI\nif [[ $SDK_NAME == *\"macos\"* ]]; then\n    # Run the mac script\n    \"${APOLLO_FRAMEWORK_PATH}\"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" --mergeInFieldsFromFragmentSpreads API.swift\nelse\n    # Run the non-mac script\n\"${APOLLO_FRAMEWORK_PATH}\"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" --mergeInFieldsFromFragmentSpreads API.swift\nfi\n";
 		};
 		9FCE2D061E6C251100E34457 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1106,7 +1132,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.\nQUOTED_FRAMEWORK_SEARCH_PATHS=\\\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '\"' | sed -e 's/ \\//\" \"\\//g')\\\"\n\n# Get the first result searching for the framework\nAPOLLO_FRAMEWORK_PATH=\"$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\"\n\nif [ -z \"${APOLLO_FRAMEWORK_PATH}\" ]; then\n    echo \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\nif [[ $SDK_NAME == *\"macos\"* ]]; then\n    # Run the mac script\n\"${APOLLO_FRAMEWORK_PATH}\"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --target=swift --localSchemaFile=\"schema.json\" --includes=./*.graphql --mergeInFieldsFromFragmentSpreads API.swift\nelse\n    # run the non-mac script\n\"${APOLLO_FRAMEWORK_PATH}\"/check-and-run-apollo-cli.sh codegen:generate --target=swift --localSchemaFile=\"schema.json\" --includes=./**.graphql --mergeInFieldsFromFragmentSpreads API.swift\nfi\n";
+			shellScript = "# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.\nQUOTED_FRAMEWORK_SEARCH_PATHS=\\\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '\"' | sed -e 's/ \\//\" \"\\//g')\\\"\n\n# Get the first result searching for the framework\nAPOLLO_FRAMEWORK_PATH=\"$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name \"Apollo.framework\" -maxdepth 1 -print | head -n 1)\"\n\nif [ -z \"${APOLLO_FRAMEWORK_PATH}\" ]; then\n    echo \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd ${SRCROOT}/Tests/StarWarsAPI\nif [[ $SDK_NAME == *\"macos\"* ]]; then\n    # Run the mac script\n\"${APOLLO_FRAMEWORK_PATH}\"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --target=swift --localSchemaFile=\"schema.json\" --includes=./**/*.graphql --mergeInFieldsFromFragmentSpreads API.swift\nelse\n    # run the non-mac script\n\"${APOLLO_FRAMEWORK_PATH}\"/check-and-run-apollo-cli.sh codegen:generate --target=swift --localSchemaFile=\"schema.json\" --includes=./**/*.graphql --mergeInFieldsFromFragmentSpreads API.swift\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
