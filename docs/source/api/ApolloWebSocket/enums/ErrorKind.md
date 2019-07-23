@@ -30,3 +30,9 @@ case unprocessedMessage(String)
 ```swift
 case serializedMessageError
 ```
+
+### `neitherErrorNorPayloadReceived`
+
+```swift
+case neitherErrorNorPayloadReceived
+```

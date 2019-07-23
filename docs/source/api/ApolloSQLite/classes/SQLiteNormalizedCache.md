@@ -3,30 +3,28 @@
 # `SQLiteNormalizedCache`
 
 ```swift
-public final class SQLiteNormalizedCache: NormalizedCache
+public final class SQLiteNormalizedCache
 ```
+
+> A `NormalizedCache` implementation which uses a SQLite database to store data.
 
 ## Methods
-### `init(fileURL:)`
+### `init(fileURL:shouldVacuumOnClear:)`
 
 ```swift
-public init(fileURL: URL) throws
+public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws
 ```
 
-### `merge(records:)`
+> Designated initializer
+>
+> - Parameters:
+>   - fileURL: The file URL to use for your database.
+>   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
+> - Throws: Any errors attempting to open or create the database.
 
-```swift
-public func merge(records: RecordSet) -> Promise<Set<CacheKey>>
-```
+#### Parameters
 
-### `loadRecords(forKeys:)`
-
-```swift
-public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]>
-```
-
-### `clear()`
-
-```swift
-public func clear() -> Promise<Void>
-```
+| Name | Description |
+| ---- | ----------- |
+| fileURL | The file URL to use for your database. |
+| shouldVacuumOnClear | If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. |

@@ -3,7 +3,7 @@
 # `HTTPNetworkTransport`
 
 ```swift
-public class HTTPNetworkTransport: NetworkTransport
+public class HTTPNetworkTransport
 ```
 
 > A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
@@ -38,34 +38,10 @@ public init(url: URL,
 | useGETForQueries | If query operation should be sent using GET instead of POST. Defaults to false. |
 | delegate | [Optional] A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`. Defaults to nil. |
 
-### `send(operation:completionHandler:)`
-
-```swift
-public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable
-```
-
-> Send a GraphQL operation to a server and return a response.
->
-> - Parameters:
->   - operation: The operation to send.
->   - completionHandler: A closure to call when a request completes.
->   - response: The response received from the server, or `nil` if an error occurred.
->   - error: An error that indicates why a request failed, or `nil` if the request was succesful.
-> - Returns: An object that can be used to cancel an in progress request.
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| operation | The operation to send. |
-| completionHandler | A closure to call when a request completes. |
-| response | The response received from the server, or `nil` if an error occurred. |
-| error | An error that indicates why a request failed, or `nil` if the request was succesful. |
-
 ### `upload(operation:files:completionHandler:)`
 
 ```swift
-public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable
+public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
 ```
 
 > Uploads the given files with the given operation.

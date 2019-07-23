@@ -3,8 +3,10 @@
 # `SplitNetworkTransport`
 
 ```swift
-public class SplitNetworkTransport: NetworkTransport
+public class SplitNetworkTransport
 ```
+
+> A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP.
 
 ## Methods
 ### `init(httpNetworkTransport:webSocketNetworkTransport:)`
@@ -13,17 +15,15 @@ public class SplitNetworkTransport: NetworkTransport
 public init(httpNetworkTransport: NetworkTransport, webSocketNetworkTransport: NetworkTransport)
 ```
 
-### `send(operation:completionHandler:)`
-
-```swift
-public func send<Operation>(operation: Operation, completionHandler: @escaping (GraphQLResponse<Operation>?, Error?) -> Void) -> Cancellable
-```
+> Designated initializer
+>
+> - Parameters:
+>   - httpNetworkTransport: A `NetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
+>   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| operation | The operation to send. |
-| completionHandler | A closure to call when a request completes. |
-| response | The response received from the server, or `nil` if an error occurred. |
-| error | An error that indicates why a request failed, or `nil` if the request was succesful. |
+| httpNetworkTransport | A `NetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar. |
+| webSocketNetworkTransport | A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar. |

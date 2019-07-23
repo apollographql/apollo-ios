@@ -37,6 +37,7 @@
 -   [Record](../structs/Record/)
 -   [RecordSet](../structs/RecordSet/)
 -   [Reference](../structs/Reference/)
+-   [RequestCreator](../structs/RequestCreator/)
 
 ## Classes
 
@@ -78,6 +79,7 @@
 -   [GraphQLSelectionSet](../extensions/GraphQLSelectionSet/)
 -   [GraphQLSubscription](../extensions/GraphQLSubscription/)
 -   [GraphQLVariable](../extensions/GraphQLVariable/)
+-   [HTTPNetworkTransport](../extensions/HTTPNetworkTransport/)
 -   [Int](../extensions/Int/)
 -   [JSONDecodingError](../extensions/JSONDecodingError/)
 -   [JSONEncodable](../extensions/JSONEncodable/)

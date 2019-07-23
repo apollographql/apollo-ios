@@ -25,6 +25,12 @@ var operationDefinition: String
 var operationIdentifier: String?
 ```
 
+### `operationName`
+
+```swift
+var operationName: String
+```
+
 ### `queryDocument`
 
 ```swift

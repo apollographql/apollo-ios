@@ -19,6 +19,8 @@
 
 ## Extensions
 
+-   [SplitNetworkTransport](../extensions/SplitNetworkTransport/)
+-   [WebSocketTransport](../extensions/WebSocketTransport/)
 -   [WebSocketTransportDelegate](../extensions/WebSocketTransportDelegate/)
 
 # Reference Documentation
