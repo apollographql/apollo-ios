@@ -47,7 +47,7 @@ public final class ApolloStore {
     }
   }
 
-  /// Clears ths instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
+  /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
   ///
   /// - Returns: A promise which fulfills when the Cache is cleared.
   public func clearCache() -> Promise<Void> {
