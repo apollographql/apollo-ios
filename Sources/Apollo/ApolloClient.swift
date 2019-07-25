@@ -61,9 +61,10 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
 
-  /// Clears apollo cache
+  /// Clears the underlying cache.
+  /// Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it'll clear that cache across all instances which share that cache.
   ///
-  /// - Returns: Promise
+  /// - Returns: Promise which fulfills when clear is complete.
   public func clearCache() -> Promise<Void> {
     return store.clearCache()
   }
