@@ -247,14 +247,14 @@ public final class ApolloStore {
       
       executor.cacheKeyForObject = self.cacheKeyForObject
       
-      try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
+      _ = try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
         self.cache.merge(records: $0)
       }.andThen { changedKeys in
         if let didChangeKeysFunc = self.updateChangedKeysFunc {
           didChangeKeysFunc(changedKeys, nil)
         }
-      }.wait()
+      }.await()
     }
   }
 }

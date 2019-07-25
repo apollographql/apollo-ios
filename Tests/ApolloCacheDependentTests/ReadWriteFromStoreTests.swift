@@ -91,6 +91,31 @@ class ReadWriteFromStoreTests: XCTestCase {
       XCTAssertEqual(data.hero?.name, "Artoo")
     }
   }
+
+  func testWriteHeroNameQueryWhenWriteErrorIsThrown() throws {
+    do {
+      try withCache(initialRecords: nil) { (cache) in
+        let store = ApolloStore(cache: cache)
+
+        try store.withinReadWriteTransaction { transaction in
+          let data = HeroNameQuery.Data(unsafeResultMap: [:])
+          try transaction.write(data: data, forQuery: HeroNameQuery(episode: nil))
+          }.await()
+        XCTFail("write should fail")
+      }
+    } catch {
+      guard let error = error as? GraphQLResultError,
+        let jsonError = error.underlying as? JSONDecodingError else {
+          XCTFail("unexpected error")
+          return
+      }
+
+      switch jsonError {
+      case .missingValue: break
+      default: XCTFail("unexpected error")
+      }
+    }
+  }
   
   func testReadHeroAndFriendsNamesQuery() throws {
     let initialRecords: RecordSet = [
