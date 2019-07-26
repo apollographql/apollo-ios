@@ -9,14 +9,27 @@ let package = Package(
         .library(
             name: "Apollo",
             targets: ["Apollo"]),
+		.library(
+			name: "ApolloSQLite",
+			targets: ["ApolloSQLite"]),
+		.library(
+			name: "ApolloWebSocket",
+			targets: ["ApolloWebSocket"]),
     ],
     dependencies: [
-
+		.package(url: "https://github.com/stephencelis/SQLite.swift.git", from: .init(0, 12, 2)),
+		.package(url: "https://github.com/daltoniam/Starscream", from: .init(3, 1, 0)),
     ],
     targets: [
         .target(
             name: "Apollo",
             dependencies: []),
+		.target(
+			name: "ApolloSQLite",
+			dependencies: ["Apollo", "SQLite"]),
+		.target(
+			name: "ApolloWebSocket",
+			dependencies: ["Starscream"]),
         .testTarget(
             name: "ApolloTestSupport",
             dependencies: ["Apollo"]),
