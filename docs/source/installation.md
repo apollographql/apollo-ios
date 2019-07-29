@@ -132,7 +132,7 @@ cd "${SRCROOT}/${TARGET_NAME}"
 
 > NOTE: These instructions are as of Xcode 11, beta 4. Please file an issue if anything has changed in newer betas or in the final release!
 
-If you're using Xcode 11, SPM will check out the appropriate build script along with the rest of the files. Add the following to your run script to find the script in the appropriate place: 
+If you're using Xcode 11, SPM will check out the appropriate build script along with the rest of the files. Add the following to your Run Script build phase: 
 
 ```sh
 # Go to the build root and go back up to where SPM keeps the apollo iOS framework checked out.
@@ -156,7 +156,7 @@ cd "${SRCROOT}/${TARGET_NAME}"
 
 In this case, the `check-and-run-apollo-cli.sh` file is bundled into the framework. The procedures to call it are slightly different based on whether you're using an iOS or macOS target because of the way the frameworks are compiled. 
 
-📱 For an **iOS** target or a **Cocoa Touch Framework**, add the following to your Run Script: 
+📱 For an **iOS** target or a **Cocoa Touch Framework**, add the following to your Run Script build phase: 
 
 ```sh
 # Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
@@ -174,7 +174,7 @@ cd "${SRCROOT}/${TARGET_NAME}"
 "${APOLLO_FRAMEWORK_PATH}"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
-💻 For a **macOS** or a **Cocoa Framework** target, use the following: 
+💻 For a **macOS** or a **Cocoa Framework** target, add the following to your Run Script build phase: 
 
 ```sh
 # Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
