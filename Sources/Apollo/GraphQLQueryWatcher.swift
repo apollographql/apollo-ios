@@ -4,8 +4,7 @@ import Dispatch
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
   weak var client: ApolloClient?
   let query: Query
-  let handlerQueue: DispatchQueue
-  let resultHandler: OperationResultHandler<Query>
+  let resultHandler: GraphQLResultHandler<Query.Data>
   
   private var context = 0
   
@@ -13,10 +12,9 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   
   private var dependentKeys: Set<CacheKey>?
   
-  init(client: ApolloClient, query: Query, handlerQueue: DispatchQueue, resultHandler: @escaping OperationResultHandler<Query>) {
+  init(client: ApolloClient, query: Query,  resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client
     self.query = query
-    self.handlerQueue = handlerQueue
     self.resultHandler = resultHandler
     
     client.store.subscribe(self)
@@ -28,11 +26,17 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
   
   func fetch(cachePolicy: CachePolicy) {
-    fetching = client?._fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: handlerQueue) { [weak self] (result, error) in
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context) { [weak self] result in
       guard let `self` = self else { return }
-        
-      self.dependentKeys = result?.dependentKeys
-      self.resultHandler(result, error)
+      
+      switch result {
+      case .success(let graphQLResult):
+        self.dependentKeys = graphQLResult.dependentKeys
+      case .failure:
+        break
+      }
+      
+      self.resultHandler(result)
     }
   }
   

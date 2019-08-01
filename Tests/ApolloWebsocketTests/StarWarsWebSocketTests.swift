@@ -6,7 +6,7 @@ import StarWarsAPI
 
 // import StarWarsAPI
 
-class StarWarsWebsSocketTests: XCTestCase {
+class StarWarsWebSocketTests: XCTestCase {
   let SERVER = "http://localhost:8080/websocket"
 
   // MARK: Queries
@@ -32,14 +32,14 @@ class StarWarsWebsSocketTests: XCTestCase {
   func testHeroAndFriendsNamesQuery() {
     fetch(query: HeroAndFriendsNamesQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.flatMap { $0?.name }
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
     }
   }
   
   func testHeroFriendsOfFriendsNamesQuery() {
     fetch(query: HeroFriendsOfFriendsNamesQuery()) { data in
-      let friendsOfFirstFriendNames = data.hero?.friends?.first??.friends?.flatMap { $0?.name }
+      let friendsOfFirstFriendNames = data.hero?.friends?.first??.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsOfFirstFriendNames, ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"])
     }
   }
@@ -277,19 +277,21 @@ class StarWarsWebsSocketTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query) { (result, error) in
+      client.fetch(query: query) { result in
         defer { expectation.fulfill() }
 
-        if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
-        guard let result = result else { XCTFail("No query result");  return }
-
-        if let errors = result.errors {
-          XCTFail("Errors in query result: \(errors)")
+        switch result {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          guard let data = graphQLResult.data else {
+            XCTFail("No query result data")
+            return
+          }
+          
+          completionHandler(data)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
         }
-
-        guard let data = result.data else { XCTFail("No query result data");  return }
-
-        completionHandler(data)
       }
       
       waitForExpectations(timeout: 5, handler: nil)
@@ -304,19 +306,21 @@ class StarWarsWebsSocketTests: XCTestCase {
 
       let expectation = self.expectation(description: "Performing mutation")
 
-      client.perform(mutation: mutation) { (result, error) in
+      client.perform(mutation: mutation) { result in
         defer { expectation.fulfill() }
-
-        if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
-        guard let result = result else { XCTFail("No mutation result");  return }
-
-        if let errors = result.errors {
-          XCTFail("Errors in mutation result: \(errors)")
+        
+        switch result {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          guard let data = graphQLResult.data else {
+            XCTFail("No mutation result data")
+            return
+          }
+          
+          completionHandler(data)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
         }
-
-        guard let data = result.data else { XCTFail("No mutation result data");  return }
-
-        completionHandler(data)
       }
       
       waitForExpectations(timeout: 5, handler: nil)

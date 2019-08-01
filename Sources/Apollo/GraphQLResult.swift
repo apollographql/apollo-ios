@@ -15,7 +15,7 @@ public struct GraphQLResult<Data> {
     
   let dependentKeys: Set<CacheKey>?
   
-  init(data: Data?, errors: [GraphQLError]?, source: Source, dependentKeys: Set<CacheKey>?) {
+  public init(data: Data?, errors: [GraphQLError]?, source: Source, dependentKeys: Set<CacheKey>?) {
     self.data = data
     self.errors = errors
     self.source = source

@@ -37,4 +37,21 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       return Promise(fulfilled: (GraphQLResult(data: nil, errors: errors, source: .server, dependentKeys: nil), nil))
     }
   }
+  
+  func parseResultFast() throws -> GraphQLResult<Operation.Data>  {
+    let errors: [GraphQLError]?
+    
+    if let errorsEntry = body["errors"] as? [JSONObject] {
+      errors = errorsEntry.map(GraphQLError.init)
+    } else {
+      errors = nil
+    }
+    
+    if let dataEntry = body["data"] as? JSONObject {      
+      let data = try decode(selectionSet: Operation.Data.self, from: dataEntry, variables: operation.variables)
+      return GraphQLResult(data: data, errors: errors, source: .server, dependentKeys: nil)
+    } else {
+      return GraphQLResult(data: nil, errors: errors, source: .server, dependentKeys: nil)
+    }
+  }
 }

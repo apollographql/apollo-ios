@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/apollographql/apollo-ios.git', :tag => s.version }
 
   s.requires_arc = true
-  
-  s.swift_version = '4.0'
+
+  s.swift_version = '5.0'
 
   s.default_subspecs = 'Core'
 
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Sources/Apollo/*.swift'
-    ss.resources = ['scripts/check-and-run-apollo-cli.sh', 'scripts/check-and-run-apollo-codegen.sh']
+    ss.preserve_paths = ['scripts/check-and-run-apollo-cli.sh', 'scripts/check-and-run-apollo-codegen.sh']
   end
 
   # Apollo provides exactly one persistent cache out-of-the-box, as a reasonable default choice for
@@ -30,14 +30,14 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'SQLite.swift', '~> 0.11.4'
+    ss.dependency 'SQLite.swift', '0.12.2'
   end
 
   # Websocket and subscription support based on Starscream
   s.subspec 'WebSocket' do |ss|
     ss.source_files = 'Sources/ApolloWebSocket/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'Starscream', '~> 3.0.2'
+    ss.dependency 'Starscream', '3.1.0'
   end
 
 end

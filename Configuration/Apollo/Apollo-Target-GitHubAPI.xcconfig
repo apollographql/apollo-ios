@@ -1,0 +1,3 @@
+#include "../Shared/Workspace-Universal-Framework.xcconfig"
+
+INFOPLIST_FILE = Tests/GitHubAPI/Info.plist

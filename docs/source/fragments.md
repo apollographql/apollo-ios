@@ -36,8 +36,8 @@ This also works the other way around. The parent view controller only has to kno
 In fact, this is the main reason fields included through fragments are not exposed directly, but require you to access the data through the fragment explicitly:
 
 ```swift
-apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { (result, error) in
-  guard let data = result?.data else { return }
+apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
   print(data.hero?.name) // Luke Skywalker
   print(data.hero?.appearsIn) // WON'T WORK
   print(data.hero?.fragments.heroDetails.appearsIn) // [.newhope, .empire, .jedi]
@@ -51,7 +51,7 @@ In most cases, you'll simply pass the whole fragment to a child view without nee
 cell.configure(with: hero?.fragments.heroDetails)
 ```
 
-<h2 id="type-conditions">Type conditions</h2>
+## Type conditions
 
 The GraphQL type system includes interfaces and unions as abstract types that object types can conform to. In the Star Wars example schema for example, both `Human`s and `Droid`s implement the `Character` interface. If we query for a hero, the result can be either a human or a droid, and if we want to access any type-specific properties we will have to use a fragment with a type condition:
 
@@ -72,7 +72,8 @@ fragment DroidDetails on Droid {
 You can access named fragments with type conditions the same way you access other fragments, but their type will be optional to reflect the fact that their fields will only be available if the object type matches:
 
 ```swift
-apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { (result, error) in
+apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
   data.hero?.fragments.droidDetails?.primaryFunction
 }
 ```
@@ -93,8 +94,8 @@ query HeroAndFriends($episode: Episode) {
 And results from inline fragments with type conditions will be made available through specially generated `as<Type>` properties:
 
 ```swift
-apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { (result, error) in
-  guard let data = result?.data else { return }
+apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
   data.hero?.asDroid?.primaryFunction
 }
 ```
@@ -121,8 +122,8 @@ fragment HeroDetails on Character {
 ```
 
 ```swift
-apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { (result, error) in
-  guard let data = result?.data else { return }
+apollo.fetch(query: HeroAndFriendsQuery(episode: .empire)) { result in
+  guard let data = try? result.get().data else { return }
   data.hero?.fragments.heroDetails.asDroid?.primaryFunction
 }
 ```

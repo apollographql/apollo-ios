@@ -32,10 +32,10 @@ public final class Promise<Value> {
   private let lock = Mutex()
   private var state: State<Value>
   
-  private typealias ResultHandler<Value> = (Result<Value>) -> Void
+  private typealias ResultHandler<Value> = (Result<Value, Error>) -> Void
   private var resultHandlers: [ResultHandler<Value>] = []
   
-  public init(resolved result: Result<Value>) {
+  public init(resolved result: Result<Value, Error>) {
     state = .resolved(result)
   }
   
@@ -72,7 +72,7 @@ public final class Promise<Value> {
     }
   }
   
-  public var result: Result<Value>? {
+  public var result: Result<Value, Error>? {
     return lock.withLock {
       switch state {
       case .pending:
@@ -96,7 +96,7 @@ public final class Promise<Value> {
   public func await() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
     
-    var result: Result<Value>? = nil
+    var result: Result<Value, Error>? = nil
     
     whenResolved {
       result = $0
@@ -105,7 +105,7 @@ public final class Promise<Value> {
     
     semaphore.wait()
     
-    return try result!.valueOrError()
+    return try result!.get()
   }
   
   @discardableResult public func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
@@ -208,7 +208,7 @@ public final class Promise<Value> {
     resolve(.failure(error))
   }
   
-  private func resolve(_ result: Result<Value>) {
+  private func resolve(_ result: Result<Value, Error>) {
     lock.withLock {
       guard state.isPending else { return }
       
@@ -237,7 +237,7 @@ public final class Promise<Value> {
 
 private enum State<Value> {
   case pending
-  case resolved(Result<Value>)
+  case resolved(Result<Value, Error>)
   
   var isPending: Bool {
     if case .pending = self {

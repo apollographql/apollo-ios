@@ -1,0 +1,14 @@
+// Base Deployment Targets
+IPHONEOS_DEPLOYMENT_TARGET = 9.0
+MACOSX_DEPLOYMENT_TARGET = 10.10
+TVOS_DEPLOYMENT_TARGET = 9.1
+WATCHOS_DEPLOYMENT_TARGET = 3.0
+
+WARNING_CFLAGS[sdk=iphone*] = $(inherited) -DAPI_TO_BE_DEPRECATED=8_0
+WARNING_CFLAGS[sdk=macosx*] = $(inherited) -DAPI_TO_BE_DEPRECATED=10_10
+WARNING_CFLAGS[sdk=tvos*] = $(inherited) -DAPI_TO_BE_DEPRECATED=9_1
+WARNING_CFLAGS[sdk=watchos*] = $(inherited) -DAPI_TO_BE_DEPRECATED=3_0
+
+// macOS-specific default settings
+COMBINE_HIDPI_IMAGES[sdk=macosx*] = YES
+
