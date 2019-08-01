@@ -74,7 +74,7 @@ When you decide to retry, the `send` operation for your `GraphQLOperation` will 
 
 ### Example Advanced Client Setup
 
-Here's a sample of a singleton using an advanced client which handles all three sub-protocols. This code assumes you've got the following external classes: 
+Here's a sample of a singleton using an advanced client which handles all three sub-protocols. This code assumes you've got the following classes in your own code (these are **not** part of the Apollo library): 
 
 - **`UserManager`** to check whether the user is logged in, perform associated checks on errors and responses to see if they need to reauthenticate, and perform reauthentication
 - **`Logger`** to handle printing logs based on their level, and which supports `.debug`, `.error`, or `.always` log levels.
