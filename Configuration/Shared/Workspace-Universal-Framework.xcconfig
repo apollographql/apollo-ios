@@ -3,6 +3,9 @@
 
 SUPPORTED_PLATFORMS = iphoneos iphonesimulator appletvsimulator appletvos watchsimulator watchos macosx
 
+// Set default SDKROOT
+SDKROOT = iphoneos
+
 // iOS-specific default settings
 SDKROOT[sdk=iphone*] = iphoneos
 VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
