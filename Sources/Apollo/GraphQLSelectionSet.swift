@@ -8,12 +8,20 @@ public protocol GraphQLSelectionSet {
 }
 
 public extension GraphQLSelectionSet {
-  init(jsonObject: JSONObject, variables: GraphQLMap? = nil) throws {
+  init(jsonObject: JSONObject, variables: GraphQLMap?) throws {
     let executor = GraphQLExecutor { object, info in
       .result(.success(object[info.responseKeyForField]))
     }
     executor.shouldComputeCachePath = false
     self = try executor.execute(selections: Self.selections, on: jsonObject, variables: variables, accumulator: GraphQLSelectionSetMapper<Self>()).await()
+  }
+
+  init(jsonObject: JSONObject) throws {
+    let executor = GraphQLExecutor { object, info in
+      .result(.success(object[info.responseKeyForField]))
+    }
+    executor.shouldComputeCachePath = false
+    self = try executor.execute(selections: Self.selections, on: jsonObject, variables: nil, accumulator: GraphQLSelectionSetMapper<Self>()).await()
   }
   
   var jsonObject: JSONObject {
@@ -50,7 +58,7 @@ public struct GraphQLField: GraphQLSelection {
     self.type = type
   }
   
-  func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
+  func cacheKey(with variables: [String: ApolloJSONEncodable]?) throws -> String {
     if let argumentValues = try arguments?.evaluate(with: variables), !argumentValues.isEmpty {
       let argumentsKey = orderIndependentKey(for: argumentValues)
       return "\(name)(\(argumentsKey))"
@@ -61,7 +69,7 @@ public struct GraphQLField: GraphQLSelection {
 }
 
 public indirect enum GraphQLOutputType {
-  case scalar(JSONDecodable.Type)
+  case scalar(ApolloJSONDecodable.Type)
   case object([GraphQLSelection])
   case nonNull(GraphQLOutputType)
   case list(GraphQLOutputType)
