@@ -4,11 +4,11 @@ public typealias JSONValue = Any
 
 public typealias JSONObject = [String: JSONValue]
 
-public protocol ApolloJSONDecodable {
+public protocol JSONDecodable {
   init(jsonValue value: JSONValue) throws
 }
 
-public protocol ApolloJSONEncodable: GraphQLInputValue {
+public protocol JSONEncodable: GraphQLInputValue {
   var jsonValue: JSONValue { get }
 }
 
@@ -32,7 +32,7 @@ public enum JSONDecodingError: Error, LocalizedError {
   }
 }
 
-extension JSONDecodingError: ApolloMatchable {
+extension JSONDecodingError: Matchable {
   public typealias Base = Error
   public static func ~=(pattern: JSONDecodingError, value: Error) -> Bool {
     guard let value = value as? JSONDecodingError else {

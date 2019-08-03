@@ -3,10 +3,8 @@
 import Apollo
 
 public final class RepositoryQuery: GraphQLQuery {
-  public let operationDefinition =
+  public static let operationString =
     "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        body\n        ... on UniformResourceLocatable {\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        viewerCanReact\n        ... on Comment {\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
-
-  public let operationName = "Repository"
 
   public init() {
   }
@@ -18,23 +16,23 @@ public final class RepositoryQuery: GraphQLQuery {
       GraphQLField("repository", arguments: ["owner": "apollographql", "name": "apollo-ios"], type: .object(Repository.selections)),
     ]
 
-    public private(set) var resultMap: ResultMap
+    public var snapshot: Snapshot
 
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
+    public init(snapshot: Snapshot) {
+      self.snapshot = snapshot
     }
 
     public init(repository: Repository? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "repository": repository.flatMap { (value: Repository) -> ResultMap in value.resultMap }])
+      self.init(snapshot: ["__typename": "Query", "repository": repository.flatMap { $0.snapshot }])
     }
 
     /// Lookup a given repository by the owner and repository name.
     public var repository: Repository? {
       get {
-        return (resultMap["repository"] as? ResultMap).flatMap { Repository(unsafeResultMap: $0) }
+        return (snapshot["repository"] as! Snapshot?).flatMap { Repository(snapshot: $0) }
       }
       set {
-        resultMap.updateValue(newValue?.resultMap, forKey: "repository")
+        snapshot.updateValue(newValue?.snapshot, forKey: "repository")
       }
     }
 
@@ -46,32 +44,32 @@ public final class RepositoryQuery: GraphQLQuery {
         GraphQLField("issueOrPullRequest", arguments: ["number": 13], type: .object(IssueOrPullRequest.selections)),
       ]
 
-      public private(set) var resultMap: ResultMap
+      public var snapshot: Snapshot
 
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
+      public init(snapshot: Snapshot) {
+        self.snapshot = snapshot
       }
 
       public init(issueOrPullRequest: IssueOrPullRequest? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Repository", "issueOrPullRequest": issueOrPullRequest.flatMap { (value: IssueOrPullRequest) -> ResultMap in value.resultMap }])
+        self.init(snapshot: ["__typename": "Repository", "issueOrPullRequest": issueOrPullRequest.flatMap { $0.snapshot }])
       }
 
       public var __typename: String {
         get {
-          return resultMap["__typename"]! as! String
+          return snapshot["__typename"]! as! String
         }
         set {
-          resultMap.updateValue(newValue, forKey: "__typename")
+          snapshot.updateValue(newValue, forKey: "__typename")
         }
       }
 
       /// Returns a single issue-like object from the current repository by number.
       public var issueOrPullRequest: IssueOrPullRequest? {
         get {
-          return (resultMap["issueOrPullRequest"] as? ResultMap).flatMap { IssueOrPullRequest(unsafeResultMap: $0) }
+          return (snapshot["issueOrPullRequest"] as! Snapshot?).flatMap { IssueOrPullRequest(snapshot: $0) }
         }
         set {
-          resultMap.updateValue(newValue?.resultMap, forKey: "issueOrPullRequest")
+          snapshot.updateValue(newValue?.snapshot, forKey: "issueOrPullRequest")
         }
       }
 
@@ -89,46 +87,46 @@ public final class RepositoryQuery: GraphQLQuery {
           )
         ]
 
-        public private(set) var resultMap: ResultMap
+        public var snapshot: Snapshot
 
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
+        public init(snapshot: Snapshot) {
+          self.snapshot = snapshot
         }
 
         public static func makePullRequest(viewerCanReact: Bool, author: Author? = nil) -> IssueOrPullRequest {
-          return IssueOrPullRequest(unsafeResultMap: ["__typename": "PullRequest", "viewerCanReact": viewerCanReact, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }])
+          return IssueOrPullRequest(snapshot: ["__typename": "PullRequest", "viewerCanReact": viewerCanReact, "author": author.flatMap { $0.snapshot }])
         }
 
         public static func makeIssue(body: String, url: String, author: AsIssue.Author? = nil, viewerCanReact: Bool) -> IssueOrPullRequest {
-          return IssueOrPullRequest(unsafeResultMap: ["__typename": "Issue", "body": body, "url": url, "author": author.flatMap { (value: AsIssue.Author) -> ResultMap in value.resultMap }, "viewerCanReact": viewerCanReact])
+          return IssueOrPullRequest(snapshot: ["__typename": "Issue", "body": body, "url": url, "author": author.flatMap { $0.snapshot }, "viewerCanReact": viewerCanReact])
         }
 
         public var __typename: String {
           get {
-            return resultMap["__typename"]! as! String
+            return snapshot["__typename"]! as! String
           }
           set {
-            resultMap.updateValue(newValue, forKey: "__typename")
+            snapshot.updateValue(newValue, forKey: "__typename")
           }
         }
 
         /// Can user react to this subject
         public var viewerCanReact: Bool {
           get {
-            return resultMap["viewerCanReact"]! as! Bool
+            return snapshot["viewerCanReact"]! as! Bool
           }
           set {
-            resultMap.updateValue(newValue, forKey: "viewerCanReact")
+            snapshot.updateValue(newValue, forKey: "viewerCanReact")
           }
         }
 
         /// The actor who authored the comment.
         public var author: Author? {
           get {
-            return (resultMap["author"] as? ResultMap).flatMap { Author(unsafeResultMap: $0) }
+            return (snapshot["author"] as! Snapshot?).flatMap { Author(snapshot: $0) }
           }
           set {
-            resultMap.updateValue(newValue?.resultMap, forKey: "author")
+            snapshot.updateValue(newValue?.snapshot, forKey: "author")
           }
         }
 
@@ -140,40 +138,40 @@ public final class RepositoryQuery: GraphQLQuery {
             GraphQLField("login", type: .nonNull(.scalar(String.self))),
           ]
 
-          public private(set) var resultMap: ResultMap
+          public var snapshot: Snapshot
 
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
           }
 
           public static func makeOrganization(login: String) -> Author {
-            return Author(unsafeResultMap: ["__typename": "Organization", "login": login])
+            return Author(snapshot: ["__typename": "Organization", "login": login])
           }
 
           public static func makeUser(login: String) -> Author {
-            return Author(unsafeResultMap: ["__typename": "User", "login": login])
+            return Author(snapshot: ["__typename": "User", "login": login])
           }
 
           public static func makeBot(login: String) -> Author {
-            return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
+            return Author(snapshot: ["__typename": "Bot", "login": login])
           }
 
           public var __typename: String {
             get {
-              return resultMap["__typename"]! as! String
+              return snapshot["__typename"]! as! String
             }
             set {
-              resultMap.updateValue(newValue, forKey: "__typename")
+              snapshot.updateValue(newValue, forKey: "__typename")
             }
           }
 
           /// The username of the actor.
           public var login: String {
             get {
-              return resultMap["login"]! as! String
+              return snapshot["login"]! as! String
             }
             set {
-              resultMap.updateValue(newValue, forKey: "login")
+              snapshot.updateValue(newValue, forKey: "login")
             }
           }
         }
@@ -181,11 +179,11 @@ public final class RepositoryQuery: GraphQLQuery {
         public var asIssue: AsIssue? {
           get {
             if !AsIssue.possibleTypes.contains(__typename) { return nil }
-            return AsIssue(unsafeResultMap: resultMap)
+            return AsIssue(snapshot: snapshot)
           }
           set {
             guard let newValue = newValue else { return }
-            resultMap = newValue.resultMap
+            snapshot = newValue.snapshot
           }
         }
 
@@ -201,62 +199,62 @@ public final class RepositoryQuery: GraphQLQuery {
             GraphQLField("author", type: .object(Author.selections)),
           ]
 
-          public private(set) var resultMap: ResultMap
+          public var snapshot: Snapshot
 
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
+          public init(snapshot: Snapshot) {
+            self.snapshot = snapshot
           }
 
           public init(body: String, url: String, author: Author? = nil, viewerCanReact: Bool) {
-            self.init(unsafeResultMap: ["__typename": "Issue", "body": body, "url": url, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "viewerCanReact": viewerCanReact])
+            self.init(snapshot: ["__typename": "Issue", "body": body, "url": url, "author": author.flatMap { $0.snapshot }, "viewerCanReact": viewerCanReact])
           }
 
           public var __typename: String {
             get {
-              return resultMap["__typename"]! as! String
+              return snapshot["__typename"]! as! String
             }
             set {
-              resultMap.updateValue(newValue, forKey: "__typename")
+              snapshot.updateValue(newValue, forKey: "__typename")
             }
           }
 
           /// Identifies the body of the issue.
           public var body: String {
             get {
-              return resultMap["body"]! as! String
+              return snapshot["body"]! as! String
             }
             set {
-              resultMap.updateValue(newValue, forKey: "body")
+              snapshot.updateValue(newValue, forKey: "body")
             }
           }
 
           /// The HTTP URL for this issue
           public var url: String {
             get {
-              return resultMap["url"]! as! String
+              return snapshot["url"]! as! String
             }
             set {
-              resultMap.updateValue(newValue, forKey: "url")
+              snapshot.updateValue(newValue, forKey: "url")
             }
           }
 
           /// The actor who authored the comment.
           public var author: Author? {
             get {
-              return (resultMap["author"] as? ResultMap).flatMap { Author(unsafeResultMap: $0) }
+              return (snapshot["author"] as! Snapshot?).flatMap { Author(snapshot: $0) }
             }
             set {
-              resultMap.updateValue(newValue?.resultMap, forKey: "author")
+              snapshot.updateValue(newValue?.snapshot, forKey: "author")
             }
           }
 
           /// Can user react to this subject
           public var viewerCanReact: Bool {
             get {
-              return resultMap["viewerCanReact"]! as! Bool
+              return snapshot["viewerCanReact"]! as! Bool
             }
             set {
-              resultMap.updateValue(newValue, forKey: "viewerCanReact")
+              snapshot.updateValue(newValue, forKey: "viewerCanReact")
             }
           }
 
@@ -270,129 +268,53 @@ public final class RepositoryQuery: GraphQLQuery {
               GraphQLField("login", type: .nonNull(.scalar(String.self))),
             ]
 
-            public private(set) var resultMap: ResultMap
+            public var snapshot: Snapshot
 
-            public init(unsafeResultMap: ResultMap) {
-              self.resultMap = unsafeResultMap
+            public init(snapshot: Snapshot) {
+              self.snapshot = snapshot
             }
 
             public static func makeOrganization(avatarUrl: String, login: String) -> Author {
-              return Author(unsafeResultMap: ["__typename": "Organization", "avatarUrl": avatarUrl, "login": login])
+              return Author(snapshot: ["__typename": "Organization", "avatarUrl": avatarUrl, "login": login])
             }
 
             public static func makeUser(avatarUrl: String, login: String) -> Author {
-              return Author(unsafeResultMap: ["__typename": "User", "avatarUrl": avatarUrl, "login": login])
+              return Author(snapshot: ["__typename": "User", "avatarUrl": avatarUrl, "login": login])
             }
 
             public static func makeBot(avatarUrl: String, login: String) -> Author {
-              return Author(unsafeResultMap: ["__typename": "Bot", "avatarUrl": avatarUrl, "login": login])
+              return Author(snapshot: ["__typename": "Bot", "avatarUrl": avatarUrl, "login": login])
             }
 
             public var __typename: String {
               get {
-                return resultMap["__typename"]! as! String
+                return snapshot["__typename"]! as! String
               }
               set {
-                resultMap.updateValue(newValue, forKey: "__typename")
+                snapshot.updateValue(newValue, forKey: "__typename")
               }
             }
 
             /// A URL pointing to the actor's public avatar.
             public var avatarUrl: String {
               get {
-                return resultMap["avatarUrl"]! as! String
+                return snapshot["avatarUrl"]! as! String
               }
               set {
-                resultMap.updateValue(newValue, forKey: "avatarUrl")
+                snapshot.updateValue(newValue, forKey: "avatarUrl")
               }
             }
 
             /// The username of the actor.
             public var login: String {
               get {
-                return resultMap["login"]! as! String
+                return snapshot["login"]! as! String
               }
               set {
-                resultMap.updateValue(newValue, forKey: "login")
+                snapshot.updateValue(newValue, forKey: "login")
               }
             }
           }
-        }
-      }
-    }
-  }
-}
-
-public final class RepoUrlQuery: GraphQLQuery {
-  public let operationDefinition =
-    "query RepoURL {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    url\n  }\n}"
-
-  public let operationName = "RepoURL"
-
-  public init() {
-  }
-
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
-
-    public static let selections: [GraphQLSelection] = [
-      GraphQLField("repository", arguments: ["owner": "apollographql", "name": "apollo-ios"], type: .object(Repository.selections)),
-    ]
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(repository: Repository? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "repository": repository.flatMap { (value: Repository) -> ResultMap in value.resultMap }])
-    }
-
-    /// Lookup a given repository by the owner and repository name.
-    public var repository: Repository? {
-      get {
-        return (resultMap["repository"] as? ResultMap).flatMap { Repository(unsafeResultMap: $0) }
-      }
-      set {
-        resultMap.updateValue(newValue?.resultMap, forKey: "repository")
-      }
-    }
-
-    public struct Repository: GraphQLSelectionSet {
-      public static let possibleTypes = ["Repository"]
-
-      public static let selections: [GraphQLSelection] = [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("url", type: .nonNull(.scalar(String.self))),
-      ]
-
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public init(url: String) {
-        self.init(unsafeResultMap: ["__typename": "Repository", "url": url])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The HTTP URL for this repository
-      public var url: String {
-        get {
-          return resultMap["url"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "url")
         }
       }
     }

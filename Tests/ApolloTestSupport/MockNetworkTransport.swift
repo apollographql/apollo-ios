@@ -8,9 +8,9 @@ public final class MockNetworkTransport: NetworkTransport {
     self.body = body
   }
 
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+  public func send<Operation>(operation: Operation, completionHandler: @escaping (_ response: GraphQLResponse<Operation>?, _ error: Error?) -> Void) -> Cancellable {
     DispatchQueue.global(qos: .default).async {
-      completionHandler(.success(GraphQLResponse(operation: operation, body: self.body)))
+      completionHandler(GraphQLResponse(operation: operation, body: self.body), nil)
     }
     return MockTask()
   }

@@ -1,5 +1,3 @@
-import Foundation
-
 /// An error which has occurred during the serialization of a request.
 public enum GraphQLHTTPRequestError: Error, LocalizedError {
   case cancelledByDelegate

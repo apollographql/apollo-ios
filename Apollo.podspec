@@ -30,14 +30,14 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'SQLite.swift', '0.12.2'
+    ss.dependency 'SQLite.swift', '~> 0.11.4'
   end
 
   # Websocket and subscription support based on Starscream
   s.subspec 'WebSocket' do |ss|
     ss.source_files = 'Sources/ApolloWebSocket/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'Starscream', '3.1.0'
+    ss.dependency 'Starscream', '~> 3.1.0'
   end
 
 end

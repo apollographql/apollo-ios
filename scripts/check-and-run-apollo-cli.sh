@@ -1,7 +1,7 @@
 # Only major and minor version should be specified here
-REQUIRED_APOLLO_CLI_VERSION=2.16
+REQUIRED_APOLLO_CLI_VERSION=1.9
 # Specify fully qualified version here. Ideally this should be a LTS version.
-REQUIRED_NODE_VERSION=10.16.0
+REQUIRED_NODE_VERSION=8.15.0
 
 # Using npx to execute 'apollo' looks for a local install in node_modules before checking $PATH (for a global install)
 APOLLO_CLI="npx --no-install apollo"

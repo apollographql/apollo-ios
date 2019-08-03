@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol GraphQLInputValue {
-  func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONValue
+  func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue
 }
 
 public struct GraphQLVariable {
@@ -13,7 +13,7 @@ public struct GraphQLVariable {
 }
 
 extension GraphQLVariable: GraphQLInputValue {
-  public func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONValue {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     guard let value = variables?[name] else {
       throw GraphQLError("Variable \(name) was not provided.")
     }
@@ -21,20 +21,20 @@ extension GraphQLVariable: GraphQLInputValue {
   }
 }
 
-extension ApolloJSONEncodable {
-  public func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONValue {
+extension JSONEncodable {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     return jsonValue
   }
 }
 
 extension Dictionary: GraphQLInputValue {
-  public func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONValue {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     return try evaluate(with: variables) as JSONObject
   }
 }
 
 extension Dictionary {
-  public func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONObject {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONObject {
     var jsonObject = JSONObject(minimumCapacity: count)
     for (key, value) in self {
       if case let (key as String, value as GraphQLInputValue) = (key, value) {
@@ -51,13 +51,13 @@ extension Dictionary {
 }
 
 extension Array: GraphQLInputValue {
-  public func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONValue {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     return try evaluate(with: variables) as [JSONValue]
   }
 }
 
 extension Array {
-  public func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> [JSONValue] {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> [JSONValue] {
     var jsonArray = [JSONValue]()
     jsonArray.reserveCapacity(count)
     for (value) in self {
@@ -71,11 +71,11 @@ extension Array {
   }
 }
 
-public typealias GraphQLMap = [String: ApolloJSONEncodable?]
+public typealias GraphQLMap = [String: JSONEncodable?]
 
-extension Dictionary where Key == String, Value == ApolloJSONEncodable? {
-  public var withNilValuesRemoved: Dictionary<String, ApolloJSONEncodable> {
-    var filtered = Dictionary<String, ApolloJSONEncodable>(minimumCapacity: count)
+extension Dictionary where Key == String, Value == JSONEncodable? {
+  public var withNilValuesRemoved: Dictionary<String, JSONEncodable> {
+    var filtered = Dictionary<String, JSONEncodable>(minimumCapacity: count)
     for (key, value) in self {
       if value != nil {
         filtered[key] = value
@@ -85,7 +85,7 @@ extension Dictionary where Key == String, Value == ApolloJSONEncodable? {
   }
 }
 
-public protocol GraphQLMapConvertible: ApolloJSONEncodable {
+public protocol GraphQLMapConvertible: JSONEncodable {
   var graphQLMap: GraphQLMap { get }
 }
 
@@ -96,7 +96,7 @@ public extension GraphQLMapConvertible {
 }
 
 public extension GraphQLMapConvertible {
-  func evaluate(with variables: [String: ApolloJSONEncodable]?) throws -> JSONValue {
+  func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     return try graphQLMap.evaluate(with: variables)
   }
 }

@@ -9,9 +9,8 @@ As mentioned in the introduction, Apollo iOS does more than simply run your quer
 Watching a query is very similar to fetching a query. The main difference is that you don't just receive an initial result, but your result handler will be invoked whenever relevant data in the cache changes:
 
 ```swift
-let watcher = apollo.watch(query: HeroNameQuery(episode: .empire)) { result in
-  guard let data = try? result.get().data else { return }
-  print(data.hero?.name) // Luke Skywalker
+let watcher = apollo.watch(query: HeroNameQuery(episode: .empire)) { (result, error) in
+  print(data?.hero?.name) // Luke Skywalker
 }
 ```
 
@@ -59,10 +58,10 @@ store.withinReadWriteTransaction { transaction in
   try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
     data.hero?.name = "Artoo"
 
-    let graphQLResult = try? store.load(query: query).result?.get()
+    let result = store.load(query: query).result!.valueOrError()
 
     // Prints "Artoo"
-    print(graphQLResult?.data?.hero?.name)
+    print(result.data?.hero?.name)
   }
-}
+})
 ```

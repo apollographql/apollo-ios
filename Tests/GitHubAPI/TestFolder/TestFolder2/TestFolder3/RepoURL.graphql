@@ -1,5 +1,0 @@
-query RepoURL {
-  repository(owner: "apollographql", name: "apollo-ios") {
-    url
-  }
-}

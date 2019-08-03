@@ -1,6 +1,6 @@
 import Foundation
 
-extension String: ApolloJSONDecodable, ApolloJSONEncodable {
+extension String: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let string = value as? String else {
       throw JSONDecodingError.couldNotConvert(value: value, to: String.self)
@@ -13,7 +13,7 @@ extension String: ApolloJSONDecodable, ApolloJSONEncodable {
   }
 }
 
-extension Int: ApolloJSONDecodable, ApolloJSONEncodable {
+extension Int: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
@@ -26,7 +26,7 @@ extension Int: ApolloJSONDecodable, ApolloJSONEncodable {
   }
 }
 
-extension Float: ApolloJSONDecodable, ApolloJSONEncodable {
+extension Float: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Float.self)
@@ -39,7 +39,7 @@ extension Float: ApolloJSONDecodable, ApolloJSONEncodable {
   }
 }
 
-extension Double: ApolloJSONDecodable, ApolloJSONEncodable {
+extension Double: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Double.self)
@@ -52,7 +52,7 @@ extension Double: ApolloJSONDecodable, ApolloJSONEncodable {
   }
 }
 
-extension Bool: ApolloJSONDecodable, ApolloJSONEncodable {
+extension Bool: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let bool = value as? Bool else {
         throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
@@ -65,7 +65,7 @@ extension Bool: ApolloJSONDecodable, ApolloJSONEncodable {
   }
 }
 
-extension RawRepresentable where RawValue: ApolloJSONDecodable {
+extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)
     if let tempSelf = Self(rawValue: rawValue) {
@@ -76,13 +76,13 @@ extension RawRepresentable where RawValue: ApolloJSONDecodable {
   }
 }
 
-extension RawRepresentable where RawValue: ApolloJSONEncodable {
+extension RawRepresentable where RawValue: JSONEncodable {
   public var jsonValue: JSONValue {
     return rawValue.jsonValue
   }
 }
 
-extension Optional where Wrapped: ApolloJSONDecodable {
+extension Optional where Wrapped: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     if value is NSNull {
       self = .none
@@ -94,20 +94,20 @@ extension Optional where Wrapped: ApolloJSONDecodable {
 
 // Once [conditional conformances](https://github.com/apple/swift-evolution/blob/master/proposals/0143-conditional-conformances.md) have been implemented, we should be able to replace these runtime type checks with proper static typing
 
-extension Optional: ApolloJSONEncodable {
+extension Optional: JSONEncodable {
   public var jsonValue: JSONValue {
     switch self {
     case .none:
       return NSNull()
-    case .some(let wrapped as ApolloJSONEncodable):
+    case .some(let wrapped as JSONEncodable):
       return wrapped.jsonValue
     default:
-      fatalError("Optional is only ApolloJSONEncodable if Wrapped is")
+      fatalError("Optional is only JSONEncodable if Wrapped is")
     }
   }
 }
 
-extension Dictionary: ApolloJSONEncodable {
+extension Dictionary: JSONEncodable {
   public var jsonValue: JSONValue {
     return jsonObject
   }
@@ -115,23 +115,23 @@ extension Dictionary: ApolloJSONEncodable {
   public var jsonObject: JSONObject {
     var jsonObject = JSONObject(minimumCapacity: count)
     for (key, value) in self {
-      if case let (key as String, value as ApolloJSONEncodable) = (key, value) {
+      if case let (key as String, value as JSONEncodable) = (key, value) {
         jsonObject[key] = value.jsonValue
       } else {
-        fatalError("Dictionary is only ApolloJSONEncodable if Value is (and if Key is String)")
+        fatalError("Dictionary is only JSONEncodable if Value is (and if Key is String)")
       }
     }
     return jsonObject
   }
 }
 
-extension Array: ApolloJSONEncodable {
+extension Array: JSONEncodable {
   public var jsonValue: JSONValue {
     return map() { element -> (JSONValue) in
-      if case let element as ApolloJSONEncodable = element {
+      if case let element as JSONEncodable = element {
         return element.jsonValue
       } else {
-        fatalError("Array is only ApolloJSONEncodable if Element is")
+        fatalError("Array is only JSONEncodable if Element is")
       }
     }
   }
@@ -139,7 +139,7 @@ extension Array: ApolloJSONEncodable {
 
 // Example custom scalar
 
-extension URL: ApolloJSONDecodable, ApolloJSONEncodable {
+extension URL: JSONDecodable, JSONEncodable {
   public init(jsonValue value: JSONValue) throws {
     guard let string = value as? String else {
       throw JSONDecodingError.couldNotConvert(value: value, to: URL.self)

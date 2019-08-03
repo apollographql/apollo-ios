@@ -11,6 +11,6 @@ extension XCTestCase {
     
     waitForExpectations(timeout: 5)
     
-    return try promise.result!.get()
+    return try promise.result!.valueOrError()
   }
 }

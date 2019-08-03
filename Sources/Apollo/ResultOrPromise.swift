@@ -2,7 +2,7 @@ import Dispatch
 
 public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notifyOn queue: DispatchQueue = .global()) -> ResultOrPromise<[Value]> {
   onlyResults: do {
-    var results: [Result<Value, Error>] = []
+    var results: [Result<Value>] = []
     for resultOrPromise in resultsOrPromises {
       guard case .result(let result) = resultOrPromise else {
         break onlyResults
@@ -10,7 +10,7 @@ public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notify
       results.append(result)
     }
     do {
-      let values = try results.map { try $0.get() }
+      let values = try results.map { try $0.valueOrError() }
       return .result(.success(values))
     } catch {
       return .result(.failure(error))
@@ -37,7 +37,7 @@ public func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notify
 }
 
 public enum ResultOrPromise<Value> {
-  case result(Result<Value, Error>)
+  case result(Result<Value>)
   case promise(Promise<Value>)
   
   public init(_ body: () throws -> Value) {
@@ -49,7 +49,7 @@ public enum ResultOrPromise<Value> {
     }
   }
   
-  public var result: Result<Value, Error>? {
+  public var result: Result<Value>? {
     switch self {
     case .result(let result):
       return result
@@ -61,7 +61,7 @@ public enum ResultOrPromise<Value> {
   public func await() throws -> Value {
     switch self {
     case .result(let result):
-      return try result.get()
+      return try result.valueOrError()
     case .promise(let promise):
       return try promise.await()
     }

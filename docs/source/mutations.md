@@ -34,9 +34,8 @@ The above mutation will upvote a post on the server. The result might be:
 Similar to queries, mutations are represented by instances of generated classes, conforming to the `GraphQLMutation` protocol. Constructor arguments are used to define mutation variables. You pass a mutation object to `ApolloClient#perform(mutation:)` to send the mutation to the server, execute it, and receive typed results:
 
 ```swift
-apollo.perform(mutation: UpvotePostMutation(postId: postId)) { result in
-  guard let data = try? result.get().data else { return }
-  print(data.upvotePost?.votes)
+apollo.perform(mutation: UpvotePostMutation(postId: postId)) { (result, error) in
+  print(result?.data?.upvotePost?.votes)
 }
 ```
 
@@ -53,9 +52,8 @@ mutation UpvotePost($postId: Int!) {
 ```
 
 ```swift
-apollo.perform(mutation: UpvotePostMutation(postId: postId)) { result in
-  guard let data = try? result.get().data else { return }
-  self.configure(with: data.upvotePost?.fragments.postDetails)
+apollo.perform(mutation: UpvotePostMutation(postId: postId)) { (result, error) in
+  self.configure(with: result?.data?.upvotePost?.fragments.postDetails)
 }
 ```
 

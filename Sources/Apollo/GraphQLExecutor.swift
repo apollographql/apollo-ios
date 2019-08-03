@@ -1,5 +1,4 @@
 import Dispatch
-import Foundation
 
 /// A resolver is responsible for resolving a value for a field.
 typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<JSONValue?>
@@ -24,14 +23,10 @@ struct GraphQLResolveInfo {
   }
 }
 
-/// An error which has occurred in processing a GraphQLResult
-public struct GraphQLResultError: Error, LocalizedError {
+struct GraphQLResultError: Error, LocalizedError {
   let path: ResponsePath
+  let underlying: Error
   
-  /// The error that occurred during parsing.
-  public let underlying: Error
-  
-  /// A description of the error which includes the path where the error occurred.
   public var errorDescription: String? {
     return "Error at path \"\(path))\": \(underlying)"
   }

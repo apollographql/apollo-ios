@@ -30,33 +30,27 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroNameQuery.Data>
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
-        case .failure(let error):
-          XCTFail("Unexpexcted error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        XCTAssertEqual(result?.data?.hero?.name, "R2-D2")
       }
 
       var expectation = self.expectation(description: "Fetching query")
 
-      let watcher = client.watch(query: query) { result in
-        verifyResult(result)
+        let watcher = client.watch(query: query) { (result, error) in
+        verifyResult(result, error)
         expectation.fulfill()
       }
 
       waitForExpectations(timeout: 5, handler: nil)
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Artoo")
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        XCTAssertEqual(result?.data?.hero?.name, "Artoo")
       }
 
       expectation = self.expectation(description: "Refetching query")
@@ -100,50 +94,33 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No data in graphQLResult!")
-            return
-          }
-          
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        guard let data = result?.data else { XCTFail(); return }
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
 
       var expectation = self.expectation(description: "Fetching query")
 
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
+      _ = client.watch(query: query) { (result, error) in
+        verifyResult(result, error)
         expectation.fulfill()
       }
 
       waitForExpectations(timeout: 5, handler: nil)
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No data in GraphQL result!")
-            return
-          }
-          XCTAssertEqual(data.hero?.name, "Artoo")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, [
-            "Luke Skywalker",
-            "Han Solo",
-            "Leia Organa",
-          ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        guard let data = result?.data else { XCTFail(); return }
+        XCTAssertEqual(data.hero?.name, "Artoo")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
 
       expectation = self.expectation(description: "Updated after fetching other query")
@@ -188,37 +165,23 @@ class WatchQueryTests: XCTestCase {
       let fetching = self.expectation(description: "Fetching query")
       var refetching: XCTestExpectation?
       
-      let _ = client.watch(query: query) { result in
+      let _ = client.watch(query: query) { (result, error) in
         guard refetching == nil else {
           return refetching!.fulfill()
         }
         
-        defer {
-          fetching.fulfill()
-        }
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
         
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          
-          guard let data = graphQLResult.data else {
-            XCTFail("No data on graphQL result!")
-            return
-          }
-          
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          
-          XCTAssertEqual(friendsNames, [
-            "Luke Skywalker",
-            "Han Solo",
-            "Leia Organa",
-          ])
-          
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+        guard let data = result?.data else { return XCTFail() }
+        
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        
+        fetching.fulfill()
       }
       
       wait(for: [fetching], timeout: 5)
@@ -259,33 +222,27 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroNameWithIdQuery.Data>
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        XCTAssertEqual(result?.data?.hero?.name, "R2-D2")
       }
 
       var expectation = self.expectation(description: "Fetching query")
 
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
+      _ = client.watch(query: query) { (result, error) in
+        verifyResult(result, error)
         expectation.fulfill()
       }
 
       waitForExpectations(timeout: 5, handler: nil)
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        XCTAssertEqual(result?.data?.hero?.name, "Luke Skywalker")
       }
 
       expectation = self.expectation(description: "Fetching other query")
@@ -321,32 +278,20 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
 
-          guard let data = graphQLResult.data else {
-            XCTFail("No data returned with GraphQL result!")
-            return
-          }
-
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, [
-            "Luke Skywalker",
-            "Han Solo",
-            "Leia Organa",
-          ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+        guard let data = result?.data else { XCTFail(); return }
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
 
       var expectation = self.expectation(description: "Fetching query")
 
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
+      _ = client.watch(query: query) { (result, error) in
+        verifyResult(result, error)
         expectation.fulfill()
       }
 
@@ -359,25 +304,14 @@ class WatchQueryTests: XCTestCase {
         }
       })
 
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("GraphqlResult had no data!")
-            return
-          }
-          
-          XCTAssertEqual(data.hero?.name, "Artoo")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, [
-            "Luke Skywalker",
-            "Han Solo",
-            "Leia Organa",
-          ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+      verifyResult = { (result, error) in
+        XCTAssertNil(error)
+        XCTAssertNil(result?.errors)
+
+        guard let data = result?.data else { XCTFail(); return }
+        XCTAssertEqual(data.hero?.name, "Artoo")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
 
       expectation = self.expectation(description: "Updated after fetching other query")
