@@ -3,9 +3,6 @@
 
 SUPPORTED_PLATFORMS = iphoneos iphonesimulator appletvsimulator appletvos watchsimulator watchos macosx
 
-// Set default SDKROOT
-SDKROOT = iphoneos
-
 // iOS-specific default settings
 SDKROOT[sdk=iphone*] = iphoneos
 VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
@@ -23,6 +20,7 @@ TARGETED_DEVICE_FAMILY[sdk=watch*] = 4
 // macOS-specific default settings
 SDKROOT[sdk=macosx*] = macosx
 VALID_ARCHS[sdk=macosx*] = x86_64
+SUPPORTS_MACCATALYST = YES
 
 // Enable Bitcode only for actual devices, not for macOS or simulators
 ENABLE_BITCODE[sdk=watchos*][config=Release] = YES
