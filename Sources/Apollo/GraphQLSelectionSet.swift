@@ -8,12 +8,12 @@ public protocol GraphQLSelectionSet {
 }
 
 public extension GraphQLSelectionSet {
-  init(jsonObject: JSONObject) throws {
+  init(jsonObject: JSONObject, variables: GraphQLMap? = nil) throws {
     let executor = GraphQLExecutor { object, info in
       .result(.success(object[info.responseKeyForField]))
     }
     executor.shouldComputeCachePath = false
-    self = try executor.execute(selections: Self.selections, on: jsonObject, accumulator: GraphQLSelectionSetMapper<Self>()).await()
+    self = try executor.execute(selections: Self.selections, on: jsonObject, variables: variables, accumulator: GraphQLSelectionSetMapper<Self>()).await()
   }
   
   var jsonObject: JSONObject {

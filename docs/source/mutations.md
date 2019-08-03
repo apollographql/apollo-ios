@@ -34,12 +34,13 @@ The above mutation will upvote a post on the server. The result might be:
 Similar to queries, mutations are represented by instances of generated classes, conforming to the `GraphQLMutation` protocol. Constructor arguments are used to define mutation variables. You pass a mutation object to `ApolloClient#perform(mutation:)` to send the mutation to the server, execute it, and receive typed results:
 
 ```swift
-apollo.perform(mutation: UpvotePostMutation(postId: postId)) { (result, error) in
-  print(result?.data?.upvotePost?.votes)
+apollo.perform(mutation: UpvotePostMutation(postId: postId)) { result in
+  guard let data = try? result.get().data else { return }
+  print(data.upvotePost?.votes)
 }
 ```
 
-<h2 id="fragments-in-mutation-results">Using fragments in mutation results</h2>
+## Using fragments in mutation results
 
 In many cases, you'll want to use mutation results to update your UI. Fragments can be a great way of sharing result handling between queries and mutations:
 
@@ -52,12 +53,13 @@ mutation UpvotePost($postId: Int!) {
 ```
 
 ```swift
-apollo.perform(mutation: UpvotePostMutation(postId: postId)) { (result, error) in
-  self.configure(with: result?.data?.upvotePost?.fragments.postDetails)
+apollo.perform(mutation: UpvotePostMutation(postId: postId)) { result in
+  guard let data = try? result.get().data else { return }
+  self.configure(with: data.upvotePost?.fragments.postDetails)
 }
 ```
 
-<h2 id="input-objects">Passing input objects</h2>
+## Passing input objects
 
 The GraphQL type system includes [input objects](http://graphql.org/learn/schema/#input-types) as a way to pass complex values to fields. Input objects are often defined as mutation variables, because they give you a compact way to pass in objects to be created:
 
@@ -75,7 +77,7 @@ let review = ReviewInput(stars: 5, commentary: "This is a great movie!")
 apollo.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: review))
 ```
 
-<h2 id="designing-mutation-results">Designing mutation results</h2>
+## Designing mutation results
 
 When people talk about GraphQL, they often focus on the data fetching side of things, because that's where GraphQL brings the most value. Mutations can be pretty nice if done well, but the principles of designing good mutations, and especially good mutation result types, are not yet well-understood in the open source community. So when you are working with mutations it might often feel like you need to make a lot of application-specific decisions.
 
