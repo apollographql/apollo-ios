@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01B90C0D22F8D513008ED99F /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B90C0C22F8D513008ED99F /* ApolloClientProtocol.swift */; };
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */; };
@@ -249,6 +250,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01B90C0C22F8D513008ED99F /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPMethod.swift; sourceTree = "<group>"; };
 		90690D05224333DA00FC2E54 /* Apollo-Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Project-Debug.xcconfig"; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 			isa = PBXGroup;
 			children = (
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
+				01B90C0C22F8D513008ED99F /* ApolloClientProtocol.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
 				9FC750601D2A59C300458D91 /* GraphQLOperation.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
@@ -1203,6 +1206,7 @@
 				9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */,
 				9FCDFD231E33A0D8007519DC /* AsynchronousOperation.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialziation+Sorting.swift in Sources */,
+				01B90C0D22F8D513008ED99F /* ApolloClientProtocol.swift in Sources */,
 				C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */,
 				9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */,
 				9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */,
