@@ -3,8 +3,35 @@
 import Apollo
 
 public final class RepositoryQuery: GraphQLQuery {
+  /// query Repository {
+  ///   repository(owner: "apollographql", name: "apollo-ios") {
+  ///     __typename
+  ///     issueOrPullRequest(number: 13) {
+  ///       __typename
+  ///       ... on Issue {
+  ///         body
+  ///         ... on UniformResourceLocatable {
+  ///           url
+  ///         }
+  ///         author {
+  ///           __typename
+  ///           avatarUrl
+  ///         }
+  ///       }
+  ///       ... on Reactable {
+  ///         viewerCanReact
+  ///         ... on Comment {
+  ///           author {
+  ///             __typename
+  ///             login
+  ///           }
+  ///         }
+  ///       }
+  ///     }
+  ///   }
+  /// }
   public let operationDefinition =
-    "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        body\n        ... on UniformResourceLocatable {\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        viewerCanReact\n        ... on Comment {\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
+    "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { body ... on UniformResourceLocatable { url } author { __typename avatarUrl } } ... on Reactable { viewerCanReact ... on Comment { author { __typename login } } } } } }"
 
   public let operationName = "Repository"
 
@@ -324,8 +351,14 @@ public final class RepositoryQuery: GraphQLQuery {
 }
 
 public final class RepoUrlQuery: GraphQLQuery {
+  /// query RepoURL {
+  ///   repository(owner: "apollographql", name: "apollo-ios") {
+  ///     __typename
+  ///     url
+  ///   }
+  /// }
   public let operationDefinition =
-    "query RepoURL {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    url\n  }\n}"
+    "query RepoURL { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename url } }"
 
   public let operationName = "RepoURL"
 

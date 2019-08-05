@@ -22,7 +22,7 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%20hero(episode:%20$episode)%20%7B%20__typename%20name%20%7D%20%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
   }
   
   func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() {
@@ -96,6 +96,6 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D")
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%20hero(episode:%20$episode)%20%7B%20__typename%20name%20%7D%20%7D&variables=%7B%22episode%22:null%7D")
   }
 }
