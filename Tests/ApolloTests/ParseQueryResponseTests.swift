@@ -46,8 +46,6 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertNoThrow(try response.parseResult().await())
-
     let (result, _) = try response.parseResult().await()
     
     XCTAssertEqual(result.data?.hero?.name, "10")
