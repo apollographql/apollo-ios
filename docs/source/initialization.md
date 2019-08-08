@@ -35,7 +35,7 @@ The available implementations are:
 
 The initializer for `HTTPNetworkTransport` has several properties which can allow you to get better information and finer-grained control of your HTTP requests and responses:
 
-- `configuration` allows you to pass in a custom `URLSessionConfiguration` to set up anything which needs to be done for every single request without alteration. This defaults to `URLSessionConfiguration.default`. 
+- `session` allows you to pass in a custom `URLSession` to set up anything which needs to be done for every single request without alteration. This defaults to `URLSession.shared`. 
 - `sendOperationIdentifiers` allows you send operation identifiers along with your requests. **NOTE:** To send operation identifiers, Apollo types must be generated with `operationIdentifier`s or sending data will crash. Due to this restriction, this option defaults to `false`.
 - `useGETForQueries` sends all requests of `query` type using `GET` instead of `POST`. This defaults to `false` to preserve existing behavior in older versions of the client. 
 - `delegate` Can conform to one or many of several sub-protocols for `HTTPNetworkTransportDelegate`, detailed below.
