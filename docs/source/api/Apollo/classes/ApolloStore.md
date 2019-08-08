@@ -22,6 +22,26 @@ public var cacheKeyForObject: CacheKeyForObject?
 public init(cache: NormalizedCache)
 ```
 
+> Designated initializer
+>
+> - Parameter cache: An instance of `normalizedCache` to use to cache results.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| cache | An instance of `normalizedCache` to use to cache results. |
+
+### `clearCache()`
+
+```swift
+public func clearCache() -> Promise<Void>
+```
+
+> Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
+>
+> - Returns: A promise which fulfills when the Cache is cleared.
+
 ### `withinReadTransaction(_:)`
 
 ```swift
@@ -57,3 +77,16 @@ public func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Que
 ```swift
 public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>)
 ```
+
+> Loads the results for the given query from the cache.
+>
+> - Parameters:
+>   - query: The query to load results for
+>   - resultHandler: The completion handler to execute on success or error
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| query | The query to load results for |
+| resultHandler | The completion handler to execute on success or error |
