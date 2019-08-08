@@ -80,17 +80,17 @@ public class HTTPNetworkTransport {
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
-  ///   - configuration: A session configuration used to configure the session. Defaults to `URLSessionConfiguration.default`.
+  ///   - session: The URLSession to use. Defaults to `URLSession.shared`,
   ///   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
   ///   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
   ///   - delegate: [Optional] A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`. Defaults to nil.
   public init(url: URL,
-              configuration: URLSessionConfiguration = .default,
+              session: URLSession = .shared,
               sendOperationIdentifiers: Bool = false,
               useGETForQueries: Bool = false,
               delegate: HTTPNetworkTransportDelegate? = nil) {
     self.url = url
-    self.session = URLSession(configuration: configuration)
+    self.session = session
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
     self.delegate = delegate
