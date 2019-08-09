@@ -227,6 +227,9 @@ public class HTTPNetworkTransport {
     let body = RequestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     var request = URLRequest(url: self.url)
     
+    // We default to json, but this can be changed below if needed.
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
     if self.useGETForQueries && operation.operationType == .query {
       let transformer = GraphQLGETTransformer(body: body, url: self.url)
       if let urlForGet = transformer.createGetURL() {
@@ -261,8 +264,6 @@ public class HTTPNetworkTransport {
     if let operationID = operation.operationIdentifier {
       request.setValue(operationID, forHTTPHeaderField: "X-APOLLO-OPERATION-ID")
     }
-    
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     // If there's a delegate, do a pre-flight check and allow modifications to the request.
     if
