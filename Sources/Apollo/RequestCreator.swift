@@ -28,21 +28,46 @@ public struct RequestCreator {
     return body
   }
   
-  static func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile], sendOperationIdentifiers: Bool, serializationFormat: JSONSerializationFormat.Type) throws -> MultipartFormData {
-    let formData = MultipartFormData()
+  /// Creates multi-part form data to send with a request
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to create the data for.
+  ///   - files: An array of files to use.
+  ///   - sendOperationIdentifiers: True if operation identifiers should be sent, false if not.
+  ///   - serializationFormat: The format to use to serialize data.
+  ///   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise.
+  /// - Returns: The created form data
+  /// - Throws: Errors creating or loading the form  data
+  static func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
+                                                                    files: [GraphQLFile],
+                                                                    sendOperationIdentifiers: Bool,
+                                                                    serializationFormat: JSONSerializationFormat.Type,
+                                                                    manualBoundary: String? = nil) throws -> MultipartFormData {
+    let formData: MultipartFormData
+
+    if let boundary = manualBoundary {
+      formData = MultipartFormData(boundary: boundary)
+    } else {
+      formData = MultipartFormData()
+    }
     
     let fields = requestBody(for: operation, sendOperationIdentifiers: sendOperationIdentifiers)
-    for (name, data) in fields {
-      if let data = data as? GraphQLMap {
-        let data = try serializationFormat.serialize(value: data)
-        formData.appendPart(data: data, name: name)
-      } else if let data = data as? String {
-        try formData.appendPart(string: data, name: name)
-      } else {
-        try formData.appendPart(string: data.debugDescription, name: name)
+    let operationData = try serializationFormat.serialize(value: fields)
+    formData.appendPart(data: operationData, name: "operations")
+    
+    var map = [String: String]()
+    if files.count == 1 {
+      let firstFile = files.first!
+      map[firstFile.originalName] = "[variables.\(firstFile.fieldName)]"
+    } else {
+      for (index, file) in files.enumerated() {
+        map[file.originalName] = "[variables.\(file.fieldName).\(index)]"
       }
     }
     
+    let mapData = try serializationFormat.serialize(value: map)
+    formData.appendPart(data: mapData, name: "map")
+      
     files.forEach {
       formData.appendPart(inputStream: $0.inputStream,
                           contentLength: $0.contentLength,
