@@ -55,13 +55,13 @@ public struct RequestCreator {
     let operationData = try serializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")
     
-    var map = [String: String]()
+    var map = [String: [String]]()
     if files.count == 1 {
       let firstFile = files.first!
-      map[firstFile.originalName] = "[variables.\(firstFile.fieldName)]"
+      map[firstFile.originalName] = ["variables.\(firstFile.fieldName)"]
     } else {
       for (index, file) in files.enumerated() {
-        map[file.originalName] = "[variables.\(file.fieldName).\(index)]"
+        map[file.originalName] = ["variables.\(file.fieldName).\(index)"]
       }
     }
     

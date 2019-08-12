@@ -184,7 +184,7 @@ Content-Disposition: form-data; name="operations"
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"a.txt":"[variables.upload]"}
+{"a.txt":["variables.upload"]}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="upload"; filename="a.txt"
 Content-Type: text/plain
@@ -200,7 +200,7 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"a.txt":"[variables.upload]"}
+{"a.txt":["variables.upload"]}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="upload"; filename="a.txt"
 Content-Type: text/plain
@@ -246,7 +246,7 @@ Content-Disposition: form-data; name="operations"
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"a.txt":"[variables.uploads.0]","b.txt":"[variables.uploads.1]"}
+{"a.txt":["variables.uploads.0"],"b.txt":["variables.uploads.1"]}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="uploads"; filename="a.txt"
 Content-Type: text/plain
