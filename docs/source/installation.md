@@ -198,6 +198,12 @@ At this point, you can try building your target in Xcode. This will verify that 
 
 ### Troubleshooting
 
+If you've installed `apollo` globally with NPM and the script still seems to be having trouble finding it, add the following to the beginning of your Run Script Build Phase:
+
+```bash
+source ~/.bash_profile
+```
+
 If you get this error: 
 
 > Cannot find GraphQL schema file [...]
