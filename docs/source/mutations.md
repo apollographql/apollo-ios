@@ -84,3 +84,53 @@ When people talk about GraphQL, they often focus on the data fetching side of th
 In GraphQL, mutations can return any type, and that type can be queried just like a regular GraphQL query. So the question is - what type should a particular mutation return?
 
 In most cases, the data available from a mutation result should be the server developer's best guess of the data a client would need to understand what happened on the server. For example, a mutation that creates a new comment on a blog post might return the comment itself. A mutation that reorders an array might need to return the whole array.
+
+## Uploading files
+
+The iOS SDK supports the [GraphQL Multipart Request Specification](https://github.com/jaydenseric/graphql-multipart-request-spec#multipart-form-field-structure) for uploading files. 
+
+>**Note**: At the moment, we only support uploads for a single operation, not for batch operations. You can upload multiple files for a single operation if your server supports it, though.
+
+To upload a file, you will need: 
+
+- A `NetworkTransport` which also supports the `UploadingNetworkTransport` protocol on your `ApolloClient` instance. If you're using `HTTPNetworkTransport` (which is set up by default), this protocol is already supported. 
+- The correct `MIME` type for the data you're uploading. The default value is `application/octet-stream`. 
+- Either the data or the file URL of the data you want to upload. 
+- A mutation which takes an `Upload` as a parameter. Note that this must be supported by your server. 
+
+Here is an example of a GraphQL query for a mutation that accepts a single upload, and then returns the `id` for that upload:
+
+```graphql
+mutation UploadFile($upload:Upload!) {
+    singleUpload(file:$upload) {
+        id
+    }
+}
+```
+
+If you wanted to use this to upload a file called `a.txt`, it would look something like this: 
+
+```swift
+// Create the file to upload
+guard
+  let fileURL = Bundle.main.url(forResource: "a", 
+                                withExtension: "txt"),
+  let file = GraphQLFile(fieldName: "upload",   
+                         originalName: "a.txt", 
+                         mimeType: "text/plain", // <-defaults to "application/octet-stream"
+                         fileURL: fileURL) else {
+    // Either the file URL couldn't be created or the file couldn't be created.
+    return 
+}
+
+// Actually upload the file
+client.upload(operation: UploadFileMutation(uploads: ["a"]),
+              files: [file]) { result in 
+  switch result {
+  case .success(let graphQLResult):
+    print("ID: \(graphQLResult.data?.singleUpload.id)")
+  case .failure(let error):
+    print("error: \(error)")
+  }
+}
+```
