@@ -194,9 +194,15 @@ cd "${SRCROOT}/${TARGET_NAME}"
 
 ## Build your target
 
-At this point, you can try building your target in Xcode.  This will verify that the `schema.json` file can be found by the `apollo` script created above. 
+At this point, you can try building your target in Xcode. This will verify that the `schema.json` file can be found by the `apollo` script created above, and run the codegen.
 
 ### Troubleshooting
+
+If you've installed `apollo` globally with NPM and the script still seems to be having trouble finding it, add the following to the beginning of your Run Script Build Phase:
+
+```bash
+source ~/.bash_profile
+```
 
 If you get this error: 
 
@@ -210,13 +216,16 @@ If you get this error:
 
 If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query.  
 
+If you get this error:
+
 > Ensure that there is only one instance of "graphql" in the node_modules directory. If different versions of "graphql" are the dependencies of other relied on modules, use "resolutions" to ensure only one version is installed.
-``` 
 
 Delete the `node_modules` folder in your source root and rebuild.
 
 ## Adding the generated API file to your target
 
-1. Drag the generated `API.swift` file to your target.
+Drag the generated `API.swift` file to your target.
 
 > Note that because Apollo iOS generates query-specific result types, `API.swift` will be mostly empty at this point unless you've already added some `.graphql` files with queries or mutations to your target directory.
+
+Make sure to uncheck the "Copy Files If Needed" checkbox, since it should already be within your project's folder system. Then, make sure you've checked all the Targets the API file needs to be included in.
