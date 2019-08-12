@@ -4,15 +4,15 @@ import Apollo
 
 /// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP. 
 public class SplitNetworkTransport {
-  private let httpNetworkTransport: NetworkTransport
+  private let httpNetworkTransport: UploadingNetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
   
   /// Designated initializer
   ///
   /// - Parameters:
-  ///   - httpNetworkTransport: A `NetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
+  ///   - httpNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
   ///   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
-  public init(httpNetworkTransport: NetworkTransport, webSocketNetworkTransport: NetworkTransport) {
+  public init(httpNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport) {
     self.httpNetworkTransport = httpNetworkTransport
     self.webSocketNetworkTransport = webSocketNetworkTransport
   }
@@ -28,5 +28,14 @@ extension SplitNetworkTransport: NetworkTransport {
     } else {
       return httpNetworkTransport.send(operation: operation, completionHandler: completionHandler)
     }
+  }
+}
+
+// MARK: - UploadingNetworkTransport conformance
+
+extension SplitNetworkTransport: UploadingNetworkTransport {
+  
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+    return httpNetworkTransport.upload(operation: operation, files: files, completionHandler: completionHandler)
   }
 }
