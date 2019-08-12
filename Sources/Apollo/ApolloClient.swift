@@ -118,8 +118,8 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
   
-  public func clearCache() -> Promise<Void> {
-    return self.store.clearCache()
+  public func clearCache(callbackQueue: DispatchQueue = .main, completion: (() -> Void)? = nil) {
+    self.store.clearCache(completion: completion)
   }
   
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,

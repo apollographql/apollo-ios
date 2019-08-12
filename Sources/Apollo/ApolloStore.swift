@@ -50,14 +50,17 @@ public final class ApolloStore {
   /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
   ///
   /// - Returns: A promise which fulfills when the Cache is cleared.
-  public func clearCache() -> Promise<Void> {
-    return Promise<Void> { fulfill, reject in
-      queue.async(flags: .barrier) {
-        self.cacheLock.withWriteLock {
-          self.cache.clear()
+  public func clearCache(callbackQueue: DispatchQueue = .main, completion: (() -> Void)? = nil) {
+    queue.async(flags: .barrier) {
+      self.cacheLock.withWriteLock {
+          self.cache.clearPromise()
         }.andThen {
-          fulfill(())
-        }
+          guard let completion = completion else {
+            return
+          }
+          callbackQueue.async {
+            completion()
+          }
       }
     }
   }
@@ -66,7 +69,7 @@ public final class ApolloStore {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
-          self.cache.merge(records: records)
+          self.cache.mergePromise(records: records)
         }.andThen { changedKeys in
           self.didChangeKeys(changedKeys, context: context)
           fulfill(())
@@ -152,7 +155,7 @@ public final class ApolloStore {
     fileprivate let cache: NormalizedCache
     fileprivate let cacheKeyForObject: CacheKeyForObject?
 
-    fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecords)
+    fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecordsPromise)
 
     init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?) {
       self.cache = cache
@@ -168,8 +171,12 @@ public final class ApolloStore {
       return try execute(selections: type.selections, onObjectWithKey: key, variables: variables, accumulator: mapper).await()
     }
 
-    public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
-      return cache.loadRecords(forKeys: keys)
+    public func loadRecords(forKeys keys: [CacheKey],
+                            callbackQueue: DispatchQueue = .main,
+                            completion: @escaping (Result<[Record?], Error>) -> Void) {
+      self.cache.loadRecords(forKeys: keys,
+                             callbackQueue: callbackQueue,
+                             completion: completion)
     }
 
     private final func complete(value: Any?) -> ResultOrPromise<JSONValue?> {
@@ -249,12 +256,57 @@ public final class ApolloStore {
       
       _ = try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
-        self.cache.merge(records: $0)
+        self.cache.mergePromise(records: $0)
       }.andThen { changedKeys in
         if let didChangeKeysFunc = self.updateChangedKeysFunc {
           didChangeKeysFunc(changedKeys, nil)
         }
       }.await()
+    }
+  }
+}
+
+internal extension NormalizedCache {
+  func loadRecordsPromise(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
+    return Promise { fulfill, reject in
+      self.loadRecords(
+        forKeys: keys,
+        callbackQueue: nil) { result in
+          switch result {
+          case .success(let records):
+            fulfill(records)
+          case .failure(let error):
+            reject(error)
+          }
+        }
+    }
+  }
+  
+  func mergePromise(records: RecordSet) -> Promise<Set<CacheKey>> {
+    return Promise { fulfill, reject in
+      self.merge(
+        records: records,
+        callbackQueue: nil) { result in
+          switch result {
+          case .success(let cacheKeys):
+            fulfill(cacheKeys)
+          case .failure(let error):
+            reject(error)
+          }
+      }
+    }
+  }
+  
+  func clearPromise() -> Promise<Void> {
+    return Promise { fulfill, reject in
+      self.clear(callbackQueue: nil) { result in
+        switch result {
+        case .success(let success):
+          fulfill(success)
+        case .failure(let error):
+          reject(error)
+        }
+      }
     }
   }
 }
