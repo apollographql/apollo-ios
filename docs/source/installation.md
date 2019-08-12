@@ -211,7 +211,6 @@ If you get this error:
 If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query.  
 
 > Ensure that there is only one instance of "graphql" in the node_modules directory. If different versions of "graphql" are the dependencies of other relied on modules, use "resolutions" to ensure only one version is installed.
-``` 
 
 Delete the `node_modules` folder in your source root and rebuild.
 
