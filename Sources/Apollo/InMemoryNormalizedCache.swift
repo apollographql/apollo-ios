@@ -9,11 +9,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Result<[Record?], Error>) -> Void) {
     let records = keys.map { self.records[$0] }
-    if let callbackQueue = callbackQueue {
-      callbackQueue.async {
-        completion(.success(records))
-      }
-    } else {
+    DispatchQueue.performAsyncIfNeeded(on: callbackQueue) {
       completion(.success(records))
     }
   }
@@ -22,12 +18,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
     let cacheKeys = self.records.merge(records: records)
-    
-    if let callbackQueue = callbackQueue {
-      callbackQueue.async {
-        completion(.success(cacheKeys))
-      }
-    } else {
+    DispatchQueue.performAsyncIfNeeded(on: callbackQueue) {
       completion(.success(cacheKeys))
     }
   }
@@ -40,11 +31,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
       return
     }
     
-    if let callbackQueue = callbackQueue {
-      callbackQueue.async {
-        completion(.success(()))
-      }
-    } else {
+    DispatchQueue.performAsyncIfNeeded(on: callbackQueue) {
       completion(.success(()))
     }
   }
