@@ -180,7 +180,7 @@ Charlie file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"operationName":"HeroName","query":"query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }","variables":{"episode":null}}
+{"operationName":"HeroName","query":"query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }","variables":{"episode":null,\"upload\":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
@@ -242,7 +242,7 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"operationName":"HeroName","query":"query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }","variables":{"episode":null}}
+{"operationName":"HeroName","query":"query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }","variables":{"episode":null,\"uploads\":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 

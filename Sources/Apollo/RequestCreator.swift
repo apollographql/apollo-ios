@@ -51,7 +51,16 @@ public struct RequestCreator {
       formData = MultipartFormData()
     }
     
-    let fields = requestBody(for: operation, sendOperationIdentifiers: sendOperationIdentifiers)
+    // Make sure all fields for files are set to null, or the server won't look
+    // for the files in the rest of the form data
+    let fieldsForFiles = Set(files.map { $0.fieldName })
+    var fields = requestBody(for: operation, sendOperationIdentifiers: sendOperationIdentifiers)
+    var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
+    for fieldName in fieldsForFiles {
+      variables.updateValue(nil, forKey: fieldName)
+    }
+    fields["variables"] = variables
+    
     let operationData = try serializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")
     
