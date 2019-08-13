@@ -13,7 +13,9 @@ public class SQLiteTestCacheProvider: TestCacheProvider {
     let fileURL = fileURL ?? temporarySQLiteFileURL()
     let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
     if let initialRecords = initialRecords {
-      _ = cache.merge(records: initialRecords) // This is synchronous
+      cache.merge(records: initialRecords, callbackQueue: nil, completion: { _ in
+        // Theoretically, this should be syncrhonous
+      }) // This is synchronous
     }
     try test(cache)
   }

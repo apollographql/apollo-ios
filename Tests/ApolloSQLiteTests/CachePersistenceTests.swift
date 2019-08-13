@@ -87,14 +87,19 @@ class CachePersistenceTests: XCTestCase {
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
         }
+        
+        let cacheClearExpectation = self.expectation(description: "cache cleared")
+        client.clearCache(completion: { result in
+          switch result {
+          case .success:
+            break
+          case .failure(let error):
+            XCTFail("Error clearing cache: \(error)")
+          }
+          cacheClearExpectation.fulfill()
+        })
 
-        do {
-          try client.clearCache().await()
-        } catch {
-          XCTFail("Error Clearing cache: \(error)")
-          emptyCacheExpectation.fulfill()
-          return
-        }
+        self.waitForExpectations(timeout: 1, handler: nil)
 
         client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
           defer { emptyCacheExpectation.fulfill() }
