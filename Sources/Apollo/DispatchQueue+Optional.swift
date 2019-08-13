@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension DispatchQueue {
+public extension DispatchQueue {
   
-  static func performAsyncIfNeeded(on callbackQueue: DispatchQueue?, action: @escaping () -> Void) {
+  static func apollo_performAsyncIfNeeded(on callbackQueue: DispatchQueue?, action: @escaping () -> Void) {
     if let callbackQueue = callbackQueue {
       // A callback queue was provided, perform the action on that queue
       callbackQueue.async {

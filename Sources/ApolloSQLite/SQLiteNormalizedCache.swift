@@ -94,12 +94,25 @@ public final class SQLiteNormalizedCache {
 
 extension SQLiteNormalizedCache: NormalizedCache {
   
-  public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise { try self.mergeRecords(records: records) }
+  public func merge(records: RecordSet,
+                    callbackQueue: DispatchQueue?,
+                    completion: @escaping (Swift.Result<Set<CacheKey>, Error>) -> Void) {
+    do {
+      let records = try self.mergeRecords(records: records)
+      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+        completion(.success(records))
+      }
+    } catch {
+      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+        completion(.failure(error))
+      }
+    }
   }
   
-  public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
-    return Promise {
+  public func loadRecords(forKeys keys: [CacheKey],
+                          callbackQueue: DispatchQueue?,
+                          completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
+    do {
       let records = try self.selectRecords(forKeys: keys)
       let recordsOrNil: [Record?] = keys.map { key in
         if let recordIndex = records.firstIndex(where: { $0.key == key }) {
@@ -107,13 +120,27 @@ extension SQLiteNormalizedCache: NormalizedCache {
         }
         return nil
       }
-      return recordsOrNil
+      
+      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+        completion(.success(recordsOrNil))
+      }
+    } catch {
+      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+        completion(.failure(error))
+      }
     }
   }
   
-  public func clear() -> Promise<Void> {
-    return Promise {
-      return try self.clearRecords()
+  public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
+    do {
+      try self.clearRecords()
+      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+        completion?(.success(()))
+      }
+    } catch {
+      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+        completion?(.failure(error))
+      }
     }
   }
 }

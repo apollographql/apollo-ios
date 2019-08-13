@@ -9,7 +9,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Result<[Record?], Error>) -> Void) {
     let records = keys.map { self.records[$0] }
-    DispatchQueue.performAsyncIfNeeded(on: callbackQueue) {
+    DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
       completion(.success(records))
     }
   }
@@ -18,7 +18,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
     let cacheKeys = self.records.merge(records: records)
-    DispatchQueue.performAsyncIfNeeded(on: callbackQueue) {
+    DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
       completion(.success(cacheKeys))
     }
   }
@@ -31,7 +31,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
       return
     }
     
-    DispatchQueue.performAsyncIfNeeded(on: callbackQueue) {
+    DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
       completion(.success(()))
     }
   }
