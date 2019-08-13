@@ -312,7 +312,7 @@ class WatchQueryTests: XCTestCase {
             "QUERY_ROOT.hero.friends.1": ["__typename": "Human", "name": "Han Solo"],
             "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
             ]
-    try withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { (cache) in
       let networkTransport = MockNetworkTransport(body: [:])
 
       let store = ApolloStore(cache: cache)
@@ -353,11 +353,14 @@ class WatchQueryTests: XCTestCase {
       waitForExpectations(timeout: 5, handler: nil)
 
       let nameQuery = HeroNameQuery()
-      try await(store.withinReadWriteTransaction { transaction in
+      expectation = self.expectation(description: "transaction'd")
+      store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: nameQuery) { (data: inout HeroNameQuery.Data) in
           data.hero?.name = "Artoo"
         }
+        expectation.fulfill()
       })
+      self.waitForExpectations(timeout: 1, handler: nil)
 
       verifyResult = { result in
         switch result {
