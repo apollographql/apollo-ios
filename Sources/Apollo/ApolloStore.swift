@@ -50,7 +50,7 @@ public final class ApolloStore {
   /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
   ///
   /// - Returns: A promise which fulfills when the Cache is cleared.
-  public func clearCache(callbackQueue: DispatchQueue = .main, completion: (() -> Void)? = nil) {
+  public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       self.cacheLock.withWriteLock {
           self.cache.clearPromise()
@@ -59,7 +59,7 @@ public final class ApolloStore {
             return
           }
           callbackQueue.async {
-            completion()
+            completion(.success(()))
           }
       }
     }
@@ -90,7 +90,7 @@ public final class ApolloStore {
     }
   }
 
-  public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
+  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadTransaction> { fulfill, reject in
       self.queue.async {
         self.cacheLock.lockForReading()
@@ -103,13 +103,13 @@ public final class ApolloStore {
     }
   }
 
-  public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T> {
+  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T> {
     return withinReadTransaction {
       Promise(fulfilled: try body($0))
     }
   }
 
-  public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
+  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadWriteTransaction> { fulfill, reject in
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
@@ -121,13 +121,13 @@ public final class ApolloStore {
     }
   }
 
-  public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T> {
+  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T> {
     return withinReadWriteTransaction {
       Promise(fulfilled: try body($0))
     }
   }
 
-  public func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
+  func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
     return withinReadTransaction { transaction in
       let mapper = GraphQLSelectionSetMapper<Query.Data>()
       let dependencyTracker = GraphQLDependencyTracker()

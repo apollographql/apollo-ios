@@ -118,7 +118,7 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
   
-  public func clearCache(callbackQueue: DispatchQueue = .main, completion: (() -> Void)? = nil) {
+  public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     self.store.clearCache(completion: completion)
   }
   

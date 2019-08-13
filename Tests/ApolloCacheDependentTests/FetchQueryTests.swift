@@ -254,13 +254,24 @@ class FetchQueryTests: XCTestCase {
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
-        }          
+        }
       }
       
       self.waitForExpectations(timeout: 5, handler: nil)
       
-      do { try client.clearCache().await() }
-      catch { XCTFail() }
+      let clearCacheExpectation = self.expectation(description: "cache cleared")
+      client.clearCache(completion: { result in
+        switch result {
+        case .success:
+          break
+        case .failure(let error):
+          XCTFail("Error clearing cache: \(error)")
+        }
+        
+        clearCacheExpectation.fulfill()
+      })
+      
+      self.waitForExpectations(timeout: 1, handler: nil)
       
       let expectation2 = self.expectation(description: "Fetching query")
       
