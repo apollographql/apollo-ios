@@ -90,7 +90,7 @@ public final class ApolloStore {
     }
   }
 
-  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
+  func withinReadTransactionPromise<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadTransaction> { fulfill, reject in
       self.queue.async {
         self.cacheLock.lockForReading()
@@ -102,14 +102,32 @@ public final class ApolloStore {
       self.cacheLock.unlock()
     }
   }
-
-  func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T> {
-    return withinReadTransaction {
-      Promise(fulfilled: try body($0))
+  
+  /// Performs an operation within a read transaction
+  ///
+  /// - Parameters:
+  ///   - body: The body of the operation to perform.
+  ///   - callbackQueue: [optional] The callback queue to use to perform the completion block on. Will perform on the current queue if not provided. Defaults to nil.
+  ///   - completion: [optional] The completion block to perform when the read transaction completes. Defaults to nil.
+  public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T,
+                                       callbackQueue: DispatchQueue? = nil,
+                                       completion: ((Result<T, Error>) -> Void)? = nil) {
+    _ = self.withinReadTransactionPromise {
+        Promise(fulfilled: try body($0))
+      }
+      .andThen { object in
+        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+          completion?(.success(object))
+        }
+      }
+      .catch { error in
+        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+          completion?(.failure(error))
+        }
     }
   }
 
-  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
+  func withinReadWriteTransactionPromise<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadWriteTransaction> { fulfill, reject in
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
@@ -120,15 +138,33 @@ public final class ApolloStore {
       self.cacheLock.unlock()
     }
   }
-
-  func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T> {
-    return withinReadWriteTransaction {
-      Promise(fulfilled: try body($0))
+  
+  /// Performs an operation within a read-write transaction
+  ///
+  /// - Parameters:
+  ///   - body: The body of the operation to perform
+  ///   - callbackQueue: [optional] a callback queue to perform the action on. Will perform on the current queue if not provided. Defaults to nil.
+  ///   - completion: [optional] a completion block to fire when the read-write transaction completes. Defaults to nil.
+  public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T,
+                                            callbackQueue: DispatchQueue? = nil,
+                                            completion: ((Result<T, Error>) -> Void)? = nil) {
+    _ = self.withinReadWriteTransactionPromise {
+        Promise(fulfilled: try body($0))
+      }
+      .andThen { object in
+        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+          completion?(.success(object))
+        }
+      }
+      .catch { error in
+        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
+          completion?(.failure(error))
+      }
     }
   }
 
   func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
-    return withinReadTransaction { transaction in
+    return withinReadTransactionPromise { transaction in
       let mapper = GraphQLSelectionSetMapper<Query.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
 
