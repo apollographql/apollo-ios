@@ -182,6 +182,17 @@ class HTTPTransportTests: XCTestCase {
     
     self.wait(for: [expectation], timeout: 10)
   }
+  
+  func testEquality() {
+    let identicalTransport = HTTPNetworkTransport(url: self.url,
+                                                  useGETForQueries: true,
+                                                  delegate: self)
+    XCTAssertEqual(self.networkTransport, identicalTransport)
+    
+    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url,
+                                                     delegate: self)
+    XCTAssertNotEqual(self.networkTransport, nonIdenticalTransport)
+  }
 }
 
 // MARK: - HTTPNetworkTransportPreflightDelegate
