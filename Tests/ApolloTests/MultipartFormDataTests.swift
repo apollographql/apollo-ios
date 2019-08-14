@@ -184,9 +184,9 @@ Content-Disposition: form-data; name="operations"
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"a.txt":["variables.upload"]}
+{"0":["variables.upload"]}
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="upload"; filename="a.txt"
+Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
 
 Alpha file content.
@@ -200,9 +200,9 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"a.txt":["variables.upload"]}
+{"0":["variables.upload"]}
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="upload"; filename="a.txt"
+Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
 
 Alpha file content.
@@ -246,15 +246,15 @@ Content-Disposition: form-data; name="operations"
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"a.txt":["variables.uploads.0"],"b.txt":["variables.uploads.1"]}
+{"0":["variables.uploads.0"],"1":["variables.uploads.1"]}
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="uploads"; filename="a.txt"
+Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
 
 Alpha file content.
 
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="uploads"; filename="b.txt"
+Content-Disposition: form-data; name="1"; filename="b.txt"
 Content-Type: text/plain
 
 Bravo file content.
@@ -266,13 +266,13 @@ Bravo file content.
       // Query and operation parameters may be in weird order, so let's at least check that the files got encoded properly.
       let endString = """
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="uploads"; filename="a.txt"
+Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
 
 Alpha file content.
 
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="uploads"; filename="b.txt"
+Content-Disposition: form-data; name="1"; filename="b.txt"
 Content-Type: text/plain
 
 Bravo file content.
