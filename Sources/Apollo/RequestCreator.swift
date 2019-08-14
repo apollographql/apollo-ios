@@ -57,7 +57,14 @@ public struct RequestCreator {
     var fields = requestBody(for: operation, sendOperationIdentifiers: sendOperationIdentifiers)
     var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
     for fieldName in fieldsForFiles {
-      variables.updateValue(nil, forKey: fieldName)
+      if
+        let value = variables[fieldName],
+        let arrayValue = value as? [JSONEncodable] {
+        let updatedArray: [JSONEncodable?] = arrayValue.map { _ in nil }
+          variables.updateValue(updatedArray, forKey: fieldName)
+      } else {
+        variables.updateValue(nil, forKey: fieldName)
+      }
     }
     fields["variables"] = variables
     
