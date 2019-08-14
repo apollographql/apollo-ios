@@ -287,3 +287,15 @@ extension HTTPNetworkTransport: NetworkTransport {
     return send(operation: operation, files: nil, completionHandler: completionHandler)
   }
 }
+
+// MARK: - Equatable conformance
+
+extension HTTPNetworkTransport: Equatable {
+  
+  public static func ==(lhs: HTTPNetworkTransport, rhs: HTTPNetworkTransport) -> Bool {
+    return lhs.url == rhs.url
+      && lhs.session == rhs.session
+      && lhs.sendOperationIdentifiers == rhs.sendOperationIdentifiers
+      && lhs.useGETForQueries == rhs.useGETForQueries
+  }
+}
