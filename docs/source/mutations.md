@@ -101,8 +101,8 @@ To upload a file, you will need:
 Here is an example of a GraphQL query for a mutation that accepts a single upload, and then returns the `id` for that upload:
 
 ```graphql
-mutation UploadFile($upload:Upload!) {
-    singleUpload(file:$upload) {
+mutation UploadFile($file:Upload!) {
+    singleUpload(file:$file) {
         id
     }
 }
@@ -115,7 +115,7 @@ If you wanted to use this to upload a file called `a.txt`, it would look somethi
 guard
   let fileURL = Bundle.main.url(forResource: "a", 
                                 withExtension: "txt"),
-  let file = GraphQLFile(fieldName: "upload",   
+  let file = GraphQLFile(fieldName: "file",   
                          originalName: "a.txt", 
                          mimeType: "text/plain", // <-defaults to "application/octet-stream"
                          fileURL: fileURL) else {
@@ -124,7 +124,7 @@ guard
 }
 
 // Actually upload the file
-client.upload(operation: UploadFileMutation(uploads: ["a"]),
+client.upload(operation: UploadFileMutation(file: "a"), // <-- `Upload` is a custom scalar that's a `String` under the hood.
               files: [file]) { result in 
   switch result {
   case .success(let graphQLResult):
@@ -134,3 +134,26 @@ client.upload(operation: UploadFileMutation(uploads: ["a"]),
   }
 }
 ```
+
+A few other notes: 
+
+- Due to some limitations around the spec, whatever the file is being added for should be at the root of your GraphQL query. So if you have something like: 
+
+    ```graphql
+    mutation AvatarUpload($userID: GraphQLID!, $file: Upload!) {
+      id
+    }
+    ```
+
+  it will work, but if you have some kind of object encompassing both of those fields like this:   
+  
+    ```graphql
+    // Assumes AvatarObject(userID: GraphQLID, file: Upload) exists
+    mutation AvatarUpload($avatarObject: AvatarObject!) {
+      id
+    }
+    ```
+    
+  it will not. Generally you should be able to deconstruct upload objects to allow you to send the appropriate 
+- If you are uploading an array of files, you need to use the same field name for each file. These will be updated at send time.
+- If you are uploading an array of files, the array of `String`s passed into the query must be the same number as the array of files. 
