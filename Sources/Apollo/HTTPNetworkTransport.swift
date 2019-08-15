@@ -95,18 +95,7 @@ public class HTTPNetworkTransport {
     self.useGETForQueries = useGETForQueries
     self.delegate = delegate
   }
-  
-  /// Uploads the given files with the given operation. 
-  ///
-  /// - Parameters:
-  ///   - operation: The operation to send
-  ///   - files: An array of `GraphQLFile` objects to send.
-  ///   - completionHandler: The completion handler to execute when the request completes or errors
-  /// - Returns: An object that can be used to cancel an in progress request.
-  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
-    return send(operation: operation, files: files, completionHandler: completionHandler)
-  }
-  
+
   private func send<Operation>(operation: Operation, files: [GraphQLFile]?, completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     let request: URLRequest
     do {
@@ -227,6 +216,9 @@ public class HTTPNetworkTransport {
     let body = RequestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     var request = URLRequest(url: self.url)
     
+    // We default to json, but this can be changed below if needed.
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
     if self.useGETForQueries && operation.operationType == .query {
       let transformer = GraphQLGETTransformer(body: body, url: self.url)
       if let urlForGet = transformer.createGetURL() {
@@ -262,8 +254,6 @@ public class HTTPNetworkTransport {
       request.setValue(operationID, forHTTPHeaderField: "X-APOLLO-OPERATION-ID")
     }
     
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    
     // If there's a delegate, do a pre-flight check and allow modifications to the request.
     if
       let delegate = self.delegate,
@@ -285,6 +275,15 @@ extension HTTPNetworkTransport: NetworkTransport {
   
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     return send(operation: operation, files: nil, completionHandler: completionHandler)
+  }
+}
+
+// MARK: - UploadingNetworkTransport conformance
+
+extension HTTPNetworkTransport: UploadingNetworkTransport {
+  
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+    return send(operation: operation, files: files, completionHandler: completionHandler)
   }
 }
 

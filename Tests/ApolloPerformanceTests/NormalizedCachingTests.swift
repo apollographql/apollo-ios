@@ -65,8 +65,14 @@ class NormalizedCachingTests: XCTestCase {
       (1...100).forEach { number in
         let expectation = self.expectation(description: "Loading query #\(number) from store")
         
-        store.load(query: query) { (result, error) in
-          XCTAssertEqual(result?.data?.hero?.name, "R2-D2")
+        store.load(query: query) { result in
+          switch result {
+          case .success(let graphQLResult):
+            XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+          case .failure(let error):
+            XCTFail("Unexpected error: \(error)")
+          }
+          
           expectation.fulfill()
         }
       }
@@ -111,8 +117,14 @@ class NormalizedCachingTests: XCTestCase {
         (1...10).forEach { _ in
           let expectation = self.expectation(description: "Loading query #\(number) from store")
           
-          store.load(query: query) { (result, error) in
-            XCTAssertEqual(result?.data?.hero?.friends?.first??.name, "Droid #\(number)")
+          store.load(query: query) { result in
+            switch result {
+            case .success(let graphQLResult):
+              XCTAssertEqual(graphQLResult.data?.hero?.friends?.first??.name, "Droid #\(number)")
+            case .failure(let error):
+              XCTFail("Unexpected error: \(error)")
+            }
+            
             expectation.fulfill()
           }
         }

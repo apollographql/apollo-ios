@@ -40,6 +40,17 @@ public class ApolloClient {
   private let queue: DispatchQueue
   private let operationQueue: OperationQueue
   
+  public enum ApolloClientError: Error, LocalizedError {
+    case noUploadTransport
+    
+    public var localizedDescription: String {
+      switch self {
+      case .noUploadTransport:
+        return "Attempting to upload using a transport which does not support uploads. This is a developer error."
+      }
+    }
+  }
+  
   /// Creates a client with the specified network transport and store.
   ///
   /// - Parameters:
@@ -117,6 +128,30 @@ public class ApolloClient {
   @discardableResult public func perform<Mutation: GraphQLMutation>(mutation: Mutation, context: UnsafeMutableRawPointer? = nil, queue: DispatchQueue = DispatchQueue.main, resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
     return send(operation: mutation, shouldPublishResultToStore: true, context: context, resultHandler: wrapResultHandler(resultHandler, queue: queue))
   }
+  
+  /// Uploads the given files with the given operation.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send
+  ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  ///   - completionHandler: The completion handler to execute when the request completes or errors
+  /// - Returns: An object that can be used to cancel an in progress request.
+  /// - Throws: If your `networkTransport` does nto also conform to `UploadingNetworkTransport`.
+  @discardableResult public func upload<Operation: GraphQLOperation>(operation: Operation, context: UnsafeMutableRawPointer? = nil, files: [GraphQLFile], queue: DispatchQueue = .main, resultHandler: GraphQLResultHandler<Operation.Data>? = nil) -> Cancellable {
+    let wrappedHandler = wrapResultHandler(resultHandler, queue: queue)
+    guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
+      assertionFailure("Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`.")
+      wrappedHandler(.failure(ApolloClientError.noUploadTransport))
+      return EmptyCancellable()
+    }
+    
+    return uploadingTransport.upload(operation: operation, files: files) { result in
+      self.handleOperationResult(shouldPublishResultToStore: true,
+                                 context: context, result,
+                                 resultHandler: wrappedHandler)
+    }
+  }
 
   /// Subscribe to a subscription
   ///
@@ -132,33 +167,40 @@ public class ApolloClient {
   
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation, shouldPublishResultToStore: Bool, context: UnsafeMutableRawPointer?, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) -> Cancellable {
     return networkTransport.send(operation: operation) { result in
-      switch result {
-      case .failure(let error):
-        resultHandler(.failure(error))
-      case .success(let response):
-        // If there is no need to publish the result to the store, we can use a fast path.
-        if !shouldPublishResultToStore {
-          do {
-            let result = try response.parseResultFast()
-            resultHandler(.success(result))
-          } catch {
-            resultHandler(.failure(error))
-          }
-          return
+      self.handleOperationResult(shouldPublishResultToStore: shouldPublishResultToStore,
+                                 context: context,
+                                 result,
+                                 resultHandler: resultHandler)
+    }
+  }
+  
+  private func handleOperationResult<Operation>(shouldPublishResultToStore: Bool, context: UnsafeMutableRawPointer?, _ result: Result<GraphQLResponse<Operation>, Error>, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+    switch result {
+    case .failure(let error):
+      resultHandler(.failure(error))
+    case .success(let response):
+      // If there is no need to publish the result to the store, we can use a fast path.
+      if !shouldPublishResultToStore {
+        do {
+          let result = try response.parseResultFast()
+          resultHandler(.success(result))
+        } catch {
+          resultHandler(.failure(error))
         }
-        
-        firstly {
-          try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
-          }.andThen { (result, records) in
-            if let records = records {
-              self.store.publish(records: records, context: context).catch { error in
-                preconditionFailure(String(describing: error))
-              }
+        return
+      }
+      
+      firstly {
+        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+        }.andThen { (result, records) in
+          if let records = records {
+            self.store.publish(records: records, context: context).catch { error in
+              preconditionFailure(String(describing: error))
             }
-            resultHandler(.success(result))
-          }.catch { error in
-            resultHandler(.failure(error))
-        }
+          }
+          resultHandler(.success(result))
+        }.catch { error in
+          resultHandler(.failure(error))
       }
     }
   }
