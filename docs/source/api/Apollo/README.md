@@ -1,5 +1,6 @@
 ## Protocols
 
+-   [ApolloClientProtocol](../protocols/ApolloClientProtocol/)
 -   [Cancellable](../protocols/Cancellable/)
 -   [GraphQLFragment](../protocols/GraphQLFragment/)
 -   [GraphQLInputValue](../protocols/GraphQLInputValue/)
@@ -19,6 +20,7 @@
 -   [Matchable](../protocols/Matchable/)
 -   [NetworkTransport](../protocols/NetworkTransport/)
 -   [NormalizedCache](../protocols/NormalizedCache/)
+-   [UploadingNetworkTransport](../protocols/UploadingNetworkTransport/)
 
 ## Structs
 
@@ -55,6 +57,7 @@
 
 ## Enums
 
+-   [ApolloClientError](../enums/ApolloClientError/)
 -   [CachePolicy](../enums/CachePolicy/)
 -   [ErrorKind](../enums/ErrorKind/)
 -   [GraphQLHTTPRequestError](../enums/GraphQLHTTPRequestError/)
@@ -66,6 +69,7 @@
 
 ## Extensions
 
+-   [ApolloClient](../extensions/ApolloClient/)
 -   [Array](../extensions/Array/)
 -   [Bool](../extensions/Bool/)
 -   [Dictionary](../extensions/Dictionary/)

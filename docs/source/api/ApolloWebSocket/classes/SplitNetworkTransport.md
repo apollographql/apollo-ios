@@ -12,18 +12,18 @@ public class SplitNetworkTransport
 ### `init(httpNetworkTransport:webSocketNetworkTransport:)`
 
 ```swift
-public init(httpNetworkTransport: NetworkTransport, webSocketNetworkTransport: NetworkTransport)
+public init(httpNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport)
 ```
 
 > Designated initializer
 >
 > - Parameters:
->   - httpNetworkTransport: A `NetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
+>   - httpNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
 >   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| httpNetworkTransport | A `NetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar. |
+| httpNetworkTransport | An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar. |
 | webSocketNetworkTransport | A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar. |
