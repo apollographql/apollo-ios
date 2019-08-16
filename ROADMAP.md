@@ -11,7 +11,7 @@ This document was last updated on August 16, 2019.
 
 These are things we plan to be working on **within the next 3 months**.
 
-- **NPM WTF Reduction**: We're looking into ways to package the Apollo client as a binary so it can be included with the library and each individual developer will not have to fight with NPM and its attendant joys. 
+- **NPM WTF Reduction**: We're looking into ways to package the Apollo CLI as a binary so it can be included with the library and each individual developer will not have to fight with NPM and its attendant joys. 
 - **Swift Code, Generated In Swift**: As described in the [call for suggestions](https://github.com/apollographql/apollo-ios/issues/682), we're going to move the "generation" bit of codegen from Typescript into Swift.
 
   There are several advantages of this, but the biggest one is opening up the ability of our mostly-Swift devs to contribute to Codegen improvements without having to deal with TypeScript and all of its fun edge cases. 
