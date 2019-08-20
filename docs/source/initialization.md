@@ -109,13 +109,13 @@ extension Apollo: HTTPNetworkTransportPreflightDelegate {
                         willSend request: inout URLRequest) {
                         
     // Get the existing headers, or create new ones if they're nil
-    var headers = request.allHTTPHeaders ?? [String: String]()
+    var headers = request.allHTTPHeaderFields ?? [String: String]()
 
     // Add any new headers you need
     headers["Authentication"] = "Bearer \(UserManager.shared.currentAuthToken)"
   
     // Re-assign the updated headers to the request.
-    request.headers = headers
+    request.allHTTPHeaderFields = headers
     
     Logger.log(.debug, "Outgoing request: \(request)")
   }
@@ -161,13 +161,13 @@ extension Apollo: HTTPNetworkTransportRetryDelegate {
     // Check if the error and/or response you've received are something that requires authentication
     guard UserManager.shared.requiresReAuthentication(basedOn: error, response: response) else {
       // This is not something this application can handle, do not retry.
-      shouldRetry(false)
+      retryHandler(false)
     }
     
     // Attempt to re-authenticate asynchronously
     UserManager.shared.reAuthenticate { success in 
       // If re-authentication succeeded, try again. If it didn't, don't.
-      shouldRetry(success)
+      retryHandler(success)
     }
   }
 }
