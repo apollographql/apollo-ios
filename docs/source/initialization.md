@@ -112,7 +112,7 @@ extension Apollo: HTTPNetworkTransportPreflightDelegate {
     var headers = request.allHTTPHeaderFields ?? [String: String]()
 
     // Add any new headers you need
-    headers["Authentication"] = "Bearer \(UserManager.shared.currentAuthToken)"
+    headers["Authorization"] = "Bearer \(UserManager.shared.currentAuthToken)"
   
     // Re-assign the updated headers to the request.
     request.allHTTPHeaderFields = headers
