@@ -18,9 +18,9 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   ///   - client: The client protocol to pass in
   ///   - query: The query to watch
   ///   - resultHandler: The result handler to call with changes.
-  init(client: ApolloClientProtocol,
-       query: Query,
-       resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+  public init(client: ApolloClientProtocol,
+              query: Query,
+              resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client
     self.query = query
     self.resultHandler = resultHandler
