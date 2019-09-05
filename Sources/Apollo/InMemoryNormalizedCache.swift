@@ -9,18 +9,18 @@ public final class InMemoryNormalizedCache: NormalizedCache {
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Result<[Record?], Error>) -> Void) {
     let records = keys.map { self.records[$0] }
-    DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-      completion(.success(records))
-    }
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: .success(records))
   }
   
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
     let cacheKeys = self.records.merge(records: records)
-    DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-      completion(.success(cacheKeys))
-    }
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: .success(cacheKeys))
   }
 
   public func clear(callbackQueue: DispatchQueue?,
@@ -31,8 +31,8 @@ public final class InMemoryNormalizedCache: NormalizedCache {
       return
     }
     
-    DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-      completion(.success(()))
-    }
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: .success(()))
   }
 }

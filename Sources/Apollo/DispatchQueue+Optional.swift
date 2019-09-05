@@ -21,4 +21,14 @@ public extension DispatchQueue {
       action()
     }
   }
+  
+  static func apollo_returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?, action: ((Result<T, Error>) -> Void)?, result: Result<T, Error>) {
+    guard let action = action else {
+      return
+    }
+    
+    self.apollo_performAsyncIfNeeded(on: callbackQueue) {
+      action(result)
+    }
+  }
 }

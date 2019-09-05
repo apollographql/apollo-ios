@@ -116,14 +116,14 @@ public final class ApolloStore {
         Promise(fulfilled: try body($0))
       }
       .andThen { object in
-        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-          completion?(.success(object))
-        }
+        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .success(object))
       }
       .catch { error in
-        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-          completion?(.failure(error))
-        }
+        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .failure(error))
     }
   }
 
@@ -152,15 +152,15 @@ public final class ApolloStore {
         Promise(fulfilled: try body($0))
       }
       .andThen { object in
-        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-          completion?(.success(object))
-        }
+        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .success(object))
       }
       .catch { error in
-        DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-          completion?(.failure(error))
+        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .failure(error))
       }
-    }
   }
 
   func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {

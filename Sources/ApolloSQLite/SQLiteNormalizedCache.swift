@@ -97,21 +97,23 @@ extension SQLiteNormalizedCache: NormalizedCache {
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Swift.Result<Set<CacheKey>, Error>) -> Void) {
+    let result: Swift.Result<Set<CacheKey>, Error>
     do {
       let records = try self.mergeRecords(records: records)
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion(.success(records))
-      }
+      result = .success(records)
     } catch {
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion(.failure(error))
-      }
+      result = .failure(error)
     }
+    
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: result)
   }
   
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
+    let result: Swift.Result<[Record?], Error>
     do {
       let records = try self.selectRecords(forKeys: keys)
       let recordsOrNil: [Record?] = keys.map { key in
@@ -121,26 +123,27 @@ extension SQLiteNormalizedCache: NormalizedCache {
         return nil
       }
       
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion(.success(recordsOrNil))
-      }
+      result = .success(recordsOrNil)
     } catch {
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion(.failure(error))
-      }
+      result = .failure(error)
     }
+    
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: result)
   }
   
   public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
+    let result: Swift.Result<Void, Error>
     do {
       try self.clearRecords()
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion?(.success(()))
-      }
+      result = .success(())
     } catch {
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion?(.failure(error))
-      }
+      result = .failure(error)
     }
+    
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: result)
   }
 }

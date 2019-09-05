@@ -19,9 +19,9 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       let records = keys.map { self.records[$0] }
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion(.success(records))
-      }
+      DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: .success(records))
     }
   }
   
@@ -30,18 +30,18 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
              completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       let changedKeys = self.records.merge(records: records)
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion(.success(changedKeys))
-      }
+      DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: .success(changedKeys))
     }
   }
   
   func clear(callbackQueue: DispatchQueue?, completion: ((Result<Void, Error>) -> Void)?) {
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       self.records.clear()
-      DispatchQueue.apollo_performAsyncIfNeeded(on: callbackQueue) {
-        completion?(.success(()))
-      }
+      DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: .success(()))
     }
   }
 }
