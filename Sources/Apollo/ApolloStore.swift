@@ -55,12 +55,9 @@ public final class ApolloStore {
       self.cacheLock.withWriteLock {
           self.cache.clearPromise()
         }.andThen {
-          guard let completion = completion else {
-            return
-          }
-          callbackQueue.async {
-            completion(.success(()))
-          }
+          DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                         action: completion,
+                                                         result: .success(()))
       }
     }
   }
