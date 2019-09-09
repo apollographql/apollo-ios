@@ -10,6 +10,7 @@
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
+		9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */; };
 		9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */; };
 		9BA1244A22D8A8EA00BF1D24 /* JSONSerialziation+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1244922D8A8EA00BF1D24 /* JSONSerialziation+Sorting.swift */; };
 		9BA1245E22DE116B00BF1D24 /* Result+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */; };
@@ -264,6 +265,7 @@
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
+		9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorGenerationTests.swift; sourceTree = "<group>"; };
 		9B8D864E22E7A846001F6D50 /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
 		9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETTransformerTests.swift; sourceTree = "<group>"; };
 		9BA1244922D8A8EA00BF1D24 /* JSONSerialziation+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONSerialziation+Sorting.swift"; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
 				9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
+				9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */,
 				9F8622F91EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift */,
 				9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */,
 				9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */,
@@ -1236,6 +1239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */,
 				9FC9A9C81E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift in Sources */,
 				9F91CF8F1F6C0DB2008DD0BE /* MutatingResultsTests.swift in Sources */,
 				9F19D8461EED8D3B00C57247 /* ResultOrPromiseTests.swift in Sources */,
