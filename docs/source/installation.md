@@ -90,6 +90,8 @@ Note that you need to add this in the folder where most of your code is, NOT in 
         | etc...
 ```
 
+> **NOTE:** You _can_ add this file someplace else, but if you do, you will need to update the relative paths in the scripts in the steps below. 
+
 ## [Optional] Installing the Xcode add-ons to get syntax highlighting
 
 1. Clone the [`xcode-apollo` repository](https://github.com/apollostack/xcode-apollo) to your computer.
