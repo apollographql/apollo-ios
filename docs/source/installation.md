@@ -72,9 +72,25 @@ You can also manually clone the [`apollo-ios` repository](https://github.com/apo
 
 ## Adding a schema file to your target directory
 
-You'll have to copy or [download a schema](/downloading-schema/) to your target directory before generating code.
+You'll have to copy or [download a schema](/downloading-schema/) to your target's directory before generating code.
 
 Apollo iOS requires a GraphQL schema file as input to the code generation process. A schema file is a JSON file that contains the results of an an introspection query. Conventionally this file is called `schema.json`.
+
+Note that you need to add this in the folder where most of your code is, NOT in the same folder where the `.xcodeproj` and/or `.xcworkspace` are located. Here is a rough ASCII representation of what this should look like: 
+
+```
+| - your_project_folder
+    | your_project.xcodeproj
+    | - your_target_folder 
+        | schema.json
+        | AppDelegate.swift
+        | ViewController.swift
+        | etc...
+    | - another_target_folder
+        | etc...
+```
+
+> **NOTE:** You _can_ add this file someplace else, but if you do, you will need to update the relative paths in the scripts in the steps below. 
 
 ## [Optional] Installing the Xcode add-ons to get syntax highlighting
 
