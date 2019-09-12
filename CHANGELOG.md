@@ -3,9 +3,9 @@
 ### v0.15.2
 - Update Apollo CLI requirement to 2.18. This should pull in a couple fixes to the CLI: 
     - Way better escaping of identifiers, types, and strings ([Tooling #1515](https://github.com/apollographql/apollo-tooling/pull/1515))
-    - Fix compiler warning when an optional has a `.none` case ([Tooling #1482](https://github.com/apollographql/apollo-tooling/pull/1482)
+    - Fix compiler warning when an optional has a `.none` case ([Tooling #1482](https://github.com/apollographql/apollo-tooling/pull/1482))
   
-  If you run into any weird build issues after this update, try deleting your local `node_modules` folder and rebuilding before filing an issue.
+  If you run into any weird build issues after this update, try deleting your local `node_modules` folder and rebuilding before filing an issue. ([#760](https://github.com/apollographql/apollo-ios/pull/760))
 - Better handling of the `localizedDescription` for `HTTPResponseError`. ([#756](https://github.com/apollographql/apollo-ios/pull/756))
 
 ### v0.15.1
