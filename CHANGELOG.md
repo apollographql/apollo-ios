@@ -1,5 +1,13 @@
 # Change log
 
+### v0.15.2
+- Update Apollo CLI requirement to 2.18. This should pull in a couple fixes to the CLI: 
+    - Way better escaping of identifiers, types, and strings ([Tooling #1515](https://github.com/apollographql/apollo-tooling/pull/1515))
+    - Fix compiler warning when an optional has a `.none` case ([Tooling #1482](https://github.com/apollographql/apollo-tooling/pull/1482)
+  
+  If you run into any weird build issues after this update, try deleting your local `node_modules` folder and rebuilding before filing an issue.
+- Better handling of the `localizedDescription` for `HTTPResponseError`. ([#756](https://github.com/apollographql/apollo-ios/pull/756))
+
 ### v0.15.1
 - Add platform name to framework bundle identifier to work around a change to app store submission. Please see the PR for more details. ([#751](https://github.com/apollographql/apollo-ios/pull/751))
 - Expose the initializer for `GraphQLQueryWatcher` so it can actually be instantiated. ([#750](https://github.com/apollographql/apollo-ios/pull/750))
