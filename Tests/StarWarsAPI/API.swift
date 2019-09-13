@@ -72,7 +72,7 @@ public struct ReviewInput: GraphQLMapConvertible {
   /// Comment about the movie, optional
   public var commentary: Swift.Optional<String?> {
     get {
-      return graphQLMap["commentary"] as? Swift.Optional<String?> ?? Swift.Optional<String?>.none
+      return graphQLMap["commentary"] as? Swift.Optional<String?> ?? .none
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "commentary")
@@ -82,7 +82,7 @@ public struct ReviewInput: GraphQLMapConvertible {
   /// Favorite color, optional
   public var favoriteColor: Swift.Optional<ColorInput?> {
     get {
-      return graphQLMap["favorite_color"] as? Swift.Optional<ColorInput?> ?? Swift.Optional<ColorInput?>.none
+      return graphQLMap["favorite_color"] as? Swift.Optional<ColorInput?> ?? .none
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "favorite_color")
