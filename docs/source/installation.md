@@ -16,11 +16,11 @@ Follow along with these steps (described in detail below) to use Apollo iOS in y
 
 ## Installing the Apollo framework
 
-You can install `Apollo.framework` into your project using [Swift Package Manager](#swift-package-manager-installation), [CocoaPods](#cocoapods-installation), [carthage](#carthage-installation), or by [manually integrating it with Xcode](#manual-integration).
+You can install `Apollo.framework` into your project using [Swift Package Manager](#swift-package-manager-installation), [CocoaPods](#cocoapods-installation), [Carthage](#carthage-installation), or by [manually integrating it with Xcode](#manual-integration).
 
 ### Swift Package Manager Installation
 
-> **NOTE**: These instructions are intended for usage on Xcode 11 and higher. Xcode 11 is the first version of Xcode that integrates Swift Package manager and makes it _way_ easier to use than it was at the command line. If you are using older versions of Xcode, we recommend using [CocoaPods](#CocoaPods-Installation)
+> **NOTE**: These instructions are intended for usage on Xcode 11 and higher. Xcode 11 is the first version of Xcode that integrates Swift Package manager and makes it _way_ easier to use than it was at the command line. If you are using older versions of Xcode, we recommend using [CocoaPods](#cocoapods-installation)
 
 1. Go to **File > Swift Packages > Add Package Dependency... **
 
@@ -143,35 +143,28 @@ If you have the Xcode add-ons installed, you can use the Xcode companion view to
 
 ## Adding a code generation build step
 
-In order to invoke `apollo` as part of the Xcode build process, create a build step that runs before "Compile Sources" to invoke `apollo` through the `check-and-run-apollo-cli.sh` wrapper script. 
+Code generation uses your `.graphql` files to generate API code that will help you send queries, subscriptions, and mutations, as well as parse and cache responses. To run code generation as part of the Xcode build process, you need to create a build step that runs before "Compile Sources" to invoke a wrapper script. 
 
-The main reason for calling the wrapper is to check whether the version of `apollo` installed on your system is compatible with the framework version installed in your project, and to warn you if it isn't. Without this check, you could end up generating code that is incompatible with the runtime code contained in the framework. 
+The wrapper will call through to the included binaries and files that constitute the `apollo` command-line interface. This ensures that you can use our tooling without having to worry about NPM Version Hell™, and that the version of the framework you're using is compatible with the version of the codegen you're using.
 
 The location of this wrapper script is slightly different based on how you've integrated Apollo into you project, but the first steps are the same everywhere: 
 
 1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. 
 2. In the created Run Script, change its name to **Generate Apollo GraphQL API** 
 3. Drag this new run script just above **Compile Sources** in your list of **Build Phases** so that it executes before your code is compiled.
-4. Add the appropriate contents to the run script from the options below.
+4. Add the contents of the appropriate run script for the package manager you're using from this list:
 
-### If you ARE integrating Apollo using CocoaPods
+  - [Swift Package Manager](#swift-package-manager-run-script)
+  - [CocoaPods](#cocoapods-run-script)
+  - [Carthage](#carthage-run-script)
+  - [Manual Integration](#manual-integration-run-script)
 
-Our CocoaPods install includes the code-generation script as a file which will not be added to the framework. Since this is always installed in a consistent place, you can use the same path to it. Add the following to the Run Script:
+### Swift Package Manager Run Script
 
-```sh
-SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
-cd "${SRCROOT}/${TARGET_NAME}"
-"${SCRIPT_PATH}"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
-```
-
-### If you are integrating Apollo using SPM + Xcode 11 [BETA]
-
-> NOTE: These instructions are as of Xcode 11, beta 4. Please file an issue if anything has changed in newer betas or in the final release!
-
-If you're using Xcode 11, SPM will check out the appropriate build script along with the rest of the files. Add the following to your Run Script build phase: 
+If you're using Xcode 11 or higher, SPM will check out the appropriate build script along with the rest of the files when it checks out the repo. Add the following to your Run Script build phase: 
 
 ```sh
-# Go to the build root and go back up to where SPM keeps the apollo iOS framework checked out.
+# Go to the build root and go back up to where SPM keeps the Apollo iOS repo checked out.
 cd "${BUILD_ROOT}"
 cd "../../SourcePackages/checkouts/apollo-ios/scripts"
 
@@ -183,50 +176,47 @@ if [ -z "${APOLLO_SCRIPT_PATH}" ]; then
 fi
 
 cd "${SRCROOT}/${TARGET_NAME}"
-"${APOLLO_SCRIPT_PATH}"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+"${APOLLO_SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
 > NOTE: If you try to use this with command line SPM, when you regenerate your `xcodeproj` this build script will get wiped out. We strongly recommend using Xcode 11's built-in SPM handling rather than the command line because of this.
 
-### If you're NOT integrating Apollo using CocoaPods
+### CocoaPods Run Script
 
-In this case, the `check-and-run-apollo-cli.sh` file is bundled into the framework. The procedures to call it are slightly different based on whether you're using an iOS or macOS target because of the way the frameworks are compiled. 
-
-📱 For an **iOS** target or a **Cocoa Touch Framework**, add the following to your Run Script build phase: 
+Our CocoaPods install includes the code-generation scripts and binaries of the `apollo` CLI client as files which will not be added to the framework, but which you can still call from a Run Script Build Phase. Add the following to the Run Script:
 
 ```sh
-# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
-QUOTED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
-
-# Get the first result searching for the framework
-APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1 -print | head -n 1)"
-
-if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
-    echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
-    exit 1
-fi
-
+SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
 cd "${SRCROOT}/${TARGET_NAME}"
-"${APOLLO_FRAMEWORK_PATH}"/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
-💻 For a **macOS** or a **Cocoa Framework** target, add the following to your Run Script build phase: 
+### Carthage Run Script
+
+In the never-ending battle of what's going to be more painful when it comes to dependency management, we've decided to make working with Carthage a bit more of a pain in order to make working with NPM way less of a pain. 
+
+The scripts and binaries which you need to generate code will be included in the `Carthage/Checkouts` folder. If this folder is not checked into version control, all developers on a team (and your CI machine) will need to run `carthage checkout` when changes are made to the version to ensure they have the correct underlying binaries and scripts.
+
+Once everyone's on the same page about that, you should be able to use this build script:
 
 ```sh
-# Do some magic so we can make sure `FRAMEWORK_SEARCH_PATHS` works correctly when there's a space in the scheme or the folder name.
-QUOTED_FRAMEWORK_SEARCH_PATHS=\"$(echo $FRAMEWORK_SEARCH_PATHS | tr -d '"' | sed -e 's/ \//" "\//g')\"
-
-# Get the first result searching for the framework
-APOLLO_FRAMEWORK_PATH="$(eval find ${QUOTED_FRAMEWORK_SEARCH_PATHS} -name "Apollo.framework" -maxdepth 1 -print | head -n 1)"
-
-if [ -z "${APOLLO_FRAMEWORK_PATH}" ]; then
-    echo "error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project."
-    exit 1
-fi
-
+SCRIPT_PATH="${SRCROOT}/Carthage/Checkouts/apollo-ios/scripts"
 cd "${SRCROOT}/${TARGET_NAME}"
-"${APOLLO_FRAMEWORK_PATH}"/Versions/Current/Resources/check-and-run-apollo-cli.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
+
+### Manual Integration Run Script
+
+You'll need to find the place where you've downloaded the Apollo iOS SDK, and manually set the `SCRIPT_PATH` to that folder. Usually this works best if it's related to `SRCROOT` so it's always the same 
+
+Replace `__YOUR_PATH_TO_THE_SCRIPT_FOLDER__` with (you guessed it) your path to the script folder in this script: 
+
+```sh
+SCRIPT_PATH=__YOUR_PATH_TO_THE_SCRIPT_FOLDER__
+cd "${SRCROOT}/${TARGET_NAME}"
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+```
+
 
 ## Build your target
 
