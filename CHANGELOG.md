@@ -1,5 +1,8 @@
 # Change log
 
+### v0.15.3
+- Revert CLI update from `0.15.2` due to unexpected build issues. 
+
 ### v0.15.2
 - Update Apollo CLI requirement to 2.18. This should pull in a couple fixes to the CLI: 
     - Way better escaping of identifiers, types, and strings ([Tooling #1515](https://github.com/apollographql/apollo-tooling/pull/1515))
