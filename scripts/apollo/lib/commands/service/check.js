@@ -384,8 +384,7 @@ ServiceCheck.flags = Object.assign({}, Command_1.ProjectCommand.flags, { tag: co
         description: "Output result in json, which can then be parsed by CLI tools such as jq.",
         exclusive: ["markdown"]
     }), localSchemaFile: command_1.flags.string({
-        description: "Path to your local GraphQL schema file (introspection result or SDL)",
-        multiple: true
+        description: "Path to your local GraphQL schema file (introspection result or SDL)"
     }), markdown: command_1.flags.boolean({
         description: "Output result in markdown.",
         exclusive: ["json"]

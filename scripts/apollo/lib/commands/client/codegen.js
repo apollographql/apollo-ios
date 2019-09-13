@@ -116,8 +116,7 @@ Generate.flags = Object.assign({}, Command_1.ClientCommand.flags, { watch: comma
         description: "Type of code generator to use (swift | typescript | flow | scala)",
         required: true
     }), localSchemaFile: command_1.flags.string({
-        description: "Path to your local GraphQL schema file (introspection result or SDL)",
-        multiple: true
+        description: "Path to your local GraphQL schema file (introspection result or SDL)"
     }), addTypename: command_1.flags.boolean({
         description: "[default: true] Automatically add __typename to your queries, can be unset with --no-addTypename",
         default: true,

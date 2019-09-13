@@ -83,11 +83,12 @@ class ProjectCommand extends command_1.default {
             });
         }
         if (flags.localSchemaFile) {
+            const files = flags.localSchemaFile.split(",");
             if (apollo_language_server_1.isClientConfig(config)) {
                 config.setDefaults({
                     client: {
                         service: {
-                            localSchemaFile: flags.localSchemaFile
+                            localSchemaFile: files
                         }
                     }
                 });
@@ -95,7 +96,7 @@ class ProjectCommand extends command_1.default {
             else if (apollo_language_server_1.isServiceConfig(config)) {
                 config.setDefaults({
                     service: {
-                        localSchemaFile: flags.localSchemaFile
+                        localSchemaFile: files
                     }
                 });
             }

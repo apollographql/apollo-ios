@@ -33,7 +33,7 @@ export default class ServiceCheck extends ProjectCommand {
         queryCountThreshold: import("@oclif/parser/lib/flags").IOptionFlag<number | undefined>;
         queryCountThresholdPercentage: import("@oclif/parser/lib/flags").IOptionFlag<number | undefined>;
         json: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
-        localSchemaFile: flags.IOptionFlag<string[]>;
+        localSchemaFile: flags.IOptionFlag<string | undefined>;
         markdown: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
         serviceName: flags.IOptionFlag<string | undefined>;
         config: flags.IOptionFlag<string | undefined>;
