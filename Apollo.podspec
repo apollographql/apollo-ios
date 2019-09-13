@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
       'scripts/check-and-run-apollo-cli.sh',
       'scripts/check-and-run-apollo-codegen.sh',
       'scripts/run-bundled-codegen.sh',
-      'scripts/apollo/**/**/**/*',
+      'scripts/apollo/**/*',
     ]
   end
 
