@@ -1,6 +1,8 @@
 import XCTest
 @testable import Apollo
+#if canImport(ApolloSQLite)
 import ApolloSQLite
+#endif
 import ApolloTestSupport
 import StarWarsAPI
 
@@ -301,6 +303,7 @@ class LoadQueryFromStoreTests: XCTestCase {
             } else {
               XCTFail("Incorrect error type for underlying with in-memory cache: \(graphQLError.underlying)")
             }
+          #if canImport(ApolloSQLite)
           case is SQLiteNormalizedCacheError:
             if (cache is SQLiteNormalizedCache) {
               // This is expected for SQLite caching
@@ -308,6 +311,7 @@ class LoadQueryFromStoreTests: XCTestCase {
             } else {
               XCTFail("Incorrect error type for underlying with SQLite cache: \(graphQLError.underlying)")
             }
+          #endif
           default:
             XCTFail("Incorrect error type for underlying: \(graphQLError.underlying)")
           }
