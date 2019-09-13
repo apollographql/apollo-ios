@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloSQLite
 import ApolloTestSupport
 import StarWarsAPI
 
@@ -282,9 +283,35 @@ class LoadQueryFromStoreTests: XCTestCase {
       store = ApolloStore(cache: cache)
       
       let query = HeroAndFriendsNamesQuery()
-      load(query: query) { (result, error) in
-        XCTAssertNil(result)
-        XCTAssertNotNil(error)
+      load(query: query) { result in
+        switch result {
+        case .success:
+          XCTFail("Should not have succeeded!")
+        case .failure(let error):
+          guard let graphQLError = error as? GraphQLResultError else {
+            XCTFail("Incorrect error type for primary error: \(error)")
+            return
+          }
+          
+          switch graphQLError.underlying {
+          case is JSONDecodingError:
+            if (cache is InMemoryNormalizedCache) {
+              // This is expected for in-memory caching
+              break
+            } else {
+              XCTFail("Incorrect error type for underlying with in-memory cache: \(graphQLError.underlying)")
+            }
+          case is SQLiteNormalizedCacheError:
+            if (cache is SQLiteNormalizedCache) {
+              // This is expected for SQLite caching
+              break
+            } else {
+              XCTFail("Incorrect error type for underlying with SQLite cache: \(graphQLError.underlying)")
+            }
+          default:
+            XCTFail("Incorrect error type for underlying: \(graphQLError.underlying)")
+          }
+        }
       }
     }
   }
