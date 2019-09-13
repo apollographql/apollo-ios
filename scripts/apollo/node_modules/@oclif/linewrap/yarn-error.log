@@ -1,0 +1,47 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js upgrade-interactive --latest
+
+PATH: 
+  ./bin:./node_modules/.bin:/usr/local/opt/go/libexec/bin:/Users/jdickey/bin:/Users/jdickey/.fzf/bin:/Users/jdickey/bin:/Users/jdickey/.config/yarn/global/node_modules/.bin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/Users/jdickey/.config/yarn/global/node_modules/.bin:/Users/jdickey/.cargo/bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.11.1
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "@heroku/linewrap",
+    "version": "1.0.0",
+    "description": "",
+    "main": "linewrap.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/heroku/node-linewrap.git"
+    },
+    "author": "Jeff Dickey",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/heroku/node-linewrap/issues"
+    },
+    "homepage": "https://github.com/heroku/node-linewrap#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: No lockfile in this directory. Run `yarn install` to generate one.
+      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
+      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:89389:13
+      at <anonymous>

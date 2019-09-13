@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Swift code generation: Basic language constructs should handle multi-line descriptions 1`] = `
+"/// A hero
+public struct Hero {
+  /// A multiline comment
+  /// on the hero's name.
+  public var name: String
+  /// A multiline comment
+  /// on the hero's age.
+  public var age: String
+}"
+`;

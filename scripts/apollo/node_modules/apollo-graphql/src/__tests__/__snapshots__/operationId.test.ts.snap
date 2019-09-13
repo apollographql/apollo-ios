@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaultEngineReportingSignature basic test 1`] = `"{user{name}}"`;
+
+exports[`defaultEngineReportingSignature basic test with query 1`] = `"{user{name}}"`;
+
+exports[`defaultEngineReportingSignature basic with operation name 1`] = `"query OpName{user{name}}"`;
+
+exports[`defaultEngineReportingSignature fragment 1`] = `"fragment Bar on User{asd}{user{name...Bar}}"`;
+
+exports[`defaultEngineReportingSignature fragments in various order 1`] = `"fragment Bar on User{asd}{user{name...Bar}}"`;
+
+exports[`defaultEngineReportingSignature full test 1`] = `"fragment Bar on User{age@skip(if:$a)...Nested}fragment Nested on User{blah}query Foo($a:Boolean,$b:Int){user(age:0,name:\\"\\"){name tz...Bar...on User{bee hello}}}"`;
+
+exports[`defaultEngineReportingSignature with various argument types 1`] = `"query OpName($a:[[Boolean!]!],$b:EnumType,$c:Int!){user{name(apple:$a,bag:$b,cat:$c)}}"`;
+
+exports[`defaultEngineReportingSignature with various inline types 1`] = `"query OpName{user{name(apple:[],bag:{},cat:ENUM_VALUE)}}"`;
+
+exports[`defaultOperationRegistrySignature basic test 1`] = `"{user{name}}"`;
+
+exports[`defaultOperationRegistrySignature basic test with query 1`] = `"{user{name}}"`;
+
+exports[`defaultOperationRegistrySignature basic with operation name 1`] = `"query OpName{user{name}}"`;
+
+exports[`defaultOperationRegistrySignature fragment 1`] = `"fragment Bar on User{asd}{user{name...Bar}}"`;
+
+exports[`defaultOperationRegistrySignature fragments in various order 1`] = `"fragment Bar on User{asd}{user{name...Bar}}"`;
+
+exports[`defaultOperationRegistrySignature full test 1`] = `"fragment Bar on User{age@skip(if:$a)...Nested}fragment Nested on User{blah}query Foo($a:Boolean,$b:Int){user(age:0,name:\\"\\"){aliased:name tz...Bar...on User{bee hello}}}"`;
+
+exports[`defaultOperationRegistrySignature with various argument types 1`] = `"query OpName($a:[[Boolean!]!],$b:EnumType,$c:Int!){user{name(apple:$a,bag:$b,cat:$c)}}"`;
+
+exports[`defaultOperationRegistrySignature with various inline types 1`] = `"query OpName{user{name(apple:[[0]],bag:{input:\\"\\"},cat:ENUM_VALUE)}}"`;
