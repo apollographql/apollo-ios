@@ -1,0 +1,1 @@
+{"version":3,"file":"delete.d.ts","sourceRoot":"","sources":["../../../src/commands/service/delete.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,gBAAgB,CAAC;AAEvC,OAAO,EAAE,cAAc,EAAE,MAAM,eAAe,CAAC;AAE/C,MAAM,CAAC,OAAO,OAAO,aAAc,SAAQ,cAAc;IACvD,MAAM,CAAC,WAAW,SAC0D;IAC5E,MAAM,CAAC,KAAK;;;;;;;;;;MAkBV;IAEI,GAAG;CAqDV"}

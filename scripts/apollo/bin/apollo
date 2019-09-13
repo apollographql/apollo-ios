@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -e
+echoerr() { echo "$@" 1>&2; }
+
+get_script_dir () {
+  SOURCE="${BASH_SOURCE[0]}"
+  # While $SOURCE is a symlink, resolve it
+  while [ -h "$SOURCE" ]; do
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    SOURCE="$( readlink "$SOURCE" )"
+    # If $SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  done
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  echo "$DIR"
+}
+DIR=$(get_script_dir)
+CLI_HOME=$(cd && pwd)
+XDG_DATA_HOME=${XDG_DATA_HOME:="$CLI_HOME/.local/share"}
+CLIENT_HOME=${APOLLO_OCLIF_CLIENT_HOME:=$XDG_DATA_HOME/apollo/client}
+BIN_PATH="$CLIENT_HOME/bin/apollo"
+if [ -z "$APOLLO_REDIRECTED" ] && [ -x "$BIN_PATH" ] && [[ ! "$DIR/apollo" -ef "$BIN_PATH" ]]; then
+  if [ "$DEBUG" == "*" ]; then
+    echoerr "$BIN_PATH" "$@"
+  fi
+  APOLLO_BINPATH="$BIN_PATH" APOLLO_REDIRECTED=1 "$BIN_PATH" "$@"
+else
+  export APOLLO_BINPATH=${APOLLO_BINPATH:="$DIR/apollo"}
+  if [ -x "$(command -v "$XDG_DATA_HOME/oclif/node/node-custom")" ]; then
+    NODE="$XDG_DATA_HOME/oclif/node/node-custom"
+  elif [ -x "$(command -v "$DIR/node")" ]; then
+    NODE="$DIR/node"
+  elif [ -x "$(command -v "$XDG_DATA_HOME/oclif/node/node-10.16.3")" ]; then
+    NODE="$XDG_DATA_HOME/oclif/node/node-10.16.3"
+  elif [ -x "$(command -v node)" ]; then
+    NODE=node
+  else
+    echoerr 'Error: node is not installed.' >&2
+    exit 1
+  fi
+  if [ "$DEBUG" == "*" ]; then
+    echoerr APOLLO_BINPATH="$APOLLO_BINPATH" "$NODE" "$DIR/run" "$@"
+  fi
+  "$NODE" "$DIR/run" "$@"
+fi
