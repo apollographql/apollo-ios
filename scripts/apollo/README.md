@@ -21,7 +21,7 @@ $ npm install -g apollo
 $ apollo COMMAND
 running command...
 $ apollo (-v|--version|version)
-apollo/2.18.1 linux-x64 node-v10.16.3
+apollo/2.18.2 linux-x64 node-v10.16.3
 $ apollo --help [COMMAND]
 USAGE
   $ apollo COMMAND

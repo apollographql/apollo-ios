@@ -7,7 +7,7 @@ export default class Generate extends ClientCommand {
     static flags: {
         watch: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
         target: flags.IOptionFlag<string>;
-        localSchemaFile: flags.IOptionFlag<string | undefined>;
+        localSchemaFile: flags.IOptionFlag<string[]>;
         addTypename: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
         passthroughCustomScalars: import("@oclif/parser/lib/flags").IBooleanFlag<boolean>;
         customScalarsPrefix: flags.IOptionFlag<string | undefined>;

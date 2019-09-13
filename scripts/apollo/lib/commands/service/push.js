@@ -157,7 +157,8 @@ ServicePush.flags = Object.assign({}, Command_1.ProjectCommand.flags, { tag: com
         description: "The tag to publish this service to",
         default: "current"
     }), localSchemaFile: command_1.flags.string({
-        description: "Path to your local GraphQL schema file (introspection result or SDL)"
+        description: "Path to your local GraphQL schema file (introspection result or SDL)",
+        multiple: true
     }), federated: command_1.flags.boolean({
         char: "f",
         default: false,

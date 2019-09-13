@@ -1,8 +1,8 @@
 {
   "_from": "apollo",
-  "_id": "apollo@2.18.1",
+  "_id": "apollo@2.18.2",
   "_inBundle": false,
-  "_integrity": "sha512-kBzOTD76PYyQ9sWJ1uQAB+eFWvv7+63qzeAoiV0OFyjbH6LN3sm24qD2KNoaQhT5p+hArdpDeHWR0EVyaO+jWw==",
+  "_integrity": "sha512-rE2irx+Q92PYbm4TZsSJciTMh051tJgpVJ4smIVJR6pXzQXBJCOdgM8a4JK2K78tuc4UWSlLSI95taaAf80wvg==",
   "_location": "/apollo",
   "_phantomChildren": {},
   "_requested": {
@@ -19,8 +19,8 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/apollo/-/apollo-2.18.1.tgz",
-  "_shasum": "16b55924f064c7b9327e5001d206e061334723e5",
+  "_resolved": "https://registry.npmjs.org/apollo/-/apollo-2.18.2.tgz",
+  "_shasum": "a7e7a7f91895762b4ba300dbe2bd3ac0deaf40c1",
   "_spec": "apollo",
   "_where": "/home/circleci/project/packages/apollo/tmp",
   "author": {
@@ -44,14 +44,14 @@
     "@oclif/plugin-not-found": "1.2.3",
     "@oclif/plugin-plugins": "1.7.8",
     "@oclif/plugin-warn-if-update-available": "1.7.0",
-    "apollo-codegen-core": "^0.35.1",
-    "apollo-codegen-flow": "^0.33.26",
-    "apollo-codegen-scala": "^0.34.26",
-    "apollo-codegen-swift": "^0.35.6",
-    "apollo-codegen-typescript": "^0.35.1",
+    "apollo-codegen-core": "^0.35.2",
+    "apollo-codegen-flow": "^0.33.27",
+    "apollo-codegen-scala": "^0.34.27",
+    "apollo-codegen-swift": "^0.35.7",
+    "apollo-codegen-typescript": "^0.35.2",
     "apollo-env": "^0.5.1",
     "apollo-graphql": "^0.3.3",
-    "apollo-language-server": "^1.15.1",
+    "apollo-language-server": "^1.15.2",
     "chalk": "2.4.2",
     "env-ci": "3.2.2",
     "gaze": "1.1.3",
@@ -83,7 +83,7 @@
     "/lib",
     "/oclif.manifest.json"
   ],
-  "gitHead": "ad937df63ff8655eed6a4e632a398fa6d724986d",
+  "gitHead": "ee51af0a82027104fbcd95c3effb810c89a43566",
   "homepage": "https://github.com/apollographql/apollo-tooling",
   "jest": {
     "preset": "ts-jest",
@@ -141,5 +141,5 @@
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
-  "version": "2.18.1"
+  "version": "2.18.2"
 }
