@@ -77,6 +77,7 @@ class CachePersistenceTests: XCTestCase {
 
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let emptyCacheExpectation = self.expectation(description: "Fetch query from empty cache")
+      let cacheClearExpectation = self.expectation(description: "cache cleared")
 
       client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { outerResult in
         defer { networkExpectation.fulfill() }
@@ -87,14 +88,16 @@ class CachePersistenceTests: XCTestCase {
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
         }
-
-        do {
-          try client.clearCache().await()
-        } catch {
-          XCTFail("Error Clearing cache: \(error)")
-          emptyCacheExpectation.fulfill()
-          return
-        }
+        
+        client.clearCache(completion: { result in
+          switch result {
+          case .success:
+            break
+          case .failure(let error):
+            XCTFail("Error clearing cache: \(error)")
+          }
+          cacheClearExpectation.fulfill()
+        })
 
         client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
           defer { emptyCacheExpectation.fulfill() }
