@@ -2,7 +2,7 @@ import Dispatch
 
 /// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
-  weak var client: ApolloClient?
+  weak var client: ApolloClientProtocol?
   let query: Query
   let resultHandler: GraphQLResultHandler<Query.Data>
   
@@ -12,7 +12,15 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   
   private var dependentKeys: Set<CacheKey>?
   
-  init(client: ApolloClient, query: Query,  resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+  /// Designated initializer
+  ///
+  /// - Parameters:
+  ///   - client: The client protocol to pass in
+  ///   - query: The query to watch
+  ///   - resultHandler: The result handler to call with changes.
+  public init(client: ApolloClientProtocol,
+              query: Query,
+              resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client
     self.query = query
     self.resultHandler = resultHandler
@@ -26,11 +34,17 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
   
   func fetch(cachePolicy: CachePolicy) {
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context) { [weak self] (result, error) in
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: .main) { [weak self] result in
       guard let `self` = self else { return }
-        
-      self.dependentKeys = result?.dependentKeys
-      self.resultHandler(result, error)
+      
+      switch result {
+      case .success(let graphQLResult):
+        self.dependentKeys = graphQLResult.dependentKeys
+      case .failure:
+        break
+      }
+      
+      self.resultHandler(result)
     }
   }
   

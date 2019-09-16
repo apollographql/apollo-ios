@@ -33,6 +33,9 @@ public final class ApolloStore {
 
   private var subscribers: [ApolloStoreSubscriber] = []
 
+  /// Designated initializer
+  ///
+  /// - Parameter cache: An instance of `normalizedCache` to use to cache results.
   public init(cache: NormalizedCache) {
     self.cache = cache
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
@@ -44,7 +47,10 @@ public final class ApolloStore {
     }
   }
 
-  func clearCache() -> Promise<Void> {
+  /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
+  ///
+  /// - Returns: A promise which fulfills when the Cache is cleared.
+  public func clearCache() -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
@@ -128,12 +134,17 @@ public final class ApolloStore {
       GraphQLResult(data: data, errors: nil, source:.cache, dependentKeys: dependentKeys)
     }
   }
-
+  
+  /// Loads the results for the given query from the cache.
+  ///
+  /// - Parameters:
+  ///   - query: The query to load results for
+  ///   - resultHandler: The completion handler to execute on success or error
   public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     load(query: query).andThen { result in
-      resultHandler(result, nil)
+      resultHandler(.success(result))
     }.catch { error in
-      resultHandler(nil, error)
+      resultHandler(.failure(error))
     }
   }
 
@@ -236,14 +247,14 @@ public final class ApolloStore {
       
       executor.cacheKeyForObject = self.cacheKeyForObject
       
-      try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
+      _ = try executor.execute(selections: selections, on: object, withKey: key, variables: variables, accumulator: normalizer)
       .flatMap {
         self.cache.merge(records: $0)
       }.andThen { changedKeys in
         if let didChangeKeysFunc = self.updateChangedKeysFunc {
           didChangeKeysFunc(changedKeys, nil)
         }
-      }.wait()
+      }.await()
     }
   }
 }

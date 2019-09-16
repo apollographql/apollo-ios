@@ -24,10 +24,14 @@ struct GraphQLResolveInfo {
   }
 }
 
-struct GraphQLResultError: Error, LocalizedError {
+/// An error which has occurred in processing a GraphQLResult
+public struct GraphQLResultError: Error, LocalizedError {
   let path: ResponsePath
-  let underlying: Error
   
+  /// The error that occurred during parsing.
+  public let underlying: Error
+  
+  /// A description of the error which includes the path where the error occurred.
   public var errorDescription: String? {
     return "Error at path \"\(path))\": \(underlying)"
   }

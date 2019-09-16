@@ -22,8 +22,10 @@ class APQsConfig: TestConfig {
 }
 
 class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
+  var alreadyRetried = false
   func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedError error: Error, for request: URLRequest, response: URLResponse?, retryHandler: @escaping (Bool) -> Void) {
-    retryHandler(true)
+    retryHandler(!alreadyRetried)
+    alreadyRetried = true
   }
   
   func network() -> HTTPNetworkTransport {
@@ -324,19 +326,21 @@ class StarWarsServerTests: XCTestCase {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query) { (result, error) in
+      client.fetch(query: query) { result in
         defer { expectation.fulfill() }
-
-        if let error = error { XCTFail("Error while fetching query: \(error.localizedDescription)");  return }
-        guard let result = result else { XCTFail("No query result");  return }
-
-        if let errors = result.errors {
-          XCTFail("Errors in query result: \(errors)")
+      
+        switch result {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          guard let data = graphQLResult.data else {
+            XCTFail("No query result data")
+            return
+          }
+          
+          completionHandler(data)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
         }
-
-        guard let data = result.data else { XCTFail("No query result data");  return }
-
-        completionHandler(data)
       }
       
       waitForExpectations(timeout: 5, handler: nil)
@@ -351,19 +355,22 @@ class StarWarsServerTests: XCTestCase {
 
       let expectation = self.expectation(description: "Performing mutation")
 
-      client.perform(mutation: mutation) { (result, error) in
+      client.perform(mutation: mutation) { result in
         defer { expectation.fulfill() }
-
-        if let error = error { XCTFail("Error while performing mutation: \(error.localizedDescription)");  return }
-        guard let result = result else { XCTFail("No mutation result");  return }
-
-        if let errors = result.errors {
-          XCTFail("Errors in mutation result: \(errors)")
+        
+        switch result {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+          
+          guard let data = graphQLResult.data else {
+            XCTFail("No mutation result data")
+            return
+          }
+          
+          completionHandler(data)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
         }
-
-        guard let data = result.data else { XCTFail("No mutation result data");  return }
-
-        completionHandler(data)
       }
       
       waitForExpectations(timeout: 5, handler: nil)

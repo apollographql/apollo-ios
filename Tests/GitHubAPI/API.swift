@@ -3,8 +3,37 @@
 import Apollo
 
 public final class RepositoryQuery: GraphQLQuery {
+  /// query Repository {
+  ///   repository(owner: "apollographql", name: "apollo-ios") {
+  ///     __typename
+  ///     issueOrPullRequest(number: 13) {
+  ///       __typename
+  ///       ... on Issue {
+  ///         body
+  ///         ... on UniformResourceLocatable {
+  ///           url
+  ///         }
+  ///         author {
+  ///           __typename
+  ///           avatarUrl
+  ///         }
+  ///       }
+  ///       ... on Reactable {
+  ///         viewerCanReact
+  ///         ... on Comment {
+  ///           author {
+  ///             __typename
+  ///             login
+  ///           }
+  ///         }
+  ///       }
+  ///     }
+  ///   }
+  /// }
   public let operationDefinition =
-    "query Repository {\n  repository(owner: \"apollographql\", name: \"apollo-ios\") {\n    __typename\n    issueOrPullRequest(number: 13) {\n      __typename\n      ... on Issue {\n        body\n        ... on UniformResourceLocatable {\n          url\n        }\n        author {\n          __typename\n          avatarUrl\n        }\n      }\n      ... on Reactable {\n        viewerCanReact\n        ... on Comment {\n          author {\n            __typename\n            login\n          }\n        }\n      }\n    }\n  }\n}"
+    "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { body ... on UniformResourceLocatable { url } author { __typename avatarUrl } } ... on Reactable { viewerCanReact ... on Comment { author { __typename login } } } } } }"
+
+  public let operationName = "Repository"
 
   public let operationIdentifier: String? = "63e25c339275a65f43b847e692e42caed8c06e25fbfb3dc8db6d4897b180c9ef"
 
@@ -317,6 +346,88 @@ public final class RepositoryQuery: GraphQLQuery {
               }
             }
           }
+        }
+      }
+    }
+  }
+}
+
+public final class RepoUrlQuery: GraphQLQuery {
+  /// query RepoURL {
+  ///   repository(owner: "apollographql", name: "apollo-ios") {
+  ///     __typename
+  ///     url
+  ///   }
+  /// }
+  public let operationDefinition =
+    "query RepoURL { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename url } }"
+
+  public let operationName = "RepoURL"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("repository", arguments: ["owner": "apollographql", "name": "apollo-ios"], type: .object(Repository.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(repository: Repository? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "repository": repository.flatMap { (value: Repository) -> ResultMap in value.resultMap }])
+    }
+
+    /// Lookup a given repository by the owner and repository name.
+    public var repository: Repository? {
+      get {
+        return (resultMap["repository"] as? ResultMap).flatMap { Repository(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "repository")
+      }
+    }
+
+    public struct Repository: GraphQLSelectionSet {
+      public static let possibleTypes = ["Repository"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("url", type: .nonNull(.scalar(String.self))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(url: String) {
+        self.init(unsafeResultMap: ["__typename": "Repository", "url": url])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The HTTP URL for this repository
+      public var url: String {
+        get {
+          return resultMap["url"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "url")
         }
       }
     }

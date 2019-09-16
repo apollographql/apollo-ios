@@ -35,7 +35,7 @@ struct GraphQLGETTransformer {
     var queryItems: [URLQueryItem] = []
     
     do {
-      _ = try body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
+      _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
         if let value = arg.value as? GraphQLMap {
           let data = try JSONSerialization.dataSortedIfPossible(withJSONObject: value.jsonValue)
           if let string = String(data: data, encoding: .utf8) {
@@ -43,6 +43,8 @@ struct GraphQLGETTransformer {
           }
         } else if let string = arg.value as? String {
           queryItems.append(URLQueryItem(name: arg.key, value: string))
+        } else {
+          assertionFailure()
         }
       })
     } catch {

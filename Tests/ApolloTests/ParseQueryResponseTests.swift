@@ -37,7 +37,7 @@ class ParseQueryResponseTests: XCTestCase {
     }
   }
 
-  func testHeroNameQueryWithWrongType() {
+  func testHeroNameQueryWithDifferentType() throws {
     let query = HeroNameQuery()
     
     let response = GraphQLResponse(operation: query, body: [
@@ -46,10 +46,24 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
+    let (result, _) = try response.parseResult().await()
+    
+    XCTAssertEqual(result.data?.hero?.name, "10")
+  }
+
+  func testHeroNameQueryWithWrongType() throws {
+    let query = HeroNameQuery()
+
+    let response = GraphQLResponse(operation: query, body: [
+      "data": [
+        "hero": ["__typename": "Droid", "name": 10.0]
+      ]
+    ])
+
     XCTAssertThrowsError(try response.parseResult().await()) { error in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["hero", "name"])
-        XCTAssertEqual(value as? Int, 10)
+        XCTAssertEqual(value as? Double, 10.0)
         XCTAssertTrue(expectedType == String.self)
       } else {
         XCTFail("Unexpected error: \(error)")
