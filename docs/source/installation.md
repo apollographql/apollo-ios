@@ -224,12 +224,6 @@ At this point, you can try building your target in Xcode. This will verify that 
 
 ### Troubleshooting
 
-If you've installed `apollo` globally with NPM and the script still seems to be having trouble finding it, add the following to the beginning of your Run Script Build Phase:
-
-```bash
-source ~/.bash_profile
-```
-
 If you get this error: 
 
 > Cannot find GraphQL schema file [...]
@@ -241,12 +235,6 @@ If you get this error:
 > No operations or fragments found to generate code for.
 
 If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query.  
-
-If you get this error:
-
-> Ensure that there is only one instance of "graphql" in the node_modules directory. If different versions of "graphql" are the dependencies of other relied on modules, use "resolutions" to ensure only one version is installed.
-
-Delete the `node_modules` folder in your source root and rebuild.
 
 ## Adding the generated API file to your target
 
