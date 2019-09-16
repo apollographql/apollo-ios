@@ -339,7 +339,11 @@ class StarWarsServerTests: XCTestCase {
           
           completionHandler(data)
         case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
+          if let responseError = error as? GraphQLHTTPResponseError {
+            XCTFail("Response error: \(responseError.bodyDescription)")
+          } else {
+            XCTFail("Unexpected error: \(error)")
+          }
         }
       }
       
