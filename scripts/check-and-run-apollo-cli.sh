@@ -1,3 +1,5 @@
+echo "warning: The check-and-run-apollo-cli.sh script is deprecated and will be removed. Please see https://www.apollographql.com/docs/ios/installation/#adding-a-code-generation-build-step for updated build instructions which use a bundled version of the Apollo CLI."
+
 # Only major and minor version should be specified here
 REQUIRED_APOLLO_CLI_VERSION=2.17
 # Specify fully qualified version here. Ideally this should be a LTS version.
