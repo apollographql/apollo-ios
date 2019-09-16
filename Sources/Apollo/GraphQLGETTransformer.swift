@@ -43,7 +43,7 @@ struct GraphQLGETTransformer {
           }
         } else if let string = arg.value as? String {
           queryItems.append(URLQueryItem(name: arg.key, value: string))
-        } else {
+        } else if (arg.key != "variables") {
           assertionFailure()
         }
       })
