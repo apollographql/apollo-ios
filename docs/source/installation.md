@@ -234,7 +234,7 @@ If you get this error:
 
 > No operations or fragments found to generate code for.
 
-If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query.  
+If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query. If you need to validate the structure of your query, please use [the GraphQL Formatter tool](http://toolbox.sangria-graphql.org/format).
 
 ## Adding the generated API file to your target
 
