@@ -147,7 +147,7 @@ Code generation uses your `.graphql` files to generate API code that will help y
 
 The wrapper will call through to the included binaries and files that constitute the `apollo` command-line interface. This ensures that you can use our tooling without having to worry about NPM Version Hell™, and that the version of the framework you're using is compatible with the version of the codegen you're using.
 
-The location of this wrapper script is slightly different based on how you've integrated Apollo into you project, but the first steps are the same everywhere: 
+The location of this wrapper script is slightly different based on how you've integrated Apollo into your project, but the first steps are the same everywhere: 
 
 1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. 
 2. In the created Run Script, change its name to **Generate Apollo GraphQL API** 
