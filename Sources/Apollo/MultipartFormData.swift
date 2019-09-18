@@ -70,10 +70,10 @@ public class MultipartFormData {
   ///   - contentType: [optional] The content type of this part. Defaults to nil.
   ///   - filename: [optional] The name of the file for this part. Defaults to nil.
   public func appendPart(inputStream: InputStream,
-                  contentLength: UInt64,
-                  name: String,
-                  contentType: String? = nil,
-                  filename: String? = nil) {
+                         contentLength: UInt64,
+                         name: String,
+                         contentType: String? = nil,
+                         filename: String? = nil) {
     self.bodyParts.append(BodyPart(name: name,
                                    inputStream: inputStream,
                                    contentLength: contentLength,
