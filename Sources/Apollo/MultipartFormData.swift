@@ -61,6 +61,14 @@ public class MultipartFormData {
                     filename: filename)
   }
 
+  /// Appends the passed-in input stream as a part of the body.
+  ///
+  /// - Parameters:
+  ///   - inputStream: The input stream to append.
+  ///   - contentLength: Length of the input stream data.
+  ///   - name: The name of the part to pass along to the server
+  ///   - contentType: [optional] The content type of this part. Defaults to nil.
+  ///   - filename: [optional] The name of the file for this part. Defaults to nil.
   public func appendPart(inputStream: InputStream,
                   contentLength: UInt64,
                   name: String,
