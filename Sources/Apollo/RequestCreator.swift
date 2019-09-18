@@ -75,22 +75,47 @@ extension RequestCreator {
       formData = MultipartFormData()
     }
 
-    let fields = requestBody(for: operation)
-    for (name, data) in fields {
-      if let data = data as? GraphQLMap {
-        let data = try serializationFormat.serialize(value: data)
-        formData.appendPart(data: data, name: name)
-      } else if let data = data as? String {
-        try formData.appendPart(string: data, name: name)
+    // Make sure all fields for files are set to null, or the server won't look
+    // for the files in the rest of the form data
+    let fieldsForFiles = Set(files.map { $0.fieldName })
+    var fields = requestBody(for: operation, sendOperationIdentifiers: sendOperationIdentifiers)
+    var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
+    for fieldName in fieldsForFiles {
+      if
+        let value = variables[fieldName],
+        let arrayValue = value as? [JSONEncodable] {
+        let updatedArray: [JSONEncodable?] = arrayValue.map { _ in nil }
+          variables.updateValue(updatedArray, forKey: fieldName)
       } else {
-        try formData.appendPart(string: data.debugDescription, name: name)
+        variables.updateValue(nil, forKey: fieldName)
+      }
+    }
+    fields["variables"] = variables
+
+    let operationData = try serializationFormat.serialize(value: fields)
+    formData.appendPart(data: operationData, name: "operations")
+
+    var map = [String: [String]]()
+    if files.count == 1 {
+      let firstFile = files.first!
+      map["0"] = ["variables.\(firstFile.fieldName)"]
+    } else {
+      for (index, file) in files.enumerated() {
+        map["\(index)"] = ["variables.\(file.fieldName).\(index)"]
       }
     }
 
-    files.forEach {
-      formData.appendPart(inputStream: $0.inputStream, contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
-    }
+    let mapData = try serializationFormat.serialize(value: map)
+    formData.appendPart(data: mapData, name: "map")
 
+    for (index, file) in files.enumerated() {
+      formData.appendPart(inputStream: file.inputStream,
+                          contentLength: file.contentLength,
+                          name: "\(index)",
+                          contentType: file.mimeType,
+                          filename: file.originalName)
+    }
+    
     return formData
   }
 }
