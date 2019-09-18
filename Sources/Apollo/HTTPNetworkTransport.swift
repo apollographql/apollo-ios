@@ -74,6 +74,7 @@ public class HTTPNetworkTransport {
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
   let delegate: HTTPNetworkTransportDelegate?
+  private let requestCreator: RequestCreator
   private let sendOperationIdentifiers: Bool
   
   /// Creates a network transport with the specified server URL and session configuration.
@@ -88,12 +89,14 @@ public class HTTPNetworkTransport {
               session: URLSession = .shared,
               sendOperationIdentifiers: Bool = false,
               useGETForQueries: Bool = false,
-              delegate: HTTPNetworkTransportDelegate? = nil) {
+              delegate: HTTPNetworkTransportDelegate? = nil,
+              requestCreator: RequestCreator? = nil) {
     self.url = url
     self.session = session
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
     self.delegate = delegate
+    self.requestCreator = requestCreator ?? ApolloRequestCreator()
   }
 
   private func send<Operation>(operation: Operation, files: [GraphQLFile]?, completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
@@ -213,7 +216,7 @@ public class HTTPNetworkTransport {
   }
   
   private func createRequest<Operation: GraphQLOperation>(for operation: Operation, files: [GraphQLFile]?) throws -> URLRequest {
-    let body = RequestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
+    let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     var request = URLRequest(url: self.url)
     
     // We default to json, but this can be changed below if needed.
@@ -230,7 +233,7 @@ public class HTTPNetworkTransport {
     } else {
       do {
         if let files = files, !files.isEmpty {
-          let formData = try RequestCreator.requestMultipartFormData(
+          let formData = try requestCreator.requestMultipartFormData(
             for: operation,
             files: files,
             sendOperationIdentifiers: self.sendOperationIdentifiers,

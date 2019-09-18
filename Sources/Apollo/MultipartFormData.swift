@@ -1,7 +1,7 @@
 import Foundation
 
 /// A helper for building out multi-part form data for upload
-class MultipartFormData {
+public class MultipartFormData {
   
   enum FormDataError: Error, LocalizedError {
     case encodingStringToDataFailed(_ string: String)
