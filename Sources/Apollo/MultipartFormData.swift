@@ -24,13 +24,13 @@ public class MultipartFormData {
   /// Designated initializer
   ///
   /// - Parameter boundary: The boundary to use between parts of the form.
-  init(boundary: String) {
+  public init(boundary: String) {
     self.boundary = boundary
     self.bodyParts = []
   }
   
   /// Convenience initializer which uses a pre-defined boundary
-  convenience init() {
+  public convenience init() {
     self.init(boundary: "apollo-ios.boundary.\(UUID().uuidString)")
   }
 
@@ -47,7 +47,7 @@ public class MultipartFormData {
   ///   - name: The name of the part to pass along to the server
   ///   - contentType: [optional] The content type of this part. Defaults to nil.
   ///   - filename: [optional] The name of the file for this part. Defaults to nil.
-  func appendPart(data: Data,
+  public func appendPart(data: Data,
                   name: String,
                   contentType: String? = nil,
                   filename: String? = nil) {
@@ -61,7 +61,7 @@ public class MultipartFormData {
                     filename: filename)
   }
 
-  func appendPart(inputStream: InputStream,
+  public func appendPart(inputStream: InputStream,
                   contentLength: UInt64,
                   name: String,
                   contentType: String? = nil,
