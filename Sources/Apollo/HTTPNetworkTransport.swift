@@ -90,13 +90,13 @@ public class HTTPNetworkTransport {
               sendOperationIdentifiers: Bool = false,
               useGETForQueries: Bool = false,
               delegate: HTTPNetworkTransportDelegate? = nil,
-              requestCreator: RequestCreator? = nil) {
+              requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.url = url
     self.session = session
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
     self.delegate = delegate
-    self.requestCreator = requestCreator ?? ApolloRequestCreator()
+    self.requestCreator = requestCreator
   }
 
   private func send<Operation>(operation: Operation, files: [GraphQLFile]?, completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {

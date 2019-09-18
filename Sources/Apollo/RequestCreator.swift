@@ -96,12 +96,7 @@ extension RequestCreator {
 }
 
 // Helper struct to create requests independently of HTTP operations.
-struct ApolloRequestCreator: RequestCreator {
-
-  /// Default Apollo request creator
-  ///
-  /// - Returns: Default apollo request creator
-  static func `default`() -> RequestCreator {
-    return ApolloRequestCreator()
-  }
+public struct ApolloRequestCreator: RequestCreator {
+  // Internal init methods cannot be used in public methods
+  public init() { }
 }
