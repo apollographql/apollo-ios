@@ -65,6 +65,21 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
 
+/// Methods which will be called after some kind of response has been received and it contains GraphQLErrors
+public protocol NetworkGraphQLErrorDelegate: HTTPNetworkTransportDelegate {
+
+
+  /// Called when response contains one or more GraphQL errors.
+  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport which received the error
+  ///   - errors: The received GraphQL errors
+  ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
+}
+
+
 // MARK: -
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
@@ -193,6 +208,25 @@ public class HTTPNetworkTransport {
     task.resume()
     
     return task
+  }
+
+  private func handleGraphQLErrorsOrComplete<Operation>(operation: Operation,
+                                                        response: GraphQLResponse<Operation>,
+                                                        completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) throws {
+    if let delegate = self.delegate as? NetworkGraphQLErrorDelegate,
+      let graphQLErrors = try response.parseResultFast().errors,
+      !graphQLErrors.isEmpty {
+      delegate.networkTransport(self, receivedGraphQLErrors: graphQLErrors, retryHandler: { [weak self] shouldRetry in
+        guard shouldRetry else {
+          completionHandler(.success(response))
+          return
+        }
+
+        _ = self?.send(operation: operation, completionHandler: completionHandler)
+      })
+    } else {
+      completionHandler(.success(response))
+    }
   }
   
   private func handleGraphQLErrorsIfNeeded<Operation>(operation: Operation,
