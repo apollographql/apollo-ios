@@ -17,7 +17,7 @@ remove_existing_apollo() {
 }
 
 extract_cli() {
-  tar xvzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
+  tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
   touch "${SHASUM_FILE}"
   tee "${SHASUM_FILE}" <<<"${SHASUM}"
 }
