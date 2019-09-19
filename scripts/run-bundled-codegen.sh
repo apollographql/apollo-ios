@@ -1,5 +1,6 @@
 # Bail if errors occur
-set -e
+# Exit on all errors, undeclared variables and pipefailures.
+set -euo pipefail
 
 # Get the path to the script directory
 SCRIPT_DIR="$(eval dirname $0)"
