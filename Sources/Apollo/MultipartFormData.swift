@@ -48,9 +48,9 @@ public class MultipartFormData {
   ///   - contentType: [optional] The content type of this part. Defaults to nil.
   ///   - filename: [optional] The name of the file for this part. Defaults to nil.
   public func appendPart(data: Data,
-                  name: String,
-                  contentType: String? = nil,
-                  filename: String? = nil) {
+                         name: String,
+                         contentType: String? = nil,
+                         filename: String? = nil) {
     let inputStream = InputStream(data: data)
     let contentLength = UInt64(data.count)
 
