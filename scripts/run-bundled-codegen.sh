@@ -1,4 +1,5 @@
-# Bail if errors occur
+#!/usr/bin/env bash
+
 # Exit on all errors, undeclared variables and pipefailures.
 set -euo pipefail
 
