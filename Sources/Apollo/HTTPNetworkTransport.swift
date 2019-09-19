@@ -145,11 +145,12 @@ public class HTTPNetworkTransport {
                             error: error)
       
       if let receivedError = error {
-        self.handleErrorOrRetry(operation: operation,
-                                error: receivedError,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
+        self?.handleErrorOrRetry(operation: operation,
+                                 files: files,
+                                 error: receivedError,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
         return
       }
       
@@ -161,11 +162,12 @@ public class HTTPNetworkTransport {
         let unsuccessfulError = GraphQLHTTPResponseError(body: data,
                                                          response: httpResponse,
                                                          kind: .errorResponse)
-        self.handleErrorOrRetry(operation: operation,
-                                error: unsuccessfulError,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
+        self?.handleErrorOrRetry(operation: operation,
+                                 files: files,
+                                 error: unsuccessfulError,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
         return
       }
       
@@ -173,11 +175,12 @@ public class HTTPNetworkTransport {
         let error = GraphQLHTTPResponseError(body: nil,
                                              response: httpResponse,
                                              kind: .invalidResponse)
-        self.handleErrorOrRetry(operation: operation,
-                                error: error,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
+        self?.handleErrorOrRetry(operation: operation,
+                                 files: files,
+                                 error: error,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
         return
       }
       
@@ -197,11 +200,12 @@ public class HTTPNetworkTransport {
           completionHandler(.success(graphQLResponse))
         }
       } catch let parsingError {
-        self.handleErrorOrRetry(operation: operation,
-                                error: parsingError,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
+        self?.handleErrorOrRetry(operation: operation,
+                                 files: files,
+                                 error: parsingError,
+                                 for: request,
+                                 response: response,
+                                 completionHandler: completionHandler)
       }
     }
     
@@ -251,6 +255,7 @@ public class HTTPNetworkTransport {
   }
   
   private func handleErrorOrRetry<Operation>(operation: Operation,
+                                             files: [GraphQLFile]?,
                                              error: Error,
                                              for request: URLRequest,
                                              response: URLResponse?,
@@ -273,7 +278,7 @@ public class HTTPNetworkTransport {
           return
         }
         
-        _ = self?.send(operation: operation, completionHandler: completionHandler)
+        _ = self?.send(operation: operation, files: files, completionHandler: completionHandler)
     })
   }
   
