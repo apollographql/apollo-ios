@@ -19,7 +19,7 @@ remove_existing_apollo() {
 
 extract_cli() {
   tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
-  tee "${SHASUM_FILE}" <<<"${SHASUM}"
+  echo "${SHASUM}" | tee "${SHASUM_FILE}"
 }
 
 check_shasum() {
