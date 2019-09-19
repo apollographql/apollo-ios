@@ -66,7 +66,7 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
 }
 
 /// Methods which will be called after some kind of response has been received and it contains GraphQLErrors
-public protocol NetworkGraphQLErrorDelegate: HTTPNetworkTransportDelegate {
+public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDelegate {
 
 
   /// Called when response contains one or more GraphQL errors.
@@ -218,7 +218,7 @@ public class HTTPNetworkTransport {
                                                         files: [GraphQLFile]?,
                                                         response: GraphQLResponse<Operation>,
                                                         completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) throws {
-    guard let delegate = self.delegate as? NetworkGraphQLErrorDelegate,
+    guard let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
       let graphQLErrors = response.parseErrorsOnlyFast(),
       !graphQLErrors.isEmpty else {
         completionHandler(.success(response))
