@@ -1,2 +1,0 @@
-import "./array";
-import "./object";
