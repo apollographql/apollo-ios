@@ -215,22 +215,24 @@ public class HTTPNetworkTransport {
   }
 
   private func handleGraphQLErrorsOrComplete<Operation>(operation: Operation,
+                                                        files: [GraphQLFile]?,
                                                         response: GraphQLResponse<Operation>,
                                                         completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) throws {
-    if let delegate = self.delegate as? NetworkGraphQLErrorDelegate,
-      let graphQLErrors = try response.parseResultFast().errors,
-      !graphQLErrors.isEmpty {
-      delegate.networkTransport(self, receivedGraphQLErrors: graphQLErrors, retryHandler: { [weak self] shouldRetry in
-        guard shouldRetry else {
-          completionHandler(.success(response))
-          return
-        }
-
-        _ = self?.send(operation: operation, completionHandler: completionHandler)
-      })
-    } else {
-      completionHandler(.success(response))
+    guard let delegate = self.delegate as? NetworkGraphQLErrorDelegate,
+      let graphQLErrors = response.parseErrorsOnlyFast(),
+      !graphQLErrors.isEmpty else {
+        completionHandler(.success(response))
+        return
     }
+    
+    delegate.networkTransport(self, receivedGraphQLErrors: graphQLErrors, retryHandler: { [weak self] shouldRetry in
+      guard shouldRetry else {
+        completionHandler(.success(response))
+        return
+      }
+      
+      _ = self?.send(operation: operation, files: files, completionHandler: completionHandler)
+    })
   }
   
   private func handleGraphQLErrorsIfNeeded<Operation>(operation: Operation,
