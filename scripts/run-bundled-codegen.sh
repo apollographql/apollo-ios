@@ -3,11 +3,11 @@
 set -euo pipefail
 
 # Get the path to the script directory
-SCRIPT_DIR="$(eval dirname $0)"
+SCRIPT_DIR="$(dirname $0)"
 
 # Get the SHASUM of the tarball
 ZIP_FILE="${SCRIPT_DIR}/apollo.tar.gz"
-SHASUM="$(eval /usr/bin/shasum -a 256 ${ZIP_FILE})"
+SHASUM="$(/usr/bin/shasum -a 256 ${ZIP_FILE})"
 SHASUM_FILE="${SCRIPT_DIR}/apollo/.shasum"
 APOLLO_DIR="${SCRIPT_DIR}"/apollo
 
@@ -36,7 +36,7 @@ check_shasum() {
   # Check if the SHASUM file has already been written for this version
   if [ -f "${SHASUM_FILE}" ]; then
     # The file exists, let's see if it's the same SHASUM
-    FILE_CONTENTS="$(eval cat ${SHASUM_FILE})"
+    FILE_CONTENTS="$(cat ${SHASUM_FILE})"
     if [ "${FILE_CONTENTS}" == "${SHASUM}" ]; then
       echo "Current verson of CLI is already extracted!"
     else
@@ -58,7 +58,7 @@ check_shasum
 APOLLO_CLI="${SCRIPT_DIR}/apollo/bin/run"
 
 # Print version
-echo "Apollo CLI Information: $(eval ${APOLLO_CLI} --version)"
+echo "Apollo CLI Information: $(${APOLLO_CLI} --version)"
 
 # Print commands before executing them (useful for troubleshooting)
 set -x
