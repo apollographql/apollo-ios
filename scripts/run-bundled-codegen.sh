@@ -29,7 +29,7 @@ check_shasum() {
   if [ "${SHASUM}" == "${EXPECTED_SHASUM}" ]; then
     echo "Correct version of the CLI tarball is included, checking if it's already been extracted..."
   else
-    echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation."
+    echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation." >&2
     exit 1
   fi
 
