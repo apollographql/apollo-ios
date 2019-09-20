@@ -22,7 +22,7 @@ extract_cli() {
   echo "${SHASUM}" | tee "${SHASUM_FILE}"
 }
 
-check_shasum() {
+validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
   EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2  ${ZIP_FILE}"
 
@@ -52,7 +52,7 @@ check_shasum() {
 }
 
 # Make sure we're using an up-to-date and valid version of the Apollo CLI
-check_shasum
+validate_codegen_and_extract_if_needed
 
 # Use the bundled executable of the Apollo CLI to generate code
 APOLLO_CLI="${SCRIPT_DIR}/apollo/bin/run"
