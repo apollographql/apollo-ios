@@ -2,11 +2,11 @@ import Foundation
 
 /// A file which can be uploaded to a GraphQL server
 public struct GraphQLFile {
-  let fieldName: String
-  let originalName: String
-  let mimeType: String
-  let inputStream: InputStream
-  let contentLength: UInt64
+  public let fieldName: String
+  public let originalName: String
+  public let mimeType: String
+  public let inputStream: InputStream
+  public let contentLength: UInt64
   
   /// A convenience constant for declaring your mimetype is octet-stream.
   public static let octetStreamMimeType = "application/octet-stream"
