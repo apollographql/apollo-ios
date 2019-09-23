@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol NormalizedCache {
   
   /// Loads records corresponding to the given keys.
