@@ -11,7 +11,8 @@ import XCTest
 import StarWarsAPI
 
 class MultipartFormDataTests: XCTestCase {
-  
+  private let requestCreator = ApolloRequestCreator()
+
   private func checkString(_ string: String,
                            includes expectedString: String,
                            file: StaticString = #file,
@@ -165,7 +166,7 @@ Charlie file content.
                                 mimeType: "text/plain",
                                 fileURL: alphaFileUrl)
     
-    let data = try RequestCreator.requestMultipartFormData(
+    let data = try requestCreator.requestMultipartFormData(
       for: HeroNameQuery(),
       files: [alphaFile!],
       sendOperationIdentifiers: false,
@@ -227,7 +228,7 @@ Alpha file content.
                                fileURL: betaFileURL)!
     
     
-    let data = try RequestCreator.requestMultipartFormData(
+    let data = try requestCreator.requestMultipartFormData(
       for: HeroNameQuery(),
       files: [alphaFile, betaFile],
       sendOperationIdentifiers: false,
