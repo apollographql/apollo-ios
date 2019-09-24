@@ -26,7 +26,7 @@ You can install `Apollo.framework` into your project using [Swift Package Manage
 
   ![add a dependency](screenshot/spm_packages_add_dependency.png)
 
-1. Paste the URL to the Apollo iOS repo on GitHub into the search bar, then hit the **Next** button: 
+1. Paste [the URL to the Apollo iOS repo on GitHub](https://github.com/apollographql/apollo-ios.git) into the search bar, then hit the **Next** button: 
 
   ![paste in the url](screenshot/spm_paste_url.png)
 
