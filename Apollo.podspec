@@ -22,7 +22,12 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Sources/Apollo/*.swift'
-    ss.preserve_paths = ['scripts/check-and-run-apollo-cli.sh', 'scripts/check-and-run-apollo-codegen.sh']
+    ss.preserve_paths = [
+      'scripts/check-and-run-apollo-cli.sh',
+      'scripts/check-and-run-apollo-codegen.sh',
+      'scripts/run-bundled-codegen.sh',
+      'scripts/apollo.tar.gz',
+    ]
   end
 
   # Apollo provides exactly one persistent cache out-of-the-box, as a reasonable default choice for
