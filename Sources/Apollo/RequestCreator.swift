@@ -1,8 +1,32 @@
 import Foundation
 
-// Helper struct to create requests independently of HTTP operations.
-public struct RequestCreator {
-  
+public protocol RequestCreator {
+  /// Creates a `GraphQLMap` out of the passed-in operation
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to use
+  ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
+  /// - Returns: The created `GraphQLMap`
+  func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap
+
+  /// Creates multi-part form data to send with a request
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to create the data for.
+  ///   - files: An array of files to use.
+  ///   - sendOperationIdentifiers: True if operation identifiers should be sent, false if not.
+  ///   - serializationFormat: The format to use to serialize data.
+  ///   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise.
+  /// - Returns: The created form data
+  /// - Throws: Errors creating or loading the form  data
+  func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
+                                                             files: [GraphQLFile],
+                                                             sendOperationIdentifiers: Bool,
+                                                             serializationFormat: JSONSerializationFormat.Type,
+                                                             manualBoundary: String?) throws -> MultipartFormData
+}
+
+extension RequestCreator {
   /// Creates a `GraphQLMap` out of the passed-in operation
   ///
   /// - Parameters:
@@ -11,20 +35,20 @@ public struct RequestCreator {
   ///   - sendQueryDocument: Whether or not to send the full query document. Defaults to true.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Defaults to false.
   /// - Returns: The created `GraphQLMap`
-  public static func requestBody<Operation: GraphQLOperation>(for operation: Operation,
-                                                              sendOperationIdentifiers: Bool = false,
-                                                              sendQueryDocument: Bool = true,
-                                                              autoPersistQuery: Bool = false) -> GraphQLMap {
+    public func requestBody<Operation: GraphQLOperation>(for operation: Operation,
+                                                         sendOperationIdentifiers: Bool = false,
+                                                         sendQueryDocument: Bool = true,
+                                                         autoPersistQuery: Bool = false) -> GraphQLMap {
     var body: GraphQLMap = [
       "variables": operation.variables,
       "operationName": operation.operationName,
     ]
-    
+
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {
         preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
       }
-      
+
       body["id"] = operationIdentifier
     }
     
@@ -53,7 +77,7 @@ public struct RequestCreator {
     
     return body
   }
-  
+
   /// Creates multi-part form data to send with a request
   ///
   /// - Parameters:
@@ -64,7 +88,7 @@ public struct RequestCreator {
   ///   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise.
   /// - Returns: The created form data
   /// - Throws: Errors creating or loading the form  data
-  static func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
+  public func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
                                                                     files: [GraphQLFile],
                                                                     sendOperationIdentifiers: Bool,
                                                                     serializationFormat: JSONSerializationFormat.Type,
@@ -76,7 +100,7 @@ public struct RequestCreator {
     } else {
       formData = MultipartFormData()
     }
-    
+
     // Make sure all fields for files are set to null, or the server won't look
     // for the files in the rest of the form data
     let fieldsForFiles = Set(files.map { $0.fieldName })
@@ -93,10 +117,10 @@ public struct RequestCreator {
       }
     }
     fields["variables"] = variables
-    
+
     let operationData = try serializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")
-    
+
     var map = [String: [String]]()
     if files.count == 1 {
       let firstFile = files.first!
@@ -106,10 +130,10 @@ public struct RequestCreator {
         map["\(index)"] = ["variables.\(file.fieldName).\(index)"]
       }
     }
-    
+
     let mapData = try serializationFormat.serialize(value: map)
     formData.appendPart(data: mapData, name: "map")
-    
+
     for (index, file) in files.enumerated() {
       formData.appendPart(inputStream: file.inputStream,
                           contentLength: file.contentLength,
@@ -120,4 +144,10 @@ public struct RequestCreator {
     
     return formData
   }
+}
+
+// Helper struct to create requests independently of HTTP operations.
+public struct ApolloRequestCreator: RequestCreator {
+  // Internal init methods cannot be used in public methods
+  public init() { }
 }

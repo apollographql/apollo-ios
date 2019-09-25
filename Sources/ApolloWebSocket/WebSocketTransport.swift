@@ -36,7 +36,8 @@ public class WebSocketTransport {
   var websocket: ApolloWebSocketClient
   var error: Error? = nil
   let serializationFormat = JSONSerializationFormat.self
-  
+  private let requestCreator: RequestCreator
+
   private final let protocols = ["graphql-ws"]
   
   private var acked = false
@@ -52,10 +53,11 @@ public class WebSocketTransport {
   fileprivate var sequenceNumber = 0
   fileprivate var reconnected = false
 
-  public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:]) {
+  public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:], requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.reconnectionInterval = reconnectionInterval
+    self.requestCreator = requestCreator
 
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.websocket.delegate = self
@@ -192,7 +194,7 @@ public class WebSocketTransport {
   }
   
   fileprivate func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
-    let body = RequestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
+    let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     let sequenceNumber = "\(nextSequenceNumber())"
     
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {

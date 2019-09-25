@@ -1,7 +1,7 @@
 import Foundation
 
 /// A helper for building out multi-part form data for upload
-class MultipartFormData {
+public class MultipartFormData {
   
   enum FormDataError: Error, LocalizedError {
     case encodingStringToDataFailed(_ string: String)
@@ -24,13 +24,13 @@ class MultipartFormData {
   /// Designated initializer
   ///
   /// - Parameter boundary: The boundary to use between parts of the form.
-  init(boundary: String) {
+  public init(boundary: String) {
     self.boundary = boundary
     self.bodyParts = []
   }
   
   /// Convenience initializer which uses a pre-defined boundary
-  convenience init() {
+  public convenience init() {
     self.init(boundary: "apollo-ios.boundary.\(UUID().uuidString)")
   }
 
@@ -47,10 +47,10 @@ class MultipartFormData {
   ///   - name: The name of the part to pass along to the server
   ///   - contentType: [optional] The content type of this part. Defaults to nil.
   ///   - filename: [optional] The name of the file for this part. Defaults to nil.
-  func appendPart(data: Data,
-                  name: String,
-                  contentType: String? = nil,
-                  filename: String? = nil) {
+  public func appendPart(data: Data,
+                         name: String,
+                         contentType: String? = nil,
+                         filename: String? = nil) {
     let inputStream = InputStream(data: data)
     let contentLength = UInt64(data.count)
 
@@ -61,11 +61,19 @@ class MultipartFormData {
                     filename: filename)
   }
 
-  func appendPart(inputStream: InputStream,
-                  contentLength: UInt64,
-                  name: String,
-                  contentType: String? = nil,
-                  filename: String? = nil) {
+  /// Appends the passed-in input stream as a part of the body.
+  ///
+  /// - Parameters:
+  ///   - inputStream: The input stream to append.
+  ///   - contentLength: Length of the input stream data.
+  ///   - name: The name of the part to pass along to the server
+  ///   - contentType: [optional] The content type of this part. Defaults to nil.
+  ///   - filename: [optional] The name of the file for this part. Defaults to nil.
+  public func appendPart(inputStream: InputStream,
+                         contentLength: UInt64,
+                         name: String,
+                         contentType: String? = nil,
+                         filename: String? = nil) {
     self.bodyParts.append(BodyPart(name: name,
                                    inputStream: inputStream,
                                    contentLength: contentLength,

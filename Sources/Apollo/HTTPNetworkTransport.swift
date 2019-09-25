@@ -76,6 +76,7 @@ public class HTTPNetworkTransport {
   let enableAutoPersistedQueries: Bool
   let useGETForPersistedQueryRetry: Bool
   let delegate: HTTPNetworkTransportDelegate?
+  private let requestCreator: RequestCreator
   private let sendOperationIdentifiers: Bool
   
   /// Creates a network transport with the specified server URL and session configuration.
@@ -94,7 +95,8 @@ public class HTTPNetworkTransport {
               useGETForQueries: Bool = false,
               enableAutoPersistedQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false,
-              delegate: HTTPNetworkTransportDelegate? = nil) {
+              delegate: HTTPNetworkTransportDelegate? = nil
+              requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.url = url
     self.session = session
     self.sendOperationIdentifiers = sendOperationIdentifiers
@@ -102,6 +104,7 @@ public class HTTPNetworkTransport {
     self.enableAutoPersistedQueries = enableAutoPersistedQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
     self.delegate = delegate
+    self.requestCreator = requestCreator
   }
   
   private func send<Operation>(operation: Operation, isPersistedQueryRetry: Bool, files: [GraphQLFile]?, completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
@@ -311,7 +314,7 @@ public class HTTPNetworkTransport {
     case .POST:
       do {
         if let files = files, !files.isEmpty {
-          let formData = try RequestCreator.requestMultipartFormData(
+          let formData = try requestCreator.requestMultipartFormData(
             for: operation,
             files: files,
             sendOperationIdentifiers: self.sendOperationIdentifiers,

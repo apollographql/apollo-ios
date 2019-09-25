@@ -11,12 +11,12 @@ import XCTest
 import StarWarsAPI
 
 class GETTransformerTests: XCTestCase {
-  
+  private let requestCreator = ApolloRequestCreator()
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)
-    let body = RequestCreator.requestBody(for: operation)
+    let body = requestCreator.requestBody(for: operation)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
@@ -27,7 +27,7 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() {
     let operation = HeroNameTypeSpecificConditionalInclusionQuery(episode: .jedi, includeName: true)
-    let body = RequestCreator.requestBody(for: operation)
+    let body = requestCreator.requestBody(for: operation)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
@@ -217,7 +217,7 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithNullDefaultParameter() {
     let operation = HeroNameQuery()
-    let body = RequestCreator.requestBody(for: operation)
+    let body = requestCreator.requestBody(for: operation)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
