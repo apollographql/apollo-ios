@@ -706,9 +706,9 @@
 			children = (
 				9FC750461D2A532C00458D91 /* Apollo */,
 				9B7B6F50233C26E400F32205 /* ApolloCodegenLib */,
+				9B7B6F61233C299E00F32205 /* ApolloCodegen */,
 				9FCE2CF41E6C20E000E34457 /* Tests */,
 				90690D04224333DA00FC2E54 /* Configuration */,
-				9B7B6F61233C299E00F32205 /* ApolloCodegen */,
 				9FC750451D2A532C00458D91 /* Products */,
 			);
 			indentWidth = 2;

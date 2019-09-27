@@ -52,6 +52,8 @@ public struct ApolloCodegenOptions {
 //      "/Users/ellen/Desktop/Work/Apollo/apollo-ios/scripts/apollo/bin/run",
       "codegen:generate",
       "--target=swift",
+      "--includes=\(self.includes)",
+      "--localSchemaFile=\(self.urlToSchemaJSONFile.path)"
     ]
     
     if let namespace = self.namespace {

@@ -30,9 +30,10 @@ public class ApolloCodegen {
     
     let json = folder.appendingPathComponent("schema.json")
     
-    let options = ApolloCodegenOptions(outputFormat: output, urlToSchemaJSONFile: json)
+    let options = ApolloCodegenOptions(outputFormat: output,
+                                       urlToSchemaJSONFile: json)
     
-    let command = "cd \(folder.path) && set -x && /Users/ellen/Desktop/Work/Apollo/apollo-ios/scripts/apollo/bin/run \(options.arguments.joined(separator: " ")) --verbose"
+    let command = "cd \(folder.path) && pwd && set -x && /Users/ellen/Desktop/Work/Apollo/apollo-ios/scripts/apollo/bin/run \(options.arguments.joined(separator: " "))"
     
     let result = try Basher.run(command: command)
     print(result)
