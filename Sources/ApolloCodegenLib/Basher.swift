@@ -35,7 +35,7 @@ public struct Basher {
       ]
       task.launchPath = "/bin/bash"
 
-      if #available(OSXApplicationExtension 10.13, *) {
+      if #available(OSX 10.13, *) {
         task.currentDirectoryURL = url
         try task.run()
       } else {
