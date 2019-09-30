@@ -9,6 +9,9 @@ let package = Package(
         .library(
             name: "Apollo",
             targets: ["Apollo"]),
+    .library(
+      name: "ApolloCodegenLib",
+      targets: ["ApolloCodegenLib"]),
 		.library(
 			name: "ApolloSQLite",
 			targets: ["ApolloSQLite"]),
@@ -27,6 +30,9 @@ let package = Package(
 		.target(
 			name: "ApolloSQLite",
 			dependencies: ["Apollo", "SQLite"]),
+    .target(
+      name: "ApolloCodegenLib",
+      dependencies: []),
 		.target(
 			name: "ApolloWebSocket",
 			dependencies: ["Apollo", "Starscream"]),
