@@ -1310,7 +1310,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT_PATH=\"${SRCROOT}/scripts/run-bundled-codegen.sh\"\n\ncd \"${SRCROOT}/Tests/StarWarsAPI\"\n\n\"${SCRIPT_PATH}\" codegen:generate --target=swift --localSchemaFile=\"schema.json\" --includes=./**/*.graphql --operationIdsPath=operationIdsPath.json --mergeInFieldsFromFragmentSpreads API.swift\n";
+			shellScript = "xcodebuild -project \"Apollo.xcodeproj\" -target \"ApolloCodegenLib\" -configuration \"Debug\"\n\ncd \"${SRCROOT}/ApolloCodegen\"\n./main.swift\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

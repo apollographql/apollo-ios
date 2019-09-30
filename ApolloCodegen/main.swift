@@ -1,10 +1,4 @@
-//
-//  main.swift
-//  ApolloCodegen
-//
-//  Created by Ellen Shapiro on 9/25/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
+#!/usr/bin/env xcrun swift -F ../build/Debug
 
 import Foundation
 import ApolloCodegenLib
