@@ -10,15 +10,13 @@ import Foundation
 import ApolloCodegenLib
 
 enum CodegenError: Error {
-  case lastArgumentNil
+  case sourceRootNotProvided
   case sourceRootNotADirectory
   case doesntExist
 }
 
-print("Hello, World!")
-
-guard let sourceRootPath = ProcessInfo.processInfo.arguments.last else {
-  throw CodegenError.lastArgumentNil
+guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
+  throw CodegenError.sourceRootNotProvided
 }
 
 guard FileManager.default.apollo_folderExists(at: sourceRootPath) else {
@@ -33,22 +31,14 @@ guard FileManager.default.apollo_folderExists(at: starWarsTarget) else {
   throw CodegenError.doesntExist
 }
 
-let starWarsOutput = starWarsTarget.appendingPathComponent("API.swift")
-
-guard FileManager.default.apollo_fileExists(at: starWarsOutput) else {
-  throw CodegenError.doesntExist
-}
-
 let binaryFolderURL = sourceRootURL
   .appendingPathComponent("scripts")
   .appendingPathComponent("apollo")
   .appendingPathComponent("bin")
 
 do {
-  let result = try ApolloCodegen.run(
-    from: starWarsTarget,
-    binaryFolderURL: binaryFolderURL,
-    output: .singleFile(atFileURL: starWarsOutput))
+  let result = try ApolloCodegen.run(from: starWarsTarget,
+                                     binaryFolderURL: binaryFolderURL)
   print("RESULT: \(result)")
 } catch {
   print("ERROR: \(error)")

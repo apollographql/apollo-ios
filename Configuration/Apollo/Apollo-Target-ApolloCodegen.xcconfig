@@ -1,7 +1,6 @@
 #include "../Shared/Workspace-Target-Application.xcconfig"
 
-SDKROOT = macos
-SUPPORTED_PLATFORMS = macos
+SDKROOT = macosx
+SUPPORTED_PLATFORMS = macosx
 
-ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 ENABLE_BITCODE = NO
