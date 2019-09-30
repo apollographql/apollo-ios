@@ -12,7 +12,7 @@ import Foundation
 public class ApolloCodegen {
   
   /// Errors which can happen with code generation
-  public enum CodegenError: Error, LocalizedError {
+  public enum ApolloCodegenError: Error, LocalizedError {
     case folderDoesNotExist(_ url: URL)
     
     var localizedDescription: String {
@@ -58,7 +58,7 @@ public class ApolloCodegen {
   public static func run(from folder: URL,
                          binaryFolderURL: URL) throws -> String {
     guard FileManager.default.apollo_folderExists(at: folder) else {
-      throw CodegenError.folderDoesNotExist(folder)
+      throw ApolloCodegenError.folderDoesNotExist(folder)
     }
     
     let json = folder.appendingPathComponent("schema.json")

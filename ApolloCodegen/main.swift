@@ -9,18 +9,18 @@
 import Foundation
 import ApolloCodegenLib
 
-enum CodegenError: Error {
+enum MyCodegenError: Error {
   case sourceRootNotProvided
   case sourceRootNotADirectory
   case doesntExist
 }
 
 guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
-  throw CodegenError.sourceRootNotProvided
+  throw MyCodegenError.sourceRootNotProvided
 }
 
 guard FileManager.default.apollo_folderExists(at: sourceRootPath) else {
-  throw CodegenError.sourceRootNotADirectory
+  throw MyCodegenError.sourceRootNotADirectory
 }
 
 let sourceRootURL = URL(fileURLWithPath: sourceRootPath)
@@ -28,7 +28,7 @@ let sourceRootURL = URL(fileURLWithPath: sourceRootPath)
 let starWarsTarget = sourceRootURL.appendingPathComponent("Tests").appendingPathComponent("StarWarsAPI")
 
 guard FileManager.default.apollo_folderExists(at: starWarsTarget) else {
-  throw CodegenError.doesntExist
+  throw MyCodegenError.doesntExist
 }
 
 let binaryFolderURL = sourceRootURL
