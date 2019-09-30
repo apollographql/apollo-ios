@@ -28,7 +28,7 @@ public struct ApolloCodegenOptions {
   
   public init(addTypename: Bool = true,
               includes: String = "./**/*.graphql",
-              mergeInFieldsFromFragmentSpreads: Bool = false,
+              mergeInFieldsFromFragmentSpreads: Bool = true,
               namespace: String? = nil,
               only: URL? = nil,
               operationIDsURL: URL? = nil,
@@ -48,12 +48,10 @@ public struct ApolloCodegenOptions {
   
   var arguments: [String] {
     var arguments = [
-//      "-c",
-//      "/Users/ellen/Desktop/Work/Apollo/apollo-ios/scripts/apollo/bin/run",
       "codegen:generate",
       "--target=swift",
       "--includes=\(self.includes)",
-      "--localSchemaFile=\(self.urlToSchemaJSONFile.path)"
+      "--localSchemaFile=\(self.urlToSchemaJSONFile.lastPathComponent)"
     ]
     
     if let namespace = self.namespace {
@@ -70,6 +68,17 @@ public struct ApolloCodegenOptions {
     
     if self.passthroughCustomScalars {
       arguments.append("--passthroughCustomScalars")
+    }
+    
+    if self.mergeInFieldsFromFragmentSpreads {
+      arguments.append("--mergeInFieldsFromFragmentSpreads")
+    }
+    
+    switch self.outputFormat {
+    case .singleFile(let fileURL):
+      arguments.append(fileURL.path)
+    case .multipleFiles(let folderURL):
+      arguments.append(folderURL.path)
     }
     
     return arguments

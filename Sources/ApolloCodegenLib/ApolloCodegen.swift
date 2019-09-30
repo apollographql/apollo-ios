@@ -20,7 +20,8 @@ public class ApolloCodegen {
       }
     }
   }
-  public static func run(from folder: URL, output: ApolloCodegenOptions.OutputFormat) throws -> String {
+  
+  public static func run(from folder: URL, binaryFolderURL: URL, output: ApolloCodegenOptions.OutputFormat) throws -> String {
     
     guard FileManager.default.apollo_folderExists(at: folder) else {
       throw CodegenError.folderDoesNotExist(folder)
@@ -33,9 +34,16 @@ public class ApolloCodegen {
     let options = ApolloCodegenOptions(outputFormat: output,
                                        urlToSchemaJSONFile: json)
     
-    let command = "cd \(folder.path) && pwd && set -x && /Users/ellen/Desktop/Work/Apollo/apollo-ios/scripts/apollo/bin/run \(options.arguments.joined(separator: " "))"
+    let scriptPath = "\(binaryFolderURL.path)/run"
     
-    let result = try Basher.run(command: command)
+    let command = "cd \(folder.path)" +
+      " && export PATH=$PATH:\(binaryFolderURL.path)" +
+      " && set -x" +
+      " && \(scriptPath) --version" +
+      " && \(scriptPath) \(options.arguments.joined(separator: " "))"
+    
+    let result = try Basher.run(command: command, from: folder)
+    
     print(result)
     return result
   }

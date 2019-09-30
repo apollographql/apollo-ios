@@ -39,8 +39,16 @@ guard FileManager.default.apollo_fileExists(at: starWarsOutput) else {
   throw CodegenError.doesntExist
 }
 
+let binaryFolderURL = sourceRootURL
+  .appendingPathComponent("scripts")
+  .appendingPathComponent("apollo")
+  .appendingPathComponent("bin")
+
 do {
-  let result = try ApolloCodegen.run(from: starWarsTarget, output: .singleFile(atFileURL: starWarsOutput))
+  let result = try ApolloCodegen.run(
+    from: starWarsTarget,
+    binaryFolderURL: binaryFolderURL,
+    output: .singleFile(atFileURL: starWarsOutput))
   print("RESULT: \(result)")
 } catch {
   print("ERROR: \(error)")
