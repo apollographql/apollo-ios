@@ -24,7 +24,7 @@ public struct Basher {
     }
   }
   
-  public static func run(command: String) throws -> String {
+  public static func run(command: String, from url: URL) throws -> String {
       let task = Process()
       let pipe = Pipe()
       task.standardOutput = pipe
@@ -36,10 +36,14 @@ public struct Basher {
       task.launchPath = "/bin/bash"
 
       if #available(OSXApplicationExtension 10.13, *) {
+        task.currentDirectoryURL = url
         try task.run()
       } else {
+        task.currentDirectoryPath = url.path
         task.launch()
       }
+    
+      task.waitUntilExit()
       
       let data = pipe.fileHandleForReading.readDataToEndOfFile()
     
