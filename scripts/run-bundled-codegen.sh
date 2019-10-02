@@ -57,6 +57,9 @@ validate_codegen_and_extract_if_needed() {
 # Make sure we're using an up-to-date and valid version of the Apollo CLI
 validate_codegen_and_extract_if_needed
 
+# Add the binary directory to the beginning of PATH so included binary verson of node is used.
+PATH="${SCRIPT_DIR}/apollo/bin:${PATH}"
+
 # Use the bundled executable of the Apollo CLI to generate code
 APOLLO_CLI="${SCRIPT_DIR}/apollo/bin/run"
 
