@@ -1,6 +1,6 @@
 # Apollo iOS
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollographql/apollo-ios/master/LICENSE) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg)](https://cocoapods.org/pods/Apollo) [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/apollo)
+[![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollographql/apollo-ios/master/LICENSE) [![Swift 5 Supported](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://github.com/apple/swift) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg)](https://cocoapods.org/pods/Apollo) [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/apollo)
 
 Apollo iOS is a strongly-typed, caching GraphQL client for iOS, written in Swift.
 
@@ -20,8 +20,6 @@ This combination of models with value semantics, one way data flow, and automati
 [Read about the latest changes to the library](https://github.com/apollographql/apollo-ios/blob/master/CHANGELOG.md)
 
 ## Contributing
-
-[![Build status](https://travis-ci.org/apollographql/apollo-ios.svg?branch=master)](https://travis-ci.org/apollographql/apollo-ios)
 
 This project is being developed using Xcode 11 and Swift 5.0.
 
