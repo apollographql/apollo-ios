@@ -164,14 +164,23 @@ The location of this wrapper script is slightly different based on how you've in
 If you're using Xcode 11 or higher, SPM will check out the appropriate build script along with the rest of the files when it checks out the repo. Add the following to your Run Script build phase: 
 
 ```sh
-# Go to the build root and go back up to where SPM keeps the Apollo iOS repo checked out.
-cd "${BUILD_ROOT}"
-cd "../../SourcePackages/checkouts/apollo-ios/scripts"
+# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.
+DERIVED_DATA_CANDIDATE="${BUILD_ROOT}"
 
-APOLLO_SCRIPT_PATH="$(pwd)"
+while ! [ -d "${DERIVED_DATA_CANDIDATE}/SourcePackages" ]; do
+  if [ "${DERIVED_DATA_CANDIDATE}" = / ]; then
+    echo >&2 "error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'"
+    exit 1
+  fi
+
+  DERIVED_DATA_CANDIDATE="$(dirname "${DERIVED_DATA_CANDIDATE}")"
+done
+
+# Grab a reference to the directory where scripts are checked out
+APOLLO_SCRIPT_PATH="${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts"
 
 if [ -z "${APOLLO_SCRIPT_PATH}" ]; then
-    echo "error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project."
+    echo >&2 "error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project."
     exit 1
 fi
 
