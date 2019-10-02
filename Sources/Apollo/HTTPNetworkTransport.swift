@@ -237,7 +237,8 @@ public class HTTPNetworkTransport {
             for: operation,
             files: files,
             sendOperationIdentifiers: self.sendOperationIdentifiers,
-            serializationFormat: self.serializationFormat)
+            serializationFormat: self.serializationFormat,
+            manualBoundary: nil)
           
           request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
           request.httpBody = try formData.encode()

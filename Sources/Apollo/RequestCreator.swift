@@ -31,15 +31,6 @@ extension RequestCreator {
   ///
   /// - Parameters:
   ///   - operation: The operation to use
-  /// - Returns: The created `GraphQLMap`
-  public func requestBody<Operation: GraphQLOperation>(for operation: Operation) -> GraphQLMap {
-    return requestBody(for: operation, sendOperationIdentifiers: false)
-  }
-
-  /// Creates a `GraphQLMap` out of the passed-in operation
-  ///
-  /// - Parameters:
-  ///   - operation: The operation to use
   ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
   /// - Returns: The created `GraphQLMap`
   public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
@@ -59,26 +50,6 @@ extension RequestCreator {
     }
 
     return body
-  }
-
-  /// Creates multi-part form data to send with a request
-  ///
-  /// - Parameters:
-  ///   - operation: The operation to create the data for.
-  ///   - files: An array of files to use.
-  ///   - sendOperationIdentifiers: True if operation identifiers should be sent, false if not.
-  ///   - serializationFormat: The format to use to serialize data.
-  /// - Returns: The created form data
-  /// - Throws: Errors creating or loading the form  data
-  public func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
-                                                                    files: [GraphQLFile],
-                                                                    sendOperationIdentifiers: Bool,
-                                                                    serializationFormat: JSONSerializationFormat.Type) throws -> MultipartFormData {
-    return try requestMultipartFormData(for: operation,
-                                        files: files,
-                                        sendOperationIdentifiers: sendOperationIdentifiers,
-                                        serializationFormat: serializationFormat,
-                                        manualBoundary: nil)
   }
 
   /// Creates multi-part form data to send with a request
