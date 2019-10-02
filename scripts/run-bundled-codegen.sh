@@ -19,14 +19,17 @@ remove_existing_apollo() {
 
 extract_cli() {
   tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
-  echo "${SHASUM}" | tee "${SHASUM_FILE}"
+  
+  # Get just the SHASUM rather than the SHASUM + path
+  ARRAY=($SHASUM)
+  echo "${ARRAY[0]}" | tee "${SHASUM_FILE}"
 }
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2  ${ZIP_FILE}"
+  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2"
 
-  if [ "${SHASUM}" == "${EXPECTED_SHASUM}" ]; then
+  if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
     echo "Correct version of the CLI tarball is included, checking if it's already been extracted..."
   else
     echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation." >&2
@@ -37,7 +40,7 @@ validate_codegen_and_extract_if_needed() {
   if [ -f "${SHASUM_FILE}" ]; then
     # The file exists, let's see if it's the same SHASUM
     FILE_CONTENTS="$(cat "${SHASUM_FILE}")"
-    if [ "${FILE_CONTENTS}" == "${SHASUM}" ]; then
+    if [[ ${FILE_CONTENTS} = ${EXPECTED_SHASUM}* ]]; then
       echo "Current verson of CLI is already extracted!"
     else
       echo "Extracting updated version of the Apollo CLI. This may take a minute..."
@@ -53,6 +56,9 @@ validate_codegen_and_extract_if_needed() {
 
 # Make sure we're using an up-to-date and valid version of the Apollo CLI
 validate_codegen_and_extract_if_needed
+
+# Add the binary directory to the beginning of PATH so included binary verson of node is used.
+PATH="${SCRIPT_DIR}/apollo/bin:${PATH}"
 
 # Use the bundled executable of the Apollo CLI to generate code
 APOLLO_CLI="${SCRIPT_DIR}/apollo/bin/run"
