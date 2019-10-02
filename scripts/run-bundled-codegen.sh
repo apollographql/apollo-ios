@@ -40,7 +40,7 @@ validate_codegen_and_extract_if_needed() {
   if [ -f "${SHASUM_FILE}" ]; then
     # The file exists, let's see if it's the same SHASUM
     FILE_CONTENTS="$(cat "${SHASUM_FILE}")"
-    if [ "${FILE_CONTENTS}" == "${SHASUM}" ]; then
+    if [[ ${FILE_CONTENTS} = ${EXPECTED_SHASUM}* ]]; then
       echo "Current verson of CLI is already extracted!"
     else
       echo "Extracting updated version of the Apollo CLI. This may take a minute..."
