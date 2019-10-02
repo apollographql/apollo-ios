@@ -42,7 +42,7 @@ extension RequestCreator {
   ///   - operation: The operation to use
   ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
   /// - Returns: The created `GraphQLMap`
-  public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool = false) -> GraphQLMap {
+  public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
     var body: GraphQLMap = [
       "variables": operation.variables,
       "operationName": operation.operationName,
