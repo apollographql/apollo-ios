@@ -10,8 +10,9 @@ import XCTest
 @testable import Apollo
 import StarWarsAPI
 
-class MultipartFormDataTests: XCTestCase {
-  private let requestCreator = ApolloRequestCreator()
+class RequestCreatorTests: XCTestCase {
+  private let customRequestCreator = TestRequestCreator()
+  private let apolloRequestCreator = ApolloRequestCreator()
 
   private func checkString(_ string: String,
                            includes expectedString: String,
@@ -158,7 +159,7 @@ Charlie file content.
     XCTAssertEqual(stringToCompare, expectedString)
   }
   
-  func testSingleFileWithRequestCreator() throws {
+  func testSingleFileWithApolloRequestCreator() throws {
     let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
     
     let alphaFile = GraphQLFile(fieldName: "upload",
@@ -166,7 +167,7 @@ Charlie file content.
                                 mimeType: "text/plain",
                                 fileURL: alphaFileUrl)
     
-    let data = try requestCreator.requestMultipartFormData(
+    let data = try apolloRequestCreator.requestMultipartFormData(
       for: HeroNameQuery(),
       files: [alphaFile!],
       sendOperationIdentifiers: false,
@@ -213,8 +214,8 @@ Alpha file content.
       self.checkString(stringToCompare, includes: expectedEndString)
     }
   }
-  
-  func testMultipleFilesWithRequestCreator() throws {
+
+  func testMultipleFilesWithApolloRequestCreator() throws {
     let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
     let alphaFile = GraphQLFile(fieldName: "uploads",
                                 originalName: "a.txt",
@@ -228,7 +229,7 @@ Alpha file content.
                                fileURL: betaFileURL)!
     
     
-    let data = try requestCreator.requestMultipartFormData(
+    let data = try apolloRequestCreator.requestMultipartFormData(
       for: HeroNameQuery(),
       files: [alphaFile, betaFile],
       sendOperationIdentifiers: false,
@@ -282,5 +283,136 @@ Bravo file content.
 """
       self.checkString(stringToCompare, includes: endString)
     }
+  }
+
+  func testRequestBodyWithApolloRequestCreator() {
+    let query = HeroNameQuery()
+    let req = apolloRequestCreator.requestBody(for: query, sendOperationIdentifiers: false)
+
+    XCTAssertEqual(query.queryDocument, req["query"] as? String)
+  }
+
+  // MARK: - Custom request creator tests
+
+  func testSingleFileWithCustomRequestCreator() throws {
+    let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
+
+    let alphaFile = GraphQLFile(fieldName: "upload",
+                                originalName: "a.txt",
+                                mimeType: "text/plain",
+                                fileURL: alphaFileUrl)
+
+    let data = try customRequestCreator.requestMultipartFormData(
+      for: HeroNameQuery(),
+      files: [alphaFile!],
+      sendOperationIdentifiers: false,
+      serializationFormat: JSONSerializationFormat.self,
+      manualBoundary: "TEST.BOUNDARY"
+    )
+
+    let stringToCompare = try self.string(from: data)
+
+    print(stringToCompare)
+
+    if #available(iOS 11, macOS 13, tvOS 11, watchOS 4, *) {
+      let expectedString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="test_variables"
+
+{"episode":null}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="test_query"
+
+query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="test_operationName"
+
+HeroName
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="upload"; filename="a.txt"
+Content-Type: text/plain
+
+Alpha file content.
+
+--TEST.BOUNDARY--
+"""
+      XCTAssertEqual(stringToCompare, expectedString)
+    } else {
+      // Operation parameters may be in weird order, so let's at least check that the files and single parameter got encoded properly.
+      let expectedEndString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="map"
+
+{"0":["variables.upload"]}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="0"; filename="a.txt"
+Content-Type: text/plain
+
+Alpha file content.
+
+--TEST.BOUNDARY--
+"""
+      self.checkString(stringToCompare, includes: expectedEndString)
+    }
+  }
+
+  func testRequestBodyWithCustomRequestCreator() {
+    let query = HeroNameQuery()
+    let req = customRequestCreator.requestBody(for: query, sendOperationIdentifiers: false)
+
+    XCTAssertEqual(query.queryDocument, req["test_query"] as? String)
+  }
+}
+
+fileprivate struct TestRequestCreator: RequestCreator {
+  public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
+    var body: GraphQLMap = [
+      "test_variables": operation.variables,
+      "test_operationName": operation.operationName,
+    ]
+
+    if sendOperationIdentifiers {
+      guard let operationIdentifier = operation.operationIdentifier else {
+        preconditionFailure("To send operation identifiers, Apollo types must be generated with operationIdentifiers")
+      }
+
+      body["test_id"] = operationIdentifier
+    } else {
+      body["test_query"] = operation.queryDocument
+    }
+
+    return body
+  }
+
+  public func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
+                                                                        files: [GraphQLFile],
+                                                                        sendOperationIdentifiers: Bool,
+                                                                        serializationFormat: JSONSerializationFormat.Type,
+                                                                        manualBoundary: String?) throws -> MultipartFormData {
+    let formData: MultipartFormData
+
+    if let boundary = manualBoundary {
+      formData = MultipartFormData(boundary: boundary)
+    } else {
+      formData = MultipartFormData()
+    }
+
+    let fields = requestBody(for: operation, sendOperationIdentifiers: false)
+    for (name, data) in fields {
+      if let data = data as? GraphQLMap {
+        let data = try serializationFormat.serialize(value: data)
+        formData.appendPart(data: data, name: name)
+      } else if let data = data as? String {
+        try formData.appendPart(string: data, name: name)
+      } else {
+        try formData.appendPart(string: data.debugDescription, name: name)
+      }
+    }
+
+    files.forEach {
+      formData.appendPart(inputStream: $0.inputStream, contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
+    }
+
+    return formData
   }
 }
