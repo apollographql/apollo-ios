@@ -19,14 +19,17 @@ remove_existing_apollo() {
 
 extract_cli() {
   tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
-  echo "${SHASUM}" | tee "${SHASUM_FILE}"
+  
+  # Get just the SHASUM rather than the SHASUM + path
+  ARRAY=($SHASUM)
+  echo "${ARRAY[0]}" | tee "${SHASUM_FILE}"
 }
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2  ${ZIP_FILE}"
+  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2"
 
-  if [ "${SHASUM}" == "${EXPECTED_SHASUM}" ]; then
+  if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
     echo "Correct version of the CLI tarball is included, checking if it's already been extracted..."
   else
     echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation." >&2
