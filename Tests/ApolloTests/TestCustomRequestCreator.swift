@@ -6,9 +6,9 @@
 //  Copyright © 2019 Apollo GraphQL. All rights reserved.
 //
 
-import Apollo
+@testable import Apollo
 
-fileprivate struct TestCustomRequestCreator: RequestCreator {
+struct TestCustomRequestCreator: RequestCreator {
   public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
     var body: GraphQLMap = [
       "test_variables": operation.variables,
