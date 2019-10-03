@@ -26,16 +26,25 @@ var cacheKeyForObject: CacheKeyForObject?
 > A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
 
 ## Methods
-### `clearCache()`
+### `clearCache(callbackQueue:completion:)`
 
 ```swift
-func clearCache() -> Promise<Void>
+func clearCache(callbackQueue: DispatchQueue, completion: ((Result<Void, Error>) -> Void)?)
 ```
 
 > Clears the underlying cache.
 > Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it'll clear that cache across all instances which share that cache.
 >
-> - Returns: Promise which fulfills when clear is complete.
+> - Parameters:
+>   - callbackQueue: The queue to fall back on. Should default to the main queue.
+>   - completion: [optional] A completion closure to execute when clearing has completed. Should default to nil.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| callbackQueue | The queue to fall back on. Should default to the main queue. |
+| completion | [optional] A completion closure to execute when clearing has completed. Should default to nil. |
 
 ### `fetch(query:cachePolicy:context:queue:resultHandler:)`
 
