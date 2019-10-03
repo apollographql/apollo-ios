@@ -312,8 +312,6 @@ Bravo file content.
 
     let stringToCompare = try self.string(from: data)
 
-    print(stringToCompare)
-
     if #available(iOS 11, macOS 13, tvOS 11, watchOS 4, *) {
       let expectedString = """
 --TEST.BOUNDARY
@@ -341,11 +339,19 @@ Alpha file content.
       // Operation parameters may be in weird order, so let's at least check that the files and single parameter got encoded properly.
       let expectedEndString = """
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="map"
+Content-Disposition: form-data; name="test_operationName"
 
-{"0":["variables.upload"]}
+HeroName
 --TEST.BOUNDARY
-Content-Disposition: form-data; name="0"; filename="a.txt"
+Content-Disposition: form-data; name="test_query"
+
+query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="test_variables"
+
+{"episode":null}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="upload"; filename="a.txt"
 Content-Type: text/plain
 
 Alpha file content.

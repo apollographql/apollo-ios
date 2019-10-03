@@ -666,18 +666,18 @@
 				9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */,
 				9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */,
 				E86D8E03214B32DA0028EFE1 /* JSONTests.swift */,
-				C338DF1622DD9DE9006AF33E /* RequestCreatorTests.swift */,
 				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
 				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
 				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
 				9FE1C6E61E634C8D00C02284 /* PromiseTests.swift */,
 				F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */,
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
+				C338DF1622DD9DE9006AF33E /* RequestCreatorTests.swift */,
 				9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */,
+				C3279FC52345233000224790 /* TestCustomRequestCreator.swift */,
 				C304EBD322DDC7B200748F72 /* a.txt */,
 				C35D43BE22DDD3C100BCBABE /* b.txt */,
 				C35D43BF22DDD3C100BCBABE /* c.txt */,
-				C3279FC52345233000224790 /* TestCustomRequestCreator.swift */,
 			);
 			path = ApolloTests;
 			sourceTree = "<group>";
