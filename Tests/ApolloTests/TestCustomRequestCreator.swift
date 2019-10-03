@@ -6,7 +6,7 @@
 //  Copyright © 2019 Apollo GraphQL. All rights reserved.
 //
 
-@testable import Apollo
+import Apollo
 
 struct TestCustomRequestCreator: RequestCreator {
   public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
