@@ -33,6 +33,25 @@ public convenience init()
 
 > Convenience initializer which uses a pre-defined boundary
 
+### `appendPart(string:name:)`
+
+```swift
+public func appendPart(string: String, name: String) throws
+```
+
+> Appends the passed-in string as a part of the body.
+>
+> - Parameters:
+>   - string: The string to append
+>   - name: The name of the part to pass along to the server
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| string | The string to append |
+| name | The name of the part to pass along to the server |
+
 ### `appendPart(data:name:contentType:filename:)`
 
 ```swift

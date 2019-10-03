@@ -1,5 +1,9 @@
 # Change log
 
+### v0.16.1
+- Updated the way `run-bundled-codegen` checks whether the bundled codegen has already been unzipped and has node locally. ([#806](https://github.com/apollographql/apollo-ios/pull/806))
+- Updated how default parameters are provided for `RequestCreatorProtocol`. ([#804](https://github.com/apollographql/apollo-ios/pull/804))
+
 ### v0.16.0
 - **BREAKING**: We've switched to a much simpler setup which does not involve NPM in order to use our CLI. This requires updating your build scripts. Please follow the [updated instructions for setting up the build script here](https://www.apollographql.com/docs/ios/installation/#adding-a-code-generation-build-step). The existing build script will continue to work until the next minor release, at which point it will be removed. ([#766](https://github.com/apollographql/apollo-ios/pull/766))
 - Included CLI version fixes issues which showed up in `0.15.2`. 

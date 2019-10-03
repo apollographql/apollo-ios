@@ -6,7 +6,7 @@
 ### `requestBody(for:sendOperationIdentifiers:)`
 
 ```swift
-public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool = false) -> GraphQLMap
+public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap
 ```
 
 > Creates a `GraphQLMap` out of the passed-in operation
@@ -30,7 +30,7 @@ public func requestMultipartFormData<Operation: GraphQLOperation>(for operation:
                                                                   files: [GraphQLFile],
                                                                   sendOperationIdentifiers: Bool,
                                                                   serializationFormat: JSONSerializationFormat.Type,
-                                                                  manualBoundary: String? = nil) throws -> MultipartFormData
+                                                                  manualBoundary: String?) throws -> MultipartFormData
 ```
 
 > Creates multi-part form data to send with a request
