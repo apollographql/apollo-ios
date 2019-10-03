@@ -8,6 +8,37 @@ public struct GraphQLFile
 
 > A file which can be uploaded to a GraphQL server
 
+## Properties
+### `fieldName`
+
+```swift
+public let fieldName: String
+```
+
+### `originalName`
+
+```swift
+public let originalName: String
+```
+
+### `mimeType`
+
+```swift
+public let mimeType: String
+```
+
+### `inputStream`
+
+```swift
+public let inputStream: InputStream
+```
+
+### `contentLength`
+
+```swift
+public let contentLength: UInt64
+```
+
 ## Methods
 ### `init(fieldName:originalName:mimeType:data:)`
 

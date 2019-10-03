@@ -9,14 +9,15 @@ public class HTTPNetworkTransport
 > A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 
 ## Methods
-### `init(url:session:sendOperationIdentifiers:useGETForQueries:delegate:)`
+### `init(url:session:sendOperationIdentifiers:useGETForQueries:delegate:requestCreator:)`
 
 ```swift
 public init(url: URL,
             session: URLSession = .shared,
             sendOperationIdentifiers: Bool = false,
             useGETForQueries: Bool = false,
-            delegate: HTTPNetworkTransportDelegate? = nil)
+            delegate: HTTPNetworkTransportDelegate? = nil,
+            requestCreator: RequestCreator = ApolloRequestCreator())
 ```
 
 > Creates a network transport with the specified server URL and session configuration.

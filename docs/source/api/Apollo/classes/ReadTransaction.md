@@ -19,8 +19,10 @@ public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data
 public func readObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap? = nil) throws -> SelectionSet
 ```
 
-### `loadRecords(forKeys:)`
+### `loadRecords(forKeys:callbackQueue:completion:)`
 
 ```swift
-public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]>
+public func loadRecords(forKeys keys: [CacheKey],
+                        callbackQueue: DispatchQueue = .main,
+                        completion: @escaping (Result<[Record?], Error>) -> Void)
 ```

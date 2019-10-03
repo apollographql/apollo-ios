@@ -16,10 +16,10 @@ public weak var delegate: WebSocketTransportDelegate?
 ```
 
 ## Methods
-### `init(request:sendOperationIdentifiers:reconnectionInterval:connectingPayload:)`
+### `init(request:sendOperationIdentifiers:reconnectionInterval:connectingPayload:requestCreator:)`
 
 ```swift
-public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:])
+public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:], requestCreator: RequestCreator = ApolloRequestCreator())
 ```
 
 ### `isConnected()`
