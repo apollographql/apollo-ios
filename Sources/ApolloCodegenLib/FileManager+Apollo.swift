@@ -43,4 +43,16 @@ public extension FileManager {
   func apollo_folderExists(at url: URL) -> Bool {
     return self.apollo_folderExists(at: url.path)
   }
+  
+  /// Checks if a folder exists then attempts to delete it if it's there.
+  /// 
+  /// - Parameter url: The URL to delete the folder for
+  func apollo_deleteFolder(at url: URL) throws {
+    guard apollo_folderExists(at: url) else {
+      // Nothing to delete!
+      return
+    }
+    
+    try self.removeItem(at: url)
+  }
 }
