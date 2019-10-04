@@ -29,23 +29,10 @@ public class ApolloCodegen {
   /// - Parameter binaryFolderURL: The folder where the Apollo binaries have been unzipped.
   /// - Parameter options: The options object to use to run the code generation.
   public static func run(from folder: URL,
-                         binaryFolderURL: URL,
+                         scriptFolderURL: URL,
                          options: ApolloCodegenOptions) throws -> String {
-    let scriptPath = "\(binaryFolderURL.path)/run"
-    
-    let command =
-      // Change directories to get into the path to run the script
-      "cd \(folder.path)" +
-      // Add the binary folder URL to $PATH so the script can find pre-compiled `node`
-      " && export PATH=$PATH:\(binaryFolderURL.path)" +
-      // Log out the version for debugging purposes
-      " && \(scriptPath) --version" +
-      // Set the final command to log out the passed-in arguments for debugging purposes
-      " && set -x" +
-      // Actually run the script with the given options.
-      " && \(scriptPath) \(options.arguments.joined(separator: " "))"
-    
-    return try Basher.run(command: command, from: folder)
+    let cli = try ApolloCLI.createCLI(scriptsFolderURL: scriptFolderURL)
+    return try cli.runApollo(with: options.arguments, from: folder)
   }
   
   /// Runs code generation from the given folder with default options and the
@@ -56,7 +43,7 @@ public class ApolloCodegen {
   /// - Parameter folder: The folder to run the script from
   /// - Parameter binaryFolderURL: The folder where the Apollo binaries have been unzipped.
   public static func run(from folder: URL,
-                         binaryFolderURL: URL) throws -> String {
+                         scriptFolderURL: URL) throws -> String {
     guard FileManager.default.apollo_folderExists(at: folder) else {
       throw ApolloCodegenError.folderDoesNotExist(folder)
     }
@@ -68,7 +55,7 @@ public class ApolloCodegen {
                                        urlToSchemaFile: json)
     
     return try self.run(from: folder,
-                        binaryFolderURL: binaryFolderURL,
+                        scriptFolderURL: scriptFolderURL,
                         options: options)
   }
 }
