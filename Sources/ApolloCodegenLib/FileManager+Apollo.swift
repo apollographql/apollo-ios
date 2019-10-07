@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonCrypto
 
 public extension FileManager {
 
@@ -54,5 +55,25 @@ public extension FileManager {
     }
     
     try self.removeItem(at: url)
+  }
+  
+  func apollo_shasum(at fileURL: URL) throws -> String {
+    let file = try FileHandle(forReadingFrom: fileURL)
+    defer {
+        file.closeFile()
+    }
+    
+    let data = file.readDataToEndOfFile()
+    var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+    
+    _ = digestData.withUnsafeMutableBytes { digestBytes in
+      return data.withUnsafeBytes { fileBytes in
+         CC_SHA256(fileBytes, CC_LONG(data.count), digestBytes)
+      }
+    }
+    
+    return digestData
+      .map { String(format: "%02hhx", $0) }
+      .joined()
   }
 }

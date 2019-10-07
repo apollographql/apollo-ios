@@ -30,6 +30,9 @@
 		9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */; };
 		9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEBF42346E90700808306 /* CLIExtractor.swift */; };
 		9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */; };
+		9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
+		9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */; };
+		9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */; };
 		9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2D9D1233C6DC0007BD083 /* Basher.swift */; };
 		9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43D022C6655200FD7C7F /* Cancellable.swift */; };
 		9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */; };
@@ -141,6 +144,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9BAEEC02234BB8FD00808306 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B7B6F46233C26D100F32205;
+			remoteInfo = ApolloCodegenLib;
+		};
 		9BC2D9CF233C6BE0007BD083 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -328,6 +338,10 @@
 		9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodegenLogger.swift; sourceTree = "<group>"; };
 		9BAEEBF42346E90700808306 /* CLIExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIExtractor.swift; sourceTree = "<group>"; };
 		9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaticString+Apollo.swift"; sourceTree = "<group>"; };
+		9BAEEBFC234BB8FD00808306 /* ApolloCodegenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloCodegenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BAEEC0C234BB95B00808306 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerExtensionsTests.swift; sourceTree = "<group>"; };
+		9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodegenTestHelper.swift; sourceTree = "<group>"; };
 		9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegen.xcconfig"; sourceTree = "<group>"; };
 		9BC2D9D1233C6DC0007BD083 /* Basher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basher.swift; sourceTree = "<group>"; };
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -464,6 +478,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BAEEBF9234BB8FD00808306 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +653,17 @@
 			path = TestFolder3;
 			sourceTree = "<group>";
 		};
+		9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */ = {
+			isa = PBXGroup;
+			children = (
+				9BAEEC0C234BB95B00808306 /* Info.plist */,
+				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
+				9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */,
+			);
+			name = ApolloCodegenTests;
+			path = Tests/ApolloCodegenTests;
+			sourceTree = "<group>";
+		};
 		9BDE43D222C6658D00FD7C7F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +757,7 @@
 			children = (
 				9FC750461D2A532C00458D91 /* Apollo */,
 				9B7B6F50233C26E400F32205 /* ApolloCodegenLib */,
+				9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */,
 				9B7B6F61233C299E00F32205 /* ApolloCodegen */,
 				9FCE2CF41E6C20E000E34457 /* Tests */,
 				90690D04224333DA00FC2E54 /* Configuration */,
@@ -746,6 +780,7 @@
 				9FACA9C61F42E67200AE2DBD /* GitHubAPI.framework */,
 				9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */,
 				9B7B6F60233C299E00F32205 /* ApolloCodegen */,
+				9BAEEBFC234BB8FD00808306 /* ApolloCodegenTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -982,9 +1017,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B7B6F64233C299E00F32205 /* Build configuration list for PBXNativeTarget "ApolloCodegen" */;
 			buildPhases = (
+				9BAEEC13234BBD0F00808306 /* ShellScript */,
+				9B7B6F5E233C299E00F32205 /* CopyFiles */,
 				9B7B6F5C233C299E00F32205 /* Sources */,
 				9B7B6F5D233C299E00F32205 /* Frameworks */,
-				9B7B6F5E233C299E00F32205 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -995,6 +1031,24 @@
 			productName = ApolloCodegen;
 			productReference = 9B7B6F60233C299E00F32205 /* ApolloCodegen */;
 			productType = "com.apple.product-type.tool";
+		};
+		9BAEEBFB234BB8FD00808306 /* ApolloCodegenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BAEEC07234BB8FD00808306 /* Build configuration list for PBXNativeTarget "ApolloCodegenTests" */;
+			buildPhases = (
+				9BAEEBF8234BB8FD00808306 /* Sources */,
+				9BAEEBF9234BB8FD00808306 /* Frameworks */,
+				9BAEEBFA234BB8FD00808306 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
+			);
+			name = ApolloCodegenTests;
+			productName = ApolloCodegenTests;
+			productReference = 9BAEEBFC234BB8FD00808306 /* ApolloCodegenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		9F8A95771EC0FC1200304A2D /* ApolloTestSupport */ = {
 			isa = PBXNativeTarget;
@@ -1169,6 +1223,10 @@
 						CreatedOnToolsVersion = 11.0;
 						ProvisioningStyle = Automatic;
 					};
+					9BAEEBFB234BB8FD00808306 = {
+						CreatedOnToolsVersion = 11.0;
+						ProvisioningStyle = Automatic;
+					};
 					9F8A95771EC0FC1200304A2D = {
 						CreatedOnToolsVersion = 8.3.2;
 						LastSwiftMigration = 1020;
@@ -1231,6 +1289,7 @@
 				9FD637E01E6ACF88001EDBC8 /* TestHost iOS */,
 				9F8A95771EC0FC1200304A2D /* ApolloTestSupport */,
 				9B7B6F46233C26D100F32205 /* ApolloCodegenLib */,
+				9BAEEBFB234BB8FD00808306 /* ApolloCodegenTests */,
 				9B7B6F5F233C299E00F32205 /* ApolloCodegen */,
 			);
 		};
@@ -1238,6 +1297,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		9B7B6F45233C26D100F32205 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BAEEBFA234BB8FD00808306 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1302,6 +1368,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT\"/scripts/ensure-no-build-settings-in-pbxproj.sh \"${PROJECT_FILE_PATH}\"\n";
 		};
+		9BAEEC13234BBD0F00808306 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"TESTING TESTING 123\"\n\necho \"SOURCE ROOT: ${SRCROOT}\"\n";
+		};
 		9FACA9BA1F42E67200AE2DBD /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1356,6 +1439,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B7B6F63233C299E00F32205 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BAEEBF8234BB8FD00808306 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
+				9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1507,6 +1599,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9BAEEC03234BB8FD00808306 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B7B6F46233C26D100F32205 /* ApolloCodegenLib */;
+			targetProxy = 9BAEEC02234BB8FD00808306 /* PBXContainerItemProxy */;
+		};
 		9BC2D9D0233C6BE0007BD083 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9B7B6F46233C26D100F32205 /* ApolloCodegenLib */;
@@ -1653,6 +1750,191 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */;
 			buildSettings = {
+			};
+			name = PerformanceTesting;
+		};
+		9BAEEC04234BB8FD00808306 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Tests/ApolloCodegenTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloCodegenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9BAEEC05234BB8FD00808306 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Tests/ApolloCodegenTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloCodegenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		9BAEEC06234BB8FD00808306 /* PerformanceTesting */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Tests/ApolloCodegenTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.ApolloCodegenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 			};
 			name = PerformanceTesting;
 		};
@@ -1864,6 +2146,16 @@
 				9B7B6F65233C299E00F32205 /* Debug */,
 				9B7B6F66233C299E00F32205 /* Release */,
 				9B7B6F67233C299E00F32205 /* PerformanceTesting */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BAEEC07234BB8FD00808306 /* Build configuration list for PBXNativeTarget "ApolloCodegenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BAEEC04234BB8FD00808306 /* Debug */,
+				9BAEEC05234BB8FD00808306 /* Release */,
+				9BAEEC06234BB8FD00808306 /* PerformanceTesting */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

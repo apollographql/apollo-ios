@@ -81,12 +81,7 @@ struct CLIExtractor {
   }
   
   static func validateZipFileSHASUM(at zipFileURL: URL, expected: String = CLIExtractor.expectedSHASUM) throws {
-    let shasumOutput = try Basher.run(command: "/usr/bin/shasum -a 256 \(zipFileURL.path)", from: nil)
-    
-    guard let shasum = shasumOutput.components(separatedBy: " ").first else {
-      throw CLIExtractorError.couldNotGetSHASUM
-    }
-    
+    let shasum = try FileManager.default.apollo_shasum(at: zipFileURL)    
     guard shasum == expected else {
       throw CLIExtractorError.zipFileHasInvalidSHASUM(expectedSHASUM: expected, gotSHASUM: shasum)
     }
@@ -94,20 +89,19 @@ struct CLIExtractor {
   
   // MARK: - File/Folder URL helpers
   
-  private static func apolloFolderURL(fromScripts scriptsFolderURL: URL) -> URL {
+  static func apolloFolderURL(fromScripts scriptsFolderURL: URL) -> URL {
     return scriptsFolderURL.appendingPathComponent("apollo")
   }
   
-  private static func zipFileURL(fromScripts scriptsFolderURL: URL) -> URL {
+  static func zipFileURL(fromScripts scriptsFolderURL: URL) -> URL {
     return scriptsFolderURL.appendingPathComponent("apollo.tar.gz")
   }
   
-  private static func binaryFolderURL(fromApollo apolloFolderURL: URL) -> URL {
+  static func binaryFolderURL(fromApollo apolloFolderURL: URL) -> URL {
     return apolloFolderURL.appendingPathComponent("bin")
   }
   
-  private static func shasumFileURL(fromApollo apolloFolderURL: URL) -> URL {
+  static func shasumFileURL(fromApollo apolloFolderURL: URL) -> URL {
     return apolloFolderURL.appendingPathComponent(".shasum")
   }
-  
 }
