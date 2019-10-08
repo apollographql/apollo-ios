@@ -55,7 +55,7 @@ public struct ApolloCodegenOptions {
     self.only = only
     self.operationIDsURL = operationIDsURL
     self.outputFormat = outputFormat
-    self.passthroughCustomScalars = false
+    self.passthroughCustomScalars = passthroughCustomScalars
     self.urlToSchemaFile = urlToSchemaFile
   }
   
