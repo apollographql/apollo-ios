@@ -13,6 +13,17 @@ public struct CodegenLogger {
     case error
     case warning
     case debug
+    
+    var name: String {
+      switch self {
+      case .error:
+        return "ERROR"
+      case .warning:
+        return "WARNING"
+      case .debug:
+        return "DEBUG"
+      }
+    }
   }
   
   public static var level = LogLevel.debug
@@ -23,16 +34,16 @@ public struct CodegenLogger {
                          line: UInt = #line) {
     guard logLevel.rawValue <= CodegenLogger.level.rawValue else {
       // We're not logging anything at this level.
-      print("NO LOG")
       return
     }
     
     var standardOutput = FileHandle.standardOutput
-    print("[\(file.apollo_lastPathComponent):\(line)] - \(logString())", to: &standardOutput)
+    print("[\(logLevel.name) - ApolloCodegenLib:\(file.apollo_lastPathComponent):\(line)] - \(logString())", to: &standardOutput)
   }
 }
 
-extension FileHandle : TextOutputStream {
+// Extension which allows `print` to ouput to a FileHandle
+extension FileHandle: TextOutputStream {
   public func write(_ string: String) {
     guard let data = string.data(using: .utf8) else { return }
     self.write(data)
