@@ -63,15 +63,37 @@ public extension FileManager {
         file.closeFile()
     }
     
-    let data = file.readDataToEndOfFile()
-    var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+    let buffer = 1024 * 1024 // 1GB
     
-    _ = digestData.withUnsafeMutableBytes { digestBytes in
-      return data.withUnsafeBytes { fileBytes in
-         CC_SHA256(fileBytes, CC_LONG(data.count), digestBytes)
+    var context = CC_SHA256_CTX()
+    CC_SHA256_Init(&context)
+    
+    while autoreleasepool(invoking: {
+      let data = file.readData(ofLength: buffer)
+      guard !data.isEmpty else {
+        // Nothing more to read!
+        return false
       }
-    }
+      
+      _ = data.withUnsafeBytes { bytesFromBuffer -> Int32 in
+        guard let rawBytes = bytesFromBuffer.bindMemory(to: UInt8.self).baseAddress else {
+          return Int32(kCCMemoryFailure)
+        }
+        return CC_SHA256_Update(&context, rawBytes, numericCast(data.count))
+      }
+      
+      return true
+    }) {}
     
+    var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
+    _ = digestData.withUnsafeMutableBytes { bytesFromDigest -> Int32 in
+      guard let rawBytes = bytesFromDigest.bindMemory(to: UInt8.self).baseAddress else {
+        return Int32(kCCMemoryFailure)
+      }
+      
+      return CC_SHA256_Final(rawBytes, &context)
+    }
+
     return digestData
       .map { String(format: "%02hhx", $0) }
       .joined()
