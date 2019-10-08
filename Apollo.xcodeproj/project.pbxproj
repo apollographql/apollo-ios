@@ -33,6 +33,7 @@
 		9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */; };
 		9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */; };
+		9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC14234C132600808306 /* CLIExtractorTests.swift */; };
 		9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2D9D1233C6DC0007BD083 /* Basher.swift */; };
 		9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43D022C6655200FD7C7F /* Cancellable.swift */; };
 		9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */; };
@@ -342,6 +343,7 @@
 		9BAEEC0C234BB95B00808306 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerExtensionsTests.swift; sourceTree = "<group>"; };
 		9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodegenTestHelper.swift; sourceTree = "<group>"; };
+		9BAEEC14234C132600808306 /* CLIExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIExtractorTests.swift; sourceTree = "<group>"; };
 		9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegen.xcconfig"; sourceTree = "<group>"; };
 		9BC2D9D1233C6DC0007BD083 /* Basher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basher.swift; sourceTree = "<group>"; };
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -590,16 +592,16 @@
 			isa = PBXGroup;
 			children = (
 				9BAEEBF023467E0A00808306 /* ApolloCLI.swift */,
-				9BAEEBF42346E90700808306 /* CLIExtractor.swift */,
 				9B7B6F57233C287100F32205 /* ApolloCodegen.swift */,
 				9B7B6F58233C287100F32205 /* ApolloCodegenOptions.swift */,
-				9B7B6F51233C26E400F32205 /* Info.plist */,
-				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
-				9BC2D9D1233C6DC0007BD083 /* Basher.swift */,
 				9BAEEBEB234663F200808306 /* ApolloSchemaDownloader.swift */,
 				9BAEEBED2346644600808306 /* ApolloSchemaOptions.swift */,
+				9BC2D9D1233C6DC0007BD083 /* Basher.swift */,
+				9BAEEBF42346E90700808306 /* CLIExtractor.swift */,
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
+				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
 				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
+				9B7B6F51233C26E400F32205 /* Info.plist */,
 			);
 			name = ApolloCodegenLib;
 			path = Sources/ApolloCodegenLib;
@@ -656,9 +658,10 @@
 		9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */ = {
 			isa = PBXGroup;
 			children = (
-				9BAEEC0C234BB95B00808306 /* Info.plist */,
-				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */,
+				9BAEEC14234C132600808306 /* CLIExtractorTests.swift */,
+				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
+				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
 			name = ApolloCodegenTests;
 			path = Tests/ApolloCodegenTests;
@@ -1448,6 +1451,7 @@
 			files = (
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
 				9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */,
+				9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
