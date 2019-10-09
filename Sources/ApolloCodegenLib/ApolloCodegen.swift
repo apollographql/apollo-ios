@@ -31,6 +31,13 @@ public class ApolloCodegen {
   public static func run(from folder: URL,
                          scriptFolderURL: URL,
                          options: ApolloCodegenOptions) throws -> String {
+    switch options.outputFormat {
+    case .multipleFiles(let folderURL):
+      try FileManager.default.apollo_createFolderIfNeeded(at: folderURL)
+    case .singleFile(let fileURL):
+      try FileManager.default.apollo_createContainingFolderIfNeeded(for: fileURL)
+    }
+    
     let cli = try ApolloCLI.createCLI(scriptsFolderURL: scriptFolderURL)
     return try cli.runApollo(with: options.arguments, from: folder)
   }

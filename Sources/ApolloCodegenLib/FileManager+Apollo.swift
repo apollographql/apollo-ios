@@ -57,6 +57,21 @@ public extension FileManager {
     try self.removeItem(at: url)
   }
   
+  func apollo_createContainingFolderIfNeeded(for fileURL: URL) throws {
+    let parent = fileURL.deletingLastPathComponent()
+    try self.apollo_createFolderIfNeeded(at: parent)
+  }
+  
+  func apollo_createFolderIfNeeded(at url: URL) throws {
+    guard !self.apollo_folderExists(at: url) else {
+      // Folder already exists, nothing more to do here.
+      return
+    }
+    
+    try self.createDirectory(atPath: url.path,
+                             withIntermediateDirectories: true)
+  }
+  
   func apollo_shasum(at fileURL: URL) throws -> String {
     let file = try FileHandle(forReadingFrom: fileURL)
     defer {
