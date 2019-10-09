@@ -25,8 +25,8 @@ public class ApolloCodegen {
   
   /// Runs code generation from the given folder with the passed-in options
   ///
-  /// - Parameter folder: The folder to run the script from
-  /// - Parameter binaryFolderURL: The folder where the Apollo binaries have been unzipped.
+  /// - Parameter folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
+  /// - Parameter scriptFolderURL: The folder where the Apollo scripts have been checked out.
   /// - Parameter options: The options object to use to run the code generation.
   public static func run(from folder: URL,
                          scriptFolderURL: URL,
@@ -40,8 +40,8 @@ public class ApolloCodegen {
   ///   - Schema is assumed to be at [folder]/schema.json
   ///   - Output is assumed to be a single file to [folder]/API.swift
   ///
-  /// - Parameter folder: The folder to run the script from
-  /// - Parameter binaryFolderURL: The folder where the Apollo binaries have been unzipped.
+  /// - Parameter folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
+  /// - Parameter scriptFolderURL: The folder where the Apollo scripts have been checked out.
   public static func run(from folder: URL,
                          scriptFolderURL: URL) throws -> String {
     guard FileManager.default.apollo_folderExists(at: folder) else {
