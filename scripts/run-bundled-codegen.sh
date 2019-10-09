@@ -25,7 +25,7 @@ extract_cli() {
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2"
+  EXPECTED_SHASUM="68633af941b314f80fbc0661b0159c678fd598b4769c59559a7f91bb17c7af25"
 
   if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
     echo "Correct version of the CLI tarball is included, checking if it's already been extracted..."
