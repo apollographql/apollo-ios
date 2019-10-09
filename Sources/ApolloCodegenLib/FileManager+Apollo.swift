@@ -12,6 +12,7 @@ import CommonCrypto
 public extension FileManager {
 
   /// Checks if a file exists (and is not a folder) at the given path
+  /// 
   /// - Parameter path: The path to check
   /// - Returns: `true` if there is something at the path and it is a file, not a folder.
   func apollo_fileExists(at path: String) -> Bool {
@@ -22,6 +23,7 @@ public extension FileManager {
   }
 
   /// Checks if a file exists (and is not a folder) at the given URL
+  ///
   /// - Parameter url: The URL to check
   /// - Returns: `true` if there is something at the URL and it is a file, not a folder.
   func apollo_fileExists(at url: URL) -> Bool {
@@ -29,6 +31,7 @@ public extension FileManager {
   }
 
   /// Checks if a folder exists (and is not a file) at the given path.
+  ///
   /// - Parameter path: The path to check
   /// - Returns: `true` if there is something at the path and it is a folder, not a file.
   func apollo_folderExists(at path: String) -> Bool {
@@ -39,6 +42,7 @@ public extension FileManager {
   }
   
   /// Checks if a folder exists (and is not a file) at the given URL.
+  ///
   /// - Parameter url: The URL to check
   /// - Returns: `true` if there is something at the URL and it is a folder, not a file.
   func apollo_folderExists(at url: URL) -> Bool {
@@ -57,11 +61,17 @@ public extension FileManager {
     try self.removeItem(at: url)
   }
   
+  /// Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
+  ///
+  /// - Parameter fileURL: The URL of the file to create a containing folder for if necessary.
   func apollo_createContainingFolderIfNeeded(for fileURL: URL) throws {
     let parent = fileURL.deletingLastPathComponent()
     try self.apollo_createFolderIfNeeded(at: parent)
   }
   
+  /// Creates the folder (including all intermediate directories) for the given URL if necessary.
+  ///
+  /// - Parameter url: The URL of the folder to create if necessary.
   func apollo_createFolderIfNeeded(at url: URL) throws {
     guard !self.apollo_folderExists(at: url) else {
       // Folder already exists, nothing more to do here.
@@ -72,6 +82,9 @@ public extension FileManager {
                              withIntermediateDirectories: true)
   }
   
+  /// Calculates the SHASUM (ie, SHA256 hash) of the given file
+  ///
+  /// - Parameter fileURL: The file to calculate the SHASUM for.
   func apollo_shasum(at fileURL: URL) throws -> String {
     let file = try FileHandle(forReadingFrom: fileURL)
     defer {

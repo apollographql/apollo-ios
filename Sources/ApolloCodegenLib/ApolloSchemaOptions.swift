@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Options for running the Apollo Schema Downloader.
 public struct ApolloSchemaOptions {
   
   public let apiKey: String?
@@ -15,6 +16,12 @@ public struct ApolloSchemaOptions {
   public let header: String?
   public let outputURL: URL
   
+  /// Designated Initializer
+  ///
+  /// - Parameter apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
+  /// - Parameter endpointURL: The endpoint to hit to download your schema.
+  /// - Parameter header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
+  /// - Parameter outputURL: The file URL where the downloaded schema should be written
   public init(apiKey: String? = nil,
               endpointURL: URL,
               header: String? = nil,

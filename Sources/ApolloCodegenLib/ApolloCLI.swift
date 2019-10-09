@@ -8,8 +8,12 @@
 
 import Foundation
 
+/// Wrapper for calling the bundled node-based Apollo CLI.
 public struct ApolloCLI {
   
+  /// Creates an instance of `ApolloCLI`
+  ///
+  /// - Parameter scriptsFolderURL: The URL to the scripts folder which contains the zip file with the CLI.
   public static func createCLI(scriptsFolderURL: URL) throws -> ApolloCLI {
     let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
     return ApolloCLI(binaryFolderURL: binaryFolderURL)
@@ -17,6 +21,9 @@ public struct ApolloCLI {
   
   public let binaryFolderURL: URL
   
+  /// Designated initializer
+  ///
+  /// - Parameter binaryFolderURL: The folder where the extracted binary files live.
   public init(binaryFolderURL: URL) {
     self.binaryFolderURL = binaryFolderURL
   }
