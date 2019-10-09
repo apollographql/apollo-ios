@@ -15,7 +15,7 @@ public class ApolloCodegen {
   public enum ApolloCodegenError: Error, LocalizedError {
     case folderDoesNotExist(_ url: URL)
     
-    var localizedDescription: String {
+    public var errorDescription: String? {
       switch self {
       case .folderDoesNotExist(let url):
         return "Can't run codegen from \(url) - there is no folder there!"
