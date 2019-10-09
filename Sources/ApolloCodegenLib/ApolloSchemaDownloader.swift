@@ -18,6 +18,8 @@ public struct ApolloSchemaDownloader {
   public static func run(from folder: URL,
                          binaryFolderURL: URL,
                          options: ApolloSchemaOptions) throws -> String {
+    try FileManager.default.apollo_createContainingFolderIfNeeded(for: options.outputURL)
+    
     let cli = ApolloCLI(binaryFolderURL: binaryFolderURL)
     return try cli.runApollo(with: options.arguments, from: folder)
   }
