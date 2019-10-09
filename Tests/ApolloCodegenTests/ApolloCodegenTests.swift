@@ -11,6 +11,16 @@ import XCTest
 
 class ApolloCodegenTests: XCTestCase {
   
+  override func setUp() {
+    super.setUp()
+    CodegenTestHelper.deleteExistingOutputFolder()
+  }
+  
+  override func tearDown() {
+    CodegenTestHelper.deleteExistingOutputFolder()
+    super.tearDown()
+  }
+  
   func testCreatingOptionsWithDefaultParameters() throws {
     let sourceRoot = try CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API.swift")
@@ -88,5 +98,48 @@ class ApolloCodegenTests: XCTestCase {
       "--passthroughCustomScalars",
       output.path,
     ])
+  }
+  
+  func testCodegenWithSingleFileOutputsSingleFile() throws {
+    let scriptFolderURL = try CodegenTestHelper.scriptsFolderURL()
+    let starWarsFolderURL = try CodegenTestHelper.starWarsFolderURL()
+    let starWarsSchemaFileURL = try CodegenTestHelper.starWarsSchemaFileURL()
+    let outputFolder = try CodegenTestHelper.outputFolderURL()
+    let outputFile = outputFolder.appendingPathComponent("API.swift")
+    
+    let options = ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: outputFile),
+                                       urlToSchemaFile: starWarsSchemaFileURL)
+    do {
+      _ = try ApolloCodegen.run(from: starWarsFolderURL,
+                                scriptFolderURL: scriptFolderURL,
+                                options: options)
+    } catch {
+      XCTFail("Error running codegen: \(error.localizedDescription)")
+    }
+    
+    XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))
+    XCTAssertTrue(FileManager.default.apollo_fileExists(at: outputFile))
+    
+    let contents = try FileManager.default.contentsOfDirectory(atPath: outputFolder.path)    
+    XCTAssertEqual(contents.count, 1)
+  }
+  
+  func testCodegenWithMultipleFilesOutputsMultipleFiles() throws {
+    let scriptFolderURL = try CodegenTestHelper.scriptsFolderURL()
+    let starWarsFolderURL = try CodegenTestHelper.starWarsFolderURL()
+    let starWarsSchemaFileURL = try CodegenTestHelper.starWarsSchemaFileURL()
+    let outputFolder = try CodegenTestHelper.outputFolderURL()
+    
+    let options = ApolloCodegenOptions(outputFormat: .multipleFiles(inFolderAtURL: outputFolder),
+                                       urlToSchemaFile: starWarsSchemaFileURL)
+    
+    _ = try ApolloCodegen.run(from: starWarsFolderURL,
+                              scriptFolderURL: scriptFolderURL,
+                              options: options)
+    
+    XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))
+    
+    let contents = try FileManager.default.contentsOfDirectory(atPath: outputFolder.path)
+    XCTAssertEqual(contents.count, 17)
   }
 }

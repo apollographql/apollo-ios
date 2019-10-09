@@ -11,8 +11,15 @@ import XCTest
 
 struct CodegenTestHelper {
   
-  enum CodegenTestError: Error {
+  enum CodegenTestError: Error, LocalizedError {
     case couldNotGetSourceRoot
+    
+    var errorDescription: String? {
+      switch self {
+      case .couldNotGetSourceRoot:
+        return "Couldn't get SRCROOT for the test environment. Make sure it's being set in the scheme!"
+      }
+    }
   }
   
   static func sourceRootURL() throws -> URL {
@@ -41,6 +48,38 @@ struct CodegenTestHelper {
   static func shasumFileURL() throws -> URL {
     let apollo = try self.apolloFolderURL()
     return CLIExtractor.shasumFileURL(fromApollo: apollo)
+  }
+  
+  static func starWarsFolderURL() throws -> URL {
+    let source = try self.sourceRootURL()
+    return source
+      .appendingPathComponent("Tests")
+      .appendingPathComponent("StarWarsAPI")
+  }
+  
+  static func starWarsSchemaFileURL() throws -> URL {
+    let starWars = try self.starWarsFolderURL()
+    return starWars.appendingPathComponent("schema.json")
+  }
+  
+  static func outputFolderURL() throws -> URL {
+    let sourceRoot = try self.sourceRootURL()
+    return sourceRoot
+      .appendingPathComponent("Tests")
+      .appendingPathComponent("ApolloCodegenTests")
+      .appendingPathComponent("Output")
+  }
+  
+  static func deleteExistingOutputFolder(file: StaticString = #file,
+                                         line: UInt = #line) {
+    do {
+      let outputFolderURL = try self.outputFolderURL()
+      try FileManager.default.apollo_deleteFolder(at: outputFolderURL)
+    } catch {
+      XCTFail("Error deleting output folder!",
+              file: file,
+              line: line)
+    }
   }
   
   static func deleteExistingApolloFolder(file: StaticString = #file,
