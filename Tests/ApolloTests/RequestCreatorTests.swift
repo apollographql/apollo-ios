@@ -327,7 +327,12 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="test_query"
 
-query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }
+query HeroName($episode: Episode) {
+  hero(episode: $episode) {
+    __typename
+    name
+  }
+}
 """
     self.checkString(stringToCompare, includes: expectedEndString)
     self.checkString(stringToCompare, includes: expectedQueryString)
