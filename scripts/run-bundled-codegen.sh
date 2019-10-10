@@ -8,7 +8,7 @@ SCRIPT_DIR="$(dirname "$0")"
 
 # Get the SHASUM of the tarball
 ZIP_FILE="${SCRIPT_DIR}/apollo.tar.gz"
-SHASUM="$(/usr/bin/shasum -a 256 "${ZIP_FILE}")"
+SHASUM="$(/usr/bin/shasum -a 256 "${ZIP_FILE}" | /usr/bin/awk '{ print $1 }')"
 SHASUM_FILE="${SCRIPT_DIR}/apollo/.shasum"
 APOLLO_DIR="${SCRIPT_DIR}"/apollo
 
@@ -20,14 +20,12 @@ remove_existing_apollo() {
 extract_cli() {
   tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
   
-  # Get just the SHASUM rather than the SHASUM + path
-  ARRAY=($SHASUM)
-  echo "${ARRAY[0]}" | tee "${SHASUM_FILE}"
+  echo "${SHASUM}" | tee "${SHASUM_FILE}"
 }
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2"
+  EXPECTED_SHASUM="68633af941b314f80fbc0661b0159c678fd598b4769c59559a7f91bb17c7af25"
 
   if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
     echo "Correct version of the CLI tarball is included, checking if it's already been extracted..."

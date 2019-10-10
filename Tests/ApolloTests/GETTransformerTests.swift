@@ -16,7 +16,7 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)
-    let body = requestCreator.requestBody(for: operation)
+    let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: false)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
@@ -27,13 +27,13 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() {
     let operation = HeroNameTypeSpecificConditionalInclusionQuery(episode: .jedi, includeName: true)
-    let body = requestCreator.requestBody(for: operation)
+    let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: false)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, tvOS 11, watchOS 4, *) {
+    if JSONSerialization.dataCanBeSorted() {
       // Here, we know that everything should be encoded in a stable order,
       // and we can check the encoded URL string directly.
           XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
@@ -217,7 +217,7 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithNullDefaultParameter() {
     let operation = HeroNameQuery()
-    let body = requestCreator.requestBody(for: operation)
+    let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: false)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     

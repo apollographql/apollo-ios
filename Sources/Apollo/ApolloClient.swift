@@ -34,7 +34,7 @@ public class ApolloClient {
   public enum ApolloClientError: Error, LocalizedError {
     case noUploadTransport
     
-    public var localizedDescription: String {
+    public var errorDescription: String? {
       switch self {
       case .noUploadTransport:
         return "Attempting to upload using a transport which does not support uploads. This is a developer error."

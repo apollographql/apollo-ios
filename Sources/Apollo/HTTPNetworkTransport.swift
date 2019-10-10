@@ -95,7 +95,7 @@ public class HTTPNetworkTransport {
               useGETForQueries: Bool = false,
               enableAutoPersistedQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false,
-              delegate: HTTPNetworkTransportDelegate? = nil
+              delegate: HTTPNetworkTransportDelegate? = nil,
               requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.url = url
     self.session = session
@@ -293,10 +293,10 @@ public class HTTPNetworkTransport {
                                                           httpMethod: GraphQLHTTPMethod,
                                                           sendQueryDocument: Bool,
                                                           autoPersistQueries: Bool) throws -> URLRequest {
-    let body = RequestCreator.requestBody(for: operation,
-                                          sendOperationIdentifiers: self.sendOperationIdentifiers,
-                                          sendQueryDocument: sendQueryDocument,
-                                          autoPersistQuery: autoPersistQueries)
+    let body = self.requestCreator.requestBody(for: operation,
+                                               sendOperationIdentifiers: self.sendOperationIdentifiers,
+                                               sendQueryDocument: sendQueryDocument,
+                                               autoPersistQuery: autoPersistQueries)
     var request = URLRequest(url: self.url)
     
     // We default to json, but this can be changed below if needed.
@@ -318,7 +318,8 @@ public class HTTPNetworkTransport {
             for: operation,
             files: files,
             sendOperationIdentifiers: self.sendOperationIdentifiers,
-            serializationFormat: self.serializationFormat)
+            serializationFormat: self.serializationFormat,
+            manualBoundary: nil)
           
           request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
           request.httpBody = try formData.encode()

@@ -1,6 +1,7 @@
 //  This file was automatically generated and should not be edited.
 
 import Apollo
+import Foundation
 
 /// The episodes in the Star Wars trilogy
 public enum Episode: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
@@ -127,7 +128,7 @@ public struct ColorInput: GraphQLMapConvertible {
 }
 
 public final class CreateReviewForEpisodeMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {
@@ -233,7 +234,7 @@ public final class CreateReviewForEpisodeMutation: GraphQLMutation {
 }
 
 public final class CreateAwesomeReviewMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     mutation CreateAwesomeReview {
@@ -330,7 +331,7 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
 }
 
 public final class HeroAndFriendsNamesQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAndFriendsNames($episode: Episode) {
@@ -483,7 +484,7 @@ public final class HeroAndFriendsNamesQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAndFriendsNamesWithIDs($episode: Episode) {
@@ -660,7 +661,7 @@ public final class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {
@@ -825,7 +826,7 @@ public final class HeroAndFriendsNamesWithIdForParentOnlyQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAndFriendsNamesWithFragment($episode: Episode) {
@@ -1004,7 +1005,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {
@@ -1305,7 +1306,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 }
 
 public final class HeroAppearsInQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAppearsIn {
@@ -1394,7 +1395,7 @@ public final class HeroAppearsInQuery: GraphQLQuery {
 }
 
 public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroAppearsInWithFragment($episode: Episode) {
@@ -1519,7 +1520,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameConditionalExclusion($skipName: Boolean!) {
@@ -1617,7 +1618,7 @@ public final class HeroNameConditionalExclusionQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameConditionalInclusion($includeName: Boolean!) {
@@ -1715,7 +1716,7 @@ public final class HeroNameConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalBothQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {
@@ -1817,7 +1818,7 @@ public final class HeroNameConditionalBothQuery: GraphQLQuery {
 }
 
 public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {
@@ -1921,7 +1922,7 @@ public final class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
 }
 
 public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {
@@ -2033,7 +2034,7 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {
@@ -2355,7 +2356,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {
@@ -2515,7 +2516,7 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {
@@ -2726,7 +2727,7 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 }
 
 public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {
@@ -2954,7 +2955,7 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
 }
 
 public final class HeroDetailsQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroDetails($episode: Episode) {
@@ -3181,7 +3182,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
 }
 
 public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroDetailsWithFragment($episode: Episode) {
@@ -3489,7 +3490,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
 }
 
 public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query DroidDetailsWithFragment($episode: Episode) {
@@ -3696,7 +3697,7 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroFriendsOfFriendsNames($episode: Episode) {
@@ -3894,7 +3895,7 @@ public final class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
 }
 
 public final class HeroNameQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroName($episode: Episode) {
@@ -3990,7 +3991,7 @@ public final class HeroNameQuery: GraphQLQuery {
 }
 
 public final class HeroNameWithIdQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameWithID($episode: Episode) {
@@ -4098,7 +4099,7 @@ public final class HeroNameWithIdQuery: GraphQLQuery {
 }
 
 public final class HeroNameWithFragmentQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameWithFragment($episode: Episode) {
@@ -4223,7 +4224,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameWithFragmentAndID($episode: Episode) {
@@ -4360,7 +4361,7 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
 }
 
 public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroNameAndAppearsInWithFragment($episode: Episode) {
@@ -4496,7 +4497,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
 }
 
 public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroParentTypeDependentField($episode: Episode) {
@@ -4949,7 +4950,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 }
 
 public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query HeroTypeDependentAliasedField($episode: Episode) {
@@ -5142,7 +5143,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 }
 
 public final class SameHeroTwiceQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query SameHeroTwice {
@@ -5287,7 +5288,7 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
 }
 
 public final class StarshipQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query Starship {
@@ -5383,7 +5384,7 @@ public final class StarshipQuery: GraphQLQuery {
 }
 
 public final class ReviewAddedSubscription: GraphQLSubscription {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     subscription ReviewAdded($episode: Episode) {
@@ -5499,7 +5500,7 @@ public final class ReviewAddedSubscription: GraphQLSubscription {
 }
 
 public final class HumanQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query Human($id: ID!) {
@@ -5603,7 +5604,7 @@ public final class HumanQuery: GraphQLQuery {
 }
 
 public final class TwoHeroesQuery: GraphQLQuery {
-  /// The raw GraphQL definition of this operation
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
     query TwoHeroes {
@@ -5748,7 +5749,7 @@ public final class TwoHeroesQuery: GraphQLQuery {
 }
 
 public struct DroidNameAndPrimaryFunction: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment DroidNameAndPrimaryFunction on Droid {
@@ -5844,7 +5845,7 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
 }
 
 public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterNameAndDroidPrimaryFunction on Character {
@@ -6036,7 +6037,7 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
 }
 
 public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterNameAndDroidAppearsIn on Character {
@@ -6155,7 +6156,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
 }
 
 public struct DroidName: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment DroidName on Droid {
@@ -6202,7 +6203,7 @@ public struct DroidName: GraphQLFragment {
 }
 
 public struct DroidPrimaryFunction: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment DroidPrimaryFunction on Droid {
@@ -6249,7 +6250,7 @@ public struct DroidPrimaryFunction: GraphQLFragment {
 }
 
 public struct HumanHeightWithVariable: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment HumanHeightWithVariable on Human {
@@ -6296,7 +6297,7 @@ public struct HumanHeightWithVariable: GraphQLFragment {
 }
 
 public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterNameAndAppearsInWithNestedFragments on Character {
@@ -6395,7 +6396,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
 }
 
 public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterNameWithNestedAppearsInFragment on Character {
@@ -6485,7 +6486,7 @@ public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
 }
 
 public struct CharacterNameWithInlineFragment: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterNameWithInlineFragment on Character {
@@ -6769,7 +6770,7 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
 }
 
 public struct FriendsNames: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment FriendsNames on Character {
@@ -6865,7 +6866,7 @@ public struct FriendsNames: GraphQLFragment {
 }
 
 public struct CharacterAppearsIn: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterAppearsIn on Character {
@@ -6916,7 +6917,7 @@ public struct CharacterAppearsIn: GraphQLFragment {
 }
 
 public struct HeroDetails: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment HeroDetails on Character {
@@ -7098,7 +7099,7 @@ public struct HeroDetails: GraphQLFragment {
 }
 
 public struct DroidDetails: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment DroidDetails on Droid {
@@ -7157,7 +7158,7 @@ public struct DroidDetails: GraphQLFragment {
 }
 
 public struct CharacterName: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterName on Character {
@@ -7208,7 +7209,7 @@ public struct CharacterName: GraphQLFragment {
 }
 
 public struct CharacterNameAndAppearsIn: GraphQLFragment {
-  /// The raw GraphQL definition of this fragment
+  /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
     """
     fragment CharacterNameAndAppearsIn on Character {
