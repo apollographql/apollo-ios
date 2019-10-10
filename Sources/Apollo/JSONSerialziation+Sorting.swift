@@ -20,10 +20,19 @@ extension JSONSerialization {
     // presently support, but we should use it where we can in
     // order to get stable JSON representations, especially if being
     // used in queries.
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
+    if #available(iOS 11, macOS 10.13, watchOS 4, tvOS 11, *) {
       return try self.data(withJSONObject: object, options: [.sortedKeys])
     } else {
       return try self.data(withJSONObject: object)
+    }
+  }
+  
+  /// Wrapper function so we don't have to scatter `if #available` all over the codebase to see if data can be sorted.
+  static func dataCanBeSorted() -> Bool {
+    if #available(iOS 11, macOS 10.13, watchOS 4, tvOS 11, *) {
+      return true
+    } else {
+      return false
     }
   }
 }

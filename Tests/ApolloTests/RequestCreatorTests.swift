@@ -177,7 +177,7 @@ Charlie file content.
     
     let stringToCompare = try self.string(from: data)
     
-    if #available(iOS 11, macOS 13, tvOS 11, watchOS 4, *) {
+    if JSONSerialization.dataCanBeSorted() {
       let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
@@ -239,7 +239,7 @@ Alpha file content.
     
     let stringToCompare = try self.string(from: data)
     
-    if #available(iOS 11, macOS 13, tvOS 11, watchOS 4, *) {
+    if JSONSerialization.dataCanBeSorted() {
       let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"

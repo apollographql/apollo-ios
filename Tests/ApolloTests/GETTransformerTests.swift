@@ -33,7 +33,7 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, tvOS 11, watchOS 4, *) {
+    if JSONSerialization.dataCanBeSorted() {
       // Here, we know that everything should be encoded in a stable order,
       // and we can check the encoded URL string directly.
           XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%20hero(episode:%20$episode)%20%7B%20__typename%20name%20@include(if:%20$includeName)%20...%20on%20Droid%20%7B%20name%20%7D%20%7D%20%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
