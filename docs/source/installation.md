@@ -177,15 +177,15 @@ while ! [ -d "${DERIVED_DATA_CANDIDATE}/SourcePackages" ]; do
 done
 
 # Grab a reference to the directory where scripts are checked out
-APOLLO_SCRIPT_PATH="${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts"
+SCRIPT_PATH="${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts"
 
-if [ -z "${APOLLO_SCRIPT_PATH}" ]; then
+if [ -z "${SCRIPT_PATH}" ]; then
     echo >&2 "error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project."
     exit 1
 fi
 
 cd "${SRCROOT}/${TARGET_NAME}"
-"${APOLLO_SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
 > NOTE: If you try to use this with command line SPM, when you regenerate your `xcodeproj` this build script will get wiped out. We strongly recommend using Xcode 11's built-in SPM handling rather than the command line because of this.
