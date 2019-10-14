@@ -38,14 +38,16 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     }
   }
   
-  func parseResultFast() throws -> GraphQLResult<Operation.Data>  {
-    let errors: [GraphQLError]?
-    
-    if let errorsEntry = body["errors"] as? [JSONObject] {
-      errors = errorsEntry.map(GraphQLError.init)
-    } else {
-      errors = nil
+  func parseErrorsOnlyFast() -> [GraphQLError]? {
+    guard let errorsEntry = self.body["errors"] as? [JSONObject] else {
+      return nil
     }
+    
+    return errorsEntry.map(GraphQLError.init)
+  }
+  
+  func parseResultFast() throws -> GraphQLResult<Operation.Data>  {
+    let errors = self.parseErrorsOnlyFast()
     
     if let dataEntry = body["data"] as? JSONObject {      
       let data = try decode(selectionSet: Operation.Data.self, from: dataEntry, variables: operation.variables)

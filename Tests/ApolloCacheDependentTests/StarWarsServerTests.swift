@@ -3,9 +3,63 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
+
+protocol TestConfig {
+  func network() -> HTTPNetworkTransport
+}
+
+class DefaultConfig: TestConfig {
+  func network() -> HTTPNetworkTransport {
+    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+  }
+}
+
+class APQsConfig: TestConfig {
+  func network() -> HTTPNetworkTransport {
+    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
+                                enableAutoPersistedQueries: true)
+  }
+}
+
+class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
+  var alreadyRetried = false
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedError error: Error, for request: URLRequest, response: URLResponse?, retryHandler: @escaping (Bool) -> Void) {
+    retryHandler(!alreadyRetried)
+    alreadyRetried = true
+  }
+  
+  func network() -> HTTPNetworkTransport {
+    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
+                                enableAutoPersistedQueries: true,
+                                useGETForPersistedQueryRetry: true,
+                                delegate: self)
+  }
+  
+}
+
+class StarWarsServerAPQsGetMethodTests: StarWarsServerTests {
+  override func setUp() {
+    super.setUp()
+    config = APQsWithGetMethodConfig()
+  }
+}
+
+class StarWarsServerAPQsTests: StarWarsServerTests {
+  override func setUp() {
+    super.setUp()
+    config = APQsConfig()
+  }
+}
+
 class StarWarsServerTests: XCTestCase {
   // MARK: Queries
+  var config: TestConfig!
 
+  override func setUp() {
+    super.setUp()
+    config = DefaultConfig()
+  }
+  
   func testHeroNameQuery() {
     fetch(query: HeroNameQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -263,12 +317,12 @@ class StarWarsServerTests: XCTestCase {
   }
 
   // MARK: - Helpers
-
+  
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+      
       let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: network, store: store)
+      let client = ApolloClient(networkTransport: config.network(), store: store)
 
       let expectation = self.expectation(description: "Fetching query")
 
@@ -285,7 +339,11 @@ class StarWarsServerTests: XCTestCase {
           
           completionHandler(data)
         case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
+          if let responseError = error as? GraphQLHTTPResponseError {
+            XCTFail("Response error: \(responseError.bodyDescription)")
+          } else {
+            XCTFail("Unexpected error: \(error)")
+          }
         }
       }
       
@@ -295,9 +353,9 @@ class StarWarsServerTests: XCTestCase {
 
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+      
       let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: network, store: store)
+      let client = ApolloClient(networkTransport: config.network(), store: store)
 
       let expectation = self.expectation(description: "Performing mutation")
 

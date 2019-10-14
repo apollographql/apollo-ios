@@ -10,6 +10,8 @@ public final class RepositoryQuery: GraphQLQuery {
 
   public let operationName = "Repository"
 
+  public let operationIdentifier: String? = "63e25c339275a65f43b847e692e42caed8c06e25fbfb3dc8db6d4897b180c9ef"
+
   public init() {
   }
 

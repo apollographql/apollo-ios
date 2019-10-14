@@ -5,6 +5,8 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   public enum ErrorKind {
     case errorResponse
     case invalidResponse
+    case persistedQueryNotFound
+    case persistedQueryNotSupported
     
     var description: String {
       switch self {
@@ -12,6 +14,10 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
         return "Received error response"
       case .invalidResponse:
         return "Received invalid response"
+      case .persistedQueryNotFound:
+        return "Persisted query not found"
+      case .persistedQueryNotSupported:
+        return "Persisted query not supported"
       }
     }
   }

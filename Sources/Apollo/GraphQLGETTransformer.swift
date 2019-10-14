@@ -13,9 +13,6 @@ struct GraphQLGETTransformer {
   let body: GraphQLMap
   let url: URL
   
-  private let variablesKey = "variables"
-  private let queryKey = "query"
-  
   /// A helper for transforming a GraphQLMap that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
   ///
   /// - Parameters:
@@ -46,15 +43,16 @@ struct GraphQLGETTransformer {
           }
         } else if let string = arg.value as? String {
           queryItems.append(URLQueryItem(name: arg.key, value: string))
-        } else {
+        } else if (arg.key != "variables") {
           assertionFailure()
         }
       })
     } catch {
       return nil
     }
-    
+
     components.queryItems = queryItems
+    
     return components.url
   }
 }

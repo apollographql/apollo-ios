@@ -260,6 +260,9 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
       retryHandler(true)
     case .invalidResponse:
       retryHandler(false)
+    case .persistedQueryNotFound,
+         .persistedQueryNotSupported:
+      retryHandler(false)
     }
   }
 }

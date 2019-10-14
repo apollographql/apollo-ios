@@ -7,7 +7,10 @@ public protocol RequestCreator {
   ///   - operation: The operation to use
   ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
   /// - Returns: The created `GraphQLMap`
-  func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap
+  func requestBody<Operation: GraphQLOperation>(for operation: Operation,
+                                                sendOperationIdentifiers: Bool,
+                                                sendQueryDocument: Bool,
+                                                autoPersistQuery: Bool) -> GraphQLMap
 
   /// Creates multi-part form data to send with a request
   ///
@@ -32,8 +35,13 @@ extension RequestCreator {
   /// - Parameters:
   ///   - operation: The operation to use
   ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
+  ///   - sendQueryDocument: Whether or not to send the full query document. Defaults to true.
+  ///   - autoPersistQuery: Whether to use auto-persisted query information. Defaults to false.
   /// - Returns: The created `GraphQLMap`
-  public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
+  public func requestBody<Operation: GraphQLOperation>(for operation: Operation,
+                                                       sendOperationIdentifiers: Bool = false,
+                                                       sendQueryDocument: Bool = true,
+                                                       autoPersistQuery: Bool = false) -> GraphQLMap {
     var body: GraphQLMap = [
       "variables": operation.variables,
       "operationName": operation.operationName,
@@ -45,10 +53,31 @@ extension RequestCreator {
       }
 
       body["id"] = operationIdentifier
-    } else {
+    }
+    
+    if sendQueryDocument {
       body["query"] = operation.queryDocument
     }
+    
+    if autoPersistQuery {
+      guard let operationIdentifier = operation.operationIdentifier else {
+        preconditionFailure("To enable `autoPersistQueries`, Apollo types must be generated with operationIdentifiers")
+      }
+      
+      let hash: String
+      if operation.operationDefinition == operation.queryDocument {
+        // The codegen had everything it needed to generate the hash
+        hash = operationIdentifier
+      } else {
+        // The codegen needed more info for the correct hash - regenerate it.
+        hash = operation.queryDocument.sha256Hash
+      }
 
+      body["extensions"] = [
+        "persistedQuery" : ["sha256Hash": hash, "version": 1]
+      ]
+    }
+    
     return body
   }
 
