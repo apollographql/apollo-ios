@@ -101,7 +101,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       return
     }
     
-    let queryString = url.queryItems?["query"]
+    let queryString = url.queryItemDictionary?["query"]
     if queryDocument {
       XCTAssertEqual(queryString,
                      query.queryDocument,
@@ -114,7 +114,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                    line: line)
     }
     
-    if let variables = url.queryItems?["variables"] {
+    if let variables = url.queryItemDictionary?["variables"] {
       if let episode = query.episode {
         XCTAssertEqual(variables,
                        "{\"episode\":\"\(episode.rawValue)\"}",
@@ -132,7 +132,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
               line: line)
     }
     
-    let ext = url.queryItems?["extensions"]
+    let ext = url.queryItemDictionary?["extensions"]
     if persistedQuery {
       guard let ext = ext,
         let data = ext.data(using: .utf8),
@@ -378,32 +378,5 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     validateUrlParams(with: request,
                       query: query,
                       persistedQuery: true)
-  }
-}
-
-// MARK: Helpers
-
-
-
-
-extension URL {
-  var queryItems: [String: String]? {
-    return URLComponents(url: self, resolvingAgainstBaseURL: false)?
-      .queryItems?
-      .compactMap { $0.dictionaryRepresentation }
-      .reduce([String:String]()) { dict, tuple in
-        var dict = dict
-        tuple.forEach { dict[$0] = $1 }
-        return dict
-    }
-  }
-}
-
-extension URLQueryItem {
-  var dictionaryRepresentation: [String: String]? {
-    if let value = value {
-      return [name: value]
-    }
-    return nil
   }
 }
