@@ -56,12 +56,4 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       return GraphQLResult(data: nil, errors: errors, source: .server, dependentKeys: nil)
     }
   }
-
-  func parseErrorsOnlyFast() -> [GraphQLError]? {
-    guard let errorsEntry = self.body["errors"] as? [JSONObject] else {
-      return nil
-    }
-
-    return errorsEntry.map(GraphQLError.init)
-  }
 }
