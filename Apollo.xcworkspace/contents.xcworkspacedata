@@ -10,7 +10,4 @@
    <FileRef
       location = "group:ApolloSQLite.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Configuration">
-   </FileRef>
 </Workspace>
