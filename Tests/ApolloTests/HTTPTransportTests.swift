@@ -9,6 +9,7 @@
 import XCTest
 @testable import Apollo
 import StarWarsAPI
+import ApolloTestSupport
 
 class HTTPTransportTests: XCTestCase {
   
@@ -22,6 +23,8 @@ class HTTPTransportTests: XCTestCase {
   
   private var shouldModifyURLInWillSend = false
   private var retryCount = 0
+
+  private var graphQlErrors = [GraphQLError]()
 
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
   private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
@@ -59,7 +62,7 @@ class HTTPTransportTests: XCTestCase {
         line: line)
     }
   }
-  
+
   func testPreflightDelegateTellingRequestNotToSend() {
     self.shouldSend = false
     
@@ -193,6 +196,50 @@ class HTTPTransportTests: XCTestCase {
                                                      delegate: self)
     XCTAssertNotEqual(self.networkTransport, nonIdenticalTransport)
   }
+
+  func testErrorDelegateWithErrors() throws {
+    self.graphQlErrors = []
+    let query = HeroNameQuery()
+    let body = ["errors": [["message": "Test graphql error"]]]
+
+    let mockSession = MockURLSession()
+    mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    let network = HTTPNetworkTransport(url: url, session: mockSession, delegate: self)
+
+    let _ = network.send(operation: query) { _ in }
+
+    guard let request = mockSession.lastRequest else {
+      XCTFail("last request should not be nil")
+      return
+    }
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
+
+    XCTAssertEqual(self.graphQlErrors.count, 1)
+  }
+
+  func testErrorDelegateWithNoErrors() throws {
+    self.graphQlErrors = []
+    let query = HeroNameQuery()
+    let body = ["errors": []]
+
+    let mockSession = MockURLSession()
+    mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    let network = HTTPNetworkTransport(url: url, session: mockSession, delegate: self)
+
+    let _ = network.send(operation: query) { _ in }
+
+    guard let request = mockSession.lastRequest else {
+      XCTFail("last request should not be nil")
+      return
+    }
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
+
+    XCTAssertEqual(self.graphQlErrors.count, 0)
+  }
 }
 
 // MARK: - HTTPNetworkTransportPreflightDelegate
@@ -264,5 +311,13 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
          .persistedQueryNotSupported:
       retryHandler(false)
     }
+  }
+}
+
+// MARK: - HTTPNetworkTransportGraphQLErrorDelegate
+
+extension HTTPTransportTests: HTTPNetworkTransportGraphQLErrorDelegate {
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (Bool) -> Void) {
+    self.graphQlErrors = errors
   }
 }
