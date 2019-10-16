@@ -11,7 +11,7 @@ public final class MockURLSession: URLSession {
   public private (set) var lastRequest: URLRequest?
 
   public var data: Data?
-  public var response: URLResponse?
+  public var response: HTTPURLResponse?
   public var error: Error?
 
   override public func dataTask(with request: URLRequest) -> URLSessionDataTask {
@@ -21,7 +21,9 @@ public final class MockURLSession: URLSession {
   
   override public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
     lastRequest = request
-    completionHandler(data, response, error)
+    if let response = response {
+      completionHandler(data, response, error)
+    }
     return URLSessionDataTaskMock()
   }
 }
