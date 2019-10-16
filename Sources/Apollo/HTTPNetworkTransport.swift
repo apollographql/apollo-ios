@@ -194,6 +194,7 @@ public class HTTPNetworkTransport {
         if let errors = graphQLResponse.parseErrorsOnlyFast() {
           // Handle specific errors from response
           self.handleGraphQLErrorsIfNeeded(operation: operation,
+                                           files: files,
                                            for: request,
                                            body: body,
                                            errors: errors,
@@ -219,7 +220,7 @@ public class HTTPNetworkTransport {
   private func handleGraphQLErrorsOrComplete<Operation>(operation: Operation,
                                                         files: [GraphQLFile]?,
                                                         response: GraphQLResponse<Operation>,
-                                                        completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) throws {
+                                                        completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) {
     guard let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
       let graphQLErrors = response.parseErrorsOnlyFast(),
       !graphQLErrors.isEmpty else {
@@ -246,11 +247,12 @@ public class HTTPNetworkTransport {
   }
   
   private func handleGraphQLErrorsIfNeeded<Operation>(operation: Operation,
+                                                      files: [GraphQLFile]?,
                                                       for request: URLRequest,
                                                       body: JSONObject,
                                                       errors: [GraphQLError],
                                                       completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) {
-    
+
     let errorMessages = errors.compactMap { $0.message }
     if self.enableAutoPersistedQueries,
       errorMessages.contains("PersistedQueryNotFound") {
@@ -262,10 +264,10 @@ public class HTTPNetworkTransport {
     } else {
       // Pass the response on to the rest of the chain
       let response = GraphQLResponse(operation: operation, body: body)
-      completionHandler(.success(response))
+      handleGraphQLErrorsOrComplete(operation: operation, files: files, response: response, completionHandler: completionHandler)
     }
   }
-  
+
   private func handleErrorOrRetry<Operation>(operation: Operation,
                                              files: [GraphQLFile]?,
                                              error: Error,
