@@ -7,10 +7,10 @@ public protocol RequestCreator
 ```
 
 ## Methods
-### `requestBody(for:sendOperationIdentifiers:)`
+### `requestBody(for:sendOperationIdentifiers:sendQueryDocument:autoPersistQuery:)`
 
 ```swift
-func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap
+func requestBody<Operation: GraphQLOperation>(for operation: Operation,
 ```
 
 > Creates a `GraphQLMap` out of the passed-in operation

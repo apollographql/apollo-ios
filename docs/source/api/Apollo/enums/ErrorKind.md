@@ -18,3 +18,15 @@ case errorResponse
 ```swift
 case invalidResponse
 ```
+
+### `persistedQueryNotFound`
+
+```swift
+case persistedQueryNotFound
+```
+
+### `persistedQueryNotSupported`
+
+```swift
+case persistedQueryNotSupported
+```
