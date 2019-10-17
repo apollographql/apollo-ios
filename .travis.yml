@@ -5,7 +5,7 @@ xcode_workspace: Apollo.xcworkspace
 matrix:
   include:
   - xcode_scheme: Apollo
-    xcode_sdk: macosx10.14
+    xcode_sdk: macosx10.15
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator12.2
@@ -20,7 +20,7 @@ matrix:
     xcode_sdk: appletvsimulator12.2
     env: DESTINATION="platform=tvOS Simulator,OS=12.2,name=Apple TV"
   - xcode_scheme: ApolloSQLite
-    xcode_sdk: macosx10.14
+    xcode_sdk: macosx10.15
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator12.2
@@ -32,7 +32,7 @@ matrix:
     xcode_sdk: iphonesimulator12.2
     env: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7"
   - xcode_scheme: ApolloWebSocket
-    xcode_sdk: macosx10.14
+    xcode_sdk: macosx10.15
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator12.2
