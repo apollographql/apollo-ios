@@ -9,7 +9,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator13.0
-    env: DESTINATION="platform=iOS Simulator,OS=13.0,name=iPhone XS_13.0" DEVICE_TYPE="iPhone XS" RUNTIME="iOS13.0"
+    env: DESTINATION="platform=iOS Simulator,OS=13.0,name=iPhone XS_iOS13.0" DEVICE_TYPE="iPhone XS" RUNTIME="iOS13.0"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator13.0
     env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.1" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
