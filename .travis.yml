@@ -9,7 +9,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator13.0
-    env: DESTINATION="platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro_iOS13.1" DEVICE_TYPE="iPhone 11 Pro" RUNTIME="iOS13.0"
+    env: DESTINATION="platform=iOS Simulator,OS=13.0,name=iPhone XS_13.1" DEVICE_TYPE="iPhone XS" RUNTIME="iOS13.0"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator13.0
     env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.1" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
@@ -27,7 +27,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator13.0
-    env: DESTINATION="platform=iOS Simulator,OS=13.0,name=iPhone 11 Pro_iOS13.1" DEVICE_TYPE="iPhone 11 Pro" RUNTIME="iOS13.0"
+    env: DESTINATION="platform=iOS Simulator,OS=13.0,name=iPhone XS13.1" DEVICE_TYPE="iPhone XS" RUNTIME="iOS13.0"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator13.0
     env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
@@ -42,7 +42,7 @@ matrix:
     env: DESTINATION="platform=macOS,arch=x86_64"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator13.0
-    env: DESTINATION="platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro_iOS13.1" DEVICE_TYPE="iPhone 11 Pro" RUNTIME="iOS13.1"
+    env: DESTINATION="platform=iOS Simulator,OS=13.1,name=iPhone XS_iOS13.1" DEVICE_TYPE="iPhone XS" RUNTIME="iOS13.1"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator13.0
     env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
