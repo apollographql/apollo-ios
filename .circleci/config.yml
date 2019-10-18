@@ -2,7 +2,7 @@ version: 2.1
 
 commands:
   common_test_steps:
-    description: Commands to run on every Xcode environment
+    description: Commands to run for every set of tests
     steps:
       - restore_cache: ../starwars-server
       - checkout
