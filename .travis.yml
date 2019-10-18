@@ -12,7 +12,7 @@ matrix:
     env: DESTINATION="platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro_iOS13.1" DEVICE_TYPE="iPhone 11 Pro" RUNTIME="iOS13.1"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator13.1
-    env: DESTINATION="platform=iOS Simulator,OS=12.4,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.4"
+    env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.1" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
   - xcode_scheme: Apollo
     xcode_sdk: iphonesimulator13.1
     env: DESTINATION="platform=iOS Simulator,OS=11.4,name=iPhone 8_iOS11.4" DEVICE_TYPE="iPhone 8" RUNTIME="iOS11.4"
@@ -20,8 +20,8 @@ matrix:
     xcode_sdk: iphonesimulator13.1
     env: DESTINATION="platform=iOS Simulator,OS=10.3,name=iPhone 7_iOS10.3" DEVICE_TYPE="iPhone 7" RUNTIME="iOS10.3"
   - xcode_scheme: Apollo
-    xcode_sdk: appletvsimulator13.1
-    env: DESTINATION="platform=tvOS Simulator,OS=13.1,name=Apple TV"
+    xcode_sdk: appletvsimulator13.0
+    env: DESTINATION="platform=tvOS Simulator,OS=13.0,name=Apple TV"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: macosx10.15
     env: DESTINATION="platform=macOS,arch=x86_64"
@@ -30,7 +30,7 @@ matrix:
     env: DESTINATION="platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro_iOS13.1" DEVICE_TYPE="iPhone 11 Pro" RUNTIME="iOS13.1"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator13.1
-    env: DESTINATION="platform=iOS Simulator,OS=12.4,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.4"
+    env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
   - xcode_scheme: ApolloSQLite
     xcode_sdk: iphonesimulator13.1
     env: DESTINATION="platform=iOS Simulator,OS=11.4,name=iPhone 8_iOS11.4" DEVICE_TYPE="iPhone 8" RUNTIME="iOS11.4"
@@ -45,7 +45,7 @@ matrix:
     env: DESTINATION="platform=iOS Simulator,OS=13.1,name=iPhone 11 Pro_iOS13.1" DEVICE_TYPE="iPhone 11 Pro" RUNTIME="iOS13.1"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator13.1
-    env: DESTINATION="platform=iOS Simulator,OS=12.4,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.4"
+    env: DESTINATION="platform=iOS Simulator,OS=12.1,name=iPhone XS_iOS12.4" DEVICE_TYPE="iPhone XS" RUNTIME="iOS12.1"
   - xcode_scheme: ApolloWebSocket
     xcode_sdk: iphonesimulator13.1
     env: DESTINATION="platform=iOS Simulator,OS=11.4,name=iPhone 8_iOS11.4" DEVICE_TYPE="iPhone 8" RUNTIME="iOS11.4"
