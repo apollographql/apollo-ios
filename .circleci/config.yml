@@ -39,112 +39,160 @@ jobs:
   iOS13_1:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS" CIRCLE_XCODE_SCHEME="Apollo" CIRCLE_XCODE_SDK="macos10.15"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
+      CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_SDK: macos10.15
     steps:
       - common_test_steps
 
   iOS12_4:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS" CIRCLE_XCODE_SCHEME="Apollo" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
+      CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   iOS11_4:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=11.4,name=iPhone 8" CIRCLE_XCODE_SCHEME="Apollo" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
+      CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   iOS10_3_1:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7" CIRCLE_XCODE_SCHEME="Apollo" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=10.3.1,name=iPhone 7
+      CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   tvOS13_0:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=tvOS Simulator,OS=13.0,name=Apple TV" CIRCLE_XCODE_SCHEME="Apollo" CIRCLE_XCODE_SDK="appletvsimulator13.0"
+    environment:
+      DESTINATION: platform=tvOS Simulator,OS=13.0,name=Apple TV
+      CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_SDK: appletvsimulator13.0
     steps:
       - common_test_steps
 
   SQLitemacOS10_15:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=macOS,arch=x86_64" CIRCLE_XCODE_SCHEME="ApolloSQLite" CIRCLE_XCODE_SDK="macosx10.15"
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: ApolloSQLite
+      CIRCLE_XCODE_SDK: macosx10.15
     steps:
       - common_test_steps
 
   SQLiteiOS13_1:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS" CIRCLE_XCODE_SCHEME="ApolloSQLite" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
+      CIRCLE_XCODE_SCHEME: ApolloSQLite
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   SQLiteiOS12_4:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS" CIRCLE_XCODE_SCHEME="ApolloSQLite" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
+      CIRCLE_XCODE_SCHEME: ApolloSQLite
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   SQLiteiOS11_4:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=11.4,name=iPhone 8" CIRCLE_XCODE_SCHEME="ApolloSQLite" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
+      CIRCLE_XCODE_SCHEME: ApolloSQLite
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   SQLiteiOS10_3_1:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7" CIRCLE_XCODE_SCHEME="ApolloSQLite" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=10.3.1,name=iPhone 7
+      CIRCLE_XCODE_SCHEME: ApolloSQLite
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   SQLitetvOS13_0:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=tvOS Simulator,OS=13.0,name=Apple TV" CIRCLE_XCODE_SCHEME="ApolloSQLite" CIRCLE_XCODE_SDK="appletvsimulator13.0"
+    environment:
+      DESTINATION: platform=tvOS Simulator,OS=13.0,name=Apple TV
+      CIRCLE_XCODE_SCHEME: ApolloSQLite
+      CIRCLE_XCODE_SDK: appletvsimulator13.0
     steps:
       - common_test_steps
 
   WebSocketmacOS10_15:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=macOS,arch=x86_64" CIRCLE_XCODE_SCHEME="ApolloWebSocket" CIRCLE_XCODE_SDK="macosx10.15"
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: ApolloWebSocket
+      CIRCLE_XCODE_SDK: macosx10.15
     steps:
       - common_test_steps
 
   WebSocketiOS13_1:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS" CIRCLE_XCODE_SCHEME="ApolloWebSocket" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
+      CIRCLE_XCODE_SCHEME: ApolloWebSocket
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   WebSocketiOS12_4:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=12.2,name=iPhone XS" CIRCLE_XCODE_SCHEME="ApolloWebSocket" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
+      CIRCLE_XCODE_SCHEME: ApolloWebSocket
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   WebSocketiOS11_4:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=11.4,name=iPhone 8" CIRCLE_XCODE_SCHEME="ApolloWebSocket" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
+      CIRCLE_XCODE_SCHEME: ApolloWebSocket
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
   WebSocketiOS10_3_1:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=iOS Simulator,OS=10.3.1,name=iPhone 7" CIRCLE_XCODE_SCHEME="ApolloWebSocket" CIRCLE_XCODE_SDK="iphonesimulator13.1"
+    environment:
+      DESTINATION: platform=iOS Simulator,OS=10.3.1,name=iPhone 7
+      CIRCLE_XCODE_SCHEME: ApolloWebSocket
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
