@@ -9,14 +9,17 @@ commands:
       - checkout
       - run:
           command: ./scripts/install-or-update-starwars-server.sh
+          name: Install/Update StarWars Server
       - run:
           command: cd ../starwars-server && npm start
-      - run:
-          command: set -o pipefail
+          name: Start StarWars Server
+          background: true
       - run:
           command: xcodebuild clean build build-for-testing -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          name: Clean and build for testing
       - run:
           command: xcodebuild test-without-building -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          name: Run tests
       - save_cache:
           key: starwars-server
           paths:
