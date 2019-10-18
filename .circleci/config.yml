@@ -8,6 +8,8 @@ commands:
           key: starwars-server
       - checkout
       - run:
+          command: echo env
+      - run:
           command: ./scripts/install-or-update-starwars-server.sh
           name: Install/Update StarWars Server
       - run:
