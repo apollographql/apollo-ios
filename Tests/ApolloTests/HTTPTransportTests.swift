@@ -198,6 +198,7 @@ class HTTPTransportTests: XCTestCase {
   }
 
   func testErrorDelegateWithErrors() throws {
+    self.retryCount = 0
     self.graphQlErrors = []
     let query = HeroNameQuery()
     let body = ["errors": [["message": "Test graphql error"]]]
@@ -206,8 +207,16 @@ class HTTPTransportTests: XCTestCase {
     mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
     mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
     let network = HTTPNetworkTransport(url: url, session: mockSession, delegate: self)
+    let expectation = self.expectation(description: "Send operation completed")
 
-    let _ = network.send(operation: query) { _ in }
+    let _ = network.send(operation: query) { result in
+      switch result {
+      case .success:
+        expectation.fulfill()
+      case .failure:
+        break
+      }
+    }
 
     guard let request = mockSession.lastRequest else {
       XCTFail("last request should not be nil")
@@ -217,9 +226,12 @@ class HTTPTransportTests: XCTestCase {
     XCTAssertEqual(request.httpMethod, "POST")
 
     XCTAssertEqual(self.graphQlErrors.count, 1)
+    XCTAssertEqual(retryCount, 1)
+    wait(for: [expectation], timeout: 1)
   }
 
   func testErrorDelegateWithNoErrors() throws {
+    self.retryCount = 0
     self.graphQlErrors = []
     let query = HeroNameQuery()
     let body = ["errors": []]
@@ -228,8 +240,16 @@ class HTTPTransportTests: XCTestCase {
     mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
     mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
     let network = HTTPNetworkTransport(url: url, session: mockSession, delegate: self)
+    let expectation = self.expectation(description: "Send operation completed")
 
-    let _ = network.send(operation: query) { _ in }
+    let _ = network.send(operation: query) { result in
+      switch result {
+      case .success:
+        expectation.fulfill()
+      case .failure:
+        break
+      }
+    }
 
     guard let request = mockSession.lastRequest else {
       XCTFail("last request should not be nil")
@@ -237,8 +257,10 @@ class HTTPTransportTests: XCTestCase {
     }
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
-
+    XCTAssertEqual(self.retryCount, 0)
     XCTAssertEqual(self.graphQlErrors.count, 0)
+    wait(for: [expectation], timeout: 1)
+
   }
 }
 
@@ -318,6 +340,9 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
 
 extension HTTPTransportTests: HTTPNetworkTransportGraphQLErrorDelegate {
   func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (Bool) -> Void) {
+    self.retryCount += 1
+    let shouldRetry = retryCount == 2
     self.graphQlErrors = errors
+    retryHandler(shouldRetry)
   }
 }
