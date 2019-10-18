@@ -140,36 +140,36 @@ workflows:
   build-and-test:
     jobs:
       - macOS10_15:
-        name: Apollo macOS 10.15
+          name: Apollo macOS 10.15
       - iOS13_1:
-        name: Apollo iOS 13.1
+          name: Apollo iOS 13.1
       - iOS12_4:
-        name: Apollo iOS 12.4
+          name: Apollo iOS 12.4
       - iOS11_4:
-        name: Apollo iOS 11.4
+          name: Apollo iOS 11.4
       - iOS10_3_1:
-        name: Apollo iOS 10.3.1
+          name: Apollo iOS 10.3.1
       - tvOS13_0:
-        name: Apollo tvOS 13.0
+          name: Apollo tvOS 13.0
       - SQLitemacOS10_15:
-        name: ApolloSQLite macOS 10.15
+          name: ApolloSQLite macOS 10.15
       - SQLiteiOS13_1:
-        name: ApolloSQLite iOS 13.1
+          name: ApolloSQLite iOS 13.1
       - SQLiteiOS12_4:
-        name: ApolloSQLite iOS 12.4
+          name: ApolloSQLite iOS 12.4
       - SQLiteiOS11_4:
-        name: ApolloSQLite iOS 11.4
+          name: ApolloSQLite iOS 11.4
       - SQLiteiOS10_3_1:
-        name: ApolloSQLite iOS 10.3.1
+          name: ApolloSQLite iOS 10.3.1
       - SQLitetvOS13_0:
-        name: ApolloSQLite tvOS 13.0
+          name: ApolloSQLite tvOS 13.0
       - WebSocketmacOS10_15:
-        name: ApolloWebSocket macOS 10.15
+          name: ApolloWebSocket macOS 10.15
       - WebSocketiOS13_1:
-        name: ApolloWebSocket iOS 13.1
+          name: ApolloWebSocket iOS 13.1
       - WebSocketiOS12_4:
-        name: ApolloWebSocket iOS 12.4
+          name: ApolloWebSocket iOS 12.4
       - WebSocketiOS11_4:
-        name: ApolloWebSocket iOS 11.4
+          name: ApolloWebSocket iOS 11.4
       - WebSocketiOS10_3_1:
-        name: ApolloWebSocket iOS 10.3.1
+          name: ApolloWebSocket iOS 10.3.1
