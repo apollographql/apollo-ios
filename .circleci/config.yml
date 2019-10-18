@@ -4,14 +4,24 @@ commands:
   common_test_steps:
     description: Commands to run for every set of tests
     steps:
-      - restore_cache: ../starwars-server
+      - restore_cache:
+          key: starwars-server
       - checkout
-      - run: ./scripts/install-or-update-starwars-server.sh
-      - run: cd ../starwars-server && npm start
-      - run: set -o pipefail
-      - run: xcodebuild clean build build-for-testing -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
-      - run: xcodebuild test-without-building -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
-      - save_cache: ../starwars-server
+      - run:
+          command: ./scripts/install-or-update-starwars-server.sh
+      - run:
+          command: cd ../starwars-server && npm start
+      - run:
+          command: set -o pipefail
+      - run:
+          command: xcodebuild clean build build-for-testing -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+      - run:
+          command: xcodebuild test-without-building -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+      - save_cache:
+          key: starwars-server
+          paths:
+            - ../starwars-server
+
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
