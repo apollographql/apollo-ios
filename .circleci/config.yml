@@ -8,6 +8,11 @@ commands:
           key: starwars-server
       - checkout
       - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule update --remote
+      - run:
           command: echo env
       - run:
           command: ./scripts/install-or-update-starwars-server.sh
