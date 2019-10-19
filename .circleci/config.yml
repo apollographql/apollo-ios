@@ -50,7 +50,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: macosx10.15
+      CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
 
