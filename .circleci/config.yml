@@ -73,16 +73,6 @@ jobs:
     steps:
       - common_test_steps
 
-  iOS10_3_1:
-    macos:
-      xcode: "11.1.0"
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=10.3.1,name=iPhone 7
-      CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: iphonesimulator13.1
-    steps:
-      - common_test_steps
-
   tvOS13_0:
     macos:
       xcode: "11.1.0"
@@ -128,16 +118,6 @@ jobs:
       xcode: "11.1.0"
     environment:
       DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
-      CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: iphonesimulator13.1
-    steps:
-      - common_test_steps
-
-  SQLiteiOS10_3_1:
-    macos:
-      xcode: "11.1.0"
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=10.3.1,name=iPhone 7
       CIRCLE_XCODE_SCHEME: ApolloSQLite
       CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
@@ -193,16 +173,6 @@ jobs:
     steps:
       - common_test_steps
 
-  WebSocketiOS10_3_1:
-    macos:
-      xcode: "11.1.0"
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=10.3.1,name=iPhone 7
-      CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: iphonesimulator13.1
-    steps:
-      - common_test_steps
-
 workflows:
   version: 2
   build-and-test:
@@ -215,8 +185,6 @@ workflows:
           name: Apollo iOS 12.4
       - iOS11_4:
           name: Apollo iOS 11.4
-      - iOS10_3_1:
-          name: Apollo iOS 10.3.1
       - tvOS13_0:
           name: Apollo tvOS 13.0
       - SQLitemacOS10_15:
@@ -227,8 +195,6 @@ workflows:
           name: ApolloSQLite iOS 12.4
       - SQLiteiOS11_4:
           name: ApolloSQLite iOS 11.4
-      - SQLiteiOS10_3_1:
-          name: ApolloSQLite iOS 10.3.1
       - SQLitetvOS13_0:
           name: ApolloSQLite tvOS 13.0
       - WebSocketmacOS10_15:
@@ -239,5 +205,3 @@ workflows:
           name: ApolloWebSocket iOS 12.4
       - WebSocketiOS11_4:
           name: ApolloWebSocket iOS 11.4
-      - WebSocketiOS10_3_1:
-          name: ApolloWebSocket iOS 10.3.1
