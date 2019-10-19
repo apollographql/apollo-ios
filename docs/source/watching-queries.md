@@ -33,10 +33,11 @@ Similarly to the [Apollo React API](https://www.apollographql.com/docs/react/adv
 
 ### read
 
-The `read` function is similar to React Apollo's [`readQuery`](https://www.apollographql.com/docs/react/advanced/caching/#readquery) method and will return the cached data for a given GraphQL query:
+The `read` function is similar to React Apollo's [`readQuery`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readquery) and React Apollo's [`readFragment`](https://www.apollographql.com/docs/react/caching/cache-interaction/#readfragment) methods and will return the cached data for a given GraphQL query or a GraphQL fragment:
 
 ```swift
 // Assuming we have defined an ApolloClient instance `client`:
+// Read from a GraphQL query
 client.store.withinReadTransaction { transaction in
   let data = try transaction.read(
     query: HeroNameQuery(episode: .jedi)
@@ -45,6 +46,18 @@ client.store.withinReadTransaction { transaction in
   // Prints "R2-D2"
   print(data.hero?.name)
 }
+
+// Read from a GraphQL fragment
+client.store.withinReadTransaction { transaction -> HeroDetails in
+  let data = try transaction.readObject(
+    ofType: HeroDetails.self,
+    withKey: id
+  )
+  
+  // Prints "R2-D2"
+  print(data.hero?.name)
+}
+
 ```
 
 ### update
