@@ -48,7 +48,7 @@ jobs:
     macos:
       xcode: "11.1.0"
     environment:
-      DESTINATION: platform=iOS Simulator,OS=13.1,name=iPhone XS
+      DESTINATION: platform=iOS Simulator,OS=13.1,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
@@ -98,7 +98,7 @@ jobs:
     macos:
       xcode: "11.1.0"
     environment:
-      DESTINATION: platform=iOS Simulator,OS=13.1,name=iPhone XS
+      DESTINATION: platform=iOS Simulator,OS=13.1,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloSQLite
       CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
@@ -138,7 +138,7 @@ jobs:
     macos:
       xcode: "11.1.0"
     environment:
-      DESTINATION: platform=iOS Simulator,OS=13.1,name=iPhone XS
+      DESTINATION: platform=iOS Simulator,OS=13.1,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
       CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
