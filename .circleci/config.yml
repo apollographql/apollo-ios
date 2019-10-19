@@ -39,7 +39,10 @@ jobs:
   macOS10_15:
     macos:
       xcode: "11.1.0"
-    environment: DESTINATION="platform=macOS,arch=x86_64"
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_SDK: macosx10.15
     steps:
       - common_test_steps
 
