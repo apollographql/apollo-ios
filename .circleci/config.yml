@@ -123,16 +123,6 @@ jobs:
     steps:
       - common_test_steps
 
-  SQLitetvOS13_0:
-    macos:
-      xcode: "11.1.0"
-    environment:
-      DESTINATION: platform=tvOS Simulator,OS=13.0,name=Apple TV
-      CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: appletvsimulator13.0
-    steps:
-      - common_test_steps
-
   WebSocketmacOS10_15:
     macos:
       xcode: "11.1.0"
