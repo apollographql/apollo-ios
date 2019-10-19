@@ -186,8 +186,6 @@ workflows:
           name: ApolloSQLite iOS 12.4
       - SQLiteiOS11_4:
           name: ApolloSQLite iOS 11.4
-      - SQLitetvOS13_0:
-          name: ApolloSQLite tvOS 13.0
       - WebSocketmacOS10_15:
           name: ApolloWebSocket macOS 10.15
       - WebSocketiOS13_1:
