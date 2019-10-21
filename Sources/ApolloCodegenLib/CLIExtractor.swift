@@ -70,6 +70,10 @@ struct CLIExtractor {
   /// - Returns: true if the shasums match, false if not.
   static func validateSHASUMInExtractedFile(apolloFolderURL: URL, expected: String = CLIExtractor.expectedSHASUM) throws -> Bool {
     let shasumFileURL = self.shasumFileURL(fromApollo: apolloFolderURL)
+    guard FileManager.default.apollo_fileExists(at: shasumFileURL) else {
+      return false
+    }
+    
     let contents = try String(contentsOf: shasumFileURL, encoding: .utf8)
     
     guard contents == expected else {
