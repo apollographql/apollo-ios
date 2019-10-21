@@ -147,6 +147,18 @@ class CLIExtractorTests: XCTestCase {
     self.validateCLIIsExtractedWithRealSHASUM()
   }
   
+  func testFolderExistsButMissingSHASUMFileReExtractionWorks() throws {
+    // Make sure there is an apollo folder but no `.shasum` file
+    let apolloFolder = try CodegenTestHelper.apolloFolderURL()
+    try FileManager.default.apollo_createFolderIfNeeded(at: apolloFolder)
+    
+    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
+    
+    // Now try extracting again, and check SHASUM is now real again
+    _ = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+    self.validateCLIIsExtractedWithRealSHASUM()
+  }
+  
   func testCorrectSHASUMButMissingBinaryReExtractionWorks() throws {
     // Write just the SHASUM file, but nothing else
     try CodegenTestHelper.writeSHASUMOnly(CLIExtractor.expectedSHASUM)
