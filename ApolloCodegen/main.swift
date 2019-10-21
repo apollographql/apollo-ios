@@ -26,10 +26,12 @@ guard FileManager.default.apollo_folderExists(at: starWarsTarget) else {
 }
 
 let scriptFolderURL = sourceRootURL.appendingPathComponent("scripts")
+let options = ApolloCodegenOptions(targetRootURL: starWarsTarget)
 
 do {
   let result = try ApolloCodegen.run(from: starWarsTarget,
-                                     scriptFolderURL: scriptFolderURL)
+                                     scriptFolderURL: scriptFolderURL,
+                                     options: options)
   print("RESULT: \(result)")
 } catch {
   print("ERROR: \(error)")

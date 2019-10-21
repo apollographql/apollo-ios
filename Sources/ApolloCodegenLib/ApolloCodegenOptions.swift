@@ -59,6 +59,24 @@ public struct ApolloCodegenOptions {
     self.urlToSchemaFile = urlToSchemaFile
   }
   
+  /// Convenience initializer taking the root folder of a target and generate
+  /// code with some default assumptions.
+  /// Makes the following assumptions:
+  ///   - Schema is at [folder]/schema.json
+  ///   - Output is a single file to [folder]/API.swift
+  ///   - You want operation IDs generated and output to [folder]/operationIDs.json
+  ///
+  /// - Parameter folder: The root of the target. 
+  public init(targetRootURL folder: URL) {
+    let json = folder.appendingPathComponent("schema.json")
+    let outputFileURL = folder.appendingPathComponent("API.swift")
+    let operationIDsURL = folder.appendingPathComponent("operationIDs.json")
+    
+    self.init(operationIDsURL: operationIDsURL,
+              outputFormat: .singleFile(atFileURL: outputFileURL),
+              urlToSchemaFile: json)
+  }
+  
   var arguments: [String] {
     var arguments = [
       "codegen:generate",
