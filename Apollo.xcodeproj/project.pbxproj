@@ -669,8 +669,7 @@
 				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
-			name = ApolloCodegenTests;
-			path = Tests/ApolloCodegenTests;
+			path = ApolloCodegenTests;
 			sourceTree = "<group>";
 		};
 		9BDE43D222C6658D00FD7C7F /* Protocols */ = {
@@ -766,7 +765,6 @@
 			children = (
 				9FC750461D2A532C00458D91 /* Apollo */,
 				9B7B6F50233C26E400F32205 /* ApolloCodegenLib */,
-				9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */,
 				9B7B6F61233C299E00F32205 /* ApolloCodegen */,
 				9FCE2CF41E6C20E000E34457 /* Tests */,
 				90690D04224333DA00FC2E54 /* Configuration */,
@@ -899,6 +897,7 @@
 		9FCE2CF41E6C20E000E34457 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */,
 				9FC750521D2A532D00458D91 /* ApolloTests */,
 				9FA6ABBD1EC0A988000017BE /* ApolloCacheDependentTests */,
 				9FC631341E6AE2080062707E /* ApolloPerformanceTests */,
