@@ -25,12 +25,12 @@ module.exports = {
             'api-reference'
           ],
           Usage:[
-            'downloading-schema',
             'initialization',
+            'downloading-schema',
             'fetching-queries',
-            'fragments',
-            'watching-queries',
             'mutations',
+            'fragments',
+            'caching',
           ]
         }
       }
