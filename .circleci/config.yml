@@ -159,6 +159,16 @@ jobs:
     steps:
       - common_test_steps
 
+  CodegenLibmacOS_current:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: ApolloCodegenLib
+      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
+    steps:
+      - common_test_steps
+
   CocoaPodsTrunk:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
@@ -195,6 +205,8 @@ workflows:
           name: ApolloWebSocket iOS << pipeline.parameters.ios_current_version >>
       - WebSocketiOS_previous:
           name: ApolloWebSocket iOS << pipeline.parameters.ios_previous_version >>
+      - CodegenLibmacOS_current:
+          name: Swift Code Generation
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk
           requires:
@@ -208,6 +220,7 @@ workflows:
             - ApolloWebSocket macOS << pipeline.parameters.macos_version >>
             - ApolloWebSocket iOS << pipeline.parameters.ios_current_version >>
             - ApolloWebSocket iOS << pipeline.parameters.ios_previous_version >>
+            - Swift Code Generation
           filters:
             # Only build semver tags
             tags:
