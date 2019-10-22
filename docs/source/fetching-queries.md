@@ -2,7 +2,7 @@
 title: Fetching queries
 ---
 
-> Note: This page is about On using Apollo iOS to fetch and access GraphQL query results. You can read about GraphQL queries themselves in detail at [graphql.org](http://graphql.org/docs/queries/).
+> **Note:** This page is about using Apollo iOS to fetch and access GraphQL query results. You can read about GraphQL queries themselves in detail at [graphql.org](http://graphql.org/docs/queries/).
 
 When using Apollo iOS, you don't have to learn anything special about the query syntax, since everything is just standard GraphQL. Anything you can type into the GraphiQL query explorer, you can also put into `.graphql` files in your project.
 
@@ -127,7 +127,7 @@ By default, Apollo constructs queries and sends them to your graphql endpoint us
 
 If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `HTTPNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`. 
 
->Please note that this is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`.
+>**NOTE:** This is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`.
 
 ## JSON serialization
 
