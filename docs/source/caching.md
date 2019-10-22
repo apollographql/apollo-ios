@@ -1,19 +1,19 @@
 ---
-title: Client-Side Caching
+title: Client-side caching
 ---
 
 As mentioned in the introduction, Apollo iOS does more than simply run your queries against a GraphQL server. It normalizes query results to construct a client-side cache of your data, which is kept up to date as further queries and mutations are run. 
 
 This means your UI is always internally consistent, and can be kept fully up-to-date with the state on the server with the minimum number of queries required.
 
-## Types of Caches
+## Types of caches
 
-All caches used by the `ApolloClient` must conform to the [`NormalizedCache` protocol](../api/Apollo/protocols/NormalizedCache/). There are two types of cache provided automatically by Apollo: 
+All caches used by the `ApolloClient` must conform to the [`NormalizedCache` protocol](api/Apollo/protocols/NormalizedCache/). There are two types of cache provided automatically by Apollo: 
 
 - **`InMemoryNormalizedCache`**: This is included with the main `Apollo` library, and is the default caching strategy for the Apollo Client. This stores normalized results in-memory, so results are not persisted across sessions of the application. 
 - **`SQLiteCache`**: This is included via the [`ApolloSQLite`](api/ApolloSQLite/README/) library. This writes out cache results to a `SQLite` file rather than holding the results in memory. Note that this in turn causes cache hits to go to disk, which may result in somewhat slower responses. However, this also reduces the chances of unbounded memory growth, since everything gets dumped to disk. 
 
-All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](../api/Apollo/protocols/NormalizedCache/#clearcallbackqueuecompletion). If you need to work more directly with the cache, please see the [Direct Cache Access](#direct-cache-access) section.
+All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](api/Apollo/protocols/NormalizedCache/#clearcallbackqueuecompletion). If you need to work more directly with the cache, please see the [Direct Cache Access](#direct-cache-access) section.
 
 ## Controlling normalization
 
