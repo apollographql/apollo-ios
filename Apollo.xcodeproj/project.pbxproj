@@ -13,7 +13,9 @@
 		9B1A38532332AF6F00325FB4 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A38522332AF6F00325FB4 /* String+SHA.swift */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B518C83235F4E90004C426D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C82235F4E8F004C426D /* main.swift */; };
+		9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C85235F8125004C426D /* CLIDownloader.swift */; };
 		9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */; };
+		9B518C8D235F8B9E004C426D /* CLIDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */; };
 		9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */; };
 		9B6CB23E238077B70007259D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
@@ -319,6 +321,8 @@
 		9B1A38522332AF6F00325FB4 /* String+SHA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B518C82235F4E8F004C426D /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Sources/ApolloCodegen/main.swift; sourceTree = SOURCE_ROOT; };
+		9B518C85235F8125004C426D /* CLIDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloader.swift; sourceTree = "<group>"; };
+		9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloaderTests.swift; sourceTree = "<group>"; };
 		9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloFilePathHelper.swift; sourceTree = "<group>"; };
 		9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryDict.swift"; sourceTree = "<group>"; };
 		9B6CB23D238077B60007259D /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
@@ -604,6 +608,7 @@
 				9BAEEBED2346644600808306 /* ApolloSchemaOptions.swift */,
 				9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */,
 				9BC2D9D1233C6DC0007BD083 /* Basher.swift */,
+				9B518C85235F8125004C426D /* CLIDownloader.swift */,
 				9BAEEBF42346E90700808306 /* CLIExtractor.swift */,
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
 				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
@@ -669,6 +674,7 @@
 				9BAEEC16234C275600808306 /* ApolloSchemaTests.swift */,
 				9BAEEC18234C297800808306 /* ApolloCodegenTests.swift */,
 				9BAEEC14234C132600808306 /* CLIExtractorTests.swift */,
+				9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */,
 				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
@@ -1438,6 +1444,7 @@
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
 				9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */,
+				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
 				9BAEEBF123467E0A00808306 /* ApolloCLI.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
@@ -1461,6 +1468,7 @@
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaTests.swift in Sources */,
 				9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */,
+				9B518C8D235F8B9E004C426D /* CLIDownloaderTests.swift in Sources */,
 				9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */,
 				9BAEEC19234C297800808306 /* ApolloCodegenTests.swift in Sources */,
 			);

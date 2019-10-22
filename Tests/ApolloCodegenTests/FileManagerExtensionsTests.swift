@@ -14,18 +14,19 @@ class FileManagerExtensionsTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
+    CodegenTestHelper.downloadCLIIfNeeded()
     CodegenTestHelper.deleteExistingApolloFolder()
   }
   
   func testsFileExistsForZipFileURL() throws {
     let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = CLIExtractor.zipFileURL(fromScripts: scriptsFolderURL)
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     XCTAssertTrue(FileManager.default.apollo_fileExists(at: zipFileURL))
   }
   
   func testFolderDoesNotExistForZipFileURL() throws {
     let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = CLIExtractor.zipFileURL(fromScripts: scriptsFolderURL)
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     XCTAssertFalse(FileManager.default.apollo_folderExists(at: zipFileURL))
   }
   
@@ -41,7 +42,7 @@ class FileManagerExtensionsTests: XCTestCase {
   
   func testSHASUMOfIncludedBinaryMatchesExpected() throws {
     let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = CLIExtractor.zipFileURL(fromScripts: scriptsFolderURL)
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     let shasum = try FileManager.default.apollo_shasum(at: zipFileURL)
     XCTAssertEqual(shasum, CLIExtractor.expectedSHASUM)
   }

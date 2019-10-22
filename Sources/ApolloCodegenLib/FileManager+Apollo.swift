@@ -61,6 +61,18 @@ public extension FileManager {
     try self.removeItem(at: url)
   }
   
+  /// Checks if a file exists then attempts to delete it if it's there.
+  ///
+  /// - Parameter url: The URL to delete the file for
+  func apollo_deleteFile(at url: URL) throws {
+    guard apollo_fileExists(at: url) else {
+      // Nothing to delete!
+      return
+    }
+    
+    try self.removeItem(at: url)
+  }
+  
   /// Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
   ///
   /// - Parameter fileURL: The URL of the file to create a containing folder for if necessary.

@@ -13,6 +13,7 @@ class CLIExtractorTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
+    CodegenTestHelper.downloadCLIIfNeeded()
     CodegenTestHelper.deleteExistingApolloFolder()
   }
   
@@ -60,7 +61,7 @@ class CLIExtractorTests: XCTestCase {
                     "Binary folder doesn't exist at \(binaryFolderURL)",
                     file: file,
                     line: line)
-      let binaryURL = CLIExtractor.binaryURL(fromBinaryFolder: binaryFolderURL)
+      let binaryURL = ApolloFilePathHelper.binaryURL(fromBinaryFolder: binaryFolderURL)
       XCTAssertTrue(FileManager.default.apollo_fileExists(at: binaryURL),
                     "Binary doesn't exist at \(binaryURL)",
                     file: file,
@@ -79,13 +80,13 @@ class CLIExtractorTests: XCTestCase {
   
   func testValidatingSHASUMWithMatchingWorks() throws {
     let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = CLIExtractor.zipFileURL(fromScripts: scriptsFolderURL)
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     try CLIExtractor.validateZipFileSHASUM(at: zipFileURL, expected: CLIExtractor.expectedSHASUM)
   }
   
   func testValidatingSHASUMFailsWithoutMatch() throws {
     let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = CLIExtractor.zipFileURL(fromScripts: scriptsFolderURL)
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     let bogusSHASUM = CLIExtractor.expectedSHASUM + "NOPE"
     do {
       try CLIExtractor.validateZipFileSHASUM(at: zipFileURL, expected: bogusSHASUM)

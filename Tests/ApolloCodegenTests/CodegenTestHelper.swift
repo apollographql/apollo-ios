@@ -82,13 +82,25 @@ struct CodegenTestHelper {
     }
   }
   
+  static func downloadCLIIfNeeded(file: StaticString = #file,
+                                  line: UInt = #line) {
+    do {
+      let scriptsFolderURL = try self.scriptsFolderURL()
+      try CLIDownloader.downloadIfNeeded(scriptsFolderURL: scriptsFolderURL)
+    } catch {
+      XCTFail("Error downloading CLI if needed: \(error)",
+              file: file,
+              line: line)
+    }
+  }
+  
   static func deleteExistingApolloFolder(file: StaticString = #file,
                                          line: UInt = #line) {
     do {
       let apolloFolderURL = try self.apolloFolderURL()
       try FileManager.default.apollo_deleteFolder(at: apolloFolderURL)
     } catch {
-      XCTFail("Error deleting Apollo folder!",
+      XCTFail("Error deleting Apollo folder: \(error)",
               file: file,
               line: line)
     }
