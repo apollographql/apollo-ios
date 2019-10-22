@@ -1419,7 +1419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcodebuild -project \"Apollo.xcodeproj\" -target \"ApolloCodegenLib\" -configuration \"Debug\"\n\ncd \"${SRCROOT}/ApolloCodegen\"\n./main.swift\n";
+			shellScript = "cd \"${SRCROOT}/Sources/ApolloCodegen\"\nswift build\nswift run\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
