@@ -25,8 +25,8 @@ module.exports = {
             'api-reference'
           ],
           Usage:[
-            'initialization',
             'downloading-schema',
+            'initialization',
             'fetching-queries',
             'mutations',
             'fragments',
