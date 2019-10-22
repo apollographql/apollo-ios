@@ -37,17 +37,17 @@ struct CodegenTestHelper {
   
   static func apolloFolderURL() throws -> URL {
     let scripts = try self.scriptsFolderURL()
-    return CLIExtractor.apolloFolderURL(fromScripts: scripts)
+    return ApolloFilePathHelper.apolloFolderURL(fromScripts: scripts)
   }
   
   static func binaryFolderURL() throws -> URL {
     let apollo = try self.apolloFolderURL()
-    return CLIExtractor.binaryFolderURL(fromApollo: apollo)
+    return ApolloFilePathHelper.binaryFolderURL(fromApollo: apollo)
   }
   
   static func shasumFileURL() throws -> URL {
     let apollo = try self.apolloFolderURL()
-    return CLIExtractor.shasumFileURL(fromApollo: apollo)
+    return ApolloFilePathHelper.shasumFileURL(fromApollo: apollo)
   }
   
   static func starWarsFolderURL() throws -> URL {
