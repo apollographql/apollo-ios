@@ -54,3 +54,4 @@ Carthage/Build
 node_modules/
 package-lock.json
 scripts/apollo
+scripts/apollo.tar.gz
