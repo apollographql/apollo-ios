@@ -235,18 +235,17 @@ class StarWarsSubscriptionTests: XCTestCase {
                    count,
                    "All not fulfilled proper number of times. Expected \(count), got \(allFulfilledCount)")
     let expectedNewHope = selectedEpisodes.filter { $0 == .newhope }.count
-    XCTAssertEqual(expectedNewHope,
-                   newHopeFulfilledCount,
+    XCTAssertEqual(newHopeFulfilledCount,
+                   expectedNewHope,
                    "New Hope not fulfilled proper number of times. Expected \(expectedNewHope), got \(newHopeFulfilledCount)")
     let expectedEmpire = selectedEpisodes.filter { $0 == .empire }.count
-    XCTAssertEqual(expectedEmpire,
-                   empireFulfilledCount,
+    XCTAssertEqual(empireFulfilledCount,
+                   expectedEmpire,
                    "Empire not fulfilled proper number of times. Expected \(expectedEmpire), got \(empireFulfilledCount)")
     let expectedJedi = selectedEpisodes.filter { $0 == .jedi }.count
-    XCTAssertEqual(expectedJedi,
-                   jediFulfilledCount,
+    XCTAssertEqual(jediFulfilledCount,
+                   expectedJedi,
                    "Jedi not fulfilled proper number of times. Expected \(expectedJedi), got \(jediFulfilledCount)")
-    
     
     subAll.cancel()
     subEmpire.cancel()
