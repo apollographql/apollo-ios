@@ -252,3 +252,31 @@ Drag the generated `API.swift` file to your target.
 > Note that because Apollo iOS generates query-specific result types, `API.swift` will be mostly empty at this point unless you've already added some `.graphql` files with queries or mutations to your target directory.
 
 Make sure to uncheck the "Copy Files If Needed" checkbox, since it should already be within your project's folder system. Then, make sure you've checked all the Targets the API file needs to be included in.
+
+## Advanced Codegen Tips And Tricks
+
+Here are a few things you can do to make your code generation even better once you've gotten up and running with the basics above:
+
+### Set Up Input And Output Files In Your Build Phase
+
+Particularly if you're using Interface Builder or SwiftUI to talk to a module which also has a code generation build step, this is helpful to prevent the `API.swift` file from causing an auto-regeneration loop. 
+
+For example, if you're using something like this to run your code generation for a target called `YourTarget`: 
+
+```
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+```
+
+Assuming youv'e set the script out to run from `$(SRCROOT)/YourTarget`, you can add `$(SRCROOT)/YourTarget/**/*.graphql` (the path you're running it from + the glob you're passing to the `includes` CLI parameter) to the list of `Input Files` for your Apollo Run Script Build phase. Then you can add `$(SRCROOT)/YourTarget/API.swift` (the path you're running it from + the output file) to the list of `Output Files`: 
+
+![screenshot of input and output files](screenshot/input_output_files.png)
+
+This should prevent automatic rebuild cycles if none of the `InputFiles` are changed. The script *will* still run if you explicitly build and run. 
+
+There's an [open issue to auto-generate input and output file lists](https://github.com/apollographql/apollo-ios/issues/636) which will be addressed as part of the Swift Codegen project, but this will help until that's done. 
+
+### Generate Multiple Files In A Folder Instead Of One Giant File 
+
+Instead of passing a single `API.swift` file, pass a (pre-existing) relative folder path such as `API` as the final parameter. This will cause the codegen to create individual files and place them in that folder. 
+
+With small sets of `graphql` files this is usually overkill, but with large sets that can cause `API.swift` to be huge, this can help significantly reduce compilation time. 

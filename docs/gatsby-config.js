@@ -28,9 +28,9 @@ module.exports = {
             'downloading-schema',
             'initialization',
             'fetching-queries',
-            'fragments',
-            'watching-queries',
             'mutations',
+            'fragments',
+            'caching',
           ]
         }
       }
