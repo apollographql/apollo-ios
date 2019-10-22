@@ -175,3 +175,5 @@ extension Apollo: HTTPNetworkTransportRetryDelegate {
   }
 }
 ```
+
+An example of setting up a client which can handle web sockets and subscriptions is included in the [subscription documentation](subscriptions/#sample-subscription-supporting-initializer). 

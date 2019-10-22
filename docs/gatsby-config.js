@@ -31,6 +31,7 @@ module.exports = {
             'mutations',
             'fragments',
             'caching',
+            'subscriptions'
           ]
         }
       }
