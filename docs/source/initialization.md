@@ -80,6 +80,9 @@ Here's a sample of a singleton using an advanced client which handles all three 
 - **`Logger`** to handle printing logs based on their level, and which supports `.debug`, `.error`, or `.always` log levels.
 
 ```swift
+import Foundation
+import Apollo
+
 // MARK: - Singleton Wrapper
 
 class Apollo {
