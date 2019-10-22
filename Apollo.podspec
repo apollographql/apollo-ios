@@ -24,7 +24,6 @@ Pod::Spec.new do |s|
     ss.source_files = 'Sources/Apollo/*.swift'
     ss.preserve_paths = [
       'scripts/run-bundled-codegen.sh',
-      'scripts/apollo.tar.gz',
     ]
   end
 
