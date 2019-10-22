@@ -5,7 +5,7 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class StarWarsSubscriptionTests: XCTestCase {
-  let SERVER : String = "http://localhost:8080/websocket"
+  let SERVER: String = "ws://localhost:8080/websocket"
   
   var client: ApolloClient!
   
@@ -163,6 +163,11 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Multiple reviews")
     expectation.expectedFulfillmentCount = count * 2
     
+    var allFulfilledCount = 0
+    var newHopeFulfilledCount = 0
+    var empireFulfilledCount = 0
+    var jediFulfilledCount = 0
+    
     let subAll = client.subscribe(subscription: ReviewAddedSubscription()) { result in
       switch result {
       case .success(let graphQLResult):
@@ -173,6 +178,7 @@ class StarWarsSubscriptionTests: XCTestCase {
       }
       
       expectation.fulfill()
+      allFulfilledCount += 1
     }
     
     let subEmpire = client.subscribe(subscription: ReviewAddedSubscription(episode: .empire)) { result in
@@ -185,6 +191,7 @@ class StarWarsSubscriptionTests: XCTestCase {
       }
 
       expectation.fulfill()
+      empireFulfilledCount += 1
     }
     
     let subJedi = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { result in
@@ -197,6 +204,7 @@ class StarWarsSubscriptionTests: XCTestCase {
       }
 
       expectation.fulfill()
+      jediFulfilledCount += 1
     }
     
     let subNewHope = client.subscribe(subscription: ReviewAddedSubscription(episode: .newhope)) { result in
@@ -209,17 +217,37 @@ class StarWarsSubscriptionTests: XCTestCase {
       }
 
       expectation.fulfill()
+      newHopeFulfilledCount += 1
     }
     
     let episodes : [Episode] = [.empire, .jedi, .newhope]
     
+    var selectedEpisodes = [Episode]()
     for i in 1...count {
       let review = ReviewInput(stars: i, commentary: "The greatest movie ever!")
-      let episode = episodes.randomElement()
-      _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: episode!, review: review))
+      let episode = episodes.randomElement()!
+      selectedEpisodes.append(episode)
+      _ = client.perform(mutation: CreateReviewForEpisodeMutation(episode: episode, review: review))
     }
     
     waitForExpectations(timeout: 10, handler: nil)
+    XCTAssertEqual(allFulfilledCount,
+                   count,
+                   "All not fulfilled proper number of times. Expected \(count), got \(allFulfilledCount)")
+    let expectedNewHope = selectedEpisodes.filter { $0 == .newhope }.count
+    XCTAssertEqual(expectedNewHope,
+                   newHopeFulfilledCount,
+                   "New Hope not fulfilled proper number of times. Expected \(expectedNewHope), got \(newHopeFulfilledCount)")
+    let expectedEmpire = selectedEpisodes.filter { $0 == .empire }.count
+    XCTAssertEqual(expectedEmpire,
+                   empireFulfilledCount,
+                   "Empire not fulfilled proper number of times. Expected \(expectedEmpire), got \(empireFulfilledCount)")
+    let expectedJedi = selectedEpisodes.filter { $0 == .jedi }.count
+    XCTAssertEqual(expectedJedi,
+                   jediFulfilledCount,
+                   "Jedi not fulfilled proper number of times. Expected \(expectedJedi), got \(jediFulfilledCount)")
+    
+    
     subAll.cancel()
     subEmpire.cancel()
     subJedi.cancel()
