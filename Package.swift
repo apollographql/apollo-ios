@@ -37,6 +37,9 @@ let package = Package(
     .target(
       name: "ApolloSQLite",
       dependencies: ["Apollo", "SQLite"]),
+    .target(
+      name: "ApolloCodegen",
+      dependencies: ["ApolloCodegenLib"]),
 		.target(
       name: "ApolloWebSocket",
       dependencies: ["Apollo","Starscream"]),
