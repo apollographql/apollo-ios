@@ -1,5 +1,5 @@
 /// A network transport is responsible for sending GraphQL operations to a server.
-public protocol NetworkTransport {
+public protocol NetworkTransport: class {
   
   /// Send a GraphQL operation to a server and return a response.
   ///
