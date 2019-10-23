@@ -46,16 +46,45 @@ public class WebSocketTransport {
   fileprivate var sequenceNumber = 0
   fileprivate var reconnected = false
 
-  public lazy var clientName = WebSocketTransport.defaultClientName
-  public lazy var clientVersion = WebSocketTransport.defaultClientVersion
+  /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
+  public var clientName: String {
+    didSet {
+      self.websocket.request.setValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
+    }
+  }
   
-  public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:], requestCreator: RequestCreator = ApolloRequestCreator()) {
+  /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
+  public var clientVersion: String {
+    didSet {
+      self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
+    }
+  }
+  
+  /// Designated initializer
+  ///
+  /// - Parameter request: <#request description#>
+  /// - Parameter clientName: <#clientName description#>
+  /// - Parameter clientVersion: <#clientVersion description#>
+  /// - Parameter sendOperationIdentifiers: <#sendOperationIdentifiers description#>
+  /// - Parameter reconnectionInterval: <#reconnectionInterval description#>
+  /// - Parameter connectingPayload: <#connectingPayload description#>
+  /// - Parameter requestCreator: <#requestCreator description#>
+  public init(request: URLRequest,
+              clientName: String = WebSocketTransport.defaultClientName,
+              clientVersion: String = WebSocketTransport.defaultClientVersion,
+              sendOperationIdentifiers: Bool = false,
+              reconnectionInterval: TimeInterval = 0.5,
+              connectingPayload: GraphQLMap? = [:],
+              requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.reconnectionInterval = reconnectionInterval
     self.requestCreator = requestCreator
-
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
+    self.clientName = clientName
+    self.clientVersion = clientVersion
+    self.websocket.request.setValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
+    self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
     self.websocket.delegate = self
     self.websocket.connect()
   }
