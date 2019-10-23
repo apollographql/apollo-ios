@@ -165,6 +165,7 @@ extension Apollo: HTTPNetworkTransportRetryDelegate {
     guard UserManager.shared.requiresReAuthentication(basedOn: error, response: response) else {
       // This is not something this application can handle, do not retry.
       retryHandler(false)
+      return
     }
     
     // Attempt to re-authenticate asynchronously
