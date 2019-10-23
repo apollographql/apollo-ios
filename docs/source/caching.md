@@ -19,7 +19,7 @@ All caches can be cleared in their entirety by calling [`clear(callbackQueue:com
 
 While Apollo can do basic caching based on the shape of GraphQL queries and their results, Apollo won't be able to associate objects fetched by different queries without additional information about the identities of the objects returned from the server. 
 
-This is referred to as [cache normalization](http://dev.apollodata.com/core/how-it-works.html#normalize). You can read about our caching model in detail in our blog post, ["GraphQL Concepts Visualized"](https://medium.com/apollo-stack/the-concepts-of-graphql-bc68bd819be3).
+This is referred to as [cache normalization](https://www.apollographql.com/docs/react/caching/cache-configuration/#data-normalization). You can read about our caching model in detail in our blog post, ["GraphQL Concepts Visualized"](https://medium.com/apollo-stack/the-concepts-of-graphql-bc68bd819be3).
 
 **By default, Apollo does not use object IDs at all**, doing caching based only on the path to the object from the root query. However, if you specify a function to generate IDs from each object, and supply it as `cacheKeyForObject` to an `ApolloClient` instance, you can decide how Apollo will identify and de-duplicate the objects returned from the server:
 
