@@ -7,12 +7,28 @@ public class SplitNetworkTransport {
   private let httpNetworkTransport: UploadingNetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
   
+  public var clientName: String {
+    didSet {
+      self.httpNetworkTransport.clientName = self.clientName
+      self.webSocketNetworkTransport.clientName = self.clientName
+    }
+  }
+  
+  public var clientVersion: String {
+    didSet {
+      self.httpNetworkTransport.clientName = self.clientName
+      self.webSocketNetworkTransport.clientName = self.clientVersion
+    }
+  }
+  
   /// Designated initializer
   ///
   /// - Parameters:
   ///   - httpNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
   ///   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
   public init(httpNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport) {
+    self.clientName = SplitNetworkTransport.defaultClientName
+    self.clientVersion = SplitNetworkTransport.defaultClientVersion
     self.httpNetworkTransport = httpNetworkTransport
     self.webSocketNetworkTransport = webSocketNetworkTransport
   }

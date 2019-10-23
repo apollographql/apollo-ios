@@ -53,6 +53,9 @@ public class WebSocketTransport {
   fileprivate var sequenceNumber = 0
   fileprivate var reconnected = false
 
+  public lazy var clientName = WebSocketTransport.defaultClientName
+  public lazy var clientVersion = WebSocketTransport.defaultClientVersion
+  
   public init(request: URLRequest, sendOperationIdentifiers: Bool = false, reconnectionInterval: TimeInterval = 0.5, connectingPayload: GraphQLMap? = [:], requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers

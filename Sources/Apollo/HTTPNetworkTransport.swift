@@ -94,6 +94,9 @@ public class HTTPNetworkTransport {
   private let requestCreator: RequestCreator
   private let sendOperationIdentifiers: Bool
   
+  public lazy var clientName = HTTPNetworkTransport.defaultClientName
+  public lazy var clientVersion = HTTPNetworkTransport.defaultClientVersion
+  
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
