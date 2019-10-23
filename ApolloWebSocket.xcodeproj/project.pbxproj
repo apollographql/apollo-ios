@@ -14,6 +14,10 @@
 		7270747C206D13F400C131F6 /* StarWarsSubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707472206D112900C131F6 /* StarWarsSubscriptionTests.swift */; };
 		7270747D206D13F400C131F6 /* MockWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707473206D112900C131F6 /* MockWebSocketTests.swift */; };
 		7270747E206D13F400C131F6 /* StarWarsWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72707475206D112900C131F6 /* StarWarsWebSocketTests.swift */; };
+		9B1CCDDB23610CDC007C9032 /* ApolloWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDDA23610CDC007C9032 /* ApolloWebSocket.swift */; };
+		9B1CCDDF236110C3007C9032 /* WebSocketError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDDE236110C3007C9032 /* WebSocketError.swift */; };
+		9B1CCDE123611580007C9032 /* OperationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDE023611580007C9032 /* OperationMessage.swift */; };
+		9B1CCDE323611606007C9032 /* WebSocketTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDE223611606007C9032 /* WebSocketTask.swift */; };
 		9F28B6CF206E488B00144A00 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28B6CC206E487200144A00 /* Starscream.framework */; };
 		9F28B6D520720F2F00144A00 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28B6D420720F2F00144A00 /* Apollo.framework */; };
 		9F28B6D920720FD200144A00 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28B6D820720FD100144A00 /* ApolloTestSupport.framework */; };
@@ -59,6 +63,10 @@
 		90690D0D224334C900FC2E54 /* ApolloWebSocket-Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Project-Release.xcconfig"; sourceTree = "<group>"; };
 		90690D12224334FD00FC2E54 /* ApolloWebSocket-Target-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Target-Framework.xcconfig"; sourceTree = "<group>"; };
 		90690D132243350400FC2E54 /* ApolloWebSocket-Target-Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Target-Tests.xcconfig"; sourceTree = "<group>"; };
+		9B1CCDDA23610CDC007C9032 /* ApolloWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloWebSocket.swift; sourceTree = "<group>"; };
+		9B1CCDDE236110C3007C9032 /* WebSocketError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketError.swift; sourceTree = "<group>"; };
+		9B1CCDE023611580007C9032 /* OperationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMessage.swift; sourceTree = "<group>"; };
+		9B1CCDE223611606007C9032 /* WebSocketTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTask.swift; sourceTree = "<group>"; };
 		9F28B6C6206E487200144A00 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = Carthage/Checkouts/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		9F28B6D420720F2F00144A00 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F28B6D820720FD100144A00 /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,7 +132,11 @@
 		72707469206D111A00C131F6 /* ApolloWebSocket */ = {
 			isa = PBXGroup;
 			children = (
+				9B1CCDDA23610CDC007C9032 /* ApolloWebSocket.swift */,
+				9B1CCDE023611580007C9032 /* OperationMessage.swift */,
 				7270746A206D111A00C131F6 /* SplitNetworkTransport.swift */,
+				9B1CCDDE236110C3007C9032 /* WebSocketError.swift */,
+				9B1CCDE223611606007C9032 /* WebSocketTask.swift */,
 				7270746B206D111A00C131F6 /* WebSocketTransport.swift */,
 				7270746C206D111A00C131F6 /* Info.plist */,
 			);
@@ -292,8 +304,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B1CCDDF236110C3007C9032 /* WebSocketError.swift in Sources */,
 				7270746D206D111A00C131F6 /* SplitNetworkTransport.swift in Sources */,
+				9B1CCDE323611606007C9032 /* WebSocketTask.swift in Sources */,
 				7270746E206D111A00C131F6 /* WebSocketTransport.swift in Sources */,
+				9B1CCDE123611580007C9032 /* OperationMessage.swift in Sources */,
+				9B1CCDDB23610CDC007C9032 /* ApolloWebSocket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

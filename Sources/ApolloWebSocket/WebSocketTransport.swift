@@ -4,16 +4,7 @@ import Apollo
 import Starscream
 import Foundation
 
-// To allow for alternative implementations supporting the same WebSocketClient protocol
-public class ApolloWebSocket: WebSocket, ApolloWebSocketClient {
-  required public convenience init(request: URLRequest, protocols: [String]? = nil) {
-    self.init(request: request, protocols: protocols, stream: FoundationStream())
-  }
-}
-
-public protocol ApolloWebSocketClient: WebSocketClient {
-  init(request: URLRequest, protocols: [String]?)
-}
+// MARK: - Transport Delegate
 
 public protocol WebSocketTransportDelegate: class {
   func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
@@ -26,6 +17,8 @@ public extension WebSocketTransportDelegate {
   func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {}
   func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?) {}
 }
+
+// MARK: - WebSocketTransport
 
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
 public class WebSocketTransport {
@@ -196,7 +189,7 @@ public class WebSocketTransport {
     return sequenceNumber
   }
   
-  fileprivate func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
+  func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
     let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     let sequenceNumber = "\(nextSequenceNumber())"
     
@@ -221,100 +214,6 @@ public class WebSocketTransport {
     subscribers.removeValue(forKey: subscriptionId)
     subscriptions.removeValue(forKey: subscriptionId)
   }
-  
-  fileprivate final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
-    let sequenceNumber : String?
-    let transport: WebSocketTransport
-    
-    init(_ ws: WebSocketTransport, _ operation: Operation, _ completionHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) {
-      sequenceNumber = ws.sendHelper(operation: operation, resultHandler: completionHandler)
-      transport = ws
-    }
-    
-    public func cancel() {
-      if let sequenceNumber = sequenceNumber {
-        transport.unsubscribe(sequenceNumber)
-      }
-    }
-    
-    // unsubscribe same as cancel
-    public func unsubscribe() {
-      cancel()
-    }
-  }
-  
-  fileprivate final class OperationMessage {
-    enum Types : String {
-      case connectionInit = "connection_init"            // Client -> Server
-      case connectionTerminate = "connection_terminate"  // Client -> Server
-      case start = "start"                               // Client -> Server
-      case stop = "stop"                                 // Client -> Server
-      
-      case connectionAck = "connection_ack"              // Server -> Client
-      case connectionError = "connection_error"          // Server -> Client
-      case connectionKeepAlive = "ka"                    // Server -> Client
-      case data = "data"                                 // Server -> Client
-      case error = "error"                               // Server -> Client
-      case complete = "complete"                         // Server -> Client
-    }
-    
-    let serializationFormat = JSONSerializationFormat.self
-    var message: GraphQLMap = [:]
-    var serialized: String?
-    
-    var rawMessage : String? {
-      let serialized = try! serializationFormat.serialize(value: message)
-      if let str = String(data: serialized, encoding: .utf8) {
-        return str
-      } else {
-        return nil
-      }
-    }
-    
-    init(payload: GraphQLMap? = nil, id: String? = nil, type: Types = .start) {
-      if let payload = payload {
-        message += ["payload": payload]
-      }
-      if let id = id {
-        message += ["id": id]
-      }
-      message += ["type": type.rawValue]
-    }
-    
-    init(serialized: String) {
-      self.serialized = serialized
-    }
-    
-    func parse(handler: (_ type: String?, _ id: String?, _ payload: JSONObject?, _ error: Error?) -> Void) {
-      guard let serialized = self.serialized else {
-        handler(nil, nil, nil, WebSocketError(payload: nil, error: nil, kind: .serializedMessageError))
-        return
-      }
-
-      guard let data = self.serialized?.data(using: (.utf8) ) else {
-        handler(nil, nil, nil, WebSocketError(payload: nil, error: nil, kind: .unprocessedMessage(serialized)))
-        return
-      }
-
-      var type : String?
-      var id : String?
-      var payload : JSONObject?
-
-      do {
-        let json = try JSONSerializationFormat.deserialize(data: data ) as? JSONObject
-
-        id = json?["id"] as? String
-        type = json?["type"] as? String
-        payload = json?["payload"] as? JSONObject
-
-        handler(type,id,payload,nil)
-      }
-      catch {
-        handler(type, id, payload, WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(serialized)))
-      }
-    }
-  }
-  
 }
 
 // MARK: - HTTPNetworkTransport conformance
@@ -384,39 +283,5 @@ extension WebSocketTransport: WebSocketDelegate {
   
   public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
     processMessage(socket: socket, data: data)
-  }
-}
-
-public struct WebSocketError: Error, LocalizedError {
-  public enum ErrorKind {
-    case errorResponse
-    case networkError
-    case unprocessedMessage(String)
-    case serializedMessageError
-    case neitherErrorNorPayloadReceived
-    
-    var description: String {
-      switch self {
-      case .errorResponse:
-        return "Received error response"
-      case .networkError:
-        return "Websocket network error"
-      case .unprocessedMessage(let message):
-        return "Websocket error: Unprocessed message \(message)"
-      case .serializedMessageError:
-        return "Websocket error: Serialized message not found"
-      case .neitherErrorNorPayloadReceived:
-        return "Websocket error: Did not receive an error or a payload."
-      }
-    }
-  }
-  
-  /// The payload of the response.
-  public let payload: JSONObject?
-  public let error: Error?
-  public let kind: ErrorKind
-  
-  public var errorDescription: String? {
-    return "\(self.kind.description). Error: \(String(describing: self.error))"
   }
 }
