@@ -193,6 +193,12 @@ class HTTPTransportTests: XCTestCase {
                                                      delegate: self)
     XCTAssertNotEqual(self.networkTransport, nonIdenticalTransport)
   }
+
+  func testEngineDefaultHeaders() {
+    let headers = HTTPNetworkTransport.apolloEngineClientHeaders
+    XCTAssertNotNil(headers["apollographql-client-name"])
+    XCTAssertNotNil(headers["apollographql-client-version"])
+  }
 }
 
 // MARK: - HTTPNetworkTransportPreflightDelegate

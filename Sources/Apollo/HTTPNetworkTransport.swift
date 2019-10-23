@@ -78,7 +78,25 @@ public class HTTPNetworkTransport {
   let delegate: HTTPNetworkTransportDelegate?
   private let requestCreator: RequestCreator
   private let sendOperationIdentifiers: Bool
-  
+
+  /// The default client headers that Apollo Engine uses to identify its clients
+  /// Please see https://www.apollographql.com/docs/graph-manager/client-awareness/
+  ///
+  /// This should be set as headers on your URLRequests, if you're using Apollo Engine, eg:
+  /// sessionConfiguration.httpAdditionalHeaders = HTTPNetworkTransport.apolloEngineClientHeaders
+  static let apolloEngineClientHeaders: [String: String] = {
+    func bundleValue(forKey key: String) -> String? {
+      return Bundle.main.object(forInfoDictionaryKey: key) as? String
+    }
+    let identifier = bundleValue(forKey: String(kCFBundleIdentifierKey)) ?? ""
+    let version = bundleValue(forKey: "CFBundleShortVersionString") ??
+      bundleValue(forKey: String(kCFBundleVersionKey)) ?? ""
+    return [
+      "apollographql-client-name": identifier,
+      "apollographql-client-version": version,
+    ]
+  }()
+
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
