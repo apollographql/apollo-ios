@@ -1,5 +1,15 @@
 # Change log
 
+
+### v0.18.0
+- **POSSIBLY BREAKING**: Updated CLI to no longer be directly bundled, but to be downloaded if needed. This allows us to avoid bloating the iOS repo with the CLI zip, and to make it easier to test different versions of the CLI in the future. This change should automatically download the updated CLI version for you. 
+
+  Note one significant change from prior bundled versions: If you are connected to the internet when you download the iOS dependency through SPM/Carthage/CocoaPods, you will now need to build your target while still connected to the internet in order to download the proper version of the CLI. Once the correct version of the CLI is downloaded, internet access should no longer be necessary to build. If you disconnect from the internet before the correct version downloads, you will not be able to build. ([#855](https://github.com/apollographql/apollo-ios/pull/855))
+- Updated version of CLI to download to `2.21.0`. ([#855](https://github.com/apollographql/apollo-ios/pull/855)) This includes: 
+    - Ability to have the codegen ignore deprecated enum cases by using the `--omitDeprecatedEnumCases` flag
+    - Fix for generating input fields for `null` values
+- Fixes a number of weak references with closures. ([#854](https://github.com/apollographql/apollo-ios/pull/854))
+
 ### v0.17.0
 - **NEW**: Support for [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/). This feature allows you to send the hash of a query to your server, and if the server recognizes the hash, it can perform the whole query without you having to send it again. This is particularly useful for large queries, since it can reduce the amount of data you have to send from your user's device pretty significantly. ([#767](https://github.com/apollographql/apollo-ios/pull/767))
 - **BREAKING**: Removed old script files which have been deprecated. If you were still using these, please check out the updated [codegen build step setup instructions](https://www.apollographql.com/docs/ios/installation/#adding-a-code-generation-build-step) to get up and running with the `run-bundled-codegen` script. ([#820](https://github.com/apollographql/apollo-ios/pull/820))
