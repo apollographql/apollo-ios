@@ -213,7 +213,7 @@ public class WebSocketTransport {
     websocket.delegate = nil
   }
   
-  fileprivate func nextSequenceNumber() -> Int {
+  private func nextSequenceNumber() -> Int {
     sequenceNumber += 1
     return sequenceNumber
   }
