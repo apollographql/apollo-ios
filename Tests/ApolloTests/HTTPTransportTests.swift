@@ -314,9 +314,7 @@ extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
     
     headers.forEach { tuple in
       let (key, value) = tuple
-      var headers = request.allHTTPHeaderFields ?? [String: String]()
-      headers[key] = value
-      request.allHTTPHeaderFields = headers
+      request.addValue(value, forHTTPHeaderField: key)
     }
   }
 }
