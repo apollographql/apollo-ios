@@ -18,6 +18,16 @@ public protocol NetworkTransport: class {
 
 public extension NetworkTransport {
   
+  /// The header field name for the Client Name
+  static var headerFieldNameClientName: String {
+    return "apollographql-client-name"
+  }
+  
+  /// The header field name for the client version
+  static var headerFieldNameClientVersion: String {
+    return "apollographql-client-version"
+  }
+  
   /// The default client name to use when setting up the `clientName` property
   static var defaultClientName: String {
     guard let identifier = Bundle.main.bundleIdentifier else {

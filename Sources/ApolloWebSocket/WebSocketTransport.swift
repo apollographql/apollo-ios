@@ -83,8 +83,8 @@ public class WebSocketTransport {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
     self.clientVersion = clientVersion
-    self.websocket.request.setValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
-    self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
+    self.websocket.request.setValue(self.clientName, forHTTPHeaderField: WebSocketTransport.headerFieldNameClientName)
+    self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: WebSocketTransport.headerFieldNameClientVersion)
     self.websocket.delegate = self
     self.websocket.connect()
   }

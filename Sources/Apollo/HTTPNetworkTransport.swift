@@ -362,8 +362,8 @@ public class HTTPNetworkTransport {
                                                sendQueryDocument: sendQueryDocument,
                                                autoPersistQuery: autoPersistQueries)
     var request = URLRequest(url: self.url)
-    request.setValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
-    request.setValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
+    request.setValue(self.clientName, forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName)
+    request.setValue(self.clientVersion, forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion)
     
     // We default to json, but this can be changed below if needed.
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
