@@ -725,8 +725,8 @@
 		9FCDFD211E33A09F007519DC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
 				9FCDFD221E33A0D8007519DC /* AsynchronousOperation.swift */,
+				9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */,
 				9BA3130D2302BEA5007B7FC5 /* DispatchQueue+Optional.swift */,
 				9FE941CF1E62C771007CDD89 /* Promise.swift */,
 				9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */,
@@ -734,7 +734,7 @@
 				9FEC15B31E681DAD00D461B4 /* Collections.swift */,
 				9FADC8491E6B0B2300C677E6 /* Locking.swift */,
 				9B1A38522332AF6F00325FB4 /* String+SHA.swift */,
-				9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */,
+				9F578D8F1D8D2CB300C0EA36 /* Utilities.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
