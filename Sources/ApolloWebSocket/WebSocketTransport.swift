@@ -62,13 +62,13 @@ public class WebSocketTransport {
   
   /// Designated initializer
   ///
-  /// - Parameter request: <#request description#>
-  /// - Parameter clientName: <#clientName description#>
-  /// - Parameter clientVersion: <#clientVersion description#>
-  /// - Parameter sendOperationIdentifiers: <#sendOperationIdentifiers description#>
-  /// - Parameter reconnectionInterval: <#reconnectionInterval description#>
-  /// - Parameter connectingPayload: <#connectingPayload description#>
-  /// - Parameter requestCreator: <#requestCreator description#>
+  /// - Parameter request: The connection URLRequest
+  /// - Parameter clientName: The client name to use for this client. Defauls to `Self.defaultClientName`
+  /// - Parameter clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
+  /// - Parameter sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
+  /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
+  /// - Parameter connectingPayload: [optional] The payload to send on connection. Dfaults to an empty `GraphQLMap`.
+  /// - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
   public init(request: URLRequest,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
