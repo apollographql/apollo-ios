@@ -63,16 +63,3 @@ public func unzip<Element1, Element2, Element3>(_ array: [(Element1, Element2, E
   
   return (array1, array2, array3)
 }
-
-public func unzip<Element>(_ array: [[Element]], count: Int) -> [[Element]] {
-  var unzippedArray: [[Element]] = Array(repeating: [], count: count)
-  
-  for valuesForElement in array {
-    for (index, value) in valuesForElement.enumerated() {
-      unzippedArray[index].append(value)
-    }
-  }
-  
-  return unzippedArray
-}
-
