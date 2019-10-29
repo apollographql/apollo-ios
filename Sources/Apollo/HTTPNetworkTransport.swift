@@ -224,9 +224,10 @@ public class HTTPNetworkTransport {
                                                         files: [GraphQLFile]?,
                                                         response: GraphQLResponse<Operation>,
                                                         completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) {
-    guard let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
+    guard
+      let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
       let graphQLErrors = response.parseErrorsOnlyFast(),
-      !graphQLErrors.isEmpty else {
+      graphQLErrors.isNotEmpty else {
         completionHandler(.success(response))
         return
     }
@@ -379,16 +380,18 @@ public class HTTPNetworkTransport {
       }
     case .POST:
       do {
-        if let files = files, !files.isEmpty {
-          let formData = try requestCreator.requestMultipartFormData(
-            for: operation,
-            files: files,
-            sendOperationIdentifiers: self.sendOperationIdentifiers,
-            serializationFormat: self.serializationFormat,
-            manualBoundary: nil)
-          
-          request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
-          request.httpBody = try formData.encode()
+        if
+          let files = files,
+          files.isNotEmpty {
+            let formData = try requestCreator.requestMultipartFormData(
+              for: operation,
+              files: files,
+              sendOperationIdentifiers: self.sendOperationIdentifiers,
+              serializationFormat: self.serializationFormat,
+              manualBoundary: nil)
+            
+            request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try formData.encode()
         } else {
           request.httpBody = try serializationFormat.serialize(value: body)
         }

@@ -226,8 +226,10 @@ final class Promise<Value> {
     lock.withLock {
       // If the promise has been resolved and there are no existing result handlers,
       // there is no need to append the handler to the array first.
-      if case .resolved(let result) = state, resultHandlers.isEmpty {
-        handler(result)
+      if
+        case .resolved(let result) = state,
+        resultHandlers.isEmpty {
+          handler(result)
       } else {
         resultHandlers.append(handler)
       }
