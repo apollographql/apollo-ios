@@ -1,12 +1,6 @@
-//
-//  Emptiable+Helpers.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 10/29/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
+
+// MARK: - Emptiness + Optionality
 
 extension Collection {
   
@@ -40,6 +34,9 @@ extension Optional where Wrapped: Collection {
     }
   }
 }
+
+// MARK: - Unzipping
+// MARK: Arrays of tuples to tuples of arrays
 
 public func unzip<Element1, Element2>(_ array: [(Element1, Element2)]) -> ([Element1], [Element2]) {
   var array1: [Element1] = []
