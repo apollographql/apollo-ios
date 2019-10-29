@@ -65,6 +65,21 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
 
+/// Methods which will be called after some kind of response has been received and it contains GraphQLErrors
+public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDelegate {
+
+
+  /// Called when response contains one or more GraphQL errors.
+  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport which received the error
+  ///   - errors: The received GraphQL errors
+  ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
+}
+
+
 // MARK: -
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
@@ -131,6 +146,7 @@ public class HTTPNetworkTransport {
       
       if let receivedError = error {
         self.handleErrorOrRetry(operation: operation,
+                                files: files,
                                 error: receivedError,
                                 for: request,
                                 response: response,
@@ -147,6 +163,7 @@ public class HTTPNetworkTransport {
                                                          response: httpResponse,
                                                          kind: .errorResponse)
         self.handleErrorOrRetry(operation: operation,
+                                files: files,
                                 error: unsuccessfulError,
                                 for: request,
                                 response: response,
@@ -159,6 +176,7 @@ public class HTTPNetworkTransport {
                                              response: httpResponse,
                                              kind: .invalidResponse)
         self.handleErrorOrRetry(operation: operation,
+                                files: files,
                                 error: error,
                                 for: request,
                                 response: response,
@@ -170,10 +188,13 @@ public class HTTPNetworkTransport {
         guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
           throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
         }
+        
         let graphQLResponse = GraphQLResponse(operation: operation, body: body)
+        
         if let errors = graphQLResponse.parseErrorsOnlyFast() {
           // Handle specific errors from response
           self.handleGraphQLErrorsIfNeeded(operation: operation,
+                                           files: files,
                                            for: request,
                                            body: body,
                                            errors: errors,
@@ -183,6 +204,7 @@ public class HTTPNetworkTransport {
         }
       } catch let parsingError {
         self.handleErrorOrRetry(operation: operation,
+                                files: files,
                                 error: parsingError,
                                 for: request,
                                 response: response,
@@ -194,29 +216,60 @@ public class HTTPNetworkTransport {
     
     return task
   }
+
+  private func handleGraphQLErrorsOrComplete<Operation>(operation: Operation,
+                                                        files: [GraphQLFile]?,
+                                                        response: GraphQLResponse<Operation>,
+                                                        completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) {
+    guard let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
+      let graphQLErrors = response.parseErrorsOnlyFast(),
+      !graphQLErrors.isEmpty else {
+        completionHandler(.success(response))
+        return
+    }
+    
+    delegate.networkTransport(self, receivedGraphQLErrors: graphQLErrors, retryHandler: { [weak self] shouldRetry in
+      guard let self = self else {
+        // None of the rest of this really matters
+        return
+      }
+
+      guard shouldRetry else {
+        completionHandler(.success(response))
+        return
+      }
+      
+      _ = self.send(operation: operation,
+                    isPersistedQueryRetry: self.enableAutoPersistedQueries,
+                    files: files,
+                    completionHandler: completionHandler)
+    })
+  }
   
   private func handleGraphQLErrorsIfNeeded<Operation>(operation: Operation,
+                                                      files: [GraphQLFile]?,
                                                       for request: URLRequest,
                                                       body: JSONObject,
                                                       errors: [GraphQLError],
                                                       completionHandler: @escaping (_ results: Result<GraphQLResponse<Operation>, Error>) -> Void) {
-    
+
     let errorMessages = errors.compactMap { $0.message }
     if self.enableAutoPersistedQueries,
       errorMessages.contains("PersistedQueryNotFound") {
-        // We need to retry this with the full body.
-        _ = self.send(operation: operation,
-                      isPersistedQueryRetry: true,
-                      files: nil,
-                      completionHandler: completionHandler)
+      // We need to retry this with the full body.
+      _ = self.send(operation: operation,
+                    isPersistedQueryRetry: true,
+                    files: nil,
+                    completionHandler: completionHandler)
     } else {
       // Pass the response on to the rest of the chain
       let response = GraphQLResponse(operation: operation, body: body)
-      completionHandler(.success(response))
+      handleGraphQLErrorsOrComplete(operation: operation, files: files, response: response, completionHandler: completionHandler)
     }
   }
-  
+
   private func handleErrorOrRetry<Operation>(operation: Operation,
+                                             files: [GraphQLFile]?,
                                              error: Error,
                                              for request: URLRequest,
                                              response: URLResponse?,
@@ -234,12 +287,20 @@ public class HTTPNetworkTransport {
       for: request,
       response: response,
       retryHandler: { [weak self] shouldRetry in
+        guard let self = self else {
+          // None of the rest of this really matters
+          return
+        }
+        
         guard shouldRetry else {
           completionHandler(.failure(error))
           return
         }
         
-        _ = self?.send(operation: operation, completionHandler: completionHandler)
+        _ = self.send(operation: operation,
+                      isPersistedQueryRetry: self.enableAutoPersistedQueries,
+                      files: files,
+                      completionHandler: completionHandler)
     })
   }
   
@@ -287,7 +348,7 @@ public class HTTPNetworkTransport {
                                   sendQueryDocument: sendQueryDocument,
                                   autoPersistQueries: autoPersistQueries)
   }
-    
+
   private func createRequest<Operation: GraphQLOperation>(for operation: Operation,
                                                           files: [GraphQLFile]?,
                                                           httpMethod: GraphQLHTTPMethod,
