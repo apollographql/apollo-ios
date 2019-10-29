@@ -47,6 +47,7 @@ public protocol HTTPNetworkTransportTaskCompletedDelegate: HTTPNetworkTransportD
 
 // MARK: -
 
+/// Methods which will be called if an error is receieved at the network level.
 public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate {
   
   /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
@@ -65,12 +66,19 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
 
-/// Methods which will be called after some kind of response has been received and it contains GraphQLErrors
+// MARK: -
+
+/// Methods which will be called after some kind of response has been received and it contains GraphQLErrors.
 public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDelegate {
 
-
   /// Called when response contains one or more GraphQL errors.
-  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+  ///
+  /// NOTE: The mere presence of a GraphQL error does not necessarily mean a request failed!
+  ///       GraphQL is design to allow partial success/failures to return, so make sure
+  ///       you're validating the *type* of error you're getting in this before deciding whether to retry or not.
+  ///
+  /// ALSO NOTE: Don't just call the `retryHandler` with `true` all the time, or you can
+  ///            potentially wind up in an infinite loop of errors
   ///
   /// - Parameters:
   ///   - networkTransport: The network transport which received the error
@@ -78,7 +86,6 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
   ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
   func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
-
 
 // MARK: -
 
@@ -224,9 +231,10 @@ public class HTTPNetworkTransport {
                                                         files: [GraphQLFile]?,
                                                         response: GraphQLResponse<Operation>,
                                                         completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) {
-    guard let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
+    guard
+      let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
       let graphQLErrors = response.parseErrorsOnlyFast(),
-      !graphQLErrors.isEmpty else {
+      graphQLErrors.isNotEmpty else {
         completionHandler(.success(response))
         return
     }
@@ -379,16 +387,18 @@ public class HTTPNetworkTransport {
       }
     case .POST:
       do {
-        if let files = files, !files.isEmpty {
-          let formData = try requestCreator.requestMultipartFormData(
-            for: operation,
-            files: files,
-            sendOperationIdentifiers: self.sendOperationIdentifiers,
-            serializationFormat: self.serializationFormat,
-            manualBoundary: nil)
-          
-          request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
-          request.httpBody = try formData.encode()
+        if
+          let files = files,
+          files.isNotEmpty {
+            let formData = try requestCreator.requestMultipartFormData(
+              for: operation,
+              files: files,
+              sendOperationIdentifiers: self.sendOperationIdentifiers,
+              serializationFormat: self.serializationFormat,
+              manualBoundary: nil)
+            
+            request.setValue("multipart/form-data; boundary=\(formData.boundary)", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try formData.encode()
         } else {
           request.httpBody = try serializationFormat.serialize(value: body)
         }

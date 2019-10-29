@@ -1,11 +1,3 @@
-//
-//  String+SHA.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 9/18/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 import CommonCrypto
 
