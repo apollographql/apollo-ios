@@ -201,6 +201,7 @@ class HTTPTransportTests: XCTestCase {
     self.retryCount = 0
     self.graphQlErrors = []
     let query = HeroNameQuery()
+    // TODO: Replace this with once it is codable https://github.com/apollographql/apollo-ios/issues/467
     let body = ["errors": [["message": "Test graphql error"]]]
 
     let mockSession = MockURLSession()
@@ -234,6 +235,7 @@ class HTTPTransportTests: XCTestCase {
     self.retryCount = 0
     self.graphQlErrors = []
     let query = HeroNameQuery()
+    // TODO: Replace this with once it is codable https://github.com/apollographql/apollo-ios/issues/467
     let body = ["errors": []]
 
     let mockSession = MockURLSession()
