@@ -47,6 +47,7 @@ public protocol HTTPNetworkTransportTaskCompletedDelegate: HTTPNetworkTransportD
 
 // MARK: -
 
+/// Methods which will be called if an error is receieved at the network level.
 public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate {
   
   /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
@@ -65,12 +66,19 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
 
-/// Methods which will be called after some kind of response has been received and it contains GraphQLErrors
+// MARK: -
+
+/// Methods which will be called after some kind of response has been received and it contains GraphQLErrors.
 public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDelegate {
 
-
   /// Called when response contains one or more GraphQL errors.
-  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+  ///
+  /// NOTE: The mere presence of a GraphQL error does not necessarily mean a request failed!
+  ///       GraphQL is design to allow partial success/failures to return, so make sure
+  ///       you're validating the *type* of error you're getting in this before deciding whether to retry or not.
+  ///
+  /// ALSO NOTE: Don't just call the `retryHandler` with `true` all the time, or you can
+  ///            potentially wind up in an infinite loop of errors
   ///
   /// - Parameters:
   ///   - networkTransport: The network transport which received the error
@@ -78,7 +86,6 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
   ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
   func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 }
-
 
 // MARK: -
 
