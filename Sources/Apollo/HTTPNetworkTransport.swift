@@ -94,6 +94,9 @@ public class HTTPNetworkTransport {
   private let requestCreator: RequestCreator
   private let sendOperationIdentifiers: Bool
   
+  public lazy var clientName = HTTPNetworkTransport.defaultClientName
+  public lazy var clientVersion = HTTPNetworkTransport.defaultClientVersion
+  
   /// Creates a network transport with the specified server URL and session configuration.
   ///
   /// - Parameters:
@@ -359,6 +362,8 @@ public class HTTPNetworkTransport {
                                                sendQueryDocument: sendQueryDocument,
                                                autoPersistQuery: autoPersistQueries)
     var request = URLRequest(url: self.url)
+    request.setValue(self.clientName, forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName)
+    request.setValue(self.clientVersion, forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion)
     
     // We default to json, but this can be changed below if needed.
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")

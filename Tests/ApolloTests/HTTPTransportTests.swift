@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 import ApolloTestSupport
 
@@ -262,7 +263,35 @@ class HTTPTransportTests: XCTestCase {
     XCTAssertEqual(self.retryCount, 0)
     XCTAssertEqual(self.graphQlErrors.count, 0)
     wait(for: [expectation], timeout: 1)
-
+  }
+  
+  func testClientNameAndVersionHeadersAreSent() {
+    let mockSession = MockURLSession()
+    let network = HTTPNetworkTransport(url: self.url,
+                                       session: mockSession)
+    let query = HeroNameQuery(episode: .empire)
+    let _ = network.send(operation: query) { _ in }
+    
+    guard let request = mockSession.lastRequest else {
+      XCTFail("last request should not be nil")
+      return
+    }
+    
+    guard let clientName = request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName) else {
+      XCTFail("Client name on last request was nil!")
+      return
+    }
+    
+    XCTAssertFalse(clientName.isEmpty, "Client name was empty!")
+    XCTAssertEqual(clientName, network.clientName)
+    
+    guard let clientVersion = request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion) else {
+      XCTFail("Client version on last request was nil!")
+      return
+    }
+    
+    XCTAssertFalse(clientVersion.isEmpty, "Client version was empty!")
+    XCTAssertEqual(clientVersion, network.clientVersion)
   }
 }
 
@@ -285,9 +314,7 @@ extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
     
     headers.forEach { tuple in
       let (key, value) = tuple
-      var headers = request.allHTTPHeaderFields ?? [String: String]()
-      headers[key] = value
-      request.allHTTPHeaderFields = headers
+      request.addValue(value, forHTTPHeaderField: key)
     }
   }
 }

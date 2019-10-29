@@ -7,6 +7,38 @@ public class SplitNetworkTransport {
   private let httpNetworkTransport: UploadingNetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
   
+  public var clientName: String {
+    get {
+      let httpName = self.httpNetworkTransport.clientName
+      let websocketName = self.webSocketNetworkTransport.clientName
+      if httpName == websocketName {
+        return httpName
+      } else {
+        return "SPLIT_HTTPNAME_\(httpName)_WEBSOCKETNAME_\(websocketName)"
+      }
+    }
+    set {
+      self.httpNetworkTransport.clientName = newValue
+      self.webSocketNetworkTransport.clientName = newValue
+    }
+  }
+
+  public var clientVersion: String {
+    get {
+      let httpVersion = self.httpNetworkTransport.clientVersion
+      let websocketVersion = self.webSocketNetworkTransport.clientVersion
+      if httpVersion == websocketVersion {
+        return httpVersion
+      } else {
+        return "SPLIT_HTTPVERSION_\(httpVersion)_WEBSOCKETNAME_\(websocketVersion)"
+      }
+    }
+    set {
+      self.httpNetworkTransport.clientVersion = newValue
+      self.webSocketNetworkTransport.clientVersion = newValue
+    }
+  }
+  
   /// Designated initializer
   ///
   /// - Parameters:
