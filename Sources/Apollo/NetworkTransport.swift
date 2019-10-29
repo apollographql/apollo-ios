@@ -1,3 +1,5 @@
+import Foundation
+
 /// A network transport is responsible for sending GraphQL operations to a server.
 public protocol NetworkTransport: class {
   
