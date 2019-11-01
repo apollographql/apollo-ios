@@ -223,5 +223,9 @@ workflows:
             - ApolloWebSocket iOS 12.4
             - ApolloWebSocket iOS 11.4
           filters:
+            # Only build semver tags
             tags:
               only: /((\d*)\.(\d*)\.(\d*)).*/
+            # Don't run this on any branches
+            branches:
+              ignore: /.*/
