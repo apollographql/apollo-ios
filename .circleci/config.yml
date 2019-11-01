@@ -169,6 +169,9 @@ jobs:
       xcode: "11.1.0"
     steps:
       - checkout
+      # TODO: Remove when Circle updates the version of CP installed on their
+      # image to one that doesn't have https://github.com/CocoaPods/CocoaPods/issues/9176
+      - run: gem update cocoapods
       - run: pod trunk push Apollo.podspec
       - run: pod trunk me clean-sessions --all
 
