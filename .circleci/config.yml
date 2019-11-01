@@ -206,10 +206,9 @@ workflows:
   # This workflow publishes new versions to trunk automatically after building and testing when a semver tag is created.
   publish:
     jobs:
-      - CocoaPodsTrunk
+      - CocoaPodsTrunk:
         requires:
           - build-and-test
         filters:
           tags:
             only: /((\d*)\.(\d*)\.(\d*)).*/
-        
