@@ -207,7 +207,8 @@ workflows:
   publish:
     jobs:
       - CocoaPodsTrunk
-        requires: build-and-test
+        requires:
+          - build-and-test
         filters:
           tags:
             only: /((\d*)\.(\d*)\.(\d*)).*/
