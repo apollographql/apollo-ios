@@ -163,9 +163,18 @@ jobs:
       CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
+      
+  CocoaPodsTrunk:
+  macos:
+    xcode: "11.1.0"
+  steps:
+    - checkout
+    - run: pod trunk push Apollo.podspec
+    - run: pod trunk me clean-sessions --all
 
 workflows:
   version: 2
+  # This workflow builds and tests the library across various operating systems and versions
   build-and-test:
     jobs:
       - macOS10_15:
@@ -194,3 +203,12 @@ workflows:
           name: ApolloWebSocket iOS 12.4
       - WebSocketiOS11_4:
           name: ApolloWebSocket iOS 11.4
+  # This workflow publishes new versions to trunk automatically after building and testing when a semver tag is created.
+  publish:
+    jobs:
+      - CocoaPodsTrunk
+        requires: build-and-test
+        filters:
+          tags:
+            only: /((\d*)\.(\d*)\.(\d*)).*/
+        
