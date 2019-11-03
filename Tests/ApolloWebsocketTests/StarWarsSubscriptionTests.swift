@@ -8,12 +8,14 @@ class StarWarsSubscriptionTests: XCTestCase {
   let SERVER: String = "ws://localhost:8080/websocket"
   
   var client: ApolloClient!
+  var webSocketTransport: WebSocketTransport!
   
   override func setUp() {
     super.setUp()
     
-    let networkTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
-    client = ApolloClient(networkTransport: networkTransport)
+    WebSocketTransport.provider = ApolloWebSocket.self
+    webSocketTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+    client = ApolloClient(networkTransport: webSocketTransport)
   }
   
   // MARK: Subscriptions
@@ -251,5 +253,108 @@ class StarWarsSubscriptionTests: XCTestCase {
     subEmpire.cancel()
     subJedi.cancel()
     subNewHope.cancel()
+  }
+  
+  // MARK: Data races tests
+  
+  func testConcurrentSubscribing() {
+    let firstSubscription = ReviewAddedSubscription(episode: .empire)
+    let secondSubscription = ReviewAddedSubscription(episode: .empire)
+    
+    let expectation = self.expectation(description: "Subscribers connected and received events")
+    expectation.expectedFulfillmentCount = 2
+    
+    var sub1: Cancellable?
+    var sub2: Cancellable?
+    
+    let queue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
+    
+    queue.async {
+      sub1 = self.client.subscribe(subscription: firstSubscription) { _ in
+        expectation.fulfill()
+      }
+    }
+    
+    queue.async {
+      sub2 = self.client.subscribe(subscription: secondSubscription) { _ in
+        expectation.fulfill()
+      }
+    }
+    
+    // dispatched with a barrier flag to make sure
+    // this is performed after subscription calls
+    queue.sync(flags: .barrier) {
+      // dispatched on the processing queue to make sure
+      // this is performed after subscribers are processed
+      self.webSocketTransport.websocket.callbackQueue.async {
+        _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")))
+      }
+    }
+    
+    waitForExpectations(timeout: 10, handler: nil)
+    sub1?.cancel()
+    sub2?.cancel()
+  }
+  
+  func testConcurrentSubscriptionCancellations() {
+    let firstSubscription = ReviewAddedSubscription(episode: .empire)
+    let secondSubscription = ReviewAddedSubscription(episode: .empire)
+    
+    let expectation = self.expectation(description: "Subscriptions cancelled")
+    expectation.expectedFulfillmentCount = 2
+    
+    let sub1 = client.subscribe(subscription: firstSubscription) { _ in }
+    let sub2 = client.subscribe(subscription: secondSubscription) { _ in }
+    
+    DispatchQueue.global().async {
+      sub1.cancel()
+      expectation.fulfill()
+    }
+    DispatchQueue.global().async {
+      sub2.cancel()
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 10, handler: nil)
+  }
+  
+  func testConcurrentSubscriptionAndConnectionClose() {
+    let empireReviewSubscription = ReviewAddedSubscription(episode: .empire)
+    let expectation = self.expectation(description: "Connection closed")
+    
+    DispatchQueue.global().async {
+      let sub = self.client.subscribe(subscription: empireReviewSubscription) { _ in }
+      sub.cancel()
+    }
+    
+    _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")))
+    
+    DispatchQueue.global().async {
+      self.webSocketTransport.closeConnection()
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 10, handler: nil)
+  }
+  
+  func testConcurrentConnectAndCloseConnection() {
+    WebSocketTransport.provider = MockWebSocket.self
+    let webSocketTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+    let expectation = self.expectation(description: "Connection closed")
+    expectation.expectedFulfillmentCount = 2
+    
+    DispatchQueue.global().async {
+      if let websocket = webSocketTransport.websocket as? MockWebSocket {
+        websocket.reportDidConnect()
+        expectation.fulfill()
+      }
+    }
+    
+    DispatchQueue.global().async {
+      webSocketTransport.closeConnection()
+      expectation.fulfill()
+    }
+    
+    waitForExpectations(timeout: 10, handler: nil)
   }
 }
