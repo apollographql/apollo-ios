@@ -14,6 +14,9 @@ public protocol ApolloWebSocketClient: WebSocketClient {
   
   /// The URLRequest used on connection. 
   var request: URLRequest { get set }
+  
+  /// Queue where the callbacks are executed
+  var callbackQueue: DispatchQueue { get set }
 }
 
 // MARK: - WebSocket
