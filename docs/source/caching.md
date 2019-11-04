@@ -68,17 +68,17 @@ The `read` function is similar to React Apollo's [`readQuery`](https://www.apoll
 ```swift
 // Assuming we have defined an ApolloClient instance `client`:
 // Read from a GraphQL query
-client.store.withinReadTransaction { transaction in
+client.store.withinReadTransaction({ transaction in
   let data = try transaction.read(
     query: HeroNameQuery(episode: .jedi)
   )
 
   // Prints "R2-D2"
   print(data.hero?.name)
-}
+})
 
 // Read from a GraphQL fragment
-client.store.withinReadTransaction { transaction -> HeroDetails in
+client.store.withinReadTransaction({ transaction -> HeroDetails in
   let data = try transaction.readObject(
     ofType: HeroDetails.self,
     withKey: id
@@ -86,8 +86,7 @@ client.store.withinReadTransaction { transaction -> HeroDetails in
   
   // Prints "R2-D2"
   print(data.hero?.name)
-}
-
+})
 ```
 
 ### update
@@ -96,7 +95,7 @@ The `update` function is similar to React Apollo's [`writeQuery`](https://www.ap
 
 ```swift
 // Assuming we have defined an ApolloClient instance `client`:
-store.withinReadWriteTransaction { transaction in
+store.withinReadWriteTransaction({ transaction in
   let query = HeroNameQuery(episode: .jedi)
 
   try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
@@ -107,5 +106,5 @@ store.withinReadWriteTransaction { transaction in
     // Prints "Artoo"
     print(graphQLResult?.data?.hero?.name)
   }
-}
+})
 ```
