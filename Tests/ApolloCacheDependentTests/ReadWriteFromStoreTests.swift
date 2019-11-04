@@ -15,7 +15,7 @@ class ReadWriteFromStoreTests: XCTestCase {
 
       let query = HeroNameQuery()
       
-      store.withinReadTransaction({transaction in
+      store.withinReadTransaction({ transaction in
         let data = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.__typename, "Droid")
