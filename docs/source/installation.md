@@ -257,7 +257,9 @@ Make sure to uncheck the "Copy Files If Needed" checkbox, since it should alread
 
 Here are a few things you can do to make your code generation even better once you've gotten up and running with the basics above:
 
-### Set Up Input And Output Files In Your Build Phase
+### Prevent Unnecessary Recompilation 
+
+#### Set Up Input And Output Files In Your Build Phase
 
 Particularly if you're using Interface Builder or SwiftUI to talk to a module which also has a code generation build step, this is helpful to prevent the `API.swift` file from causing an auto-regeneration loop. 
 
@@ -267,13 +269,28 @@ For example, if you're using something like this to run your code generation for
 "${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
-Assuming youv'e set the script out to run from `$(SRCROOT)/YourTarget`, you can add `$(SRCROOT)/YourTarget/**/*.graphql` (the path you're running it from + the glob you're passing to the `includes` CLI parameter) to the list of `Input Files` for your Apollo Run Script Build phase. Then you can add `$(SRCROOT)/YourTarget/API.swift` (the path you're running it from + the output file) to the list of `Output Files`: 
+Assuming you've set the script out to run from `$(SRCROOT)/YourTarget`, you can add `$(SRCROOT)/YourTarget/**/*.graphql` (the path you're running it from + the glob you're passing to the `includes` CLI parameter) to the list of `Input Files` for your Apollo Run Script Build phase. Then you can add `$(SRCROOT)/YourTarget/API.swift` (the path you're running it from + the output file) to the list of `Output Files`: 
 
 ![screenshot of input and output files](screenshot/input_output_files.png)
 
 This should prevent automatic rebuild cycles if none of the `InputFiles` are changed. The script *will* still run if you explicitly build and run. 
 
 There's an [open issue to auto-generate input and output file lists](https://github.com/apollographql/apollo-ios/issues/636) which will be addressed as part of the Swift Codegen project, but this will help until that's done. 
+
+#### Write to a Temporary File
+
+If for some reason the input/output file setup above doesn't work for you, you can also decide to first write the file to a temporary location, and then compare this temporary file to the current one. And then only when the files differ you move the temporary file into place.
+
+For a target called `YourTarget` the script could look something like;
+
+```
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" "${SRCROOT}/YourTarget/API.swift.new"
+if ! diff -q "${SRCROOT}/YourTarget/API.swift.new" "${SRCROOT}/YourTarget/API.swift"; then
+  mv "${SRCROOT}/YourTarget/API.swift.new" "${SRCROOT}/YourTarget/API.swift"
+else
+  rm "${SRCROOT}/YourTarget/API.swift.new"
+fi
+```
 
 ### Generate Multiple Files In A Folder Instead Of One Giant File 
 
