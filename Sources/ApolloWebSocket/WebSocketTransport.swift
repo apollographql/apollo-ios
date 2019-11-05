@@ -25,9 +25,9 @@ public class WebSocketTransport {
   public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
   
-  var reconnect: Atomic<Bool> = Atomic(false)
+  let reconnect: Atomic<Bool> = Atomic(false)
   var websocket: ApolloWebSocketClient
-  var error: Atomic<Error?> = Atomic(nil)
+  let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestCreator: RequestCreator
 
@@ -44,7 +44,7 @@ public class WebSocketTransport {
   
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
-  fileprivate var sequenceNumberCounter = Atomic<Int>(0)
+  fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
