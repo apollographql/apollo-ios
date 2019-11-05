@@ -23,3 +23,14 @@ class Atomic<T> {
     }
   }
 }
+
+extension Atomic where T == Int {
+  
+  func increment() -> T {
+    lock.lock()
+    defer { lock.unlock() }
+    
+    _value += 1
+    return _value
+  }
+}

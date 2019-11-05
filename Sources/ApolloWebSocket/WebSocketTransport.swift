@@ -44,7 +44,7 @@ public class WebSocketTransport {
   
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
-  fileprivate var sequenceNumberCounter = AtomicCounter()
+  fileprivate var sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
@@ -222,7 +222,7 @@ public class WebSocketTransport {
   
   func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
     let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
-    let sequenceNumber = "\(sequenceNumberCounter.next())"
+    let sequenceNumber = "\(sequenceNumberCounter.increment())"
     
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
       return nil
