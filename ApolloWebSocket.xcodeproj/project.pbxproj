@@ -23,8 +23,8 @@
 		9F28B6D520720F2F00144A00 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28B6D420720F2F00144A00 /* Apollo.framework */; };
 		9F28B6D920720FD200144A00 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28B6D820720FD100144A00 /* ApolloTestSupport.framework */; };
 		9F28B6DB2072101200144A00 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F28B6DA2072101200144A00 /* StarWarsAPI.framework */; };
-		D143FF0D236EBD6B00E20A5C /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143FF09236EBD6B00E20A5C /* AtomicCounter.swift */; };
-		D143FF0E236EBD6B00E20A5C /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D143FF0A236EBD6B00E20A5C /* Atomic.swift */; };
+		D1ACF61C23715AF30042E200 /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ACF61A23715AF30042E200 /* AtomicCounter.swift */; };
+		D1ACF61D23715AF30042E200 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1ACF61B23715AF30042E200 /* Atomic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +75,8 @@
 		9F28B6D420720F2F00144A00 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F28B6D820720FD100144A00 /* ApolloTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ApolloTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F28B6DA2072101200144A00 /* StarWarsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StarWarsAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D143FF09236EBD6B00E20A5C /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
-		D143FF0A236EBD6B00E20A5C /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
+		D1ACF61A23715AF30042E200 /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
+		D1ACF61B23715AF30042E200 /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				72707469206D111A00C131F6 /* ApolloWebSocket */,
-				D143FF08236EBD6B00E20A5C /* Utilities */,
 				72707470206D112900C131F6 /* ApolloWebSocketTests */,
 				90690D0A2243342000FC2E54 /* Configuration */,
 				720F147A206AB52F00D061DB /* Frameworks */,
@@ -146,6 +145,7 @@
 				9B1CCDE223611606007C9032 /* WebSocketTask.swift */,
 				7270746B206D111A00C131F6 /* WebSocketTransport.swift */,
 				7270746C206D111A00C131F6 /* Info.plist */,
+				D1ACF61923715AF30042E200 /* Utilities */,
 			);
 			name = ApolloWebSocket;
 			path = Sources/ApolloWebSocket;
@@ -186,11 +186,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D143FF08236EBD6B00E20A5C /* Utilities */ = {
+		D1ACF61923715AF30042E200 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D143FF0A236EBD6B00E20A5C /* Atomic.swift */,
-				D143FF09236EBD6B00E20A5C /* AtomicCounter.swift */,
+				D1ACF61A23715AF30042E200 /* AtomicCounter.swift */,
+				D1ACF61B23715AF30042E200 /* Atomic.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -321,11 +321,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D143FF0D236EBD6B00E20A5C /* AtomicCounter.swift in Sources */,
+				D1ACF61C23715AF30042E200 /* AtomicCounter.swift in Sources */,
 				9B1CCDDF236110C3007C9032 /* WebSocketError.swift in Sources */,
 				7270746D206D111A00C131F6 /* SplitNetworkTransport.swift in Sources */,
 				9B1CCDE323611606007C9032 /* WebSocketTask.swift in Sources */,
-				D143FF0E236EBD6B00E20A5C /* Atomic.swift in Sources */,
+				D1ACF61D23715AF30042E200 /* Atomic.swift in Sources */,
 				7270746E206D111A00C131F6 /* WebSocketTransport.swift in Sources */,
 				9B1CCDE123611580007C9032 /* OperationMessage.swift in Sources */,
 				9B1CCDDB23610CDC007C9032 /* ApolloWebSocket.swift in Sources */,
