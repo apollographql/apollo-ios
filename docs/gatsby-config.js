@@ -24,6 +24,10 @@ module.exports = {
             'installation',
             'api-reference'
           ],
+          Tutorial: [
+            'tutorial/tutorial_0',
+            'tutorial/tutorial_1'
+          ],
           Usage:[
             'downloading-schema',
             'initialization',
