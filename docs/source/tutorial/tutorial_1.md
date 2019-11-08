@@ -18,13 +18,13 @@ Either of those will bring you to the template chooser for a new project. Select
 
 ![select single view app template](images/single_view_app.png)
 
-Then hit **Next**. You'll be brought to the options page for your new project. Name the project **RocketReserver**, make sure the language is **Swift**, and the User Interface is **SwiftUI**:
+Then hit **Next**. You'll be brought to the options page for your new project. Name the project **RocketReserver**, make sure the language is **Swift**, and the User Interface is **Storyboards** (sorry, SwiftUI fans!):
 
 ![options for creating a new project](images/options_for_project.png)
 
 It's probably also a good idea in the long term to make sure the unit and UI test checkboxes are checked, but they're not required for this tutorial. Hit **Next**. You'll then be prompted to select where to save your new project. Pick a place on your computer that's easy to find, such as your Desktop, and hit **Finish**.
 
-Xcode will open your new project for you, and you'll see an extremely basic new SwiftUI project:
+Xcode will open your new project for you, and you'll see an extremely basic new project:
 
 ![initial setup of the project navigator](images/initial_file_setup.png)
 
