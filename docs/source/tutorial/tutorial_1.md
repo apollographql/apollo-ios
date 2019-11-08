@@ -14,9 +14,9 @@ If you don't see that screen, go to **File > New > Project...** in the menus:
 
 ![creating a new project ](images/file_new_project.png)
 
-Either of those will bring you to the template chooser for a new project. Select **iOS** at the top and **Single View App**:
+Either of those will bring you to the template chooser for a new project. Select **iOS** at the top and **Master-Detail App**:
 
-![select single view app template](images/single_view_app.png)
+![select single view app template](images/master_detail_app.png)
 
 Then hit **Next**. You'll be brought to the options page for your new project. Name the project **RocketReserver**, make sure the language is **Swift**, and the User Interface is **Storyboards** (sorry, SwiftUI fans!):
 
