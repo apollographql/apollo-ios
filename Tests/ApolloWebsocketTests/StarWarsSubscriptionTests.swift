@@ -6,6 +6,7 @@ import StarWarsAPI
 
 class StarWarsSubscriptionTests: XCTestCase {
   let SERVER: String = "ws://localhost:8080/websocket"
+  let concurrentQueue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
   
   var client: ApolloClient!
   var webSocketTransport: WebSocketTransport!
@@ -266,16 +267,14 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     var sub1: Cancellable?
     var sub2: Cancellable?
-    
-    let queue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
-    
-    queue.async {
+        
+    concurrentQueue.async {
       sub1 = self.client.subscribe(subscription: firstSubscription) { _ in
         expectation.fulfill()
       }
     }
     
-    queue.async {
+    concurrentQueue.async {
       sub2 = self.client.subscribe(subscription: secondSubscription) { _ in
         expectation.fulfill()
       }
@@ -283,7 +282,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     // dispatched with a barrier flag to make sure
     // this is performed after subscription calls
-    queue.sync(flags: .barrier) {
+    concurrentQueue.sync(flags: .barrier) {
       // dispatched on the processing queue to make sure
       // this is performed after subscribers are processed
       self.webSocketTransport.websocket.callbackQueue.async {
@@ -306,11 +305,11 @@ class StarWarsSubscriptionTests: XCTestCase {
     let sub1 = client.subscribe(subscription: firstSubscription) { _ in }
     let sub2 = client.subscribe(subscription: secondSubscription) { _ in }
     
-    DispatchQueue.global().async {
+    concurrentQueue.async {
       sub1.cancel()
       expectation.fulfill()
     }
-    DispatchQueue.global().async {
+    concurrentQueue.async {
       sub2.cancel()
       expectation.fulfill()
     }
@@ -322,14 +321,14 @@ class StarWarsSubscriptionTests: XCTestCase {
     let empireReviewSubscription = ReviewAddedSubscription(episode: .empire)
     let expectation = self.expectation(description: "Connection closed")
     
-    DispatchQueue.global().async {
       let sub = self.client.subscribe(subscription: empireReviewSubscription) { _ in }
+    concurrentQueue.async {
       sub.cancel()
     }
     
     _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")))
     
-    DispatchQueue.global().async {
+    concurrentQueue.async {
       self.webSocketTransport.closeConnection()
       expectation.fulfill()
     }
@@ -343,14 +342,14 @@ class StarWarsSubscriptionTests: XCTestCase {
     let expectation = self.expectation(description: "Connection closed")
     expectation.expectedFulfillmentCount = 2
     
-    DispatchQueue.global().async {
+    concurrentQueue.async {
       if let websocket = webSocketTransport.websocket as? MockWebSocket {
         websocket.reportDidConnect()
         expectation.fulfill()
       }
     }
     
-    DispatchQueue.global().async {
+    concurrentQueue.async {
       webSocketTransport.closeConnection()
       expectation.fulfill()
     }
