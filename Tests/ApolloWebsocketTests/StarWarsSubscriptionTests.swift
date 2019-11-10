@@ -325,9 +325,6 @@ class StarWarsSubscriptionTests: XCTestCase {
     concurrentQueue.async {
       sub.cancel()
     }
-    
-    _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")))
-    
     concurrentQueue.async {
       self.webSocketTransport.closeConnection()
       expectation.fulfill()
