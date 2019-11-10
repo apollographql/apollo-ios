@@ -301,10 +301,14 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     let expectation = self.expectation(description: "Subscriptions cancelled")
     expectation.expectedFulfillmentCount = 2
-    
-    let sub1 = client.subscribe(subscription: firstSubscription) { _ in }
-    let sub2 = client.subscribe(subscription: secondSubscription) { _ in }
-    
+        
+    let sub1 = client.subscribe(subscription: firstSubscription) { _ in
+      XCTFail("Received subscription response after cancel")
+    }
+    let sub2 = client.subscribe(subscription: secondSubscription) { _ in
+      XCTFail("Received subscription response after cancel")
+    }
+        
     concurrentQueue.async {
       sub1.cancel()
       expectation.fulfill()
@@ -321,7 +325,10 @@ class StarWarsSubscriptionTests: XCTestCase {
     let empireReviewSubscription = ReviewAddedSubscription(episode: .empire)
     let expectation = self.expectation(description: "Connection closed")
     
-      let sub = self.client.subscribe(subscription: empireReviewSubscription) { _ in }
+    let sub = self.client.subscribe(subscription: empireReviewSubscription) { _ in
+      XCTFail("Received subscription response after cancel")
+    }
+    
     concurrentQueue.async {
       sub.cancel()
     }
