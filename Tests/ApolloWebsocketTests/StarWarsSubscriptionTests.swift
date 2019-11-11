@@ -301,12 +301,14 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     let expectation = self.expectation(description: "Subscriptions cancelled")
     expectation.expectedFulfillmentCount = 2
-        
+    let invertedExpectation = self.expectation(description: "Subscription received callback - expecting timeout")
+    invertedExpectation.isInverted = true
+    
     let sub1 = client.subscribe(subscription: firstSubscription) { _ in
-      XCTFail("Received subscription response after cancel")
+      invertedExpectation.fulfill()
     }
     let sub2 = client.subscribe(subscription: secondSubscription) { _ in
-      XCTFail("Received subscription response after cancel")
+      invertedExpectation.fulfill()
     }
         
     concurrentQueue.async {
@@ -318,15 +320,21 @@ class StarWarsSubscriptionTests: XCTestCase {
       expectation.fulfill()
     }
     
-    waitForExpectations(timeout: 10, handler: nil)
+    wait(for: [expectation], timeout: 10)
+    
+    _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")))
+    
+    wait(for: [invertedExpectation], timeout: 2)
   }
   
   func testConcurrentSubscriptionAndConnectionClose() {
     let empireReviewSubscription = ReviewAddedSubscription(episode: .empire)
     let expectation = self.expectation(description: "Connection closed")
+    let invertedExpectation = self.expectation(description: "Subscription received callback - expecting timeout")
+    invertedExpectation.isInverted = true
     
     let sub = self.client.subscribe(subscription: empireReviewSubscription) { _ in
-      XCTFail("Received subscription response after cancel")
+      invertedExpectation.fulfill()
     }
     
     concurrentQueue.async {
@@ -337,7 +345,11 @@ class StarWarsSubscriptionTests: XCTestCase {
       expectation.fulfill()
     }
     
-    waitForExpectations(timeout: 10, handler: nil)
+    wait(for: [expectation], timeout: 10)
+    
+    _ = self.client.perform(mutation: CreateReviewForEpisodeMutation(episode: .empire, review: ReviewInput(stars: 5, commentary: "The greatest movie ever!")))
+    
+    wait(for: [invertedExpectation], timeout: 2)
   }
   
   func testConcurrentConnectAndCloseConnection() {
