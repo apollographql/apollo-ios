@@ -25,9 +25,9 @@ public class WebSocketTransport {
   public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
   
-  var reconnect = false
+  let reconnect: Atomic<Bool> = Atomic(false)
   var websocket: ApolloWebSocketClient
-  var error: Error? = nil
+  let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestCreator: RequestCreator
 
@@ -40,10 +40,11 @@ public class WebSocketTransport {
   
   private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
+  private let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
   
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
-  fileprivate var sequenceNumber = 0
+  fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
@@ -87,6 +88,7 @@ public class WebSocketTransport {
     self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: WebSocketTransport.headerFieldNameClientVersion)
     self.websocket.delegate = self
     self.websocket.connect()
+    self.websocket.callbackQueue = processingQueue
   }
   
   public func isConnected() -> Bool {
@@ -174,7 +176,7 @@ public class WebSocketTransport {
   }
   
   public func initServer(reconnect: Bool = true) {
-    self.reconnect = reconnect
+    self.reconnect.value = reconnect
     self.acked = false
     
     if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
@@ -184,12 +186,17 @@ public class WebSocketTransport {
   }
   
   public func closeConnection() {
-    self.reconnect = false
-    if let str = OperationMessage(type: .connectionTerminate).rawMessage {
-      write(str)
+    self.reconnect.value = false
+    
+    let str = OperationMessage(type: .connectionTerminate).rawMessage
+    processingQueue.async {
+      if let str = str {
+        self.write(str)
+      }
+      
+      self.queue.removeAll()
+      self.subscriptions.removeAll()
     }
-    self.queue.removeAll()
-    self.subscriptions.removeAll()
   }
   
   private func write(_ str: String, force forced: Bool = false, id: Int? = nil) {
@@ -213,35 +220,36 @@ public class WebSocketTransport {
     websocket.delegate = nil
   }
   
-  private func nextSequenceNumber() -> Int {
-    sequenceNumber += 1
-    return sequenceNumber
-  }
-  
   func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
     let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
-    let sequenceNumber = "\(nextSequenceNumber())"
+    let sequenceNumber = "\(sequenceNumberCounter.increment())"
     
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
       return nil
     }
-
-    write(message)
+    
+    processingQueue.async {
+      self.write(message)
       
-    subscribers[sequenceNumber] = resultHandler
-    if operation.operationType == .subscription {
-      subscriptions[sequenceNumber] = message
+      self.subscribers[sequenceNumber] = resultHandler
+      if operation.operationType == .subscription {
+        self.subscriptions[sequenceNumber] = message
+      }
     }
 
     return sequenceNumber
   }
   
   public func unsubscribe(_ subscriptionId: String) {
-    if let str = OperationMessage(id: subscriptionId, type: .stop).rawMessage {
-      write(str)
+    let str = OperationMessage(id: subscriptionId, type: .stop).rawMessage
+    
+    processingQueue.async {
+      if let str = str {
+        self.write(str)
+      }
+      self.subscribers.removeValue(forKey: subscriptionId)
+      self.subscriptions.removeValue(forKey: subscriptionId)
     }
-    subscribers.removeValue(forKey: subscriptionId)
-    subscriptions.removeValue(forKey: subscriptionId)
   }
 }
 
@@ -249,7 +257,7 @@ public class WebSocketTransport {
 
 extension WebSocketTransport: NetworkTransport {
   public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>,Error>) -> Void) -> Cancellable {
-    if let error = self.error {
+    if let error = self.error.value {
       completionHandler(.failure(error))
       return EmptyCancellable()
     }
@@ -271,7 +279,7 @@ extension WebSocketTransport: NetworkTransport {
 extension WebSocketTransport: WebSocketDelegate {
   
   public func websocketDidConnect(socket: WebSocketClient) {
-    self.error = nil
+    self.error.value = nil
     initServer()
     if reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
@@ -290,16 +298,16 @@ extension WebSocketTransport: WebSocketDelegate {
   public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
     // report any error to all subscribers
     if let error = error {
-      self.error = WebSocketError(payload: nil, error: error, kind: .networkError)
+      self.error.value = WebSocketError(payload: nil, error: error, kind: .networkError)
       self.notifyErrorAllHandlers(error)
     } else {
-      self.error = nil
+      self.error.value = nil
     }
     
-    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error)
+    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error.value)
     acked = false // need new connect and ack before sending
     
-    if reconnect {
+    if reconnect.value {
       DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) {
         self.websocket.connect()
       }

@@ -2,6 +2,9 @@ import Starscream
 @testable import ApolloWebSocket
 
 class MockWebSocket: ApolloWebSocketClient {
+  
+  var callbackQueue: DispatchQueue = DispatchQueue.main
+  
   var pongDelegate: WebSocketPongDelegate?
   var request: URLRequest
   
@@ -15,8 +18,16 @@ class MockWebSocket: ApolloWebSocketClient {
     self.request = URLRequest(url: URL(string: "http://localhost:8080")!)
   }
   
+  open func reportDidConnect() {
+    callbackQueue.async {
+      self.delegate?.websocketDidConnect(socket: self)
+    }
+  }
+  
   open func write(string: String, completion: (() -> ())?) {
-    delegate?.websocketDidReceiveMessage(socket: self, text: string)
+    callbackQueue.async {
+      self.delegate?.websocketDidReceiveMessage(socket: self, text: string)
+    }
   }
   
   open func write(data: Data, completion: (() -> ())?) {
