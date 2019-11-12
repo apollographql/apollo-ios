@@ -16,13 +16,12 @@ Follow along with these steps (described in detail below) to use Apollo iOS in y
 
 ## Installing the Apollo framework
 
-You can install `Apollo.framework` into your project using [Swift Package Manager](#swift-package-manager-installation), [CocoaPods](#cocoapods-installation), [Carthage](#carthage-installation), or by [manually integrating it with Xcode](#manual-integration).
+You can install `Apollo.framework` into your project using Swift Package Manager, CocoaPods, Carthage, or by [manually integrating it with Xcode](#manual-integration).
 
 <SPMInstallationPanel />
 
-### Swift Package Manager Installation
+<PodsInstallationPanel />
 
-  w 
 ### Carthage Installation
 
 Since Carthage [does not allow choosing which schemes in a repo to build](https://github.com/Carthage/Carthage/issues/1874), we've moved our dependencies to a [`Cartfile.private`](https://github.com/apollographql/apollo-ios/blob/master/Cartfile.private) file so that those dependencies are not forced on people using only the `Apollo` framework and not either of our optional frameworks, `ApolloSQLite` or `ApolloWebSocket`. 
