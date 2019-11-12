@@ -1,0 +1,65 @@
+import {
+  ExpansionPanel,
+  ExpansionPanelList,
+  ExpansionPanelListItem
+} from 'gatsby-theme-apollo-docs';
+
+<ExpansionPanel title="Carthage Installation">
+
+Since Carthage [does not allow choosing which schemes in a repo to build](https://github.com/Carthage/Carthage/issues/1874), we've moved our dependencies to a [`Cartfile.private`](https://github.com/apollographql/apollo-ios/blob/master/Cartfile.private) file so that those dependencies are not forced on people using only the `Apollo` framework and not either of our optional frameworks, `ApolloSQLite` or `ApolloWebSocket`. 
+
+This makes setup a hair more complicated if you *are* using those, but is a big help in preventing dependency conflicts if you're not. 
+
+<ExpansionPanelList>
+<ExpansionPanelListItem number="1">
+
+<h4>Set up your `Cartfile`</h4>
+
+Add `github "apollographql/apollo-ios"` to your Cartfile. 
+  - If you also plan on using the `ApolloSQLite` framework, you should also add `github "stephencelis/SQLite.swift"`. You may want to lock it to the version specified in `Cartfile.private` to prevent dependency conflicts. 
+  - If you also plan on using the `ApolloWebSocket` framework, you should also add `github "daltoniam/Starscream"`. You may want to lock it to the version specified in `Cartfile.private` to prevent dependency conflicts.
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="2">
+
+<h4>Checkout and build dependencies</h4>
+
+Run `carthage update --platform ios` (or `--platform ios,macos` to build both Mac and iOS). **NOTE:** There's an issue with Carthage that has been causing [some frustration](https://github.com/apollographql/apollo-ios/issues/386) for folks trying to build for watch and tvOS - don't build those targets if you don't need to. 
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="3"> 
+
+<h4>Add built frameworks to your project</h4>
+
+Drag and drop `Apollo.framework` from the appropriate `Carthage/Build/iOS` or `Carthage/Build/Mac` folder to the **Embedded Binaries** section of your application target's **General** settings tab. This should also cause them to appear in the **Linked Frameworks And Libraries** section automatically.
+  - If you also plan on using the `ApolloSQLite` library, also drag `ApolloSQLite.framework` and `SQLite.framework` to this area as well.
+  - If you also plan on using the `ApolloWebSocket` library, also drag `ApolloWebSocket.framework` and `Starscream.framework` to this area as well.
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="4">
+
+<h4>Work around Carthage submission bug</h4>
+
+On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. Create a Run Script in which you specify your shell (ex: `bin/sh`), add the following contents to the script area below the shell:
+
+ ```sh
+ /usr/local/bin/carthage copy-frameworks
+ ```
+
+and add the paths to the frameworks you want to use under **Input Files**, e.g.:
+
+ ```
+ $(SRCROOT)/Carthage/Build/iOS/Apollo.framework
+ ```
+ 
+Again, if you're adding `ApolloSQLite` or `ApolloWebSocket`, please make sure to add the other frameworks you added as Input Files. 
+ 
+This script works around an [App Store submission bug](http://www.openradar.me/radar?id=6409498411401216) triggered by universal binaries and ensures that necessary bitcode-related files and dSYMs are copied when archiving.
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="check">
+  You're done!
+</ExpansionPanelListItem>
+</ExpansionPanelList>
+
+</ExpansionPanel>
