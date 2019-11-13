@@ -25,10 +25,9 @@ module.exports = {
             'api-reference'
           ],
           Tutorial: [
-            'tutorial/tutorial-introduction',
-            'tutorial/tutorial-create-project',
-            'tutorial/tutorial-obtain-schema',
-            'tutorial/tutorial-execute-query'
+            'tutorial/tutorial_0',
+            'tutorial/tutorial_1',
+            'tutorial/tutorial_2'
           ],
           Usage:[
             'downloading-schema',
