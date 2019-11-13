@@ -224,6 +224,9 @@ Open the flippy triangles in the left sidebar of interface builder until you get
 
 ![](images/use_subtitle_style.png)
 
+Also, while you're here, this is a good time to give the main TableView a name that better reflects what it's actually showing. Select the navigation item and rename it from `Master` to `Launches`:
+
+![](images/rename_master_launches.png)
 
 ```graphql
 query LaunchList {
@@ -288,6 +291,91 @@ case .launches:
 ```
 
 ## Getting more details for the detail page
+
+```graphql
+query LaunchDetails($id:ID!) {
+  launch(id: $id) {
+    id
+    site
+    rocket {
+      name
+    }
+    mission {
+      name
+      missionPatch(size:LARGE)
+    }
+    isBooked
+  }
+}
+```
+
+Delete the `de
+
+Add the following outlets:
+
+```swift
+@IBOutlet private var missionPatchImageView: UIImageView!
+@IBOutlet private var missionNameLabel: UILabel!
+@IBOutlet private var rocketNameLabel: UILabel!
+@IBOutlet private var launchSiteLabel: UILabel!
+@IBOutlet private var bookCancelButton: UIBarButtonItem!
+```
+
+The next section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use those five elements in an alternate setup if you'd prefer and skip the next section. 
+
+### Setting up the Detail UI
+
+In the end, your detail view controller should look like this in the storyboard: 
+
+![The storyboard's final look](images/storyboard_final.png)
+
+
+Delete the existing contents of `configureView()`. In their place, start by adding a check that we have something to display, and a place to display it:
+
+```
+guard
+  self.missionNameLabel != nil,
+  let launch = self.launch else {
+    return
+}
+```   
+    
+Next, actually display all the informaton from 
+   
+```swift 
+self.missionNameLabel.text = launch.mission?.name
+self.title = launch.mission?.name
+
+let placeholder = UIImage(named: "placeholder")!
+    
+if let missionPatch = launch.mission?.missionPatch {
+  self.missionPatchImageView.sd_setImage(with: URL(string: missionPatch)!, placeholderImage: placeholder)
+} else {
+  self.missionPatchImageView.image = placeholder
+}
+
+if let site = launch.site {
+  self.launchSiteLabel.text = "Launching from \(site)"
+} else {
+  self.launchSiteLabel.text = nil
+}
+    
+if let rocketName = launch.rocket?.name {
+  self.rocketNameLabel.text = "🚀 \(rocketName)"
+} else {
+  self.rocketNameLabel.text = nil
+}
+    
+if launch.isBooked {
+  self.bookButton.title = "Cancel trip"
+  self.bookButton.tintColor = .red
+} else {
+  self.bookButton.title = "Book now!"
+  self.bookButton.tintColor = self.view.tintColor
+}
+```
+
+
 
 ## Loading more launches
 
