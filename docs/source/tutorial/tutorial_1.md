@@ -217,7 +217,7 @@ To use the generated operations that get put into `API.swift`, you need to use a
 
 Note that you need something to hang on to your instance of `ApolloClient`, or calls will self-terminate before completing. The easiest way to do this is to use a singleton, or a single static instance of a class you can access from anywhere in your codebase.
 
-Start by creating a new Swift file called `Network`, and copying the code in the [basic client creation section of our guide on creating a client](https://www.apollographql.com/docs/ios/initialization/#basic-client-creation). Update the URL string to be `https://n1kqy.sse.codesandbox.io/` instead of the `localhost` url shown in the example.
+Start by creating a new Swift file called **Network.swift**, and copying the code in the [basic client creation section of our guide on creating a client](https://www.apollographql.com/docs/ios/initialization/#basic-client-creation). Make sure to add `import Apollo` at the top of the file. Update the URL string to be `https://n1kqy.sse.codesandbox.io/` instead of the `localhost` url shown in the example.
 
 To make sure the Apollo client is communicating correctly with the server, add a call using your `LaunchListQuery` to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method so that it runs when the application is started. 
 
