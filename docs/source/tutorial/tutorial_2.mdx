@@ -91,7 +91,8 @@ First, add a really basic method to handle showing errors at the end of your fil
 private func showErrorAlert(title: String, message: String) {
   let alert = UIAlertController(title: title,
                                 message: message,
-                                preferredStyle: .alert)
+                                preferredStyle: .alert) 
+  alert.addAction(UIAlertAction(title: "OK", style: .default))
   self.present(alert, animated: true)
 }
 ```
