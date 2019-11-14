@@ -158,11 +158,13 @@ override func viewDidLoad() {
 }
 ```
 
-Build and run the application, and after a brief stint where the view is empty, you'll see a list of 
+Build and run the application, and after a brief stint where the view is empty, you'll see a list of launch sites: 
 
-// TODO: Initial Screenshot
+![screenshot - list of launch sites](images/list_sites_success.png)
 
-However, if you attempt to tap one of the rows, the app display the detail with the the placeholder text you can see in the storyboard rather than any actual information about the launch. 
+However, if you attempt to tap one of the rows, the app display the detail with the the placeholder text you can see in the storyboard rather than any actual information about the launch:
+
+![screenshot - empty screen with label "Detail view content goes here"](images/stock_detail_view.png) 
 
 To send that information through, you'll need to build out the `MasterViewController`'s `prepareForSegue` method, and have a way for that method to pass `DetailViewController` information about the launch.
 
