@@ -98,7 +98,9 @@ However, first you need to download a schema in order to generate that code. Com
 "${SCRIPT_PATH}"/run-bundled-codegen.sh schema:download --endpoint="https://n1kqy.sse.codesandbox.io/"
 ```
 
-This calls the `schema:download` function of our Apollo CLI, and automatically downloads the schema to the same level of your project as your `.xcodeproj` as a file called **schema.json**. Drag this file from finder into Xcode:
+This calls the `schema:download` function of our Apollo CLI when you build your project, and automatically downloads the schema to the same level of your project as your `AppDelegate.swift` as a file called **schema.json**.
+
+Build the project to actually execute the script, and if you navigate to the file that contains your `AppDelegate.swift` in Finder, you should now see the file downloaded. Drag this file from Finder into Xcode:
 
 ![where to drag the schema file](images/drag_schema_into_xcode.png)
 
