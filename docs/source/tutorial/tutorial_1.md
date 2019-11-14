@@ -185,7 +185,7 @@ Neato! So how do you use this in your iOS application? First, head back to Xcode
 
 ![](images/empty_file_template.png)
 
-Select this template and hit **Next**. Name the file `LaunchList.graphql`, and make sure it's saved at the same level as your `schema.json` file, and that it is also not added to your target. 
+Select this template and hit **Next**. Name the file **LaunchList.graphql**, and make sure it's saved at the same level as your `schema.json` file, and that it is also not added to your target. 
 
 This is for the same reason as the schema: It's used to create the code that allows you to have type-safe Swift code, but it isn't necessary to include in the bundle since the swift code will take care of that for you. 
 
@@ -197,7 +197,7 @@ Go back to your Run Script Build Phase. At the bottom, comment out the line with
 
 What you will need to do frequently is regenerate code based on queries as you've written them, so that when you add, change, or remove a query, the accompanying code is automatically updated. 
 
-To do this, uncomment the line you commented out earlier containing `codegen:generate`. Now, build your project. It'll churn for a moment, and when it's done, you'll see a nice new `API.swift` file output in your project's directory at the same level as the `schema.json`. 
+To do this, uncomment the line you commented out earlier containing `codegen:generate`. Now, build your project. It'll churn for a moment, and when it's done, you'll see a nice new **API.swift** file output in your project's directory at the same level as the `schema.json`. 
 
 Drag this file into Xcode. This time, you **do** need to check the "Add to target" box for the `RocketReserver` app - this is the puzzle piece which will actually get included in your application's bundle and which will allow you to take advantage of all the work you just did. 
 
