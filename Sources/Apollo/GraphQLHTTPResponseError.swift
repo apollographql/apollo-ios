@@ -42,7 +42,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
     guard
       let data = self.body,
       let json = try? self.serializationFormat.deserialize(data: data) as? JSONObject,
-      let errorArray = json["errors"] as? [JSONObject] else {
+      let errorArray = json?["errors"] as? [JSONObject] else {
         return nil
     }
     
