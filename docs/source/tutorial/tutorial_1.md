@@ -1,56 +1,52 @@
 ---
-title: Getting Started
+title: "Step 1: Setup"
 ---
 
-In this part of the tutorial, you'll get set up in a new project with the Apollo iOS SDK, and generate your first code. 
+In this step, you'll add the Apollo iOS SDK to a new project and generate your first code.
 
-## Starting a new project in Xcode
+## Create a new project
 
-Open up Xcode. If you see the **Welcome to Xcode** screen, select **Create a new Xcode project**:
+1. Open Xcode and go to **File > New > Project**. The template chooser appears.
 
-![Xcode welcome screen](images/xcode_welcome.png)
+2. Under the set of iOS templates, choose **Master-Detail App**:
 
-If you don't see that screen, go to **File > New > Project...** in the menus: 
+    ![select single view app template](images/master_detail_app.png)
 
-![creating a new project ](images/file_new_project.png)
+4. Click **Next**. An options dialog for your app appears.
 
-Either of those will bring you to the template chooser for a new project. Select **iOS** at the top and **Master-Detail App**:
+5. Name the project **RocketReserver**. Make sure the language is **Swift** and the User Interface is **Storyboard**:
 
-![select single view app template](images/master_detail_app.png)
+    ![options for creating a new project](images/options_for_project.png)
 
-Then hit **Next**. You'll be brought to the options page for your new project. Name the project **RocketReserver**, make sure the language is **Swift**, and the User Interface is **Storyboards** (sorry, SwiftUI fans!):
+6. Click **Next**. Select a location to save your new project and click **Finish**.
 
-![options for creating a new project](images/options_for_project.png)
+Xcode creates and opens your new project, which has the following structure:
 
-It's probably also a good idea in the long term to make sure the unit and UI test checkboxes are checked, but they're not required for this tutorial. Hit **Next**. You'll then be prompted to select where to save your new project. Pick a place on your computer that's easy to find, such as your Desktop, and hit **Finish**.
+<img alt="Initial project structure" src="images/initial_file_setup.png" width="300">
 
-Xcode will open your new project for you, and you'll see an extremely basic new project:
+## Add the Apollo iOS SDK to your project
 
-![initial setup of the project navigator](images/initial_file_setup.png)
+1. Go to **File > Swift Packages > Add Package Dependency**. A dialog to specify a package repository appears.
 
-Next, you'll add a dependency on the `apollo-ios` repo and Apollo libraries using Swift Package Manager, aka SPM. In the menu, go to **File > Swift Packages> Add Package Dependency...**:
-
-![adding a package dependency](images/add_package.png)
-
-This will open a dialog allowing you to select what dependency you wish to add. Add the git URL for the iOS repo, [`https://github.com/apollographql/apollo-ios.git`](https://github.com/apollographql/apollo-ios.git)
+2. Specify `https://github.com/apollographql/apollo-ios.git` (don't forget the `.git`!) as the package repository:
 
 ![choose a repo to add a dependency](images/choose_repo.png)
 
-Remember the `.git` part, otherwise there could be some weirdness in setting things up later! Hit the **Next** button, and Xcode will check out the repository in git and analyze the library for you. When it's done, it'll show you a panel asking if you want to use up to the next major version of the library. 
+3. Click **Next**. Xcode checks out the repository and analyzes the library. A package options dialog appears.
 
-While in most cases, this works well, since Apollo is still at v0.x.x, breaking changes can occur in minor versions. Update the dropdown to use the **Next minor** version of the library:
+4. Select **Up to Next Minor** from the Version dropdown (because the Apollo iOS SDK is still a `0.x` release, breaking changes _can_ occur between minor versions):
 
-![select next minor in drop-down](images/next_minor.png)
+    ![select next minor in drop-down](images/next_minor.png)
 
-Then hit next. You'll then get a list of the packages which are included with this library. For this tutorial, select the main **Apollo** target and the **ApolloWebSocket** target:
+5. Click **Next**. A list of packages included in the library appears. For this tutorial, select the main **Apollo** target and the **ApolloWebSocket** target:
 
-![select the first and third targets](images/select_libs.png)
+    ![select the first and third targets](images/select_libs.png)
 
-Then hit **Finish**. SPM will go out and fetch your dependencies, and when it completes you'll be able to see them in a separate section of the project navigator: 
+6. Click **Finish**. Swift Package Manager (SPM) fetches your dependencies. When it completes, you can see them in the project navigator:
 
-![screenshot of installed dependencies](images/installed_dependencies.png)
+    ![screenshot of installed dependencies](images/installed_dependencies.png)
 
-> **Note:** Due to Swift Package Manager not having implemented [Target-Based Dependency Resolution](https://github.com/apple/swift-evolution/blob/master/proposals/0226-package-manager-target-based-dep-resolution.md) yet, you'll still see the `SQLite` dependency even though you didn't check the box for `ApolloSQLite`. 
+> **Note:** Because Swift Package Manager has not yet implemented [Target-Based Dependency Resolution](https://github.com/apple/swift-evolution/blob/master/proposals/0226-package-manager-target-based-dep-resolution.md), you'll see the `SQLite` dependency even though you didn't select it.
 
 Now you've got your project set up, and the Apollo dependencies added. It's time to start pulling together the things you need to build your API!
 

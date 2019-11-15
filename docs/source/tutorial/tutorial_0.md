@@ -1,31 +1,31 @@
 ---
-title: Introduction
+title: "Step 0: Introduction"
 ---
 
-Welcome to the iOS tutorial for working with Apollo! This tutorial was prepared with the following tools: 
+Welcome! This tutorial demonstrates adding the Apollo iOS SDK to an app to communicate with a GraphQL server. It was prepared with the following tools:
 
 - Xcode 11.2
 - Swift 5.1
-- Apollo 0.20.0
+- Apollo iOS SDK 0.20.0
 
-This tutorial assumes you already have Xcode installed, and that you are working on a Mac (since as of this writing, that's the only place to run Xcode). 
+The tutorial assumes that you're using a Mac with Xcode installed. It also assumes some prior experience with iOS development.
 
-This tutorial also assumes at least some prior iOS development knowledge. If there's anything that's unclear or not working, please feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues) or [stopping by our Spectrum Chat for help](https://spectrum.chat/apollo/apollo-ios).
+> If you encounter any issues during the tutorial, feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues) or [stopping by our Spectrum Chat for help](https://spectrum.chat/apollo/apollo-ios).
 
 ## What are you building?
 
-This tutorial will take you through the steps to add an iOS client from scratch to the result of [Apollo's full stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You don't actually have to complete that tutorial to do this one, though - a pre-built version of it will be provided. 
+This tutorial takes you through building an app to "book a seat" on any of the rockets that have been sent into space by [SpaceX](https://www.spacex.com/). Along the way, you'll build out functionality that uses the following features of the Apollo iOS SDK:
 
-The project allows you to "book a seat" on any of the rockets which have been sent into space by [SpaceX](https://www.spacex.com/), and you'll work through different scenarios and build different types of screens to take advantage of the following Apollo tools:
+* Schema downloading
+* Code generation
+* Queries and mutations
+* Error handling
+* Query watching
+* Subscriptions
+* File uploads
 
-- Schema Downloading
-- Code Generation
-- Error Handling
-- Queries and Mutations
-- Query watching
-- Subscriptions
-- Uploading
+A pre-built GraphQL server is provided for your app to execute operations against.
 
-## Ready to get started? 
+## Ready to start?
 
 [🚀 Let's go! 🚀](tutorial_1)
