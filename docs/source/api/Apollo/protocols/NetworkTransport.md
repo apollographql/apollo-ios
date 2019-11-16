@@ -3,10 +3,27 @@
 # `NetworkTransport`
 
 ```swift
-public protocol NetworkTransport
+public protocol NetworkTransport: class
 ```
 
 > A network transport is responsible for sending GraphQL operations to a server.
+
+## Properties
+### `clientName`
+
+```swift
+var clientName: String
+```
+
+> The name of the client to send as the `"apollographql-client-name"` header.
+
+### `clientVersion`
+
+```swift
+var clientVersion: String
+```
+
+> The version of the client to send as the `"apollographql-client-version"` header
 
 ## Methods
 ### `send(operation:completionHandler:)`

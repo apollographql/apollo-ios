@@ -12,6 +12,7 @@
 -   [GraphQLSelectionSet](protocols/GraphQLSelectionSet/)
 -   [GraphQLSubscription](protocols/GraphQLSubscription/)
 -   [HTTPNetworkTransportDelegate](protocols/HTTPNetworkTransportDelegate/)
+-   [HTTPNetworkTransportGraphQLErrorDelegate](protocols/HTTPNetworkTransportGraphQLErrorDelegate/)
 -   [HTTPNetworkTransportPreflightDelegate](protocols/HTTPNetworkTransportPreflightDelegate/)
 -   [HTTPNetworkTransportRetryDelegate](protocols/HTTPNetworkTransportRetryDelegate/)
 -   [HTTPNetworkTransportTaskCompletedDelegate](protocols/HTTPNetworkTransportTaskCompletedDelegate/)
@@ -46,6 +47,7 @@
 
 -   [ApolloClient](classes/ApolloClient/)
 -   [ApolloStore](classes/ApolloStore/)
+-   [Atomic](classes/Atomic/)
 -   [EmptyCancellable](classes/EmptyCancellable/)
 -   [GraphQLQueryWatcher](classes/GraphQLQueryWatcher/)
 -   [GraphQLResponse](classes/GraphQLResponse/)
@@ -71,6 +73,7 @@
 
 -   [ApolloClient](extensions/ApolloClient/)
 -   [Array](extensions/Array/)
+-   [Atomic](extensions/Atomic/)
 -   [Bool](extensions/Bool/)
 -   [Dictionary](extensions/Dictionary/)
 -   [DispatchQueue](extensions/DispatchQueue/)
@@ -101,7 +104,6 @@
 
 -   [unzip(_:)](methods/unzip(_:)/)
 -   [unzip(_:)](methods/unzip(_:)/)
--   [unzip(_:count:)](methods/unzip(_:count:)/)
 
 # Reference Documentation
 This reference documentation was generated with

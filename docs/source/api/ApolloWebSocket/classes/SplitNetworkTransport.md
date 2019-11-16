@@ -8,6 +8,19 @@ public class SplitNetworkTransport
 
 > A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP.
 
+## Properties
+### `clientName`
+
+```swift
+public var clientName: String
+```
+
+### `clientVersion`
+
+```swift
+public var clientVersion: String
+```
+
 ## Methods
 ### `init(httpNetworkTransport:webSocketNetworkTransport:)`
 

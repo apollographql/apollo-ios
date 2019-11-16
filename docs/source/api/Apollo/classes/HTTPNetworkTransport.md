@@ -8,6 +8,19 @@ public class HTTPNetworkTransport
 
 > A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 
+## Properties
+### `clientName`
+
+```swift
+public lazy var clientName = HTTPNetworkTransport.defaultClientName
+```
+
+### `clientVersion`
+
+```swift
+public lazy var clientVersion = HTTPNetworkTransport.defaultClientVersion
+```
+
 ## Methods
 ### `init(url:session:sendOperationIdentifiers:useGETForQueries:enableAutoPersistedQueries:useGETForPersistedQueryRetry:delegate:requestCreator:)`
 
