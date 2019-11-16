@@ -6,7 +6,7 @@ Welcome to the iOS tutorial for working with Apollo! This tutorial was prepared 
 
 - Xcode 11.2
 - Swift 5.1
-- Apollo 0.19.0
+- Apollo 0.20.0
 
 This tutorial assumes you already have Xcode installed, and that you are working on a Mac (since as of this writing, that's the only place to run Xcode). 
 
