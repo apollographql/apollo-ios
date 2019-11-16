@@ -1,14 +1,19 @@
 import Foundation
 
-class Atomic<T> {
+/// Wrapper for a value protected by an NSLock
+public class Atomic<T> {
   private let lock = NSLock()
   private var _value: T
   
-  init(_ value: T) {
+  /// Designated initializer
+  ///
+  /// - Parameter value: The value to begin with.
+  public init(_ value: T) {
     _value = value
   }
   
-  var value: T {
+  /// The current value.
+  public var value: T {
     get {
       lock.lock()
       defer { lock.unlock() }
@@ -24,8 +29,9 @@ class Atomic<T> {
   }
 }
 
-extension Atomic where T == Int {
+public extension Atomic where T == Int {
   
+  /// Increments in a lock-compatible fashion
   func increment() -> T {
     lock.lock()
     defer { lock.unlock() }
