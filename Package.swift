@@ -29,7 +29,7 @@ let package = Package(
 			dependencies: ["Apollo", "SQLite"]),
 		.target(
 			name: "ApolloWebSocket",
-			dependencies: ["Starscream"]),
+			dependencies: ["Apollo", "Starscream"]),
         .testTarget(
             name: "ApolloTestSupport",
             dependencies: ["Apollo"]),
