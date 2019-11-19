@@ -18,8 +18,7 @@ struct GraphQLGETTransformer {
   /// - Parameters:
   ///   - body: The GraphQLMap to transform from the body of a `POST` request
   ///   - url: The base url to append the query to.
-  init(body: GraphQLMap,
-       url: URL) {
+  init(body: GraphQLMap, url: URL) {
     self.body = body
     self.url = url
   }
