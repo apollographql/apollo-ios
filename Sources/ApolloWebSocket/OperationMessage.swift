@@ -31,7 +31,9 @@ final class OperationMessage {
     }
   }
   
-  init(payload: GraphQLMap? = nil, id: String? = nil, type: Types = .start) {
+  init(payload: GraphQLMap? = nil,
+       id: String? = nil,
+       type: Types = .start) {
     if let payload = payload {
       message += ["payload": payload]
     }

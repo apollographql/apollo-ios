@@ -137,7 +137,9 @@ public class WebSocketTransport {
             subscribers.removeValue(forKey: id)
           }
         } else {
-          notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
+          notifyErrorAllHandlers(WebSocketError(payload: payload,
+                                                error: error,
+                                                kind: .unprocessedMessage(text)))
         }
 
       case .connectionAck:
@@ -147,8 +149,14 @@ public class WebSocketTransport {
       case .connectionKeepAlive:
         writeQueue()
 
-      case .connectionInit, .connectionTerminate, .start, .stop, .connectionError:
-        notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
+      case .connectionInit,
+           .connectionTerminate,
+           .start,
+           .stop,
+           .connectionError:
+        notifyErrorAllHandlers(WebSocketError(payload: payload,
+                                              error: error,
+                                              kind: .unprocessedMessage(text)))
       }
     }
   }
@@ -199,7 +207,9 @@ public class WebSocketTransport {
     }
   }
   
-  private func write(_ str: String, force forced: Bool = false, id: Int? = nil) {
+  private func write(_ str: String,
+                     force forced: Bool = false,
+                     id: Int? = nil) {
     if websocket.isConnected && (acked || forced) {
       websocket.write(string: str)
     } else {
