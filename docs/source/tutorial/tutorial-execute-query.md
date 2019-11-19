@@ -1,5 +1,5 @@
 ---
-title: "Step 3: Execute your first query"
+title: "3. Execute your first query"
 ---
 
 ## Constructing a query in GraphiQL

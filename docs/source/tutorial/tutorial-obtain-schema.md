@@ -1,10 +1,10 @@
 ---
-title: "Step 2: Obtain your GraphQL schema"
+title: "2. Obtain your GraphQL schema"
 ---
 
 ## Explore your server's schema
 
-This tutorial uses the same GraphQL server that's provided as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [`https://n1kqy.sse.codesandbox.io/`](https://n1kqy.sse.codesandbox.io/) to start it up and open the GraphiQL tool to explore its schema: 
+This tutorial uses the same GraphQL server that you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [`https://n1kqy.sse.codesandbox.io/`](https://n1kqy.sse.codesandbox.io/) to start it up and open the GraphiQL tool to explore its schema:
 
 ![the GraphiQL query explorer](images/graphiql.png)
 

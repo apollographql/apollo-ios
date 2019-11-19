@@ -1,5 +1,5 @@
 ---
-title: "Step 0: Introduction"
+title: "0. Introduction"
 ---
 
 Welcome! This tutorial demonstrates adding the Apollo iOS SDK to an app to communicate with a GraphQL server. It was prepared with the following tools:

@@ -1,5 +1,5 @@
 ---
-title: "Step 1: Create your project"
+title: "1. Create your project"
 ---
 
 In this step, you'll add the Apollo iOS SDK to a new project. 
