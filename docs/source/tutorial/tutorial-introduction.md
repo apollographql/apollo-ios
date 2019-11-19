@@ -28,4 +28,4 @@ A pre-built GraphQL server is provided for your app to execute operations agains
 
 ## Ready to start?
 
-[🚀 Let's go! 🚀](tutorial_1)
+[🚀 Let's go! 🚀](./tutorial-create-project)

@@ -4,7 +4,7 @@ title: "Step 3: Execute your first query"
 
 ## Constructing a query in GraphiQL
 
-The most common GraphQL operation is the **query**, which requests information from your graph in a structure that conforms to the schema. If you return to [the GraphiQL query explorer](https://n1kqy.sse.codesandbox.io/) for your server, you can see available queries in the Schema tab you opened earlier. 
+The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the GraphiQL query explorer](https://n1kqy.sse.codesandbox.io/) for your server, you can see available queries in the Schema tab you opened earlier. 
 
 Click on the `launches` query at the top for details about it:
 
@@ -66,13 +66,13 @@ Run the query again, and you'll now see that in addition to the information you 
 
 ## Adding your query to Xcode
 
-Now that your query is ready, head back to Xcode.
+Now that your query is fetching the right data, head back to Xcode.
 
 1. Go to **File > New > File...** and select the **Empty** file template:
 
 ![](images/empty_file_template.png)
 
-2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As before, don't add it to any target.
+2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As previously, don't add it to any target.
 
 3. Copy your final query from GraphiQL and paste it into `schema.json`. 
 
@@ -82,46 +82,42 @@ You're now ready to generate code from the combination of your saved query and s
 
 1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `apollo:schema`) and _uncomment_ the line you previously commented out (that includes `codegen:generate`).
 
-What you will need to do frequently is regenerate code based on queries as you've written them, so that when you add, change, or remove a query, the accompanying code is automatically updated. 
+2. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.json`. 
 
-To do this, uncomment the line you commented out earlier containing `codegen:generate`. Now, build your project. It'll churn for a moment, and when it's done, you'll see a nice new **API.swift** file output in your project's directory at the same level as the `schema.json`. 
+3. Drag the `API.swift` file into Xcode. This time, **do** check the **Add to target** box for the `RocketReserver` app. You include this file in your application's bundle to enable you to execute the query you defined. 
 
-Drag this file into Xcode. This time, you **do** need to check the "Add to target" box for the `RocketReserver` app - this is the puzzle piece which will actually get included in your application's bundle and which will allow you to take advantage of all the work you just did. 
+### The `API.swift` file
 
->**Note**: If you've got a super-giant API file and want it split into smaller files, there's [a way to do that with advanced code generation](https://www.apollographql.com/docs/ios/installation/#generate-multiple-files-in-a-folder-instead-of-one-giant-file). For the purposes of this tutorial though, it's not going to get *that* big. 
+Open the `API.swift` file. It defines a root class, `LaunchListQuery`, with many nested structs below it. If you compare the structs to the JSON data returned in GraphiQL, you see that the structure matches. These structs include properties only for the fields that your query requests. 
 
-Take a look inside the `API.swift` file. You'll see that it has a root class, `LaunchListQuery`, and it's got a bunch of nested structs below it. Compare the structs to the JSON data returned in GraphiQL: It's the same structure! And these structs are set up to only have properties for fields you've requested. 
+Try commenting out the `id` property in `LaunchList.graphql`, saving, then building again. When the build completes, the innermost `Launch` now only includes the built-in `__typename` and the requested `site` property. 
 
-For instance, try commenting out the `id` property in `LaunchList.graphql`, saving, then building again. You'll see when the build completes that the innermost `Launch` now only has the built in `__typename` and the requested `site` properties. 
-
-Comment `id` back in, rebuild, and the property for `id` comes back when the build finishes. This helps prevent you from accidentally trying to access a property which isn't included in the result for your particular query. 
+Uncomment `id` and rebuild to restore the property.
 
 Now that you've generated code and had a chance to see what's in there, it's time to get everything working end to end!
 
 ## Running a test query
 
-To use the generated operations that get put into `API.swift`, you need to use an instance of `ApolloClient`. This is the thing which will take that generated code and use it to make raw network calls. 
+To use the generated operations in `API.swift`, you first create an instance of `ApolloClient`. This instance takes your generated code and uses it to make network calls to your server. It's recommended that this instance is a singleton or static instance that's accessible from anywhere in your codebase.
 
-Note that you need something to hang on to your instance of `ApolloClient`, or calls will self-terminate before completing. The easiest way to do this is to use a singleton, or a single static instance of a class you can access from anywhere in your codebase.
+1. Create a new Swift file called `Network.swift` and copy the code from [Basic client creation](/initialization/#basic-client-creation) into it. Make sure to add `import Apollo` to the top of the file.
 
-Start by creating a new Swift file called **Network.swift**, and copying the code in the [basic client creation section of our guide on creating a client](https://www.apollographql.com/docs/ios/initialization/#basic-client-creation). Make sure to add `import Apollo` at the top of the file. Update the URL string to be `https://n1kqy.sse.codesandbox.io/` instead of the `localhost` url shown in the example.
+2. Update the URL string to be `https://n1kqy.sse.codesandbox.io/` instead of the `localhost` URL in the example.
 
-To make sure the Apollo client is communicating correctly with the server, add a call using your `LaunchListQuery` to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method so that it runs when the application is started. 
+3. To make sure your `ApolloClient` instance is communicating correctly with the server, add the following code to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method, above `return true`:
 
-Just above the `return true`, in that method, add the following code: 
-
-```swift
-Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
-  switch result {
-  case .success(let graphQLResult):
-    print("Success! Result: \(graphQLResult)")
-  case .failure(let error):
-    print("Failure! Error: \(error)")
-  }
-}
+    ```swift
+    Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
+      switch result {
+      case .success(let graphQLResult):
+        print("Success! Result: \(graphQLResult)")
+      case .failure(let error):
+        print("Failure! Error: \(error)")
+      }
+    }
 ```
 
-Build and run your application. CodeSandbox may need to take ~10-30 seconds to spin up the application if nobody's been using it recently, but once it's spun up you should see a response pretty quickly which looks something like this: 
+Build and run your application. CodeSandbox might take a few seconds to spin up your GraphQL server if nobody's been using it recently, but once it's up, you should see a response that resembles the following: 
 
 ![success log output](images/success_log_barf.png)
 
