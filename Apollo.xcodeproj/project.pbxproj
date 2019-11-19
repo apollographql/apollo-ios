@@ -548,15 +548,15 @@
 		9F27D4601D40363A00715680 /* Execution */ = {
 			isa = PBXGroup;
 			children = (
-				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
 				9F8F334B229044A200C0E83B /* Decoding.swift */,
-				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
-				9F86B68A1E6438D700B885FF /* GraphQLSelectionSetMapper.swift */,
-				9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */,
 				9FC2333C1E66BBF7001E4541 /* GraphQLDependencyTracker.swift */,
-				9F86B68F1E65533D00B885FF /* GraphQLResponseGenerator.swift */,
-				9FC9A9C41E2D6CE70023C4D5 /* GraphQLSelectionSet.swift */,
+				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
 				9FC9A9C11E2D3CAF0023C4D5 /* GraphQLInputValue.swift */,
+				9F86B68F1E65533D00B885FF /* GraphQLResponseGenerator.swift */,
+				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
+				9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */,
+				9FC9A9C41E2D6CE70023C4D5 /* GraphQLSelectionSet.swift */,
+				9F86B68A1E6438D700B885FF /* GraphQLSelectionSetMapper.swift */,
 				9F7BA89822927A3700999B3B /* ResponsePath.swift */,
 			);
 			name = Execution;
@@ -608,8 +608,8 @@
 			children = (
 				9FC4B91F1D2A6F8D0046A641 /* JSON.swift */,
 				9FEB050C1DB5732300DA3B44 /* JSONSerializationFormat.swift */,
-				9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */,
 				9BA1244922D8A8EA00BF1D24 /* JSONSerialziation+Sorting.swift */,
+				9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */,
 			);
 			name = JSON;
 			sourceTree = "<group>";
@@ -708,11 +708,11 @@
 			isa = PBXGroup;
 			children = (
 				9F55347A1DE1DB2100E54264 /* ApolloStore.swift */,
-				9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */,
-				54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */,
-				9FC9A9BC1E2C271C0023C4D5 /* RecordSet.swift */,
-				9FC9A9CB1E2FD0760023C4D5 /* Record.swift */,
 				9FADC84E1E6B865E00C677E6 /* DataLoader.swift */,
+				54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */,
+				9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */,
+				9FC9A9CB1E2FD0760023C4D5 /* Record.swift */,
+				9FC9A9BC1E2C271C0023C4D5 /* RecordSet.swift */,
 			);
 			name = Store;
 			sourceTree = "<group>";
@@ -720,15 +720,15 @@
 		9FC9A9CE1E2FD0CC0023C4D5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
-				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
 				C377CCA822D798BD00572E03 /* GraphQLFile.swift */,
 				9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */,
 				5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */,
-				9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */,
 				9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */,
+				9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */,
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
+				9F4DAF2D1E48B84B00EBFF0B /* HTTPNetworkTransport.swift */,
 				C377CCAA22D7992E00572E03 /* MultipartFormData.swift */,
+				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9BEDC79D22E5D2CF00549BF6 /* RequestCreator.swift */,
 			);
 			name = Network;
