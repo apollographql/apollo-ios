@@ -1,11 +1,3 @@
-//
-//  GraphQLGETTransformer.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 7/1/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 struct GraphQLGETTransformer {
