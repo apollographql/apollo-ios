@@ -24,6 +24,8 @@ public protocol ApolloWebSocketClient: WebSocketClient {
 /// Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
 public class ApolloWebSocket: WebSocket, ApolloWebSocketClient {
   required public convenience init(request: URLRequest, protocols: [String]? = nil) {
-    self.init(request: request, protocols: protocols, stream: FoundationStream())
+    self.init(request: request,
+              protocols: protocols,
+              stream: FoundationStream())
   }
 }

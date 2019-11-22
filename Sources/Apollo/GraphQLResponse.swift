@@ -29,12 +29,28 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       let dependencyTracker = GraphQLDependencyTracker()
       
       return firstly {
-        try executor.execute(selections: Operation.Data.selections, on: dataEntry, withKey: rootCacheKey(for: operation), variables: operation.variables, accumulator: zip(mapper, normalizer, dependencyTracker))
+        try executor.execute(selections: Operation.Data.selections,
+                             on: dataEntry,
+                             withKey: rootCacheKey(for: operation),
+                             variables: operation.variables,
+                             accumulator: zip(mapper, normalizer, dependencyTracker))
         }.map { (data, records, dependentKeys) in
-          (GraphQLResult(data: data, errors: errors, source: .server, dependentKeys: dependentKeys), records)
+          (
+            GraphQLResult(data: data,
+                         errors: errors,
+                         source: .server,
+                         dependentKeys: dependentKeys),
+            records
+          )
       }
     } else {
-      return Promise(fulfilled: (GraphQLResult(data: nil, errors: errors, source: .server, dependentKeys: nil), nil))
+      return Promise(fulfilled: (
+        GraphQLResult(data: nil,
+                      errors: errors,
+                      source: .server,
+                      dependentKeys: nil),
+        nil
+      ))
     }
   }
   
@@ -50,10 +66,19 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     let errors = self.parseErrorsOnlyFast()
     
     if let dataEntry = body["data"] as? JSONObject {      
-      let data = try decode(selectionSet: Operation.Data.self, from: dataEntry, variables: operation.variables)
-      return GraphQLResult(data: data, errors: errors, source: .server, dependentKeys: nil)
+      let data = try decode(selectionSet: Operation.Data.self,
+                            from: dataEntry,
+                            variables: operation.variables)
+      
+      return GraphQLResult(data: data,
+                           errors: errors,
+                           source: .server,
+                           dependentKeys: nil)
     } else {
-      return GraphQLResult(data: nil, errors: errors, source: .server, dependentKeys: nil)
+      return GraphQLResult(data: nil,
+                           errors: errors,
+                           source: .server,
+                           dependentKeys: nil)
     }
   }
 }

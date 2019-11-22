@@ -1,11 +1,3 @@
-//
-//  JSONSerialziation+Sorting.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 7/12/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 extension JSONSerialization {

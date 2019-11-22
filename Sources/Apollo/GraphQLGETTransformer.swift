@@ -1,11 +1,3 @@
-//
-//  GraphQLGETTransformer.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 7/1/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 struct GraphQLGETTransformer {
@@ -18,8 +10,7 @@ struct GraphQLGETTransformer {
   /// - Parameters:
   ///   - body: The GraphQLMap to transform from the body of a `POST` request
   ///   - url: The base url to append the query to.
-  init(body: GraphQLMap,
-       url: URL) {
+  init(body: GraphQLMap, url: URL) {
     self.body = body
     self.url = url
   }

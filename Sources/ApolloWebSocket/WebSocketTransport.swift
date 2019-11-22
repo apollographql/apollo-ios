@@ -100,11 +100,13 @@ public class WebSocketTransport {
   }
 
   private func processMessage(socket: WebSocketClient, text: String) {
-    OperationMessage(serialized: text).parse { (type, id, payload, error) in
+    OperationMessage(serialized: text).parse { parseHandler in
       guard
-        let type = type,
+        let type = parseHandler.type,
         let messageType = OperationMessage.Types(rawValue: type) else {
-          self.notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
+          self.notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload,
+                                                     error: parseHandler.error,
+                                                     kind: .unprocessedMessage(text)))
           return
       }
 
@@ -112,32 +114,34 @@ public class WebSocketTransport {
       case .data,
            .error:
         if
-          let id = id,
+          let id = parseHandler.id,
           let responseHandler = subscribers[id] {
-          if let payload = payload {
+          if let payload = parseHandler.payload {
             responseHandler(.success(payload))
-          } else if let error = error {
+          } else if let error = parseHandler.error {
             responseHandler(.failure(error))
           } else {
-            let websocketError = WebSocketError(payload: payload,
-                                                error: error,
+            let websocketError = WebSocketError(payload: parseHandler.payload,
+                                                error: parseHandler.error,
                                                 kind: .neitherErrorNorPayloadReceived)
             responseHandler(.failure(websocketError))
           }
         } else {
-          let websocketError = WebSocketError(payload: payload,
-                                              error: error,
+          let websocketError = WebSocketError(payload: parseHandler.payload,
+                                              error: parseHandler.error,
                                               kind: .unprocessedMessage(text))
           self.notifyErrorAllHandlers(websocketError)
         }
       case .complete:
-        if let id = id {
+        if let id = parseHandler.id {
           // remove the callback if NOT a subscription
           if subscriptions[id] == nil {
             subscribers.removeValue(forKey: id)
           }
         } else {
-          notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
+          notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload,
+                                                error: parseHandler.error,
+                                                kind: .unprocessedMessage(text)))
         }
 
       case .connectionAck:
@@ -147,8 +151,14 @@ public class WebSocketTransport {
       case .connectionKeepAlive:
         writeQueue()
 
-      case .connectionInit, .connectionTerminate, .start, .stop, .connectionError:
-        notifyErrorAllHandlers(WebSocketError(payload: payload, error: error, kind: .unprocessedMessage(text)))
+      case .connectionInit,
+           .connectionTerminate,
+           .start,
+           .stop,
+           .connectionError:
+        notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload,
+                                              error: parseHandler.error,
+                                              kind: .unprocessedMessage(text)))
       }
     }
   }
@@ -199,7 +209,9 @@ public class WebSocketTransport {
     }
   }
   
-  private func write(_ str: String, force forced: Bool = false, id: Int? = nil) {
+  private func write(_ str: String,
+                     force forced: Bool = false,
+                     id: Int? = nil) {
     if websocket.isConnected && (acked || forced) {
       websocket.write(string: str)
     } else {

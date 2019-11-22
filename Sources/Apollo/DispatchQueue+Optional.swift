@@ -14,7 +14,9 @@ public extension DispatchQueue {
     }
   }
   
-  static func apollo_returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?, action: ((Result<T, Error>) -> Void)?, result: Result<T, Error>) {
+  static func apollo_returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?,
+                                                  action: ((Result<T, Error>) -> Void)?,
+                                                  result: Result<T, Error>) {
     guard let action = action else {
       return
     }

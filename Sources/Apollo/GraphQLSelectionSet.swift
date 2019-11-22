@@ -41,7 +41,10 @@ public struct GraphQLField: GraphQLSelection {
   
   let type: GraphQLOutputType
   
-  public init(_ name: String, alias: String? = nil, arguments: [String: GraphQLInputValue]? = nil, type: GraphQLOutputType) {
+  public init(_ name: String,
+              alias: String? = nil,
+              arguments: [String: GraphQLInputValue]? = nil,
+              type: GraphQLOutputType) {
     self.name = name
     self.alias = alias
     
@@ -93,7 +96,9 @@ public struct GraphQLBooleanCondition: GraphQLSelection {
   let inverted: Bool
   let selections: [GraphQLSelection]
   
-  public init(variableName: String, inverted: Bool, selections: [GraphQLSelection]) {
+  public init(variableName: String,
+              inverted: Bool,
+              selections: [GraphQLSelection]) {
     self.variableName = variableName
     self.inverted = inverted;
     self.selections = selections;
