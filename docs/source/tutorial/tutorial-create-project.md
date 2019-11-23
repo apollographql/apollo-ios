@@ -26,6 +26,8 @@ Xcode creates and opens your new project, which has the following structure:
 
 ## Add the Apollo iOS SDK to your project
 
+Next, you'll add a dependency on the `apollo-ios` repo and Apollo libraries using Swift Package Manager (SPM).
+
 1. Go to **File > Swift Packages > Add Package Dependency**. A dialog to specify a package repository appears.
 
 2. Specify `https://github.com/apollographql/apollo-ios.git` (don't forget the `.git`!) as the package repository:
@@ -42,10 +44,10 @@ Xcode creates and opens your new project, which has the following structure:
 
     ![select the first and third targets](images/select_libs.png)
 
-6. Click **Finish**. Swift Package Manager (SPM) fetches your dependencies. When it completes, you can see them in the project navigator:
+6. Click **Finish**. SPM fetches your dependencies. When it completes, you can see them in the project navigator:
 
     ![screenshot of installed dependencies](images/installed_dependencies.png)
 
-> **Note:** Because Swift Package Manager has not yet implemented [Target-Based Dependency Resolution](https://github.com/apple/swift-evolution/blob/master/proposals/0226-package-manager-target-based-dep-resolution.md), you'll see the `SQLite` dependency even though you didn't select it.
+> **Note:** Because SPM has not yet implemented [Target-Based Dependency Resolution](https://github.com/apple/swift-evolution/blob/master/proposals/0226-package-manager-target-based-dep-resolution.md), you'll see the `SQLite` dependency even though you didn't select it.
 
-Now you've got your project set up, and the Apollo dependencies added. It's time to start pulling together the things you need to build your API!
+Next, before you can use the SDK, you need to [obtain a local copy of your GraphQL schema](./tutorial-obtain-schema).

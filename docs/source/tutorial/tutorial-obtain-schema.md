@@ -4,11 +4,11 @@ title: "2. Obtain your GraphQL schema"
 
 ## Explore your server's schema
 
-This tutorial uses the same GraphQL server that you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [`https://n1kqy.sse.codesandbox.io/`](https://n1kqy.sse.codesandbox.io/) to start it up and open the GraphiQL tool to explore its schema:
+This tutorial uses a modified version of the GraphQL server you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [`https://n1kqy.sse.codesandbox.io/`](https://n1kqy.sse.codesandbox.io/) to start it up and open the GraphiQL tool to explore its schema:
 
 ![the GraphiQL query explorer](images/graphiql.png)
 
-Click **Schema** on the right-hand side to view a list of the possible queries and mutations you can run: 
+The schema defines which GraphQL operations your server can execute. Click **Schema** on the right-hand side to view a list of the possible queries and mutations you can run:
 
 ![GraphiQL showing the schema](images/graphiql_show_schema.png)
 
@@ -27,7 +27,7 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 
     ![the build phases menu item](images/build_phases.png)
 
-3. Click the `+` button above the list of dropdown menu items and select **New Run Script Phase**:
+3. Click the `+` button above the list of existing phases and select **New Run Script Phase**:
 
     ![creating a new run script build phase](images/new_run_script_phase.png)
 
@@ -59,4 +59,6 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 
     ![all targets unchecked in dialog](images/dont_add_to_target.png)
 
-Your server's schema is now available locally. It defines what it's possible to request from your server. Next, you'll create your first **operation** against the schema, which fetches or updates information in your graph. 
+    You don't need to add the schema to any targets, because it is only used to generate code that _is_ added to targets.
+
+Your server's schema is now available locally. Next, you'll [create your first operation against the schema](./tutorial-execute-query).

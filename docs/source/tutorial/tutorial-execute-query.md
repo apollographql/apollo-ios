@@ -25,9 +25,9 @@ Next, between the query's curly braces, start typing `la`. An autocomplete box p
 
 ![example of autocomplete](images/grapqhiql_autocomplete.png)
 
-GraphiQL is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes. 
+GraphiQL is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes.
 
-As the schema indicates, the `launches` query returns a `LaunchConnection` object that includes both a list of launches and fields related to pagination (`cursor` and `hasMore`). The query you write indicates exactly which fields of the `LaunchConnection` object you want to be returned, like so:
+As the schema indicates, the `launches` query returns a `LaunchConnection` object. This object includes a list of launches, along with fields related to pagination (`cursor` and `hasMore`). The query you write indicates exactly which fields of this `LaunchConnection` object you want to be returned, like so:
 
 ```graphql
 query LaunchList {
@@ -45,7 +45,6 @@ If you run this query by pressing the play button in GraphiQL, the query returns
 This query executes successfully, but it doesn't include any information about the `launches`! That's because we didn't include the necessary field in our query.
 
 Update your query to fetch the `id` and `site` properties for each launch, like so:
-
 
 ```graphql
 query LaunchList {
@@ -80,11 +79,13 @@ You're now ready to generate code from the combination of your saved query and s
 
 ## Running code generation
 
-1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `apollo:schema`) and _uncomment_ the line you previously commented out (that includes `codegen:generate`).
+1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `apollo:schema`). The schema isn't changing between builds, which means you don't need to refetch it.
 
-2. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.json`. 
+2. _Uncomment_ the line you previously commented out (that includes `codegen:generate`).
 
-3. Drag the `API.swift` file into Xcode. This time, **do** check the **Add to target** box for the `RocketReserver` app. You include this file in your application's bundle to enable you to execute the query you defined. 
+3. Build your project. When the build completes, an `API.swift` file appears in the same folder  as `schema.json`.
+
+4. Drag the `API.swift` file into Xcode. This time, **do** check the **Add to target** box for the `RocketReserver` app. You include this file in your application's bundle to enable you to execute the query you defined.
 
 ### The `API.swift` file
 
@@ -121,4 +122,4 @@ Build and run your application. CodeSandbox might take a few seconds to spin up 
 
 ![success log output](images/success_log_barf.png)
 
-You're now successfully fetching data from the network using generated code! Now it's time to move on to [displaying query results in your UI](tutorial_2).
+You're now successfully fetching data from the network using generated code! Now it's time to move on to [displaying query results in your UI](./tutorial-query-ui).
