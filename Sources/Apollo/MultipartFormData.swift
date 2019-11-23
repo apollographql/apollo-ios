@@ -6,7 +6,7 @@ public class MultipartFormData {
   public enum FormDataError: Error, LocalizedError {
     case encodingStringToDataFailed(_ string: String)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
       switch self {
       case .encodingStringToDataFailed(let string):
         return "Could not encode \"\(string)\" as .utf8 data."
