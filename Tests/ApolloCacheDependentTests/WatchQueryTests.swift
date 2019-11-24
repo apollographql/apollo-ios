@@ -191,6 +191,7 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
 
+      // verify initial state
       verifyResult = { result in
         switch result {
         case .success(let graphQLResult):
@@ -217,6 +218,7 @@ class WatchQueryTests: XCTestCase {
 
       waitForExpectations(timeout: 5, handler: nil)
 
+      // verify cache update
       verifyResult = { result in
         switch result {
         case .success(let graphQLResult):
@@ -425,6 +427,7 @@ class WatchQueryTests: XCTestCase {
 
       var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesWithIDsQuery.Data>
 
+      // verify initial cache state
       verifyResult = { result in
         switch result {
         case .success(let graphQLResult):
@@ -450,6 +453,7 @@ class WatchQueryTests: XCTestCase {
 
       waitForExpectations(timeout: 5, handler: nil)
 
+      // verify cache update
       verifyResult = { result in
         switch result {
         case .success(let graphQLResult):
