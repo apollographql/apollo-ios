@@ -15,6 +15,10 @@
     "name": "HeroAndFriendsNamesWithIDs",
     "source": "query HeroAndFriendsNamesWithIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n      name\n    }\n  }\n}"
   },
+  "117d0f6831d8f4abe5b61ed1dbb8071b0825e19649916c0fe0906a6f578bb088": {
+    "name": "HeroAndFriendsIDs",
+    "source": "query HeroAndFriendsIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n    }\n  }\n}"
+  },
   "f091468a629f3b757c03a1b7710c6ede8b5c8f10df7ba3238f2bbcd71c56f90f": {
     "name": "HeroAndFriendsNamesWithIDForParentOnly",
     "source": "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
