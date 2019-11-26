@@ -2,12 +2,6 @@
 title: Working with Mutations
 ---
 
-```graphql
-mutation Login($email: String) {
-  login(email: $email)
-}
-```
-
 
 ```graphql
 mutation BookTrip($tripID:ID!) {
