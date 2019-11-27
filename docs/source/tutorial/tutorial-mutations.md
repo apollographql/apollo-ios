@@ -19,3 +19,24 @@ mutation BookTrip($tripID:ID!) {
 ```swift
 { "Authorization" :"[your token]"}
 ```
+
+
+```swift
+private func bookTrip(with id: GraphQLID) {
+
+}
+```
+
+```swift
+private func cancelTrip(with id: GraphQLID) {
+
+}
+```
+
+```swift
+if launch.isBooked == true {
+  self.cancelTrip()
+} else {
+  self.bookTrip()
+}
+```

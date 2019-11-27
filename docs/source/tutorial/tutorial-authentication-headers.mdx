@@ -1,0 +1,207 @@
+---
+title: Authentication and Headers
+---
+
+import LoginUISetupPanel from "./components/login_ui_setup_panel.mdx"
+
+In this section, you'll log in to the server and learn how to send a token back to the server with your requests. 
+
+> **Note**: The way you log in with this particular server may be very different from the way you log in with your own server - login is often handled by _middleware_, or a layer totally separate from GraphQL. However you get the token you send, you'll be sending it back to the server the same way. 
+
+The first thing you'll do is create a **mutation** to log yourself in.
+
+## Creating a login mutation
+
+A **mutation** is an operation which is designed to change state on your server. In this case, the mutation is very simple: You want to log in. 
+
+Open [GraphiQL](https://n1kqy.sse.codesandbox.io/), and delete anything already in the left hand panel. Open the Schema tab and select the `login` mutation: 
+
+![the definition of login in the schema](images/schema_login_definition.png)
+
+This mutation takes a single argument, the email address of the person being logged in, and unlike many GraphQL APIs that return objects which need to have fields selected, only returns a single string. 
+
+In the right panel, add a login mutation:
+
+```graphql
+mutation Login($email: String) {
+  login(email: $email)
+}
+```
+
+One thing to watch out for: `$email` is a `String` rather than a `String!`, meaning it's legal to pass it a `null` value. However, if you do, you won't get very far. 
+
+In the Query Variables section, at the bottom, add the following:
+
+```json
+{ "email": null }
+```
+
+And press the big Play button to run your mutation. You'll see that you get back `null` for the login: 
+
+![results of passing a null email](images/login_mutation_null.png)
+
+Now, replace `null` in the Query Variables section with your actual email address:
+
+```json
+{ "email": "your@email.com" }
+```
+
+Press the Play button, and you'll get an actual response:
+
+![results of passing an actual email](images/login_mutation_email.png)
+
+Next, copy the query. Create a new empty file, name it `Login.graphql`, and paste the query into it. Build your project to make sure the codegen adds the mutation to your `API.swift` file.
+
+Now, it's time to add the
+
+## Creating the `LoginViewController`
+
+**File > New > File... > Swift File**, and name it **LoginViewController.swift**.
+
+
+```swift
+@IBOutlet private var emailTextField: UITextField!
+@IBOutlet private var errorLabel: UILabel!
+@IBOutlet private var submitButton: UIButton!
+```
+
+
+```swift
+@IBAction private func submitTapped() {
+}
+```
+
+
+```swift
+private func enableSubmitButton(_ isEnabled: Bool) {
+  self.submitButton.isEnabled = isEnabled
+    if isEnabled {
+      self.submitButton.setTitle("Submit", for: .normal)
+    } else {
+      self.submitButton.setTitle("Submitting...", for: .normal)
+    }
+}
+```
+
+```swift
+private func validate(email: String) -> Bool {
+  return email.contains("@")
+}
+```
+
+
+```swift
+override func viewDidLoad() {
+  super.viewDidLoad()
+  self.errorLabel.text = nil
+  self.enableSubmitButton(true)
+}
+```
+
+```    
+@IBAction private func cancelTapped() {
+  self.dismiss(animated: true)
+}
+```
+
+<LoginUISetupPanel />
+
+
+## Actually logging in 
+
+Add a library called [keychain-swift](https://github.com/evgenyneu/keychain-swift)
+
+```
+https://github.com/evgenyneu/keychain-swift.git
+```
+
+
+```swift
+static let loginKeychainKey = "login"
+```
+
+
+In `submitTapped`:
+
+```swift
+self.errorLabel.text = nil
+self.enableSubmitButton(false)
+
+guard let email = self.emailTextField.text else {
+  self.errorLabel.text = "Please enter an email address."
+  self.enableSubmitButton(true)
+  return
+}
+
+guard self.validate(email: email) else {
+  self.errorLabel.text = "Please enter a valid email."
+  self.enableSubmitButton(true)
+  return
+}
+```
+
+
+
+
+under that
+
+```swift
+ Network.shared.apollo.perform(mutation: LoginMutation(email: email)) { [weak self] result in
+  defer {
+    self?.enableSubmitButton(true)
+  }
+
+  switch result {
+  case .success(let graphQLResult):
+    if let token = graphQLResult.data?.login {
+      let keychain = KeychainSwift()
+      keychain.set(token, forKey: LoginViewController.loginKeychainKey)
+      self?.dismiss(animated: true)
+    }
+
+    if let errors = graphQLResult.errors {
+      print("Errors from server: \(errors)")
+    }
+  case .failure(let error):
+    print("Error: \(error)")
+  }
+}
+```
+
+static let 
+
+In **DetailViewController.swift**
+
+
+```swift
+private func isLoggedIn() -> Bool {
+  let keychain = KeychainSwift()
+  return keychain.get("login") != nil
+}
+```
+
+
+```swift
+@IBAction private func bookOrCancelTapped() {
+  guard self.isLoggedIn() else {
+  self.performSegue(withIdentifier: "showLogin", sender: self)
+  return
+}
+    
+guard let launch = self.launch else {
+// We don't have enough information yet to know
+// if we're booking or cancelling, bail.
+return
+}
+    
+if launch.isBooked == true {
+    print("Cancel trip!")
+  } else {
+    print("Book trip!")
+  }
+}
+```
+
+## Summary
+
+Next, you'll [use your login token in a mutation to actually book yourself a flight](./tutorial-mutations)!
