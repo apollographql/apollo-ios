@@ -52,12 +52,22 @@ Press the Play button, and you'll get an actual response:
 
 Next, copy the query. Create a new empty file, name it `Login.graphql`, and paste the query into it. Build your project to make sure the codegen adds the mutation to your `API.swift` file.
 
-Now, it's time to add the
+Now, it's time to add a view controller which lets you log in.
 
 ## Creating the `LoginViewController`
 
-**File > New > File... > Swift File**, and name it **LoginViewController.swift**.
+Go to **File > New > File... > Swift File** to create a new Swift file, and name it **LoginViewController.swift**.
 
+Create the class by replacing the `import Foundation` text with the following: 
+
+```swift
+import UIKit
+
+class LoginViewController: UIViewController {
+}
+```
+
+Next, within the class, add `IBOutlet`s for the three fields you're planning to add: 
 
 ```swift
 @IBOutlet private var emailTextField: UITextField!
@@ -65,11 +75,35 @@ Now, it's time to add the
 @IBOutlet private var submitButton: UIButton!
 ```
 
+Add an empty `IBAction` method that you'll fill in later for handling taps on the submit button:
 
 ```swift
 @IBAction private func submitTapped() {
 }
 ```
+
+And then add an `IBAction` to handle taps on a cancel button you're going to add by dismissing the view controller:
+
+```    
+@IBAction private func cancelTapped() {
+  self.dismiss(animated: true)
+}
+```
+
+
+This next (collapsed) section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use the three outlets and two actions listed above in an alternate setup if you'd prefer, but screenshots for the remainder of these tutorials will be based on this section. 
+
+To follow the precise UI setup instructions, expand this panel:
+
+<LoginUISetupPanel />
+
+In the end, your login view controller should look like this in the storyboard (or roughly like it in whatever alternate setup you've decided to use): 
+
+![the final login UI](images/login_final_ui.png)
+
+
+## Actually logging in 
+
 
 
 ```swift
@@ -83,11 +117,15 @@ private func enableSubmitButton(_ isEnabled: Bool) {
 }
 ```
 
+Next, add a simplified validation to ensure that the String you'll be passing through to the server is an email address:
+
 ```swift
 private func validate(email: String) -> Bool {
   return email.contains("@")
 }
 ```
+
+>**Note**: Validating emails can be obnoxiously complicated due to multiple RFCs that allow for certain emails which are technically valid but do not pass the most common email validators. However, containing an `@` symbol is basically the only thing all the RFCs agree must happen for something to be an email address. Checking for this at least allows you to have some vague assurance that what someone has entered could be an email before sending it off to your server.
 
 
 ```swift
@@ -98,16 +136,10 @@ override func viewDidLoad() {
 }
 ```
 
-```    
-@IBAction private func cancelTapped() {
-  self.dismiss(animated: true)
-}
-```
-
-<LoginUISetupPanel />
 
 
-## Actually logging in 
+
+
 
 Add a library called [keychain-swift](https://github.com/evgenyneu/keychain-swift)
 
@@ -189,9 +221,9 @@ private func isLoggedIn() -> Bool {
 }
     
 guard let launch = self.launch else {
-// We don't have enough information yet to know
-// if we're booking or cancelling, bail.
-return
+  // We don't have enough information yet to know
+  // if we're booking or cancelling, bail.
+  return
 }
     
 if launch.isBooked == true {
