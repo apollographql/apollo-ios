@@ -496,6 +496,15 @@
 			path = Configuration/Apollo;
 			sourceTree = "<group>";
 		};
+		9B0417812390320A00C9EC4E /* TestHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				C3279FC52345233000224790 /* TestCustomRequestCreator.swift */,
+				9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */,
+			);
+			name = TestHelpers;
+			sourceTree = "<group>";
+		};
 		9B8D864A22E7A60C001F6D50 /* TestFolder */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,6 +684,7 @@
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
+				9B0417812390320A00C9EC4E /* TestHelpers */,
 				9FC750551D2A532D00458D91 /* Info.plist */,
 				F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */,
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
@@ -694,8 +704,6 @@
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
 				C338DF1622DD9DE9006AF33E /* RequestCreatorTests.swift */,
 				9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */,
-				C3279FC52345233000224790 /* TestCustomRequestCreator.swift */,
-				9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */,
 				5BB2C0222380836100774170 /* VersionNumberTests.swift */,
 				C304EBD322DDC7B200748F72 /* a.txt */,
 				C35D43BE22DDD3C100BCBABE /* b.txt */,
