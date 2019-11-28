@@ -279,7 +279,7 @@ Go back to `LaunchList.graphql`. Your query is already fetching most of the info
 
 Looking at the schema in GraphiQL, you can see that `Launch` has a property of `mission`, which allows you to get details of the mission. A mission has both a name and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
 
-Since loading a `TableView` with large images can be a real performance hog, ask for the name and a small mission patch. Update your query to look like the following:
+Since loading a table view with large images can be a real performance hog, ask for the name and a small mission patch. Update your query to look like the following:
 
 ```graphql
 query LaunchList {
@@ -574,7 +574,7 @@ To get more information to show on the detail page, you have a couple of options
 
 The first option *can* seem easier if there isn't a substantial difference in size between what you're requesting for the list versus the detail page. 
 
-However, remember that one of the advantages of GraphQL is that you can query for _exactly_ the data you need to display on a page. If you're not going to be displaying additional information, you can save bandwidth and execution time on both your frontend and backend by not asking for data until you need it.
+However, remember that one of the advantages of GraphQL is that you can query for _exactly_ the data you need to display on a page. If you're not going to be displaying additional information, you can save bandwidth, execution time, and battery life by not asking for data until you need it.
 
 This is especially true when you have a *much* larger query for your detail view than for your list view. Passing the identifier and then fetching based on that is considered a best practice. Even though the amount of data in this case doesn't differ greatly, you'll build out a query to help fetch details based on the ID so you'll know how to do it in the future. 
 
@@ -594,11 +594,11 @@ You'll see a warning in GraphiQL:
 
 ![variable dollar sign id of type ID was used in position expecting type ID exclamation point](images/graphiql_nullable_conflict.png)
 
-This bit can be confusing, because GraphQL's assumptions about nullability are different from Swift's: 
+This bit can be confusing for Swift developers, because GraphQL's assumptions about nullability are different from Swift's: 
 
-* In Swift, if you annotate a property's type with either a question mark or an exclamation point, that property is nullable. 
+* In Swift, if you don't annotate a property's type with either a question mark or an exclamation point, that property is non-nullable.
 
-* In GraphQL, if you annotate a field's type with an exclamation point, that field is *non-nullable*. This is becasue **GraphQL fields are nullable by default**. 
+* In GraphQL, if you don't annotate a field's type with an exclamation point, that field is considered *nullable*. This is becasue GraphQL fields are **nullable by default**.
 
 Keep this difference in mind when you switch between editing Swift and GraphQL files.
 
