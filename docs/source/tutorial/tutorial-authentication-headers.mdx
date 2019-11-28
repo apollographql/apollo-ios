@@ -104,20 +104,20 @@ In the end, your login view controller should look like this in the storyboard (
 
 ## Actually logging in 
 
-
+Now, it's time to hook everything up. Below your `IBAction` methods, add a new function to enable the submit button and change its title based on whether it's enabled or not:
 
 ```swift
 private func enableSubmitButton(_ isEnabled: Bool) {
   self.submitButton.isEnabled = isEnabled
-    if isEnabled {
-      self.submitButton.setTitle("Submit", for: .normal)
-    } else {
-      self.submitButton.setTitle("Submitting...", for: .normal)
-    }
+  if isEnabled {
+    self.submitButton.setTitle("Submit", for: .normal)
+  } else {
+    self.submitButton.setTitle("Submitting...", for: .normal)
+  }
 }
 ```
 
-Next, add a simplified validation to ensure that the String you'll be passing through to the server is an email address:
+Next, add a simplified email validation to ensure that the String you'll be passing through to the server is an email address:
 
 ```swift
 private func validate(email: String) -> Bool {
@@ -126,6 +126,8 @@ private func validate(email: String) -> Bool {
 ```
 
 >**Note**: Validating emails can be obnoxiously complicated due to multiple RFCs that allow for certain emails which are technically valid but do not pass the most common email validators. However, containing an `@` symbol is basically the only thing all the RFCs agree must happen for something to be an email address. Checking for this at least allows you to have some vague assurance that what someone has entered could be an email before sending it off to your server.
+
+Next, add a `viewDidLoad` override that clears the text in the error label and enables the submit button. 
 
 
 ```swift
@@ -136,24 +138,32 @@ override func viewDidLoad() {
 }
 ```
 
+Next, you'll want to store the login credential which is returned from the server. Login credentials should always be stored in the Keychain, but interacting with it directly is a bit of a pain. 
 
-
-
-
-
-Add a library called [keychain-swift](https://github.com/evgenyneu/keychain-swift)
+Instead, add a library called [keychain-swift](https://github.com/evgenyneu/keychain-swift), by going to **File > Swift Packages > Add Package Dependency...** and pasting in the `keychain-swift` repo URL:
 
 ```
 https://github.com/evgenyneu/keychain-swift.git
 ```
+
+The library will resolve, and since it's only a single target, you only need to add that target to your project. 
+
+At the top of `LoginViewController.swift`, import the library you just added:
+
+```swift
+import KeychainSwift
+```
+
+Next, add a `static let` that will give you a value you can use to query the keychain for a login token: 
 
 
 ```swift
 static let loginKeychainKey = "login"
 ```
 
+This is a `static let` so you can use it outside instances of `LoginViewController`. 
 
-In `submitTapped`:
+Next, add some validation to the `submitTapped` button to make sure the String you're going to send as an email is non-null and passes your local validation:
 
 ```swift
 self.errorLabel.text = nil
@@ -172,10 +182,7 @@ guard self.validate(email: email) else {
 }
 ```
 
-
-
-
-under that
+Now that you have a non-null and valid `email` variable, you can use it to log in. Still in `submitTapped`, add a call to perform the login mutation:
 
 ```swift
  Network.shared.apollo.perform(mutation: LoginMutation(email: email)) { [weak self] result in
@@ -200,7 +207,8 @@ under that
 }
 ```
 
-static let 
+With this code, once you log in successfully, the `LoginViewController` will automatically dismiss. This will send you back to the `DetailViewController`. 
+
 
 In **DetailViewController.swift**
 
@@ -233,6 +241,8 @@ if launch.isBooked == true {
   }
 }
 ```
+
+In your storyboard, hook this method up to the `bookOrCancel` button you set up earlier. 
 
 ## Summary
 
