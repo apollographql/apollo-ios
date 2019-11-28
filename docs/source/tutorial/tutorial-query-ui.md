@@ -2,6 +2,9 @@
 title: Query-powered UI
 ---
 
+import DetailUISetupPanel from "./components/detail_ui_setup_panel.mdx"
+
+
 In the first part of this tutorial, you got everything set set up to allow you to communicate with the server. Now, it's time to power your UI with the result of those queries!
 
 In **MasterViewController.swift**, delete the following pieces of boilerplate you're not going to need (in top to bottom of the file order): 
@@ -309,9 +312,7 @@ query LaunchDetails($id:ID!) {
 }
 ```
 
-Delete the `de
-
-Add the following outlets:
+Delete the `self.detailDescriptionLabel` outlet, and replace it with the following list of outlets: Add the following outlets:
 
 ```swift
 @IBOutlet private var missionPatchImageView: UIImageView!
@@ -321,14 +322,19 @@ Add the following outlets:
 @IBOutlet private var bookCancelButton: UIBarButtonItem!
 ```
 
-The next section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use those five elements in an alternate setup if you'd prefer and skip the next section. 
+Now go to **Main.storyboard**, and go to the **Detail** scene. Delete the existing label. 
 
-### Setting up the Detail UI
+This next (collapsed) section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use the five outlets listed above in an alternate setup if you'd prefer, but screenshots for the remainder of these tutorials will be based on this section. 
 
-In the end, your detail view controller should look like this in the storyboard: 
+To follow the UI setup instructions, expand this panel:
+
+<DetailUISetupPanel />
+
+In the end, your detail view controller should look like this in the storyboard (or roughly like it in whatever alternate setup you've decided to use): 
 
 ![The storyboard's final look](images/storyboard_final.png)
 
+Now it's time to hook everything up! Head back to **DetailViewController.swift**
 
 Delete the existing contents of `configureView()`. In their place, start by adding a check that we have something to display, and a place to display it:
 
