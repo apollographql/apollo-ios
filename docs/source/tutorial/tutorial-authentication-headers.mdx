@@ -1,12 +1,14 @@
 ---
-title: Authentication and Headers
+title: Authentication
 ---
 
 import LoginUISetupPanel from "./components/login_ui_setup_panel.mdx"
 
-In this section, you'll log in to the server and learn how to send a token back to the server with your requests. 
+In this section, you'll log in to the server and get a token you can use to make identified requests. 
 
-> **Note**: The way you log in with this particular server may be very different from the way you log in with your own server - login is often handled by _middleware_, or a layer totally separate from GraphQL. However you get the token you send, you'll be sending it back to the server the same way. 
+> **Note**: The way you log in with this particular server may be very different from the way you log in with your own server - login is often handled by _middleware_, or a layer totally separate from GraphQL.
+> 
+> However you get the token from your server, you'll be sending it back to the server the same way in the next part of this tutorial, and can still learn some valuable things from this section of the tutorial.
 
 The first thing you'll do is create a **mutation** to log yourself in.
 
@@ -90,6 +92,21 @@ And then add an `IBAction` to handle taps on a cancel button you're going to add
 }
 ```
 
+Next open **Main.storyboard**. Search for a `UIViewController` in the library, and drag it into the storyboard next to the detail view controller. 
+
+Select the view controller in the storyboard, and edit its Custom Class to be `LoginViewController`:
+
+![setup proper custom class for view controller](images/login_vc_name.png)
+
+Next, go to **Editor > Embed In > Navigation Controller** to make sure there's a nav controller for your login VC. 
+
+Then, in the left sidebar of the storyboard, select the `DetailViewController`, and control-drag from it to the `LoginViewController`'s navigation controller to set up a segue: 
+
+![hooking up the segue](images/login_hook_up_segue.png)
+
+Select the segue, and then in the attributes inspector set the identifier of the segue to `showLogin` and the type to `Present Modally`:
+
+![identifier "showLogin" type Present Modally](images/login_segue_identifier.png)
 
 This next (collapsed) section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use the three outlets and two actions listed above in an alternate setup if you'd prefer, but screenshots for the remainder of these tutorials will be based on this section. 
 
@@ -125,10 +142,11 @@ private func validate(email: String) -> Bool {
 }
 ```
 
->**Note**: Validating emails can be obnoxiously complicated due to multiple RFCs that allow for certain emails which are technically valid but do not pass the most common email validators. However, containing an `@` symbol is basically the only thing all the RFCs agree must happen for something to be an email address. Checking for this at least allows you to have some vague assurance that what someone has entered could be an email before sending it off to your server.
+>**Note**: Validating emails can be obnoxiously complicated due to multiple RFCs that allow for certain emails which are technically valid but do not pass the most common email validators. 
+>
+>However, containing an `@` symbol is basically the only thing all the RFCs agree must happen for something to be an email address. Checking for this at least allows you to have some vague assurance that what someone has entered could be an email before sending it off to your server.
 
-Next, add a `viewDidLoad` override that clears the text in the error label and enables the submit button. 
-
+Next, add a `viewDidLoad` override that clears the text in the error label and enables the submit button:
 
 ```swift
 override func viewDidLoad() {
