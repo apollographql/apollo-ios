@@ -4,29 +4,32 @@ title: Query-powered UI
 
 import DetailUISetupPanel from "./components/detail_ui_setup_panel.mdx"
 
+Now that your app can execute queries against a GraphQL server, you can reflect the results of those queries in your UI.
 
-In the first part of this tutorial, you got everything set set up to allow you to communicate with the server. Now, it's time to power your UI with the result of those queries!
+## Remove boilerplate code
 
-In **MasterViewController.swift**, delete the following pieces of boilerplate you're not going to need (in top to bottom of the file order): 
+In `MasterViewController.swift`, delete the following pieces of boilerplate code that the app doesn't need: 
 
 - The `objects` property
-- Everything in `viewDidLoad` except the `super.viewDidLoad()` call.
-- The entire `insertNewObject()` method.
+- Everything in `viewDidLoad` except the `super.viewDidLoad()` call
+- The entire `insertNewObject()` method
 - The contents of `prepareForSegue()` (but not the method itself)
-- The entire `tableView(_, canEditRowAt:)` method.
-- The entire `tableView(_, commit:, forRowAt:)` method.
+- The entire `tableView(_, canEditRowAt:)` method
+- The entire `tableView(_, commit:, forRowAt:)` method
 
-Next, you'll add properties and update the boilerplate code to display the results of the `LaunchListQuery` you built in the last part of the tutorial. 
+## Add query fields
 
-At the top of the file, add a new property to store the loaded launches: 
+Now let's add properties to display the results of the `LaunchListQuery` you built in the previous tutorial step. 
+
+At the top of `MasterViewController.swift`, add a new property to store the launches that the query returns: 
 
 ```swift
 var launches = [LaunchListQuery.Data.Launch.Launch]()
 ```
 
-Why the long name? Each query returns its own nested objects to ensure that when you use the result of a particular query, you can't ask for a property that isn't going to be there. Since this screen is going to be populated by the results of the `LaunchListQuery`, you'll need to display sub-types of that query.
+Why the long name? Each query returns its own nested object structure to ensure that when you use the result of a particular query, you can't ask for a property that isn't present. Because this screen will be populated by the results of the `LaunchListQuery`, you need to display subtypes of that particular query.
 
-Add an enum which will help handle dealing with sections: 
+Next, add an enum that helps handle dealing with sections (we'll add additional items to the enum later): 
 
 ```swift
 enum ListSection: Int, CaseIterable {
@@ -34,9 +37,11 @@ enum ListSection: Int, CaseIterable {
 }
 ```
 
-(Don't worry, there will be more than one eventually 🤓). 
+## Fill in required methods
 
-Next, update the various `UITableViewDataSource` methods. For `numberOfSections(in:)`, you can use the `allCases` property from `CaseIterable` to provide the appropriate number of sections:
+Now we can update the various `UITableViewDataSource` methods to use the result of our query.
+
+For `numberOfSections(in:)`, you can use the `allCases` property from `CaseIterable` to provide the appropriate number of sections:
 
 ```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
@@ -85,7 +90,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 
 Your table view has all the information it needs to populate itself when the `launches` array has contents. Now it's time to actually get those contents from the server. 
 
-First, add a really basic method to handle showing errors at the end of your file: 
+First, add a method for showing errors at the end of your file: 
 
 ```swift
 private func showErrorAlert(title: String, message: String) {
@@ -97,7 +102,7 @@ private func showErrorAlert(title: String, message: String) {
 }
 ```
 
-Next, add a method to load the launches. You'll use basically the same setup as you did when you were setting this up in the `AppDelegate` earlier. 
+Next, add a method to load the launches. You'll use a setup similar to the one you used to set this up in the `AppDelegate` earlier. 
 
 However, you need to make sure that a call doesn't try to call back and use elements that are no longer there, so you'll check to make sure that the `MasterViewController` hasn't been deallocated out from under you by passing in `[weak self]` and unwrapping `self` before proceeding with updating the UI:
 
@@ -126,11 +131,11 @@ private func loadLaunches() {
 ```
 
 
-`GraphQLResult` has both `data` property and an `errors` property. This is because GraphQL is designed to allow partial data to be returned if it's not non-null. 
+`GraphQLResult` has both a `data` property and an `errors` property. This is because GraphQL allows partial data to be returned if it's non-null. 
 
-In the example we're working with now, we could theoretically get a list of launches, and then an error stating that a launch with a particular ID could not be constructed. 
+In the example we're working with now, we could theoretically obtain a list of launches, and then an error stating that a launch with a particular ID could not be constructed. 
 
-This is why when you get a `GraphQLResult`, you generally want to check both the `data` property, to display any results you got from the server, AND the `errors` property, to try to handle any additional errors you received from the server. 
+This is why when you get a `GraphQLResult`, you generally want to check both the `data` property (to display any results you got from the server) _and_ the `errors` property (to try to handle any errors you received from the server). 
 
 Replace the `// TODO` in the code above with the following code to handle both data and errors:
 
@@ -148,8 +153,7 @@ if let errors = graphQLResult.errors {
 }
 ```
 
-Finally, you'll need to actually call the method you just added to kick off making the call to the network when the view is first loaded. Update your `viewDidLoad` to also call `loadLaunches`: 
-
+Finally, you need to actually call the method you just added to kick off the call to the network when the view is first loaded. Update your `viewDidLoad` to also call `loadLaunches`: 
 
 ```swift
 override func viewDidLoad() {
@@ -158,23 +162,29 @@ override func viewDidLoad() {
 }
 ```
 
-Build and run the application, and after a brief stint where the view is empty, you'll see a list of launch sites: 
+Build and run the application. After the query completes, a list of launch sites appears: 
 
-![screenshot - list of launch sites](images/list_sites_success.png)
 
-However, if you attempt to tap one of the rows, the app display the detail with the the placeholder text you can see in the storyboard rather than any actual information about the launch:
+<img src="images/list_sites_success.png" alt="List of launch sites" width="300">
+</img>
 
-![screenshot - empty screen with label "Detail view content goes here"](images/stock_detail_view.png) 
 
-To send that information through, you'll need to build out the `MasterViewController`'s `prepareForSegue` method, and have a way for that method to pass `DetailViewController` information about the launch.
+However, if you attempt to tap one of the rows, the app displays the detail with the the placeholder text you can see in the storyboard rather than any actual information about the launch:
 
-## Passing information to the Detail view
 
-You'll start by updating the `DetailViewController` to be able to handle information about a launch. 
+<img src="images/stock_detail_view.png" alt="Placeholder detail content" width="300">
+</img>
 
-Open **DetailViewController.swift**, and delete the `detailItem` property at the bottom of the class, since you're not going to be using it. 
 
-Next, since you're going to be adding a property that uses a type defined in the Apollo library, you need to add an import at the top of the file:
+To send that information through, you need to build out the `MasterViewController`'s `prepareForSegue` method, and have a way for that method to pass the `DetailViewController` information about the launch.
+
+## Pass information to the detail view
+
+Let's update the `DetailViewController` to be able to handle information about a launch. 
+
+Open `DetailViewController.swift` and delete the `detailItem` property at the bottom of the class (you won't need it).
+
+Next, because you're going to add a property that uses a type defined in the Apollo SDK, you need to add an `import` statement to the top of the file:
 
 ```swift
 import Apollo
@@ -190,9 +200,9 @@ var launchID: GraphQLID? {
 }
 ```
 
-This settable property will allow `MasterViewController` to pass the identifier for the selected launch through. The identifier will be used later to load more details about the launch. 
+This settable property allows the `MasterViewController` to pass along the identifier for the selected launch. The identifier will be used later to load more details about the launch. 
 
-For now, though, start by updating the `configureView()` method to use this new property (if it's there) instead of the `detailItem` property you just deleted: 
+For now, update the `configureView()` method to use this new property (if it's there) instead of the `detailItem` property you just deleted: 
 
 ```swift
 func configureView() {
@@ -207,9 +217,9 @@ func configureView() {
 }
 ```
 
-> **Note**: You're also unwrapping the `detailDescriptionLabel` because even though it's an Implicitly Unwrapped Optional, it won't be present if `configureView` gets called before `viewDidLoad`.
+> **Note**: You're also unwrapping the `detailDescriptionLabel` because even though it's an Implicitly Unwrapped Optional, it won't be present if `configureView` is called before `viewDidLoad`.
 
-Next, back in **MasterViewController.swift**, update the `prepareForSegue` method to get the most recently selected row, and use that to find the launch to pass information about to the detail view controller: 
+Next, back in `MasterViewController.swift`, update the `prepareForSegue` method to obtain the most recently selected row and pass its corresponding launch details to the detail view controller: 
 
 ```swift
 override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -239,7 +249,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 }
 ```
 
-One slightly unrelated detail: In **SceneDelegate.swift**, there was one spot that relied on the `detailItem` property you deleted earlier, which will cause an error . Follow the error to this spot, and replace the erroring line with:
+One slightly unrelated detail: In `SceneDelegate.swift`, one line relies on the `detailItem` property you deleted earlier, which now produces an error. Replace the erroring line with:
 
 ```swift
 if topAsDetailController.launchID == nil {
@@ -247,27 +257,29 @@ if topAsDetailController.launchID == nil {
 
 Build and run, and tap on any of the launches. You'll now see the launch ID for the selected launch when you land on the page:
 
-![screenshot - empty screen with label "Launch 84"](images/detail_view_launch_id.png)
 
-The app is working! However, it's pretty ugly, and doesn't give you a ton of useful information. It's time to spiff it up and modify queries a bit to create a better user experience. 
+<img src="images/detail_view_launch_id.png" alt="Empty screen with launch ID" width="300">
+</img>
 
-## Adding more info to the list
+The app is working! However, it doesn't provide much useful information. Let's fix that.
 
-First, take advantage of one of the built-in styles for `UITableViewCell` to display more information without having to do much work. Go to **Main.storyboard**, select the **Master Scene** which includes the TableView and the default cell. 
+## Add more info to the list view
 
-Open the flippy triangles in the left sidebar of interface builder until you get to **Cell**. Select that element, then go to the **Attributes Inspector** in the right sidebar of Xcode. At the top, there's a drop-down which will allow you to select a style for your table view cell. Select **Subtitle**:
+Let's take advantage of one of the built-in styles for `UITableViewCell` to display more information without having to do much work. Go to `Main.storyboard`, select the **Master Scene** which includes the `TableView` and the default cell. 
+
+Expand the dropdowns in the left sidebar of Interface Builder until you get to **Cell**. Select that element, then go to the **Attributes Inspector** in the right sidebar of Xcode. At the top, there's a drop-down that allows you to select a style for your table view cell. Select **Subtitle**:
 
 ![](images/use_subtitle_style.png)
 
-Also, while you're here, this is a good time to give the main TableView a name that better reflects what it's actually showing. Select the navigation item and rename it from `Master` to `Launches`:
+While you're here, this is a good time to give the main `TableView` a name that better reflects what it's actually showing. Select the navigation item and rename it from `Master` to `Launches`:
 
 ![](images/rename_master_launches.png)
 
-Next, go back to **LaunchList.graphql**. You've already got most of the information you want to display, but it would be nice to display both the name of the mission and an image of the patch. 
+Go back to `LaunchList.graphql`. Your query is already fetching most of the information you want to display, but it would be nice to display both the name of the mission and an image of the patch. 
 
-Looking at the schema in GraphiQL, you can see that `Launch` has a property of `mission`, which will allow you to get details of the mission. A mission has both a name and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
+Looking at the schema in GraphiQL, you can see that `Launch` has a property of `mission`, which allows you to get details of the mission. A mission has both a name and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
 
-Since loading a TableView with large images can be a real performance hog, ask for the name and a small mission patch. Update your query to look like the following:
+Since loading a table view with large images can be a real performance hog, ask for the name and a small mission patch. Update your query to look like the following:
 
 ```graphql
 query LaunchList {
@@ -286,13 +298,13 @@ query LaunchList {
 }
 ```
 
-When you recompile, if you look in **API.swift**, you'll see a new nested type, `Mission`, with the two properties you requested.
+When you recompile, if you look in `API.swift`, you'll see a new nested type, `Mission`, with the two properties you requested.
 
 Since `missionPatch` returns a URL string to an image that can be displayed, you'll want to have a fairly easy setup to display images based on URLs. 
 
-To save time, go to **File > Swift Packages > Add Package Dependency...** and add a depenency on **[SDWebImage](https://github.com/SDWebImage/SDWebImage)**. Paste in the URL to its git repo, `https://github.com/SDWebImage/SDWebImage.git`, and then select the main `SDWebImage` from the list of package products Xcode offers you once it resolves the repo. 
+To save time, go to **File > Swift Packages > Add Package Dependency...** and add a depenency on [SDWebImage](https://github.com/SDWebImage/SDWebImage). Paste in the URL to its git repo, `https://github.com/SDWebImage/SDWebImage.git`, and then select the main `SDWebImage` from the list of package products Xcode offers you once it resolves the repo. 
 
-Once SDWebImage has finished installing, go back to **MasterViewController.swift** and add the following import to the top of the file:
+Once SDWebImage has finished installing, go back to `MasterViewController.swift` and add the following import to the top of the file:
 
 ```swift
 import SDWebImage
@@ -304,13 +316,13 @@ Next, download this image:
 
 ![apollo logo](images/placeholder_logo.png)
 
-and drag it into your Asset Catalog, **Assets.xcassets**. Name it **placeholder**:
+Drag it into your Asset Catalog, `Assets.xcassets`. Name it `placeholder`:
 
 ![image in asset catalog](images/placeholder_in_asset_catalog.png)
 
-You'll use this image as (surprise!) a placeholder to show while the mission patch images are loading. 
+You'll use this image as a placeholder to show while the mission patch images are loading. 
 
-Now go back to **MasterViewControl..e**In `tableView(cellForRowAt:)`, once the cell is loaded, add the following code to help make sure that before the cell is configured, it has any stale data cleared out:
+Now go back to `MasterViewControl.swift`. In `tableView(cellForRowAt:)`, once the cell is loaded, add the following code to help make sure that before the cell is configured, it clears out any stale data:
 
 ```swift
 cell.imageView?.image = nil
@@ -341,19 +353,22 @@ case .launches:
 
 Build and run the application, and you will see all the information for current launches populate: 
 
-![final version of the launch list](images/launch_list_final.png)
 
-Yay! But if you scroll down, you'll see there's only about 20 launches - this is because the list of launches is paginated, and you've only got the first page. 
+<img src="images/launch_list_final.png" alt="Final launch list" width="300">
+</img>
+
+
+If you scroll down, you'll see the list includes only about 20 launches. This is because the list of launches is **paginated**, and you've only fetched the first page. 
 
 Now it's time to learn how to use a cursor-based loading system to load the entire list of launches.
 
-## Loading more launches
+## Use pagination to load additional launches
 
-You probably noticed that the immediate object returned from the `LaunchListQuery` is a `LaunchConnection`. This has a list of launches, a cursor, and a boolean to indicate whether more launches exist. 
+As you might have noticed, the object returned from the `LaunchListQuery` is a `LaunchConnection`. This object has a list of launches, a pagination cursor, and a boolean to indicate whether more launches exist. 
 
 When using a cursor-based pagination system, it's important to remember that the cursor gives you a place where you can get all results after a certain spot, regardless of whether more items have been added in the interim. 
 
-You're going to use a second section in the TableView to allow your user to load more launches as long as they exist. But how will you know if they exist? First, you'll need to hang on to the most recently received `LaunchConnection` object.
+You're going to use a second section in the TableView to allow your user to load more launches as long as they exist. But how will you know if they exist? First, you need to hang on to the most recently received `LaunchConnection` object.
 
 Add a variable to hold on to this object at the top of the file near your `launches` variable:
 
@@ -361,7 +376,7 @@ Add a variable to hold on to this object at the top of the file near your `launc
 private var lastConnection: LaunchListQuery.Data.Launch?
 ```
 
-Next, you're going to take advantage of a type from the Apollo library, so at the top of the file, you need to add:
+Next, you're going to take advantage of a type from the Apollo library. Add the following to the top of the file:
 
 ```swift
 import Apollo
@@ -382,9 +397,9 @@ enum ListSection: Int, CaseIterable {
 }
 ```
 
-This will allow loading state to be displayed and selected in a separate section, keeping your `launches` section tied to the `launches` variable. 
+This allows loading state to be displayed and selected in a separate section, keeping your `launches` section tied to the `launches` variable. 
 
-Next, in `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case which returns 0 rows if there are no more launches to load: 
+Next, in `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case, which returns `0` if there are no more launches to load: 
 
 ```swift
 case .loading:
@@ -412,7 +427,7 @@ Next, you'll need to provide the cursor to your `LaunchListQuery`. The good news
 
 To pass a variable into a GraphQL query, you need to use syntax that defines that variable using a `$name` and its type. You can then pass the variable in as a parameter value to an API which takes a parameter.
 
-What does this look like in practice? Go to **LaunchList.graphql**, and update just the first two lines to take and use the cursor as a parameter: 
+What does this look like in practice? Go to `LaunchList.graphql` and update just the first two lines to take and use the cursor as a parameter: 
 
 ```graphql
 query LaunchList($cursor:String) {
@@ -421,7 +436,7 @@ query LaunchList($cursor:String) {
 
 Build the application so the code generation picks up on this new parameter. You'll see an error for a non-exhaustive switch, but this is something we'll fix shortly.
 
-Next, go back to **MasterViewController.swift** and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
+Next, go back to `MasterViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
 
 ```swift
 private func loadMoreLaunches(from cursor: String?) {
@@ -485,11 +500,11 @@ override func viewDidLoad() {
 }
 ```
 
-Next, you need to add some handling when the cell is tapped. Normally, that's handled by `prepare(for segue:)`, but since you're going to be re-loading things in the current view controller, you won't want the segue to perform at all. 
+Next, you need to add some handling when the cell is tapped. Normally that's handled by `prepare(for segue:)`, but because you're going to be reloading things in the current view controller, you won't want the segue to perform at all. 
 
-Luckily, Apple thought of this and provided a method you can override called `shouldPerformSegue(withIdentifier:sender:)` that allows you to say "in this case, this segue should not be performed, and these other actions should be taken. 
+Luckily, you can override the `shouldPerformSegue(withIdentifier:sender:)` method to say, "In this case, don't perform this segue, and take these other actions instead."
 
-Override this method, and add code to perform the segue for anything in the `.launches` section, but to not perform it (and instead load more launches if needed) to the `.loading` section:
+Override this method, and add code that performs the segue for anything in the `.launches` section and _doesn't_ perform it (instead loading more launches if needed) for the `.loading` section:
 
 
 ```swift
@@ -521,9 +536,9 @@ switch listSection {
 }
 ```
 
-Finally, even though you've told the segue system that you don't need the segue performed for anything in the `.loading` case, the compiler still doesn't know that and will be demanding you handle the `.loading` case in `prepare(for segue:)`. 
+Finally, even though you've told the segue system that you don't need to perform the segue for anything in the `.loading` case, the _compiler_ still doesn't know that, and it requires you to handle the `.loading` case in `prepare(for segue:)`. 
 
-However, you should theoretically never get to this point, so it's a good place to use an `assertionFailure` if you ever hit it during development. This both satisfies the compiler and warns you loudly and quickly if your assumption that something is handled in `shouldPerformSegue` is wrong. 
+However, your code should theoretically never reach this point, so it's a good place to use an `assertionFailure` if you ever hit it during development. This both satisfies the compiler and warns you loudly and quickly if your assumption that something is handled in `shouldPerformSegue` is wrong. 
 
 Add the following to the `switch` statement in `prepare(for segue:)`
 
@@ -534,32 +549,38 @@ case .loading:
 
 Now, when you build and run and scroll down to the bottom of the list, you'll see a cell you can tap to load more rows: 
 
-![screenshot with loading cell at the bottom](images/tap_to_load_more.png)
 
-When you tap that cell, the rows will load and then redisplay. If you tap it several times, it'll get to a point where the loading cell is no longer displayed, and the last launch was SpaceX's original FalconSat launch from Kwajalien Atoll:
+<img src="images/tap_to_load_more.png" alt="Screenshot with loading cell" width="300">
+</img>
 
-![list with all launches loaded and no loading cell](images/list_all_loaded.png)
 
-Congratulations, you've now loaded all of the possible launches! But when you tap one, you'll still get the same boring detail page. 
+When you tap that cell, the rows will load and then redisplay. If you tap it several times, it reaches a point where the loading cell is no longer displayed, and the last launch was SpaceX's original FalconSat launch from Kwajalien Atoll:
 
-Next, you'll make the detail page a lot more interesting by taking the ID returned by one query and passing it to another!
 
-## Getting more details for the detail page
+<img src="images/list_all_loaded.png" alt="List with all launches loaded and no loading cell" width="300">
+</img>
 
-To get more information to show on the detail page, you could do a couple of different things: 
 
-- You could request all the details you want to display for every single  of the launches in the `LaunchList` query, and then pass that retrieved object on to the `DetailViewController`. 
-- You could use the identifier of the launch to request all the details you want to display just for the selected launch using a different query. 
+Congratulations, you've loaded all of the possible launches! But when you tap one, you still get the same boring detail page. 
 
-The first option *can* seem easier if there's not a substantial difference in size between what you're requesting for a list vs. a detail page. 
+Next, you'll make the detail page a lot more interesting by taking the ID returned by one query and passing it to another.
 
-However, remember that part of the advantage of GraphQL over REST is that you only need to get the minimum amount of data needed to display a certain page. If you're not going to be displaying additional information, how much of your user's battery and bandwidth can you save, and how many unnecessary database calls on your backend can you prevent by not asking for something until you need it?
+## Add more details to the detail view
 
-This is especially the case when you have a fairly small query for a list view, but a *much* larger query for a detail view. Passing the identifier and then fetching based on that is considered a best practice, so even though the amount of data in this case doesn't differ greatly, you'll build out a query to help fetch details based on the ID so you'll know how to do it in the future. 
+To get more information to show on the detail page, you have a couple of options: 
 
-Create a new empty file and name it **LaunchDetails.graphql**. In this file, you'll add the details you want to display in the detail view. First, you'll want to go back to GraphiQL and make sure that your query works!
+- You could request all the details you want to display for every single launch in the `LaunchList` query, and then pass that retrieved object on to the `DetailViewController`. 
+- You could provide the identifier of an individual launch to a _different_ query to request all the details you want to display. 
 
-Start by typing in the query name, and passing in an ID. Then, try calling the singular `launch` method, which takes the ID as a property, and requesting the id back as the query result: 
+The first option *can* seem easier if there isn't a substantial difference in size between what you're requesting for the list versus the detail page. 
+
+However, remember that one of the advantages of GraphQL is that you can query for _exactly_ the data you need to display on a page. If you're not going to be displaying additional information, you can save bandwidth, execution time, and battery life by not asking for data until you need it.
+
+This is especially true when you have a *much* larger query for your detail view than for your list view. Passing the identifier and then fetching based on that is considered a best practice. Even though the amount of data in this case doesn't differ greatly, you'll build out a query to help fetch details based on the ID so you'll know how to do it in the future. 
+
+Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'll add the details you want to display in the detail view. First, you'll want to go back to GraphiQL and make sure that your query works!
+
+Start by typing in the query name and passing in an ID. Then, try calling the singular `launch` method, which takes the ID as a property, and requesting the `id` back as the query result: 
 
 ```graphql
 query LaunchDetails($id:ID) {
@@ -573,17 +594,15 @@ You'll see a warning in GraphiQL:
 
 ![variable dollar sign id of type ID was used in position expecting type ID exclamation point](images/graphiql_nullable_conflict.png)
 
-This bit can be VERY confusing for Swift developers in particular, because GraphQL's assumptions about nullability are essentially the opposite of Swift's. 
+This bit can be confusing for Swift developers, because GraphQL's assumptions about nullability are different from Swift's: 
 
-In Swift, if you don't annotate a property's type with either a question mark or an exclamation point, that property is non-nullable. 
+* In Swift, if you don't annotate a property's type with either a question mark or an exclamation point, that property is non-nullable.
 
-In GraphQL, if you don't annotate a field's type with an exclamation point, that field is considered *nullable*. This is becasue GraphQL fields are **nullable by default**. 
+* In GraphQL, if you don't annotate a field's type with an exclamation point, that field is considered *nullable*. This is becasue GraphQL fields are **nullable by default**.
 
-In order to say a GraphQL field can't be null, it has to be annotated with a `!`. This makes some Swift developers twitchy, as avoiding force-unwraps is considered good practice. However, remember that with GraphQL, you're *not* force-unwrapping. You're simply stating that a field can't be null.
+Keep this difference in mind when you switch between editing Swift and GraphQL files.
 
-Be aware of this when switching back and forth frequently between Swift and GraphQL files, because it can cause some real confusion.
-
-That aside, switch back to GraphiQL. Start by adding the properties you're already requesting in the `LaunchList` query, but use `LARGE` for the mission patch size since the patch will be displayed much larger:
+Now, switch back to GraphiQL. Start by adding the properties you're already requesting in the `LaunchList` query, but use `LARGE` for the mission patch size since the patch will be displayed much larger:
 
 
 ```graphql
@@ -599,7 +618,7 @@ query LaunchDetails($id:ID!) {
 }
 ```
 
-Next, look at the schema to see what other fields are available. For this example, we'll get the available fields on the `Launch`'s `Rocket` field, and also whether the launch has been booked or not. Add the following below the closing brace for `mission`: 
+Next, look at the schema to see what other fields are available. For this example, we'll get the available fields on the `Launch`'s `rocket` field, and also whether the launch has been booked or not. Add the following below the closing brace for `mission`: 
  
 ```graphQL
 rocket {
@@ -619,15 +638,15 @@ This tells GraphiQL to fill in the value of the `$id` variable with the value `"
 
 ![screenshot - detail request returning json](images/graphiql_detail_request.png)
 
-Now that you've confirmed it worked, copy the query, and paste it into your **LaunchDetails.graphql** file. Build the application so that codegen picks up this new file, and generates a new query type for it. 
+Now that you've confirmed it worked, copy the query and paste it into your `LaunchDetails.graphql` file. Build the application so that codegen picks up this new file and generates a new query type for it. 
 
-Now that you know what you're planning to ask for, it's time to set up the UI for the detail screen. Go to **DetailViewController.swift**. First, add a place to hang on to the result of the query. Add the following property to the top of the class: 
+Now that you know what you're planning to ask for, it's time to set up the UI for the detail screen. Go to `DetailViewController.swift`. First, add a place to hang on to the result of the query. Add the following property to the top of the class: 
 
 ```swift
 private var launch: LaunchDetailsQuery.Data.Launch?
 ```
 
-Next, delete the `self.detailDescriptionLabel` outlet, and replace it with the following list of outlets:
+Next, delete the `self.detailDescriptionLabel` outlet and replace it with the following list of outlets:
 
 ```swift
 @IBOutlet private var missionPatchImageView: UIImageView!
@@ -637,9 +656,9 @@ Next, delete the `self.detailDescriptionLabel` outlet, and replace it with the f
 @IBOutlet private var bookCancelButton: UIBarButtonItem!
 ```
 
-Now go to **Main.storyboard**, and go to the **Detail Scene**. Delete the existing label. 
+Now in `Main.storyboard`, go to the **Detail Scene**. Delete the existing label. 
 
-This next (collapsed) section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use the five outlets listed above in an alternate setup if you'd prefer, but screenshots for the remainder of these tutorials will be based on this section. 
+This next (collapsed) section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use the five outlets listed above in an alternate setup if you'd prefer, but screenshots for the remainder of these tutorials are based on this section. 
 
 To follow the precise UI setup instructions, expand this panel:
 
@@ -649,7 +668,7 @@ In the end, your detail view controller should look like this in the storyboard 
 
 ![The storyboard's final look](images/storyboard_final.png)
 
-Now it's time to hook everything up! Head back to **DetailViewController.swift**, and update the `viewDidLoad` to clear out anything from the storyboard before attempting to configure the view:
+Now it's time to hook everything up! Head back to `DetailViewController.swift` and update the `viewDidLoad` function to clear out anything from the storyboard before attempting to configure the view:
 
 ```swift
 override func viewDidLoad() {
@@ -672,7 +691,7 @@ guard
 }
 ```   
     
-Next, it's time to display all the informaton you've gotten from your GraphQL server. Remember that GraphQL properties are nullable by default, so you'll often need to provide handling for when a given property is nil. 
+Next, it's time to display all the informaton you've gotten from your GraphQL server. Remember that GraphQL properties are nullable by default, so you'll often need to provide handling for when a given property is `nil`. 
 
 Add the following code below the `guard` statement you just added:
    
@@ -763,13 +782,17 @@ private var launch: LaunchDetailsQuery.Data.Launch? {
 }
 ```
 
-Build and run the application When you tap into the detail screen, you should now see the full details: 
+Build and run the application. When you tap into the detail screen, you should now see the full details: 
 
-![final display of the detail screen](images/detail_loaded.png)
+
+<img src="images/detail_loaded.png" alt="Final display of the detail screen" width="300">
+</img>
 
 You'll notice that many of the more recent launches have a rocket type of `FT`. If you load more launches a couple times, you'll get to some rockets that have different rocket types: 
 
-![final display with different rocket type](images/detail_loaded_merlin_c.png)
+
+<img src="images/detail_loaded_merlin_c.png" alt="Final display with different rocket type" width="300">
+</img>
 
 
 ## Recap
@@ -781,6 +804,4 @@ In this part of the tutorial, you have:
 - Created a second query to get more information than was necessary for the first query
 - Used all the data you've received from your queries to populate your user interface. 
 
-You may have noticed that every single launch you drill into has the `Book Now!` button - nothing is booked yet, because you haven't had a way to make changes. 
-
-Now it's time to [learn how to make changes to objects in your graph with mutations](./tutorial-mutations).
+You may have noticed that the detail view includes a `Book Now!` button, but there's no way to book a seat yet. To fix that, let's [learn how to make changes to objects in your graph with mutations](tutorial_3).
