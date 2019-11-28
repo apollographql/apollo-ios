@@ -63,10 +63,8 @@ class ReadFieldValueTests: XCTestCase {
     let object: JSONObject = ["name": 10]
     let field = GraphQLField("name", type: .nonNull(.scalar(String.self)))
 
-    guard let value = try readFieldValue(field, from: object) as? String else {
-      XCTFail("Wrong type, name should be a String!")
-      return
-    }
+    let value = try XCTUnwrap(try readFieldValue(field, from: object) as? String,
+                              "Wrong type, name should be a String!")
 
     XCTAssertEqual(value, "10")
   }
@@ -121,10 +119,8 @@ class ReadFieldValueTests: XCTestCase {
     let object: JSONObject = ["name": 10]
     let field = GraphQLField("name", type: .scalar(String.self))
 
-    guard let value = try readFieldValue(field, from: object) as? String else {
-      XCTFail("Wrong type, name should be a String!")
-      return
-    }
+    let value = try XCTUnwrap(try readFieldValue(field, from: object) as? String,
+                              "Wrong type, name should be a String!")
 
     XCTAssertEqual(value, "10")
   }

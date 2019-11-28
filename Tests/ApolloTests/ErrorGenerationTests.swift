@@ -11,7 +11,7 @@ import XCTest
 
 class ErrorGenerationTests: XCTestCase {
   
-  func testLocalizedStringFromErrorResponse() {
+  func testLocalizedStringFromErrorResponse() throws {
     let json = """
 {
   "errors": [
@@ -30,10 +30,8 @@ class ErrorGenerationTests: XCTestCase {
                                    httpVersion: nil,
                                    headerFields: nil)!
     
-    guard let data = json.data(using: .utf8) else {
-      XCTFail("Couldn't create json data")
-      return
-    }
+    let data = try XCTUnwrap(json.data(using: .utf8),
+                             "Couldn't create json data")
     
     let httpResponseError = GraphQLHTTPResponseError(body: data,
                                                      response: response,
@@ -42,7 +40,7 @@ class ErrorGenerationTests: XCTestCase {
     XCTAssertEqual(httpResponseError.localizedDescription, "Received error response: Invalid client auth token.")
   }
   
-  func testLocalizedStringFromErrorResponseWithMultipleErrors() {
+  func testLocalizedStringFromErrorResponseWithMultipleErrors() throws {
     let json = """
 {
   "errors": [
@@ -67,10 +65,8 @@ class ErrorGenerationTests: XCTestCase {
                                    httpVersion: nil,
                                    headerFields: nil)!
     
-    guard let data = json.data(using: .utf8) else {
-      XCTFail("Couldn't create json data")
-      return
-    }
+    let data = try XCTUnwrap(json.data(using: .utf8),
+                             "Couldn't create json data")
     
     let httpResponseError = GraphQLHTTPResponseError(body: data,
                                                      response: response,
@@ -79,7 +75,7 @@ class ErrorGenerationTests: XCTestCase {
     XCTAssertEqual(httpResponseError.localizedDescription, "Received error response: Invalid client auth token.\nServer is having a sad.")
   }
   
-  func testLocalizedStringFromPlaintextResponse() {
+  func testLocalizedStringFromPlaintextResponse() throws {
     let text = "The server is having a sad."
     
     let response = HTTPURLResponse(url: URL(string: "https://www.fake.com")!,
@@ -87,10 +83,9 @@ class ErrorGenerationTests: XCTestCase {
                                    httpVersion: nil,
                                    headerFields: nil)!
     
-    guard let data = text.data(using: .utf8) else {
-      XCTFail("Couldn't create text data")
-      return
-    }
+    let data = try XCTUnwrap(text.data(using: .utf8),
+                             "Couldn't create text data")
+
     
     let httpResponseError = GraphQLHTTPResponseError(body: data,
                                                      response: response,

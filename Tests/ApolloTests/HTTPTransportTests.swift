@@ -220,10 +220,9 @@ class HTTPTransportTests: XCTestCase {
       }
     }
 
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
 
@@ -254,10 +253,9 @@ class HTTPTransportTests: XCTestCase {
       }
     }
 
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
     XCTAssertEqual(self.retryCount, 0)
@@ -265,30 +263,24 @@ class HTTPTransportTests: XCTestCase {
     wait(for: [expectation], timeout: 1)
   }
   
-  func testClientNameAndVersionHeadersAreSent() {
+  func testClientNameAndVersionHeadersAreSent() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: self.url,
                                        session: mockSession)
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
     
-    guard let clientName = request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName) else {
-      XCTFail("Client name on last request was nil!")
-      return
-    }
+    let clientName = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName),
+                                   "Client name on last request was nil!")
     
     XCTAssertFalse(clientName.isEmpty, "Client name was empty!")
     XCTAssertEqual(clientName, network.clientName)
     
-    guard let clientVersion = request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion) else {
-      XCTFail("Client version on last request was nil!")
-      return
-    }
+    let clientVersion = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion),
+                                      "Client version on last request was nil!")
     
     XCTAssertFalse(clientVersion.isEmpty, "Client version was empty!")
     XCTAssertEqual(clientVersion, network.clientVersion)

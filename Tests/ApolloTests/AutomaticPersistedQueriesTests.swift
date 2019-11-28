@@ -14,9 +14,10 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                 queryDocument: Bool = false,
                                 persistedQuery: Bool = false,
                                 file: StaticString = #file,
-                                line: UInt = #line) {
+                                line: UInt = #line) throws {
     
-    guard let httpBody = request.httpBody,
+    guard
+      let httpBody = request.httpBody,
       let jsonBody = try? JSONSerializationFormat.deserialize(data: httpBody) as? JSONObject else {
         XCTFail("httpBody invalid",
                 file: file,
@@ -45,33 +46,25 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     
     let ext = jsonBody["extensions"] as? JSONObject
     if persistedQuery {
-      guard let ext = ext else {
-        XCTFail("extensions json data should not be nil",
-                file: file,
-                line: line)
-        return
-      }
+      let ext = try XCTUnwrap(ext,
+                              "extensions json data should not be nil",
+                              file: file,
+                              line: line)
       
-      guard let persistedQuery = ext["persistedQuery"] as? JSONObject else {
-        XCTFail("persistedQuery is missing",
-                file: file,
-                line: line)
-        return
-      }
+      let persistedQuery = try XCTUnwrap(ext["persistedQuery"] as? JSONObject,
+                                         "persistedQuery is missing",
+                                         file: file,
+                                         line: line)
       
-      guard let version = persistedQuery["version"] as? Int else {
-        XCTFail("version is missing",
-                file: file,
-                line: line)
-        return
-      }
-      
-      guard let sha256Hash = persistedQuery["sha256Hash"] as? String else {
-        XCTFail("sha256Hash is missing",
-                file: file,
-                line: line)
-        return
-      }
+      let version = try XCTUnwrap(persistedQuery["version"] as? Int,
+                                  "version is missing",
+                                  file: file,
+                                  line: line)
+
+      let sha256Hash = try XCTUnwrap(persistedQuery["sha256Hash"] as? String,
+                                     "sha256Hash is missing",
+                                     file: file,
+                                     line: line)
       
       XCTAssertEqual(version, 1,
                      file: file,
@@ -93,13 +86,11 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                  queryDocument: Bool = false,
                                  persistedQuery: Bool = false,
                                  file: StaticString = #file,
-                                 line: UInt = #line) {
-    guard let url = request.url else {
-      XCTFail("URL not valid",
-              file: file,
-              line: line)
-      return
-    }
+                                 line: UInt = #line) throws {
+    let url = try XCTUnwrap(request.url,
+                            "URL not valid",
+                            file: file,
+                            line: line)
     
     let queryString = url.queryItemDictionary?["query"]
     if queryDocument {
@@ -134,7 +125,8 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     
     let ext = url.queryItemDictionary?["extensions"]
     if persistedQuery {
-      guard let ext = ext,
+      guard
+        let ext = ext,
         let data = ext.data(using: .utf8),
         let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
         else {
@@ -144,26 +136,20 @@ class AutomaticPersistedQueriesTests: XCTestCase {
           return
       }
       
-      guard let persistedQuery = jsonBody["persistedQuery"] as? JSONObject else {
-        XCTFail("persistedQuery is missing",
-                file: file,
-                line: line)
-        return
-      }
+      let persistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
+                                         "persistedQuery is missing",
+                                         file: file,
+                                         line: line)
       
-      guard let sha256Hash = persistedQuery["sha256Hash"] as? String else {
-        XCTFail("sha256Hash is missing",
-                file: file,
-                line: line)
-        return
-      }
+      let sha256Hash = try XCTUnwrap(persistedQuery["sha256Hash"] as? String,
+                                     "sha256Hash is missing",
+                                     file: file,
+                                     line: line)
       
-      guard let version = persistedQuery["version"] as? Int else {
-        XCTFail("version is missing",
-                file: file,
-                line: line)
-        return
-      }
+      let version = try XCTUnwrap(persistedQuery["version"] as? Int,
+                                  "version is missing",
+                                  file: file,
+                                  line: line)
       
       XCTAssertEqual(version, 1,
                      file: file,
@@ -182,44 +168,41 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   // MARK: - Tests
   
-  func testRequestBody() {
+  func testRequestBody() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!, session: mockSession)
     let query = HeroNameQuery()
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
     
-    self.validatePostBody(with: request,
-                          query: query,
-                          queryDocument: true)
+    try self.validatePostBody(with: request,
+                              query: query,
+                              queryDocument: true)
   }
   
-  func testRequestBodyWithVariable() {
+  func testRequestBodyWithVariable() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!, session: mockSession)
     let query = HeroNameQuery(episode: .jedi)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
 
-    validatePostBody(with: request,
-                     query: query,
-                     queryDocument: true)
+    try validatePostBody(with: request,
+                         query: query,
+                         queryDocument: true)
   }
   
   
-  func testRequestBodyForAPQsWithVariable() {
+  func testRequestBodyForAPQsWithVariable() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -227,19 +210,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
     
-    validatePostBody(with: request,
-                     query: query,
-                     persistedQuery: true)
+    try self.validatePostBody(with: request,
+                              query: query,
+                              persistedQuery: true)
   }
   
-  func testQueryStringForAPQsUseGetMethod() {
+  func testQueryStringForAPQsUseGetMethod() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -248,18 +230,16 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery()
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
     XCTAssertEqual(request.url?.host, network.url.host)
     
-    validateUrlParams(with: request,
-                      query: query,
-                      persistedQuery: true)
+    try self.validateUrlParams(with: request,
+                               query: query,
+                               persistedQuery: true)
   }
   
-  func testQueryStringForAPQsUseGetMethodWithVariable() {
+  func testQueryStringForAPQsUseGetMethodWithVariable() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -268,19 +248,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "GET")
     
-    validateUrlParams(with: request,
-                      query: query,
-                      persistedQuery: true)
+    try self.validateUrlParams(with: request,
+                               query: query,
+                               persistedQuery: true)
   }
   
-  func testUseGETForQueriesRequest() {
+  func testUseGETForQueriesRequest() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -288,37 +267,35 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery()
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "GET")
     
-    validateUrlParams(with: request,
-                      query: query,
-                      queryDocument: true)
+    try self.validateUrlParams(with: request,
+                               query: query,
+                               queryDocument: true)
   }
   
-  func testNotUseGETForQueriesRequest() {
+  func testNotUseGETForQueriesRequest() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!, session: mockSession)
     let query = HeroNameQuery()
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
     
-    validatePostBody(with: request,
-                     query: query,
-                     queryDocument: true)
+    try self.validatePostBody(with: request,
+                              query: query,
+                              queryDocument: true)
   }
   
-  func testNotUseGETForQueriesAPQsRequest() {
+  func testNotUseGETForQueriesAPQsRequest() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -326,19 +303,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "POST")
     
-    validatePostBody(with: request,
-                     query: query,
-                     persistedQuery: true)
+    try self.validatePostBody(with: request,
+                              query: query,
+                              persistedQuery: true)
   }
   
-  func testUseGETForQueriesAPQsRequest() {
+  func testUseGETForQueriesAPQsRequest() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -347,19 +323,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "GET")
     
-    validateUrlParams(with: request,
-                      query: query,
-                      persistedQuery: true)
+    try self.validateUrlParams(with: request,
+                               query: query,
+                               persistedQuery: true)
   }
   
-  func testNotUseGETForQueriesAPQsGETRequest() {
+  func testNotUseGETForQueriesAPQsGETRequest() throws {
     let mockSession = MockURLSession()
     let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
                                        session: mockSession,
@@ -368,15 +343,13 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    guard let request = mockSession.lastRequest else {
-      XCTFail("last request should not be nil")
-      return
-    }
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
     XCTAssertEqual(request.url?.host, network.url.host)
     XCTAssertEqual(request.httpMethod, "GET")
     
-    validateUrlParams(with: request,
-                      query: query,
-                      persistedQuery: true)
+    try self.validateUrlParams(with: request,
+                               query: query,
+                               persistedQuery: true)
   }
 }
