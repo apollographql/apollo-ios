@@ -77,7 +77,7 @@ You're now ready to generate code from the combination of your saved query and s
 
 ## Running code generation
 
-1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `apollo:schema`). The schema isn't changing between builds, which means you don't need to refetch it.
+1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `schema:download`). The schema isn't changing between builds, which means you don't need to refetch it.
 
 2. _Uncomment_ the line you previously commented out (that includes `codegen:generate`).
 
