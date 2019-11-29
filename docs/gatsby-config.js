@@ -28,7 +28,8 @@ module.exports = {
             'tutorial/tutorial-introduction',
             'tutorial/tutorial-create-project',
             'tutorial/tutorial-obtain-schema',
-            'tutorial/tutorial-execute-query'
+            'tutorial/tutorial-execute-query',
+            'tutorial/tutorial-query-ui'
           ],
           Usage:[
             'downloading-schema',
