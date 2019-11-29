@@ -25,7 +25,7 @@ class GETTransformerTests: XCTestCase {
     XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
   }
   
-  func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() {
+  func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() throws {
     let operation = HeroNameTypeSpecificConditionalInclusionQuery(episode: .jedi, includeName: true)
     let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: false)
     
@@ -40,20 +40,14 @@ class GETTransformerTests: XCTestCase {
     } else {
       // We can't guarantee order of encoding, so we need to pull the JSON back
       // out and check that it has the correct and correctly typed properties.
-      guard let transformedURL = url else {
-        XCTFail("URL not created!")
-        return
-      }
+      let transformedURL = try XCTUnwrap(url,
+                                         "URL not created!")
       
-      guard let urlComponents = URLComponents(url: transformedURL, resolvingAgainstBaseURL: false) else {
-        XCTFail("Couldn't access URL components")
-        return
-      }
+      let urlComponents = try XCTUnwrap(URLComponents(url: transformedURL, resolvingAgainstBaseURL: false),
+                                        "Couldn't access URL components")
       
-      guard let queryItems = urlComponents.queryItems else {
-        XCTFail("No query items!")
-        return
-      }
+      let queryItems = try XCTUnwrap(urlComponents.queryItems,
+                                     "No query items!")
       
       guard
         let operationNameItem = queryItems.first(where: { $0.name == "operationName" }),
@@ -71,10 +65,8 @@ class GETTransformerTests: XCTestCase {
           return
       }
       
-      guard let data = variables.data(using: .utf8) else {
-        XCTFail("Couldn't convert data to UTF8 string!")
-        return
-      }
+      let data = try XCTUnwrap(variables.data(using: .utf8),
+                               "Couldn't convert data to UTF8 string!")
       
       guard
         let object = try? JSONSerialization.jsonObject(with: data),
@@ -88,7 +80,7 @@ class GETTransformerTests: XCTestCase {
     }
   }
   
-  func testEncodingQueryWith2DParameter() {
+  func testEncodingQueryWith2DParameter() throws {
     let operation = HeroNameQuery(episode: .empire)
     
     let persistedQuery: GraphQLMap = [
@@ -115,19 +107,16 @@ class GETTransformerTests: XCTestCase {
 
       XCTAssertTrue(queryString)
     } else {
-      guard let query = url?.queryItemDictionary?["query"] else {
-        XCTFail("query should not nil")
-        return
-      }
+      let query = try XCTUnwrap(url?.queryItemDictionary?["query"],
+                                "query should not be nil")
       XCTAssertTrue(query == operation.queryDocument)
       
-      guard let variables = url?.queryItemDictionary?["variables"] else {
-        XCTFail("variables should not nil")
-        return
-      }
+      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
+                                    "variables should not nil")
       XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
       
-      guard let ext = url?.queryItemDictionary?["extensions"],
+      guard
+        let ext = url?.queryItemDictionary?["extensions"],
         let data = ext.data(using: .utf8),
         let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
         else {
@@ -135,27 +124,21 @@ class GETTransformerTests: XCTestCase {
           return
       }
       
-      guard let comparePersistedQuery = jsonBody["persistedQuery"] as? JSONObject else {
-        XCTFail("persistedQuery is missing")
-        return
-      }
+      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
+                                                "persistedQuery is missing")
       
-      guard let sha256Hash = comparePersistedQuery["sha256Hash"] as? String else {
-        XCTFail("sha256Hash is missing")
-        return
-      }
+      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
+                                     "sha256Hash is missing")
       
-      guard let version = comparePersistedQuery["version"] as? Int else {
-        XCTFail("version is missing")
-        return
-      }
+      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
+                                  "version is missing")
       
       XCTAssertEqual(version, 1)
       XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
     }
   }
   
-  func testEncodingQueryWith2DWOQueryParameter() {
+  func testEncodingQueryWith2DWOQueryParameter() throws {
     let operation = HeroNameQuery(episode: .empire)
     
     let persistedQuery: GraphQLMap = [
@@ -181,13 +164,13 @@ class GETTransformerTests: XCTestCase {
       XCTAssertTrue(queryString)
     } else {
 
-      guard let variables = url?.queryItemDictionary?["variables"] else {
-        XCTFail("variables should not nil")
-        return
-      }
+      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
+                                    "variables should not nil")
+
       XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
       
-      guard let ext = url?.queryItemDictionary?["extensions"],
+      guard
+        let ext = url?.queryItemDictionary?["extensions"],
         let data = ext.data(using: .utf8),
         let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
         else {
@@ -195,20 +178,14 @@ class GETTransformerTests: XCTestCase {
           return
       }
       
-      guard let comparePersistedQuery = jsonBody["persistedQuery"] as? JSONObject else {
-        XCTFail("persistedQuery is missing")
-        return
-      }
+      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
+                                                "persistedQuery is missing")
       
-      guard let sha256Hash = comparePersistedQuery["sha256Hash"] as? String else {
-        XCTFail("sha256Hash is missing")
-        return
-      }
+      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
+                                     "sha256Hash is missing")
       
-      guard let version = comparePersistedQuery["version"] as? Int else {
-        XCTFail("version is missing")
-        return
-      }
+      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
+                                  "version is missing")
       
       XCTAssertEqual(version, 1)
       XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
@@ -226,7 +203,7 @@ class GETTransformerTests: XCTestCase {
     XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D")
   }
   
-  func testEncodingQueryWith2DNullDefaultParameter() {
+  func testEncodingQueryWith2DNullDefaultParameter() throws {
     let operation = HeroNameQuery()
     
     let persistedQuery: GraphQLMap = [
@@ -252,13 +229,12 @@ class GETTransformerTests: XCTestCase {
     let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D"
       XCTAssertTrue(queryString)
     } else {
-      guard let variables = url?.queryItemDictionary?["variables"] else {
-        XCTFail("variables should not nil")
-        return
-      }
+      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
+                                    "variables should not nil")
       XCTAssertEqual(variables, "{\"episode\":null}")
       
-      guard let ext = url?.queryItemDictionary?["extensions"],
+      guard
+        let ext = url?.queryItemDictionary?["extensions"],
         let data = ext.data(using: .utf8),
         let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
         else {
@@ -266,20 +242,14 @@ class GETTransformerTests: XCTestCase {
           return
       }
       
-      guard let comparePersistedQuery = jsonBody["persistedQuery"] as? JSONObject else {
-        XCTFail("persistedQuery is missing")
-        return
-      }
+      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
+                                                "persistedQuery is missing")
       
-      guard let sha256Hash = comparePersistedQuery["sha256Hash"] as? String else {
-        XCTFail("sha256Hash is missing")
-        return
-      }
+      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
+                                     "sha256Hash is missing")
       
-      guard let version = comparePersistedQuery["version"] as? Int else {
-        XCTFail("version is missing")
-        return
-      }
+      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
+                                  "version is missing")
       
       XCTAssertEqual(version, 1)
       XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")

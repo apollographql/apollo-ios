@@ -102,7 +102,7 @@ class ReadWriteFromStoreTests: XCTestCase {
 
       let result = try await(store.load(query: query))
 
-      guard let data = result.data else { XCTFail(); return }
+      let data = try XCTUnwrap(result.data)
       XCTAssertEqual(data.hero?.name, "Artoo")
     }
   }
@@ -124,7 +124,8 @@ class ReadWriteFromStoreTests: XCTestCase {
           case .success:
             XCTFail("write should fail")
           case .failure(let error):
-            guard let error = error as? GraphQLResultError,
+            guard
+              let error = error as? GraphQLResultError,
               let jsonError = error.underlying as? JSONDecodingError else {
                 XCTFail("unexpected error")
                 return
@@ -210,7 +211,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       self.waitForExpectations(timeout: 1, handler: nil)
       
       let result = try await(store.load(query: query))
-      guard let data = result.data else { XCTFail(); return }
+      let data = try XCTUnwrap(result.data)
       
       XCTAssertEqual(data.hero?.name, "R2-D2")
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
@@ -250,7 +251,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       self.waitForExpectations(timeout: 1, handler: nil)
 
       let result = try await(store.load(query: query))
-      guard let data = result.data else { XCTFail(); return }
+      let data = try XCTUnwrap(result.data)
 
       XCTAssertEqual(data.hero?.name, "R2-D2")
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
@@ -367,7 +368,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       self.waitForExpectations(timeout: 1, handler: nil)
 
       let result = try await(store.load(query: HeroAndFriendsNamesQuery()))
-      guard let data = result.data else { XCTFail(); return }
+      let data = try XCTUnwrap(result.data)
 
       XCTAssertEqual(data.hero?.name, "R2-D2")
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
