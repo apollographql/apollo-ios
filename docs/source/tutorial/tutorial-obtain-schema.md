@@ -8,7 +8,7 @@ This tutorial uses a modified version of the GraphQL server you build as part of
 
 ![the GraphiQL query explorer](images/graphiql.png)
 
-The schema defines which GraphQL operations your server can execute. Click **Schema** on the right-hand side to view a list of the possible queries and mutations you can run:
+The schema defines which GraphQL operations your server can execute. Click **Schema** on the right-hand side to view a list of types you can query (and the types of fields on those types) along with any possible mutations or subscriptions:
 
 ![GraphiQL showing the schema](images/graphiql_show_schema.png)
 
