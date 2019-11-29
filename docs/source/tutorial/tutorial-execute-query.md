@@ -73,7 +73,7 @@ Now that your query is fetching the right data, head back to Xcode.
 
 2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As previously, don't add it to any target.
 
-3. Copy your final query from GraphiQL and paste it into `schema.json`. 
+3. Copy your final query from GraphiQL and paste it into `LaunchList.graphql`. 
 
 You're now ready to generate code from the combination of your saved query and schema.
 
