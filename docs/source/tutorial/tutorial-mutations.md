@@ -2,6 +2,20 @@
 title: Working with Mutations
 ---
 
+In this tutorial, you'll learn how to build authenticated mutations and handle information returned from those mutations. 
+
+## Creating the booking mutation
+
+Add the following in GraphiQL
+
+```graphql
+mutation BookTrip($tripID:ID!) {
+  bookTrips(launchIds:[$tripID]) {
+    success
+    message
+  }
+}
+```
 
 ```graphql
 mutation BookTrip($tripID:ID!) {
