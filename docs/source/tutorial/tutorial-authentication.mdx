@@ -227,32 +227,36 @@ Now that you have a non-null and valid `email` variable, you can use it to log i
 
 With this code, once you log in successfully, the `LoginViewController` will automatically dismiss. This will send you back to the `DetailViewController`. 
 
+## Showing the login screen
 
-In **DetailViewController.swift**
+Now, it's time to show the login view controller if someone attempts to book without a logged in account. 
 
+In **DetailViewController.swift**, add a new method to determine if the user is currently logged in: 
 
 ```swift
 private func isLoggedIn() -> Bool {
   let keychain = KeychainSwift()
-  return keychain.get("login") != nil
+  return keychain.get(LoginViewController.loginKeychainKey) != nil
 }
 ```
+
+Then, add a new method to determine what to do when the "Book now!" button is tapped:
 
 
 ```swift
 @IBAction private func bookOrCancelTapped() {
   guard self.isLoggedIn() else {
-  self.performSegue(withIdentifier: "showLogin", sender: self)
-  return
-}
+    self.performSegue(withIdentifier: "showLogin", sender: self)
+    return
+  }
     
-guard let launch = self.launch else {
-  // We don't have enough information yet to know
-  // if we're booking or cancelling, bail.
-  return
-}
+  guard let launch = self.launch else {
+    // We don't have enough information yet to know
+    // if we're booking or cancelling, bail.
+    return
+  }
     
-if launch.isBooked == true {
+  if launch.isBooked == true {
     print("Cancel trip!")
   } else {
     print("Book trip!")
@@ -262,6 +266,18 @@ if launch.isBooked == true {
 
 In your storyboard, hook this method up to the `bookOrCancel` button you set up earlier. 
 
+Build and run the application, and now when you tap the "Book now!" button, the `LoginViewController` will appear. Use it to log yourself in. 
+
+When the `DetailViewController` reappears, if you tap the "Book now!" button again, you'll see the print statement you added logging happily to the console:
+
+![console with "book trip!" printed out](images/book_trip_printout.png)
+
 ## Summary
+
+In this portion of the tutorial: 
+
+- You used your first mutation to log yourself in 
+- You built a system to allow the user to log in
+- You stored an authentication token so that you can make authenticated requests in the future
 
 Next, you'll [use your login token in a mutation to actually book yourself a flight](./tutorial-mutations)!
