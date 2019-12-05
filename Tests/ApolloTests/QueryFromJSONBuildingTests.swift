@@ -11,10 +11,8 @@ class QueryFromJSONBuildingTests: XCTestCase {
 
     let data = try HeroDetailsWithFragmentQuery.Data(jsonObject: jsonObject)
 
-    guard let human = data.hero?.fragments.heroDetails.asHuman else {
-      XCTFail("Wrong type")
-      return
-    }
+    let human = try XCTUnwrap(data.hero?.fragments.heroDetails.asHuman,
+                              "Wrong type")
     
     XCTAssertEqual(human.height, 1.72)
   }

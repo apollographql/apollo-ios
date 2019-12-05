@@ -6,6 +6,8 @@
 public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate
 ```
 
+> Methods which will be called if an error is receieved at the network level.
+
 ## Methods
 ### `networkTransport(_:receivedError:for:response:retryHandler:)`
 

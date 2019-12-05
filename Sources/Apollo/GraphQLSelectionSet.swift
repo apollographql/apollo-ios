@@ -41,7 +41,10 @@ public struct GraphQLField: GraphQLSelection {
   
   let type: GraphQLOutputType
   
-  public init(_ name: String, alias: String? = nil, arguments: [String: GraphQLInputValue]? = nil, type: GraphQLOutputType) {
+  public init(_ name: String,
+              alias: String? = nil,
+              arguments: [String: GraphQLInputValue]? = nil,
+              type: GraphQLOutputType) {
     self.name = name
     self.alias = alias
     
@@ -51,9 +54,11 @@ public struct GraphQLField: GraphQLSelection {
   }
   
   func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
-    if let argumentValues = try arguments?.evaluate(with: variables), !argumentValues.isEmpty {
-      let argumentsKey = orderIndependentKey(for: argumentValues)
-      return "\(name)(\(argumentsKey))"
+    if
+      let argumentValues = try arguments?.evaluate(with: variables),
+      argumentValues.isNotEmpty {
+        let argumentsKey = orderIndependentKey(for: argumentValues)
+        return "\(name)(\(argumentsKey))"
     } else {
       return name
     }
@@ -91,7 +96,9 @@ public struct GraphQLBooleanCondition: GraphQLSelection {
   let inverted: Bool
   let selections: [GraphQLSelection]
   
-  public init(variableName: String, inverted: Bool, selections: [GraphQLSelection]) {
+  public init(variableName: String,
+              inverted: Bool,
+              selections: [GraphQLSelection]) {
     self.variableName = variableName
     self.inverted = inverted;
     self.selections = selections;

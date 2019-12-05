@@ -26,7 +26,6 @@ To generate docs for the main `Apollo` project, `cd` into the source root and ru
 ```
 sourcedocs generate \
     --output-folder "docs/source/api/Apollo" \
-    --link-beginning "../" \
     --link-ending "/" \
     -- \
     -scheme Apollo \
@@ -38,7 +37,6 @@ To generate docs for the `ApolloSQLite` project, `cd` into the source root and r
 ```
 sourcedocs generate \
     --output-folder "docs/source/api/ApolloSQLite" \
-    --link-beginning "../" \
     --link-ending "/" \
     -- \
     -scheme ApolloSQLite \
@@ -50,7 +48,6 @@ To generate for docs the `ApolloWebSocket` project, `cd` into the source root an
 ```
 sourcedocs generate \
     --output-folder "docs/source/api/ApolloWebSocket" \
-    --link-beginning "../" \
     --link-ending "/" \
     -- \
     -scheme ApolloWebSocket \

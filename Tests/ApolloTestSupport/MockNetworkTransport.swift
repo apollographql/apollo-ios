@@ -4,6 +4,9 @@ import Dispatch
 public final class MockNetworkTransport: NetworkTransport {
   let body: JSONObject
 
+  public var clientName = "MockNetworkTransport"
+  public var clientVersion = "mock_version"
+  
   public init(body: JSONObject) {
     self.body = body
   }

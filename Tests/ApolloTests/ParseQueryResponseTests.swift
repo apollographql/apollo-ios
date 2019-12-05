@@ -193,10 +193,8 @@ class ParseQueryResponseTests: XCTestCase {
     
     let (result, _) = try response.parseResult().await()
     
-    guard let droid = result.data?.hero?.asDroid else {
-      XCTFail("Wrong type")
-      return
-    }
+    let droid = try XCTUnwrap(result.data?.hero?.asDroid,
+                              "Wrong type")
     
     XCTAssertEqual(droid.primaryFunction, "Astromech")
   }
@@ -212,10 +210,8 @@ class ParseQueryResponseTests: XCTestCase {
 
     let (result, _) = try response.parseResult().await()
 
-    guard let human = result.data?.hero?.asHuman else {
-      XCTFail("Wrong type")
-      return
-    }
+    let human = try XCTUnwrap(result.data?.hero?.asHuman,
+                              "Wrong type")
     
     XCTAssertEqual(human.height, 1.72)
   }
@@ -264,10 +260,8 @@ class ParseQueryResponseTests: XCTestCase {
     
     let (result, _) = try response.parseResult().await()
     
-    guard let droid = result.data?.hero?.fragments.heroDetails.asDroid else {
-      XCTFail("Wrong type")
-      return
-    }
+    let droid = try XCTUnwrap(result.data?.hero?.fragments.heroDetails.asDroid,
+                              "Wrong type")
     
     XCTAssertEqual(droid.primaryFunction, "Astromech")
   }
@@ -283,10 +277,8 @@ class ParseQueryResponseTests: XCTestCase {
 
     let (result, _) = try response.parseResult().await()
 
-    guard let human = result.data?.hero?.fragments.heroDetails.asHuman else {
-      XCTFail("Wrong type")
-      return
-    }
+    let human = try XCTUnwrap(result.data?.hero?.fragments.heroDetails.asHuman,
+                              "Wrong type")
     
     XCTAssertEqual(human.height, 1.72)
   }

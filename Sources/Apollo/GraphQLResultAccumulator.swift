@@ -74,7 +74,9 @@ final class Zip3Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
   private let accumulator3: Accumulator3
   
   
-  fileprivate init(_ accumulator1: Accumulator1, _ accumulator2: Accumulator2, _ accumulator3: Accumulator3) {
+  fileprivate init(_ accumulator1: Accumulator1,
+                   _ accumulator2: Accumulator2,
+                   _ accumulator3: Accumulator3) {
     self.accumulator1 = accumulator1
     self.accumulator2 = accumulator2
     self.accumulator3 = accumulator3

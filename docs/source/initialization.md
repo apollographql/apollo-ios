@@ -7,14 +7,14 @@ title: Creating a client
 In most cases, you'll want to create a single shared instance of `ApolloClient` and point it at your GraphQL server. The easiest way to do this is to create a singleton:
 
 ```swift
-class Apollo {
-  static let shared = Apollo() 
+class Network {
+  static let shared = Network() 
     
-  private(set) lazy var client = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
+  private(set) lazy var apollo = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 }
 ```
 
-Under the hood, this will create a client using `HTTPNetworkTransport` with a default configuration. You can then use this client from anywhere in your code with `Apollo.shared.client`. 
+Under the hood, this will create a client using `HTTPNetworkTransport` with a default configuration. You can then use this client from anywhere in your code with `Network.shared.apollo`. 
 
 ## Advanced Client Creation
 
@@ -80,10 +80,13 @@ Here's a sample of a singleton using an advanced client which handles all three 
 - **`Logger`** to handle printing logs based on their level, and which supports `.debug`, `.error`, or `.always` log levels.
 
 ```swift
+import Foundation
+import Apollo
+
 // MARK: - Singleton Wrapper
 
-class Apollo {
-  static let shared = Apollo() 
+class Network {
+  static let shared = Network() 
   
   // Configure the network transport to use the singleton as the delegate. 
   private lazy var networkTransport = HTTPNetworkTransport(
@@ -91,13 +94,13 @@ class Apollo {
     delegate: self
   )
     
-  // Use the configured network transport in your client.
-  private(set) lazy var client = ApolloClient(networkTransport: self.networkTransport)
+  // Use the configured network transport in your Apollo client.
+  private(set) lazy var apollo = ApolloClient(networkTransport: self.networkTransport)
 }
 
 // MARK: - Pre-flight delegate 
 
-extension Apollo: HTTPNetworkTransportPreflightDelegate {
+extension Network: HTTPNetworkTransportPreflightDelegate {
 
   func networkTransport(_ networkTransport: HTTPNetworkTransport, 
                           shouldSend request: URLRequest) -> Bool {
@@ -123,7 +126,7 @@ extension Apollo: HTTPNetworkTransportPreflightDelegate {
 
 // MARK: - Task Completed Delegate
 
-extension Apollo: HTTPNetworkTransportTaskCompletedDelegate {
+extension Network: HTTPNetworkTransportTaskCompletedDelegate {
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
                         didCompleteRawTaskForRequest request: URLRequest,
                         withData data: Data?,
@@ -151,7 +154,7 @@ extension Apollo: HTTPNetworkTransportTaskCompletedDelegate {
 
 // MARK: - Retry Delegate
 
-extension Apollo: HTTPNetworkTransportRetryDelegate {
+extension Network: HTTPNetworkTransportRetryDelegate {
 
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
                         receivedError error: Error,
@@ -162,6 +165,7 @@ extension Apollo: HTTPNetworkTransportRetryDelegate {
     guard UserManager.shared.requiresReAuthentication(basedOn: error, response: response) else {
       // This is not something this application can handle, do not retry.
       retryHandler(false)
+      return
     }
     
     // Attempt to re-authenticate asynchronously
@@ -172,3 +176,5 @@ extension Apollo: HTTPNetworkTransportRetryDelegate {
   }
 }
 ```
+
+An example of setting up a client which can handle web sockets and subscriptions is included in the [subscription documentation](subscriptions/#sample-subscription-supporting-initializer). 

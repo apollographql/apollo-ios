@@ -1,11 +1,3 @@
-//
-//  DispatchQueue+Optional.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 8/13/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 public extension DispatchQueue {
@@ -22,7 +14,9 @@ public extension DispatchQueue {
     }
   }
   
-  static func apollo_returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?, action: ((Result<T, Error>) -> Void)?, result: Result<T, Error>) {
+  static func apollo_returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?,
+                                                  action: ((Result<T, Error>) -> Void)?,
+                                                  result: Result<T, Error>) {
     guard let action = action else {
       return
     }

@@ -34,7 +34,7 @@ public class ApolloClient {
   public enum ApolloClientError: Error, LocalizedError {
     case noUploadTransport
     
-    public var localizedDescription: String {
+    public var errorDescription: String? {
       switch self {
       case .noUploadTransport:
         return "Attempting to upload using a transport which does not support uploads. This is a developer error."
@@ -63,8 +63,14 @@ public class ApolloClient {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
   
-  fileprivate func send<Operation: GraphQLOperation>(operation: Operation, shouldPublishResultToStore: Bool, context: UnsafeMutableRawPointer?, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) -> Cancellable {
-    return networkTransport.send(operation: operation) { result in
+  fileprivate func send<Operation: GraphQLOperation>(operation: Operation,
+                                                     shouldPublishResultToStore: Bool,
+                                                     context: UnsafeMutableRawPointer?,
+                                                     resultHandler: @escaping GraphQLResultHandler<Operation.Data>) -> Cancellable {
+    return networkTransport.send(operation: operation) { [weak self] result in
+      guard let self = self else {
+        return
+      }
       self.handleOperationResult(shouldPublishResultToStore: shouldPublishResultToStore,
                                  context: context,
                                  result,
@@ -72,7 +78,10 @@ public class ApolloClient {
     }
   }
   
-  private func handleOperationResult<Operation>(shouldPublishResultToStore: Bool, context: UnsafeMutableRawPointer?, _ result: Result<GraphQLResponse<Operation>, Error>, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+  private func handleOperationResult<Operation>(shouldPublishResultToStore: Bool,
+                                                context: UnsafeMutableRawPointer?,
+                                                _ result: Result<GraphQLResponse<Operation>, Error>,
+                                                resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
     switch result {
     case .failure(let error):
       resultHandler(.failure(error))
@@ -90,7 +99,10 @@ public class ApolloClient {
       
       firstly {
         try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
-        }.andThen { (result, records) in
+        }.andThen { [weak self] (result, records) in
+          guard let self = self else {
+            return
+          }
           if let records = records {
             self.store.publish(records: records, context: context).catch { error in
               preconditionFailure(String(describing: error))
@@ -175,7 +187,10 @@ extension ApolloClient: ApolloClientProtocol {
       return EmptyCancellable()
     }
     
-    return uploadingTransport.upload(operation: operation, files: files) { result in
+    return uploadingTransport.upload(operation: operation, files: files) { [weak self] result in
+      guard let self = self else {
+        return
+      }
       self.handleOperationResult(shouldPublishResultToStore: true,
                                  context: context, result,
                                  resultHandler: wrappedHandler)
@@ -206,7 +221,7 @@ private func wrapResultHandler<Data>(_ resultHandler: GraphQLResultHandler<Data>
 }
 
 private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperation, Cancellable {
-  let client: ApolloClient
+  weak var client: ApolloClient?
   let query: Query
   let cachePolicy: CachePolicy
   let context: UnsafeMutableRawPointer?
@@ -214,7 +229,11 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
   
   private var networkTask: Cancellable?
   
-  init(client: ApolloClient, query: Query, cachePolicy: CachePolicy, context: UnsafeMutableRawPointer?, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+  init(client: ApolloClient,
+       query: Query,
+       cachePolicy: CachePolicy,
+       context: UnsafeMutableRawPointer?,
+       resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client
     self.query = query
     self.cachePolicy = cachePolicy
@@ -235,7 +254,7 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
       return
     }
     
-    client.store.load(query: query) { result in
+    client?.store.load(query: query) { result in
       if self.isCancelled {
         self.state = .finished
         return
@@ -262,7 +281,9 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
   }
   
   func fetchFromNetwork() {
-    networkTask = client.send(operation: query, shouldPublishResultToStore: true, context: context) { result in
+    networkTask = client?.send(operation: query,
+                               shouldPublishResultToStore: true,
+                               context: context) { result in
       self.resultHandler(result)
       self.state = .finished
       return

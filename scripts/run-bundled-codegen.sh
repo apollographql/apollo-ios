@@ -8,32 +8,68 @@ SCRIPT_DIR="$(dirname "$0")"
 
 # Get the SHASUM of the tarball
 ZIP_FILE="${SCRIPT_DIR}/apollo.tar.gz"
-SHASUM="$(/usr/bin/shasum -a 256 "${ZIP_FILE}")"
+ZIP_FILE_DOWNLOAD_URL="https://34622-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.21.0/apollo-v2.21.0-darwin-x64.tar.gz"
 SHASUM_FILE="${SCRIPT_DIR}/apollo/.shasum"
 APOLLO_DIR="${SCRIPT_DIR}"/apollo
+IS_RETRY="false"
+SHASUM=""
 
 # Helper functions
+download_apollo_cli_if_needed() {
+  echo "Checking if CLI needs to be downloaded..."
+  if [ -f "${ZIP_FILE}" ]; then
+    echo "Zip file already downloaded!"
+  else
+    download_cli
+  fi
+}
+
+download_cli() {
+  echo "Downloading zip file with the CLI..."
+  curl --silent --retry 3 --fail --show-error "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
+}
+
+force_cli_download() {
+  rm -r "${ZIP_FILE}"
+  remove_existing_apollo
+  download_cli
+  IS_RETRY="true"
+  validate_codegen_and_extract_if_needed
+}
+
+update_shasum() {
+  SHASUM="$(/usr/bin/shasum -a 256 "${ZIP_FILE}" | /usr/bin/awk '{ print $1 }')"
+}
+
 remove_existing_apollo() {
-  rm -r "${APOLLO_DIR}"
+  if [[ -f "${APOLLO_DIR}" ]]; then
+    rm -r "${APOLLO_DIR}"
+  fi
 }
 
 extract_cli() {
   tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
   
-  # Get just the SHASUM rather than the SHASUM + path
-  ARRAY=($SHASUM)
-  echo "${ARRAY[0]}" | tee "${SHASUM_FILE}"
+  echo "${SHASUM}" | tee "${SHASUM_FILE}"
 }
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="13febaa462e56679099d81502d530e16c3ddf1c6c2db06abe3822c0ef79fb9d2"
+  EXPECTED_SHASUM="14e24195e73846111f21b0239dd44afdadc3249ff3fdbc8d0fc74e76459eb3b7"
+  update_shasum
 
   if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
-    echo "Correct version of the CLI tarball is included, checking if it's already been extracted..."
+    echo "Correct version of the CLI tarball is downloaded locally, checking if it's already been extracted..."
   else
-    echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation." >&2
-    exit 1
+    if [[ "${IS_RETRY}" == "true" ]]; then
+      #This was a retry, and the SHASUM still doesn't match.
+      echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation." >&2
+      exit 1
+    else
+      # This was the first attempt, the version may have changed.
+      echo "Incorrect version of the CLI tarball is downloaded locally, redownloading the zip from the server."
+      force_cli_download
+    fi
   fi
 
   # Check if the SHASUM file has already been written for this version
@@ -53,6 +89,9 @@ validate_codegen_and_extract_if_needed() {
     extract_cli
   fi
 }
+
+# Download the current version of the CLI if it doesn't exist
+download_apollo_cli_if_needed
 
 # Make sure we're using an up-to-date and valid version of the Apollo CLI
 validate_codegen_and_extract_if_needed

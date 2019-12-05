@@ -7,39 +7,16 @@ import AppKit
 #endif
 
 import Apollo
+import Foundation
 
 public final class RepositoryQuery: GraphQLQuery {
-  /// query Repository {
-  ///   repository(owner: "apollographql", name: "apollo-ios") {
-  ///     __typename
-  ///     issueOrPullRequest(number: 13) {
-  ///       __typename
-  ///       ... on Issue {
-  ///         body
-  ///         ... on UniformResourceLocatable {
-  ///           url
-  ///         }
-  ///         author {
-  ///           __typename
-  ///           avatarUrl
-  ///         }
-  ///       }
-  ///       ... on Reactable {
-  ///         viewerCanReact
-  ///         ... on Comment {
-  ///           author {
-  ///             __typename
-  ///             login
-  ///           }
-  ///         }
-  ///       }
-  ///     }
-  ///   }
-  /// }
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { body ... on UniformResourceLocatable { url } author { __typename avatarUrl } } ... on Reactable { viewerCanReact ... on Comment { author { __typename login } } } } } }"
 
   public let operationName = "Repository"
+
+  public let operationIdentifier: String? = "63e25c339275a65f43b847e692e42caed8c06e25fbfb3dc8db6d4897b180c9ef"
 
   public init() {
   }
@@ -357,12 +334,7 @@ public final class RepositoryQuery: GraphQLQuery {
 }
 
 public final class RepoUrlQuery: GraphQLQuery {
-  /// query RepoURL {
-  ///   repository(owner: "apollographql", name: "apollo-ios") {
-  ///     __typename
-  ///     url
-  ///   }
-  /// }
+  /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     "query RepoURL { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename url } }"
 
