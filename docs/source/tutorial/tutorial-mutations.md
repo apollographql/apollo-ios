@@ -30,7 +30,7 @@ However, you're not going to be using that functionality in this application. Up
 
 ```swift  
 func networkTransport(_ networkTransport: HTTPNetworkTransport, 
-											shouldSend request: URLRequest) -> Bool {
+                      shouldSend request: URLRequest) -> Bool {
 	return true
 }
 ```
@@ -41,11 +41,11 @@ Update the `willSend` method to add your token as the value for the `Authorizati
 
 ```swift
 func networkTransport(_ networkTransport: HTTPNetworkTransport, 
-											willSend request: inout URLRequest) {
-	let keychain = KeychainSwift()
-	if let token = keychain.get(LoginViewController.loginKeychainKey) {
-		request.addValue(token, forHTTPHeaderField: "Authorization")
-	} // else do nothing
+                      willSend request: inout URLRequest) {
+  let keychain = KeychainSwift()
+  if let token = keychain.get(LoginViewController.loginKeychainKey) {
+    request.addValue(token, forHTTPHeaderField: "Authorization")
+  } // else do nothing
 }
 ```
 
@@ -56,7 +56,7 @@ In the primary declaration of `Network`, update your `lazy var` to create this t
 ```swift
 private(set) lazy var apollo: ApolloClient = {
   let httpNetworkTransport = HTTPNetworkTransport(url: URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!, 
-																								  delegate: self)
+                                                  delegate: self)
         
   return ApolloClient(networkTransport: httpNetworkTransport)
 }()
@@ -159,7 +159,7 @@ In `bookTrip`, replace the `TODO` with code to handle what comes back in the `su
 
 ```swift
 if bookingResult.success {
-	self.showAlert(title: "Success!",
+  self.showAlert(title: "Success!",
 							   message: bookingResult.message ?? "Trip booked successfully")
 } else {
   self.showAlert(title: "Could not book trip", 
@@ -171,11 +171,11 @@ In `cancelTrip`, replace the `TODO` with code to handle what comes back in that 
 
 ```swift
 if cancelResult.success {
-	self.showAlert(title: "Trip cancelled",  
-		             message: cancelResult.message ?? "Your trip has been officially cancelled.")
+  self.showAlert(title: "Trip cancelled",  
+                 message: cancelResult.message ?? "Your trip has been officially cancelled.")
 } else {
-	self.showAlert(title: "Could not cancel trip", 
-			           message: cancelResult.message ?? "Unknown failure.")
+  self.showAlert(title: "Could not cancel trip", 
+                 message: cancelResult.message ?? "Unknown failure.")
 }
 ```
 
@@ -190,8 +190,8 @@ private func loadLaunchDetails(forceReload: Bool = false) {
   guard
     let launchID = self.launchID,
     (forceReload || launchID != self.launch?.id) else {
-        // This is the launch we're alrady displaying, or the ID is nil.
-        return
+      // This is the launch we're alrady displaying, or the ID is nil.
+      return
   }
         
   let cachePolicy: CachePolicy
@@ -202,7 +202,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
   } 
         
   Network.shared.apollo.fetch(query: LaunchDetailsQuery(id: launchID), cachePolicy: cachePolicy) { [weak self] result in
-	  // Rest of this remains the same
+    // Rest of this remains the same
   }
 }
 ```
