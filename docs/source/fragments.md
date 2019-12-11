@@ -23,6 +23,8 @@ fragment HeroDetails on Character {
 
 Apollo iOS generates separate result types for fragments, which means they are a great way of keeping UI components or utility functions independent of specific queries.
 
+>**Note**: Do not define fragments with the same name as the type they're on, or errors can occur in the generated code. If you were to do `fragment Team on Team` or `fragment Character on Character`, you can quickly wind up with two different types with the same name in the same object, which will make the Swift compiler very, very sad. 
+
 One common pattern is to define a fragment for a child view (like a `UITableViewCell`), and include the fragment in a query defined at a parent level (like a `UITableViewController`). This way, the child view can easily be reused and only depends on the specific data it needs:
 
 ```swift
