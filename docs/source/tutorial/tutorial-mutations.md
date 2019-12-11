@@ -72,7 +72,44 @@ Now it's time to book a trip! 🚀
 
 ## Adding the booking mutation
 
-In GraphiQL, open the Docs tab and take a look at the `bookTrips` mutation.
+In GraphiQL, open the Docs tab and take a look at the `bookTrips` mutation:
+
+![The docs for book trips](images/graphiql_book_trips.png)
+
+You can book multiple trips at once, then get back a `success` boolean indicating whether the booking succeeded, a `message` string to display to the user, and a list of `launches` the current user has booked. 
+
+Start by adding a basic mutation in GraphiQL that passes in an array of trip identifiers, and then asks for the `success` and `message` back from the server: 
+
+```graphql
+mutation BookTrips($tripIDs:[ID]!) {
+  bookTrips(launchIds:$tripIDs) {
+    success
+    message
+  }
+}
+```
+
+In the `Query Variables` section of GraphiQL, add an array of identifiers - in this case, we'll use a single identifier to book one trip:
+
+```json
+{"tripIDs": ["25"]}
+```
+
+In the `HTTP Headers` section of GraphiQL, add an authorization header to pass through the token you received when you logged in:
+
+```json
+{ "Authorization" :"(your token)"}
+```
+
+Now, click the play button to run your authorized query in GraphiQL. You'll get back information regarding the trips (or in this case, trip) you've just booked. 
+
+> Note: If you receive an error that says "Cannot read property 'id' of null", that means your user was not found based on the token you passed through. Make sure your authorization header is properly formatted and that you're actually logged in!
+
+![GraphiQL showing the result of booking a trip with an array of IDs](images/graphiql_book_with_trip_ids.png)
+
+With a mutation written like this, you could book any number of trips you want at the same time! However, the booking mechanism in our application will only let you book one trip at a time.
+
+Luckily, there's an easy way to update the mutation so it's required to only take a single object. Update your mutation to take a single `$tripID`, then pass an array containing that `$tripID` to the `bookTrips` mutation: 
 
 ```graphql
 mutation BookTrip($tripID:ID!) {
@@ -83,17 +120,19 @@ mutation BookTrip($tripID:ID!) {
 }
 ```
 
-In the `Query Variables` section of GraphiQL, add the identifier 
+This is helpful because the Swift code generation will now generate a method which only accepts a single ID rather than an array, but you'll still be calling the same mutation under the hood, without the backend needing to change anything. 
+
+In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
 
 ```json
-{"id":"25"}
+{"tripID":"25"}
 ```
 
-In the `HTTP Headers` section of GraphiQL, add the following:
+Click the play button to run your updated query in GraphiQL. The response you get back should identical to the one you got earlier:
 
-```json
-{ "Authorization" :"(your token)"}
-```
+![GraphiQL showing the result of booking a trip with a single identifier](images/graphiql_book_with_trip_id_singular.png)
+
+Now that you've fleshed out your query, it's time to put it into the app. Go to **File > New > File... > Empty**, and name this file `BookTrip.graphql`. Paste in the final query from GraphiQL. 
 
 In `DetailViewController.swift`, add a new method to book your trip based on the flight's ID:
 
