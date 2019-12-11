@@ -111,7 +111,7 @@ class ApolloCodegenTests: XCTestCase {
                                        urlToSchemaFile: starWarsSchemaFileURL)
     do {
       _ = try ApolloCodegen.run(from: starWarsFolderURL,
-                                scriptFolderURL: scriptFolderURL,
+                                with: .custom(scriptsFolderURL: scriptFolderURL),
                                 options: options)
     } catch {
       XCTFail("Error running codegen: \(error.localizedDescription)")
@@ -134,7 +134,7 @@ class ApolloCodegenTests: XCTestCase {
                                        urlToSchemaFile: starWarsSchemaFileURL)
     
     _ = try ApolloCodegen.run(from: starWarsFolderURL,
-                              scriptFolderURL: scriptFolderURL,
+                              with: .custom(scriptsFolderURL: scriptFolderURL),
                               options: options)
     
     XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))
