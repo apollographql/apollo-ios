@@ -12,10 +12,10 @@ public protocol NetworkTransport: class {
   func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
   
   /// The name of the client to send as the `"apollographql-client-name"` header.
-  var clientName: String { get set }
+  var clientName: String { get }
   
   /// The version of the client to send as the `"apollographql-client-version"` header
-  var clientVersion: String { get set }
+  var clientVersion: String { get }
 }
 
 public extension NetworkTransport {
