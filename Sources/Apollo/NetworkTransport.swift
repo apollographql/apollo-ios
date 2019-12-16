@@ -5,6 +5,8 @@ public protocol NetworkTransport: class {
   
   /// Send a GraphQL operation to a server and return a response.
   ///
+  /// Note: The `clientName` and `clientVersion` should be sent with any URL request which needs headers so your client can be identified by tools like Apollo Graph Manager. The `addClientHeaders` method is provided below to do this for you automatically, and this is handled for you by batteries-included versions of `NetworkTransport`. 
+  ///
   /// - Parameters:
   ///   - operation: The operation to send.
   ///   - completionHandler: A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred.
