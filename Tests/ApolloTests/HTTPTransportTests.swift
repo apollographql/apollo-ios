@@ -273,13 +273,13 @@ class HTTPTransportTests: XCTestCase {
     let request = try XCTUnwrap(mockSession.lastRequest,
                                 "last request should not be nil")
     
-    let clientName = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientName),
+    let clientName = try XCTUnwrap(request.value(forHTTPHeaderField: network.headerFieldNameClientName),
                                    "Client name on last request was nil!")
     
     XCTAssertFalse(clientName.isEmpty, "Client name was empty!")
     XCTAssertEqual(clientName, network.clientName)
     
-    let clientVersion = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameClientVersion),
+    let clientVersion = try XCTUnwrap(request.value(forHTTPHeaderField: network.headerFieldNameClientVersion),
                                       "Client version on last request was nil!")
     
     XCTAssertFalse(clientVersion.isEmpty, "Client version was empty!")
