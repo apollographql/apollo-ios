@@ -21,12 +21,12 @@ public protocol NetworkTransport: class {
 public extension NetworkTransport {
   
   /// The header field name for the Client Name
-  static var headerFieldNameClientName: String {
+  var headerFieldNameClientName: String {
     return "apollographql-client-name"
   }
   
   /// The header field name for the client version
-  static var headerFieldNameClientVersion: String {
+  var headerFieldNameClientVersion: String {
     return "apollographql-client-version"
   }
   
@@ -59,6 +59,13 @@ public extension NetworkTransport {
     }
     
     return version
+  }
+  
+  /// Adds the client headers for this instance of `NetworkTransport` to the given request
+  /// - Parameter request: A mutable URLRequest to add the headers to.
+  func addClientHeaders(to request: inout URLRequest) {
+    request.setValue(self.clientName, forHTTPHeaderField: self.headerFieldNameClientName)
+    request.setValue(self.clientVersion, forHTTPHeaderField: self.headerFieldNameClientVersion)
   }
 }
 
