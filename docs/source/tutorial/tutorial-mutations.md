@@ -12,7 +12,7 @@ If you need to do anything before a request hits the and after Apollo has done m
 
 Open `Network.swift` and add an extension to conform to that delegate: 
 
-```swift
+```swift:title=Network.swift
 extension Network: HTTPNetworkTransportPreflightDelegate { 
 
 }
@@ -28,7 +28,7 @@ The `shouldSend` method is called to allow you to make sure a request should go 
 
 However, you're not going to be using that functionality in this application. Update the method to have it return `true` all the time.
 
-```swift  
+```swift:title=Network.swift  
 func networkTransport(_ networkTransport: HTTPNetworkTransport, 
                       shouldSend request: URLRequest) -> Bool {
 	return true
@@ -39,7 +39,7 @@ The `willSend` request is the last thing which can manipulate the request before
 
 Update the `willSend` method to add your token as the value for the `Authorization` header: 
 
-```swift
+```swift:title=Network.swift
 func networkTransport(_ networkTransport: HTTPNetworkTransport, 
                       willSend request: inout URLRequest) {
   let keychain = KeychainSwift()
@@ -53,7 +53,7 @@ Next, you need to make sure that Apollo knows that this delegate exists. In orde
 
 In the primary declaration of `Network`, update your `lazy var` to create this transport and set the `Network` object as its delegate, then pass it through to the `ApolloClient`: 
 
-```swift
+```swift:title=Network.swift
 private(set) lazy var apollo: ApolloClient = {
   let httpNetworkTransport = HTTPNetworkTransport(url: URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!, 
                                                   delegate: self)
@@ -80,7 +80,7 @@ You can book multiple trips at once, then get back a `success` boolean indicatin
 
 Start by adding a basic mutation in GraphiQL that passes in an array of trip identifiers, and then asks for the `success` and `message` back from the server: 
 
-```graphql
+```graphql:title=(GraphiQL)
 mutation BookTrips($tripIDs:[ID]!) {
   bookTrips(launchIds:$tripIDs) {
     success
@@ -91,13 +91,13 @@ mutation BookTrips($tripIDs:[ID]!) {
 
 In the `Query Variables` section of GraphiQL, add an array of identifiers - in this case, we'll use a single identifier to book one trip:
 
-```json
+```json:title=(GraphiQL)
 {"tripIDs": ["25"]}
 ```
 
 In the `HTTP Headers` section of GraphiQL, add an authorization header to pass through the token you received when you logged in:
 
-```json
+```json:title=(GraphiQL)
 { "Authorization" :"(your token)"}
 ```
 
@@ -111,7 +111,7 @@ With a mutation written like this, you could book any number of trips you want a
 
 Luckily, there's an easy way to update the mutation so it's required to only take a single object. Update your mutation to take a single `$tripID`, then pass an array containing that `$tripID` to the `bookTrips` mutation: 
 
-```graphql
+```graphql:title=(GraphiQL)
 mutation BookTrip($tripID:ID!) {
   bookTrips(launchIds:[$tripID]) {
     success
@@ -124,7 +124,7 @@ This is helpful because the Swift code generation will now generate a method whi
 
 In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
 
-```json
+```json:title=(GraphiQL)
 {"tripID":"25"}
 ```
 
@@ -136,7 +136,7 @@ Now that you've fleshed out your query, it's time to put it into the app. Go to 
 
 In `DetailViewController.swift`, add a new method to book your trip based on the flight's ID:
 
-```swift
+```swift:title=DetailViewController.swift
 private func bookTrip(with id: GraphQLID) {
   Network.shared.apollo.perform(mutation: BookTripMutation(id: id)) { [weak self] result in
     guard let self = self else {
@@ -159,33 +159,18 @@ private func bookTrip(with id: GraphQLID) {
 }
 ```
 
-And add a similar method to cancel the trip based on the flight's ID: 
 
-```swift
+Update the `cancelTrip` method to also take the flight's ID: 
+
+```swift:title=DetailViewController.swift
 private func cancelTrip(with id: GraphQLID) {
-  Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self] result in
-    guard let self = self else {
-      return
-    }
-    switch result {
-    case .success(let graphQLResult):
-      if let cancelResult = graphQLResult.data?.cancelTrip {
-        if cancelResult.success {
-          // TODO
-      }
-
-      if let errors = graphQLResult.errors {
-        self.showAlertForErrors(errors)
-      }
-    case .failure(let error):
-      self.showAlert(title: "Network Error",
-                     message: error.localizedDescription)
-    }
-  }
+  print("Cancel trip \(id)")
 }
 ```
 
-```swift
+Next, update the `bookOrCancelTapped` method to use the two methods you've just added instead of printing: 
+
+```swift:title=DetailViewController.swift
 if launch.isBooked {
   self.cancelTrip(with: launch.id)
 } else {
@@ -196,7 +181,7 @@ if launch.isBooked {
 In `bookTrip`, replace the `TODO` with code to handle what comes back in the `success` property: 
 
 
-```swift
+```swift:title=DetailViewController.swift
 if bookingResult.success {
   self.showAlert(title: "Success!",
 							   message: bookingResult.message ?? "Trip booked successfully")
@@ -206,9 +191,39 @@ if bookingResult.success {
 }
 ```
 
+
+## Adding the Cancel mutation
+
+Now, the process will be similar for the `cancelTrip` mutation. Go back to GraphiQL and look at the `
+
+![cancel trip](images/graphiql_cancel_trip.png)
+
+```swift:title=DetailViewController.swift
+Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self] result in
+  guard let self = self else {
+    return
+  }
+  switch result {
+  case .success(let graphQLResult):
+    if let cancelResult = graphQLResult.data?.cancelTrip {
+      if cancelResult.success {
+        // TODO
+      }
+
+    if let errors = graphQLResult.errors {
+      self.showAlertForErrors(errors)
+    }
+  case .failure(let error):
+    self.showAlert(title: "Network Error",
+                   message: error.localizedDescription)
+  }
+}
+```
+
+
 In `cancelTrip`, replace the `TODO` with code to handle what comes back in that mutation's `success` property: 
 
-```swift
+```swift:title=DetailViewController.swift
 if cancelResult.success {
   self.showAlert(title: "Trip cancelled",  
                  message: cancelResult.message ?? "Your trip has been officially cancelled.")
@@ -224,7 +239,7 @@ Update the `loadLaunchDetails` method to take a parameter to determine if it sho
 
 If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheCompletely` which  will force the network to go out and 
 
-```swift
+```swift:title=DetailViewController.swift
 private func loadLaunchDetails(forceReload: Bool = false) {
   guard
     let launchID = self.launchID,
@@ -248,8 +263,10 @@ private func loadLaunchDetails(forceReload: Bool = false) {
 
 Add the following to both the `bookingResult.success` and `cancelResult.success` branches in their respective methods:
 
-```swift
+```swift:title=DetailViewController.swift
 self.loadLaunchDetails(forceReload: true)
-```
+``` 
 
-## Updating the cache yourself
+## Summary
+
+Next, you'll learn more about how to get details in a reusable fashion and how to work with the cache directly in [Fragments and Cache Manipulation](./tutorial-fragments-and-cache).
