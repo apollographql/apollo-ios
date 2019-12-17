@@ -377,7 +377,7 @@ public class HTTPNetworkTransport {
                                                sendQueryDocument: sendQueryDocument,
                                                autoPersistQuery: autoPersistQueries)
     var request = URLRequest(url: self.url)
-    self.addClientHeaders(to: &request)
+    self.addApolloClientHeaders(to: &request)
     
     // We default to json, but this can be changed below if needed.
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")

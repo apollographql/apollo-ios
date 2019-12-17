@@ -50,14 +50,14 @@ public class WebSocketTransport {
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientName: String {
     didSet {
-      self.addClientHeaders(to: &self.websocket.request)
+      self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
   
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientVersion: String {
     didSet {
-      self.addClientHeaders(to: &self.websocket.request)
+      self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
   
@@ -84,7 +84,7 @@ public class WebSocketTransport {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
     self.clientVersion = clientVersion
-    self.addClientHeaders(to: &self.websocket.request)
+    self.addApolloClientHeaders(to: &self.websocket.request)
     self.websocket.delegate = self
     self.websocket.connect()
     self.websocket.callbackQueue = processingQueue
