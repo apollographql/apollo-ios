@@ -5,7 +5,7 @@ public protocol NetworkTransport: class {
   
   /// Send a GraphQL operation to a server and return a response.
   ///
-  /// Note: The `clientName` and `clientVersion` should be sent with any URL request which needs headers so your client can be identified by tools like Apollo Graph Manager. The `addClientHeaders` method is provided below to do this for you automatically, and this is handled for you by batteries-included versions of `NetworkTransport`. 
+  /// Note if you're implementing this yourself rather than using one of the batteries-included versions of `NetworkTransport` (which handle this for you): The `clientName` and `clientVersion` should be sent with any URL request which needs headers so your client can be identified by tools meant to see what client is using which request. The `addApolloClientHeaders` method is provided below to do this for you if you're using Apollo Graph Manager.
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
@@ -13,10 +13,10 @@ public protocol NetworkTransport: class {
   /// - Returns: An object that can be used to cancel an in progress request.
   func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
   
-  /// The name of the client to send as the `"apollographql-client-name"` header.
+  /// The name of the client to send as a header value.
   var clientName: String { get }
   
-  /// The version of the client to send as the `"apollographql-client-version"` header
+  /// The version of the client to send as a header value.
   var clientVersion: String { get }
 }
 
