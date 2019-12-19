@@ -2,13 +2,15 @@
 title: Working with Mutations
 ---
 
-In this tutorial, you'll learn how to build authenticated mutations and handle information returned from those mutations, and use that knowledge to book and cancel some trips for yourself. 
+In this section, you'll learn how to build authenticated mutations and handle information returned from those mutations, and use that knowledge to book and cancel some trips for yourself. 
 
 ## Adding authentication handling
 
 Before you start booking, you need to be able to pass your authentication token along to Apollo. To do that, you'll dig a little deeper into how the Apollo client works. 
 
-If you need to do anything before a request hits the and after Apollo has done most of the configuration for you, there's a delegate protocol called `HTTPNetworkTransportPreflightDelegate` which will allow you to do that. 
+The `ApolloClient` uses something called a `NetworkTransport` under the hood. By default, the client will create an `HTTPNetworkTransport` instance to handle talking over HTTP to your server.
+
+If you need to do anything before a request hits the wire but after Apollo has done most of the configuration for you, there's a delegate protocol called `HTTPNetworkTransportPreflightDelegate` which will allow you to do that. 
 
 Open `Network.swift` and add an extension to conform to that delegate: 
 
@@ -49,7 +51,7 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 }
 ```
 
-Next, you need to make sure that Apollo knows that this delegate exists. In order to do that, you need to do a step that so far, the Apollo client has been doing for you under the hood: Instantiating the `HTTPNetworkTransport`, which is the default way of talking to your server.
+Next, you need to make sure that Apollo knows that this delegate exists. In order to do that, you need to do a step that so far, the Apollo client has been doing for you under the hood: Instantiating the `HTTPNetworkTransport`.
 
 In the primary declaration of `Network`, update your `lazy var` to create this transport and set the `Network` object as its delegate, then pass it through to the `ApolloClient`: 
 
@@ -109,11 +111,11 @@ Now, click the play button to run your authorized query in GraphiQL. You'll get 
 
 With a mutation written like this, you could book any number of trips you want at the same time! However, the booking mechanism in our application will only let you book one trip at a time.
 
-Luckily, there's an easy way to update the mutation so it's required to only take a single object. Update your mutation to take a single `$tripID`, then pass an array containing that `$tripID` to the `bookTrips` mutation: 
+Luckily, there's an easy way to update the mutation so it's required to only take a single object. Update your mutation to take a single `$id`, then pass an array containing that `$id` to the `bookTrips` mutation: 
 
 ```graphql:title=(GraphiQL)
-mutation BookTrip($tripID:ID!) {
-  bookTrips(launchIds:[$tripID]) {
+mutation BookTrip($id:ID!) {
+  bookTrips(launchIds:[$id]) {
     success
     message
   }
@@ -125,7 +127,7 @@ This is helpful because the Swift code generation will now generate a method whi
 In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
 
 ```json:title=(GraphiQL)
-{"tripID":"25"}
+{"id":"25"}
 ```
 
 Click the play button to run your updated query in GraphiQL. The response you get back should identical to the one you got earlier:
@@ -194,9 +196,39 @@ if bookingResult.success {
 
 ## Adding the Cancel mutation
 
-Now, the process will be similar for the `cancelTrip` mutation. Go back to GraphiQL and look at the `
+Now, the process will be similar for the `cancelTrip` mutation. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
 
-![cancel trip](images/graphiql_cancel_trip.png)
+![documentation for the cancel trip mutation](images/graphiql_cancel_trip_mutation.png)
+
+One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time - only one `ID!` is accepted as a parameter.  
+
+```graphql:title=(GraphiQL)
+mutation CancelTrip($id:ID!) {
+  cancelTrip(launchId:$id) {
+    success
+    message
+  }
+}
+```
+
+
+In the `Query Variables` section of GraphiQL, you can use the exact same JSON as you were using for the `BookTrip` mutation (since you'd gotten that down to taking a single identifier): 
+
+```json:title=(GraphiQL)
+{"id": "25"}
+```
+
+Make sure that in the `HTTP Headers` section of GraphiQL, your authorization token is still set up:
+
+```json:title=(GraphiQL)
+{ "Authorization" :"(your token)"}
+```
+
+![successful cancel trip request](images/graphiql_cancel_trip.png)
+
+It works! Once again, go to **File > New > File... > Empty**, and name this file `CancelTrip.graphql`. Paste in the final query from GraphiQL. 
+
+Next, go to `DetailViewController.swift`'s `cancelTrip(with id:)` method. Replace the `print` statement with code that makes the call to cancel the trip: 
 
 ```swift:title=DetailViewController.swift
 Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self] result in
@@ -261,7 +293,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
 }
 ```
 
-Add the following to both the `bookingResult.success` and `cancelResult.success` branches in their respective methods:
+Add the following to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods:
 
 ```swift:title=DetailViewController.swift
 self.loadLaunchDetails(forceReload: true)
@@ -269,4 +301,11 @@ self.loadLaunchDetails(forceReload: true)
 
 ## Summary
 
-Next, you'll learn more about how to get details in a reusable fashion and how to work with the cache directly in [Fragments and Cache Manipulation](./tutorial-fragments-and-cache).
+In this section you learned: 
+
+- How to add adjust a request, including adding an authentication header, before the request hits the network
+- How to pass a single item to a mutation that takes an array of items
+- How to handle the information which comes back from a mutation
+- How to specify a cache policy to force a fetch from the network when necessary
+
+In the next section, you'll learn more about how to get details in a reusable fashion and how to work with the cache directly in [Fragments and Cache Manipulation](./tutorial-fragments-and-cache).
