@@ -12,7 +12,7 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
 ### `networkTransport(_:receivedGraphQLErrors:retryHandler:)`
 
 ```swift
-func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
+func networkTransport(_ networkTransport: HTTPNetworkTransport,
 ```
 
 > Called when response contains one or more GraphQL errors.

@@ -73,4 +73,4 @@ swift run sourcedocs generate \
     -- \
     -scheme "ApolloWebSocket" \
     -workspace "Apollo.xcworkspace"
-```
+``

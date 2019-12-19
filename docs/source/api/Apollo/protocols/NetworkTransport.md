@@ -15,7 +15,7 @@ public protocol NetworkTransport: class
 var clientName: String
 ```
 
-> The name of the client to send as the `"apollographql-client-name"` header.
+> The name of the client to send as a header value.
 
 ### `clientVersion`
 
@@ -23,7 +23,7 @@ var clientName: String
 var clientVersion: String
 ```
 
-> The version of the client to send as the `"apollographql-client-version"` header
+> The version of the client to send as a header value.
 
 ## Methods
 ### `send(operation:completionHandler:)`
@@ -33,6 +33,8 @@ func send<Operation>(operation: Operation, completionHandler: @escaping (_ resul
 ```
 
 > Send a GraphQL operation to a server and return a response.
+>
+> Note if you're implementing this yourself rather than using one of the batteries-included versions of `NetworkTransport` (which handle this for you): The `clientName` and `clientVersion` should be sent with any URL request which needs headers so your client can be identified by tools meant to see what client is using which request. The `addApolloClientHeaders` method is provided below to do this for you if you're using Apollo Graph Manager.
 >
 > - Parameters:
 >   - operation: The operation to send.
