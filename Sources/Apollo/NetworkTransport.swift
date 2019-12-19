@@ -5,28 +5,30 @@ public protocol NetworkTransport: class {
   
   /// Send a GraphQL operation to a server and return a response.
   ///
+  /// Note if you're implementing this yourself rather than using one of the batteries-included versions of `NetworkTransport` (which handle this for you): The `clientName` and `clientVersion` should be sent with any URL request which needs headers so your client can be identified by tools meant to see what client is using which request. The `addApolloClientHeaders` method is provided below to do this for you if you're using Apollo Graph Manager.
+  ///
   /// - Parameters:
   ///   - operation: The operation to send.
   ///   - completionHandler: A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred.
   /// - Returns: An object that can be used to cancel an in progress request.
   func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
   
-  /// The name of the client to send as the `"apollographql-client-name"` header.
-  var clientName: String { get set }
+  /// The name of the client to send as a header value.
+  var clientName: String { get }
   
-  /// The version of the client to send as the `"apollographql-client-version"` header
-  var clientVersion: String { get set }
+  /// The version of the client to send as a header value.
+  var clientVersion: String { get }
 }
 
 public extension NetworkTransport {
   
-  /// The header field name for the Client Name
-  static var headerFieldNameClientName: String {
+  /// The field name for the Apollo Client Name header
+  static var headerFieldNameApolloClientName: String {
     return "apollographql-client-name"
   }
   
-  /// The header field name for the client version
-  static var headerFieldNameClientVersion: String {
+  /// The field name for the Apollo Client Version header
+  static var headerFieldNameApolloClientVersion: String {
     return "apollographql-client-version"
   }
   
@@ -37,6 +39,10 @@ public extension NetworkTransport {
     }
     
     return "\(identifier)-apollo-ios"
+  }
+  
+  var clientName: String {
+    return Self.defaultClientName
   }
   
   /// The default client version to use when setting up the `clientVersion` property.
@@ -59,6 +65,17 @@ public extension NetworkTransport {
     }
     
     return version
+  }
+  
+  var clientVersion: String {
+    return Self.defaultClientVersion
+  }
+  
+  /// Adds the Apollo client headers for this instance of `NetworkTransport` to the given request
+  /// - Parameter request: A mutable URLRequest to add the headers to.
+  func addApolloClientHeaders(to request: inout URLRequest) {
+    request.setValue(self.clientName, forHTTPHeaderField: Self.headerFieldNameApolloClientName)
+    request.setValue(self.clientVersion, forHTTPHeaderField: Self.headerFieldNameApolloClientVersion)
   }
 }
 
