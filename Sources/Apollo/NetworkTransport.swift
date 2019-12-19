@@ -41,6 +41,10 @@ public extension NetworkTransport {
     return "\(identifier)-apollo-ios"
   }
   
+  var clientName: String {
+    return Self.defaultClientName
+  }
+  
   /// The default client version to use when setting up the `clientVersion` property.
   static var defaultClientVersion: String {
     var version = String()
@@ -61,6 +65,10 @@ public extension NetworkTransport {
     }
     
     return version
+  }
+  
+  var clientVersion: String {
+    return Self.defaultClientVersion
   }
   
   /// Adds the Apollo client headers for this instance of `NetworkTransport` to the given request
