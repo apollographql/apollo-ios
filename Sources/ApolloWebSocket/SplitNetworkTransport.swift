@@ -23,7 +23,7 @@ public class SplitNetworkTransport {
     if httpVersion == websocketVersion {
       return httpVersion
     } else {
-      return "SPLIT_HTTPVERSION_\(httpVersion)_WEBSOCKETNAME_\(websocketVersion)"
+      return "SPLIT_HTTPVERSION_\(httpVersion)_WEBSOCKETVERSION_\(websocketVersion)"
     }
   }
   
