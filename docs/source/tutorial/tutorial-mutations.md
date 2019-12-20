@@ -182,7 +182,6 @@ if launch.isBooked {
 
 In `bookTrip`, replace the `TODO` with code to handle what comes back in the `success` property: 
 
-
 ```swift:title=DetailViewController.swift
 if bookingResult.success {
   self.showAlert(title: "Success!",
@@ -193,14 +192,17 @@ if bookingResult.success {
 }
 ```
 
+You've now got the code to book a trip - before you start running it, let's add the code to cancel a trip as well. 
 
 ## Adding the Cancel mutation
 
-Now, the process will be similar for the `cancelTrip` mutation. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
+The process will be similar to the `bookTrip` mutation for the `cancelTrip` mutation. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
 
 ![documentation for the cancel trip mutation](images/graphiql_cancel_trip_mutation.png)
 
-One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time - only one `ID!` is accepted as a parameter.  
+One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time - only one `ID!` is accepted as a parameter.
+
+In GraphiQL, add a new mutation which will allow you to cancel your trip, and find out whether the cancellation succeeded: 
 
 ```graphql:title=(GraphiQL)
 mutation CancelTrip($id:ID!) {
@@ -210,7 +212,6 @@ mutation CancelTrip($id:ID!) {
   }
 }
 ```
-
 
 In the `Query Variables` section of GraphiQL, you can use the exact same JSON as you were using for the `BookTrip` mutation (since you'd gotten that down to taking a single identifier): 
 
@@ -224,9 +225,11 @@ Make sure that in the `HTTP Headers` section of GraphiQL, your authorization tok
 { "Authorization" :"(your token)"}
 ```
 
+Click the play button to cancel the trip, and you should see a successful request: 
+
 ![successful cancel trip request](images/graphiql_cancel_trip.png)
 
-It works! Once again, go to **File > New > File... > Empty**, and name this file `CancelTrip.graphql`. Paste in the final query from GraphiQL. 
+It works! Once again, go to **File > New > File... > Empty**, and name this file `CancelTrip.graphql`. Paste in the final query from GraphiQL. Build the application without running it to cause the code generation to see this new mutation and generate code for it.
 
 Next, go to `DetailViewController.swift`'s `cancelTrip(with id:)` method. Replace the `print` statement with code that makes the call to cancel the trip: 
 
@@ -253,7 +256,7 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
 ```
 
 
-In `cancelTrip`, replace the `TODO` with code to handle what comes back in that mutation's `success` property: 
+In `cancelTrip(with id:)`, replace the `TODO` with code to handle what comes back in that mutation's `success` property: 
 
 ```swift:title=DetailViewController.swift
 if cancelResult.success {
@@ -265,7 +268,21 @@ if cancelResult.success {
 }
 ```
 
+Now, build and run the application. Select any launch, and try to book it. You'll get a success message, but you'll notice that the UI doesn't update. 
+
+Why is that? Because the trip you've got stored locally still has the old value for `isBooked`. 
+
+There are a number of ways to change this, a couple of which you'll learn in the next section. For now we'll focus on the one which requires the fewest changes to your code: Re-fetching the booking info from the network.
+
 ## Forcing a fetch from the network
+
+The `fetch` method on `ApolloClient` has a number of default parameters, so that if you're using the default configuration, the only value you need to provide yourself is the `Query`. 
+
+However, an important parameter to be aware of is the `cachePolicy`. By default, this has the value of `returnCacheDataElseFetch`, which does essentially what it says on the label: It looks in the current cache (by default an in-memory cache) for data, and fetches it from the network if it's not present. 
+
+If the data *is* present, the default behavior is to return the local copy to prevent an unnecessary network fetch. However, sometimes, particularly after a mutation, this is not the desired behavior. 
+
+There are [several different cache policies available to you](../caching/#specifying-a-cache-policy), but the easiest way to absolutely force a refresh from the network which still updates the cache is to use `fetchIgnoringCacheData`, which bypasses the cache when going to the network, but stores the results of the fetch in the cache for future use. 
 
 Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload, as well. 
 
