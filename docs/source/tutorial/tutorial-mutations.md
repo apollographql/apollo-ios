@@ -162,7 +162,7 @@ private func bookTrip(with id: GraphQLID) {
 ```
 
 
-Update the `cancelTrip` method to also take the flight's ID: 
+Update the `cancelTrip` method to also take the flight's ID (you'll be adding the actual cancellation in the next step): 
 
 ```swift:title=DetailViewController.swift
 private func cancelTrip(with id: GraphQLID) {
@@ -284,9 +284,8 @@ If the data *is* present, the default behavior is to return the local copy to pr
 
 There are [several different cache policies available to you](../caching/#specifying-a-cache-policy), but the easiest way to absolutely force a refresh from the network which still updates the cache is to use `fetchIgnoringCacheData`, which bypasses the cache when going to the network, but stores the results of the fetch in the cache for future use. 
 
-Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload, as well. 
-
-If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheCompletely` which  will force the network to go out and 
+Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload. 
+If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheData`:
 
 ```swift:title=DetailViewController.swift
 private func loadLaunchDetails(forceReload: Bool = false) {
@@ -305,16 +304,20 @@ private func loadLaunchDetails(forceReload: Bool = false) {
   } 
         
   Network.shared.apollo.fetch(query: LaunchDetailsQuery(id: launchID), cachePolicy: cachePolicy) { [weak self] result in
-    // Rest of this remains the same
+    // (Rest of this remains the same)
   }
 }
 ```
 
-Add the following to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods:
+Next, add the following line to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods:
 
 ```swift:title=DetailViewController.swift
 self.loadLaunchDetails(forceReload: true)
 ``` 
+
+Now, run the application. When you book or cancel a trip, the application will fetch the updated state and update the UI with the correct state. When you go out and back in, the cache will be updated with the most recent state, and the most recent state will display. 
+
+This works well - but it could be more efficient. Stick around for the next section to find out how you might be able to avoid that second network fetch altogether!
 
 ## Summary
 
