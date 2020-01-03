@@ -64,16 +64,6 @@ jobs:
     steps:
       - common_test_steps
 
-  iOS11_4:
-    macos:
-      xcode: "11.3.0"
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
-      CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: iphonesimulator13.2
-    steps:
-      - common_test_steps
-
   tvOS13_0:
     macos:
       xcode: "11.3.0"
@@ -114,16 +104,6 @@ jobs:
     steps:
       - common_test_steps
 
-  SQLiteiOS11_4:
-    macos:
-      xcode: "11.3.0"
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
-      CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: iphonesimulator13.2
-    steps:
-      - common_test_steps
-
   WebSocketmacOS10_15:
     macos:
       xcode: "11.3.0"
@@ -154,16 +134,6 @@ jobs:
     steps:
       - common_test_steps
 
-  WebSocketiOS11_4:
-    macos:
-      xcode: "11.3.0"
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
-      CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: iphonesimulator13.2
-    steps:
-      - common_test_steps
-
   CocoaPodsTrunk:
     macos:
       xcode: "11.3.0"
@@ -186,8 +156,6 @@ workflows:
           name: Apollo iOS 13.3
       - iOS12_4:
           name: Apollo iOS 12.4
-      - iOS11_4:
-          name: Apollo iOS 11.4
       - tvOS13_0:
           name: Apollo tvOS 13.0
       - SQLitemacOS10_15:
@@ -196,32 +164,25 @@ workflows:
           name: ApolloSQLite iOS 13.3
       - SQLiteiOS12_4:
           name: ApolloSQLite iOS 12.4
-      - SQLiteiOS11_4:
-          name: ApolloSQLite iOS 11.4
       - WebSocketmacOS10_15:
           name: ApolloWebSocket macOS 10.15
       - WebSocketiOS13_1:
           name: ApolloWebSocket iOS 13.3
       - WebSocketiOS12_4:
           name: ApolloWebSocket iOS 12.4
-      - WebSocketiOS11_4:
-          name: ApolloWebSocket iOS 11.4
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk
           requires:
             - Apollo macOS 10.15
             - Apollo iOS 13.3
             - Apollo iOS 12.4
-            - Apollo iOS 11.4
             - Apollo tvOS 13.0
             - ApolloSQLite macOS 10.15
             - ApolloSQLite iOS 13.3
             - ApolloSQLite iOS 12.4
-            - ApolloSQLite iOS 11.4
             - ApolloWebSocket macOS 10.15
             - ApolloWebSocket iOS 13.3
             - ApolloWebSocket iOS 12.4
-            - ApolloWebSocket iOS 11.4
           filters:
             # Only build semver tags
             tags:
