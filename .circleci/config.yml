@@ -50,7 +50,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=13.3,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -60,7 +60,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -70,7 +70,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -100,7 +100,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=13.3,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -110,7 +110,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -120,7 +120,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
       CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -140,7 +140,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=13.3,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -150,7 +150,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
@@ -160,7 +160,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=11.4,name=iPhone 8
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: iphonesimulator13.3
+      CIRCLE_XCODE_SDK: iphonesimulator13.2
     steps:
       - common_test_steps
 
