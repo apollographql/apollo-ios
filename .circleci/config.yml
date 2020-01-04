@@ -70,7 +70,7 @@ jobs:
     environment:
       DESTINATION: platform=tvOS Simulator,OS=13.3,name=Apple TV
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: appletvsimulator13.3
+      CIRCLE_XCODE_SDK: appletvsimulator13.2
     steps:
       - common_test_steps
 
