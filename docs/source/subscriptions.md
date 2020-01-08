@@ -129,3 +129,53 @@ class ReviewViewController: UIViewController {
 Each time a review is added, the subscription's closure is called and if the proper data is included, the new data will be displayed immediately. 
 
 Note that if you only wanted to be updated reviews for a specific episode, you could specify that episode in the initializer for `ReviewAddedSubscription`. 
+
+## Subscriptions and authorization tokens
+
+Your organization might have in place a mechanism to validate and authorize users and enable access to functionality in your endpoint, so it is a common practice to request the authorization token but, how do I enable this with my subscription?
+
+Assuming you (or your backend developers) have read [the authentication section](https://www.apollographql.com/docs/apollo-server/security/authentication/) and [subscriptions example/ authentication over WebSocket](https://www.apollographql.com/docs/apollo-server/data/subscriptions/), you will need to initialize your apollo client as follows:
+
+```swift
+import Foundation
+import Apollo
+import ApolloWebSocket
+
+// MARK: - Singleton Wrapper
+
+let magicToken = "So long and thanks for all the fish"
+
+class Apollo {
+  static let shared = Apollo()
+    
+  /// A web socket transport to use for subscriptions
+  // This web socket will have to provide the connecting payload which
+  // initializes the connection as an authorized channel.
+  private lazy var webSocketTransport: WebSocketTransport = {
+    let url = URL(string: "ws://localhost:8080/websocket")!
+    let request = URLRequest(url: url)
+    let authPayload = ["authToken": magicToken]
+    return WebSocketTransport(request: request, connectingPayload: authPayload)
+  }()
+  
+  /// An HTTP transport to use for queries and mutations.
+  private lazy var httpTransport: HTTPNetworkTransport = {
+    let url = URL(string: "http://localhost:8080/graphql")!
+    return HTTPNetworkTransport(url: url)
+  }()
+
+  /// A split network transport to allow the use of both of the above 
+  /// transports through a single `NetworkTransport` instance.
+  private lazy var splitNetworkTransport = SplitNetworkTransport(
+    httpNetworkTransport: self.httpTransport, 
+    webSocketNetworkTransport: self.webSocketTransport
+  )
+
+  /// Create a client using the `SplitNetworkTransport`.
+  private(set) lazy var client = ApolloClient(networkTransport: self.splitNetworkTransport)
+}
+```
+
+The `connectingPayload` provides those parameters you would traditionally specify as part of the headers of your request.
+
+`!` You need to provide the connecting payload for the web socket to initialize its connection, for this, the apollo client should be initialized (or recreated) once the authorization token has been generated.
