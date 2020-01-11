@@ -4,8 +4,39 @@ import XCTest
 import ApolloTestSupport
 import ApolloSQLiteTestSupport
 import StarWarsAPI
+import SQLite
 
 class CachePersistenceTests: XCTestCase {
+
+  func testDatabaseSetup() throws {
+    // Create a database with a state corresponding to the first schema version.
+    let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
+    let db = try Connection(.uri(sqliteFileURL.absoluteString), readonly: false)
+    try db.run("""
+    CREATE TABLE IF NOT EXISTS "records" ("_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "key" TEXT NOT NULL UNIQUE, "record" TEXT NOT NULL)
+    """)
+    try db.run("""
+    CREATE UNIQUE INDEX IF NOT EXISTS "index_records_on_key" ON "records" ("key")
+    """)
+
+    // Add en entry
+    try db.run("""
+    INSERT OR REPLACE INTO "records" ("key", "record") VALUES ("QUERY_ROOT.hero", "{""name"":""Luke Skywalker"",""__typename"":""Human""}")
+    """)
+
+    // Creates a new database, which will run all migrations
+    try SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
+      guard let sqlCache = cache as? SQLiteNormalizedCache else {
+        XCTFail("The cache is not using SQLite")
+        return
+      }
+      let version = try sqlCache.readSchemaVersion()
+      XCTAssertEqual(version, 1)
+    }
+
+    // Inserts some entries in the database
+    testFetchAndPersist()
+  }
 
   func testFetchAndPersist() {
     let query = HeroNameQuery()

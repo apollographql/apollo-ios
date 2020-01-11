@@ -12,24 +12,26 @@ public enum SQLiteNormalizedCacheError: Error {
 
 /// A `NormalizedCache` implementation which uses a SQLite database to store data.
 public final class SQLiteNormalizedCache {
-  
+
   private let db: Connection
   private let records = Table("records")
   private let id = Expression<Int64>("_id")
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
+  private let lastModifiedAt = Expression<Int64>("lastModifiedAt")
+  private let version = Expression<Int64>("version")
   private let shouldVacuumOnClear: Bool
 
   /// Designated initializer
   ///
   /// - Parameters:
   ///   - fileURL: The file URL to use for your database.
-  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. 
+  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
   /// - Throws: Any errors attempting to open or create the database.
   public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
-    try self.createTableIfNeeded()
+    try self.setUpDatabase()
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
@@ -40,13 +42,20 @@ public final class SQLiteNormalizedCache {
     return components.joined(separator: ".")
   }
 
-  private func createTableIfNeeded() throws {
+  private func setUpDatabase() throws {
+    let currentVersion = try readSchemaVersion()
+
     try self.db.run(self.records.create(ifNotExists: true) { table in
       table.column(id, primaryKey: .autoincrement)
       table.column(key, unique: true)
       table.column(record)
     })
     try self.db.run(self.records.createIndex(key, unique: true, ifNotExists: true))
+
+    if currentVersion < 1 {
+      try self.db.run(self.records.addColumn(lastModifiedAt, defaultValue: 0))
+    }
+    try self.db.run("PRAGMA user_version = 1;")
   }
 
   private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
@@ -60,7 +69,12 @@ public final class SQLiteNormalizedCache {
           assertionFailure("Serialization should yield UTF-8 data")
           continue
         }
-        try self.db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
+        try self.db.run(self.records.insert(
+          or: .replace,
+          self.key <- recordKey,
+          self.record <- recordString,
+          self.lastModifiedAt <- Int64(Date().timeIntervalSince1970 * 1000)
+        ))
       }
     }
     return Set(changedFieldKeys)
@@ -88,12 +102,22 @@ public final class SQLiteNormalizedCache {
     let fields = try SQLiteSerialization.deserialize(data: recordData)
     return Record(key: row[key], fields)
   }
+
+  /// Returns the version of the database schema.
+  func readSchemaVersion() throws -> Int64 {
+    for record in try db.prepare("PRAGMA user_version") {
+      if let value = record[0] as? Int64 {
+        return value
+      }
+    }
+    return -1
+  }
 }
 
 // MARK: - NormalizedCache conformance
 
 extension SQLiteNormalizedCache: NormalizedCache {
-  
+
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Swift.Result<Set<CacheKey>, Error>) -> Void) {
@@ -104,12 +128,12 @@ extension SQLiteNormalizedCache: NormalizedCache {
     } catch {
       result = .failure(error)
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
-  
+
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
@@ -122,17 +146,17 @@ extension SQLiteNormalizedCache: NormalizedCache {
         }
         return nil
       }
-      
+
       result = .success(recordsOrNil)
     } catch {
       result = .failure(error)
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
-  
+
   public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
     let result: Swift.Result<Void, Error>
     do {
@@ -141,7 +165,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
     } catch {
       result = .failure(error)
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
