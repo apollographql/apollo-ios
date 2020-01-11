@@ -17,6 +17,8 @@ public final class SQLiteNormalizedCache {
   private let id = Expression<Int64>("_id")
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
+  private let lastReceivedAt = Expression<Int64>("lastReceivedAt")
+  private let version = Expression<Int64>("version")
   private let shouldVacuumOnClear: Bool
 
   /// Designated initializer
@@ -28,7 +30,7 @@ public final class SQLiteNormalizedCache {
   public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
-    try self.createTableIfNeeded()
+    try self.setUpDatabase()
   }
 
   ///
@@ -40,7 +42,7 @@ public final class SQLiteNormalizedCache {
   public init(db: Connection, shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = db
-    try self.createTableIfNeeded()
+    try self.setUpDatabase()
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
@@ -64,13 +66,15 @@ public final class SQLiteNormalizedCache {
     return updatedComponents.joined(separator: ".")
   }
 
-  private func createTableIfNeeded() throws {
+  private func setUpDatabase() throws {
+
     try self.db.run(self.records.create(ifNotExists: true) { table in
       table.column(id, primaryKey: .autoincrement)
       table.column(key, unique: true)
       table.column(record)
     })
     try self.db.run(self.records.createIndex(key, unique: true, ifNotExists: true))
+    try self.runSchemaMigrationsIfNeeded()
   }
 
   private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
@@ -84,7 +88,12 @@ public final class SQLiteNormalizedCache {
           assertionFailure("Serialization should yield UTF-8 data")
           continue
         }
-        try self.db.run(self.records.insert(or: .replace, self.key <- recordKey, self.record <- recordString))
+        try self.db.run(self.records.insert(
+          or: .replace,
+          self.key <- recordKey,
+          self.record <- recordString,
+          self.lastReceivedAt <- Int64(Date().timeIntervalSince1970 * 1000)
+        ))
       }
     }
     return Set(changedFieldKeys)
@@ -111,6 +120,35 @@ public final class SQLiteNormalizedCache {
 
     let fields = try SQLiteSerialization.deserialize(data: recordData)
     return Record(key: row[key], fields)
+  }
+}
+
+// MARK: - Schema migrations
+
+extension SQLiteNormalizedCache {
+  private static var schemaVersion: Int64 { 1 }
+
+  /// Returns the version of the database schema.
+  func readSchemaVersion() throws -> Int64? {
+    for record in try db.prepare("PRAGMA user_version") {
+      if let value = record[0] as? Int64 {
+        return value
+      }
+    }
+    return nil
+  }
+
+  private func runSchemaMigrationsIfNeeded() throws {
+    let currentVersion = try self.readSchemaVersion() ?? -1
+
+    // if the currentVersion the same as our schema version then no migrations are necessary
+    guard currentVersion < Self.schemaVersion else { return }
+
+    if currentVersion < 1 {
+        try self.db.run(self.records.addColumn(lastReceivedAt, defaultValue: 0))
+    }
+
+    try self.db.run("PRAGMA user_version = \(Self.schemaVersion);")
   }
 }
 
