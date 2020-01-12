@@ -16,7 +16,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       let query = HeroNameQuery()
       
       store.withinReadTransaction({ transaction in
-        let data = try transaction.read(query: query)
+        let (data, _) = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.__typename, "Droid")
         XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -40,7 +40,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       let query = HeroNameQuery(episode: .jedi)
      
       store.withinReadTransaction({ transaction in
-        let data = try transaction.read(query: query)
+        let (data, _) = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.__typename, "Droid")
         XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -100,7 +100,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       
       self.waitForExpectations(timeout: 1, handler: nil)
 
-      let result = try await(store.load(query: query))
+      let (result, _) = try await(store.load(query: query))
 
       let data = try XCTUnwrap(result.data)
       XCTAssertEqual(data.hero?.name, "Artoo")
@@ -167,7 +167,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       
       let expectation = self.expectation(description: "transaction'd")
       store.withinReadTransaction({ transaction in
-        let data = try transaction.read(query: query)
+        let (data, _) = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.name, "R2-D2")
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
@@ -210,7 +210,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       })
       self.waitForExpectations(timeout: 1, handler: nil)
       
-      let result = try await(store.load(query: query))
+      let (result, _) = try await(store.load(query: query))
       let data = try XCTUnwrap(result.data)
       
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -250,7 +250,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       })
       self.waitForExpectations(timeout: 1, handler: nil)
 
-      let result = try await(store.load(query: query))
+      let (result, _) = try await(store.load(query: query))
       let data = try XCTUnwrap(result.data)
 
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -269,7 +269,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       
       let expectation = self.expectation(description: "transaction'd")
       store.withinReadTransaction({ transaction in
-        let r2d2 = try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")
+        let (r2d2, _) = try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")
         
         XCTAssertEqual(r2d2.name, "R2-D2")
         XCTAssertEqual(r2d2.asDroid?.primaryFunction, "Protocol")
@@ -327,7 +327,7 @@ class ReadWriteFromStoreTests: XCTestCase {
 
       let expectation = self.expectation(description: "transaction'd")
       store.withinReadTransaction({ transaction in
-        let friendsNamesFragment = try transaction.readObject(ofType: FriendsNames.self, withKey: "2001")
+        let (friendsNamesFragment, _) = try transaction.readObject(ofType: FriendsNames.self, withKey: "2001")
 
         let friendsNames = friendsNamesFragment.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
@@ -367,12 +367,62 @@ class ReadWriteFromStoreTests: XCTestCase {
       })
       self.waitForExpectations(timeout: 1, handler: nil)
 
-      let result = try await(store.load(query: HeroAndFriendsNamesQuery()))
+      let (result, _) = try await(store.load(query: HeroAndFriendsNamesQuery()))
       let data = try XCTUnwrap(result.data)
 
       XCTAssertEqual(data.hero?.name, "R2-D2")
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+    }
+  }
+
+  func testModifiedAtAfterUpdateQuery() throws {
+    let yesterday = Date().addingTimeInterval(-86400)
+    let initialRecords = RecordSet([
+      "QUERY_ROOT": (["hero": Reference(key: "QUERY_ROOT.hero")], yesterday),
+      "QUERY_ROOT.hero": (["__typename": "Droid", "name": "R2-D2"], yesterday)
+    ])
+
+    try withCache(initialRecords: initialRecords) { (cache) in
+      let store = ApolloStore(cache: cache)
+
+      let query = HeroNameQuery()
+      let expectation = self.expectation(description: "transaction'd")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
+          data.hero?.name = "Artoo"
+          expectation.fulfill()
+        }
+      })
+
+      self.waitForExpectations(timeout: 1, handler: nil)
+
+      // The query age is that of the oldest row read, so still yesterday
+      let (_, context) = try await(store.load(query: query))
+      let resultAge = try XCTUnwrap(context.resultAge)
+      XCTAssertLessThan(abs(resultAge.milisecondsSince1970 - yesterday.milisecondsSince1970), 1)
+
+      // Verifies that the age of the modified row is from just now
+      let cacheReadExpectation = self.expectation(description: "cacheReadExpectation")
+      store.withinReadTransaction(
+        { transaction in
+          return try transaction.readObject(
+            ofType: HeroNameQuery.Data.Hero.self,
+            withKey: "QUERY_ROOT.hero"
+          )
+        }
+      ) { result in
+        do {
+          let (_, context) = try result.get()
+          let resultAge = try XCTUnwrap(context.resultAge)
+          XCTAssertLessThan(Date().milisecondsSince1970 - resultAge.milisecondsSince1970, 100)
+          cacheReadExpectation.fulfill()
+        } catch {
+          XCTAssertThrowsError(error)
+        }
+      }
+      self.waitForExpectations(timeout: 1, handler: nil)
     }
   }
 }

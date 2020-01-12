@@ -8,7 +8,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     self.body = body
   }
   
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
+  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?, GraphQLResultContext)>  {
     let errors: [GraphQLError]?
     
     if let errorsEntry = body["errors"] as? [JSONObject] {
@@ -19,7 +19,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
-        return .result(.success(object[info.responseKeyForField]))
+        return .result(.success((object[info.responseKeyForField], Date().milisecondsSince1970)))
       }
       
       executor.cacheKeyForObject = cacheKeyForObject
@@ -27,20 +27,23 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
+      let firstModificationTracker = GraphQLFirstModifiedAtTracker()
       
       return firstly {
         try executor.execute(selections: Operation.Data.selections,
                              on: dataEntry,
+                             firstModifiedAt: Date().milisecondsSince1970,
                              withKey: rootCacheKey(for: operation),
                              variables: operation.variables,
-                             accumulator: zip(mapper, normalizer, dependencyTracker))
-        }.map { (data, records, dependentKeys) in
-          (
+                             accumulator: zip(mapper, normalizer, dependencyTracker, firstModificationTracker))
+        }.map { (data, records, dependentKeys, resultContext) in
+          return (
             GraphQLResult(data: data,
                          errors: errors,
                          source: .server,
                          dependentKeys: dependentKeys),
-            records
+            records,
+            resultContext
           )
       }
     } else {
@@ -49,7 +52,8 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
                       errors: errors,
                       source: .server,
                       dependentKeys: nil),
-        nil
+        nil,
+        GraphQLResultContext()
       ))
     }
   }

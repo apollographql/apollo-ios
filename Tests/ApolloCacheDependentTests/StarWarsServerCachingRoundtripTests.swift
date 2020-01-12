@@ -65,7 +65,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase {
             defer { expectation.fulfill() }
             
             switch innerResult {
-            case .success(let loadGraphQLResult):
+            case .success(let (loadGraphQLResult, _)):
               guard let data = loadGraphQLResult.data else {
                 XCTFail("No query result data from loading!")
                 return

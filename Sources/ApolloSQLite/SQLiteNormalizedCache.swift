@@ -27,11 +27,30 @@ public final class SQLiteNormalizedCache {
   /// - Parameters:
   ///   - fileURL: The file URL to use for your database.
   ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
+  ///   - initialRecords: A set of records to initialize the database with.
   /// - Throws: Any errors attempting to open or create the database.
-  public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
+  public init(fileURL: URL, shouldVacuumOnClear: Bool = false, initialRecords: RecordSet? = nil) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
     try self.setUpDatabase()
+
+    if let initialRecords = initialRecords {
+      for key in initialRecords.keys {
+        guard let record = initialRecords[key] else {
+          assertionFailure("No record was found for the existing key")
+          return
+        }
+        guard let recordString = try record.record.asString() else {
+          continue
+        }
+        try self.db.run(self.records.insert(
+          or: .replace,
+          self.key <- key,
+          self.record <- recordString,
+          self.lastModifiedAt <- record.lastModifiedAt
+        ))
+      }
+    }
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
@@ -59,28 +78,26 @@ public final class SQLiteNormalizedCache {
   }
 
   private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
-    var recordSet = RecordSet(records: try self.selectRecords(forKeys: records.keys))
+    var recordSet = RecordSet(rows: try self.selectRows(forKeys: records.keys))
     let changedFieldKeys = recordSet.merge(records: records)
     let changedRecordKeys = changedFieldKeys.map { self.recordCacheKey(forFieldCacheKey: $0) }
     for recordKey in Set(changedRecordKeys) {
-      if let recordFields = recordSet[recordKey]?.fields {
-        let recordData = try SQLiteSerialization.serialize(fields: recordFields)
-        guard let recordString = String(data: recordData, encoding: .utf8) else {
-          assertionFailure("Serialization should yield UTF-8 data")
+      if let record = recordSet[recordKey]?.record {
+        guard let recordString = try record.asString() else {
           continue
         }
         try self.db.run(self.records.insert(
           or: .replace,
           self.key <- recordKey,
           self.record <- recordString,
-          self.lastModifiedAt <- Int64(Date().timeIntervalSince1970 * 1000)
+          self.lastModifiedAt <- Date().milisecondsSince1970
         ))
       }
     }
     return Set(changedFieldKeys)
   }
 
-  private func selectRecords(forKeys keys: [CacheKey]) throws -> [Record] {
+  private func selectRows(forKeys keys: [CacheKey]) throws -> [RecordRow] {
     let query = self.records.filter(keys.contains(key))
     return try self.db.prepare(query).map { try parse(row: $0) }
   }
@@ -92,15 +109,19 @@ public final class SQLiteNormalizedCache {
     }
   }
 
-  private func parse(row: Row) throws -> Record {
+  private func parse(row: Row) throws -> RecordRow {
     let record = row[self.record]
+    let lastModifiedAt = row[self.lastModifiedAt]
 
     guard let recordData = record.data(using: .utf8) else {
       throw SQLiteNormalizedCacheError.invalidRecordEncoding(record: record)
     }
 
     let fields = try SQLiteSerialization.deserialize(data: recordData)
-    return Record(key: row[key], fields)
+    return RecordRow(
+      record: Record(key: row[key], fields),
+      lastModifiedAt: lastModifiedAt
+    )
   }
 
   /// Returns the version of the database schema.
@@ -136,13 +157,13 @@ extension SQLiteNormalizedCache: NormalizedCache {
 
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
-                          completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
-    let result: Swift.Result<[Record?], Error>
+                          completion: @escaping (Swift.Result<[RecordRow?], Error>) -> Void) {
+    let result: Swift.Result<[RecordRow?], Error>
     do {
-      let records = try self.selectRecords(forKeys: keys)
-      let recordsOrNil: [Record?] = keys.map { key in
-        if let recordIndex = records.firstIndex(where: { $0.key == key }) {
-          return records[recordIndex]
+      let rows = try self.selectRows(forKeys: keys)
+      let recordsOrNil: [RecordRow?] = keys.map { key in
+        if let recordIndex = rows.firstIndex(where: { $0.record.key == key }) {
+          return rows[recordIndex]
         }
         return nil
       }
@@ -169,5 +190,16 @@ extension SQLiteNormalizedCache: NormalizedCache {
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
+  }
+}
+
+extension Record {
+  func asString() throws -> String? {
+    let recordData = try SQLiteSerialization.serialize(fields: fields)
+    guard let recordString = String(data: recordData, encoding: .utf8) else {
+      assertionFailure("Serialization should yield UTF-8 data")
+      return nil
+    }
+    return recordString
   }
 }

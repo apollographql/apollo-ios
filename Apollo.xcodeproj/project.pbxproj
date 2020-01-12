@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010D15FA23CAB2C800F5FDF6 /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D15F923CAB2C800F5FDF6 /* Date+Helpers.swift */; };
+		010D15FC23CAE29D00F5FDF6 /* GraphQLFirstModifiedAtTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010D15FB23CAE29D00F5FDF6 /* GraphQLFirstModifiedAtTracker.swift */; };
+		0171B42223CB94010002CE55 /* Math+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0171B42123CB94010002CE55 /* Math+Helpers.swift */; };
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
@@ -261,6 +264,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		010D15F923CAB2C800F5FDF6 /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
+		010D15FB23CAE29D00F5FDF6 /* GraphQLFirstModifiedAtTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFirstModifiedAtTracker.swift; sourceTree = "<group>"; };
+		0171B42123CB94010002CE55 /* Math+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Math+Helpers.swift"; sourceTree = "<group>"; };
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPMethod.swift; sourceTree = "<group>"; };
 		5BB2C0222380836100774170 /* VersionNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionNumberTests.swift; sourceTree = "<group>"; };
@@ -560,6 +566,7 @@
 				9F8F334B229044A200C0E83B /* Decoding.swift */,
 				9FC2333C1E66BBF7001E4541 /* GraphQLDependencyTracker.swift */,
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
+				010D15FB23CAE29D00F5FDF6 /* GraphQLFirstModifiedAtTracker.swift */,
 				9FC9A9C11E2D3CAF0023C4D5 /* GraphQLInputValue.swift */,
 				9F86B68F1E65533D00B885FF /* GraphQLResponseGenerator.swift */,
 				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
@@ -749,11 +756,13 @@
 				9B6CB23D238077B60007259D /* Atomic.swift */,
 				9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */,
 				9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */,
+				010D15F923CAB2C800F5FDF6 /* Date+Helpers.swift */,
 				9BE071B02368D3F500FA5952 /* Dictionary+Helpers.swift */,
 				9BA3130D2302BEA5007B7FC5 /* DispatchQueue+Optional.swift */,
 				9FEC15B31E681DAD00D461B4 /* GroupedSequence.swift */,
 				9F578D8F1D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift */,
 				9FADC8491E6B0B2300C677E6 /* Locking.swift */,
+				0171B42123CB94010002CE55 /* Math+Helpers.swift */,
 				9FE941CF1E62C771007CDD89 /* Promise.swift */,
 				9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */,
 				9F19D8431EED568200C57247 /* ResultOrPromise.swift */,
@@ -1257,6 +1266,7 @@
 				9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */,
 				C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */,
 				9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */,
+				010D15FC23CAE29D00F5FDF6 /* GraphQLFirstModifiedAtTracker.swift in Sources */,
 				9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */,
 				9FEC15B41E681DAD00D461B4 /* GroupedSequence.swift in Sources */,
 				9F578D901D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift in Sources */,
@@ -1266,6 +1276,7 @@
 				9FADC84F1E6B865E00C677E6 /* DataLoader.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
+				0171B42223CB94010002CE55 /* Math+Helpers.swift in Sources */,
 				9B1A38532332AF6F00325FB4 /* String+SHA.swift in Sources */,
 				9BEDC79E22E5D2CF00549BF6 /* RequestCreator.swift in Sources */,
 				9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */,
@@ -1275,6 +1286,7 @@
 				9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */,
 				9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */,
 				5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */,
+				010D15FA23CAB2C800F5FDF6 /* Date+Helpers.swift in Sources */,
 				9FE941D01E62C771007CDD89 /* Promise.swift in Sources */,
 				9BA1245E22DE116B00BF1D24 /* Result+Helpers.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,

@@ -319,17 +319,94 @@ class LoadQueryFromStoreTests: XCTestCase {
       }
     }
   }
+
+  func testResultContextWithDataFromYesterday() throws {
+    let yesterday = Date().addingTimeInterval(-86400)
+    let aYearAgo = Date().addingTimeInterval(-86400 * 365)
+    let initialRecords = RecordSet([
+      "QUERY_ROOT": (["hero": Reference(key: "hero")], yesterday),
+      "hero": (["__typename": "Droid", "name": "R2-D2"], yesterday),
+      "somethingElse": (["__typename": "Droid", "name": "R2-D3"], aYearAgo),
+    ])
+
+    testResultContextWhenLoadingHeroNameQueryWithAge(initialRecords: initialRecords, expectedResultAge: yesterday)
+  }
+
+  func testResultContextWithDataFromMixedDates() throws {
+    let yesterday = Date().addingTimeInterval(-86400)
+    let oneHourAgo = Date().addingTimeInterval(-3600)
+    let aYearAgo = Date().addingTimeInterval(-86400 * 365)
+    let initialRecords = RecordSet([
+      "QUERY_ROOT": (["hero": Reference(key: "hero")], oneHourAgo),
+      "hero": (["__typename": "Droid", "name": "R2-D2"], yesterday),
+      "somethingElse": (["__typename": "Droid", "name": "R2-D3"], aYearAgo),
+    ])
+
+    testResultContextWhenLoadingHeroNameQueryWithAge(initialRecords: initialRecords, expectedResultAge: yesterday)
+  }
+
+  func testResultContextWithDataFromMixedDates2() throws {
+    let yesterday = Date().addingTimeInterval(-86400)
+    let oneHourAgo = Date().addingTimeInterval(-3600)
+    let aYearAgo = Date().addingTimeInterval(-86400 * 365)
+    let initialRecords = RecordSet([
+      "QUERY_ROOT": (["hero": Reference(key: "hero")], yesterday),
+      "hero": (["__typename": "Droid", "name": "R2-D2"], oneHourAgo),
+      "somethingElse": (["__typename": "Droid", "name": "R2-D3"], aYearAgo),
+    ])
+
+    testResultContextWhenLoadingHeroNameQueryWithAge(initialRecords: initialRecords, expectedResultAge: yesterday)
+  }
   
   // MARK: - Helpers
-  
+
   private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     let expectation = self.expectation(description: "Loading query from store")
-    
+
+    store.load(query: query) { result in
+      switch result {
+      case .success(let (gqlResult, _)):
+        resultHandler(.success(gqlResult))
+      case .failure(let error):
+        resultHandler(.failure(error))
+      }
+      expectation.fulfill()
+    }
+
+    waitForExpectations(timeout: 5, handler: nil)
+  }
+
+  private func loadWithContext<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultWithContextHandler<Query.Data>) {
+    let expectation = self.expectation(description: "Loading query from store")
+
     store.load(query: query) { result in
       resultHandler(result)
       expectation.fulfill()
     }
-    
+
     waitForExpectations(timeout: 5, handler: nil)
+  }
+
+  private func testResultContextWhenLoadingHeroNameQueryWithAge(initialRecords: RecordSet, expectedResultAge: Date) {
+    withCache(initialRecords: initialRecords) { (cache) in
+      store = ApolloStore(cache: cache)
+
+      let query = HeroNameQuery()
+
+      loadWithContext(query: query) { result in
+        switch result {
+        case .success(let (graphQLResult, context)):
+          XCTAssertNil(graphQLResult.errors)
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+          guard let resultAge = context.resultAge else {
+            XCTFail("Failed to load result age")
+            return
+          }
+          XCTAssertLessThan(abs(expectedResultAge.timeIntervalSince1970 - resultAge.timeIntervalSince1970), 0.001)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+    }
   }
 }

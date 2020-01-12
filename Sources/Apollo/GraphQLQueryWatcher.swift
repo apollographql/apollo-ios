@@ -4,7 +4,7 @@ import Dispatch
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
   weak var client: ApolloClientProtocol?
   let query: Query
-  let resultHandler: GraphQLResultHandler<Query.Data>
+  let resultHandler: GraphQLResultWithContextHandler<Query.Data>
   
   private var context = 0
   
@@ -20,7 +20,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   ///   - resultHandler: The result handler to call with changes.
   public init(client: ApolloClientProtocol,
               query: Query,
-              resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+              resultHandler: @escaping GraphQLResultWithContextHandler<Query.Data>) {
     self.client = client
     self.query = query
     self.resultHandler = resultHandler
@@ -34,12 +34,12 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
   
   func fetch(cachePolicy: CachePolicy) {
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: .main) { [weak self] result in
+    fetching = client?.fetchWithContext(query: query, cachePolicy: cachePolicy, context: &context, queue: .main) { [weak self] result in
       guard let `self` = self else { return }
       
       switch result {
       case .success(let graphQLResult):
-        self.dependentKeys = graphQLResult.dependentKeys
+        self.dependentKeys = graphQLResult.0.dependentKeys
       case .failure:
         break
       }

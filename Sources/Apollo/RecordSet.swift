@@ -2,33 +2,42 @@ import Foundation
 
 public struct RecordRow {
   public internal(set) var record: Record
-  public internal(set) var lastModifiedAt: Date
+  public internal(set) var lastModifiedAt: Timestamp
+
+  public init(record: Record, lastModifiedAt: Timestamp) {
+    self.record = record
+    self.lastModifiedAt = lastModifiedAt
+  }
 }
 
 /// A set of cache records.
 public struct RecordSet {
   public private(set) var storage: [CacheKey: RecordRow] = [:]
 
-  public init<S: Sequence>(records: S) where S.Iterator.Element == Record {
-    insert(contentsOf: records)
+  public init<S: Sequence>(rows: S) where S.Iterator.Element == RecordRow {
+    insert(contentsOf: rows)
   }
 
-  public mutating func insert(_ record: Record) {
-    storage[record.key] = .init(record: record, lastModifiedAt: Date())
+  init(_ dictionary: Dictionary<CacheKey, (Record.Fields, Date)>) {
+    self.init(rows: dictionary.map { RecordRow(record: Record(key: $0.0, $0.1.0), lastModifiedAt: $0.1.1.milisecondsSince1970) })
+  }
+
+  public mutating func insert(_ row: RecordRow) {
+    storage[row.record.key] = row
   }
 
   public mutating func clear() {
     storage.removeAll()
   }
 
-  public mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
-    for record in records {
-      insert(record)
+  public mutating func insert<S: Sequence>(contentsOf rows: S) where S.Iterator.Element == RecordRow {
+    for row in rows {
+      insert(row)
     }
   }
 
-  public subscript(key: CacheKey) -> Record? {
-    return storage[key]?.record
+  public subscript(key: CacheKey) -> RecordRow? {
+    return storage[key]
   }
 
   public var isEmpty: Bool {
@@ -58,13 +67,13 @@ public struct RecordSet {
           continue
         }
         oldRow.record[key] = value
-        oldRow.lastModifiedAt = Date()
+        oldRow.lastModifiedAt = Date().milisecondsSince1970
         changedKeys.insert([record.key, key].joined(separator: "."))
       }
       storage[record.key] = oldRow
       return changedKeys
     } else {
-      storage[record.key] = .init(record: record, lastModifiedAt: Date())
+      storage[record.key] = .init(record: record, lastModifiedAt: Date().milisecondsSince1970)
       return Set(record.fields.keys.map { [record.key, $0].joined(separator: ".") })
     }
   }
@@ -72,7 +81,7 @@ public struct RecordSet {
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (CacheKey, Record.Fields)...) {
-    self.init(records: elements.map { Record(key: $0.0, $0.1) })
+    self.init(rows: elements.map { RecordRow(record: Record(key: $0.0, $0.1), lastModifiedAt: Date().milisecondsSince1970) })
   }
 }
 
