@@ -400,8 +400,7 @@ class ReadWriteFromStoreTests: XCTestCase {
 
       // The query age is that of the oldest row read, so still yesterday
       let (_, context) = try await(store.load(query: query))
-      let resultAge = try XCTUnwrap(context.resultAge)
-      XCTAssertLessThan(abs(resultAge.milisecondsSince1970 - yesterday.milisecondsSince1970), 1)
+      XCTAssertLessThan(abs(context.resultAge.milisecondsSince1970 - yesterday.milisecondsSince1970), 1)
 
       // Verifies that the age of the modified row is from just now
       let cacheReadExpectation = self.expectation(description: "cacheReadExpectation")
@@ -415,8 +414,7 @@ class ReadWriteFromStoreTests: XCTestCase {
       ) { result in
         do {
           let (_, context) = try result.get()
-          let resultAge = try XCTUnwrap(context.resultAge)
-          XCTAssertLessThan(Date().milisecondsSince1970 - resultAge.milisecondsSince1970, 100)
+          XCTAssertLessThan(Date().milisecondsSince1970 - context.resultAge.milisecondsSince1970, 100)
           cacheReadExpectation.fulfill()
         } catch {
           XCTAssertThrowsError(error)

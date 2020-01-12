@@ -398,11 +398,7 @@ class LoadQueryFromStoreTests: XCTestCase {
         case .success(let (graphQLResult, context)):
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
-          guard let resultAge = context.resultAge else {
-            XCTFail("Failed to load result age")
-            return
-          }
-          XCTAssertLessThan(abs(expectedResultAge.timeIntervalSince1970 - resultAge.timeIntervalSince1970), 0.001)
+          XCTAssertLessThan(abs(expectedResultAge.timeIntervalSince1970 - context.resultAge.timeIntervalSince1970), 0.001)
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
         }

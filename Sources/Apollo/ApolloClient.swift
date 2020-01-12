@@ -20,9 +20,9 @@ public struct GraphQLResultContext {
   /// The date when the result was received.
   /// When reading from cache, Apollo can merge several records of different age. In such case
   /// this value is the date when the oldest record was received.
-  public let resultAge: Date?
+  public let resultAge: Date
 
-  init(resultAge: Date? = nil) {
+  init(resultAge: Date = Date()) {
     self.resultAge = resultAge
   }
 }
