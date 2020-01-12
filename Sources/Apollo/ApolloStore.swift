@@ -237,7 +237,7 @@ public final class ApolloStore {
 
     private final func complete(value: Any?, firstModifiedAt: Date) -> ResultOrPromise<(JSONValue?, Date)> {
       if let reference = value as? Reference {
-        return .promise(loader[reference.key].map { ($0?.record.fields, min(firstModifiedAt, $0?.lastModifiedAt)) })
+        return .promise(loader[reference.key].map { ($0?.record.fields, min(firstModifiedAt, $0?.modifiedAt)) })
       } else if let array = value as? Array<Any?> {
         let completedValues = array.map({ complete(value: $0, firstModifiedAt: firstModifiedAt) })
         // Make sure to dispatch on a global queue and not on the local queue,
@@ -256,10 +256,10 @@ public final class ApolloStore {
       variables: GraphQLMap?,
       accumulator: Accumulator
     ) throws -> Promise<Accumulator.FinalResult> {
-      return loadObject(forKey: key).flatMap { (object, lastModifiedAt) in
+      return loadObject(forKey: key).flatMap { (object, modifiedAt) in
         let executor = GraphQLExecutor { object, info in
           let value = object[info.cacheKeyForField]
-          return self.complete(value: value, firstModifiedAt: lastModifiedAt)
+          return self.complete(value: value, firstModifiedAt: modifiedAt)
         }
         
         executor.dispatchDataLoads = self.loader.dispatch
@@ -267,7 +267,7 @@ public final class ApolloStore {
         
         return try executor.execute(selections: selections,
                                     on: object,
-                                    firstModifiedAt: lastModifiedAt,
+                                    firstModifiedAt: modifiedAt,
                                     withKey: key,
                                     variables: variables,
                                     accumulator: accumulator)
@@ -279,7 +279,7 @@ public final class ApolloStore {
 
       return loader[key].map { row in
         guard let row = row else { throw JSONDecodingError.missingValue }
-        return (row.record.fields, row.lastModifiedAt)
+        return (row.record.fields, row.modifiedAt)
       }
     }
   }

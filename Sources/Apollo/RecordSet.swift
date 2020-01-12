@@ -2,11 +2,11 @@ import Foundation
 
 public struct RecordRow {
   public internal(set) var record: Record
-  public internal(set) var lastModifiedAt: Date
+  public internal(set) var modifiedAt: Date
 
-  public init(record: Record, lastModifiedAt: Date) {
+  public init(record: Record, modifiedAt: Date) {
     self.record = record
-    self.lastModifiedAt = lastModifiedAt
+    self.modifiedAt = modifiedAt
   }
 }
 
@@ -19,7 +19,7 @@ public struct RecordSet {
   }
 
   init(_ dictionary: Dictionary<CacheKey, (Record.Fields, Date)>) {
-    self.init(rows: dictionary.map { RecordRow(record: Record(key: $0.0, $0.1.0), lastModifiedAt: $0.1.1) })
+    self.init(rows: dictionary.map { RecordRow(record: Record(key: $0.0, $0.1.0), modifiedAt: $0.1.1) })
   }
 
   public mutating func insert(_ row: RecordRow) {
@@ -27,7 +27,7 @@ public struct RecordSet {
   }
 
   public mutating func insert(_ record: Record) {
-    insert(.init(record: record, lastModifiedAt: Date()))
+    insert(.init(record: record, modifiedAt: Date()))
   }
 
   public mutating func clear() {
@@ -43,7 +43,7 @@ public struct RecordSet {
   public mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
     let now = Date()
     for record in records {
-      insert(RecordRow(record: record, lastModifiedAt: now))
+      insert(RecordRow(record: record, modifiedAt: now))
     }
   }
 
@@ -78,13 +78,13 @@ public struct RecordSet {
           continue
         }
         oldRow.record[key] = value
-        oldRow.lastModifiedAt = Date()
+        oldRow.modifiedAt = Date()
         changedKeys.insert([record.key, key].joined(separator: "."))
       }
       storage[record.key] = oldRow
       return changedKeys
     } else {
-      storage[record.key] = .init(record: record, lastModifiedAt: Date())
+      storage[record.key] = .init(record: record, modifiedAt: Date())
       return Set(record.fields.keys.map { [record.key, $0].joined(separator: ".") })
     }
   }
@@ -92,7 +92,7 @@ public struct RecordSet {
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (CacheKey, Record.Fields)...) {
-    self.init(rows: elements.map { RecordRow(record: Record(key: $0.0, $0.1), lastModifiedAt: Date()) })
+    self.init(rows: elements.map { RecordRow(record: Record(key: $0.0, $0.1), modifiedAt: Date()) })
   }
 }
 

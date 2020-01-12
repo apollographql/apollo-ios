@@ -18,7 +18,7 @@ public final class SQLiteNormalizedCache {
   private let id = Expression<Int64>("_id")
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
-  private let lastModifiedAt = Expression<Date>("lastModifiedAt")
+  private let modifiedAt = Expression<Date>("modifiedAt")
   private let version = Expression<Int64>("version")
   private let shouldVacuumOnClear: Bool
 
@@ -47,7 +47,7 @@ public final class SQLiteNormalizedCache {
           or: .replace,
           self.key <- key,
           self.record <- recordString,
-          self.lastModifiedAt <- record.lastModifiedAt
+          self.modifiedAt <- record.modifiedAt
         ))
       }
     }
@@ -72,7 +72,7 @@ public final class SQLiteNormalizedCache {
     try self.db.run(self.records.createIndex(key, unique: true, ifNotExists: true))
 
     if currentVersion < 1 {
-      try self.db.run(self.records.addColumn(lastModifiedAt, defaultValue: Date(timeIntervalSince1970: 0)))
+      try self.db.run(self.records.addColumn(modifiedAt, defaultValue: Date(timeIntervalSince1970: 0)))
     }
     try self.db.run("PRAGMA user_version = 1;")
   }
@@ -90,7 +90,7 @@ public final class SQLiteNormalizedCache {
           or: .replace,
           self.key <- recordKey,
           self.record <- recordString,
-          self.lastModifiedAt <- Date()
+          self.modifiedAt <- Date()
         ))
       }
     }
@@ -111,7 +111,7 @@ public final class SQLiteNormalizedCache {
 
   private func parse(row: Row) throws -> RecordRow {
     let record = row[self.record]
-    let lastModifiedAt = row[self.lastModifiedAt]
+    let modifiedAt = row[self.modifiedAt]
 
     guard let recordData = record.data(using: .utf8) else {
       throw SQLiteNormalizedCacheError.invalidRecordEncoding(record: record)
@@ -120,7 +120,7 @@ public final class SQLiteNormalizedCache {
     let fields = try SQLiteSerialization.deserialize(data: recordData)
     return RecordRow(
       record: Record(key: row[key], fields),
-      lastModifiedAt: lastModifiedAt
+      modifiedAt: modifiedAt
     )
   }
 
