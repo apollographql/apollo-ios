@@ -2,9 +2,9 @@ import Foundation
 
 public struct RecordRow {
   public internal(set) var record: Record
-  public internal(set) var lastModifiedAt: Timestamp
+  public internal(set) var lastModifiedAt: Date
 
-  public init(record: Record, lastModifiedAt: Timestamp) {
+  public init(record: Record, lastModifiedAt: Date) {
     self.record = record
     self.lastModifiedAt = lastModifiedAt
   }
@@ -19,11 +19,15 @@ public struct RecordSet {
   }
 
   init(_ dictionary: Dictionary<CacheKey, (Record.Fields, Date)>) {
-    self.init(rows: dictionary.map { RecordRow(record: Record(key: $0.0, $0.1.0), lastModifiedAt: $0.1.1.milisecondsSince1970) })
+    self.init(rows: dictionary.map { RecordRow(record: Record(key: $0.0, $0.1.0), lastModifiedAt: $0.1.1) })
   }
 
   public mutating func insert(_ row: RecordRow) {
     storage[row.record.key] = row
+  }
+
+  public mutating func insert(_ record: Record) {
+    insert(.init(record: record, lastModifiedAt: Date()))
   }
 
   public mutating func clear() {
@@ -33,6 +37,13 @@ public struct RecordSet {
   public mutating func insert<S: Sequence>(contentsOf rows: S) where S.Iterator.Element == RecordRow {
     for row in rows {
       insert(row)
+    }
+  }
+
+  public mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
+    let now = Date()
+    for record in records {
+      insert(RecordRow(record: record, lastModifiedAt: now))
     }
   }
 
@@ -67,13 +78,13 @@ public struct RecordSet {
           continue
         }
         oldRow.record[key] = value
-        oldRow.lastModifiedAt = Date().milisecondsSince1970
+        oldRow.lastModifiedAt = Date()
         changedKeys.insert([record.key, key].joined(separator: "."))
       }
       storage[record.key] = oldRow
       return changedKeys
     } else {
-      storage[record.key] = .init(record: record, lastModifiedAt: Date().milisecondsSince1970)
+      storage[record.key] = .init(record: record, lastModifiedAt: Date())
       return Set(record.fields.keys.map { [record.key, $0].joined(separator: ".") })
     }
   }
@@ -81,7 +92,7 @@ public struct RecordSet {
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (CacheKey, Record.Fields)...) {
-    self.init(rows: elements.map { RecordRow(record: Record(key: $0.0, $0.1), lastModifiedAt: Date().milisecondsSince1970) })
+    self.init(rows: elements.map { RecordRow(record: Record(key: $0.0, $0.1), lastModifiedAt: Date()) })
   }
 }
 

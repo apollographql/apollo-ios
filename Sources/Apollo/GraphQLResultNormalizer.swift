@@ -3,11 +3,11 @@ import Foundation
 final class GraphQLResultNormalizer: GraphQLResultAccumulator {
   private var records: RecordSet = [:]
   
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) -> JSONValue {
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) -> JSONValue {
     return scalar
   }
   
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) -> JSONValue {
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) -> JSONValue {
     return NSNull()
   }
   

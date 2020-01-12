@@ -19,7 +19,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
-        return .result(.success((object[info.responseKeyForField], Date().milisecondsSince1970)))
+        return .result(.success((object[info.responseKeyForField], Date())))
       }
       
       executor.cacheKeyForObject = cacheKeyForObject
@@ -32,7 +32,7 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
       return firstly {
         try executor.execute(selections: Operation.Data.selections,
                              on: dataEntry,
-                             firstModifiedAt: Date().milisecondsSince1970,
+                             firstModifiedAt: Date(),
                              withKey: rootCacheKey(for: operation),
                              variables: operation.variables,
                              accumulator: zip(mapper, normalizer, dependencyTracker, firstModificationTracker))

@@ -14,7 +14,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
   
   func loadRecords(forKeys keys: [CacheKey],
                    callbackQueue: DispatchQueue?,
-                   completion: @escaping (Result<[Record?], Error>) -> Void) {
+                   completion: @escaping (Result<[RecordRow?], Error>) -> Void) {
     OSAtomicIncrement32(&numberOfBatchLoads)
     
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
@@ -74,7 +74,7 @@ class BatchedLoadTests: XCTestCase {
       }
       
       switch result {
-      case .success(let graphQLResult):
+      case .success(let (graphQLResult, _)):
         XCTAssertNil(graphQLResult.errors)
         
         guard let data = graphQLResult.data else {
@@ -125,7 +125,7 @@ class BatchedLoadTests: XCTestCase {
         }
         
         switch result {
-        case .success(let graphQLResult):
+        case .success(let (graphQLResult, _)):
           XCTAssertNil(graphQLResult.errors)
           
           guard let data = graphQLResult.data else {

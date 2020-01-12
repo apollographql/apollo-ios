@@ -235,7 +235,7 @@ public final class ApolloStore {
                              completion: completion)
     }
 
-    private final func complete(value: Any?, firstModifiedAt: Timestamp) -> ResultOrPromise<(JSONValue?, Timestamp)> {
+    private final func complete(value: Any?, firstModifiedAt: Date) -> ResultOrPromise<(JSONValue?, Date)> {
       if let reference = value as? Reference {
         return .promise(loader[reference.key].map { ($0?.record.fields, min(firstModifiedAt, $0?.lastModifiedAt)) })
       } else if let array = value as? Array<Any?> {
@@ -274,7 +274,7 @@ public final class ApolloStore {
       }
     }
 
-    private final func loadObject(forKey key: CacheKey) -> Promise<(JSONObject, Timestamp)> {
+    private final func loadObject(forKey key: CacheKey) -> Promise<(JSONObject, Date)> {
       defer { loader.dispatch() }
 
       return loader[key].map { row in
@@ -330,14 +330,14 @@ public final class ApolloStore {
                        variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
       let executor = GraphQLExecutor { object, info in
-        return .result(.success((object[info.responseKeyForField], Date().milisecondsSince1970)))
+        return .result(.success((object[info.responseKeyForField], Date())))
       }
       
       executor.cacheKeyForObject = self.cacheKeyForObject
       
       _ = try executor.execute(selections: selections,
                                on: object,
-                               firstModifiedAt: Date().milisecondsSince1970,
+                               firstModifiedAt: Date(),
                                withKey: key,
                                variables: variables,
                                accumulator: normalizer)

@@ -19,7 +19,7 @@ class CachePersistenceTests: XCTestCase {
     CREATE UNIQUE INDEX IF NOT EXISTS "index_records_on_key" ON "records" ("key")
     """)
 
-    // Add en entry
+    // Add an entry
     try db.run("""
     INSERT OR REPLACE INTO "records" ("key", "record") VALUES ("QUERY_ROOT.hero", "{""name"":""Luke Skywalker"",""__typename"":""Human""}")
     """)

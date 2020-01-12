@@ -2,7 +2,7 @@ import Dispatch
 import Foundation
 
 /// A resolver is responsible for resolving a value for a field.
-typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<(JSONValue?, Timestamp)>
+typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<(JSONValue?, Date)>
 
 struct GraphQLResolveInfo {
   let variables: GraphQLMap?
@@ -122,7 +122,7 @@ final class GraphQLExecutor {
   
   func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection],
                                                       on object: JSONObject,
-                                                      firstModifiedAt: Timestamp,
+                                                      firstModifiedAt: Date,
                                                       withKey key: CacheKey? = nil,
                                                       variables: GraphQLMap? = nil,
                                                       accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
@@ -139,7 +139,7 @@ final class GraphQLExecutor {
   
   private func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection],
                                                               on object: JSONObject,
-                                                              firstModifiedAt: Timestamp,
+                                                              firstModifiedAt: Date,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
     var groupedFields = GroupedSequence<String, GraphQLField>()
@@ -222,7 +222,7 @@ final class GraphQLExecutor {
   /// Each field requested in the grouped field set that is defined on the selected objectType will result in an entry in the response map. Field execution first coerces any provided argument values, then resolves a value for the field, and finally completes that value either by recursively executing another selection set or coercing a scalar value.
   private func execute<Accumulator: GraphQLResultAccumulator>(fields: [GraphQLField],
                                                               on object: JSONObject,
-                                                              firstModifiedAt: Timestamp,
+                                                              firstModifiedAt: Date,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
@@ -266,7 +266,7 @@ final class GraphQLExecutor {
   
   /// After resolving the value for a field, it is completed by ensuring it adheres to the expected return type. If the return type is another Object type, then the field execution process continues recursively.
   private func complete<Accumulator: GraphQLResultAccumulator>(value: JSONValue,
-                                                               firstModifiedAt: Timestamp,
+                                                               firstModifiedAt: Date,
                                                                ofType returnType: GraphQLOutputType,
                                                                info: GraphQLResolveInfo,
                                                                accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.PartialResult> {

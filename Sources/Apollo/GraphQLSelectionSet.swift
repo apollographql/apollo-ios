@@ -10,13 +10,13 @@ public protocol GraphQLSelectionSet {
 public extension GraphQLSelectionSet {
   init(jsonObject: JSONObject, variables: GraphQLMap? = nil) throws {
     let executor = GraphQLExecutor { object, info in
-      .result(.success((object[info.responseKeyForField], Date().milisecondsSince1970)))
+      .result(.success((object[info.responseKeyForField], Date())))
     }
     executor.shouldComputeCachePath = false
     self = try executor.execute(
       selections: Self.selections,
       on: jsonObject,
-      firstModifiedAt: Date().milisecondsSince1970,
+      firstModifiedAt: Date(),
       variables: variables,
       accumulator: GraphQLSelectionSetMapper<Self>()
     ).await()

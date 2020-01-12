@@ -19,7 +19,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
-  func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
+  func loadRecords(forKeys keys: [CacheKey]) -> Promise<[RecordRow?]> {
     return Promise { fulfill, reject in
       DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(100)) {
         let records = keys.map { self.records[$0] }
@@ -67,7 +67,7 @@ class NormalizedCachingTests: XCTestCase {
         
         store.load(query: query) { result in
           switch result {
-          case .success(let graphQLResult):
+          case .success(let (graphQLResult, _)):
             XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
           case .failure(let error):
             XCTFail("Unexpected error: \(error)")
@@ -119,7 +119,7 @@ class NormalizedCachingTests: XCTestCase {
           
           store.load(query: query) { result in
             switch result {
-            case .success(let graphQLResult):
+            case .success(let (graphQLResult, _)):
               XCTAssertEqual(graphQLResult.data?.hero?.friends?.first??.name, "Droid #\(number)")
             case .failure(let error):
               XCTFail("Unexpected error: \(error)")

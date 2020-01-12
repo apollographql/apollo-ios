@@ -4,8 +4,8 @@ protocol GraphQLResultAccumulator: class {
   associatedtype ObjectResult
   associatedtype FinalResult
   
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult
   func accept(list: [PartialResult], info: GraphQLResolveInfo) throws -> PartialResult
   
   func accept(fieldEntry: PartialResult, info: GraphQLResolveInfo) throws -> FieldEntry
@@ -40,11 +40,11 @@ final class Zip2Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
     self.accumulator2 = accumulator2
   }
   
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult {
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult {
     return (try accumulator1.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info), try accumulator2.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info))
   }
   
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult {
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult {
     return (try accumulator1.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info), try accumulator2.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info))
   }
   
@@ -86,11 +86,11 @@ final class Zip3Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
     self.accumulator3 = accumulator3
   }
 
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult {
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult {
     return (try accumulator1.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info), try accumulator2.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info), try accumulator3.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info))
   }
 
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult {
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult {
     return (try accumulator1.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info), try accumulator2.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info), try accumulator3.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info))
   }
 
@@ -135,11 +135,11 @@ final class Zip4Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
     self.accumulator4 = accumulator4
   }
 
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult {
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult {
     return (try accumulator1.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info), try accumulator2.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info), try accumulator3.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info), try accumulator4.accept(scalar: scalar, firstModifiedAt: firstModifiedAt, info: info))
   }
 
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> PartialResult {
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> PartialResult {
     return (try accumulator1.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info), try accumulator2.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info), try accumulator3.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info), try accumulator4.acceptNullValue(firstModifiedAt: firstModifiedAt, info: info))
   }
 

@@ -18,7 +18,7 @@ public final class SQLiteNormalizedCache {
   private let id = Expression<Int64>("_id")
   private let key = Expression<CacheKey>("key")
   private let record = Expression<String>("record")
-  private let lastModifiedAt = Expression<Int64>("lastModifiedAt")
+  private let lastModifiedAt = Expression<Date>("lastModifiedAt")
   private let version = Expression<Int64>("version")
   private let shouldVacuumOnClear: Bool
 
@@ -72,7 +72,7 @@ public final class SQLiteNormalizedCache {
     try self.db.run(self.records.createIndex(key, unique: true, ifNotExists: true))
 
     if currentVersion < 1 {
-      try self.db.run(self.records.addColumn(lastModifiedAt, defaultValue: 0))
+      try self.db.run(self.records.addColumn(lastModifiedAt, defaultValue: Date(timeIntervalSince1970: 0)))
     }
     try self.db.run("PRAGMA user_version = 1;")
   }
@@ -90,7 +90,7 @@ public final class SQLiteNormalizedCache {
           or: .replace,
           self.key <- recordKey,
           self.record <- recordString,
-          self.lastModifiedAt <- Date().milisecondsSince1970
+          self.lastModifiedAt <- Date()
         ))
       }
     }

@@ -1,11 +1,11 @@
 final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQLResultAccumulator {
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> Any? {
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> Any? {
     guard case .scalar(let decodable) = info.fields[0].type.namedType else { preconditionFailure() }
     // This will convert a JSON value to the expected value type, which could be a custom scalar or an enum.
     return try decodable.init(jsonValue: scalar)
   }
   
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) -> Any? {
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) -> Any? {
     return nil
   }
   

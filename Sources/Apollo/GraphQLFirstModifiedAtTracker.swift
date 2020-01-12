@@ -1,25 +1,25 @@
 final class GraphQLFirstModifiedAtTracker: GraphQLResultAccumulator {
-  func accept(scalar: JSONValue, firstModifiedAt: Timestamp, info: GraphQLResolveInfo) throws -> Timestamp {
+  func accept(scalar: JSONValue, firstModifiedAt: Date, info: GraphQLResolveInfo) throws -> Date {
     return firstModifiedAt
   }
 
-  func acceptNullValue(firstModifiedAt: Timestamp, info: GraphQLResolveInfo) -> Timestamp {
+  func acceptNullValue(firstModifiedAt: Date, info: GraphQLResolveInfo) -> Date {
     return firstModifiedAt
   }
 
-  func accept(list: [Timestamp], info: GraphQLResolveInfo) -> Timestamp {
-    return list.min() ?? -1
+  func accept(list: [Date], info: GraphQLResolveInfo) -> Date {
+    return list.min() ?? Date(timeIntervalSince1970: 0)
   }
 
-  func accept(fieldEntry: Timestamp, info: GraphQLResolveInfo) -> Timestamp {
+  func accept(fieldEntry: Date, info: GraphQLResolveInfo) -> Date {
     return fieldEntry
   }
 
-  func accept(fieldEntries: [Timestamp], info: GraphQLResolveInfo) throws -> Timestamp {
-    return fieldEntries.min() ?? -1
+  func accept(fieldEntries: [Date], info: GraphQLResolveInfo) throws -> Date {
+    return fieldEntries.min() ?? Date(timeIntervalSince1970: 0)
   }
 
-  func finish(rootValue: Timestamp, info: GraphQLResolveInfo) -> GraphQLResultContext {
-    return GraphQLResultContext(resultAge: Date(timeIntervalSince1970: Double(rootValue) / 1000))
+  func finish(rootValue: Date, info: GraphQLResolveInfo) -> GraphQLResultContext {
+    return GraphQLResultContext(resultAge: rootValue)
   }
 }
