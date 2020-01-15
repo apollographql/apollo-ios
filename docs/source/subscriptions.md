@@ -132,9 +132,13 @@ Note that if you only wanted to be updated reviews for a specific episode, you c
 
 ## Subscriptions and authorization tokens
 
-Your organization might have in place a mechanism to validate and authorize users and enable access to functionality in your endpoint, so it is a common practice to request the authorization token but, how do I enable this with my subscription?
+In a standard HTTP operation, if authentication is necessary an `Authorization` header is often sent with requests. However, with a web socket, this can't be sent with every payload since a persistent connection is required. 
 
-Assuming you (or your backend developers) have read [the authentication section](https://www.apollographql.com/docs/apollo-server/security/authentication/) and [subscriptions example/ authentication over WebSocket](https://www.apollographql.com/docs/apollo-server/data/subscriptions/), you will need to initialize your apollo client as follows:
+For web sockets, the `connectingPayload` provides those parameters you would traditionally specify as part of the headers of your request.
+
+Note that this must be set **when the `WebSocketTransport` is created**. If you need to update the `connectingPayload`, you will need to recreate the client using a new `webSocketTransport`. 
+
+Assuming you (or your backend developers) have read [the authentication section](https://www.apollographql.com/docs/apollo-server/security/authentication/) and [subscriptions example / authentication over WebSocket](https://www.apollographql.com/docs/apollo-server/data/subscriptions/) of our backend documentation, you will need to initialize your `ApolloClient` instance as follows:
 
 ```swift
 import Foundation
@@ -176,6 +180,5 @@ class Apollo {
 }
 ```
 
-The `connectingPayload` provides those parameters you would traditionally specify as part of the headers of your request.
 
-`!` You need to provide the connecting payload for the web socket to initialize its connection, for this, the apollo client should be initialized (or recreated) once the authorization token has been generated.
+
