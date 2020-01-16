@@ -45,7 +45,7 @@ public class ApolloCodegen {
     
     let scriptFolderURL = try ScriptDirectoryFinder.findScriptsFolder(for: packageManager, in: environment)
     
-    let cli = try ApolloCLI.createCLI(scriptsFolderURL: scriptFolderURL)
+    let cli = try ApolloCLI.createCLI(scriptsFolderURL: scriptFolderURL, timeout: options.downloadTimeout)
     return try cli.runApollo(with: options.arguments, from: folder)
   }
 }

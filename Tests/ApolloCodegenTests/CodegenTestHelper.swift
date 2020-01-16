@@ -11,6 +11,9 @@ import XCTest
 
 struct CodegenTestHelper {
   
+  // Centralized timeout for adjustment when working on terrible wifi
+  static var timeout: Double = 90.0
+  
   enum CodegenTestError: Error, LocalizedError {
     case couldNotGetSourceRoot
     
@@ -86,7 +89,7 @@ struct CodegenTestHelper {
                                   line: UInt = #line) {
     do {
       let scriptsFolderURL = try self.scriptsFolderURL()
-      try CLIDownloader.downloadIfNeeded(scriptsFolderURL: scriptsFolderURL)
+      try CLIDownloader.downloadIfNeeded(scriptsFolderURL: scriptsFolderURL, timeout: CodegenTestHelper.timeout)
     } catch {
       XCTFail("Error downloading CLI if needed: \(error)",
               file: file,

@@ -108,13 +108,15 @@ class ApolloCodegenTests: XCTestCase {
     let outputFile = outputFolder.appendingPathComponent("API.swift")
     
     let options = ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: outputFile),
-                                       urlToSchemaFile: starWarsSchemaFileURL)
+                                       urlToSchemaFile: starWarsSchemaFileURL,
+                                       downloadTimeout: CodegenTestHelper.timeout)
     do {
       _ = try ApolloCodegen.run(from: starWarsFolderURL,
                                 with: .custom(scriptsFolderURL: scriptFolderURL),
                                 options: options)
     } catch {
       XCTFail("Error running codegen: \(error.localizedDescription)")
+      return
     }
     
     XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))
@@ -131,7 +133,8 @@ class ApolloCodegenTests: XCTestCase {
     let outputFolder = try CodegenTestHelper.outputFolderURL()
     
     let options = ApolloCodegenOptions(outputFormat: .multipleFiles(inFolderAtURL: outputFolder),
-                                       urlToSchemaFile: starWarsSchemaFileURL)
+                                       urlToSchemaFile: starWarsSchemaFileURL,
+                                       downloadTimeout: CodegenTestHelper.timeout)
     
     _ = try ApolloCodegen.run(from: starWarsFolderURL,
                               with: .custom(scriptsFolderURL: scriptFolderURL),

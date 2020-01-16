@@ -29,6 +29,7 @@ public struct ApolloCodegenOptions {
   public let outputFormat: OutputFormat
   public let passthroughCustomScalars: Bool
   public let urlToSchemaFile: URL
+  public let downloadTimeout: Double
 
   /// Designated initializer.
   ///
@@ -41,6 +42,7 @@ public struct ApolloCodegenOptions {
   ///  - outputFormat: The `OutputFormat` enum option to use to output generated code.
   ///  - passthroughCustomScalars: Set true to use your own types for custom scalars. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
+  ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               namespace: String? = nil,
@@ -48,7 +50,8 @@ public struct ApolloCodegenOptions {
               operationIDsURL: URL? = nil,
               outputFormat: OutputFormat,
               passthroughCustomScalars: Bool = false,
-              urlToSchemaFile: URL) {
+              urlToSchemaFile: URL,
+              downloadTimeout: Double = 30.0) {
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.namespace = namespace
@@ -57,6 +60,7 @@ public struct ApolloCodegenOptions {
     self.outputFormat = outputFormat
     self.passthroughCustomScalars = passthroughCustomScalars
     self.urlToSchemaFile = urlToSchemaFile
+    self.downloadTimeout = downloadTimeout
   }
   
   /// Convenience initializer taking the root folder of a target and generate

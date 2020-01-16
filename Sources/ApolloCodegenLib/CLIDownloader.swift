@@ -11,50 +11,70 @@ import Foundation
 /// Helper for downloading the CLI Zip file so we don't have to include it in the repo.
 struct CLIDownloader {
   
-  enum CLIDownloaderError: Error {
+  enum CLIDownloaderError: Error, LocalizedError {
     case badResponse(code: Int, response: String?)
     case emptyDataReceived
     case noDataReceived
-    case operationFailed
+    case downloadTimedOut(after: Double)
     case responseNotHTTPResponse
+    
+    var errorDescription: String? {
+      switch self {
+      case .badResponse(let code, let response):
+        return "Recieved bad response from server (code \(code)): \(String(describing: response))"
+      case .emptyDataReceived:
+        return "Empty data was receieved from the server."
+      case .noDataReceived:
+        return "No data was received from the server."
+      case .downloadTimedOut(let seconds):
+        return "Download timed out after \(seconds) seconds."
+      case .responseNotHTTPResponse:
+        return "The response was not an HTTP Response, something's gone very wonky."
+      }
+    }
   }
   
   /// The URL string for getting the current version of the CLI
   static let downloadURLString = "https://34622-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.21.0/apollo-v2.21.0-darwin-x64.tar.gz"
   
-  
   /// Downloads the appropriate Apollo CLI in a zip file.
   ///
-  /// - Parameter scriptsFolderURL: The scripts folder URL to download it to.
-  static func downloadIfNeeded(scriptsFolderURL: URL) throws {
+  /// - Parameters:
+  ///   - scriptsFolderURL: The scripts folder URL to download it to.
+  ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
+  static func downloadIfNeeded(scriptsFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     guard !FileManager.default.apollo_fileExists(at: zipFileURL) else {
       CodegenLogger.log("Zip file with the CLI is already downloaded!")
       return
     }
     
-    try self.download(to: zipFileURL)
+    try self.download(to: zipFileURL, timeout: timeout)
   }
   
   /// Deletes any existing version of the zip file and re-downloads a new version.
   ///
-  /// - Parameter scriptsFolderURL: The scripts folder where all this junk lives.
-  static func forceRedownload(scriptsFolderURL: URL) throws {
+  /// - Parameters:
+  ///   - scriptsFolderURL: The scripts folder where all this junk lives.
+  ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
+  static func forceRedownload(scriptsFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
     try FileManager.default.apollo_deleteFile(at: zipFileURL)
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromScripts: scriptsFolderURL)
     try FileManager.default.apollo_deleteFolder(at: apolloFolderURL)
     
-    try self.download(to: zipFileURL)
+    try self.download(to: zipFileURL, timeout: timeout)
   }
   
   /// Downloads the zip file of the Apollo CLI synchronously.
   ///
-  /// - Parameter zipFileURL: The URL where downloaded data should be saved.
-  private static func download(to zipFileURL: URL) throws {
+  /// - Parameters:
+  ///   - zipFileURL: The URL where downloaded data should be saved.
+  ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
+  private static func download(to zipFileURL: URL, timeout: Double) throws {
     CodegenLogger.log("Downloading zip file with the CLI...")
     let semaphore = DispatchSemaphore(value: 0)
-    var errorToThrow: Error? = CLIDownloaderError.operationFailed
+    var errorToThrow: Error? = CLIDownloaderError.downloadTimedOut(after: timeout)
     URLSession.shared.dataTask(with: URL(string: CLIDownloader.downloadURLString)!) { data, response, error in
       defer {
         semaphore.signal()
@@ -96,7 +116,7 @@ struct CLIDownloader {
       errorToThrow = nil
     }.resume()
     
-    _ = semaphore.wait(timeout: .now() + 30)
+    _ = semaphore.wait(timeout: .now() + timeout)
     
     if let throwMe = errorToThrow {
       throw throwMe
