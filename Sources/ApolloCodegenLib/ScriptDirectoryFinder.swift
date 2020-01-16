@@ -63,7 +63,7 @@ struct ScriptDirectoryFinder {
         throw FindError.couldNotFindSourcePackagesDirectory(buildRoot: buildRootURL.path)
       }
       
-      currentDirectoryURL = buildRootURL.deletingLastPathComponent()
+      currentDirectoryURL = currentDirectoryURL.deletingLastPathComponent()
       CodegenLogger.log("Now looking in \(currentDirectoryURL)")
     }
     
