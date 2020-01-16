@@ -64,6 +64,7 @@ struct ScriptDirectoryFinder {
       }
       
       currentDirectoryURL = buildRootURL.deletingLastPathComponent()
+      CodegenLogger.log("Now looking in \(currentDirectoryURL)")
     }
     
     return currentDirectoryURL
