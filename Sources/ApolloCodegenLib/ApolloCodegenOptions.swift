@@ -70,15 +70,18 @@ public struct ApolloCodegenOptions {
   ///   - Output is a single file to [folder]/API.swift
   ///   - You want operation IDs generated and output to [folder]/operationIDs.json
   ///
-  /// - Parameter folder: The root of the target. 
-  public init(targetRootURL folder: URL) {
+  /// - Parameters:
+  ///  - folder: The root of the target.
+  ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds
+  public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0) {
     let json = folder.appendingPathComponent("schema.json")
     let outputFileURL = folder.appendingPathComponent("API.swift")
     let operationIDsURL = folder.appendingPathComponent("operationIDs.json")
     
     self.init(operationIDsURL: operationIDsURL,
               outputFormat: .singleFile(atFileURL: outputFileURL),
-              urlToSchemaFile: json)
+              urlToSchemaFile: json,
+              downloadTimeout: downloadTimeout)
   }
   
   var arguments: [String] {
