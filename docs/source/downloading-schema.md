@@ -17,7 +17,7 @@ Note that if you're using the local version set up for codegen, you'll want to u
 ```sh
 SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
 cd "${SRCROOT}/${TARGET_NAME}"
-"${SCRIPT_PATH}"/check-and-run-apollo-cli.sh schema:download --endpoint=http://localhost:8080/graphql schema.json
+"${SCRIPT_PATH}"/run-bundled-codegen.sh schema:download --endpoint=http://localhost:8080/graphql schema.json
 ```
 
 If needed, you can use the `header` option to add additional HTTP headers to the request. For example, to include an authentication token, use `--header "Authorization: Bearer <token>"`:
