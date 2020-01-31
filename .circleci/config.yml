@@ -35,7 +35,7 @@ commands:
 jobs:
   macOS10_15:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: Apollo
@@ -45,7 +45,7 @@ jobs:
 
   iOS13_3:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=iOS Simulator,OS=13.3,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
@@ -55,7 +55,7 @@ jobs:
 
   iOS12_4:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: Apollo
@@ -65,7 +65,7 @@ jobs:
 
   tvOS13_3:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=tvOS Simulator,OS=13.3,name=Apple TV
       CIRCLE_XCODE_SCHEME: Apollo
@@ -75,7 +75,7 @@ jobs:
 
   SQLitemacOS10_15:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloSQLite
@@ -85,7 +85,7 @@ jobs:
 
   SQLiteiOS13_3:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=iOS Simulator,OS=13.3,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloSQLite
@@ -95,7 +95,7 @@ jobs:
 
   SQLiteiOS12_4:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: ApolloSQLite
@@ -105,7 +105,7 @@ jobs:
 
   WebSocketmacOS10_15:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
@@ -115,7 +115,7 @@ jobs:
 
   WebSocketiOS13_3:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=iOS Simulator,OS=13.3,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
@@ -125,7 +125,7 @@ jobs:
 
   WebSocketiOS12_4:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     environment:
       DESTINATION: platform=iOS Simulator,OS=12.2,name=iPhone XS
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
@@ -135,7 +135,7 @@ jobs:
 
   CocoaPodsTrunk:
     macos:
-      xcode: "11.3.0"
+      xcode: "11.3.1"
     steps:
       - checkout
       # TODO: Remove when Circle updates the version of CP installed on their
