@@ -127,6 +127,10 @@
     "name": "Starship",
     "source": "query Starship {\n  starship(id: 3000) {\n    __typename\n    name\n    coordinates\n  }\n}"
   },
+  "f890b11aaa5d41e6d53ced4549beb27b9157c8c301d47e076909262ed9edbfb1": {
+    "name": "StarshipLength",
+    "source": "query StarshipLength($length: Float!) {\n  starshipLength(length: $length) {\n    __typename\n    name\n    coordinates\n    length\n  }\n}"
+  },
   "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe": {
     "name": "ReviewAdded",
     "source": "subscription ReviewAdded($episode: Episode) {\n  reviewAdded(episode: $episode) {\n    __typename\n    episode\n    stars\n    commentary\n  }\n}"

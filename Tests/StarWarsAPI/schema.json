@@ -204,6 +204,33 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "starshipLength",
+              "description": "",
+              "args": [
+                {
+                  "name": "length",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Float",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Starship",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,

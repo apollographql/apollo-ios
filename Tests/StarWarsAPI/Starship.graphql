@@ -4,3 +4,11 @@ query Starship {
     coordinates
   }
 }
+
+query StarshipLength($length: Float!) {
+  starshipLength(length: $length) {
+    name
+    coordinates
+    length
+  }
+}
