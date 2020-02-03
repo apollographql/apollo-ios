@@ -79,14 +79,14 @@ class CLIExtractorTests: XCTestCase {
   }
   
   func testValidatingSHASUMWithMatchingWorks() throws {
-    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     try CLIExtractor.validateZipFileSHASUM(at: zipFileURL, expected: CLIExtractor.expectedSHASUM)
   }
   
   func testValidatingSHASUMFailsWithoutMatch() throws {
-    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     let bogusSHASUM = CLIExtractor.expectedSHASUM + "NOPE"
     do {
       try CLIExtractor.validateZipFileSHASUM(at: zipFileURL, expected: bogusSHASUM)
@@ -109,8 +109,8 @@ class CLIExtractorTests: XCTestCase {
     XCTAssertFalse(FileManager.default.apollo_folderExists(at: binaryFolderURL))
     
     // Actually extract the CLI
-    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    let extractedURL = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let extractedURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     
     // Make sure we're getting the binary folder path back and that something's now there.
     XCTAssertEqual(extractedURL.path, binaryFolderURL.path)
@@ -128,8 +128,8 @@ class CLIExtractorTests: XCTestCase {
   
   func testReExtractingZipWithDifferentSHA() throws {
     // Extract the existing CLI
-    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    _ = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    _ = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     
     // Validate that it extracted and has the correct shasum
     self.validateCLIIsExtractedWithRealSHASUM()
@@ -144,7 +144,7 @@ class CLIExtractorTests: XCTestCase {
     XCTAssertFalse(try CLIExtractor.validateSHASUMInExtractedFile(apolloFolderURL: apolloFolderURL))
     
     // Now try extracting again, and check SHASUM is now real again
-    _ = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+    _ = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     self.validateCLIIsExtractedWithRealSHASUM()
   }
   
@@ -153,10 +153,10 @@ class CLIExtractorTests: XCTestCase {
     let apolloFolder = try CodegenTestHelper.apolloFolderURL()
     try FileManager.default.apollo_createFolderIfNeeded(at: apolloFolder)
     
-    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
     
     // Now try extracting again, and check SHASUM is now real again
-    _ = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+    _ = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     self.validateCLIIsExtractedWithRealSHASUM()
   }
   
@@ -169,8 +169,8 @@ class CLIExtractorTests: XCTestCase {
     XCTAssertFalse(FileManager.default.apollo_folderExists(at: binaryFolderURL))
     
     // Re-extract and now everything should be there
-    let scriptsFolderURL = try CodegenTestHelper.scriptsFolderURL()
-    _ = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    _ = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     self.validateCLIIsExtractedWithRealSHASUM()
   }
 }

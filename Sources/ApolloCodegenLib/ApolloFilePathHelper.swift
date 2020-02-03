@@ -10,12 +10,12 @@ import Foundation
 
 struct ApolloFilePathHelper {
   
-  static func apolloFolderURL(fromScripts scriptsFolderURL: URL) -> URL {
-    return scriptsFolderURL.appendingPathComponent("apollo")
+  static func apolloFolderURL(fromCLIFolder cliFolderURL: URL) -> URL {
+    return cliFolderURL.appendingPathComponent("apollo")
   }
   
-  static func zipFileURL(fromScripts scriptsFolderURL: URL) -> URL {
-    return scriptsFolderURL.appendingPathComponent("apollo.tar.gz")
+  static func zipFileURL(fromCLIFolder cliFolderURL: URL) -> URL {
+    return cliFolderURL.appendingPathComponent("apollo.tar.gz")
   }
   
   static func binaryFolderURL(fromApollo apolloFolderURL: URL) -> URL {

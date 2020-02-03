@@ -12,21 +12,21 @@ import XCTest
 class CLIDownloaderTests: XCTestCase {
   
   func testRedownloading() throws {
-    let scriptsURL = try CodegenTestHelper.scriptsFolderURL()
+    let scriptsURL = try CodegenTestHelper.cliFolderURL()
     
-    try CLIDownloader.forceRedownload(scriptsFolderURL: scriptsURL, timeout: CodegenTestHelper.timeout)
+    try CLIDownloader.forceRedownload(cliFolderURL: scriptsURL, timeout: CodegenTestHelper.timeout)
     
-    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsURL)
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: scriptsURL)
     XCTAssertTrue(FileManager.default.apollo_fileExists(at: zipFileURL))
     XCTAssertEqual(try FileManager.default.apollo_shasum(at: zipFileURL), CLIExtractor.expectedSHASUM)    
   }
   
   func testTimeoutThrowsCorrectError() throws {
-    let scriptsURL = try CodegenTestHelper.scriptsFolderURL()
+    let scriptsURL = try CodegenTestHelper.cliFolderURL()
     
     // This file is big enough that unless both you and the server have a terabyte connection, 2 seconds won't be enough time to download it.
     do {
-      try CLIDownloader.forceRedownload(scriptsFolderURL: scriptsURL, timeout: 2.0)
+      try CLIDownloader.forceRedownload(cliFolderURL: scriptsURL, timeout: 2.0)
     } catch {
       guard let downloaderError = error as? CLIDownloader.CLIDownloaderError else {
         XCTFail("Wrong type of error")

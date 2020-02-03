@@ -14,11 +14,11 @@ public struct ApolloCLI {
   /// Creates an instance of `ApolloCLI`, downloading and extracting if needed
   ///
   /// - Parameters:
-  ///   - scriptsFolderURL: The URL to the scripts folder which contains the zip file with the CLI.
+  ///   - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
   ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
-  public static func createCLI(scriptsFolderURL: URL, timeout: Double) throws -> ApolloCLI {
-    try CLIDownloader.downloadIfNeeded(scriptsFolderURL: scriptsFolderURL, timeout: timeout)
-    let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: scriptsFolderURL)
+  public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> ApolloCLI {
+    try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
+    let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     return ApolloCLI(binaryFolderURL: binaryFolderURL)
   }
   

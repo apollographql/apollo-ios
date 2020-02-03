@@ -33,14 +33,14 @@ struct CodegenTestHelper {
     return URL(fileURLWithPath: sourceRootPath)
   }
   
-  static func scriptsFolderURL() throws -> URL {
+  static func cliFolderURL() throws -> URL {
     let sourceRoot = try self.sourceRootURL()
     return sourceRoot.appendingPathComponent("scripts")
   }
   
   static func apolloFolderURL() throws -> URL {
-    let scripts = try self.scriptsFolderURL()
-    return ApolloFilePathHelper.apolloFolderURL(fromScripts: scripts)
+    let scripts = try self.cliFolderURL()
+    return ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: scripts)
   }
   
   static func binaryFolderURL() throws -> URL {
@@ -88,8 +88,8 @@ struct CodegenTestHelper {
   static func downloadCLIIfNeeded(file: StaticString = #file,
                                   line: UInt = #line) {
     do {
-      let scriptsFolderURL = try self.scriptsFolderURL()
-      try CLIDownloader.downloadIfNeeded(scriptsFolderURL: scriptsFolderURL, timeout: CodegenTestHelper.timeout)
+      let cliFolderURL = try self.cliFolderURL()
+      try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: CodegenTestHelper.timeout)
     } catch {
       XCTFail("Error downloading CLI if needed: \(error)",
               file: file,

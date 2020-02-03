@@ -101,7 +101,7 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCodegenWithSingleFileOutputsSingleFile() throws {
-    let scriptFolderURL = try CodegenTestHelper.scriptsFolderURL()
+    let scriptFolderURL = try CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = try CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = try CodegenTestHelper.starWarsSchemaFileURL()
     let outputFolder = try CodegenTestHelper.outputFolderURL()
@@ -127,7 +127,7 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCodegenWithMultipleFilesOutputsMultipleFiles() throws {
-    let scriptFolderURL = try CodegenTestHelper.scriptsFolderURL()
+    let scriptFolderURL = try CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = try CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = try CodegenTestHelper.starWarsSchemaFileURL()
     let outputFolder = try CodegenTestHelper.outputFolderURL()

@@ -26,11 +26,11 @@ public class ApolloCodegen {
   /// Runs code generation from the given folder with the passed-in options
   ///
   /// - Parameter folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
-  /// - Parameter scriptFolderURL: The folder where the Apollo scripts have been checked out.
+  /// - Parameter cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
   /// - Parameter options: The options object to use to run the code generation.
   public static func run(from folder: URL,
                          environment: [String: String] = ProcessInfo.processInfo.environment,
-                         with scriptFolderURL: URL,
+                         with cliFolderURL: URL,
                          options: ApolloCodegenOptions) throws -> String {
     guard FileManager.default.apollo_folderExists(at: folder) else {
       throw ApolloCodegenError.folderDoesNotExist(folder)
@@ -43,7 +43,7 @@ public class ApolloCodegen {
       try FileManager.default.apollo_createContainingFolderIfNeeded(for: fileURL)
     }
 
-    let cli = try ApolloCLI.createCLI(scriptsFolderURL: scriptFolderURL, timeout: options.downloadTimeout)
+    let cli = try ApolloCLI.createCLI(cliFolderURL: cliFolderURL, timeout: options.downloadTimeout)
     return try cli.runApollo(with: options.arguments, from: folder)
   }
 }

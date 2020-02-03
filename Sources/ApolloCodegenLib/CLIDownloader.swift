@@ -40,10 +40,10 @@ struct CLIDownloader {
   /// Downloads the appropriate Apollo CLI in a zip file.
   ///
   /// - Parameters:
-  ///   - scriptsFolderURL: The scripts folder URL to download it to.
+  ///   - cliFolderURL: The folder URL to download the zip file to.
   ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
-  static func downloadIfNeeded(scriptsFolderURL: URL, timeout: Double) throws {
-    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
+  static func downloadIfNeeded(cliFolderURL: URL, timeout: Double) throws {
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     guard !FileManager.default.apollo_fileExists(at: zipFileURL) else {
       CodegenLogger.log("Zip file with the CLI is already downloaded!")
       return
@@ -55,12 +55,12 @@ struct CLIDownloader {
   /// Deletes any existing version of the zip file and re-downloads a new version.
   ///
   /// - Parameters:
-  ///   - scriptsFolderURL: The scripts folder where all this junk lives.
+  ///   - cliFolderURL: The folder where the zip file lives.
   ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
-  static func forceRedownload(scriptsFolderURL: URL, timeout: Double) throws {
-    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
+  static func forceRedownload(cliFolderURL: URL, timeout: Double) throws {
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     try FileManager.default.apollo_deleteFile(at: zipFileURL)
-    let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromScripts: scriptsFolderURL)
+    let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     try FileManager.default.apollo_deleteFolder(at: apolloFolderURL)
     
     try self.download(to: zipFileURL, timeout: timeout)

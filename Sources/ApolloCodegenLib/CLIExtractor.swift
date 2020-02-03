@@ -34,21 +34,21 @@ struct CLIExtractor {
   
   /// Checks to see if the CLI has already been extracted and is the correct version, and extracts or re-extracts as necessary
   ///
-  /// - Parameter scriptsFolderURL: The URL to the scripts folder which contains the zip file with the CLI.
+  /// - Parameter cliFolderURL: The URL to the folder which contains the zip file with the CLI.
   /// - Parameter expectedSHASUM: The expected SHASUM. Defaults to the real expected SHASUM. This parameter exists mostly for testing.
   /// - Returns: The URL to the binary folder of the extracted CLI.
-  static func extractCLIIfNeeded(from scriptsFolderURL: URL, expectedSHASUM: String = CLIExtractor.expectedSHASUM) throws -> URL {
-    let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromScripts: scriptsFolderURL)
+  static func extractCLIIfNeeded(from cliFolderURL: URL, expectedSHASUM: String = CLIExtractor.expectedSHASUM) throws -> URL {
+    let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     
     guard FileManager.default.apollo_folderExists(at: apolloFolderURL) else {
       CodegenLogger.log("Apollo folder doesn't exist, extracting CLI from zip file.")
-      return try self.extractCLIFromZip(scriptsFolderURL: scriptsFolderURL)
+      return try self.extractCLIFromZip(cliFolderURL: cliFolderURL)
     }
     
     guard try self.validateSHASUMInExtractedFile(apolloFolderURL: apolloFolderURL, expected: expectedSHASUM) else {
       CodegenLogger.log("SHASUM of extracted zip does not match expected, deleting existing folder and re-extracting.")
       try FileManager.default.apollo_deleteFolder(at: apolloFolderURL)
-      return try self.extractCLIFromZip(scriptsFolderURL: scriptsFolderURL)
+      return try self.extractCLIFromZip(cliFolderURL: cliFolderURL)
     }
     
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
@@ -56,7 +56,7 @@ struct CLIExtractor {
     guard FileManager.default.apollo_fileExists(at: binaryURL) else {
       CodegenLogger.log("There was a valid `.shasum` file, but no binary at the expected path. Deleting existing apollo folder and re-extracting.", logLevel: .warning)
       try FileManager.default.apollo_deleteFolder(at: apolloFolderURL)
-      return try self.extractCLIFromZip(scriptsFolderURL: scriptsFolderURL, expectedSHASUM: expectedSHASUM)
+      return try self.extractCLIFromZip(cliFolderURL: cliFolderURL, expectedSHASUM: expectedSHASUM)
     }
     
     CodegenLogger.log("Binary already extracted!")
@@ -95,18 +95,18 @@ struct CLIExtractor {
   
   /// Extracts the CLI from a zip file in the scripts folder.
   ///
-  /// - Parameter scriptsFolderURL: The URL to the scripts folder which contains the zip file with the CLI.
+  /// - Parameter cliFolderURL: The URL to the folder which contains the zip file with the CLI.
   /// - Parameter expectedSHASUM: The expected SHASUM. Defaults to the real expected SHASUM. This parameter exists mostly for testing.
   /// - Returns: The URL for the binary folder post-extraction.
-  static func extractCLIFromZip(scriptsFolderURL: URL, expectedSHASUM: String = CLIExtractor.expectedSHASUM) throws -> URL {
-    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromScripts: scriptsFolderURL)
+  static func extractCLIFromZip(cliFolderURL: URL, expectedSHASUM: String = CLIExtractor.expectedSHASUM) throws -> URL {
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
 
     try self.validateZipFileSHASUM(at: zipFileURL, expected: expectedSHASUM)
     
     CodegenLogger.log("Extracting CLI from zip file. This may take a second...")
-    _ = try Basher.run(command: "tar xzf \(zipFileURL.path) -C \(scriptsFolderURL.path)", from: nil)
+    _ = try Basher.run(command: "tar xzf \(zipFileURL.path) -C \(cliFolderURL.path)", from: nil)
     
-    let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromScripts: scriptsFolderURL)
+    let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
     
     guard FileManager.default.apollo_folderExists(at: binaryFolderURL) else {
