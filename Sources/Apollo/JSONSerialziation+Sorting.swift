@@ -1,7 +1,7 @@
 import Foundation
 
 extension JSONSerialization {
-  
+
   /// Uses `sortedKeys` to create a stable representation of JSON objects when the operating system supports it.
   ///
   /// - Parameter object: The object to serialize
@@ -18,7 +18,7 @@ extension JSONSerialization {
       return try self.data(withJSONObject: object)
     }
   }
-  
+
   /// Wrapper function so we don't have to scatter `if #available` all over the codebase to see if data can be sorted.
   static func dataCanBeSorted() -> Bool {
     if #available(iOS 11, macOS 10.13, watchOS 4, tvOS 11, *) {

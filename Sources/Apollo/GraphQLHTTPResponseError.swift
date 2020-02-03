@@ -7,7 +7,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
     case invalidResponse
     case persistedQueryNotFound
     case persistedQueryNotSupported
-    
+
     var description: String {
       switch self {
       case .errorResponse:
@@ -21,14 +21,14 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
       }
     }
   }
-  
+
   /// The body of the response.
   public let body: Data?
   /// Information about the response as provided by the server.
   public let response: HTTPURLResponse
   public let kind: ErrorKind
   private let serializationFormat = JSONSerializationFormat.self
-  
+
   public init(body: Data? = nil,
               response: HTTPURLResponse,
               kind: ErrorKind) {
@@ -36,7 +36,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
     self.response = response
     self.kind = kind
   }
-  
+
   /// Any graphQL errors that could be parsed from the response, or nil if none could be parsed.
   public var graphQLErrors: [GraphQLError]? {
     guard
@@ -45,28 +45,28 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
       let errorArray = json["errors"] as? [JSONObject] else {
         return nil
     }
-    
+
     let parsedErrors = errorArray.compactMap { GraphQLError($0) }
     return parsedErrors
   }
-  
+
   public var bodyDescription: String {
     guard let body = body else {
       return "[Empty response body]"
     }
-    
+
     guard let description = String(data: body, encoding: response.textEncoding ?? .utf8) else {
       return "[Unreadable response body]"
     }
-    
+
     return description
   }
-  
+
   public var errorDescription: String? {
     if let errorArray = self.graphQLErrors {
       let descriptions = errorArray.map { $0.localizedDescription }
       let description = descriptions.joined(separator: "\n")
-      
+
       return "\(kind.description): \(description)"
     } else {
       return "\(kind.description) (\(response.statusCode) \(response.statusCodeDescription)): \(bodyDescription)"

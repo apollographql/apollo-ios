@@ -5,7 +5,7 @@ public enum GraphQLHTTPRequestError: Error, LocalizedError {
   case cancelledByDelegate
   case serializedBodyMessageError
   case serializedQueryParamsMessageError
-  
+
   public var errorDescription: String? {
     switch self {
     case .cancelledByDelegate:

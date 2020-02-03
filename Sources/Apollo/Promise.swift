@@ -3,17 +3,17 @@ import Dispatch
 func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue = .global()) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()
-    
+
     for promise in promises {
       group.enter()
-      
+
       promise.andThen { value in
         group.leave()
       }.catch { error in
         reject(error)
       }
     }
-    
+
     group.notify(queue: queue) {
       fulfill(promises.map { $0.result!.value! })
     }
@@ -31,22 +31,22 @@ func firstly<T>(_ body: () throws -> Promise<T>) -> Promise<T> {
 final class Promise<Value> {
   private let lock = Mutex()
   private var state: State<Value>
-  
+
   private typealias ResultHandler<Value> = (Result<Value, Error>) -> Void
   private var resultHandlers: [ResultHandler<Value>] = []
-  
+
   init(resolved result: Result<Value, Error>) {
     state = .resolved(result)
   }
-  
+
   init(fulfilled value: Value) {
     state = .resolved(.success(value))
   }
-  
+
   init(rejected error: Error) {
     state = .resolved(.failure(error))
   }
-  
+
   init(_ body: () throws -> Value) {
     do {
       let value = try body()
@@ -55,23 +55,23 @@ final class Promise<Value> {
       state = .resolved(.failure(error))
     }
   }
-  
+
   init(_ body: (_ fulfill: @escaping (Value) -> Void, _ reject: @escaping (Error) -> Void) throws -> Void) {
     state = .pending
-    
+
     do {
       try body(self.fulfill, self.reject)
     } catch {
       self.reject(error)
     }
   }
-  
+
   var isPending: Bool {
     return lock.withLock {
       state.isPending
     }
   }
-  
+
   var result: Result<Value, Error>? {
     return lock.withLock {
       switch state {
@@ -82,32 +82,32 @@ final class Promise<Value> {
       }
     }
   }
-  
+
   func wait() {
     let semaphore = DispatchSemaphore(value: 0)
-    
+
     whenResolved { result in
       semaphore.signal()
     }
-    
+
     semaphore.wait()
   }
-  
+
   func await() throws -> Value {
     let semaphore = DispatchSemaphore(value: 0)
-    
+
     var result: Result<Value, Error>? = nil
-    
+
     whenResolved {
       result = $0
       semaphore.signal()
     }
-    
+
     semaphore.wait()
-    
+
     return try result!.get()
   }
-  
+
   @discardableResult func andThen(_ whenFulfilled: @escaping (Value) throws -> Void) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
@@ -125,7 +125,7 @@ final class Promise<Value> {
       }
     }
   }
-  
+
   @discardableResult func `catch`(_ whenRejected: @escaping (Error) throws -> Void) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
@@ -143,7 +143,7 @@ final class Promise<Value> {
       }
     }
   }
-  
+
   @discardableResult func finally(_ whenResolved: @escaping () -> Void) -> Promise<Value> {
     self.whenResolved { _ in whenResolved() }
     return self
@@ -165,7 +165,7 @@ final class Promise<Value> {
       }
     }
   }
-  
+
   func flatMap<T>(_ transform: @escaping (Value) throws -> Promise<T>) -> Promise<T> {
     return Promise<T> { fulfill, reject in
       whenResolved { result in
@@ -182,7 +182,7 @@ final class Promise<Value> {
       }
     }
   }
-  
+
   func on(queue: DispatchQueue) -> Promise<Value> {
     return Promise<Value> { fulfill, reject in
       whenResolved { result in
@@ -199,29 +199,29 @@ final class Promise<Value> {
       }
     }
   }
-  
+
   private func fulfill(_ value: Value) {
     resolve(.success(value))
   }
-  
+
   private func reject(_ error: Error) {
     resolve(.failure(error))
   }
-  
+
   private func resolve(_ result: Result<Value, Error>) {
     lock.withLock {
       guard state.isPending else { return }
-      
+
       state = .resolved(result)
-      
+
       for handler in resultHandlers {
         handler(result)
       }
-      
+
       resultHandlers = []
     }
   }
-  
+
   private func whenResolved(_ handler: @escaping ResultHandler<Value>) {
     lock.withLock {
       // If the promise has been resolved and there are no existing result handlers,
@@ -240,7 +240,7 @@ final class Promise<Value> {
 private enum State<Value> {
   case pending
   case resolved(Result<Value, Error>)
-  
+
   var isPending: Bool {
     if case .pending = self {
       return true

@@ -1,7 +1,7 @@
 struct GroupedSequence<Key: Equatable, Value> {
   private(set) var keys: [Key] = []
   fileprivate var groupsForKeys: [[Value]] = []
-  
+
   mutating func append(value: Value, forKey key: Key) -> (Int, Int) {
     if let index = keys.firstIndex(where: { $0 == key }) {
       groupsForKeys[index].append(value)
@@ -22,14 +22,14 @@ extension GroupedSequence: Sequence {
 
 struct GroupedSequenceIterator<Key: Equatable, Value>: IteratorProtocol {
   private var base: GroupedSequence<Key, Value>
-  
+
   private var keyIterator: EnumeratedSequence<Array<Key>>.Iterator
-  
+
   init(base: GroupedSequence<Key, Value>) {
     self.base = base
     keyIterator = base.keys.enumerated().makeIterator()
   }
-  
+
   mutating func next() -> (Key, [Value])? {
     if let (index, key) = keyIterator.next() {
       let values = base.groupsForKeys[index]

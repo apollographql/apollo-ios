@@ -7,10 +7,10 @@ public struct GraphQLFile {
   public let mimeType: String
   public let inputStream: InputStream
   public let contentLength: UInt64
-  
+
   /// A convenience constant for declaring your mimetype is octet-stream.
   public static let octetStreamMimeType = "application/octet-stream"
-  
+
   /// Convenience initializer for raw data
   ///
   /// - Parameters:
@@ -28,7 +28,7 @@ public struct GraphQLFile {
               inputStream: InputStream(data: data),
               contentLength: UInt64(data.count))
   }
-  
+
   /// Failable convenience initializer for files in the filesystem
   /// Will return `nil` if the file URL cannot be used to create an `InputStream`, or if the file's size could not be determined.
   ///
@@ -44,18 +44,18 @@ public struct GraphQLFile {
     guard let inputStream = InputStream(url: fileURL) else {
       return nil
     }
-    
+
     guard let contentLength = GraphQLFile.getFileSize(fileURL: fileURL) else {
       return nil
     }
-    
+
     self.init(fieldName: fieldName,
               originalName: originalName,
               mimeType: mimeType,
               inputStream: inputStream,
               contentLength: contentLength)
   }
-  
+
   /// Designated Initializer
   ///
   /// - Parameters:
@@ -72,17 +72,17 @@ public struct GraphQLFile {
     self.fieldName = fieldName
     self.originalName = originalName
     self.mimeType = mimeType
-    
+
     self.inputStream = inputStream
     self.contentLength = contentLength
   }
-  
+
   private static func getFileSize(fileURL: URL) -> UInt64? {
     guard let fileSizeAttribute = try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.size],
       let fileSize = fileSizeAttribute as? NSNumber else {
         return nil
     }
-    
+
     return fileSize.uint64Value
   }
 }

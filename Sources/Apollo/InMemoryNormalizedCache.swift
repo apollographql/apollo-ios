@@ -7,7 +7,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   public init(records: RecordSet = RecordSet()) {
     self.records = records
   }
-  
+
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Result<[Record?], Error>) -> Void) {
@@ -18,7 +18,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
                                                    action: completion,
                                                    result: .success(records))
   }
-  
+
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
@@ -35,11 +35,11 @@ public final class InMemoryNormalizedCache: NormalizedCache {
     self.recordsLock.lock()
     self.records.clear()
     self.recordsLock.unlock()
-    
+
     guard let completion = completion else {
       return
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(()))

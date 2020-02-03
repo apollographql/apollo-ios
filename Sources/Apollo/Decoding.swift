@@ -13,7 +13,7 @@ func decode<SelectionSet: GraphQLSelectionSet>(selectionSet: SelectionSet.Type,
                              from: object,
                              path: [],
                              variables: variables)
-  
+
   return SelectionSet.init(unsafeResultMap: resultMap)
 }
 
@@ -23,7 +23,7 @@ private func decode(groupedFields: GroupedFields,
                     variables: GraphQLMap?) throws -> ResultMap {
   var fieldEntries: [(String, Any?)] = []
   fieldEntries.reserveCapacity(groupedFields.keys.count)
-  
+
   for (responseName, fields) in groupedFields {
     let fieldEntry = try decode(fields: fields,
                                 from: object,
@@ -31,7 +31,7 @@ private func decode(groupedFields: GroupedFields,
                                 variables: variables)
     fieldEntries.append((responseName, fieldEntry))
   }
-  
+
   return ResultMap(fieldEntries)
 }
 
@@ -56,7 +56,7 @@ private func collectFields(from selections: [GraphQLSelection],
       }
     case let fragmentSpread as GraphQLFragmentSpread:
       let fragment = fragmentSpread.fragment
-      
+
       if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
         try collectFields(from: fragment.selections,
                           forRuntimeType: runtimeType,
@@ -87,12 +87,12 @@ private func decode(fields: [GraphQLField],
                     variables: GraphQLMap?) throws -> Any? {
   // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
   let firstField = fields[0]
-  
+
   do {
     guard let value = object[firstField.responseKey] else {
       throw JSONDecodingError.missingValue
     }
-    
+
     return try complete(value: value,
                         ofType: firstField.type,
                         fields: fields,
@@ -117,24 +117,24 @@ private func complete(value: JSONValue,
     if value is NSNull {
       throw JSONDecodingError.nullValue
     }
-    
+
     return try complete(value: value,
                         ofType: innerType,
                         fields: fields,
                         path: path,
                         variables: variables)
   }
-  
+
   if value is NSNull {
     return nil
   }
-  
+
   switch returnType {
   case .scalar(let decodable):
     return try decodable.init(jsonValue: value)
   case .list(let innerType):
     guard let array = value as? [JSONValue] else { throw JSONDecodingError.wrongType }
-    
+
     return try array.enumerated().map { index, element -> Any? in
       var path = path
       path.append(String(index))

@@ -2,10 +2,10 @@ import Foundation
 
 /// A helper for building out multi-part form data for upload
 public class MultipartFormData {
-  
+
   enum FormDataError: Error, LocalizedError {
     case encodingStringToDataFailed(_ string: String)
-    
+
     var errorDescription: String? {
       switch self {
       case .encodingStringToDataFailed(let string):
@@ -28,7 +28,7 @@ public class MultipartFormData {
     self.boundary = boundary
     self.bodyParts = []
   }
-  
+
   /// Convenience initializer which uses a pre-defined boundary
   public convenience init() {
     self.init(boundary: "apollo-ios.boundary.\(UUID().uuidString)")
@@ -44,7 +44,7 @@ public class MultipartFormData {
                     name: name,
                     contentType: nil)
   }
-  
+
   /// Appends the passed-in data as a part of the body.
   ///
   /// - Parameters:
@@ -100,7 +100,7 @@ public class MultipartFormData {
 
     return data
   }
-  
+
   private func encode(bodyPart: BodyPart) throws -> Data {
     var encoded = Data()
 
@@ -140,7 +140,7 @@ public class MultipartFormData {
     guard let encodedData = string.data(using: .utf8, allowLossyConversion: false) else {
       throw FormDataError.encodingStringToDataFailed(string)
     }
-    
+
     return encodedData
   }
 }
@@ -154,7 +154,7 @@ fileprivate struct BodyPart {
   let contentLength: UInt64
   let contentType: String?
   let filename: String?
-  
+
   init(name: String,
        inputStream: InputStream,
        contentLength: UInt64,
@@ -166,20 +166,20 @@ fileprivate struct BodyPart {
     self.contentType = contentType
     self.filename = filename
   }
-  
+
   func headers() -> String {
     var headers = "Content-Disposition: form-data; name=\"\(self.name)\""
     if let filename = self.filename {
       headers += "; filename=\"\(filename)\""
     }
     headers += "\(MultipartFormData.CRLF)"
-    
+
     if let contentType = self.contentType {
       headers += "Content-Type: \(contentType)\(MultipartFormData.CRLF)"
     }
-    
+
     headers += "\(MultipartFormData.CRLF)"
-    
+
     return headers
   }
 }
