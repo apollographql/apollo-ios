@@ -99,10 +99,12 @@ public class HTTPNetworkTransport {
   let useGETForQueries: Bool
   let enableAutoPersistedQueries: Bool
   let useGETForPersistedQueryRetry: Bool
-  let delegate: HTTPNetworkTransportDelegate?
   private let requestCreator: RequestCreator
   private let sendOperationIdentifiers: Bool
-  
+
+  /// A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`.
+  public weak var delegate: HTTPNetworkTransportDelegate?
+
   public lazy var clientName = HTTPNetworkTransport.defaultClientName
   public lazy var clientVersion = HTTPNetworkTransport.defaultClientVersion
   
