@@ -34,6 +34,9 @@ public final class SQLiteNormalizedCache {
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
     var components = fieldCacheKey.components(separatedBy: ".")
+    if fieldCacheKey.contains("_ROOT"), let rootKey = components.first {
+        return rootKey
+    }
     if components.count > 1 {
       components.removeLast()
     }
