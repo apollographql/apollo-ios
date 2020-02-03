@@ -1,5 +1,3 @@
-#!/usr/bin/env xcrun swift -F ../build/Debug
-
 import Foundation
 import ApolloCodegenLib
 
