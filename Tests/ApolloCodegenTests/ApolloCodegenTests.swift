@@ -112,7 +112,7 @@ class ApolloCodegenTests: XCTestCase {
                                        downloadTimeout: CodegenTestHelper.timeout)
     do {
       _ = try ApolloCodegen.run(from: starWarsFolderURL,
-                                with: .custom(scriptsFolderURL: scriptFolderURL),
+                                with: scriptFolderURL,
                                 options: options)
     } catch {
       XCTFail("Error running codegen: \(error.localizedDescription)")
@@ -137,7 +137,7 @@ class ApolloCodegenTests: XCTestCase {
                                        downloadTimeout: CodegenTestHelper.timeout)
     
     _ = try ApolloCodegen.run(from: starWarsFolderURL,
-                              with: .custom(scriptsFolderURL: scriptFolderURL),
+                              with: scriptFolderURL,
                               options: options)
     
     XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))

@@ -30,7 +30,7 @@ public class ApolloCodegen {
   /// - Parameter options: The options object to use to run the code generation.
   public static func run(from folder: URL,
                          environment: [String: String] = ProcessInfo.processInfo.environment,
-                         with packageManager: PackageManager,
+                         with scriptFolderURL: URL,
                          options: ApolloCodegenOptions) throws -> String {
     guard FileManager.default.apollo_folderExists(at: folder) else {
       throw ApolloCodegenError.folderDoesNotExist(folder)
@@ -42,9 +42,7 @@ public class ApolloCodegen {
     case .singleFile(let fileURL):
       try FileManager.default.apollo_createContainingFolderIfNeeded(for: fileURL)
     }
-    
-    let scriptFolderURL = try ScriptDirectoryFinder.findScriptsFolder(for: packageManager, in: environment)
-    
+
     let cli = try ApolloCLI.createCLI(scriptsFolderURL: scriptFolderURL, timeout: options.downloadTimeout)
     return try cli.runApollo(with: options.arguments, from: folder)
   }

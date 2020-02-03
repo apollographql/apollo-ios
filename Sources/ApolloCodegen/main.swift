@@ -32,7 +32,7 @@ let options = ApolloCodegenOptions(targetRootURL: starWarsTarget)
 
 do {
   let result = try ApolloCodegen.run(from: starWarsTarget,
-                                     with: .custom(scriptsFolderURL: scriptFolderURL),
+                                     with: scriptFolderURL,
                                      options: options)
   print("RESULT: \(result)")
 } catch {
