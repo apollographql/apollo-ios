@@ -12,12 +12,12 @@ let package = Package(
     .library(
       name: "ApolloCodegenLib",
       targets: ["ApolloCodegenLib"]),
-		.library(
-			name: "ApolloSQLite",
-			targets: ["ApolloSQLite"]),
-		.library(
-			name: "ApolloWebSocket",
-			targets: ["ApolloWebSocket"]),
+    .library(
+        name: "ApolloSQLite",
+        targets: ["ApolloSQLite"]),
+    .library(
+        name: "ApolloWebSocket",
+        targets: ["ApolloWebSocket"]),
     ],
     dependencies: [
     .package(
