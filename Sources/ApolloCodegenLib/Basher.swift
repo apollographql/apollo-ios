@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Bash command runner
 public struct Basher {
   
   public enum BashError: Error, LocalizedError {
@@ -24,6 +25,12 @@ public struct Basher {
     }
   }
   
+  /// Runs the given bash command as a string
+  ///
+  /// - Parameters:
+  ///   - command: The bash command to run
+  ///   - url: [optional] The URL to set as the `currentDirectoryURL`.
+  /// - Returns: The result of the command.
   public static func run(command: String, from url: URL?) throws -> String {
     let task = Process()
     let pipe = Pipe()
