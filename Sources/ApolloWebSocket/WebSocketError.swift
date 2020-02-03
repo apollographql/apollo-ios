@@ -3,7 +3,7 @@ import Apollo
 #endif
 import Foundation
 
-/// A structure for capturing problems and any associated errors from a `WebSocketTransport`. 
+/// A structure for capturing problems and any associated errors from a `WebSocketTransport`.
 public struct WebSocketError: Error, LocalizedError {
   public enum ErrorKind {
     case errorResponse
@@ -11,7 +11,7 @@ public struct WebSocketError: Error, LocalizedError {
     case unprocessedMessage(String)
     case serializedMessageError
     case neitherErrorNorPayloadReceived
-    
+
     var description: String {
       switch self {
       case .errorResponse:
@@ -27,16 +27,16 @@ public struct WebSocketError: Error, LocalizedError {
       }
     }
   }
-  
+
   /// The payload of the response.
   public let payload: JSONObject?
-  
+
   /// The underlying error, or nil if one was not returned
   public let error: Error?
-  
+
   /// The kind of problem which occurred.
   public let kind: ErrorKind
-  
+
   public var errorDescription: String? {
     return "\(self.kind.description). Error: \(String(describing: self.error))"
   }

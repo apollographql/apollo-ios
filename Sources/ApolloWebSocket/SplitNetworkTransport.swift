@@ -2,11 +2,11 @@
 import Apollo
 #endif
 
-/// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP. 
+/// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP.
 public class SplitNetworkTransport {
   private let httpNetworkTransport: UploadingNetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
-  
+
   public var clientName: String {
     let httpName = self.httpNetworkTransport.clientName
     let websocketName = self.webSocketNetworkTransport.clientName
@@ -41,7 +41,7 @@ public class SplitNetworkTransport {
 // MARK: - NetworkTransport conformance
 
 extension SplitNetworkTransport: NetworkTransport {
-  
+
   public func send<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
     if operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation, completionHandler: completionHandler)
@@ -54,7 +54,7 @@ extension SplitNetworkTransport: NetworkTransport {
 // MARK: - UploadingNetworkTransport conformance
 
 extension SplitNetworkTransport: UploadingNetworkTransport {
-  
+
   public func upload<Operation>(operation: Operation,
                                 files: [GraphQLFile],
                                 completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
