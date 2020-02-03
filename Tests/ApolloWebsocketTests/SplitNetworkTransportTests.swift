@@ -40,38 +40,35 @@ class SplitNetworkTransportTests: XCTestCase {
     webSocketNetworkTransport: self.webSocketTransport
   )
   
-  
-  func testGettingSplitClientName() {
+  func testGettingSplitClientNameWithDifferentNames() {
     let splitName = self.splitTransport.clientName
     XCTAssertTrue(splitName.hasPrefix("SPLIT_"))
     XCTAssertTrue(splitName.contains(self.httpName))
     XCTAssertTrue(splitName.contains(self.webSocketName))
   }
   
-  func testGettingSplitClientVersion() {
+  func testGettingSplitClientVersionWithDifferentVersions() {
     let splitVersion = self.splitTransport.clientVersion
     XCTAssertTrue(splitVersion.hasPrefix("SPLIT_"))
     XCTAssertTrue(splitVersion.contains(self.httpVersion))
     XCTAssertTrue(splitVersion.contains(self.webSocketVersion))
   }
 
-  func testSettingSplitClientName() {
+  func testGettingSplitClientNameWithTheSameNames() {
     let splitName = "TestSplitClientName"
     
-    self.splitTransport.clientName = splitName
+    self.webSocketTransport.clientName = splitName
+    self.httpTransport.clientName = splitName
     
     XCTAssertEqual(self.splitTransport.clientName, splitName)
-    XCTAssertEqual(self.webSocketTransport.clientName, splitName)
-    XCTAssertEqual(self.httpTransport.clientName, splitName)
   }
   
-  func testSettingSplitClientVersion() {
+  func testGettingSplitClientVersionWithTheSameVersions() {
     let splitVersion = "TestSplitClientVersion"
     
-    self.splitTransport.clientVersion = splitVersion
+    self.webSocketTransport.clientVersion = splitVersion
+    self.httpTransport.clientVersion = splitVersion
     
     XCTAssertEqual(self.splitTransport.clientVersion, splitVersion)
-    XCTAssertEqual(self.webSocketTransport.clientVersion, splitVersion)
-    XCTAssertEqual(self.httpTransport.clientVersion, splitVersion)
   }
 }

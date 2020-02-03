@@ -50,25 +50,25 @@ public class WebSocketTransport {
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientName: String {
     didSet {
-      self.websocket.request.setValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
+      self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
   
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientVersion: String {
     didSet {
-      self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
+      self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
   
   /// Designated initializer
   ///
   /// - Parameter request: The connection URLRequest
-  /// - Parameter clientName: The client name to use for this client. Defauls to `Self.defaultClientName`
+  /// - Parameter clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   /// - Parameter clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   /// - Parameter sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
   /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
-  /// - Parameter connectingPayload: [optional] The payload to send on connection. Dfaults to an empty `GraphQLMap`.
+  /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   /// - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
   public init(request: URLRequest,
               clientName: String = WebSocketTransport.defaultClientName,
@@ -84,8 +84,7 @@ public class WebSocketTransport {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
     self.clientVersion = clientVersion
-    self.websocket.request.setValue(self.clientName, forHTTPHeaderField: WebSocketTransport.headerFieldNameClientName)
-    self.websocket.request.setValue(self.clientVersion, forHTTPHeaderField: WebSocketTransport.headerFieldNameClientVersion)
+    self.addApolloClientHeaders(to: &self.websocket.request)
     self.websocket.delegate = self
     self.websocket.connect()
     self.websocket.callbackQueue = processingQueue

@@ -10,5 +10,7 @@ public struct GraphQLBooleanCondition: GraphQLSelection
 ### `init(variableName:inverted:selections:)`
 
 ```swift
-public init(variableName: String, inverted: Bool, selections: [GraphQLSelection])
+public init(variableName: String,
+            inverted: Bool,
+            selections: [GraphQLSelection])
 ```

@@ -37,5 +37,8 @@ public let source: Source
 ### `init(data:errors:source:dependentKeys:)`
 
 ```swift
-public init(data: Data?, errors: [GraphQLError]?, source: Source, dependentKeys: Set<CacheKey>?)
+public init(data: Data?,
+            errors: [GraphQLError]?,
+            source: Source,
+            dependentKeys: Set<CacheKey>?)
 ```

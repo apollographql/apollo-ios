@@ -91,6 +91,7 @@
 -   [Int](extensions/Int/)
 -   [JSONDecodingError](extensions/JSONDecodingError/)
 -   [JSONEncodable](extensions/JSONEncodable/)
+-   [NetworkTransport](extensions/NetworkTransport/)
 -   [Optional](extensions/Optional/)
 -   [RawRepresentable](extensions/RawRepresentable/)
 -   [Record](extensions/Record/)

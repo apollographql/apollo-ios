@@ -129,3 +129,56 @@ class ReviewViewController: UIViewController {
 Each time a review is added, the subscription's closure is called and if the proper data is included, the new data will be displayed immediately. 
 
 Note that if you only wanted to be updated reviews for a specific episode, you could specify that episode in the initializer for `ReviewAddedSubscription`. 
+
+## Subscriptions and authorization tokens
+
+In a standard HTTP operation, if authentication is necessary an `Authorization` header is often sent with requests. However, with a web socket, this can't be sent with every payload since a persistent connection is required. 
+
+For web sockets, the `connectingPayload` provides those parameters you would traditionally specify as part of the headers of your request.
+
+Note that this must be set **when the `WebSocketTransport` is created**. If you need to update the `connectingPayload`, you will need to recreate the client using a new `webSocketTransport`. 
+
+Assuming you (or your backend developers) have read [the authentication section](https://www.apollographql.com/docs/apollo-server/security/authentication/) and [subscriptions example / authentication over WebSocket](https://www.apollographql.com/docs/apollo-server/data/subscriptions/) of our backend documentation, you will need to initialize your `ApolloClient` instance as follows:
+
+```swift
+import Foundation
+import Apollo
+import ApolloWebSocket
+
+// MARK: - Singleton Wrapper
+
+let magicToken = "So long and thanks for all the fish"
+
+class Apollo {
+  static let shared = Apollo()
+    
+  /// A web socket transport to use for subscriptions
+  // This web socket will have to provide the connecting payload which
+  // initializes the connection as an authorized channel.
+  private lazy var webSocketTransport: WebSocketTransport = {
+    let url = URL(string: "ws://localhost:8080/websocket")!
+    let request = URLRequest(url: url)
+    let authPayload = ["authToken": magicToken]
+    return WebSocketTransport(request: request, connectingPayload: authPayload)
+  }()
+  
+  /// An HTTP transport to use for queries and mutations.
+  private lazy var httpTransport: HTTPNetworkTransport = {
+    let url = URL(string: "http://localhost:8080/graphql")!
+    return HTTPNetworkTransport(url: url)
+  }()
+
+  /// A split network transport to allow the use of both of the above 
+  /// transports through a single `NetworkTransport` instance.
+  private lazy var splitNetworkTransport = SplitNetworkTransport(
+    httpNetworkTransport: self.httpTransport, 
+    webSocketNetworkTransport: self.webSocketTransport
+  )
+
+  /// Create a client using the `SplitNetworkTransport`.
+  private(set) lazy var client = ApolloClient(networkTransport: self.splitNetworkTransport)
+}
+```
+
+
+
