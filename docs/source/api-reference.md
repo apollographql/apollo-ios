@@ -4,6 +4,7 @@ description: ''
 ---
 
 ## [Apollo.framework](../api/Apollo/README/)
+## [ApolloCodegenLib.framework](../api/ApolloCodegenLib/README)
 ## [ApolloSQLite.framework](../api/ApolloSQLite/README/)
 ## [ApolloWebSocket.framework](../api/ApolloWebSocket/README/)
 
@@ -31,6 +32,17 @@ sourcedocs generate \
     -scheme Apollo \
     -workspace Apollo.xcworkspace
 ```
+
+To generate docs for the `ApolloCodegenLib` project, `cd` into the source root and run: 
+
+```
+sourcedocs generate \
+    --output-folder "docs/source/api/ApolloCodegenLib" \
+    --link-ending "/" \
+    --scheme ApolloCodegenLib \
+    --workspace Apollo.xcworkspace
+```
+
 
 To generate docs for the `ApolloSQLite` project, `cd` into the source root and run: 
 
