@@ -123,7 +123,9 @@ If you get this error:
 
 > No operations or fragments found to generate code for.
 
-If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query. If you need to validate the structure of your query, please use [the GraphQL Formatter tool](http://toolbox.sangria-graphql.org/format).
+If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query. 
+
+If you need to validate the structure of your query, please use the [GraphiQL](https://github.com/graphql/graphiql) instance provided by your API, which will show errors if your query is invalid. If you don't have access to a GraphiQL instance, you can use [Prettier.io's playground](https://prettier.io/playground/) to format arbitrary GraphQL queries by clicking "Show Options" and selecting the GraphQL parser from the "Global" drop-down.
 
 ## Adding the generated API file to your target
 
