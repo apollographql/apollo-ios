@@ -27,11 +27,13 @@ guard FileManager.default.apollo_folderExists(at: targetURL) else {
   throw MyCodegenError.targetDoesntExist(atURL: targetURL)
 }
 
-let scriptFolderURL = sourceRootURL.appendingPathComponent("scripts")
+let cliFolderURL = sourceRootURL
+    .appendingPathComponent("Codegen")
+    .appendingPathComponent("ApolloCLI")
 
 do {
   let result = try ApolloCodegen.run(from: targetURL,
-                                     with: scriptFolderURL,
+                                     with: cliFolderURL,
                                      options: options)
   print("RESULT: \(result)")
 } catch {
