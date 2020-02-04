@@ -350,6 +350,7 @@ class LoadQueryFromStoreTests: XCTestCase {
 
           XCTAssertEqual(data.starshipLength?.name, "Millennium Falcon")
           XCTAssertEqual(data.starshipLength?.length, starshipLength)
+          XCTAssertEqual(data.starshipLength?.coordinates, [[0.0,1.0], [2.0,3.0]])
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
         }
