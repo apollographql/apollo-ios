@@ -6,7 +6,7 @@ public protocol GraphQLInputValue {
 
 public struct GraphQLVariable {
   let name: String
-  
+
   public init(_ name: String) {
     self.name = name
   }

@@ -23,17 +23,17 @@ public typealias GraphQLResultHandler<Data> = (Result<GraphQLResult<Data>, Error
 
 /// The `ApolloClient` class implements the core API for Apollo by conforming to `ApolloClientProtocol`.
 public class ApolloClient {
-  
+
   let networkTransport: NetworkTransport
-  
+
   public let store: ApolloStore // <- conformance to ApolloClientProtocol
-  
+
   private let queue: DispatchQueue
   private let operationQueue: OperationQueue
-  
+
   public enum ApolloClientError: Error, LocalizedError {
     case noUploadTransport
-    
+
     public var errorDescription: String? {
       switch self {
       case .noUploadTransport:
@@ -41,7 +41,7 @@ public class ApolloClient {
       }
     }
   }
-  
+
   /// Creates a client with the specified network transport and store.
   ///
   /// - Parameters:
@@ -50,19 +50,19 @@ public class ApolloClient {
   public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
     self.networkTransport = networkTransport
     self.store = store
-    
+
     queue = DispatchQueue(label: "com.apollographql.ApolloClient")
     operationQueue = OperationQueue()
     operationQueue.underlyingQueue = queue
   }
-  
+
   /// Creates a client with an HTTP network transport connecting to the specified URL.
   ///
   /// - Parameter url: The URL of a GraphQL server to connect to.
   public convenience init(url: URL) {
     self.init(networkTransport: HTTPNetworkTransport(url: url))
   }
-  
+
   fileprivate func send<Operation: GraphQLOperation>(operation: Operation,
                                                      shouldPublishResultToStore: Bool,
                                                      context: UnsafeMutableRawPointer?,
@@ -77,7 +77,7 @@ public class ApolloClient {
                                  resultHandler: resultHandler)
     }
   }
-  
+
   private func handleOperationResult<Operation>(shouldPublishResultToStore: Bool,
                                                 context: UnsafeMutableRawPointer?,
                                                 _ result: Result<GraphQLResponse<Operation>, Error>,
@@ -96,7 +96,7 @@ public class ApolloClient {
         }
         return
       }
-      
+
       firstly {
         try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
         }.andThen { [weak self] (result, records) in
@@ -119,28 +119,28 @@ public class ApolloClient {
 // MARK: - ApolloClientProtocol conformance
 
 extension ApolloClient: ApolloClientProtocol {
-  
+
   public var cacheKeyForObject: CacheKeyForObject? {
     get {
       return self.store.cacheKeyForObject
     }
-    
+
     set {
       self.store.cacheKeyForObject = newValue
     }
   }
-  
+
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     self.store.clearCache(completion: completion)
   }
-  
+
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
                                                             cachePolicy: CachePolicy = .returnCacheDataElseFetch,
                                                             context: UnsafeMutableRawPointer? = nil,
                                                             queue: DispatchQueue = DispatchQueue.main,
                                                             resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
     let resultHandler = wrapResultHandler(resultHandler, queue: queue)
-    
+
     // If we don't have to go through the cache, there is no need to create an operation
     // and we can return a network task directly
     if cachePolicy == .fetchIgnoringCacheData || cachePolicy == .fetchIgnoringCacheCompletely {
@@ -151,7 +151,7 @@ extension ApolloClient: ApolloClientProtocol {
       return operation
     }
   }
-  
+
   public func watch<Query: GraphQLQuery>(query: Query,
                                          cachePolicy: CachePolicy = .returnCacheDataElseFetch,
                                          queue: DispatchQueue = .main,
@@ -162,7 +162,7 @@ extension ApolloClient: ApolloClientProtocol {
     watcher.fetch(cachePolicy: cachePolicy)
     return watcher
   }
-  
+
   @discardableResult
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                                  context: UnsafeMutableRawPointer? = nil,
@@ -173,7 +173,7 @@ extension ApolloClient: ApolloClientProtocol {
                      context: context,
                      resultHandler: wrapResultHandler(resultHandler, queue: queue))
   }
-  
+
   @discardableResult
   public func upload<Operation: GraphQLOperation>(operation: Operation,
                                                   context: UnsafeMutableRawPointer? = nil,
@@ -186,7 +186,7 @@ extension ApolloClient: ApolloClientProtocol {
       wrappedHandler(.failure(ApolloClientError.noUploadTransport))
       return EmptyCancellable()
     }
-    
+
     return uploadingTransport.upload(operation: operation, files: files) { [weak self] result in
       guard let self = self else {
         return
@@ -196,7 +196,7 @@ extension ApolloClient: ApolloClientProtocol {
                                  resultHandler: wrappedHandler)
     }
   }
-  
+
   @discardableResult
   public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
                                                            queue: DispatchQueue = .main,
@@ -212,7 +212,7 @@ private func wrapResultHandler<Data>(_ resultHandler: GraphQLResultHandler<Data>
   guard let resultHandler = resultHandler else {
     return { _ in }
   }
-  
+
   return { result in
     handlerQueue.async {
       resultHandler(result)
@@ -226,9 +226,9 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
   let cachePolicy: CachePolicy
   let context: UnsafeMutableRawPointer?
   let resultHandler: GraphQLResultHandler<Query.Data>
-  
+
   private var networkTask: Cancellable?
-  
+
   init(client: ApolloClient,
        query: Query,
        cachePolicy: CachePolicy,
@@ -240,30 +240,30 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
     self.context = context
     self.resultHandler = resultHandler
   }
-  
+
   override public func start() {
     if isCancelled {
       state = .finished
       return
     }
-    
+
     state = .executing
-    
+
     if cachePolicy == .fetchIgnoringCacheData {
       fetchFromNetwork()
       return
     }
-    
+
     client?.store.load(query: query) { result in
       if self.isCancelled {
         self.state = .finished
         return
       }
-      
+
       switch result {
       case .success:
         self.resultHandler(result)
-        
+
         if self.cachePolicy != .returnCacheDataAndFetch {
           self.state = .finished
           return
@@ -275,11 +275,11 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
           return
         }
       }
-      
+
       self.fetchFromNetwork()
     }
   }
-  
+
   func fetchFromNetwork() {
     networkTask = client?.send(operation: query,
                                shouldPublishResultToStore: true,
@@ -289,7 +289,7 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
       return
     }
   }
-  
+
   override public func cancel() {
     super.cancel()
     networkTask?.cancel()

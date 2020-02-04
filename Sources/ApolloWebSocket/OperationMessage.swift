@@ -9,7 +9,7 @@ final class OperationMessage {
     case connectionTerminate = "connection_terminate"  // Client -> Server
     case start = "start"                               // Client -> Server
     case stop = "stop"                                 // Client -> Server
-    
+
     case connectionAck = "connection_ack"              // Server -> Client
     case connectionError = "connection_error"          // Server -> Client
     case connectionKeepAlive = "ka"                    // Server -> Client
@@ -17,11 +17,11 @@ final class OperationMessage {
     case error = "error"                               // Server -> Client
     case complete = "complete"                         // Server -> Client
   }
-  
+
   let serializationFormat = JSONSerializationFormat.self
   var message: GraphQLMap = [:]
   var serialized: String?
-  
+
   var rawMessage : String? {
     let serialized = try! serializationFormat.serialize(value: message)
     if let str = String(data: serialized, encoding: .utf8) {
@@ -30,7 +30,7 @@ final class OperationMessage {
       return nil
     }
   }
-  
+
   init(payload: GraphQLMap? = nil,
        id: String? = nil,
        type: Types = .start) {
@@ -42,11 +42,11 @@ final class OperationMessage {
     }
     message += ["type": type.rawValue]
   }
-  
+
   init(serialized: String) {
     self.serialized = serialized
   }
-  
+
   func parse(handler: (ParseHandler) -> Void) {
     guard let serialized = self.serialized else {
       handler(ParseHandler(nil,
@@ -96,12 +96,12 @@ final class OperationMessage {
 }
 
 struct ParseHandler {
-  
+
   let type: String?
   let id: String?
   let payload: JSONObject?
   let error: Error?
-  
+
   init(_ type: String?,
        _ id: String?,
        _ payload: JSONObject?,

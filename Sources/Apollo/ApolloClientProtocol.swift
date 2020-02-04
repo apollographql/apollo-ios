@@ -2,13 +2,13 @@ import Foundation
 
 /// The `ApolloClientProtocol` provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
 public protocol ApolloClientProtocol: class {
-  
+
   ///  A store used as a local cache.
   var store: ApolloStore { get }
-  
+
   /// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
   var cacheKeyForObject: CacheKeyForObject? { get set }
-  
+
   /// Clears the underlying cache.
   /// Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it'll clear that cache across all instances which share that cache.
   ///
@@ -16,7 +16,7 @@ public protocol ApolloClientProtocol: class {
   ///   - callbackQueue: The queue to fall back on. Should default to the main queue.
   ///   - completion: [optional] A completion closure to execute when clearing has completed. Should default to nil.
   func clearCache(callbackQueue: DispatchQueue, completion: ((Result<Void, Error>) -> Void)?)
-  
+
   /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
   ///
   /// - Parameters:
@@ -31,7 +31,7 @@ public protocol ApolloClientProtocol: class {
                                   context: UnsafeMutableRawPointer?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> Cancellable
-  
+
   /// Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result.
   ///
   /// - Parameters:
@@ -45,7 +45,7 @@ public protocol ApolloClientProtocol: class {
                                   cachePolicy: CachePolicy,
                                   queue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
-  
+
   /// Performs a mutation by sending it to the server.
   ///
   /// - Parameters:
@@ -58,7 +58,7 @@ public protocol ApolloClientProtocol: class {
                                           context: UnsafeMutableRawPointer?,
                                           queue: DispatchQueue,
                                           resultHandler: GraphQLResultHandler<Mutation.Data>?) -> Cancellable
-  
+
   /// Uploads the given files with the given operation.
   ///
   /// - Parameters:
@@ -74,7 +74,7 @@ public protocol ApolloClientProtocol: class {
                                            files: [GraphQLFile],
                                            queue: DispatchQueue,
                                            resultHandler: GraphQLResultHandler<Operation.Data>?) -> Cancellable
-  
+
   /// Subscribe to a subscription
   ///
   /// - Parameters:

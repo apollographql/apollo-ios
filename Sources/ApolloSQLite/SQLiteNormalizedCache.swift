@@ -12,7 +12,7 @@ public enum SQLiteNormalizedCacheError: Error {
 
 /// A `NormalizedCache` implementation which uses a SQLite database to store data.
 public final class SQLiteNormalizedCache {
-  
+
   private let db: Connection
   private let records = Table("records")
   private let id = Expression<Int64>("_id")
@@ -24,7 +24,7 @@ public final class SQLiteNormalizedCache {
   ///
   /// - Parameters:
   ///   - fileURL: The file URL to use for your database.
-  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. 
+  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
   /// - Throws: Any errors attempting to open or create the database.
   public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
@@ -93,7 +93,7 @@ public final class SQLiteNormalizedCache {
 // MARK: - NormalizedCache conformance
 
 extension SQLiteNormalizedCache: NormalizedCache {
-  
+
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Swift.Result<Set<CacheKey>, Error>) -> Void) {
@@ -104,12 +104,12 @@ extension SQLiteNormalizedCache: NormalizedCache {
     } catch {
       result = .failure(error)
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
-  
+
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
@@ -122,17 +122,17 @@ extension SQLiteNormalizedCache: NormalizedCache {
         }
         return nil
       }
-      
+
       result = .success(recordsOrNil)
     } catch {
       result = .failure(error)
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
-  
+
   public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
     let result: Swift.Result<Void, Error>
     do {
@@ -141,7 +141,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
     } catch {
       result = .failure(error)
     }
-    
+
     DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
