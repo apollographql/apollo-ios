@@ -28,7 +28,9 @@ public struct ApolloCodegenOptions {
   public let operationIDsURL: URL?
   public let outputFormat: OutputFormat
   public let passthroughCustomScalars: Bool
+  public let suppressSwiftMultilineStringLiterals: Bool
   public let urlToSchemaFile: URL
+  
   public let downloadTimeout: Double
 
   /// Designated initializer.
@@ -41,6 +43,7 @@ public struct ApolloCodegenOptions {
   ///  - operationIDsURL: [optional] Path to an operation id JSON map file. If specified, also stores the operation ids (hashes) as properties on operation types. Defaults to nil.
   ///  - outputFormat: The `OutputFormat` enum option to use to output generated code.
   ///  - passthroughCustomScalars: Set true to use your own types for custom scalars. Defaults to false.
+  ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(includes: String = "./**/*.graphql",
@@ -50,6 +53,7 @@ public struct ApolloCodegenOptions {
               operationIDsURL: URL? = nil,
               outputFormat: OutputFormat,
               passthroughCustomScalars: Bool = false,
+              suppressSwiftMultilineStringLiterals: Bool = false,
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
     self.includes = includes
@@ -59,6 +63,7 @@ public struct ApolloCodegenOptions {
     self.operationIDsURL = operationIDsURL
     self.outputFormat = outputFormat
     self.passthroughCustomScalars = passthroughCustomScalars
+    self.suppressSwiftMultilineStringLiterals = suppressSwiftMultilineStringLiterals
     self.urlToSchemaFile = urlToSchemaFile
     self.downloadTimeout = downloadTimeout
   }
@@ -111,6 +116,10 @@ public struct ApolloCodegenOptions {
     
     if self.mergeInFieldsFromFragmentSpreads {
       arguments.append("--mergeInFieldsFromFragmentSpreads")
+    }
+    
+    if self.suppressSwiftMultilineStringLiterals {
+      arguments.append("--suppressSwiftMultilineStringLiterals")
     }
     
     switch self.outputFormat {
