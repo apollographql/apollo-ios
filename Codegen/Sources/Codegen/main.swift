@@ -1,10 +1,11 @@
 import Foundation
 import ApolloCodegenLib
+import TSCUtility
 
 enum MyCodegenError: Error {
   case sourceRootNotProvided
   case sourceRootNotADirectory
-  case targetDoesntExist
+  case targetDoesntExist(atURL: Foundation.URL)
 }
 
 guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
@@ -17,19 +18,19 @@ guard FileManager.default.apollo_folderExists(at: sourceRootPath) else {
 
 let sourceRootURL = URL(fileURLWithPath: sourceRootPath)
 
-let starWarsTarget = sourceRootURL
-  .appendingPathComponent("Tests")
-  .appendingPathComponent("StarWarsAPI")
+let target = try ArgumentSetup.parse()
 
-guard FileManager.default.apollo_folderExists(at: starWarsTarget) else {
-  throw MyCodegenError.targetDoesntExist
+let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
+let options = target.options(fromSourceRoot: sourceRootURL)
+
+guard FileManager.default.apollo_folderExists(at: targetURL) else {
+  throw MyCodegenError.targetDoesntExist(atURL: targetURL)
 }
 
 let scriptFolderURL = sourceRootURL.appendingPathComponent("scripts")
-let options = ApolloCodegenOptions(targetRootURL: starWarsTarget)
 
 do {
-  let result = try ApolloCodegen.run(from: starWarsTarget,
+  let result = try ApolloCodegen.run(from: targetURL,
                                      with: scriptFolderURL,
                                      options: options)
   print("RESULT: \(result)")
