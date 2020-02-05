@@ -1,11 +1,5 @@
 //  This file was automatically generated and should not be edited.
 
-#if canImport(UIKit)
-import UIKit
-#elseif canImport(AppKit)
-import AppKit
-#endif
-
 import Apollo
 import Foundation
 
