@@ -44,6 +44,7 @@ public class WebSocketTransport {
   
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
+  private let allowSendingDuplicates: Bool
   fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
@@ -74,12 +75,16 @@ public class WebSocketTransport {
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
               sendOperationIdentifiers: Bool = false,
+              reconnect: Bool = true,
               reconnectionInterval: TimeInterval = 0.5,
+              allowSendingDuplicates: Bool = true,
               connectingPayload: GraphQLMap? = [:],
               requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
+    self.reconnect.value = reconnect
     self.reconnectionInterval = reconnectionInterval
+    self.allowSendingDuplicates = allowSendingDuplicates
     self.requestCreator = requestCreator
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
@@ -176,7 +181,7 @@ public class WebSocketTransport {
     let queue = self.queue.sorted(by: { $0.0 < $1.0 })
     self.queue.removeAll()
     for (id, msg) in queue {
-      self.write(msg,id: id)
+      self.write(msg, id: id)
     }
   }
   
@@ -291,13 +296,14 @@ extension WebSocketTransport: WebSocketDelegate {
   
   public func websocketDidConnect(socket: WebSocketClient) {
     self.error.value = nil
-    initServer()
+    initServer(reconnect: reconnect.value)
     if reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
       // re-send the subscriptions whenever we are re-connected
       // for the first connect, any subscriptions are already in queue
       for (_,msg) in self.subscriptions {
-        write(msg)
+        let id = allowSendingDuplicates ? nil : queue.first { $0.value == msg }?.key
+        write(msg, id: id)
       }
     } else {
       self.delegate?.webSocketTransportDidConnect(self)
