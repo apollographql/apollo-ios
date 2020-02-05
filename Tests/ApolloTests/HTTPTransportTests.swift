@@ -28,9 +28,12 @@ class HTTPTransportTests: XCTestCase {
   private var graphQlErrors = [GraphQLError]()
 
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
-  private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
-                                                           useGETForQueries: true,
-                                                           delegate: self)
+  private lazy var networkTransport: HTTPNetworkTransport = {
+    let transport = HTTPNetworkTransport(url: self.url,
+                                         useGETForQueries: true)
+    transport.delegate = self
+    return transport
+  }()
   
   private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(result: Result<GraphQLResponse<Operation>, Error>,
                                                                           expectation: XCTestExpectation,
@@ -189,12 +192,10 @@ class HTTPTransportTests: XCTestCase {
   
   func testEquality() {
     let identicalTransport = HTTPNetworkTransport(url: self.url,
-                                                  useGETForQueries: true,
-                                                  delegate: self)
+                                                  useGETForQueries: true)
     XCTAssertEqual(self.networkTransport, identicalTransport)
     
-    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url,
-                                                     delegate: self)
+    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url)
     XCTAssertNotEqual(self.networkTransport, nonIdenticalTransport)
   }
 
@@ -208,7 +209,9 @@ class HTTPTransportTests: XCTestCase {
     let mockSession = MockURLSession()
     mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
     mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-    let network = HTTPNetworkTransport(url: url, session: mockSession, delegate: self)
+    let network = HTTPNetworkTransport(url: url,
+                                       session: mockSession)
+    network.delegate = self
     let expectation = self.expectation(description: "Send operation completed")
 
     let _ = network.send(operation: query) { result in
@@ -241,7 +244,9 @@ class HTTPTransportTests: XCTestCase {
     let mockSession = MockURLSession()
     mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
     mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-    let network = HTTPNetworkTransport(url: url, session: mockSession, delegate: self)
+    let network = HTTPNetworkTransport(url: url,
+                                       session: mockSession)
+    network.delegate = self
     let expectation = self.expectation(description: "Send operation completed")
 
     let _ = network.send(operation: query) { result in
