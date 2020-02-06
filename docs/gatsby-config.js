@@ -29,7 +29,9 @@ module.exports = {
             'tutorial/tutorial-create-project',
             'tutorial/tutorial-obtain-schema',
             'tutorial/tutorial-execute-query',
-            'tutorial/tutorial-query-ui'
+            'tutorial/tutorial-query-ui',
+            'tutorial/tutorial-pagination',
+            'tutorial/tutorial-detail-view'
           ],
           Usage:[
             'downloading-schema',
