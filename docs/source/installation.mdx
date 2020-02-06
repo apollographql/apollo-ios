@@ -58,46 +58,7 @@ Note that you need to add this in the folder where most of your code is, NOT in 
 
 ## [Optional] Installing the Xcode add-ons to get syntax highlighting
 
-* Clone the [`xcode-apollo` repository](https://github.com/apollostack/xcode-apollo) to your computer.
-
-* Close Xcode if it is currently running.
-
-### Setup script
-
-If you are running Xcode 11 or higher you can `cd` in to the `xcode-apollo` and run the following command: 
-
-`sudo ./setup.sh`
-
-### Manual installation
-
-**Note**: You may need to `sudo` the following commands if are on `MacOS Catalina`
-
-#### Xcode 11 and higher
-
-1. Copy `GraphQL.ideplugin` to `~/Library/Developer/Xcode/Plug-ins`:
-
- `cp -R GraphQL.ideplugin ~/Library/Developer/Xcode/Plug-ins`
-
-2. Copy `GraphQL.xclangspec` to `/Applications/Xcode.app/Contents/SharedFrameworks/SourceModel.framework/Versions/A/Resources/LanguageSpecifications`:
-
-` cp GraphQL.xclangspec /Applications/Xcode.app/Contents/SharedFrameworks/SourceModel.framework/Versions/A/Resources/LanguageSpecifications`
-
-3. Copy `Xcode.SourceCodeLanguage.GraphQL.plist` to `/Applications/Xcode.app/Contents/SharedFrameworks/SourceModel.framework/Versions/A/Resources/LanguageMetadata` :
-
-`cp Xcode.SourceCodeLanguage.GraphQL.plist /Applications/Xcode.app/Contents/SharedFrameworks/SourceModel.framework/Versions/A/Resources/LanguageMetadata
-`
-#### Xcode versions prior to 11
-
-1. Copy `GraphQL.ideplugin` to `~/Library/Developer/Xcode/Plug-ins/`:
-
-` cp -r GraphQL.ideplugin ~/Library/Developer/Xcode/Plug-ins/`
-
-2. Copy `GraphQL.xclangspec` to `~/Library/Developer/Xcode/Specifications`:
-
-` cp GraphQL.xclangspec ~/Library/Developer/Xcode/Specifications/`
-
-You may receive a warning the first time you start up Xcode after installing these add-ons - once you agree to load the plugin, you will no longer see this warning. 
-
+Check out[`xcode-apollo`](https://github.com/apollographql/xcode-graphql) the repository and follow the [installation guide](https://github.com/apollographql/xcode-graphql#installation)
 
 ## Creating `.graphql` files with your queries or mutations
 
