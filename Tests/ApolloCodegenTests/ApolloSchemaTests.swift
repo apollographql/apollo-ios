@@ -66,8 +66,7 @@ class ApolloSchemaTests: XCTestCase {
                                       outputURL: testOutputURL)
     let cliFolderURL = try CodegenTestHelper.cliFolderURL()
 
-    _ = try ApolloSchemaDownloader.run(from: sourceRoot,
-                                       with: cliFolderURL,
+    _ = try ApolloSchemaDownloader.run(with: cliFolderURL,
                                        options: options)
     
     // Does the file now exist?
