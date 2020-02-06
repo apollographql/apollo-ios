@@ -23,7 +23,7 @@ Now let's add properties to display the results of the `LaunchListQuery` you bui
 
 At the top of `MasterViewController.swift`, add a new property to store the launches that the query returns: 
 
-```swift
+```swift:title=MasterViewController.swift
 var launches = [LaunchListQuery.Data.Launch.Launch]()
 ```
 
@@ -31,7 +31,7 @@ Why the long name? Each query returns its own nested object structure to ensure 
 
 Next, add an enum that helps handle dealing with sections (we'll add items to the enum later): 
 
-```swift
+```swift:title=MasterViewController.swift
 enum ListSection: Int, CaseIterable {
   case launches
 }
@@ -43,7 +43,7 @@ Now we can update the various `UITableViewDataSource` methods to use the result 
 
 For `numberOfSections(in:)`, you can use the `allCases` property from `CaseIterable` to provide the appropriate number of sections:
 
-```swift
+```swift:title=MasterViewController.swift
 override func numberOfSections(in tableView: UITableView) -> Int {
   return ListSection.allCases.count
 }
@@ -51,7 +51,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 
 For `tableView(_:numberOfRowsInSection:)`, you can try instantiating a `ListSection` enum object. If it doesn't work, that's an invalid section, and if it does, you can `switch` directly on the result. In this case, you'll want to return the count of launches:
 
-```swift
+```swift:title=MasterViewController.swift
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   guard let listSection = ListSection(rawValue: section) else {
     assertionFailure("Invalid section")
@@ -69,7 +69,7 @@ For `tableView(_:cellForRowAt:)`, you can use the existing cell dequeueing mecha
 
 For this initial section, grab a launch out of the `launches` array at the index of `indexPath.row`, and update the `textLabel` to display the launch site:
 
-```swift
+```swift:title=MasterViewController.swift
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
   let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
@@ -92,7 +92,7 @@ Your table view has all the information it needs to populate itself when the `la
 
 First, add a method for showing errors at the end of your file: 
 
-```swift
+```swift:title=MasterViewController.swift
 private func showErrorAlert(title: String, message: String) {
   let alert = UIAlertController(title: title,
                                 message: message,
@@ -106,7 +106,7 @@ Next, add a method to load the launches. You'll use a setup similar to the one y
 
 However, you need to make sure that a call doesn't try to call back and use elements that are no longer there, so you'll check to make sure that the `MasterViewController` hasn't been deallocated out from under you by passing in `[weak self]` and unwrapping `self` before proceeding with updating the UI:
 
-```swift
+```swift:title=MasterViewController.swift
 private func loadLaunches() {
   Network.shared.apollo
     .fetch(query: LaunchListQuery()) { [weak self] result in
@@ -139,7 +139,7 @@ This is why when you get a `GraphQLResult`, you generally want to check both the
 
 Replace the `// TODO` in the code above with the following code to handle both data and errors:
 
-```swift
+```swift:title=MasterViewController.swift
 if let launchConnection = graphQLResult.data?.launches {
   self.launches.append(contentsOf: launchConnection.launches.compactMap { $0 })
 }
@@ -155,7 +155,7 @@ if let errors = graphQLResult.errors {
 
 Finally, you need to actually call the method you just added to kick off the call to the network when the view is first loaded. Update your `viewDidLoad` to also call `loadLaunches`: 
 
-```swift
+```swift:title=MasterViewController.swift
 override func viewDidLoad() {
   super.viewDidLoad()
   self.loadLaunches()
@@ -186,13 +186,13 @@ Open `DetailViewController.swift` and delete the `detailItem` property at the bo
 
 Next, because you're going to add a property that uses a type defined in the Apollo SDK, you need to add an `import` statement to the top of the file:
 
-```swift
+```swift:title=DetailViewController.swift
 import Apollo
 ```
 
 Next, add a new property at the top of the class:  
 
-```swift
+```swift:title=DetailViewController.swift
 var launchID: GraphQLID? {
   didSet {
     self.configureView()
@@ -204,7 +204,7 @@ This settable property allows the `MasterViewController` to pass along the ident
 
 For now, update the `configureView()` method to use this new property (if it's there) instead of the `detailItem` property you just deleted: 
 
-```swift
+```swift:title=DetailViewController.swift
 func configureView() {
   // Update the user interface for the detail item.
   guard
@@ -221,7 +221,7 @@ func configureView() {
 
 Next, back in `MasterViewController.swift`, update the `prepareForSegue` method to obtain the most recently selected row and pass its corresponding launch details to the detail view controller: 
 
-```swift
+```swift:title=MasterViewController.swift
 override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
   guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
     // Nothing is selected, nothing to do
@@ -251,7 +251,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 One slightly unrelated detail: In `SceneDelegate.swift`, one line relies on the `detailItem` property you deleted earlier, which now produces an error. Replace the erroring line with:
 
-```swift
+```swift:title=SceneDelegate.swift
 if topAsDetailController.launchID == nil {
 ```
 
@@ -283,7 +283,7 @@ Looking at the schema in GraphiQL, you can see that `Launch` has a property of `
 
 Because loading a table view with large images can impact performance, ask for the name and a `SMALL` mission patch. Update your query to look like the following:
 
-```graphql
+```graphql:title=(GraphiQL)
 query LaunchList {
   launches {
     hasMore
@@ -308,7 +308,7 @@ To save time, go to **File > Swift Packages > Add Package Dependency...** and ad
 
 When SDWebImage finishes installing, go back to `MasterViewController.swift` and add the following import to the top of the file:
 
-```swift
+```swift:title=MasterViewController.swift
 import SDWebImage
 ```
 
@@ -320,13 +320,13 @@ Next, download this image:
 
 Drag it into your Asset Catalog, `Assets.xcassets`. Name it `placeholder`:
 
-![image in asset catalog](images/placeholder_in_asset_catalog.png)
+<img alt="image in asset catalog" class="screenshot" src="images/placeholder_in_asset_catalog.png"/>
 
 You'll use this image as a placeholder to show while the mission patch images are loading. 
 
 Now go back to `MasterViewControl.swift`. In `tableView(cellForRowAt:)`, once the cell is loaded, add the following code to help make sure that before the cell is configured, it clears out any stale data:
 
-```swift
+```swift:title=MasterViewController.swift
 cell.imageView?.image = nil
 cell.textLabel?.text = nil
 cell.detailTextLabel?.text = nil
@@ -336,7 +336,7 @@ cell.detailTextLabel?.text = nil
 
 Next, in the same method, go down to where you're setting up the cell based on the section. Update the code to use the launch mission name as the primary text label, the launch site as the detail text label, and to load the mission patch if it exists:
     
-```swift 
+```swift:title=MasterViewController.swift 
 switch listSection {
 case .launches:
   let launch = self.launches[indexPath.row]
