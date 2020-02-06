@@ -201,4 +201,4 @@ When you tap that cell, the rows will load and then redisplay. If you tap it sev
 
 Congratulations, you've loaded all of the possible launches! But when you tap one, you still get the same boring detail page. 
 
-Next, you'll make the detail page a lot more interesting by taking the ID returned by one query and passing it to another.
+Next, you'll [make the detail page a lot more interesting](./tutorial-detail-view/) by taking the ID returned by one query and passing it to another.
