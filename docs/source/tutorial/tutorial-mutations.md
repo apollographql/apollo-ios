@@ -22,7 +22,7 @@ extension Network: HTTPNetworkTransportPreflightDelegate {
 
 You'll get an error telling you that protocol stubs must be implemented, and asking you if you want to fix this. Click "Fix."
 
-![Do you wish to add protocol stubs with fix button](images/preflight_delegate_add_protocol_stubs.png)
+<img src="images/preflight_delegate_add_protocol_stubs.png" class="screenshot" alt="Do you wish to add protocol stubs with fix button"/>
 
 Two protocol methods will be added: `networkTransport(_:shouldSend:)` and `networkTransport(_:willSend:)`. 
 
@@ -66,7 +66,7 @@ private(set) lazy var apollo: ApolloClient = {
 
 Click on the line numbers to add a breakpoint at the line where you're instantiating the `Keychain`: 
 
-![adding a breakpoint](images/preflight_delegate_breakpoint.png)
+<img alt="adding a breakpoint" class="screenshot" src="images/preflight_delegate_breakpoint.png"/>
 
 Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. Now if you're logged in, your token will be sent to the server whenever you make a request. 
 
@@ -76,7 +76,7 @@ Now it's time to book a trip! 🚀
 
 In GraphiQL, open the Docs tab and take a look at the `bookTrips` mutation:
 
-![The docs for book trips](images/graphiql_book_trips.png)
+<img alt="The docs for book trips" class="screenshot" src="images/graphiql_book_trips.png"/>
 
 You can book multiple trips at once, then get back a `success` boolean indicating whether the booking succeeded, a `message` string to display to the user, and a list of `launches` the current user has booked. 
 
@@ -107,7 +107,7 @@ Now, click the play button to run your authorized query in GraphiQL. You'll get 
 
 > Note: If you receive an error that says "Cannot read property 'id' of null", that means your user was not found based on the token you passed through. Make sure your authorization header is properly formatted and that you're actually logged in!
 
-![GraphiQL showing the result of booking a trip with an array of IDs](images/graphiql_book_with_trip_ids.png)
+<img alt="GraphiQL showing the result of booking a trip with an array of IDs" class="screenshot" src="images/graphiql_book_with_trip_ids.png"/>
 
 With a mutation written like this, you could book any number of trips you want at the same time! However, the booking mechanism in our application will only let you book one trip at a time.
 
@@ -132,7 +132,7 @@ In the `Query Variables` section of GraphiQL, update variables to use `tripID` a
 
 Click the play button to run your updated query in GraphiQL. The response you get back should identical to the one you got earlier:
 
-![GraphiQL showing the result of booking a trip with a single identifier](images/graphiql_book_with_trip_id_singular.png)
+<img alt="GraphiQL showing the result of booking a trip with a single identifier" class="screenshot" src="images/graphiql_book_with_trip_id_singular.png">
 
 Now that you've fleshed out your query, it's time to put it into the app. Go to **File > New > File... > Empty**, and name this file `BookTrip.graphql`. Paste in the final query from GraphiQL. 
 
@@ -198,7 +198,7 @@ You've now got the code to book a trip - before you start running it, let's add 
 
 The process will be similar to the `bookTrip` mutation for the `cancelTrip` mutation. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
 
-![documentation for the cancel trip mutation](images/graphiql_cancel_trip_mutation.png)
+<img alt="Documentation for the cancel trip mutation" class="screenshot" src="images/graphiql_cancel_trip_mutation.png"/>
 
 One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time - only one `ID!` is accepted as a parameter.
 
@@ -227,7 +227,7 @@ Make sure that in the `HTTP Headers` section of GraphiQL, your authorization tok
 
 Click the play button to cancel the trip, and you should see a successful request: 
 
-![successful cancel trip request](images/graphiql_cancel_trip.png)
+<img alt="Successful cancel trip request" class="screenshot" src="images/graphiql_cancel_trip.png"/>
 
 It works! Once again, go to **File > New > File... > Empty**, and name this file `CancelTrip.graphql`. Paste in the final query from GraphiQL. Build the application without running it to cause the code generation to see this new mutation and generate code for it.
 
