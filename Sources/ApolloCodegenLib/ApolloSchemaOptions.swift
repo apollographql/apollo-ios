@@ -8,26 +8,33 @@ public struct ApolloSchemaOptions {
   public let header: String?
   public let outputURL: URL
   
+  public let downloadTimeout: Double
+
   /// Designated Initializer
   ///
-  /// - Parameter apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
-  /// - Parameter endpointURL: The endpoint to hit to download your schema.
-  /// - Parameter header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
-  /// - Parameter outputURL: The file URL where the downloaded schema should be written
+  /// - Parameters:
+  ///   - apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
+  ///   - endpointURL: The endpoint to hit to download your schema.
+  ///   - header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
+  ///   - outputURL: The file URL where the downloaded schema should be written
+  ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(apiKey: String? = nil,
               endpointURL: URL,
               header: String? = nil,
-              outputURL: URL) {
+              outputURL: URL,
+              downloadTimeout: Double = 30.0) {
     self.apiKey = apiKey
     self.header = header
     self.endpointURL = endpointURL
     self.outputURL = outputURL
+    
+    self.downloadTimeout = downloadTimeout
   }
   
   var arguments: [String] {
     var arguments = [
       "client:download-schema",
-      "--endpoint=\(self.endpointURL.path)"
+      "--endpoint=\(self.endpointURL.absoluteString)"
     ]
     
     if let header = self.header {

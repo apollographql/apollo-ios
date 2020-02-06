@@ -11,7 +11,7 @@ import XCTest
 
 class ApolloSchemaTests: XCTestCase {
   
-  private lazy var endpointURL = URL(string: "http://localhost:8080")!
+  private lazy var endpointURL = URL(string: "http://localhost:8080/graphql")!
   
   func testCreatingOptionsWithDefaultParameters() throws {
     let sourceRoot = try CodegenTestHelper.sourceRootURL()
@@ -24,7 +24,7 @@ class ApolloSchemaTests: XCTestCase {
     
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
-        "--endpoint=\(self.endpointURL.path)",
+        "--endpoint=http://localhost:8080/graphql",
         sourceRoot.path
     ])
   }
@@ -44,10 +44,48 @@ class ApolloSchemaTests: XCTestCase {
 
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
-        "--endpoint=\(self.endpointURL.path)",
+        "--endpoint=http://localhost:8080/graphql",
         "--header=\(header)",
         "--key=\(apiKey)",
         sourceRoot.path
     ])
   }
+  
+  func testDownloadingSchemaAsJSON() throws {
+    let sourceRoot = try CodegenTestHelper.sourceRootURL()
+    let testOutputURL = sourceRoot
+      .appendingPathComponent("Tests")
+      .appendingPathComponent("ApolloCodegenTests")
+      .appendingPathComponent("schema.json")
+    
+    // Delete anything existing at the output URL
+    try FileManager.default.apollo_deleteFile(at: testOutputURL)
+    XCTAssertFalse(FileManager.default.apollo_fileExists(at: testOutputURL))
+    
+    let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
+                                      outputURL: testOutputURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+
+    _ = try ApolloSchemaDownloader.run(from: sourceRoot,
+                                       with: cliFolderURL,
+                                       options: options)
+    
+    // Does the file now exist?
+    XCTAssertTrue(FileManager.default.apollo_fileExists(at: testOutputURL))
+    
+    // Is it non-empty?
+    let data = try Data(contentsOf: testOutputURL)
+    XCTAssertFalse(data.isEmpty)
+    
+    // Is it JSON?
+    let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: []) as? [AnyHashable:Any])
+    
+    // Is it schema json?
+    _ = try XCTUnwrap(json["__schema"])
+    
+    // OK delete it now
+    try FileManager.default.apollo_deleteFile(at: testOutputURL)
+    XCTAssertFalse(FileManager.default.apollo_fileExists(at: testOutputURL))
+  }
+  
 }
