@@ -114,7 +114,7 @@ To use the generated operations in `API.swift`, you first create an instance of 
         print("Failure! Error: \(error)")
       }
     }
-```
+    ```
 
 Build and run your application. CodeSandbox might take a few seconds to spin up your GraphQL server if nobody's been using it recently, but once it's up, you should see a response that resembles the following: 
 
