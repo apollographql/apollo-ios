@@ -18,13 +18,13 @@ A **mutation** is an operation which is designed to change state on your server.
 
 Open [GraphiQL](https://apollo-fullstack-tutorial.herokuapp.com/), and delete anything already in the left hand panel. Open the Schema tab and select the `login` mutation: 
 
-![the definition of login in the schema](images/schema_login_definition.png)
+<img alt="The definition of login in the schema" class="screenshot" src="images/schema_login_definition.png"/>
 
 This mutation takes a single argument, the email address of the person being logged in, and unlike many GraphQL APIs that return objects which need to have fields selected, only returns a single string. 
 
 In the right panel, add a login mutation:
 
-```graphql
+```graphql:title=(GraphiQL)
 mutation Login($email: String) {
   login(email: $email)
 }
@@ -34,23 +34,23 @@ One thing to watch out for: `$email` is a `String` rather than a `String!`, mean
 
 In the Query Variables section, at the bottom, add the following:
 
-```json
+```json:title=(GraphiQL)
 { "email": null }
 ```
 
 And press the big Play button to run your mutation. You'll see that you get back `null` for the login: 
 
-![results of passing a null email](images/login_mutation_null.png)
+<img alt="Results of passing a null email" class="screenshot" src="images/login_mutation_null.png"/>
 
 Now, replace `null` in the Query Variables section with your actual email address:
 
-```json
+```json:title=(GraphiQL)
 { "email": "your@email.com" }
 ```
 
 Press the Play button, and you'll get an actual response:
 
-![results of passing an actual email](images/login_mutation_email.png)
+<img alt="Results of passing an actual email" class="screenshot" src="images/login_mutation_email.png"/>
 
 Next, copy the query. Create a new empty file, name it `Login.graphql`, and paste the query into it. Build your project to make sure the codegen adds the mutation to your `API.swift` file.
 
@@ -62,7 +62,7 @@ Go to **File > New > File... > Swift File** to create a new Swift file, and name
 
 Create the class by replacing the `import Foundation` text with the following: 
 
-```swift
+```swift:title=LoginViewController.swift
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
 
 Next, within the class, add `IBOutlet`s for the three fields you're planning to add: 
 
-```swift
+```swift:title=LoginViewController.swift
 @IBOutlet private var emailTextField: UITextField!
 @IBOutlet private var errorLabel: UILabel!
 @IBOutlet private var submitButton: UIButton!
@@ -79,14 +79,14 @@ Next, within the class, add `IBOutlet`s for the three fields you're planning to 
 
 Add an empty `IBAction` method that you'll fill in later for handling taps on the submit button:
 
-```swift
+```swift:title=LoginViewController.swift
 @IBAction private func submitTapped() {
 }
 ```
 
 And then add an `IBAction` to handle taps on a cancel button you're going to add by dismissing the view controller:
 
-```    
+```swift:title=LoginViewController.swift
 @IBAction private func cancelTapped() {
   self.dismiss(animated: true)
 }
@@ -96,17 +96,17 @@ Next open **Main.storyboard**. Search for a `UIViewController` in the library, a
 
 Select the view controller in the storyboard, and edit its Custom Class to be `LoginViewController`:
 
-![custom class LoginViewController, check inherit module from target](images/login_vc_name.png)
+<img alt="Custom class LoginViewController, check inherit module from target" class="screenshot" src="images/login_vc_name.png"/>
 
 Next, go to **Editor > Embed In > Navigation Controller** to make sure there's a nav controller for your login VC. 
 
 Then, in the left sidebar of the storyboard, select the `DetailViewController`, and control-drag from it to the `LoginViewController`'s navigation controller to set up a segue: 
 
-![hooking up the segue](images/login_hook_up_segue.png)
+<img alt="hooking up the segue" class="screenshot" src="images/login_hook_up_segue.png"/>
 
 Select the segue, and then in the attributes inspector set the identifier of the segue to `showLogin` and the type to `Present Modally`:
 
-![identifier "showLogin" type Present Modally](images/login_segue_identifier.png)
+<img alt="identifier showLogin type Present Modally" class="screenshot" src="images/login_segue_identifier.png"/>
 
 This next (collapsed) section covers setting up constraints in detail to match the way things work in the sample application. You're welcome to use the three outlets and two actions listed above in an alternate setup if you'd prefer, but screenshots for the remainder of these tutorials will be based on this section. 
 
@@ -116,14 +116,14 @@ To follow the precise UI setup instructions, expand this panel:
 
 In the end, your login view controller should look like this in the storyboard (or roughly like it in whatever alternate setup you've decided to use): 
 
-![the final login UI](images/login_final_ui.png)
+<img alt="The final login UI" class="screenshot" src=:images/login_final_ui.png"/>
 
 
 ## Actually logging in 
 
 Now, it's time to hook everything up. Below your `IBAction` methods, add a new function to enable the submit button and change its title based on whether it's enabled or not:
 
-```swift
+```swift:title=LoginViewController.swift
 private func enableSubmitButton(_ isEnabled: Bool) {
   self.submitButton.isEnabled = isEnabled
   if isEnabled {
@@ -136,7 +136,7 @@ private func enableSubmitButton(_ isEnabled: Bool) {
 
 Next, add a simplified email validation to ensure that the String you'll be passing through to the server is an email address:
 
-```swift
+```swift:title=LoginViewController.swift
 private func validate(email: String) -> Bool {
   return email.contains("@")
 }
@@ -148,7 +148,7 @@ private func validate(email: String) -> Bool {
 
 Next, add a `viewDidLoad` override that clears the text in the error label and enables the submit button:
 
-```swift
+```swift:title=LoginViewController.swift
 override func viewDidLoad() {
   super.viewDidLoad()
   self.errorLabel.text = nil
@@ -168,14 +168,14 @@ The library will resolve, and since it's only a single target, you only need to 
 
 At the top of `LoginViewController.swift`, import the library you just added:
 
-```swift
+```swift:title=LoginViewController.swift
 import KeychainSwift
 ```
 
 Next, add a `static let` that will give you a value you can use to query the keychain for a login token: 
 
 
-```swift
+```swift:title=LoginViewController.swift
 static let loginKeychainKey = "login"
 ```
 
@@ -183,7 +183,7 @@ This is a `static let` so you can use it outside instances of `LoginViewControll
 
 Next, add some validation to the `submitTapped` button to make sure the String you're going to send as an email is non-null and passes your local validation:
 
-```swift
+```swift:title=LoginViewController.swift
 self.errorLabel.text = nil
 self.enableSubmitButton(false)
 
@@ -202,7 +202,7 @@ guard self.validate(email: email) else {
 
 Now that you have a non-null and valid `email` variable, you can use it to log in. Still in `submitTapped`, add a call to perform the login mutation:
 
-```swift
+```swift:title=LoginViewController.swift
  Network.shared.apollo.perform(mutation: LoginMutation(email: email)) { [weak self] result in
   defer {
     self?.enableSubmitButton(true)
@@ -233,7 +233,7 @@ Now, it's time to show the login view controller if someone attempts to book wit
 
 In **DetailViewController.swift**, add a new method to determine if the user is currently logged in: 
 
-```swift
+```swift:title=DetailViewController.swift
 private func isLoggedIn() -> Bool {
   let keychain = KeychainSwift()
   return keychain.get(LoginViewController.loginKeychainKey) != nil
@@ -243,7 +243,7 @@ private func isLoggedIn() -> Bool {
 Then, add a new method to determine what to do when the "Book now!" button is tapped:
 
 
-```swift
+```swift:title=DetailViewController.swift
 @IBAction private func bookOrCancelTapped() {
   guard self.isLoggedIn() else {
     self.performSegue(withIdentifier: "showLogin", sender: self)
@@ -270,7 +270,7 @@ Build and run the application, and now when you tap the "Book now!" button, the 
 
 When the `DetailViewController` reappears, if you tap the "Book now!" button again, you'll see the print statement you added logging happily to the console:
 
-![console with "book trip!" printed out](images/book_trip_printout.png)
+<img alt="Console with book trip printed out" class="screenshot" src="images/book_trip_printout.png"/>
 
 ## Summary
 
