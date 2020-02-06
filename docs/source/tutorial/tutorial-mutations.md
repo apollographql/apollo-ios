@@ -185,10 +185,10 @@ In `bookTrip`, replace the `TODO` with code to handle what comes back in the `su
 ```swift:title=DetailViewController.swift
 if bookingResult.success {
   self.showAlert(title: "Success!",
-							   message: bookingResult.message ?? "Trip booked successfully")
+                 message: bookingResult.message ?? "Trip booked successfully")
 } else {
-  self.showAlert(title: "Could not book trip", 
-							   message: bookingResult.message ?? "Unknown failure.")
+  self.showAlert(title: "Could not book trip",
+                 message: bookingResult.message ?? "Unknown failure.")
 }
 ```
 
@@ -321,11 +321,6 @@ This works well - but it could be more efficient. Stick around for the next sect
 
 ## Summary
 
-In this section you learned: 
-
-- How to add adjust a request, including adding an authentication header, before the request hits the network
-- How to pass a single item to a mutation that takes an array of items
-- How to handle the information which comes back from a mutation
-- How to specify a cache policy to force a fetch from the network when necessary
+In this section you learned how to add adjust a request, including adding an authentication header, before the request hits the network.
 
 In the next section, you'll learn more about how to get details in a reusable fashion and how to work with the cache directly in [Fragments and Cache Manipulation](./tutorial-fragments-and-cache).
