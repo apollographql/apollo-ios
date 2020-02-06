@@ -10,7 +10,7 @@ public class ApolloCodegen {
     public var errorDescription: String? {
       switch self {
       case .folderDoesNotExist(let url):
-        return "Can't run codegen from \(url) - there is no folder there!"
+        return "Can't run codegen trying to run the command from \(url) because there is no folder there! This should be the folder which, at some depth, contains all your `.graphql` files."
       }
     }
   }
