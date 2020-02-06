@@ -1,11 +1,3 @@
-//
-//  CLIExtractor.swift
-//  ApolloCodegenLib
-//
-//  Created by Ellen Shapiro on 10/3/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// Helper for extracting and validating the node-based Apollo CLI from a zip.

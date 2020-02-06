@@ -1,11 +1,3 @@
-//
-//  CLIDownloader.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 10/22/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// Helper for downloading the CLI Zip file so we don't have to include it in the repo.

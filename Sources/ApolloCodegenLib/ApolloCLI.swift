@@ -1,11 +1,3 @@
-//
-//  ApolloCLI.swift
-//  ApolloCodegenLib
-//
-//  Created by Ellen Shapiro on 10/3/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// Wrapper for calling the bundled node-based Apollo CLI.

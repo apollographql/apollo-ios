@@ -1,11 +1,3 @@
-//
-//  CodegenLogger.swift
-//  ApolloCodegenLib
-//
-//  Created by Ellen Shapiro on 10/3/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// Helper to get logs printing to stdout so they can be read from the command line.

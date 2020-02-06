@@ -1,11 +1,3 @@
-//
-//  Basher.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 9/25/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// Bash command runner

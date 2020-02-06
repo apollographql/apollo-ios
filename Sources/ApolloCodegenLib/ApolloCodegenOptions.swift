@@ -1,11 +1,3 @@
-//
-//  ApolloCodegenOptions.swift
-//  ApolloCodegenLib
-//
-//  Created by Ellen Shapiro on 9/24/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// An object to hold all the various options for running codegen

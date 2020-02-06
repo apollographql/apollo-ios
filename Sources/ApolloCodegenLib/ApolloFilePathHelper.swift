@@ -1,11 +1,3 @@
-//
-//  ApolloFileHelper.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 10/22/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// Readability helpers for accessing frequent folders.

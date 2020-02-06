@@ -1,11 +1,3 @@
-//
-//  ApolloCodegen.swift
-//  ApolloCodegenLib
-//
-//  Created by Ellen Shapiro on 9/24/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// A class to facilitate running code generation

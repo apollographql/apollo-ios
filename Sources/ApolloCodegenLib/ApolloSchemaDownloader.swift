@@ -1,11 +1,3 @@
-//
-//  ApolloSchemaDownloader.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 10/3/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 /// A wrapper to facilitate downloading a schema with the Apollo node CLI
