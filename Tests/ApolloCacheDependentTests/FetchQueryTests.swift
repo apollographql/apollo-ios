@@ -473,5 +473,8 @@ class FetchQueryTests: XCTestCase {
     }
     self.wait(for: [expectation], timeout: 10)
     
+    for watcher in watchers {
+      watcher.cancel()
+    }
   }
 }
