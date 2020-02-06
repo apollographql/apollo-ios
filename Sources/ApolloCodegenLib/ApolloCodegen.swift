@@ -4,7 +4,7 @@ import Foundation
 public class ApolloCodegen {
   
   /// Errors which can happen with code generation
-  public enum ApolloCodegenError: Error, LocalizedError {
+  public enum CodegenError: Error, LocalizedError {
     case folderDoesNotExist(_ url: URL)
     
     public var errorDescription: String? {
@@ -25,7 +25,7 @@ public class ApolloCodegen {
                          with cliFolderURL: URL,
                          options: ApolloCodegenOptions) throws -> String {
     guard FileManager.default.apollo_folderExists(at: folder) else {
-      throw ApolloCodegenError.folderDoesNotExist(folder)
+      throw CodegenError.folderDoesNotExist(folder)
     }
     
     switch options.outputFormat {
