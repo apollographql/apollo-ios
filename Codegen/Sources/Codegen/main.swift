@@ -32,12 +32,10 @@ let cliFolderURL = sourceRootURL
     .appendingPathComponent("ApolloCLI")
 
 do {
-  let result = try ApolloCodegen.run(from: targetURL,
-                                     with: cliFolderURL,
-                                     options: options)
-  print("RESULT: \(result)")
+    try ApolloCodegen.run(from: targetURL,
+                          with: cliFolderURL,
+                          options: options)
 } catch {
-  print("ERROR: \(error)")
-  exit(1)
+    print("Error: \(error)")
+    exit(1)
 }
-

@@ -8,6 +8,8 @@ public struct ApolloSchemaDownloader {
   /// - Parameters:
   ///   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
   ///   - options: The `ApolloSchemaOptions` object to use to download the schema.
+  /// - Returns: Output from a successful run
+  @discardableResult
   public static func run(with cliFolderURL: URL,
                          options: ApolloSchemaOptions) throws -> String {
     try FileManager.default.apollo_createContainingFolderIfNeeded(for: options.outputURL)

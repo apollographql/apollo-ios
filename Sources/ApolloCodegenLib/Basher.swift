@@ -4,13 +4,13 @@ import Foundation
 public struct Basher {
   
   public enum BashError: Error, LocalizedError {
-    case errorDuringTask(errorString: String, code: Int32)
+    case errorDuringTask(code: Int32)
     case noOutput(code: Int32)
     
     public var errorDescription: String? {
       switch self {
-      case .errorDuringTask(let errorString, let code):
-        return "Task failed with code \(code). Output: \(errorString)"
+      case .errorDuringTask(let code):
+        return "Task failed with code \(code)."
       case .noOutput(let code):
         return "Task had no output. Exit code: \(code)."
       }
@@ -51,13 +51,16 @@ public struct Basher {
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
     
     guard let output = String(bytes: data, encoding: .utf8) else {
+      CodegenLogger.log("[No output from pipe]", logLevel: .error)
       throw BashError.noOutput(code: task.terminationStatus)
     }
     
     guard task.terminationStatus == 0 else {
-      throw BashError.errorDuringTask(errorString: output, code: task.terminationStatus)
+      CodegenLogger.log(output, logLevel: .error)
+      throw BashError.errorDuringTask(code: task.terminationStatus)
     }
     
+    CodegenLogger.log(output)
     return output
   }
 }
