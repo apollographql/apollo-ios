@@ -87,4 +87,36 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertFalse(FileManager.default.apollo_fileExists(at: testOutputURL))
   }
   
+  func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
+    let sourceRoot = try CodegenTestHelper.sourceRootURL()
+    let testOutputURL = sourceRoot
+      .appendingPathComponent("Tests")
+      .appendingPathComponent("ApolloCodegenTests")
+      .appendingPathComponent("schema.graphql")
+    
+    // Delete anything existing at the output URL
+    try FileManager.default.apollo_deleteFile(at: testOutputURL)
+    XCTAssertFalse(FileManager.default.apollo_fileExists(at: testOutputURL))
+    
+    let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
+                                      outputURL: testOutputURL)
+    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+
+    print(try ApolloSchemaDownloader.run(with: cliFolderURL,
+                                         options: options))
+    
+    // Does the file now exist?
+    XCTAssertTrue(FileManager.default.apollo_fileExists(at: testOutputURL))
+    
+    // Is it non-empty?
+    let data = try Data(contentsOf: testOutputURL)
+    XCTAssertFalse(data.isEmpty)
+    
+    // It should not be JSON
+    XCTAssertNil(try? JSONSerialization.jsonObject(with: data, options: []) as? [AnyHashable:Any])
+    
+    // OK delete it now
+    try FileManager.default.apollo_deleteFile(at: testOutputURL)
+    XCTAssertFalse(FileManager.default.apollo_fileExists(at: testOutputURL))
+  }
 }
