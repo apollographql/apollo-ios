@@ -50,3 +50,9 @@ public struct ApolloSchemaOptions {
     return arguments
   }
 }
+
+extension ApolloSchemaOptions: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    self.arguments.joined(separator: "\n")
+  }
+}

@@ -124,3 +124,9 @@ public struct ApolloCodegenOptions {
     return arguments
   }
 }
+
+extension ApolloCodegenOptions: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    self.arguments.joined(separator: "\n")
+  }
+}
