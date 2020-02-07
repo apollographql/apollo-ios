@@ -2,13 +2,11 @@
 title: "3. Execute your first query"
 ---
 
-## Constructing a query in GraphiQL
-
 The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the GraphiQL query explorer](https://n1kqy.sse.codesandbox.io/) for your server, you can see available queries in the Schema tab you opened earlier. 
 
 Click on the `launches` query at the top for details about it:
 
-![detail about launches query](images/launches_detail.png)
+<img src="images/launches_detail.png" class="screenshot" alt="Detail about launches query"/>
 
 In the right panel, you see both the query itself and information about what the query returns. You can use this information to write a query you'll eventually add to your app. 
 
@@ -23,7 +21,7 @@ The Apollo iOS SDK requires every query to have a name (even though this isn't r
 
 Next, between the query's curly braces, start typing `la`. An autocomplete box pops up and shows you options based on what's in the schema:
 
-![example of autocomplete](images/grapqhiql_autocomplete.png)
+<img src="images/grapqhiql_autocomplete.png" class="screenshot" alt="Example of autocomplete"/>
 
 GraphiQL is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes.
 
@@ -40,7 +38,7 @@ query LaunchList {
 
 If you run this query by pressing the play button in GraphiQL, the query returns results as a JSON object on the right-hand side of the page: 
 
-![basic query JSON in GraphiQL](images/completed_basic_query.png)
+<img src="images/completed_basic_query.png" class="screenshot" alt="Query JSON in GraphiQL"/>
 
 This query executes successfully, but it doesn't include any information about the `launches`! That's because we didn't include the necessary field in our query.
 
@@ -61,7 +59,7 @@ query LaunchList {
 
 Run the query again, and you'll now see that in addition to the information you got back before, you're also getting a list of launches with their ID and site information: 
 
-![updated query JSON in GraphiQL](images/completed_id_query.png)
+<img src="images/completed_id_query.png" class="screenshot" alt="Updated query JSON in GraphiQL"/>
 
 ## Adding your query to Xcode
 
@@ -69,7 +67,7 @@ Now that your query is fetching the right data, head back to Xcode.
 
 1. Go to **File > New > File...** and select the **Empty** file template:
 
-![](images/empty_file_template.png)
+<img src="images/empty_file_template.png" class="screenshot" alt="Empty file template"/>
 
 2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As previously, don't add it to any target.
 

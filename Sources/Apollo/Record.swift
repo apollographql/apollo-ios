@@ -4,16 +4,16 @@ public typealias CacheKey = String
 /// A cache record.
 public struct Record {
   public let key: CacheKey
-  
+
   public typealias Value = Any
   public typealias Fields = [CacheKey: Value]
   public private(set) var fields: Fields
-  
+
   public init(key: CacheKey, _ fields: Fields = [:]) {
     self.key = key
     self.fields = fields
   }
-  
+
   public subscript(key: CacheKey) -> Value? {
     get {
       return fields[key]
@@ -33,7 +33,7 @@ extension Record: CustomStringConvertible {
 /// A reference to a cache record.
 public struct Reference {
   public let key: CacheKey
-  
+
   public init(key: CacheKey) {
     self.key = key
   }

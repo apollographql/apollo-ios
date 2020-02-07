@@ -101,7 +101,7 @@ public final class ApolloStore {
       self.cacheLock.unlock()
     }
   }
-  
+
   /// Performs an operation within a read transaction
   ///
   /// - Parameters:
@@ -139,7 +139,7 @@ public final class ApolloStore {
       self.cacheLock.unlock()
     }
   }
-  
+
   /// Performs an operation within a read-write transaction
   ///
   /// - Parameters:
@@ -180,7 +180,7 @@ public final class ApolloStore {
                     dependentKeys: dependentKeys)
     }
   }
-  
+
   /// Loads the results for the given query from the cache.
   ///
   /// - Parameters:
@@ -248,10 +248,10 @@ public final class ApolloStore {
           let value = object[info.cacheKeyForField]
           return self.complete(value: value)
         }
-        
+
         executor.dispatchDataLoads = self.loader.dispatch
         executor.cacheKeyForObject = self.cacheKeyForObject
-        
+
         return try executor.execute(selections: selections,
                                     on: object,
                                     withKey: key,
@@ -318,9 +318,9 @@ public final class ApolloStore {
       let executor = GraphQLExecutor { object, info in
         return .result(.success(object[info.responseKeyForField]))
       }
-      
+
       executor.cacheKeyForObject = self.cacheKeyForObject
-      
+
       _ = try executor.execute(selections: selections,
                                on: object,
                                withKey: key,
@@ -352,7 +352,7 @@ internal extension NormalizedCache {
         }
     }
   }
-  
+
   func mergePromise(records: RecordSet) -> Promise<Set<CacheKey>> {
     return Promise { fulfill, reject in
       self.merge(
@@ -367,7 +367,7 @@ internal extension NormalizedCache {
       }
     }
   }
-  
+
   func clearPromise() -> Promise<Void> {
     return Promise { fulfill, reject in
       self.clear(callbackQueue: nil) { result in

@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol NormalizedCache {
-  
+
   /// Loads records corresponding to the given keys.
   ///
   /// - Parameters:
@@ -11,7 +11,7 @@ public protocol NormalizedCache {
   func loadRecords(forKeys keys: [CacheKey],
                    callbackQueue: DispatchQueue?,
                    completion: @escaping (Result<[Record?], Error>) -> Void)
-  
+
   /// Merges a set of records into the cache.
   ///
   /// - Parameters:
@@ -30,4 +30,3 @@ public protocol NormalizedCache {
   func clear(callbackQueue: DispatchQueue?,
              completion: ((Result<Void, Error>) -> Void)?)
 }
-

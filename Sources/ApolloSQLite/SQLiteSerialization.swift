@@ -14,7 +14,7 @@ final class SQLiteSerialization {
     }
     return try JSONSerialization.data(withJSONObject: objectToSerialize, options: [])
   }
-  
+
   private static func serialize(fieldValue: Record.Value) throws -> JSONValue {
     switch fieldValue {
     case let reference as Reference:
@@ -25,7 +25,7 @@ final class SQLiteSerialization {
       return fieldValue
     }
   }
-  
+
   static func deserialize(data: Data) throws -> Record.Fields {
     let object = try JSONSerialization.jsonObject(with: data, options: [])
     guard let jsonObject = object as? JSONObject else {
@@ -37,7 +37,7 @@ final class SQLiteSerialization {
     }
     return fields
   }
-  
+
   private static func deserialize(fieldJSONValue: JSONValue) throws -> Record.Value {
     switch fieldJSONValue {
     case let dictionary as JSONObject:

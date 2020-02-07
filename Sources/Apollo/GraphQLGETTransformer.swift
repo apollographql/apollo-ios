@@ -1,10 +1,10 @@
 import Foundation
 
 struct GraphQLGETTransformer {
-  
+
   let body: GraphQLMap
   let url: URL
-  
+
   /// A helper for transforming a GraphQLMap that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
   ///
   /// - Parameters:
@@ -14,7 +14,7 @@ struct GraphQLGETTransformer {
     self.body = body
     self.url = url
   }
-  
+
   /// Creates the get URL.
   ///
   /// - Returns: [optional] The created get URL or nil if the provided information couldn't be used to access the appropriate parameters.
@@ -22,9 +22,9 @@ struct GraphQLGETTransformer {
     guard var components = URLComponents(string: self.url.absoluteString) else {
       return nil
     }
-    
+
     var queryItems: [URLQueryItem] = []
-    
+
     do {
       _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
         if let value = arg.value as? GraphQLMap {
@@ -43,8 +43,7 @@ struct GraphQLGETTransformer {
     }
 
     components.queryItems = queryItems
-    
+
     return components.url
   }
 }
-

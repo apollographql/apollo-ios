@@ -29,10 +29,11 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
   }
   
   func network() -> HTTPNetworkTransport {
-    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
+    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                 enableAutoPersistedQueries: true,
-                                useGETForPersistedQueryRetry: true,
-                                delegate: self)
+                                useGETForPersistedQueryRetry: true)
+    transport.delegate = self
+    return transport
   }
   
 }

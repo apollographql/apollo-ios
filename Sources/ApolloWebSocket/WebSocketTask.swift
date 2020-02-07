@@ -8,7 +8,7 @@ import Starscream
 final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
   let sequenceNumber : String?
   let transport: WebSocketTransport
-  
+
   /// Designated initializer
   ///
   /// - Parameter ws: The `WebSocketTransport` to use for this task
@@ -20,13 +20,13 @@ final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
     sequenceNumber = ws.sendHelper(operation: operation, resultHandler: completionHandler)
     transport = ws
   }
-  
+
   public func cancel() {
     if let sequenceNumber = sequenceNumber {
       transport.unsubscribe(sequenceNumber)
     }
   }
-  
+
   // Unsubscribes from further results from this task.
   public func unsubscribe() {
     cancel()

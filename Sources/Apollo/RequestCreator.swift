@@ -54,16 +54,16 @@ extension RequestCreator {
 
       body["id"] = operationIdentifier
     }
-    
+
     if sendQueryDocument {
       body["query"] = operation.queryDocument
     }
-    
+
     if autoPersistQuery {
       guard let operationIdentifier = operation.operationIdentifier else {
         preconditionFailure("To enable `autoPersistQueries`, Apollo types must be generated with operationIdentifiers")
       }
-      
+
       let hash: String
       if operation.operationDefinition == operation.queryDocument {
         // The codegen had everything it needed to generate the hash
@@ -77,7 +77,7 @@ extension RequestCreator {
         "persistedQuery" : ["sha256Hash": hash, "version": 1]
       ]
     }
-    
+
     return body
   }
 
@@ -144,7 +144,7 @@ extension RequestCreator {
                           contentType: file.mimeType,
                           filename: file.originalName)
     }
-    
+
     return formData
   }
 }

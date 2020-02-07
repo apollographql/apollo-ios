@@ -5,16 +5,16 @@ import Foundation
 
 /// Protocol allowing alternative implementations of web sockets beyond `ApolloWebSocket`. Extends `Starscream`'s `WebSocketClient` protocol.
 public protocol ApolloWebSocketClient: WebSocketClient {
-  
+
   /// Required initializer
   ///
   /// - Parameter request: The URLRequest to use on connection.
   /// - Parameter protocols: The supported protocols
   init(request: URLRequest, protocols: [String]?)
-  
-  /// The URLRequest used on connection. 
+
+  /// The URLRequest used on connection.
   var request: URLRequest { get set }
-  
+
   /// Queue where the callbacks are executed
   var callbackQueue: DispatchQueue { get set }
 }

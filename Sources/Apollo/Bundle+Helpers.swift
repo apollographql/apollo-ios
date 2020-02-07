@@ -1,7 +1,7 @@
 import Foundation
 
 extension Bundle {
-  
+
   /// Type-safe getter for info dictionary key objects
   ///
   /// - Parameter key: The key to try to grab an object for
@@ -9,17 +9,17 @@ extension Bundle {
   func bundleValue<T>(forKey key: String) -> T? {
     return object(forInfoDictionaryKey: key) as? T
   }
-  
+
   /// The bundle identifier of this bundle, or nil if not present.
   var bundleIdentifier: String? {
     return self.bundleValue(forKey: String(kCFBundleIdentifierKey))
   }
-  
+
   /// The build number of this bundle (kCFBundleVersion) as a string, or nil if not present.
   var buildNumber: String? {
     return self.bundleValue(forKey: String(kCFBundleVersionKey))
   }
-  
+
   /// The short version string for this bundle, or nil if not present.
   var shortVersion: String? {
     return self.bundleValue(forKey: "CFBundleShortVersionString")
