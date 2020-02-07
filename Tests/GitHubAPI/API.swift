@@ -337,8 +337,6 @@ public final class RepoUrlQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "b55f22bcbfaea0d861089b3fbe06299675a21d11ba7138ace39ecbde606a3dc1"
 
-  public let operationIdentifier: String? = "b55f22bcbfaea0d861089b3fbe06299675a21d11ba7138ace39ecbde606a3dc1"
-
   public init() {
   }
 
