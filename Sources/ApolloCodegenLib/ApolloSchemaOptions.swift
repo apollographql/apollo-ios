@@ -3,12 +3,12 @@ import Foundation
 /// Options for running the Apollo Schema Downloader.
 public struct ApolloSchemaOptions {
   
-  public let apiKey: String?
-  public let endpointURL: URL
-  public let header: String?
-  public let outputURL: URL
+  let apiKey: String?
+  let endpointURL: URL
+  let header: String?
+  let outputURL: URL
   
-  public let downloadTimeout: Double
+  let downloadTimeout: Double
 
   /// Designated Initializer
   ///

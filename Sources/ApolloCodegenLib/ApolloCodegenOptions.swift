@@ -13,17 +13,17 @@ public struct ApolloCodegenOptions {
     case multipleFiles(inFolderAtURL: URL)
   }
   
-  public let includes: String
-  public let mergeInFieldsFromFragmentSpreads: Bool
-  public let namespace: String?
-  public let only: URL?
-  public let operationIDsURL: URL?
-  public let outputFormat: OutputFormat
-  public let passthroughCustomScalars: Bool
-  public let suppressSwiftMultilineStringLiterals: Bool
-  public let urlToSchemaFile: URL
+  let includes: String
+  let mergeInFieldsFromFragmentSpreads: Bool
+  let namespace: String?
+  let only: URL?
+  let operationIDsURL: URL?
+  let outputFormat: OutputFormat
+  let passthroughCustomScalars: Bool
+  let suppressSwiftMultilineStringLiterals: Bool
+  let urlToSchemaFile: URL
   
-  public let downloadTimeout: Double
+  let downloadTimeout: Double
 
   /// Designated initializer.
   ///
