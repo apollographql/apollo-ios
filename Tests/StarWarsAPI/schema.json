@@ -206,19 +206,31 @@
               "deprecationReason": null
             },
             {
-              "name": "starshipLength",
+              "name": "starshipCoordinates",
               "description": "",
               "args": [
                 {
-                  "name": "length",
+                  "name": "coordinates",
                   "description": "",
                   "type": {
-                    "kind": "NON_NULL",
+                    "kind": "LIST",
                     "name": null,
                     "ofType": {
-                      "kind": "SCALAR",
-                      "name": "Float",
-                      "ofType": null
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "LIST",
+                        "name": null,
+                        "ofType": {
+                          "kind": "NON_NULL",
+                          "name": null,
+                          "ofType": {
+                            "kind": "SCALAR",
+                            "name": "Float",
+                            "ofType": null
+                          }
+                        }
+                      }
                     }
                   },
                   "defaultValue": null

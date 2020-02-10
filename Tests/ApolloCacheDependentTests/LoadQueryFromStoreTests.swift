@@ -323,20 +323,20 @@ class LoadQueryFromStoreTests: XCTestCase {
 
   func testLoadingQueryWithFloats() throws {
     let starshipLength = 1234.5
+    let coordinates = [[38.857150, -94.798464]]
 
     let initialRecords: RecordSet = [
-      "QUERY_ROOT": ["starshipLength(length:1234.5)": Reference(key: "starshipLength(length:1234.5)")],
-      "starshipLength(length:1234.5)": ["__typename": "Starship",
-                                        "name": "Millennium Falcon",
-                                        "length": starshipLength,
-                                        "coordinates": [[0.0,1.0], [2.0,3.0]]]
+      "QUERY_ROOT": ["starshipCoordinates(coordinates:\(coordinates))": Reference(key: "starshipCoordinates(coordinates:\(coordinates))")],
+      "starshipCoordinates(coordinates:\(coordinates))": ["__typename": "Starship",
+                                                          "name": "Millennium Falcon",
+                                                          "length": starshipLength,
+                                                          "coordinates": coordinates]
     ]
-
 
     withCache(initialRecords: initialRecords) { (cache) in
       store = ApolloStore(cache: cache)
 
-      let query = StarshipLengthQuery(length: starshipLength)
+      let query = StarshipCoordinatesQuery(coordinates: coordinates)
 
       load(query: query) { result in
         switch result {
@@ -348,9 +348,9 @@ class LoadQueryFromStoreTests: XCTestCase {
             return
           }
 
-          XCTAssertEqual(data.starshipLength?.name, "Millennium Falcon")
-          XCTAssertEqual(data.starshipLength?.length, starshipLength)
-          XCTAssertEqual(data.starshipLength?.coordinates, [[0.0,1.0], [2.0,3.0]])
+          XCTAssertEqual(data.starshipCoordinates?.name, "Millennium Falcon")
+          XCTAssertEqual(data.starshipCoordinates?.length, starshipLength)
+          XCTAssertEqual(data.starshipCoordinates?.coordinates, coordinates)
         case .failure(let error):
           XCTFail("Unexpected error: \(error)")
         }

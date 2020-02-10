@@ -5548,12 +5548,12 @@ public final class StarshipQuery: GraphQLQuery {
   }
 }
 
-public final class StarshipLengthQuery: GraphQLQuery {
+public final class StarshipCoordinatesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
-    query StarshipLength($length: Float!) {
-      starshipLength(length: $length) {
+    query StarshipCoordinates($coordinates: [[Float!]!]) {
+      starshipCoordinates(coordinates: $coordinates) {
         __typename
         name
         coordinates
@@ -5562,25 +5562,25 @@ public final class StarshipLengthQuery: GraphQLQuery {
     }
     """
 
-  public let operationName = "StarshipLength"
+  public let operationName = "StarshipCoordinates"
 
-  public let operationIdentifier: String? = "f890b11aaa5d41e6d53ced4549beb27b9157c8c301d47e076909262ed9edbfb1"
+  public let operationIdentifier: String? = "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406"
 
-  public var length: Double
+  public var coordinates: [[Double]]?
 
-  public init(length: Double) {
-    self.length = length
+  public init(coordinates: [[Double]]?) {
+    self.coordinates = coordinates
   }
 
   public var variables: GraphQLMap? {
-    return ["length": length]
+    return ["coordinates": coordinates]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("starshipLength", arguments: ["length": GraphQLVariable("length")], type: .object(StarshipLength.selections)),
+      GraphQLField("starshipCoordinates", arguments: ["coordinates": GraphQLVariable("coordinates")], type: .object(StarshipCoordinate.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -5589,20 +5589,20 @@ public final class StarshipLengthQuery: GraphQLQuery {
       self.resultMap = unsafeResultMap
     }
 
-    public init(starshipLength: StarshipLength? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "starshipLength": starshipLength.flatMap { (value: StarshipLength) -> ResultMap in value.resultMap }])
+    public init(starshipCoordinates: StarshipCoordinate? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "starshipCoordinates": starshipCoordinates.flatMap { (value: StarshipCoordinate) -> ResultMap in value.resultMap }])
     }
 
-    public var starshipLength: StarshipLength? {
+    public var starshipCoordinates: StarshipCoordinate? {
       get {
-        return (resultMap["starshipLength"] as? ResultMap).flatMap { StarshipLength(unsafeResultMap: $0) }
+        return (resultMap["starshipCoordinates"] as? ResultMap).flatMap { StarshipCoordinate(unsafeResultMap: $0) }
       }
       set {
-        resultMap.updateValue(newValue?.resultMap, forKey: "starshipLength")
+        resultMap.updateValue(newValue?.resultMap, forKey: "starshipCoordinates")
       }
     }
 
-    public struct StarshipLength: GraphQLSelectionSet {
+    public struct StarshipCoordinate: GraphQLSelectionSet {
       public static let possibleTypes = ["Starship"]
 
       public static let selections: [GraphQLSelection] = [

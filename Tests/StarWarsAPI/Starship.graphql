@@ -5,8 +5,8 @@ query Starship {
   }
 }
 
-query StarshipLength($length: Float!) {
-  starshipLength(length: $length) {
+query StarshipCoordinates($coordinates: [[Float!]!]) {
+  starshipCoordinates(coordinates: $coordinates) {
     name
     coordinates
     length
