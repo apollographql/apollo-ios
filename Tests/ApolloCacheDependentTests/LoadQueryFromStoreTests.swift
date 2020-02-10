@@ -319,7 +319,45 @@ class LoadQueryFromStoreTests: XCTestCase {
       }
     }
   }
-  
+
+
+  func testLoadingQueryWithFloats() throws {
+    let starshipLength = 1234.5
+    let coordinates = [[38.857150, -94.798464]]
+
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["starshipCoordinates(coordinates:\(coordinates))": Reference(key: "starshipCoordinates(coordinates:\(coordinates))")],
+      "starshipCoordinates(coordinates:\(coordinates))": ["__typename": "Starship",
+                                                          "name": "Millennium Falcon",
+                                                          "length": starshipLength,
+                                                          "coordinates": coordinates]
+    ]
+
+    withCache(initialRecords: initialRecords) { (cache) in
+      store = ApolloStore(cache: cache)
+
+      let query = StarshipCoordinatesQuery(coordinates: coordinates)
+
+      load(query: query) { result in
+        switch result {
+        case .success(let graphQLResult):
+          XCTAssertNil(graphQLResult.errors)
+
+          guard let data = graphQLResult.data else {
+            XCTFail("No data returned with result")
+            return
+          }
+
+          XCTAssertEqual(data.starshipCoordinates?.name, "Millennium Falcon")
+          XCTAssertEqual(data.starshipCoordinates?.length, starshipLength)
+          XCTAssertEqual(data.starshipCoordinates?.coordinates, coordinates)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+    }
+  }
+
   // MARK: - Helpers
   
   private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {

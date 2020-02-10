@@ -33,11 +33,24 @@ public final class SQLiteNormalizedCache {
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
-    var components = fieldCacheKey.components(separatedBy: ".")
-    if components.count > 1 {
-      components.removeLast()
+    let components = fieldCacheKey.components(separatedBy: ".")
+    var updatedComponents = [String]()
+    if components.first?.contains("_ROOT") == true {
+      for component in components {
+        if updatedComponents.last?.last?.isNumber ?? false && component.first?.isNumber ?? false {
+          updatedComponents[updatedComponents.count - 1].append(".\(component)")
+        } else {
+          updatedComponents.append(component)
+        }
+      }
+    } else {
+      updatedComponents = components
     }
-    return components.joined(separator: ".")
+
+    if updatedComponents.count > 1 {
+      updatedComponents.removeLast()
+    }
+    return updatedComponents.joined(separator: ".")
   }
 
   private func createTableIfNeeded() throws {

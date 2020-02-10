@@ -5556,6 +5556,121 @@ public final class StarshipQuery: GraphQLQuery {
   }
 }
 
+public final class StarshipCoordinatesQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition =
+    """
+    query StarshipCoordinates($coordinates: [[Float!]!]) {
+      starshipCoordinates(coordinates: $coordinates) {
+        __typename
+        name
+        coordinates
+        length
+      }
+    }
+    """
+
+  public let operationName = "StarshipCoordinates"
+
+  public let operationIdentifier: String? = "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406"
+
+  public var coordinates: [[Double]]?
+
+  public init(coordinates: [[Double]]?) {
+    self.coordinates = coordinates
+  }
+
+  public var variables: GraphQLMap? {
+    return ["coordinates": coordinates]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("starshipCoordinates", arguments: ["coordinates": GraphQLVariable("coordinates")], type: .object(StarshipCoordinate.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(starshipCoordinates: StarshipCoordinate? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "starshipCoordinates": starshipCoordinates.flatMap { (value: StarshipCoordinate) -> ResultMap in value.resultMap }])
+    }
+
+    public var starshipCoordinates: StarshipCoordinate? {
+      get {
+        return (resultMap["starshipCoordinates"] as? ResultMap).flatMap { StarshipCoordinate(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "starshipCoordinates")
+      }
+    }
+
+    public struct StarshipCoordinate: GraphQLSelectionSet {
+      public static let possibleTypes = ["Starship"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("coordinates", type: .list(.nonNull(.list(.nonNull(.scalar(Double.self)))))),
+        GraphQLField("length", type: .scalar(Double.self)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(name: String, coordinates: [[Double]]? = nil, length: Double? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Starship", "name": name, "coordinates": coordinates, "length": length])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The name of the starship
+      public var name: String {
+        get {
+          return resultMap["name"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "name")
+        }
+      }
+
+      public var coordinates: [[Double]]? {
+        get {
+          return resultMap["coordinates"] as? [[Double]]
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "coordinates")
+        }
+      }
+
+      /// Length of the starship, along the longest axis
+      public var length: Double? {
+        get {
+          return resultMap["length"] as? Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "length")
+        }
+      }
+    }
+  }
+}
+
 public final class ReviewAddedSubscription: GraphQLSubscription {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
