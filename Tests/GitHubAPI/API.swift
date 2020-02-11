@@ -5,10 +5,10 @@ import Foundation
 
 public final class RepositoryQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { body ... on UniformResourceLocatable { url } author { __typename avatarUrl } } ... on Reactable { viewerCanReact ... on Comment { author { __typename login } } } } } }"
 
-  public let operationName = "Repository"
+  public let operationName: String = "Repository"
 
   public let operationIdentifier: String? = "63e25c339275a65f43b847e692e42caed8c06e25fbfb3dc8db6d4897b180c9ef"
 
@@ -16,7 +16,7 @@ public final class RepositoryQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("repository", arguments: ["owner": "apollographql", "name": "apollo-ios"], type: .object(Repository.selections)),
@@ -43,7 +43,7 @@ public final class RepositoryQuery: GraphQLQuery {
     }
 
     public struct Repository: GraphQLSelectionSet {
-      public static let possibleTypes = ["Repository"]
+      public static let possibleTypes: [String] = ["Repository"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -80,7 +80,7 @@ public final class RepositoryQuery: GraphQLQuery {
       }
 
       public struct IssueOrPullRequest: GraphQLSelectionSet {
-        public static let possibleTypes = ["Issue", "PullRequest"]
+        public static let possibleTypes: [String] = ["Issue", "PullRequest"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLTypeCase(
@@ -137,7 +137,7 @@ public final class RepositoryQuery: GraphQLQuery {
         }
 
         public struct Author: GraphQLSelectionSet {
-          public static let possibleTypes = ["Organization", "User", "Bot"]
+          public static let possibleTypes: [String] = ["Organization", "User", "Bot"]
 
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -194,7 +194,7 @@ public final class RepositoryQuery: GraphQLQuery {
         }
 
         public struct AsIssue: GraphQLSelectionSet {
-          public static let possibleTypes = ["Issue"]
+          public static let possibleTypes: [String] = ["Issue"]
 
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -265,7 +265,7 @@ public final class RepositoryQuery: GraphQLQuery {
           }
 
           public struct Author: GraphQLSelectionSet {
-            public static let possibleTypes = ["Organization", "User", "Bot"]
+            public static let possibleTypes: [String] = ["Organization", "User", "Bot"]
 
             public static let selections: [GraphQLSelection] = [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -329,16 +329,18 @@ public final class RepositoryQuery: GraphQLQuery {
 
 public final class RepoUrlQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     "query RepoURL { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename url } }"
 
-  public let operationName = "RepoURL"
+  public let operationName: String = "RepoURL"
+
+  public let operationIdentifier: String? = "b55f22bcbfaea0d861089b3fbe06299675a21d11ba7138ace39ecbde606a3dc1"
 
   public init() {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("repository", arguments: ["owner": "apollographql", "name": "apollo-ios"], type: .object(Repository.selections)),
@@ -365,7 +367,7 @@ public final class RepoUrlQuery: GraphQLQuery {
     }
 
     public struct Repository: GraphQLSelectionSet {
-      public static let possibleTypes = ["Repository"]
+      public static let possibleTypes: [String] = ["Repository"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),

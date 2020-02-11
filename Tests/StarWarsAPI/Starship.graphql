@@ -4,3 +4,11 @@ query Starship {
     coordinates
   }
 }
+
+query StarshipCoordinates($coordinates: [[Float!]!]) {
+  starshipCoordinates(coordinates: $coordinates) {
+    name
+    coordinates
+    length
+  }
+}
