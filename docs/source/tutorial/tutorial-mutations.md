@@ -1,16 +1,16 @@
 ---
-title: Working with Mutations
+title: 8. Define additional mutations
 ---
 
-In this section, you'll learn how to build authenticated mutations and handle information returned from those mutations, and use that knowledge to book and cancel some trips for yourself. 
+In this section, you'll learn how to build authenticated mutations and handle information returned from those mutations, enabling you to book and cancel trips in your app.
 
-## Adding authentication handling
+## Add authentication handling
 
-Before you start booking, you need to be able to pass your authentication token along to Apollo. To do that, you'll dig a little deeper into how the Apollo client works. 
+Before you can book a trip, you need to be able to pass your authentication token along to the example server. To do that, let's dig a little deeper into how Apollo Client works. 
 
-The `ApolloClient` uses something called a `NetworkTransport` under the hood. By default, the client will create an `HTTPNetworkTransport` instance to handle talking over HTTP to your server.
+The `ApolloClient` uses something called a `NetworkTransport` under the hood. By default, the client creates an `HTTPNetworkTransport` instance to handle talking over HTTP to your server.
 
-If you need to do anything before a request hits the wire but after Apollo has done most of the configuration for you, there's a delegate protocol called `HTTPNetworkTransportPreflightDelegate` which will allow you to do that. 
+If you need to do anything before a request hits the wire but after Apollo has done most of the configuration for you, there's a delegate protocol called `HTTPNetworkTransportPreflightDelegate` that allows you to do that. 
 
 Open `Network.swift` and add an extension to conform to that delegate: 
 
@@ -20,15 +20,15 @@ extension Network: HTTPNetworkTransportPreflightDelegate {
 }
 ```
 
-You'll get an error telling you that protocol stubs must be implemented, and asking you if you want to fix this. Click "Fix."
+You'll get an error telling you that protocol stubs must be implemented, and asking you if you want to fix this. Click **Fix**.
 
 <img src="images/preflight_delegate_add_protocol_stubs.png" class="screenshot" alt="Do you wish to add protocol stubs with fix button"/>
 
 Two protocol methods will be added: `networkTransport(_:shouldSend:)` and `networkTransport(_:willSend:)`. 
 
-The `shouldSend` method is called to allow you to make sure a request should go out to the network all. This is useful for things like checking that your user is logged in before trying to make a request. 
+The `shouldSend` method enables you to make sure a request should go out to the network at all. This is useful for things like checking that your user is logged in before trying to make a request. 
 
-However, you're not going to be using that functionality in this application. Update the method to have it return `true` all the time.
+However, you're not going to use that functionality in this application. Update the method to have it return `true` all the time:
 
 ```swift:title=Network.swift  
 func networkTransport(_ networkTransport: HTTPNetworkTransport, 
@@ -37,7 +37,7 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 }
 ```
 
-The `willSend` request is the last thing which can manipulate the request before it goes out to the network. Since the request is passed as an `inout` variable, you can manipulate its contents directly. 
+The `willSend` request is the last thing that can manipulate the request before it goes out to the network. Because the request is passed as an `inout` variable, you can manipulate its contents directly. 
 
 Update the `willSend` method to add your token as the value for the `Authorization` header: 
 
@@ -51,7 +51,7 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 }
 ```
 
-Next, you need to make sure that Apollo knows that this delegate exists. In order to do that, you need to do a step that so far, the Apollo client has been doing for you under the hood: Instantiating the `HTTPNetworkTransport`.
+Next, you need to make sure that Apollo knows that this delegate exists. To do that, you need to do something that Apollo Client has thus far been doing for you under the hood: instantiating the `HTTPNetworkTransport`.
 
 In the primary declaration of `Network`, update your `lazy var` to create this transport and set the `Network` object as its delegate, then pass it through to the `ApolloClient`: 
 
@@ -68,17 +68,21 @@ Click on the line numbers to add a breakpoint at the line where you're instantia
 
 <img alt="adding a breakpoint" class="screenshot" src="images/preflight_delegate_breakpoint.png"/>
 
-Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. Now if you're logged in, your token will be sent to the server whenever you make a request. 
+Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. If you're logged in, your token will be sent to the server whenever you make a request. 
 
 Now it's time to book a trip! 🚀
 
-## Adding the booking mutation
+## Add the `BookTrip` mutation
 
 In GraphiQL, open the Docs tab and take a look at the `bookTrips` mutation:
 
 <img alt="The docs for book trips" class="screenshot" src="images/graphiql_book_trips.png"/>
 
-You can book multiple trips at once, then get back a `success` boolean indicating whether the booking succeeded, a `message` string to display to the user, and a list of `launches` the current user has booked. 
+You can use this mutation to book multiple trips at once and get back:
+
+* A `success` boolean indicating whether the booking succeeded
+* A `message` string to display to the user
+* A list of `launches` the current user has booked
 
 Start by adding a basic mutation in GraphiQL that passes in an array of trip identifiers, and then asks for the `success` and `message` back from the server: 
 
@@ -91,7 +95,7 @@ mutation BookTrips($tripIDs:[ID]!) {
 }
 ```
 
-In the `Query Variables` section of GraphiQL, add an array of identifiers - in this case, we'll use a single identifier to book one trip:
+In the `Query Variables` section of GraphiQL, add an array of identifiers. In this case, we'll use a single identifier to book one trip:
 
 ```json:title=(GraphiQL)
 {"tripIDs": ["25"]}
@@ -100,7 +104,7 @@ In the `Query Variables` section of GraphiQL, add an array of identifiers - in t
 In the `HTTP Headers` section of GraphiQL, add an authorization header to pass through the token you received when you logged in:
 
 ```json:title=(GraphiQL)
-{ "Authorization" :"(your token)"}
+{ "Authorization" :"YOUR_TOKEN"}
 ```
 
 Now, click the play button to run your authorized query in GraphiQL. You'll get back information regarding the trips (or in this case, trip) you've just booked. 
@@ -109,7 +113,7 @@ Now, click the play button to run your authorized query in GraphiQL. You'll get 
 
 <img alt="GraphiQL showing the result of booking a trip with an array of IDs" class="screenshot" src="images/graphiql_book_with_trip_ids.png"/>
 
-With a mutation written like this, you could book any number of trips you want at the same time! However, the booking mechanism in our application will only let you book one trip at a time.
+With a mutation written like this, you can book any number of trips you want at the same time. However, the booking mechanism in our application will only let you book one trip at a time.
 
 Luckily, there's an easy way to update the mutation so it's required to only take a single object. Update your mutation to take a single `$id`, then pass an array containing that `$id` to the `bookTrips` mutation: 
 
@@ -122,7 +126,7 @@ mutation BookTrip($id:ID!) {
 }
 ```
 
-This is helpful because the Swift code generation will now generate a method which only accepts a single ID rather than an array, but you'll still be calling the same mutation under the hood, without the backend needing to change anything. 
+This is helpful because the Swift code generation will now generate a method that only accepts a single ID instead of an array, but you'll still be calling the same mutation under the hood, without the backend needing to change anything. 
 
 In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
 
@@ -192,17 +196,17 @@ if bookingResult.success {
 }
 ```
 
-You've now got the code to book a trip - before you start running it, let's add the code to cancel a trip as well. 
+You've now got the code to book a trip. Before you run it, let's add the code to cancel a trip as well. 
 
-## Adding the Cancel mutation
+## Add the `CancelTrip` mutation
 
-The process will be similar to the `bookTrip` mutation for the `cancelTrip` mutation. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
+The process for the `CancelTrip` mutation is similar to the one for `BookTrip`. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
 
 <img alt="Documentation for the cancel trip mutation" class="screenshot" src="images/graphiql_cancel_trip_mutation.png"/>
 
-One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time - only one `ID!` is accepted as a parameter.
+One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time (only one `ID!` is accepted as a parameter).
 
-In GraphiQL, add a new mutation which will allow you to cancel your trip, and find out whether the cancellation succeeded: 
+In GraphiQL, add a new mutation that allows you to cancel a booked trip and find out whether the cancellation succeeded: 
 
 ```graphql:title=(GraphiQL)
 mutation CancelTrip($id:ID!) {
@@ -213,7 +217,7 @@ mutation CancelTrip($id:ID!) {
 }
 ```
 
-In the `Query Variables` section of GraphiQL, you can use the exact same JSON as you were using for the `BookTrip` mutation (since you'd gotten that down to taking a single identifier): 
+In the `Query Variables` section of GraphiQL, you can use the exact same JSON that you used for `BookTrip` (because it also used a single identifier): 
 
 ```json:title=(GraphiQL)
 {"id": "25"}
@@ -231,7 +235,7 @@ Click the play button to cancel the trip, and you should see a successful reques
 
 It works! Once again, go to **File > New > File... > Empty**, and name this file `CancelTrip.graphql`. Paste in the final query from GraphiQL. Build the application without running it to cause the code generation to see this new mutation and generate code for it.
 
-Next, go to `DetailViewController.swift`'s `cancelTrip(with id:)` method. Replace the `print` statement with code that makes the call to cancel the trip: 
+Next, go to the `cancelTrip(with id:)` method in `DetailViewController.swift`. Replace the `print` statement with code that makes the call to cancel the trip: 
 
 ```swift:title=DetailViewController.swift
 Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self] result in
@@ -268,24 +272,23 @@ if cancelResult.success {
 }
 ```
 
-Now, build and run the application. Select any launch, and try to book it. You'll get a success message, but you'll notice that the UI doesn't update. 
+Build and run the application. Select any launch and try to book it. You'll get a success message, but you'll notice that the UI doesn't update. 
 
 Why is that? Because the trip you've got stored locally still has the old value for `isBooked`. 
 
-There are a number of ways to change this, a couple of which you'll learn in the next section. For now we'll focus on the one which requires the fewest changes to your code: Re-fetching the booking info from the network.
+There are a number of ways to change this, a couple of which you'll learn in the next section. For now we'll focus on the one that requires the fewest changes to your code: re-fetching the booking info from the network.
 
-## Forcing a fetch from the network
+## Force a fetch from the network
 
-The `fetch` method on `ApolloClient` has a number of default parameters, so that if you're using the default configuration, the only value you need to provide yourself is the `Query`. 
+The `fetch` method of `ApolloClient` provides defaults for most of its parameters, so if you're using the default configuration, the only value you need to provide yourself is the `Query`. 
 
-However, an important parameter to be aware of is the `cachePolicy`. By default, this has the value of `returnCacheDataElseFetch`, which does essentially what it says on the label: It looks in the current cache (by default an in-memory cache) for data, and fetches it from the network if it's not present. 
+However, an important parameter to be aware of is the `cachePolicy`. By default, this has the value of `returnCacheDataElseFetch`, which does essentially what it says on the label: it looks in the current cache (by default an in-memory cache) for data, and fetches it from the network if it's not present. 
 
-If the data *is* present, the default behavior is to return the local copy to prevent an unnecessary network fetch. However, sometimes, particularly after a mutation, this is not the desired behavior. 
+If the data *is* present, the default behavior is to return the local copy to prevent an unnecessary network fetch. However, this is sometimes not the desired behavior (especially after executing a mutation). 
 
-There are [several different cache policies available to you](../caching/#specifying-a-cache-policy), but the easiest way to absolutely force a refresh from the network which still updates the cache is to use `fetchIgnoringCacheData`, which bypasses the cache when going to the network, but stores the results of the fetch in the cache for future use. 
+There are [several different cache policies available to you](../caching/#specifying-a-cache-policy), but the easiest way to absolutely force a refresh from the network that still updates the cache is to use `fetchIgnoringCacheData`. This policy bypasses the cache when going to the network, but it also stores the results of the fetch in the cache for future use. 
 
-Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload. 
-If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheData`:
+Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload. If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheData`:
 
 ```swift:title=DetailViewController.swift
 private func loadLaunchDetails(forceReload: Bool = false) {
@@ -315,12 +318,6 @@ Next, add the following line to **both** the `bookingResult.success` and `cancel
 self.loadLaunchDetails(forceReload: true)
 ``` 
 
-Now, run the application. When you book or cancel a trip, the application will fetch the updated state and update the UI with the correct state. When you go out and back in, the cache will be updated with the most recent state, and the most recent state will display. 
+Run the application. When you book or cancel a trip, the application will fetch the updated state and update the UI with the correct state. When you go out and back in, the cache will be updated with the most recent state, and the most recent state will display. 
 
-This works well - but it could be more efficient. Stick around for the next section to find out how you might be able to avoid that second network fetch altogether!
-
-## Summary
-
-In this section you learned how to add adjust a request, including adding an authentication header, before the request hits the network.
-
-In the next section, you'll learn more about how to get details in a reusable fashion and how to work with the cache directly in [Fragments and Cache Manipulation](./tutorial-fragments-and-cache).
+This works well, but it could be more efficient. In the [next section](./tutorial-fragments-and-cache/), you'll learn more about how to get details in a reusable fashion and how to work with the cache directly.
