@@ -25,7 +25,7 @@ public class WebSocketTransport {
   public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
 
-  let reconnect: Atomic<Bool> = Atomic(false)
+  let reconnect: Atomic<Bool>
   var websocket: ApolloWebSocketClient
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
@@ -82,7 +82,7 @@ public class WebSocketTransport {
               requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
-    self.reconnect.value = reconnect
+    self.reconnect = Atomic(reconnect)
     self.reconnectionInterval = reconnectionInterval
     self.allowSendingDuplicates = allowSendingDuplicates
     self.requestCreator = requestCreator
