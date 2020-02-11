@@ -20,11 +20,13 @@ This tutorial takes you through building an app to "book a seat" on any of the r
 * Code generation
 * Queries and mutations
 * Error handling
-* Query watching
-* Subscriptions
-* File uploads
+* Query watching [🚧 UNDER CONSTRUCTION 🚧]
+* File uploads [🚧 UNDER CONSTRUCTION 🚧]
+* Subscriptions [🚧 UNDER CONSTRUCTION 🚧]
 
-A pre-built GraphQL server is provided for your app to execute operations against.
+A pre-built GraphQL server is provided for your app to execute operations against. 
+
+A repository with the resulting app will be kept up to date with  new chapters to the tutorial at [https://github.com/apollographql/iOSTutorial](https://github.com/apollographql/iOSTutorial).
 
 ## Ready to start?
 
