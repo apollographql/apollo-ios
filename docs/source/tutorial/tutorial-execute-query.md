@@ -12,7 +12,7 @@ In the right panel, you see both the query itself and information about what the
 
 In the left-hand text area, add the following lines to start creating a query that will fetch a list of all available launches: 
 
-```graphql
+```graphql:title=(GraphiQL)
 query LaunchList {
 }
 ```
@@ -27,7 +27,7 @@ GraphiQL is a great tool for building and verifying queries so you don't have to
 
 As the schema indicates, the `launches` query returns a `LaunchConnection` object. This object includes a list of launches, along with fields related to pagination (`cursor` and `hasMore`). The query you write indicates exactly which fields of this `LaunchConnection` object you want to be returned, like so:
 
-```graphql
+```graphql:title=(GraphiQL)
 query LaunchList {
   launches {
     cursor
@@ -44,7 +44,7 @@ This query executes successfully, but it doesn't include any information about t
 
 Update your query to fetch the `id` and `site` properties for each launch, like so:
 
-```graphql
+```graphql:title=(GraphiQL)
 query LaunchList {
   launches {
     cursor
@@ -77,7 +77,7 @@ You're now ready to generate code from the combination of your saved query and s
 
 ## Running code generation
 
-1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `apollo:schema`). The schema isn't changing between builds, which means you don't need to refetch it.
+1. Return to your project's **Apollo CLI** Run Script build phase. Comment out the line that you added to the bottom (that includes `schema:download`). The schema isn't changing between builds, which means you don't need to refetch it.
 
 2. _Uncomment_ the line you previously commented out (that includes `codegen:generate`).
 
@@ -105,7 +105,7 @@ To use the generated operations in `API.swift`, you first create an instance of 
 
 3. To make sure your `ApolloClient` instance is communicating correctly with the server, add the following code to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method, above `return true`:
 
-    ```swift
+    ```swift:title=AppDelegate.swift
     Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
       switch result {
       case .success(let graphQLResult):
@@ -114,10 +114,10 @@ To use the generated operations in `API.swift`, you first create an instance of 
         print("Failure! Error: \(error)")
       }
     }
-```
+    ```
 
 Build and run your application. CodeSandbox might take a few seconds to spin up your GraphQL server if nobody's been using it recently, but once it's up, you should see a response that resembles the following: 
 
-![success log output](images/success_log_barf.png)
+<img alt="Success log output" class="screenshot" src="images/success_log_barf.png"/>
 
 You're now successfully fetching data from the network using generated code! Now it's time to move on to [displaying query results in your UI](./tutorial-query-ui).

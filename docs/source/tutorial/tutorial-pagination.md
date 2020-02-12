@@ -8,27 +8,27 @@ When using a cursor-based pagination system, it's important to remember that the
 
 You're going to use a second section in the TableView to allow your user to load more launches as long as they exist. But how will you know if they exist? First, you need to hang on to the most recently received `LaunchConnection` object.
 
-Add a variable to hold on to this object at the top of the file near your `launches` variable:
+Add a variable to hold on to this object at the top of the `MasterViewController.swift` file near your `launches` variable:
 
-```swift
+```swift:title=MasterViewController.swift
 private var lastConnection: LaunchListQuery.Data.Launch?
 ```
 
 Next, you're going to take advantage of a type from the Apollo library. Add the following to the top of the file:
 
-```swift
+```swift:title=MasterViewController.swift
 import Apollo
 ```
 
 Then, below `lastConnection`, add a variable to hang on to the most recent request: 
 
-```swift
+```swift:title=MasterViewController.swift
 private var activeRequest: Cancellable?
 ```
 
 Next, add a second case to your `ListSection` enum:
 
-```swift
+```swift:title=MasterViewController.swift
 enum ListSection: Int, CaseIterable {
   case launches
   case loading
@@ -39,7 +39,7 @@ This allows loading state to be displayed and selected in a separate section, ke
 
 Next, in `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case, which returns `0` if there are no more launches to load: 
 
-```swift
+```swift:title=MasterViewController.swift
 case .loading:
   if self.lastConnection?.hasMore == false {
     return 0
@@ -52,7 +52,7 @@ Remember here that if `lastConnection` is nil, there *are* more launches to load
 
 Next, add handling for the `.loading` case to `tableView(_, cellForRowAt:)`, showing a different message based on whether there's an active request or not:
 
-```swift
+```swift:title=MasterViewController.swift
 case .loading:
   if self.activeRequest == nil {
     cell.textLabel?.text = "Tap to load more"
@@ -67,7 +67,7 @@ To pass a variable into a GraphQL query, you need to use syntax that defines tha
 
 What does this look like in practice? Go to `LaunchList.graphql` and update just the first two lines to take and use the cursor as a parameter: 
 
-```graphql
+```graphql:title=LaunchList.graphql
 query LaunchList($cursor:String) {
   launches(after:$cursor) {
 ```
@@ -76,7 +76,7 @@ Build the application so the code generation picks up on this new parameter. You
 
 Next, go back to `MasterViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
 
-```swift
+```swift:title=MasterViewController.swift
 private func loadMoreLaunches(from cursor: String?) {
   self.activeRequest = Network.shared.apollo.fetch(query: LaunchListQuery(cursor: cursor)) { [weak self] result in
     guard let self = self else {
@@ -112,7 +112,7 @@ private func loadMoreLaunches(from cursor: String?) {
 
 Then, add a new method to figure out if new launches need to be loaded:
 
-```swift
+```swift:title=MasterViewController.swift
 private func loadMoreLaunchesIfTheyExist() {
   guard let connection = self.lastConnection else {
     // We don't have stored launch details, load from scratch
@@ -131,7 +131,7 @@ private func loadMoreLaunchesIfTheyExist() {
 
 Update `viewDidLoad` to use this new method rather than calling `loadMoreLaunches(from:)` directly:
 
-```swift
+```swift:title=MasterViewController.swift
 override func viewDidLoad() {
   super.viewDidLoad()
   self.loadMoreLaunchesIfTheyExist()
@@ -145,7 +145,7 @@ Luckily, you can override the `shouldPerformSegue(withIdentifier:sender:)` metho
 Override this method, and add code that performs the segue for anything in the `.launches` section and _doesn't_ perform it (instead loading more launches if needed) for the `.loading` section:
 
 
-```swift
+```swift:title=MasterViewController.swift
 override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
   guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
     return false
@@ -180,7 +180,7 @@ However, your code should theoretically never reach this point, so it's a good p
 
 Add the following to the `switch` statement in `prepare(for segue:)`
 
-```swift
+```swift:title=MasterViewController.swift
 case .loading:
   assertionFailure("Shouldn't have gotten here!")
 ```
@@ -201,4 +201,4 @@ When you tap that cell, the rows will load and then redisplay. If you tap it sev
 
 Congratulations, you've loaded all of the possible launches! But when you tap one, you still get the same boring detail page. 
 
-Next, you'll make the detail page a lot more interesting by taking the ID returned by one query and passing it to another.
+Next, you'll [make the detail page a lot more interesting](./tutorial-detail-view/) by taking the ID returned by one query and passing it to another.

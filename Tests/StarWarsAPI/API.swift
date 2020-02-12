@@ -5558,7 +5558,7 @@ public final class StarshipQuery: GraphQLQuery {
 
 public final class StarshipCoordinatesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
-  public let operationDefinition =
+  public let operationDefinition: String =
     """
     query StarshipCoordinates($coordinates: [[Float!]!]) {
       starshipCoordinates(coordinates: $coordinates) {
@@ -5570,7 +5570,7 @@ public final class StarshipCoordinatesQuery: GraphQLQuery {
     }
     """
 
-  public let operationName = "StarshipCoordinates"
+  public let operationName: String = "StarshipCoordinates"
 
   public let operationIdentifier: String? = "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406"
 
@@ -5585,7 +5585,7 @@ public final class StarshipCoordinatesQuery: GraphQLQuery {
   }
 
   public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes = ["Query"]
+    public static let possibleTypes: [String] = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
       GraphQLField("starshipCoordinates", arguments: ["coordinates": GraphQLVariable("coordinates")], type: .object(StarshipCoordinate.selections)),
@@ -5611,7 +5611,7 @@ public final class StarshipCoordinatesQuery: GraphQLQuery {
     }
 
     public struct StarshipCoordinate: GraphQLSelectionSet {
-      public static let possibleTypes = ["Starship"]
+      public static let possibleTypes: [String] = ["Starship"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),

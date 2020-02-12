@@ -17,7 +17,7 @@ Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'l
 
 Start by typing in the query name and passing in an ID. Then, try calling the singular `launch` method, which takes the ID as a property, and requesting the `id` back as the query result: 
 
-```graphql
+```graphql:title=(GraphiQL)
 query LaunchDetails($id:ID) {
   launch(id:$id) {
     id  
@@ -27,20 +27,20 @@ query LaunchDetails($id:ID) {
 
 You'll see a warning in GraphiQL: 
 
-![variable dollar sign id of type ID was used in position expecting type ID exclamation point](images/graphiql_nullable_conflict.png)
+<img alt="Variable dollar sign id of type ID was used in position expecting type ID exclamation point" class="screenshot" src="images/graphiql_nullable_conflict.png">
 
 This bit can be confusing for Swift developers, because GraphQL's assumptions about nullability are different from Swift's: 
 
 * In Swift, if you don't annotate a property's type with either a question mark or an exclamation point, that property is non-nullable.
 
-* In GraphQL, if you don't annotate a field's type with an exclamation point, that field is considered *nullable*. This is becasue GraphQL fields are **nullable by default**.
+* In GraphQL, if you don't annotate a field's type with an exclamation point, that field is considered *nullable*. This is because GraphQL fields are **nullable by default**.
 
 Keep this difference in mind when you switch between editing Swift and GraphQL files.
 
 Now, switch back to GraphiQL. Start by adding the properties you're already requesting in the `LaunchList` query, but use `LARGE` for the mission patch size since the patch will be displayed much larger:
 
 
-```graphql
+```graphql:title=(GraphiQL)
 query LaunchDetails($id:ID!) {
   launch(id: $id) {
     id
@@ -55,7 +55,7 @@ query LaunchDetails($id:ID!) {
 
 Next, look at the schema to see what other fields are available. For this example, we'll get the available fields on the `Launch`'s `rocket` field, and also whether the launch has been booked or not. Add the following below the closing brace for `mission`: 
  
-```graphQL
+```graphQL:title=(GraphiQL)
 rocket {
   name
   type
@@ -65,7 +65,7 @@ isBooked
 
 At the bottom of GraphiQL's left panel, you'll see two tabs named "Query Variables" and "HTTP Headers". In "Query Variables", add the following:
 
-```
+```json:title=(GraphiQL)
 { "id": "25" }
 ```
 
@@ -78,13 +78,13 @@ Now that you've confirmed it worked, copy the query and paste it into your `Laun
 
 Now that you know what you're planning to ask for, it's time to set up the UI for the detail screen. Go to `DetailViewController.swift`. First, add a place to hang on to the result of the query. Add the following property to the top of the class: 
 
-```swift
+```swift:title=DetailViewController.swift
 private var launch: LaunchDetailsQuery.Data.Launch?
 ```
 
 Next, delete the `self.detailDescriptionLabel` outlet and replace it with the following list of outlets:
 
-```swift
+```swift:title=DetailViewController.swift
 @IBOutlet private var missionPatchImageView: UIImageView!
 @IBOutlet private var missionNameLabel: UILabel!
 @IBOutlet private var rocketNameLabel: UILabel!
@@ -107,7 +107,7 @@ In the end, your detail view controller should look like this in the storyboard 
 
 Now it's time to hook everything up! Head back to `DetailViewController.swift` and update the `viewDidLoad` function to clear out anything from the storyboard before attempting to configure the view:
 
-```swift
+```swift:title=DetailViewController.swift
 override func viewDidLoad() {
   super.viewDidLoad()
 
@@ -120,7 +120,7 @@ override func viewDidLoad() {
 
 Delete the existing contents of `configureView()`. In their place, start by adding a check that we have something to display, and a place to display it:
 
-```swift
+```swift:title=DetailViewController.swift
 guard
   self.missionNameLabel != nil,
   let launch = self.launch else {
@@ -132,7 +132,7 @@ Next, it's time to display all the informaton you've gotten from your GraphQL se
 
 Add the following code below the `guard` statement you just added:
    
-```swift 
+```swift:title=DetailViewController.swift
 self.missionNameLabel.text = launch.mission?.name
 self.title = launch.mission?.name
 
@@ -169,7 +169,7 @@ if launch.isBooked {
 
 Then, add a method to load the details using the `LaunchDetailsQuery` you created earlier:
 
-```swift
+```swift:title=DetailViewController.swift
 private func loadLaunchDetails() {
   guard
     let launchID = self.launchID,
@@ -201,7 +201,7 @@ private func loadLaunchDetails() {
 
 Finally, update the `didSet` for `launchID` to load the launch details if we don't already have them: 
 
-```swift
+```swift:title=DetailViewController.swift
 var launchID: GraphQLID? {
   didSet {
     self.loadLaunchDetails()
@@ -211,7 +211,7 @@ var launchID: GraphQLID? {
 
 and add a `didSet` on the `launch` property to load the UI once the launch is actually loaded. 
 
-```swift
+```swift:title=DetailViewController.swift
 private var launch: LaunchDetailsQuery.Data.Launch? {
   didSet {
     self.configureView()
