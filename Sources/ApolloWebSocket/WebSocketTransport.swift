@@ -302,8 +302,14 @@ extension WebSocketTransport: WebSocketDelegate {
       // re-send the subscriptions whenever we are re-connected
       // for the first connect, any subscriptions are already in queue
       for (_,msg) in self.subscriptions {
-        let id = allowSendingDuplicates ? nil : queue.first { $0.value == msg }?.key
-        write(msg, id: id)
+        if allowSendingDuplicates {
+          write(msg)
+        } else {
+          // search duplicate message from the queue
+          // do not send multiple times
+          let id = queue.first { $0.value == msg }?.key
+          write(msg, id: id)
+        }
       }
     } else {
       self.delegate?.webSocketTransportDidConnect(self)
