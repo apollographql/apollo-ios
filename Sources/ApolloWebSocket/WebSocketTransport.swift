@@ -68,7 +68,9 @@ public class WebSocketTransport {
   /// - Parameter clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   /// - Parameter clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   /// - Parameter sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
+  /// - Paremeter reconnect: Wether to auto reconnect when websocket looses connection. Defaults to true.
   /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
+  /// - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
   /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   /// - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
   public init(request: URLRequest,
@@ -189,8 +191,7 @@ public class WebSocketTransport {
     print("WebSocketTransport::unprocessed event \(data)")
   }
 
-  public func initServer(reconnect: Bool = true) {
-    self.reconnect.value = reconnect
+  public func initServer() {
     self.acked = false
 
     if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
@@ -296,7 +297,7 @@ extension WebSocketTransport: WebSocketDelegate {
 
   public func websocketDidConnect(socket: WebSocketClient) {
     self.error.value = nil
-    initServer(reconnect: reconnect.value)
+    initServer()
     if reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
       // re-send the subscriptions whenever we are re-connected
