@@ -34,6 +34,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   func fetch(cachePolicy: CachePolicy) {
+    // Cancel anything already in flight before starting a new fetch
+    fetching?.cancel()
     fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: .main) { [weak self] result in
       guard let `self` = self else { return }
 

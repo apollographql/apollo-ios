@@ -385,9 +385,6 @@ class FetchQueryTests: XCTestCase {
   }
   
   func testThreadedCache() throws {
-    #if canImport(ApolloSQLite)
-      print("THIS ONLY TESTS THE IN-MEMORY CACHE")
-    #else
     let cache = InMemoryNormalizedCache()
     
     let networkTransport1 = MockNetworkTransport(body: [
@@ -479,6 +476,5 @@ class FetchQueryTests: XCTestCase {
     for watcher in watchers {
       watcher.cancel()
     }
-    #endif
   }
 }
