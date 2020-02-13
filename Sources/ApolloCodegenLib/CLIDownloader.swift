@@ -27,7 +27,7 @@ struct CLIDownloader {
   }
   
   /// The URL string for getting the current version of the CLI
-  static let downloadURLString = "https://39517-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.21.3/apollo-v2.21.3-darwin-x64.tar.gz"
+  static let downloadURLString = "https://41516-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.22.1/apollo-v2.22.1-darwin-x64.tar.gz"
   
   /// Downloads the appropriate Apollo CLI in a zip file.
   ///
