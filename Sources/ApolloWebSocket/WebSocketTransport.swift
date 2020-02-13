@@ -307,7 +307,6 @@ extension WebSocketTransport: WebSocketDelegate {
           write(msg)
         } else {
           // search duplicate message from the queue
-          // do not send multiple times
           let id = queue.first { $0.value == msg }?.key
           write(msg, id: id)
         }
