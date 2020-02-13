@@ -2,7 +2,9 @@
 
 ### v0.22.0
 - **BREAKING**: Updated CLI to v2.22.1, including a bunch of fixes on the Swift side: 
-    - Marked things
+    - Marked files which are generated as `@generated`
+    - Added documentation to the constructors of input structs
+    - Added additional type annotations to improve compile times.
 - **BREAKING**: Updated delegate in `HTTPNetworkTransport` to be a `weak var` and to not be passed in as a parameter to the initializer. ([#990](https://github.com/apollographql/apollo-ios/pull/990), [#1002](https://github.com/apollographql/apollo-ios/pull/1002))
 - Added a lock to `InMemoryNormalizedCache` to reduce possible race conditions. ([#552](https://github.com/apollographql/apollo-ios/pull/552))
 - Added the ability to not send duplicates on a websocket. ([#1004](https://github.com/apollographql/apollo-ios/pull/1004))
