@@ -25,7 +25,7 @@ public class WebSocketTransport {
   public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
 
-  let reconnect: Atomic<Bool> = Atomic(false)
+  let reconnect: Atomic<Bool>
   var websocket: ApolloWebSocketClient
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
@@ -44,6 +44,7 @@ public class WebSocketTransport {
 
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
+  private let allowSendingDuplicates: Bool
   fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
@@ -67,19 +68,25 @@ public class WebSocketTransport {
   /// - Parameter clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   /// - Parameter clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   /// - Parameter sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
+  /// - Paremeter reconnect: Wether to auto reconnect when websocket looses connection. Defaults to true.
   /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
+  /// - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
   /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   /// - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
   public init(request: URLRequest,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
               sendOperationIdentifiers: Bool = false,
+              reconnect: Bool = true,
               reconnectionInterval: TimeInterval = 0.5,
+              allowSendingDuplicates: Bool = true,
               connectingPayload: GraphQLMap? = [:],
               requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
+    self.reconnect = Atomic(reconnect)
     self.reconnectionInterval = reconnectionInterval
+    self.allowSendingDuplicates = allowSendingDuplicates
     self.requestCreator = requestCreator
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
@@ -176,7 +183,7 @@ public class WebSocketTransport {
     let queue = self.queue.sorted(by: { $0.0 < $1.0 })
     self.queue.removeAll()
     for (id, msg) in queue {
-      self.write(msg,id: id)
+      self.write(msg, id: id)
     }
   }
 
@@ -184,8 +191,7 @@ public class WebSocketTransport {
     print("WebSocketTransport::unprocessed event \(data)")
   }
 
-  public func initServer(reconnect: Bool = true) {
-    self.reconnect.value = reconnect
+  public func initServer() {
     self.acked = false
 
     if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
@@ -297,7 +303,13 @@ extension WebSocketTransport: WebSocketDelegate {
       // re-send the subscriptions whenever we are re-connected
       // for the first connect, any subscriptions are already in queue
       for (_,msg) in self.subscriptions {
-        write(msg)
+        if allowSendingDuplicates {
+          write(msg)
+        } else {
+          // search duplicate message from the queue
+          let id = queue.first { $0.value == msg }?.key
+          write(msg, id: id)
+        }
       }
     } else {
       self.delegate?.webSocketTransportDidConnect(self)
