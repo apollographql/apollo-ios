@@ -68,7 +68,7 @@ public class WebSocketTransport {
   /// - Parameter clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   /// - Parameter clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   /// - Parameter sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
-  /// - Paremeter reconnect: Wether to auto reconnect when websocket looses connection. Defaults to true.
+  /// - Parameter reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
   /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
   /// - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
   /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
