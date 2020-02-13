@@ -13,6 +13,8 @@ let package = Package(
         .target(
             name: "Codegen",
             dependencies: ["ApolloCodegenLib", "SwiftToolsSupport-auto"]),
+        .target(name: "SchemaDownload",
+                dependencies: ["ApolloCodegenLib"]),
         .testTarget(
             name: "CodegenTests",
             dependencies: ["Codegen"]),
