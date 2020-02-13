@@ -3,6 +3,7 @@ import Dispatch
 func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue = .global()) -> Promise<[Value]> {
   return Promise { (fulfill, reject) in
     let group = DispatchGroup()
+    var rejected = false
 
     for promise in promises {
       group.enter()
@@ -11,11 +12,15 @@ func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue 
         group.leave()
       }.catch { error in
         reject(error)
+        rejected = true
+        group.leave()
       }
     }
 
     group.notify(queue: queue) {
-      fulfill(promises.map { $0.result!.value! })
+      if !rejected {
+        fulfill(promises.map { $0.result!.value! })
+      }
     }
   }
 }
