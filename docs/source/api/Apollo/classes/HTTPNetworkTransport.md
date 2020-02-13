@@ -9,6 +9,14 @@ public class HTTPNetworkTransport
 > A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 
 ## Properties
+### `delegate`
+
+```swift
+public weak var delegate: HTTPNetworkTransportDelegate?
+```
+
+> A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`.
+
 ### `clientName`
 
 ```swift
@@ -22,7 +30,7 @@ public lazy var clientVersion = HTTPNetworkTransport.defaultClientVersion
 ```
 
 ## Methods
-### `init(url:session:sendOperationIdentifiers:useGETForQueries:enableAutoPersistedQueries:useGETForPersistedQueryRetry:delegate:requestCreator:)`
+### `init(url:session:sendOperationIdentifiers:useGETForQueries:enableAutoPersistedQueries:useGETForPersistedQueryRetry:requestCreator:)`
 
 ```swift
 public init(url: URL,
@@ -31,7 +39,6 @@ public init(url: URL,
             useGETForQueries: Bool = false,
             enableAutoPersistedQueries: Bool = false,
             useGETForPersistedQueryRetry: Bool = false,
-            delegate: HTTPNetworkTransportDelegate? = nil,
             requestCreator: RequestCreator = ApolloRequestCreator())
 ```
 
@@ -44,7 +51,6 @@ public init(url: URL,
 >   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
 >   - enableAutoPersistedQueries: Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false.
 >   - useGETForPersistedQueryRetry: Whether to retry persistedQuery request with HttpGetMethod. Defaults to false.
->   - delegate: [Optional] A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`. Defaults to nil.
 
 #### Parameters
 
@@ -56,4 +62,3 @@ public init(url: URL,
 | useGETForQueries | If query operation should be sent using GET instead of POST. Defaults to false. |
 | enableAutoPersistedQueries | Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false. |
 | useGETForPersistedQueryRetry | Whether to retry persistedQuery request with HttpGetMethod. Defaults to false. |
-| delegate | [Optional] A delegate which can conform to any or all of `HTTPNetworkTransportPreflightDelegate`, `HTTPNetworkTransportTaskCompletedDelegate`, and `HTTPNetworkTransportRetryDelegate`. Defaults to nil. |
