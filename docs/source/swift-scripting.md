@@ -32,7 +32,7 @@ To begin, you need to set up a Swift Package Manager executable.
     .package(url: "https://github.com/apollographql/apollo-ios.git", 
              from: "0.21.0")
     ```
-**NOTE**: The version should be identical to the version you're using in your main project. 
+  **NOTE**: The version should be identical to the version you're using in your main project. 
 
 5. For the main exectuable target in the `targets` section, add `ApolloCodegenLib` as a dependency: 
 
@@ -66,9 +66,21 @@ To set this up to allow you to access this in a debuggable fashion, you need to 
     **NOTE**: This needs to be specific to each machine, so you should make sure to uncheck the `Shared` checkbox so that the scheme is not shared with other people. 
     
 3. In `main.swift`, add some code to access the `SRCROOT` variable: 
-```swift:title=main.swift
+ 
+    ```swift:title=main.swift
+    guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
+      exit(1)
+    }
+    let sourceRootURL = URL(fileURLWithPath: sourceRootPath)
+    ```
+    
+4. Get access to the folder you plan to download the CLI to: 
 
-
+    ```swift:title=main.swift
+    let cliFolderURL = sourceRootURL
+        .appendingPathComponent("Codegen")
+        .appendingPathComponent("ApolloCLI")
+    ```    
 
 ## Downloading A Schema
 
@@ -77,6 +89,39 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 ## Generating Code For A Target
 
 > **PREREQUISITES**: In order to proceed with this step, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation. If you don't have **both** of these, code generation will fail.
+
+1. Select your target folder.
+
+    ```swift:title=main.swift
+    let targetURL = sourceRootURL
+                    .appendingPathComponent("Sources")
+                    .appendingPathComponent("MyTarget")
+    
+    // Make sure the folder actually exists            
+    try FileManager
+          .default
+          .apollo_createFolderIfNeeded(at: targetURL)
+    ```
+
+2. Set up your options object. In this case, we'll use the constructor that [sets a bunch of defaults for you automatically](../docs/api/ApolloCodegenLib/ApolloCodegenOptions#methods): 
+
+    ```swift:title=main.swift
+    let options = ApolloCodegenOptions(targetRootURL: targetRootURL)
+    ```
+
+3. Now actually run the code generation:
+    
+    ```swift:title=main.swift
+    do {
+        try ApolloCodegen.run(from: targetURL,
+                              with: cliFolderURL,
+                              options: options)
+    } catch {
+        // This gives a much cleaner error message than
+        // just letting the method throw. 
+        exit(1)
+    }
+    ```
 
 ## Running Your Executable From Your Main Project
 
