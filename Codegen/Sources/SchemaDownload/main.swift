@@ -1,21 +1,15 @@
 import Foundation
 import ApolloCodegenLib
 
-enum MySchemaError: Error {
-  case sourceRootNotProvided
-  case sourceRootNotADirectory
-  case targetDoesntExist(atURL: Foundation.URL)
-}
+// Grab the parent folder of this file on the filesystem
+let parentFolderOfScriptFile = FileFinder.findParentFolder()
 
-guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
-  throw MySchemaError.sourceRootNotProvided
-}
+// Use that to calculate the source root
+let sourceRootURL = parentFolderOfScriptFile
+    .deletingLastPathComponent() // Sources
+    .deletingLastPathComponent() // Codegen
+    .deletingLastPathComponent() // apollo-ios
 
-guard FileManager.default.apollo_folderExists(at: sourceRootPath) else {
-  throw MySchemaError.sourceRootNotADirectory
-}
-
-let sourceRootURL = URL(fileURLWithPath: sourceRootPath)
 let cliFolderURL = sourceRootURL
     .appendingPathComponent("Codegen")
     .appendingPathComponent("ApolloCLI")

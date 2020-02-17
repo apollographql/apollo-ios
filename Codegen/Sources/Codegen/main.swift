@@ -2,11 +2,10 @@ import Foundation
 import ApolloCodegenLib
 import TSCUtility
 
-enum MyCodegenError: Error {
-  case targetDoesntExist(atURL: Foundation.URL)
-}
-
+// Grab the parent folder of this file on the filesystem
 let parentFolderOfScriptFile = FileFinder.findParentFolder()
+
+// Use that to calculate the source root
 let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // Sources
     .deletingLastPathComponent() // Codegen

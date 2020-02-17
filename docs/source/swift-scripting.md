@@ -57,33 +57,25 @@ Because Swift Package manager doesn't have an environment, there's no good way t
 
 Since almost everything the code generation can do requires access to the file tree where your code lives, there needs to be an alternate method to pass this through. 
 
-To set this up to allow you to access this in a debuggable fashion, you need to set up an environment variable in your Scheme. 
+Fortunately, there's a class for that: `FileFinder` will automatically use the calling `#file` as a way to access the swift file you're currently editing. 
 
-1. In Xcode, select the scheme drop-down and chose `Edit Scheme...`
+For example, let's take a `main.swift` in a folder in `apollo-ios/Codegen/Sources`, assuming `apollo-ios` is the source root. Here's how you'd grab the parent folder of the script, then use that to get back to your source root: 
 
-  ![scheme drop-down](screenshot/edit_scheme_codegen.png)    
-2. Add an environment variable with the name `SRCROOT` and a value of the full path to the `SRCROOT` for your Xcode project. 
+```swift:title=main.swift
+let parentFolderOfScriptFile = FileFinder.findParentFolder()
+let sourceRootURL = parentFolderOfScriptFile
+  .deletingLastPathComponent() // Sources
+  .deletingLastPathComponent() // Codegen
+  .deletingLastPathComponent() // apollo-ios
+```
 
-  ![adding the env var](screenshot/scheme_env_var_codegen.png)
+Then, you can use this to get the URL of the folder you plan to download the CLI to: 
 
-   >**NOTE**: This needs to be specific to each machine, so you should make sure to uncheck the `Shared` checkbox so that the scheme is not shared with other people. 
-   
-3. In `main.swift`, add some code to access the `SRCROOT` variable: 
- 
-    ```swift:title=main.swift
-    guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
-      exit(1)
-    }
-    let sourceRootURL = URL(fileURLWithPath: sourceRootPath)
-    ```
-    
-4. Get access to the folder you plan to download the CLI to: 
-
-    ```swift:title=main.swift
-    let cliFolderURL = sourceRootURL
-        .appendingPathComponent("Codegen")
-        .appendingPathComponent("ApolloCLI")
-    ```    
+```swift:title=main.swift
+let cliFolderURL = sourceRootURL
+  .appendingPathComponent("Codegen")
+  .appendingPathComponent("ApolloCLI")
+```    
 
 Now, with access to both the `sourceRootURL` and the `cliFolderURL`, it's time to use your script to do neat stuff for you!
 
