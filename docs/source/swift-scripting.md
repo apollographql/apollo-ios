@@ -11,7 +11,7 @@ This document will guide you through setting up your executable and then using i
 - Download a schema
 - Generate Swift code for your model object based on your schema + operations
 
-## Setting up a Swift Package Manager Executable
+## Setting up a Swift Package Manager executable
 
 To begin, you need to set up a Swift Package Manager executable. 
 
@@ -51,7 +51,7 @@ To begin, you need to set up a Swift Package Manager executable.
 
 Now it's time to use the executable to do some stuff for you!
 
-## Accessing Your Project's File Tree
+## Accessing your project's file tree
 
 Because Swift Package manager doesn't have an environment, there's no good way to access the `$SRCROOT` variable if you're running it directly from the command line or using a scheme in Xcode. 
 
@@ -164,7 +164,7 @@ Thus, a simple equation can be used to describe generating code:
 
 If you're missing either of the first two parts, the code can't be generated. If there's operations but no schema, the operations can't be validated, so we can't know if code should be generated. If there's a schema but no operations, then there's nothing to validate or generate code for. 
 
-Since you've already [downloaded a schema](#download-a-schema), you can now proceed to creating an operation. The easiest and most common type of operation to create is a Query. 
+Since you've already [downloaded a schema](#downloading-a-schema), you can now proceed to creating an operation. The easiest and most common type of operation to create is a Query. 
 
 Identify where your server's [GraphiQL](https://github.com/graphql/graphiql) instance lives. GraphiQL is a simple web interface for interacting with and testing out a GraphQL server. This can generally be accessed by going to the same URL as your GraphQL endpoint in a web browser, but you may need to talk to your backend team if they've got it in a different place.
 
