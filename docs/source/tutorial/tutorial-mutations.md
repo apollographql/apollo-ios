@@ -57,10 +57,9 @@ In the primary declaration of `Network`, update your `lazy var` to create this t
 
 ```swift:title=Network.swift
 private(set) lazy var apollo: ApolloClient = {
-  let httpNetworkTransport = HTTPNetworkTransport(url: URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!, 
-                                                  delegate: self)
-        
-  return ApolloClient(networkTransport: httpNetworkTransport)
+ let httpNetworkTransport = HTTPNetworkTransport(url: URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!)
+ httpNetworkTransport.delegate = self
+ return ApolloClient(networkTransport: httpNetworkTransport)
 }()
 ```
 
