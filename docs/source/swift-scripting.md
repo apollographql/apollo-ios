@@ -252,3 +252,7 @@ Now, you're able to generate code from a debuggable Swift Package Manager execut
 4. Build your target. Since `swift run` is being called from within your target, all of the pieces of the environment, including `$SRCROOT`, will automatically be passed to the environment of the executable, and you don't have to worry about passing anything manually. 
 
 Now, every time you build your project, this script will get called. Since Swift knows not to recompile everything unless something's changed, it should not have a significant impact on your build time. 
+
+## Swift-specific troubleshooting
+
+- If at any point you start seeing a bunch of errors around `SecTaskLoadEntitlements` resulting in an immediate exit of the script rather than showing the permission prompt, validate that all the folders you're looking for exist and are at the *exact* path you think they are. You may have a typo in one of your paths. 
