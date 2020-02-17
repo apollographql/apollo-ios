@@ -103,7 +103,7 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
           .apollo_createFolderIfNeeded(at: targetURL)
     ```
 
-2. Set up your options object. In this case, we'll use the constructor that [sets a bunch of defaults for you automatically](../docs/api/ApolloCodegenLib/ApolloCodegenOptions#methods): 
+2. Set up your options object. In this case, we'll use the constructor that [sets a bunch of defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
 
     ```swift:title=main.swift
     let options = ApolloCodegenOptions(targetRootURL: targetRootURL)
