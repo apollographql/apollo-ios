@@ -45,6 +45,7 @@
 		9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */; };
 		9BE071AF2368D34D00FA5952 /* Matchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE071AE2368D34D00FA5952 /* Matchable.swift */; };
 		9BE071B12368D3F500FA5952 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE071B02368D3F500FA5952 /* Dictionary+Helpers.swift */; };
+		9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE74D3C23FB4A8E006D354F /* FileFinder.swift */; };
 		9BEDC79E22E5D2CF00549BF6 /* RequestCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEDC79D22E5D2CF00549BF6 /* RequestCreator.swift */; };
 		9BF1A94F22CA5784005292C2 /* HTTPTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */; };
 		9BF1A95122CA6E71005292C2 /* GraphQLGETTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */; };
@@ -345,6 +346,7 @@
 		9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Helpers.swift"; sourceTree = "<group>"; };
 		9BE071AE2368D34D00FA5952 /* Matchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchable.swift; sourceTree = "<group>"; };
 		9BE071B02368D3F500FA5952 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		9BE74D3C23FB4A8E006D354F /* FileFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileFinder.swift; sourceTree = "<group>"; };
 		9BEDC79D22E5D2CF00549BF6 /* RequestCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreator.swift; sourceTree = "<group>"; };
 		9BF1A94C22CA54F9005292C2 /* HTTPTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTransportTests.swift; sourceTree = "<group>"; };
 		9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLGETTransformer.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				9BAEEBF42346E90700808306 /* CLIExtractor.swift */,
 				9B518C85235F8125004C426D /* CLIDownloader.swift */,
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
+				9BE74D3C23FB4A8E006D354F /* FileFinder.swift */,
 				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
 				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
 				9B7B6F51233C26E400F32205 /* Info.plist */,
@@ -1382,6 +1385,7 @@
 				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
 				9BAEEBF123467E0A00808306 /* ApolloCLI.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
+				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
