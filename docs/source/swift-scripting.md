@@ -121,8 +121,20 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
     ```
     
     With these defaults, this will download a JSON file called `schema.json`. 
+    
+4. Add the code that will actually download the schema: 
 
-4. Build and run using the Xcode project. Note that if you're on Catalina you may get a warning asking if your executable can access files in a particular folder like this:
+    ```swift:title=main.swift
+    do {
+      try ApolloSchemaDownloader.run(with: cliFolderURL,
+                                     options: options)
+    } catch {
+      exit(1)
+    }
+    ```
+    Note that `catch`'ing and manually calling `exit` with a non-zero code leaves you with a much more legible error message than simply letting the method throw. 
+
+5. Build and run using the Xcode project. Note that if you're on Catalina you may get a warning asking if your executable can access files in a particular folder like this:
 
    ![permission prompt](screenshot/would_like_to_access.png)
    
@@ -178,26 +190,31 @@ You can then create a new empty file in your Xcode project, give it the same nam
 
 >**BEFORE YOU START**: Remember, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation in your file tree. If you don't have **both** of these, code generation will fail. Read the section above if you don't have an operation set up!
 
-1. Select your target folder.
+1. Set up the URL for the folder where the root of your target that you wish to generate code for is:
 
     ```swift:title=main.swift
     let targetURL = sourceRootURL
                     .appendingPathComponent("Sources")
                     .appendingPathComponent("MyTarget")
-    
-    // Make sure the folder actually exists            
+    ```
+
+    Again, you may want to make sure the folder exists before proceeding:
+
+    ```swift:title=main.swift 
     try FileManager
           .default
           .apollo_createFolderIfNeeded(at: targetURL)
     ```
 
-2. Set up your options object. In this case, we'll use the constructor that [sets a bunch of defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
+2. Set up your `ApolloCodegenOptions` object. In this case, we'll use the constructor that [sets a bunch of defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
 
     ```swift:title=main.swift
     let options = ApolloCodegenOptions(targetRootURL: targetRootURL)
     ```
 
-3. Now actually run the code generation:
+    This will create a single file called `API.swift` in the target's root folder. 
+    
+3. Add the code to run code generation: 
     
     ```swift:title=main.swift
     do {
@@ -205,27 +222,41 @@ You can then create a new empty file in your Xcode project, give it the same nam
                               with: cliFolderURL,
                               options: options)
     } catch {
-        // This gives a much cleaner error message than
-        // just letting the method throw. 
         exit(1)
     }
     ```
+   
+   Note that again, `catch`'ing and manually calling `exit` with a non-zero code leaves you with a much more legible error message than simply letting the method throw.  
+
+4. Build and run using the Xcode project. Note that if you're on Catalina you may get a warning asking if your executable can access files in a particular folder like this:
+
+   ![permission prompt](screenshot/would_like_to_access.png)
+   
+   Click the "OK" button. Your CLI output will look something like this: 
+   
+   ![log barf for successful run](screenshot/codegen_success.png)
+   
+   The final lines about loading the Apollo project and generating query files are what indicate your code has been generated successfully. 
+   
+Now, you're able to generate code from a debuggable Swift Package Manager executable. All that's left to do is set it up to run from your Xcode project!
 
 ## Running Your Executable From Your Main Project
 
-1. Select the target in your project or workspace  you want to have run the code generation, and go to the `Build Phases` tab. 
+1. Select the target in your project or workspace you want to have run the code generation, and go to the `Build Phases` tab. 
 
 2. Create a new Run Script Build Phase by selecting the **+** button in the upper left-hand corner:
 
   ![New run script build phase dialog](screenshot/new_run_script_phase.png)
 
-3. Update the 
+3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run`. 
 
     ```
     cd "${SRCROOT}"/Codegen
     swift run
     ```
     
-4. Build your target. Since `swift run` is being called from within your target, all of the pieces of the environment, including `$SRCROOT`, will automatically be passed to the 
+    >**NOTE**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. It is not recommended to do this by default since it substantially increases build time.
+    
+4. Build your target. Since `swift run` is being called from within your target, all of the pieces of the environment, including `$SRCROOT`, will automatically be passed to the environment of the executable, and you don't have to worry about passing anything manually. 
 
->**NOTE**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. It is not recommended to do this by default since it substantially increases build time.
+Now, every time you build your project, this script will get called. Since Swift knows not to recompile everything unless something's changed, it should not have a significant impact on your build time. 
