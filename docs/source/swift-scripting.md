@@ -180,7 +180,7 @@ You can then type out a GraphQL query on the left hand side and have it give you
 
 ![completed query](screenshot/graphiql_query.png)
 
-You can then create a new empty file in your Xcode project, give it the same name as your query and have the file end in `.graphql`,  and paste in the query. Here, for example, is what this looks like in a file for one of the queries in our [tutorial application](./tutorial/tutorial-intro):
+You can then create a new empty file in your Xcode project, give it the same name as your query and have the file end in `.graphql`,  and paste in the query. Here, for example, is what this looks like in a file for one of the queries in our [tutorial application](./tutorial/tutorial-introduction):
 
 ![launch list file](screenshot/graphql_file_launchlist.png)
 
