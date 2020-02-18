@@ -40,9 +40,10 @@ let package = Package(
 		.target(
       name: "ApolloWebSocket",
       dependencies: ["Apollo","Starscream"]),
-    .testTarget(
+    .target(
       name: "ApolloTestSupport",
       dependencies: ["Apollo"]),
+    
     .testTarget(
       name: "StarWarsAPI",
       dependencies: ["Apollo"]),
