@@ -43,10 +43,10 @@ let package = Package(
     .target(
       name: "ApolloTestSupport",
       dependencies: ["Apollo"]),
-    
-    .testTarget(
+    .target(
       name: "StarWarsAPI",
       dependencies: ["Apollo"]),
+    
     .testTarget(
       name: "ApolloTests",
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),

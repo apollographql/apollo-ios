@@ -21,11 +21,11 @@ enum Target {
         switch self {
         case .gitHub:
             return sourceRootURL
-                .appendingPathComponent("Tests")
+                .appendingPathComponent("Sources")
                 .appendingPathComponent("GitHubAPI")
         case .starWars:
             return sourceRootURL
-                .appendingPathComponent("Tests")
+                .appendingPathComponent("Sources")
                 .appendingPathComponent("StarWarsAPI")
         }
     }
