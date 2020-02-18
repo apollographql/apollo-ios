@@ -49,8 +49,5 @@ let package = Package(
     .testTarget(
       name: "ApolloTests",
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
-    .testTarget(
-      name: "ApolloPerformanceTests",
-      dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
     ]
 )
