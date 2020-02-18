@@ -37,7 +37,7 @@ public struct ApolloCodegenOptions {
   ///  - passthroughCustomScalars: Set true to use your own types for custom scalars. Defaults to false.
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
-  ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds.
+  ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               namespace: String? = nil,
@@ -69,7 +69,7 @@ public struct ApolloCodegenOptions {
   ///
   /// - Parameters:
   ///  - folder: The root of the target.
-  ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds
+  ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds
   public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0) {
     let json = folder.appendingPathComponent("schema.json")
     let outputFileURL = folder.appendingPathComponent("API.swift")

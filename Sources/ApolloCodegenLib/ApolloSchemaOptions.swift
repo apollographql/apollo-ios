@@ -25,7 +25,7 @@ public struct ApolloSchemaOptions {
   ///   - endpointURL: The endpoint to hit to download your schema.
   ///   - header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
-  ///  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds.
+  ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(schemaFileName: String = "schema",
               schemaFileType: SchemaFileType = .json,
               apiKey: String? = nil,

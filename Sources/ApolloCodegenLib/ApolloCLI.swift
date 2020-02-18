@@ -7,7 +7,7 @@ public struct ApolloCLI {
   ///
   /// - Parameters:
   ///   - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
-  ///   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
+  ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> ApolloCLI {
     try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
     let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
