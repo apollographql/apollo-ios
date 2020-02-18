@@ -39,8 +39,9 @@ To generate docs for the `ApolloCodegenLib` project, `cd` into the source root a
 sourcedocs generate \
     --output-folder "docs/source/api/ApolloCodegenLib" \
     --link-ending "/" \
-    --scheme ApolloCodegenLib \
-    --workspace Apollo.xcworkspace
+    -- \
+    -scheme ApolloCodegenLib \
+    -workspace Apollo.xcworkspace
 ```
 
 
