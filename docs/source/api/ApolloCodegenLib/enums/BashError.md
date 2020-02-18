@@ -7,10 +7,10 @@ public enum BashError: Error, LocalizedError
 ```
 
 ## Cases
-### `errorDuringTask(errorString:code:)`
+### `errorDuringTask(code:)`
 
 ```swift
-case errorDuringTask(errorString: String, code: Int32)
+case errorDuringTask(code: Int32)
 ```
 
 ### `noOutput(code:)`

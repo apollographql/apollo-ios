@@ -23,6 +23,7 @@ public static func run(from folder: URL,
 >   - folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
 >   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
 >   - options: The options object to use to run the code generation.
+> - Returns: Output from a successful run
 
 #### Parameters
 

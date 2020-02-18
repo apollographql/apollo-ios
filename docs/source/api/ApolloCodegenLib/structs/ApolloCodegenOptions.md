@@ -8,67 +8,6 @@ public struct ApolloCodegenOptions
 
 > An object to hold all the various options for running codegen
 
-## Properties
-### `includes`
-
-```swift
-public let includes: String
-```
-
-### `mergeInFieldsFromFragmentSpreads`
-
-```swift
-public let mergeInFieldsFromFragmentSpreads: Bool
-```
-
-### `namespace`
-
-```swift
-public let namespace: String?
-```
-
-### `only`
-
-```swift
-public let only: URL?
-```
-
-### `operationIDsURL`
-
-```swift
-public let operationIDsURL: URL?
-```
-
-### `outputFormat`
-
-```swift
-public let outputFormat: OutputFormat
-```
-
-### `passthroughCustomScalars`
-
-```swift
-public let passthroughCustomScalars: Bool
-```
-
-### `suppressSwiftMultilineStringLiterals`
-
-```swift
-public let suppressSwiftMultilineStringLiterals: Bool
-```
-
-### `urlToSchemaFile`
-
-```swift
-public let urlToSchemaFile: URL
-```
-
-### `downloadTimeout`
-
-```swift
-public let downloadTimeout: Double
-```
-
 ## Methods
 ### `init(includes:mergeInFieldsFromFragmentSpreads:namespace:only:operationIDsURL:outputFormat:passthroughCustomScalars:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
 
@@ -97,7 +36,7 @@ public init(includes: String = "./**/*.graphql",
 >  - passthroughCustomScalars: Set true to use your own types for custom scalars. Defaults to false.
 >  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
 >  - urlToSchemaFile: The URL to your schema file.
->  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds.
+>  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
 
 ### `init(targetRootURL:downloadTimeout:)`
 
@@ -105,7 +44,7 @@ public init(includes: String = "./**/*.graphql",
 public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0)
 ```
 
-> Convenience initializer taking the root folder of a target and generate
+> Convenience initializer that takes the root folder of a target and generates
 > code with some default assumptions.
 > Makes the following assumptions:
 >   - Schema is at [folder]/schema.json
@@ -114,4 +53,4 @@ public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0)
 >
 > - Parameters:
 >  - folder: The root of the target.
->  - downloadTimeout: The maximum time which should be waited before indicating that the download timed out, in seconds. Defaults to 30 seconds
+>  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds

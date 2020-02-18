@@ -7,6 +7,7 @@
 -   [ApolloSchemaOptions](structs/ApolloSchemaOptions/)
 -   [Basher](structs/Basher/)
 -   [CodegenLogger](structs/CodegenLogger/)
+-   [FileFinder](structs/FileFinder/)
 
 ## Classes
 
@@ -14,13 +15,16 @@
 
 ## Enums
 
--   [ApolloCodegenError](enums/ApolloCodegenError/)
 -   [BashError](enums/BashError/)
+-   [CodegenError](enums/CodegenError/)
 -   [LogLevel](enums/LogLevel/)
 -   [OutputFormat](enums/OutputFormat/)
+-   [SchemaFileType](enums/SchemaFileType/)
 
 ## Extensions
 
+-   [ApolloCodegenOptions](extensions/ApolloCodegenOptions/)
+-   [ApolloSchemaOptions](extensions/ApolloSchemaOptions/)
 -   [FileHandle](extensions/FileHandle/)
 -   [FileManager](extensions/FileManager/)
 

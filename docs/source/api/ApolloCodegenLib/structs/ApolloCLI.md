@@ -26,14 +26,14 @@ public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> Apoll
 >
 > - Parameters:
 >   - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
->   - timeout: The maximum time which should be waited before indicating that the download timed out, in seconds.
+>   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
 | cliFolderURL | The URL to the folder which contains the zip file with the CLI. |
-| timeout | The maximum time which should be waited before indicating that the download timed out, in seconds. |
+| timeout | The maximum time to wait before indicating that the download timed out, in seconds. |
 
 ### `init(binaryFolderURL:)`
 
@@ -55,7 +55,7 @@ public init(binaryFolderURL: URL)
 
 ```swift
 public func runApollo(with arguments: [String],
-                      from folder: URL) throws -> String
+                      from folder: URL? = nil) throws -> String
 ```
 
 > Runs a command with the bundled Apollo CLI

@@ -8,53 +8,37 @@ public struct ApolloSchemaOptions
 
 > Options for running the Apollo Schema Downloader.
 
-## Properties
-### `apiKey`
-
-```swift
-public let apiKey: String?
-```
-
-### `endpointURL`
-
-```swift
-public let endpointURL: URL
-```
-
-### `header`
-
-```swift
-public let header: String?
-```
-
-### `outputURL`
-
-```swift
-public let outputURL: URL
-```
-
 ## Methods
-### `init(apiKey:endpointURL:header:outputURL:)`
+### `init(schemaFileName:schemaFileType:apiKey:endpointURL:header:outputFolderURL:downloadTimeout:)`
 
 ```swift
-public init(apiKey: String? = nil,
+public init(schemaFileName: String = "schema",
+            schemaFileType: SchemaFileType = .json,
+            apiKey: String? = nil,
             endpointURL: URL,
             header: String? = nil,
-            outputURL: URL)
+            outputFolderURL: URL,
+            downloadTimeout: Double = 30.0)
 ```
 
 > Designated Initializer
 >
-> - Parameter apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
-> - Parameter endpointURL: The endpoint to hit to download your schema.
-> - Parameter header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
-> - Parameter outputURL: The file URL where the downloaded schema should be written
+> - Parameters:
+>   - schemaFileName: The name, without an extension, for your schema file. Defaults to `"schema"`
+>   - schemaFileType: The `SchemaFileType` to download the schema as. Defaults to `.json`.
+>   - apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
+>   - endpointURL: The endpoint to hit to download your schema.
+>   - header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
+>   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
+>  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
+| schemaFileName | The name, without an extension, for your schema file. Defaults to `"schema"` |
+| schemaFileType | The `SchemaFileType` to download the schema as. Defaults to `.json`. |
 | apiKey | [optional] The API key to use when retrieving your schema. Defaults to nil. |
 | endpointURL | The endpoint to hit to download your schema. |
 | header | [optional] Any additional headers to include when retrieving your schema. Defaults to nil |
-| outputURL | The file URL where the downloaded schema should be written |
+| outputFolderURL | The URL of the folder in which the downloaded schema should be written |

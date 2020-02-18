@@ -9,24 +9,23 @@ public struct ApolloSchemaDownloader
 > A wrapper to facilitate downloading a schema with the Apollo node CLI
 
 ## Methods
-### `run(from:binaryFolderURL:options:)`
+### `run(with:options:)`
 
 ```swift
-public static func run(from folder: URL,
-                       binaryFolderURL: URL,
+public static func run(with cliFolderURL: URL,
                        options: ApolloSchemaOptions) throws -> String
 ```
 
 > Runs code generation from the given folder with the passed-in options
 >
-> - Parameter folder: The folder to run the script from
-> - Parameter binaryFolderURL: The folder where the Apollo binaries have been unzipped.
-> - Parameter options: The options object to use to download the schema.
+> - Parameters:
+>   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
+>   - options: The `ApolloSchemaOptions` object to use to download the schema.
+> - Returns: Output from a successful run
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| folder | The folder to run the script from |
-| binaryFolderURL | The folder where the Apollo binaries have been unzipped. |
-| options | The options object to use to download the schema. |
+| cliFolderURL | The folder where the Apollo CLI is/should be downloaded. |
+| options | The `ApolloSchemaOptions` object to use to download the schema. |
