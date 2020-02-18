@@ -60,7 +60,7 @@ public struct ApolloCodegenOptions {
     self.downloadTimeout = downloadTimeout
   }
   
-  /// Convenience initializer taking the root folder of a target and generate
+  /// Convenience initializer that takes the root folder of a target and generates
   /// code with some default assumptions.
   /// Makes the following assumptions:
   ///   - Schema is at [folder]/schema.json
