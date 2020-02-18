@@ -65,7 +65,7 @@ jobs:
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: macos_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_steps
 
@@ -75,7 +75,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: ios_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
@@ -85,7 +85,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone XS
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: ios_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
@@ -95,7 +95,7 @@ jobs:
     environment:
       DESTINATION: platform=tvOS Simulator,OS=<< pipeline.parameters.tvos_version >>,name=Apple TV
       CIRCLE_XCODE_SCHEME: Apollo
-      CIRCLE_XCODE_SDK: tvos_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.tvos_sdk >>
     steps:
       - common_test_steps
 
@@ -105,7 +105,7 @@ jobs:
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: macos_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_steps
 
@@ -115,7 +115,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: ios_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
@@ -125,7 +125,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone XS
       CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: ios_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
@@ -135,7 +135,7 @@ jobs:
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: macos_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_steps
 
@@ -145,7 +145,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: ios_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
@@ -155,7 +155,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone XS
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: ios_sdk
+      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
