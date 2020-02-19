@@ -22,13 +22,13 @@ public class SQLiteTestCacheProvider: TestCacheProvider {
   }
 
   public static func temporarySQLiteFileURL() -> URL {
-    let applicationSupportPath = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first!
-    let applicationSupportURL = URL(fileURLWithPath: applicationSupportPath)
-    let temporaryDirectoryURL = try! FileManager.default.url(
-      for: .itemReplacementDirectory,
-      in: .userDomainMask,
-      appropriateFor: applicationSupportURL,
-      create: true)
-    return temporaryDirectoryURL.appendingPathComponent("db.sqlite3")
+    let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+    
+    // Create a folder with a random UUID to hold the SQLite file, since creating them in the
+    // same folder this close together will cause DB locks when you try to delete between tests.
+    let folder = temporaryDirectoryURL.appendingPathComponent(UUID().uuidString)
+    try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+    
+    return folder.appendingPathComponent("db.sqlite3")
   }
 }
