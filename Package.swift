@@ -37,7 +37,10 @@ let package = Package(
     .target(
       name: "ApolloSQLite",
       dependencies: ["Apollo", "SQLite"]),
-		.target(
+    .target(
+      name: "ApolloSQLiteTestSupport",
+      dependencies: ["ApolloSQLite", "ApolloTestSupport"]),
+	.target(
       name: "ApolloWebSocket",
       dependencies: ["Apollo","Starscream"]),
     .target(
@@ -50,5 +53,8 @@ let package = Package(
     .testTarget(
       name: "ApolloTests",
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
+    .testTarget(
+      name: "ApolloSQLiteTests",
+      dependencies: ["ApolloSQLite", "ApolloSQLiteTestSupport", "StarWarsAPI"])
     ]
 )
