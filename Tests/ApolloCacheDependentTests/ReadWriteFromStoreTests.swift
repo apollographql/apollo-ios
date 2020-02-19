@@ -3,7 +3,11 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class ReadWriteFromStoreTests: XCTestCase {
+class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
+  
   func testReadHeroNameQuery() throws {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],

@@ -65,6 +65,32 @@
                BlueprintName = "ApolloCacheDependentTests"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "FetchQueryTests">
+               </Test>
+               <Test
+                  Identifier = "LoadQueryFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "ReadWriteFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerAPQsGetMethodTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerAPQsTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerCachingRoundtripTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerTests">
+               </Test>
+               <Test
+                  Identifier = "WatchQueryTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

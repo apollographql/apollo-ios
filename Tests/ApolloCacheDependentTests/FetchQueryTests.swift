@@ -3,7 +3,12 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class FetchQueryTests: XCTestCase {
+class FetchQueryTests: XCTestCase, CacheTesting {
+  
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
+  
   func testFetchIgnoringCacheData() throws {
     let query = HeroNameQuery()
     

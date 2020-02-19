@@ -6,8 +6,12 @@ import ApolloSQLite
 import ApolloTestSupport
 import StarWarsAPI
 
-class LoadQueryFromStoreTests: XCTestCase {
+class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
   var store: ApolloStore!
+  
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
   
   func testLoadingHeroNameQuery() throws {
     let initialRecords: RecordSet = [

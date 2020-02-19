@@ -3,7 +3,11 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class StarWarsServerCachingRoundtripTests: XCTestCase {
+class StarWarsServerCachingRoundtripTests: XCTestCase, CacheTesting {
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
+  
   func testHeroAndFriendsNamesQuery() {
     let query = HeroAndFriendsNamesQuery()
     
