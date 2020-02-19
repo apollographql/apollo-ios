@@ -42,7 +42,8 @@ module.exports = {
             'mutations',
             'fragments',
             'caching',
-            'subscriptions'
+            'subscriptions',
+            'swift-scripting'
           ]
         }
       }
