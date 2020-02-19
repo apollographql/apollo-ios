@@ -14,59 +14,47 @@ struct CodegenTestHelper {
   // Centralized timeout for adjustment when working on terrible wifi
   static var timeout: Double = 90.0
   
-  enum CodegenTestError: Error, LocalizedError {
-    case couldNotGetSourceRoot
-    
-    var errorDescription: String? {
-      switch self {
-      case .couldNotGetSourceRoot:
-        return "Couldn't get SRCROOT for the test environment. Make sure it's being set in the scheme!"
-      }
-    }
+  static func sourceRootURL() -> URL {
+    let parentFolder = FileFinder.findParentFolder()
+    return parentFolder
+        .deletingLastPathComponent() // Tests
+        .deletingLastPathComponent() // apollo-ios
   }
   
-  static func sourceRootURL() throws -> URL {
-    guard let sourceRootPath = ProcessInfo.processInfo.environment["SRCROOT"] else {
-      throw CodegenTestError.couldNotGetSourceRoot
-    }
-    
-    return URL(fileURLWithPath: sourceRootPath)
-  }
-  
-  static func cliFolderURL() throws -> URL {
-    let sourceRoot = try self.sourceRootURL()
+  static func cliFolderURL() -> URL {
+    let sourceRoot = self.sourceRootURL()
     return sourceRoot.appendingPathComponent("scripts")
   }
   
-  static func apolloFolderURL() throws -> URL {
-    let scripts = try self.cliFolderURL()
+  static func apolloFolderURL() -> URL {
+    let scripts = self.cliFolderURL()
     return ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: scripts)
   }
   
-  static func binaryFolderURL() throws -> URL {
-    let apollo = try self.apolloFolderURL()
+  static func binaryFolderURL() -> URL {
+    let apollo = self.apolloFolderURL()
     return ApolloFilePathHelper.binaryFolderURL(fromApollo: apollo)
   }
   
-  static func shasumFileURL() throws -> URL {
-    let apollo = try self.apolloFolderURL()
+  static func shasumFileURL() -> URL {
+    let apollo = self.apolloFolderURL()
     return ApolloFilePathHelper.shasumFileURL(fromApollo: apollo)
   }
   
-  static func starWarsFolderURL() throws -> URL {
-    let source = try self.sourceRootURL()
+  static func starWarsFolderURL() -> URL {
+    let source = self.sourceRootURL()
     return source
-      .appendingPathComponent("Tests")
+      .appendingPathComponent("Sources")
       .appendingPathComponent("StarWarsAPI")
   }
   
-  static func starWarsSchemaFileURL() throws -> URL {
-    let starWars = try self.starWarsFolderURL()
+  static func starWarsSchemaFileURL() -> URL {
+    let starWars = self.starWarsFolderURL()
     return starWars.appendingPathComponent("schema.json")
   }
   
-  static func outputFolderURL() throws -> URL {
-    let sourceRoot = try self.sourceRootURL()
+  static func outputFolderURL() -> URL {
+    let sourceRoot = self.sourceRootURL()
     return sourceRoot
       .appendingPathComponent("Tests")
       .appendingPathComponent("ApolloCodegenTests")
@@ -76,7 +64,7 @@ struct CodegenTestHelper {
   static func deleteExistingOutputFolder(file: StaticString = #file,
                                          line: UInt = #line) {
     do {
-      let outputFolderURL = try self.outputFolderURL()
+      let outputFolderURL = self.outputFolderURL()
       try FileManager.default.apollo_deleteFolder(at: outputFolderURL)
     } catch {
       XCTFail("Error deleting output folder!",
@@ -88,7 +76,7 @@ struct CodegenTestHelper {
   static func downloadCLIIfNeeded(file: StaticString = #file,
                                   line: UInt = #line) {
     do {
-      let cliFolderURL = try self.cliFolderURL()
+      let cliFolderURL = self.cliFolderURL()
       try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: CodegenTestHelper.timeout)
     } catch {
       XCTFail("Error downloading CLI if needed: \(error)",
@@ -100,7 +88,7 @@ struct CodegenTestHelper {
   static func deleteExistingApolloFolder(file: StaticString = #file,
                                          line: UInt = #line) {
     do {
-      let apolloFolderURL = try self.apolloFolderURL()
+      let apolloFolderURL = self.apolloFolderURL()
       try FileManager.default.apollo_deleteFolder(at: apolloFolderURL)
     } catch {
       XCTFail("Error deleting Apollo folder: \(error)",
@@ -110,7 +98,7 @@ struct CodegenTestHelper {
   }
   
   static func writeSHASUMOnly(_ shasum: String) throws {
-    let shasumFileURL = try self.shasumFileURL()
+    let shasumFileURL = self.shasumFileURL()
     let shasumParent = shasumFileURL.deletingLastPathComponent()
     try FileManager.default.createDirectory(at: shasumParent,
                                             withIntermediateDirectories: true)    

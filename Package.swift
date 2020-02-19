@@ -54,6 +54,9 @@ let package = Package(
       name: "ApolloTests",
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
     .testTarget(
+      name: "ApolloCodegenTests",
+      dependencies: ["ApolloCodegenLib"]),
+    .testTarget(
       name: "ApolloSQLiteTests",
       dependencies: ["ApolloSQLite", "ApolloSQLiteTestSupport", "StarWarsAPI"])
     ]

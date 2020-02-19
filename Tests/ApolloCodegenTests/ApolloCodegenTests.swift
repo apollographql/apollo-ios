@@ -22,7 +22,7 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCreatingOptionsWithDefaultParameters() throws {
-    let sourceRoot = try CodegenTestHelper.sourceRootURL()
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API.swift")
     let schema = sourceRoot.appendingPathComponent("schema.json")
     
@@ -56,7 +56,7 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCreatingOptionsWithAllParameters() throws {
-    let sourceRoot = try CodegenTestHelper.sourceRootURL()
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API")
     let schema = sourceRoot.appendingPathComponent("schema.json")
     let only = sourceRoot.appendingPathComponent("only.graphql")
@@ -101,10 +101,10 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCodegenWithSingleFileOutputsSingleFile() throws {
-    let scriptFolderURL = try CodegenTestHelper.cliFolderURL()
-    let starWarsFolderURL = try CodegenTestHelper.starWarsFolderURL()
-    let starWarsSchemaFileURL = try CodegenTestHelper.starWarsSchemaFileURL()
-    let outputFolder = try CodegenTestHelper.outputFolderURL()
+    let scriptFolderURL = CodegenTestHelper.cliFolderURL()
+    let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
+    let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
+    let outputFolder = CodegenTestHelper.outputFolderURL()
     let outputFile = outputFolder.appendingPathComponent("API.swift")
     
     let options = ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: outputFile),
@@ -127,10 +127,10 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCodegenWithMultipleFilesOutputsMultipleFiles() throws {
-    let scriptFolderURL = try CodegenTestHelper.cliFolderURL()
-    let starWarsFolderURL = try CodegenTestHelper.starWarsFolderURL()
-    let starWarsSchemaFileURL = try CodegenTestHelper.starWarsSchemaFileURL()
-    let outputFolder = try CodegenTestHelper.outputFolderURL()
+    let scriptFolderURL = CodegenTestHelper.cliFolderURL()
+    let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
+    let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
+    let outputFolder = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloCodegenOptions(outputFormat: .multipleFiles(inFolderAtURL: outputFolder),
                                        urlToSchemaFile: starWarsSchemaFileURL,

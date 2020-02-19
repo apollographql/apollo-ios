@@ -14,7 +14,7 @@ class ApolloSchemaTests: XCTestCase {
   private lazy var endpointURL = URL(string: "http://localhost:8080/graphql")!
   
   func testCreatingOptionsWithDefaultParameters() throws {
-    let sourceRoot = try CodegenTestHelper.sourceRootURL()
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
     let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
                                       outputFolderURL: sourceRoot)
     
@@ -32,7 +32,7 @@ class ApolloSchemaTests: XCTestCase {
   }
   
   func testCreatingOptionsWithAllParameters() throws {
-    let sourceRoot = try CodegenTestHelper.sourceRootURL()
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
     let apiKey = "Fake_API_Key"
     let header = "Authorization: Bearer tokenGoesHere"
     
@@ -59,7 +59,7 @@ class ApolloSchemaTests: XCTestCase {
   }
   
   func testDownloadingSchemaAsJSON() throws {
-    let testOutputFolderURL = try CodegenTestHelper.outputFolderURL()
+    let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
                                       outputFolderURL: testOutputFolderURL)
@@ -68,7 +68,7 @@ class ApolloSchemaTests: XCTestCase {
     try FileManager.default.apollo_deleteFile(at: options.outputURL)
     XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
     
-    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
 
     _ = try ApolloSchemaDownloader.run(with: cliFolderURL,
                                        options: options)
@@ -92,7 +92,7 @@ class ApolloSchemaTests: XCTestCase {
   }
   
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
-    let testOutputFolderURL = try CodegenTestHelper.outputFolderURL()
+    let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloSchemaOptions(schemaFileType: .schemaDefinitionLanguage,
                                       endpointURL: self.endpointURL,
@@ -102,7 +102,7 @@ class ApolloSchemaTests: XCTestCase {
     try FileManager.default.apollo_deleteFile(at: options.outputURL)
     XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
 
-    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
 
     print(try ApolloSchemaDownloader.run(with: cliFolderURL,
                                          options: options))

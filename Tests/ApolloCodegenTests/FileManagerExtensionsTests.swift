@@ -19,29 +19,29 @@ class FileManagerExtensionsTests: XCTestCase {
   }
   
   func testsFileExistsForZipFileURL() throws {
-    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     XCTAssertTrue(FileManager.default.apollo_fileExists(at: zipFileURL))
   }
   
   func testFolderDoesNotExistForZipFileURL() throws {
-    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     XCTAssertFalse(FileManager.default.apollo_folderExists(at: zipFileURL))
   }
   
   func testFolderExistsForCLIFolderURL() throws {
-    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
     XCTAssertTrue(FileManager.default.apollo_folderExists(at: cliFolderURL))
   }
   
   func testFileDoesNotExistForCLIFolderURL() throws {
-    let cliFolderURL = try CodegenTestHelper.cliFolderURL()
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
     XCTAssertFalse(FileManager.default.apollo_fileExists(at: cliFolderURL))
   }
   
   func testSHASUMOfIncludedBinaryMatchesExpected() throws {
-    let clifolderURL = try CodegenTestHelper.cliFolderURL()
+    let clifolderURL = CodegenTestHelper.cliFolderURL()
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: clifolderURL)
     let shasum = try FileManager.default.apollo_shasum(at: zipFileURL)
     XCTAssertEqual(shasum, CLIExtractor.expectedSHASUM)
