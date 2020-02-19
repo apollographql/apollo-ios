@@ -47,6 +47,9 @@ let package = Package(
       name: "ApolloTestSupport",
       dependencies: ["Apollo"]),
     .target(
+      name: "GitHubAPI",
+      dependencies: ["Apollo"]),
+    .target(
       name: "StarWarsAPI",
       dependencies: ["Apollo"]),
     
