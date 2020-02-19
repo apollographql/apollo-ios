@@ -3,7 +3,7 @@ title: Swift scripting
 sidebar_title: Swift scripting (beta)
 ---
 
-> **This functionality is in beta.**
+> ⚠️ **This functionality is in beta.** ⚠️
 
 Apollo Client for iOS enables you to use Swift scripting to perform certain operations that otherwise require the command line. This document guides you through setting up a Swift Package Manager executable and then using it to: 
 
@@ -142,9 +142,17 @@ Note the warning: This isn't relevant for schema downloading, but it *is* releva
 Code generation requires both of the following to run:
 
 * Your **schema**, which defines what it's *possible* for you to request from or send to your server
-* A collection of **operations**, which define what you are *actually* requesting from the server
+* One or more **operations**, which define what you are *actually* requesting from the server
 
-Each operation can be one of three things: 
+If you're missing either of these, codegen can't run. If you define operations but no schema, the operations can't be validated. If you define a schema but no operations, there's nothing to validate or generate code for. 
+
+Or, more succinctly:
+
+```
+schema + operations = code
+```
+
+Each operation you define can be one of the following:
 
 - A **query**, which is a one-time request for specific data
 - A **mutation**, which changes data on the server and then receives updated data back
@@ -245,10 +253,10 @@ Now, you're able to generate code from a debuggable Swift Package Manager execut
     
     >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. It is not recommended to do this by default, because it substantially increases build time.
     
-4. Build your target. Because `swift run` is called from within your target, all of the pieces of the environment, including `$SRCROOT`, are automatically passed to the environment of the executable, and you don't have to worry about passing anything manually. 
+4. Build your target.
 
 Now, every time you build your project, this script gets called. Because Swift knows not to recompile everything unless something's changed, it should not have a significant impact on your build time. 
 
 ## Swift-specific troubleshooting
 
-If you encounter errors around `SecTaskLoadEntitlements` that result in an immediate exit of the script instead of showing the permission prompt, validate that all the folders you're looking for exist at the correct path.
+If you encounter errors around `SecTaskLoadEntitlements` that result in an immediate exit of the script instead of showing the permission prompt, verify that all the folders you're looking for exist at the correct path. This error is often caused by a typo.
