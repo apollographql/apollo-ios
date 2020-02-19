@@ -61,6 +61,9 @@ let package = Package(
       dependencies: ["ApolloCodegenLib"]),
     .testTarget(
       name: "ApolloSQLiteTests",
-      dependencies: ["ApolloSQLite", "ApolloSQLiteTestSupport", "StarWarsAPI"])
+      dependencies: ["ApolloSQLite", "ApolloSQLiteTestSupport", "StarWarsAPI"]),
+    .testTarget(
+      name: "ApolloWebsocketTests",
+      dependencies: ["ApolloWebSocket", "ApolloTestSupport", "StarWarsAPI"]),
     ]
 )

@@ -1,4 +1,5 @@
 import Starscream
+import Foundation
 @testable import ApolloWebSocket
 
 class MockWebSocket: ApolloWebSocketClient {
