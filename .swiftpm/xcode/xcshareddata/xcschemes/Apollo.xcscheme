@@ -26,7 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "NO">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -35,6 +35,16 @@
                BlueprintIdentifier = "ApolloTests"
                BuildableName = "ApolloTests"
                BlueprintName = "ApolloTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ApolloCacheDependentTests"
+               BuildableName = "ApolloCacheDependentTests"
+               BlueprintName = "ApolloCacheDependentTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
