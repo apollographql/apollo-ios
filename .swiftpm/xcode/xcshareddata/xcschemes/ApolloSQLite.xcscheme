@@ -45,6 +45,42 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ApolloCacheDependentTests"
+               BuildableName = "ApolloCacheDependentTests"
+               BlueprintName = "ApolloCacheDependentTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "FetchQueryTests">
+               </Test>
+               <Test
+                  Identifier = "LoadQueryFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "ReadWriteFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerAPQsGetMethodTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerAPQsTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerCachingRoundtripTests">
+               </Test>
+               <Test
+                  Identifier = "StarWarsServerTests">
+               </Test>
+               <Test
+                  Identifier = "WatchQueryTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -58,13 +58,13 @@ let package = Package(
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
     .testTarget(
       name: "ApolloCacheDependentTests",
-      dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
+      dependencies: ["ApolloSQLiteTestSupport", "StarWarsAPI"]),
     .testTarget(
       name: "ApolloCodegenTests",
       dependencies: ["ApolloCodegenLib"]),
     .testTarget(
       name: "ApolloSQLiteTests",
-      dependencies: ["ApolloSQLite", "ApolloSQLiteTestSupport", "StarWarsAPI"]),
+      dependencies: ["ApolloSQLiteTestSupport", "StarWarsAPI"]),
     .testTarget(
       name: "ApolloWebsocketTests",
       dependencies: ["ApolloWebSocket", "ApolloTestSupport", "StarWarsAPI"]),
