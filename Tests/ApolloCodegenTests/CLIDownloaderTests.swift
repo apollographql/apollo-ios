@@ -12,7 +12,7 @@ import XCTest
 class CLIDownloaderTests: XCTestCase {
   
   func testRedownloading() throws {
-    let scriptsURL = try CodegenTestHelper.cliFolderURL()
+    let scriptsURL = CodegenTestHelper.cliFolderURL()
     
     try CLIDownloader.forceRedownload(cliFolderURL: scriptsURL, timeout: CodegenTestHelper.timeout)
     
@@ -22,7 +22,7 @@ class CLIDownloaderTests: XCTestCase {
   }
   
   func testTimeoutThrowsCorrectError() throws {
-    let scriptsURL = try CodegenTestHelper.cliFolderURL()
+    let scriptsURL = CodegenTestHelper.cliFolderURL()
     
     // This file is big enough that unless both you and the server have a terabyte connection, 2 seconds won't be enough time to download it.
     do {

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-               BuildableName = "ApolloCodegenLib.framework"
-               BlueprintName = "ApolloCodegenLib"
-               ReferencedContainer = "container:Apollo.xcodeproj">
+               BlueprintIdentifier = "ApolloWebSocket"
+               BuildableName = "ApolloWebSocket"
+               BlueprintName = "ApolloWebSocket"
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,43 +26,16 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "NO"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "SRCROOT"
-            value = "$SRCROOT"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
-      <CodeCoverageTargets>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
-         </BuildableReference>
-      </CodeCoverageTargets>
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9BAEEBFB234BB8FD00808306"
-               BuildableName = "ApolloCodegenTests.xctest"
-               BlueprintName = "ApolloCodegenTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
+               BlueprintIdentifier = "ApolloWebsocketTests"
+               BuildableName = "ApolloWebsocketTests"
+               BlueprintName = "ApolloWebsocketTests"
+               ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -77,6 +50,13 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "APOLLO_TEST_CACHE_PROVIDER"
+            value = "ApolloTestSupport.InMemoryTestCacheProvider"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -87,10 +67,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
+            BlueprintIdentifier = "ApolloWebSocket"
+            BuildableName = "ApolloWebSocket"
+            BlueprintName = "ApolloWebSocket"
+            ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

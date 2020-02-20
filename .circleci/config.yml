@@ -45,10 +45,10 @@ commands:
           name: Start StarWars Server
           background: true
       - run:
-          command: xcodebuild clean build build-for-testing -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
           name: Clean and build for testing
       - run:
-          command: xcodebuild test-without-building -workspace "Apollo.xcworkspace" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          command: xcodebuild test-without-building -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
           name: Run tests
       - save_cache:
           key: starwars-server

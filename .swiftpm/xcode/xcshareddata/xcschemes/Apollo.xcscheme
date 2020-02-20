@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-               BuildableName = "ApolloCodegenLib.framework"
-               BlueprintName = "ApolloCodegenLib"
-               ReferencedContainer = "container:Apollo.xcodeproj">
+               BlueprintIdentifier = "Apollo"
+               BuildableName = "Apollo"
+               BlueprintName = "Apollo"
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,44 +26,53 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "NO"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "SRCROOT"
-            value = "$SRCROOT"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
-      <CodeCoverageTargets>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
-         </BuildableReference>
-      </CodeCoverageTargets>
+      shouldUseLaunchSchemeArgsEnv = "NO">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9BAEEBFB234BB8FD00808306"
-               BuildableName = "ApolloCodegenTests.xctest"
-               BlueprintName = "ApolloCodegenTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
+               BlueprintIdentifier = "ApolloTests"
+               BuildableName = "ApolloTests"
+               BlueprintName = "ApolloTests"
+               ReferencedContainer = "container:">
             </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ApolloCacheDependentTests"
+               BuildableName = "ApolloCacheDependentTests"
+               BlueprintName = "ApolloCacheDependentTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SQLiteFetchQueryTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteLoadQueryFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteReadWriteFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerAPQsGetMethodTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerAPQsTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerCachingRoundtripTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteWatchQueryTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
@@ -87,10 +96,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
+            BlueprintIdentifier = "Apollo"
+            BuildableName = "Apollo"
+            BlueprintName = "Apollo"
+            ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -14,6 +14,14 @@ class RequestCreatorTests: XCTestCase {
   private let customRequestCreator = TestCustomRequestCreator()
   private let apolloRequestCreator = ApolloRequestCreator()
 
+  private func testParentFolder(for file: StaticString = #file) -> URL {
+    let fileAsString = file.withUTF8Buffer {
+        String(decoding: $0, as: UTF8.self)
+    }
+    let url = URL(fileURLWithPath: fileAsString)
+    return url.deletingLastPathComponent()
+  }
+    
   private func checkString(_ string: String,
                            includes expectedString: String,
                            file: StaticString = #file,
@@ -33,7 +41,9 @@ class RequestCreatorTests: XCTestCase {
   }
   
   private func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
-    return Bundle(for: type(of: self)).url(forResource: name, withExtension: fileExtension)!
+    return self.testParentFolder()
+        .appendingPathComponent(name)
+        .appendingPathExtension(fileExtension)
   }
   
   // MARK: - Tests
@@ -110,9 +120,9 @@ Charlie file content.
   }
   
   func testBatchFile() throws {
-    let alphaFileUrl = Bundle(for: type(of: self)).url(forResource: "a", withExtension: "txt")!
-    let bravoFileUrl = Bundle(for: type(of: self)).url(forResource: "b", withExtension: "txt")!
-    let charlieFileUrl = Bundle(for: type(of: self)).url(forResource: "c", withExtension: "txt")!
+    let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
+    let bravoFileUrl = self.fileURLForFile(named: "b", extension: "txt")
+    let charlieFileUrl = self.fileURLForFile(named: "c", extension: "txt")
     
     let alphaData = try Data(contentsOf: alphaFileUrl)
     let bravoData = try Data(contentsOf: bravoFileUrl)

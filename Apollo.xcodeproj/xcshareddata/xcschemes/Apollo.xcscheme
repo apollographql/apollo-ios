@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1030"
+   LastUpgradeVersion = "1130"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -74,6 +74,32 @@
                BlueprintName = "ApolloCacheDependentTests"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "SQLiteFetchQueryTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteLoadQueryFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteReadWriteFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerAPQsGetMethodTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerAPQsTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerCachingRoundtripTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteStarWarsServerTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteWatchQueryTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

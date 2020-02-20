@@ -52,10 +52,14 @@ class StarWarsServerAPQsTests: StarWarsServerTests {
   }
 }
 
-class StarWarsServerTests: XCTestCase {
+class StarWarsServerTests: XCTestCase, CacheTesting {
   // MARK: Queries
   var config: TestConfig!
 
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
+  
   override func setUp() {
     super.setUp()
     config = DefaultConfig()

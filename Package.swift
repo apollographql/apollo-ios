@@ -37,20 +37,36 @@ let package = Package(
     .target(
       name: "ApolloSQLite",
       dependencies: ["Apollo", "SQLite"]),
-		.target(
+    .target(
+      name: "ApolloSQLiteTestSupport",
+      dependencies: ["ApolloSQLite", "ApolloTestSupport"]),
+	.target(
       name: "ApolloWebSocket",
       dependencies: ["Apollo","Starscream"]),
-    .testTarget(
+    .target(
       name: "ApolloTestSupport",
       dependencies: ["Apollo"]),
-    .testTarget(
+    .target(
+      name: "GitHubAPI",
+      dependencies: ["Apollo"]),
+    .target(
       name: "StarWarsAPI",
       dependencies: ["Apollo"]),
+    
     .testTarget(
       name: "ApolloTests",
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
     .testTarget(
-      name: "ApolloPerformanceTests",
-      dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
+      name: "ApolloCacheDependentTests",
+      dependencies: ["ApolloSQLiteTestSupport", "StarWarsAPI"]),
+    .testTarget(
+      name: "ApolloCodegenTests",
+      dependencies: ["ApolloCodegenLib"]),
+    .testTarget(
+      name: "ApolloSQLiteTests",
+      dependencies: ["ApolloSQLiteTestSupport", "StarWarsAPI"]),
+    .testTarget(
+      name: "ApolloWebsocketTests",
+      dependencies: ["ApolloWebSocket", "ApolloTestSupport", "StarWarsAPI"]),
     ]
 )

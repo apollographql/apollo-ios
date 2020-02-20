@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-               BuildableName = "ApolloCodegenLib.framework"
-               BlueprintName = "ApolloCodegenLib"
+               BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
+               BuildableName = "ApolloWebSocket.framework"
+               BlueprintName = "ApolloWebSocket"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,28 +29,19 @@
       shouldUseLaunchSchemeArgsEnv = "NO"
       codeCoverageEnabled = "YES"
       onlyGenerateCoverageForSpecifiedTargets = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
-            ReferencedContainer = "container:Apollo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "SRCROOT"
-            value = "$SRCROOT"
+            key = "APOLLO_TEST_CACHE_PROVIDER"
+            value = "ApolloTestSupport.InMemoryTestCacheProvider"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
+            BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
+            BuildableName = "ApolloWebSocket.framework"
+            BlueprintName = "ApolloWebSocket"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
@@ -59,9 +50,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9BAEEBFB234BB8FD00808306"
-               BuildableName = "ApolloCodegenTests.xctest"
-               BlueprintName = "ApolloCodegenTests"
+               BlueprintIdentifier = "9B7BDA6E23FDE8F200ACD198"
+               BuildableName = "ApolloWebSocketTests.xctest"
+               BlueprintName = "ApolloWebSocketTests"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -87,9 +78,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B7B6F46233C26D100F32205"
-            BuildableName = "ApolloCodegenLib.framework"
-            BlueprintName = "ApolloCodegenLib"
+            BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
+            BuildableName = "ApolloWebSocket.framework"
+            BlueprintName = "ApolloWebSocket"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
