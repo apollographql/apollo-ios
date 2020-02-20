@@ -37,6 +37,7 @@ public class WebSocketTransport {
 
   private var queue: [Int: String] = [:]
   private var connectingPayload: GraphQLMap?
+  private let token: String?
 
   private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
@@ -47,6 +48,13 @@ public class WebSocketTransport {
   private let allowSendingDuplicates: Bool
   fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
+
+  private static let heartbeatDateFormatter: DateFormatter = {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "y-MM-dd H:m:ss.SSSS"
+      dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+      return dateFormatter
+  }()
 
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientName: String {
@@ -73,6 +81,7 @@ public class WebSocketTransport {
   /// - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
   /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   /// - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
+  /// - Parameter token: Token to use to parse messages.
   public init(request: URLRequest,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
@@ -81,7 +90,8 @@ public class WebSocketTransport {
               reconnectionInterval: TimeInterval = 0.5,
               allowSendingDuplicates: Bool = true,
               connectingPayload: GraphQLMap? = [:],
-              requestCreator: RequestCreator = ApolloRequestCreator()) {
+              requestCreator: RequestCreator = ApolloRequestCreator(),
+              token: String? = nil) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.reconnect = Atomic(reconnect)
@@ -91,6 +101,7 @@ public class WebSocketTransport {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
     self.clientVersion = clientVersion
+    self.token = token
     self.addApolloClientHeaders(to: &self.websocket.request)
     self.websocket.delegate = self
     self.websocket.connect()
@@ -105,35 +116,48 @@ public class WebSocketTransport {
     return websocket.write(ping: data, completion: completionHandler)
   }
 
+  private func pingPong(for requestType: OperationMessage.Types) {
+    guard [.ping, .pong].contains(requestType) else { return }
+    let dateString = WebSocketTransport.heartbeatDateFormatter.string(from: Date())
+    let utcDate = WebSocketTransport.heartbeatDateFormatter.date(from: dateString)!
+    let currentTime = Int(utcDate.timeIntervalSince1970 * 1000)
+    let responseType: OperationMessage.Types = requestType == .ping ? .pong : .ping
+
+    if let response = OperationMessage(eventData: ["time": currentTime], eventType: responseType, token: token).rawMessage {
+      write(response)
+    }
+  }
+
   private func processMessage(socket: WebSocketClient, text: String) {
     OperationMessage(serialized: text).parse { parseHandler in
       guard
-        let type = parseHandler.type,
-        let messageType = OperationMessage.Types(rawValue: type) else {
-          self.notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload,
+        let eventName = parseHandler.eventName,
+        let eventType = OperationMessage.Types(rawValue: eventName) else {
+          self.notifyErrorAllHandlers(WebSocketError(payload: parseHandler.eventData,
                                                      error: parseHandler.error,
                                                      kind: .unprocessedMessage(text)))
           return
       }
 
-      switch messageType {
+      switch eventType {
       case .data,
-           .error:
+           .error,
+           .subscriptionUpdate:
         if
           let id = parseHandler.id,
           let responseHandler = subscribers[id] {
-          if let payload = parseHandler.payload {
+          if let payload = parseHandler.eventData {
             responseHandler(.success(payload))
           } else if let error = parseHandler.error {
             responseHandler(.failure(error))
           } else {
-            let websocketError = WebSocketError(payload: parseHandler.payload,
+            let websocketError = WebSocketError(payload: parseHandler.eventData,
                                                 error: parseHandler.error,
                                                 kind: .neitherErrorNorPayloadReceived)
             responseHandler(.failure(websocketError))
           }
         } else {
-          let websocketError = WebSocketError(payload: parseHandler.payload,
+          let websocketError = WebSocketError(payload: parseHandler.eventData,
                                               error: parseHandler.error,
                                               kind: .unprocessedMessage(text))
           self.notifyErrorAllHandlers(websocketError)
@@ -145,7 +169,7 @@ public class WebSocketTransport {
             subscribers.removeValue(forKey: id)
           }
         } else {
-          notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload,
+          notifyErrorAllHandlers(WebSocketError(payload: parseHandler.eventData,
                                                 error: parseHandler.error,
                                                 kind: .unprocessedMessage(text)))
         }
@@ -157,12 +181,16 @@ public class WebSocketTransport {
       case .connectionKeepAlive:
         writeQueue()
 
+      case .ping,
+           .pong:
+        pingPong(for: eventType)
+
       case .connectionInit,
            .connectionTerminate,
-           .start,
-           .stop,
+           .subscribe,
+           .unsubscribe,
            .connectionError:
-        notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload,
+        notifyErrorAllHandlers(WebSocketError(payload: parseHandler.eventData,
                                               error: parseHandler.error,
                                               kind: .unprocessedMessage(text)))
       }
@@ -192,18 +220,19 @@ public class WebSocketTransport {
   }
 
   public func initServer() {
-    self.acked = false
+    self.acked = true
 
-    if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
-      write(str, force:true)
+    if let str = OperationMessage(eventData: self.connectingPayload ?? GraphQLMap(), eventType: .connectionInit, token: token).rawMessage {
+      write(str)
     }
 
+    writeQueue()
   }
 
   public func closeConnection() {
     self.reconnect.value = false
 
-    let str = OperationMessage(type: .connectionTerminate).rawMessage
+    let str = OperationMessage(eventType: .connectionTerminate).rawMessage
     processingQueue.async {
       if let str = str {
         self.write(str)
@@ -241,7 +270,7 @@ public class WebSocketTransport {
     let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     let sequenceNumber = "\(sequenceNumberCounter.increment())"
 
-    guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
+    guard let message = OperationMessage(eventData: body, id: sequenceNumber, token: token).rawMessage else {
       return nil
     }
 
@@ -258,7 +287,7 @@ public class WebSocketTransport {
   }
 
   public func unsubscribe(_ subscriptionId: String) {
-    let str = OperationMessage(id: subscriptionId, type: .stop).rawMessage
+    let str = OperationMessage(id: subscriptionId, eventType: .unsubscribe, token: token).rawMessage
 
     processingQueue.async {
       if let str = str {
