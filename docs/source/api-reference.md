@@ -85,5 +85,5 @@ swift run sourcedocs generate \
     --link-ending "/" \
     -- \
     -scheme "ApolloWebSocket" \
-    -workspace "Apollo.xcworkspace"
+    -project "Apollo.xcodeproj"
 ``
