@@ -30,7 +30,7 @@ sourcedocs generate \
     --link-ending "/" \
     -- \
     -scheme Apollo \
-    -workspace Apollo.xcworkspace
+    -project Apollo.xcodeproj
 ```
 
 To generate docs for the `ApolloCodegenLib` project, `cd` into the source root and run: 
@@ -41,7 +41,7 @@ sourcedocs generate \
     --link-ending "/" \
     -- \
     -scheme ApolloCodegenLib \
-    -workspace Apollo.xcworkspace
+    -project Apollo.xcodeproj
 ```
 
 
@@ -53,7 +53,7 @@ sourcedocs generate \
     --link-ending "/" \
     -- \
     -scheme ApolloSQLite \
-    -workspace Apollo.xcworkspace
+    -project Apollo.xcodeproj
 ```
 
 To generate for docs the `ApolloWebSocket` project, `cd` into the source root and run: 
@@ -64,7 +64,7 @@ sourcedocs generate \
     --link-ending "/" \
     -- \
     -scheme ApolloWebSocket \
-    -workspace Apollo.xcworkspace
+    -project Apollo.xcodeproj
 ```
 
 ## From Source Instructions
