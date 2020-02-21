@@ -7,11 +7,11 @@ let parentFolderOfScriptFile = FileFinder.findParentFolder()
 // Use that to calculate the source root
 let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // Sources
-    .deletingLastPathComponent() // Codegen
+    .deletingLastPathComponent() // SwiftScripts
     .deletingLastPathComponent() // apollo-ios
 
 let cliFolderURL = sourceRootURL
-    .appendingPathComponent("Codegen")
+    .appendingPathComponent("SwiftScripts")
     .appendingPathComponent("ApolloCLI")
 
 let endpoint = URL(string: "http://localhost:8080/graphql")!

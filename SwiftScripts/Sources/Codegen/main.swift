@@ -8,7 +8,7 @@ let parentFolderOfScriptFile = FileFinder.findParentFolder()
 // Use that to calculate the source root
 let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // Sources
-    .deletingLastPathComponent() // Codegen
+    .deletingLastPathComponent() // SwiftScripts
     .deletingLastPathComponent() // apollo-ios
 
 // In a typical app, you'll only need to do this for one target, so you'd
@@ -25,7 +25,7 @@ try FileManager.default.apollo_createFolderIfNeeded(at: targetURL)
 
 // Calculate where you want to download the CLI folder.
 let cliFolderURL = sourceRootURL
-    .appendingPathComponent("Codegen")
+    .appendingPathComponent("SwiftScripts")
     .appendingPathComponent("ApolloCLI")
 
 do {
