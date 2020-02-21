@@ -1,5 +1,16 @@
 # Change log
 
+## v0.23.0
+- **BETA**: Now available, SPM-based code generation, Phase 0 of our transition to Swift Codegen.
+  
+    Note that the underlying codegen is still using `apollo-tooling`, but that will change as we proceed with Phase 1 of the [Swift Codegen Project](https://github.com/apollographql/apollo-ios/projects/2), generating the code in Swift.
+
+    Documentation is available at our [Swift Scripting page](https://www.apollographql.com/docs/ios/swift-scripting/).
+  
+    When this gets to the final version this **will** supersede existing codegen, so please file bugs galore on this so we can get it good to go as quickly as possible. Thank you! ([#940](https://github.com/apollographql/apollo-ios/pull/940), [#1033](https://github.com/apollographql/apollo-ios/pull/1033))\
+
+- Fixed some memory leaks in our internal Promises implementation. ([#1016](https://github.com/apollographql/apollo-ios/pull/1016))
+
 ### v0.22.0
 - **BREAKING**: Updated CLI to v2.22.1, including a bunch of fixes on the Swift side: 
     - Marked files which are generated as `@generated`
