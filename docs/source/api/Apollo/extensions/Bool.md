@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Bool`
+```swift
+extension Bool: JSONDecodable, JSONEncodable
+```
 
 ## Properties
 ### `jsonValue`

@@ -13,6 +13,10 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate
 
 ```swift
 func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                      receivedError error: Error,
+                      for request: URLRequest,
+                      response: URLResponse?,
+                      retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
 ```
 
 > Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.

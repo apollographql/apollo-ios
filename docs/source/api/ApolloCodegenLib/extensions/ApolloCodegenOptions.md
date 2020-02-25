@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `ApolloCodegenOptions`
+```swift
+extension ApolloCodegenOptions: CustomDebugStringConvertible
+```
 
 ## Properties
 ### `debugDescription`

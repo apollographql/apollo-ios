@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `RecordSet`
+```swift
+extension RecordSet: ExpressibleByDictionaryLiteral
+```
 
 ## Properties
 ### `description`

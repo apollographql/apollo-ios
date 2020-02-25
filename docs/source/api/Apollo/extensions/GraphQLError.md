@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `GraphQLError`
+```swift
+extension GraphQLError: CustomStringConvertible
+```
 
 ## Properties
 ### `description`

@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `GraphQLOperation`
+```swift
+public extension GraphQLOperation
+```
 
 ## Properties
 ### `queryDocument`

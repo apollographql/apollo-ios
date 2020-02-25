@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Optional`
+```swift
+extension Optional where Wrapped: JSONDecodable
+```
 
 ## Properties
 ### `jsonValue`

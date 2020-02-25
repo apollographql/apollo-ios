@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Reference`
+```swift
+extension Reference: Equatable
+```
 
 ## Properties
 ### `description`

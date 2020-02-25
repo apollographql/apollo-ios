@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `RawRepresentable`
+```swift
+extension RawRepresentable where RawValue: JSONDecodable
+```
 
 ## Properties
 ### `jsonValue`

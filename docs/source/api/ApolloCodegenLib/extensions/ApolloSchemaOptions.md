@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `ApolloSchemaOptions`
+```swift
+extension ApolloSchemaOptions: CustomDebugStringConvertible
+```
 
 ## Properties
 ### `debugDescription`

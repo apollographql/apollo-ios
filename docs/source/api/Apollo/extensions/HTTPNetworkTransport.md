@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `HTTPNetworkTransport`
+```swift
+extension HTTPNetworkTransport: NetworkTransport
+```
 
 ## Methods
 ### `send(operation:completionHandler:)`

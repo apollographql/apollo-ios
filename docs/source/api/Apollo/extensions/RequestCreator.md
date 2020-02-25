@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `RequestCreator`
+```swift
+extension RequestCreator
+```
 
 ## Methods
 ### `requestBody(for:sendOperationIdentifiers:sendQueryDocument:autoPersistQuery:)`

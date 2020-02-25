@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `JSONEncodable`
+```swift
+extension JSONEncodable
+```
 
 ## Methods
 ### `evaluate(with:)`

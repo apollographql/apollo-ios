@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `GraphQLQuery`
+```swift
+public extension GraphQLQuery
+```
 
 ## Properties
 ### `operationType`

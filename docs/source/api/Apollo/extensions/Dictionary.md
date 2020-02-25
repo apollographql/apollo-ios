@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Dictionary`
+```swift
+public extension Dictionary
+```
 
 ## Properties
 ### `withNilValuesRemoved`

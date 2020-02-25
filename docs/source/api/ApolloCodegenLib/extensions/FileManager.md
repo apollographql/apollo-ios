@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `FileManager`
+```swift
+public extension FileManager
+```
 
 ## Methods
 ### `apollo_fileExists(at:)`

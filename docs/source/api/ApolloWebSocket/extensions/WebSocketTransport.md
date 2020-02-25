@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `WebSocketTransport`
+```swift
+extension WebSocketTransport: NetworkTransport
+```
 
 ## Methods
 ### `send(operation:completionHandler:)`
