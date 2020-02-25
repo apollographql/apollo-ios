@@ -2,6 +2,8 @@ import Foundation
 import SourceDocsLib
 import ApolloCodegenLib
 
+#warning("For some reason, this is failing when run directly from Xcode instead of with `swift run DocumentationGenerator`. So use that and not Xcode to run this for now")
+
 enum Target: String, CaseIterable {
     case Apollo
     case ApolloSQLite
@@ -30,8 +32,8 @@ let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // SwiftScripts
     .deletingLastPathComponent() // apollo-ios
 
-//for target in Target.allCases {
-let target = Target.ApolloWebSocket
+for target in Target.allCases {
+    // Figure out where to put the docs for the current target.
     let outputURL = sourceRootURL
         .appendingPathComponent("docs")
         .appendingPathComponent("source")
@@ -51,6 +53,14 @@ let target = Target.ApolloWebSocket
                                             "Apollo.xcodeproj"
                                          ])
     
-    _ = GenerateCommand().run(options)
-//}
+    let result = GenerateCommand().run(options)
+    
+    switch result {
+    case .success:
+        CodegenLogger.log("Generated docs for \(target.name)")
+    case .failure(let error):
+        CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
+        exit(1)
+    }
+}
 
