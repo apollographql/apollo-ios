@@ -4,6 +4,12 @@ import Foundation
 public protocol Cancellable: class {
     /// Cancel an in progress action.
     func cancel()
+
+    var sequenceNumber : String? { get }
+}
+
+extension Cancellable {
+  public var sequenceNumber : String? { return nil }
 }
 
 // MARK: - URL Session Conformance
