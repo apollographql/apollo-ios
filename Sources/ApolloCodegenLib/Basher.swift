@@ -1,6 +1,7 @@
 import Foundation
 
 /// Bash command runner
+@available(OSX, message: "Only available on macOS")
 public struct Basher {
   
   public enum BashError: Error, LocalizedError {

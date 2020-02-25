@@ -1,6 +1,7 @@
 import Foundation
 
 /// A class to facilitate running code generation
+@available(OSX, message: "Only available on macOS")
 public class ApolloCodegen {
   
   /// Errors which can happen with code generation

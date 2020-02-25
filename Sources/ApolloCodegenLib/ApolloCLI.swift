@@ -1,6 +1,7 @@
 import Foundation
 
 /// Wrapper for calling the bundled node-based Apollo CLI.
+@available(OSX, message: "Only available on macOS")
 public struct ApolloCLI {
   
   /// Creates an instance of `ApolloCLI`, downloading and extracting if needed
