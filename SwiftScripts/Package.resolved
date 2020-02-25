@@ -74,6 +74,15 @@
         }
       },
       {
+        "package": "SourceDocs",
+        "repositoryURL": "https://github.com/designatednerd/SourceDocs.git",
+        "state": {
+          "branch": "master",
+          "revision": "990ca72f9a62f5ef6561d1a2187426c39088161e",
+          "version": null
+        }
+      },
+      {
         "package": "SourceKitten",
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {

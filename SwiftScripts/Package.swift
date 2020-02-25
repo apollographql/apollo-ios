@@ -8,7 +8,7 @@ let package = Package(
     dependencies: [
         .package(path: ".."),
         .package(url: "https://github.com/apple/swift-tools-support-core", from: "0.0.1"),
-        .package(path: "../../../../open_source/SourceDocs")
+        .package(url: "https://github.com/designatednerd/SourceDocs.git", .branch("master"))
     ],
     targets: [
         .target(
