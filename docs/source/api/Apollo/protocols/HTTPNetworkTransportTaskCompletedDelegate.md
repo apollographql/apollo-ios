@@ -13,6 +13,10 @@ public protocol HTTPNetworkTransportTaskCompletedDelegate: HTTPNetworkTransportD
 
 ```swift
 func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                      didCompleteRawTaskForRequest request: URLRequest,
+                      withData data: Data?,
+                      response: URLResponse?,
+                      error: Error?)
 ```
 
 > A callback to allow hooking in URL session responses for things like logging and examining headers.

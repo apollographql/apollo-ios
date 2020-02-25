@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `FileHandle`
+```swift
+extension FileHandle: TextOutputStream
+```
 
 ## Methods
 ### `write(_:)`

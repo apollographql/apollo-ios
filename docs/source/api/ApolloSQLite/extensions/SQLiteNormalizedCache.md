@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `SQLiteNormalizedCache`
+```swift
+extension SQLiteNormalizedCache: NormalizedCache
+```
 
 ## Methods
 ### `merge(records:callbackQueue:completion:)`

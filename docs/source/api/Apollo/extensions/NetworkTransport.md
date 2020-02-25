@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `NetworkTransport`
+```swift
+public extension NetworkTransport
+```
 
 ## Properties
 ### `clientName`

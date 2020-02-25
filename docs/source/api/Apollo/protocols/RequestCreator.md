@@ -11,6 +11,9 @@ public protocol RequestCreator
 
 ```swift
 func requestBody<Operation: GraphQLOperation>(for operation: Operation,
+                                              sendOperationIdentifiers: Bool,
+                                              sendQueryDocument: Bool,
+                                              autoPersistQuery: Bool) -> GraphQLMap
 ```
 
 > Creates a `GraphQLMap` out of the passed-in operation
@@ -31,6 +34,10 @@ func requestBody<Operation: GraphQLOperation>(for operation: Operation,
 
 ```swift
 func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
+                                                           files: [GraphQLFile],
+                                                           sendOperationIdentifiers: Bool,
+                                                           serializationFormat: JSONSerializationFormat.Type,
+                                                           manualBoundary: String?) throws -> MultipartFormData
 ```
 
 > Creates multi-part form data to send with a request

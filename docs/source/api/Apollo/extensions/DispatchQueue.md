@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `DispatchQueue`
+```swift
+public extension DispatchQueue
+```
 
 ## Methods
 ### `apollo_performAsyncIfNeeded(on:action:)`

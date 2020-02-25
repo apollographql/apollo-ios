@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Record`
+```swift
+extension Record: CustomStringConvertible
+```
 
 ## Properties
 ### `description`

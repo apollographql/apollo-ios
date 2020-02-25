@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `ApolloClient`
+```swift
+extension ApolloClient: ApolloClientProtocol
+```
 
 ## Properties
 ### `cacheKeyForObject`

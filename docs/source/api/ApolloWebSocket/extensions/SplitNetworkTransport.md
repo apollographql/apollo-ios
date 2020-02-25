@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `SplitNetworkTransport`
+```swift
+extension SplitNetworkTransport: NetworkTransport
+```
 
 ## Methods
 ### `send(operation:completionHandler:)`

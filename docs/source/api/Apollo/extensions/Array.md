@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Array`
+```swift
+extension Array: GraphQLInputValue
+```
 
 ## Properties
 ### `jsonValue`

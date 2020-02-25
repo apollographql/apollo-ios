@@ -8,6 +8,13 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
 > A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
 
+## Properties
+### `query`
+
+```swift
+public let query: Query
+```
+
 ## Methods
 ### `init(client:query:resultHandler:)`
 

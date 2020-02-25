@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `JSONDecodingError`
+```swift
+extension JSONDecodingError: Matchable
+```
 
 ## Methods
 ### `~=(_:_:)`

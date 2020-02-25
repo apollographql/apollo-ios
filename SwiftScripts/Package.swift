@@ -8,6 +8,7 @@ let package = Package(
     dependencies: [
         .package(path: ".."),
         .package(url: "https://github.com/apple/swift-tools-support-core", from: "0.0.1"),
+        .package(url: "https://github.com/designatednerd/SourceDocs.git", .branch("master"))
     ],
     targets: [
         .target(
@@ -16,7 +17,7 @@ let package = Package(
         .target(name: "SchemaDownload",
                 dependencies: ["ApolloCodegenLib"]),
         .target(name: "DocumentationGenerator",
-                dependencies: []),
+                dependencies: ["ApolloCodegenLib", "SourceDocsLib"]),
         .testTarget(
             name: "CodegenTests",
             dependencies: ["Codegen"]),

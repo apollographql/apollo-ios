@@ -11,6 +11,8 @@ public protocol NormalizedCache
 
 ```swift
 func loadRecords(forKeys keys: [CacheKey],
+                 callbackQueue: DispatchQueue?,
+                 completion: @escaping (Result<[Record?], Error>) -> Void)
 ```
 
 > Loads records corresponding to the given keys.
@@ -32,6 +34,8 @@ func loadRecords(forKeys keys: [CacheKey],
 
 ```swift
 func merge(records: RecordSet,
+           callbackQueue: DispatchQueue?,
+           completion: @escaping (Result<Set<CacheKey>, Error>) -> Void)
 ```
 
 > Merges a set of records into the cache.
@@ -53,6 +57,7 @@ func merge(records: RecordSet,
 
 ```swift
 func clear(callbackQueue: DispatchQueue?,
+           completion: ((Result<Void, Error>) -> Void)?)
 ```
 
 >

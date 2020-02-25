@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Double`
+```swift
+extension Double: JSONDecodable, JSONEncodable
+```
 
 ## Properties
 ### `jsonValue`
