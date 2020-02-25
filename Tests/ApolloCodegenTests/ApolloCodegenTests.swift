@@ -63,7 +63,8 @@ class ApolloCodegenTests: XCTestCase {
     let operationIDsURL = sourceRoot.appendingPathComponent("operationIDs.json")
     let namespace = "ANameSpace"
     
-    let options = ApolloCodegenOptions(includes: "*.graphql",
+    let options = ApolloCodegenOptions(codegenEngine: .swiftExperimental,
+                                       includes: "*.graphql",
                                        mergeInFieldsFromFragmentSpreads: false,
                                        namespace: namespace,
                                        only: only,
@@ -88,7 +89,7 @@ class ApolloCodegenTests: XCTestCase {
     
     XCTAssertEqual(options.arguments, [
       "codegen:generate",
-      "--target=swift",
+      "--target=json",
       "--addTypename",
       "--includes=*.graphql",
       "--localSchemaFile=\(schema.path)",
