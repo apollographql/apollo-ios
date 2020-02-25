@@ -1,6 +1,7 @@
 import Foundation
 
 /// A wrapper to facilitate downloading a schema with the Apollo node CLI
+@available(OSX, message: "Only available on macOS")
 public struct ApolloSchemaDownloader {
   
   /// Runs code generation from the given folder with the passed-in options
