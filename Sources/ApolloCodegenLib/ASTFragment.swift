@@ -6,7 +6,7 @@ class ASTFragment: Codable {
   let fragmentName: String
   let filePath: String
   let source: String
-  let fields: [ASTFragmentField]
+  let fields: [ASTField]
   let fragmentSpreads: [String]
   let inlineFragments: [ASTInlineFragment]
 }
@@ -14,17 +14,6 @@ class ASTFragment: Codable {
 class ASTInlineFragment: Codable {
   let typeCondition: String
   let possibleTypes: [String]
-  let fields: [ASTFragmentField]
+  let fields: [ASTField]
   let fragmentSpreads: [String]
 }
-
-class ASTFragmentField: Codable {
-  let responseName: String
-  let fieldName: String
-  let type: String
-  let isConditional: Bool
-  let description: String?
-  let isDeprecated: Bool?
-  let args: JSONContainer
-}
-

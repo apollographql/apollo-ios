@@ -6,9 +6,6 @@ class ASTOutput: Codable {
   let typesUsed: [ASTType]
 }
 
-class ASTOperation: Codable {
-  
-}
 
 
 
