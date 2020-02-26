@@ -167,4 +167,25 @@ class CLIExtractorTests: XCTestCase {
     _ = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     self.validateCLIIsExtractedWithRealSHASUM()
   }
+  
+  func testMissingSHASUMFileButCorrectZipFileCreatesSHASUMFile() throws {
+    let shasumFileURL = CodegenTestHelper.shasumFileURL()
+    try FileManager.default.apollo_deleteFile(at: shasumFileURL)
+    
+    XCTAssertFalse(FileManager.default.apollo_fileExists(at: shasumFileURL))
+    
+    let cliFolderURL = CodegenTestHelper.cliFolderURL()
+    let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
+    
+    XCTAssertTrue(FileManager.default.apollo_fileExists(at: zipFileURL))
+    
+    let binaryURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
+    
+    /// Was the binary extracted?
+    XCTAssertTrue(FileManager.default.apollo_folderExists(at: binaryURL))
+    
+    /// Did the SHASUM file get created?
+    XCTAssertTrue(FileManager.default.apollo_fileExists(at: shasumFileURL))
+    self.validateCLIIsExtractedWithRealSHASUM()
+  }
 }
