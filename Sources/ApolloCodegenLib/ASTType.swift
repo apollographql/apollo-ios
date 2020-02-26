@@ -11,7 +11,7 @@ class ASTType: Codable {
   let name: String
   let description: String
   let values: [ASTEnumValue]?
-  let fields: [ASTField]?
+  let fields: [ASTTypeField]?
 }
 
 class ASTEnumValue: Codable {
@@ -20,7 +20,7 @@ class ASTEnumValue: Codable {
   let isDeprecated: Bool
 }
 
-class ASTField: Codable {
+class ASTTypeField: Codable {
   let name: String
   let type: String
   let description: String?

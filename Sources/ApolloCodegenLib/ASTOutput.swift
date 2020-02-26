@@ -10,8 +10,5 @@ class ASTOperation: Codable {
   
 }
 
-class ASTFragment: Codable {
-  
-}
 
 
