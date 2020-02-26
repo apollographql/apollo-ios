@@ -77,6 +77,8 @@
 		9BCF0CE623FC9D7B0031D2A2 /* ApolloTestSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCF0CDA23FC9CA50031D2A2 /* ApolloTestSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BCF0D0123FC9F060031D2A2 /* StarWarsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BCF0D0223FC9F060031D2A2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CFC23FC9F060031D2A2 /* API.swift */; };
+		9BD681272405F0CB000874CB /* ASTOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD681262405F0CB000874CB /* ASTOutput.swift */; };
+		9BD681292405F149000874CB /* ASTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD681282405F149000874CB /* ASTType.swift */; };
 		9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43D022C6655200FD7C7F /* Cancellable.swift */; };
 		9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */; };
 		9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */; };
@@ -427,6 +429,8 @@
 		9BCF0CFE23FC9F060031D2A2 /* HeroParentTypeDependentField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroParentTypeDependentField.graphql; sourceTree = "<group>"; };
 		9BCF0CFF23FC9F060031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BCF0D0023FC9F060031D2A2 /* CreateReviewForEpisode.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateReviewForEpisode.graphql; sourceTree = "<group>"; };
+		9BD681262405F0CB000874CB /* ASTOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTOutput.swift; sourceTree = "<group>"; };
+		9BD681282405F149000874CB /* ASTType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTType.swift; sourceTree = "<group>"; };
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPResponseError.swift; sourceTree = "<group>"; };
 		9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPRequestError.swift; sourceTree = "<group>"; };
@@ -670,6 +674,7 @@
 		9B7B6F50233C26E400F32205 /* ApolloCodegenLib */ = {
 			isa = PBXGroup;
 			children = (
+				9B8788702405F0150008789E /* Parsing */,
 				9BAEEBF023467E0A00808306 /* ApolloCLI.swift */,
 				9B7B6F57233C287100F32205 /* ApolloCodegen.swift */,
 				9B7B6F58233C287100F32205 /* ApolloCodegenOptions.swift */,
@@ -761,6 +766,15 @@
 				9B8110A723A1995D00688AC4 /* .keep */,
 			);
 			path = SourcePackages;
+			sourceTree = "<group>";
+		};
+		9B8788702405F0150008789E /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				9BD681262405F0CB000874CB /* ASTOutput.swift */,
+				9BD681282405F149000874CB /* ASTType.swift */,
+			);
+			name = Parsing;
 			sourceTree = "<group>";
 		};
 		9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */ = {
@@ -1654,8 +1668,10 @@
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
+				9BD681272405F0CB000874CB /* ASTOutput.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
+				9BD681292405F149000874CB /* ASTType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
