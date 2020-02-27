@@ -11,7 +11,7 @@ Things to do before cutting a release:
 
 -[ ] Update the `CHANGELOG` with all relevant changes since the prior version
 -[ ] Update the version in [`Configuration/Shared/Project-Version.xcconfig`](Configuration/Shared/Project-Version.xcconfig)
--[ ] Run `sourcedocs` as noted in [`api-reference.md`](docs/source/api-reference.md) to re-generate documentation from source for all included libraries
+-[ ] Run the Documentation Generator as noted in [`api-reference.md`](docs/source/api-reference.md) to re-generate documentation from source for all included libraries
 -[ ] Validate that `master` builds with a test Swift Package Manager project
 -[ ] Validate that `master` builds with a test CocoaPods project
 -[ ] Validate that `master` builds with a test Carthage project 
