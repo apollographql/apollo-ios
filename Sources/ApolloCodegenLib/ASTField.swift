@@ -7,6 +7,6 @@ class ASTField: Codable {
   let isConditional: Bool
   let description: String?
   let isDeprecated: Bool?
-  let args: [ASTArgument]
+  let args: [ASTArgument]?
   let fields: [ASTField]?
 }
