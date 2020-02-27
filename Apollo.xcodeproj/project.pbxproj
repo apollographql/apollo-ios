@@ -69,6 +69,7 @@
 		9BAEEC17234C275600808306 /* ApolloSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC16234C275600808306 /* ApolloSchemaTests.swift */; };
 		9BAEEC19234C297800808306 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC18234C297800808306 /* ApolloCodegenTests.swift */; };
 		9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2D9D1233C6DC0007BD083 /* Basher.swift */; };
+		9BCB58602407593C002F766E /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB585E240758C8002F766E /* OptionalBoolean.swift */; };
 		9BCF0CE023FC9CA50031D2A2 /* TestCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CD923FC9CA50031D2A2 /* TestCacheProvider.swift */; };
 		9BCF0CE223FC9CA50031D2A2 /* XCTestCase+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CDB23FC9CA50031D2A2 /* XCTestCase+Promise.swift */; };
 		9BCF0CE323FC9CA50031D2A2 /* XCTAssertHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CDC23FC9CA50031D2A2 /* XCTAssertHelpers.swift */; };
@@ -410,6 +411,7 @@
 		9BAEEC18234C297800808306 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
 		9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegen.xcconfig"; sourceTree = "<group>"; };
 		9BC2D9D1233C6DC0007BD083 /* Basher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basher.swift; sourceTree = "<group>"; };
+		9BCB585E240758C8002F766E /* OptionalBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
 		9BCF0CD923FC9CA50031D2A2 /* TestCacheProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCacheProvider.swift; sourceTree = "<group>"; };
 		9BCF0CDA23FC9CA50031D2A2 /* ApolloTestSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApolloTestSupport.h; sourceTree = "<group>"; };
 		9BCF0CDB23FC9CA50031D2A2 /* XCTestCase+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Promise.swift"; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 		9B7B6F50233C26E400F32205 /* ApolloCodegenLib */ = {
 			isa = PBXGroup;
 			children = (
+				9BCB585D240758B2002F766E /* Extensions */,
 				9BD681332405F6BB000874CB /* Codegen */,
 				9BD681322405F69C000874CB /* CLI */,
 				9BD681302405F676000874CB /* Output */,
@@ -813,6 +816,14 @@
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
 			path = ApolloCodegenTests;
+			sourceTree = "<group>";
+		};
+		9BCB585D240758B2002F766E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9BCB585E240758C8002F766E /* OptionalBoolean.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		9BCF0CD823FC9CA50031D2A2 /* ApolloTestSupport */ = {
@@ -1734,6 +1745,7 @@
 				9BD681272405F0CB000874CB /* ASTOutput.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
+				9BCB58602407593C002F766E /* OptionalBoolean.swift in Sources */,
 				9BD6813B2405FA56000874CB /* ASTOperation.swift in Sources */,
 				9BD681292405F149000874CB /* ASTType.swift in Sources */,
 				9BD6812F2405F665000874CB /* JSON.swift in Sources */,
