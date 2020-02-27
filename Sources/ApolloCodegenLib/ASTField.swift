@@ -9,4 +9,6 @@ class ASTField: Codable {
   let isDeprecated: Bool?
   let args: [ASTArgument]?
   let fields: [ASTField]?
+  let fragmentSpreads: [String]?
+  let inlineFragments: [ASTInlineFragment]?
 }

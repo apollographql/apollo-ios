@@ -5,7 +5,3 @@ class ASTOutput: Codable {
   let fragments: [ASTFragment]
   let typesUsed: [ASTType]
 }
-
-
-
-
