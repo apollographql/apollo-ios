@@ -1,5 +1,9 @@
 # Change log
 
+## v0.23.1
+- Added some `@available` flags to prevent accidental compilation of `ApolloCodegenLib` on platforms other than macOS. ([#1041](https://github.com/apollographql/apollo-ios/pull/1041))
+- Made the `Query` on `GraphQLQueryWatcher` public so it can be referenced. ([#1037](https://github.com/apollographql/apollo-ios/pull/1037))
+
 ## v0.23.0
 - **BETA**: Now available, SPM-based code generation, Phase 0 of our transition to Swift Codegen.
   
