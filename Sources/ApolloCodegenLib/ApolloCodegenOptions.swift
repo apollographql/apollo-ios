@@ -13,6 +13,30 @@ public struct ApolloCodegenOptions {
     case multipleFiles(inFolderAtURL: URL)
   }
   
+  /// Enum to select which code generation you wish to use
+  public enum CodeGenerationEngine {
+    /// The default, tried and true code generation engine
+    case typescript
+    
+    /// The VERY WORK IN PROGRESS Swift code generation engine. Use at your own risk!
+    case swiftExperimental
+    
+    /// The current default for the code generation engine.
+    public static var `default`: CodeGenerationEngine {
+      .typescript
+    }
+    
+    var targetForApolloTools: String {
+      switch self {
+      case .typescript:
+        return "swift"
+      case .swiftExperimental:
+        return "json"
+      }
+    }
+  }
+  
+  let codegenEngine: CodeGenerationEngine
   let includes: String
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
@@ -28,6 +52,7 @@ public struct ApolloCodegenOptions {
   /// Designated initializer.
   ///
   /// - Parameters:
+  ///  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
   ///  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
   ///  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
   ///  - namespace: [optional] The namespace to emit generated code into. Defaults to nil.
@@ -38,7 +63,8 @@ public struct ApolloCodegenOptions {
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  public init(includes: String = "./**/*.graphql",
+  public init(codegenEngine: CodeGenerationEngine = .default,
+              includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               namespace: String? = nil,
               only: URL? = nil,
@@ -48,6 +74,7 @@ public struct ApolloCodegenOptions {
               suppressSwiftMultilineStringLiterals: Bool = false,
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
+    self.codegenEngine = codegenEngine
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.namespace = namespace
@@ -69,22 +96,34 @@ public struct ApolloCodegenOptions {
   ///
   /// - Parameters:
   ///  - folder: The root of the target.
+  ///  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds
-  public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0) {
-    let json = folder.appendingPathComponent("schema.json")
-    let outputFileURL = folder.appendingPathComponent("API.swift")
+  public init(targetRootURL folder: URL,
+              codegenEngine: CodeGenerationEngine = .default,
+              downloadTimeout: Double = 30.0) {
+    let schema = folder.appendingPathComponent("schema.json")
+    
+    let outputFileURL: URL
+    switch codegenEngine {
+    case .typescript:
+      outputFileURL = folder.appendingPathComponent("API.swift")
+    case .swiftExperimental:
+      outputFileURL = folder.appendingPathComponent("API.json")
+    }
+    
     let operationIDsURL = folder.appendingPathComponent("operationIDs.json")
     
-    self.init(operationIDsURL: operationIDsURL,
+    self.init(codegenEngine: codegenEngine,
+              operationIDsURL: operationIDsURL,
               outputFormat: .singleFile(atFileURL: outputFileURL),
-              urlToSchemaFile: json,
+              urlToSchemaFile: schema,
               downloadTimeout: downloadTimeout)
   }
   
   var arguments: [String] {
     var arguments = [
       "codegen:generate",
-      "--target=swift",
+      "--target=\(self.codegenEngine.targetForApolloTools)",
       "--addTypename",
       "--includes=\(self.includes)",
       "--localSchemaFile=\(self.urlToSchemaFile.path)"
