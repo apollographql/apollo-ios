@@ -1,6 +1,8 @@
 import Dispatch
 
 /// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
+///
+/// NOTE: The store retains the watcher and does not automatically unsubscribe you. You must call `cancel()` on your query watcher when you no longer need results.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
   weak var client: ApolloClientProtocol?
   public let query: Query
