@@ -1,13 +1,25 @@
 import Foundation
 
+/// The representation of a single operation defined in a .graphql file.
 class ASTOperation: Codable {
+  
+  /// The available types of operation
   enum OperationType: String, Codable {
     case mutation
     case query
     case subscription
   }
+  
+  /// A variable in an operation
+  class Variable: Codable {
+    /// The name of the variable
+    let name: String
+    
+    /// The type of the variable
+    let type: ASTVariableType
+  }
 
-  /// The full file path to this file on the filesystem where the AST was generated.
+  /// The full file path to the file where this operation was defined on the filesystem where the AST was generated.
   let filePath: String
   
   /// The raw name of the operation
@@ -18,7 +30,9 @@ class ASTOperation: Codable {
   
   /// The name of the root type for this operation. Every graph can only have one type for each `OperationType`.
   let rootType: String
-  let variables: [ASTOperationVariable]
+  
+  /// The variables for this operation
+  let variables: [ASTOperation.Variable]
   
   /// The string source of the operation.
   let source: String
@@ -29,7 +43,7 @@ class ASTOperation: Codable {
   /// Names of fragments referenced at this level.
   let fragmentSpreads: [String]
   
-  /// Fragments defined inline on a particuar object type such as `... on Droid`
+  /// Fragments defined inline at this level
   let inlineFragments: [ASTInlineFragment]
   
   /// Names of any fragments referenced wtihin this operation at any level
@@ -40,13 +54,4 @@ class ASTOperation: Codable {
   
   /// [optional] The calculated ID for the operation. Will only be generated if `operationIDsURL` is passed into `ApolloCodegenOptions`.`
   let operationId: String?
-}
-
-/// A variable in an operation
-class ASTOperationVariable: Codable {
-  /// The name of the variable
-  let name: String
-  
-  /// The type of the variable
-  let type: ASTVariableType
 }

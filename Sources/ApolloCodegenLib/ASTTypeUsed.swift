@@ -14,13 +14,13 @@ class ASTTypeUsed: Codable {
     let description: String?
   }
   
-  ///  TODO What are the other possible kinds?
+  /// TODO What are the other possible kinds?
   enum Kind: String, Codable {
     case EnumType
     case InputObjectType
   }
 
-  let kind: Kind
+  let kind: ASTTypeUsed.Kind
   
   /// The name of the type
   let name: String
@@ -30,16 +30,5 @@ class ASTTypeUsed: Codable {
   let values: [ASTEnumValue]?
   
   /// [optional] Any fields used on this type
-  let fields: [Field]?
-}
-
-class ASTEnumValue: Codable {
-  /// The raw name of the enum value
-  let name: String
-  
-  /// The description of the enum value
-  let description: String
-  
-  /// If the enum value is deprecated.
-  let isDeprecated: Bool
+  let fields: [ASTTypeUsed.Field]?
 }
