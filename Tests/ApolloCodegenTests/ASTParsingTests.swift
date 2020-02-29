@@ -615,4 +615,174 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
       }
     }
   }
+  
+  func testParsingQueryWithAliasesAndPassedInRawValue() throws {
+    do {
+      let output = try loadAST(from: starWarsJSONURL)
+      let twoHeroesQuery = try XCTUnwrap(output.operations.first(where: { $0.operationName == "TwoHeroes" }))
+    
+      XCTAssertTrue(twoHeroesQuery.filePath.hasPrefix("file:///"))
+      XCTAssertTrue(twoHeroesQuery.filePath
+      .hasSuffix("/Sources/StarWarsAPI/TwoHeroes.graphql"))
+      XCTAssertEqual(twoHeroesQuery.operationType, .query)
+      XCTAssertEqual(twoHeroesQuery.rootType, .Query)
+      XCTAssertTrue(twoHeroesQuery.variables.isEmpty)
+      XCTAssertEqual(twoHeroesQuery.source, """
+query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(episode: EMPIRE) {\n    __typename\n    name\n  }\n}
+""")
+      XCTAssertTrue(twoHeroesQuery.fragmentSpreads.isEmpty)
+      XCTAssertTrue(twoHeroesQuery.inlineFragments.isEmpty)
+      XCTAssertTrue(twoHeroesQuery.fragmentsReferenced.isEmpty)
+      
+      XCTAssertEqual(twoHeroesQuery.sourceWithFragments, """
+query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(episode: EMPIRE) {\n    __typename\n    name\n  }\n}
+""")
+
+      XCTAssertEqual(twoHeroesQuery.operationId, "b868fa9c48f19b8151c08c09f46831e3b9cd09f5c617d328647de785244b52bb")
+      
+      let outerFields = twoHeroesQuery.fields
+      
+      XCTAssertEqual(outerFields.map { $0.responseName }, [
+        "r2",
+        "luke",
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.fieldName }, [
+        "hero",
+        "hero",
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.type }, [
+        "Character",
+        "Character"
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.isConditional }, [
+        false,
+        false,
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.isDeprecated }, [
+        false,
+        false,
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.fragmentSpreads?.count }, [
+        0,
+        0,
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.inlineFragments?.count }, [
+        0,
+        0,
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.args?.count }, [
+        nil,
+        1,
+      ])
+      
+      XCTAssertEqual(outerFields.map { $0.fields?.count }, [
+        2,
+        2,
+      ])
+      
+      let lukeArgs = try XCTUnwrap(outerFields[1].args)
+      XCTAssertEqual(lukeArgs.count, 1)
+      let lukeArg = lukeArgs[0]
+
+      XCTAssertEqual(lukeArg.name, "episode")
+      XCTAssertEqual(lukeArg.value, JSONContainer(value: .string("EMPIRE")))
+      XCTAssertEqual(lukeArg.type, "Episode")
+
+      let r2Fields = try XCTUnwrap(outerFields[0].fields)
+      XCTAssertEqual(r2Fields.map { $0.responseName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.fieldName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.type }, [
+        "String!",
+        "String!"
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.isConditional }, [
+        false,
+        false,
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.isDeprecated }, [
+        nil,
+        false,
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.description }, [
+        nil,
+        "The name of the character"
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.fragmentSpreads?.count }, [
+        nil,
+        nil,
+      ])
+      
+      XCTAssertEqual(r2Fields.map { $0.inlineFragments?.count }, [
+        nil,
+        nil,
+      ])
+      
+      let lukeFields = try XCTUnwrap(outerFields[1].fields)
+      XCTAssertEqual(lukeFields.map { $0.responseName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.fieldName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.type }, [
+        "String!",
+        "String!"
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.isConditional }, [
+        false,
+        false,
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.isDeprecated }, [
+        nil,
+        false,
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.description }, [
+        nil,
+        "The name of the character"
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.fragmentSpreads?.count }, [
+        nil,
+        nil,
+      ])
+      
+      XCTAssertEqual(lukeFields.map { $0.inlineFragments?.count }, [
+        nil,
+        nil,
+      ])
+    } catch {
+      switch error {
+      case ASTError.ellensComputerIsBeingWeird:
+        print("🐶☕️🔥 This is fine")
+      default:
+        XCTFail("Unexpected error loading AST: \(error)")
+      }
+    }
+  }
 }

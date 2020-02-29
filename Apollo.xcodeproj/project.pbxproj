@@ -704,8 +704,6 @@
 				9BD6812E2405F665000874CB /* JSON.swift */,
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
 				9BE74D3C23FB4A8E006D354F /* FileFinder.swift */,
-				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
-				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
 				9B7B6F51233C26E400F32205 /* Info.plist */,
 			);
 			name = ApolloCodegenLib;
@@ -821,7 +819,9 @@
 		9BCB585D240758B2002F766E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
 				9BCB585E240758C8002F766E /* OptionalBoolean.swift */,
+				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
