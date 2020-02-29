@@ -171,7 +171,7 @@ class ASTParsingTests: XCTestCase {
       XCTAssertTrue(createAwesomeReviewMutation.filePath
         .hasSuffix("/Sources/StarWarsAPI/CreateReviewForEpisode.graphql"))
       XCTAssertEqual(createAwesomeReviewMutation.operationType, .mutation)
-      XCTAssertEqual(createAwesomeReviewMutation.rootType, .Mutation)
+      XCTAssertEqual(createAwesomeReviewMutation.rootType, "Mutation")
       
       XCTAssertEqual(createAwesomeReviewMutation.source, """
 mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome!\"}) {\n    __typename\n    stars\n    commentary\n  }\n}
@@ -276,7 +276,7 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
       XCTAssertTrue(heroAndFriendsNamesQuery.filePath
         .hasSuffix("/Sources/StarWarsAPI/HeroAndFriendsNames.graphql"))
       XCTAssertEqual(heroAndFriendsNamesQuery.operationType, .query)
-      XCTAssertEqual(heroAndFriendsNamesQuery.rootType, .Query)
+      XCTAssertEqual(heroAndFriendsNamesQuery.rootType, "Query")
       
       XCTAssertEqual(heroAndFriendsNamesQuery.source, """
 query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}
@@ -443,7 +443,7 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
       XCTAssertTrue(heroAndFriendsNamesWithFragmentQuery.filePath
         .hasSuffix("/Sources/StarWarsAPI/HeroAndFriendsNames.graphql"))
       XCTAssertEqual(heroAndFriendsNamesWithFragmentQuery.operationType, .query)
-      XCTAssertEqual(heroAndFriendsNamesWithFragmentQuery.rootType, .Query)
+      XCTAssertEqual(heroAndFriendsNamesWithFragmentQuery.rootType, "Query")
       
       XCTAssertEqual(heroAndFriendsNamesWithFragmentQuery.source, """
 query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}
@@ -625,7 +625,7 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
       XCTAssertTrue(twoHeroesQuery.filePath
       .hasSuffix("/Sources/StarWarsAPI/TwoHeroes.graphql"))
       XCTAssertEqual(twoHeroesQuery.operationType, .query)
-      XCTAssertEqual(twoHeroesQuery.rootType, .Query)
+      XCTAssertEqual(twoHeroesQuery.rootType, "Query")
       XCTAssertTrue(twoHeroesQuery.variables.isEmpty)
       XCTAssertEqual(twoHeroesQuery.source, """
 query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(episode: EMPIRE) {\n    __typename\n    name\n  }\n}

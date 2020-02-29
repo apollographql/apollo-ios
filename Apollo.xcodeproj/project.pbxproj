@@ -10,6 +10,7 @@
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
+		9B0E4718240AF6D70093BDA7 /* ASTVariableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E4717240AF6D70093BDA7 /* ASTVariableType.swift */; };
 		9B1A38532332AF6F00325FB4 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A38522332AF6F00325FB4 /* String+SHA.swift */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C85235F8125004C426D /* CLIDownloader.swift */; };
@@ -79,7 +80,7 @@
 		9BCF0D0123FC9F060031D2A2 /* StarWarsAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BCF0D0223FC9F060031D2A2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF0CFC23FC9F060031D2A2 /* API.swift */; };
 		9BD681272405F0CB000874CB /* ASTOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD681262405F0CB000874CB /* ASTOutput.swift */; };
-		9BD681292405F149000874CB /* ASTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD681282405F149000874CB /* ASTType.swift */; };
+		9BD681292405F149000874CB /* ASTTypeUsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD681282405F149000874CB /* ASTTypeUsed.swift */; };
 		9BD6812B2405F410000874CB /* ASTFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6812A2405F410000874CB /* ASTFragment.swift */; };
 		9BD6812D2405F582000874CB /* ASTArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6812C2405F582000874CB /* ASTArgument.swift */; };
 		9BD6812F2405F665000874CB /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6812E2405F665000874CB /* JSON.swift */; };
@@ -337,6 +338,7 @@
 		90690D2322433C5900FC2E54 /* Apollo-Target-CacheDependentTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CacheDependentTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
+		9B0E4717240AF6D70093BDA7 /* ASTVariableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTVariableType.swift; sourceTree = "<group>"; };
 		9B1A38522332AF6F00325FB4 /* String+SHA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
@@ -441,7 +443,7 @@
 		9BCF0CFF23FC9F060031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BCF0D0023FC9F060031D2A2 /* CreateReviewForEpisode.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateReviewForEpisode.graphql; sourceTree = "<group>"; };
 		9BD681262405F0CB000874CB /* ASTOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTOutput.swift; sourceTree = "<group>"; };
-		9BD681282405F149000874CB /* ASTType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTType.swift; sourceTree = "<group>"; };
+		9BD681282405F149000874CB /* ASTTypeUsed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTTypeUsed.swift; sourceTree = "<group>"; };
 		9BD6812A2405F410000874CB /* ASTFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTFragment.swift; sourceTree = "<group>"; };
 		9BD6812C2405F582000874CB /* ASTArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTArgument.swift; sourceTree = "<group>"; };
 		9BD6812E2405F665000874CB /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -792,7 +794,8 @@
 				9BD6812A2405F410000874CB /* ASTFragment.swift */,
 				9BD681392405F95B000874CB /* ASTOperation.swift */,
 				9BD681262405F0CB000874CB /* ASTOutput.swift */,
-				9BD681282405F149000874CB /* ASTType.swift */,
+				9BD681282405F149000874CB /* ASTTypeUsed.swift */,
+				9B0E4717240AF6D70093BDA7 /* ASTVariableType.swift */,
 				9BD6813F2406F31A000874CB /* FlexibleDecoder.swift */,
 			);
 			name = Parsing;
@@ -1733,6 +1736,7 @@
 				9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
+				9B0E4718240AF6D70093BDA7 /* ASTVariableType.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
 				9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */,
 				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
@@ -1747,7 +1751,7 @@
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
 				9BCB58602407593C002F766E /* OptionalBoolean.swift in Sources */,
 				9BD6813B2405FA56000874CB /* ASTOperation.swift in Sources */,
-				9BD681292405F149000874CB /* ASTType.swift in Sources */,
+				9BD681292405F149000874CB /* ASTTypeUsed.swift in Sources */,
 				9BD6812F2405F665000874CB /* JSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,7 +3,7 @@ import Foundation
 class ASTField: Codable {
   let responseName: String
   let fieldName: String
-  let type: String
+  let type: ASTVariableType
   let isConditional: Bool
   let description: String?
   let isDeprecated: Bool?
