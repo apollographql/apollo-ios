@@ -53,7 +53,7 @@ let watcher = apollo.watch(query: HeroNameQuery(episode: .empire)) { result in
 }
 ```
 
-> Remember to kill off watchers when their parent object is deallocated! This is not (presently) done automatically.
+> **NOTE:** Remember to call `cancel()` on a watcher when its parent object is deallocated, or you will get a memory leak! This is not (presently) done automatically.
 
 ## Direct cache access
 
