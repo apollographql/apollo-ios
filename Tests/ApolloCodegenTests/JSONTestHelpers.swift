@@ -31,7 +31,7 @@ public extension Decodable {
         self = try decoder.decode(Self.self, from: data)
     }
     
-    init(dictionary: [String: Any], with decoder: JSONDecoder = JSONDecoder()) throws {
+    init(dictionary: [String: Any?], with decoder: JSONDecoder = JSONDecoder()) throws {
         let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
         self = try decoder.decode(Self.self, from: data)
     }
