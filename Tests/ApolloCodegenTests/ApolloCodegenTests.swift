@@ -41,6 +41,7 @@ class ApolloCodegenTests: XCTestCase {
     case .multipleFiles:
       XCTFail("Nope, this should be a single file!")
     }
+    XCTAssertFalse(options.omitDeprecatedEnumCases)
     XCTAssertFalse(options.passthroughCustomScalars)
     XCTAssertEqual(options.urlToSchemaFile, schema)
     
@@ -67,6 +68,7 @@ class ApolloCodegenTests: XCTestCase {
                                        includes: "*.graphql",
                                        mergeInFieldsFromFragmentSpreads: false,
                                        namespace: namespace,
+                                       omitDeprecatedEnumCases: true,
                                        only: only,
                                        operationIDsURL: operationIDsURL,
                                        outputFormat: .multipleFiles(inFolderAtURL: output),
@@ -85,6 +87,7 @@ class ApolloCodegenTests: XCTestCase {
     }
     XCTAssertTrue(options.passthroughCustomScalars)
     XCTAssertEqual(options.urlToSchemaFile, schema)
+    XCTAssertTrue(options.omitDeprecatedEnumCases)
     
     
     XCTAssertEqual(options.arguments, [
@@ -96,6 +99,7 @@ class ApolloCodegenTests: XCTestCase {
       "--namespace=\(namespace)",
       "--only=\(only.path)",
       "--operationIdsPath=\(operationIDsURL.path)",
+      "--omitDeprecatedEnumCases",
       "--passthroughCustomScalars",
       output.path,
     ])

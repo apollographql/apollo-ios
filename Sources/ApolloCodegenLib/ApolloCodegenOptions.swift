@@ -41,6 +41,7 @@ public struct ApolloCodegenOptions {
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
   let only: URL?
+  let omitDeprecatedEnumCases: Bool
   let operationIDsURL: URL?
   let outputFormat: OutputFormat
   let passthroughCustomScalars: Bool
@@ -56,6 +57,7 @@ public struct ApolloCodegenOptions {
   ///  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
   ///  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
   ///  - namespace: [optional] The namespace to emit generated code into. Defaults to nil.
+  ///  - omitDeprecatedEnumCases: Whether deprecated enum cases should be omitted from generated code. Defaults to false.
   ///  - only: [optional] Parse all input files, but only output generated code for the file at this URL if non-nil. Defaults to nil.
   ///  - operationIDsURL: [optional] Path to an operation id JSON map file. If specified, also stores the operation ids (hashes) as properties on operation types. Defaults to nil.
   ///  - outputFormat: The `OutputFormat` enum option to use to output generated code.
@@ -67,6 +69,7 @@ public struct ApolloCodegenOptions {
               includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               namespace: String? = nil,
+              omitDeprecatedEnumCases: Bool = false,
               only: URL? = nil,
               operationIDsURL: URL? = nil,
               outputFormat: OutputFormat,
@@ -78,6 +81,7 @@ public struct ApolloCodegenOptions {
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.namespace = namespace
+    self.omitDeprecatedEnumCases = omitDeprecatedEnumCases
     self.only = only
     self.operationIDsURL = operationIDsURL
     self.outputFormat = outputFormat
@@ -132,13 +136,17 @@ public struct ApolloCodegenOptions {
     if let namespace = self.namespace {
       arguments.append("--namespace=\(namespace)")
     }
-    
+
     if let only = only {
       arguments.append("--only=\(only.path)")
     }
     
     if let idsURL = self.operationIDsURL {
       arguments.append("--operationIdsPath=\(idsURL.path)")
+    }
+    
+    if self.omitDeprecatedEnumCases {
+      arguments.append("--omitDeprecatedEnumCases")
     }
     
     if self.passthroughCustomScalars {
