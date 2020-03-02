@@ -8,8 +8,8 @@ class ASTField: Codable {
     /// The name of the argument
     let name: String
     
-    /// The value of the argument - this is generally a dictionary or a string, but it's set up as a JSONContainer to allow flexibility.
-    let value: JSONContainer
+    /// The value of the argument - this is generally a dictionary or a string, but it's set up as a JSONValue to allow flexibility.
+    let value: JSONValue
     
     /// The type of the argument
     let type: ASTVariableType

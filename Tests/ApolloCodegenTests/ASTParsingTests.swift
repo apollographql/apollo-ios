@@ -208,11 +208,11 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
       ])
              
       XCTAssertEqual(arguments.map { $0.value }, [
-        JSONContainer(value: .string("JEDI")),
-        JSONContainer(value: .dictionary([
-          "stars": JSONContainer(value: .int(10)),
-          "commentary": JSONContainer(value: .string("This is awesome!")),
-        ]))
+        .string("JEDI"),
+        .dictionary([
+          "stars": .int(10),
+          "commentary": .string("This is awesome!"),
+        ])
       ])
       
       XCTAssertEqual(arguments.map { $0.type }, [
@@ -316,10 +316,10 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
       let argument = arguments[0]
       
       XCTAssertEqual(argument.name, "episode")
-      XCTAssertEqual(argument.value, JSONContainer(value: .dictionary([
-        "kind": JSONContainer(value: .string("Variable")),
-        "variableName": JSONContainer(value: .string("episode")),
-      ])))
+      XCTAssertEqual(argument.value, .dictionary([
+        "kind": .string("Variable"),
+        "variableName": .string("episode"),
+      ]))
       XCTAssertEqual(argument.type, "Episode")
       
       let firstLevelFields = try XCTUnwrap(outerField.fields)
@@ -485,10 +485,10 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
       let argument = arguments[0]
       
       XCTAssertEqual(argument.name, "episode")
-      XCTAssertEqual(argument.value, JSONContainer(value: .dictionary([
-        "kind": JSONContainer(value: .string("Variable")),
-        "variableName": JSONContainer(value: .string("episode"))
-      ])))
+      XCTAssertEqual(argument.value, .dictionary([
+        "kind": .string("Variable"),
+        "variableName": .string("episode")
+      ]))
       XCTAssertEqual(argument.type, "Episode")
       
       let firstLevelFields = try XCTUnwrap(outerField.fields)
@@ -692,7 +692,7 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
       let lukeArg = lukeArgs[0]
 
       XCTAssertEqual(lukeArg.name, "episode")
-      XCTAssertEqual(lukeArg.value, JSONContainer(value: .string("EMPIRE")))
+      XCTAssertEqual(lukeArg.value, .string("EMPIRE"))
       XCTAssertEqual(lukeArg.type, "Episode")
 
       let r2Fields = try XCTUnwrap(outerFields[0].fields)
