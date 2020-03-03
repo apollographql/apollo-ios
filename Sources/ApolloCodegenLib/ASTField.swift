@@ -27,6 +27,9 @@ class ASTField: Codable {
   /// If this field is conditional
   let isConditional: Bool
   
+  /// [optional] Any conditions on this field
+  let conditions: [ASTCondition]?
+  
   /// [optional] Any description of this field
   let description: String?
   

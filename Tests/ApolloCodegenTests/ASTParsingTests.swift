@@ -785,4 +785,191 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
       }
     }
   }
+  
+  func testQueryWithConditionalInclusion() throws {
+    do {
+      let output = try loadAST(from: starWarsJSONURL)
+      let heroNameConditionalInclusionQuery = try XCTUnwrap(output.operations.first(where: { $0.operationName == "HeroNameConditionalInclusion" }))
+      
+      XCTAssertTrue(heroNameConditionalInclusionQuery.filePath.hasPrefix("file:///"))
+      XCTAssertTrue(heroNameConditionalInclusionQuery.filePath
+        .hasSuffix("/Sources/StarWarsAPI/HeroConditional.graphql"))
+      XCTAssertEqual(heroNameConditionalInclusionQuery.operationType, .query)
+      XCTAssertEqual(heroNameConditionalInclusionQuery.rootType, "Query")
+      
+      XCTAssertEqual(heroNameConditionalInclusionQuery.source, """
+query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __typename\n    name @include(if: $includeName)\n  }\n}
+""")
+      XCTAssertTrue(heroNameConditionalInclusionQuery.fragmentSpreads.isEmpty)
+      XCTAssertTrue(heroNameConditionalInclusionQuery.inlineFragments.isEmpty)
+      XCTAssertTrue(heroNameConditionalInclusionQuery.fragmentsReferenced.isEmpty)
+      
+      XCTAssertEqual(heroNameConditionalInclusionQuery.sourceWithFragments, """
+query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __typename\n    name @include(if: $includeName)\n  }\n}
+""")
+      
+      XCTAssertEqual(heroNameConditionalInclusionQuery.operationId, "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8")
+      
+      
+      XCTAssertEqual(heroNameConditionalInclusionQuery.variables.count, 1)
+      let variable = heroNameConditionalInclusionQuery.variables[0]
+      
+      XCTAssertEqual(variable.name, "includeName")
+      XCTAssertEqual(variable.type, "Boolean!")
+      
+      XCTAssertEqual(heroNameConditionalInclusionQuery.fields.count, 1)
+      let outerField = heroNameConditionalInclusionQuery.fields[0]
+      
+      XCTAssertEqual(outerField.responseName, "hero")
+      XCTAssertEqual(outerField.fieldName, "hero")
+      XCTAssertEqual(outerField.type, "Character")
+      XCTAssertFalse(outerField.isConditional)
+      
+      let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
+      XCTAssertFalse(isDeprecated)
+      let fragmentSpreads = try XCTUnwrap(outerField.fragmentSpreads)
+      XCTAssertTrue(fragmentSpreads.isEmpty)
+      let inlineFragments = try XCTUnwrap(outerField.inlineFragments)
+      XCTAssertTrue(inlineFragments.isEmpty)
+      
+      let innerFields = try XCTUnwrap(outerField.fields)
+      XCTAssertEqual(innerFields.count, 2)
+      
+      XCTAssertEqual(innerFields.map { $0.responseName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.fieldName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.type }, [
+        "String!",
+        "String!"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.isConditional }, [
+        false,
+        true
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
+        nil,
+        false
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.conditions?.count }, [
+        nil,
+        1
+      ])
+      
+      let conditions = try XCTUnwrap(innerFields[1].conditions)
+      let condition = try XCTUnwrap(conditions.first)
+      XCTAssertEqual(condition.kind, .BooleanCondition)
+      XCTAssertEqual(condition.variableName, "includeName")
+      XCTAssertFalse(condition.inverted)
+    } catch {
+      switch error {
+      case ASTError.ellensComputerIsBeingWeird:
+        print("🐶☕️🔥 This is fine")
+      default:
+        XCTFail("Unexpected error loading AST: \(error)")
+      }
+    }
+  }
+  
+  func testQueryWithConditionalExclusion() throws {
+    do {
+      let output = try loadAST(from: starWarsJSONURL)
+      let heroNameConditionalExclusionQuery = try XCTUnwrap(output.operations.first(where: { $0.operationName == "HeroNameConditionalExclusion" }))
+      
+      XCTAssertTrue(heroNameConditionalExclusionQuery.filePath.hasPrefix("file:///"))
+      XCTAssertTrue(heroNameConditionalExclusionQuery.filePath
+        .hasSuffix("/Sources/StarWarsAPI/HeroConditional.graphql"))
+      XCTAssertEqual(heroNameConditionalExclusionQuery.operationType, .query)
+      XCTAssertEqual(heroNameConditionalExclusionQuery.rootType, "Query")
+      
+      XCTAssertEqual(heroNameConditionalExclusionQuery.source, """
+query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n  }\n}
+""")
+      XCTAssertTrue(heroNameConditionalExclusionQuery.fragmentSpreads.isEmpty)
+      XCTAssertTrue(heroNameConditionalExclusionQuery.inlineFragments.isEmpty)
+      XCTAssertTrue(heroNameConditionalExclusionQuery.fragmentsReferenced.isEmpty)
+      
+      XCTAssertEqual(heroNameConditionalExclusionQuery.sourceWithFragments, """
+query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n  }\n}
+""")
+      
+      XCTAssertEqual(heroNameConditionalExclusionQuery.operationId, "3dd42259adf2d0598e89e0279bee2c128a7913f02b1da6aa43f3b5def6a8a1f8")
+      
+      XCTAssertEqual(heroNameConditionalExclusionQuery.variables.count, 1)
+      let variable = heroNameConditionalExclusionQuery.variables[0]
+      
+      XCTAssertEqual(variable.name, "skipName")
+      XCTAssertEqual(variable.type, "Boolean!")
+      
+      XCTAssertEqual(heroNameConditionalExclusionQuery.fields.count, 1)
+      let outerField = heroNameConditionalExclusionQuery.fields[0]
+      
+      XCTAssertEqual(outerField.responseName, "hero")
+      XCTAssertEqual(outerField.fieldName, "hero")
+      XCTAssertEqual(outerField.type, "Character")
+      XCTAssertFalse(outerField.isConditional)
+      
+      let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
+      XCTAssertFalse(isDeprecated)
+      let fragmentSpreads = try XCTUnwrap(outerField.fragmentSpreads)
+      XCTAssertTrue(fragmentSpreads.isEmpty)
+      let inlineFragments = try XCTUnwrap(outerField.inlineFragments)
+      XCTAssertTrue(inlineFragments.isEmpty)
+      
+      let innerFields = try XCTUnwrap(outerField.fields)
+      XCTAssertEqual(innerFields.count, 2)
+      
+      XCTAssertEqual(innerFields.map { $0.responseName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.fieldName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.type }, [
+        "String!",
+        "String!"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.isConditional }, [
+        false,
+        true
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
+        nil,
+        false
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.conditions?.count }, [
+        nil,
+        1
+      ])
+      
+      let conditions = try XCTUnwrap(innerFields[1].conditions)
+      let condition = try XCTUnwrap(conditions.first)
+      XCTAssertEqual(condition.kind, .BooleanCondition)
+      XCTAssertEqual(condition.variableName, "skipName")
+      XCTAssertTrue(condition.inverted)
+    } catch {
+      switch error {
+      case ASTError.ellensComputerIsBeingWeird:
+        print("🐶☕️🔥 This is fine")
+      default:
+        XCTFail("Unexpected error loading AST: \(error)")
+      }
+    }
+  }
 }
