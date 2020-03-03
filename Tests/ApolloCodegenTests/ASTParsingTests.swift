@@ -972,4 +972,214 @@ query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typen
       }
     }
   }
+  
+  func testQueryWithConditionalFragmentInclusion() throws {
+    do {
+      let output = try loadAST(from: starWarsJSONURL)
+      let heroDetailsFragmentConditionalInclusionQuery = try XCTUnwrap(output.operations.first(where: { $0.operationName == "HeroDetailsFragmentConditionalInclusion" }))
+      
+      XCTAssertTrue(heroDetailsFragmentConditionalInclusionQuery.filePath.hasPrefix("file:///"))
+      XCTAssertTrue(heroDetailsFragmentConditionalInclusionQuery.filePath
+        .hasSuffix("/Sources/StarWarsAPI/HeroConditional.graphql"))
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.operationType, .query)
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.rootType, "Query")
+      
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.source, """
+query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}
+""")
+      XCTAssertTrue(heroDetailsFragmentConditionalInclusionQuery.fragmentSpreads.isEmpty)
+      XCTAssertTrue(heroDetailsFragmentConditionalInclusionQuery.inlineFragments.isEmpty)
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.fragmentsReferenced, [
+        "HeroDetails"
+      ])
+      
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.sourceWithFragments, """
+query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}
+""")
+      
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.operationId, "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f")
+      
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.variables.count, 1)
+      let variable = try XCTUnwrap(heroDetailsFragmentConditionalInclusionQuery.variables.first)
+      
+      XCTAssertEqual(variable.name, "includeDetails")
+      XCTAssertEqual(variable.type, "Boolean!")
+      
+      XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.fields.count, 1)
+      let outerField = try XCTUnwrap(heroDetailsFragmentConditionalInclusionQuery.fields.first)
+      
+      XCTAssertEqual(outerField.responseName, "hero")
+      XCTAssertEqual(outerField.fieldName, "hero")
+      XCTAssertEqual(outerField.type, "Character")
+      XCTAssertFalse(outerField.isConditional)
+      
+      let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
+      XCTAssertFalse(isDeprecated)
+      
+      XCTAssertEqual(outerField.fragmentSpreads, [
+        "HeroDetails"
+      ])
+      
+      let innerFields = try XCTUnwrap(outerField.fields)
+      XCTAssertEqual(innerFields.map { $0.responseName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.fieldName }, [
+        "__typename",
+        "name"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.type }, [
+        "String!",
+        "String!"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.isConditional }, [
+        false,
+        true
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.description }, [
+        nil,
+        "The name of the character"
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
+        nil,
+        false
+      ])
+      
+      XCTAssertEqual(innerFields.map { $0.conditions?.count }, [
+        1,
+        1
+      ])
+      
+      let expectedCondition = ASTCondition(kind: .BooleanCondition,
+                                           variableName: "includeDetails",
+                                           inverted: false)
+      
+      XCTAssertEqual(innerFields.map { $0.conditions?.first }, [
+        expectedCondition,
+        expectedCondition
+      ])
+      
+      let inlineFragments = try XCTUnwrap(outerField.inlineFragments)
+      XCTAssertEqual(inlineFragments.count, 2)
+      
+      XCTAssertEqual(inlineFragments.map { $0.typeCondition }, [
+        "Human",
+        "Droid"
+      ])
+      
+      XCTAssertEqual(inlineFragments.map { $0.possibleTypes }, [
+        [ "Human" ],
+        [ "Droid" ]
+      ])
+      
+      XCTAssertEqual(inlineFragments.map { $0.fields.count }, [
+        3,
+        3,
+      ])
+      
+      XCTAssertEqual(inlineFragments.map { $0.fragmentSpreads }, [
+        [ "HeroDetails" ],
+        [ "HeroDetails" ]
+      ])
+      
+      let humanFields = inlineFragments[0].fields
+      XCTAssertEqual(humanFields.map { $0.responseName }, [
+        "__typename",
+        "name",
+        "height"
+      ])
+      
+      XCTAssertEqual(humanFields.map { $0.fieldName }, [
+        "__typename",
+        "name",
+        "height"
+      ])
+      
+      XCTAssertEqual(humanFields.map { $0.type }, [
+        "String!",
+        "String!",
+        "Float"
+      ])
+      
+      XCTAssertEqual(humanFields.map { $0.isConditional }, [
+        false,
+        true,
+        true
+      ])
+      
+      XCTAssertEqual(humanFields.map { $0.isDeprecated }, [
+        nil,
+        false,
+        false
+      ])
+      
+      XCTAssertEqual(humanFields.map { $0.description }, [
+        nil,
+        "What this human calls themselves",
+        "Height in the preferred unit, default is meters"
+      ])
+      
+      XCTAssertEqual(humanFields.map { $0.conditions }, [
+        [ expectedCondition, expectedCondition, expectedCondition ],
+        [ expectedCondition, expectedCondition, expectedCondition ],
+        [ expectedCondition ]
+      ])
+      
+      let droidFields = inlineFragments[1].fields
+      XCTAssertEqual(droidFields.map { $0.responseName }, [
+        "__typename",
+        "name",
+        "primaryFunction"
+      ])
+      
+      XCTAssertEqual(droidFields.map { $0.fieldName }, [
+        "__typename",
+        "name",
+        "primaryFunction"
+      ])
+      
+      XCTAssertEqual(droidFields.map { $0.type }, [
+        "String!",
+        "String!",
+        "String"
+      ])
+      
+      XCTAssertEqual(droidFields.map { $0.isConditional }, [
+        false,
+        true,
+        true
+      ])
+      
+      XCTAssertEqual(droidFields.map { $0.isDeprecated }, [
+        nil,
+        false,
+        false
+      ])
+      
+      XCTAssertEqual(droidFields.map { $0.description }, [
+        nil,
+        "What others call this droid",
+        "This droid's primary function"
+      ])
+      
+      XCTAssertEqual(droidFields.map { $0.conditions }, [
+        [ expectedCondition, expectedCondition, expectedCondition ],
+        [ expectedCondition, expectedCondition, expectedCondition ],
+        [ expectedCondition ]
+      ])
+    } catch {
+      switch error {
+      case ASTError.ellensComputerIsBeingWeird:
+        print("🐶☕️🔥 This is fine")
+      default:
+        XCTFail("Unexpected error loading AST: \(error)")
+      }
+    }
+  }
 }
