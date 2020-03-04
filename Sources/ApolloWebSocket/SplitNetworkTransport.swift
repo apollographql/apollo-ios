@@ -56,8 +56,8 @@ extension SplitNetworkTransport: NetworkTransport {
 extension SplitNetworkTransport: UploadingNetworkTransport {
 
   public func upload<Operation: GraphQLOperation>(operation: Operation,
-                                files: [GraphQLFile],
-                                completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
+                                                  files: [GraphQLFile],
+                                                  completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
     return httpNetworkTransport.upload(operation: operation,
                                        files: files,
                                        completionHandler: completionHandler)

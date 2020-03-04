@@ -79,9 +79,9 @@ public class ApolloClient {
   }
 
   private func handleOperationResult<Data: GraphQLSelectionSet>(shouldPublishResultToStore: Bool,
-                                                context: UnsafeMutableRawPointer?,
-                                                _ result: Result<GraphQLResponse<Data>, Error>,
-                                                resultHandler: @escaping GraphQLResultHandler<Data>) {
+                                                                context: UnsafeMutableRawPointer?,
+                                                                _ result: Result<GraphQLResponse<Data>, Error>,
+                                                                resultHandler: @escaping GraphQLResultHandler<Data>) {
     switch result {
     case .failure(let error):
       resultHandler(.failure(error))
