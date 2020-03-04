@@ -35,7 +35,7 @@ class HTTPTransportTests: XCTestCase {
     return transport
   }()
   
-  private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(result: Result<GraphQLResponse<Operation>, Error>,
+  private func validateHeroNameQueryResponse<Data: GraphQLSelectionSet>(result: Result<GraphQLResponse<Data>, Error>,
                                                                           expectation: XCTestExpectation,
                                                                           file: StaticString = #file,
                                                                           line: UInt = #line) {
