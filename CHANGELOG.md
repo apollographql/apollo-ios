@@ -2,7 +2,7 @@
 
 ## v0.23.2
 - Changed the `@available` flags added in 0.23.1 to `#if os(macOS)`, since the former is runtime and the latter is compile time, to work around a bug where SwiftUI compiles the `ApolloCodegenLib` library even if it's not included in the target being previewed. ([#1066](https://github.com/apollographql/apollo-ios/pull/1066))
-- Added support for `` enum case missed for `ApolloCodegenOptions` ([#1053](https://github.com/apollographql/apollo-ios/pull/1053))
+- Added support for `omitDeprecatedEnumCases` command line option I missed for `ApolloCodegenOptions` ([#1053](https://github.com/apollographql/apollo-ios/pull/1053))
 
 ## v0.23.1
 - Added some `@available` flags to prevent accidental compilation of `ApolloCodegenLib` on platforms other than macOS. ([#1041](https://github.com/apollographql/apollo-ios/pull/1041))
