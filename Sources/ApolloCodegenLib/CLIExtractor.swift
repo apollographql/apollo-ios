@@ -1,7 +1,9 @@
 import Foundation
 
+// Only available on macOS
+#if os(macOS)
+
 /// Helper for extracting and validating the node-based Apollo CLI from a zip.
-@available(OSX, message: "Only available on macOS")
 struct CLIExtractor {
   
   // MARK: - Extracting the binary
@@ -122,3 +124,5 @@ struct CLIExtractor {
     }
   }
 }
+
+#endif
