@@ -1,14 +1,17 @@
 /// Represents a GraphQL response received from a server.
-public final class GraphQLResponse<Operation: GraphQLOperation> {
-  public let operation: Operation
+public final class GraphQLResponse<Data: GraphQLSelectionSet> {
   public let body: JSONObject
 
-  public init(operation: Operation, body: JSONObject) {
-    self.operation = operation
+  private let rootKey: String
+  private let variables: GraphQLMap?
+
+  public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data {
     self.body = body
+    rootKey = rootCacheKey(for: operation)
+    variables = operation.variables
   }
 
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Operation.Data>, RecordSet?)>  {
+  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Data>, RecordSet?)>  {
     let errors: [GraphQLError]?
 
     if let errorsEntry = body["errors"] as? [JSONObject] {
@@ -24,15 +27,15 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
 
       executor.cacheKeyForObject = cacheKeyForObject
 
-      let mapper = GraphQLSelectionSetMapper<Operation.Data>()
+      let mapper = GraphQLSelectionSetMapper<Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
 
       return firstly {
-        try executor.execute(selections: Operation.Data.selections,
+        try executor.execute(selections: Data.selections,
                              on: dataEntry,
-                             withKey: rootCacheKey(for: operation),
-                             variables: operation.variables,
+                             withKey: rootKey,
+                             variables: variables,
                              accumulator: zip(mapper, normalizer, dependencyTracker))
         }.map { (data, records, dependentKeys) in
           (
@@ -62,13 +65,13 @@ public final class GraphQLResponse<Operation: GraphQLOperation> {
     return errorsEntry.map(GraphQLError.init)
   }
 
-  func parseResultFast() throws -> GraphQLResult<Operation.Data>  {
+  func parseResultFast() throws -> GraphQLResult<Data>  {
     let errors = self.parseErrorsOnlyFast()
 
     if let dataEntry = body["data"] as? JSONObject {
-      let data = try decode(selectionSet: Operation.Data.self,
+      let data = try decode(selectionSet: Data.self,
                             from: dataEntry,
-                            variables: operation.variables)
+                            variables: variables)
 
       return GraphQLResult(data: data,
                            errors: errors,

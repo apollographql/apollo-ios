@@ -42,7 +42,7 @@ public class SplitNetworkTransport {
 
 extension SplitNetworkTransport: NetworkTransport {
 
-  public func send<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
     if operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation, completionHandler: completionHandler)
     } else {
@@ -55,9 +55,9 @@ extension SplitNetworkTransport: NetworkTransport {
 
 extension SplitNetworkTransport: UploadingNetworkTransport {
 
-  public func upload<Operation>(operation: Operation,
-                                files: [GraphQLFile],
-                                completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable {
+  public func upload<Operation: GraphQLOperation>(operation: Operation,
+                                                  files: [GraphQLFile],
+                                                  completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
     return httpNetworkTransport.upload(operation: operation,
                                        files: files,
                                        completionHandler: completionHandler)
