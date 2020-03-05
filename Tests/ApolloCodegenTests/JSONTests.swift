@@ -9,7 +9,7 @@
 import XCTest
 import ApolloCodegenLib
 
-class JSONContainerTests: XCTestCase {
+class JSONTests: XCTestCase {
     
     func testSingleLevelDictionary() throws {
         let dictionaryString = """
