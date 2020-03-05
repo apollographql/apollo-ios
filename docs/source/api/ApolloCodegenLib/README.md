@@ -1,3 +1,6 @@
+## Protocols
+
+-   [FlexibleDecoder](protocols/FlexibleDecoder/)
 
 ## Structs
 
@@ -16,7 +19,10 @@
 ## Enums
 
 -   [BashError](enums/BashError/)
+-   [CodeGenerationEngine](enums/CodeGenerationEngine/)
 -   [CodegenError](enums/CodegenError/)
+-   [JSONValue](enums/JSONValue/)
+-   [JSONValueError](enums/JSONValueError/)
 -   [LogLevel](enums/LogLevel/)
 -   [OutputFormat](enums/OutputFormat/)
 -   [SchemaFileType](enums/SchemaFileType/)

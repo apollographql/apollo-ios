@@ -9,12 +9,14 @@ public struct ApolloCodegenOptions
 > An object to hold all the various options for running codegen
 
 ## Methods
-### `init(includes:mergeInFieldsFromFragmentSpreads:namespace:only:operationIDsURL:outputFormat:passthroughCustomScalars:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
+### `init(codegenEngine:includes:mergeInFieldsFromFragmentSpreads:namespace:omitDeprecatedEnumCases:only:operationIDsURL:outputFormat:passthroughCustomScalars:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
 
 ```swift
-public init(includes: String = "./**/*.graphql",
+public init(codegenEngine: CodeGenerationEngine = .default,
+            includes: String = "./**/*.graphql",
             mergeInFieldsFromFragmentSpreads: Bool = true,
             namespace: String? = nil,
+            omitDeprecatedEnumCases: Bool = false,
             only: URL? = nil,
             operationIDsURL: URL? = nil,
             outputFormat: OutputFormat,
@@ -27,9 +29,11 @@ public init(includes: String = "./**/*.graphql",
 > Designated initializer.
 >
 > - Parameters:
+>  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
 >  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
 >  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
 >  - namespace: [optional] The namespace to emit generated code into. Defaults to nil.
+>  - omitDeprecatedEnumCases: Whether deprecated enum cases should be omitted from generated code. Defaults to false.
 >  - only: [optional] Parse all input files, but only output generated code for the file at this URL if non-nil. Defaults to nil.
 >  - operationIDsURL: [optional] Path to an operation id JSON map file. If specified, also stores the operation ids (hashes) as properties on operation types. Defaults to nil.
 >  - outputFormat: The `OutputFormat` enum option to use to output generated code.
@@ -38,10 +42,12 @@ public init(includes: String = "./**/*.graphql",
 >  - urlToSchemaFile: The URL to your schema file.
 >  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
 
-### `init(targetRootURL:downloadTimeout:)`
+### `init(targetRootURL:codegenEngine:downloadTimeout:)`
 
 ```swift
-public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0)
+public init(targetRootURL folder: URL,
+            codegenEngine: CodeGenerationEngine = .default,
+            downloadTimeout: Double = 30.0)
 ```
 
 > Convenience initializer that takes the root folder of a target and generates
@@ -53,4 +59,5 @@ public init(targetRootURL folder: URL, downloadTimeout: Double = 30.0)
 >
 > - Parameters:
 >  - folder: The root of the target.
+>  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
 >  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds
