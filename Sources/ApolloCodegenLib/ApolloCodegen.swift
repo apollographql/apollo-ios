@@ -1,7 +1,9 @@
 import Foundation
 
+// Only available on macOS
+#if os(macOS)
+
 /// A class to facilitate running code generation
-@available(OSX, message: "Only available on macOS")
 public class ApolloCodegen {
   
   /// Errors which can happen with code generation
@@ -42,3 +44,5 @@ public class ApolloCodegen {
     return try cli.runApollo(with: options.arguments, from: folder)
   }
 }
+
+#endif

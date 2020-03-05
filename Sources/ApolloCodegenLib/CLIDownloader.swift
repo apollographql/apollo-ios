@@ -1,7 +1,9 @@
 import Foundation
 
+// Only available on macOS
+#if os(macOS)
+
 /// Helper for downloading the CLI Zip file so we don't have to include it in the repo.
-@available(OSX, message: "Only available on macOS")
 struct CLIDownloader {
   
   enum CLIDownloaderError: Error, LocalizedError {
@@ -118,3 +120,5 @@ struct CLIDownloader {
     }
   }
 }
+
+#endif

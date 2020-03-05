@@ -1,7 +1,9 @@
 import Foundation
 
+// Only available on macOS
+#if os(macOS)
+
 /// Wrapper for calling the bundled node-based Apollo CLI.
-@available(OSX, message: "Only available on macOS")
 public struct ApolloCLI {
   
   /// Creates an instance of `ApolloCLI`, downloading and extracting if needed
@@ -47,3 +49,5 @@ public struct ApolloCLI {
     return try Basher.run(command: command, from: folder)
   }
 }
+
+#endif

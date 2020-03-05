@@ -1,7 +1,9 @@
 import Foundation
 
+// Only available on macOS
+#if os(macOS)
+
 /// Bash command runner
-@available(OSX, message: "Only available on macOS")
 public struct Basher {
   
   public enum BashError: Error, LocalizedError {
@@ -65,3 +67,5 @@ public struct Basher {
     return output
   }
 }
+
+#endif
