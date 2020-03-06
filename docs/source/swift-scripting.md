@@ -74,7 +74,11 @@ You can use this to get the URL of the folder you plan to download the CLI to:
 let cliFolderURL = sourceRootURL
   .appendingPathComponent("Codegen")
   .appendingPathComponent("ApolloCLI")
-```    
+```
+
+>**Note**: We recommend adding this folder to your `.gitignore`, because otherwise you'll be adding the zip file and a ton of JS code to your repo. 
+>
+> If you're on versions prior to `0.24.0`, throw an empty `.keep` file and force-add it to git to preserve the folder structure. Versions after `0.24.0` automatically create the folder being downloaded to if it doesn't exist.
 
 Now, with access to both the `sourceRootURL` and the `cliFolderURL`, it's time to use your script to do neat stuff for you!
 
