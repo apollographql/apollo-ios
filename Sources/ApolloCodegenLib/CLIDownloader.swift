@@ -67,6 +67,8 @@ struct CLIDownloader {
   ///   - zipFileURL: The URL where downloaded data should be saved.
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   private static func download(to zipFileURL: URL, timeout: Double) throws {
+    try FileManager.default.apollo_createContainingFolderIfNeeded(for: zipFileURL)
+    
     CodegenLogger.log("Downloading zip file with the CLI...")
     let semaphore = DispatchSemaphore(value: 0)
     var errorToThrow: Error? = CLIDownloaderError.downloadTimedOut(after: timeout)

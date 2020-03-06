@@ -15,15 +15,16 @@ struct CodegenTestHelper {
   static var timeout: Double = 90.0
   
   static func sourceRootURL() -> URL {
-    let parentFolder = FileFinder.findParentFolder()
-    return parentFolder
+    FileFinder.findParentFolder()
         .deletingLastPathComponent() // Tests
         .deletingLastPathComponent() // apollo-ios
   }
   
   static func cliFolderURL() -> URL {
-    let sourceRoot = self.sourceRootURL()
-    return sourceRoot.appendingPathComponent("scripts")
+    self.sourceRootURL()
+      .appendingPathComponent("Tests")
+      .appendingPathComponent("ApolloCodegenTests")
+      .appendingPathComponent("scripts")
   }
   
   static func apolloFolderURL() -> URL {

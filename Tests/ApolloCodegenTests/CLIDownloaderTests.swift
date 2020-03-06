@@ -21,6 +21,17 @@ class CLIDownloaderTests: XCTestCase {
     XCTAssertEqual(try FileManager.default.apollo_shasum(at: zipFileURL), CLIExtractor.expectedSHASUM)    
   }
   
+  func testDownloadingToFolderThatDoesntAlreadyExistWorks() throws {
+    let scriptsURL = CodegenTestHelper.cliFolderURL()
+    try FileManager.default.apollo_deleteFolder(at: scriptsURL)
+    
+    XCTAssertFalse(FileManager.default.apollo_folderExists(at: scriptsURL))
+    
+    try CLIDownloader.downloadIfNeeded(cliFolderURL: scriptsURL, timeout: 90.0)
+    
+    XCTAssertTrue(FileManager.default.apollo_folderExists(at: scriptsURL))
+  }
+  
   func testTimeoutThrowsCorrectError() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
     
