@@ -24,6 +24,8 @@
 		9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */; };
 		9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */; };
 		9B68F03D240ED3B300E97318 /* ASTCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03C240ED3B300E97318 /* ASTCondition.swift */; };
+		9B68F03F240F3B0E00E97318 /* CodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */; };
+		9B68F04A24130D6500E97318 /* EnumGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F04924130D6500E97318 /* EnumGenerator.swift */; };
 		9B6CB23E238077B70007259D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
 		9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */; };
@@ -356,6 +358,8 @@
 		9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryDict.swift"; sourceTree = "<group>"; };
 		9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodegenExtensionTests.swift; sourceTree = "<group>"; };
 		9B68F03C240ED3B300E97318 /* ASTCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTCondition.swift; sourceTree = "<group>"; };
+		9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerator.swift; sourceTree = "<group>"; };
+		9B68F04924130D6500E97318 /* EnumGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumGenerator.swift; sourceTree = "<group>"; };
 		9B6CB23D238077B60007259D /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		9B74BCBE2333F4ED00508F84 /* run-bundled-codegen.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "run-bundled-codegen.sh"; path = "scripts/run-bundled-codegen.sh"; sourceTree = SOURCE_ROOT; };
@@ -904,6 +908,8 @@
 		9BD681302405F676000874CB /* Output */ = {
 			isa = PBXGroup;
 			children = (
+				9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */,
+				9B68F04924130D6500E97318 /* EnumGenerator.swift */,
 			);
 			name = Output;
 			sourceTree = "<group>";
@@ -1748,6 +1754,7 @@
 				9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
+				9B68F03F240F3B0E00E97318 /* CodeGenerator.swift in Sources */,
 				9B0E4718240AF6D70093BDA7 /* ASTVariableType.swift in Sources */,
 				9B0E471C240B167C0093BDA7 /* String+Apollo.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
@@ -1755,6 +1762,7 @@
 				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
 				9BAEEBF123467E0A00808306 /* ApolloCLI.swift in Sources */,
 				9BD6812B2405F410000874CB /* ASTFragment.swift in Sources */,
+				9B68F04A24130D6500E97318 /* EnumGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,

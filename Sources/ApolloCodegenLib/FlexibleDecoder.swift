@@ -16,7 +16,7 @@ extension PropertyListDecoder: FlexibleDecoder {
   public typealias Input = Data
 }
 
-extension Decodable {
+public extension Decodable {
   /// Loads data from a given file URL and parses it with the given decoder.
   ///
   /// - Parameters:
