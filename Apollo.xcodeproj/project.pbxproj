@@ -26,6 +26,7 @@
 		9B68F03D240ED3B300E97318 /* ASTCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03C240ED3B300E97318 /* ASTCondition.swift */; };
 		9B68F03F240F3B0E00E97318 /* CodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */; };
 		9B68F04A24130D6500E97318 /* EnumGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F04924130D6500E97318 /* EnumGenerator.swift */; };
+		9B68F04D2413239100E97318 /* Stencil in Frameworks */ = {isa = PBXBuildFile; productRef = 9B68F04C2413239100E97318 /* Stencil */; };
 		9B6CB23E238077B70007259D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
 		9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */; };
@@ -559,6 +560,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B68F04D2413239100E97318 /* Stencil in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1281,6 +1283,9 @@
 			dependencies = (
 			);
 			name = ApolloCodegenLib;
+			packageProductDependencies = (
+				9B68F04C2413239100E97318 /* Stencil */,
+			);
 			productName = ApolloCodegenLib;
 			productReference = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1602,6 +1607,7 @@
 			packageReferences = (
 				9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */,
 				9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */,
 			);
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
@@ -2533,6 +2539,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stencilproject/Stencil.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.13.1;
+			};
+		};
 		9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
@@ -2552,6 +2566,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9B68F04C2413239100E97318 /* Stencil */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */;
+			productName = Stencil;
+		};
 		9B7BDAAB23FDEA7B00ACD198 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */;
