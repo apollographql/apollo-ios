@@ -44,6 +44,7 @@ class ApolloCodegenTests: XCTestCase {
     XCTAssertFalse(options.omitDeprecatedEnumCases)
     XCTAssertFalse(options.passthroughCustomScalars)
     XCTAssertEqual(options.urlToSchemaFile, schema)
+    XCTAssertEqual(options.modifier, .public)
     
     XCTAssertEqual(options.arguments, [
       "codegen:generate",
@@ -67,6 +68,7 @@ class ApolloCodegenTests: XCTestCase {
     let options = ApolloCodegenOptions(codegenEngine: .swiftExperimental,
                                        includes: "*.graphql",
                                        mergeInFieldsFromFragmentSpreads: false,
+                                       modifier: .internal,
                                        namespace: namespace,
                                        omitDeprecatedEnumCases: true,
                                        only: only,
@@ -88,6 +90,7 @@ class ApolloCodegenTests: XCTestCase {
     XCTAssertTrue(options.passthroughCustomScalars)
     XCTAssertEqual(options.urlToSchemaFile, schema)
     XCTAssertTrue(options.omitDeprecatedEnumCases)
+    XCTAssertEqual(options.modifier, .internal)
     
     
     XCTAssertEqual(options.arguments, [
