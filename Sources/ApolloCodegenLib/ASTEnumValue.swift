@@ -9,4 +9,13 @@ class ASTEnumValue: Codable {
   
   /// If the enum value is deprecated.
   let isDeprecated: Bool
+  
+  /// Initializer for testing
+  init(name: String,
+       description: String,
+       isDeprecated: Bool) {
+    self.name = name
+    self.description = description
+    self.isDeprecated = isDeprecated
+  }
 }

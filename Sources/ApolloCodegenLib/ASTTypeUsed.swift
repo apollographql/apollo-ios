@@ -12,9 +12,18 @@ class ASTTypeUsed: Codable {
     
     /// [optional] A description of the field.
     let description: String?
+    
+    /// Initializer for testing
+    init(name: String,
+         type: ASTVariableType,
+         description: String?) {
+      self.name = name
+      self.type = type
+      self.description = description
+    }
   }
-  
-  /// TODO What are the other possible kinds?
+
+  /// The possible kinds which could be returned through this mechanism
   enum Kind: String, Codable {
     case EnumType
     case InputObjectType
@@ -27,8 +36,23 @@ class ASTTypeUsed: Codable {
   
   /// The description of the type
   let description: String
+  
+  /// [optional] The values of an enum type
   let values: [ASTEnumValue]?
   
   /// [optional] Any fields used on this type
   let fields: [ASTTypeUsed.Field]?
+  
+  /// Initializer for testing
+  init(kind: ASTTypeUsed.Kind,
+       name: String,
+       description: String,
+       values: [ASTEnumValue]?,
+       fields: [ASTTypeUsed.Field]?) {
+    self.kind = kind
+    self.name = name
+    self.description = description
+    self.values = values
+    self.fields = fields
+  }
 }
