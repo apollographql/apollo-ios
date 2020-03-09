@@ -22,10 +22,10 @@ let package = Package(
     dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMinor("0.12.2")),
+      .upToNextMinor(from: "0.12.2")),
     .package(
       url: "https://github.com/daltoniam/Starscream",
-      .upToNextMinor("3.1.1")),
+      .upToNextMinor(from: "3.1.1")),
     .package(
       url: "https://github.com/stencilproject/Stencil.git",
       .upToNextMinor(from: "0.13.1")),
