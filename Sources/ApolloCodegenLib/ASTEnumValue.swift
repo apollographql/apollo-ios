@@ -1,6 +1,7 @@
 import Foundation
 
-class ASTEnumValue: Codable {
+/// A case within an enum
+struct ASTEnumValue: Codable, Equatable {
   /// The raw name of the enum value
   let name: String
   
@@ -9,13 +10,4 @@ class ASTEnumValue: Codable {
   
   /// If the enum value is deprecated.
   let isDeprecated: Bool
-  
-  /// Initializer for testing
-  init(name: String,
-       description: String,
-       isDeprecated: Bool) {
-    self.name = name
-    self.description = description
-    self.isDeprecated = isDeprecated
-  }
 }

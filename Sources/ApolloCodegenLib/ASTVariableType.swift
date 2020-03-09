@@ -4,6 +4,7 @@ import Foundation
 typealias ASTVariableType = String
 
 /// Nestable variable type so that we can determine nullability and lists etc.
+/// NOTE: This has to be a class because it contains an instance of itself recursievely
 class ASTForthcomingVariableType: Codable {
 
   /// What kind of type are we dealing with here?
@@ -58,5 +59,14 @@ class ASTForthcomingVariableType: Codable {
       
       return "\(name)?"
     }
+  }
+}
+
+// Only structs get equatable auto-conformance, so: 
+extension ASTForthcomingVariableType: Equatable {
+  static func == (lhs: ASTForthcomingVariableType, rhs: ASTForthcomingVariableType) -> Bool {
+    lhs.kind == rhs.kind
+      && lhs.name == rhs.name
+      && lhs.ofType == rhs.ofType
   }
 }

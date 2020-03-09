@@ -1,7 +1,7 @@
 import Foundation
 
 /// A resuable fragment to generate code for
-class ASTFragment: Codable {
+struct ASTFragment: Codable, Equatable {
   /// The primary type the fragment is defined on
   let typeCondition: ASTVariableType
   
@@ -28,7 +28,7 @@ class ASTFragment: Codable {
 }
 
 /// A fragment defined inline on a particuar object type such as `... on Droid { name }`
-class ASTInlineFragment: Codable {
+struct ASTInlineFragment: Codable, Equatable {
   /// The primary type the fragment is defined on
   let typeCondition: ASTVariableType
   

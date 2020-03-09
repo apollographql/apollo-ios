@@ -1,10 +1,10 @@
 import Foundation
 
 /// A field with data on any item.
-class ASTField: Codable {
+struct ASTField: Codable, Equatable {
   
   /// An argument which can be passed along with a field
-  class Argument: Codable {
+  struct Argument: Codable, Equatable {
     /// The name of the argument
     let name: String
     
