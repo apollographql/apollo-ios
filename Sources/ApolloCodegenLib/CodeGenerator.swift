@@ -34,7 +34,7 @@ public class CodeGenerator<Decoder: FlexibleDecoder> {
     for type in self.astOutput.typesUsed {
       switch type.kind {
       case .EnumType:
-        let enumOutput = try EnumGenerator().run(with: type, options: options)
+        let enumOutput = try EnumGenerator().run(typeUsed: type, options: options)
         try self.renderOutput(enumOutput, named: type.name, with: options)
       case .InputObjectType:
         try self.renderOutput("Not done yet", named: type.name, with: options)

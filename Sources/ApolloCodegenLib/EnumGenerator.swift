@@ -1,4 +1,5 @@
 import Foundation
+import Stencil
 
 public class EnumGenerator {
   
@@ -17,50 +18,12 @@ public class EnumGenerator {
     }
   }
   
-  public static var enumTemplate = """
-  {{ options.modifier }}enum {{ enumType.name }}: RawRepresentable, Codable, Equatable, Hashable, CaseIterable {
-    {{ options.modifier }} typealias RawValue = String
-  
-    {% for case in cases %}
-    {% if case.isDeprecated %}
-    @available(*, deprecated, message: "Deprecated in schema")
-    {% endif %}
-    {% if case.description != "" %}
-    /// {{ case.description }}
-    {% endif %}
-    case {{ case.name }}
-    {% endfor % }
-    /// An {{ enumType.name }} type not defined at the time this enum was generated
-    case __unknown(String)
-  
-    {{ options.modifier }}var rawValue: String {
-      switch self {
-      {% for case in cases %}
-      case {{ case.name }}: return "{{ case.name }}"
-      {% endfor %}
-      case .__unknown(let value): return value
-    }
-  
-    {{ options.modifier }}init(rawValue: String) {
-      switch rawValue {
-      {% for case in cases %}
-      case .{{ case.name }}: self = "{{ case.name }}"
-      {% endfor %%}
-      default: self = .__unknown(rawValue)
-    }
-
-    {{ options.modifier }}static var allCases: [{{ enumType.name }}] {
-      [
-      {% for case in cases %}
-      .{{ case.name }}
-      {% endfor %}
-      ]
-    }
+  /// Designated initializer
+  public init() {
   }
-  """
   
-  func run(with typeUsed: ASTTypeUsed, options: ApolloCodegenOptions) throws -> String {
-    guard typeUsed.kind == ASTTypeUsed.Kind.EnumType else {
+  func run(typeUsed: ASTTypeUsed, options: ApolloCodegenOptions) throws -> String {
+    guard typeUsed.kind == .EnumType else {
       throw EnumGenerationError.kindIsNotAnEnum
     }
     
@@ -68,19 +31,55 @@ public class EnumGenerator {
       throw EnumGenerationError.enumHasNilCases
     }
     
-    var cases: [ASTEnumValue]
+    let cases: [ASTEnumValue]
     if options.omitDeprecatedEnumCases {
       cases = enumValues.filter { !$0.isDeprecated }
     } else {
       cases = enumValues
     }
-    
+
     let context: [String: Any] = [
-      "options": options,
+      "modifier": options.modifier.prefixValue,
       "enumType": typeUsed,
       "cases": cases
     ]
     
-    return "TODO: INSTALL STENCIL"
+    return try Environment().renderTemplate(string: self.enumTemplate, context: context)
   }
+  
+  /// A stencil template to use to render enums.
+  ///
+  /// Variable to allow custom modifications, but MODIFY AT YOUR OWN RISK.
+  open var enumTemplate = """
+  {% if enumType.description != "" %}/// {{ enumType.description }}
+  {% endif %}{{ modifier }}enum {{ enumType.name }}: RawRepresentable, Codable, Equatable, Hashable, CaseIterable {
+    {{ modifier }}typealias RawValue = String
+
+    {% for case in cases %}{% if case.isDeprecated %}@available(*, deprecated, message: "Deprecated in schema")
+    {% endif %}{% if case.description != "" %}/// {{ case.description }}
+    {% endif %}case {{ case.name }}
+    {% endfor %}/// An {{ enumType.name }} type not defined at the time this enum was generated
+    case __unknown(String)
+
+    {{ modifier }}var rawValue: String {
+      switch self {
+      {% for case in cases %}case .{{ case.name }}: return "{{ case.name }}"
+      {% endfor %}case .__unknown(let value): return value
+      }
+    }
+
+    {{ modifier }}init(rawValue: String) {
+      switch rawValue {
+      {% for case in cases %}case "{{ case.name }}": self = .{{ case.name }}
+      {% endfor %}default: self = .__unknown(rawValue)
+      }
+    }
+
+    {{ modifier }}static var allCases: [{{ enumType.name }}] {
+      [{% for case in cases %}
+        .{{ case.name }},{% endfor %}
+      ]
+    }
+  }
+  """
 }
