@@ -212,4 +212,34 @@ class EnumGenerationTests: XCTestCase {
       CodegenTestHelper.handleFileLoadError(error)
     }
   }
+  
+  func testGeneratingEnumWithDifferentCases() {
+    let camelCase = ASTEnumValue(name: "caseName",
+                                 description: "A camelCase case name",
+                                 isDeprecated: false)
+    let uppercase = ASTEnumValue(name: "CASENAME",
+                                 description: "An UPPERCASE case name",
+                                 isDeprecated: false)
+    
+    let differentCases = ASTTypeUsed(kind: .EnumType,
+                                     name: "EnumWithDifferentCases",
+                                     description: "An enum with two cases with the same letters but different cases",
+                                     values: [
+                                      camelCase,
+                                      uppercase,
+                                     ],
+                                     fields: nil)
+    
+    do {
+      let output = try EnumGenerator().run(typeUsed: differentCases, options: self.dummyOptions)
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedEnumWithDifferentCases.swift")
+
+      LineByLineComparison.between(received: output, expectedFileURL: expectedFileURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
+  }
 }
