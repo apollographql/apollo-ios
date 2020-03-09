@@ -20,41 +20,12 @@ class ASTParsingTests: XCTestCase {
     
     return starWarsJSONURL
   }()
-  
-  enum ASTError: Error {
-    case ellensComputerIsBeingWeird
-  }
+
   
   private func loadAST(from url: URL,
                        file: StaticString = #file,
                        line: UInt = #line) throws -> ASTOutput {
-    do {
-      let output = try ASTOutput.load(from: url, decoder: JSONDecoder())
-      return output
-    } catch {
-      let nsError = error as NSError
-      if let underlying = nsError.userInfo["NSUnderlyingError"] as? NSError,
-        underlying.domain == NSPOSIXErrorDomain,
-        underlying.code == 4 { // The filesystem can't open the file, which for some reason is only happening on my laptop.
-          throw ASTError.ellensComputerIsBeingWeird
-      } else {
-        // There was an actual problem.
-        throw error
-      }
-    }
-  }
-  
-  private func handleASTLoadError(_ error: Error,
-                                  file: StaticString = #file,
-                                  line: UInt = #line) {
-    switch error {
-    case ASTError.ellensComputerIsBeingWeird:
-      print("🐶☕️🔥 This is fine")
-    default:
-      XCTFail("Unexpected error loading AST: \(error)",
-              file: file,
-              line: line)
-    }
+    try ASTOutput.load(from: url, decoder: JSONDecoder())
   }
   
   func testLoadingStarWarsJSON() throws {
@@ -64,7 +35,7 @@ class ASTParsingTests: XCTestCase {
       XCTAssertEqual(output.fragments.count, 15)
       XCTAssertEqual(output.typesUsed.count, 3)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
     }
   }
   
@@ -73,7 +44,7 @@ class ASTParsingTests: XCTestCase {
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -173,7 +144,7 @@ class ASTParsingTests: XCTestCase {
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -275,7 +246,7 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -438,7 +409,7 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -615,7 +586,7 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
   
@@ -785,7 +756,7 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -953,7 +924,7 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -1045,7 +1016,7 @@ query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __ty
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
@@ -1136,7 +1107,7 @@ query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typen
     do {
       output = try loadAST(from: starWarsJSONURL)
     } catch {
-      self.handleASTLoadError(error)
+      CodegenTestHelper.handleFileLoadError(error)
       return
     }
     
