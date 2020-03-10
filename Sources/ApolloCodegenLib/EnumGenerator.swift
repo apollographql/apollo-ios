@@ -3,6 +3,31 @@ import Stencil
 
 public class EnumGenerator {
   
+  public struct SanitizedEnumValue {
+    // The raw value of the name
+    let name: String
+    
+    /// The string declaring the name of the enum value
+    let nameVariableDeclaration: String
+    
+    /// The string to use when using the enum value
+    let nameUsage: String
+    
+    /// The description of the enum value
+    let description: String
+    
+    /// If the enum value is deprecated.
+    let isDeprecated: Bool
+    
+    init(astEnumValue: ASTEnumValue) {
+      self.name = astEnumValue.name
+      self.nameVariableDeclaration = astEnumValue.name.apollo_sanitizedVariableDeclaration
+      self.nameUsage = astEnumValue.name.apollo_sanitizedVariableUsage
+      self.description = astEnumValue.description
+      self.isDeprecated = astEnumValue.isDeprecated
+    }
+  }
+  
   /// Errors which can be encountered when generating an enum
   public enum EnumGenerationError: Error, LocalizedError {
     case kindIsNotAnEnum
@@ -41,7 +66,7 @@ public class EnumGenerator {
     let context: [String: Any] = [
       "modifier": options.modifier.prefixValue,
       "enumType": typeUsed,
-      "cases": cases
+      "cases": cases.map { SanitizedEnumValue(astEnumValue: $0) }
     ]
     
     return try Environment().renderTemplate(string: self.enumTemplate, context: context)
@@ -57,27 +82,27 @@ public class EnumGenerator {
 
     {% for case in cases %}{% if case.isDeprecated %}@available(*, deprecated, message: "Deprecated in schema")
     {% endif %}{% if case.description != "" %}/// {{ case.description }}
-    {% endif %}case {{ case.name }}
+    {% endif %}case {{ case.nameVariableDeclaration }}
     {% endfor %}/// An {{ enumType.name }} type not defined at the time this enum was generated
     case __unknown(String)
 
     {{ modifier }}var rawValue: String {
       switch self {
-      {% for case in cases %}case .{{ case.name }}: return "{{ case.name }}"
+      {% for case in cases %}case .{{ case.nameUsage }}: return "{{ case.name }}"
       {% endfor %}case .__unknown(let value): return value
       }
     }
 
     {{ modifier }}init(rawValue: String) {
       switch rawValue {
-      {% for case in cases %}case "{{ case.name }}": self = .{{ case.name }}
+      {% for case in cases %}case "{{ case.name }}": self = .{{ case.nameUsage }}
       {% endfor %}default: self = .__unknown(rawValue)
       }
     }
 
     {{ modifier }}static var allCases: [{{ enumType.name }}] {
       [{% for case in cases %}
-        .{{ case.name }},{% endfor %}
+        .{{ case.nameUsage }},{% endfor %}
       ]
     }
   }

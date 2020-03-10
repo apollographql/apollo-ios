@@ -242,4 +242,43 @@ class EnumGenerationTests: XCTestCase {
       CodegenTestHelper.handleFileLoadError(error)
     }
   }
+  
+  func testGeneratingEnumWithSanitizedCaseNames() throws {
+    let caseCase = ASTEnumValue(name: "case",
+                                description: "",
+                                isDeprecated: false)
+    let selfCase = ASTEnumValue(name: "self",
+                                description: "",
+                                isDeprecated: false)
+    let typeCase = ASTEnumValue(name: "Type",
+                                description: "",
+                                isDeprecated: false)
+    let protocolCase = ASTEnumValue(name: "Protocol",
+                                    description: "",
+                                    isDeprecated: false)
+    
+    let sanitizedCases = ASTTypeUsed(kind: .EnumType,
+                                     name: "EnumWithSanitizedCases",
+                                     description: "An enum with sanitized case names",
+                                     values: [
+                                      caseCase,
+                                      selfCase,
+                                      typeCase,
+                                      protocolCase,
+                                     ],
+                                     fields: nil)
+    
+    
+    do {
+      let output = try EnumGenerator().run(typeUsed: sanitizedCases, options: self.dummyOptions)
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedEnumWithSanitizedCases.swift")
+
+      LineByLineComparison.between(received: output, expectedFileURL: expectedFileURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
+  }
 }
