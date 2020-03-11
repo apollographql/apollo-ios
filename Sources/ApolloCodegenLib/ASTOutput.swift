@@ -1,7 +1,7 @@
 import Foundation
 
 /// The top-level output of the AST generator
-class ASTOutput: Codable {
+struct ASTOutput: Codable, Equatable {
   /// An array of all operations to generate code for.
   let operations: [ASTOperation]
   

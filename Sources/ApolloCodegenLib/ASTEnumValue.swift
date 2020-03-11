@@ -1,6 +1,7 @@
 import Foundation
 
-class ASTEnumValue: Codable {
+/// A case within an enum
+struct ASTEnumValue: Codable, Equatable {
   /// The raw name of the enum value
   let name: String
   

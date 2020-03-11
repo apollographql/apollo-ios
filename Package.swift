@@ -22,10 +22,13 @@ let package = Package(
     dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .exact("0.12.2")),
+      .upToNextMinor(from: "0.12.2")),
     .package(
       url: "https://github.com/daltoniam/Starscream",
-      .exact("3.1.1")),
+      .upToNextMinor(from: "3.1.1")),
+    .package(
+      url: "https://github.com/stencilproject/Stencil.git",
+      .upToNextMinor(from: "0.13.1")),
     ],
     targets: [
     .target(
@@ -33,7 +36,7 @@ let package = Package(
       dependencies: []),
     .target(
       name: "ApolloCodegenLib",
-      dependencies: []),
+      dependencies: ["Stencil"]),
     .target(
       name: "ApolloSQLite",
       dependencies: ["Apollo", "SQLite"]),
@@ -52,7 +55,7 @@ let package = Package(
     .target(
       name: "StarWarsAPI",
       dependencies: ["Apollo"]),
-    
+
     .testTarget(
       name: "ApolloTests",
       dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
