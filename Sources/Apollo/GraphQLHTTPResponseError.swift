@@ -8,7 +8,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
     case persistedQueryNotFound
     case persistedQueryNotSupported
 
-    var description: String {
+    public var description: String {
       switch self {
       case .errorResponse:
         return "Received error response"
