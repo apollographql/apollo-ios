@@ -43,6 +43,7 @@
 		9B68F05D2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05C2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift */; };
 		9B68F0602416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
 		9B68F064241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */; };
+		9B68F068241ADA9D00E97318 /* Dictionary+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F066241AD98C00E97318 /* Dictionary+Apollo.swift */; };
 		9B68F06F241C649E00E97318 /* GraphQLOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F06E241C649E00E97318 /* GraphQLOptional.swift */; };
 		9B6CB23E238077B70007259D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
@@ -393,6 +394,7 @@
 		9B68F05C2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedEnumWithDeprecatedCases.swift; sourceTree = "<group>"; };
 		9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedEnumWithDifferentCases.swift; sourceTree = "<group>"; };
 		9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedEnumWithSanitizedCases.swift; sourceTree = "<group>"; };
+		9B68F066241AD98C00E97318 /* Dictionary+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Apollo.swift"; sourceTree = "<group>"; };
 		9B68F06E241C649E00E97318 /* GraphQLOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLOptional.swift; sourceTree = "<group>"; };
 		9B6CB23D238077B60007259D /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
@@ -899,6 +901,7 @@
 		9BCB585D240758B2002F766E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9B68F066241AD98C00E97318 /* Dictionary+Apollo.swift */,
 				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
 				9BCB585E240758C8002F766E /* OptionalBoolean.swift */,
 				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
@@ -1836,6 +1839,7 @@
 				9B68F04A24130D6500E97318 /* EnumGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
+				9B68F068241ADA9D00E97318 /* Dictionary+Apollo.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
 				9BD6813E2405FAC8000874CB /* ASTField.swift in Sources */,
 				9BD681272405F0CB000874CB /* ASTOutput.swift in Sources */,

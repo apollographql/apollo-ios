@@ -5,19 +5,19 @@ public class EnumGenerator {
   
   public struct SanitizedEnumValue {
     // The raw value of the name
-    let name: String
+    public let name: String
     
     /// The string declaring the name of the enum value
-    let nameVariableDeclaration: String
+    public let nameVariableDeclaration: String
     
     /// The string to use when using the enum value
-    let nameUsage: String
+    public let nameUsage: String
     
     /// The description of the enum value
-    let description: String
+    public let description: String
     
     /// If the enum value is deprecated.
-    let isDeprecated: Bool
+    public let isDeprecated: Bool
     
     init(astEnumValue: ASTEnumValue) {
       self.name = astEnumValue.name
@@ -47,6 +47,13 @@ public class EnumGenerator {
   public init() {
   }
   
+  /// Context keys for the objects in the `context` dictionary passed to stencil.
+  public enum EnumContextKey: String {
+    case modifier
+    case enumType
+    case cases
+  }
+  
   func run(typeUsed: ASTTypeUsed, options: ApolloCodegenOptions) throws -> String {
     guard typeUsed.kind == .EnumType else {
       throw EnumGenerationError.kindIsNotAnEnum
@@ -63,13 +70,13 @@ public class EnumGenerator {
       cases = enumValues
     }
 
-    let context: [String: Any] = [
-      "modifier": options.modifier.prefixValue,
-      "enumType": typeUsed,
-      "cases": cases.map { SanitizedEnumValue(astEnumValue: $0) }
+    let context: [EnumContextKey: Any] = [
+      .modifier: options.modifier.prefixValue,
+      .enumType: typeUsed,
+      .cases: cases.map { SanitizedEnumValue(astEnumValue: $0) }
     ]
     
-    return try Environment().renderTemplate(string: self.enumTemplate, context: context)
+    return try Environment().renderTemplate(string: self.enumTemplate, context: context.apollo_toStringKeyedDict)
   }
   
   /// A stencil template to use to render enums.
