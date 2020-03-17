@@ -54,7 +54,7 @@ struct TestCustomRequestCreator: RequestCreator {
     }
 
     files.forEach {
-      formData.appendPart(inputStream: $0.inputStream, contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
+      formData.appendPart(inputStream: $0.generateInputStream(), contentLength: $0.contentLength, name: $0.fieldName, contentType: $0.mimeType, filename: $0.originalName)
     }
 
     return formData
