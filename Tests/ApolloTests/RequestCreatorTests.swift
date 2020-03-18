@@ -14,13 +14,7 @@ class RequestCreatorTests: XCTestCase {
   private let customRequestCreator = TestCustomRequestCreator()
   private let apolloRequestCreator = ApolloRequestCreator()
 
-  private func testParentFolder(for file: StaticString = #file) -> URL {
-    let fileAsString = file.withUTF8Buffer {
-        String(decoding: $0, as: UTF8.self)
-    }
-    let url = URL(fileURLWithPath: fileAsString)
-    return url.deletingLastPathComponent()
-  }
+  
     
   private func checkString(_ string: String,
                            includes expectedString: String,
@@ -41,7 +35,7 @@ class RequestCreatorTests: XCTestCase {
   }
   
   private func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
-    return self.testParentFolder()
+    return TestFileHelper.testParentFolder()
         .appendingPathComponent(name)
         .appendingPathExtension(fileExtension)
   }
@@ -172,14 +166,14 @@ Charlie file content.
   func testSingleFileWithApolloRequestCreator() throws {
     let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
     
-    let alphaFile = GraphQLFile(fieldName: "upload",
-                                originalName: "a.txt",
+    let alphaFile = try GraphQLFile(fieldName: "upload",
+                                    originalName: "a.txt",
                                 mimeType: "text/plain",
                                 fileURL: alphaFileUrl)
     
     let data = try apolloRequestCreator.requestMultipartFormData(
       for: HeroNameQuery(),
-      files: [alphaFile!],
+      files: [alphaFile],
       sendOperationIdentifiers: false,
       serializationFormat: JSONSerializationFormat.self,
       manualBoundary: "TEST.BOUNDARY"
@@ -227,16 +221,16 @@ Alpha file content.
 
   func testMultipleFilesWithApolloRequestCreator() throws {
     let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
-    let alphaFile = GraphQLFile(fieldName: "uploads",
-                                originalName: "a.txt",
-                                mimeType: "text/plain",
-                                fileURL: alphaFileURL)!
+    let alphaFile = try GraphQLFile(fieldName: "uploads",
+                                    originalName: "a.txt",
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileURL)
     
     let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
-    let betaFile = GraphQLFile(fieldName: "uploads",
-                               originalName: "b.txt",
-                               mimeType: "text/plain",
-                               fileURL: betaFileURL)!
+    let betaFile = try GraphQLFile(fieldName: "uploads",
+                                   originalName: "b.txt",
+                                   mimeType: "text/plain",
+                                   fileURL: betaFileURL)
     
     
     let data = try apolloRequestCreator.requestMultipartFormData(
@@ -307,14 +301,14 @@ Bravo file content.
   func testSingleFileWithCustomRequestCreator() throws {
     let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
 
-    let alphaFile = GraphQLFile(fieldName: "upload",
-                                originalName: "a.txt",
-                                mimeType: "text/plain",
-                                fileURL: alphaFileUrl)
+    let alphaFile = try GraphQLFile(fieldName: "upload",
+                                    originalName: "a.txt",
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileUrl)
 
     let data = try customRequestCreator.requestMultipartFormData(
       for: HeroNameQuery(),
-      files: [alphaFile!],
+      files: [alphaFile],
       sendOperationIdentifiers: false,
       serializationFormat: JSONSerializationFormat.self,
       manualBoundary: "TEST.BOUNDARY"
