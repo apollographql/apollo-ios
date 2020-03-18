@@ -5,7 +5,8 @@ public struct GraphQLFile {
   public let fieldName: String
   public let originalName: String
   public let mimeType: String
-  public let inputStream: InputStream
+  public let data: Data?
+  public let fileURL: URL?
   public let contentLength: UInt64
 
   /// A convenience constant for declaring your mimetype is octet-stream.
@@ -22,11 +23,12 @@ public struct GraphQLFile {
               originalName: String,
               mimeType: String = GraphQLFile.octetStreamMimeType,
               data: Data) {
-    self.init(fieldName: fieldName,
-              originalName: originalName,
-              mimeType: mimeType,
-              inputStream: InputStream(data: data),
-              contentLength: UInt64(data.count))
+    self.fieldName = fieldName
+    self.originalName = originalName
+    self.mimeType = mimeType
+    self.data = data
+    self.fileURL = nil
+    self.contentLength = UInt64(data.count)
   }
 
   /// Failable convenience initializer for files in the filesystem
@@ -41,42 +43,30 @@ public struct GraphQLFile {
                originalName: String,
                mimeType: String = GraphQLFile.octetStreamMimeType,
                fileURL: URL) {
-    guard let inputStream = InputStream(url: fileURL) else {
-      return nil
-    }
-
     guard let contentLength = GraphQLFile.getFileSize(fileURL: fileURL) else {
       return nil
     }
-
-    self.init(fieldName: fieldName,
-              originalName: originalName,
-              mimeType: mimeType,
-              inputStream: inputStream,
-              contentLength: contentLength)
-  }
-
-  /// Designated Initializer
-  ///
-  /// - Parameters:
-  ///   - fieldName: The name of the field this file is being sent for
-  ///   - originalName: The original name of the file
-  ///   - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
-  ///   - inputStream: An input stream to use to acccess data
-  ///   - contentLength: The length of the data being sent
-  public init(fieldName: String,
-              originalName: String,
-              mimeType: String = GraphQLFile.octetStreamMimeType,
-              inputStream: InputStream,
-              contentLength: UInt64) {
+    
     self.fieldName = fieldName
     self.originalName = originalName
     self.mimeType = mimeType
-
-    self.inputStream = inputStream
+    self.data = nil
+    self.fileURL = fileURL
     self.contentLength = contentLength
   }
 
+  /// Retrieves the InputStream
+  ///
+  public func generateInputStream() throws -> InputStream {
+    if let data = data {
+      return InputStream(data: data)
+    } else if let fileURL = fileURL, let inputStream = InputStream(url: fileURL) {
+      return inputStream
+    }
+    
+    throw GraphQLError("InputStream was not created.")
+  }
+  
   private static func getFileSize(fileURL: URL) -> UInt64? {
     guard let fileSizeAttribute = try? FileManager.default.attributesOfItem(atPath: fileURL.path)[.size],
       let fileSize = fileSizeAttribute as? NSNumber else {

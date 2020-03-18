@@ -138,7 +138,7 @@ extension RequestCreator {
     formData.appendPart(data: mapData, name: "map")
 
     for (index, file) in files.enumerated() {
-      formData.appendPart(inputStream: file.inputStream,
+      formData.appendPart(inputStream: try file.generateInputStream(),
                           contentLength: file.contentLength,
                           name: "\(index)",
                           contentType: file.mimeType,
