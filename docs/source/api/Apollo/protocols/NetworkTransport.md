@@ -29,7 +29,7 @@ var clientVersion: String
 ### `send(operation:completionHandler:)`
 
 ```swift
-func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
+func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
 ```
 
 > Send a GraphQL operation to a server and return a response.

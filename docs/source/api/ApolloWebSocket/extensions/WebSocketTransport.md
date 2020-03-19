@@ -9,7 +9,7 @@ extension WebSocketTransport: NetworkTransport
 ### `send(operation:completionHandler:)`
 
 ```swift
-public func send<Operation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>,Error>) -> Void) -> Cancellable
+public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>,Error>) -> Void) -> Cancellable
 ```
 
 #### Parameters

@@ -87,9 +87,21 @@ In most cases, the data available from a mutation result should be the server de
 
 ## Uploading files
 
+### An Important Caveat About File Uploads
+Apollo recommends only using GraphQL file uploading for proof-of-concept applications. While there is a spec we presently support for making `multipart-form` requests with GraphQL, we've found that in practice that it's much simpler to use more purpose-built tools for file upload.
+
+In practice, this means using a more traditional method to upload your file like REST `multipart-form` uploads or SDK's that support file uploads, such as AmazonS3. [This article covers how to do that with Typescript](https://blog.apollographql.com/%EF%B8%8F-graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2), but the general theory for iOS works basically the same: 
+
+- Upload data **not** using GraphQL, getting back either an identifier or URL for the uploaded data.
+- Send that received identifier or URL to your graph using GraphQL.
+
+If you'd still prefer to upload directly with Apollo, instructions follow. 
+
+### Uploading Directly With Apollo
+
 The iOS SDK supports the [GraphQL Multipart Request Specification](https://github.com/jaydenseric/graphql-multipart-request-spec#multipart-form-field-structure) for uploading files. 
 
->**Note**: At the moment, we only support uploads for a single operation, not for batch operations. You can upload multiple files for a single operation if your server supports it, though.
+At the moment, we only support uploads for a single operation, not for batch operations. You can upload multiple files for a single operation if your server supports it, though.
 
 To upload a file, you will need: 
 
@@ -145,7 +157,7 @@ A few other notes:
     }
     ```
 
-  it will work, but if you have some kind of object encompassing both of those fields like this:   
+    it will work, but if you have some kind of object encompassing both of those fields like this:   
   
     ```graphql
     // Assumes AvatarObject(userID: GraphQLID, file: Upload) exists
@@ -154,6 +166,7 @@ A few other notes:
     }
     ```
     
-  it will not. Generally you should be able to deconstruct upload objects to allow you to send the appropriate 
+    it will not. Generally you should be able to deconstruct upload objects to allow you to send the appropriate fields.
+
 - If you are uploading an array of files, you need to use the same field name for each file. These will be updated at send time.
 - If you are uploading an array of files, the array of `String`s passed into the query must be the same number as the array of files. 

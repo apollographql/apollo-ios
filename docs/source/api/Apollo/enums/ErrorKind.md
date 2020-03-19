@@ -30,3 +30,10 @@ case persistedQueryNotFound
 ```swift
 case persistedQueryNotSupported
 ```
+
+## Properties
+### `description`
+
+```swift
+public var description: String
+```

@@ -3,18 +3,12 @@
 # `GraphQLResponse`
 
 ```swift
-public final class GraphQLResponse<Operation: GraphQLOperation>
+public final class GraphQLResponse<Data: GraphQLSelectionSet>
 ```
 
 > Represents a GraphQL response received from a server.
 
 ## Properties
-### `operation`
-
-```swift
-public let operation: Operation
-```
-
 ### `body`
 
 ```swift
@@ -25,5 +19,5 @@ public let body: JSONObject
 ### `init(operation:body:)`
 
 ```swift
-public init(operation: Operation, body: JSONObject)
+public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data
 ```
