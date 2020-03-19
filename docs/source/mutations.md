@@ -157,7 +157,7 @@ A few other notes:
     }
     ```
 
-  it will work, but if you have some kind of object encompassing both of those fields like this:   
+    it will work, but if you have some kind of object encompassing both of those fields like this:   
   
     ```graphql
     // Assumes AvatarObject(userID: GraphQLID, file: Upload) exists
@@ -166,6 +166,7 @@ A few other notes:
     }
     ```
     
-  it will not. Generally you should be able to deconstruct upload objects to allow you to send the appropriate 
+    it will not. Generally you should be able to deconstruct upload objects to allow you to send the appropriate fields.
+
 - If you are uploading an array of files, you need to use the same field name for each file. These will be updated at send time.
 - If you are uploading an array of files, the array of `String`s passed into the query must be the same number as the array of files. 
