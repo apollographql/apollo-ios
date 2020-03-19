@@ -18,6 +18,8 @@
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD762422C8CC00998B5C /* TestFileHelper.swift */; };
+		9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
+		9B21FD792424305E00998B5C /* ExpectedEnumWithSanitizedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */; };
 		9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C85235F8125004C426D /* CLIDownloader.swift */; };
 		9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */; };
 		9B518C8D235F8B9E004C426D /* CLIDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */; };
@@ -36,8 +38,6 @@
 		9B68F0592416BA7700E97318 /* ExpectedEnumWithNoCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F0582416BA7700E97318 /* ExpectedEnumWithNoCases.swift */; };
 		9B68F05B2416BCF100E97318 /* ExpectedEnumOmittingDeprecatedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05A2416BCF100E97318 /* ExpectedEnumOmittingDeprecatedCases.swift */; };
 		9B68F05D2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05C2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift */; };
-		9B68F0602416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
-		9B68F064241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */; };
 		9B6CB23E238077B70007259D /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
 		9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */; };
@@ -1888,8 +1888,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B68F0572416B5F700E97318 /* ExpectedEpisodeEnumNoDescription.swift in Sources */,
+				9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */,
 				9B68F04F2413271D00E97318 /* EnumGenerationTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
+				9B21FD792424305E00998B5C /* ExpectedEnumWithSanitizedCases.swift in Sources */,
 				9B68F0532415B1C800E97318 /* ExpectedEpisodeEnum.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaTests.swift in Sources */,
 				9B0E471A240AFA060093BDA7 /* VariableToSwiftTypeTests.swift in Sources */,
@@ -1986,10 +1988,8 @@
 				9BEDC79E22E5D2CF00549BF6 /* RequestCreator.swift in Sources */,
 				9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */,
 				9FA6F3681E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,
-				9B68F0602416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift in Sources */,
 				9FF90A651DDDEB100034C3B6 /* GraphQLExecutor.swift in Sources */,
 				9FC750611D2A59C300458D91 /* GraphQLOperation.swift in Sources */,
-				9B68F064241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift in Sources */,
 				9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */,
 				9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */,
 				5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */,
