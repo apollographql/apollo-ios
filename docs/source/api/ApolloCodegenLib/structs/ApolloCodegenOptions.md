@@ -9,12 +9,13 @@ public struct ApolloCodegenOptions
 > An object to hold all the various options for running codegen
 
 ## Methods
-### `init(codegenEngine:includes:mergeInFieldsFromFragmentSpreads:namespace:omitDeprecatedEnumCases:only:operationIDsURL:outputFormat:passthroughCustomScalars:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
+### `init(codegenEngine:includes:mergeInFieldsFromFragmentSpreads:modifier:namespace:omitDeprecatedEnumCases:only:operationIDsURL:outputFormat:passthroughCustomScalars:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
 
 ```swift
 public init(codegenEngine: CodeGenerationEngine = .default,
             includes: String = "./**/*.graphql",
             mergeInFieldsFromFragmentSpreads: Bool = true,
+            modifier: AccessModifier = .public,
             namespace: String? = nil,
             omitDeprecatedEnumCases: Bool = false,
             only: URL? = nil,
@@ -32,6 +33,7 @@ public init(codegenEngine: CodeGenerationEngine = .default,
 >  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
 >  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
 >  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
+>  - modifier: [EXPERIMENTAL SWIFT CODEGEN ONLY] - The access modifier to use on everything created by this tool. Defaults to `.public`.
 >  - namespace: [optional] The namespace to emit generated code into. Defaults to nil.
 >  - omitDeprecatedEnumCases: Whether deprecated enum cases should be omitted from generated code. Defaults to false.
 >  - only: [optional] Parse all input files, but only output generated code for the file at this URL if non-nil. Defaults to nil.

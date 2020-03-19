@@ -63,6 +63,7 @@
 -   [ApolloClientError](enums/ApolloClientError/)
 -   [CachePolicy](enums/CachePolicy/)
 -   [ErrorKind](enums/ErrorKind/)
+-   [GraphQLFileError](enums/GraphQLFileError/)
 -   [GraphQLHTTPRequestError](enums/GraphQLHTTPRequestError/)
 -   [GraphQLOperationType](enums/GraphQLOperationType/)
 -   [GraphQLOutputType](enums/GraphQLOutputType/)

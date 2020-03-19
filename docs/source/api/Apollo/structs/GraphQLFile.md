@@ -27,10 +27,16 @@ public let originalName: String
 public let mimeType: String
 ```
 
-### `inputStream`
+### `data`
 
 ```swift
-public let inputStream: InputStream
+public let data: Data?
+```
+
+### `fileURL`
+
+```swift
+public let fileURL: URL?
 ```
 
 ### `contentLength`
@@ -69,20 +75,20 @@ public init(fieldName: String,
 ### `init(fieldName:originalName:mimeType:fileURL:)`
 
 ```swift
-public init?(fieldName: String,
+public init(fieldName: String,
              originalName: String,
              mimeType: String = GraphQLFile.octetStreamMimeType,
-             fileURL: URL)
+             fileURL: URL) throws
 ```
 
-> Failable convenience initializer for files in the filesystem
-> Will return `nil` if the file URL cannot be used to create an `InputStream`, or if the file's size could not be determined.
+> Throwing convenience initializer for files in the filesystem
 >
 > - Parameters:
 >   - fieldName: The name of the field this file is being sent for
 >   - originalName: The original name of the file
 >   - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
 >   - fileURL: The URL of the file to upload.
+> - Throws: If the file's size could not be determined
 
 #### Parameters
 
@@ -93,31 +99,15 @@ public init?(fieldName: String,
 | mimeType | The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`. |
 | fileURL | The URL of the file to upload. |
 
-### `init(fieldName:originalName:mimeType:inputStream:contentLength:)`
+### `generateInputStream()`
 
 ```swift
-public init(fieldName: String,
-            originalName: String,
-            mimeType: String = GraphQLFile.octetStreamMimeType,
-            inputStream: InputStream,
-            contentLength: UInt64)
+public func generateInputStream() throws -> InputStream
 ```
 
-> Designated Initializer
+> Uses either the data or the file URL to create an
+> `InputStream` that can be used to stream data into
+> a multipart-form.
 >
-> - Parameters:
->   - fieldName: The name of the field this file is being sent for
->   - originalName: The original name of the file
->   - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
->   - inputStream: An input stream to use to acccess data
->   - contentLength: The length of the data being sent
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| fieldName | The name of the field this file is being sent for |
-| originalName | The original name of the file |
-| mimeType | The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`. |
-| inputStream | An input stream to use to acccess data |
-| contentLength | The length of the data being sent |
+> - Returns: The created `InputStream`.
+> - Throws: If an input stream could not be created from either data or a file URL.

@@ -12,7 +12,7 @@ public protocol UploadingNetworkTransport: NetworkTransport
 ### `upload(operation:files:completionHandler:)`
 
 ```swift
-func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
+func upload<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
 ```
 
 > Uploads the given files with the given operation.

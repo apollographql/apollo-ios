@@ -9,7 +9,7 @@ extension SplitNetworkTransport: NetworkTransport
 ### `send(operation:completionHandler:)`
 
 ```swift
-public func send<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
+public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
 ```
 
 #### Parameters
@@ -22,9 +22,9 @@ public func send<Operation>(operation: Operation, completionHandler: @escaping (
 ### `upload(operation:files:completionHandler:)`
 
 ```swift
-public func upload<Operation>(operation: Operation,
-                              files: [GraphQLFile],
-                              completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation>, Error>) -> Void) -> Cancellable
+public func upload<Operation: GraphQLOperation>(operation: Operation,
+                                                files: [GraphQLFile],
+                                                completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
 ```
 
 #### Parameters
