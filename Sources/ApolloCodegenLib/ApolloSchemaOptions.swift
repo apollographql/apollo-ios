@@ -55,7 +55,7 @@ public struct ApolloSchemaOptions {
       arguments.append("--key=\(key)")
     }
     
-    arguments.append(outputURL.path)
+    arguments.append("'\(outputURL.path)'")
     
     return arguments
   }
