@@ -47,15 +47,15 @@ public struct ApolloSchemaOptions {
       "--endpoint=\(self.endpointURL.absoluteString)"
     ]
     
-    if let header = self.header {
-      arguments.append("--header=\(header)")
-    }
-    
     if let key = self.apiKey {
       arguments.append("--key=\(key)")
     }
     
     arguments.append(outputURL.path)
+    
+    if let header = self.header {
+      arguments.append("--header=\(header)")
+    }
     
     return arguments
   }
