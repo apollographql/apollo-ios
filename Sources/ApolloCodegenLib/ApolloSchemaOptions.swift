@@ -53,6 +53,8 @@ public struct ApolloSchemaOptions {
     
     arguments.append(outputURL.path)
     
+		// Header argument must be last in the CLI command due to an underlying issue in the Oclif framework.
+		// See: https://github.com/apollographql/apollo-tooling/issues/844#issuecomment-547143805
     if let header = self.header {
       arguments.append("--header=\(header)")
     }
