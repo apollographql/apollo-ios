@@ -44,7 +44,7 @@ struct CodegenTestHelper {
     self.sourceRootURL()
       .appendingPathComponent("Tests")
       .appendingPathComponent("ApolloCodegenTests")
-      .appendingPathComponent("scripts")
+      .appendingPathComponent("scripts directory")
   }
   
   static func apolloFolderURL() -> URL {
