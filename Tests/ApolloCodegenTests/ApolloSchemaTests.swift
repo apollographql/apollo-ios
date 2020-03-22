@@ -27,7 +27,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
         "--endpoint=http://localhost:8080/graphql",
-        expectedOutputURL.path
+        "'\(expectedOutputURL.path)'"
     ])
   }
   
@@ -53,7 +53,7 @@ class ApolloSchemaTests: XCTestCase {
         "client:download-schema",
         "--endpoint=http://localhost:8080/graphql",
         "--key=\(apiKey)",
-        expectedOutputURL.path,
+        "'\(expectedOutputURL.path)'",
         "--header=\(header)"
     ])
   }
