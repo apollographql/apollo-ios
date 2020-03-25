@@ -50,10 +50,10 @@ class ApolloCodegenTests: XCTestCase {
       "codegen:generate",
       "--target=swift",
       "--addTypename",
-      "--includes=./**/*.graphql",
-      "--localSchemaFile=\(schema.path)",
+      "--includes='./**/*.graphql'",
+      "--localSchemaFile='\(schema.path)'",
       "--mergeInFieldsFromFragmentSpreads",
-      output.path,
+      "'\(output.path)'",
     ])
   }
   
@@ -97,14 +97,14 @@ class ApolloCodegenTests: XCTestCase {
       "codegen:generate",
       "--target=json",
       "--addTypename",
-      "--includes=*.graphql",
-      "--localSchemaFile=\(schema.path)",
+      "--includes='*.graphql'",
+      "--localSchemaFile='\(schema.path)'",
       "--namespace=\(namespace)",
-      "--only=\(only.path)",
-      "--operationIdsPath=\(operationIDsURL.path)",
+      "--only='\(only.path)'",
+      "--operationIdsPath='\(operationIDsURL.path)'",
       "--omitDeprecatedEnumCases",
       "--passthroughCustomScalars",
-      output.path,
+      "'\(output.path)'",
     ])
   }
   
