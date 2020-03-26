@@ -3,16 +3,16 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "11.3.1"
+    default: "11.4.0"
   ios_current_version:
     type: string
-    default: "13.3"
+    default: "13.4"
   ios_previous_version:
     type: string
     default: "12.4"
   ios_sdk:
     type: string
-    default: "iphonesimulator13.2"
+    default: "iphonesimulator13.4"
   macos_version: # The user-facing version string for macOS builds
     type: string
     default: "10.15"
@@ -21,10 +21,10 @@ parameters:
     default: "macosx10.15"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "13.3"
+    default: "13.4"
   tvos_sdk:
     type: string
-    default: "appletvsimulator13.2"
+    default: "appletvsimulator13.4"
 
 commands:
   common_test_steps:
