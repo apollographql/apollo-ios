@@ -37,7 +37,9 @@ To begin, let's set up a Swift Package Manager executable:
 
     ```swift
     .target(name: "Codegen",
-            dependencies: ["ApolloCodegenLib"])
+            dependencies: [                    
+                .product(name: "ApolloCodegenLib", package: "Apollo"),
+            ])
     ```
     
 6. In `main.swift`, import the Codegen lib at the top of the file:
