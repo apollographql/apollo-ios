@@ -245,16 +245,15 @@ Now, you're able to generate code from a debuggable Swift Package Manager execut
 1. Select the target in your project or workspace you want to run code generation, and go to the `Build Phases` tab. 
 
 2. Create a new Run Script Build Phase by selecting the **+** button in the upper left-hand corner:
+   ![New run script build phase dialog](screenshot/new_run_script_phase.png)
 
-  ![New run script build phase dialog](screenshot/new_run_script_phase.png)
-
-3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run`. 
+3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run` (using `xcrun` so that you can ensure it runs with the correct SDK, no matter what type of project you're building): 
 
     ```
     cd "${SRCROOT}"/Codegen
-    swift run
+    xcrun -sdk macosx swift run
     ```
-    
+
     >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. It is not recommended to do this by default, because it substantially increases build time.
     
 4. Build your target.
