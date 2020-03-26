@@ -1779,7 +1779,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nswift run Codegen -t \"GitHub\"\n";
+			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"GitHub\"\n";
 		};
 		9FCE2D061E6C251100E34457 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
