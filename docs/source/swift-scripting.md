@@ -28,8 +28,7 @@ To begin, let's set up a Swift Package Manager executable:
 4. Update the `dependencies` section to grab the Apollo iOS library:
 
     ```swift
-    .package(url: "https://github.com/apollographql/apollo-ios.git", 
-             from: "0.22.0")
+    .package(name: "Apollo", url: "https://github.com/apollographql/apollo-ios.git", from: "0.23.0")
     ```
   **NOTE**: The version should be identical to the version you're using in your main project. 
 
