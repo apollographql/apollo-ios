@@ -149,8 +149,8 @@ public struct ApolloCodegenOptions {
       "codegen:generate",
       "--target=\(self.codegenEngine.targetForApolloTools)",
       "--addTypename",
-      "--includes=\(self.includes)",
-      "--localSchemaFile=\(self.urlToSchemaFile.path)"
+      "--includes='\(self.includes)'",
+      "--localSchemaFile='\(self.urlToSchemaFile.path)'"
     ]
     
     if let namespace = self.namespace {
@@ -158,11 +158,11 @@ public struct ApolloCodegenOptions {
     }
 
     if let only = only {
-      arguments.append("--only=\(only.path)")
+      arguments.append("--only='\(only.path)'")
     }
     
     if let idsURL = self.operationIDsURL {
-      arguments.append("--operationIdsPath=\(idsURL.path)")
+      arguments.append("--operationIdsPath='\(idsURL.path)'")
     }
     
     if self.omitDeprecatedEnumCases {
@@ -183,9 +183,9 @@ public struct ApolloCodegenOptions {
     
     switch self.outputFormat {
     case .singleFile(let fileURL):
-      arguments.append(fileURL.path)
+      arguments.append("'\(fileURL.path)'")
     case .multipleFiles(let folderURL):
-      arguments.append(folderURL.path)
+      arguments.append("'\(folderURL.path)'")
     }
     
     return arguments

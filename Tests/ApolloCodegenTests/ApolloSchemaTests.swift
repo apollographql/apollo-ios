@@ -54,7 +54,7 @@ class ApolloSchemaTests: XCTestCase {
         "--endpoint=http://localhost:8080/graphql",
         "--key=\(apiKey)",
         "'\(expectedOutputURL.path)'",
-        "--header=\(header)"
+        "--header='\(header)'"
     ])
   }
   
