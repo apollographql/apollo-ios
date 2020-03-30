@@ -57,3 +57,4 @@ scripts/apollo
 scripts/apollo.tar.gz
 SwiftScripts/ApolloCLI
 Tests/ApolloCodegenTests/scripts
+Tests/ApolloCodegenTests/scripts directory

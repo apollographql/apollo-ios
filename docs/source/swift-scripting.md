@@ -28,10 +28,13 @@ To begin, let's set up a Swift Package Manager executable:
 4. Update the `dependencies` section to grab the Apollo iOS library:
 
     ```swift
-    .package(url: "https://github.com/apollographql/apollo-ios.git", 
-             from: "0.22.0")
+    .package(name: "Apollo",
+             url: "https://github.com/apollographql/apollo-ios.git", 
+             .upToNextMinor(from: "0.24.0"))
     ```
-  **NOTE**: The version should be identical to the version you're using in your main project. 
+  **NOTE**: The version should be identical to the version you're using in your main project. \
+
+  **ALSO NOTE**: Having to specify the name is a workaround for [SR-12110](https://bugs.swift.org/browse/SR-12210). Hopefully once that's fixed, SPM should pick up the name automatically. 
 
 5. For the main executable target in the `targets` section, add `ApolloCodegenLib` as a dependency: 
 
