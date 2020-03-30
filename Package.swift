@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -36,40 +36,72 @@ let package = Package(
       dependencies: []),
     .target(
       name: "ApolloCodegenLib",
-      dependencies: ["Stencil"]),
+      dependencies: [
+        .product(name: "Stencil", package: "Stencil"),
+      ]),
     .target(
       name: "ApolloSQLite",
-      dependencies: ["Apollo", "SQLite"]),
+      dependencies: [
+        "Apollo",
+        .product(name: "SQLite", package: "SQLite.swift"),
+      ]),
     .target(
       name: "ApolloSQLiteTestSupport",
-      dependencies: ["ApolloSQLite", "ApolloTestSupport"]),
+      dependencies: [
+        "ApolloSQLite",
+        "ApolloTestSupport"
+      ]),
 	.target(
       name: "ApolloWebSocket",
-      dependencies: ["Apollo","Starscream"]),
+      dependencies: [
+        "Apollo",
+        .product(name: "Starscream", package: "Starscream"),
+      ]),
     .target(
       name: "ApolloTestSupport",
-      dependencies: ["Apollo"]),
+      dependencies: [
+        "Apollo",
+      ]),
     .target(
       name: "GitHubAPI",
-      dependencies: ["Apollo"]),
+      dependencies: [
+        "Apollo",
+      ]),
     .target(
       name: "StarWarsAPI",
-      dependencies: ["Apollo"]),
+      dependencies: [
+        "Apollo",
+      ]),
 
     .testTarget(
       name: "ApolloTests",
-      dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
+      dependencies: [
+        "ApolloTestSupport",
+        "StarWarsAPI",
+      ]),
     .testTarget(
       name: "ApolloCacheDependentTests",
-      dependencies: ["ApolloSQLiteTestSupport", "StarWarsAPI"]),
+      dependencies: [
+        "ApolloSQLiteTestSupport",
+        "StarWarsAPI",
+      ]),
     .testTarget(
       name: "ApolloCodegenTests",
-      dependencies: ["ApolloCodegenLib"]),
+      dependencies: [
+        "ApolloCodegenLib"
+      ]),
     .testTarget(
       name: "ApolloSQLiteTests",
-      dependencies: ["ApolloSQLiteTestSupport", "StarWarsAPI"]),
+      dependencies: [
+        "ApolloSQLiteTestSupport",
+        "StarWarsAPI"
+      ]),
     .testTarget(
       name: "ApolloWebsocketTests",
-      dependencies: ["ApolloWebSocket", "ApolloTestSupport", "StarWarsAPI"]),
+      dependencies: [
+        "ApolloWebSocket",
+        "ApolloTestSupport",
+        "StarWarsAPI",
+      ]),
     ]
 )
