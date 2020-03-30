@@ -3,12 +3,15 @@
 # Exit on all errors, undeclared variables and pipefailures.
 set -euo pipefail
 
+# Advertisement!
+echo "Have you tried our new Swift Package Manager wrapper around codegen? It's now available in beta! See docs at https://www.apollographql.com/docs/ios/swift-scripting/. Note that when this comes out of beta, this Bash script will be deprecated, so give it a try today!"
+
 # Get the path to the script directory
 SCRIPT_DIR="$(dirname "$0")"
 
 # Get the SHASUM of the tarball
 ZIP_FILE="${SCRIPT_DIR}/apollo.tar.gz"
-ZIP_FILE_DOWNLOAD_URL="https://41516-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.22.1/apollo-v2.22.1-darwin-x64.tar.gz"
+ZIP_FILE_DOWNLOAD_URL="https://44151-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.25.0/apollo-v2.25.0-darwin-x64.tar.gz"
 SHASUM_FILE="${SCRIPT_DIR}/apollo/.shasum"
 APOLLO_DIR="${SCRIPT_DIR}"/apollo
 IS_RETRY="false"
@@ -55,7 +58,7 @@ extract_cli() {
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="bf98280b7164fbb2cd6fa04a9e7869d59798b9717ebee7650c365b920f566c59"
+  EXPECTED_SHASUM="5224c3788d0a131483bd1ed640444e0b1becf3ab33e9ce4aef6b0579bd4d7712"
   update_shasum
 
   if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
