@@ -1,6 +1,7 @@
 ## Protocols
 
 -   [ApolloWebSocketClient](protocols/ApolloWebSocketClient/)
+-   [SOCKSProxyable](protocols/SOCKSProxyable/)
 -   [WebSocketTransportDelegate](protocols/WebSocketTransportDelegate/)
 
 ## Structs

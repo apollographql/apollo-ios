@@ -3,10 +3,17 @@
 # `ApolloWebSocket`
 
 ```swift
-public class ApolloWebSocket: WebSocket, ApolloWebSocketClient
+public class ApolloWebSocket: WebSocket, ApolloWebSocketClient, SOCKSProxyable
 ```
 
 > Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
+
+## Properties
+### `enableSOCKSProxy`
+
+```swift
+public var enableSOCKSProxy: Bool
+```
 
 ## Methods
 ### `init(request:protocols:)`
