@@ -80,6 +80,67 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                    line: line)
     }
   }
+
+  private func validatePostBody(with request: URLRequest,
+                                mutation: CreateAwesomeReviewMutation,
+                                queryDocument: Bool = false,
+                                persistedQuery: Bool = false,
+                                file: StaticString = #file,
+                                line: UInt = #line) throws {
+
+    guard
+      let httpBody = request.httpBody,
+      let jsonBody = try? JSONSerializationFormat.deserialize(data: httpBody) as? JSONObject else {
+        XCTFail("httpBody invalid",
+                file: file,
+                line: line)
+        return
+    }
+
+    let queryString = jsonBody["query"] as? String
+    if queryDocument {
+      XCTAssertEqual(queryString,
+                     mutation.queryDocument,
+                     file: file,
+                     line: line)
+    }
+
+    let ext = jsonBody["extensions"] as? JSONObject
+    if persistedQuery {
+      let ext = try XCTUnwrap(ext,
+                              "extensions json data should not be nil",
+                              file: file,
+                              line: line)
+
+      let persistedQuery = try XCTUnwrap(ext["persistedQuery"] as? JSONObject,
+                                         "persistedQuery is missing",
+                                         file: file,
+                                         line: line)
+
+      let version = try XCTUnwrap(persistedQuery["version"] as? Int,
+                                  "version is missing",
+                                  file: file,
+                                  line: line)
+
+      let sha256Hash = try XCTUnwrap(persistedQuery["sha256Hash"] as? String,
+                                     "sha256Hash is missing",
+                                     file: file,
+                                     line: line)
+
+      XCTAssertEqual(version, 1,
+                     file: file,
+                     line: line)
+      XCTAssertEqual(sha256Hash,
+                     mutation.operationIdentifier,
+                     file: file,
+                     line: line)
+    } else {
+      XCTAssertNil(ext,
+                   "extensions should be nil",
+                   file: file,
+                   line: line)
+    }
+  }
   
   private func validateUrlParams(with request: URLRequest,
                                  query: HeroNameQuery,
@@ -218,6 +279,25 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     
     try self.validatePostBody(with: request,
                               query: query,
+                              persistedQuery: true)
+  }
+
+  func testMutationRequestBodyForAPQs() throws {
+    let mockSession = MockURLSession()
+    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+                                       session: mockSession,
+                                       enableAutoPersistedQueries: true)
+    let mutation = CreateAwesomeReviewMutation()
+    let _ = network.send(operation: mutation) { _ in }
+
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
+
+    try self.validatePostBody(with: request,
+                              mutation: mutation,
                               persistedQuery: true)
   }
   
