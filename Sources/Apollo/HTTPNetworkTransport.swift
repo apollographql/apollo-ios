@@ -343,15 +343,22 @@ public class HTTPNetworkTransport {
     let sendQueryDocument: Bool
     let autoPersistQueries: Bool
     switch operation.operationType {
-    case .query, .mutation:
+    case .query:
       if isPersistedQueryRetry {
-        useGetMethod = operation.operationType == .mutation ? false : self.useGETForPersistedQueryRetry
+        useGetMethod = self.useGETForPersistedQueryRetry
         sendQueryDocument = true
         autoPersistQueries = true
       } else {
-        useGetMethod = operation.operationType == .mutation ? false :
-                                                   self.useGETForQueries ||
-                                                   (self.enableAutoPersistedQueries && self.useGETForPersistedQueryRetry)
+        useGetMethod = self.useGETForQueries || (self.enableAutoPersistedQueries && self.useGETForPersistedQueryRetry)
+        sendQueryDocument = !self.enableAutoPersistedQueries
+        autoPersistQueries = self.enableAutoPersistedQueries
+      }
+    case .mutation:
+      useGetMethod = false
+      if isPersistedQueryRetry {
+        sendQueryDocument = true
+        autoPersistQueries = true
+      } else {
         sendQueryDocument = !self.enableAutoPersistedQueries
         autoPersistQueries = self.enableAutoPersistedQueries
       }
