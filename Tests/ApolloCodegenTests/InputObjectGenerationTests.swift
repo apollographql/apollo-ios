@@ -18,7 +18,7 @@ class InputObjectGenerationTests: XCTestCase {
                                 urlToSchemaFile: unusedURL)
   }()
   
-  func testGeneratingInputObjectWithNoOptionalProperties() {
+  private func colorInput(named name: String) -> ASTTypeUsed {
     let red = ASTTypeUsed.Field(name: "red",
                                 type: "Int",
                                 description: nil)
@@ -30,7 +30,7 @@ class InputObjectGenerationTests: XCTestCase {
                                  description: nil)
     
     let colorInput = ASTTypeUsed(kind: .InputObjectType,
-                                 name: "ColorInput",
+                                 name: name,
                                  description: "The input object sent when passing in a color",
                                  values: nil,
                                  fields: [
@@ -38,14 +38,38 @@ class InputObjectGenerationTests: XCTestCase {
                                   green,
                                   blue,
                                  ])
-    
+    return colorInput
+  }
+  
+  func testGeneratingInputObjectWithNoOptionalProperties() {
     do {
-      let output = try InputObjectGenerator().run(typeUsed: colorInput, options: self.dummyOptions)
+      let output = try InputObjectGenerator().run(typeUsed: self.colorInput(named: "ColorInput"), options: self.dummyOptions)
 
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
         .appendingPathComponent("ExpectedColorInput.swift")
+      
+      LineByLineComparison.between(received: output,
+                                   expectedFileURL: expectedFileURL,
+                                   trimImports: true)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
+  }
+  
+  func testGeneratingInputWithOptionalPropertiesAndNoModifier() {
+    let dummyURL = CodegenTestHelper.apolloFolderURL()
+    let options = ApolloCodegenOptions(modifier: .none,
+                                       outputFormat: .singleFile(atFileURL: dummyURL),
+                                       urlToSchemaFile: dummyURL)
+    do {
+      let output = try InputObjectGenerator().run(typeUsed: self.colorInput(named: "ColorInputNoModifier"), options: options)
+
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedColorInputNoModifier.swift")
       
       LineByLineComparison.between(received: output,
                                    expectedFileURL: expectedFileURL,
