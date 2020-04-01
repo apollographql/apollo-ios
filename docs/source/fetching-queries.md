@@ -148,3 +148,22 @@ apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { result in
   let heroAndFriendsNames = try! HeroAndFriendsNamesQuery.Data(jsonObject: deserialized)
 }
 ```
+
+## Automatic Persisted Queries
+
+Apollo Server allows you to use a feature called [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/), or APQs, to needing to resend large query documents over and over. 
+
+Each query or mutation is identified by the SHA256 hash of its contents. If the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, the iOS SDK will automatically retry the operation with the full query document without you having to do anything.
+
+To use APQs with the iOS SDK: 
+
+- When generating your code, pass a local path for output for the `--operationIdsPath` (or pass a file URL to the `operationIDsURL` on `ApolloCodegenOptions` if using Swift Scripting).  
+
+    This will generate a document with all your operations, but more importantly it will cause operation identifiers to be generated with your code. 
+- When creating your `ApolloClient`, make sure to manually instantiate your `HTTPNetworkTransport` and set `enableAutoPersistedQueries` and `sendOperationIdentifiers` to `true`.
+
+    This will cause the `HTTPNetworkTransport` to actively look for the "Oh no, I don't have this hash!" error from the server.
+
+By default, retries of queries will use `POST`.  If for some reason (for example, your queries are hitting a CDN that has considerably better performance with `GET`), you need to use a `GET` for the 2nd try of a query, make sure to set the `useGETForPersistedQueryRetry` option to `true`. Most users will want to leave this option as `false`. 
+
+> NOTE: APQs are not supported over Websockets at this time. If you're interested in this feature, please open a PR!
