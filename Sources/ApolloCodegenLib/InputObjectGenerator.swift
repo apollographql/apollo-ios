@@ -38,6 +38,7 @@ public class InputObjectGenerator {
   
   public enum InputObjectEnvironmentKey: String {
     case modifier
+    case modifierSpaces
     case inputType
     case fields
     case hasOptionalFields
@@ -55,9 +56,12 @@ public class InputObjectGenerator {
     let firstOptionalField = fields.first(where: { $0.isOptional })
     let hasOptionalFields = (firstOptionalField != nil)
     
+    let modifier = options.modifier.prefixValue
+    let modifierSpaces = modifier.map { _ in " " }.joined()
     
     let context: [InputObjectEnvironmentKey: Any] = [
-      .modifier: options.modifier.prefixValue,
+      .modifier: modifier,
+      .modifierSpaces: modifierSpaces,
       .inputType: typeUsed,
       .fields: fields,
       .hasOptionalFields: hasOptionalFields,
@@ -72,18 +76,17 @@ public class InputObjectGenerator {
   open var inputObjectTemplate: String {
     """
 {% if inputType.description != "" %}/// {{ inputType.description }}
-{% endif %}{{ modifier }}enum {{ inputType.name }}: Codable, Equatable, Hashable {
-
+{% endif %}{{ modifier }}struct {{ inputType.name }}: Codable, Equatable, Hashable {
   {% for field in fields %}{{ modifier }}var {{ field.nameVariableDeclaration }}: {{ field.swiftType }}
   {% endfor %}{% if inputType.hasOptionalFields %}
   {{ modifier }}enum CodingKeys: String, CodingKey {
     {% for field in fields %}case .{{ field.nameVariableDeclaration }}
     {% endfor %}}
-  }
-  {{ modifier }}init({% for field in fields %}{{ field.nameVariableDeclaration }}: {{ field.swiftType }},
-    {% endfor %}) {
-    {% for field in fields %}self.{{ field.nameVariableUsage }} = {{ field.nameVariableUsage }}
-    {% endfor %}
+  }{% endif %}
+  {{ modifier }}init({% for field in fields %}{{ field.nameVariableDeclaration }}: {{ field.swiftType }}{% if not forloop.last %},
+       {{ modifierSpaces }}{% endif %}{% endfor %}) {
+    {% for field in fields %}self.{{ field.nameVariableUsage }} = {{ field.nameVariableUsage }}{% if not forloop.last %}
+    {% endif %}{% endfor %}
   }{% if inputType.hasOptionalFields %}
 
   {{ modifier }}func encode(to encoder: Encoder) throws {
@@ -101,7 +104,7 @@ public class InputObjectGenerator {
     {% if field.isOptional %}
     self.{{ field.nameVariableUsage }} = try container.decodeGraphQLOptional(forKey: .{{ field.nameVariableUsage }}){% else %}
     self.{{ field.nameVariableUsage }} = try container.decode({{ field.swiftType }}.self, forKey: .{{ field.nameVariableUsage }}{% endif %}{% endfor %}
-  }{% endif}
+  }{% endif %}
 }
 """
   }

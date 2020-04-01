@@ -17,10 +17,12 @@ struct LineByLineComparison {
   /// - Parameters:
   ///   - received: The string received from the test
   ///   - expectedFileURL: The file URL to the file with the expected contents of the received string
+  ///   - trimImports: If imports at the top of the file should be trimmed before the comparison. Defaults to false.
   ///   - file: The file where this function is being called. Defaults to the direct caller
   ///   - line: The line where this function is being called. Defaults to the direct caller
   static func between(received: String,
                       expectedFileURL: URL,
+                      trimImports: Bool = false,
                       file: StaticString = #file,
                       line: UInt = #line) {
     guard FileManager.default.apollo_fileExists(at: expectedFileURL) else {
@@ -32,7 +34,14 @@ struct LineByLineComparison {
     
     let expected: String
     do {
-      let fileContents = try String(contentsOf: expectedFileURL)
+      var fileContents = try String(contentsOf: expectedFileURL)
+      if trimImports {
+        fileContents = fileContents
+          .components(separatedBy: "\n")
+          .filter { !$0.hasPrefix("import ") }
+          .joined(separator: "\n")
+      }
+      
       expected = fileContents.trimmingCharacters(in: .whitespacesAndNewlines)
     } catch {
       CodegenTestHelper.handleFileLoadError(error,
