@@ -33,7 +33,8 @@ class ErrorGenerationTests: XCTestCase {
     let data = try XCTUnwrap(json.data(using: .utf8),
                              "Couldn't create json data")
     
-    let httpResponseError = GraphQLHTTPResponseError(body: data,
+    let httpResponseError = GraphQLHTTPResponseError(request: URLRequest(url: URL(string: "http://localhost:8080/graphql")!),
+                                                     body: data,
                                                      response: response,
                                                      kind: .errorResponse)
     XCTAssertEqual(httpResponseError.graphQLErrors?.count, 1)
@@ -68,7 +69,8 @@ class ErrorGenerationTests: XCTestCase {
     let data = try XCTUnwrap(json.data(using: .utf8),
                              "Couldn't create json data")
     
-    let httpResponseError = GraphQLHTTPResponseError(body: data,
+    let httpResponseError = GraphQLHTTPResponseError(request: URLRequest(url: URL(string: "http://localhost:8080/graphql")!),
+                                                     body: data,
                                                      response: response,
                                                      kind: .errorResponse)
     XCTAssertEqual(httpResponseError.graphQLErrors?.count, 2)
@@ -87,7 +89,8 @@ class ErrorGenerationTests: XCTestCase {
                              "Couldn't create text data")
 
     
-    let httpResponseError = GraphQLHTTPResponseError(body: data,
+    let httpResponseError = GraphQLHTTPResponseError(request: URLRequest(url: URL(string: "http://localhost:8080/graphql")!),
+                                                     body: data,
                                                      response: response,
                                                      kind: .errorResponse)
     
@@ -101,7 +104,8 @@ class ErrorGenerationTests: XCTestCase {
                                    httpVersion: nil,
                                    headerFields: nil)!
     
-    let httpResponseError = GraphQLHTTPResponseError(body: nil,
+    let httpResponseError = GraphQLHTTPResponseError(request: URLRequest(url: URL(string: "http://localhost:8080/graphql")!),
+                                                     body: nil,
                                                      response: response,
                                                      kind: .errorResponse)
     

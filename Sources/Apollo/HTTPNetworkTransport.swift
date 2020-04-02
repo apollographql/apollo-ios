@@ -173,7 +173,8 @@ public class HTTPNetworkTransport {
       }
 
       guard httpResponse.isSuccessful else {
-        let unsuccessfulError = GraphQLHTTPResponseError(body: data,
+        let unsuccessfulError = GraphQLHTTPResponseError(request: request,
+                                                         body: data,
                                                          response: httpResponse,
                                                          kind: .errorResponse)
         self.handleErrorOrRetry(operation: operation,
@@ -186,7 +187,8 @@ public class HTTPNetworkTransport {
       }
 
       guard let data = data else {
-        let error = GraphQLHTTPResponseError(body: nil,
+        let error = GraphQLHTTPResponseError(request: request,
+                                             body: nil,
                                              response: httpResponse,
                                              kind: .invalidResponse)
         self.handleErrorOrRetry(operation: operation,
@@ -200,7 +202,7 @@ public class HTTPNetworkTransport {
 
       do {
         guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
-          throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
+          throw GraphQLHTTPResponseError(request: request, body: data, response: httpResponse, kind: .invalidResponse)
         }
 
         let graphQLResponse = GraphQLResponse(operation: operation, body: body)

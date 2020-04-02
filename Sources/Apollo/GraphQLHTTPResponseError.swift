@@ -22,6 +22,8 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
     }
   }
 
+  /// Request sent to server
+  public let request: URLRequest
   /// The body of the response.
   public let body: Data?
   /// Information about the response as provided by the server.
@@ -29,9 +31,11 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
   public let kind: ErrorKind
   private let serializationFormat = JSONSerializationFormat.self
 
-  public init(body: Data? = nil,
+  public init(request: URLRequest,
+              body: Data? = nil,
               response: HTTPURLResponse,
               kind: ErrorKind) {
+    self.request = request
     self.body = body
     self.response = response
     self.kind = kind
