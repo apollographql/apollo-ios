@@ -174,7 +174,7 @@ private func loadLaunchDetails() {
   guard
     let launchID = self.launchID,
     launchID != self.launch?.id else {
-      // This is the launch we're alrady displaying, or the ID is nil.
+      // This is the launch we're already displaying, or the ID is nil.
       return
   }
     
