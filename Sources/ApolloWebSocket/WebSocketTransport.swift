@@ -61,7 +61,13 @@ public class WebSocketTransport {
       self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
-  
+
+  public var security: SSLTrustValidator? {
+    didSet {
+      websocket.security = security
+    }
+  }
+
   /// Determines whether a SOCKS proxy is enabled on the underlying request.
   /// Mostly useful for debugging with tools like Charles Proxy.
   /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
