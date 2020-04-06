@@ -63,8 +63,11 @@ public class WebSocketTransport {
   }
 
   public var security: SSLTrustValidator? {
-    didSet {
-      websocket.security = security
+    get {
+      return websocket.security
+    }
+    set {
+      websocket.security = newValue
     }
   }
 
