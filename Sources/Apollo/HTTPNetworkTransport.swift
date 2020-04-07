@@ -74,7 +74,7 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
   ///   - error: The received error
   ///   - request: The URLRequest which generated the error
   ///   - response: [Optional] Any response received when the error was generated
-  ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
+  ///   - continueHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
   func networkTransport(_ networkTransport: HTTPNetworkTransport,
                         receivedError error: Error,
                         for request: URLRequest,
