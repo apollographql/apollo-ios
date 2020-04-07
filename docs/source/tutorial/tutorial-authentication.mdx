@@ -225,7 +225,13 @@ With this code, once you log in successfully, the `LoginViewController` will aut
 
 Now, it's time to show the login view controller whenever someone attempts to book a trip without being logged in.
 
-In `DetailViewController.swift`, add a new method to determine whether the user is currently logged in: 
+At the top of `DetailViewController.swift`, import the `KeychainSwift` library:
+
+```swift:title=DetailViewController.swift
+import KeychainSwift
+```
+
+Then, add a new method to determine whether the user is currently logged in: 
 
 ```swift:title=DetailViewController.swift
 private func isLoggedIn() -> Bool {
