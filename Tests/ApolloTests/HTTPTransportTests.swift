@@ -190,6 +190,65 @@ class HTTPTransportTests: XCTestCase {
     self.wait(for: [expectation], timeout: 10)
   }
   
+  func testRetryDelegateReturnsCorrectError() throws {
+    
+    class MockRetryDelegate: HTTPNetworkTransportRetryDelegate {
+      var mockError: Error?
+      
+      func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                            receivedError error: Error,
+                            for request: URLRequest,
+                            response: URLResponse?,
+                            continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
+        continueHandler(.fail(mockError ?? error))
+      }
+    }
+    
+    let mockRetryDelegate = MockRetryDelegate()
+    
+    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql_non_existant")!)
+    transport.delegate = mockRetryDelegate
+    
+    let expectationErrorResponse = self.expectation(description: "Send operation completed")
+    
+    let _ = transport.send(operation: HeroNameQuery()) { result in
+      switch result {
+      case .success:
+        XCTAssertTrue(false)
+        expectationErrorResponse.fulfill()
+      case .failure(let error):
+        XCTAssertTrue(error is GraphQLHTTPResponseError)
+        expectationErrorResponse.fulfill()
+        break
+      }
+    }
+    
+    wait(for: [expectationErrorResponse], timeout: 1)
+    
+    enum MockError: Error, Equatable {
+      case customError
+    }
+    
+    mockRetryDelegate.mockError = MockError.customError
+    
+    let expectationCustomError = self.expectation(description: "Send operation completed")
+    
+    let _ = transport.send(operation: HeroNameQuery()) { result in
+      switch result {
+      case .success:
+        XCTAssertTrue(false)
+        expectationCustomError.fulfill()
+      case .failure(let error):
+        XCTAssertTrue(error is MockError)
+        expectationCustomError.fulfill()
+        break
+      }
+    }
+    
+    wait(for: [expectationCustomError], timeout: 1)
+    
+  }
+  
   func testEquality() {
     let identicalTransport = HTTPNetworkTransport(url: self.url,
                                                   useGETForQueries: true)
