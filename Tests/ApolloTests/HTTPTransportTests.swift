@@ -340,9 +340,9 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
                         receivedError error: Error,
                         for request: URLRequest,
                         response: URLResponse?,
-                        retryHandler: @escaping (Bool) -> Void) {
+                        continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
     guard let graphQLError = error as? GraphQLHTTPResponseError else {
-      retryHandler(false)
+      continueHandler(.fail(error))
       return
     }
     
@@ -352,12 +352,12 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
       if retryCount > 1 {
         self.shouldModifyURLInWillSend = false
       }
-      retryHandler(true)
+      continueHandler(.retry)
     case .invalidResponse:
-      retryHandler(false)
+      continueHandler(.fail(error))
     case .persistedQueryNotFound,
          .persistedQueryNotSupported:
-      retryHandler(false)
+      continueHandler(.fail(error))
     }
   }
 }
