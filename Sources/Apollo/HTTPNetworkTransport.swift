@@ -67,7 +67,7 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
   
   /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
-  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+  /// NOTE: Don't just call the `continueHandler` with `.retry` all the time, or you can potentially wind up in an infinite loop of errors
   ///
   /// - Parameters:
   ///   - networkTransport: The network transport which received the error
