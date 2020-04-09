@@ -165,7 +165,7 @@ private func bookTrip(with id: GraphQLID) {
 ```
 
 
-Update the `cancelTrip` method to also take the flight's ID (you'll be adding the actual cancellation in the next step): 
+Then, add a new `cancelTrip` method to also take the flight's ID (you'll be adding the actual cancellation in the next step): 
 
 ```swift:title=DetailViewController.swift
 private func cancelTrip(with id: GraphQLID) {
