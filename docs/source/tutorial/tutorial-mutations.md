@@ -51,6 +51,12 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 }
 ```
 
+Then, import `KeychainSwift` at the top of the file:
+
+```swift:title=Network.swift
+import KeychainSwift
+```
+
 Next, you need to make sure that Apollo knows that this delegate exists. To do that, you need to do something that Apollo Client has thus far been doing for you under the hood: instantiating the `HTTPNetworkTransport`.
 
 In the primary declaration of `Network`, update your `lazy var` to create this transport and set the `Network` object as its delegate, then pass it through to the `ApolloClient`: 
