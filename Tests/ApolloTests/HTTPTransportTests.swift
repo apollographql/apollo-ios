@@ -214,12 +214,11 @@ class HTTPTransportTests: XCTestCase {
     let _ = transport.send(operation: HeroNameQuery()) { result in
       switch result {
       case .success:
-        XCTAssertTrue(false)
+        XCTFail()
         expectationErrorResponse.fulfill()
       case .failure(let error):
         XCTAssertTrue(error is GraphQLHTTPResponseError)
         expectationErrorResponse.fulfill()
-        break
       }
     }
     
@@ -236,12 +235,11 @@ class HTTPTransportTests: XCTestCase {
     let _ = transport.send(operation: HeroNameQuery()) { result in
       switch result {
       case .success:
-        XCTAssertTrue(false)
+        XCTFail()
         expectationCustomError.fulfill()
       case .failure(let error):
         XCTAssertTrue(error is MockError)
         expectationCustomError.fulfill()
-        break
       }
     }
     
