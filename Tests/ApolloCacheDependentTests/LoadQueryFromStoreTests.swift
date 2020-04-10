@@ -298,15 +298,11 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
             XCTFail("Incorrect error type for primary error: \(error)")
             return
           }
-          guard let decodingError = graphQLError.underlying as? JSONDecodingError else {
-            XCTFail("Invalid error type.")
-            return
-          }
-          switch decodingError {
-          case .couldNotConvert(value: _, to: _):
+          switch graphQLError.underlying {
+          case JSONDecodingError.couldNotConvert(value: _, to: _):
             break
-          case .missingValue, .nullValue, .wrongType:
-            XCTFail("Invalid error type.")
+          default:
+             XCTFail("Invalid error type")
           }
         }
       }
