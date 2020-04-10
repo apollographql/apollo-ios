@@ -127,7 +127,7 @@ mutation BookTrip($id:ID!) {
 
 This is helpful because the Swift code generation will now generate a method that only accepts a single ID instead of an array, but you'll still be calling the same mutation under the hood, without the backend needing to change anything. 
 
-In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
+In the `Query Variables` section of GraphiQL, update variables to use `id` as the key, and remove the array brackets from around the identifier:
 
 ```json:title=(GraphiQL)
 {"id": "25"}
