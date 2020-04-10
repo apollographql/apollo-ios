@@ -253,6 +253,7 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
       if cancelResult.success {
         // TODO
       }
+    }
 
     if let errors = graphQLResult.errors {
       self.showAlertForErrors(errors)
