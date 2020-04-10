@@ -109,7 +109,7 @@ In the `Query Variables` section of GraphiQL, add an array of identifiers. In th
 In the `HTTP Headers` section of GraphiQL, add an authorization header to pass through the token you received when you logged in:
 
 ```json:title=(GraphiQL)
-{ "Authorization" :"YOUR_TOKEN"}
+{"Authorization": "YOUR_TOKEN"}
 ```
 
 Now, click the play button to run your authorized query in GraphiQL. You'll get back information regarding the trips (or in this case, trip) you've just booked. 
@@ -231,7 +231,7 @@ In the `Query Variables` section of GraphiQL, you can use the exact same JSON th
 Make sure that in the `HTTP Headers` section of GraphiQL, your authorization token is still set up:
 
 ```json:title=(GraphiQL)
-{ "Authorization" :"(your token)"}
+{"Authorization": "YOUR_TOKEN"}
 ```
 
 Click the play button to cancel the trip, and you should see a successful request: 
