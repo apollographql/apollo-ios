@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `ApolloClient`
+```swift
+extension ApolloClient: ApolloClientProtocol
+```
 
 ## Properties
 ### `cacheKeyForObject`
@@ -10,11 +13,18 @@ public var cacheKeyForObject: CacheKeyForObject?
 ```
 
 ## Methods
-### `clearCache()`
+### `clearCache(callbackQueue:completion:)`
 
 ```swift
-public func clearCache() -> Promise<Void>
+public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil)
 ```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| callbackQueue | The queue to fall back on. Should default to the main queue. |
+| completion | [optional] A completion closure to execute when clearing has completed. Should default to nil. |
 
 ### `fetch(query:cachePolicy:context:queue:resultHandler:)`
 

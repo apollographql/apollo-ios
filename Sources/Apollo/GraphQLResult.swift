@@ -4,7 +4,7 @@ public struct GraphQLResult<Data> {
   public let data: Data?
   /// A list of errors, or `nil` if the operation completed without encountering any errors.
   public let errors: [GraphQLError]?
-  
+
   /// Represents source of data
   public enum Source {
     case cache
@@ -12,14 +12,16 @@ public struct GraphQLResult<Data> {
   }
   /// Source of data
   public let source: Source
-    
+
   let dependentKeys: Set<CacheKey>?
-  
-  public init(data: Data?, errors: [GraphQLError]?, source: Source, dependentKeys: Set<CacheKey>?) {
+
+  public init(data: Data?,
+              errors: [GraphQLError]?,
+              source: Source,
+              dependentKeys: Set<CacheKey>?) {
     self.data = data
     self.errors = errors
     self.source = source
     self.dependentKeys = dependentKeys
   }
 }
-

@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `GraphQLSelectionSet`
+```swift
+public extension GraphQLSelectionSet
+```
 
 ## Properties
 ### `jsonObject`

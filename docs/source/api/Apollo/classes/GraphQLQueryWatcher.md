@@ -7,8 +7,40 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 ```
 
 > A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
+>
+> NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result in a memory leak.
+
+## Properties
+### `query`
+
+```swift
+public let query: Query
+```
 
 ## Methods
+### `init(client:query:resultHandler:)`
+
+```swift
+public init(client: ApolloClientProtocol,
+            query: Query,
+            resultHandler: @escaping GraphQLResultHandler<Query.Data>)
+```
+
+> Designated initializer
+>
+> - Parameters:
+>   - client: The client protocol to pass in
+>   - query: The query to watch
+>   - resultHandler: The result handler to call with changes.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| client | The client protocol to pass in |
+| query | The query to watch |
+| resultHandler | The result handler to call with changes. |
+
 ### `refetch()`
 
 ```swift

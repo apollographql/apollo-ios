@@ -1,0 +1,7 @@
+#include "../Shared/Workspace-Target-Application.xcconfig"
+
+SDKROOT = macosx
+SUPPORTED_PLATFORMS = macosx
+
+ENABLE_BITCODE = NO
+VALID_ARCHS = x86_64

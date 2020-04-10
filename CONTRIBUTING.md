@@ -1,10 +1,10 @@
-# Apollo Contributor Guide
+# Apollo iOS Contributor Guide
 
-Excited about Apollo and want to make it better? We’re excited too!
+Excited about Apollo iOS and want to make it better? We’re excited too!
 
-Apollo is a community of developers just like you, striving to create the best tools and libraries around GraphQL. We welcome anyone who wants to contribute or provide constructive feedback, no matter the age or level of experience. If you want to help but don't know where to start, let us know, and we'll find something for you.
+Apollo is a community of developers just like you, striving to create the best tools and libraries around GraphQL. We welcome anyone who wants to contribute or provide constructive feedback, no matter your age or level of experience. If you want to help but don't know where to start, let us know, and we'll find something for you.
 
-Oh, and if you haven't already, sign up for the [Apollo Slack](http://www.apollodata.com/#slack).
+Oh, and if you haven't already, stop by our [Spectrum Chat](https://spectrum.chat/apollo/apollo-ios)!
 
 Here are some ways to contribute to the project, from easiest to most difficult:
 
@@ -19,7 +19,7 @@ Here are some ways to contribute to the project, from easiest to most difficult:
 
 ### Reporting bugs
 
-If you encounter a bug, please file an issue on GitHub via the repository of the sub-project you think contains the bug. If an issue you have is already reported, please add additional information or add a 👍 reaction to indicate your agreement.
+If you encounter a bug, please file an issue here on GitHub, and make sure you note which library is causing the problem. If an issue you have is already reported, please add additional information or add a 👍 reaction to indicate your agreement.
 
 While we will try to be as helpful as we can on any issue reported, please include the following to maximize the chances of a quick fix:
 
@@ -35,7 +35,7 @@ Improving the documentation, examples, and other open source content can be the 
 
 ### Responding to issues
 
-In addition to reporting issues, a great way to contribute to Apollo is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. And don't forget to say "Hi" on Apollo Slack!
+In addition to reporting issues, a great way to contribute to Apollo is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. And don't forget to say "Hi" on our Spectrum Chat!
 
 ### Small bug fixes
 
@@ -46,7 +46,7 @@ For a small bug fix change (less than 20 lines of code changed), feel free to op
 Most of the features in Apollo came from suggestions by you, the community! We welcome any ideas about how to make Apollo  better for your use case. Unless there is overwhelming demand for a feature, it might not get implemented immediately, but please include as much information as possible that will help people have a discussion about your proposal:
 
 1. **Use case:** What are you trying to accomplish, in specific terms? Often, there might already be a good way to do what you need and a new feature is unnecessary, but it’s hard to know without information about the specific use case.
-2. **Could this be a plugin?** In many cases, a feature might be too niche to be included in the core of a library, and is better implemented as a companion package. If there isn’t a way to extend the library to do what you want, could we add additional plugin APIs? It’s important to make the case for why a feature should be part of the core functionality of the library.
+2. **Could this be a companion package?** In many cases, a feature might be too niche to be included in the core of a library, and is better implemented as a companion package. If there isn’t a way to extend the library to do what you want, could we expose additional APIs that a companion package could plug into? It’s important to make the case for why a feature should be part of the core functionality of the library.
 3. **Is there a workaround?** Is this a more convenient way to do something that is already possible, or is there some blocker that makes a workaround unfeasible?
 
 Feature requests will be labeled as such, and we encourage using GitHub issues as a place to discuss new features and possible implementation designs. Please refrain from submitting a pull request to implement a proposed feature until there is consensus that it should be included. This way, you can avoid putting in work that can’t be merged in.
@@ -78,5 +78,5 @@ It’s important that every piece of code in Apollo packages is reviewed by at l
 2. **Simplicity.** Is this the simplest way to achieve the intended goal? If there are too many files, redundant functions, or complex lines of code, suggest a simpler way to do the same thing. In particular, avoid implementing an overly general solution when a simple, small, and pragmatic fix will do.
 3. **Testing.** Do the tests ensure this code won’t break when other stuff changes around it? When it does break, will the tests added help us identify which part of the library has the problem? Did we cover an appropriate set of edge cases? Look at the test coverage report if there is one. Are all significant code paths in the new code exercised at least once?
 4. **No unnecessary or unrelated changes.** PRs shouldn’t come with random formatting changes, especially in unrelated parts of the code. If there is some refactoring that needs to be done, it should be in a separate PR from a bug fix or feature, if possible.
-5. **Code has appropriate comments.** Code should be commented, or written in a clear “self-documenting” way.
-6. **Idiomatic use of the language.** In TypeScript, make sure the typings are specific and correct. In ES2015, make sure to use imports rather than require and const instead of var, etc. Ideally a linter enforces a lot of this, but use your common sense and follow the style of the surrounding code.
+5. **Code has appropriate comments.** Code should be commented for *why* things are happening, not *what* is happening. *What* is happening should be clear from the names of your functions and variables. This is sometimes called "self-documenting code", but you may still need to add commenets to explain why a workaround is necessary so other developers can better understand your code.
+6. **Idiomatic use of the language.** Make sure to use idomatic Swift when working with this repository. We don't presently use SwiftLint or any other linter, but please use your common sense and follow the style of the surrounding code.

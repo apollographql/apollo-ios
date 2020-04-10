@@ -8,7 +8,7 @@ module.exports = {
       options: {
         ...themeOptions,
         root: __dirname,
-        subtitle: 'Apollo iOS Guide',
+        subtitle: 'Client (iOS)',
         description: 'A guide to using Apollo with iOS',
         githubRepo: 'apollographql/apollo-ios',
         checkLinksOptions: {
@@ -24,13 +24,26 @@ module.exports = {
             'installation',
             'api-reference'
           ],
+          Tutorial: [
+            'tutorial/tutorial-introduction',
+            'tutorial/tutorial-create-project',
+            'tutorial/tutorial-obtain-schema',
+            'tutorial/tutorial-execute-query',
+            'tutorial/tutorial-query-ui',
+            'tutorial/tutorial-pagination',
+            'tutorial/tutorial-detail-view',
+            'tutorial/tutorial-authentication',
+            'tutorial/tutorial-mutations'
+          ],
           Usage:[
             'downloading-schema',
             'initialization',
             'fetching-queries',
-            'fragments',
-            'watching-queries',
             'mutations',
+            'fragments',
+            'caching',
+            'subscriptions',
+            'swift-scripting'
           ]
         }
       }

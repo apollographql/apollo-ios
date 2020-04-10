@@ -31,6 +31,14 @@ public let response: HTTPURLResponse
 public let kind: ErrorKind
 ```
 
+### `graphQLErrors`
+
+```swift
+public var graphQLErrors: [GraphQLError]?
+```
+
+> Any graphQL errors that could be parsed from the response, or nil if none could be parsed.
+
 ### `bodyDescription`
 
 ```swift
@@ -47,5 +55,7 @@ public var errorDescription: String?
 ### `init(body:response:kind:)`
 
 ```swift
-public init(body: Data? = nil, response: HTTPURLResponse, kind: ErrorKind)
+public init(body: Data? = nil,
+            response: HTTPURLResponse,
+            kind: ErrorKind)
 ```

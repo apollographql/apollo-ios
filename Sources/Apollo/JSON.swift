@@ -17,7 +17,7 @@ public enum JSONDecodingError: Error, LocalizedError {
   case nullValue
   case wrongType
   case couldNotConvert(value: Any, to: Any.Type)
-  
+
   public var errorDescription: String? {
     switch self {
     case .missingValue:
@@ -38,7 +38,7 @@ extension JSONDecodingError: Matchable {
     guard let value = value as? JSONDecodingError else {
       return false
     }
-    
+
     switch (value, pattern) {
     case (.missingValue, .missingValue), (.nullValue, .nullValue), (.wrongType, .wrongType),  (.couldNotConvert, .couldNotConvert):
       return true
@@ -54,7 +54,11 @@ func equals(_ lhs: Any, _ rhs: Any) -> Bool {
   if let lhs = lhs as? Reference, let rhs = rhs as? Reference {
     return lhs == rhs
   }
-  
+
+  if let lhs = lhs as? Array<Reference>, let rhs = rhs as? Array<Reference> {
+    return lhs == rhs
+  }
+
   let lhs = lhs as AnyObject, rhs = rhs as AnyObject
   return lhs.isEqual(rhs)
 }

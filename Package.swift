@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,41 +6,102 @@ import PackageDescription
 let package = Package(
     name: "Apollo",
     products: [
-        .library(
-            name: "Apollo",
-            targets: ["Apollo"]),
-		.library(
-			name: "ApolloSQLite",
-			targets: ["ApolloSQLite"]),
-		.library(
-			name: "ApolloWebSocket",
-			targets: ["ApolloWebSocket"]),
+    .library(
+      name: "Apollo",
+      targets: ["Apollo"]),
+    .library(
+      name: "ApolloCodegenLib",
+      targets: ["ApolloCodegenLib"]),
+    .library(
+        name: "ApolloSQLite",
+        targets: ["ApolloSQLite"]),
+    .library(
+        name: "ApolloWebSocket",
+        targets: ["ApolloWebSocket"]),
     ],
     dependencies: [
-		.package(url: "https://github.com/stephencelis/SQLite.swift.git", .exact("0.12.2")),
-		.package(url: "https://github.com/daltoniam/Starscream", .exact("3.1.0")),
+    .package(
+      url: "https://github.com/stephencelis/SQLite.swift.git",
+      .upToNextMinor(from: "0.12.2")),
+    .package(
+      url: "https://github.com/daltoniam/Starscream",
+      .upToNextMinor(from: "3.1.1")),
+    .package(
+      url: "https://github.com/stencilproject/Stencil.git",
+      .upToNextMinor(from: "0.13.1")),
     ],
     targets: [
-        .target(
-            name: "Apollo",
-            dependencies: []),
-		.target(
-			name: "ApolloSQLite",
-			dependencies: ["Apollo", "SQLite"]),
-		.target(
-			name: "ApolloWebSocket",
-			dependencies: ["Starscream"]),
-        .testTarget(
-            name: "ApolloTestSupport",
-            dependencies: ["Apollo"]),
-        .testTarget(
-            name: "StarWarsAPI",
-            dependencies: ["Apollo"]),
-        .testTarget(
-            name: "ApolloTests",
-            dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
-        .testTarget(
-            name: "ApolloPerformanceTests",
-            dependencies: ["ApolloTestSupport", "StarWarsAPI"]),
+    .target(
+      name: "Apollo",
+      dependencies: []),
+    .target(
+      name: "ApolloCodegenLib",
+      dependencies: [
+        .product(name: "Stencil", package: "Stencil"),
+      ]),
+    .target(
+      name: "ApolloSQLite",
+      dependencies: [
+        "Apollo",
+        .product(name: "SQLite", package: "SQLite.swift"),
+      ]),
+    .target(
+      name: "ApolloSQLiteTestSupport",
+      dependencies: [
+        "ApolloSQLite",
+        "ApolloTestSupport"
+      ]),
+	.target(
+      name: "ApolloWebSocket",
+      dependencies: [
+        "Apollo",
+        .product(name: "Starscream", package: "Starscream"),
+      ]),
+    .target(
+      name: "ApolloTestSupport",
+      dependencies: [
+        "Apollo",
+      ]),
+    .target(
+      name: "GitHubAPI",
+      dependencies: [
+        "Apollo",
+      ]),
+    .target(
+      name: "StarWarsAPI",
+      dependencies: [
+        "Apollo",
+      ]),
+
+    .testTarget(
+      name: "ApolloTests",
+      dependencies: [
+        "ApolloTestSupport",
+        "StarWarsAPI",
+      ]),
+    .testTarget(
+      name: "ApolloCacheDependentTests",
+      dependencies: [
+        "ApolloSQLiteTestSupport",
+        "StarWarsAPI",
+      ]),
+    .testTarget(
+      name: "ApolloCodegenTests",
+      dependencies: [
+        "ApolloCodegenLib"
+      ]),
+    .testTarget(
+      name: "ApolloSQLiteTests",
+      dependencies: [
+        "ApolloSQLiteTestSupport",
+        "StarWarsAPI"
+      ]),
+    .testTarget(
+      name: "ApolloWebsocketTests",
+      dependencies: [
+        "ApolloWebSocket",
+        "ApolloTestSupport",
+        "StarWarsAPI",
+      ]),
     ]
 )

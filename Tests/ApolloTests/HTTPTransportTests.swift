@@ -8,7 +8,9 @@
 
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
+import ApolloTestSupport
 
 class HTTPTransportTests: XCTestCase {
   
@@ -23,15 +25,20 @@ class HTTPTransportTests: XCTestCase {
   private var shouldModifyURLInWillSend = false
   private var retryCount = 0
 
+  private var graphQlErrors = [GraphQLError]()
+
   private lazy var url = URL(string: "http://localhost:8080/graphql")!
-  private lazy var networkTransport = HTTPNetworkTransport(url: self.url,
-                                                           useGETForQueries: true,
-                                                           delegate: self)
+  private lazy var networkTransport: HTTPNetworkTransport = {
+    let transport = HTTPNetworkTransport(url: self.url,
+                                         useGETForQueries: true)
+    transport.delegate = self
+    return transport
+  }()
   
-  private func validateHeroNameQueryResponse<Operation: GraphQLOperation>(result: Result<GraphQLResponse<Operation>, Error>,
-                                                                          expectation: XCTestExpectation,
-                                                                          file: StaticString = #file,
-                                                                          line: UInt = #line) {
+  private func validateHeroNameQueryResponse<Data: GraphQLSelectionSet>(result: Result<GraphQLResponse<Data>, Error>,
+                                                                        expectation: XCTestExpectation,
+                                                                        file: StaticString = #file,
+                                                                        line: UInt = #line) {
     defer {
       expectation.fulfill()
     }
@@ -59,7 +66,7 @@ class HTTPTransportTests: XCTestCase {
         line: line)
     }
   }
-  
+
   func testPreflightDelegateTellingRequestNotToSend() {
     self.shouldSend = false
     
@@ -185,13 +192,103 @@ class HTTPTransportTests: XCTestCase {
   
   func testEquality() {
     let identicalTransport = HTTPNetworkTransport(url: self.url,
-                                                  useGETForQueries: true,
-                                                  delegate: self)
+                                                  useGETForQueries: true)
     XCTAssertEqual(self.networkTransport, identicalTransport)
     
-    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url,
-                                                     delegate: self)
+    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url)
     XCTAssertNotEqual(self.networkTransport, nonIdenticalTransport)
+  }
+
+  func testErrorDelegateWithErrors() throws {
+    self.retryCount = 0
+    self.graphQlErrors = []
+    let query = HeroNameQuery()
+    // TODO: Replace this with once it is codable https://github.com/apollographql/apollo-ios/issues/467
+    let body = ["errors": [["message": "Test graphql error"]]]
+
+    let mockSession = MockURLSession()
+    mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    let network = HTTPNetworkTransport(url: url,
+                                       session: mockSession)
+    network.delegate = self
+    let expectation = self.expectation(description: "Send operation completed")
+
+    let _ = network.send(operation: query) { result in
+      switch result {
+      case .success:
+        expectation.fulfill()
+      case .failure:
+        break
+      }
+    }
+
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
+
+    XCTAssertEqual(self.graphQlErrors.count, 1)
+    XCTAssertEqual(retryCount, 1)
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func testErrorDelegateWithNoErrors() throws {
+    self.retryCount = 0
+    self.graphQlErrors = []
+    let query = HeroNameQuery()
+    // TODO: Replace this with once it is codable https://github.com/apollographql/apollo-ios/issues/467
+    let body = ["errors": []]
+
+    let mockSession = MockURLSession()
+    mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    let network = HTTPNetworkTransport(url: url,
+                                       session: mockSession)
+    network.delegate = self
+    let expectation = self.expectation(description: "Send operation completed")
+
+    let _ = network.send(operation: query) { result in
+      switch result {
+      case .success:
+        expectation.fulfill()
+      case .failure:
+        break
+      }
+    }
+
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+
+    XCTAssertEqual(request.url?.host, network.url.host)
+    XCTAssertEqual(request.httpMethod, "POST")
+    XCTAssertEqual(self.retryCount, 0)
+    XCTAssertEqual(self.graphQlErrors.count, 0)
+    wait(for: [expectation], timeout: 1)
+  }
+  
+  func testClientNameAndVersionHeadersAreSent() throws {
+    let mockSession = MockURLSession()
+    let network = HTTPNetworkTransport(url: self.url,
+                                       session: mockSession)
+    let query = HeroNameQuery(episode: .empire)
+    let _ = network.send(operation: query) { _ in }
+    
+    let request = try XCTUnwrap(mockSession.lastRequest,
+                                "last request should not be nil")
+    
+    let clientName = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientName),
+                                   "Client name on last request was nil!")
+    
+    XCTAssertFalse(clientName.isEmpty, "Client name was empty!")
+    XCTAssertEqual(clientName, network.clientName)
+    
+    let clientVersion = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientVersion),
+                                      "Client version on last request was nil!")
+    
+    XCTAssertFalse(clientVersion.isEmpty, "Client version was empty!")
+    XCTAssertEqual(clientVersion, network.clientVersion)
   }
 }
 
@@ -214,9 +311,7 @@ extension HTTPTransportTests: HTTPNetworkTransportPreflightDelegate {
     
     headers.forEach { tuple in
       let (key, value) = tuple
-      var headers = request.allHTTPHeaderFields ?? [String: String]()
-      headers[key] = value
-      request.allHTTPHeaderFields = headers
+      request.addValue(value, forHTTPHeaderField: key)
     }
   }
 }
@@ -260,6 +355,20 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
       retryHandler(true)
     case .invalidResponse:
       retryHandler(false)
+    case .persistedQueryNotFound,
+         .persistedQueryNotSupported:
+      retryHandler(false)
     }
+  }
+}
+
+// MARK: - HTTPNetworkTransportGraphQLErrorDelegate
+
+extension HTTPTransportTests: HTTPNetworkTransportGraphQLErrorDelegate {
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedGraphQLErrors errors: [GraphQLError], retryHandler: @escaping (Bool) -> Void) {
+    self.retryCount += 1
+    let shouldRetry = retryCount == 2
+    self.graphQlErrors = errors
+    retryHandler(shouldRetry)
   }
 }

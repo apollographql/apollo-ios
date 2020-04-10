@@ -14,8 +14,8 @@ case noUploadTransport
 ```
 
 ## Properties
-### `localizedDescription`
+### `errorDescription`
 
 ```swift
-public var localizedDescription: String
+public var errorDescription: String?
 ```

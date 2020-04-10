@@ -16,7 +16,10 @@ public func update<Query: GraphQLQuery>(query: Query, _ body: (inout Query.Data)
 ### `updateObject(ofType:withKey:variables:_:)`
 
 ```swift
-public func updateObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type, withKey key: CacheKey, variables: GraphQLMap? = nil, _ body: (inout SelectionSet) throws -> Void) throws
+public func updateObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type,
+                                                            withKey key: CacheKey,
+                                                            variables: GraphQLMap? = nil,
+                                                            _ body: (inout SelectionSet) throws -> Void) throws
 ```
 
 ### `write(data:forQuery:)`
@@ -28,5 +31,7 @@ public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) 
 ### `write(object:withKey:variables:)`
 
 ```swift
-public func write(object: GraphQLSelectionSet, withKey key: CacheKey, variables: GraphQLMap? = nil) throws
+public func write(object: GraphQLSelectionSet,
+                  withKey key: CacheKey,
+                  variables: GraphQLMap? = nil) throws
 ```

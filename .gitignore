@@ -53,3 +53,8 @@ Carthage/Build
 # Local Node Modules for Apollo CLI
 node_modules/
 package-lock.json
+scripts/apollo
+scripts/apollo.tar.gz
+SwiftScripts/ApolloCLI
+Tests/ApolloCodegenTests/scripts
+Tests/ApolloCodegenTests/scripts directory

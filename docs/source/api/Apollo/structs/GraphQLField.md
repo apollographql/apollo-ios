@@ -10,5 +10,8 @@ public struct GraphQLField: GraphQLSelection
 ### `init(_:alias:arguments:type:)`
 
 ```swift
-public init(_ name: String, alias: String? = nil, arguments: [String: GraphQLInputValue]? = nil, type: GraphQLOutputType)
+public init(_ name: String,
+            alias: String? = nil,
+            arguments: [String: GraphQLInputValue]? = nil,
+            type: GraphQLOutputType)
 ```

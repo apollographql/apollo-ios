@@ -12,7 +12,7 @@ public class ApolloClient
 ### `store`
 
 ```swift
-public let store: ApolloStore // <- conformance to ApolloClientProtocol
+public let store: ApolloStore
 ```
 
 ## Methods

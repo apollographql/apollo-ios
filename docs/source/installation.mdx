@@ -1,0 +1,168 @@
+---
+title: Installation
+---
+
+import SPMInstallationPanel from "../shared/spm-installation-panel.mdx"
+import SPMRunScriptPanel from "../shared/spm-run-script-panel.mdx"
+import PodsInstallationPanel from "../shared/pods-installation-panel.mdx"
+import PodsRunScriptPanel from "../shared/pods-run-script-panel.mdx"
+import CarthageInstallationPanel from "../shared/carthage-installation-panel.mdx"
+import CarthageRunScriptPanel from "../shared/carthage-run-script-panel.mdx"
+
+Apollo iOS requires the latest Xcode, which can be installed from the [Mac App Store](http://appstore.com/mac/apple/xcode).
+
+Follow along with these steps (described in detail below) to use Apollo iOS in your app:
+
+1. Install the Apollo framework into your project and link it to your application target
+1. Add a schema file to your target directory
+1. (optional) Install the Xcode add-ons to get syntax highlighting for your `.graphql` files 
+1. Create `.graphql` files with your queries or mutations and add them to your target
+1. Add a code generation build step to your target
+1. Build your target
+1. Add the generated API file to your target
+
+## Installing the Apollo framework
+
+You can install `Apollo.framework` into your project using any of the three major Cocoa ecosystem package managers: Swift Package Manager, CocoaPods, or Carthage.
+
+<a name="swift-package-manager-installation" />
+<SPMInstallationPanel />
+
+<a name="cocoapods-installation" />
+<PodsInstallationPanel />
+
+<a name="carthage-installation" />
+<CarthageInstallationPanel />
+
+## Adding a schema file to your target directory
+
+You'll have to copy or [download a schema](/downloading-schema/) to your target's directory before generating code.
+
+Apollo iOS requires a GraphQL schema file as input to the code generation process. A schema file is a JSON file that contains the results of an an introspection query. Conventionally this file is called `schema.json`.
+
+Note that you need to add this in the folder where most of your code is, NOT in the same folder where the `.xcodeproj` and/or `.xcworkspace` are located. Here is a rough ASCII representation of what this should look like: 
+
+```
+| - your_project_folder
+    | your_project.xcodeproj
+    | - your_target_folder 
+        | schema.json
+        | AppDelegate.swift
+        | ViewController.swift
+        | etc...
+    | - another_target_folder
+        | etc...
+```
+
+> **NOTE:** You _can_ add this file someplace else, but if you do, you will need to update the relative paths in the scripts in the steps below. 
+
+## [Optional] Installing the Xcode add-ons to get syntax highlighting
+
+Check out[`xcode-apollo`](https://github.com/apollographql/xcode-graphql) the repository and follow the [installation guide](https://github.com/apollographql/xcode-graphql#installation).
+
+## Creating `.graphql` files with your queries or mutations
+
+Apollo iOS will generate code from queries and mutations contained in `.graphql` files in your target.
+
+A useful convention is to colocate queries, mutations or fragments with the Swift code that uses them by creating `<name>.graphql` next to `<name>.swift`.
+
+If you have the Xcode add-ons installed, you can use the Xcode companion view to show a `.swift` file and the corresponding `.graphql` file side by side.
+
+> NOTE: If you don't have pre-existing `.graphql` files in your file tree, create a very simple query and add it to a `.graphql` file in your file tree so that when you run the code generation build step, it actually finds something. If you don't, you'll get the error `No operations or fragments found to generate code for`. 
+
+## Adding a code generation build step
+
+Code generation uses your `.graphql` files to generate API code that will help you send queries, subscriptions, and mutations, as well as parse and cache responses. To run code generation as part of the Xcode build process, you need to create a build step that runs before "Compile Sources" to invoke a wrapper script. 
+
+The wrapper will call through to the included binaries and files that constitute the `apollo` command-line interface. This ensures that you can use our tooling without having to worry about NPM Version Hell™, and that the version of the framework you're using is compatible with the version of the codegen you're using.
+
+> 🚧 BETA ALERT 🚧 : Instead of writing the rest of this in Bash, try using our new [Swift Scripting Library](./swift-scripting), now in Beta! It supports downloading a schema and generating code.
+
+The location of this wrapper script is slightly different based on how you've integrated Apollo into your project, but the first steps are the same everywhere: 
+
+1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. 
+2. In the created Run Script, change its name to **Generate Apollo GraphQL API** 
+3. Drag this new run script just above **Compile Sources** in your list of **Build Phases** so that it executes before your code is compiled.
+4. Add the contents of the appropriate run script for the package manager you're using:
+
+<a name="swift-package-manager-run-script" />
+<SPMRunScriptPanel />
+
+<a name="cocoapds-run-script" />
+<PodsRunScriptPanel />
+
+<a name="carthage-run-script" />
+<CarthageRunScriptPanel />
+
+## Build your target
+
+At this point, you can try building your target in Xcode. This will verify that the `schema.json` file can be found by the `apollo` script created above, and run the codegen.
+
+### Troubleshooting
+
+If you get this error: 
+
+> Cannot find GraphQL schema file [...]
+
+The script is not able to find your schema file - double check the path you've used.
+
+If you get this error: 
+
+> No operations or fragments found to generate code for.
+
+If you don't have any `.graphql` files in your build tree, and you need to create at least `.graphql` file with a valid query. 
+
+If you need to validate the structure of your query, please use the [GraphiQL](https://github.com/graphql/graphiql) instance provided by your API, which will show errors if your query is invalid. If you don't have access to a GraphiQL instance, you can use [Prettier.io's playground](https://prettier.io/playground/) to format arbitrary GraphQL queries by clicking "Show Options" and selecting the GraphQL parser from the "Global" drop-down.
+
+## Adding the generated API file to your target
+
+Drag the generated `API.swift` file to your target.
+
+> Note that because Apollo iOS generates query-specific result types, `API.swift` will be mostly empty at this point unless you've already added some `.graphql` files with queries or mutations to your target directory.
+
+Make sure to uncheck the "Copy Files If Needed" checkbox, since it should already be within your project's folder system. Then, make sure you've checked all the Targets the API file needs to be included in.
+
+## Advanced Codegen Tips And Tricks
+
+Here are a few things you can do to make your code generation even better once you've gotten up and running with the basics above:
+
+### Prevent Unnecessary Recompilation 
+
+#### Set Up Input And Output Files In Your Build Phase
+
+Particularly if you're using Interface Builder or SwiftUI to talk to a module which also has a code generation build step, this is helpful to prevent the `API.swift` file from causing an auto-regeneration loop. 
+
+For example, if you're using something like this to run your code generation for a target called `YourTarget`: 
+
+```
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
+```
+
+Assuming you've set the script out to run from `$(SRCROOT)/YourTarget`, you can add `$(SRCROOT)/YourTarget/**/*.graphql` (the path you're running it from + the glob you're passing to the `includes` CLI parameter) to the list of `Input Files` for your Apollo Run Script Build phase. Then you can add `$(SRCROOT)/YourTarget/API.swift` (the path you're running it from + the output file) to the list of `Output Files`: 
+
+![screenshot of input and output files](screenshot/input_output_files.png)
+
+This should prevent automatic rebuild cycles if none of the `InputFiles` are changed. The script *will* still run if you explicitly build and run. 
+
+There's an [open issue to auto-generate input and output file lists](https://github.com/apollographql/apollo-ios/issues/636) which will be addressed as part of the Swift Codegen project, but this will help until that's done. 
+
+#### Write to a Temporary File
+
+If for some reason the input/output file setup above doesn't work for you, you can also decide to first write the file to a temporary location, and then compare this temporary file to the current one. And then only when the files differ you move the temporary file into place.
+
+For a target called `YourTarget` the script could look something like;
+
+```
+"${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" "${SRCROOT}/YourTarget/API.swift.new"
+if ! diff -q "${SRCROOT}/YourTarget/API.swift.new" "${SRCROOT}/YourTarget/API.swift"; then
+  mv "${SRCROOT}/YourTarget/API.swift.new" "${SRCROOT}/YourTarget/API.swift"
+else
+  rm "${SRCROOT}/YourTarget/API.swift.new"
+fi
+```
+
+### Generate Multiple Files In A Folder Instead Of One Giant File 
+
+Instead of passing a single `API.swift` file, pass a (pre-existing) relative folder path such as `API` as the final parameter. This will cause the codegen to create individual files and place them in that folder. 
+
+With small sets of `graphql` files this is usually overkill, but with large sets that can cause `API.swift` to be huge, this can help significantly reduce compilation time. 

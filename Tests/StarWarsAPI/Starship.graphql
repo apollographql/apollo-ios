@@ -1,6 +1,0 @@
-query Starship {
-  starship(id: 3000) {
-    name
-    coordinates
-  }
-}

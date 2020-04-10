@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `URL`
+```swift
+extension URL: JSONDecodable, JSONEncodable
+```
 
 ## Properties
 ### `jsonValue`

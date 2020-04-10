@@ -26,21 +26,34 @@ var cacheKeyForObject: CacheKeyForObject?
 > A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
 
 ## Methods
-### `clearCache()`
+### `clearCache(callbackQueue:completion:)`
 
 ```swift
-func clearCache() -> Promise<Void>
+func clearCache(callbackQueue: DispatchQueue, completion: ((Result<Void, Error>) -> Void)?)
 ```
 
 > Clears the underlying cache.
 > Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it'll clear that cache across all instances which share that cache.
 >
-> - Returns: Promise which fulfills when clear is complete.
+> - Parameters:
+>   - callbackQueue: The queue to fall back on. Should default to the main queue.
+>   - completion: [optional] A completion closure to execute when clearing has completed. Should default to nil.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| callbackQueue | The queue to fall back on. Should default to the main queue. |
+| completion | [optional] A completion closure to execute when clearing has completed. Should default to nil. |
 
 ### `fetch(query:cachePolicy:context:queue:resultHandler:)`
 
 ```swift
 func fetch<Query: GraphQLQuery>(query: Query,
+                                cachePolicy: CachePolicy,
+                                context: UnsafeMutableRawPointer?,
+                                queue: DispatchQueue,
+                                resultHandler: GraphQLResultHandler<Query.Data>?) -> Cancellable
 ```
 
 > Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
@@ -67,6 +80,9 @@ func fetch<Query: GraphQLQuery>(query: Query,
 
 ```swift
 func watch<Query: GraphQLQuery>(query: Query,
+                                cachePolicy: CachePolicy,
+                                queue: DispatchQueue,
+                                resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 ```
 
 > Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result.
@@ -93,6 +109,9 @@ func watch<Query: GraphQLQuery>(query: Query,
 
 ```swift
 func perform<Mutation: GraphQLMutation>(mutation: Mutation,
+                                        context: UnsafeMutableRawPointer?,
+                                        queue: DispatchQueue,
+                                        resultHandler: GraphQLResultHandler<Mutation.Data>?) -> Cancellable
 ```
 
 > Performs a mutation by sending it to the server.
@@ -117,6 +136,10 @@ func perform<Mutation: GraphQLMutation>(mutation: Mutation,
 
 ```swift
 func upload<Operation: GraphQLOperation>(operation: Operation,
+                                         context: UnsafeMutableRawPointer?,
+                                         files: [GraphQLFile],
+                                         queue: DispatchQueue,
+                                         resultHandler: GraphQLResultHandler<Operation.Data>?) -> Cancellable
 ```
 
 > Uploads the given files with the given operation.
@@ -144,6 +167,8 @@ func upload<Operation: GraphQLOperation>(operation: Operation,
 
 ```swift
 func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
+                                                  queue: DispatchQueue,
+                                                  resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable
 ```
 
 > Subscribe to a subscription

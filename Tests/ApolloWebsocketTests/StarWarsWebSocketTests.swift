@@ -6,8 +6,12 @@ import StarWarsAPI
 
 // import StarWarsAPI
 
-class StarWarsWebSocketTests: XCTestCase {
+class StarWarsWebSocketTests: XCTestCase, CacheTesting {
   let SERVER = "http://localhost:8080/websocket"
+    
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
 
   // MARK: Queries
 

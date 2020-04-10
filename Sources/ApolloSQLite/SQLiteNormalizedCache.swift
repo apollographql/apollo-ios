@@ -12,7 +12,7 @@ public enum SQLiteNormalizedCacheError: Error {
 
 /// A `NormalizedCache` implementation which uses a SQLite database to store data.
 public final class SQLiteNormalizedCache {
-  
+
   private let db: Connection
   private let records = Table("records")
   private let id = Expression<Int64>("_id")
@@ -24,7 +24,7 @@ public final class SQLiteNormalizedCache {
   ///
   /// - Parameters:
   ///   - fileURL: The file URL to use for your database.
-  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. 
+  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
   /// - Throws: Any errors attempting to open or create the database.
   public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
@@ -33,11 +33,24 @@ public final class SQLiteNormalizedCache {
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
-    var components = fieldCacheKey.components(separatedBy: ".")
-    if components.count > 1 {
-      components.removeLast()
+    let components = fieldCacheKey.components(separatedBy: ".")
+    var updatedComponents = [String]()
+    if components.first?.contains("_ROOT") == true {
+      for component in components {
+        if updatedComponents.last?.last?.isNumber ?? false && component.first?.isNumber ?? false {
+          updatedComponents[updatedComponents.count - 1].append(".\(component)")
+        } else {
+          updatedComponents.append(component)
+        }
+      }
+    } else {
+      updatedComponents = components
     }
-    return components.joined(separator: ".")
+
+    if updatedComponents.count > 1 {
+      updatedComponents.removeLast()
+    }
+    return updatedComponents.joined(separator: ".")
   }
 
   private func createTableIfNeeded() throws {
@@ -93,13 +106,28 @@ public final class SQLiteNormalizedCache {
 // MARK: - NormalizedCache conformance
 
 extension SQLiteNormalizedCache: NormalizedCache {
-  
-  public func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise { try self.mergeRecords(records: records) }
+
+  public func merge(records: RecordSet,
+                    callbackQueue: DispatchQueue?,
+                    completion: @escaping (Swift.Result<Set<CacheKey>, Error>) -> Void) {
+    let result: Swift.Result<Set<CacheKey>, Error>
+    do {
+      let records = try self.mergeRecords(records: records)
+      result = .success(records)
+    } catch {
+      result = .failure(error)
+    }
+
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: result)
   }
-  
-  public func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
-    return Promise {
+
+  public func loadRecords(forKeys keys: [CacheKey],
+                          callbackQueue: DispatchQueue?,
+                          completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
+    let result: Swift.Result<[Record?], Error>
+    do {
       let records = try self.selectRecords(forKeys: keys)
       let recordsOrNil: [Record?] = keys.map { key in
         if let recordIndex = records.firstIndex(where: { $0.key == key }) {
@@ -107,13 +135,28 @@ extension SQLiteNormalizedCache: NormalizedCache {
         }
         return nil
       }
-      return recordsOrNil
+
+      result = .success(recordsOrNil)
+    } catch {
+      result = .failure(error)
     }
+
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: result)
   }
-  
-  public func clear() -> Promise<Void> {
-    return Promise {
-      return try self.clearRecords()
+
+  public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
+    let result: Swift.Result<Void, Error>
+    do {
+      try self.clearRecords()
+      result = .success(())
+    } catch {
+      result = .failure(error)
     }
+
+    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                   action: completion,
+                                                   result: result)
   }
 }

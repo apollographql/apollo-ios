@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Float`
+```swift
+extension Float: JSONDecodable, JSONEncodable
+```
 
 ## Properties
 ### `jsonValue`

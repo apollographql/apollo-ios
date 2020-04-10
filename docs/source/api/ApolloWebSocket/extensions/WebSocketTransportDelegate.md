@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `WebSocketTransportDelegate`
+```swift
+public extension WebSocketTransportDelegate
+```
 
 ## Methods
 ### `webSocketTransportDidConnect(_:)`

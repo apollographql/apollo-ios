@@ -115,7 +115,7 @@ extension Dictionary: JSONEncodable {
   public var jsonValue: JSONValue {
     return jsonObject
   }
-  
+
   public var jsonObject: JSONObject {
     var jsonObject = JSONObject(minimumCapacity: count)
     for (key, value) in self {
@@ -148,7 +148,7 @@ extension URL: JSONDecodable, JSONEncodable {
     guard let string = value as? String else {
       throw JSONDecodingError.couldNotConvert(value: value, to: URL.self)
     }
-    
+
     if let url = URL(string: string) {
         self = url
     } else {

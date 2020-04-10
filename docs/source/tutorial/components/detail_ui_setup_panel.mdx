@@ -1,0 +1,115 @@
+import {
+  ExpansionPanel,
+  ExpansionPanelList,
+  ExpansionPanelListItem
+} from 'gatsby-theme-apollo-docs';
+
+<ExpansionPanel title="Setting up the Detail UI">
+
+<ExpansionPanelList>
+<ExpansionPanelListItem number="1">
+
+<h4>Set up the outer Stack View</h4>
+
+Show the **Library** of UI elements by clicking on the library button in the top right of Xcode:
+
+<img alt="library button" class="screenshot" src="../images/library_button.png"/>
+
+Search for a `UIStackView`. When it comes up, drag it into the Detail View Controller in the storyboard. Select the stack view, go to the **Add New Constraints** button, and use the panel that pops up when you click it to pin the stack view 20pt from the superview's two sides and 40pt from the top:
+
+<img alt="constraints builder with those constraints" class="screenshot" src="../images/outer_stack_constraints.png"/>
+
+In the right sidebar, update the settings of the Stack View in the Attributes Inspector to these:
+
+<img alt="horizontal axis center alignment fill distribution spacing 20 uncheck baseline relative" class="screenshot" src="../images/outer_stack_view_setup.png"/>
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="2">
+
+<h4>Set up the Mission Patch Image View</h4>
+
+Next, show the library again, and search for a **UIImageView**. Drag it into the outer stack view you just added. 
+
+In Interface Builder's left sidebar, command-click on both the Image View and the view controller's main view to select both:
+
+<img alt="selecting both views at once" class="screenshot" src="../images/select_view_and_imageview.png"/>
+
+Next, tap the Add New Constraints button again, and select **Equal Widths**:
+
+<img alt="adding the equal widths constraint" class="screenshot" src="../images/equal_widths_constraint.png"/>
+
+Select the constraint you just added using Interface Builder's left sidebar:
+
+<img alt="select the widths constraint" class="screenshot" src="../images/select_widths_constraint.png"/>
+
+And update it to match the following:
+
+<img alt="constant 0, priorty 1000, multiplier 0.4" class="screenshot" src="../images/equal_widths_multiplier.png"/>
+
+This constraint means that the width of the image will always be 40% of the screen, no matter the size of the screen. 
+
+To add a constraint that keeps the height always equal to the width, select the Image View in Interface Builder's left sidebar, and click on the Add New Constraints button one last time. Select the **Aspect Ratio** constraint:
+
+<img alt="adding the aspect ratio constraint" class="screenshot" src="../images/aspect_ratio_constraint.png"/>
+
+Select the constraint you just added using Interface Builder's left sidebar (note: The ratio may not be 1:1 yet, just look for the constraint that says "Aspect"):
+
+<img alt="select the aspect ratio constraint" class="screenshot" src="../images/select_aspect_constraint.png"/>
+
+And update it to match the following: 
+
+<img alt="constant 0, priority 1000, multiplier 1:1" class="screenshot" src="../images/aspect_ratio_multiplier.png"/>
+
+> **Note**: You might still see some sizing errors at this point, but those will go away in the next step.
+
+Finally, hook this image up to the `missionPatchImageView` outlet.
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="3">
+
+<h4>Set up the inner Stack View</h4>
+
+Next, add a second stack view to your horizontal stack view. Update the settings in the attributes inspector to these:
+
+<img alt="vertical axis fill alignment equal spacing distribution spacing 8 uncheck baseline relative" class="screenshot" src="../images/label_stack_view_setup.png"/>
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="4">
+
+<h4>Add labels to the inner stack view</h4>
+
+Add a `UILabel` to the inner stack view. Select the label, go to the Attributes Inspector panel, and update the text, font size, and lines:
+
+<img alt="Mission Name text, system bold 24.0 font, 0 lines" class="screenshot" src="../images/mission_name_label.png"/>
+
+Hook this label up to the `missionNameLabel` outlet.
+
+Next, add a second `UILabel` to the inner stack view. Again, select  label, go to the Attributes Inspector panel, and update the text, font size, and lines:
+
+<img alt="Rocket Name text, system 20.0 font, 0 lines" class="screenshot" src="../images/rocket_name_label.png"/>
+
+Hook this label up to the `rocketNameLabel` outlet.
+
+Next, add a third label to the inner stack view, and update its details to match the following:
+
+<img alt="Launch Site text, system 14.0 font, 0 lines" class="screenshot" src="../images/launch_site_label.png"/>
+
+Hook this last label up to the `launchSiteLabel` outlet.
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="5">
+
+<h4>Add the navigation bar button</h4>
+
+Drag in a `UIBarButtonItem` to the top right of the navigation bar. Rename it `Book Now!`:
+
+<img alt="Book Now title" class="screenshot" src="../images/bar_item_title.png"/>
+
+Hook the item up to the `bookCancelButton` outlet. 
+
+</ExpansionPanelListItem>
+<ExpansionPanelListItem number="check">
+  You're done!
+</ExpansionPanelListItem>
+</ExpansionPanelList>
+</ExpansionPanel>

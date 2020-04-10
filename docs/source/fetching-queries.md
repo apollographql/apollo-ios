@@ -2,13 +2,15 @@
 title: Fetching queries
 ---
 
-On this page, you can learn how to use Apollo iOS to fetch and access GraphQL query results. You can read about GraphQL queries themselves in detail at [graphql.org](http://graphql.org/docs/queries/).
+> **Note:** This page is about using Apollo iOS to fetch and access GraphQL query results. You can read about GraphQL queries themselves in detail at [graphql.org](http://graphql.org/docs/queries/).
 
-Note that when using Apollo iOS, you don't have to learn anything special about the query syntax, since everything is just standard GraphQL. Anything you can type into the GraphiQL query explorer, you can also put into `.graphql` files in your project.
+When using Apollo iOS, you don't have to learn anything special about the query syntax, since everything is just standard GraphQL. Anything you can type into the GraphiQL query explorer, you can also put into `.graphql` files in your project.
 
 Apollo iOS takes a schema and a set of `.graphql` files and uses these to generate code you can use to execute queries and access typed results.
 
-> All `.graphql` files in your project (or the subset you specify as input to `apollo` if you customize the script you define as the code generation build phase) will be combined and treated as one big GraphQL document. That means fragments defined in one `.graphql` file are available to all other `.graphql` files for example, but it also means operation names and fragment names have to be unique and you will receive validation errors if they are not.
+All `.graphql` files in your project (or the subset you specify as input to `apollo` if you customize the script you define as the code generation build phase) will be combined and treated as one big GraphQL document. 
+
+That means fragments defined in one `.graphql` file are available to all other `.graphql` files for example, but it also means operation names and fragment names **must** be unique and you will receive validation errors if they are not.
 
 ## Creating queries
 
@@ -33,9 +35,9 @@ apollo.fetch(query: HeroNameQuery(episode: .empire)) { result in
 }
 ```
 
-> By default, Apollo will deliver query results on the main thread, which is probably what you want if you're using them to update the UI. `fetch(query:)` takes an optional `queue:` parameter however, if you want your result handler to be called on a background queue.
+By default, Apollo will deliver query results **on the main thread**, which is probably what you want if you're using them to update the UI. `fetch(query:)` takes an optional `queue:` parameter however, if you want your result handler to be called on a background queue.
 
-To handle potential errors, check the `failure(Failure)` result case, which details network or response format errors (such as invalid JSON):
+To handle potential errors, check the `failure(Error)` result case, which details network or response format errors (such as invalid JSON):
 
 ```swift
 apollo.fetch(query: HeroNameQuery(episode: .empire)) { result in
@@ -117,18 +119,7 @@ Because the above query won't fetch `appearsIn`, this property is not part of th
 
 ## Specifying a cache policy
 
-As explained in more detail in [the section on watching queries](/watching-queries/), Apollo iOS keeps a normalized client-side cache of query results and allows queries to be loaded from the cache.
-
-`fetch(query:)` takes an optional `cachePolicy` that allows you to specify when results should be fetched from the server, and when data should be loaded from the local cache.
-
-The default cache policy is `.returnCacheDataElseFetch`, which means data will be loaded from the cache when available, and fetched from the server otherwise. 
-
-Other cache polices which you can specify are: 
-
-- **`.fetchIgnoringCacheData`** to always fetch from the server, but still store results to the cache.
-- **`.fetchIgnoringCacheCompletely`** to always fetch from the server and not store results from the cache. If you're not using the cache at all, this method is preferred to `fetchIgnoringCacheData` for performance reasons.
-- **`.returnCacheDataDontFetch`** to return data from the cache and never fetch from the server. This policy will return `nil` when cached data is not available.
-- **`.returnCacheDataAndFetch`** to return cached data immediately, then perform a fetch to see if there are any updates. This is mostly useful if you're watching queries, since those will be updated when the call to the server returns. 
+[This section has moved to the Caching documentation](/caching/). 
 
 ## Using `GET` instead of `POST` for queries
 
@@ -136,13 +127,14 @@ By default, Apollo constructs queries and sends them to your graphql endpoint us
 
 If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `HTTPNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`. 
 
->Please note that this is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`.
+>**NOTE:** This is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`.
 
 ## JSON serialization
 
 The classes generated by Apollo iOS can be converted to JSON using their `jsonObject` property. This may be useful for conveniently serializing GraphQL instances for storage in a database, or a file.
 
 For example:
+
 ```swift
 apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { result in
   guard let data = try? result.get().data else { return }
@@ -156,3 +148,22 @@ apollo.fetch(query: HeroAndFriendsNamesQuery(episode: .empire)) { result in
   let heroAndFriendsNames = try! HeroAndFriendsNamesQuery.Data(jsonObject: deserialized)
 }
 ```
+
+## Automatic Persisted Queries
+
+Apollo Server allows you to use a feature called [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/), or APQs, to needing to resend large query documents over and over. 
+
+Each query or mutation is identified by the SHA256 hash of its contents. If the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, the iOS SDK will automatically retry the operation with the full query document without you having to do anything.
+
+To use APQs with the iOS SDK: 
+
+- When generating your code, pass a local path for output for the `--operationIdsPath` (or pass a file URL to the `operationIDsURL` on `ApolloCodegenOptions` if using Swift Scripting).  
+
+    This will generate a document with all your operations, but more importantly it will cause operation identifiers to be generated with your code. 
+- When creating your `ApolloClient`, make sure to manually instantiate your `HTTPNetworkTransport` and set `enableAutoPersistedQueries` and `sendOperationIdentifiers` to `true`.
+
+    This will cause the `HTTPNetworkTransport` to actively look for the "Oh no, I don't have this hash!" error from the server.
+
+By default, retries of queries will use `POST`.  If for some reason (for example, your queries are hitting a CDN that has considerably better performance with `GET`), you need to use a `GET` for the 2nd try of a query, make sure to set the `useGETForPersistedQueryRetry` option to `true`. Most users will want to leave this option as `false`. 
+
+> NOTE: APQs are not supported over Websockets at this time. If you're interested in this feature, please open a PR!

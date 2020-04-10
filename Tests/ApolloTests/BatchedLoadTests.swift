@@ -12,32 +12,36 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     self.records = records
   }
   
-  func loadRecords(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
+  func loadRecords(forKeys keys: [CacheKey],
+                   callbackQueue: DispatchQueue?,
+                   completion: @escaping (Result<[Record?], Error>) -> Void) {
     OSAtomicIncrement32(&numberOfBatchLoads)
     
-    return Promise { fulfill, reject in
-      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
-        let records = keys.map { self.records[$0] }
-        fulfill(records)
-      }
+    DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
+      let records = keys.map { self.records[$0] }
+      DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: .success(records))
     }
   }
   
-  func merge(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise { fulfill, reject in
-      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
-        let changedKeys = self.records.merge(records: records)
-        fulfill(changedKeys)
-      }
+  func merge(records: RecordSet,
+             callbackQueue: DispatchQueue?,
+             completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
+    DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
+      let changedKeys = self.records.merge(records: records)
+      DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: .success(changedKeys))
     }
   }
-	
-  func clear() -> Promise<Void> {
-    return Promise { fulfill, reject in
-      DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
-        self.records.clear()
-        fulfill(())
-      }
+  
+  func clear(callbackQueue: DispatchQueue?, completion: ((Result<Void, Error>) -> Void)?) {
+    DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
+      self.records.clear()
+      DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: .success(()))
     }
   }
 }

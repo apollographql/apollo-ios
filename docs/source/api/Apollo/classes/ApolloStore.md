@@ -32,45 +32,61 @@ public init(cache: NormalizedCache)
 | ---- | ----------- |
 | cache | An instance of `normalizedCache` to use to cache results. |
 
-### `clearCache()`
+### `clearCache(callbackQueue:completion:)`
 
 ```swift
-public func clearCache() -> Promise<Void>
+public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil)
 ```
 
 > Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
 >
 > - Returns: A promise which fulfills when the Cache is cleared.
 
-### `withinReadTransaction(_:)`
+### `withinReadTransaction(_:callbackQueue:completion:)`
 
 ```swift
-public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T>
+public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T,
+                                     callbackQueue: DispatchQueue? = nil,
+                                     completion: ((Result<T, Error>) -> Void)? = nil)
 ```
 
-### `withinReadTransaction(_:)`
+> Performs an operation within a read transaction
+>
+> - Parameters:
+>   - body: The body of the operation to perform.
+>   - callbackQueue: [optional] The callback queue to use to perform the completion block on. Will perform on the current queue if not provided. Defaults to nil.
+>   - completion: [optional] The completion block to perform when the read transaction completes. Defaults to nil.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| body | The body of the operation to perform. |
+| callbackQueue | [optional] The callback queue to use to perform the completion block on. Will perform on the current queue if not provided. Defaults to nil. |
+| completion | [optional] The completion block to perform when the read transaction completes. Defaults to nil. |
+
+### `withinReadWriteTransaction(_:callbackQueue:completion:)`
 
 ```swift
-public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T) -> Promise<T>
+public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T,
+                                          callbackQueue: DispatchQueue? = nil,
+                                          completion: ((Result<T, Error>) -> Void)? = nil)
 ```
 
-### `withinReadWriteTransaction(_:)`
+> Performs an operation within a read-write transaction
+>
+> - Parameters:
+>   - body: The body of the operation to perform
+>   - callbackQueue: [optional] a callback queue to perform the action on. Will perform on the current queue if not provided. Defaults to nil.
+>   - completion: [optional] a completion block to fire when the read-write transaction completes. Defaults to nil.
 
-```swift
-public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T>
-```
+#### Parameters
 
-### `withinReadWriteTransaction(_:)`
-
-```swift
-public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T) -> Promise<T>
-```
-
-### `load(query:)`
-
-```swift
-public func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>>
-```
+| Name | Description |
+| ---- | ----------- |
+| body | The body of the operation to perform |
+| callbackQueue | [optional] a callback queue to perform the action on. Will perform on the current queue if not provided. Defaults to nil. |
+| completion | [optional] a completion block to fire when the read-write transaction completes. Defaults to nil. |
 
 ### `load(query:resultHandler:)`
 

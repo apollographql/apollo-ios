@@ -1,0 +1,14 @@
+query Starship {
+  starship(id: 3000) {
+    name
+    coordinates
+  }
+}
+
+query StarshipCoordinates($coordinates: [[Float!]!]) {
+  starshipCoordinates(coordinates: $coordinates) {
+    name
+    coordinates
+    length
+  }
+}
