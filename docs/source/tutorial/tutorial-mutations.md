@@ -251,8 +251,13 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
   case .success(let graphQLResult):
     if let cancelResult = graphQLResult.data?.cancelTrip {
       if cancelResult.success {
-        // TODO
+        self.showAlert(title: "Trip cancelled",  
+                       message: cancelResult.message ?? "Your trip has been officially cancelled.")
+      } else {
+        self.showAlert(title: "Could not cancel trip", 
+                       message: cancelResult.message ?? "Unknown failure.")
       }
+    }
 
     if let errors = graphQLResult.errors {
       self.showAlertForErrors(errors)
@@ -261,19 +266,6 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
     self.showAlert(title: "Network Error",
                    message: error.localizedDescription)
   }
-}
-```
-
-
-In `cancelTrip(with id:)`, replace the `TODO` with code to handle what comes back in that mutation's `success` property: 
-
-```swift:title=DetailViewController.swift
-if cancelResult.success {
-  self.showAlert(title: "Trip cancelled",  
-                 message: cancelResult.message ?? "Your trip has been officially cancelled.")
-} else {
-  self.showAlert(title: "Could not cancel trip", 
-                 message: cancelResult.message ?? "Unknown failure.")
 }
 ```
 
