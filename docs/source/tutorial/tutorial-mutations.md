@@ -332,7 +332,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
   guard
     let launchID = self.launchID,
     (forceReload || launchID != self.launch?.id) else {
-      // This is the launch we're alrady displaying, or the ID is nil.
+      // This is the launch we're already displaying, or the ID is nil.
       return
   }
         
