@@ -75,6 +75,37 @@ Click on the line numbers to add a breakpoint at the line where you're instantia
 
 Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. If you're logged in, your token will be sent to the server whenever you make a request. 
 
+## Add Alert helper methods
+
+There is one more step you need to make before moving on to a book trip implementation.
+
+Go to **File > New > File... > Swift File**, and name this file `UIViewController+Alert.swift`. Update it with the following content.
+
+```swift:title=UIViewController+Alert.swift
+import UIKit
+import Apollo
+
+extension UIViewController {
+  func showAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title,
+                                  message: message,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    self.present(alert, animated: true)
+  }
+    
+
+  func showAlertForErrors(_ errors: [GraphQLError]) {
+    let message = errors
+      .map { $0.localizedDescription }
+      .joined(separator: "\n")
+    self.showAlert(title: "GraphQL Error(s)", message: message)
+  }
+}
+```
+
+That extends the `UIViewController` with `showAlert` and `showAlertForErrors` methods required in the next steps.
+
 Now it's time to book a trip! 🚀
 
 ## Add the `BookTrip` mutation
