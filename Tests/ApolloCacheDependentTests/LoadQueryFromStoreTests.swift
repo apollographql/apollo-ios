@@ -298,26 +298,15 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
             XCTFail("Incorrect error type for primary error: \(error)")
             return
           }
-          
-          switch graphQLError.underlying {
-          case is JSONDecodingError:
-            if (cache is InMemoryNormalizedCache) {
-              // This is expected for in-memory caching
-              break
-            } else {
-              XCTFail("Incorrect error type for underlying with in-memory cache: \(graphQLError.underlying)")
-            }
-          #if canImport(ApolloSQLite)
-          case is SQLiteNormalizedCacheError:
-            if (cache is SQLiteNormalizedCache) {
-              // This is expected for SQLite caching
-              break
-            } else {
-              XCTFail("Incorrect error type for underlying with SQLite cache: \(graphQLError.underlying)")
-            }
-          #endif
-          default:
-            XCTFail("Incorrect error type for underlying: \(graphQLError.underlying)")
+          guard let decodingError = graphQLError.underlying as? JSONDecodingError else {
+            XCTFail("Invalid error type.")
+            return
+          }
+          switch decodingError {
+          case .couldNotConvert(value: _, to: _):
+            break
+          case .missingValue, .nullValue, .wrongType:
+            XCTFail("Invalid error type.")
           }
         }
       }
