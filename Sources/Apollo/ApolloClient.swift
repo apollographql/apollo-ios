@@ -284,7 +284,10 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
     networkTask?.cancel()
     networkTask = client?.send(operation: query,
                                shouldPublishResultToStore: true,
-                               context: context) { result in
+                               context: context) { [weak self] result in
+      guard let self = self else {
+        return
+      }
       self.resultHandler(result)
       self.state = .finished
       return
