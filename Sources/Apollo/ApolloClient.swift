@@ -281,6 +281,7 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
   }
 
   func fetchFromNetwork() {
+    networkTask?.cancel()
     networkTask = client?.send(operation: query,
                                shouldPublishResultToStore: true,
                                context: context) { result in
