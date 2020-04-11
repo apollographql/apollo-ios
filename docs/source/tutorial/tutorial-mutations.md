@@ -123,8 +123,8 @@ You can use this mutation to book multiple trips at once and get back:
 Start by adding a basic mutation in GraphiQL that passes in an array of trip identifiers, and then asks for the `success` and `message` back from the server: 
 
 ```graphql:title=(GraphiQL)
-mutation BookTrips($tripIDs:[ID]!) {
-  bookTrips(launchIds:$tripIDs) {
+mutation BookTrip($id:[ID]!) {
+  bookTrips(launchIds:$id) {
     success
     message
   }
@@ -134,7 +134,7 @@ mutation BookTrips($tripIDs:[ID]!) {
 In the `Query Variables` section of GraphiQL, add an array of identifiers. In this case, we'll use a single identifier to book one trip:
 
 ```json:title=(GraphiQL)
-{"tripIDs": ["25"]}
+{"id": ["25"]}
 ```
 
 In the `HTTP Headers` section of GraphiQL, add an authorization header to pass through the token you received when you logged in:
@@ -164,10 +164,10 @@ mutation BookTrip($id:ID!) {
 
 This is helpful because the Swift code generation will now generate a method that only accepts a single ID instead of an array, but you'll still be calling the same mutation under the hood, without the backend needing to change anything. 
 
-In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
+In the `Query Variables` section of GraphiQL, update variables to use `id` as the key, and remove the array brackets from around the identifier:
 
 ```json:title=(GraphiQL)
-{"id":"25"}
+{"id": "25"}
 ```
 
 Click the play button to run your updated query in GraphiQL. The response you get back should identical to the one you got earlier:
