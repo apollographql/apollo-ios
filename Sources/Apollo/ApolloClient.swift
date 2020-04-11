@@ -254,7 +254,10 @@ private final class FetchQueryOperation<Query: GraphQLQuery>: AsynchronousOperat
       return
     }
 
-    client?.store.load(query: query) { result in
+    client?.store.load(query: query) { [weak self] result in
+      guard let self = self else {
+        return
+      }
       if self.isCancelled {
         self.state = .finished
         return
