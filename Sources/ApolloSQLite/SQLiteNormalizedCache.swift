@@ -7,7 +7,6 @@ import Apollo
 public enum SQLiteNormalizedCacheError: Error {
   case invalidRecordEncoding(record: String)
   case invalidRecordShape(object: Any)
-  case invalidRecordValue(value: Any)
 }
 
 /// A `NormalizedCache` implementation which uses a SQLite database to store data.
