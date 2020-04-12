@@ -190,6 +190,74 @@ class HTTPTransportTests: XCTestCase {
     self.wait(for: [expectation], timeout: 10)
   }
   
+  func testRetryDelegateReturnsApolloError() throws {
+    class MockRetryDelegate: HTTPNetworkTransportRetryDelegate {
+      func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                            receivedError error: Error,
+                            for request: URLRequest,
+                            response: URLResponse?,
+                            continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
+        continueHandler(.fail(error))
+      }
+    }
+    
+    let mockRetryDelegate = MockRetryDelegate()
+    
+    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql_non_existant")!)
+    transport.delegate = mockRetryDelegate
+    
+    let expectationErrorResponse = self.expectation(description: "Send operation completed")
+    
+    let _ = transport.send(operation: HeroNameQuery()) { result in
+      switch result {
+      case .success:
+        XCTFail()
+        expectationErrorResponse.fulfill()
+      case .failure(let error):
+        XCTAssertTrue(error is GraphQLHTTPResponseError)
+        expectationErrorResponse.fulfill()
+      }
+    }
+    
+    wait(for: [expectationErrorResponse], timeout: 1)
+  }
+  
+  func testRetryDelegateReturnsCustomError() throws {
+    enum MockError: Error, Equatable {
+      case customError
+    }
+    
+    class MockRetryDelegate: HTTPNetworkTransportRetryDelegate {
+      func networkTransport(_ networkTransport: HTTPNetworkTransport,
+                            receivedError error: Error,
+                            for request: URLRequest,
+                            response: URLResponse?,
+                            continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
+        continueHandler(.fail(MockError.customError))
+      }
+    }
+    
+    let mockRetryDelegate = MockRetryDelegate()
+    
+    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql_non_existant")!)
+    transport.delegate = mockRetryDelegate
+    
+    let expectationErrorResponse = self.expectation(description: "Send operation completed")
+    
+    let _ = transport.send(operation: HeroNameQuery()) { result in
+      switch result {
+      case .success:
+        XCTFail()
+        expectationErrorResponse.fulfill()
+      case .failure(let error):
+        XCTAssertTrue(error is MockError)
+        expectationErrorResponse.fulfill()
+      }
+    }
+    
+    wait(for: [expectationErrorResponse], timeout: 1)
+  }
+  
   func testEquality() {
     let identicalTransport = HTTPNetworkTransport(url: self.url,
                                                   useGETForQueries: true)
@@ -340,9 +408,9 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
                         receivedError error: Error,
                         for request: URLRequest,
                         response: URLResponse?,
-                        retryHandler: @escaping (Bool) -> Void) {
+                        continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
     guard let graphQLError = error as? GraphQLHTTPResponseError else {
-      retryHandler(false)
+      continueHandler(.fail(error))
       return
     }
     
@@ -352,12 +420,12 @@ extension HTTPTransportTests: HTTPNetworkTransportRetryDelegate {
       if retryCount > 1 {
         self.shouldModifyURLInWillSend = false
       }
-      retryHandler(true)
+      continueHandler(.retry)
     case .invalidResponse:
-      retryHandler(false)
+      continueHandler(.fail(error))
     case .persistedQueryNotFound,
          .persistedQueryNotSupported:
-      retryHandler(false)
+      continueHandler(.fail(error))
     }
   }
 }

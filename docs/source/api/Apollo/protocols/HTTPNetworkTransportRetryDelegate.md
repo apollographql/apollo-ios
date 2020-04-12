@@ -9,14 +9,14 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate
 > Methods which will be called if an error is receieved at the network level.
 
 ## Methods
-### `networkTransport(_:receivedError:for:response:retryHandler:)`
+### `networkTransport(_:receivedError:for:response:continueHandler:)`
 
 ```swift
 func networkTransport(_ networkTransport: HTTPNetworkTransport,
                       receivedError error: Error,
                       for request: URLRequest,
                       response: URLResponse?,
-                      retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
+                      continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void)
 ```
 
 > Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
@@ -27,7 +27,7 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 >   - error: The received error
 >   - request: The URLRequest which generated the error
 >   - response: [Optional] Any response received when the error was generated
->   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
+>   - continueHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
 
 #### Parameters
 
