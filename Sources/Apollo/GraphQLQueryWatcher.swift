@@ -78,15 +78,12 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 private extension CachePolicy {
   var alwaysIncludesServerFetch: Bool {
     switch self {
-    case .fetchIgnoringCacheCompletely:
+    case .fetchIgnoringCacheCompletely,
+         .fetchIgnoringCacheData,
+         .returnCacheDataAndFetch:
       return true
-    case .fetchIgnoringCacheData:
-      return true
-    case .returnCacheDataAndFetch:
-      return true
-    case .returnCacheDataDontFetch:
-      return false
-    case .returnCacheDataElseFetch:
+    case .returnCacheDataDontFetch,
+         .returnCacheDataElseFetch:
       return false
     }
   }
