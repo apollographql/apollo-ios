@@ -36,8 +36,12 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   func fetch(cachePolicy: CachePolicy) {
-    // Cancel anything already in flight before starting a new fetch
-    fetching?.cancel()
+    // Cancel any fetch already in flight before starting a new fetch, if the new fetch includes the server.
+    // Without this extra condition, the store subscription can entirely cancel a server fetch if a dependent key is modified
+    // while it is in flight.
+    if cachePolicy.alwaysIncludesServerFetch {
+      fetching?.cancel()
+    }
     fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: .main) { [weak self] result in
       guard let `self` = self else { return }
 
@@ -67,6 +71,17 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
     if !dependentKeys.isDisjoint(with: changedKeys) {
       fetch(cachePolicy: .returnCacheDataElseFetch)
+    }
+  }
+}
+
+private extension CachePolicy {
+  var alwaysIncludesServerFetch: Bool {
+    switch self {
+    case .fetchIgnoringCacheCompletely, .fetchIgnoringCacheData, .returnCacheDataAndFetch:
+      return true
+    case .returnCacheDataDontFetch, .returnCacheDataElseFetch:
+      return false
     }
   }
 }
