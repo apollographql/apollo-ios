@@ -22,7 +22,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertEqual(options.endpointURL, self.endpointURL)
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertNil(options.apiKey)
-    XCTAssertNil(options.header)
+    XCTAssertTrue(options.headers.isEmpty)
     
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
@@ -34,17 +34,19 @@ class ApolloSchemaTests: XCTestCase {
   func testCreatingOptionsWithAllParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let apiKey = "Fake_API_Key"
-    let header = "Authorization: Bearer tokenGoesHere"
+    let firstHeader = "Authorization: Bearer tokenGoesHere"
+    let secondHeader = "Custom-Header: Custom_Customer"
+    let headers = [firstHeader, secondHeader]
     
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
                                       schemaFileType: .schemaDefinitionLanguage,
                                       apiKey: apiKey,
                                       endpointURL: self.endpointURL,
-                                      header: header,
+                                      headers: headers,
                                       outputFolderURL: sourceRoot)
     XCTAssertEqual(options.apiKey, apiKey)
     XCTAssertEqual(options.endpointURL, self.endpointURL)
-    XCTAssertEqual(options.header, header)
+    XCTAssertEqual(options.headers, headers)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
     XCTAssertEqual(options.outputURL, expectedOutputURL)
@@ -54,7 +56,8 @@ class ApolloSchemaTests: XCTestCase {
         "--endpoint=http://localhost:8080/graphql",
         "--key=\(apiKey)",
         "'\(expectedOutputURL.path)'",
-        "--header='\(header)'"
+        "--header='\(firstHeader)'",
+        "--header='\(secondHeader)'"
     ])
   }
   

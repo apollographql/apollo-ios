@@ -11,7 +11,7 @@ public struct ApolloSchemaOptions {
   
   let apiKey: String?
   let endpointURL: URL
-  let header: String?
+  let headers: [String]
   let outputURL: URL
   
   let downloadTimeout: Double
@@ -23,21 +23,21 @@ public struct ApolloSchemaOptions {
   ///   - schemaFileType: The `SchemaFileType` to download the schema as. Defaults to `.json`.
   ///   - apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
   ///   - endpointURL: The endpoint to hit to download your schema.
-  ///   - header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
+  ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(schemaFileName: String = "schema",
               schemaFileType: SchemaFileType = .json,
               apiKey: String? = nil,
               endpointURL: URL,
-              header: String? = nil,
+              headers: [String] = [],
               outputFolderURL: URL,
               downloadTimeout: Double = 30.0) {
     self.apiKey = apiKey
-    self.header = header
+    self.headers = headers
     self.endpointURL = endpointURL
     self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFileName).\(schemaFileType.rawValue)")
-    
+
     self.downloadTimeout = downloadTimeout
   }
   
@@ -55,8 +55,8 @@ public struct ApolloSchemaOptions {
     
     // Header argument must be last in the CLI command due to an underlying issue in the Oclif framework.
     // See: https://github.com/apollographql/apollo-tooling/issues/844#issuecomment-547143805
-    if let header = self.header {
-      arguments.append("--header='\(header)'")
+    for header in headers {
+        arguments.append("--header='\(header)'")
     }
     
     return arguments
