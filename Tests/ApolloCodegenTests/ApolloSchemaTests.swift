@@ -34,10 +34,9 @@ class ApolloSchemaTests: XCTestCase {
   func testCreatingOptionsWithAllParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let apiKey = "Fake_API_Key"
-    let headers = [
-        "Authorization: Bearer tokenGoesHere",
-        "Custom-Header: Custom_Customer"
-    ]
+    let firstHeader = "Authorization: Bearer tokenGoesHere"
+    let secondHeader = "Custom-Header: Custom_Customer"
+    let headers = [firstHeader, secondHeader]
     
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
                                       schemaFileType: .schemaDefinitionLanguage,
@@ -57,8 +56,8 @@ class ApolloSchemaTests: XCTestCase {
         "--endpoint=http://localhost:8080/graphql",
         "--key=\(apiKey)",
         "'\(expectedOutputURL.path)'",
-        "--header='\(headers.first!)'",
-        "--header='\(headers.last!)'"
+        "--header='\(firstHeader)'",
+        "--header='\(secondHeader)'"
     ])
   }
   
