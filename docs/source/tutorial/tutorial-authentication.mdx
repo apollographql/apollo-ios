@@ -2,8 +2,6 @@
 title: 7. Enable authentication
 ---
 
-import LoginUISetupPanel from "./components/login_ui_setup_panel.mdx"
-
 In this section, you'll add the ability to log in to the example server and obtain a token that your client can use to make identified requests.
 
 > **Note**: The way you log in to this particular server might differ from the way you log in with your own server. Login is often handled by _middleware_, or a layer totally separate from GraphQL.
@@ -14,7 +12,7 @@ In this section, you'll add the ability to log in to the example server and obta
 
 A **mutation** is an operation that changes state on your server. In this case, the mutation changes back-end state by creating a session tied to a particular user of your client.
 
-Open [GraphiQL](https://apollo-fullstack-tutorial.herokuapp.com/) and delete anything that's already in the left-hand panel. Open the Schema tab and select the `login` mutation:
+Open [GraphiQL](https://apollo-fullstack-tutorial.herokuapp.com/) and delete anything that's already in the left-hand panel. Open the Docs tab and select the `login` mutation:
 
 <img alt="The definition of login in the schema" class="screenshot" src="images/schema_login_definition.png"/>
 
