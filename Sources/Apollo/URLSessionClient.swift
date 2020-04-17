@@ -159,19 +159,19 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     // No default implementation
   }
   
-  @available(iOS 11.0, OSXApplicationExtension 10.13, *)
-  public func urlSession(_ session: URLSession,
-                         task: URLSessionTask,
-                         willBeginDelayedRequest request: URLRequest,
-                         completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
+  @available(iOS 11.0, OSXApplicationExtension 10.13, OSX 10.13, *)
+  open func urlSession(_ session: URLSession,
+                       task: URLSessionTask,
+                       willBeginDelayedRequest request: URLRequest,
+                       completionHandler: @escaping (URLSession.DelayedRequestDisposition, URLRequest?) -> Void) {
     completionHandler(.continueLoading, request)
   }
   
-  public func urlSession(_ session: URLSession,
-                         task: URLSessionTask,
-                         willPerformHTTPRedirection response: HTTPURLResponse,
-                         newRequest request: URLRequest,
-                         completionHandler: @escaping (URLRequest?) -> Void) {
+  open func urlSession(_ session: URLSession,
+                       task: URLSessionTask,
+                       willPerformHTTPRedirection response: HTTPURLResponse,
+                       newRequest request: URLRequest,
+                       completionHandler: @escaping (URLRequest?) -> Void) {
     completionHandler(request)
   }
   
