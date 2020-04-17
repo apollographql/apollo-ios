@@ -3,9 +3,9 @@ import Foundation
 open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
   
   public enum URLSessionClientError: Error {
-    case noHTTPResponse(url: URL?)
+    case noHTTPResponse(request: URLRequest?)
     case sessionBecameInvalidWithoutUnderlyingError
-    case dataForTaskNotFound(taskIdentifier: Int)
+    case dataForRequestNotFound(request: URLRequest?)
   }
   
   public typealias RawCompletion = (Data?, URLResponse?, Error?) -> Void
@@ -42,10 +42,13 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   @discardableResult
   open func sendRequest(_ request: URLRequest,
-                        rawTaskCompletionHandler: @escaping RawCompletion,
+                        rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     let dataTask = self.session.dataTask(with: request)
-    self.rawCompletions[dataTask.taskIdentifier] = rawTaskCompletionHandler
+    if let rawCompletion = rawTaskCompletionHandler {
+      self.rawCompletions[dataTask.taskIdentifier] = rawCompletion
+    }
+    
     self.completionBlocks[dataTask.taskIdentifier] = completion
     self.datas[dataTask.taskIdentifier] = Data()
     dataTask.resume()
@@ -112,10 +115,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       self.clearTask(with: taskIdentifier)
     }
     
-    
-    guard
-      let rawCompletion = self.rawCompletions.removeValue(forKey: taskIdentifier),
-      let completion = self.completionBlocks.removeValue(forKey: taskIdentifier) else {
+    guard let completion = self.completionBlocks.removeValue(forKey: taskIdentifier) else {
       // No completion blocks, the task has likely been cancelled. Bail out.
       return
     }
@@ -123,19 +123,21 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     let data = self.datas[taskIdentifier]
     let response = self.responses[taskIdentifier]
     
-    rawCompletion(data, response, error)
-    
+    if let rawCompletion = self.rawCompletions.removeValue(forKey: taskIdentifier) {
+      rawCompletion(data, response, error)
+    }
+      
     if let finalError = error {
       completion(.failure(finalError))
     } else {
       guard let finalData = data else {
         // Data is immediately created for a task on creation, so if it's not there, something's gone wrong.
-        completion(.failure(URLSessionClientError.dataForTaskNotFound(taskIdentifier: taskIdentifier)))
+        completion(.failure(URLSessionClientError.dataForRequestNotFound(request: task.originalRequest)))
         return
       }
       
       guard let finalResponse = response else {
-        completion(.failure(URLSessionClientError.noHTTPResponse(url: task.currentRequest?.url)))
+        completion(.failure(URLSessionClientError.noHTTPResponse(request: task.originalRequest)))
         return
       }
       
