@@ -116,10 +116,34 @@ class URLSessionClientLiveTests: XCTestCase {
     self.wait(for: [expectation], timeout: 10)
   }
   
-  func testCancelling() throws {
+  func testCancellingTaskDirectlyCallsCompletionWithError() throws {
     let request = self.request(for: .bytes(count: 102400)) // 102400 is max from HTTPBin
     
-    let expectation = self.expectation(description: "Cancelled task completed anyway")
+    let expectation = self.expectation(description: "Cancelled task completed")
+    let task = self.client.sendRequest(request) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .failure(let error):
+        let nsError = error as NSError
+        XCTAssertEqual(nsError.domain, NSURLErrorDomain)
+        XCTAssertEqual(nsError.code, NSURLErrorCancelled)
+      case .success:
+        XCTFail("Task succeeded when it should have been cancelled!")
+      }
+    }
+    
+    task.cancel()
+    
+    self.wait(for: [expectation], timeout: 10)
+  }
+  
+  func testCancellingTaskThroughClientDoesNotCallCompletion() throws {
+    let request = self.request(for: .bytes(count: 102400)) // 102400 is max from HTTPBin
+    
+    let expectation = self.expectation(description: "Cancelled task completed")
     expectation.isInverted = true
     let task = self.client.sendRequest(request) { result in
       // This shouldn't get hit since we cancel the task immediately
