@@ -31,6 +31,12 @@ public final class SQLiteNormalizedCache {
     try self.createTableIfNeeded()
   }
 
+  public init(db: Connection, shouldVacuumOnClear: Bool = false) throws {
+    self.shouldVacuumOnClear = shouldVacuumOnClear
+    self.db = db
+    try self.createTableIfNeeded()
+  }
+  
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
     let components = fieldCacheKey.components(separatedBy: ".")
     var updatedComponents = [String]()
