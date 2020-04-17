@@ -3,13 +3,16 @@ import Foundation
 open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
   
   public enum URLSessionClientError: Error {
+    case noHTTPResponse(url: URL?)
     case sessionBecameInvalidWithoutUnderlyingError
     case dataForTaskNotFound(taskIdentifier: Int)
   }
   
-  public typealias Completion = (Result<(Data, HTTPURLResponse?), Error>) -> Void
+  public typealias RawCompletion = (Data?, URLResponse?, Error?) -> Void
+  public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
   private var completionBlocks = [Int: Completion]()
+  private var rawCompletions = [Int: RawCompletion]()
   private var datas = [Int: Data]()
   private var responses = [Int: HTTPURLResponse]()
   
@@ -23,21 +26,26 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                               delegateQueue: callbackQueue)
   }
   
-  private func clearTask(with identifier: Int) {
+  open func clearTask(with identifier: Int) {
+    self.rawCompletions.removeValue(forKey: identifier)
     self.completionBlocks.removeValue(forKey: identifier)
     self.datas.removeValue(forKey: identifier)
     self.responses.removeValue(forKey: identifier)
   }
   
-  private func clearAllTasks() {
+  open func clearAllTasks() {
+    self.rawCompletions.removeAll()
     self.completionBlocks.removeAll()
     self.datas.removeAll()
     self.responses.removeAll()
   }
   
   @discardableResult
-  open func sendRequest(_ request: URLRequest, completion: @escaping Completion) -> URLSessionTask {
+  open func sendRequest(_ request: URLRequest,
+                        rawTaskCompletionHandler: @escaping RawCompletion,
+                        completion: @escaping Completion) -> URLSessionTask {
     let dataTask = self.session.dataTask(with: request)
+    self.rawCompletions[dataTask.taskIdentifier] = rawTaskCompletionHandler
     self.completionBlocks[dataTask.taskIdentifier] = completion
     self.datas[dataTask.taskIdentifier] = Data()
     dataTask.resume()
@@ -99,28 +107,39 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        didCompleteWithError error: Error?) {
+    let taskIdentifier = task.taskIdentifier
     defer {
-      self.clearTask(with: task.taskIdentifier)
+      self.clearTask(with: taskIdentifier)
     }
     
-    guard let completion = self.completionBlocks.removeValue(forKey: task.taskIdentifier) else {
-      // No completion block, the task has likely been cancelled. Bail out.
+    
+    guard
+      let rawCompletion = self.rawCompletions.removeValue(forKey: taskIdentifier),
+      let completion = self.completionBlocks.removeValue(forKey: taskIdentifier) else {
+      // No completion blocks, the task has likely been cancelled. Bail out.
       return
     }
     
+    let data = self.datas[taskIdentifier]
+    let response = self.responses[taskIdentifier]
+    
+    rawCompletion(data, response, error)
     
     if let finalError = error {
       completion(.failure(finalError))
     } else {
-      let taskIdentifier = task.taskIdentifier
-      guard let data = self.datas[taskIdentifier] else {
+      guard let finalData = data else {
         // Data is immediately created for a task on creation, so if it's not there, something's gone wrong.
         completion(.failure(URLSessionClientError.dataForTaskNotFound(taskIdentifier: taskIdentifier)))
         return
       }
       
-      let response = self.responses[taskIdentifier]
-      completion(.success((data, response)))
+      guard let finalResponse = response else {
+        completion(.failure(URLSessionClientError.noHTTPResponse(url: task.currentRequest?.url)))
+        return
+      }
+      
+      completion(.success((finalData, finalResponse)))
     }
   }
   
