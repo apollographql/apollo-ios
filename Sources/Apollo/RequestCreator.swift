@@ -106,16 +106,22 @@ extension RequestCreator {
 
     // Make sure all fields for files are set to null, or the server won't look
     // for the files in the rest of the form data
-    let fieldsForFiles = Set(files.map { $0.fieldName })
     var fields = requestBody(for: operation, sendOperationIdentifiers: sendOperationIdentifiers)
     var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
-    for fieldName in fieldsForFiles {
-      if
-        let value = variables[fieldName],
-        let arrayValue = value as? [JSONEncodable] {
-        let updatedArray: [JSONEncodable?] = arrayValue.map { _ in nil }
-          variables.updateValue(updatedArray, forKey: fieldName)
+    var map = [String]()
+
+    for file in files {
+      let fieldName = file.fieldName
+      let variable = variables[fieldName]
+
+      if let values = variable as? [JSONEncodable?] {
+        values.compactMap { $0 }.enumerated().forEach { (index, _) in
+          map.append("variables.\(file.fieldName).\(index)")
+        }
+        let updatedArray: [JSONEncodable?] = values.map { _ in nil }
+        variables.updateValue(updatedArray, forKey: fieldName)
       } else {
+        map.append("variables.\(file.fieldName)")
         variables.updateValue(nil, forKey: fieldName)
       }
     }
@@ -124,17 +130,10 @@ extension RequestCreator {
     let operationData = try serializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")
 
-    var map = [String: [String]]()
-    if files.count == 1 {
-      let firstFile = files.first!
-      map["0"] = ["variables.\(firstFile.fieldName)"]
-    } else {
-      for (index, file) in files.enumerated() {
-        map["\(index)"] = ["variables.\(file.fieldName).\(index)"]
-      }
-    }
+    // Map field name variables array ["variables.fieldName"] to JSONEncodable dictionary ["0" : "variables.fieldName"]
+    let value = Dictionary(uniqueKeysWithValues: map.enumerated().map { ("\($0.0)", [$0.1]) })
 
-    let mapData = try serializationFormat.serialize(value: map)
+    let mapData = try serializationFormat.serialize(value: value)
     formData.appendPart(data: mapData, name: "map")
 
     for (index, file) in files.enumerated() {
