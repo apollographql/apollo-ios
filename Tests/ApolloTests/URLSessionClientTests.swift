@@ -24,7 +24,7 @@ class URLSessionClientLiveTests: XCTestCase {
         XCTFail("Unexpected error: \(error)")
       case .success(let (data, httpResponse)):
         XCTAssertFalse(data.isEmpty)
-        XCTAssertEqual(request.url, httpResponse?.url)
+        XCTAssertEqual(request.url, httpResponse.url)
       }
     }
     
@@ -44,10 +44,15 @@ class URLSessionClientLiveTests: XCTestCase {
         XCTFail("Unexpected error: \(error)")
       case .success(let (data, httpResponse)):
         XCTAssertFalse(data.isEmpty)
-        XCTAssertEqual(httpResponse!.allHeaderFields["Content-Type"] as! String, "image/jpeg")
-        let image = UIImage(data: data)
-        XCTAssertNotNil(image)
-        XCTAssertEqual(request.url, httpResponse?.url)
+        XCTAssertEqual(httpResponse.allHeaderFields["Content-Type"] as! String, "image/jpeg")
+        #if os(macOS)
+          let image = NSImage(data: data)
+          XCTAssertNotNil(image)
+        #else
+          let image = UIImage(data: data)
+          XCTAssertNotNil(image)
+        #endif
+        XCTAssertEqual(request.url, httpResponse.url)
       }
     }
     
@@ -71,7 +76,7 @@ class URLSessionClientLiveTests: XCTestCase {
         XCTAssertEqual(data.count,
                        randomInt,
                        "Expected \(randomInt) bytes, got \(data.count)")
-        XCTAssertEqual(request.url, response?.url)
+        XCTAssertEqual(request.url, response.url)
       }
     }
     
@@ -97,7 +102,7 @@ class URLSessionClientLiveTests: XCTestCase {
       case .failure(let error):
         XCTFail("Unexpected error: \(error)")
       case .success(let (data, httpResponse)):
-        XCTAssertEqual(request.url, httpResponse?.url)
+        XCTAssertEqual(request.url, httpResponse.url)
         
         do {
           let parsed = try HTTPBinResponse(data: data)
@@ -123,7 +128,7 @@ class URLSessionClientLiveTests: XCTestCase {
     
     self.client.cancel(task: task)
     
-    self.wait(for: [expectation], timeout: 10)
+    self.wait(for: [expectation], timeout: 5)
     
   }
 }
