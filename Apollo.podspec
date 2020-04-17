@@ -35,6 +35,7 @@ Pod::Spec.new do |s|
     ss.dependency 'SQLite.swift', '~>0.12.2'
   end
   
+  # Cache persistance storage mechanism extended with encryption mechanism
   s.subspec 'SQLiteCipher' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
