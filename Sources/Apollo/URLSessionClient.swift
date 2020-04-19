@@ -102,7 +102,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     self.clearAllTasks()
   }
   
-  @available(OSX 10.12, iOS 10.0, *)
+  @available(OSX 10.12, iOS 10.0, tvOS 10.0, *)
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        didFinishCollecting metrics: URLSessionTaskMetrics) {
@@ -187,7 +187,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     // No default implementation
   }
   
-  @available(iOS 11.0, OSXApplicationExtension 10.13, OSX 10.13, *)
+  @available(iOS 11.0, OSXApplicationExtension 10.13, OSX 10.13, tvOS 11.0, watchOS 4.0, *)
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        willBeginDelayedRequest request: URLRequest,
