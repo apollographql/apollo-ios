@@ -2,6 +2,12 @@ import Foundation
 
 /// A class to handle URL Session calls that will support background execution,
 /// but still (mostly) use callbacks for its primary method of communication.
+///
+/// **NOTE:** Delegate methods implemented here are not documented inline because
+/// Apple has their own documentation for them. Please consult Apple's
+/// documentation for how the delegate methods work and what needs to be overridden
+/// and handled within your app, particularly in regards to what needs to be called
+/// when for background sessions.
 open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
   
   public enum URLSessionClientError: Error {
