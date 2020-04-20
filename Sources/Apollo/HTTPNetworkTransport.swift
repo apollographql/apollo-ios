@@ -94,8 +94,11 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport {
   
+  /// The action to take when retrying
   public enum ContinueAction {
+    /// Directly retry the action
     case retry
+    /// Fail with the specified error.
     case fail(_ error: Error)
   }
   
