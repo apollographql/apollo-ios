@@ -49,22 +49,6 @@ public protocol HTTPNetworkTransportTaskCompletedDelegate: HTTPNetworkTransportD
 
 /// Methods which will be called if an error is receieved at the network level.
 public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate {
-
-  /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
-  /// NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
-  ///
-  /// - Parameters:
-  ///   - networkTransport: The network transport which received the error
-  ///   - error: The received error
-  ///   - request: The URLRequest which generated the error
-  ///   - response: [Optional] Any response received when the error was generated
-  ///   - retryHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
-  @available(*, deprecated, message: "Use networkTransport(_:receivedError:for:,response:continueHandler:) instead")
-  func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        receivedError error: Error,
-                        for request: URLRequest,
-                        response: URLResponse?,
-                        retryHandler: @escaping (_ shouldRetry: Bool) -> Void)
   
   /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
   /// NOTE: Don't just call the `continueHandler` with `.retry` all the time, or you can potentially wind up in an infinite loop of errors
@@ -80,31 +64,6 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         for request: URLRequest,
                         response: URLResponse?,
                         continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void)
-}
-
-public extension HTTPNetworkTransportRetryDelegate {
-  
-  func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        receivedError error: Error,
-                        for request: URLRequest,
-                        response: URLResponse?,
-                        retryHandler: @escaping (_ shouldRetry: Bool) -> Void) {
-    retryHandler(false)
-  }
-  
-  func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        receivedError error: Error,
-                        for request: URLRequest,
-                        response: URLResponse?,
-                        continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void) {
-    self.networkTransport(networkTransport, receivedError: error, for: request, response: response) { (_ shouldRetry: Bool) in
-      if shouldRetry {
-        continueHandler(.retry)
-      } else {
-        continueHandler(.fail(error))
-      }
-    }
-  }
 }
 
 // MARK: -
@@ -135,8 +94,11 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
 public class HTTPNetworkTransport {
   
+  /// The action to take when retrying
   public enum ContinueAction {
+    /// Directly retry the action
     case retry
+    /// Fail with the specified error.
     case fail(_ error: Error)
   }
   
