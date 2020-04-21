@@ -31,7 +31,7 @@ public struct ApolloCodegenOptions {
       case .typescript:
         return "swift"
       case .swiftExperimental:
-        return "json"
+        return "json-modern"
       }
     }
   }
