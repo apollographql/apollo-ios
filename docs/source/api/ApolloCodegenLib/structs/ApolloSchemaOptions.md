@@ -9,14 +9,14 @@ public struct ApolloSchemaOptions
 > Options for running the Apollo Schema Downloader.
 
 ## Methods
-### `init(schemaFileName:schemaFileType:apiKey:endpointURL:header:outputFolderURL:downloadTimeout:)`
+### `init(schemaFileName:schemaFileType:apiKey:endpointURL:headers:outputFolderURL:downloadTimeout:)`
 
 ```swift
 public init(schemaFileName: String = "schema",
             schemaFileType: SchemaFileType = .json,
             apiKey: String? = nil,
             endpointURL: URL,
-            header: String? = nil,
+            headers: [String] = [],
             outputFolderURL: URL,
             downloadTimeout: Double = 30.0)
 ```
@@ -28,7 +28,7 @@ public init(schemaFileName: String = "schema",
 >   - schemaFileType: The `SchemaFileType` to download the schema as. Defaults to `.json`.
 >   - apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
 >   - endpointURL: The endpoint to hit to download your schema.
->   - header: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
+>   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
 >   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
 >  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
 
@@ -40,5 +40,5 @@ public init(schemaFileName: String = "schema",
 | schemaFileType | The `SchemaFileType` to download the schema as. Defaults to `.json`. |
 | apiKey | [optional] The API key to use when retrieving your schema. Defaults to nil. |
 | endpointURL | The endpoint to hit to download your schema. |
-| header | [optional] Any additional headers to include when retrieving your schema. Defaults to nil |
+| headers | [optional] Any additional headers to include when retrieving your schema. Defaults to nil |
 | outputFolderURL | The URL of the folder in which the downloaded schema should be written |
