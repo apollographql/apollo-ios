@@ -29,7 +29,7 @@ download_apollo_cli_if_needed() {
 
 download_cli() {
   echo "Downloading zip file with the CLI..."
-  curl --silent --retry 3 --fail --show-error "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
+  curl --silent --retry 3 --fail --show-error -L "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
 }
 
 force_cli_download() {
