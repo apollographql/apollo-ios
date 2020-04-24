@@ -14,6 +14,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     case noHTTPResponse(request: URLRequest?)
     case sessionBecameInvalidWithoutUnderlyingError
     case dataForRequestNotFound(request: URLRequest?)
+    case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
   }
   
   /// A completion block to be called when the raw task has completed, with the raw information from the session
@@ -160,16 +161,16 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     if let rawCompletion = self.rawCompletions.removeValue(forKey: taskIdentifier) {
       rawCompletion(data, response, error)
     }
-      
+    
+    guard let finalData = data else {
+      // Data is immediately created for a task on creation, so if it's not there, something's gone wrong.
+      completion(.failure(URLSessionClientError.dataForRequestNotFound(request: task.originalRequest)))
+      return
+    }
+    
     if let finalError = error {
-      completion(.failure(finalError))
+      completion(.failure(URLSessionClientError.networkError(data: finalData, response: response, underlying: finalError)))
     } else {
-      guard let finalData = data else {
-        // Data is immediately created for a task on creation, so if it's not there, something's gone wrong.
-        completion(.failure(URLSessionClientError.dataForRequestNotFound(request: task.originalRequest)))
-        return
-      }
-      
       guard let finalResponse = response else {
         completion(.failure(URLSessionClientError.noHTTPResponse(request: task.originalRequest)))
         return

@@ -127,9 +127,16 @@ class URLSessionClientLiveTests: XCTestCase {
       
       switch result {
       case .failure(let error):
-        let nsError = error as NSError
-        XCTAssertEqual(nsError.domain, NSURLErrorDomain)
-        XCTAssertEqual(nsError.code, NSURLErrorCancelled)
+        switch error {
+        case URLSessionClient.URLSessionClientError.networkError(let data, let httpResponse, let underlying):
+          XCTAssertTrue(data.isEmpty)
+          XCTAssertNil(httpResponse)          
+          let nsError = underlying as NSError
+          XCTAssertEqual(nsError.domain, NSURLErrorDomain)
+          XCTAssertEqual(nsError.code, NSURLErrorCancelled)
+        default:
+          XCTFail("Unexpected error: \(error)")
+        }
       case .success:
         XCTFail("Task succeeded when it should have been cancelled!")
       }
