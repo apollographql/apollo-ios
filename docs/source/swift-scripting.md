@@ -214,7 +214,7 @@ Now you can create a new empty `.graphql` file in your Xcode project, give it th
 2. Set up your `ApolloCodegenOptions` object. In this case, we'll use the constructor that [sets defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
 
     ```swift:title=main.swift
-    let options = ApolloCodegenOptions(targetRootURL: targetRootURL)
+    let options = ApolloCodegenOptions(targetRootURL: targetURL)
     ```
 
     This creates a single file called `API.swift` in the target's root folder. 
