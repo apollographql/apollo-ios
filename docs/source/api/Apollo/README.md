@@ -57,6 +57,7 @@
 -   [MultipartFormData](classes/MultipartFormData/)
 -   [ReadTransaction](classes/ReadTransaction/)
 -   [ReadWriteTransaction](classes/ReadWriteTransaction/)
+-   [URLSessionClient](classes/URLSessionClient/)
 
 ## Enums
 
@@ -70,6 +71,7 @@
 -   [GraphQLOutputType](enums/GraphQLOutputType/)
 -   [JSONDecodingError](enums/JSONDecodingError/)
 -   [Source](enums/Source/)
+-   [URLSessionClientError](enums/URLSessionClientError/)
 
 ## Extensions
 
