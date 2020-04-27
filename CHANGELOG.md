@@ -1,5 +1,34 @@
 # Change log
 
+## v0.27.0
+- **BREAKING**: Replaced calls directly into the closure based implementation of `URLSession` with a delegate-based implementation called `URLSessionClient`. 
+    - This (finally) allows background session configurations to be used with `ApolloClient`, since background session configurations immediately error out if you try to use the closure-based `URLSession` API. 
+    - **This makes a significant change to the initialization of `HTTPNetworkTransport` if you're using a custom `URLSession`**: Because `URLSession` must have its delegate set at the point of creation, `URLSessionClient` is now creating the URL session. You can initialize a `URLSessionClient` with a `URLSessionConfguration`. if before you were using:
+
+        ```swift
+        let session = URLSession(configuration: myCustomConfiguration)
+        let url = URL(string: "http://localhost:8080/graphql")!
+        let transport = HTTPNetworkTransport(url: url,
+                                             session: session)
+        ```
+        
+        You will now need to use: 
+        
+        ```swift
+        let client = URLSessionClient(sessionConfiguration: myCustomConfiguration)
+        let url = URL(string: "http://localhost:8080/graphql")!
+        let transport = HTTPNetworkTransport(url: url,
+                                             client: client)
+        ```
+        
+    - If you were passing in a session you'd already set yourself up to be the delegate of to handle GraphQL requests, you'll need to subclass `URLSessionClient`  and override any delegate methods off of `URLSessionDelegate`, `URLSessionTaskDelegate`, or `URLSessionDataDelegate` you need to handle. Unfortunately only one class can be a delegate at a time, and that class must be declared when the session is instantiated. 
+
+        Note that if you don't need your existing delegate-based session to do any handling for things touched by Apollo, you can keep it completely separate if you'd prefer.
+    - This does *not* change anything at the point of calls - everything is still closure-based in the end
+   
+      Please file bugs on this ASAP if you run into problems. Thank you! ([#1163](https://github.com/apollographql/apollo-ios/pull/1163))
+
+
 ## v0.26.0
 - **BREAKING**, though in a good way: Updated the typescript CLI to [2.27.2](https://github.com/apollographql/apollo-tooling/releases/tag/apollo%402.27.2), and updated the script to pull from a CDN (currently backed by GitHub Releases) rather than old Circle images. This should significantly increase download performance and stability. ([#1166](https://github.com/apollographql/apollo-ios/pull/1166))
 - **BREAKING**: Updated the retry delegate to allow more fine-grained control of what error to return if an operation fails in the process of retrying. ([#1128](https://github.com/apollographql/apollo-ios/pull/1128), [#1167](https://github.com/apollographql/apollo-ios/pull/1167))
