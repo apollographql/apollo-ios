@@ -20,6 +20,9 @@
 		9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD762422C8CC00998B5C /* TestFileHelper.swift */; };
 		9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
 		9B21FD792424305E00998B5C /* ExpectedEnumWithSanitizedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */; };
+		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
+		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
+		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
 		9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C85235F8125004C426D /* CLIDownloader.swift */; };
 		9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */; };
 		9B518C8D235F8B9E004C426D /* CLIDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */; };
@@ -365,6 +368,9 @@
 		9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFileTests.swift; sourceTree = "<group>"; };
 		9B21FD762422C8CC00998B5C /* TestFileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileHelper.swift; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
+		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
+		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
+		9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClientTests.swift; sourceTree = "<group>"; };
 		9B518C85235F8125004C426D /* CLIDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloader.swift; sourceTree = "<group>"; };
 		9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloaderTests.swift; sourceTree = "<group>"; };
 		9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloFilePathHelper.swift; sourceTree = "<group>"; };
@@ -727,6 +733,7 @@
 				C3279FC52345233000224790 /* TestCustomRequestCreator.swift */,
 				9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */,
 				9B21FD762422C8CC00998B5C /* TestFileHelper.swift */,
+				9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */,
 			);
 			name = TestHelpers;
 			sourceTree = "<group>";
@@ -1169,6 +1176,7 @@
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
 				C338DF1622DD9DE9006AF33E /* RequestCreatorTests.swift */,
 				9F19D8451EED8D3B00C57247 /* ResultOrPromiseTests.swift */,
+				9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */,
 				5BB2C0222380836100774170 /* VersionNumberTests.swift */,
 				C304EBD322DDC7B200748F72 /* a.txt */,
 				C35D43BE22DDD3C100BCBABE /* b.txt */,
@@ -1203,6 +1211,7 @@
 				C377CCAA22D7992E00572E03 /* MultipartFormData.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9BEDC79D22E5D2CF00549BF6 /* RequestCreator.swift */,
+				9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1997,6 +2006,7 @@
 				5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */,
 				9FE941D01E62C771007CDD89 /* Promise.swift in Sources */,
 				9BA1245E22DE116B00BF1D24 /* Result+Helpers.swift in Sources */,
+				9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */,
 				9F86B6901E65533D00B885FF /* GraphQLResponseGenerator.swift in Sources */,
@@ -2013,6 +2023,7 @@
 				9FC9A9C81E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift in Sources */,
 				9F91CF8F1F6C0DB2008DD0BE /* MutatingResultsTests.swift in Sources */,
 				F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */,
+				9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */,
 				9F19D8461EED8D3B00C57247 /* ResultOrPromiseTests.swift in Sources */,
 				9F533AB31E6C4A4200CBE097 /* BatchedLoadTests.swift in Sources */,
 				C3279FC72345234D00224790 /* TestCustomRequestCreator.swift in Sources */,
@@ -2030,6 +2041,7 @@
 				9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
+				9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */,
 				9BF1A94F22CA5784005292C2 /* HTTPTransportTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

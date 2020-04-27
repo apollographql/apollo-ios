@@ -103,7 +103,7 @@ public class HTTPNetworkTransport {
   }
   
   let url: URL
-  let session: URLSession
+  let client: URLSessionClient
   let serializationFormat = JSONSerializationFormat.self
   let useGETForQueries: Bool
   let enableAutoPersistedQueries: Bool
@@ -127,14 +127,14 @@ public class HTTPNetworkTransport {
   ///   - enableAutoPersistedQueries: Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false.
   ///   - useGETForPersistedQueryRetry: Whether to retry persistedQuery request with HttpGetMethod. Defaults to false.
   public init(url: URL,
-              session: URLSession = .shared,
+              client: URLSessionClient = URLSessionClient(),
               sendOperationIdentifiers: Bool = false,
               useGETForQueries: Bool = false,
               enableAutoPersistedQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false,
               requestCreator: RequestCreator = ApolloRequestCreator()) {
     self.url = url
-    self.session = session
+    self.client = client
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.useGETForQueries = useGETForQueries
     self.enableAutoPersistedQueries = enableAutoPersistedQueries
@@ -155,88 +155,67 @@ public class HTTPNetworkTransport {
       completionHandler(.failure(error))
       return EmptyCancellable()
     }
-
-    let task = session.dataTask(with: request) { [weak self] data, response, error in
+    
+    let task = self.client.sendRequest(request, rawTaskCompletionHandler: { [weak self] data, response, error in
+      self?.rawTaskCompleted(request: request, data: data, response: response, error: error)
+    }, completion: { [weak self] result in
       guard let self = self else {
         // None of the rest of this really matters
         return
       }
-
-      self.rawTaskCompleted(request: request,
-                            data: data,
-                            response: response,
-                            error: error)
-
-      if let receivedError = error {
-        self.handleErrorOrRetry(operation: operation,
-                                files: files,
-                                error: receivedError,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
-        return
-      }
-
-      guard let httpResponse = response as? HTTPURLResponse else {
-        fatalError("Response should be an HTTPURLResponse")
-      }
-
-      guard httpResponse.isSuccessful else {
-        let unsuccessfulError = GraphQLHTTPResponseError(body: data,
-                                                         response: httpResponse,
-                                                         kind: .errorResponse)
-        self.handleErrorOrRetry(operation: operation,
-                                files: files,
-                                error: unsuccessfulError,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
-        return
-      }
-
-      guard let data = data else {
-        let error = GraphQLHTTPResponseError(body: nil,
-                                             response: httpResponse,
-                                             kind: .invalidResponse)
+      
+      switch result {
+      case .failure(let error):
         self.handleErrorOrRetry(operation: operation,
                                 files: files,
                                 error: error,
                                 for: request,
-                                response: response,
+                                response: nil,
                                 completionHandler: completionHandler)
-        return
-      }
-
-      do {
-        guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
-          throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
+      case .success(let (data, httpResponse)):
+        guard httpResponse.isSuccessful == true else {
+          let unsuccessfulError = GraphQLHTTPResponseError(body: data,
+                                                           response: httpResponse,
+                                                           kind: .errorResponse)
+          self.handleErrorOrRetry(operation: operation,
+                                  files: files,
+                                  error: unsuccessfulError,
+                                  for: request,
+                                  response: httpResponse,
+                                  completionHandler: completionHandler)
+          return
         }
+        
+        do {
+          guard let body = try self.serializationFormat.deserialize(data: data) as? JSONObject else {
+            throw GraphQLHTTPResponseError(body: data, response: httpResponse, kind: .invalidResponse)
+          }
 
-        let graphQLResponse = GraphQLResponse(operation: operation, body: body)
+          let graphQLResponse = GraphQLResponse(operation: operation, body: body)
 
-        if let errors = graphQLResponse.parseErrorsOnlyFast() {
-          // Handle specific errors from response
-          self.handleGraphQLErrorsIfNeeded(operation: operation,
-                                           files: files,
-                                           for: request,
-                                           body: body,
-                                           errors: errors,
-                                           completionHandler: completionHandler)
-        } else {
-          completionHandler(.success(graphQLResponse))
+          if let errors = graphQLResponse.parseErrorsOnlyFast() {
+            // Handle specific errors from response
+            self.handleGraphQLErrorsIfNeeded(operation: operation,
+                                             files: files,
+                                             for: request,
+                                             body: body,
+                                             errors: errors,
+                                             completionHandler: completionHandler)
+          } else {
+            completionHandler(.success(graphQLResponse))
+          }
+        } catch let parsingError {
+          self.handleErrorOrRetry(operation: operation,
+                                  files: files,
+                                  error: parsingError,
+                                  for: request,
+                                  response: httpResponse,
+                                  completionHandler: completionHandler)
         }
-      } catch let parsingError {
-        self.handleErrorOrRetry(operation: operation,
-                                files: files,
-                                error: parsingError,
-                                for: request,
-                                response: response,
-                                completionHandler: completionHandler)
       }
-    }
+    })
 
-    task.resume()
-
+    // Task is resumed by underlying framework
     return task
   }
 
@@ -485,7 +464,7 @@ extension HTTPNetworkTransport: Equatable {
 
   public static func ==(lhs: HTTPNetworkTransport, rhs: HTTPNetworkTransport) -> Bool {
     return lhs.url == rhs.url
-      && lhs.session == rhs.session
+      && lhs.client == rhs.client
       && lhs.sendOperationIdentifiers == rhs.sendOperationIdentifiers
       && lhs.useGETForQueries == rhs.useGETForQueries
   }

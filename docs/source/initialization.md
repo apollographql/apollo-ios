@@ -35,10 +35,20 @@ The available implementations are:
 
 The initializer for `HTTPNetworkTransport` has several properties which can allow you to get better information and finer-grained control of your HTTP requests and responses:
 
-- `session` allows you to pass in a custom `URLSession` to set up anything which needs to be done for every single request without alteration. This defaults to `URLSession.shared`. 
+- `client` allows you to pass in a [subclass of `URLSessionClient`](#the-urlsessionclient-class) to handle managing a background-compatible URL session, and set up anything which needs to be done for every single request without alteration. 
 - `sendOperationIdentifiers` allows you send operation identifiers along with your requests. **NOTE:** To send operation identifiers, Apollo types must be generated with `operationIdentifier`s or sending data will crash. Due to this restriction, this option defaults to `false`.
 - `useGETForQueries` sends all requests of `query` type using `GET` instead of `POST`. This defaults to `false` to preserve existing behavior in older versions of the client. 
 - `delegate` Can conform to one or many of several sub-protocols for `HTTPNetworkTransportDelegate`, detailed below.
+
+### The URLSessionClient class
+
+Since `URLSession` only supports use in the background using the delegate-based API, we have created our own `URLSessionClient` which handles the basics of setup for that. 
+
+One thing to be aware of: Because setting up a delegate is only possible in the initializer for `URLSession`, you can only pass in a `URLSessionConfiguration`, **not** an existing `URLSession`, to this class's initializer. 
+
+By default, instances of `URLSessionClient` use `URLSessionConfiguration.default` to set up their URL session, and instances of `HTTPNetworkTransport` use the default initializer for `URLSessionClient`.
+
+The `URLSessionClient` class and most of its methods are `open` so you can subclass it if you need to override any of the delegate methods for the `URLSession` delegates we're using or you need to handle additional delegate scenarios.  
 
 ### Using `HTTPNetworkTransportDelegate`
 
