@@ -218,7 +218,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     self.datas[dataTask.taskIdentifier]?.append(data)
   }
   
-  @available(iOS 9.0, OSXApplicationExtension 10.11, *)
+  @available(iOS 9.0, OSXApplicationExtension 10.11, OSX 10.11, *)
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didBecome streamTask: URLSessionStreamTask) {
