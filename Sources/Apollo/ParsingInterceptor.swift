@@ -14,7 +14,7 @@ class ParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
   }
   
   func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
-    chain: RequestChain<ParsedValue, Operation>,
+    chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {

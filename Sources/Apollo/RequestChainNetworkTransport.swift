@@ -14,7 +14,7 @@ class RequestChainNetworkTransport: NetworkTransport {
     self.endpointURL = endpointURL
   }
   
-  func generateChain<Operation: GraphQLOperation>(for operation: Operation) -> RequestChain<Operation.Data, Operation> {
+  func generateChain<Operation: GraphQLOperation>(for operation: Operation) -> RequestChain {
     let interceptors: [ApolloInterceptor] = [
       NetworkFetchInterceptor(client: self.client),
       ResponseCodeInterceptor(),
@@ -27,7 +27,7 @@ class RequestChainNetworkTransport: NetworkTransport {
   
   func send<Operation: GraphQLOperation>(operation: Operation,
                                          completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
-    let chain: RequestChain<Operation.Data, Operation> = self.generateChain(for: operation)
+    let chain: RequestChain = self.generateChain(for: operation)
     let request: JSONRequest<Operation> = JSONRequest(operation: operation, graphQLEndpoint: self.endpointURL)
     
     chain.kickoff(request: request, completion: completionHandler)

@@ -1,6 +1,6 @@
 import Foundation
 
-public class RequestChain<ParsedValue: Parseable, Operation: GraphQLOperation>: Cancellable {
+public class RequestChain: Cancellable {
   
   public enum ChainError: Error {
     case invalidIndex(chain: RequestChain, index: Int)
@@ -20,7 +20,7 @@ public class RequestChain<ParsedValue: Parseable, Operation: GraphQLOperation>: 
   /// - Parameters:
   ///   - request: The request to send.
   ///   - completion: The completion closure to call when the request has completed.
-  public func kickoff(request: HTTPRequest<Operation>, completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+  public func kickoff<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>, completion: @escaping (Result<ParsedValue, Error>) -> Void) {
     assert(self.currentIndex == 0, "The interceptor index should be zero when calling this method")
     
     let response: HTTPResponse<ParsedValue> = HTTPResponse(response: nil,
@@ -37,8 +37,8 @@ public class RequestChain<ParsedValue: Parseable, Operation: GraphQLOperation>: 
                                     response: response,
                                     completion: completion)
   }
-  
-  public func proceedAsync(request: HTTPRequest<Operation>,
+
+  public func proceedAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
                            response: HTTPResponse<ParsedValue>,
                            completion: @escaping (Result<ParsedValue, Error>) -> Void) {
     let nextIndex = self.currentIndex + 1
@@ -68,7 +68,7 @@ public class RequestChain<ParsedValue: Parseable, Operation: GraphQLOperation>: 
   /// - Parameters:
   ///   - request: The request to retry
   ///   - completion: The completion closure to call when the request has completed.
-  public func retry(request: HTTPRequest<Operation>,
+  public func retry<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
                     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
     self.currentIndex = 0
     self.kickoff(request: request, completion: completion)
