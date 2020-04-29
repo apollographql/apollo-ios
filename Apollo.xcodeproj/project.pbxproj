@@ -44,6 +44,19 @@
 		9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */; };
 		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
 		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
+		9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEA245A020300562176 /* ApolloInterceptor.swift */; };
+		9B260BED245A021300562176 /* Parseable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEC245A021300562176 /* Parseable.swift */; };
+		9B260BEF245A022E00562176 /* FlexibleDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEE245A022E00562176 /* FlexibleDecoder.swift */; };
+		9B260BF1245A025400562176 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF0245A025400562176 /* HTTPRequest.swift */; };
+		9B260BF3245A026F00562176 /* RequestChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF2245A026F00562176 /* RequestChain.swift */; };
+		9B260BF5245A028D00562176 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF4245A028D00562176 /* HTTPResponse.swift */; };
+		9B260BF7245A02D200562176 /* FetchSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF6245A02D200562176 /* FetchSourceType.swift */; };
+		9B260BF9245A030100562176 /* ResponseCodeInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */; };
+		9B260BFB245A031900562176 /* NetworkFetchInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */; };
+		9B260BFD245A034300562176 /* FinalizingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFC245A034300562176 /* FinalizingInterceptor.swift */; };
+		9B260BFF245A054700562176 /* JSONRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFE245A054700562176 /* JSONRequest.swift */; };
+		9B260C01245A059700562176 /* ParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C00245A059700562176 /* ParsingInterceptor.swift */; };
+		9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -479,6 +492,19 @@
 		9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
 		9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
 		9B455CEA2492FB03002255A9 /* String+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
+		9B260BEA245A020300562176 /* ApolloInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloInterceptor.swift; sourceTree = "<group>"; };
+		9B260BEC245A021300562176 /* Parseable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parseable.swift; sourceTree = "<group>"; };
+		9B260BEE245A022E00562176 /* FlexibleDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleDecoder.swift; sourceTree = "<group>"; };
+		9B260BF0245A025400562176 /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		9B260BF2245A026F00562176 /* RequestChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChain.swift; sourceTree = "<group>"; };
+		9B260BF4245A028D00562176 /* HTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
+		9B260BF6245A02D200562176 /* FetchSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSourceType.swift; sourceTree = "<group>"; };
+		9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptor.swift; sourceTree = "<group>"; };
+		9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchInterceptor.swift; sourceTree = "<group>"; };
+		9B260BFC245A034300562176 /* FinalizingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalizingInterceptor.swift; sourceTree = "<group>"; };
+		9B260BFE245A054700562176 /* JSONRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequest.swift; sourceTree = "<group>"; };
+		9B260C00245A059700562176 /* ParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingInterceptor.swift; sourceTree = "<group>"; };
+		9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChainNetworkTransport.swift; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
 		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
 		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
@@ -940,6 +966,31 @@
 			);
 			name = ApolloCore;
 			path = Sources/ApolloCore;
+            sourceTree = "<group>";
+        };
+		9B260BE9245A01B900562176 /* Interceptor */ = {
+			isa = PBXGroup;
+			children = (
+				9B260BEA245A020300562176 /* ApolloInterceptor.swift */,
+				9B260BFC245A034300562176 /* FinalizingInterceptor.swift */,
+				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
+				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
+				9B260C00245A059700562176 /* ParsingInterceptor.swift */,
+			);
+			name = Interceptor;
+			sourceTree = "<group>";
+		};
+		9B260C02245A07C200562176 /* RequestChain */ = {
+			isa = PBXGroup;
+			children = (
+				9B260BF6245A02D200562176 /* FetchSourceType.swift */,
+				9B260BF0245A025400562176 /* HTTPRequest.swift */,
+				9B260BF4245A028D00562176 /* HTTPResponse.swift */,
+				9B260BF2245A026F00562176 /* RequestChain.swift */,
+				9B260BFE245A054700562176 /* JSONRequest.swift */,
+				9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */,
+			);
+			name = RequestChain;
 			sourceTree = "<group>";
 		};
 		9B68F0512415B17B00E97318 /* ExpectedOutputs */ = {
@@ -1237,6 +1288,8 @@
 			children = (
 				9BDE43D022C6655200FD7C7F /* Cancellable.swift */,
 				9BE071AE2368D34D00FA5952 /* Matchable.swift */,
+				9B260BEC245A021300562176 /* Parseable.swift */,
+				9B260BEE245A022E00562176 /* FlexibleDecoder.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -1445,6 +1498,8 @@
 		9FC9A9CE1E2FD0CC0023C4D5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9B260C02245A07C200562176 /* RequestChain */,
+				9B260BE9245A01B900562176 /* Interceptor */,
 				C377CCA822D798BD00572E03 /* GraphQLFile.swift */,
 				9BF1A95022CA6E71005292C2 /* GraphQLGETTransformer.swift */,
 				5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */,
@@ -2346,22 +2401,32 @@
 				9FC9A9BF1E2C27FB0023C4D5 /* GraphQLResult.swift in Sources */,
 				9FC9A9D31E2FD48B0023C4D5 /* GraphQLError.swift in Sources */,
 				9FEB050D1DB5732300DA3B44 /* JSONSerializationFormat.swift in Sources */,
+				9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */,
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
 				9FC9A9C51E2D6CE70023C4D5 /* GraphQLSelectionSet.swift in Sources */,
+				9B260C01245A059700562176 /* ParsingInterceptor.swift in Sources */,
+				9B260BF7245A02D200562176 /* FetchSourceType.swift in Sources */,
 				9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9FCDFD231E33A0D8007519DC /* AsynchronousOperation.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
+				9B260BF1245A025400562176 /* HTTPRequest.swift in Sources */,
 				9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */,
 				C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */,
 				9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */,
 				9FC4B9201D2A6F8D0046A641 /* JSON.swift in Sources */,
+				9B260BFB245A031900562176 /* NetworkFetchInterceptor.swift in Sources */,
+				9B260BED245A021300562176 /* Parseable.swift in Sources */,
 				9FEC15B41E681DAD00D461B4 /* GroupedSequence.swift in Sources */,
 				9F578D901D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift in Sources */,
+				9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */,
 				9F7BA89922927A3700999B3B /* ResponsePath.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
 				9BF1A95122CA6E71005292C2 /* GraphQLGETTransformer.swift in Sources */,
+				9B260BFF245A054700562176 /* JSONRequest.swift in Sources */,
+				9B260BF9245A030100562176 /* ResponseCodeInterceptor.swift in Sources */,
 				9FADC84F1E6B865E00C677E6 /* DataLoader.swift in Sources */,
+				9B260BF3245A026F00562176 /* RequestChain.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
 				9BEDC79E22E5D2CF00549BF6 /* RequestCreator.swift in Sources */,
@@ -2371,7 +2436,10 @@
 				9FC750611D2A59C300458D91 /* GraphQLOperation.swift in Sources */,
 				9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */,
 				9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */,
+				9B260BF5245A028D00562176 /* HTTPResponse.swift in Sources */,
 				5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */,
+				9B260BEF245A022E00562176 /* FlexibleDecoder.swift in Sources */,
+				9B260BFD245A034300562176 /* FinalizingInterceptor.swift in Sources */,
 				9FE941D01E62C771007CDD89 /* Promise.swift in Sources */,
 				9BA1245E22DE116B00BF1D24 /* Result+Helpers.swift in Sources */,
 				9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */,

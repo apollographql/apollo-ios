@@ -13,6 +13,10 @@ public enum CachePolicy {
   case returnCacheDataDontFetch
   /// Return data from the cache if available, and always fetch results from the server.
   case returnCacheDataAndFetch
+  
+  public static var `default`: CachePolicy {
+    .returnCacheDataElseFetch
+  }
 }
 
 /// A handler for operation results.
