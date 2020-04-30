@@ -2,38 +2,21 @@ import Foundation
 
 class RequestChainNetworkTransport: NetworkTransport {
   
-  let client: URLSessionClient
+  let interceptorProvider: InterceptorProvider
   let endpointURL: URL
-  let decoder: JSONDecoder
   
-  init(client: URLSessionClient = URLSessionClient(),
-       decoder: JSONDecoder = JSONDecoder(),
+  init(interceptorProvider: InterceptorProvider = LegacyInterceptorProvider(),
        endpointURL: URL) {
-    self.client = client
-    self.decoder = decoder
+    self.interceptorProvider = interceptorProvider
     self.endpointURL = endpointURL
-  }
-  
-  func generateChain<Operation: GraphQLOperation>(for operation: Operation) -> RequestChain {
-    let interceptors: [ApolloInterceptor] = [
-      NetworkFetchInterceptor(client: self.client),
-      ResponseCodeInterceptor(),
-      ParsingInterceptor(decoder: self.decoder),
-      FinalizingInterceptor(),
-    ]
-    
-    return RequestChain(interceptors: interceptors)
   }
   
   func send<Operation: GraphQLOperation>(operation: Operation,
                                          completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
-    let chain: RequestChain = self.generateChain(for: operation)
+    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
     let request: JSONRequest<Operation> = JSONRequest(operation: operation, graphQLEndpoint: self.endpointURL)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain
   }
-  
-  
-  
 }

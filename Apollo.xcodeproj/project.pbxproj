@@ -57,6 +57,7 @@
 		9B260BFF245A054700562176 /* JSONRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFE245A054700562176 /* JSONRequest.swift */; };
 		9B260C01245A059700562176 /* ParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C00245A059700562176 /* ParsingInterceptor.swift */; };
 		9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */; };
+		9B260C08245A437400562176 /* InterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C07245A437400562176 /* InterceptorProvider.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -505,6 +506,7 @@
 		9B260BFE245A054700562176 /* JSONRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequest.swift; sourceTree = "<group>"; };
 		9B260C00245A059700562176 /* ParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingInterceptor.swift; sourceTree = "<group>"; };
 		9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChainNetworkTransport.swift; sourceTree = "<group>"; };
+		9B260C07245A437400562176 /* InterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorProvider.swift; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
 		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
 		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
@@ -972,6 +974,7 @@
 			isa = PBXGroup;
 			children = (
 				9B260BEA245A020300562176 /* ApolloInterceptor.swift */,
+				9B260C07245A437400562176 /* InterceptorProvider.swift */,
 				9B260BFC245A034300562176 /* FinalizingInterceptor.swift */,
 				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
 				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
@@ -2385,6 +2388,7 @@
 			files = (
 				9FF33D811E48B98200F608A4 /* HTTPNetworkTransport.swift in Sources */,
 				C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */,
+				9B260C08245A437400562176 /* InterceptorProvider.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
 				9F8F334C229044A200C0E83B /* Decoding.swift in Sources */,
 				9FADC84A1E6B0B2300C677E6 /* Locking.swift in Sources */,
