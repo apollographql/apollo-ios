@@ -27,7 +27,7 @@ public class LegacyInterceptorProvider: InterceptorProvider {
       return [
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
-        ParsingInterceptor<JSONDecoder>(),
+        LegacyParsingInterceptor(),
         FinalizingInterceptor(),
     ]
   }
@@ -56,7 +56,7 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
        return [
          NetworkFetchInterceptor(client: self.client),
          ResponseCodeInterceptor(),
-         ParsingInterceptor(decoder: self.decoder),
+         CodableParsingInterceptor(decoder: self.decoder),
          FinalizingInterceptor(),
      ]
    }

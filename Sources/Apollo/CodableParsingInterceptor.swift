@@ -1,10 +1,12 @@
 import Foundation
 
-class ParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
-  enum ParserError: Error {
-    case nilData
-  }
-  
+public enum ParserError: Error {
+  case nilData
+  case couldNotParseToLegacyJSON
+}
+
+class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
+
   let decoder: FlexDecoder
   
   var isCancelled: Bool = false
