@@ -11,7 +11,8 @@ SCRIPT_DIR="$(dirname "$0")"
 
 # Get the SHASUM of the tarball
 ZIP_FILE="${SCRIPT_DIR}/apollo.tar.gz"
-ZIP_FILE_DOWNLOAD_URL="https://46555-65563448-gh.circle-artifacts.com/0/oclif-pack/apollo-v2.26.0/apollo-v2.26.0-darwin-x64.tar.gz"
+ZIP_FILE_DOWNLOAD_URL="https://install.apollographql.com/legacy-cli/darwin/2.26.0"
+
 SHASUM_FILE="${SCRIPT_DIR}/apollo/.shasum"
 APOLLO_DIR="${SCRIPT_DIR}"/apollo
 IS_RETRY="false"
@@ -29,7 +30,7 @@ download_apollo_cli_if_needed() {
 
 download_cli() {
   echo "Downloading zip file with the CLI..."
-  curl --silent --retry 3 --fail --show-error "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
+  curl --silent -L --retry 3 --fail --show-error "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
 }
 
 force_cli_download() {
