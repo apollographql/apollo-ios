@@ -3,11 +3,11 @@ import Foundation
 extension String: ApolloCompatible {}
 
 extension ApolloExtension where Base == String {
-  public enum ApolloStringError: Error {
+  enum ApolloStringError: Error {
     case expectedSuffixMissing(_ suffix: String)
   }
   
-  public func droppingSuffix(_ suffix: String) throws -> String {
+  func droppingSuffix(_ suffix: String) throws -> String {
     guard base.hasSuffix(suffix) else {
       throw ApolloStringError.expectedSuffixMissing(suffix)
     }
@@ -20,7 +20,7 @@ extension ApolloExtension where Base == String {
   /// context. As we don"t understand context, we will treat them as keywords in all contexts.
   ///
   /// This list does not include keywords that aren"t identifiers, such as `#available`.
-  public static var reservedKeywords: Set<String> {
+  static var reservedKeywords: Set<String> {
     [
       // https://docs.swift.org/swift-book/ReferenceManual/LexicalStructure.html#ID413
       // Keywords used in declarations
@@ -55,18 +55,18 @@ extension ApolloExtension where Base == String {
   /// known to have meaning in member position.
   ///
   /// We use this to avoid unnecessary escaping with expressions like `.public`.
-  public static var reservedMemberKeywords: Set<String> {
+  static var reservedMemberKeywords: Set<String> {
     ["self", "Type", "Protocol"]
   }
   
-  public var sanitizedVariableDeclaration: String {
+  var sanitizedVariableDeclaration: String {
     guard String.apollo.reservedKeywords.contains(base) else {
       return base
     }
     return "`\(base)`"
   }
   
-  public var sanitizedVariableUsage: String {
+  var sanitizedVariableUsage: String {
     guard String.apollo.reservedMemberKeywords.contains(base) else {
       return base
     }
@@ -78,7 +78,7 @@ extension ApolloExtension where Base == String {
   /// works this way.
   /// - parameter input: The proposed parameter name.
   /// - returns: `true` if the name can be used, or `false` if it needs a separate internal parameter name.
-  public var isValidParameterName: Bool {
+  var isValidParameterName: Bool {
     // Right now `self` is the only known token that we can't use with escaping.
     return base != "self"
   }
