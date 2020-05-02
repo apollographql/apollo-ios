@@ -3,11 +3,11 @@ import Foundation
 extension StaticString: ApolloCompatible {}
 
 extension ApolloExtension where Base == StaticString {
-  var lastPathComponent: String {
+  public var lastPathComponent: String {
     return (toString as NSString).lastPathComponent
   }
   
-  var toString: String {
+  public var toString: String {
     return base.withUTF8Buffer {
         String(decoding: $0, as: UTF8.self)
     }
