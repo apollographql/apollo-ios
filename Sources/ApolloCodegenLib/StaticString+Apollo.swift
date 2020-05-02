@@ -1,13 +1,14 @@
 import Foundation
 
-extension StaticString {
-  
-  var apollo_lastPathComponent: String {
-    return (self.apollo_toString as NSString).lastPathComponent
+extension StaticString: ApolloCompatible {}
+
+extension ApolloExtension where Base == StaticString {
+  var lastPathComponent: String {
+    return (toString as NSString).lastPathComponent
   }
   
-  var apollo_toString: String {
-    return self.withUTF8Buffer {
+  var toString: String {
+    return base.withUTF8Buffer {
         String(decoding: $0, as: UTF8.self)
     }
   }

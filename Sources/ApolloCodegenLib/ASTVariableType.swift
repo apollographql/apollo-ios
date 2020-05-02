@@ -46,7 +46,7 @@ class ASTForthcomingVariableType: Codable {
     case .LIST:
       return "[\(inner)]?"
     case .NON_NULL:
-      return try inner.apollo_droppingSuffix("?")
+      return try inner.apollo.droppingSuffix("?")
     case .ENUM,
          .INPUT_OBJECT,
          .INTERFACE,
