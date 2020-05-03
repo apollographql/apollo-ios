@@ -68,8 +68,8 @@ class ApolloSchemaTests: XCTestCase {
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
     
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
 
@@ -77,7 +77,7 @@ class ApolloSchemaTests: XCTestCase {
                                        options: options)
     
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo_fileExists(at: options.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
     
     // Is it non-empty?
     let data = try Data(contentsOf: options.outputURL)
@@ -90,8 +90,8 @@ class ApolloSchemaTests: XCTestCase {
     _ = try XCTUnwrap(json["__schema"])
     
     // OK delete it now
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
   }
   
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
@@ -102,8 +102,8 @@ class ApolloSchemaTests: XCTestCase {
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
 
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
 
@@ -111,7 +111,7 @@ class ApolloSchemaTests: XCTestCase {
                                          options: options))
     
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo_fileExists(at: options.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
     
     // Is it non-empty?
     let data = try Data(contentsOf: options.outputURL)
@@ -121,7 +121,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertNil(try? JSONSerialization.jsonObject(with: data, options: []) as? [AnyHashable:Any])
     
     // OK delete it now
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
   }
 }

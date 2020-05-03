@@ -127,8 +127,8 @@ class ApolloCodegenTests: XCTestCase {
       return
     }
     
-    XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))
-    XCTAssertTrue(FileManager.default.apollo_fileExists(at: outputFile))
+    XCTAssertTrue(FileManager.default.apollo.folderExists(at: outputFolder))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: outputFile))
     
     let contents = try FileManager.default.contentsOfDirectory(atPath: outputFolder.path)    
     XCTAssertEqual(contents.count, 1)
@@ -148,7 +148,7 @@ class ApolloCodegenTests: XCTestCase {
                               with: scriptFolderURL,
                               options: options)
     
-    XCTAssertTrue(FileManager.default.apollo_folderExists(at: outputFolder))
+    XCTAssertTrue(FileManager.default.apollo.folderExists(at: outputFolder))
     
     let contents = try FileManager.default.contentsOfDirectory(atPath: outputFolder.path)
     XCTAssertEqual(contents.count, 17)

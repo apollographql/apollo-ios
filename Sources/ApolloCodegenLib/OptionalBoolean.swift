@@ -1,8 +1,7 @@
 import Foundation
 
 extension Optional where Wrapped == Bool {
-  
-  var apollo_boolValue: Bool {
+  var valueOrFalseIfNone: Bool {
     switch self {
     case .none:
       return false
