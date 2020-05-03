@@ -4,7 +4,7 @@ public struct ApolloExtension<Base> {
   public let base: Base
 }
 
-protocol ApolloCompatible {
+public protocol ApolloCompatible {
   associatedtype Base
   var apollo: ApolloExtension<Base> { get }
   static var apollo: ApolloExtension<Base>.Type { get }
