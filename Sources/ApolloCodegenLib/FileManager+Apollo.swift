@@ -9,7 +9,7 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter path: The path to check
   /// - Returns: `true` if there is something at the path and it is a file, not a folder.
-  func fileExists(at path: String) -> Bool {
+  public func fileExists(at path: String) -> Bool {
     var isFolder = ObjCBool(false)
     let exists = base.fileExists(atPath: path, isDirectory: &isFolder)
     return exists && !isFolder.boolValue
@@ -19,7 +19,7 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter url: The URL to check
   /// - Returns: `true` if there is something at the URL and it is a file, not a folder.
-  func fileExists(at url: URL) -> Bool {
+  public func fileExists(at url: URL) -> Bool {
     return fileExists(at: url.path)
   }
   
@@ -27,7 +27,7 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter path: The path to check
   /// - Returns: `true` if there is something at the path and it is a folder, not a file.
-  func folderExists(at path: String) -> Bool {
+  public func folderExists(at path: String) -> Bool {
     var isFolder = ObjCBool(false)
     let exists = base.fileExists(atPath: path, isDirectory: &isFolder)
     return exists && isFolder.boolValue
@@ -37,14 +37,14 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter url: The URL to check
   /// - Returns: `true` if there is something at the URL and it is a folder, not a file.
-  func folderExists(at url: URL) -> Bool {
+  public func folderExists(at url: URL) -> Bool {
     return folderExists(at: url.path)
   }
   
   /// Checks if a folder exists then attempts to delete it if it's there.
   ///
   /// - Parameter url: The URL to delete the folder for
-  func deleteFolder(at url: URL) throws {
+  public func deleteFolder(at url: URL) throws {
     guard folderExists(at: url) else {
       // Nothing to delete!
       return
@@ -55,7 +55,7 @@ extension ApolloExtension where Base == FileManager {
   /// Checks if a file exists then attempts to delete it if it's there.
   ///
   /// - Parameter url: The URL to delete the file for
-  func deleteFile(at url: URL) throws {
+  public func deleteFile(at url: URL) throws {
     guard fileExists(at: url) else {
       // Nothing to delete!
       return
@@ -66,7 +66,7 @@ extension ApolloExtension where Base == FileManager {
   /// Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
   ///
   /// - Parameter fileURL: The URL of the file to create a containing folder for if necessary.
-  func createContainingFolderIfNeeded(for fileURL: URL) throws {
+  public func createContainingFolderIfNeeded(for fileURL: URL) throws {
     let parent = fileURL.deletingLastPathComponent()
     try createFolderIfNeeded(at: parent)
   }
@@ -74,7 +74,7 @@ extension ApolloExtension where Base == FileManager {
   /// Creates the folder (including all intermediate directories) for the given URL if necessary.
   ///
   /// - Parameter url: The URL of the folder to create if necessary.
-  func createFolderIfNeeded(at url: URL) throws {
+  public func createFolderIfNeeded(at url: URL) throws {
     guard !folderExists(at: url) else {
       // Folder already exists, nothing more to do here.
       return
@@ -85,7 +85,7 @@ extension ApolloExtension where Base == FileManager {
   /// Calculates the SHASUM (ie, SHA256 hash) of the given file
   ///
   /// - Parameter fileURL: The file to calculate the SHASUM for.
-  func shasum(at fileURL: URL) throws -> String {
+  public func shasum(at fileURL: URL) throws -> String {
     let file = try FileHandle(forReadingFrom: fileURL)
     defer {
         file.closeFile()
