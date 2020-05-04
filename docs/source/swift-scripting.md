@@ -35,7 +35,7 @@ To begin, let's set up a Swift Package Manager executable:
     ```
 3. Using Terminal, change directories into the codegen folder, and initialize an SPM executable by using the following commands:
 
-    ```
+    ```txt:title=Terminal
     cd Codegen
     swift package init --type executable 
     ```
@@ -58,7 +58,7 @@ To begin, let's set up a Swift Package Manager executable:
 
 5. Update the `dependencies` section to grab the Apollo iOS library:
 
-    ```swift
+    ```swift:title=Package.swift
     .package(name: "Apollo",
              url: "https://github.com/apollographql/apollo-ios.git", 
              .upToNextMinor(from: "0.27.0"))
@@ -69,7 +69,7 @@ To begin, let's set up a Swift Package Manager executable:
 
 5. For the main executable target in the `targets` section, add `ApolloCodegenLib` as a dependency: 
 
-    ```swift
+    ```swift:title=Package.swift
     .target(name: "Codegen",
             dependencies: [                    
                 .product(name: "ApolloCodegenLib", package: "Apollo"),
