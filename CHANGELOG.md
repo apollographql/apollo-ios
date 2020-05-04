@@ -1,5 +1,9 @@
 # Change log
 
+## v0.27.1
+- Better defense against multithreading crashes in `URLSessionClient`. ([#1184](https://github.com/apollographql/apollo-ios/pull/1184))
+- Fix for watchOS availability for `URLSessionClient`. ([#1175](https://github.com/apollographql/apollo-ios/pull/1175))
+
 ## v0.27.0
 - **BREAKING**: Replaced calls directly into the closure based implementation of `URLSession` with a delegate-based implementation called `URLSessionClient`. 
     - This (finally) allows background session configurations to be used with `ApolloClient`, since background session configurations immediately error out if you try to use the closure-based `URLSession` API. 
