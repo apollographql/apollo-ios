@@ -34,7 +34,17 @@ enum Target {
         let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
         switch self {
         case .starWars:
-            return ApolloCodegenOptions(targetRootURL: targetRootURL)
+//            return ApolloCodegenOptions(targetRootURL: targetRootURL)
+            let json = targetRootURL.appendingPathComponent("schema.json")
+            let outputFileURL = targetRootURL.appendingPathComponent("API.json")
+            let operationIDsURL = targetRootURL.appendingPathComponent("operationIDs.json")
+
+            return ApolloCodegenOptions(codegenEngine: .swiftExperimental,
+                                        mergeInFieldsFromFragmentSpreads: true,
+                                        operationIDsURL: operationIDsURL,
+                                        outputFormat: .singleFile(atFileURL: outputFileURL),
+                                        passthroughCustomScalars: true,
+                                        urlToSchemaFile: json)
         case .gitHub:
             let json = targetRootURL.appendingPathComponent("schema.json")
             let outputFileURL = targetRootURL.appendingPathComponent("API.swift")
