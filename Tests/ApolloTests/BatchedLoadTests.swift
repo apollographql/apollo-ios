@@ -44,6 +44,10 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
                                                      result: .success(()))
     }
   }
+  
+  func clearImmediatly() {
+    records.clear()
+  }
 }
 
 class BatchedLoadTests: XCTestCase {  
