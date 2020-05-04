@@ -12,14 +12,13 @@ public class InputObjectGenerator {
       public let isOptional: Bool
       public let description: String?
       
-      init(field: ASTTypeUsed.Field) {
+      init(field: ASTTypeUsed.Field) throws {
         self.name = field.name
         self.nameVariableDeclaration = field.name.apollo_sanitizedVariableDeclaration
         self.nameVariableUsage = field.name.apollo_sanitizedVariableUsage
-        
-        // TODO: Actually convert this when we have updated type parsing
-        self.swiftType = field.type
-        self.isOptional = !field.type.hasSuffix("!")
+
+        self.swiftType = try field.typeNode.toSwiftType()
+        self.isOptional = (field.typeNode.kind != .NonNullType)
         
         self.description = field.description
       }
@@ -48,7 +47,7 @@ public class InputObjectGenerator {
     
     let fields: [SanitizedInputObject.SanitizedInputObjectField]
     if let unsanitizedFields = typeUsed.fields {
-      fields = unsanitizedFields.map { SanitizedInputObject.SanitizedInputObjectField(field: $0) }
+      fields = try unsanitizedFields.map { try SanitizedInputObject.SanitizedInputObjectField(field: $0) }
     } else {
       fields = []
     }
