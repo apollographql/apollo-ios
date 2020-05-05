@@ -45,7 +45,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
-  func clearImmediatly() {
+  func clearImmediately() {
     records.clear()
   }
 }
