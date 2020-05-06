@@ -6,6 +6,12 @@ struct ColorInputNoModifier: Codable, Equatable, Hashable {
   var green: Int
   var blue: Int
   
+  /// Designated initializer
+  ///
+  /// - Parameters:
+  ///   - red:
+  ///   - green:
+  ///   - blue:
   init(red: Int,
        green: Int,
        blue: Int) {

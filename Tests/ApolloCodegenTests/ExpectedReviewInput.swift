@@ -15,6 +15,12 @@ public struct ReviewInput: Codable, Equatable, Hashable {
     case favoriteColor
   }
   
+  /// Designated initializer
+  ///
+  /// - Parameters:
+  ///   - stars: 0-5 stars
+  ///   - commentary: Comment about the movie, optional
+  ///   - favoriteColor: Favorite color, optional
   public init(stars: Int,
               commentary: GraphQLOptional<String>,
               favoriteColor: GraphQLOptional<ColorInput>) {

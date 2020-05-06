@@ -6,6 +6,12 @@ public struct ColorInput: Codable, Equatable, Hashable {
   public var green: Int
   public var blue: Int
   
+  /// Designated initializer
+  ///
+  /// - Parameters:
+  ///   - red:
+  ///   - green:
+  ///   - blue:
   public init(red: Int,
               green: Int,
               blue: Int) {

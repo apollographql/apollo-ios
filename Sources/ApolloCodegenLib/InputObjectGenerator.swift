@@ -90,6 +90,11 @@ public class InputObjectGenerator {
     {% endif %}{% endfor %}
   }{% endif %}
   
+  /// Designated initializer
+  ///
+  /// - Parameters:
+  {% for field in fields %}///   - {{ field.nameVariableDeclaration }}:{% if field.description != nil %} {{ field.description }}{% endif %}{% if not forloop.last %}
+  {% endif %}{% endfor %}
   {{ modifier }}init({% for field in fields %}{{ field.nameVariableDeclaration }}: {{ field.swiftType }}{% if not forloop.last %},
        {{ modifierSpaces }}{% endif %}{% endfor %}) {
     {% for field in fields %}self.{{ field.nameVariableUsage }} = {{ field.nameVariableUsage }}{% if not forloop.last %}
