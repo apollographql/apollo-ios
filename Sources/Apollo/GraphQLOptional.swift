@@ -6,6 +6,20 @@ public enum GraphQLOptional<T> {
     case value(T)
 }
 
+extension GraphQLOptional: Hashable where T: Hashable {
+  
+  public func hash(into hasher: inout Hasher) {
+    switch self {
+    case .notPresent,
+         .nullValue:
+      // no-op
+      break
+    case .value(let hashableType):
+      hashableType.hash(into: &hasher)
+    }
+  }
+}
+
 extension GraphQLOptional: Equatable where T: Equatable {
     public static func ==(lhs: GraphQLOptional, rhs: GraphQLOptional) -> Bool {
         switch (lhs, rhs) {
