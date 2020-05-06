@@ -95,7 +95,7 @@ class ApolloCodegenTests: XCTestCase {
     
     XCTAssertEqual(options.arguments, [
       "codegen:generate",
-      "--target=json",
+      "--target=json-modern",
       "--addTypename",
       "--includes='*.graphql'",
       "--localSchemaFile='\(schema.path)'",
