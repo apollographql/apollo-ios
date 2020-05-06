@@ -58,7 +58,7 @@ class InputObjectGenerationTests: XCTestCase {
     }
   }
   
-  func testGeneratingInputWithOptionalPropertiesAndNoModifier() {
+  func testGeneratingInputWithNoOptionalPropertiesAndNoModifier() {
     let dummyURL = CodegenTestHelper.apolloFolderURL()
     let options = ApolloCodegenOptions(modifier: .none,
                                        outputFormat: .singleFile(atFileURL: dummyURL),
