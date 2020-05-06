@@ -119,4 +119,25 @@ class InputObjectGenerationTests: XCTestCase {
       CodegenTestHelper.handleFileLoadError(error)
     }
   }
+  
+  func testGeneratingInputObjectWithOptionalPropertiesAndNoModifier() {
+    let dummyURL = CodegenTestHelper.apolloFolderURL()
+    let options = ApolloCodegenOptions(modifier: .none,
+                                       outputFormat: .singleFile(atFileURL: dummyURL),
+                                       urlToSchemaFile: dummyURL)
+    do {
+      let output = try InputObjectGenerator().run(typeUsed: self.reviewInput(named: "ReviewInputNoModifier"), options: options)
+      
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedReviewInputNoModifier.swift")
+      
+      LineByLineComparison.between(received: output,
+                                   expectedFileURL: expectedFileURL,
+                                   trimImports: true)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
+  }
 }

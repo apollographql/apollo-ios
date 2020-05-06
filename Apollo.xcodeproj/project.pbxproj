@@ -34,6 +34,7 @@
 		9B60204F23FDFA9F00D0C8E0 /* SQLiteCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B60204E23FDFA9F00D0C8E0 /* SQLiteCacheTests.swift */; };
 		9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */; };
 		9B6835342460B47900337AE6 /* ASTVariableType+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6835322460B32A00337AE6 /* ASTVariableType+TestHelpers.swift */; };
+		9B683538246310D400337AE6 /* ExpectedReviewInputNoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B683537246310D400337AE6 /* ExpectedReviewInputNoModifier.swift */; };
 		9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */; };
 		9B68F03D240ED3B300E97318 /* ASTCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03C240ED3B300E97318 /* ASTCondition.swift */; };
 		9B68F03F240F3B0E00E97318 /* CodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */; };
@@ -388,6 +389,7 @@
 		9B60204E23FDFA9F00D0C8E0 /* SQLiteCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteCacheTests.swift; sourceTree = "<group>"; };
 		9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+QueryDict.swift"; sourceTree = "<group>"; };
 		9B6835322460B32A00337AE6 /* ASTVariableType+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASTVariableType+TestHelpers.swift"; sourceTree = "<group>"; };
+		9B683537246310D400337AE6 /* ExpectedReviewInputNoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedReviewInputNoModifier.swift; sourceTree = "<group>"; };
 		9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodegenExtensionTests.swift; sourceTree = "<group>"; };
 		9B68F03C240ED3B300E97318 /* ASTCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTCondition.swift; sourceTree = "<group>"; };
 		9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenerator.swift; sourceTree = "<group>"; };
@@ -783,6 +785,7 @@
 				9B68F06A241C643000E97318 /* ExpectedColorInput.swift */,
 				9B5A1EFF2435356400F066BB /* ExpectedColorInputNoModifier.swift */,
 				9B68F06C241C646700E97318 /* ExpectedReviewInput.swift */,
+				9B683537246310D400337AE6 /* ExpectedReviewInputNoModifier.swift */,
 			);
 			name = InputObject;
 			sourceTree = "<group>";
@@ -1950,6 +1953,7 @@
 				9B68F05D2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift in Sources */,
 				9B68F05B2416BCF100E97318 /* ExpectedEnumOmittingDeprecatedCases.swift in Sources */,
 				9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */,
+				9B683538246310D400337AE6 /* ExpectedReviewInputNoModifier.swift in Sources */,
 				9BD681422406F516000874CB /* ASTParsingTests.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,
 				9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */,
