@@ -17,9 +17,14 @@ public class InputObjectGenerator {
         self.nameVariableDeclaration = field.name.apollo_sanitizedVariableDeclaration
         self.nameVariableUsage = field.name.apollo_sanitizedVariableUsage
 
-        self.swiftType = try field.typeNode.toSwiftType()
-        self.isOptional = (field.typeNode.kind != .NonNullType)
-        
+        let isOptional = field.typeNode.isSwiftOptional()
+        self.isOptional = isOptional
+        if isOptional {
+          self.swiftType = try field.typeNode.toGraphQLOptional()
+        } else {
+          self.swiftType = try field.typeNode.toSwiftType()
+        }
+              
         self.description = field.description
       }
     }

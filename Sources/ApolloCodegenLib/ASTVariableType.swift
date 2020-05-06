@@ -33,6 +33,15 @@ class ASTVariableType: Codable {
   
   let value: String?
   
+  func isSwiftOptional() -> Bool {
+    switch self.kind {
+    case .NonNullType:
+      return false
+    default:
+      return true
+    }
+  }
+  
   enum TypeConversionError: Error, LocalizedError {
     case nameNotPresent(forKind: Kind)
     case typeNotPresent(forKind: Kind)
@@ -77,6 +86,11 @@ class ASTVariableType: Codable {
              
         return name
     }
+  }
+  
+  func toGraphQLOptional() throws -> String {
+    let type = try self.toSwiftType().apollo_droppingSuffix("?")
+    return "GraphQLOptional<\(type)>"
   }
 }
 
