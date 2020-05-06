@@ -41,6 +41,30 @@ class InputObjectGenerationTests: XCTestCase {
     return colorInput
   }
   
+  private func reviewInput(named name: String) -> ASTTypeUsed {
+    let stars = ASTTypeUsed.Field(name: "stars",
+                                  typeNode: .nonNullNamed("Int"),
+                                  description: "0-5 stars")
+    let commentary = ASTTypeUsed.Field(name: "commentary",
+                                       typeNode: .named("String"),
+                                       description: "Comment about the movie, optional")
+    let favoriteColor = ASTTypeUsed.Field(name: "favoriteColor",
+                                          typeNode: .named("ColorInput"),
+                                          description: "Favorite color, optional")
+    
+    let reviewInput = ASTTypeUsed(kind: .InputObjectType,
+                                  name: name,
+                                  description: "The input object sent when someone is creating a new review",
+                                  values: nil,
+                                  fields: [
+                                    stars,
+                                    commentary,
+                                    favoriteColor,
+                                  ])
+    
+    return reviewInput
+  }
+  
   func testGeneratingInputObjectWithNoOptionalProperties() {
     do {
       let output = try InputObjectGenerator().run(typeUsed: self.colorInput(named: "ColorInput"), options: self.dummyOptions)
@@ -80,6 +104,19 @@ class InputObjectGenerationTests: XCTestCase {
   }
   
   func testGeneratingInputObjectWithOptionalProperties() {
-    
+    do {
+      let output = try InputObjectGenerator().run(typeUsed: self.reviewInput(named: "ReviewInput"), options: self.dummyOptions)
+
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedReviewInput.swift")
+      
+      LineByLineComparison.between(received: output,
+                                   expectedFileURL: expectedFileURL,
+                                   trimImports: true)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
   }
 }

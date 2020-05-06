@@ -81,33 +81,33 @@ public class InputObjectGenerator {
     """
 {% if inputType.description != "" %}/// {{ inputType.description }}
 {% endif %}{{ modifier }}struct {{ inputType.name }}: Codable, Equatable, Hashable {
-  {% for field in fields %}{{ modifier }}var {{ field.nameVariableDeclaration }}: {{ field.swiftType }}
-  {% endfor %}{% if inputType.hasOptionalFields %}
+  {% for field in fields %}{% if field.description != nil %}/// {{ field.description }}
+  {% endif %}{{ modifier }}var {{ field.nameVariableDeclaration }}: {{ field.swiftType }}{% if not forloop.last %}
+  {% endif %}{% endfor %}{% if hasOptionalFields %}
+  
   {{ modifier }}enum CodingKeys: String, CodingKey {
-    {% for field in fields %}case .{{ field.nameVariableDeclaration }}
-    {% endfor %}}
+    {% for field in fields %}case {{ field.nameVariableDeclaration }}{% if not forloop.last %}
+    {% endif %}{% endfor %}
   }{% endif %}
+  
   {{ modifier }}init({% for field in fields %}{{ field.nameVariableDeclaration }}: {{ field.swiftType }}{% if not forloop.last %},
        {{ modifierSpaces }}{% endif %}{% endfor %}) {
     {% for field in fields %}self.{{ field.nameVariableUsage }} = {{ field.nameVariableUsage }}{% if not forloop.last %}
     {% endif %}{% endfor %}
-  }{% if inputType.hasOptionalFields %}
+  }{% if hasOptionalFields %}
 
   {{ modifier }}func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: {{ inputType.name }}.CodingKeys.self)
-    {% for field in fields %}
-    {% if field.isOptional %}
-    try container.encode(self.{{ field.nameVariableUsage }}, forKey: .{{ field.nameVariableUsage }}){% else %}
-    try container.encodeGraphQLOptional(self.{{ field.nameVariableUsage }}, forKey: .{{ field.nameVariableUsage }}){% endif %}{% endfor %}
+    {% for field in fields %}{% if field.isOptional %}
+    try container.encodeGraphQLOptional(self.{{ field.nameVariableUsage }}, forKey: .{{ field.nameVariableUsage }}){% else %}
+    try container.encode(self.{{ field.nameVariableUsage }}, forKey: .{{ field.nameVariableUsage }}){% endif %}{% endfor %}
   }
 
   {{ modifier }}init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: {{ inputType.name }}.CodingKeys.self)
-
-    {% for field in fields %}
-    {% if field.isOptional %}
+    {% for field in fields %}{% if field.isOptional %}
     self.{{ field.nameVariableUsage }} = try container.decodeGraphQLOptional(forKey: .{{ field.nameVariableUsage }}){% else %}
-    self.{{ field.nameVariableUsage }} = try container.decode({{ field.swiftType }}.self, forKey: .{{ field.nameVariableUsage }}{% endif %}{% endfor %}
+    self.{{ field.nameVariableUsage }} = try container.decode({{ field.swiftType }}.self, forKey: .{{ field.nameVariableUsage }}){% endif %}{% endfor %}
   }{% endif %}
 }
 """

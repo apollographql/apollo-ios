@@ -1,14 +1,13 @@
 import Apollo
 
 /// The input object sent when someone is creating a new review
-public struct ReviewInput {
-  
+public struct ReviewInput: Codable, Equatable, Hashable {
   /// 0-5 stars
-  public let stars: Int
+  public var stars: Int
   /// Comment about the movie, optional
-  public let commentary: GraphQLOptional<String>
+  public var commentary: GraphQLOptional<String>
   /// Favorite color, optional
-  public let favoriteColor: GraphQLOptional<ColorInput>
+  public var favoriteColor: GraphQLOptional<ColorInput>
   
   public enum CodingKeys: String, CodingKey {
     case stars
@@ -23,7 +22,7 @@ public struct ReviewInput {
     self.commentary = commentary
     self.favoriteColor = favoriteColor
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: ReviewInput.CodingKeys.self)
     
@@ -31,7 +30,7 @@ public struct ReviewInput {
     try container.encodeGraphQLOptional(self.commentary, forKey: .commentary)
     try container.encodeGraphQLOptional(self.favoriteColor, forKey: .favoriteColor)
   }
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: ReviewInput.CodingKeys.self)
     
