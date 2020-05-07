@@ -23,7 +23,7 @@ struct LineByLineComparison {
                       expectedFileURL: URL,
                       file: StaticString = #file,
                       line: UInt = #line) {
-    guard FileManager.default.apollo_fileExists(at: expectedFileURL) else {
+    guard FileManager.default.apollo.fileExists(at: expectedFileURL) else {
       XCTFail("File not found at \(expectedFileURL)",
               file: file,
               line: line)

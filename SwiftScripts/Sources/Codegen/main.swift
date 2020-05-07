@@ -21,7 +21,7 @@ let options = target.options(fromSourceRoot: sourceRootURL)
 
 // This more necessary if you're using a sub-folder, but make sure
 // there's actually a place to write out what you're doing.
-try FileManager.default.apollo_createFolderIfNeeded(at: targetURL)
+try FileManager.default.apollo.createFolderIfNeeded(at: targetURL)
 
 // Calculate where you want to download the CLI folder.
 let cliFolderURL = sourceRootURL

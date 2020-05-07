@@ -1,16 +1,18 @@
 import Foundation
 
-extension String {
-  enum ApolloStringError: Error {
-    case expectedSuffixMissing(_ suffix: String)
-  }
+enum ApolloStringError: Error {
+  case expectedSuffixMissing(_ suffix: String)
+}
+
+extension String: ApolloCompatible {}
+
+extension ApolloExtension where Base == String {
   
-  func apollo_droppingSuffix(_ suffix: String) throws -> String {
-    guard self.hasSuffix(suffix) else {
+  func droppingSuffix(_ suffix: String) throws -> String {
+    guard base.hasSuffix(suffix) else {
       throw ApolloStringError.expectedSuffixMissing(suffix)
     }
-    
-    return String(self.dropLast(suffix.count))
+    return String(base.dropLast(suffix.count))
   }
   
   /// Swift identifiers that are keywords
@@ -19,7 +21,7 @@ extension String {
   /// context. As we don"t understand context, we will treat them as keywords in all contexts.
   ///
   /// This list does not include keywords that aren"t identifiers, such as `#available`.
-  static var apollo_reservedKeywords: Set<String> {
+  static var reservedKeywords: Set<String> {
     [
       // https://docs.swift.org/swift-book/ReferenceManual/LexicalStructure.html#ID413
       // Keywords used in declarations
@@ -54,26 +56,22 @@ extension String {
   /// known to have meaning in member position.
   ///
   /// We use this to avoid unnecessary escaping with expressions like `.public`.
-  static var apollo_reservedMemberKeywords: Set<String> {
-    [
-      "self", "Type", "Protocol"
-    ]
+  static var reservedMemberKeywords: Set<String> {
+    ["self", "Type", "Protocol"]
   }
   
-  var apollo_sanitizedVariableDeclaration: String {
-    guard String.apollo_reservedKeywords.contains(self) else {
-      return self
+  var sanitizedVariableDeclaration: String {
+    guard String.apollo.reservedKeywords.contains(base) else {
+      return base
     }
-    
-    return "`\(self)`"
+    return "`\(base)`"
   }
   
-  var apollo_sanitizedVariableUsage: String {
-    guard String.apollo_reservedMemberKeywords.contains(self) else {
-      return self
+  var sanitizedVariableUsage: String {
+    guard String.apollo.reservedMemberKeywords.contains(base) else {
+      return base
     }
-    
-    return "`\(self)`"
+    return "`\(base)`"
   }
   
   /// Certain tokens aren't valid as method parameter names, even when escaped with backticks, as
@@ -81,9 +79,8 @@ extension String {
   /// works this way.
   /// - parameter input: The proposed parameter name.
   /// - returns: `true` if the name can be used, or `false` if it needs a separate internal parameter name.
-  var apollo_isValidParameterName: Bool {
+  var isValidParameterName: Bool {
     // Right now `self` is the only known token that we can't use with escaping.
-    return self != "self"
+    return base != "self"
   }
-
 }
