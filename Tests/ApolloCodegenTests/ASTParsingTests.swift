@@ -173,8 +173,8 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
     
     XCTAssertEqual(outerField.responseName, "createReview")
     XCTAssertEqual(outerField.fieldName, "createReview")
-    XCTAssertEqual(outerField.type, "Review")
-    XCTAssertFalse(outerField.isDeprecated.apollo.boolValue)
+    XCTAssertEqual(outerField.typeNode, .named("Review"))
+    XCTAssertFalse(outerField.isDeprecated.apollo_boolValue)
     XCTAssertFalse(outerField.isConditional)
     let fragmentSpreads = try XCTUnwrap(outerField.fragmentSpreads)
     XCTAssertTrue(fragmentSpreads.isEmpty)

@@ -835,7 +835,6 @@
 				9BD681302405F676000874CB /* Output */,
 				9B8788702405F0150008789E /* Parsing */,
 				9BD681342405F6D1000874CB /* SchemaDownload */,
-				AE1CFBCE245EB998002C8CEE /* ApolloExtension.swift */,
 				9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */,
 				9BD6812E2405F665000874CB /* JSON.swift */,
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
@@ -964,6 +963,7 @@
 		9BCB585D240758B2002F766E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AE1CFBCE245EB998002C8CEE /* ApolloExtension.swift */,
 				9B68F066241AD98C00E97318 /* Dictionary+Apollo.swift */,
 				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
 				9BCB585E240758C8002F766E /* OptionalBoolean.swift */,
