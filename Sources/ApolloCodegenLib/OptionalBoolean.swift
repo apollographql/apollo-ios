@@ -1,8 +1,9 @@
 import Foundation
 
 extension Optional where Wrapped == Bool {
-  /// It returns false if it is called on `nil`
-  var boolValue: Bool {
+  
+  /// The value of the unwrapped `Bool`, or false if optional value is `.none`
+  var apollo_boolValue: Bool {
     switch self {
     case .none:
       return false

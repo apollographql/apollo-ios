@@ -103,10 +103,10 @@ class ASTParsingTests: XCTestCase {
       "favorite_color",
     ])
     
-    XCTAssertEqual(reviewFields.map { $0.type }, [
-      "Int!",
-      "String",
-      "ColorInput",
+    XCTAssertEqual(reviewFields.map { $0.typeNode }, [
+      .nonNullNamed("Int"),
+      .named("String"),
+      .named("ColorInput"),
     ])
     
     XCTAssertEqual(reviewFields.map { $0.description }, [
@@ -126,10 +126,10 @@ class ASTParsingTests: XCTestCase {
       "blue",
     ])
     
-    XCTAssertEqual(colorFields.map { $0.type }, [
-      "Int!",
-      "Int!",
-      "Int!",
+    XCTAssertEqual(colorFields.map { $0.typeNode }, [
+      .nonNullNamed("Int"),
+      .nonNullNamed("Int"),
+      .nonNullNamed("Int"),
     ])
     
     XCTAssertEqual(colorFields.map { $0.description }, [
@@ -173,8 +173,8 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
     
     XCTAssertEqual(outerField.responseName, "createReview")
     XCTAssertEqual(outerField.fieldName, "createReview")
-    XCTAssertEqual(outerField.type, "Review")
-    XCTAssertFalse(outerField.isDeprecated.boolValue)
+    XCTAssertEqual(outerField.typeNode, .named("Review"))
+    XCTAssertFalse(outerField.isDeprecated.apollo_boolValue)
     XCTAssertFalse(outerField.isConditional)
     let fragmentSpreads = try XCTUnwrap(outerField.fragmentSpreads)
     XCTAssertTrue(fragmentSpreads.isEmpty)
@@ -196,9 +196,9 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
       ])
     ])
     
-    XCTAssertEqual(arguments.map { $0.type }, [
-      "Episode",
-      "ReviewInput!",
+    XCTAssertEqual(arguments.map { $0.typeNode }, [
+      .named("Episode"),
+      .nonNullNamed("ReviewInput"),
     ])
     
     
@@ -216,10 +216,10 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
       "commentary",
     ])
     
-    XCTAssertEqual(innerFields.map { $0.type }, [
-      "String!",
-      "Int!",
-      "String",
+    XCTAssertEqual(innerFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("Int"),
+      .named("String"),
     ])
     
     XCTAssertEqual(innerFields.map { $0.isConditional }, [
@@ -273,13 +273,13 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
     let variable = heroAndFriendsNamesQuery.variables[0]
     
     XCTAssertEqual(variable.name, "episode")
-    XCTAssertEqual(variable.type, "Episode")
+    XCTAssertEqual(variable.typeNode, .named("Episode"))
     
     let outerField = heroAndFriendsNamesQuery.fields[0]
     
     XCTAssertEqual(outerField.responseName, "hero")
     XCTAssertEqual(outerField.fieldName, "hero")
-    XCTAssertEqual(outerField.type, "Character")
+    XCTAssertEqual(outerField.typeNode, .named("Character"))
     XCTAssertFalse(outerField.isConditional)
     
     let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
@@ -298,7 +298,7 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
       "kind": .string("Variable"),
       "variableName": .string("episode"),
     ]))
-    XCTAssertEqual(argument.type, "Episode")
+    XCTAssertEqual(argument.typeNode, .named("Episode"))
     
     let firstLevelFields = try XCTUnwrap(outerField.fields)
     
@@ -314,10 +314,10 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
       "friends",
     ])
     
-    XCTAssertEqual(firstLevelFields.map { $0.type }, [
-      "String!",
-      "String!",
-      "[Character]"
+    XCTAssertEqual(firstLevelFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
+      .list(of: .named("Character")),
     ])
     
     XCTAssertEqual(firstLevelFields.map { $0.isConditional }, [
@@ -368,9 +368,9 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
       "name"
     ])
     
-    XCTAssertEqual(secondLevelFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(secondLevelFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(secondLevelFields.map { $0.isConditional }, [
@@ -439,13 +439,13 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
     let variable = heroAndFriendsNamesWithFragmentQuery.variables[0]
     
     XCTAssertEqual(variable.name, "episode")
-    XCTAssertEqual(variable.type, "Episode")
+    XCTAssertEqual(variable.typeNode, .named("Episode"))
     
     let outerField = heroAndFriendsNamesWithFragmentQuery.fields[0]
     
     XCTAssertEqual(outerField.responseName, "hero")
     XCTAssertEqual(outerField.fieldName, "hero")
-    XCTAssertEqual(outerField.type, "Character")
+    XCTAssertEqual(outerField.typeNode, .named("Character"))
     XCTAssertFalse(outerField.isConditional)
     let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
     XCTAssertFalse(isDeprecated)
@@ -464,7 +464,7 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
       "kind": .string("Variable"),
       "variableName": .string("episode")
     ]))
-    XCTAssertEqual(argument.type, "Episode")
+    XCTAssertEqual(argument.typeNode, .named("Episode"))
     
     let firstLevelFields = try XCTUnwrap(outerField.fields)
     
@@ -480,10 +480,10 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
       "friends"
     ])
     
-    XCTAssertEqual(firstLevelFields.map { $0.type }, [
-      "String!",
-      "String!",
-      "[Character]",
+    XCTAssertEqual(firstLevelFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
+      .list(of: .named("Character")),
     ])
     
     XCTAssertEqual(firstLevelFields.map { $0.isConditional }, [
@@ -540,9 +540,9 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
       "name"
     ])
     
-    XCTAssertEqual(secondLevelFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(secondLevelFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(secondLevelFields.map { $0.isConditional }, [
@@ -614,14 +614,14 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
     XCTAssertEqual(heroDetailsQuery.variables.count, 1)
     let variable = try XCTUnwrap(heroDetailsQuery.variables.first)
     XCTAssertEqual(variable.name, "episode")
-    XCTAssertEqual(variable.type, "Episode")
+    XCTAssertEqual(variable.typeNode, .named("Episode"))
     
     XCTAssertEqual(heroDetailsQuery.fields.count, 1)
     let outerField = try XCTUnwrap(heroDetailsQuery.fields.first)
     
     XCTAssertEqual(outerField.responseName, "hero")
     XCTAssertEqual(outerField.fieldName, "hero")
-    XCTAssertEqual(outerField.type, "Character")
+    XCTAssertEqual(outerField.typeNode, .named("Character"))
     XCTAssertFalse(outerField.isConditional)
     
     let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
@@ -640,9 +640,9 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
       "name"
     ])
     
-    XCTAssertEqual(innerFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(innerFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(innerFields.map { $0.isConditional }, [
@@ -689,10 +689,10 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
       "height"
     ])
     
-    XCTAssertEqual(humanFields.map { $0.type }, [
-      "String!",
-      "String!",
-      "Float"
+    XCTAssertEqual(humanFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
+      .named("Float"),
     ])
     
     XCTAssertEqual(humanFields.map { $0.isConditional }, [
@@ -726,10 +726,10 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
       "primaryFunction"
     ])
     
-    XCTAssertEqual(droidFields.map { $0.type }, [
-      "String!",
-      "String!",
-      "String"
+    XCTAssertEqual(droidFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
+      .named("String"),
     ])
     
     XCTAssertEqual(droidFields.map { $0.isConditional }, [
@@ -793,9 +793,9 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
       "hero",
     ])
     
-    XCTAssertEqual(outerFields.map { $0.type }, [
-      "Character",
-      "Character"
+    XCTAssertEqual(outerFields.map { $0.typeNode }, [
+      .named("Character"),
+      .named("Character"),
     ])
     
     XCTAssertEqual(outerFields.map { $0.isConditional }, [
@@ -834,7 +834,7 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
     
     XCTAssertEqual(lukeArg.name, "episode")
     XCTAssertEqual(lukeArg.value, .string("EMPIRE"))
-    XCTAssertEqual(lukeArg.type, "Episode")
+    XCTAssertEqual(lukeArg.typeNode, .named("Episode"))
     
     let r2Fields = try XCTUnwrap(outerFields[0].fields)
     XCTAssertEqual(r2Fields.map { $0.responseName }, [
@@ -847,9 +847,9 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
       "name"
     ])
     
-    XCTAssertEqual(r2Fields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(r2Fields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(r2Fields.map { $0.isConditional }, [
@@ -888,9 +888,9 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
       "name"
     ])
     
-    XCTAssertEqual(lukeFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(lukeFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(lukeFields.map { $0.isConditional }, [
@@ -954,14 +954,14 @@ query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __ty
     let variable = heroNameConditionalInclusionQuery.variables[0]
     
     XCTAssertEqual(variable.name, "includeName")
-    XCTAssertEqual(variable.type, "Boolean!")
+    XCTAssertEqual(variable.typeNode, .nonNullNamed("Boolean"))
     
     XCTAssertEqual(heroNameConditionalInclusionQuery.fields.count, 1)
     let outerField = heroNameConditionalInclusionQuery.fields[0]
     
     XCTAssertEqual(outerField.responseName, "hero")
     XCTAssertEqual(outerField.fieldName, "hero")
-    XCTAssertEqual(outerField.type, "Character")
+    XCTAssertEqual(outerField.typeNode, .named("Character"))
     XCTAssertFalse(outerField.isConditional)
     
     let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
@@ -984,9 +984,9 @@ query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __ty
       "name"
     ])
     
-    XCTAssertEqual(innerFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(innerFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(innerFields.map { $0.isConditional }, [
@@ -1045,14 +1045,14 @@ query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typen
     let variable = heroNameConditionalExclusionQuery.variables[0]
     
     XCTAssertEqual(variable.name, "skipName")
-    XCTAssertEqual(variable.type, "Boolean!")
+    XCTAssertEqual(variable.typeNode, .nonNullNamed("Boolean"))
     
     XCTAssertEqual(heroNameConditionalExclusionQuery.fields.count, 1)
     let outerField = heroNameConditionalExclusionQuery.fields[0]
     
     XCTAssertEqual(outerField.responseName, "hero")
     XCTAssertEqual(outerField.fieldName, "hero")
-    XCTAssertEqual(outerField.type, "Character")
+    XCTAssertEqual(outerField.typeNode, .named("Character"))
     XCTAssertFalse(outerField.isConditional)
     
     let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
@@ -1075,9 +1075,9 @@ query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typen
       "name"
     ])
     
-    XCTAssertEqual(innerFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(innerFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(innerFields.map { $0.isConditional }, [
@@ -1138,14 +1138,14 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
     let variable = try XCTUnwrap(heroDetailsFragmentConditionalInclusionQuery.variables.first)
     
     XCTAssertEqual(variable.name, "includeDetails")
-    XCTAssertEqual(variable.type, "Boolean!")
+    XCTAssertEqual(variable.typeNode, .nonNullNamed("Boolean"))
     
     XCTAssertEqual(heroDetailsFragmentConditionalInclusionQuery.fields.count, 1)
     let outerField = try XCTUnwrap(heroDetailsFragmentConditionalInclusionQuery.fields.first)
     
     XCTAssertEqual(outerField.responseName, "hero")
     XCTAssertEqual(outerField.fieldName, "hero")
-    XCTAssertEqual(outerField.type, "Character")
+    XCTAssertEqual(outerField.typeNode, .named("Character"))
     XCTAssertFalse(outerField.isConditional)
     
     let isDeprecated = try XCTUnwrap(outerField.isDeprecated)
@@ -1166,9 +1166,9 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
       "name"
     ])
     
-    XCTAssertEqual(innerFields.map { $0.type }, [
-      "String!",
-      "String!"
+    XCTAssertEqual(innerFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
     ])
     
     XCTAssertEqual(innerFields.map { $0.isConditional }, [
@@ -1236,10 +1236,10 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
       "height"
     ])
     
-    XCTAssertEqual(humanFields.map { $0.type }, [
-      "String!",
-      "String!",
-      "Float"
+    XCTAssertEqual(humanFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
+      .named("Float"),
     ])
     
     XCTAssertEqual(humanFields.map { $0.isConditional }, [
@@ -1279,10 +1279,10 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
       "primaryFunction"
     ])
     
-    XCTAssertEqual(droidFields.map { $0.type }, [
-      "String!",
-      "String!",
-      "String"
+    XCTAssertEqual(droidFields.map { $0.typeNode }, [
+      .nonNullNamed("String"),
+      .nonNullNamed("String"),
+      .named("String"),
     ])
     
     XCTAssertEqual(droidFields.map { $0.isConditional }, [

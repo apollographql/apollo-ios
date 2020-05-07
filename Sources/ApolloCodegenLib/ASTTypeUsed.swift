@@ -8,7 +8,7 @@ struct ASTTypeUsed: Codable, Equatable {
     let name: String
     
     /// The type of the field
-    let type: ASTVariableType
+    let typeNode: ASTVariableType
     
     /// [optional] A description of the field.
     let description: String?

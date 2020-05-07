@@ -16,7 +16,7 @@ struct ASTOperation: Codable, Equatable {
     let name: String
     
     /// The type of the variable
-    let type: ASTVariableType
+    let typeNode: ASTVariableType
   }
 
   /// The full file path to the file where this operation was defined on the filesystem where the AST was generated.

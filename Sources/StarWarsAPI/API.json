@@ -8,11 +8,31 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode!"
+					"type": "Episode!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Episode"
+							}
+						}
+					}
 				},
 				{
 					"name": "review",
-					"type": "ReviewInput!"
+					"type": "ReviewInput!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "ReviewInput"
+							}
+						}
+					}
 				}
 			],
 			"source": "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {\n  createReview(episode: $episode, review: $review) {\n    __typename\n    stars\n    commentary\n  }\n}",
@@ -21,6 +41,13 @@
 					"responseName": "createReview",
 					"fieldName": "createReview",
 					"type": "Review",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Review"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -28,7 +55,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						},
 						{
 							"name": "review",
@@ -36,7 +70,17 @@
 								"kind": "Variable",
 								"variableName": "review"
 							},
-							"type": "ReviewInput!"
+							"type": "ReviewInput!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ReviewInput"
+									}
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -46,12 +90,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "stars",
 							"fieldName": "stars",
 							"type": "Int!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Int"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The number of stars this review gave, 1-5",
 							"isDeprecated": false
@@ -60,6 +124,13 @@
 							"responseName": "commentary",
 							"fieldName": "commentary",
 							"type": "String",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "String"
+								}
+							},
 							"isConditional": false,
 							"description": "Comment about the movie",
 							"isDeprecated": false
@@ -87,11 +158,25 @@
 					"responseName": "createReview",
 					"fieldName": "createReview",
 					"type": "Review",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Review"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
 							"value": "JEDI",
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						},
 						{
 							"name": "review",
@@ -99,7 +184,17 @@
 								"stars": 10,
 								"commentary": "This is awesome!"
 							},
-							"type": "ReviewInput!"
+							"type": "ReviewInput!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ReviewInput"
+									}
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -109,12 +204,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "stars",
 							"fieldName": "stars",
 							"type": "Int!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Int"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The number of stars this review gave, 1-5",
 							"isDeprecated": false
@@ -123,6 +238,13 @@
 							"responseName": "commentary",
 							"fieldName": "commentary",
 							"type": "String",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "String"
+								}
+							},
 							"isConditional": false,
 							"description": "Comment about the movie",
 							"isDeprecated": false
@@ -146,7 +268,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}",
@@ -155,6 +284,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -162,7 +298,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -172,12 +315,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -186,6 +349,16 @@
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -194,12 +367,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -227,7 +420,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAndFriendsNamesWithIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n      name\n    }\n  }\n}",
@@ -236,6 +436,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -243,7 +450,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -253,12 +467,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "id",
 							"fieldName": "id",
 							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The ID of the character",
 							"isDeprecated": false
@@ -267,6 +501,16 @@
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -275,6 +519,16 @@
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -283,12 +537,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "id",
 									"fieldName": "id",
 									"type": "ID!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "ID"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The ID of the character",
 									"isDeprecated": false
@@ -297,6 +571,16 @@
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -324,7 +608,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAndFriendsIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n    }\n  }\n}",
@@ -333,6 +624,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -340,7 +638,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -350,12 +655,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "id",
 							"fieldName": "id",
 							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The ID of the character",
 							"isDeprecated": false
@@ -364,6 +689,16 @@
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -372,6 +707,16 @@
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -380,12 +725,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "id",
 									"fieldName": "id",
 									"type": "ID!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "ID"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The ID of the character",
 									"isDeprecated": false
@@ -413,7 +778,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}",
@@ -422,6 +794,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -429,7 +808,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -439,12 +825,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "id",
 							"fieldName": "id",
 							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The ID of the character",
 							"isDeprecated": false
@@ -453,6 +859,16 @@
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -461,6 +877,16 @@
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -469,12 +895,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -502,7 +948,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}",
@@ -511,6 +964,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -518,7 +978,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -528,12 +995,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -542,6 +1029,16 @@
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -550,12 +1047,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -587,7 +1104,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}",
@@ -596,6 +1120,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -603,7 +1134,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -613,12 +1151,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -627,12 +1185,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -656,12 +1234,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "friends",
 									"fieldName": "friends",
 									"type": "[Character]",
+									"typeNode": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "Character"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "This droid's friends, or an empty list if they have none",
 									"isDeprecated": false,
@@ -670,12 +1268,32 @@
 											"responseName": "__typename",
 											"fieldName": "__typename",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false
 										},
 										{
 											"responseName": "name",
 											"fieldName": "name",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"description": "The name of the character",
 											"isDeprecated": false
@@ -713,6 +1331,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -720,12 +1345,35 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "appearsIn",
 							"fieldName": "appearsIn",
 							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The movies this character appears in",
 							"isDeprecated": false
@@ -749,7 +1397,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterAppearsIn\n  }\n}",
@@ -758,6 +1413,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -765,7 +1427,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -775,12 +1444,35 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "appearsIn",
 							"fieldName": "appearsIn",
 							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The movies this character appears in",
 							"isDeprecated": false
@@ -808,7 +1500,17 @@
 			"variables": [
 				{
 					"name": "skipName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n  }\n}",
@@ -817,6 +1519,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -824,12 +1533,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -860,7 +1589,17 @@
 			"variables": [
 				{
 					"name": "includeName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __typename\n    name @include(if: $includeName)\n  }\n}",
@@ -869,6 +1608,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -876,12 +1622,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -912,11 +1678,31 @@
 			"variables": [
 				{
 					"name": "skipName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				},
 				{
 					"name": "includeName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName) @include(if: $includeName)\n  }\n}",
@@ -925,6 +1711,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -932,12 +1725,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -973,11 +1786,31 @@
 			"variables": [
 				{
 					"name": "skipName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				},
 				{
 					"name": "includeName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n    name @include(if: $includeName)\n  }\n}",
@@ -986,6 +1819,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -993,12 +1833,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -1034,7 +1894,17 @@
 			"variables": [
 				{
 					"name": "includeDetails",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ... @include(if: $includeDetails) {\n      name\n      appearsIn\n    }\n  }\n}",
@@ -1043,6 +1913,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -1050,12 +1927,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -1071,6 +1968,19 @@
 							"responseName": "appearsIn",
 							"fieldName": "appearsIn",
 							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -1101,7 +2011,17 @@
 			"variables": [
 				{
 					"name": "includeDetails",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}",
@@ -1110,6 +2030,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -1117,6 +2044,16 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"conditions": [
 								{
@@ -1130,6 +2067,16 @@
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -1156,6 +2103,16 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"conditions": [
 										{
@@ -1179,6 +2136,16 @@
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": true,
 									"conditions": [
 										{
@@ -1204,6 +2171,13 @@
 									"responseName": "height",
 									"fieldName": "height",
 									"type": "Float",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Float"
+										}
+									},
 									"isConditional": true,
 									"conditions": [
 										{
@@ -1230,6 +2204,16 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"conditions": [
 										{
@@ -1253,6 +2237,16 @@
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": true,
 									"conditions": [
 										{
@@ -1278,6 +2272,13 @@
 									"responseName": "primaryFunction",
 									"fieldName": "primaryFunction",
 									"type": "String",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "String"
+										}
+									},
 									"isConditional": true,
 									"conditions": [
 										{
@@ -1313,11 +2314,28 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				},
 				{
 					"name": "includeName",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {\n  hero(episode: $episode) {\n    __typename\n    name @include(if: $includeName)\n    ... on Droid {\n      name\n    }\n  }\n}",
@@ -1326,6 +2344,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -1333,7 +2358,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -1343,12 +2375,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -1373,12 +2425,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"conditions": [
 										{
@@ -1410,7 +2482,17 @@
 			"variables": [
 				{
 					"name": "includeFriendsDetails",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}",
@@ -1419,6 +2501,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -1426,12 +2515,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": true,
 							"conditions": [
 								{
@@ -1447,12 +2556,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -1470,12 +2599,32 @@
 											"responseName": "__typename",
 											"fieldName": "__typename",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false
 										},
 										{
 											"responseName": "name",
 											"fieldName": "name",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"description": "What others call this droid",
 											"isDeprecated": false
@@ -1484,6 +2633,13 @@
 											"responseName": "primaryFunction",
 											"fieldName": "primaryFunction",
 											"type": "String",
+											"typeNode": {
+												"kind": "NamedType",
+												"name": {
+													"kind": "Name",
+													"value": "String"
+												}
+											},
 											"isConditional": false,
 											"description": "This droid's primary function",
 											"isDeprecated": false
@@ -1512,7 +2668,17 @@
 			"variables": [
 				{
 					"name": "includeFriendsDetails",
-					"type": "Boolean!"
+					"type": "Boolean!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Boolean"
+							}
+						}
+					}
 				}
 			],
 			"source": "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends {\n      __typename\n      name\n    }\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}",
@@ -1521,6 +2687,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -1528,12 +2701,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"conditions": [
 								{
@@ -1549,6 +2742,16 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"conditions": [
 										{
@@ -1562,6 +2765,16 @@
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"conditions": [
 										{
@@ -1586,6 +2799,16 @@
 											"responseName": "__typename",
 											"fieldName": "__typename",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"conditions": [
 												{
@@ -1604,6 +2827,16 @@
 											"responseName": "name",
 											"fieldName": "name",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"conditions": [
 												{
@@ -1624,6 +2857,13 @@
 											"responseName": "primaryFunction",
 											"fieldName": "primaryFunction",
 											"type": "String",
+											"typeNode": {
+												"kind": "NamedType",
+												"name": {
+													"kind": "Name",
+													"value": "String"
+												}
+											},
 											"isConditional": true,
 											"conditions": [
 												{
@@ -1659,7 +2899,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      height\n    }\n    ... on Droid {\n      primaryFunction\n    }\n  }\n}",
@@ -1668,6 +2915,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -1675,7 +2929,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -1685,12 +2946,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -1708,12 +2989,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What this human calls themselves",
 									"isDeprecated": false
@@ -1722,6 +3023,13 @@
 									"responseName": "height",
 									"fieldName": "height",
 									"type": "Float",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Float"
+										}
+									},
 									"isConditional": false,
 									"description": "Height in the preferred unit, default is meters",
 									"isDeprecated": false
@@ -1739,12 +3047,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What others call this droid",
 									"isDeprecated": false
@@ -1753,6 +3081,13 @@
 									"responseName": "primaryFunction",
 									"fieldName": "primaryFunction",
 									"type": "String",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "String"
+										}
+									},
 									"isConditional": false,
 									"description": "This droid's primary function",
 									"isDeprecated": false
@@ -1777,7 +3112,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}",
@@ -1786,6 +3128,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -1793,7 +3142,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -1803,12 +3159,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -1828,12 +3204,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What this human calls themselves",
 									"isDeprecated": false
@@ -1842,6 +3238,13 @@
 									"responseName": "height",
 									"fieldName": "height",
 									"type": "Float",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Float"
+										}
+									},
 									"isConditional": false,
 									"description": "Height in the preferred unit, default is meters",
 									"isDeprecated": false
@@ -1861,12 +3264,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What others call this droid",
 									"isDeprecated": false
@@ -1875,6 +3298,13 @@
 									"responseName": "primaryFunction",
 									"fieldName": "primaryFunction",
 									"type": "String",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "String"
+										}
+									},
 									"isConditional": false,
 									"description": "This droid's primary function",
 									"isDeprecated": false
@@ -1903,7 +3333,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}",
@@ -1912,6 +3349,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -1919,7 +3363,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -1929,6 +3380,16 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						}
 					],
@@ -1946,12 +3407,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What others call this droid",
 									"isDeprecated": false
@@ -1960,6 +3441,13 @@
 									"responseName": "primaryFunction",
 									"fieldName": "primaryFunction",
 									"type": "String",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "String"
+										}
+									},
 									"isConditional": false,
 									"description": "This droid's primary function",
 									"isDeprecated": false
@@ -1988,7 +3476,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroFriendsOfFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      id\n      friends {\n        __typename\n        name\n      }\n    }\n  }\n}",
@@ -1997,6 +3492,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2004,7 +3506,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2014,12 +3523,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The friends of the character, or an empty list if they have none",
 							"isDeprecated": false,
@@ -2028,12 +3557,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "id",
 									"fieldName": "id",
 									"type": "ID!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "ID"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The ID of the character",
 									"isDeprecated": false
@@ -2042,6 +3591,16 @@
 									"responseName": "friends",
 									"fieldName": "friends",
 									"type": "[Character]",
+									"typeNode": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "Character"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The friends of the character, or an empty list if they have none",
 									"isDeprecated": false,
@@ -2050,12 +3609,32 @@
 											"responseName": "__typename",
 											"fieldName": "__typename",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false
 										},
 										{
 											"responseName": "name",
 											"fieldName": "name",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"description": "The name of the character",
 											"isDeprecated": false
@@ -2087,7 +3666,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroName($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n  }\n}",
@@ -2096,6 +3682,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2103,7 +3696,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2113,12 +3713,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2142,7 +3762,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroNameWithID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n  }\n}",
@@ -2151,6 +3778,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2158,7 +3792,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2168,12 +3809,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "id",
 							"fieldName": "id",
 							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The ID of the character",
 							"isDeprecated": false
@@ -2182,6 +3843,16 @@
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2205,7 +3876,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroNameWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterName\n  }\n}",
@@ -2214,6 +3892,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2221,7 +3906,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2231,12 +3923,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2264,7 +3976,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}",
@@ -2273,6 +3992,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2280,7 +4006,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2290,12 +4023,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "id",
 							"fieldName": "id",
 							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The ID of the character",
 							"isDeprecated": false
@@ -2304,6 +4057,16 @@
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2331,7 +4094,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}",
@@ -2340,6 +4110,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2347,7 +4124,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2357,12 +4141,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2371,6 +4175,19 @@
 							"responseName": "appearsIn",
 							"fieldName": "appearsIn",
 							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The movies this character appears in",
 							"isDeprecated": false
@@ -2398,7 +4215,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroParentTypeDependentField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: FOOT)\n        }\n      }\n    }\n    ... on Droid {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: METER)\n        }\n      }\n    }\n  }\n}",
@@ -2407,6 +4231,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2414,7 +4245,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2424,12 +4262,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2447,12 +4305,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What this human calls themselves",
 									"isDeprecated": false
@@ -2461,6 +4339,16 @@
 									"responseName": "friends",
 									"fieldName": "friends",
 									"type": "[Character]",
+									"typeNode": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "Character"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "This human's friends, or an empty list if they have none",
 									"isDeprecated": false,
@@ -2469,12 +4357,32 @@
 											"responseName": "__typename",
 											"fieldName": "__typename",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false
 										},
 										{
 											"responseName": "name",
 											"fieldName": "name",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"description": "The name of the character",
 											"isDeprecated": false
@@ -2492,12 +4400,32 @@
 													"responseName": "__typename",
 													"fieldName": "__typename",
 													"type": "String!",
+													"typeNode": {
+														"kind": "NonNullType",
+														"type": {
+															"kind": "NamedType",
+															"name": {
+																"kind": "Name",
+																"value": "String"
+															}
+														}
+													},
 													"isConditional": false
 												},
 												{
 													"responseName": "name",
 													"fieldName": "name",
 													"type": "String!",
+													"typeNode": {
+														"kind": "NonNullType",
+														"type": {
+															"kind": "NamedType",
+															"name": {
+																"kind": "Name",
+																"value": "String"
+															}
+														}
+													},
 													"isConditional": false,
 													"description": "What this human calls themselves",
 													"isDeprecated": false
@@ -2506,11 +4434,25 @@
 													"responseName": "height",
 													"fieldName": "height",
 													"type": "Float",
+													"typeNode": {
+														"kind": "NamedType",
+														"name": {
+															"kind": "Name",
+															"value": "Float"
+														}
+													},
 													"args": [
 														{
 															"name": "unit",
 															"value": "FOOT",
-															"type": "LengthUnit"
+															"type": "LengthUnit",
+															"typeNode": {
+																"kind": "NamedType",
+																"name": {
+																	"kind": "Name",
+																	"value": "LengthUnit"
+																}
+															}
 														}
 													],
 													"isConditional": false,
@@ -2535,12 +4477,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "What others call this droid",
 									"isDeprecated": false
@@ -2549,6 +4511,16 @@
 									"responseName": "friends",
 									"fieldName": "friends",
 									"type": "[Character]",
+									"typeNode": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "Character"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "This droid's friends, or an empty list if they have none",
 									"isDeprecated": false,
@@ -2557,12 +4529,32 @@
 											"responseName": "__typename",
 											"fieldName": "__typename",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false
 										},
 										{
 											"responseName": "name",
 											"fieldName": "name",
 											"type": "String!",
+											"typeNode": {
+												"kind": "NonNullType",
+												"type": {
+													"kind": "NamedType",
+													"name": {
+														"kind": "Name",
+														"value": "String"
+													}
+												}
+											},
 											"isConditional": false,
 											"description": "The name of the character",
 											"isDeprecated": false
@@ -2580,12 +4572,32 @@
 													"responseName": "__typename",
 													"fieldName": "__typename",
 													"type": "String!",
+													"typeNode": {
+														"kind": "NonNullType",
+														"type": {
+															"kind": "NamedType",
+															"name": {
+																"kind": "Name",
+																"value": "String"
+															}
+														}
+													},
 													"isConditional": false
 												},
 												{
 													"responseName": "name",
 													"fieldName": "name",
 													"type": "String!",
+													"typeNode": {
+														"kind": "NonNullType",
+														"type": {
+															"kind": "NamedType",
+															"name": {
+																"kind": "Name",
+																"value": "String"
+															}
+														}
+													},
 													"isConditional": false,
 													"description": "What this human calls themselves",
 													"isDeprecated": false
@@ -2594,11 +4606,25 @@
 													"responseName": "height",
 													"fieldName": "height",
 													"type": "Float",
+													"typeNode": {
+														"kind": "NamedType",
+														"name": {
+															"kind": "Name",
+															"value": "Float"
+														}
+													},
 													"args": [
 														{
 															"name": "unit",
 															"value": "METER",
-															"type": "LengthUnit"
+															"type": "LengthUnit",
+															"typeNode": {
+																"kind": "NamedType",
+																"name": {
+																	"kind": "Name",
+																	"value": "LengthUnit"
+																}
+															}
 														}
 													],
 													"isConditional": false,
@@ -2630,7 +4656,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "query HeroTypeDependentAliasedField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ... on Human {\n      property: homePlanet\n    }\n    ... on Droid {\n      property: primaryFunction\n    }\n  }\n}",
@@ -2639,6 +4672,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2646,7 +4686,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2656,6 +4703,16 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						}
 					],
@@ -2671,12 +4728,29 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "property",
 									"fieldName": "homePlanet",
 									"type": "String",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "String"
+										}
+									},
 									"isConditional": false,
 									"description": "The home planet of the human, or null if unknown",
 									"isDeprecated": false
@@ -2694,12 +4768,29 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "property",
 									"fieldName": "primaryFunction",
 									"type": "String",
+									"typeNode": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "String"
+										}
+									},
 									"isConditional": false,
 									"description": "This droid's primary function",
 									"isDeprecated": false
@@ -2728,6 +4819,13 @@
 					"responseName": "hero",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -2735,12 +4833,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -2753,6 +4871,13 @@
 					"responseName": "r2",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -2760,12 +4885,35 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "appearsIn",
 							"fieldName": "appearsIn",
 							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The movies this character appears in",
 							"isDeprecated": false
@@ -2793,11 +4941,28 @@
 					"responseName": "starship",
 					"fieldName": "starship",
 					"type": "Starship",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Starship"
+						}
+					},
 					"args": [
 						{
 							"name": "id",
 							"value": 3000,
-							"type": "ID!"
+							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2807,12 +4972,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the starship",
 							"isDeprecated": false
@@ -2821,6 +5006,25 @@
 							"responseName": "coordinates",
 							"fieldName": "coordinates",
 							"type": "[[Float!]!]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NonNullType",
+									"type": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NonNullType",
+											"type": {
+												"kind": "NamedType",
+												"name": {
+													"kind": "Name",
+													"value": "Float"
+												}
+											}
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"isDeprecated": false
 						}
@@ -2843,7 +5047,26 @@
 			"variables": [
 				{
 					"name": "coordinates",
-					"type": "[[Float!]!]"
+					"type": "[[Float!]!]",
+					"typeNode": {
+						"kind": "ListType",
+						"type": {
+							"kind": "NonNullType",
+							"type": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NonNullType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Float"
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			],
 			"source": "query StarshipCoordinates($coordinates: [[Float!]!]) {\n  starshipCoordinates(coordinates: $coordinates) {\n    __typename\n    name\n    coordinates\n    length\n  }\n}",
@@ -2852,6 +5075,13 @@
 					"responseName": "starshipCoordinates",
 					"fieldName": "starshipCoordinates",
 					"type": "Starship",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Starship"
+						}
+					},
 					"args": [
 						{
 							"name": "coordinates",
@@ -2859,7 +5089,26 @@
 								"kind": "Variable",
 								"variableName": "coordinates"
 							},
-							"type": "[[Float!]!]"
+							"type": "[[Float!]!]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NonNullType",
+									"type": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NonNullType",
+											"type": {
+												"kind": "NamedType",
+												"name": {
+													"kind": "Name",
+													"value": "Float"
+												}
+											}
+										}
+									}
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2869,12 +5118,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the starship",
 							"isDeprecated": false
@@ -2883,6 +5152,25 @@
 							"responseName": "coordinates",
 							"fieldName": "coordinates",
 							"type": "[[Float!]!]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NonNullType",
+									"type": {
+										"kind": "ListType",
+										"type": {
+											"kind": "NonNullType",
+											"type": {
+												"kind": "NamedType",
+												"name": {
+													"kind": "Name",
+													"value": "Float"
+												}
+											}
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"isDeprecated": false
 						},
@@ -2890,6 +5178,13 @@
 							"responseName": "length",
 							"fieldName": "length",
 							"type": "Float",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Float"
+								}
+							},
 							"isConditional": false,
 							"description": "Length of the starship, along the longest axis",
 							"isDeprecated": false
@@ -2913,7 +5208,14 @@
 			"variables": [
 				{
 					"name": "episode",
-					"type": "Episode"
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
 				}
 			],
 			"source": "subscription ReviewAdded($episode: Episode) {\n  reviewAdded(episode: $episode) {\n    __typename\n    episode\n    stars\n    commentary\n  }\n}",
@@ -2922,6 +5224,13 @@
 					"responseName": "reviewAdded",
 					"fieldName": "reviewAdded",
 					"type": "Review",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Review"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
@@ -2929,7 +5238,14 @@
 								"kind": "Variable",
 								"variableName": "episode"
 							},
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -2939,12 +5255,29 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "episode",
 							"fieldName": "episode",
 							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							},
 							"isConditional": false,
 							"description": "The movie",
 							"isDeprecated": false
@@ -2953,6 +5286,16 @@
 							"responseName": "stars",
 							"fieldName": "stars",
 							"type": "Int!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Int"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The number of stars this review gave, 1-5",
 							"isDeprecated": false
@@ -2961,6 +5304,13 @@
 							"responseName": "commentary",
 							"fieldName": "commentary",
 							"type": "String",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "String"
+								}
+							},
 							"isConditional": false,
 							"description": "Comment about the movie",
 							"isDeprecated": false
@@ -2984,7 +5334,17 @@
 			"variables": [
 				{
 					"name": "id",
-					"type": "ID!"
+					"type": "ID!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "ID"
+							}
+						}
+					}
 				}
 			],
 			"source": "query Human($id: ID!) {\n  human(id: $id) {\n    __typename\n    name\n    mass\n  }\n}",
@@ -2993,6 +5353,13 @@
 					"responseName": "human",
 					"fieldName": "human",
 					"type": "Human",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Human"
+						}
+					},
 					"args": [
 						{
 							"name": "id",
@@ -3000,7 +5367,17 @@
 								"kind": "Variable",
 								"variableName": "id"
 							},
-							"type": "ID!"
+							"type": "ID!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "ID"
+									}
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -3010,12 +5387,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "What this human calls themselves",
 							"isDeprecated": false
@@ -3024,6 +5421,13 @@
 							"responseName": "mass",
 							"fieldName": "mass",
 							"type": "Float",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Float"
+								}
+							},
 							"isConditional": false,
 							"description": "Mass in kilograms, or null if unknown",
 							"isDeprecated": false
@@ -3051,6 +5455,13 @@
 					"responseName": "r2",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"isConditional": false,
 					"isDeprecated": false,
 					"fields": [
@@ -3058,12 +5469,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -3076,11 +5507,25 @@
 					"responseName": "luke",
 					"fieldName": "hero",
 					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
 					"args": [
 						{
 							"name": "episode",
 							"value": "EMPIRE",
-							"type": "Episode"
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -3090,12 +5535,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -3121,17 +5586,44 @@
 			"fragmentName": "DroidNameAndPrimaryFunction",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment DroidNameAndPrimaryFunction on Droid {\n  __typename\n  ...CharacterName\n  ...DroidPrimaryFunction\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Droid"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "What others call this droid",
 					"isDeprecated": false
@@ -3140,6 +5632,13 @@
 					"responseName": "primaryFunction",
 					"fieldName": "primaryFunction",
 					"type": "String",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "String"
+						}
+					},
 					"isConditional": false,
 					"description": "This droid's primary function",
 					"isDeprecated": false
@@ -3160,17 +5659,44 @@
 			"fragmentName": "CharacterNameAndDroidPrimaryFunction",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameAndDroidPrimaryFunction on Character {\n  __typename\n  ...CharacterName\n  ...DroidPrimaryFunction\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3191,12 +5717,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "What others call this droid",
 							"isDeprecated": false
@@ -3205,6 +5751,13 @@
 							"responseName": "primaryFunction",
 							"fieldName": "primaryFunction",
 							"type": "String",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "String"
+								}
+							},
 							"isConditional": false,
 							"description": "This droid's primary function",
 							"isDeprecated": false
@@ -3226,17 +5779,44 @@
 			"fragmentName": "CharacterNameAndDroidAppearsIn",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameAndDroidAppearsIn on Character {\n  __typename\n  name\n  ... on Droid {\n    appearsIn\n  }\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3254,12 +5834,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "What others call this droid",
 							"isDeprecated": false
@@ -3268,6 +5868,19 @@
 							"responseName": "appearsIn",
 							"fieldName": "appearsIn",
 							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The movies this droid appears in",
 							"isDeprecated": false
@@ -3285,17 +5898,44 @@
 			"fragmentName": "DroidName",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment DroidName on Droid {\n  __typename\n  name\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Droid"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "What others call this droid",
 					"isDeprecated": false
@@ -3312,17 +5952,41 @@
 			"fragmentName": "DroidPrimaryFunction",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment DroidPrimaryFunction on Droid {\n  __typename\n  primaryFunction\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Droid"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "primaryFunction",
 					"fieldName": "primaryFunction",
 					"type": "String",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "String"
+						}
+					},
 					"isConditional": false,
 					"description": "This droid's primary function",
 					"isDeprecated": false
@@ -3339,17 +6003,41 @@
 			"fragmentName": "HumanHeightWithVariable",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment HumanHeightWithVariable on Human {\n  __typename\n  height(unit: $heightUnit)\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Human"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "height",
 					"fieldName": "height",
 					"type": "Float",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Float"
+						}
+					},
 					"args": [
 						{
 							"name": "unit",
@@ -3357,7 +6045,14 @@
 								"kind": "Variable",
 								"variableName": "heightUnit"
 							},
-							"type": "LengthUnit"
+							"type": "LengthUnit",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "LengthUnit"
+								}
+							}
 						}
 					],
 					"isConditional": false,
@@ -3377,17 +6072,44 @@
 			"fragmentName": "CharacterNameAndAppearsInWithNestedFragments",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameAndAppearsInWithNestedFragments on Character {\n  __typename\n  ...CharacterNameWithNestedAppearsInFragment\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3396,6 +6118,19 @@
 					"responseName": "appearsIn",
 					"fieldName": "appearsIn",
 					"type": "[Episode]!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "ListType",
+							"type": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The movies this character appears in",
 					"isDeprecated": false
@@ -3415,17 +6150,44 @@
 			"fragmentName": "CharacterNameWithNestedAppearsInFragment",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameWithNestedAppearsInFragment on Character {\n  __typename\n  name\n  ...CharacterAppearsIn\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3434,6 +6196,19 @@
 					"responseName": "appearsIn",
 					"fieldName": "appearsIn",
 					"type": "[Episode]!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "ListType",
+							"type": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The movies this character appears in",
 					"isDeprecated": false
@@ -3453,11 +6228,28 @@
 			"fragmentName": "CharacterNameWithInlineFragment",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameWithInlineFragment on Character {\n  __typename\n  ... on Human {\n    friends {\n      __typename\n      appearsIn\n    }\n  }\n  ... on Droid {\n    ...CharacterName\n    ...FriendsNames\n  }\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				}
 			],
@@ -3473,12 +6265,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "This human's friends, or an empty list if they have none",
 							"isDeprecated": false,
@@ -3487,12 +6299,35 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "appearsIn",
 									"fieldName": "appearsIn",
 									"type": "[Episode]!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "ListType",
+											"type": {
+												"kind": "NamedType",
+												"name": {
+													"kind": "Name",
+													"value": "Episode"
+												}
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The movies this character appears in",
 									"isDeprecated": false
@@ -3514,12 +6349,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "What others call this droid",
 							"isDeprecated": false
@@ -3528,6 +6383,16 @@
 							"responseName": "friends",
 							"fieldName": "friends",
 							"type": "[Character]",
+							"typeNode": {
+								"kind": "ListType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "Character"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "This droid's friends, or an empty list if they have none",
 							"isDeprecated": false,
@@ -3536,12 +6401,32 @@
 									"responseName": "__typename",
 									"fieldName": "__typename",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false
 								},
 								{
 									"responseName": "name",
 									"fieldName": "name",
 									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
 									"isConditional": false,
 									"description": "The name of the character",
 									"isDeprecated": false
@@ -3567,17 +6452,44 @@
 			"fragmentName": "FriendsNames",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
 			"source": "fragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "friends",
 					"fieldName": "friends",
 					"type": "[Character]",
+					"typeNode": {
+						"kind": "ListType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Character"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The friends of the character, or an empty list if they have none",
 					"isDeprecated": false,
@@ -3586,12 +6498,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "The name of the character",
 							"isDeprecated": false
@@ -3613,17 +6545,47 @@
 			"fragmentName": "CharacterAppearsIn",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAppearsIn.graphql",
 			"source": "fragment CharacterAppearsIn on Character {\n  __typename\n  appearsIn\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "appearsIn",
 					"fieldName": "appearsIn",
 					"type": "[Episode]!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "ListType",
+							"type": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The movies this character appears in",
 					"isDeprecated": false
@@ -3641,17 +6603,44 @@
 			"fragmentName": "HeroDetails",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
 			"source": "fragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3669,12 +6658,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "What this human calls themselves",
 							"isDeprecated": false
@@ -3683,6 +6692,13 @@
 							"responseName": "height",
 							"fieldName": "height",
 							"type": "Float",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Float"
+								}
+							},
 							"isConditional": false,
 							"description": "Height in the preferred unit, default is meters",
 							"isDeprecated": false
@@ -3700,12 +6716,32 @@
 							"responseName": "__typename",
 							"fieldName": "__typename",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false
 						},
 						{
 							"responseName": "name",
 							"fieldName": "name",
 							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
 							"isConditional": false,
 							"description": "What others call this droid",
 							"isDeprecated": false
@@ -3714,6 +6750,13 @@
 							"responseName": "primaryFunction",
 							"fieldName": "primaryFunction",
 							"type": "String",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "String"
+								}
+							},
 							"isConditional": false,
 							"description": "This droid's primary function",
 							"isDeprecated": false
@@ -3731,17 +6774,44 @@
 			"fragmentName": "DroidDetails",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
 			"source": "fragment DroidDetails on Droid {\n  __typename\n  name\n  primaryFunction\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Droid"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "What others call this droid",
 					"isDeprecated": false
@@ -3750,6 +6820,13 @@
 					"responseName": "primaryFunction",
 					"fieldName": "primaryFunction",
 					"type": "String",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "String"
+						}
+					},
 					"isConditional": false,
 					"description": "This droid's primary function",
 					"isDeprecated": false
@@ -3767,17 +6844,44 @@
 			"fragmentName": "CharacterName",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroName.graphql",
 			"source": "fragment CharacterName on Character {\n  __typename\n  name\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3795,17 +6899,44 @@
 			"fragmentName": "CharacterNameAndAppearsIn",
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroNameAndAppearsIn.graphql",
 			"source": "fragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}",
+			"typeNode": {
+				"kind": "NamedType",
+				"name": {
+					"kind": "Name",
+					"value": "Character"
+				}
+			},
 			"fields": [
 				{
 					"responseName": "__typename",
 					"fieldName": "__typename",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false
 				},
 				{
 					"responseName": "name",
 					"fieldName": "name",
 					"type": "String!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "String"
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The name of the character",
 					"isDeprecated": false
@@ -3814,6 +6945,19 @@
 					"responseName": "appearsIn",
 					"fieldName": "appearsIn",
 					"type": "[Episode]!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "ListType",
+							"type": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
+						}
+					},
 					"isConditional": false,
 					"description": "The movies this character appears in",
 					"isDeprecated": false
@@ -3854,16 +6998,40 @@
 				{
 					"name": "stars",
 					"type": "Int!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Int"
+							}
+						}
+					},
 					"description": "0-5 stars"
 				},
 				{
 					"name": "commentary",
 					"type": "String",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "String"
+						}
+					},
 					"description": "Comment about the movie, optional"
 				},
 				{
 					"name": "favorite_color",
 					"type": "ColorInput",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "ColorInput"
+						}
+					},
 					"description": "Favorite color, optional"
 				}
 			]
@@ -3875,15 +7043,45 @@
 			"fields": [
 				{
 					"name": "red",
-					"type": "Int!"
+					"type": "Int!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Int"
+							}
+						}
+					}
 				},
 				{
 					"name": "green",
-					"type": "Int!"
+					"type": "Int!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Int"
+							}
+						}
+					}
 				},
 				{
 					"name": "blue",
-					"type": "Int!"
+					"type": "Int!",
+					"typeNode": {
+						"kind": "NonNullType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "Int"
+							}
+						}
+					}
 				}
 			]
 		}

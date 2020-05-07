@@ -72,45 +72,47 @@ struct CLIDownloader {
     CodegenLogger.log("Downloading zip file with the CLI...")
     let semaphore = DispatchSemaphore(value: 0)
     var errorToThrow: Error? = CLIDownloaderError.downloadTimedOut(after: timeout)
-    URLSession.shared.dataTask(with: URL(string: CLIDownloader.downloadURLString)!) { data, response, error in
-      defer {
+    URLSession.shared.dataTask(with: URL(string: CLIDownloader.downloadURLString)!) { data, response, error in      
+      func finished(with finalError: Error?) {
+        errorToThrow = finalError
         semaphore.signal()
       }
+        
       if let error = error {
-        errorToThrow = error
+        finished(with: error)
         return
       }
       
       guard let httpResponse = response as? HTTPURLResponse else {
-        errorToThrow = CLIDownloaderError.responseNotHTTPResponse
+        finished(with: CLIDownloaderError.responseNotHTTPResponse)
         return
       }
       
       guard httpResponse.statusCode == 200 else {
         let dataAsString = String(bytes: data ?? Data(), encoding: .utf8)
-        errorToThrow = CLIDownloaderError.badResponse(code: httpResponse.statusCode, response: dataAsString)
+        finished(with: CLIDownloaderError.badResponse(code: httpResponse.statusCode, response: dataAsString))
         return
       }
       
       guard let data = data else {
-        errorToThrow = CLIDownloaderError.noDataReceived
+        finished(with: CLIDownloaderError.noDataReceived)
         return
       }
       
       guard !data.isEmpty else {
-        errorToThrow = CLIDownloaderError.emptyDataReceived
+        finished(with: CLIDownloaderError.emptyDataReceived)
         return
       }
       
       do {
         try data.write(to: zipFileURL)
-      } catch {
-        errorToThrow = error
+      } catch (let writeError) {
+        finished(with: writeError)
         return
       }
       
       // If we got here, it all worked and it's good to go!
-      errorToThrow = nil
+      finished(with: nil)
     }.resume()
     
     _ = semaphore.wait(timeout: .now() + timeout)
