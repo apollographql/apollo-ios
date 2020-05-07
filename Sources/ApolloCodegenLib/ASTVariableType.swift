@@ -71,7 +71,7 @@ class ASTVariableType: Codable {
         }
       
         let innerSwiftType = try innerType.toSwiftType()
-        return try innerSwiftType.apollo_droppingSuffix("?")
+        return try innerSwiftType.apollo.droppingSuffix("?")
       case .NamedType:
         guard let name = self.name else {
           throw TypeConversionError.typeNotPresent(forKind: self.kind)
@@ -89,7 +89,7 @@ class ASTVariableType: Codable {
   }
   
   func toGraphQLOptional() throws -> String {
-    let type = try self.toSwiftType().apollo_droppingSuffix("?")
+    let type = try self.toSwiftType().apollo.droppingSuffix("?")
     return "GraphQLOptional<\(type)>"
   }
 }

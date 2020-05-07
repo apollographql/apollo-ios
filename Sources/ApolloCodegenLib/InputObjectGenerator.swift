@@ -14,8 +14,8 @@ public class InputObjectGenerator {
       
       init(field: ASTTypeUsed.Field) throws {
         self.name = field.name
-        self.nameVariableDeclaration = field.name.apollo_sanitizedVariableDeclaration
-        self.nameVariableUsage = field.name.apollo_sanitizedVariableUsage
+        self.nameVariableDeclaration = field.name.apollo.sanitizedVariableDeclaration
+        self.nameVariableUsage = field.name.apollo.sanitizedVariableUsage
 
         let isOptional = field.typeNode.isSwiftOptional()
         self.isOptional = isOptional

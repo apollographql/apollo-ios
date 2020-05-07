@@ -21,8 +21,8 @@ public class EnumGenerator {
     
     init(astEnumValue: ASTEnumValue) {
       self.name = astEnumValue.name
-      self.nameVariableDeclaration = astEnumValue.name.apollo_sanitizedVariableDeclaration
-      self.nameUsage = astEnumValue.name.apollo_sanitizedVariableUsage
+      self.nameVariableDeclaration = astEnumValue.name.apollo.sanitizedVariableDeclaration
+      self.nameUsage = astEnumValue.name.apollo.sanitizedVariableUsage
       self.description = astEnumValue.description
       self.isDeprecated = astEnumValue.isDeprecated
     }
