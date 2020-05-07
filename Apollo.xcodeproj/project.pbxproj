@@ -35,7 +35,6 @@
 		9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */; };
 		9B6835342460B47900337AE6 /* ASTVariableType+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6835322460B32A00337AE6 /* ASTVariableType+TestHelpers.swift */; };
 		9B683538246310D400337AE6 /* ExpectedReviewInputNoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B683537246310D400337AE6 /* ExpectedReviewInputNoModifier.swift */; };
-		9B68354B2463498D00337AE6 /* Apollo-Target-ApolloCore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9B68354A2463498D00337AE6 /* Apollo-Target-ApolloCore.xcconfig */; };
 		9B68354E24634A3C00337AE6 /* GraphQLOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F06E241C649E00E97318 /* GraphQLOptional.swift */; };
 		9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */; };
 		9B68F03D240ED3B300E97318 /* ASTCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03C240ED3B300E97318 /* ASTCondition.swift */; };
@@ -1799,7 +1798,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B68354B2463498D00337AE6 /* Apollo-Target-ApolloCore.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
