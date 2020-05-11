@@ -260,10 +260,12 @@ class HTTPTransportTests: XCTestCase {
   
   func testEquality() {
     let identicalTransport = HTTPNetworkTransport(url: self.url,
+                                                  client: self.networkTransport.client,
                                                   useGETForQueries: true)
     XCTAssertEqual(self.networkTransport, identicalTransport)
     
-    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url)
+    let nonIdenticalTransport = HTTPNetworkTransport(url: self.url,
+                                                     client: self.networkTransport.client)
     XCTAssertNotEqual(self.networkTransport, nonIdenticalTransport)
   }
 
@@ -274,11 +276,11 @@ class HTTPTransportTests: XCTestCase {
     // TODO: Replace this with once it is codable https://github.com/apollographql/apollo-ios/issues/467
     let body = ["errors": [["message": "Test graphql error"]]]
 
-    let mockSession = MockURLSession()
-    mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-    mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    let mockClient = MockURLSessionClient()
+    mockClient.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    mockClient.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
     let network = HTTPNetworkTransport(url: url,
-                                       session: mockSession)
+                                       client: mockClient)
     network.delegate = self
     let expectation = self.expectation(description: "Send operation completed")
 
@@ -291,7 +293,7 @@ class HTTPTransportTests: XCTestCase {
       }
     }
 
-    let request = try XCTUnwrap(mockSession.lastRequest,
+    let request = try XCTUnwrap(mockClient.lastRequest,
                                 "last request should not be nil")
     
     XCTAssertEqual(request.url?.host, network.url.host)
@@ -309,11 +311,11 @@ class HTTPTransportTests: XCTestCase {
     // TODO: Replace this with once it is codable https://github.com/apollographql/apollo-ios/issues/467
     let body = ["errors": []]
 
-    let mockSession = MockURLSession()
-    mockSession.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-    mockSession.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    let mockClient = MockURLSessionClient()
+    mockClient.response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+    mockClient.data = try JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
     let network = HTTPNetworkTransport(url: url,
-                                       session: mockSession)
+                                       client: mockClient)
     network.delegate = self
     let expectation = self.expectation(description: "Send operation completed")
 
@@ -326,7 +328,7 @@ class HTTPTransportTests: XCTestCase {
       }
     }
 
-    let request = try XCTUnwrap(mockSession.lastRequest,
+    let request = try XCTUnwrap(mockClient.lastRequest,
                                 "last request should not be nil")
 
     XCTAssertEqual(request.url?.host, network.url.host)
@@ -337,13 +339,13 @@ class HTTPTransportTests: XCTestCase {
   }
   
   func testClientNameAndVersionHeadersAreSent() throws {
-    let mockSession = MockURLSession()
+    let mockClient = MockURLSessionClient()
     let network = HTTPNetworkTransport(url: self.url,
-                                       session: mockSession)
+                                       client: mockClient)
     let query = HeroNameQuery(episode: .empire)
     let _ = network.send(operation: query) { _ in }
     
-    let request = try XCTUnwrap(mockSession.lastRequest,
+    let request = try XCTUnwrap(mockClient.lastRequest,
                                 "last request should not be nil")
     
     let clientName = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientName),

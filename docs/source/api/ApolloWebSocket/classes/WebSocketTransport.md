@@ -31,6 +31,12 @@ public var clientVersion: String
 
 > NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
+### `security`
+
+```swift
+public var security: SSLTrustValidator?
+```
+
 ### `enableSOCKSProxy`
 
 ```swift

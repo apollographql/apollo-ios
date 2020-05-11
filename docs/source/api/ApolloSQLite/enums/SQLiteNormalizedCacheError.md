@@ -18,9 +18,3 @@ case invalidRecordEncoding(record: String)
 ```swift
 case invalidRecordShape(object: Any)
 ```
-
-### `invalidRecordValue(value:)`
-
-```swift
-case invalidRecordValue(value: Any)
-```

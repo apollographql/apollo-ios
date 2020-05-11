@@ -20,7 +20,7 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 ```
 
 > Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
-> NOTE: Don't just call the `retryHandler` with `true` all the time, or you can potentially wind up in an infinite loop of errors
+> NOTE: Don't just call the `continueHandler` with `.retry` all the time, or you can potentially wind up in an infinite loop of errors
 >
 > - Parameters:
 >   - networkTransport: The network transport which received the error
@@ -37,4 +37,4 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 | error | The received error |
 | request | The URLRequest which generated the error |
 | response | [Optional] Any response received when the error was generated |
-| retryHandler | A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete. |
+| continueHandler | A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete. |
