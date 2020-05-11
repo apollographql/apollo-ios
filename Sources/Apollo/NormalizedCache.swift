@@ -29,4 +29,7 @@ public protocol NormalizedCache {
   ///   - completion: [optional] A completion closure to fire when the clear function has completed.
   func clear(callbackQueue: DispatchQueue?,
              completion: ((Result<Void, Error>) -> Void)?)
+
+  // Clears all records synchronously
+  func clearImmediately() throws
 }

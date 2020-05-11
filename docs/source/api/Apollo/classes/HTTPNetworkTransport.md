@@ -30,11 +30,11 @@ public lazy var clientVersion = HTTPNetworkTransport.defaultClientVersion
 ```
 
 ## Methods
-### `init(url:session:sendOperationIdentifiers:useGETForQueries:enableAutoPersistedQueries:useGETForPersistedQueryRetry:requestCreator:)`
+### `init(url:client:sendOperationIdentifiers:useGETForQueries:enableAutoPersistedQueries:useGETForPersistedQueryRetry:requestCreator:)`
 
 ```swift
 public init(url: URL,
-            session: URLSession = .shared,
+            client: URLSessionClient = URLSessionClient(),
             sendOperationIdentifiers: Bool = false,
             useGETForQueries: Bool = false,
             enableAutoPersistedQueries: Bool = false,

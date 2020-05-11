@@ -66,7 +66,7 @@ public class CodeGenerator<Decoder: FlexibleDecoder> {
   private func createFileWithOutput(_ output: String,
                                     named name: String,
                                     inFolder folderURL: URL) throws {
-    try FileManager.default.apollo_createFolderIfNeeded(at: folderURL)
+    try FileManager.default.apollo.createFolderIfNeeded(at: folderURL)
     let fileURL = folderURL
       .appendingPathComponent(name)
       .appendingPathExtension("swift")

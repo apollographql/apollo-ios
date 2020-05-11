@@ -22,7 +22,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertEqual(options.endpointURL, self.endpointURL)
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertNil(options.apiKey)
-    XCTAssertNil(options.header)
+    XCTAssertTrue(options.headers.isEmpty)
     
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
@@ -34,17 +34,19 @@ class ApolloSchemaTests: XCTestCase {
   func testCreatingOptionsWithAllParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let apiKey = "Fake_API_Key"
-    let header = "Authorization: Bearer tokenGoesHere"
+    let firstHeader = "Authorization: Bearer tokenGoesHere"
+    let secondHeader = "Custom-Header: Custom_Customer"
+    let headers = [firstHeader, secondHeader]
     
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
                                       schemaFileType: .schemaDefinitionLanguage,
                                       apiKey: apiKey,
                                       endpointURL: self.endpointURL,
-                                      header: header,
+                                      headers: headers,
                                       outputFolderURL: sourceRoot)
     XCTAssertEqual(options.apiKey, apiKey)
     XCTAssertEqual(options.endpointURL, self.endpointURL)
-    XCTAssertEqual(options.header, header)
+    XCTAssertEqual(options.headers, headers)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
     XCTAssertEqual(options.outputURL, expectedOutputURL)
@@ -54,7 +56,8 @@ class ApolloSchemaTests: XCTestCase {
         "--endpoint=http://localhost:8080/graphql",
         "--key=\(apiKey)",
         "'\(expectedOutputURL.path)'",
-        "--header='\(header)'"
+        "--header='\(firstHeader)'",
+        "--header='\(secondHeader)'"
     ])
   }
   
@@ -65,8 +68,8 @@ class ApolloSchemaTests: XCTestCase {
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
     
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
 
@@ -74,7 +77,7 @@ class ApolloSchemaTests: XCTestCase {
                                        options: options)
     
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo_fileExists(at: options.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
     
     // Is it non-empty?
     let data = try Data(contentsOf: options.outputURL)
@@ -87,8 +90,8 @@ class ApolloSchemaTests: XCTestCase {
     _ = try XCTUnwrap(json["__schema"])
     
     // OK delete it now
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
   }
   
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
@@ -99,8 +102,8 @@ class ApolloSchemaTests: XCTestCase {
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
 
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
 
@@ -108,7 +111,7 @@ class ApolloSchemaTests: XCTestCase {
                                          options: options))
     
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo_fileExists(at: options.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
     
     // Is it non-empty?
     let data = try Data(contentsOf: options.outputURL)
@@ -118,7 +121,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertNil(try? JSONSerialization.jsonObject(with: data, options: []) as? [AnyHashable:Any])
     
     // OK delete it now
-    try FileManager.default.apollo_deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo_fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: options.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
   }
 }

@@ -30,7 +30,7 @@ class CodegenExtensionTests: XCTestCase {
     let word = "testing"
     let suffix = "ing"
     
-    let dropped = try word.apollo_droppingSuffix(suffix)
+    let dropped = try word.apollo.droppingSuffix(suffix)
     XCTAssertEqual(dropped, "test")
   }
   
@@ -39,11 +39,11 @@ class CodegenExtensionTests: XCTestCase {
     let suffix = "n"
     
     do {
-      _ = try word.apollo_droppingSuffix(suffix)
+      _ = try word.apollo.droppingSuffix(suffix)
       XCTFail("Well that shouldn't have worked")
     } catch {
       switch error {
-      case String.ApolloStringError.expectedSuffixMissing(let expectedSuffix):
+      case ApolloStringError.expectedSuffixMissing(let expectedSuffix):
         XCTAssertEqual(expectedSuffix, suffix)
       default:
         XCTFail("Unexpected error: \(error)")

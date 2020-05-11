@@ -15,7 +15,7 @@ public struct ApolloSchemaDownloader {
   @discardableResult
   public static func run(with cliFolderURL: URL,
                          options: ApolloSchemaOptions) throws -> String {
-    try FileManager.default.apollo_createContainingFolderIfNeeded(for: options.outputURL)
+    try FileManager.default.apollo.createContainingFolderIfNeeded(for: options.outputURL)
     
     let cli = try ApolloCLI.createCLI(cliFolderURL: cliFolderURL, timeout: options.downloadTimeout)
     return try cli.runApollo(with: options.arguments)

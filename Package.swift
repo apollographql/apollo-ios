@@ -7,6 +7,9 @@ let package = Package(
     name: "Apollo",
     products: [
     .library(
+      name: "ApolloCore",
+      targets: ["ApolloCore"]),
+    .library(
       name: "Apollo",
       targets: ["Apollo"]),
     .library(
@@ -31,12 +34,16 @@ let package = Package(
       .upToNextMinor(from: "0.13.1")),
     ],
     targets: [
+      .target(
+        name: "ApolloCore",
+        dependencies: []),
     .target(
       name: "Apollo",
       dependencies: []),
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
+        "ApolloCore",
         .product(name: "Stencil", package: "Stencil"),
       ]),
     .target(

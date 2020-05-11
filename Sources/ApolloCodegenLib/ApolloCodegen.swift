@@ -29,15 +29,15 @@ public class ApolloCodegen {
   public static func run(from folder: URL,
                          with cliFolderURL: URL,
                          options: ApolloCodegenOptions) throws -> String {
-    guard FileManager.default.apollo_folderExists(at: folder) else {
+    guard FileManager.default.apollo.folderExists(at: folder) else {
       throw CodegenError.folderDoesNotExist(folder)
     }
     
     switch options.outputFormat {
     case .multipleFiles(let folderURL):
-      try FileManager.default.apollo_createFolderIfNeeded(at: folderURL)
+      try FileManager.default.apollo.createFolderIfNeeded(at: folderURL)
     case .singleFile(let fileURL):
-      try FileManager.default.apollo_createContainingFolderIfNeeded(for: fileURL)
+      try FileManager.default.apollo.createContainingFolderIfNeeded(for: fileURL)
     }
 
     let cli = try ApolloCLI.createCLI(cliFolderURL: cliFolderURL, timeout: options.downloadTimeout)
