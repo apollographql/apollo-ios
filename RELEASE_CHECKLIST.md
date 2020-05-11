@@ -2,7 +2,7 @@
 
 This document checklist of things that need to happen before, during, and after a release of this library. This document is included in the repo for a couple reasons: 
  
-1. It makes it easier for people who are not the primary maintainer to perform a relase if needed
+1. It makes it easier for people who are not the primary maintainer to perform a release if needed
 2. It helps the primary maintainer, who has the memory of a goldfish, remember to actually do all this stuff before releasing
 
 ## Pre-flight checklist

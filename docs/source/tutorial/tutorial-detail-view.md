@@ -2,6 +2,8 @@
 title: "6. Complete the detail view"
 ---
 
+import DetailUISetupPanel from "./components/detail_ui_setup_panel.mdx"
+
 To get more information to show on the detail page, you have a couple of options: 
 
 - You could request all the details you want to display for every single launch in the `LaunchList` query, and then pass that retrieved object on to the `DetailViewController`. 
@@ -174,7 +176,7 @@ private func loadLaunchDetails() {
   guard
     let launchID = self.launchID,
     launchID != self.launch?.id else {
-      // This is the launch we're alrady displaying, or the ID is nil.
+      // This is the launch we're already displaying, or the ID is nil.
       return
   }
     

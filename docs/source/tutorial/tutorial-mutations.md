@@ -51,6 +51,12 @@ func networkTransport(_ networkTransport: HTTPNetworkTransport,
 }
 ```
 
+Then, import `KeychainSwift` at the top of the file:
+
+```swift:title=Network.swift
+import KeychainSwift
+```
+
 Next, you need to make sure that Apollo knows that this delegate exists. To do that, you need to do something that Apollo Client has thus far been doing for you under the hood: instantiating the `HTTPNetworkTransport`.
 
 In the primary declaration of `Network`, update your `lazy var` to create this transport and set the `Network` object as its delegate, then pass it through to the `ApolloClient`: 
@@ -69,6 +75,37 @@ Click on the line numbers to add a breakpoint at the line where you're instantia
 
 Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. If you're logged in, your token will be sent to the server whenever you make a request. 
 
+## Add Alert helper methods
+
+There is one more step you need to make before moving on to a book trip implementation.
+
+Go to **File > New > File... > Swift File**, and name this file `UIViewController+Alert.swift`. Update it with the following content.
+
+```swift:title=UIViewController+Alert.swift
+import UIKit
+import Apollo
+
+extension UIViewController {
+  func showAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title,
+                                  message: message,
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default))
+    self.present(alert, animated: true)
+  }
+    
+
+  func showAlertForErrors(_ errors: [GraphQLError]) {
+    let message = errors
+      .map { $0.localizedDescription }
+      .joined(separator: "\n")
+    self.showAlert(title: "GraphQL Error(s)", message: message)
+  }
+}
+```
+
+That extends the `UIViewController` with `showAlert` and `showAlertForErrors` methods required in the next steps.
+
 Now it's time to book a trip! 🚀
 
 ## Add the `BookTrip` mutation
@@ -86,8 +123,8 @@ You can use this mutation to book multiple trips at once and get back:
 Start by adding a basic mutation in GraphiQL that passes in an array of trip identifiers, and then asks for the `success` and `message` back from the server: 
 
 ```graphql:title=(GraphiQL)
-mutation BookTrips($tripIDs:[ID]!) {
-  bookTrips(launchIds:$tripIDs) {
+mutation BookTrip($id:[ID]!) {
+  bookTrips(launchIds:$id) {
     success
     message
   }
@@ -97,13 +134,13 @@ mutation BookTrips($tripIDs:[ID]!) {
 In the `Query Variables` section of GraphiQL, add an array of identifiers. In this case, we'll use a single identifier to book one trip:
 
 ```json:title=(GraphiQL)
-{"tripIDs": ["25"]}
+{"id": ["25"]}
 ```
 
 In the `HTTP Headers` section of GraphiQL, add an authorization header to pass through the token you received when you logged in:
 
 ```json:title=(GraphiQL)
-{ "Authorization" :"YOUR_TOKEN"}
+{"Authorization": "YOUR_TOKEN"}
 ```
 
 Now, click the play button to run your authorized query in GraphiQL. You'll get back information regarding the trips (or in this case, trip) you've just booked. 
@@ -127,10 +164,10 @@ mutation BookTrip($id:ID!) {
 
 This is helpful because the Swift code generation will now generate a method that only accepts a single ID instead of an array, but you'll still be calling the same mutation under the hood, without the backend needing to change anything. 
 
-In the `Query Variables` section of GraphiQL, update variables to use `tripID` as the key, and remove the array brackets from around the identifier: 
+In the `Query Variables` section of GraphiQL, update variables to use `id` as the key, and remove the array brackets from around the identifier:
 
 ```json:title=(GraphiQL)
-{"id":"25"}
+{"id": "25"}
 ```
 
 Click the play button to run your updated query in GraphiQL. The response you get back should identical to the one you got earlier:
@@ -165,7 +202,7 @@ private func bookTrip(with id: GraphQLID) {
 ```
 
 
-Update the `cancelTrip` method to also take the flight's ID (you'll be adding the actual cancellation in the next step): 
+Then, add a new `cancelTrip` method to also take the flight's ID (you'll be adding the actual cancellation in the next step): 
 
 ```swift:title=DetailViewController.swift
 private func cancelTrip(with id: GraphQLID) {
@@ -225,7 +262,7 @@ In the `Query Variables` section of GraphiQL, you can use the exact same JSON th
 Make sure that in the `HTTP Headers` section of GraphiQL, your authorization token is still set up:
 
 ```json:title=(GraphiQL)
-{ "Authorization" :"(your token)"}
+{"Authorization": "YOUR_TOKEN"}
 ```
 
 Click the play button to cancel the trip, and you should see a successful request: 
@@ -247,6 +284,7 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
       if cancelResult.success {
         // TODO
       }
+    }
 
     if let errors = graphQLResult.errors {
       self.showAlertForErrors(errors)
@@ -294,7 +332,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
   guard
     let launchID = self.launchID,
     (forceReload || launchID != self.launch?.id) else {
-      // This is the launch we're alrady displaying, or the ID is nil.
+      // This is the launch we're already displaying, or the ID is nil.
       return
   }
         

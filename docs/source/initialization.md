@@ -161,18 +161,24 @@ extension Network: HTTPNetworkTransportRetryDelegate {
                         receivedError error: Error,
                         for request: URLRequest,
                         response: URLResponse?,
-                        retryHandler: @escaping (_ shouldRetry: Bool) -> Void) {
+                        continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void) {
     // Check if the error and/or response you've received are something that requires authentication
     guard UserManager.shared.requiresReAuthentication(basedOn: error, response: response) else {
       // This is not something this application can handle, do not retry.
-      retryHandler(false)
+      continueHandler(.fail(error))
       return
     }
     
     // Attempt to re-authenticate asynchronously
-    UserManager.shared.reAuthenticate { success in 
+    UserManager.shared.reAuthenticate { (reAuthenticateError: Error?) in 
       // If re-authentication succeeded, try again. If it didn't, don't.
-      retryHandler(success)
+      if let reAuthenticateError = reAuthenticateError {
+        continueHandler(.fail(reAuthenticateError)) // Will return re authenticate error to query callback 
+        // or (depending what error you want to get to callback)
+        continueHandler(.fail(error)) // Will return original error
+      } else {
+        continueHandler(.retry)
+      }
     }
   }
 }

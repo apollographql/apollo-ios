@@ -22,9 +22,10 @@ class APQsConfig: TestConfig {
 }
 
 class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
+  
   var alreadyRetried = false
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedError error: Error, for request: URLRequest, response: URLResponse?, retryHandler: @escaping (Bool) -> Void) {
-    retryHandler(!alreadyRetried)
+  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedError error: Error, for request: URLRequest, response: URLResponse?, continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
+    continueHandler(!alreadyRetried ? .retry : .fail(error))
     alreadyRetried = true
   }
   

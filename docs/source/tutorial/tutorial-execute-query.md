@@ -2,7 +2,7 @@
 title: "3. Execute your first query"
 ---
 
-The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the GraphiQL query explorer](https://n1kqy.sse.codesandbox.io/) for your server, you can see available queries in the Schema tab you opened earlier. 
+The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the GraphiQL query explorer](https://apollo-fullstack-tutorial.herokuapp.com) for your server, you can see available queries in the Schema tab you opened earlier. 
 
 Click on the `launches` query at the top for details about it:
 
@@ -101,7 +101,7 @@ To use the generated operations in `API.swift`, you first create an instance of 
 
 1. Create a new Swift file called `Network.swift` and copy the code from [Basic client creation](/initialization/#basic-client-creation) into it. Make sure to add `import Apollo` to the top of the file.
 
-2. Update the URL string to be `https://n1kqy.sse.codesandbox.io/` instead of the `localhost` URL in the example.
+2. Update the URL string to be `https://apollo-fullstack-tutorial.herokuapp.com` instead of the `localhost` URL in the example.
 
 3. To make sure your `ApolloClient` instance is communicating correctly with the server, add the following code to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method, above `return true`:
 
