@@ -39,6 +39,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   private let queue: DispatchQueue = .main
 
   func fetch(cachePolicy: CachePolicy) {
+    // Cancel anything already in flight before starting a new fetch
     fetching?.cancel()
     fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: queue) { [weak self] result in
       guard let self = self else { return }
