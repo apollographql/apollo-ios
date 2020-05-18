@@ -36,12 +36,12 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   // Watchers always call result handlers on the main queue.
-  private let queue: DispatchQueue = .main
+  private let callbackQueue: DispatchQueue = .main
 
   func fetch(cachePolicy: CachePolicy) {
     // Cancel anything already in flight before starting a new fetch
     fetching?.cancel()
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: queue) { [weak self] result in
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: callbackQueue) { [weak self] result in
       guard let self = self else { return }
 
       switch result {
@@ -74,9 +74,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
         guard let self = self else { return }
 
         switch result {
-        case .success(let graphQLresult):
-          self.queue.async {
-            self.dependentKeys = graphQLresult.dependentKeys
+        case .success:
+          self.callbackQueue.async {
             self.resultHandler(result)
           }
         case .failure:
