@@ -42,7 +42,7 @@ class ApolloCodegenTests: XCTestCase {
       XCTFail("Nope, this should be a single file!")
     }
     XCTAssertFalse(options.omitDeprecatedEnumCases)
-    XCTAssertFalse(options.passthroughCustomScalars)
+    XCTAssertEqual(options.customScalarFormat, .none)
     XCTAssertEqual(options.urlToSchemaFile, schema)
     XCTAssertEqual(options.modifier, .public)
     
@@ -64,6 +64,7 @@ class ApolloCodegenTests: XCTestCase {
     let only = sourceRoot.appendingPathComponent("only.graphql")
     let operationIDsURL = sourceRoot.appendingPathComponent("operationIDs.json")
     let namespace = "ANameSpace"
+    let prefix = "MyPrefix"
     
     let options = ApolloCodegenOptions(codegenEngine: .swiftExperimental,
                                        includes: "*.graphql",
@@ -74,7 +75,7 @@ class ApolloCodegenTests: XCTestCase {
                                        only: only,
                                        operationIDsURL: operationIDsURL,
                                        outputFormat: .multipleFiles(inFolderAtURL: output),
-                                       passthroughCustomScalars: true,
+                                       customScalarFormat: .passthroughWithPrefix(prefix),
                                        urlToSchemaFile: schema)
     XCTAssertEqual(options.includes, "*.graphql")
     XCTAssertFalse(options.mergeInFieldsFromFragmentSpreads)
@@ -87,7 +88,7 @@ class ApolloCodegenTests: XCTestCase {
     case .multipleFiles(let folderURL):
       XCTAssertEqual(folderURL, output)
     }
-    XCTAssertTrue(options.passthroughCustomScalars)
+    XCTAssertEqual(options.customScalarFormat, .passthroughWithPrefix(prefix))
     XCTAssertEqual(options.urlToSchemaFile, schema)
     XCTAssertTrue(options.omitDeprecatedEnumCases)
     XCTAssertEqual(options.modifier, .internal)
@@ -104,6 +105,7 @@ class ApolloCodegenTests: XCTestCase {
       "--operationIdsPath='\(operationIDsURL.path)'",
       "--omitDeprecatedEnumCases",
       "--passthroughCustomScalars",
+      "--customScalarsPrefix='\(prefix)'",
       "'\(output.path)'",
     ])
   }

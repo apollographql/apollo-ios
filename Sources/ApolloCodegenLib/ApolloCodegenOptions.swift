@@ -52,6 +52,16 @@ public struct ApolloCodegenOptions {
     }
   }
   
+  /// Enum to select how to handle properties using a custom scalar from the schema.
+  public enum CustomScalarFormat: Equatable {
+    /// Uses a default type instead of a custom scalar.
+    case none
+    /// Use your own types for custom scalars.
+    case passthrough
+    /// Use your own types for custom scalars with a prefix.
+    case passthroughWithPrefix(String)
+  }
+  
   let codegenEngine: CodeGenerationEngine
   let includes: String
   let mergeInFieldsFromFragmentSpreads: Bool
@@ -61,7 +71,7 @@ public struct ApolloCodegenOptions {
   let omitDeprecatedEnumCases: Bool
   let operationIDsURL: URL?
   let outputFormat: OutputFormat
-  let passthroughCustomScalars: Bool
+  let customScalarFormat: CustomScalarFormat
   let suppressSwiftMultilineStringLiterals: Bool
   let urlToSchemaFile: URL
   
@@ -79,7 +89,7 @@ public struct ApolloCodegenOptions {
   ///  - only: [optional] Parse all input files, but only output generated code for the file at this URL if non-nil. Defaults to nil.
   ///  - operationIDsURL: [optional] Path to an operation id JSON map file. If specified, also stores the operation ids (hashes) as properties on operation types. Defaults to nil.
   ///  - outputFormat: The `OutputFormat` enum option to use to output generated code.
-  ///  - passthroughCustomScalars: Set true to use your own types for custom scalars. Defaults to false.
+  ///  - customScalarFormat: How to handle properties using a custom scalar from the schema.
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
@@ -92,7 +102,7 @@ public struct ApolloCodegenOptions {
               only: URL? = nil,
               operationIDsURL: URL? = nil,
               outputFormat: OutputFormat,
-              passthroughCustomScalars: Bool = false,
+              customScalarFormat: CustomScalarFormat = .none,
               suppressSwiftMultilineStringLiterals: Bool = false,
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
@@ -105,7 +115,7 @@ public struct ApolloCodegenOptions {
     self.only = only
     self.operationIDsURL = operationIDsURL
     self.outputFormat = outputFormat
-    self.passthroughCustomScalars = passthroughCustomScalars
+    self.customScalarFormat = customScalarFormat
     self.suppressSwiftMultilineStringLiterals = suppressSwiftMultilineStringLiterals
     self.urlToSchemaFile = urlToSchemaFile
     self.downloadTimeout = downloadTimeout
@@ -169,8 +179,14 @@ public struct ApolloCodegenOptions {
       arguments.append("--omitDeprecatedEnumCases")
     }
     
-    if self.passthroughCustomScalars {
+    switch customScalarFormat {
+    case .none:
+      break
+    case .passthrough:
       arguments.append("--passthroughCustomScalars")
+    case .passthroughWithPrefix(let prefix):
+      arguments.append("--passthroughCustomScalars")
+      arguments.append("--customScalarsPrefix='\(prefix)'")
     }
     
     if self.mergeInFieldsFromFragmentSpreads {
@@ -187,7 +203,7 @@ public struct ApolloCodegenOptions {
     case .multipleFiles(let folderURL):
       arguments.append("'\(folderURL.path)'")
     }
-    
+        
     return arguments
   }
 }
