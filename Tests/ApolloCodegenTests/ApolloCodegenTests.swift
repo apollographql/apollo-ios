@@ -42,7 +42,7 @@ class ApolloCodegenTests: XCTestCase {
       XCTFail("Nope, this should be a single file!")
     }
     XCTAssertFalse(options.omitDeprecatedEnumCases)
-    XCTAssertEqual(options.customScalarFormat, .default)
+    XCTAssertEqual(options.customScalarFormat, .none)
     XCTAssertEqual(options.urlToSchemaFile, schema)
     XCTAssertEqual(options.modifier, .public)
     
@@ -104,6 +104,7 @@ class ApolloCodegenTests: XCTestCase {
       "--only='\(only.path)'",
       "--operationIdsPath='\(operationIDsURL.path)'",
       "--omitDeprecatedEnumCases",
+      "--passthroughCustomScalars",
       "--customScalarsPrefix='\(prefix)'",
       "'\(output.path)'",
     ])

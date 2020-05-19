@@ -55,7 +55,7 @@ public struct ApolloCodegenOptions {
   /// Enum to select how to handle properties using a custom scalar from the schema.
   public enum CustomScalarFormat: Equatable {
     /// Uses a default type instead of a custom scalar.
-    case `default`
+    case none
     /// Use your own types for custom scalars.
     case passthrough
     /// Use your own types for custom scalars with a prefix.
@@ -102,7 +102,7 @@ public struct ApolloCodegenOptions {
               only: URL? = nil,
               operationIDsURL: URL? = nil,
               outputFormat: OutputFormat,
-              customScalarFormat: CustomScalarFormat = .default,
+              customScalarFormat: CustomScalarFormat = .none,
               suppressSwiftMultilineStringLiterals: Bool = false,
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
@@ -180,11 +180,12 @@ public struct ApolloCodegenOptions {
     }
     
     switch customScalarFormat {
-    case .default:
+    case .none:
       break
     case .passthrough:
       arguments.append("--passthroughCustomScalars")
     case .passthroughWithPrefix(let prefix):
+      arguments.append("--passthroughCustomScalars")
       arguments.append("--customScalarsPrefix='\(prefix)'")
     }
     
