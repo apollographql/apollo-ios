@@ -35,11 +35,14 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     fetch(cachePolicy: .fetchIgnoringCacheData)
   }
 
+  // Watchers always call result handlers on the main queue.
+  private let callbackQueue: DispatchQueue = .main
+
   func fetch(cachePolicy: CachePolicy) {
     // Cancel anything already in flight before starting a new fetch
     fetching?.cancel()
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: .main) { [weak self] result in
-      guard let `self` = self else { return }
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: callbackQueue) { [weak self] result in
+      guard let self = self else { return }
 
       switch result {
       case .success(let graphQLResult):
@@ -66,7 +69,20 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     guard let dependentKeys = dependentKeys else { return }
 
     if !dependentKeys.isDisjoint(with: changedKeys) {
-      fetch(cachePolicy: .returnCacheDataElseFetch)
+      // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.
+      store.load(query: query) { [weak self] result in
+        guard let self = self else { return }
+
+        switch result {
+        case .success:
+          self.callbackQueue.async { [weak self] in
+            self?.resultHandler(result)
+          }
+        case .failure:
+          // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
+          self.fetch(cachePolicy: .fetchIgnoringCacheData)
+        }
+      }
     }
   }
 }
