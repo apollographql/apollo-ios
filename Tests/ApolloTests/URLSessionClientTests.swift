@@ -162,4 +162,40 @@ class URLSessionClientLiveTests: XCTestCase {
     self.wait(for: [expectation], timeout: 5)
     
   }
+  
+  func testRequestIDsChange() {
+    let request = self.request(for: .get)
+    
+    var taskIDs = [Int]()
+    
+    for _ in 1...100 {
+      let task1 = self.client.sendRequest(request) { _ in }
+      taskIDs.append(task1.taskIdentifier)
+      self.client.cancel(task: task1)
+      
+      let expectation = self.expectation(description: "Task kicked off")
+      DispatchQueue.global(qos: .userInteractive).async {
+        let task2 = self.client.sendRequest(request) { _ in }
+        taskIDs.append(task2.taskIdentifier)
+        self.client.cancel(task: task2)
+        expectation.fulfill()
+      }
+      
+      self.wait(for: [expectation], timeout: 1)
+      
+      let task3 = self.client.sendRequest(request) { _ in }
+      taskIDs.append(task3.taskIdentifier)
+      self.client.cancel(task: task3)
+    }
+    
+    for (index, outerTaskID) in taskIDs.enumerated() {
+      for (otherIndex, innerTaskID) in taskIDs.enumerated() {
+        guard index != otherIndex else {
+          continue
+        }
+        
+        XCTAssertNotEqual(outerTaskID, innerTaskID)
+      }
+    }
+  }
 }
