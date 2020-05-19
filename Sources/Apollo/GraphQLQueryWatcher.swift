@@ -75,8 +75,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
         switch result {
         case .success:
-          self.callbackQueue.async {
-            self.resultHandler(result)
+          self.callbackQueue.async { [weak self] in
+            self?.resultHandler(result)
           }
         case .failure:
           // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
