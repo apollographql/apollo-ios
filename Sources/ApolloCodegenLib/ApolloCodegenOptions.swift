@@ -53,6 +53,7 @@ public struct ApolloCodegenOptions {
   }
   
   let codegenEngine: CodeGenerationEngine
+  let customScalarsPrefix: String?
   let includes: String
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
@@ -84,6 +85,7 @@ public struct ApolloCodegenOptions {
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(codegenEngine: CodeGenerationEngine = .default,
+              customScalarsPrefix: String? = nil,
               includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               modifier: AccessModifier = .public,
@@ -97,6 +99,7 @@ public struct ApolloCodegenOptions {
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
     self.codegenEngine = codegenEngine
+    self.customScalarsPrefix = customScalarsPrefix
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.modifier = modifier
@@ -152,6 +155,10 @@ public struct ApolloCodegenOptions {
       "--includes='\(self.includes)'",
       "--localSchemaFile='\(self.urlToSchemaFile.path)'"
     ]
+    
+    if let customScalarsPrefix = self.customScalarsPrefix {
+      arguments.append("--customScalarsPrefix=\(customScalarsPrefix)")
+    }
     
     if let namespace = self.namespace {
       arguments.append("--namespace=\(namespace)")

@@ -32,6 +32,7 @@ class ApolloCodegenTests: XCTestCase {
     
     XCTAssertEqual(options.includes, "./**/*.graphql")
     XCTAssertTrue(options.mergeInFieldsFromFragmentSpreads)
+    XCTAssertNil(options.customScalarsPrefix)
     XCTAssertNil(options.namespace)
     XCTAssertNil(options.only)
     XCTAssertNil(options.operationIDsURL)
@@ -58,6 +59,7 @@ class ApolloCodegenTests: XCTestCase {
   }
   
   func testCreatingOptionsWithAllParameters() throws {
+    let customScalarsPrefix = "Scalar"
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API")
     let schema = sourceRoot.appendingPathComponent("schema.json")
@@ -66,6 +68,7 @@ class ApolloCodegenTests: XCTestCase {
     let namespace = "ANameSpace"
     
     let options = ApolloCodegenOptions(codegenEngine: .swiftExperimental,
+                                       customScalarsPrefix: customScalarsPrefix,
                                        includes: "*.graphql",
                                        mergeInFieldsFromFragmentSpreads: false,
                                        modifier: .internal,
@@ -91,6 +94,7 @@ class ApolloCodegenTests: XCTestCase {
     XCTAssertEqual(options.urlToSchemaFile, schema)
     XCTAssertTrue(options.omitDeprecatedEnumCases)
     XCTAssertEqual(options.modifier, .internal)
+    XCTAssertEqual(options.customScalarsPrefix, customScalarsPrefix)
     
     
     XCTAssertEqual(options.arguments, [
@@ -99,7 +103,8 @@ class ApolloCodegenTests: XCTestCase {
       "--addTypename",
       "--includes='*.graphql'",
       "--localSchemaFile='\(schema.path)'",
-      "--namespace=\(namespace)",
+      "--customScalarsPrefix=Scalar",
+      "--namespace=ANameSpace",
       "--only='\(only.path)'",
       "--operationIdsPath='\(operationIDsURL.path)'",
       "--omitDeprecatedEnumCases",
