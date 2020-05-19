@@ -77,12 +77,14 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     let dataTask = self.session.dataTask(with: request)
+    let identifier = dataTask.taskIdentifier
     if let rawCompletion = rawTaskCompletionHandler {
-      self.rawCompletions.value[dataTask.taskIdentifier] = rawCompletion
+      self.rawCompletions.value[identifier] = rawCompletion
     }
     
-    self.completionBlocks.value[dataTask.taskIdentifier] = completion
-    self.datas.value[dataTask.taskIdentifier] = Data()
+    
+    self.completionBlocks.value[identifier] = completion
+    self.datas.value[identifier] = Data()
     dataTask.resume()
     
     return dataTask
