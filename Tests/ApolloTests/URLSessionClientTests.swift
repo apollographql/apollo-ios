@@ -166,30 +166,15 @@ class URLSessionClientLiveTests: XCTestCase {
   func testRequestIDsChange() {
     let request = self.request(for: .get)
     
-    var taskIDs = [Int]()
-    
-    for _ in 1...100 {
+    let atomicTaskIDs = Atomic<[Int]>([Int]())
+      
+    DispatchQueue.concurrentPerform(iterations: 100, execute: { index in
       let task1 = self.client.sendRequest(request) { _ in }
-      taskIDs.append(task1.taskIdentifier)
-      self.client.cancel(task: task1)
-      
-      let expectation = self.expectation(description: "Task kicked off")
-      DispatchQueue.global(qos: .userInteractive).async {
-        let task2 = self.client.sendRequest(request) { _ in }
-        taskIDs.append(task2.taskIdentifier)
-        self.client.cancel(task: task2)
-        expectation.fulfill()
-      }
-      
-      self.wait(for: [expectation], timeout: 1)
-      
-      let task3 = self.client.sendRequest(request) { _ in }
-      taskIDs.append(task3.taskIdentifier)
-      self.client.cancel(task: task3)
-    }
+      atomicTaskIDs.value.append(task1.taskIdentifier)
+    })
     
-    for (index, outerTaskID) in taskIDs.enumerated() {
-      for (otherIndex, innerTaskID) in taskIDs.enumerated() {
+    for (index, outerTaskID) in atomicTaskIDs.value.enumerated() {
+      for (otherIndex, innerTaskID) in atomicTaskIDs.value.enumerated() {
         guard index != otherIndex else {
           continue
         }
