@@ -163,24 +163,35 @@ class URLSessionClientLiveTests: XCTestCase {
     
   }
   
-  func testRequestIDsChange() {
-    let request = self.request(for: .get)
-    
-    let atomicTaskIDs = Atomic<[Int]>([Int]())
-      
-    DispatchQueue.concurrentPerform(iterations: 100, execute: { index in
-      let task1 = self.client.sendRequest(request) { _ in }
-      atomicTaskIDs.value.append(task1.taskIdentifier)
+  func testMultipleSimultaneousRequests() {
+    let expectation = self.expectation(description: "request sent, response received")
+    let iterations = 9 // Seems like httpbin freaks out if you send more than this in one go
+    expectation.expectedFulfillmentCount = iterations
+    DispatchQueue.concurrentPerform(iterations: iterations, execute: { index in
+      let request = self.request(for: .getWithIndex(index: index))
+
+      self.client.sendRequest(request) { result in
+        switch result {
+        case .success((let data, let response)):
+          XCTAssertEqual(response.url, request.url)
+          XCTAssertFalse(data.isEmpty)
+          do {
+            let httpBinResponse = try HTTPBinResponse(data: data)
+            XCTAssertEqual(httpBinResponse.url, response.url?.absoluteString)
+            XCTAssertEqual(httpBinResponse.args?["index"], "\(index)")
+          } catch {
+            XCTFail("Parsing error: \(error) for url \(response.url!)")
+          }
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
+                
+        DispatchQueue.main.async {
+          expectation.fulfill()
+        }
+      }
     })
     
-    for (index, outerTaskID) in atomicTaskIDs.value.enumerated() {
-      for (otherIndex, innerTaskID) in atomicTaskIDs.value.enumerated() {
-        guard index != otherIndex else {
-          continue
-        }
-        
-        XCTAssertNotEqual(outerTaskID, innerTaskID)
-      }
-    }
+    self.wait(for: [expectation], timeout: 30)
   }
 }
