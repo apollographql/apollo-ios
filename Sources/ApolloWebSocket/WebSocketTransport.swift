@@ -301,15 +301,23 @@ public class WebSocketTransport {
   }
 
   public func updateHeaderValues(_ values: [String: String?]) {
-    let oldReconnectValue = reconnect.value
-    self.reconnect.value = false
-
-    self.websocket.disconnect()
-
     for (key, value) in values {
       self.websocket.request.setValue(value, forHTTPHeaderField: key)
     }
 
+    self.reconnectWebSocket()
+  }
+
+  public func updateConnectingPayload(_ payload: GraphQLMap) {
+    self.connectingPayload = payload
+    self.reconnectWebSocket()
+  }
+
+  private func reconnectWebSocket() {
+    let oldReconnectValue = reconnect.value
+    self.reconnect.value = false
+
+    self.websocket.disconnect()
     self.websocket.connect()
 
     reconnect.value = oldReconnectValue
