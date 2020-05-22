@@ -299,6 +299,21 @@ public class WebSocketTransport {
       self.subscriptions.removeValue(forKey: subscriptionId)
     }
   }
+
+  public func updateHeaderValues(_ values: [String: String?]) {
+    let oldReconnectValue = reconnect.value
+    self.reconnect.value = false
+
+    self.websocket.disconnect()
+
+    for (key, value) in values {
+      self.websocket.request.setValue(value, forHTTPHeaderField: key)
+    }
+
+    self.websocket.connect()
+
+    reconnect.value = oldReconnectValue
+  }
 }
 
 // MARK: - HTTPNetworkTransport conformance
