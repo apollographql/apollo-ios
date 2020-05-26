@@ -3,7 +3,7 @@ import XCTest
 
 class URLSessionClientLiveTests: XCTestCase {
   
-  lazy var client = URLSessionClient()
+  let client = URLSessionClient()
   
   private func request(for endpoint: HTTPBinAPI.Endpoint) -> URLRequest {
     URLRequest(url: endpoint.toURL,
