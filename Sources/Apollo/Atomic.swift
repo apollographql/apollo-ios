@@ -27,6 +27,12 @@ public class Atomic<T> {
       _value = newValue
     }
   }
+  
+  public func mutate(block: (inout T) -> Void) {
+    lock.lock()
+    block(&_value)
+    lock.unlock()
+  }
 }
 
 public extension Atomic where T == Int {
