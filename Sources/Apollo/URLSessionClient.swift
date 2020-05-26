@@ -23,7 +23,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
   public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
-  private var tasks = Atomic<[URLSessionTask: TaskData]>([:])
+  private var tasks = Atomic<[Int: TaskData]>([:])
   
   /// The raw URLSession being used for this client
   open private(set) var session: URLSession!
@@ -44,8 +44,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// Clears underlying dictionaries of any data related to a particular task identifier.
   ///
   /// - Parameter identifier: The identifier of the task to clear.
-  open func clear(task: URLSessionTask) {
-    self.tasks.mutate { $0.removeValue(forKey: task) }
+  open func clear(task identifier: Int) {
+    self.tasks.mutate { $0.removeValue(forKey: identifier) }
   }
   
   /// Clears underlying dictionaries of any data related to all tasks.
@@ -68,11 +68,11 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     let task = self.session.dataTask(with: request)
-    
+    print("Task ID: \(task.taskIdentifier)")
     let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
                             completionBlock: completion)
     
-    self.tasks.mutate { $0[task] = taskData }
+    self.tasks.mutate { $0[task.taskIdentifier] = taskData }
     
     task.resume()
     
@@ -85,7 +85,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameter task: The task you wish to cancel.
   open func cancel(task: URLSessionTask) {
-    self.clear(task: task)
+    self.clear(task: task.taskIdentifier)
     task.cancel()
   }
   
@@ -137,10 +137,10 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                        task: URLSessionTask,
                        didCompleteWithError error: Error?) {
     defer {
-      self.clear(task: task)
+      self.clear(task: task.taskIdentifier)
     }
     
-    guard let taskData = self.tasks.value[task] else {
+    guard let taskData = self.tasks.value[task.taskIdentifier] else {
       // No completion blocks, the task has likely been cancelled. Bail out.
       return
     }
@@ -202,7 +202,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                        dataTask: URLSessionDataTask,
                        didReceive data: Data) {
     self.tasks.mutate {
-      guard let taskData = $0[dataTask] else {
+      guard let taskData = $0[dataTask.taskIdentifier] else {
         return
       }
       
@@ -239,7 +239,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     self.tasks.mutate {
-      guard let taskData = $0[dataTask] else {
+      guard let taskData = $0[dataTask.taskIdentifier] else {
         return
       }
       
