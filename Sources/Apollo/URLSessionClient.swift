@@ -23,10 +23,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
   public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
-  private var completionBlocks = Atomic<[URLSessionTask: Completion]>([:])
-  private var rawCompletions = Atomic<[URLSessionTask: RawCompletion]>([:])
-  private var datas = Atomic<[URLSessionTask: Data]>([:])
-  private var responses = Atomic<[URLSessionTask: HTTPURLResponse]>([:])
+  private var tasks = Atomic<[URLSessionTask: TaskData]>([:])
   
   /// The raw URLSession being used for this client
   open private(set) var session: URLSession!
@@ -48,20 +45,14 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameter identifier: The identifier of the task to clear.
   open func clear(task: URLSessionTask) {
-    self.rawCompletions.value.removeValue(forKey: task)
-    self.completionBlocks.value.removeValue(forKey: task)
-    self.datas.value.removeValue(forKey: task)
-    self.responses.value.removeValue(forKey: task)
+    self.tasks.mutate { $0.removeValue(forKey: task) }
   }
   
   /// Clears underlying dictionaries of any data related to all tasks.
   ///
   /// Mostly useful for cleanup and/or after invalidation of the `URLSession`.
   open func clearAllTasks() {
-    self.rawCompletions.value.removeAll()
-    self.completionBlocks.value.removeAll()
-    self.datas.value.removeAll()
-    self.responses.value.removeAll()
+    self.tasks.mutate { $0.removeAll() }
   }
   
   /// The main method to perform a request.
@@ -77,13 +68,12 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     let task = self.session.dataTask(with: request)
-    if let rawCompletion = rawTaskCompletionHandler {
-      self.rawCompletions.value[task] = rawCompletion
-    }
     
+    let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
+                            completionBlock: completion)
     
-    self.completionBlocks.value[task] = completion
-    self.datas.value[task] = Data()
+    self.tasks.mutate { $0[task] = taskData }
+    
     task.resume()
     
     return task
@@ -103,8 +93,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   open func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
     let finalError = error ?? URLSessionClientError.sessionBecameInvalidWithoutUnderlyingError
-    for block in self.completionBlocks.value.values {
-      block(.failure(finalError))
+    for task in self.tasks.value.values {
+      task.completionBlock(.failure(finalError))
     }
     
     self.clearAllTasks()
@@ -150,33 +140,29 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       self.clear(task: task)
     }
     
-    guard let completion = self.completionBlocks.value.removeValue(forKey: task) else {
+    guard let taskData = self.tasks.value[task] else {
       // No completion blocks, the task has likely been cancelled. Bail out.
       return
     }
     
-    let data = self.datas.value[task]
-    let response = self.responses.value[task]
+    let data = taskData.data
+    let response = taskData.response
     
-    if let rawCompletion = self.rawCompletions.value.removeValue(forKey: task) {
+    if let rawCompletion = taskData.rawCompletion {
       rawCompletion(data, response, error)
     }
     
-    guard let finalData = data else {
-      // Data is immediately created for a task on creation, so if it's not there, something's gone wrong.
-      completion(.failure(URLSessionClientError.dataForRequestNotFound(request: task.originalRequest)))
-      return
-    }
+    let completion = taskData.completionBlock
     
     if let finalError = error {
-      completion(.failure(URLSessionClientError.networkError(data: finalData, response: response, underlying: finalError)))
+      completion(.failure(URLSessionClientError.networkError(data: data, response: response, underlying: finalError)))
     } else {
       guard let finalResponse = response else {
         completion(.failure(URLSessionClientError.noHTTPResponse(request: task.originalRequest)))
         return
       }
       
-      completion(.success((finalData, finalResponse)))
+      completion(.success((data, finalResponse)))
     }
   }
   
@@ -215,7 +201,13 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didReceive data: Data) {
-    self.datas.value[dataTask]?.append(data)
+    self.tasks.mutate {
+      guard let taskData = $0[dataTask] else {
+        return
+      }
+      
+      taskData.append(additionalData: data)
+    }
   }
   
   @available(iOS 9.0, OSXApplicationExtension 10.11, OSX 10.11, *)
@@ -246,8 +238,12 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       completionHandler(.allow)
     }
     
-    if let httpResponse = response as? HTTPURLResponse {
-      self.responses.value[dataTask] = httpResponse
+    self.tasks.mutate {
+      guard let taskData = $0[dataTask] else {
+        return
+      }
+      
+      taskData.responseReceived(response: response)
     }
   }
 }

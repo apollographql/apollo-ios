@@ -165,7 +165,7 @@ class URLSessionClientLiveTests: XCTestCase {
   
   func testMultipleSimultaneousRequests() {
     let expectation = self.expectation(description: "request sent, response received")
-    let iterations = 9 // Seems like httpbin freaks out if you send more than this in one go
+    let iterations = 20
     expectation.expectedFulfillmentCount = iterations
     DispatchQueue.concurrentPerform(iterations: iterations, execute: { index in
       let request = self.request(for: .getWithIndex(index: index))

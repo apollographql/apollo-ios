@@ -26,6 +26,7 @@
 		9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C85235F8125004C426D /* CLIDownloader.swift */; };
 		9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */; };
 		9B518C8D235F8B9E004C426D /* CLIDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */; };
+		9B554CC4247DC29A002F452A /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B554CC3247DC29A002F452A /* TaskData.swift */; };
 		9B5A1EFC243528AA00F066BB /* InputObjectGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5A1EFB243528AA00F066BB /* InputObjectGenerationTests.swift */; };
 		9B5A1EFD24352AC100F066BB /* ExpectedReviewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F06C241C646700E97318 /* ExpectedReviewInput.swift */; };
 		9B5A1EFE24352AED00F066BB /* ExpectedColorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F06A241C643000E97318 /* ExpectedColorInput.swift */; };
@@ -399,6 +400,7 @@
 		9B518C85235F8125004C426D /* CLIDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloader.swift; sourceTree = "<group>"; };
 		9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloaderTests.swift; sourceTree = "<group>"; };
 		9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloFilePathHelper.swift; sourceTree = "<group>"; };
+		9B554CC3247DC29A002F452A /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		9B5A1EE3243284F300F066BB /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		9B5A1EFB243528AA00F066BB /* InputObjectGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectGenerationTests.swift; sourceTree = "<group>"; };
 		9B5A1EFF2435356400F066BB /* ExpectedColorInputNoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedColorInputNoModifier.swift; sourceTree = "<group>"; };
@@ -1287,6 +1289,7 @@
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
 				9BEDC79D22E5D2CF00549BF6 /* RequestCreator.swift */,
 				9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */,
+				9B554CC3247DC29A002F452A /* TaskData.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -2112,6 +2115,7 @@
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
 				9FC9A9C51E2D6CE70023C4D5 /* GraphQLSelectionSet.swift in Sources */,
 				9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */,
+				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9FCDFD231E33A0D8007519DC /* AsynchronousOperation.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
 				9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */,
