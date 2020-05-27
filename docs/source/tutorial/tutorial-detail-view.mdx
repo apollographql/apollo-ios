@@ -29,7 +29,7 @@ query LaunchDetails($id:ID) {
 
 You'll see a warning in GraphiQL: 
 
-<img alt="Variable dollar sign id of type ID was used in position expecting type ID exclamation point" class="screenshot" src="images/graphiql_nullable_conflict.png">
+<img alt="Variable dollar sign id of type ID was used in position expecting type ID exclamation point" class="screenshot" src="images/graphiql_nullable_conflict.png"/>
 
 This bit can be confusing for Swift developers, because GraphQL's assumptions about nullability are different from Swift's: 
 
@@ -73,8 +73,7 @@ At the bottom of GraphiQL's left panel, you'll see two tabs named "Query Variabl
 
 This tells GraphiQL to fill in the value of the `$id` variable with the value `"25"` when it runs the query. Press the big play button, and you should get some results back for the launch with ID 25: 
 
-<img src="images/graphiql_detail_request.png" alt="Detail request returning JSON" class="screenshot">
-</img>
+<img src="images/graphiql_detail_request.png" alt="Detail request returning JSON" class="screenshot"/>
 
 Now that you've confirmed it worked, copy the query and paste it into your `LaunchDetails.graphql` file. Build the application so that codegen picks up this new file and generates a new query type for it. 
 
@@ -104,8 +103,7 @@ To follow the precise UI setup instructions, expand this panel:
 
 In the end, your detail view controller should look like this in the storyboard (or roughly like it in whatever alternate setup you've decided to use): 
 
-<img src="images/storyboard_final.png" alt="The storyboard's final look" class="screenshot">
-</img>
+<img src="images/storyboard_final.png" alt="The storyboard's final look" class="screenshot"/>
 
 Now it's time to hook everything up! Head back to `DetailViewController.swift` and update the `viewDidLoad` function to clear out anything from the storyboard before attempting to configure the view:
 
@@ -223,14 +221,10 @@ private var launch: LaunchDetailsQuery.Data.Launch? {
 
 Build and run the application. When you tap into the detail screen, you should now see the full details: 
 
-
-<img src="images/detail_loaded.png" alt="Final display of the detail screen" class="screenshot" width="300">
-</img>
+<img src="images/detail_loaded.png" alt="Final display of the detail screen" class="screenshot" width="300"/>
 
 You'll notice that many of the more recent launches have a rocket type of `FT`. If you load more launches a couple times, you'll get to some rockets that have different rocket types: 
 
-
-<img src="images/detail_loaded_merlin_c.png" alt="Final display with different rocket type" class="screenshot" width="300">
-</img>
+<img src="images/detail_loaded_merlin_c.png" alt="Final display with different rocket type" class="screenshot" width="300"/>
 
 You may have noticed that the detail view includes a `Book Now!` button, but there's no way to book a seat yet. To fix that, let's [learn how to make changes to objects in your graph with mutations](./tutorial-mutations).
