@@ -123,3 +123,15 @@ deinit
 ```swift
 public func unsubscribe(_ subscriptionId: String)
 ```
+
+### `updateHeaderValues(_:)`
+
+```swift
+public func updateHeaderValues(_ values: [String: String?])
+```
+
+### `updateConnectingPayload(_:)`
+
+```swift
+public func updateConnectingPayload(_ payload: GraphQLMap)
+```

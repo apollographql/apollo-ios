@@ -57,6 +57,7 @@
 -   [MultipartFormData](classes/MultipartFormData/)
 -   [ReadTransaction](classes/ReadTransaction/)
 -   [ReadWriteTransaction](classes/ReadWriteTransaction/)
+-   [TaskData](classes/TaskData/)
 -   [URLSessionClient](classes/URLSessionClient/)
 
 ## Enums

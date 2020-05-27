@@ -1,15 +1,15 @@
 **EXTENSION**
 
-# `FileManager`
+# `ApolloExtension`
 ```swift
-public extension FileManager
+extension ApolloExtension where Base == FileManager
 ```
 
 ## Methods
-### `apollo_fileExists(at:)`
+### `fileExists(at:)`
 
 ```swift
-func apollo_fileExists(at path: String) -> Bool
+public func fileExists(at path: String) -> Bool
 ```
 
 > Checks if a file exists (and is not a folder) at the given path
@@ -23,10 +23,10 @@ func apollo_fileExists(at path: String) -> Bool
 | ---- | ----------- |
 | path | The path to check |
 
-### `apollo_fileExists(at:)`
+### `fileExists(at:)`
 
 ```swift
-func apollo_fileExists(at url: URL) -> Bool
+public func fileExists(at url: URL) -> Bool
 ```
 
 > Checks if a file exists (and is not a folder) at the given URL
@@ -40,10 +40,10 @@ func apollo_fileExists(at url: URL) -> Bool
 | ---- | ----------- |
 | url | The URL to check |
 
-### `apollo_folderExists(at:)`
+### `folderExists(at:)`
 
 ```swift
-func apollo_folderExists(at path: String) -> Bool
+public func folderExists(at path: String) -> Bool
 ```
 
 > Checks if a folder exists (and is not a file) at the given path.
@@ -57,10 +57,10 @@ func apollo_folderExists(at path: String) -> Bool
 | ---- | ----------- |
 | path | The path to check |
 
-### `apollo_folderExists(at:)`
+### `folderExists(at:)`
 
 ```swift
-func apollo_folderExists(at url: URL) -> Bool
+public func folderExists(at url: URL) -> Bool
 ```
 
 > Checks if a folder exists (and is not a file) at the given URL.
@@ -74,10 +74,10 @@ func apollo_folderExists(at url: URL) -> Bool
 | ---- | ----------- |
 | url | The URL to check |
 
-### `apollo_deleteFolder(at:)`
+### `deleteFolder(at:)`
 
 ```swift
-func apollo_deleteFolder(at url: URL) throws
+public func deleteFolder(at url: URL) throws
 ```
 
 > Checks if a folder exists then attempts to delete it if it's there.
@@ -90,10 +90,10 @@ func apollo_deleteFolder(at url: URL) throws
 | ---- | ----------- |
 | url | The URL to delete the folder for |
 
-### `apollo_deleteFile(at:)`
+### `deleteFile(at:)`
 
 ```swift
-func apollo_deleteFile(at url: URL) throws
+public func deleteFile(at url: URL) throws
 ```
 
 > Checks if a file exists then attempts to delete it if it's there.
@@ -106,10 +106,10 @@ func apollo_deleteFile(at url: URL) throws
 | ---- | ----------- |
 | url | The URL to delete the file for |
 
-### `apollo_createContainingFolderIfNeeded(for:)`
+### `createContainingFolderIfNeeded(for:)`
 
 ```swift
-func apollo_createContainingFolderIfNeeded(for fileURL: URL) throws
+public func createContainingFolderIfNeeded(for fileURL: URL) throws
 ```
 
 > Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
@@ -122,10 +122,10 @@ func apollo_createContainingFolderIfNeeded(for fileURL: URL) throws
 | ---- | ----------- |
 | fileURL | The URL of the file to create a containing folder for if necessary. |
 
-### `apollo_createFolderIfNeeded(at:)`
+### `createFolderIfNeeded(at:)`
 
 ```swift
-func apollo_createFolderIfNeeded(at url: URL) throws
+public func createFolderIfNeeded(at url: URL) throws
 ```
 
 > Creates the folder (including all intermediate directories) for the given URL if necessary.
@@ -138,10 +138,10 @@ func apollo_createFolderIfNeeded(at url: URL) throws
 | ---- | ----------- |
 | url | The URL of the folder to create if necessary. |
 
-### `apollo_shasum(at:)`
+### `shasum(at:)`
 
 ```swift
-func apollo_shasum(at fileURL: URL) throws -> String
+public func shasum(at fileURL: URL) throws -> String
 ```
 
 > Calculates the SHASUM (ie, SHA256 hash) of the given file

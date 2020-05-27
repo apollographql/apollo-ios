@@ -46,7 +46,7 @@ public init(url: URL,
 >
 > - Parameters:
 >   - url: The URL of a GraphQL server to connect to.
->   - session: The URLSession to use. Defaults to `URLSession.shared`,
+>   - client: The client to handle URL Session calls.
 >   - sendOperationIdentifiers: Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false.
 >   - useGETForQueries: If query operation should be sent using GET instead of POST. Defaults to false.
 >   - enableAutoPersistedQueries: Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false.
@@ -57,7 +57,7 @@ public init(url: URL,
 | Name | Description |
 | ---- | ----------- |
 | url | The URL of a GraphQL server to connect to. |
-| session | The URLSession to use. Defaults to `URLSession.shared`, |
+| client | The client to handle URL Session calls. |
 | sendOperationIdentifiers | Whether to send operation identifiers rather than full operation text, for use with servers that support query persistence. Defaults to false. |
 | useGETForQueries | If query operation should be sent using GET instead of POST. Defaults to false. |
 | enableAutoPersistedQueries | Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false. |

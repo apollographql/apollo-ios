@@ -45,10 +45,16 @@ public init(sessionConfiguration: URLSessionConfiguration = .default,
 | sessionConfiguration | The `URLSessionConfiguration` to use to set up the URL session. |
 | callbackQueue | [optional] The `OperationQueue` to tell the URL session to call back to this class on, which will in turn call back to your class. Defaults to `.main`. |
 
-### `clearTask(with:)`
+### `deinit`
 
 ```swift
-open func clearTask(with identifier: Int)
+deinit
+```
+
+### `clear(task:)`
+
+```swift
+open func clear(task identifier: Int)
 ```
 
 > Clears underlying dictionaries of any data related to a particular task identifier.

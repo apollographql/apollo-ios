@@ -50,3 +50,9 @@ public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void
 | ---- | ----------- |
 | callbackQueue | [optional] An alternate queue to fire the completion closure on. If nil, will fire on the current queue. |
 | completion | [optional] A completion closure to fire when the clear function has completed. |
+
+### `clearImmediately()`
+
+```swift
+public func clearImmediately() throws
+```
