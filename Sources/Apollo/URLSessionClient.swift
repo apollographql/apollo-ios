@@ -41,6 +41,10 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                               delegateQueue: callbackQueue)
   }
   
+  deinit {
+    self.clearAllTasks()
+  }
+  
   /// Clears underlying dictionaries of any data related to a particular task identifier.
   ///
   /// - Parameter identifier: The identifier of the task to clear.
