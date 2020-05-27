@@ -68,7 +68,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     let task = self.session.dataTask(with: request)
-    print("Task ID: \(task.taskIdentifier)")
     let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
                             completionBlock: completion)
     
