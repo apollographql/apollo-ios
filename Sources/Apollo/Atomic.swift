@@ -28,6 +28,8 @@ public class Atomic<T> {
     }
   }
   
+  /// Mutates the underlying value within a lock. Mostly useful for mutating the contents of `Atomic` wrappers around collections.
+  /// - Parameter block: The block to execute to mutate the value.
   public func mutate(block: (inout T) -> Void) {
     lock.lock()
     block(&_value)
