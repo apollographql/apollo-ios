@@ -23,10 +23,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
   public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
   
-  private var completionBlocks = Atomic<[Int: Completion]>([:])
-  private var rawCompletions = Atomic<[Int: RawCompletion]>([:])
-  private var datas = Atomic<[Int: Data]>([:])
-  private var responses = Atomic<[Int: HTTPURLResponse]>([:])
+  private var tasks = Atomic<[Int: TaskData]>([:])
   
   /// The raw URLSession being used for this client
   open private(set) var session: URLSession!
@@ -44,24 +41,22 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                               delegateQueue: callbackQueue)
   }
   
+  deinit {
+    self.clearAllTasks()
+  }
+  
   /// Clears underlying dictionaries of any data related to a particular task identifier.
   ///
   /// - Parameter identifier: The identifier of the task to clear.
-  open func clearTask(with identifier: Int) {
-    self.rawCompletions.value.removeValue(forKey: identifier)
-    self.completionBlocks.value.removeValue(forKey: identifier)
-    self.datas.value.removeValue(forKey: identifier)
-    self.responses.value.removeValue(forKey: identifier)
+  open func clear(task identifier: Int) {
+    self.tasks.mutate { $0.removeValue(forKey: identifier) }
   }
   
   /// Clears underlying dictionaries of any data related to all tasks.
   ///
   /// Mostly useful for cleanup and/or after invalidation of the `URLSession`.
   open func clearAllTasks() {
-    self.rawCompletions.value.removeAll()
-    self.completionBlocks.value.removeAll()
-    self.datas.value.removeAll()
-    self.responses.value.removeAll()
+    self.tasks.mutate { $0.removeAll() }
   }
   
   /// The main method to perform a request.
@@ -76,16 +71,15 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func sendRequest(_ request: URLRequest,
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
-    let dataTask = self.session.dataTask(with: request)
-    if let rawCompletion = rawTaskCompletionHandler {
-      self.rawCompletions.value[dataTask.taskIdentifier] = rawCompletion
-    }
+    let task = self.session.dataTask(with: request)
+    let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
+                            completionBlock: completion)
     
-    self.completionBlocks.value[dataTask.taskIdentifier] = completion
-    self.datas.value[dataTask.taskIdentifier] = Data()
-    dataTask.resume()
+    self.tasks.mutate { $0[task.taskIdentifier] = taskData }
     
-    return dataTask
+    task.resume()
+    
+    return task
   }
   
   /// Cancels a given task and clears out its underlying data.
@@ -94,7 +88,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameter task: The task you wish to cancel.
   open func cancel(task: URLSessionTask) {
-    self.clearTask(with: task.taskIdentifier)
+    self.clear(task: task.taskIdentifier)
     task.cancel()
   }
   
@@ -102,8 +96,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   open func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
     let finalError = error ?? URLSessionClientError.sessionBecameInvalidWithoutUnderlyingError
-    for block in self.completionBlocks.value.values {
-      block(.failure(finalError))
+    for task in self.tasks.value.values {
+      task.completionBlock(.failure(finalError))
     }
     
     self.clearAllTasks()
@@ -145,38 +139,33 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        didCompleteWithError error: Error?) {
-    let taskIdentifier = task.taskIdentifier
     defer {
-      self.clearTask(with: taskIdentifier)
+      self.clear(task: task.taskIdentifier)
     }
     
-    guard let completion = self.completionBlocks.value.removeValue(forKey: taskIdentifier) else {
+    guard let taskData = self.tasks.value[task.taskIdentifier] else {
       // No completion blocks, the task has likely been cancelled. Bail out.
       return
     }
     
-    let data = self.datas.value[taskIdentifier]
-    let response = self.responses.value[taskIdentifier]
+    let data = taskData.data
+    let response = taskData.response
     
-    if let rawCompletion = self.rawCompletions.value.removeValue(forKey: taskIdentifier) {
+    if let rawCompletion = taskData.rawCompletion {
       rawCompletion(data, response, error)
     }
     
-    guard let finalData = data else {
-      // Data is immediately created for a task on creation, so if it's not there, something's gone wrong.
-      completion(.failure(URLSessionClientError.dataForRequestNotFound(request: task.originalRequest)))
-      return
-    }
+    let completion = taskData.completionBlock
     
     if let finalError = error {
-      completion(.failure(URLSessionClientError.networkError(data: finalData, response: response, underlying: finalError)))
+      completion(.failure(URLSessionClientError.networkError(data: data, response: response, underlying: finalError)))
     } else {
       guard let finalResponse = response else {
         completion(.failure(URLSessionClientError.noHTTPResponse(request: task.originalRequest)))
         return
       }
       
-      completion(.success((finalData, finalResponse)))
+      completion(.success((data, finalResponse)))
     }
   }
   
@@ -215,7 +204,14 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didReceive data: Data) {
-    self.datas.value[dataTask.taskIdentifier]?.append(data)
+    self.tasks.mutate {
+      guard let taskData = $0[dataTask.taskIdentifier] else {
+        assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
+        return
+      }
+      
+      taskData.append(additionalData: data)
+    }
   }
   
   @available(iOS 9.0, OSXApplicationExtension 10.11, OSX 10.11, *)
@@ -246,8 +242,12 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       completionHandler(.allow)
     }
     
-    if let httpResponse = response as? HTTPURLResponse {
-      self.responses.value[dataTask.taskIdentifier] = httpResponse
+    self.tasks.mutate {
+      guard let taskData = $0[dataTask.taskIdentifier] else {
+        return
+      }
+      
+      taskData.responseReceived(response: response)
     }
   }
 }

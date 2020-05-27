@@ -9,15 +9,17 @@ protocol TestConfig {
 }
 
 class DefaultConfig: TestConfig {
+  let transport =  HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
   func network() -> HTTPNetworkTransport {
-    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+    return transport
   }
 }
 
 class APQsConfig: TestConfig {
+  let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
+                                       enableAutoPersistedQueries: true)
   func network() -> HTTPNetworkTransport {
-    return HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
-                                enableAutoPersistedQueries: true)
+    return transport
   }
 }
 

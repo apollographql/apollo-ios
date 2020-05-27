@@ -3,7 +3,7 @@ import XCTest
 
 class URLSessionClientLiveTests: XCTestCase {
   
-  lazy var client = URLSessionClient()
+  let client = URLSessionClient()
   
   private func request(for endpoint: HTTPBinAPI.Endpoint) -> URLRequest {
     URLRequest(url: endpoint.toURL,
@@ -161,5 +161,48 @@ class URLSessionClientLiveTests: XCTestCase {
     
     self.wait(for: [expectation], timeout: 5)
     
+  }
+  
+  func testMultipleSimultaneousRequests() {
+    let expectation = self.expectation(description: "request sent, response received")
+    let iterations = 20
+    expectation.expectedFulfillmentCount = iterations
+    let taskIDs = Atomic<[Int]>([])
+    
+    DispatchQueue.concurrentPerform(iterations: iterations, execute: { index in
+      let request = self.request(for: .getWithIndex(index: index))
+
+      let task = self.client.sendRequest(request) { result in
+        switch result {
+        case .success((let data, let response)):
+          XCTAssertEqual(response.url, request.url)
+          XCTAssertFalse(data.isEmpty)
+          do {
+            let httpBinResponse = try HTTPBinResponse(data: data)
+            XCTAssertEqual(httpBinResponse.url, response.url?.absoluteString)
+            XCTAssertEqual(httpBinResponse.args?["index"], "\(index)")
+          } catch {
+            XCTFail("Parsing error: \(error) for url \(response.url!)")
+          }
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
+                
+        DispatchQueue.main.async {
+          expectation.fulfill()
+        }
+      }
+      
+      taskIDs.mutate { $0.append(task.taskIdentifier) }
+    })
+    
+    self.wait(for: [expectation], timeout: 30)
+    
+    // Were the correct number of tasks created?
+    XCTAssertEqual(taskIDs.value.count, iterations)
+    
+    // Using a set to unique, are all task IDs different values?)
+    let set = Set(taskIDs.value)
+    XCTAssertEqual(set.count, iterations)
   }
 }
