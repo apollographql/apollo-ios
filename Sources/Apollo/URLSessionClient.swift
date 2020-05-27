@@ -206,6 +206,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                        didReceive data: Data) {
     self.tasks.mutate {
       guard let taskData = $0[dataTask.taskIdentifier] else {
+        assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
         return
       }
       
