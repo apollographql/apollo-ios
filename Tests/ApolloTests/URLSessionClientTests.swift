@@ -167,10 +167,12 @@ class URLSessionClientLiveTests: XCTestCase {
     let expectation = self.expectation(description: "request sent, response received")
     let iterations = 20
     expectation.expectedFulfillmentCount = iterations
+    let taskIDs = Atomic<[Int]>([])
+    
     DispatchQueue.concurrentPerform(iterations: iterations, execute: { index in
       let request = self.request(for: .getWithIndex(index: index))
 
-      self.client.sendRequest(request) { result in
+      let task = self.client.sendRequest(request) { result in
         switch result {
         case .success((let data, let response)):
           XCTAssertEqual(response.url, request.url)
@@ -190,8 +192,17 @@ class URLSessionClientLiveTests: XCTestCase {
           expectation.fulfill()
         }
       }
+      
+      taskIDs.mutate { $0.append(task.taskIdentifier) }
     })
     
     self.wait(for: [expectation], timeout: 30)
+    
+    // Were the correct number of tasks created?
+    XCTAssertEqual(taskIDs.value.count, iterations)
+    
+    // Using a set to unique, are all task IDs different values?)
+    let set = Set(taskIDs.value)
+    XCTAssertEqual(set.count, iterations)
   }
 }
