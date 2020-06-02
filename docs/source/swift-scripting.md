@@ -52,7 +52,9 @@ To begin, let's set up a Swift Package Manager executable:
            | Package.swift
            | README.md
            | - Sources
+               | - Codegen
            | - Tests
+               | - CodegenTests
     ```
 4. Double-click `Package.swift` in this new folder (or run `open Package.swift` in Terminal). This opens the package you've just created in Xcode. 
 
@@ -106,7 +108,8 @@ MyProject // Source Root
       | Package.swift
       | README.md
       | - Sources
-          | main.swift
+          |- Codegen
+              | main.swift
 ```
 
 Here's how you obtain the parent folder of the script, then use that to get back to your source root: 
@@ -140,7 +143,8 @@ MyProject // SourceRoot
       | README.md
       | - ApolloCLI // Contains downloaded typescript CLI
       | - Sources      
-          | main.swift
+          | - Codegen
+              | main.swift
 ```
 
 
@@ -173,8 +177,9 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
           | Package.swift
           | README.md
           | - ApolloCLI // Contains downloaded typescript CLI
-          | - Sources      
-              | main.swift
+          | - Sources  
+              | - Codegen    
+                  | main.swift
     ```
 
     To do that, set up the URL for the folder where you want to download the schema:
@@ -281,7 +286,8 @@ MyProject // SourceRoot
       | README.md
       | - ApolloCLI // Contains downloaded typescript CLI
       | - Sources      
-          | main.swift
+          | - Codegen
+              | main.swift
 ```
 
 Here, for example, is what this looks like in a file for one of the queries in our [tutorial application](./tutorial/tutorial-introduction):
