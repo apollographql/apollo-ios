@@ -40,25 +40,25 @@ for target in Target.allCases {
         .appendingPathComponent("api")
         .appendingPathComponent(target.outputFolder)
 
+    let options = DocumentOptions(allModules: false,
+                                  spmModule: nil,
+                                  moduleName: target.name,
+                                  linkEndingText: "/",
+                                  inputFolder: sourceRootURL.path,
+                                  outputFolder: outputURL.path,
+                                  clean: true,
+                                  xcodeArguments: [
+                                    "-scheme",
+                                    target.scheme,
+                                    "-project",
+                                    "Apollo.xcodeproj"
+                                  ],
+                                  reproducibleDocs: true)
     
-    let options = GenerateCommandOptions(moduleName: target.name,
-                                         linkEndingText: "/",
-                                         inputFolder: sourceRootURL.path,
-                                         outputFolder: outputURL.path,
-                                         clean: true,
-                                         xcodeArguments: [
-                                            "-scheme",
-                                            target.scheme,
-                                            "-project",
-                                            "Apollo.xcodeproj"
-                                         ])
-    
-    let result = GenerateCommand().run(options)
-    
-    switch result {
-    case .success:
+    do {
+        try SourceDocsLib.DocumentationGenerator(options: options).run()
         CodegenLogger.log("Generated docs for \(target.name)")
-    case .failure(let error):
+    } catch {
         CodegenLogger.log("Error generating docs for \(target.name): \(error)", logLevel: .error)
         exit(1)
     }
