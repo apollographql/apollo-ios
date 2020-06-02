@@ -2,8 +2,6 @@ import Foundation
 import SourceDocsLib
 import ApolloCodegenLib
 
-#warning("For some reason, this is failing when run directly from Xcode instead of with `swift run DocumentationGenerator`. So use that and not Xcode to run this for now")
-
 enum Target: String, CaseIterable {
     case Apollo
     case ApolloSQLite
