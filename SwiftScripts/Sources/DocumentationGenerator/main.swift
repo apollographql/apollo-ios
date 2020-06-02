@@ -4,6 +4,7 @@ import ApolloCodegenLib
 
 enum Target: String, CaseIterable {
     case Apollo
+    case ApolloCore
     case ApolloSQLite
     case ApolloWebSocket
     case ApolloCodegenLib
