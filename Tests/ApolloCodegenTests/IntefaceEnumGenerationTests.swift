@@ -12,12 +12,6 @@ import XCTest
 
 class InterfaceEnumGenerationTests: XCTestCase {
   
-  private lazy var dummyOptions: ApolloCodegenOptions = {
-    let unusedURL = CodegenTestHelper.apolloFolderURL()
-    return ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: unusedURL),
-                                urlToSchemaFile: unusedURL)
-  }()
-  
   func testGeneratingInterfaceEnum() {
     let interface = ASTInterfaceType(name: "Character",
                                      types: [
@@ -26,7 +20,7 @@ class InterfaceEnumGenerationTests: XCTestCase {
                                       "Alien"
                                      ])
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: self.dummyOptions)
+      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptions())
 
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
@@ -50,7 +44,7 @@ class InterfaceEnumGenerationTests: XCTestCase {
                                       "Protocol",
                                      ])
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: self.dummyOptions)
+      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptions())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
@@ -70,7 +64,7 @@ class InterfaceEnumGenerationTests: XCTestCase {
                                      types: [
                                      ])
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: self.dummyOptions)
+      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptions())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
@@ -93,13 +87,8 @@ class InterfaceEnumGenerationTests: XCTestCase {
                                       "Alien"
                                      ])
     
-    let unusedURL = CodegenTestHelper.apolloFolderURL()
-    let options = ApolloCodegenOptions(modifier: .none,
-                                       outputFormat: .singleFile(atFileURL: unusedURL),
-                                       urlToSchemaFile: unusedURL)
-    
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: options)
+      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptionsNoModifier())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
