@@ -8,6 +8,12 @@ struct ASTOutput: Codable, Equatable {
   /// An array of all fragments to generate code for.
   let fragments: [ASTFragment]
   
-  /// An array of "all" types used <-- TODO: Figure out why some are not in here
+  /// An array of all input types used
   let typesUsed: [ASTTypeUsed]
+  
+  /// An array of Union types used
+  let unionTypes: [ASTUnionType]
+  
+  /// An array of Interface types used
+  let interfaceTypes: [ASTInterfaceType]
 }

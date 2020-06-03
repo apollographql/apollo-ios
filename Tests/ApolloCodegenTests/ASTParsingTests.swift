@@ -34,12 +34,58 @@ class ASTParsingTests: XCTestCase {
       XCTAssertEqual(output.operations.count, 36)
       XCTAssertEqual(output.fragments.count, 15)
       XCTAssertEqual(output.typesUsed.count, 3)
+      XCTAssertEqual(output.unionTypes.count, 1)
+      XCTAssertEqual(output.interfaceTypes.count, 1)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
     }
   }
   
-  func testParsingASTTypes() throws {
+  func testParsingASTUnionTypes() throws {
+    let output: ASTOutput
+    do {
+      output = try loadAST(from: starWarsJSONURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+      return
+    }
+    
+    let types = output.unionTypes
+    XCTAssertEqual(types.count, 1)
+    
+    let type = try XCTUnwrap(types.first)
+    
+    XCTAssertEqual(type.name, "SearchResult")
+    XCTAssertEqual(type.types, [
+      "Human",
+      "Droid",
+      "Starship"
+    ])
+  }
+  
+  func testParsingASTInterfaceTypes() throws {
+    let output: ASTOutput
+    do {
+      output = try loadAST(from: starWarsJSONURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+      return
+    }
+    
+    let types = output.interfaceTypes
+    XCTAssertEqual(types.count, 1)
+    
+    let type = try XCTUnwrap(types.first)
+    
+    XCTAssertEqual(type.name, "Character")
+    XCTAssertEqual(type.types, [
+      "Human",
+      "Droid",
+      "Alien"
+    ])
+  }
+  
+  func testParsingASTInputTypes() throws {
     let output: ASTOutput
     do {
       output = try loadAST(from: starWarsJSONURL)
