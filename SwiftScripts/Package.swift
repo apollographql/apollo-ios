@@ -5,10 +5,13 @@ import PackageDescription
 
 let package = Package(
     name: "Codegen",
+    platforms: [
+        .macOS(.v10_13)
+    ],
     dependencies: [
         .package(name: "Apollo", path: ".."),
         .package(url: "https://github.com/apple/swift-tools-support-core", from: "0.0.1"),
-        .package(url: "https://github.com/designatednerd/SourceDocs.git", .branch("master"))
+        .package(url: "https://github.com/eneko/SourceDocs.git", .upToNextMinor(from: "1.1.0"))
     ],
     targets: [
         .target(name: "Codegen",
