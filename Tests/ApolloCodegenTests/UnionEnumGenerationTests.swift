@@ -1,5 +1,5 @@
 //
-//  IntefaceObjectGenerationTests.swift
+//  UnionEnumGenerationTests.swift
 //  ApolloCodegenTests
 //
 //  Created by Ellen Shapiro on 6/3/20.
@@ -10,22 +10,22 @@ import Foundation
 import XCTest
 @testable import ApolloCodegenLib
 
-class InterfaceEnumGenerationTests: XCTestCase {
+class UnionEnumGenerationTests: XCTestCase {
   
-  func testGeneratingInterfaceEnum() {
-    let interface = ASTInterfaceType(name: "Character",
-                                     types: [
-                                      "Human",
-                                      "Droid",
-                                      "Alien"
-                                     ])
+  func testGeneratingUnionEnum() {
+    let union = ASTUnionType(name: "SearchResult",
+                             types: [
+                              "Human",
+                              "Droid",
+                              "Starship",
+                             ])
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptions())
-
+      let output = try UnionEnumGenerator().run(unionType: union, options: CodegenTestHelper.dummyOptions())
+      
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
-        .appendingPathComponent("ExpectedCharacterType.swift")
+        .appendingPathComponent("ExpectedSearchResultType.swift")
       
       LineByLineComparison.between(received: output,
                                    expectedFileURL: expectedFileURL,
@@ -35,8 +35,8 @@ class InterfaceEnumGenerationTests: XCTestCase {
     }
   }
   
-  func testGeneratingInterfaceEnumWithSanitizedCaseNames() throws {
-    let interface = ASTInterfaceType(name: "SanitizedCharacter",
+  func testGeneratingUnionEnumWithSanitizedCaseNames() {
+    let union = ASTUnionType(name: "SanitizedSearchResult",
                                      types: [
                                       "case",
                                       "self",
@@ -44,12 +44,12 @@ class InterfaceEnumGenerationTests: XCTestCase {
                                       "Protocol",
                                      ])
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptions())
+      let output = try UnionEnumGenerator().run(unionType: union, options: CodegenTestHelper.dummyOptions())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
-        .appendingPathComponent("ExpectedSanitizedCharacterType.swift")
+        .appendingPathComponent("ExpectedSanitizedSearchResultType.swift")
       
       LineByLineComparison.between(received: output,
                                    expectedFileURL: expectedFileURL,
@@ -59,17 +59,17 @@ class InterfaceEnumGenerationTests: XCTestCase {
     }
   }
   
-  func testGeneratingInterfaceEnumWithNoCases() {
-    let interface = ASTInterfaceType(name: "NoCasesCharacter",
-                                     types: [
-                                     ])
+  func testGeneratingUnionEnumWithNoCases() {
+    let union = ASTUnionType(name: "NoCasesSearchResult",
+                             types: [
+                             ])
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptions())
+      let output = try UnionEnumGenerator().run(unionType: union, options: CodegenTestHelper.dummyOptions())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
-        .appendingPathComponent("ExpectedNoCasesCharacterType.swift")
+        .appendingPathComponent("ExpectedNoCasesSearchResultType.swift")
       
       LineByLineComparison.between(received: output,
                                    expectedFileURL: expectedFileURL,
@@ -79,21 +79,21 @@ class InterfaceEnumGenerationTests: XCTestCase {
     }
   }
   
-  func testGeneratingInterfaceEnumWithNoModifier() {
-    let interface = ASTInterfaceType(name: "NoModifierCharacter",
-                                     types: [
-                                      "Human",
-                                      "Droid",
-                                      "Alien"
-                                     ])
+  func testGeneratingEnumWithNoModifier() {
+    let union = ASTUnionType(name: "NoModifierSearchResult",
+                             types: [
+                              "Human",
+                              "Droid",
+                              "Starship",
+                             ])
     
     do {
-      let output = try InterfaceEnumGenerator().run(interfaceType: interface, options: CodegenTestHelper.dummyOptionsNoModifier())
+      let output = try UnionEnumGenerator().run(unionType: union, options: CodegenTestHelper.dummyOptionsNoModifier())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
-        .appendingPathComponent("ExpectedNoModifierCharacterType.swift")
+        .appendingPathComponent("ExpectedNoModifierSearchResultType.swift")
       
       LineByLineComparison.between(received: output,
                                    expectedFileURL: expectedFileURL,

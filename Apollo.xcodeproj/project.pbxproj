@@ -34,6 +34,11 @@
 		9B3D71072488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */; };
 		9B3D710924884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D710824884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift */; };
 		9B3D710B24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D710A24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift */; };
+		9B3D710F24884D7500D8BAF4 /* ExpectedSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D710E24884D7500D8BAF4 /* ExpectedSearchResultType.swift */; };
+		9B3D711124884E1B00D8BAF4 /* UnionEnumGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */; };
+		9B3D711324889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */; };
+		9B3D711524889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */; };
+		9B3D711724889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -427,6 +432,11 @@
 		9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoCasesCharacterType.swift; sourceTree = "<group>"; };
 		9B3D710824884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoModifierCharacterType.swift; sourceTree = "<group>"; };
 		9B3D710A24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedEpisodeEnumWithoutModifier.swift; sourceTree = "<group>"; };
+		9B3D710E24884D7500D8BAF4 /* ExpectedSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedSearchResultType.swift; sourceTree = "<group>"; };
+		9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionEnumGenerationTests.swift; sourceTree = "<group>"; };
+		9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedSanitizedSearchResultType.swift; sourceTree = "<group>"; };
+		9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoCasesSearchResultType.swift; sourceTree = "<group>"; };
+		9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoModifierSearchResultType.swift; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
 		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
 		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
@@ -831,7 +841,7 @@
 			name = Extensions;
             sourceTree = "<group>";
         };
-		9B3D70FF2488428A00D8BAF4 /* InterfaceObject */ = {
+		9B3D70FF2488428A00D8BAF4 /* InterfaceEnum */ = {
 			isa = PBXGroup;
 			children = (
 				9B3D71002488429E00D8BAF4 /* ExpectedCharacterType.swift */,
@@ -839,7 +849,18 @@
 				9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */,
 				9B3D710824884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift */,
 			);
-			name = InterfaceObject;
+			name = InterfaceEnum;
+			sourceTree = "<group>";
+		};
+		9B3D710D24884CE500D8BAF4 /* UnionEnum */ = {
+			isa = PBXGroup;
+			children = (
+				9B3D710E24884D7500D8BAF4 /* ExpectedSearchResultType.swift */,
+				9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */,
+				9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */,
+				9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */,
+			);
+			name = UnionEnum;
 			sourceTree = "<group>";
 		};
 		9B6835472463486200337AE6 /* ApolloCore */ = {
@@ -856,7 +877,8 @@
 		9B68F0512415B17B00E97318 /* ExpectedOutputs */ = {
 			isa = PBXGroup;
 			children = (
-				9B3D70FF2488428A00D8BAF4 /* InterfaceObject */,
+				9B3D710D24884CE500D8BAF4 /* UnionEnum */,
+				9B3D70FF2488428A00D8BAF4 /* InterfaceEnum */,
 				9B68F069241C641600E97318 /* InputObject */,
 				9B68F05E2416BEA300E97318 /* Enum */,
 			);
@@ -1022,6 +1044,7 @@
 				9B68F0542416B33300E97318 /* LineByLineComparison.swift */,
 				9BD681352405F725000874CB /* JSONTests.swift */,
 				9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */,
+				9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */,
 				9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
@@ -2112,6 +2135,7 @@
 			files = (
 				9B68F0572416B5F700E97318 /* ExpectedEpisodeEnumNoDescription.swift in Sources */,
 				9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */,
+				9B3D710F24884D7500D8BAF4 /* ExpectedSearchResultType.swift in Sources */,
 				9B3D710B24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift in Sources */,
 				9B6835342460B47900337AE6 /* ASTVariableType+TestHelpers.swift in Sources */,
 				9B3D71032488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift in Sources */,
@@ -2134,8 +2158,12 @@
 				9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */,
 				9B683538246310D400337AE6 /* ExpectedReviewInputNoModifier.swift in Sources */,
 				9B3D71072488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift in Sources */,
+				9B3D711724889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift in Sources */,
+				9B3D711324889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift in Sources */,
 				9BD681422406F516000874CB /* ASTParsingTests.swift in Sources */,
+				9B3D711124884E1B00D8BAF4 /* UnionEnumGenerationTests.swift in Sources */,
 				9B3D710924884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift in Sources */,
+				9B3D711524889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,
 				9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */,
 				9B5A1EFE24352AED00F066BB /* ExpectedColorInput.swift in Sources */,
