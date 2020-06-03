@@ -281,4 +281,44 @@ class EnumGenerationTests: XCTestCase {
       CodegenTestHelper.handleFileLoadError(error)
     }
   }
+  
+  func testGeneratingEnumWithoutModifier() {
+    let newHope = ASTEnumValue(name: "NEWHOPE",
+                               description: "Star Wars Episode IV: A New Hope, released in 1977.",
+                               isDeprecated: false)
+    let empire = ASTEnumValue(name: "EMPIRE",
+                              description: "Star Wars Episode V: The Empire Strikes Back, released in 1980.",
+                              isDeprecated: false)
+    let jedi = ASTEnumValue(name: "JEDI",
+                            description: "Star Wars Episode VI: Return of the Jedi, released in 1983.",
+                            isDeprecated: false)
+    
+    let episodeEnum = ASTTypeUsed(kind: .EnumType,
+                                  name: "EpisodeWithoutModifier",
+                                  description: "The episodes in the Star Wars trilogy",
+                                  values: [
+                                    newHope,
+                                    empire,
+                                    jedi
+                                  ],
+                                  fields: nil)
+    
+    let unusedURL = CodegenTestHelper.apolloFolderURL()
+    let options = ApolloCodegenOptions(modifier: .none,
+                                       outputFormat: .singleFile(atFileURL: unusedURL),
+                                       urlToSchemaFile: unusedURL)
+    
+    
+    do {
+      let output = try EnumGenerator().run(typeUsed: episodeEnum, options: options)
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedEpisodeEnumWithoutModifier.swift")
+      
+      LineByLineComparison.between(received: output, expectedFileURL: expectedFileURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
+  }
 }
