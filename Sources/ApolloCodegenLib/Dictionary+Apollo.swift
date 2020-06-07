@@ -1,4 +1,5 @@
 import Foundation
+import ApolloCore
 
 public extension Dictionary where Key: RawRepresentable, Key.RawValue == String, Value: Any {
   

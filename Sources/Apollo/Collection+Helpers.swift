@@ -1,40 +1,5 @@
 import Foundation
 
-// MARK: - Emptiness + Optionality
-
-extension Collection {
-
-  /// Convenience helper to make `guard` statements more readable
-  ///
-  /// - returns: `true` if the collection has contents.
-  var isNotEmpty: Bool {
-    return !self.isEmpty
-  }
-}
-
-extension Optional where Wrapped: Collection {
-
-  /// - returns: `true` if the collection is empty or nil
-  var isEmptyOrNil: Bool {
-    switch self {
-    case .none:
-      return true
-    case .some(let collection):
-      return collection.isEmpty
-    }
-  }
-  
-  /// - returns: `true` if the collection is non-nil AND has contents.
-  var isNotEmpty: Bool {
-    switch self {
-    case .none:
-      return false
-    case .some(let collection):
-      return collection.isNotEmpty
-    }
-  }
-}
-
 // MARK: - Unzipping
 // MARK: Arrays of tuples to tuples of arrays
 

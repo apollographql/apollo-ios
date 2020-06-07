@@ -1,4 +1,5 @@
 import Foundation
+import ApolloCore
 
 enum ApolloStringError: Error {
   case expectedSuffixMissing(_ suffix: String)
