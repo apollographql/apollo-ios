@@ -84,6 +84,8 @@
 		9B7BDB1523FDF09600ACD198 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		9B7BDB1A23FDF12000ACD198 /* ApolloSQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7BDABF23FDEBB600ACD198 /* ApolloSQLite.framework */; };
 		9B7BDB1D23FDF22300ACD198 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
+		9B8C3FB3248DA2FE00707B13 /* URL+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8C3FB1248DA2EA00707B13 /* URL+Apollo.swift */; };
+		9B8C3FB5248DA3E000707B13 /* URLExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */; };
 		9B8C3FB6248DA80100707B13 /* ApolloExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1CFBCE245EB998002C8CEE /* ApolloExtension.swift */; };
 		9B8C3FBA248DA87E00707B13 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8C3FB7248DA87200707B13 /* Collection+Apollo.swift */; };
 		9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */; };
@@ -482,6 +484,8 @@
 		9B7BDAED23FDED9700ACD198 /* ApolloSQLiteTestSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApolloSQLiteTestSupport.h; sourceTree = "<group>"; };
 		9B7BDAEE23FDED9700ACD198 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B8110A723A1995D00688AC4 /* .keep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .keep; sourceTree = "<group>"; };
+		9B8C3FB1248DA2EA00707B13 /* URL+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Apollo.swift"; sourceTree = "<group>"; };
+		9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensionsTests.swift; sourceTree = "<group>"; };
 		9B8C3FB7248DA87200707B13 /* Collection+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
 		9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GETTransformerTests.swift; sourceTree = "<group>"; };
 		9BA1244922D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONSerialization+Sorting.swift"; sourceTree = "<group>"; };
@@ -968,6 +972,7 @@
 				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9B68F0542416B33300E97318 /* LineByLineComparison.swift */,
 				9BD681352405F725000874CB /* JSONTests.swift */,
+				9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */,
 				9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 				9B6835322460B32A00337AE6 /* ASTVariableType+TestHelpers.swift */,
@@ -983,6 +988,7 @@
 				9BCB585E240758C8002F766E /* OptionalBoolean.swift */,
 				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
 				9B0E471B240B167C0093BDA7 /* String+Apollo.swift */,
+				9B8C3FB1248DA2EA00707B13 /* URL+Apollo.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1955,6 +1961,7 @@
 				9B68F03D240ED3B300E97318 /* ASTCondition.swift in Sources */,
 				9BD681402406F31A000874CB /* FlexibleDecoder.swift in Sources */,
 				9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */,
+				9B8C3FB3248DA2FE00707B13 /* URL+Apollo.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
 				9B68F03F240F3B0E00E97318 /* CodeGenerator.swift in Sources */,
@@ -2049,6 +2056,7 @@
 				9BAEEC17234C275600808306 /* ApolloSchemaTests.swift in Sources */,
 				9B5A1EFC243528AA00F066BB /* InputObjectGenerationTests.swift in Sources */,
 				9B0E471A240AFA060093BDA7 /* VariableToSwiftTypeTests.swift in Sources */,
+				9B8C3FB5248DA3E000707B13 /* URLExtensionsTests.swift in Sources */,
 				9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */,
 				9B5A1EFD24352AC100F066BB /* ExpectedReviewInput.swift in Sources */,
 				9B68F0592416BA7700E97318 /* ExpectedEnumWithNoCases.swift in Sources */,
