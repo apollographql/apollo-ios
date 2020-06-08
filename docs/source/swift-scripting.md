@@ -78,13 +78,14 @@ To begin, let's set up a Swift Package Manager executable:
             ])
     ```
     
-6. In `main.swift`, import the Codegen lib at the top of the file:
+6. In `main.swift`, import the Codegen lib and Apple's Foundation library at the top of the file:
 
     ```swift:title=main.swift
+    import Foundation
     import ApolloCodegenLib
     ```
 
-7. Run `swift run`. This will download dependencies, then build and run your package. This should create an output of `"Hello, world!"`, confirming that the package and its dependencies are set up correctly.
+7. Run `swift run` in Terminal - you should still be in the same directory where the `Package.swift` file was checked out, and this is the proper place to run it. This will download dependencies, then build and run your package. This should create an output of `"Hello, world!"`, confirming that the package and its dependencies are set up correctly.
 
 Now it's time to use the executable to do some stuff for you!
 
@@ -194,7 +195,7 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
     ```swift:title=main.swift
     try FileManager
       .default
-      .apollo_createFolderIfNeeded(at: output)
+      .apollo.createFolderIfNeeded(at: output)
     ```
 
 3. Set up your `ApolloSchemaOptions` object. In this case, we'll use the [default arguments for all the constructor parameters that take them](./api/ApolloCodegenLib/structs/ApolloSchemaOptions#methods), and only pass in the endpoint to download from and the folder to put the downloaded file into: 
@@ -310,7 +311,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
     ```swift:title=main.swift 
     try FileManager
           .default
-          .apollo_createFolderIfNeeded(at: targetURL)
+          .apollo.createFolderIfNeeded(at: targetURL)
     ```
 
 2. Set up your `ApolloCodegenOptions` object. In this case, we'll use the constructor that [sets defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
