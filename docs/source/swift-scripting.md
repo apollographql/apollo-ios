@@ -78,9 +78,10 @@ To begin, let's set up a Swift Package Manager executable:
             ])
     ```
     
-6. In `main.swift`, import the Codegen lib at the top of the file:
+6. In `main.swift`, import the Codegen lib and Apple's Foundation library at the top of the file:
 
     ```swift:title=main.swift
+    import Foundation
     import ApolloCodegenLib
     ```
 
