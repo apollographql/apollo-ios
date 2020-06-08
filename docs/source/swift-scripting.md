@@ -85,7 +85,7 @@ To begin, let's set up a Swift Package Manager executable:
     import ApolloCodegenLib
     ```
 
-7. Run `swift run`. This will download dependencies, then build and run your package. This should create an output of `"Hello, world!"`, confirming that the package and its dependencies are set up correctly.
+7. Run `swift run` in Terminal - you should still be in the same directory where the `Package.swift` file was checked out, and this is the proper place to run it. This will download dependencies, then build and run your package. This should create an output of `"Hello, world!"`, confirming that the package and its dependencies are set up correctly.
 
 Now it's time to use the executable to do some stuff for you!
 
