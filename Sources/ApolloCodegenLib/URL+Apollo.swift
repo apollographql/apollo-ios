@@ -33,7 +33,7 @@ extension ApolloExtension where Base == URL {
   ///   - fileName: The name of the child file, with an extension, for example `"API.swift"`. Note: For hidden files just pass `".filename"`.
   /// - Returns: The full URL including the full file.
   public func childFileURL(fileName: String) throws -> URL {
-    guard fileName.apollo_isNotEmpty else {
+    guard fileName.apollo.isNotEmpty else {
       throw ApolloURLError.fileNameIsEmpty
     }
     

@@ -33,3 +33,16 @@ extension ApolloCompatible {
     ApolloExtension<Self>.self
   }
 }
+
+// MARK: - PAT Wrappers
+
+/// Provides a PAT interface to `Optional<T>`
+public protocol OptionalType: ExpressibleByNilLiteral {
+    associatedtype WrappedType
+    var value: WrappedType? { get }
+}
+
+extension Optional: OptionalType {
+    /// Return the value if it exists, otherwise `nil`
+    public var value: Wrapped? { self }
+}
