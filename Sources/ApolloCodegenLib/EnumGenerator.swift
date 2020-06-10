@@ -76,7 +76,7 @@ public class EnumGenerator {
       .cases: cases.map { SanitizedEnumValue(astEnumValue: $0) }
     ]
     
-    return try Environment().renderTemplate(string: self.enumTemplate, context: context.apollo_toStringKeyedDict)
+    return try Environment().renderTemplate(string: self.enumTemplate, context: context.apollo.toStringKeyedDict)
   }
   
   /// A stencil template to use to render enums.

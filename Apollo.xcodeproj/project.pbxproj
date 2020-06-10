@@ -961,6 +961,7 @@
 				9B68F0512415B17B00E97318 /* ExpectedOutputs */,
 				9B8110A623A1994000688AC4 /* SourcePackages */,
 				9BAEEC11234BBA9200808306 /* CodegenTestHelper.swift */,
+				9B6835322460B32A00337AE6 /* ASTVariableType+TestHelpers.swift */,
 				9BD681372405F7F6000874CB /* JSONTestHelpers.swift */,
 				9BD681412406F516000874CB /* ASTParsingTests.swift */,
 				9BAEEC16234C275600808306 /* ApolloSchemaTests.swift */,
@@ -976,7 +977,6 @@
 				9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */,
 				9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
-				9B6835322460B32A00337AE6 /* ASTVariableType+TestHelpers.swift */,
 			);
 			path = ApolloCodegenTests;
 			sourceTree = "<group>";

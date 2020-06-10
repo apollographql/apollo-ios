@@ -71,7 +71,7 @@ public class InputObjectGenerator {
       .hasOptionalFields: hasOptionalFields,
     ]
         
-    return try Environment().renderTemplate(string: self.inputObjectTemplate, context: context.apollo_toStringKeyedDict)
+    return try Environment().renderTemplate(string: self.inputObjectTemplate, context: context.apollo.toStringKeyedDict)
   }
   
   /// A stencil template to use to render enums.

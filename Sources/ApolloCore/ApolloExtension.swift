@@ -46,3 +46,17 @@ extension Optional: OptionalType {
     /// Return the value if it exists, otherwise `nil`
     public var value: Wrapped? { self }
 }
+
+/// Provides a PAT interface to `Dictionary<Key, Value>`
+public protocol DictionaryType: ExpressibleByDictionaryLiteral {
+  associatedtype KeyType: Hashable
+  associatedtype ValueType
+  
+  var rawDictionary: [KeyType: ValueType] { get }
+}
+
+extension Dictionary: DictionaryType {
+  public var rawDictionary: [Key: Value] {
+    self
+  }
+}
