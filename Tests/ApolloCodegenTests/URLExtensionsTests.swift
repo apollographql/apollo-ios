@@ -14,28 +14,33 @@ import ApolloCore
 class URLExtensionsTests: XCTestCase {
  
   func testGettingParentFolderURL() {
-    let url = CodegenTestHelper.apolloFolderURL()
-    let expectedParent = CodegenTestHelper.cliFolderURL()
+    let apolloCodegenTests = FileFinder.findParentFolder()
     
-    let parent = url.apollo.parentFolderURL()
+    let expectedParent = CodegenTestHelper.sourceRootURL()
+      .appendingPathComponent("Tests")
+    
+    let parent = apolloCodegenTests.apollo.parentFolderURL()
     XCTAssertEqual(parent, expectedParent)
   }
   
   func testGettingChildFolderURL() {
-    let url = CodegenTestHelper.cliFolderURL()
-    let expectedChild = CodegenTestHelper.apolloFolderURL()
+    let testsFolderURL = CodegenTestHelper.sourceRootURL()
+      .appendingPathComponent("Tests")
     
-    let child = url.apollo.childFolderURL(folderName: "apollo")
+    let expectedChild = FileFinder.findParentFolder()
+    
+    let child = testsFolderURL.apollo.childFolderURL(folderName: "ApolloCodegenTests")
     XCTAssertEqual(child, expectedChild)
   }
   
   func testGettingChildFileURL() throws {
-    let starWars = CodegenTestHelper.starWarsFolderURL()
-    let expectedSchema = CodegenTestHelper.starWarsSchemaFileURL()
+    let apolloCodegenTests = FileFinder.findParentFolder()
 
-    let schema = try starWars.apollo.childFileURL(fileName: "schema.json")
+    let expectedFileURL = URL(fileURLWithPath: #file)
+
+    let fileURL = try apolloCodegenTests.apollo.childFileURL(fileName: "URLExtensionsTests.swift")
     
-    XCTAssertEqual(schema, expectedSchema)
+    XCTAssertEqual(fileURL, expectedFileURL)
   }
   
   func testGettingChildFileURLWithEmptyFilenameThrows() {
@@ -54,6 +59,7 @@ class URLExtensionsTests: XCTestCase {
       }
     }
   }
+  
   func testGettingHiddenChildFileURL() throws {
     let url = CodegenTestHelper.apolloFolderURL()
     
