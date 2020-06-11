@@ -14,7 +14,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
     self.recordsLock.lock()
     let records = keys.map { self.records[$0] }
     self.recordsLock.unlock()
-    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(records))
   }
@@ -25,7 +25,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
     self.recordsLock.lock()
     let cacheKeys = self.records.merge(records: records)
     self.recordsLock.unlock()
-    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(cacheKeys))
   }
@@ -38,7 +38,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
       return
     }
 
-    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(()))
   }

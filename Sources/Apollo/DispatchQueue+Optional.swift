@@ -1,8 +1,11 @@
 import Foundation
+import ApolloCore
 
-public extension DispatchQueue {
+extension DispatchQueue: ApolloCompatible {}
 
-  static func apollo_performAsyncIfNeeded(on callbackQueue: DispatchQueue?, action: @escaping () -> Void) {
+public extension ApolloExtension where Base == DispatchQueue {
+
+  static func performAsyncIfNeeded(on callbackQueue: DispatchQueue?, action: @escaping () -> Void) {
     if let callbackQueue = callbackQueue {
       // A callback queue was provided, perform the action on that queue
       callbackQueue.async {
@@ -14,14 +17,14 @@ public extension DispatchQueue {
     }
   }
 
-  static func apollo_returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?,
-                                                  action: ((Result<T, Error>) -> Void)?,
-                                                  result: Result<T, Error>) {
+  static func returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?,
+                                           action: ((Result<T, Error>) -> Void)?,
+                                           result: Result<T, Error>) {
     guard let action = action else {
       return
     }
 
-    self.apollo_performAsyncIfNeeded(on: callbackQueue) {
+    self.performAsyncIfNeeded(on: callbackQueue) {
       action(result)
     }
   }

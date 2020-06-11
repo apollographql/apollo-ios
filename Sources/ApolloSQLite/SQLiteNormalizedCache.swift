@@ -117,7 +117,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
       result = .failure(error)
     }
 
-    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
@@ -140,7 +140,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
       result = .failure(error)
     }
 
-    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
@@ -154,7 +154,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
       result = .failure(error)
     }
 
-    DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: result)
   }
