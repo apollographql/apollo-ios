@@ -5,8 +5,6 @@ enum ApolloStringError: Error {
   case expectedSuffixMissing(_ suffix: String)
 }
 
-extension String: ApolloCompatible {}
-
 extension ApolloExtension where Base == String {
   
   func droppingSuffix(_ suffix: String) throws -> String {

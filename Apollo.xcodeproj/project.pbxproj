@@ -14,7 +14,6 @@
 		9B0E471A240AFA060093BDA7 /* VariableToSwiftTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */; };
 		9B0E471C240B167C0093BDA7 /* String+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E471B240B167C0093BDA7 /* String+Apollo.swift */; };
 		9B0E471E240B239D0093BDA7 /* ASTEnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */; };
-		9B1A38532332AF6F00325FB4 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A38522332AF6F00325FB4 /* String+SHA.swift */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD762422C8CC00998B5C /* TestFileHelper.swift */; };
@@ -24,6 +23,7 @@
 		9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE22492D0A3002255A9 /* ApolloExtension.swift */; };
 		9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */; };
 		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
+		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -399,13 +399,13 @@
 		9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableToSwiftTypeTests.swift; sourceTree = "<group>"; };
 		9B0E471B240B167C0093BDA7 /* String+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Apollo.swift"; sourceTree = "<group>"; };
 		9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTEnumValue.swift; sourceTree = "<group>"; };
-		9B1A38522332AF6F00325FB4 /* String+SHA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFileTests.swift; sourceTree = "<group>"; };
 		9B21FD762422C8CC00998B5C /* TestFileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileHelper.swift; sourceTree = "<group>"; };
 		9B455CE22492D0A3002255A9 /* ApolloExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloExtension.swift; sourceTree = "<group>"; };
 		9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
 		9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
+		9B455CEA2492FB03002255A9 /* String+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
 		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
 		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
@@ -805,6 +805,7 @@
 				9B455CE22492D0A3002255A9 /* ApolloExtension.swift */,
 				9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */,
 				9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */,
+				9B455CEA2492FB03002255A9 /* String+SHA.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1333,7 +1334,6 @@
 				9FE941CF1E62C771007CDD89 /* Promise.swift */,
 				9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */,
 				9F19D8431EED568200C57247 /* ResultOrPromise.swift */,
-				9B1A38522332AF6F00325FB4 /* String+SHA.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1957,6 +1957,7 @@
 			files = (
 				9B68354E24634A3C00337AE6 /* GraphQLOptional.swift in Sources */,
 				9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */,
+				9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */,
 				9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */,
 				9B455CDF2492D05E002255A9 /* Atomic.swift in Sources */,
 				9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */,
@@ -2158,7 +2159,6 @@
 				9FADC84F1E6B865E00C677E6 /* DataLoader.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
 				9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */,
-				9B1A38532332AF6F00325FB4 /* String+SHA.swift in Sources */,
 				9BEDC79E22E5D2CF00549BF6 /* RequestCreator.swift in Sources */,
 				9BE071AD2368D08700FA5952 /* Collection+Helpers.swift in Sources */,
 				9FA6F3681E65DF4700BF8D73 /* GraphQLResultAccumulator.swift in Sources */,

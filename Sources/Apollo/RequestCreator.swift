@@ -1,4 +1,5 @@
 import Foundation
+import ApolloCore
 
 public protocol RequestCreator {
   /// Creates a `GraphQLMap` out of the passed-in operation
@@ -70,7 +71,7 @@ extension RequestCreator {
         hash = operationIdentifier
       } else {
         // The codegen needed more info for the correct hash - regenerate it.
-        hash = operation.queryDocument.sha256Hash
+        hash = operation.queryDocument.apollo.sha256Hash
       }
 
       body["extensions"] = [
