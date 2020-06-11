@@ -226,7 +226,7 @@ public class HTTPNetworkTransport {
     guard
       let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
       let graphQLErrors = response.parseErrorsOnlyFast(),
-      graphQLErrors.apollo_isNotEmpty else {
+      graphQLErrors.apollo.isNotEmpty else {
         completionHandler(.success(response))
         return
     }
@@ -391,7 +391,7 @@ public class HTTPNetworkTransport {
       do {
         if
           let files = files,
-          files.apollo_isNotEmpty {
+          files.apollo.isNotEmpty {
             let formData = try requestCreator.requestMultipartFormData(
               for: operation,
               files: files,
