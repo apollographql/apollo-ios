@@ -55,7 +55,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
       return "[Empty response body]"
     }
 
-    guard let description = String(data: body, encoding: response.textEncoding ?? .utf8) else {
+    guard let description = String(data: body, encoding: response.apollo.textEncoding ?? .utf8) else {
       return "[Unreadable response body]"
     }
 
@@ -69,7 +69,7 @@ public struct GraphQLHTTPResponseError: Error, LocalizedError {
 
       return "\(kind.description): \(description)"
     } else {
-      return "\(kind.description) (\(response.statusCode) \(response.statusCodeDescription)): \(bodyDescription)"
+      return "\(kind.description) (\(response.statusCode) \(response.apollo.statusCodeDescription)): \(bodyDescription)"
     }
   }
 }

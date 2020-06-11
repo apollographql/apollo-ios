@@ -173,7 +173,7 @@ public class HTTPNetworkTransport {
                                 response: nil,
                                 completionHandler: completionHandler)
       case .success(let (data, httpResponse)):
-        guard httpResponse.isSuccessful == true else {
+        guard httpResponse.apollo.isSuccessful == true else {
           let unsuccessfulError = GraphQLHTTPResponseError(body: data,
                                                            response: httpResponse,
                                                            kind: .errorResponse)
