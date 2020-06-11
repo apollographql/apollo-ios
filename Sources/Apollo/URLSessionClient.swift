@@ -1,4 +1,5 @@
 import Foundation
+import ApolloCore
 
 /// A class to handle URL Session calls that will support background execution,
 /// but still (mostly) use callbacks for its primary method of communication.
