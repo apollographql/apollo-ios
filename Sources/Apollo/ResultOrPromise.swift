@@ -35,7 +35,7 @@ func whenAll<Value>(_ resultsOrPromises: [ResultOrPromise<Value>], notifyOn queu
 
     group.notify(queue: queue) {
       if !rejected {
-        fulfill(resultsOrPromises.map { $0.result!.value! })
+        fulfill(resultsOrPromises.map { $0.result!.apollo.value! })
       }
     }
   })

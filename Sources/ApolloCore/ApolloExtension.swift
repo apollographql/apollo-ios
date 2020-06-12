@@ -47,6 +47,20 @@ extension Optional: OptionalType {
     public var value: Wrapped? { self }
 }
 
+/// Provides a PAT interface to `Result<Success, Failure>`
+public protocol ResultType {
+  associatedtype SuccessType
+  associatedtype FailureType: Error
+  
+  var value: Result<SuccessType, FailureType> { get }
+}
+
+extension Result: ResultType {
+  
+  public var value: Result<Success, Failure> { self }
+}
+
+
 /// Provides a PAT interface to `Dictionary<Key, Value>`
 public protocol DictionaryType: ExpressibleByDictionaryLiteral {
   associatedtype KeyType: Hashable
