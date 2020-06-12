@@ -173,7 +173,7 @@ public class HTTPNetworkTransport {
                                 response: nil,
                                 completionHandler: completionHandler)
       case .success(let (data, httpResponse)):
-        guard httpResponse.isSuccessful == true else {
+        guard httpResponse.apollo.isSuccessful == true else {
           let unsuccessfulError = GraphQLHTTPResponseError(body: data,
                                                            response: httpResponse,
                                                            kind: .errorResponse)
@@ -226,7 +226,7 @@ public class HTTPNetworkTransport {
     guard
       let delegate = self.delegate as? HTTPNetworkTransportGraphQLErrorDelegate,
       let graphQLErrors = response.parseErrorsOnlyFast(),
-      graphQLErrors.isNotEmpty else {
+      graphQLErrors.apollo.isNotEmpty else {
         completionHandler(.success(response))
         return
     }
@@ -391,7 +391,7 @@ public class HTTPNetworkTransport {
       do {
         if
           let files = files,
-          files.isNotEmpty {
+          files.apollo.isNotEmpty {
             let formData = try requestCreator.requestMultipartFormData(
               for: operation,
               files: files,

@@ -1,10 +1,9 @@
 import Foundation
+import ApolloCore
 
 enum ApolloStringError: Error {
   case expectedSuffixMissing(_ suffix: String)
 }
-
-extension String: ApolloCompatible {}
 
 extension ApolloExtension where Base == String {
   

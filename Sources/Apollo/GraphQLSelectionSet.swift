@@ -1,3 +1,5 @@
+import ApolloCore
+
 public typealias ResultMap = [String: Any?]
 
 public protocol GraphQLSelectionSet {
@@ -56,7 +58,7 @@ public struct GraphQLField: GraphQLSelection {
   func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
     if
       let argumentValues = try arguments?.evaluate(with: variables),
-      argumentValues.isNotEmpty {
+      argumentValues.apollo.isNotEmpty {
         let argumentsKey = orderIndependentKey(for: argumentValues)
         return "\(name)(\(argumentsKey))"
     } else {

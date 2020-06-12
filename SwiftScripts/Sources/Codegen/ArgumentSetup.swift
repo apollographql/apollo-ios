@@ -21,12 +21,12 @@ enum Target {
         switch self {
         case .gitHub:
             return sourceRootURL
-                .appendingPathComponent("Sources")
-                .appendingPathComponent("GitHubAPI")
+                .apollo.childFolderURL(folderName: "Sources")
+                .apollo.childFolderURL(folderName: "GitHubAPI")
         case .starWars:
             return sourceRootURL
-                .appendingPathComponent("Sources")
-                .appendingPathComponent("StarWarsAPI")
+                .apollo.childFolderURL(folderName: "Sources")
+                .apollo.childFolderURL(folderName: "StarWarsAPI")
         }
     }
     
@@ -36,9 +36,9 @@ enum Target {
         case .starWars:
             return ApolloCodegenOptions(targetRootURL: targetRootURL)
         case .gitHub:
-            let json = targetRootURL.appendingPathComponent("schema.json")
-            let outputFileURL = targetRootURL.appendingPathComponent("API.swift")
-            let operationIDsURL = targetRootURL.appendingPathComponent("operationIDs.json")
+            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.json")
+            let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
+            let operationIDsURL = try! targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
 
             return ApolloCodegenOptions(mergeInFieldsFromFragmentSpreads: true,
                                         operationIDsURL: operationIDsURL,

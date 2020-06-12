@@ -15,13 +15,13 @@ class CodegenExtensionTests: XCTestCase {
   
   func testOptionalBoolean() {
     var optionalBoolean: Bool? = nil
-    XCTAssertFalse(optionalBoolean.apollo_boolValue)
+    XCTAssertFalse(optionalBoolean.apollo.boolValue)
     
     optionalBoolean = true
-    XCTAssertTrue(optionalBoolean.apollo_boolValue)
+    XCTAssertTrue(optionalBoolean.apollo.boolValue)
 
     optionalBoolean = false
-    XCTAssertFalse(optionalBoolean.apollo_boolValue)
+    XCTAssertFalse(optionalBoolean.apollo.boolValue)
   }
   
   // MARK: String

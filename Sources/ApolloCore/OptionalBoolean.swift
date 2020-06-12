@@ -1,10 +1,12 @@
 import Foundation
 
-extension Optional where Wrapped == Bool {
+extension Optional: ApolloCompatible {}
+
+public extension ApolloExtension where Base == Optional<Bool> {
   
   /// The value of the unwrapped `Bool`, or false if optional value is `.none`
-  var apollo_boolValue: Bool {
-    switch self {
+  var boolValue: Bool {
+    switch base {
     case .none:
       return false
     case .some(let actual):
@@ -12,3 +14,4 @@ extension Optional where Wrapped == Bool {
     }
   }
 }
+

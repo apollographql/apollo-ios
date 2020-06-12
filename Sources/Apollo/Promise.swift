@@ -19,7 +19,7 @@ func whenAll<Value>(_ promises: [Promise<Value>], notifyOn queue: DispatchQueue 
 
     group.notify(queue: queue) {
       if !rejected {
-        fulfill(promises.map { $0.result!.value! })
+        fulfill(promises.map { $0.result!.apollo.value! })
       }
     }
   }

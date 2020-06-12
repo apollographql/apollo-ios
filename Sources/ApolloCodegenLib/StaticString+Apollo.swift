@@ -1,4 +1,5 @@
 import Foundation
+import ApolloCore
 
 extension StaticString: ApolloCompatible {}
 

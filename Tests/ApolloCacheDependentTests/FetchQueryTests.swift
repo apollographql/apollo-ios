@@ -438,7 +438,7 @@ class FetchQueryTests: XCTestCase, CacheTesting {
         let watcher =
           client1.watch(
           query: HeroAndFriendsNamesWithIDsQuery(), cachePolicy: .returnCacheDataAndFetch) { result in
-            if result.value?.source == .some(.server) {
+            if result.apollo.value?.source == .some(.server) {
               group.leave()
             }
         }
@@ -453,7 +453,7 @@ class FetchQueryTests: XCTestCase, CacheTesting {
         let watcher =
           client2.watch(
           query: HeroAndFriendsNamesWithIDsQuery(), cachePolicy: .returnCacheDataAndFetch) { result in
-            if result.value?.source == .some(.server) {
+            if result.apollo.value?.source == .some(.server) {
               group.leave()
             }
         }

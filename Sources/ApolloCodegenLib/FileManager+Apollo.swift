@@ -1,5 +1,6 @@
 import Foundation
 import CommonCrypto
+import ApolloCore
 
 extension FileManager: ApolloCompatible {}
 

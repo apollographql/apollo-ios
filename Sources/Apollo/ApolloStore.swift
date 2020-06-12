@@ -57,7 +57,7 @@ public final class ApolloStore {
       self.cacheLock.withWriteLock {
           self.cache.clearPromise()
         }.andThen {
-          DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                          action: completion,
                                                          result: .success(()))
       }
@@ -115,12 +115,12 @@ public final class ApolloStore {
         Promise(fulfilled: try body($0))
       }
       .andThen { object in
-        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
                                                        result: .success(object))
       }
       .catch { error in
-        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
                                                        result: .failure(error))
     }
@@ -153,12 +153,12 @@ public final class ApolloStore {
         Promise(fulfilled: try body($0))
       }
       .andThen { object in
-        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
                                                        result: .success(object))
       }
       .catch { error in
-        DispatchQueue.apollo_returnResultAsyncIfNeeded(on: callbackQueue,
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
                                                        result: .failure(error))
       }
