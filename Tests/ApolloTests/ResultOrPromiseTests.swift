@@ -10,27 +10,27 @@ class ResultOrPromiseTests: XCTestCase {
   func testSuccessResult() {
     let resultOrPromise = ResultOrPromise.result(.success("foo"))
     
-    XCTAssertEqual(resultOrPromise.result?.value, "foo")
+    XCTAssertEqual(resultOrPromise.result?.apollo.value, "foo")
   }
   
   func testFailureResult() {
     let resultOrPromise = ResultOrPromise<String>.result(.failure(TestError()))
     
-    XCTAssertNil(resultOrPromise.result?.value)
-    XCTAssert(resultOrPromise.result?.error is TestError)
+    XCTAssertNil(resultOrPromise.result?.apollo.value)
+    XCTAssert(resultOrPromise.result?.apollo.error is TestError)
   }
   
   func testResultOfFulfilledPromise() {
     let resultOrPromise = ResultOrPromise.promise(Promise<String>(fulfilled: "foo"))
     
-    XCTAssertEqual(resultOrPromise.result?.value, "foo")
+    XCTAssertEqual(resultOrPromise.result?.apollo.value, "foo")
   }
   
   func testResultOfRejectedPromise() {
     let resultOrPromise = ResultOrPromise.promise(Promise<String>(rejected: TestError()))
     
-    XCTAssertNil(resultOrPromise.result?.value)
-    XCTAssert(resultOrPromise.result?.error is TestError)
+    XCTAssertNil(resultOrPromise.result?.apollo.value)
+    XCTAssert(resultOrPromise.result?.apollo.error is TestError)
   }
   
   func testWaitForSuccessResult() throws {

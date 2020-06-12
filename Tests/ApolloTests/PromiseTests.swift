@@ -10,14 +10,14 @@ class PromiseTests: XCTestCase {
   func testResultOfFulfilledPromise() {
     let promise = Promise<String>(fulfilled: "foo")
     
-    XCTAssertEqual(promise.result?.value, "foo")
+    XCTAssertEqual(promise.result?.apollo.value, "foo")
   }
   
   func testResultOfRejectedPromise() {
     let promise = Promise<String>(rejected: TestError())
     
-    XCTAssertNil(promise.result?.value)
-    XCTAssert(promise.result?.error is TestError)
+    XCTAssertNil(promise.result?.apollo.value)
+    XCTAssert(promise.result?.apollo.error is TestError)
   }
   
   func testWaitForResultOfFulfilledPromise() throws {
@@ -65,7 +65,7 @@ class PromiseTests: XCTestCase {
       fulfill("foo")
     }
     
-    XCTAssertEqual(promise.result?.value, "foo")
+    XCTAssertEqual(promise.result?.apollo.value, "foo")
   }
   
   func testWaitForResultOfImmediatelyFulfilledPromise() throws {
@@ -81,7 +81,7 @@ class PromiseTests: XCTestCase {
       reject(TestError())
     }
 
-    XCTAssert(promise.result?.error is TestError)
+    XCTAssert(promise.result?.apollo.error is TestError)
   }
   
   func testWaitForResultOfImmediatelyRejectedPromise() {
