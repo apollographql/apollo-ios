@@ -7,7 +7,7 @@ public extension ApolloExtension where Base: DictionaryType, Base.KeyType: RawRe
   /// string values of that enum.
   var toStringKeyedDict: [String: Any] {
     var updatedDict = [String: Any]()
-    for (_, (key, value)) in base.rawDictionary.enumerated() {
+    for (_, (key, value)) in base.underlying.enumerated() {
       updatedDict[key.rawValue] = value
     }
     return updatedDict

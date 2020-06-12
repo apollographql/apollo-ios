@@ -39,12 +39,12 @@ extension ApolloCompatible {
 /// Provides a PAT interface to `Optional<T>`
 public protocol OptionalType: ExpressibleByNilLiteral {
     associatedtype WrappedType
-    var value: WrappedType? { get }
+    var underlying: WrappedType? { get }
 }
 
 extension Optional: OptionalType {
     /// Return the value if it exists, otherwise `nil`
-    public var value: Wrapped? { self }
+    public var underlying: Wrapped? { self }
 }
 
 /// Provides a PAT interface to `Result<Success, Failure>`
@@ -52,12 +52,12 @@ public protocol ResultType {
   associatedtype SuccessType
   associatedtype FailureType: Error
   
-  var value: Result<SuccessType, FailureType> { get }
+  var underlying: Result<SuccessType, FailureType> { get }
 }
 
 extension Result: ResultType {
   
-  public var value: Result<Success, Failure> { self }
+  public var underlying: Result<Success, Failure> { self }
 }
 
 
@@ -66,11 +66,11 @@ public protocol DictionaryType: ExpressibleByDictionaryLiteral {
   associatedtype KeyType: Hashable
   associatedtype ValueType
   
-  var rawDictionary: [KeyType: ValueType] { get }
+  var underlying: [KeyType: ValueType] { get }
 }
 
 extension Dictionary: DictionaryType {
-  public var rawDictionary: [Key: Value] {
+  public var underlying: [Key: Value] {
     self
   }
 }

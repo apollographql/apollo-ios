@@ -19,7 +19,7 @@ public extension ApolloExtension where Base: OptionalType, Base.WrappedType: Col
   
   /// - returns: `true` if the collection is empty or nil
   var isEmptyOrNil: Bool {
-    switch base.value {
+    switch base.underlying {
     case .none:
       return true
     case .some(let collection):
@@ -29,7 +29,7 @@ public extension ApolloExtension where Base: OptionalType, Base.WrappedType: Col
   
   /// - returns: `true` if the collection is non-nil AND has contents.
   var isNotEmpty: Bool {
-    switch base.value {
+    switch base.underlying {
     case .none:
       return false
     case .some(let collection):
