@@ -36,9 +36,9 @@ enum Target {
         case .starWars:
             return ApolloCodegenOptions(targetRootURL: targetRootURL)
         case .gitHub:
-            let json = targetRootURL.apollo.childFileURL(fileName: "schema.json")
-            let outputFileURL = targetRootURL.apollo.childFileURL(fileName: "API.swift")
-            let operationIDsURL = targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
+            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.json")
+            let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
+            let operationIDsURL = try! targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
 
             return ApolloCodegenOptions(mergeInFieldsFromFragmentSpreads: true,
                                         operationIDsURL: operationIDsURL,
