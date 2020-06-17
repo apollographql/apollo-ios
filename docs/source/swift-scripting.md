@@ -1,9 +1,7 @@
 ---
 title: Swift scripting
-sidebar_title: Swift scripting (beta)
+sidebar_title: Swift scripting
 ---
-
-⚠️ **This functionality is in beta.** ⚠️
 
 Apollo Client for iOS enables you to use Swift scripting to perform certain operations that otherwise require the command line. This document guides you through setting up a Swift Package Manager executable and then using it to: 
 
