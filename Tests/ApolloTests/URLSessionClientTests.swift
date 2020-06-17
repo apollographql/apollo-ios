@@ -180,7 +180,15 @@ class URLSessionClientLiveTests: XCTestCase {
           XCTAssertFalse(data.isEmpty)
           do {
             let httpBinResponse = try HTTPBinResponse(data: data)
-            XCTAssertEqual(httpBinResponse.url, response.url?.absoluteString)
+            // WORKAROUND: HTTPBin started randomly returning http instead of https
+            // in this field, replace until addressed. Issue: https://github.com/postmanlabs/httpbin/issues/615
+            var responseURLString = httpBinResponse.url
+            if !responseURLString.contains("https") {
+              let droppedHTTP = String(responseURLString.dropFirst(4))
+              responseURLString = "https" + droppedHTTP
+            }
+            
+            XCTAssertEqual(responseURLString, response.url?.absoluteString)
             XCTAssertEqual(httpBinResponse.args?["index"], "\(index)")
           } catch {
             XCTFail("Parsing error: \(error) for url \(response.url!)")
