@@ -63,7 +63,7 @@ To begin, let's set up a Swift Package Manager executable:
     ```swift:title=Package.swift
     .package(name: "Apollo",
              url: "https://github.com/apollographql/apollo-ios.git", 
-             .upToNextMinor(from: "0.27.0"))
+             .upToNextMinor(from: "0.29.0"))
     ```
   **NOTE**: The version should be identical to the version you're using in your main project.
 
