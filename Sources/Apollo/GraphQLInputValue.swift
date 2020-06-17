@@ -27,6 +27,19 @@ extension JSONEncodable {
   }
 }
 
+extension Optional: GraphQLInputValue {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
+    switch self {
+    case .none:
+      return NSNull()
+    case .some(let wrapped as GraphQLInputValue):
+      return try wrapped.evaluate(with: variables)
+    default:
+      fatalError("Optional is only GraphQLInputValue if Wrapped is")
+    }
+  }
+}
+
 extension Dictionary: GraphQLInputValue {
   public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     return try evaluate(with: variables) as JSONObject
