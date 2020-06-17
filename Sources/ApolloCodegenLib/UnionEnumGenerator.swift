@@ -65,7 +65,7 @@ public class UnionEnumGenerator {
     ]
     
     return try Environment().renderTemplate(string: self.unionEnumTemplate,
-                                            context: context.apollo_toStringKeyedDict)
+                                            context: context.apollo.toStringKeyedDict)
   }
   
   /// A stencil template to use to render interface enums.
