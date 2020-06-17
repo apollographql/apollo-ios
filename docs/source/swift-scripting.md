@@ -118,17 +118,17 @@ Here's how you obtain the parent folder of the script, then use that to get back
 ```swift:title=main.swift
 let parentFolderOfScriptFile = FileFinder.findParentFolder()
 let sourceRootURL = parentFolderOfScriptFile
-  .deletingLastPathComponent() // Result: Sources folder
-  .deletingLastPathComponent() // Result: Codegen folder
-  .deletingLastPathComponent() // Result: MyProject source root folder
+  .apollo.parentFolder() // Result: Sources folder
+  .apollo.parentFolder() // Result: Codegen folder
+  .apollo.parentFolder() // Result: MyProject source root folder
 ```
 
 You can use this to get the URL of the folder you plan to download the CLI to: 
 
 ```swift:title=main.swift
 let cliFolderURL = sourceRootURL
-  .appendingPathComponent("Codegen")
-  .appendingPathComponent("ApolloCLI")
+  .apollo.childFolderURL(folderName: "Codegen")
+  .apollo.childFolderURL(folderName: "ApolloCLI")
 ```
 
 This would put the folder to download the CLI here in your filesystem: 
@@ -187,10 +187,10 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 
     ```swift:title=main.swift
     let output = sourceRootURL
-        .appendingPathComponent("MyProject")
+        .apollo.childFolderURL(folderName:"MyProject")
     ```
     
-    You might want to make sure the folder exists before proceeding:
+    Note that particularly if you're not just downloading the schema into your target's folder, you will want to make sure the folder exists before proceeding:
     
     ```swift:title=main.swift
     try FileManager
@@ -303,7 +303,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
 
     ```swift:title=main.swift
     let targetURL = sourceRootURL
-                    .appendingPathComponent("MyProject")
+        .apollo.childFolderURL(folderName: "MyProject")
     ```
 
     Again, you might want to make sure the folder exists before proceeding:
