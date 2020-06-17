@@ -10,6 +10,31 @@ Apollo Client for iOS enables you to use Swift scripting to perform certain oper
 - Download a schema
 - Generate Swift code for your model object based on your schema and operations
 
+## Conceptual background
+
+Apollo's code generation requires both of the following to run:
+
+* Your **schema**, which defines what it's *possible* for you to request from or send to your server
+* One or more **operations**, which define what you are *actually* requesting from the server
+
+If you're missing either of these, codegen can't run. If you define operations but no schema, the operations can't be validated. If you define a schema but no operations, there's nothing to validate or generate code for. 
+
+Or, more succinctly:
+
+```
+schema + operations = code
+```
+
+Each operation you define can be one of the following:
+
+- A **query**, which is a one-time request for specific data
+- A **mutation**, which changes data on the server and then receives updated data back
+- A **subscription**, which allows you to listen for changes to a particular object or type of object
+
+Code generation takes your operations and compares them to the schema to confirm that they're valid. If an operation _isn't_ valid, the whole process errors out. If all operations are valid, codegen generates Swift code that gives you end-to-end type safety for each operation. 
+
+The rest of this guide will help you set up a Swift Package Manager executable that will live alongside your main `xcodeproj` and which can be used either from your main `xcodeproj` or on its own to download a schema, generate code, or both.
+
 ## Setup
 
 To begin, let's set up a Swift Package Manager executable:
@@ -232,27 +257,6 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 Note the warning: This isn't relevant for schema downloading, but it *is* relevant for generating code: In order to generate code, you need both the schema and some kind of operation.
 
 ## Using codegen to create a `.graphql` file with an operation
-
-Code generation requires both of the following to run:
-
-* Your **schema**, which defines what it's *possible* for you to request from or send to your server
-* One or more **operations**, which define what you are *actually* requesting from the server
-
-If you're missing either of these, codegen can't run. If you define operations but no schema, the operations can't be validated. If you define a schema but no operations, there's nothing to validate or generate code for. 
-
-Or, more succinctly:
-
-```
-schema + operations = code
-```
-
-Each operation you define can be one of the following:
-
-- A **query**, which is a one-time request for specific data
-- A **mutation**, which changes data on the server and then receives updated data back
-- A **subscription**, which allows you to listen for changes to a particular object or type of object
-
-Code generation takes your operations and compares them to the schema to confirm that they're valid. If an operation _isn't_ valid, the whole process errors out. If all operations are valid, codegen generates Swift code that gives you end-to-end type safety for each operation. 
 
 Because you've already [downloaded a schema](#downloading-a-schema), you can now proceed to creating an operation. The easiest and most common type of operation to create is a Query. 
 
