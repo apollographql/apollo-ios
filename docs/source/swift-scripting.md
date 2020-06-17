@@ -256,7 +256,7 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 
 Note the warning: This isn't relevant for schema downloading, but it *is* relevant for generating code: In order to generate code, you need both the schema and some kind of operation.
 
-## Using codegen to create a `.graphql` file with an operation
+## Creating a `.graphql` file with an operation
 
 Because you've already [downloaded a schema](#downloading-a-schema), you can now proceed to creating an operation. The easiest and most common type of operation to create is a Query. 
 
@@ -299,9 +299,9 @@ Here, for example, is what this looks like in a file for one of the queries in o
 
 <img alt="Launch list file" src="screenshot/graphql_file_launchlist.png" class="screenshot"/>
 
-## Generating code for a target
+## Generating Swift code for a target
 
->**Before you start**: Remember, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation in your file tree. If you don't have **both** of these, code generation will fail. [Read the section above](#using-codegen-to-create-a-graphql-file-with-an-operation) if you don't have an operation set up!
+>**Before you start**: Remember, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation in your file tree. If you don't have **both** of these, code generation will fail. [Read the section above](#creating-a-graphql-file-with-an-operation) if you don't have an operation set up!
 
 1. Specify the URL for the root of the target you're generating code for:
 
