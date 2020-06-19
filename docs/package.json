@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "gatsby": "2.23.4",
-    "gatsby-theme-apollo-docs": "4.2.9",
+    "gatsby-theme-apollo-docs": "4.2.10",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }
