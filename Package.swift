@@ -39,7 +39,9 @@ let package = Package(
         dependencies: []),
     .target(
       name: "Apollo",
-      dependencies: []),
+      dependencies: [
+        "ApolloCore",
+      ]),
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
@@ -62,6 +64,7 @@ let package = Package(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo",
+        "ApolloCore",
         .product(name: "Starscream", package: "Starscream"),
       ]),
     .target(
