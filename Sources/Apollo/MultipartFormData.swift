@@ -17,7 +17,7 @@ public class MultipartFormData {
   /// A Carriage Return Line Feed character, which will be seen as a newline on both unix and Windows servers.
   static let CRLF = "\r\n"
 
-  let boundary: String
+  public let boundary: String
 
   private var bodyParts: [BodyPart]
 
@@ -89,7 +89,7 @@ public class MultipartFormData {
   /// Encodes everything into the final form data to send to a server.
   ///
   /// - Returns: The final form data to send to a server.
-  func encode() throws -> Data {
+  public func encode() throws -> Data {
     var data = Data()
 
     for p in self.bodyParts {
