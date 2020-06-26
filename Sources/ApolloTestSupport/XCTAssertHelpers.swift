@@ -19,7 +19,7 @@ public func XCTAssertEqual<T, U>(_ expression1: @autoclosure () throws -> [T : U
   }
 }
 
-public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure () throws -> Pattern.Base, _ patternExpression: @autoclosure () throws -> Pattern, file: StaticString = #file, line: UInt = #line) rethrows {
+public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure () throws -> Pattern.Base, _ patternExpression: @autoclosure () throws -> Pattern, file: StaticString = #filePath, line: UInt = #line) rethrows {
   let value = try valueExpression()
   let pattern = try patternExpression()
   
