@@ -582,6 +582,7 @@
 		9BAEEC14234C132600808306 /* CLIExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIExtractorTests.swift; sourceTree = "<group>"; };
 		9BAEEC16234C275600808306 /* ApolloSchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloSchemaTests.swift; sourceTree = "<group>"; };
 		9BAEEC18234C297800808306 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
+		9BB1DAC624A66B2500396235 /* ApolloMacPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ApolloMacPlayground.playground; path = Playgrounds/ApolloMacPlayground.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegen.xcconfig"; sourceTree = "<group>"; };
 		9BC2D9D1233C6DC0007BD083 /* Basher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basher.swift; sourceTree = "<group>"; };
 		9BCF0CD923FC9CA50031D2A2 /* TestCacheProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCacheProvider.swift; sourceTree = "<group>"; };
@@ -1377,6 +1378,7 @@
 		9FC750461D2A532C00458D91 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
+				9BB1DAC624A66B2500396235 /* ApolloMacPlayground.playground */,
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
