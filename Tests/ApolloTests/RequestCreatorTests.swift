@@ -14,8 +14,6 @@ class RequestCreatorTests: XCTestCase {
   private let customRequestCreator = TestCustomRequestCreator()
   private let apolloRequestCreator = ApolloRequestCreator()
 
-  
-    
   private func checkString(_ string: String,
                            includes expectedString: String,
                            file: StaticString = #file,
