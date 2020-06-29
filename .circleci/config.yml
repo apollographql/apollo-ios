@@ -9,7 +9,7 @@ parameters:
     default: "14.0"
   ios_previous_version:
     type: string
-    default: "13.4"
+    default: "13.5"
   ios_sdk:
     type: string
     default: "iphonesimulator14.0"
