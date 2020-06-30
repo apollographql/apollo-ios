@@ -224,8 +224,8 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 3. Set up your `ApolloSchemaOptions` object. In this case, we'll use the [default arguments for all the constructor parameters that take them](./api/ApolloCodegenLib/structs/ApolloSchemaOptions#methods), and only pass in the endpoint to download from and the folder to put the downloaded file into: 
 
     ```swift:title=main.swift
-    let options = ApolloSchemaOptions(endpointURL: endpoint,
-                                      outputFolderURL: output)
+    let schemaDownloadOptions = ApolloSchemaOptions(endpointURL: endpoint,
+                                                    outputFolderURL: output)
     ```
     
     With these defaults, this will download a JSON file called `schema.json`. 
@@ -235,7 +235,7 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
     ```swift:title=main.swift
     do {
       try ApolloSchemaDownloader.run(with: cliFolderURL,
-                                     options: options)
+                                     options: schemaDownloadOptions)
     } catch {
       exit(1)
     }
@@ -319,7 +319,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
 2. Set up your `ApolloCodegenOptions` object. In this case, we'll use the constructor that [sets defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
 
     ```swift:title=main.swift
-    let options = ApolloCodegenOptions(targetRootURL: targetURL)
+    let codegenOptions = ApolloCodegenOptions(targetRootURL: targetURL)
     ```
 
     This creates a single file called `API.swift` in the target's root folder. 
@@ -330,7 +330,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
     do {
         try ApolloCodegen.run(from: targetURL,
                               with: cliFolderURL,
-                              options: options)
+                              options: codegenOptions)
     } catch {
         exit(1)
     }
