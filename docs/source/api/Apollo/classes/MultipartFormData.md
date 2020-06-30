@@ -8,6 +8,13 @@ public class MultipartFormData
 
 > A helper for building out multi-part form data for upload
 
+## Properties
+### `boundary`
+
+```swift
+public let boundary: String
+```
+
 ## Methods
 ### `init(boundary:)`
 
@@ -106,3 +113,13 @@ public func appendPart(inputStream: InputStream,
 | name | The name of the part to pass along to the server |
 | contentType | [optional] The content type of this part. Defaults to nil. |
 | filename | [optional] The name of the file for this part. Defaults to nil. |
+
+### `encode()`
+
+```swift
+public func encode() throws -> Data
+```
+
+> Encodes everything into the final form data to send to a server.
+>
+> - Returns: The final form data to send to a server.

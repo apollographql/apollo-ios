@@ -2,8 +2,18 @@
 
 # `ApolloExtension`
 ```swift
-extension ApolloExtension where Base == FileManager
+public extension ApolloExtension where Base: DictionaryType, Base.KeyType: RawRepresentable, Base.KeyType.RawValue == String, Base.ValueType: Any
 ```
+
+## Properties
+### `toStringKeyedDict`
+
+```swift
+var toStringKeyedDict: [String: Any]
+```
+
+> Transforms a dictionary keyed by a String enum into a dictionary keyed by the
+> string values of that enum.
 
 ## Methods
 ### `fileExists(at:)`
@@ -153,3 +163,44 @@ public func shasum(at fileURL: URL) throws -> String
 | Name | Description |
 | ---- | ----------- |
 | fileURL | The file to calculate the SHASUM for. |
+
+### `parentFolderURL()`
+
+```swift
+public func parentFolderURL() -> URL
+```
+
+> - Returns: the URL to the parent folder of the current URL.
+
+### `childFolderURL(folderName:)`
+
+```swift
+public func childFolderURL(folderName: String) -> URL
+```
+
+> - Parameter folderName: The name of the child folder to append to the current URL
+> - Returns: The full URL including the appended child folder.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| folderName | The name of the child folder to append to the current URL |
+
+### `childFileURL(fileName:)`
+
+```swift
+public func childFileURL(fileName: String) throws -> URL
+```
+
+> Adds the filename to the caller to get the full URL of a file
+>
+> - Parameters:
+>   - fileName: The name of the child file, with an extension, for example `"API.swift"`. Note: For hidden files just pass `".filename"`.
+> - Returns: The full URL including the full file.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| fileName | The name of the child file, with an extension, for example `"API.swift"`. Note: For hidden files just pass `".filename"`. |

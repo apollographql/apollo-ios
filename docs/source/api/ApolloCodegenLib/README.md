@@ -2,14 +2,12 @@
 
 ## Protocols
 
--   [ApolloCompatible](protocols/ApolloCompatible/)
 -   [FlexibleDecoder](protocols/FlexibleDecoder/)
 
 ## Structs
 
 -   [ApolloCLI](structs/ApolloCLI/)
 -   [ApolloCodegenOptions](structs/ApolloCodegenOptions/)
--   [ApolloExtension](structs/ApolloExtension/)
 -   [ApolloSchemaDownloader](structs/ApolloSchemaDownloader/)
 -   [ApolloSchemaOptions](structs/ApolloSchemaOptions/)
 -   [Basher](structs/Basher/)
@@ -34,6 +32,7 @@
 -   [ApolloCodegenOptions.CustomScalarFormat](enums/ApolloCodegenOptions.CustomScalarFormat/)
 -   [ApolloCodegenOptions.OutputFormat](enums/ApolloCodegenOptions.OutputFormat/)
 -   [ApolloSchemaOptions.SchemaFileType](enums/ApolloSchemaOptions.SchemaFileType/)
+-   [ApolloURLError](enums/ApolloURLError/)
 -   [Basher.BashError](enums/Basher.BashError/)
 -   [CodegenLogger.LogLevel](enums/CodegenLogger.LogLevel/)
 -   [EnumGenerator.EnumContextKey](enums/EnumGenerator.EnumContextKey/)
@@ -45,11 +44,9 @@
 ## Extensions
 
 -   [ApolloCodegenOptions](extensions/ApolloCodegenOptions/)
--   [ApolloCompatible](extensions/ApolloCompatible/)
 -   [ApolloExtension](extensions/ApolloExtension/)
 -   [ApolloSchemaOptions](extensions/ApolloSchemaOptions/)
 -   [Decodable](extensions/Decodable/)
--   [Dictionary](extensions/Dictionary/)
 -   [FileHandle](extensions/FileHandle/)
 
 ## Typealiases

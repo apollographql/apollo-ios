@@ -35,6 +35,7 @@
 -   [GraphQLField](structs/GraphQLField/)
 -   [GraphQLFile](structs/GraphQLFile/)
 -   [GraphQLFragmentSpread](structs/GraphQLFragmentSpread/)
+-   [GraphQLGETTransformer](structs/GraphQLGETTransformer/)
 -   [GraphQLHTTPResponseError](structs/GraphQLHTTPResponseError/)
 -   [GraphQLResult](structs/GraphQLResult/)
 -   [GraphQLResultError](structs/GraphQLResultError/)
@@ -51,7 +52,6 @@
 -   [ApolloStore](classes/ApolloStore/)
 -   [ApolloStore.ReadTransaction](classes/ApolloStore.ReadTransaction/)
 -   [ApolloStore.ReadWriteTransaction](classes/ApolloStore.ReadWriteTransaction/)
--   [Atomic](classes/Atomic/)
 -   [EmptyCancellable](classes/EmptyCancellable/)
 -   [GraphQLQueryWatcher](classes/GraphQLQueryWatcher/)
 -   [GraphQLResponse](classes/GraphQLResponse/)
@@ -79,11 +79,10 @@
 ## Extensions
 
 -   [ApolloClient](extensions/ApolloClient/)
+-   [ApolloExtension](extensions/ApolloExtension/)
 -   [Array](extensions/Array/)
--   [Atomic](extensions/Atomic/)
 -   [Bool](extensions/Bool/)
 -   [Dictionary](extensions/Dictionary/)
--   [DispatchQueue](extensions/DispatchQueue/)
 -   [Double](extensions/Double/)
 -   [Float](extensions/Float/)
 -   [GraphQLError](extensions/GraphQLError/)
