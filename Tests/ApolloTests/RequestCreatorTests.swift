@@ -14,8 +14,6 @@ class RequestCreatorTests: XCTestCase {
   private let customRequestCreator = TestCustomRequestCreator()
   private let apolloRequestCreator = ApolloRequestCreator()
 
-  
-    
   private func checkString(_ string: String,
                            includes expectedString: String,
                            file: StaticString = #file,
@@ -289,6 +287,94 @@ Bravo file content.
     }
   }
 
+  func testMultipleFilesWithMultipleFieldsWithApolloRequestCreator() throws {
+    let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
+    let alphaFile = try GraphQLFile(fieldName: "uploads",
+                                    originalName: "a.txt",
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileURL)
+    
+    let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
+    let betaFile = try GraphQLFile(fieldName: "uploads",
+                                   originalName: "b.txt",
+                                   mimeType: "text/plain",
+                                   fileURL: betaFileURL)
+    
+    let charlieFileUrl = self.fileURLForFile(named: "c", extension: "txt")
+    let charlieFile = try GraphQLFile(fieldName: "secondField",
+                                      originalName: "c.txt",
+                                      mimeType: "text/plain",
+                                      fileURL: charlieFileUrl)
+    
+    let data = try apolloRequestCreator.requestMultipartFormData(
+      for: HeroNameQuery(),
+      files: [alphaFile, betaFile, charlieFile],
+      sendOperationIdentifiers: false,
+      serializationFormat: JSONSerializationFormat.self,
+      manualBoundary: "TEST.BOUNDARY"
+    )
+    
+    let stringToCompare = try self.string(from: data)
+    
+    if JSONSerialization.dataCanBeSorted() {
+      let expectedString = """
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="operations"
+
+  {"operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,\"secondField\":null,\"uploads\":null}}
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="map"
+
+  {"0":["variables.secondField"],"1":["variables.uploads.0"],"2":["variables.uploads.1"]}
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="0"; filename="c.txt"
+  Content-Type: text/plain
+
+  Charlie file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="1"; filename="a.txt"
+  Content-Type: text/plain
+
+  Alpha file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="2"; filename="b.txt"
+  Content-Type: text/plain
+
+  Bravo file content.
+
+  --TEST.BOUNDARY--
+  """
+      XCTAssertEqual(stringToCompare, expectedString)
+    } else {
+      // Query and operation parameters may be in weird order, so let's at least check that the files got encoded properly.
+      let endString = """
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="0"; filename="c.txt"
+  Content-Type: text/plain
+
+  Charlie file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="1"; filename="a.txt"
+  Content-Type: text/plain
+
+  Alpha file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="2"; filename="b.txt"
+  Content-Type: text/plain
+
+  Bravo file content.
+
+  --TEST.BOUNDARY--
+  """
+      self.checkString(stringToCompare, includes: endString)
+    }
+  }
+  
+  
   func testRequestBodyWithApolloRequestCreator() {
     let query = HeroNameQuery()
     let req = apolloRequestCreator.requestBody(for: query, sendOperationIdentifiers: false)
