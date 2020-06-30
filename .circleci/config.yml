@@ -89,7 +89,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone Xs
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
@@ -129,7 +129,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone Xs
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloSQLite
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
@@ -159,7 +159,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone Xs
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
