@@ -1,5 +1,15 @@
 # Change log
 
+## v0.29.0
+
+- **NEW**: Swift scripting is officially out of Beta! Please check out [our updated guide to integration](https://www.apollographql.com/docs/ios/swift-scripting/). The tutorial should be updated to recommend using Swift Scripting within the next week or so. NOTE: The shell script is not deprecated yet, but will be shortly. ([#1263](https://github.com/apollographql/apollo-ios/pull/1263))
+- **BREAKING**: Found some workarounds to conditional conformance and updated all extensions to use the `apollo.extensionMethod` syntax introduced in `0.28.0`. ([#1256](https://github.com/apollographql/apollo-ios/pull/1256))
+- **BREAKING**: Moved a few things into the new `ApolloCore` library. For CocoaPods and SPM users, this should be automatically picked up by your package manager. **Carthage users, you will need to drag the new `ApolloCore` library into  your project manually** as you have with the other Apollo libs. ([https://github.com/apollographql/apollo-ios/pull/1256](https://github.com/apollographql/apollo-ios/pull/1256
+- **BREAKING**: Updated to version `2.28.0` of the Apollo JS CLI. This includes moving a bunch of `static let` allocations to computed `static var`s to prevent memory overuse. ([#1246](https://github.com/apollographql/apollo-ios/pull/1246))
+- Made `GraphQLGetTransformer` and its methods public and made a couple more methods on `MultipartFormData` public. ([#1273](https://github.com/apollographql/apollo-ios/pull/1273))
+- Fixes an issue when uploading multiple files for different variables. ([#1279](https://github.com/apollographql/apollo-ios/pull/1279), special thanks to [#1081](https://github.com/apollographql/apollo-ios/pull/1081))
+- Fixes a crash when encoding `GraphQLVariable` objects which conform to `JSONEncodable`. ([#1262](https://github.com/apollographql/apollo-ios/pull/1262))
+
 ## v0.28.0
 - **BREAKING**: Changed a few things in the `ApolloCodegen` library to use `object.apollo.extensionMethod` syntax rather than `object.apollo_extensionMethod`. There's a few things that are still using `apollo_` notation due to constraints around conditional conformance, but you should particularly check your swift scripts for changes around `FileManager` APIs. ([#1183](https://github.com/apollographql/apollo-ios/pull/1183))
 - **BREAKING**: `NormalizedCache` now has a method for explicitly clearing the cache synchronously, in addition to the existing method to clear it asynchronously. If you've got a custom `NormalizedCache` implementation, you'll need to add an implementation for this method. ([#1186](https://github.com/apollographql/apollo-ios/pull/1186))
