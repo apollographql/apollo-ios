@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloCore
+#endif
 
 public typealias ResultMap = [String: Any?]
 

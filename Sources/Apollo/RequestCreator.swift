@@ -1,5 +1,7 @@
 import Foundation
+#if !COCOAPODS
 import ApolloCore
+#endif
 
 public protocol RequestCreator {
   /// Creates a `GraphQLMap` out of the passed-in operation

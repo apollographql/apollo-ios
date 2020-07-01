@@ -1,5 +1,7 @@
 import Foundation
+#if !COCOAPODS
 import ApolloCore
+#endif
 
 public extension ApolloExtension where Base: DictionaryType, Base.KeyType: RawRepresentable, Base.KeyType.RawValue == String, Base.ValueType: Any {
 

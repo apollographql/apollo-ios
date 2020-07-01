@@ -1,5 +1,7 @@
 import Foundation
+#if !COCOAPODS
 import ApolloCore
+#endif
 
 extension URL: ApolloCompatible {}
 

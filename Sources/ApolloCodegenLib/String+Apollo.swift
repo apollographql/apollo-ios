@@ -1,5 +1,7 @@
 import Foundation
+#if !COCOAPODS
 import ApolloCore
+#endif
 
 enum ApolloStringError: Error {
   case expectedSuffixMissing(_ suffix: String)
