@@ -1,14 +1,37 @@
 ---
 title: Swift scripting
-sidebar_title: Swift scripting (beta)
+sidebar_title: Swift scripting
 ---
-
-⚠️ **This functionality is in beta.** ⚠️
 
 Apollo Client for iOS enables you to use Swift scripting to perform certain operations that otherwise require the command line. This document guides you through setting up a Swift Package Manager executable and then using it to: 
 
 - Download a schema
 - Generate Swift code for your model object based on your schema and operations
+
+## Conceptual background
+
+Apollo's code generation requires both of the following to run:
+
+* Your **schema**, which defines what it's *possible* for you to request from or send to your server
+* One or more **operations**, which define what you are *actually* requesting from the server
+
+If you're missing either of these, codegen can't run. If you define operations but no schema, the operations can't be validated. If you define a schema but no operations, there's nothing to validate or generate code for. 
+
+Or, more succinctly:
+
+```
+schema + operations = code
+```
+
+Each operation you define can be one of the following:
+
+- A **query**, which is a one-time request for specific data
+- A **mutation**, which changes data on the server and then receives updated data back
+- A **subscription**, which allows you to listen for changes to a particular object or type of object
+
+Code generation takes your operations and compares them to the schema to confirm that they're valid. If an operation _isn't_ valid, the whole process errors out. If all operations are valid, codegen generates Swift code that gives you end-to-end type safety for each operation. 
+
+The rest of this guide will help you set up a Swift Package Manager executable that will live alongside your main `xcodeproj` and which can be used either from your main `xcodeproj` or on its own to download a schema, generate code, or both.
 
 ## Setup
 
@@ -63,7 +86,7 @@ To begin, let's set up a Swift Package Manager executable:
     ```swift:title=Package.swift
     .package(name: "Apollo",
              url: "https://github.com/apollographql/apollo-ios.git", 
-             .upToNextMinor(from: "0.27.0"))
+             .upToNextMinor(from: "0.29.0"))
     ```
   **NOTE**: The version should be identical to the version you're using in your main project.
 
@@ -118,17 +141,17 @@ Here's how you obtain the parent folder of the script, then use that to get back
 ```swift:title=main.swift
 let parentFolderOfScriptFile = FileFinder.findParentFolder()
 let sourceRootURL = parentFolderOfScriptFile
-  .deletingLastPathComponent() // Result: Sources folder
-  .deletingLastPathComponent() // Result: Codegen folder
-  .deletingLastPathComponent() // Result: MyProject source root folder
+  .apollo.parentFolder() // Result: Sources folder
+  .apollo.parentFolder() // Result: Codegen folder
+  .apollo.parentFolder() // Result: MyProject source root folder
 ```
 
 You can use this to get the URL of the folder you plan to download the CLI to: 
 
 ```swift:title=main.swift
 let cliFolderURL = sourceRootURL
-  .appendingPathComponent("Codegen")
-  .appendingPathComponent("ApolloCLI")
+  .apollo.childFolderURL(folderName: "Codegen")
+  .apollo.childFolderURL(folderName: "ApolloCLI")
 ```
 
 This would put the folder to download the CLI here in your filesystem: 
@@ -187,10 +210,10 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 
     ```swift:title=main.swift
     let output = sourceRootURL
-        .appendingPathComponent("MyProject")
+        .apollo.childFolderURL(folderName:"MyProject")
     ```
     
-    You might want to make sure the folder exists before proceeding:
+    Note that particularly if you're not just downloading the schema into your target's folder, you will want to make sure the folder exists before proceeding:
     
     ```swift:title=main.swift
     try FileManager
@@ -201,8 +224,8 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 3. Set up your `ApolloSchemaOptions` object. In this case, we'll use the [default arguments for all the constructor parameters that take them](./api/ApolloCodegenLib/structs/ApolloSchemaOptions#methods), and only pass in the endpoint to download from and the folder to put the downloaded file into: 
 
     ```swift:title=main.swift
-    let options = ApolloSchemaOptions(endpointURL: endpoint,
-                                      outputFolderURL: output)
+    let schemaDownloadOptions = ApolloSchemaOptions(endpointURL: endpoint,
+                                                    outputFolderURL: output)
     ```
     
     With these defaults, this will download a JSON file called `schema.json`. 
@@ -212,7 +235,7 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
     ```swift:title=main.swift
     do {
       try ApolloSchemaDownloader.run(with: cliFolderURL,
-                                     options: options)
+                                     options: schemaDownloadOptions)
     } catch {
       exit(1)
     }
@@ -231,28 +254,7 @@ One of the convenience wrappers available to you in the target is `ApolloSchemaD
 
 Note the warning: This isn't relevant for schema downloading, but it *is* relevant for generating code: In order to generate code, you need both the schema and some kind of operation.
 
-## Using codegen to create a `.graphql` file with an operation
-
-Code generation requires both of the following to run:
-
-* Your **schema**, which defines what it's *possible* for you to request from or send to your server
-* One or more **operations**, which define what you are *actually* requesting from the server
-
-If you're missing either of these, codegen can't run. If you define operations but no schema, the operations can't be validated. If you define a schema but no operations, there's nothing to validate or generate code for. 
-
-Or, more succinctly:
-
-```
-schema + operations = code
-```
-
-Each operation you define can be one of the following:
-
-- A **query**, which is a one-time request for specific data
-- A **mutation**, which changes data on the server and then receives updated data back
-- A **subscription**, which allows you to listen for changes to a particular object or type of object
-
-Code generation takes your operations and compares them to the schema to confirm that they're valid. If an operation _isn't_ valid, the whole process errors out. If all operations are valid, codegen generates Swift code that gives you end-to-end type safety for each operation. 
+## Creating a `.graphql` file with an operation
 
 Because you've already [downloaded a schema](#downloading-a-schema), you can now proceed to creating an operation. The easiest and most common type of operation to create is a Query. 
 
@@ -295,15 +297,15 @@ Here, for example, is what this looks like in a file for one of the queries in o
 
 <img alt="Launch list file" src="screenshot/graphql_file_launchlist.png" class="screenshot"/>
 
-## Generating code for a target
+## Generating Swift code for a target
 
->**Before you start**: Remember, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation in your file tree. If you don't have **both** of these, code generation will fail. [Read the section above](#using-codegen-to-create-a-graphql-file-with-an-operation) if you don't have an operation set up!
+>**Before you start**: Remember, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation in your file tree. If you don't have **both** of these, code generation will fail. [Read the section above](#creating-a-graphql-file-with-an-operation) if you don't have an operation set up!
 
 1. Specify the URL for the root of the target you're generating code for:
 
     ```swift:title=main.swift
     let targetURL = sourceRootURL
-                    .appendingPathComponent("MyProject")
+        .apollo.childFolderURL(folderName: "MyProject")
     ```
 
     Again, you might want to make sure the folder exists before proceeding:
@@ -317,7 +319,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
 2. Set up your `ApolloCodegenOptions` object. In this case, we'll use the constructor that [sets defaults for you automatically](./api/ApolloCodegenLib/structs/ApolloCodegenOptions#methods): 
 
     ```swift:title=main.swift
-    let options = ApolloCodegenOptions(targetRootURL: targetURL)
+    let codegenOptions = ApolloCodegenOptions(targetRootURL: targetURL)
     ```
 
     This creates a single file called `API.swift` in the target's root folder. 
@@ -328,7 +330,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
     do {
         try ApolloCodegen.run(from: targetURL,
                               with: cliFolderURL,
-                              options: options)
+                              options: codegenOptions)
     } catch {
         exit(1)
     }
@@ -367,6 +369,71 @@ Now, you're able to generate code from a debuggable Swift Package Manager execut
 4. Build your target.
 
 Now, every time you build your project, this script gets called. Because Swift knows not to recompile everything unless something's changed, it should not have a significant impact on your build time. 
+ 
+## Full Script Example 
+
+Here's an example of a full `main.swift` file for your `Codegen` project which follows the file structure outlined above, and both downloads the schema and uses it to run the codegen: 
+
+```swift:title=main.swift
+import Foundation
+import ApolloCodegenLib
+
+// Grab the parent folder of this file on the filesystem
+let parentFolderOfScriptFile = FileFinder.findParentFolder()
+
+// Use that to calculate the source root of both the 
+let sourceRootURL = parentFolderOfScriptFile
+    .apollo.parentFolderURL() // Sources
+    .apollo.parentFolderURL() // Codegen
+    .apollo.parentFolderURL() // MyProject
+
+// From the source root, figure out where your target 
+// root is within your main project
+let targetRootURL = sourceRootURL
+    .apollo.childFolderURL(folderName: "MyProject")
+
+// Set up the URL you want to use to download the project    
+let endpoint = URL(string: "http://localhost:8080/graphql")!
+
+// Create an options object for downloading the schema
+let schemaDownloadOptions = ApolloSchemaOptions(endpointURL: endpoint,
+                                                outputFolderURL: targetRootURL)
+                                      
+// Calculate where you want to create the folder where the CLI will 
+// be downloaded by the ApolloCodegenLib framework.
+let cliFolderURL = sourceRootURL
+    .apollo.childFolderURL(folderName: "Codegen")
+    .apollo.childFolderURL(folderName: "ApolloCLI")
+
+do {
+  // Actually attempt to download the schema.
+  try ApolloSchemaDownloader.run(with: cliFolderURL,
+                                 options: schemaDownloadOptions)
+} catch {
+  // This makes the error message in Xcode a lot more legible,
+  // and prevents the script from continuing to try to generate 
+  // code if the schema download failed.
+  exit(1)
+}
+
+// Create the default Codegen options object (assumes schema.json 
+// is in the target root folder, all queries are in some kind 
+// of subfolder of the target folder and will output as a 
+// single file to API.swift in the target folder)
+let codegenOptions = ApolloCodegenOptions(targetRootURL: targetRootURL)
+
+do {
+    // Actually attempt to generate code.
+    try ApolloCodegen.run(from: targetRootURL,
+                          with: cliFolderURL,
+                          options: codegenOptions)
+} catch {
+    // This makes the error message in Xcode a lot more legible.
+    exit(1)
+}
+```
+
+Note that in practice, you will probably want to break the codegen and schema download into separate files, since you'll need to run the code generation considerably more frequently. 
 
 ## Swift-specific troubleshooting
 

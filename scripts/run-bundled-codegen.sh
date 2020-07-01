@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # Advertisement!
-echo "Have you tried our new Swift Package Manager wrapper around codegen? It's now available in beta! See docs at https://www.apollographql.com/docs/ios/swift-scripting/. Note that when this comes out of beta, this Bash script will be deprecated, so give it a try today!"
+echo "Have you tried our new Swift Package Manager wrapper around codegen? It's now out of beta and ready to go! See docs at https://www.apollographql.com/docs/ios/swift-scripting/. This Bash script will be deprecated soon, so give it a try today!"
 
 # Get the path to the script directory
 SCRIPT_DIR="$(dirname "$0")"

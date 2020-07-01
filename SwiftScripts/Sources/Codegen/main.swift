@@ -8,8 +8,8 @@ let parentFolderOfScriptFile = FileFinder.findParentFolder()
 // Use that to calculate the source root
 let sourceRootURL = parentFolderOfScriptFile
     .apollo.parentFolderURL() // Sources
-    .apollo.parentFolderURL()  // SwiftScripts
-    .apollo.parentFolderURL()  // apollo-ios
+    .apollo.parentFolderURL() // SwiftScripts
+    .apollo.parentFolderURL() // apollo-ios
 
 // In a typical app, you'll only need to do this for one target, so you'd
 // set these up directly within this file. Here, we're using more than one
