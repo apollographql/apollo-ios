@@ -13,6 +13,12 @@ public struct ApolloCLI {
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> ApolloCLI {
     try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
+    
+    if !(try CLIExtractor.validateSHASUMOfDownloadedFile(in: cliFolderURL)) {
+      CodegenLogger.log("Downloaded zip file has incorrect SHASUM, forcing redownolad")
+      try CLIDownloader.forceRedownload(cliFolderURL: cliFolderURL, timeout: timeout)
+    }
+    
     let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     return ApolloCLI(binaryFolderURL: binaryFolderURL)
   }
