@@ -1,6 +1,6 @@
 # Apollo iOS
 
-[![CircleCI](https://circleci.com/gh/apollographql/apollo-ios/tree/master.svg?style=shield)](https://circleci.com/gh/apollographql/apollo-ios/tree/master) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollographql/apollo-ios/master/LICENSE) [![Swift 5 Supported](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://github.com/apple/swift) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg)](https://cocoapods.org/pods/Apollo) [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/apollo)
+[![CircleCI](https://circleci.com/gh/apollographql/apollo-ios/tree/main.svg?style=shield)](https://circleci.com/gh/apollographql/apollo-ios/tree/main) [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000)](https://raw.githubusercontent.com/apollographql/apollo-ios/main/LICENSE) [![Swift 5 Supported](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://github.com/apple/swift) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)   [![CocoaPods](https://img.shields.io/cocoapods/v/Apollo.svg)](https://cocoapods.org/pods/Apollo) [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/apollo)
 
 Apollo iOS is a strongly-typed, caching GraphQL client for iOS, written in Swift.
 
@@ -17,7 +17,7 @@ This combination of models with value semantics, one way data flow, and automati
 [Read the full docs at apollographql.com/docs/ios/](https://www.apollographql.com/docs/ios/)
 
 ## Changelog
-[Read about the latest changes to the library](https://github.com/apollographql/apollo-ios/blob/master/CHANGELOG.md)
+[Read about the latest changes to the library](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md)
 
 ## Contributing
 
@@ -29,4 +29,4 @@ If you open `Apollo.xcworkspace`, you should be able to run the tests of the Apo
 
 Some of the tests run against [a simple GraphQL server serving the Star Wars example schema](https://github.com/apollographql/starwars-server) (see installation instructions there).
 
-If you'd like to contribute, please refer to the [Apollo Contributor Guide](https://github.com/apollographql/apollo-ios/blob/master/CONTRIBUTING.md).
+If you'd like to contribute, please refer to the [Apollo Contributor Guide](https://github.com/apollographql/apollo-ios/blob/main/CONTRIBUTING.md).
