@@ -13,11 +13,24 @@ import ApolloCore
 /// when for background sessions.
 open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
   
-  public enum URLSessionClientError: Error {
+  public enum URLSessionClientError: Error, LocalizedError {
     case noHTTPResponse(request: URLRequest?)
     case sessionBecameInvalidWithoutUnderlyingError
     case dataForRequestNotFound(request: URLRequest?)
     case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
+    
+    public var errorDescription: String? {
+      switch self {
+      case .noHTTPResponse(let request):
+        return "The request did not receive an HTTP response. Request: \(String(describing: request))"
+      case .sessionBecameInvalidWithoutUnderlyingError:
+        return "The URL session became invalid, but no underlying error was returned."
+      case .dataForRequestNotFound(let request):
+        return "URLSessionClient was not able to locate the stored data for request \(String(describing: request))"
+      case .networkError(_, _, let underlyingError):
+        return "A network error occurred: \(underlyingError.localizedDescription)"
+      }
+    }
   }
   
   /// A completion block to be called when the raw task has completed, with the raw information from the session
