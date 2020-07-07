@@ -141,9 +141,9 @@ Here's how you obtain the parent folder of the script, then use that to get back
 ```swift:title=main.swift
 let parentFolderOfScriptFile = FileFinder.findParentFolder()
 let sourceRootURL = parentFolderOfScriptFile
-  .apollo.parentFolder() // Result: Sources folder
-  .apollo.parentFolder() // Result: Codegen folder
-  .apollo.parentFolder() // Result: MyProject source root folder
+  .apollo.parentFolderURL() // Result: Sources folder
+  .apollo.parentFolderURL() // Result: Codegen folder
+  .apollo.parentFolderURL() // Result: MyProject source root folder
 ```
 
 You can use this to get the URL of the folder you plan to download the CLI to: 
