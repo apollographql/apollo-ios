@@ -3,8 +3,15 @@ import Foundation
 import ApolloCore
 #endif
 
-enum ApolloStringError: Error {
+enum ApolloStringError: Error, LocalizedError {
   case expectedSuffixMissing(_ suffix: String)
+  
+  var errorDescription: String? {
+    switch self {
+    case .expectedSuffixMissing(let suffix):
+      return "Expected \"\(self)\" to have suffix \"\(suffix)\", but it did not. Cannot drop a suffix that doesn't exist!"
+    }
+  }
 }
 
 extension ApolloExtension where Base == String {
