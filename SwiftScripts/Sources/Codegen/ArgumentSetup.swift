@@ -36,11 +36,11 @@ enum Target {
         case .starWars:
             return ApolloCodegenOptions(targetRootURL: targetRootURL)
         case .gitHub:
-            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.json")
+            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.docs.graphql")
             let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
             let operationIDsURL = try! targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
-
-            return ApolloCodegenOptions(mergeInFieldsFromFragmentSpreads: true,
+            return ApolloCodegenOptions(includes: "Queries/**/*.graphql",
+                                        mergeInFieldsFromFragmentSpreads: true,
                                         operationIDsURL: operationIDsURL,
                                         outputFormat: .singleFile(atFileURL: outputFileURL),
                                         suppressSwiftMultilineStringLiterals: true,
