@@ -6,7 +6,7 @@ SUPPORTED_PLATFORMS = iphoneos iphonesimulator appletvsimulator appletvos watchs
 // iOS-specific default settings
 SDKROOT[sdk=iphone*] = iphoneos
 VALID_ARCHS[sdk=iphoneos*] = arm64 armv7 armv7s
-VALID_ARCHS[sdk=iphonesimulator*] = x86_64 i386
+VALID_ARCHS[sdk=iphonesimulator*] = x86_64 arm64
 TARGETED_DEVICE_FAMILY[sdk=iphone*]  = 1,2
 
 // TV-specific default settings
@@ -19,7 +19,7 @@ TARGETED_DEVICE_FAMILY[sdk=watch*] = 4
 
 // macOS-specific default settings
 SDKROOT[sdk=macosx*] = macosx
-VALID_ARCHS[sdk=macosx*] = x86_64
+VALID_ARCHS[sdk=macosx*] = x86_64 arm64
 SUPPORTS_MACCATALYST = YES
 
 // Enable Bitcode only for actual devices, not for macOS or simulators
