@@ -89,6 +89,8 @@ private func orderIndependentKey(for object: JSONObject) -> String {
   return object.sorted { $0.key < $1.key }.map {
     if let object = $0.value as? JSONObject {
       return "[\($0.key):\(orderIndependentKey(for: object))]"
+    } else if let array = $0.value as? [JSONObject] {
+      return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
     } else {
       return "\($0.key):\($0.value)"
     }
