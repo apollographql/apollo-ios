@@ -15,7 +15,7 @@ public protocol GraphQLOperation: class {
 
   var variables: GraphQLMap? { get }
 
-  associatedtype Data: GraphQLSelectionSet, Parseable
+  associatedtype Data: GraphQLSelectionSet
 }
 
 public extension GraphQLOperation {

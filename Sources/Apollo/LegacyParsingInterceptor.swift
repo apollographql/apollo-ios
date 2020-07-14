@@ -31,9 +31,17 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
         throw ParserError.couldNotParseToLegacyJSON
       }
       
-      let response = GraphQLResponse(operation: request.operation, body: body)
+      let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
+      let parsedResult = try graphQLResponse.parseResult().await()
+      let graphQLResult = parsedResult.0
       
-      let result = try response.parseResult().await()
+//     let typedResult = graphQLResult as! ParsedValue
+      
+      response.parsedResponse = graphQLResponse as! ParsedValue
+      
+      chain.proceedAsync(request: request,
+                         response: response,
+                         completion: completion)
       
     } catch {
       completion(.failure(error))

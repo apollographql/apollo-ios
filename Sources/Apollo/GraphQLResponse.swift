@@ -1,14 +1,25 @@
 /// Represents a GraphQL response received from a server.
-public final class GraphQLResponse<Data: GraphQLSelectionSet> {
+public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable{
+  
+  public init<T>(from data: Foundation.Data, decoder: T) throws where T : FlexibleDecoder {
+    // Giant hack to make all this conform to Parseable.
+    throw ParseableError.unsupportedInitializer
+  }
+  
   public let body: JSONObject
 
-  private let rootKey: String
-  private let variables: GraphQLMap?
+  private var rootKey: String
+  private var variables: GraphQLMap?
 
   public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data {
     self.body = body
     rootKey = rootCacheKey(for: operation)
     variables = operation.variables
+  }
+  
+  func setupOperation<Operation: GraphQLOperation> (_ operation: Operation) {
+    self.rootKey = rootCacheKey(for: operation)
+    self.variables = operation.variables
   }
 
   func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Data>, RecordSet?)>  {
