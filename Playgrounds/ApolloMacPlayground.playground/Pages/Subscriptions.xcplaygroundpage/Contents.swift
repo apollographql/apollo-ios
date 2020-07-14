@@ -126,3 +126,5 @@ for _ in 0..<loops {
 }
 
 PlaygroundPage.current.needsIndefiniteExecution = true
+
+//: [SQLiteCache](@next)
