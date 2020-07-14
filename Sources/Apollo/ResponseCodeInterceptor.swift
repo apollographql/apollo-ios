@@ -17,7 +17,7 @@ class ResponseCodeInterceptor: ApolloInterceptor {
             return
         }
         
-        guard response.httpResponse?.isSuccessful == true else {
+        guard response.httpResponse?.apollo.isSuccessful == true else {
             completion(.failure(ResponseCodeError.invalidResponseCode(response: response.httpResponse,
                                                                       rawData: response.rawData)))
             return

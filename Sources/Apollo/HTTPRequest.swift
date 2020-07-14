@@ -33,11 +33,11 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   
   public var defaultClientVersion: String {
     var version = String()
-    if let shortVersion = Bundle.main.shortVersion {
+    if let shortVersion = Bundle.main.apollo.shortVersion {
       version.append(shortVersion)
     }
     
-    if let buildNumber = Bundle.main.buildNumber {
+    if let buildNumber = Bundle.main.apollo.buildNumber {
       if version.isEmpty {
         version.append(buildNumber)
       } else {
