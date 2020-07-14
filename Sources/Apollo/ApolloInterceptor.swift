@@ -8,3 +8,10 @@ public protocol ApolloInterceptor: class {
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void)
 }
+
+extension ApolloInterceptor {
+  
+  var isNotCancelled: Bool {
+    !self.isCancelled
+  }
+}
