@@ -12,15 +12,19 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   open var additionalHeaders: [String: String]
   open var clientName: String? = nil
   open var clientVersion: String? = nil
+  public let cachePolicy: CachePolicy
+
   
   public init(graphQLEndpoint: URL,
               operation: Operation,
               contentType: String,
-              additionalHeaders: [String: String]) {
+              additionalHeaders: [String: String],
+              cachePolicy: CachePolicy = .default) {
     self.graphQLEndpoint = graphQLEndpoint
     self.operation = operation
     self.contentType = contentType
     self.additionalHeaders = additionalHeaders
+    self.cachePolicy = cachePolicy
   }
   
   public var defaultClientName: String {

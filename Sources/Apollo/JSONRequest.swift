@@ -4,7 +4,6 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
   public let requestCreator: RequestCreator
   
-  public let cachePolicy: CachePolicy
   public let autoPersistQueries: Bool
   public let useGETForQueries: Bool
   public let useGETForPersistedQueryRetry: Bool
@@ -20,7 +19,6 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
               useGETForQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false,
               requestCreator: RequestCreator = ApolloRequestCreator()) {
-    self.cachePolicy = cachePolicy
     self.autoPersistQueries = autoPersistQueries
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
@@ -29,7 +27,8 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     super.init(graphQLEndpoint: graphQLEndpoint,
                operation: operation,
                contentType: "application/json",
-               additionalHeaders: additionalHeaders)
+               additionalHeaders: additionalHeaders,
+               cachePolicy: cachePolicy)
   }
   
   public var sendOperationIdentifier: Bool {
