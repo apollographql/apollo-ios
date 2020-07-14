@@ -2,6 +2,10 @@
 title: Client-side caching
 ---
 
+import SPMSQLite from "../shared/sqlite-spm-panel.mdx"
+import CocoaPodsSQLite from "../shared/sqlite-cocoapods-panel.mdx"
+import CarthageSQLite from "../shared/sqlite-carthage-panel.mdx"
+
 As mentioned in the introduction, Apollo iOS does more than simply run your queries against a GraphQL server. It normalizes query results to construct a client-side cache of your data, which is kept up to date as further queries and mutations are run. 
 
 This means your UI is always internally consistent, and can be kept fully up-to-date with the state on the server with the minimum number of queries required.
@@ -14,6 +18,60 @@ All caches used by the `ApolloClient` must conform to the [`NormalizedCache` pro
 - **`SQLiteCache`**: This is included via the [`ApolloSQLite`](api/ApolloSQLite/README/) library. This writes out cache results to a `SQLite` file rather than holding the results in memory. Note that this in turn causes cache hits to go to disk, which may result in somewhat slower responses. However, this also reduces the chances of unbounded memory growth, since everything gets dumped to disk. 
 
 All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](api/Apollo/protocols/NormalizedCache/#clearcallbackqueuecompletion). If you need to work more directly with the cache, please see the [Direct Cache Access](#direct-cache-access) section.
+
+## Cache Setup
+
+### In-Memory Cache
+For `InMemoryNormalizedCache`, no sub-libraries are needed. Your cache could be set up with one line:
+
+```swift
+import Apollo
+
+let cache = InMemoryNormalizedCache()
+```
+
+It can also be set up with zero lines: This type of cache is used by default when setting up an `ApolloClient`. If you want to use an in-memory cache without modifications, all you have to do is instantiate an `ApolloClient` instance and not pass anything into the `store` parameter. 
+
+### SQLite Cache
+To use the `SQLiteNormalizedCache`, you must bring in the `ApolloSQLite` sub-library using your package manager of choice:
+
+<SPMSQLite />
+
+<CocoaPodsSQLite />
+
+<CarthageSQLite />
+
+You can then set up a file URL for your `SQLite` file, use that file URL to instantiate a SQLite cache, and then use that SQLite cache to instantiate an `ApolloStore`, which you then pass into `ApolloClient`'s initializer: 
+
+```swift:title=Client%20Setup
+import Apollo
+
+// NOTE: You need this import line if you are **NOT** using CocoaPods. In CocoaPods, 
+// ApolloSQLite files are collapsed into the Apollo framework. For other dependency managers,
+// ApolloSQLite is a separate framework.
+import ApolloSQLite
+
+// You'll have to figure out where to store your SQLite file. 
+// A reasonable place is the user's Documents directory in your sandbox.
+// In any case, create a file URL for your file:
+let documentsPath = NSSearchPathForDirectoriesInDomains(
+    .documentDirectory, 
+    .userDomainMask, 
+    true).first!
+let documentsURL = URL(fileURLWithPath: documentsPath)
+let sqliteFileURL = documentsURL.appendingPathComponent("test_apollo_db.sqlite")
+
+// Use that file URL to instantiate the SQLite cache:
+let sqliteCache = try SQLiteNormalizedCache(fileURL: sqliteFileURL)
+
+// And then instantiate an instance of `ApolloStore` with the cache you've just created:
+let store = ApolloStore(cache: sqliteCache)
+
+// Assuming you've set up your `networkTransport` instance elsewhere, 
+// pass the store you just created into your `ApolloClient` initializer, 
+// and you're now set up to use the SQLite cache for persistent storage
+let apolloClient = ApolloClient(networkTransport: networkTransport, store: store)
+```
 
 ## Controlling normalization
 
