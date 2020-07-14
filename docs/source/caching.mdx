@@ -22,15 +22,18 @@ All caches can be cleared in their entirety by calling [`clear(callbackQueue:com
 ## Cache Setup
 
 ### In-Memory Cache
-For `InMemoryNormalizedCache`, no sub-libraries are needed. Your cache could be set up with one line:
 
-```swift
+For `InMemoryNormalizedCache`, no sub-libraries are needed.
+
+This type of cache is used by default when setting up an `ApolloClient`. If you want to use an in-memory cache without modifications, all you have to do is instantiate an `ApolloClient` instance and not pass anything into the `store` parameter. 
+
+If for some reason you find you need to instantiate the in-memory cache yourself, you can do so with one line:
+
+```swift:title=Cache%20Setup
 import Apollo
 
 let cache = InMemoryNormalizedCache()
 ```
-
-It can also be set up with zero lines: This type of cache is used by default when setting up an `ApolloClient`. If you want to use an in-memory cache without modifications, all you have to do is instantiate an `ApolloClient` instance and not pass anything into the `store` parameter. 
 
 ### SQLite Cache
 To use the `SQLiteNormalizedCache`, you must bring in the `ApolloSQLite` sub-library using your package manager of choice:
