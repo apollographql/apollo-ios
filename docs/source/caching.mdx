@@ -36,7 +36,8 @@ let cache = InMemoryNormalizedCache()
 ```
 
 ### SQLite Cache
-To use the `SQLiteNormalizedCache`, you must bring in the `ApolloSQLite` sub-library using your package manager of choice:
+
+To use the `SQLiteNormalizedCache`, you need to add the `ApolloSQLite` sub-library to your project using your preferred package manager:
 
 <SPMSQLite />
 
@@ -44,7 +45,12 @@ To use the `SQLiteNormalizedCache`, you must bring in the `ApolloSQLite` sub-lib
 
 <CarthageSQLite />
 
-You can then set up a file URL for your `SQLite` file, use that file URL to instantiate a SQLite cache, and then use that SQLite cache to instantiate an `ApolloStore`, which you then pass into `ApolloClient`'s initializer: 
+Once added, you can do the following:
+
+1. Set up a file URL for your `SQLite` file.
+2. Use that file URL to instantiate a SQLite cache.
+3. Use that SQLite cache to instantiate an `ApolloStore`.
+4. Pass that `ApolloStore` into the initializer of `ApolloClient`: 
 
 ```swift:title=Client%20Setup
 import Apollo
