@@ -12,6 +12,9 @@ public protocol NetworkTransport: class {
   ///   - completionHandler: A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred.
   /// - Returns: An object that can be used to cancel an in progress request.
   func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
+  
+  func sendForResult<Operation: GraphQLOperation>(operation: Operation,
+                                                  completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable
 
   /// The name of the client to send as a header value.
   var clientName: String { get }

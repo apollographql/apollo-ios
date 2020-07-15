@@ -13,7 +13,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
   
   var requestCreator: RequestCreator
   
-  public init(interceptorProvider: InterceptorProvider = LegacyInterceptorProvider(),
+  public init(interceptorProvider: InterceptorProvider,
               endpointURL: URL,
               additionalHeaders: [String: String] = [:],
               autoPersistQueries: Bool = false,
@@ -34,6 +34,22 @@ public class RequestChainNetworkTransport: NetworkTransport {
   
   public func send<Operation: GraphQLOperation>(operation: Operation,
                                                 completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
+    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
+        
+    let request: JSONRequest<Operation> = JSONRequest(operation: operation,
+                                                      graphQLEndpoint: self.endpointURL,
+                                                      additionalHeaders: additionalHeaders,
+                                                      cachePolicy: self.cachePolicy,
+                                                      autoPersistQueries: self.autoPersistQueries,
+                                                      useGETForQueries: self.useGETForQueries,
+                                                      useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
+                                                      requestCreator: self.requestCreator)
+    
+    chain.kickoff(request: request, completion: completionHandler)
+    return chain
+  }
+  
+  public func sendForResult<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
     let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
         
     let request: JSONRequest<Operation> = JSONRequest(operation: operation,

@@ -132,6 +132,7 @@
 		9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */; };
 		9B9BBB1C24DB760B0021C30F /* UploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BBB1A24DB75E60021C30F /* UploadTests.swift */; };
 		9B96500A24BE62B7003C29C0 /* RequestChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B96500824BE6201003C29C0 /* RequestChainTests.swift */; };
+		9B96500C24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B96500B24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift */; };
 		9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1244922D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift */; };
 		9BA1245E22DE116B00BF1D24 /* Result+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */; };
 		9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA3130D2302BEA5007B7FC5 /* DispatchQueue+Optional.swift */; };
@@ -606,6 +607,7 @@
 		9B9BBB1624DB74720021C30F /* Apollo-Target-UploadAPI.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Apollo-Target-UploadAPI.xcconfig"; sourceTree = "<group>"; };
 		9B9BBB1A24DB75E60021C30F /* UploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTests.swift; sourceTree = "<group>"; };
 		9B96500824BE6201003C29C0 /* RequestChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChainTests.swift; sourceTree = "<group>"; };
+		9B96500B24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyCacheReadInterceptor.swift; sourceTree = "<group>"; };
 		9BA1244922D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONSerialization+Sorting.swift"; sourceTree = "<group>"; };
 		9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Helpers.swift"; sourceTree = "<group>"; };
 		9BA22FD823FF306300C537FC /* Configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
@@ -987,6 +989,7 @@
 			isa = PBXGroup;
 			children = (
 				9B260BEA245A020300562176 /* ApolloInterceptor.swift */,
+				9B96500B24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift */,
 				9B260C07245A437400562176 /* InterceptorProvider.swift */,
 				9B260BFC245A034300562176 /* FinalizingInterceptor.swift */,
 				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
@@ -2428,6 +2431,7 @@
 				9B260C08245A437400562176 /* InterceptorProvider.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
 				9B260C0A245A532500562176 /* LegacyParsingInterceptor.swift in Sources */,
+				9B96500C24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift in Sources */,
 				9F8F334C229044A200C0E83B /* Decoding.swift in Sources */,
 				9FADC84A1E6B0B2300C677E6 /* Locking.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,

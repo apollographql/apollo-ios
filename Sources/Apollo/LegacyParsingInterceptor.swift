@@ -1,11 +1,3 @@
-//
-//  LegacyParsingInterceptor.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 4/29/20.
-//  Copyright © 2020 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 public class LegacyParsingInterceptor: ApolloInterceptor {
@@ -32,12 +24,9 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
       }
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
-      let parsedResult = try graphQLResponse.parseResult().await()
-      let graphQLResult = parsedResult.0
-      
-//     let typedResult = graphQLResult as! ParsedValue
-      
-      response.parsedResponse = graphQLResponse as! ParsedValue
+      let parsedResult = try graphQLResponse.parseResultFast()
+      let typedResult = parsedResult as! ParsedValue      
+      response.parsedResponse = typedResult
       
       chain.proceedAsync(request: request,
                          response: response,

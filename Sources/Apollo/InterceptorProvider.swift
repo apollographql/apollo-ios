@@ -15,16 +15,20 @@ public protocol InterceptorProvider {
 public class LegacyInterceptorProvider: InterceptorProvider {
   
   private let client: URLSessionClient
+  private let store: ApolloStore
   
   /// Designated initializer
   ///
   /// - Parameter client: The URLSession client to use. Defaults to the default setup.
-  public init(client: URLSessionClient = URLSessionClient()) {
+  public init(client: URLSessionClient = URLSessionClient(),
+              store: ApolloStore) {
     self.client = client
+    self.store = store
   }
 
   public func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
       return [
+        LegacyCacheReadInterceptor(store: self.store),
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
         LegacyParsingInterceptor(),
@@ -38,6 +42,7 @@ public class LegacyInterceptorProvider: InterceptorProvider {
 public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider {
   
   private let client: URLSessionClient
+  private let store: ApolloStore
   
   private let decoder: FlexDecoder
   
@@ -47,8 +52,10 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
   ///   - client: The URLSessionClient to use. Defaults to the default setup.
   ///   - decoder: A `FlexibleDecoder` which can decode `Codable` objects.
   public init(client: URLSessionClient = URLSessionClient(),
+              store: ApolloStore,
               decoder: FlexDecoder) {
     self.client = client
+    self.store = store
     self.decoder = decoder
   }
 
