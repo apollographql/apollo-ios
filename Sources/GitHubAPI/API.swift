@@ -144,7 +144,7 @@ public final class RepositoryQuery: GraphQLQuery {
         }
 
         public struct Author: GraphQLSelectionSet {
-          public static let possibleTypes: [String] = ["EnterpriseUserAccount", "Organization", "User", "Bot", "Mannequin"]
+          public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
 
           public static var selections: [GraphQLSelection] {
             return [
@@ -159,8 +159,16 @@ public final class RepositoryQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
+          public static func makeBot(login: String) -> Author {
+            return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
+          }
+
           public static func makeEnterpriseUserAccount(login: String) -> Author {
             return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+          }
+
+          public static func makeMannequin(login: String) -> Author {
+            return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login])
           }
 
           public static func makeOrganization(login: String) -> Author {
@@ -169,14 +177,6 @@ public final class RepositoryQuery: GraphQLQuery {
 
           public static func makeUser(login: String) -> Author {
             return Author(unsafeResultMap: ["__typename": "User", "login": login])
-          }
-
-          public static func makeBot(login: String) -> Author {
-            return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
-          }
-
-          public static func makeMannequin(login: String) -> Author {
-            return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login])
           }
 
           public var __typename: String {
@@ -284,7 +284,7 @@ public final class RepositoryQuery: GraphQLQuery {
           }
 
           public struct Author: GraphQLSelectionSet {
-            public static let possibleTypes: [String] = ["EnterpriseUserAccount", "Organization", "User", "Bot", "Mannequin"]
+            public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
 
             public static var selections: [GraphQLSelection] {
               return [
@@ -301,8 +301,16 @@ public final class RepositoryQuery: GraphQLQuery {
               self.resultMap = unsafeResultMap
             }
 
+            public static func makeBot(avatarUrl: String, login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "Bot", "avatarUrl": avatarUrl, "login": login])
+            }
+
             public static func makeEnterpriseUserAccount(avatarUrl: String, login: String) -> Author {
               return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "avatarUrl": avatarUrl, "login": login])
+            }
+
+            public static func makeMannequin(avatarUrl: String, login: String) -> Author {
+              return Author(unsafeResultMap: ["__typename": "Mannequin", "avatarUrl": avatarUrl, "login": login])
             }
 
             public static func makeOrganization(avatarUrl: String, login: String) -> Author {
@@ -311,14 +319,6 @@ public final class RepositoryQuery: GraphQLQuery {
 
             public static func makeUser(avatarUrl: String, login: String) -> Author {
               return Author(unsafeResultMap: ["__typename": "User", "avatarUrl": avatarUrl, "login": login])
-            }
-
-            public static func makeBot(avatarUrl: String, login: String) -> Author {
-              return Author(unsafeResultMap: ["__typename": "Bot", "avatarUrl": avatarUrl, "login": login])
-            }
-
-            public static func makeMannequin(avatarUrl: String, login: String) -> Author {
-              return Author(unsafeResultMap: ["__typename": "Mannequin", "avatarUrl": avatarUrl, "login": login])
             }
 
             public var __typename: String {

@@ -25,11 +25,11 @@
   },
   "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26": {
     "name": "HeroAndFriendsNamesWithFragment",
-    "source": "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}"
+    "source": "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}\nfragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}"
   },
   "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc": {
     "name": "HeroAndFriendsNamesWithFragmentTwice",
-    "source": "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}"
+    "source": "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
   },
   "22d772c0fc813281705e8f0a55fc70e71eeff6e98f3f9ef96cf67fb896914522": {
     "name": "HeroAppearsIn",
@@ -37,7 +37,7 @@
   },
   "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb": {
     "name": "HeroAppearsInWithFragment",
-    "source": "query HeroAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterAppearsIn\n  }\n}"
+    "source": "query HeroAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterAppearsIn\n  }\n}\nfragment CharacterAppearsIn on Character {\n  __typename\n  appearsIn\n}"
   },
   "3dd42259adf2d0598e89e0279bee2c128a7913f02b1da6aa43f3b5def6a8a1f8": {
     "name": "HeroNameConditionalExclusion",
@@ -61,7 +61,7 @@
   },
   "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f": {
     "name": "HeroDetailsFragmentConditionalInclusion",
-    "source": "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}"
+    "source": "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}"
   },
   "4d465fbc6e3731d011025048502f16278307d73300ea9329a709d7e2b6815e40": {
     "name": "HeroNameTypeSpecificConditionalInclusion",
@@ -81,11 +81,11 @@
   },
   "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce": {
     "name": "HeroDetailsWithFragment",
-    "source": "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}"
+    "source": "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}"
   },
   "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739": {
     "name": "DroidDetailsWithFragment",
-    "source": "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}"
+    "source": "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}\nfragment DroidDetails on Droid {\n  __typename\n  name\n  primaryFunction\n}"
   },
   "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01": {
     "name": "HeroFriendsOfFriendsNames",
@@ -101,15 +101,15 @@
   },
   "b952f0054915a32ec524ac0dde0244bcda246649debe149f9e32e303e21c8266": {
     "name": "HeroNameWithFragment",
-    "source": "query HeroNameWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterName\n  }\n}"
+    "source": "query HeroNameWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterName\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
   },
   "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02": {
     "name": "HeroNameWithFragmentAndID",
-    "source": "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}"
+    "source": "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
   },
   "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a": {
     "name": "HeroNameAndAppearsInWithFragment",
-    "source": "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}"
+    "source": "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}\nfragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}"
   },
   "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad": {
     "name": "HeroParentTypeDependentField",
