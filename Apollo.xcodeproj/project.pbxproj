@@ -550,14 +550,14 @@
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		9BDE43DC22C6705300FD7C7F /* GraphQLHTTPResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPResponseError.swift; sourceTree = "<group>"; };
 		9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPRequestError.swift; sourceTree = "<group>"; };
-		9BDF200B23FDC37600153E2B /* RepoURL.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
 		9BDF200C23FDC37600153E2B /* GitHubAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitHubAPI.h; sourceTree = "<group>"; };
 		9BDF200D23FDC37600153E2B /* operationIdsPath.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operationIdsPath.json; sourceTree = "<group>"; };
 		9BDF200E23FDC37600153E2B /* operationIDs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
-		9BDF200F23FDC37600153E2B /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		9BDF201023FDC37600153E2B /* Repository.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
 		9BDF201123FDC37600153E2B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9BDF201223FDC37600153E2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BDF2EC824C100B600AC9A1E /* schema.docs.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.docs.graphql; sourceTree = "<group>"; };
+		9BDF2ED124C100DF00AC9A1E /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
+		9BDF2ED224C100DF00AC9A1E /* Repository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
 		9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Helpers.swift"; sourceTree = "<group>"; };
 		9BE071AE2368D34D00FA5952 /* Matchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchable.swift; sourceTree = "<group>"; };
 		9BE071B02368D3F500FA5952 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
@@ -1114,12 +1114,11 @@
 		9BDF200723FDC37600153E2B /* GitHubAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9BDF200823FDC37600153E2B /* TestFolder */,
 				9BDF200C23FDC37600153E2B /* GitHubAPI.h */,
+				9BDF2ECD24C100DF00AC9A1E /* Queries */,
 				9BDF200D23FDC37600153E2B /* operationIdsPath.json */,
 				9BDF200E23FDC37600153E2B /* operationIDs.json */,
-				9BDF200F23FDC37600153E2B /* schema.json */,
-				9BDF201023FDC37600153E2B /* Repository.graphql */,
+				9BDF2EC824C100B600AC9A1E /* schema.docs.graphql */,
 				9BDF201123FDC37600153E2B /* API.swift */,
 				9BDF201223FDC37600153E2B /* Info.plist */,
 			);
@@ -1127,26 +1126,35 @@
 			path = Sources/GitHubAPI;
 			sourceTree = SOURCE_ROOT;
 		};
-		9BDF200823FDC37600153E2B /* TestFolder */ = {
+		9BDF2ECD24C100DF00AC9A1E /* Queries */ = {
 			isa = PBXGroup;
 			children = (
-				9BDF200923FDC37600153E2B /* TestFolder2 */,
+				9BDF2ECE24C100DF00AC9A1E /* TestFolder */,
+				9BDF2ED224C100DF00AC9A1E /* Repository.graphql */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		9BDF2ECE24C100DF00AC9A1E /* TestFolder */ = {
+			isa = PBXGroup;
+			children = (
+				9BDF2ECF24C100DF00AC9A1E /* TestFolder2 */,
 			);
 			path = TestFolder;
 			sourceTree = "<group>";
 		};
-		9BDF200923FDC37600153E2B /* TestFolder2 */ = {
+		9BDF2ECF24C100DF00AC9A1E /* TestFolder2 */ = {
 			isa = PBXGroup;
 			children = (
-				9BDF200A23FDC37600153E2B /* TestFolder3 */,
+				9BDF2ED024C100DF00AC9A1E /* TestFolder3 */,
 			);
 			path = TestFolder2;
 			sourceTree = "<group>";
 		};
-		9BDF200A23FDC37600153E2B /* TestFolder3 */ = {
+		9BDF2ED024C100DF00AC9A1E /* TestFolder3 */ = {
 			isa = PBXGroup;
 			children = (
-				9BDF200B23FDC37600153E2B /* RepoURL.graphql */,
+				9BDF2ED124C100DF00AC9A1E /* RepoURL.graphql */,
 			);
 			path = TestFolder3;
 			sourceTree = "<group>";
