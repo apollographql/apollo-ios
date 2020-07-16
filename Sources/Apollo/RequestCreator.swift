@@ -67,17 +67,8 @@ extension RequestCreator {
         preconditionFailure("To enable `autoPersistQueries`, Apollo types must be generated with operationIdentifiers")
       }
 
-      let hash: String
-      if operation.operationDefinition == operation.queryDocument {
-        // The codegen had everything it needed to generate the hash
-        hash = operationIdentifier
-      } else {
-        // The codegen needed more info for the correct hash - regenerate it.
-        hash = operation.queryDocument.apollo.sha256Hash
-      }
-
       body["extensions"] = [
-        "persistedQuery" : ["sha256Hash": hash, "version": 1]
+        "persistedQuery" : ["sha256Hash": operationIdentifier, "version": 1]
       ]
     }
 
