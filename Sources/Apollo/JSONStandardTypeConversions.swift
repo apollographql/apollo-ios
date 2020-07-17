@@ -145,6 +145,16 @@ extension Dictionary: JSONEncodable {
   }
 }
 
+extension Dictionary: JSONDecodable {
+    public init(jsonValue value: JSONValue) throws {
+        guard let dictionary = value as? Dictionary else {
+            throw JSONDecodingError.couldNotConvert(value: value, to: Dictionary.self)
+        }
+        
+        self = dictionary
+    }
+}
+
 extension Array: JSONEncodable {
   public var jsonValue: JSONValue {
     return map() { element -> (JSONValue) in
