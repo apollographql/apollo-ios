@@ -65,13 +65,14 @@ class JSONTests: XCTestCase {
     let dict = try Dictionary<String, Any?>(jsonValue: json)
     XCTAssertNotNil(dict)
     
-    let moarData = try JSONSerializationFormat.serialize(value: dict)
-    XCTAssertNotNil(moarData)
+    let reserialized = try JSONSerializationFormat.serialize(value: dict)
+    XCTAssertNotNil(reserialized)
     
-    print(String(bytes: moarData, encoding: .utf8)!)
+    let stringFromReserialized = try XCTUnwrap(String(bytes: reserialized, encoding: .utf8))
+    XCTAssertEqual(stringFromReserialized, """
+{"a_dict":{"a_bool":1,"a_null":null,"an_array":["one","two","three"],"another_dict":{"a_double":23.100000000000001,"a_string":"LOL wat","an_int":8}}}
+""")
   }
-  
-
 }
 
 extension Dictionary: JSONDecodable {
