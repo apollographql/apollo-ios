@@ -38,4 +38,48 @@ class JSONTests: XCTestCase {
     XCTAssertFalse(value ~= JSONDecodingError.nullValue)
     XCTAssertFalse(value ~= JSONDecodingError.missingValue)
   }
+  
+  func testJSONDictionaryEncodingAndDecoding() throws {
+    let jsonString = """
+{
+  "a_dict": {
+    "a_bool": true,
+    "another_dict" : {
+      "a_double": 23.1,
+      "an_int": 8,
+      "a_string": "LOL wat"
+    },
+    "an_array": [
+      "one",
+      "two",
+      "three"
+    ],
+    "a_null": null
+  }
+}
+"""
+    let data = try XCTUnwrap(jsonString.data(using: .utf8))
+    let json = try JSONSerializationFormat.deserialize(data: data)
+    XCTAssertNotNil(json)
+    
+    let dict = try Dictionary<String, Any?>(jsonValue: json)
+    XCTAssertNotNil(dict)
+    
+    let moarData = try JSONSerializationFormat.serialize(value: dict)
+    XCTAssertNotNil(moarData)
+    
+    print(String(bytes: moarData, encoding: .utf8)!)
+  }
+  
+
+}
+
+extension Dictionary: JSONDecodable {
+    public init(jsonValue value: JSONValue) throws {
+        guard let dictionary = value as? Dictionary else {
+            throw JSONDecodingError.couldNotConvert(value: value, to: Dictionary.self)
+        }
+        
+        self = dictionary
+    }
 }

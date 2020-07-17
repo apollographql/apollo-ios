@@ -105,6 +105,22 @@ extension Optional: JSONEncodable {
       return NSNull()
     case .some(let wrapped as JSONEncodable):
       return wrapped.jsonValue
+      
+    // WORKAROUND: For reasons I don't totally understand, when the underlying type is `Any`,
+    // even though all of these conform to `JSONEncodable`, the `as JSONEncodable` above
+    //  fails, and we need to handle them individually.
+    case .some(let wrapped as String):
+      return wrapped.jsonValue
+    case .some(let wrapped as Int):
+      return wrapped.jsonValue
+    case .some(let wrapped as Double):
+      return wrapped.jsonValue
+    case .some(let wrapped as Bool):
+      return wrapped.jsonValue
+    case .some(let wrapped as [String: Any?]):
+      return wrapped.jsonValue
+    case .some(let wrapped as [Any?]):
+      return wrapped.jsonValue
     default:
       fatalError("Optional is only JSONEncodable if Wrapped is")
     }
