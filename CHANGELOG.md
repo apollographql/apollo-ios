@@ -1,5 +1,12 @@
 # Change log
 
+## v0.30.0
+- **BREAKING**: Updates the CLI to `2.30.1` to fix a long-standing issue where when generating operation IDs and their related JSON file, the correct operations + fragments would be used in generating the operation ID, but not output with the JSON file. This will slightly change the output in `API.swift`, but it also means we can remove a related workaround from the iOS SDK. ([#1316](https://github.com/apollographql/apollo-ios/pull/1316))
+- **BREAKING**: Removed the `Cartfile` which declared our dependencies, since we're now internally managing them with SPM, and newer versions of Carthage just use the SPM dependencies. Note that this can cause issues if you need to use a fork of dependencies, or if you're using an older version of Carthage. ([#1311](https://github.com/apollographql/apollo-ios/pull/1311))
+- **POSSIBLY BREAKING**: Works around an issue that could cause some attempts to store untyped JSON dictionaries to throw unexpected errors about optional encoding. This also added handling of creating a dictionary from a `JSONValue`, which may cause problems if you've already implemented this yourself, but which should mostly just replace the need to implement it yourself. Please file issues ASAP if you run into problems here. ([#1317](https://github.com/apollographql/apollo-ios/pull/1317))
+- Works around an issue causing some attempts to store arrays of JSON dictionaries to have arbitrary key ordering. ([#1281](https://github.com/apollographql/apollo-ios/pull/1281))
+- Adds clearer error descriptions to a few errors. ([#1295](https://github.com/apollographql/apollo-ios/pull/1295))
+
 ## v0.29.1
 - Updates the CLI to `2.28.3` to fix an issue where linter failures would cause a silent failure exit. ([#1284](https://github.com/apollographql/apollo-ios/pull/1284), #1288](https://github.com/apollographql/apollo-ios/pull/1288))
 - Adds a check to swift scripting that the downloaded file has the correct SHASUM, otherwise forcing redownload. ([#1288](https://github.com/apollographql/apollo-ios/pull/1288))
