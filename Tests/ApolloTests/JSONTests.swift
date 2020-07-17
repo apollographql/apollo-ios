@@ -38,4 +38,39 @@ class JSONTests: XCTestCase {
     XCTAssertFalse(value ~= JSONDecodingError.nullValue)
     XCTAssertFalse(value ~= JSONDecodingError.missingValue)
   }
+  
+  func testJSONDictionaryEncodingAndDecoding() throws {
+    let jsonString = """
+{
+  "a_dict": {
+    "a_bool": true,
+    "another_dict" : {
+      "a_double": 23.1,
+      "an_int": 8,
+      "a_string": "LOL wat"
+    },
+    "an_array": [
+      "one",
+      "two",
+      "three"
+    ],
+    "a_null": null
+  }
+}
+"""
+    let data = try XCTUnwrap(jsonString.data(using: .utf8))
+    let json = try JSONSerializationFormat.deserialize(data: data)
+    XCTAssertNotNil(json)
+    
+    let dict = try Dictionary<String, Any?>(jsonValue: json)
+    XCTAssertNotNil(dict)
+    
+    let reserialized = try JSONSerializationFormat.serialize(value: dict)
+    XCTAssertNotNil(reserialized)
+    
+    let stringFromReserialized = try XCTUnwrap(String(bytes: reserialized, encoding: .utf8))
+    XCTAssertEqual(stringFromReserialized, """
+{"a_dict":{"a_bool":1,"a_null":null,"an_array":["one","two","three"],"another_dict":{"a_double":23.100000000000001,"a_string":"LOL wat","an_int":8}}}
+""")
+  }
 }
