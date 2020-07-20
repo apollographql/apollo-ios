@@ -11,12 +11,19 @@ class StarWarsSubscriptionTests: XCTestCase {
   var client: ApolloClient!
   var webSocketTransport: WebSocketTransport!
   
+  var connectionStartedExpectation: XCTestExpectation?
+  
   override func setUp() {
     super.setUp()
     
+    self.connectionStartedExpectation = self.expectation(description: "Web socket connected")
+    
     WebSocketTransport.provider = ApolloWebSocket.self
     webSocketTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+    webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport)
+
+    self.wait(for: [self.connectionStartedExpectation!], timeout: 5)
   }
   
   // MARK: Subscriptions
@@ -372,4 +379,12 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     waitForExpectations(timeout: 10, handler: nil)
   }
+}
+
+extension StarWarsSubscriptionTests: WebSocketTransportDelegate {
+  
+  func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {
+    self.connectionStartedExpectation?.fulfill()
+  }
+  
 }
