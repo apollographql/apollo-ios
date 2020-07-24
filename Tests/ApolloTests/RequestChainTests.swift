@@ -16,14 +16,15 @@ class RequestChainTests: XCTestCase {
   lazy var legacyClient: ApolloClient = {
     let url = URL(string: "http://localhost:8080/graphql")!
     
-    let transport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
+    let store = ApolloStore(cache: InMemoryNormalizedCache())
+    let transport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(store: store), endpointURL: url)
     
     return ApolloClient(networkTransport: transport)
   }()
   
   func testLoading() {
     let expectation = self.expectation(description: "loaded With legacy client")
-    legacyClient.fetch(query: HeroNameQuery()) { result in
+    legacyClient.fetchForResult(query: HeroNameQuery()) { result in
       switch result {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")

@@ -164,16 +164,16 @@ public final class ApolloStore {
       }
   }
 
-  func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
+  func load<Operation: GraphQLOperation>(query: Operation) -> Promise<GraphQLResult<Operation.Data>> {
     return withinReadTransactionPromise { transaction in
-      let mapper = GraphQLSelectionSetMapper<Query.Data>()
+      let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
 
-      return try transaction.execute(selections: Query.Data.selections,
+      return try transaction.execute(selections: Operation.Data.selections,
                                      onObjectWithKey: rootCacheKey(for: query),
                                      variables: query.variables,
                                      accumulator: zip(mapper, dependencyTracker))
-    }.map { (data: Query.Data, dependentKeys: Set<CacheKey>) in
+    }.map { (data: Operation.Data, dependentKeys: Set<CacheKey>) in
       GraphQLResult(data: data,
                     extensions: nil,
                     errors: nil,
@@ -187,7 +187,7 @@ public final class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+  public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
     load(query: query).andThen { result in
       resultHandler(.success(result))
     }.catch { error in

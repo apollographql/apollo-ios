@@ -69,7 +69,15 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
         }
       }
     case .returnCacheDataDontFetch:
-      self.fetchFromCache(for: request) { cacheFetchResult in }
+      self.fetchFromCache(for: request) { cacheFetchResult in
+        switch cacheFetchResult {
+        case .failure(let error):
+          // Cache miss - don't hit the network, just return the error.
+          completion(.failure(error))
+        case .success(let result):
+          completion(.success(result as! ParsedValue))
+        }
+      }
     }
   }
   
@@ -85,6 +93,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
         guard self.isNotCancelled else {
           return
         }
+        
+        completion(loadResult)
       }
     }
   }

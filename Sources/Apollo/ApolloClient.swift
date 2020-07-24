@@ -155,6 +155,14 @@ extension ApolloClient: ApolloClientProtocol {
       return operation
     }
   }
+  
+  @discardableResult public func fetchForResult<Query: GraphQLQuery>(query: Query,
+                                                                     cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                                                     context: UnsafeMutableRawPointer? = nil,
+                                                                     queue: DispatchQueue = DispatchQueue.main,
+                                                                     resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
+    return self.networkTransport.sendForResult(operation: query, completionHandler: wrapResultHandler(resultHandler, queue: queue))
+  }
 
   public func watch<Query: GraphQLQuery>(query: Query,
                                          cachePolicy: CachePolicy = .returnCacheDataElseFetch,
