@@ -1,4 +1,4 @@
-import Apollo
+@testable import Apollo
 import Dispatch
 
 public final class MockNetworkTransport: NetworkTransport {
@@ -15,6 +15,20 @@ public final class MockNetworkTransport: NetworkTransport {
     DispatchQueue.global(qos: .default).async {
       completionHandler(.success(GraphQLResponse(operation: operation, body: self.body)))
     }
+    return MockTask()
+  }
+  
+  public func sendForResult<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
+    DispatchQueue.global(qos: .default).async {
+      let response = GraphQLResponse(operation: operation, body: self.body)
+      do {
+        let result = try response.parseResultFast()
+        completionHandler(.success(result))
+      } catch {
+        completionHandler(.failure(error))
+      }
+    }
+    
     return MockTask()
   }
 }
