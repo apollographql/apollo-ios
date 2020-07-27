@@ -10,6 +10,9 @@ public class RequestChain: Cancellable {
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
   
+  /// Creates a chain with the given interceptor array.
+  ///
+  /// - Parameter interceptors: The interceptors to use.
   public init(interceptors: [ApolloInterceptor]) {
     self.interceptors = interceptors
     self.currentIndex = 0
@@ -38,6 +41,12 @@ public class RequestChain: Cancellable {
                                     completion: completion)
   }
 
+  /// Proceeds to the next interceptor in the array.
+  ///
+  /// - Parameters:
+  ///   - request: The in-progress request object
+  ///   - response: The in-progress response object
+  ///   - completion: The completion closure to call when data has been processed and should be returned to the UI.
   public func proceedAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
                            response: HTTPResponse<ParsedValue>,
                            completion: @escaping (Result<ParsedValue, Error>) -> Void) {
