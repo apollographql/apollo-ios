@@ -4,6 +4,7 @@ import XCTest
 import ApolloTestSupport
 import ApolloSQLiteTestSupport
 import StarWarsAPI
+import SQLite
 
 class CachePersistenceTests: XCTestCase {
 
@@ -57,6 +58,10 @@ class CachePersistenceTests: XCTestCase {
       
       self.waitForExpectations(timeout: 2, handler: nil)
     }
+  }
+
+  func testPassInConnectionDoesNotThrow() {
+    XCTAssertNoThrow(try SQLiteNormalizedCache(db: Connection()))
   }
 
   func testClearCache() {
