@@ -31,6 +31,18 @@ public final class SQLiteNormalizedCache {
     try self.createTableIfNeeded()
   }
 
+  ///
+  /// Initializer that takes the Connection to use
+  /// - Parameters:
+  ///   - db: The database Connection to use
+  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
+  /// - Throws: Any errors attempting to access the database
+  public init(db: Connection, shouldVacuumOnClear: Bool = false) throws {
+    self.shouldVacuumOnClear = shouldVacuumOnClear
+    self.db = db
+    try self.createTableIfNeeded()
+  }
+
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
     let components = fieldCacheKey.components(separatedBy: ".")
     var updatedComponents = [String]()
