@@ -5,7 +5,7 @@ public enum ParserError: Error {
   case couldNotParseToLegacyJSON
 }
 
-class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
+public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
 
   let decoder: FlexDecoder
   
@@ -15,7 +15,7 @@ class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor
     self.decoder = decoder
   }
   
-  func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,

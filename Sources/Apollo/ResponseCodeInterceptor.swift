@@ -1,13 +1,13 @@
 import Foundation
 
-class ResponseCodeInterceptor: ApolloInterceptor {
+public class ResponseCodeInterceptor: ApolloInterceptor {
     var isCancelled: Bool = false
     
     enum ResponseCodeError: Error {
         case invalidResponseCode(response: HTTPURLResponse?, rawData: Data?)
     }
     
-    func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+    public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<ParsedValue>,

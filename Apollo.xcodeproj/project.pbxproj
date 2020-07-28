@@ -992,16 +992,14 @@
 		9B260BE9245A01B900562176 /* Interceptor */ = {
 			isa = PBXGroup;
 			children = (
+				9BC742B024D09F9E0029282C /* Codable */,
+				9BC742AF24D09F880029282C /* Legacy */,
 				9B260BEA245A020300562176 /* ApolloInterceptor.swift */,
 				9BC742AB24CFB2FF0029282C /* ApolloErrorInterceptor.swift */,
-				9B96500B24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift */,
 				9B260C07245A437400562176 /* InterceptorProvider.swift */,
 				9B260BFC245A034300562176 /* FinalizingInterceptor.swift */,
 				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
 				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
-				9B260C00245A059700562176 /* CodableParsingInterceptor.swift */,
-				9B260C09245A532500562176 /* LegacyParsingInterceptor.swift */,
-				9BC742AD24CFB6450029282C /* LegacyCacheWriteInterceptor.swift */,
 			);
 			name = Interceptor;
 			sourceTree = "<group>";
@@ -1011,9 +1009,9 @@
 			children = (
 				9B260BF6245A02D200562176 /* FetchSourceType.swift */,
 				9B260BF0245A025400562176 /* HTTPRequest.swift */,
+				9B260BFE245A054700562176 /* JSONRequest.swift */,
 				9B260BF4245A028D00562176 /* HTTPResponse.swift */,
 				9B260BF2245A026F00562176 /* RequestChain.swift */,
-				9B260BFE245A054700562176 /* JSONRequest.swift */,
 				9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */,
 			);
 			name = RequestChain;
@@ -1216,6 +1214,24 @@
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
 			path = ApolloCodegenTests;
+			sourceTree = "<group>";
+		};
+		9BC742AF24D09F880029282C /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				9B96500B24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift */,
+				9BC742AD24CFB6450029282C /* LegacyCacheWriteInterceptor.swift */,
+				9B260C09245A532500562176 /* LegacyParsingInterceptor.swift */,
+			);
+			name = Legacy;
+			sourceTree = "<group>";
+		};
+		9BC742B024D09F9E0029282C /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				9B260C00245A059700562176 /* CodableParsingInterceptor.swift */,
+			);
+			name = Codable;
 			sourceTree = "<group>";
 		};
 		9BCB585D240758B2002F766E /* Extensions */ = {

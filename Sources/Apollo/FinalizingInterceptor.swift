@@ -1,7 +1,7 @@
 import Foundation
 
-class FinalizingInterceptor: ApolloInterceptor {
-  
+public class FinalizingInterceptor: ApolloInterceptor {
+    
   enum FinalizationError: Error {
     case nilParsedValue(httpResponse: HTTPURLResponse?, rawData: Data?, sourceType: FetchSourceType)
   }

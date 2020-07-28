@@ -9,7 +9,10 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
     
     guard let data = response.rawData else {
-      completion(.failure(ParserError.nilData))
+      chain.handleErrorAsync(ParserError.nilData,
+                             request: request,
+                             response: response,
+                             completion: completion)
       return
     }
     
@@ -29,7 +32,10 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
                          completion: completion)
       
     } catch {
-      completion(.failure(error))
+      chain.handleErrorAsync(error,
+                             request: request,
+                             response: response,
+                             completion: completion)
     }
   }
 }
