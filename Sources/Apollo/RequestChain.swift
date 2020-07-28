@@ -34,7 +34,10 @@ public class RequestChain: Cancellable {
                                                            parsedResponse: nil,
                                                            sourceType: .notFetchedYet)
     guard let firstInterceptor = self.interceptors.first else {
-      completion(.failure(ChainError.noInterceptors))
+      handleErrorAsync(ChainError.noInterceptors,
+                       request: request,
+                       response: response,
+                       completion: completion)
       return
     }
     
@@ -89,7 +92,14 @@ public class RequestChain: Cancellable {
     self.kickoff(request: request, completion: completion)
   }
   
-  func handleErrorAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  /// Handles the error by returning it, or by applying an additional error interceptor if one has been provided.
+  ///
+  /// - Parameters:
+  ///   - error: The error to handle
+  ///   - request: The request, as far as it has been constructed.
+  ///   - response: The response, as far as it has been constructed.
+  ///   - completion: The completion closure to call when work is complete.
+  public func handleErrorAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
     _ error: Error,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
