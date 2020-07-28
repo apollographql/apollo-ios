@@ -22,7 +22,10 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
     do {
       urlRequest = try request.toURLRequest()
     } catch {
-      completion(.failure(error))
+      chain.handleErrorAsync(error,
+                             request: request,
+                             response: response,
+                             completion: completion)
       return
     }
     

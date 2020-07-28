@@ -58,7 +58,9 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
               preconditionFailure(String(describing: error))
           }
         }
-        completion(.success(result as! ParsedValue))
+        
+        chain.returnValueAsync(value: result as! ParsedValue,
+                               completion: completion)
       }.catch { error in
         chain.handleErrorAsync(error,
                                request: request,

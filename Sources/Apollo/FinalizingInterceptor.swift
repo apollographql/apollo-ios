@@ -22,6 +22,7 @@ public class FinalizingInterceptor: ApolloInterceptor {
       return
     }
     
-    completion(.success(parsed))
+    chain.returnValueAsync(value: parsed,
+                           completion: completion)
   }
 }

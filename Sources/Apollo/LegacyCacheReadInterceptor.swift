@@ -47,7 +47,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                                    response: response,
                                    completion: completion)
           case .success(let graphQLResult):
-            completion(.success(graphQLResult as! ParsedValue))
+            chain.returnValueAsync(value: graphQLResult as! ParsedValue,
+                                   completion: completion)
           }
           
           // In either case, keep going asynchronously
@@ -65,7 +66,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                                completion: completion)
           case .success(let graphQLResult):
             // Cache hit! We're done.
-            completion(.success(graphQLResult as! ParsedValue))
+            chain.returnValueAsync(value: graphQLResult as! ParsedValue,
+                                   completion: completion)
           }
         }
       case .returnCacheDataDontFetch:
@@ -78,7 +80,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                                    response: response,
                                    completion: completion)
           case .success(let result):
-            completion(.success(result as! ParsedValue))
+            chain.returnValueAsync(value: result as! ParsedValue,
+                                   completion: completion)
           }
         }
       }

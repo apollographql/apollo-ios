@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloCore
+#endif
 
 public class RequestChain: Cancellable {
   
@@ -9,11 +12,12 @@ public class RequestChain: Cancellable {
   
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
-  public private(set) var isCancelled: Bool = false
+  public private(set) var callbackQueue: DispatchQueue
+  public private(set) var isCancelled = Atomic<Bool>(false)
   
   /// Helper var for readability in guard statements
   public var isNotCancelled: Bool {
-    !self.isCancelled
+    !self.isCancelled.value
   }
   
   /// Something which allows additional error handling to occur when some kind of error has happened.
@@ -21,9 +25,13 @@ public class RequestChain: Cancellable {
   
   /// Creates a chain with the given interceptor array.
   ///
-  /// - Parameter interceptors: The interceptors to use.
-  public init(interceptors: [ApolloInterceptor]) {
+  /// - Parameters:
+  ///   - interceptors: The array of interceptors to use.
+  ///   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs. Defauls to `.main`.
+  public init(interceptors: [ApolloInterceptor],
+              callbackQueue: DispatchQueue = .main) {
     self.interceptors = interceptors
+    self.callbackQueue = callbackQueue
     self.currentIndex = 0
   }
   
@@ -86,7 +94,7 @@ public class RequestChain: Cancellable {
   
   /// Cancels the entire chain of interceptors.
   public func cancel() {
-    self.isCancelled = true
+    self.isCancelled.value = true
     
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
@@ -132,7 +140,9 @@ public class RequestChain: Cancellable {
     }
 
     guard let additionalHandler = self.additionalErrorHandler else {
-      completion(.failure(error))
+      self.callbackQueue.async {
+        completion(.failure(error))
+      }
       return
     }
     
@@ -142,5 +152,18 @@ public class RequestChain: Cancellable {
                                        request: request,
                                        response: response,
                                        completion: completion)
+  }
+  
+  public func returnValueAsync<ParsedValue: Parseable>(
+    value: ParsedValue,
+    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+   
+    guard self.isNotCancelled else {
+      return
+    }
+    
+    self.callbackQueue.async {
+      completion(.success(value))
+    }
   }
 }
