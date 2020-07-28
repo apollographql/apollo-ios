@@ -1,9 +1,13 @@
 import Foundation
 
+/// An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
 public class LegacyCacheWriteInterceptor: ApolloInterceptor {
   
   public let store: ApolloStore
   
+  /// Designated initializer
+  ///
+  /// - Parameter store: The store to use when writing to the cache.
   public init(store: ApolloStore) {
     self.store = store
   }

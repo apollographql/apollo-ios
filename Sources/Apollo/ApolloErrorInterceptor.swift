@@ -1,5 +1,6 @@
 import Foundation
 
+/// An error interceptor called to allow further examination of error data when an error occurs in the chain.
 public protocol ApolloErrorInterceptor {
   
   /// Asynchronously handles the receipt of an error at any point in the chain.

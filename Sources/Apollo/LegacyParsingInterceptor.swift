@@ -1,5 +1,6 @@
 import Foundation
 
+/// An interceptor which parses code using the legacy parsing system.
 public class LegacyParsingInterceptor: ApolloInterceptor {
   
   public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(

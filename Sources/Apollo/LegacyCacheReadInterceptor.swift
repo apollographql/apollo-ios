@@ -1,5 +1,6 @@
 import Foundation
 
+/// An interceptor that reads data from the legacy cache for queries, following the `HTTPRequest`'s `cachePolicy`.
 public class LegacyCacheReadInterceptor: ApolloInterceptor {
     
   public enum CacheReadError: Error {
@@ -8,6 +9,9 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
   
   private let store: ApolloStore
   
+  /// Designated initializer
+  ///
+  /// - Parameter store: The store to use when reading from the cache.
   public init(store: ApolloStore) {
     self.store = store
   }
@@ -55,7 +59,7 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
         self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
           switch cacheFetchResult {
           case .failure:
-            // Cache miss, proceed to network without calling completion
+            // Cache miss, proceed to network without returning error
             chain.proceedAsync(request: request,
                                response: response,
                                completion: completion)

@@ -2,6 +2,7 @@ import Foundation
 
 // MARK: - Basic protocol
 
+/// A protocol to allow easy creation of an array of interceptors for a given operation.
 public protocol InterceptorProvider {
   
   /// Creates a new array of interceptors when called
@@ -12,6 +13,7 @@ public protocol InterceptorProvider {
 
 // MARK: - Default implementation for typescript codegen
 
+/// The default interceptor provider for typescript-generated code
 public class LegacyInterceptorProvider: InterceptorProvider {
   
   private let client: URLSessionClient
@@ -19,7 +21,9 @@ public class LegacyInterceptorProvider: InterceptorProvider {
   
   /// Designated initializer
   ///
-  /// - Parameter client: The URLSession client to use. Defaults to the default setup.
+  /// - Parameters:
+  ///   - client: The `URLSessionClient` to use. Defaults to the default setup.
+  ///   - store: The `ApolloStore` to use when reading from or writing to the cache.
   public init(client: URLSessionClient = URLSessionClient(),
               store: ApolloStore) {
     self.client = client
@@ -40,6 +44,8 @@ public class LegacyInterceptorProvider: InterceptorProvider {
 
 // MARK: - Default implementation for swift codegen
 
+
+/// The default interceptor proider for code generated with Swift Codegen™
 public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider {
   
   private let client: URLSessionClient

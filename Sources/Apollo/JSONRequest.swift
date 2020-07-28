@@ -1,5 +1,6 @@
 import Foundation
 
+/// A request which sends JSON related to a GraphQL operation.
 public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
   public let requestCreator: RequestCreator

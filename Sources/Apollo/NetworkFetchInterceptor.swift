@@ -1,10 +1,14 @@
 import Foundation
 
-public class NetworkFetchInterceptor: ApolloInterceptor {
+/// An interceptor which actually fetches data from the network.
+public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
   let client: URLSessionClient
   private var currentTask: URLSessionTask?
   
-  init(client: URLSessionClient) {
+  /// Designated initializer.
+  ///
+  /// - Parameter client: The `URLSessionClient` to use to fetch data
+  public init(client: URLSessionClient) {
     self.client = client
   }
   
@@ -45,5 +49,9 @@ public class NetworkFetchInterceptor: ApolloInterceptor {
                            completion: completion)
       }
     }
+  }
+  
+  public func cancel() {
+    self.currentTask?.cancel()
   }
 }
