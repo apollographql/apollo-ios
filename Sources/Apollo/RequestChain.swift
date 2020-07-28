@@ -37,8 +37,7 @@ public class RequestChain: Cancellable {
     
     let response: HTTPResponse<ParsedValue> = HTTPResponse(response: nil,
                                                            rawData: nil,
-                                                           parsedResponse: nil,
-                                                           sourceType: .notFetchedYet)
+                                                           parsedResponse: nil)
     guard let firstInterceptor = self.interceptors.first else {
       handleErrorAsync(ChainError.noInterceptors,
                        request: request,

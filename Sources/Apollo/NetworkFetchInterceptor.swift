@@ -37,11 +37,9 @@ public class NetworkFetchInterceptor: ApolloInterceptor {
                                request: request,
                                response: response,
                                completion: completion)
-        completion(.failure(error))
       case .success(let (data, httpResponse)):
         response.httpResponse = httpResponse
         response.rawData = data
-        response.sourceType = .network
         chain.proceedAsync(request: request,
                            response: response,
                            completion: completion)

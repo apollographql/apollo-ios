@@ -3,7 +3,7 @@ import Foundation
 public class FinalizingInterceptor: ApolloInterceptor {
     
   enum FinalizationError: Error {
-    case nilParsedValue(httpResponse: HTTPURLResponse?, rawData: Data?, sourceType: FetchSourceType)
+    case nilParsedValue(httpResponse: HTTPURLResponse?, rawData: Data?)
   }
   
   public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
@@ -14,8 +14,7 @@ public class FinalizingInterceptor: ApolloInterceptor {
     
     guard let parsed = response.parsedResponse else {
       chain.handleErrorAsync(FinalizationError.nilParsedValue(httpResponse: response.httpResponse,
-                                                              rawData: response.rawData,
-                                                              sourceType: response.sourceType),
+                                                              rawData: response.rawData),
                              request: request,
                              response: response,
                              completion: completion)

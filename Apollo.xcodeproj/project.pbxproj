@@ -50,7 +50,6 @@
 		9B260BF1245A025400562176 /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF0245A025400562176 /* HTTPRequest.swift */; };
 		9B260BF3245A026F00562176 /* RequestChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF2245A026F00562176 /* RequestChain.swift */; };
 		9B260BF5245A028D00562176 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF4245A028D00562176 /* HTTPResponse.swift */; };
-		9B260BF7245A02D200562176 /* FetchSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF6245A02D200562176 /* FetchSourceType.swift */; };
 		9B260BF9245A030100562176 /* ResponseCodeInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */; };
 		9B260BFB245A031900562176 /* NetworkFetchInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */; };
 		9B260BFD245A034300562176 /* FinalizingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFC245A034300562176 /* FinalizingInterceptor.swift */; };
@@ -509,7 +508,6 @@
 		9B260BF0245A025400562176 /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		9B260BF2245A026F00562176 /* RequestChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChain.swift; sourceTree = "<group>"; };
 		9B260BF4245A028D00562176 /* HTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
-		9B260BF6245A02D200562176 /* FetchSourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSourceType.swift; sourceTree = "<group>"; };
 		9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptor.swift; sourceTree = "<group>"; };
 		9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchInterceptor.swift; sourceTree = "<group>"; };
 		9B260BFC245A034300562176 /* FinalizingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalizingInterceptor.swift; sourceTree = "<group>"; };
@@ -1007,7 +1005,6 @@
 		9B260C02245A07C200562176 /* RequestChain */ = {
 			isa = PBXGroup;
 			children = (
-				9B260BF6245A02D200562176 /* FetchSourceType.swift */,
 				9B260BF0245A025400562176 /* HTTPRequest.swift */,
 				9B260BFE245A054700562176 /* JSONRequest.swift */,
 				9B260BF4245A028D00562176 /* HTTPResponse.swift */,
@@ -2473,7 +2470,6 @@
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
 				9FC9A9C51E2D6CE70023C4D5 /* GraphQLSelectionSet.swift in Sources */,
 				9B260C01245A059700562176 /* CodableParsingInterceptor.swift in Sources */,
-				9B260BF7245A02D200562176 /* FetchSourceType.swift in Sources */,
 				9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9FCDFD231E33A0D8007519DC /* AsynchronousOperation.swift in Sources */,
