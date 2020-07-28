@@ -9,6 +9,12 @@ public class RequestChain: Cancellable {
   
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
+  public private(set) var isCancelled: Bool = false
+  
+  /// Helper var for readability in guard statements
+  public var isNotCancelled: Bool {
+    !self.isCancelled
+  }
   
   /// Something which allows additional error handling to occur when some kind of error has happened.
   public var additionalErrorHandler: ApolloErrorInterceptor?
@@ -56,9 +62,17 @@ public class RequestChain: Cancellable {
   public func proceedAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
                            response: HTTPResponse<ParsedValue>,
                            completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    guard self.isNotCancelled else {
+      // Do not proceed, this chain has been cancelled.
+      return
+    }
+    
     let nextIndex = self.currentIndex + 1
     guard self.interceptors.indices.contains(nextIndex) else {
-      completion(.failure(ChainError.invalidIndex(chain: self, index: nextIndex)))
+      self.handleErrorAsync(ChainError.invalidIndex(chain: self, index: nextIndex),
+                            request: request,
+                            response: response,
+                            completion: completion)
       return
     }
     
@@ -73,11 +87,7 @@ public class RequestChain: Cancellable {
   
   /// Cancels the entire chain of interceptors.
   public func cancel() {
-    for interceptor in self.interceptors {
-      interceptor.isCancelled = true
-    }
-    
-    self.additionalErrorHandler = nil
+    self.isCancelled = true
   }
   
   /// Restarts the request starting from the first inteceptor.
@@ -85,8 +95,15 @@ public class RequestChain: Cancellable {
   /// - Parameters:
   ///   - request: The request to retry
   ///   - completion: The completion closure to call when the request has completed.
-  public func retry<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
-                    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+  public func retry<ParsedValue: Parseable, Operation: GraphQLOperation>(
+    request: HTTPRequest<Operation>,
+    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    
+    guard self.isNotCancelled else {
+      // Don't retry something that's been cancelled.
+      return
+    }
+    
     request.retryCount += 1
     self.currentIndex = 0
     self.kickoff(request: request, completion: completion)
@@ -104,6 +121,10 @@ public class RequestChain: Cancellable {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    guard self.isNotCancelled else {
+      return
+    }
+
     guard let additionalHandler = self.additionalErrorHandler else {
       completion(.failure(error))
       return

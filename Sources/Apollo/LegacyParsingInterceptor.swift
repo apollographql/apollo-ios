@@ -1,16 +1,12 @@
 import Foundation
 
 public class LegacyParsingInterceptor: ApolloInterceptor {
-  public var isCancelled: Bool = false
   
   public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
-    guard !self.isCancelled else {
-      return
-    }
     
     guard let data = response.rawData else {
       completion(.failure(ParserError.nilData))

@@ -3,7 +3,6 @@ import Foundation
 public class LegacyCacheWriteInterceptor: ApolloInterceptor {
   
   public let store: ApolloStore
-  public var isCancelled: Bool = false
   
   public init(store: ApolloStore) {
     self.store = store
@@ -14,10 +13,6 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
-    
-    guard self.isNotCancelled else {
-      return
-    }
     
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
       // If we're ignoring the cache completely, we're not writing to it.
@@ -49,7 +44,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
         guard let self = self else {
           return
         }
-        guard self.isNotCancelled else {
+        guard chain.isNotCancelled else {
           return
         }
         

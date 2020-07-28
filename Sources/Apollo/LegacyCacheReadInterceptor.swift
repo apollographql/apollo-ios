@@ -1,9 +1,7 @@
 import Foundation
 
 public class LegacyCacheReadInterceptor: ApolloInterceptor {
-  
-  public var isCancelled: Bool = false
-  
+    
   public enum CacheReadError: Error {
     case cacheMiss(underlying: Error)
   }
@@ -19,10 +17,6 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
-    
-    guard self.isNotCancelled else {
-      return
-    }
     
     switch request.operation.operationType {
     case .mutation,
@@ -40,7 +34,7 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                            response: response,
                            completion: completion)
       case .returnCacheDataAndFetch:
-        self.fetchFromCache(for: request) { cacheFetchResult in
+        self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
           switch cacheFetchResult {
           case .failure(let error):
             // TODO: Does this need to return an error? What are we doing now
@@ -58,7 +52,7 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                              completion: completion)
         }
       case .returnCacheDataElseFetch:
-        self.fetchFromCache(for: request) { cacheFetchResult in
+        self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
           switch cacheFetchResult {
           case .failure:
             // Cache miss, proceed to network without calling completion
@@ -71,7 +65,7 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
           }
         }
       case .returnCacheDataDontFetch:
-        self.fetchFromCache(for: request) { cacheFetchResult in
+        self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
           switch cacheFetchResult {
           case .failure(let error):
             // Cache miss - don't hit the network, just return the error.
@@ -87,10 +81,13 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
     }
   }
   
-  private func fetchFromCache<Operation: GraphQLOperation>(for request: HTTPRequest<Operation>, completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+  private func fetchFromCache<Operation: GraphQLOperation>(
+    for request: HTTPRequest<Operation>,
+    chain: RequestChain,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     self.store.load(query: request.operation) { loadResult in
-      guard self.isNotCancelled else {
+      guard chain.isNotCancelled else {
         return
       }
       

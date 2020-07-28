@@ -2,8 +2,6 @@ import Foundation
 
 class FinalizingInterceptor: ApolloInterceptor {
   
-  var isCancelled: Bool = false
-  
   enum FinalizationError: Error {
     case nilParsedValue(httpResponse: HTTPURLResponse?, rawData: Data?, sourceType: FetchSourceType)
   }
@@ -13,10 +11,6 @@ class FinalizingInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<ParsedValue>,
     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
-    
-    guard !isCancelled else {
-      return
-    }
     
     guard let parsed = response.parsedResponse else {
       chain.handleErrorAsync(FinalizationError.nilParsedValue(httpResponse: response.httpResponse,
