@@ -6,7 +6,6 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
   
   public enum CacheReadError: Error {
     case cacheMiss(underlying: Error)
-    case notAQuery
   }
   
   private let store: ApolloStore
@@ -45,7 +44,10 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
           switch cacheFetchResult {
           case .failure(let error):
             // TODO: Does this need to return an error? What are we doing now
-            completion(.failure(CacheReadError.cacheMiss(underlying: error)))
+            chain.handleErrorAsync(CacheReadError.cacheMiss(underlying: error),
+                                   request: request,
+                                   response: response,
+                                   completion: completion)
           case .success(let graphQLResult):
             completion(.success(graphQLResult as! ParsedValue))
           }
@@ -73,7 +75,10 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
           switch cacheFetchResult {
           case .failure(let error):
             // Cache miss - don't hit the network, just return the error.
-            completion(.failure(error))
+            chain.handleErrorAsync(error,
+                                   request: request,
+                                   response: response,
+                                   completion: completion)
           case .success(let result):
             completion(.success(result as! ParsedValue))
           }

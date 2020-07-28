@@ -10,6 +10,9 @@ public class RequestChain: Cancellable {
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
   
+  /// Something which allows additional error handling to occur when some kind of error has happened.
+  public var additionalErrorHandler: ApolloErrorInterceptor?
+  
   /// Creates a chain with the given interceptor array.
   ///
   /// - Parameter interceptors: The interceptors to use.
@@ -70,6 +73,8 @@ public class RequestChain: Cancellable {
     for interceptor in self.interceptors {
       interceptor.isCancelled = true
     }
+    
+    self.additionalErrorHandler = nil
   }
   
   /// Restarts the request starting from the first inteceptor.
@@ -79,7 +84,26 @@ public class RequestChain: Cancellable {
   ///   - completion: The completion closure to call when the request has completed.
   public func retry<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
                     completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    request.retryCount += 1
     self.currentIndex = 0
     self.kickoff(request: request, completion: completion)
+  }
+  
+  func handleErrorAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+    _ error: Error,
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<ParsedValue>,
+    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    guard let additionalHandler = self.additionalErrorHandler else {
+      completion(.failure(error))
+      return
+    }
+    
+    
+    additionalHandler.handleErrorAsync(error: error,
+                                       chain: self,
+                                       request: request,
+                                       response: response,
+                                       completion: completion)
   }
 }

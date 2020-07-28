@@ -12,6 +12,7 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   open var additionalHeaders: [String: String]
   open var clientName: String? = nil
   open var clientVersion: String? = nil
+  open var retryCount: Int = 0
   public let cachePolicy: CachePolicy
 
   

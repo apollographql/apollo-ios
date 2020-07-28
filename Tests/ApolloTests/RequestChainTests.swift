@@ -10,7 +10,6 @@ import XCTest
 import Apollo
 import StarWarsAPI
 
-
 class RequestChainTests: XCTestCase {
   
   lazy var legacyClient: ApolloClient = {
@@ -27,6 +26,7 @@ class RequestChainTests: XCTestCase {
     legacyClient.fetchForResult(query: HeroNameQuery()) { result in
       switch result {
       case .success(let graphQLResult):
+        XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
       case .failure(let error):
         XCTFail("Unexpected error: \(error)")
@@ -37,12 +37,4 @@ class RequestChainTests: XCTestCase {
     
     self.wait(for: [expectation], timeout: 10)
   }
-  
-  
-  
-  
-  
-  
-  
-  
 }
