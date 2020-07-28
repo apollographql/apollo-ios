@@ -62,9 +62,11 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
 
   public func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
        return [
+         // Swift Codegen Phase 2: Add Cache Read interceptor
          NetworkFetchInterceptor(client: self.client),
          ResponseCodeInterceptor(),
          CodableParsingInterceptor(decoder: self.decoder),
+         // Swift codegen Phase 2: Add Cache Write interceptor
          FinalizingInterceptor(),
      ]
    }
