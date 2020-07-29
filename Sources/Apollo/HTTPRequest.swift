@@ -1,21 +1,44 @@
 import Foundation
 
+/// Encapsulation of all information about a request before it hits the network
 open class HTTPRequest<Operation: GraphQLOperation> {
   
   public enum HTTPRequestError: Error {
     case noRequestConstructed
   }
   
+  /// The endpoint to make a GraphQL request to
   open var graphQLEndpoint: URL
-  open var operation: Operation
-  open var contentType: String
-  open var additionalHeaders: [String: String]
-  open var clientName: String? = nil
-  open var clientVersion: String? = nil
-  open var retryCount: Int = 0
-  public let cachePolicy: CachePolicy
-
   
+  /// The GraphQL Operation to execute
+  open var operation: Operation
+  
+  /// The `Content-Type` header's value
+  open var contentType: String
+  
+  /// Any additional headers you wish to add by default to this request
+  open var additionalHeaders: [String: String]
+  
+  /// [optional] The name of the current client, defaults to nil
+  open var clientName: String? = nil
+  
+  /// [optional] The version of the current client, defaults to nil
+  open var clientVersion: String? = nil
+  
+  /// How many times this request has been retried. Must be incremented manually. Defaults to zero.
+  open var retryCount: Int = 0
+  
+  /// The `CachePolicy` to use for this request.
+  public let cachePolicy: CachePolicy
+  
+  /// Designated Initializer
+  ///
+  /// - Parameters:
+  ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
+  ///   - operation: The GraphQL Operation to execute
+  ///   - contentType: The `Content-Type` header's value. Should usually be set for you by a subclass.
+  ///   - additionalHeaders: Any additional headers you wish to add by default to this request.
+  ///   - cachePolicy: The `CachePolicy` to use for this request. Defaults to the `.default` policy
   public init(graphQLEndpoint: URL,
               operation: Operation,
               contentType: String,
@@ -61,6 +84,10 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     self.additionalHeaders[name] = value
   }
   
+  /// Converts this object to a fully fleshed-out `URLRequest`
+  ///
+  /// - Throws: Any error in creating the request
+  /// - Returns: The URL request, ready to send to your server.
   open func toURLRequest() throws -> URLRequest {
     var request = URLRequest(url: self.graphQLEndpoint)
     
@@ -80,3 +107,15 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   }
 }
 
+extension HTTPRequest: Equatable {
+  
+  public static func == (lhs: HTTPRequest<Operation>, rhs: HTTPRequest<Operation>) -> Bool {
+    lhs.graphQLEndpoint == rhs.graphQLEndpoint
+      && lhs.additionalHeaders == rhs.additionalHeaders
+      && lhs.cachePolicy == rhs.cachePolicy
+      && lhs.contentType == rhs.contentType
+      && lhs.operation.queryDocument == rhs.operation.queryDocument
+      && lhs.clientName == rhs.clientName
+      && lhs.clientVersion == rhs.clientVersion
+  }  
+}

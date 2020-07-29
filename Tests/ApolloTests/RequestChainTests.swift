@@ -16,7 +16,9 @@ class RequestChainTests: XCTestCase {
     let url = URL(string: "http://localhost:8080/graphql")!
     
     let store = ApolloStore(cache: InMemoryNormalizedCache())
-    let transport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(store: store), endpointURL: url)
+    let provider = LegacyInterceptorProvider(store: store)
+    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: url)
     
     return ApolloClient(networkTransport: transport)
   }()

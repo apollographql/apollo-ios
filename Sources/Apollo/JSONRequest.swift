@@ -11,7 +11,18 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   public var isPersistedQueryRetry = false
   
   public let serializationFormat = JSONSerializationFormat.self
-
+  
+  /// Designated initializer
+  /// 
+  /// - Parameters:
+  ///   - operation: The GraphQL Operation to execute
+  ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
+  ///   - additionalHeaders: Any additional headers you wish to add by default to this request
+  ///   - cachePolicy: The `CachePolicy` to use for this request.
+  ///   - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
+  ///   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
+  ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
+  ///   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
   public init(operation: Operation,
               graphQLEndpoint: URL,
               additionalHeaders: [String: String] = [:],
