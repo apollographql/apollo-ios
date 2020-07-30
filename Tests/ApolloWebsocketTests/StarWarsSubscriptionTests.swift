@@ -438,7 +438,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let subscriptionExpectation = self.expectation(description: "Received review")
     // This should get hit twice - once before we pause the web socket and once after.
     subscriptionExpectation.expectedFulfillmentCount = 2
-    self.client.subscribe(subscription: subscription) { subscriptionResult in
+    let sub = self.client.subscribe(subscription: subscription) { subscriptionResult in
       switch subscriptionResult {
       case .success(let graphQLResult):
         XCTAssertEqual(graphQLResult.data?.reviewAdded?.episode, .jedi)
@@ -470,6 +470,9 @@ class StarWarsSubscriptionTests: XCTestCase {
 
     // Now that we've reconnected, this should go through to the same subscription.
     sendReview()
+    
+    // Cancel subscription so it doesn't keep receiving from other tests.
+    sub.cancel()
     
     self.wait(for: [subscriptionExpectation], timeout: 10)
   }
