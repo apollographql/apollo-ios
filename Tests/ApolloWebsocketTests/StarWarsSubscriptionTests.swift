@@ -467,6 +467,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.reconnectedExpectation = self.expectation(description: "Web socket reconnected")
     webSocketTransport.resumeWebSocketConnection()
     self.wait(for: [self.reconnectedExpectation!], timeout: 10)
+    self.waitForSubscriptionsToStart()
 
     // Now that we've reconnected, this should go through to the same subscription.
     sendReview()
