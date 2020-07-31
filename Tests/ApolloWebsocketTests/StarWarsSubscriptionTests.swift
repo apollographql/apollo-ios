@@ -471,10 +471,10 @@ class StarWarsSubscriptionTests: XCTestCase {
     // Now that we've reconnected, this should go through to the same subscription.
     sendReview()
     
-    // Cancel subscription so it doesn't keep receiving from other tests.
-    sub.cancel()
-    
     self.wait(for: [subscriptionExpectation], timeout: 10)
+
+    // Cancel subscription so it doesn't keep receiving from other tests.
+    sub.cancel()    
   }
 }
 
