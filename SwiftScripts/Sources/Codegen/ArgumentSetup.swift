@@ -4,12 +4,15 @@ import TSCUtility
 
 enum Target {
     case starWars
+    case starWarsSwiftCodegen
     case gitHub
     
     init?(name: String) {
         switch name {
         case "StarWars":
             self = .starWars
+        case "StarWars-SwiftCodegen":
+            self = .starWarsSwiftCodegen
         case "GitHub":
             self = .gitHub
         default:
@@ -23,7 +26,8 @@ enum Target {
             return sourceRootURL
                 .apollo.childFolderURL(folderName: "Sources")
                 .apollo.childFolderURL(folderName: "GitHubAPI")
-        case .starWars:
+        case .starWars,
+             .starWarsSwiftCodegen:
             return sourceRootURL
                 .apollo.childFolderURL(folderName: "Sources")
                 .apollo.childFolderURL(folderName: "StarWarsAPI")
@@ -35,6 +39,15 @@ enum Target {
         switch self {
         case .starWars:
             return ApolloCodegenOptions(targetRootURL: targetRootURL)
+        case .starWarsSwiftCodegen:
+            let jsonOutputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.json")
+            let operationIDsURL = try! targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
+            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.json")
+            
+            return ApolloCodegenOptions(codegenEngine: .swiftExperimental,
+                                        operationIDsURL: operationIDsURL,
+                                        outputFormat: .singleFile(atFileURL: jsonOutputFileURL),
+                                        urlToSchemaFile: json)
         case .gitHub:
             let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.docs.graphql")
             let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")

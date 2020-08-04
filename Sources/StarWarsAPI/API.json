@@ -7450,24 +7450,23 @@
 			]
 		}
 	],
-  "unionTypes": [
-    {
-      "name": "SearchResult",
-      "types": [
-        "Human",
-        "Droid",
-        "Starship"
-      ]
-    }
-  ],
-  "interfaceTypes": [
-    {
-      "name": "Character",
-      "types": [
-        "Human",
-        "Droid",
-        "Alien"
-      ]
-    }
-  ]
+	"unionTypes": [
+		{
+			"name": "SearchResult",
+			"types": [
+				"Human",
+				"Droid",
+				"Starship"
+			]
+		}
+	],
+	"interfaceTypes": [
+		{
+			"name": "Character",
+			"types": [
+				"Human",
+				"Droid"
+			]
+		}
+	]
 }
