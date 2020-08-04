@@ -11,13 +11,6 @@ import XCTest
 
 class EnumGenerationTests: XCTestCase {
   
-  private lazy var dummyOptions: ApolloCodegenOptions = {
-    let unusedURL = CodegenTestHelper.apolloFolderURL()
-    return ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: unusedURL),
-                                urlToSchemaFile: unusedURL)
-  }()
-  
-  
   func testTryingToGenerateWrongKindThrowsAppropriateError() throws {
     let wrongKind = ASTTypeUsed(kind: .InputObjectType,
                                 name: "InputObject",
@@ -30,7 +23,7 @@ class EnumGenerationTests: XCTestCase {
                                 ])
     
     do {
-      _ = try EnumGenerator().run(typeUsed: wrongKind, options: self.dummyOptions)
+      _ = try EnumGenerator().run(typeUsed: wrongKind, options: CodegenTestHelper.dummyOptions())
     } catch {
       switch error {
       case EnumGenerator.EnumGenerationError.kindIsNotAnEnum:
@@ -49,7 +42,7 @@ class EnumGenerationTests: XCTestCase {
                               values: nil,
                               fields: nil)
     do {
-      _ = try EnumGenerator().run(typeUsed: nilCases, options: self.dummyOptions)
+      _ = try EnumGenerator().run(typeUsed: nilCases, options: CodegenTestHelper.dummyOptions())
     } catch {
       switch error {
       case EnumGenerator.EnumGenerationError.enumHasNilCases:
@@ -84,7 +77,7 @@ class EnumGenerationTests: XCTestCase {
                                   fields: nil)
     
     do {
-      let output = try EnumGenerator().run(typeUsed: episodeEnum, options: self.dummyOptions)
+      let output = try EnumGenerator().run(typeUsed: episodeEnum, options: CodegenTestHelper.dummyOptions())
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
@@ -117,7 +110,7 @@ class EnumGenerationTests: XCTestCase {
                                           ],
                                           fields: nil)
     do {
-      let output = try EnumGenerator().run(typeUsed: withoutDescriptions, options: self.dummyOptions)
+      let output = try EnumGenerator().run(typeUsed: withoutDescriptions, options: CodegenTestHelper.dummyOptions())
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
@@ -146,7 +139,7 @@ class EnumGenerationTests: XCTestCase {
                                      ],
                                      fields: nil)
     do {
-      let output = try EnumGenerator().run(typeUsed: withDeprecated, options: self.dummyOptions)
+      let output = try EnumGenerator().run(typeUsed: withDeprecated, options: CodegenTestHelper.dummyOptions())
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
@@ -201,7 +194,7 @@ class EnumGenerationTests: XCTestCase {
                                    fields: nil)
     
     do {
-      let output = try EnumGenerator().run(typeUsed: withoutCases, options: self.dummyOptions)
+      let output = try EnumGenerator().run(typeUsed: withoutCases, options: CodegenTestHelper.dummyOptions())
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
@@ -231,7 +224,7 @@ class EnumGenerationTests: XCTestCase {
                                      fields: nil)
     
     do {
-      let output = try EnumGenerator().run(typeUsed: differentCases, options: self.dummyOptions)
+      let output = try EnumGenerator().run(typeUsed: differentCases, options: CodegenTestHelper.dummyOptions())
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
@@ -270,12 +263,46 @@ class EnumGenerationTests: XCTestCase {
     
     
     do {
-      let output = try EnumGenerator().run(typeUsed: sanitizedCases, options: self.dummyOptions)
+      let output = try EnumGenerator().run(typeUsed: sanitizedCases, options: CodegenTestHelper.dummyOptions())
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
         .appendingPathComponent("ApolloCodegenTests")
         .appendingPathComponent("ExpectedEnumWithSanitizedCases.swift")
 
+      LineByLineComparison.between(received: output, expectedFileURL: expectedFileURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+    }
+  }
+  
+  func testGeneratingEnumWithoutModifier() {
+    let newHope = ASTEnumValue(name: "NEWHOPE",
+                               description: "Star Wars Episode IV: A New Hope, released in 1977.",
+                               isDeprecated: false)
+    let empire = ASTEnumValue(name: "EMPIRE",
+                              description: "Star Wars Episode V: The Empire Strikes Back, released in 1980.",
+                              isDeprecated: false)
+    let jedi = ASTEnumValue(name: "JEDI",
+                            description: "Star Wars Episode VI: Return of the Jedi, released in 1983.",
+                            isDeprecated: false)
+    
+    let episodeEnum = ASTTypeUsed(kind: .EnumType,
+                                  name: "EpisodeWithoutModifier",
+                                  description: "The episodes in the Star Wars trilogy",
+                                  values: [
+                                    newHope,
+                                    empire,
+                                    jedi
+                                  ],
+                                  fields: nil)
+    
+    do {
+      let output = try EnumGenerator().run(typeUsed: episodeEnum, options: CodegenTestHelper.dummyOptionsNoModifier())
+      let expectedFileURL = CodegenTestHelper.sourceRootURL()
+        .appendingPathComponent("Tests")
+        .appendingPathComponent("ApolloCodegenTests")
+        .appendingPathComponent("ExpectedEpisodeEnumWithoutModifier.swift")
+      
       LineByLineComparison.between(received: output, expectedFileURL: expectedFileURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)

@@ -19,6 +19,21 @@
 		9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD762422C8CC00998B5C /* TestFileHelper.swift */; };
 		9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
 		9B21FD792424305E00998B5C /* ExpectedEnumWithSanitizedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */; };
+		9B3D70F92488340400D8BAF4 /* ASTUnionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70F82488340400D8BAF4 /* ASTUnionType.swift */; };
+		9B3D70FA2488340C00D8BAF4 /* ASTInterfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70F6248833CB00D8BAF4 /* ASTInterfaceType.swift */; };
+		9B3D70FC2488388300D8BAF4 /* InterfaceEnumGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70FB2488388300D8BAF4 /* InterfaceEnumGenerator.swift */; };
+		9B3D70FE2488388E00D8BAF4 /* UnionEnumGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70FD2488388E00D8BAF4 /* UnionEnumGenerator.swift */; };
+		9B3D71032488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71022488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift */; };
+		9B3D7105248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D7104248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift */; };
+		9B3D71072488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */; };
+		9B3D710924884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D710824884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift */; };
+		9B3D710B24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D710A24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift */; };
+		9B3D710F24884D7500D8BAF4 /* ExpectedSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D710E24884D7500D8BAF4 /* ExpectedSearchResultType.swift */; };
+		9B3D711124884E1B00D8BAF4 /* UnionEnumGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */; };
+		9B3D711324889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */; };
+		9B3D711524889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */; };
+		9B3D711724889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */; };
+		9B3FB4F124D9ED01002C8B1B /* ExpectedCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71002488429E00D8BAF4 /* ExpectedCharacterType.swift */; };
 		9B455CDF2492D05E002255A9 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
 		9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE22492D0A3002255A9 /* ApolloExtension.swift */; };
 		9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */; };
@@ -402,6 +417,22 @@
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFileTests.swift; sourceTree = "<group>"; };
 		9B21FD762422C8CC00998B5C /* TestFileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileHelper.swift; sourceTree = "<group>"; };
+		9B3D70F5248832AE00D8BAF4 /* API.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API.json; sourceTree = "<group>"; };
+		9B3D70F6248833CB00D8BAF4 /* ASTInterfaceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTInterfaceType.swift; sourceTree = "<group>"; };
+		9B3D70F82488340400D8BAF4 /* ASTUnionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTUnionType.swift; sourceTree = "<group>"; };
+		9B3D70FB2488388300D8BAF4 /* InterfaceEnumGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEnumGenerator.swift; sourceTree = "<group>"; };
+		9B3D70FD2488388E00D8BAF4 /* UnionEnumGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionEnumGenerator.swift; sourceTree = "<group>"; };
+		9B3D71002488429E00D8BAF4 /* ExpectedCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedCharacterType.swift; sourceTree = "<group>"; };
+		9B3D71022488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntefaceEnumGenerationTests.swift; sourceTree = "<group>"; };
+		9B3D7104248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedSanitizedCharacterType.swift; sourceTree = "<group>"; };
+		9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoCasesCharacterType.swift; sourceTree = "<group>"; };
+		9B3D710824884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoModifierCharacterType.swift; sourceTree = "<group>"; };
+		9B3D710A24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedEpisodeEnumWithoutModifier.swift; sourceTree = "<group>"; };
+		9B3D710E24884D7500D8BAF4 /* ExpectedSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedSearchResultType.swift; sourceTree = "<group>"; };
+		9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionEnumGenerationTests.swift; sourceTree = "<group>"; };
+		9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedSanitizedSearchResultType.swift; sourceTree = "<group>"; };
+		9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoCasesSearchResultType.swift; sourceTree = "<group>"; };
+		9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoModifierSearchResultType.swift; sourceTree = "<group>"; };
 		9B455CE22492D0A3002255A9 /* ApolloExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloExtension.swift; sourceTree = "<group>"; };
 		9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
 		9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
@@ -799,6 +830,28 @@
 			name = TestHelpers;
 			sourceTree = "<group>";
 		};
+		9B3D70FF2488428A00D8BAF4 /* InterfaceEnum */ = {
+			isa = PBXGroup;
+			children = (
+				9B3D71002488429E00D8BAF4 /* ExpectedCharacterType.swift */,
+				9B3D7104248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift */,
+				9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */,
+				9B3D710824884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift */,
+			);
+			name = InterfaceEnum;
+			sourceTree = "<group>";
+		};
+		9B3D710D24884CE500D8BAF4 /* UnionEnum */ = {
+			isa = PBXGroup;
+			children = (
+				9B3D710E24884D7500D8BAF4 /* ExpectedSearchResultType.swift */,
+				9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */,
+				9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */,
+				9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */,
+			);
+			name = UnionEnum;
+			sourceTree = "<group>";
+		};
 		9B455CE82492D0A7002255A9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -824,6 +877,8 @@
 		9B68F0512415B17B00E97318 /* ExpectedOutputs */ = {
 			isa = PBXGroup;
 			children = (
+				9B3D710D24884CE500D8BAF4 /* UnionEnum */,
+				9B3D70FF2488428A00D8BAF4 /* InterfaceEnum */,
 				9B68F069241C641600E97318 /* InputObject */,
 				9B68F05E2416BEA300E97318 /* Enum */,
 			);
@@ -835,6 +890,7 @@
 			children = (
 				9B68F0522415B1C800E97318 /* ExpectedEpisodeEnum.swift */,
 				9B68F0562416B5F700E97318 /* ExpectedEpisodeEnumNoDescription.swift */,
+				9B3D710A24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift */,
 				9B68F0582416BA7700E97318 /* ExpectedEnumWithNoCases.swift */,
 				9B68F05A2416BCF100E97318 /* ExpectedEnumOmittingDeprecatedCases.swift */,
 				9B68F05C2416BDCF00E97318 /* ExpectedEnumWithDeprecatedCases.swift */,
@@ -956,9 +1012,11 @@
 				9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */,
 				9BD6813C2405FAB7000874CB /* ASTField.swift */,
 				9BD6812A2405F410000874CB /* ASTFragment.swift */,
+				9B3D70F6248833CB00D8BAF4 /* ASTInterfaceType.swift */,
 				9BD681392405F95B000874CB /* ASTOperation.swift */,
 				9BD681262405F0CB000874CB /* ASTOutput.swift */,
 				9BD681282405F149000874CB /* ASTTypeUsed.swift */,
+				9B3D70F82488340400D8BAF4 /* ASTUnionType.swift */,
 				9B0E4717240AF6D70093BDA7 /* ASTVariableType.swift */,
 				9BD6813F2406F31A000874CB /* FlexibleDecoder.swift */,
 			);
@@ -981,10 +1039,12 @@
 				9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */,
 				9B68F04E2413271D00E97318 /* EnumGenerationTests.swift */,
 				9B5A1EFB243528AA00F066BB /* InputObjectGenerationTests.swift */,
+				9B3D71022488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift */,
 				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9B68F0542416B33300E97318 /* LineByLineComparison.swift */,
 				9BD681352405F725000874CB /* JSONTests.swift */,
 				9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */,
+				9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */,
 				9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */,
 				9BAEEC0C234BB95B00808306 /* Info.plist */,
 			);
@@ -1021,6 +1081,9 @@
 		9BCF0CE923FC9F060031D2A2 /* StarWarsAPI */ = {
 			isa = PBXGroup;
 			children = (
+				9B3D70F5248832AE00D8BAF4 /* API.json */,
+				9BCF0CFC23FC9F060031D2A2 /* API.swift */,
+				9BCF0CFB23FC9F060031D2A2 /* schema.json */,
 				9BCF0CEA23FC9F060031D2A2 /* TestFolder */,
 				9BCF0CED23FC9F060031D2A2 /* HeroAndFriendsNames.graphql */,
 				9BCF0CEE23FC9F060031D2A2 /* HeroFriendsOfFriends.graphql */,
@@ -1036,8 +1099,6 @@
 				9BCF0CF823FC9F060031D2A2 /* operationIDs.json */,
 				9BCF0CF923FC9F060031D2A2 /* CharacterAndSubTypesFragments.graphql */,
 				9BCF0CFA23FC9F060031D2A2 /* HeroTypeDependentAliasedField.graphql */,
-				9BCF0CFB23FC9F060031D2A2 /* schema.json */,
-				9BCF0CFC23FC9F060031D2A2 /* API.swift */,
 				9BCF0CFD23FC9F060031D2A2 /* SubscribeReview.graphql */,
 				9BCF0CFE23FC9F060031D2A2 /* HeroParentTypeDependentField.graphql */,
 				9BCF0CFF23FC9F060031D2A2 /* Info.plist */,
@@ -1069,6 +1130,8 @@
 				9B68F03E240F3B0E00E97318 /* CodeGenerator.swift */,
 				9B68F04924130D6500E97318 /* EnumGenerator.swift */,
 				9B68F0612417002900E97318 /* InputObjectGenerator.swift */,
+				9B3D70FB2488388300D8BAF4 /* InterfaceEnumGenerator.swift */,
+				9B3D70FD2488388E00D8BAF4 /* UnionEnumGenerator.swift */,
 			);
 			name = Output;
 			sourceTree = "<group>";
@@ -1987,13 +2050,16 @@
 				9B0E4718240AF6D70093BDA7 /* ASTVariableType.swift in Sources */,
 				9B0E471C240B167C0093BDA7 /* String+Apollo.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
+				9B3D70FE2488388E00D8BAF4 /* UnionEnumGenerator.swift in Sources */,
 				9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */,
 				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
+				9B3D70FA2488340C00D8BAF4 /* ASTInterfaceType.swift in Sources */,
 				9BAEEBF123467E0A00808306 /* ApolloCLI.swift in Sources */,
 				9BD6812B2405F410000874CB /* ASTFragment.swift in Sources */,
 				9B68F04A24130D6500E97318 /* EnumGenerator.swift in Sources */,
 				9B68F06524198D1000E97318 /* InputObjectGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
+				9B3D70F92488340400D8BAF4 /* ASTUnionType.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				9B68F068241ADA9D00E97318 /* Dictionary+Apollo.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
@@ -2002,6 +2068,7 @@
 				9B0E471E240B239D0093BDA7 /* ASTEnumValue.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
+				9B3D70FC2488388300D8BAF4 /* InterfaceEnumGenerator.swift in Sources */,
 				9BD6813B2405FA56000874CB /* ASTOperation.swift in Sources */,
 				9BD681292405F149000874CB /* ASTTypeUsed.swift in Sources */,
 				9BD6812F2405F665000874CB /* JSON.swift in Sources */,
@@ -2064,8 +2131,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B68F0572416B5F700E97318 /* ExpectedEpisodeEnumNoDescription.swift in Sources */,
+				9B3FB4F124D9ED01002C8B1B /* ExpectedCharacterType.swift in Sources */,
 				9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */,
+				9B3D710F24884D7500D8BAF4 /* ExpectedSearchResultType.swift in Sources */,
+				9B3D710B24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift in Sources */,
 				9B6835342460B47900337AE6 /* ASTVariableType+TestHelpers.swift in Sources */,
+				9B3D71032488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift in Sources */,
 				9B5A1F002435356400F066BB /* ExpectedColorInputNoModifier.swift in Sources */,
 				9B68F04F2413271D00E97318 /* EnumGenerationTests.swift in Sources */,
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
@@ -2073,6 +2144,7 @@
 				9B68F0532415B1C800E97318 /* ExpectedEpisodeEnum.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaTests.swift in Sources */,
 				9B5A1EFC243528AA00F066BB /* InputObjectGenerationTests.swift in Sources */,
+				9B3D7105248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift in Sources */,
 				9B0E471A240AFA060093BDA7 /* VariableToSwiftTypeTests.swift in Sources */,
 				9B8C3FB5248DA3E000707B13 /* URLExtensionsTests.swift in Sources */,
 				9BAEEC12234BBA9200808306 /* CodegenTestHelper.swift in Sources */,
@@ -2083,7 +2155,13 @@
 				9B68F05B2416BCF100E97318 /* ExpectedEnumOmittingDeprecatedCases.swift in Sources */,
 				9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */,
 				9B683538246310D400337AE6 /* ExpectedReviewInputNoModifier.swift in Sources */,
+				9B3D71072488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift in Sources */,
+				9B3D711724889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift in Sources */,
+				9B3D711324889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift in Sources */,
 				9BD681422406F516000874CB /* ASTParsingTests.swift in Sources */,
+				9B3D711124884E1B00D8BAF4 /* UnionEnumGenerationTests.swift in Sources */,
+				9B3D710924884A1500D8BAF4 /* ExpectedNoModifierCharacterType.swift in Sources */,
+				9B3D711524889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,
 				9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */,
 				9B5A1EFE24352AED00F066BB /* ExpectedColorInput.swift in Sources */,

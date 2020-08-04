@@ -12,12 +12,6 @@ import XCTest
 
 class InputObjectGenerationTests: XCTestCase {
   
-  private lazy var dummyOptions: ApolloCodegenOptions = {
-    let unusedURL = CodegenTestHelper.apolloFolderURL()
-    return ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: unusedURL),
-                                urlToSchemaFile: unusedURL)
-  }()
-  
   private func colorInput(named name: String) -> ASTTypeUsed {
     let red = ASTTypeUsed.Field(name: "red",
                                 typeNode: .nonNullNamed("Int"),
@@ -67,7 +61,7 @@ class InputObjectGenerationTests: XCTestCase {
   
   func testGeneratingInputObjectWithNoOptionalProperties() {
     do {
-      let output = try InputObjectGenerator().run(typeUsed: self.colorInput(named: "ColorInput"), options: self.dummyOptions)
+      let output = try InputObjectGenerator().run(typeUsed: self.colorInput(named: "ColorInput"), options: CodegenTestHelper.dummyOptions())
 
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
@@ -105,7 +99,7 @@ class InputObjectGenerationTests: XCTestCase {
   
   func testGeneratingInputObjectWithOptionalProperties() {
     do {
-      let output = try InputObjectGenerator().run(typeUsed: self.reviewInput(named: "ReviewInput"), options: self.dummyOptions)
+      let output = try InputObjectGenerator().run(typeUsed: self.reviewInput(named: "ReviewInput"), options: CodegenTestHelper.dummyOptions())
 
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")
@@ -121,12 +115,8 @@ class InputObjectGenerationTests: XCTestCase {
   }
   
   func testGeneratingInputObjectWithOptionalPropertiesAndNoModifier() {
-    let dummyURL = CodegenTestHelper.apolloFolderURL()
-    let options = ApolloCodegenOptions(modifier: .none,
-                                       outputFormat: .singleFile(atFileURL: dummyURL),
-                                       urlToSchemaFile: dummyURL)
     do {
-      let output = try InputObjectGenerator().run(typeUsed: self.reviewInput(named: "ReviewInputNoModifier"), options: options)
+      let output = try InputObjectGenerator().run(typeUsed: self.reviewInput(named: "ReviewInputNoModifier"), options: CodegenTestHelper.dummyOptionsNoModifier())
       
       let expectedFileURL = CodegenTestHelper.sourceRootURL()
         .appendingPathComponent("Tests")

@@ -31,15 +31,60 @@ class ASTParsingTests: XCTestCase {
   func testLoadingStarWarsJSON() throws {
     do {
       let output = try loadAST(from: starWarsJSONURL)
-      XCTAssertEqual(output.operations.count, 36)
+      XCTAssertEqual(output.operations.count, 37)
       XCTAssertEqual(output.fragments.count, 15)
       XCTAssertEqual(output.typesUsed.count, 3)
+      XCTAssertEqual(output.unionTypes.count, 1)
+      XCTAssertEqual(output.interfaceTypes.count, 1)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
     }
   }
   
-  func testParsingASTTypes() throws {
+  func testParsingASTUnionTypes() throws {
+    let output: ASTOutput
+    do {
+      output = try loadAST(from: starWarsJSONURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+      return
+    }
+    
+    let types = output.unionTypes
+    XCTAssertEqual(types.count, 1)
+    
+    let type = try XCTUnwrap(types.first)
+    
+    XCTAssertEqual(type.name, "SearchResult")
+    XCTAssertEqual(type.types, [
+      "Human",
+      "Droid",
+      "Starship"
+    ])
+  }
+  
+  func testParsingASTInterfaceTypes() throws {
+    let output: ASTOutput
+    do {
+      output = try loadAST(from: starWarsJSONURL)
+    } catch {
+      CodegenTestHelper.handleFileLoadError(error)
+      return
+    }
+    
+    let types = output.interfaceTypes
+    XCTAssertEqual(types.count, 1)
+    
+    let type = try XCTUnwrap(types.first)
+    
+    XCTAssertEqual(type.name, "Character")
+    XCTAssertEqual(type.types, [
+      "Human",
+      "Droid",
+    ])
+  }
+  
+  func testParsingASTInputTypes() throws {
     let output: ASTOutput
     do {
       output = try loadAST(from: starWarsJSONURL)
@@ -133,9 +178,9 @@ class ASTParsingTests: XCTestCase {
     ])
     
     XCTAssertEqual(colorFields.map { $0.description }, [
-      nil,
-      nil,
-      nil,
+      "",
+      "",
+      "",
     ])
   }
   
@@ -235,7 +280,7 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
     ])
     
     XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false,
     ])
@@ -333,7 +378,7 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
     ])
     
     XCTAssertEqual(firstLevelFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false
     ])
@@ -384,7 +429,7 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
     ])
     
     XCTAssertEqual(secondLevelFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
     ])
     
@@ -499,7 +544,7 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
     ])
     
     XCTAssertEqual(firstLevelFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false,
     ])
@@ -556,7 +601,7 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
     ])
     
     XCTAssertEqual(secondLevelFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false
     ])
     
@@ -656,7 +701,7 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
     ])
     
     XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false
     ])
     
@@ -708,7 +753,7 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
     ])
     
     XCTAssertEqual(humanFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false
     ])
@@ -745,7 +790,7 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
     ])
     
     XCTAssertEqual(droidFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false
     ])
@@ -858,7 +903,7 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
     ])
     
     XCTAssertEqual(r2Fields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
     ])
     
@@ -899,7 +944,7 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
     ])
     
     XCTAssertEqual(lukeFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
     ])
     
@@ -995,7 +1040,7 @@ query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __ty
     ])
     
     XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false
     ])
     
@@ -1086,7 +1131,7 @@ query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typen
     ])
     
     XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false
     ])
     
@@ -1182,7 +1227,7 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
     ])
     
     XCTAssertEqual(innerFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false
     ])
     
@@ -1249,7 +1294,7 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
     ])
     
     XCTAssertEqual(humanFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false
     ])
@@ -1292,7 +1337,7 @@ query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  he
     ])
     
     XCTAssertEqual(droidFields.map { $0.isDeprecated }, [
-      nil,
+      false,
       false,
       false
     ])

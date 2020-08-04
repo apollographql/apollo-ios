@@ -11,6 +11,19 @@ import XCTest
 
 struct CodegenTestHelper {
   
+  static func dummyOptions() -> ApolloCodegenOptions {    
+    let unusedURL = CodegenTestHelper.apolloFolderURL()
+    return ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: unusedURL),
+                                urlToSchemaFile: unusedURL)
+  }
+  
+  static func dummyOptionsNoModifier() -> ApolloCodegenOptions {
+    let unusedURL = CodegenTestHelper.apolloFolderURL()
+    return ApolloCodegenOptions(modifier: .none,
+                                outputFormat: .singleFile(atFileURL: unusedURL),
+                                urlToSchemaFile: unusedURL)
+  }
+  
   static func handleFileLoadError(_ error: Error,
                                   file: StaticString = #file,
                                   line: UInt = #line) {

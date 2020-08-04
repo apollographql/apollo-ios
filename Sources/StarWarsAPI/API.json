@@ -100,7 +100,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "stars",
@@ -214,7 +215,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "stars",
@@ -325,7 +327,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -377,7 +380,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -477,7 +481,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "id",
@@ -547,7 +552,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "id",
@@ -665,7 +671,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "id",
@@ -735,7 +742,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "id",
@@ -835,7 +843,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "id",
@@ -905,7 +914,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -1005,7 +1015,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -1057,7 +1068,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -1161,7 +1173,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "friends",
@@ -1195,7 +1208,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -1244,7 +1258,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "friends",
@@ -1278,7 +1293,8 @@
 													}
 												}
 											},
-											"isConditional": false
+											"isConditional": false,
+											"isDeprecated": false
 										},
 										{
 											"responseName": "name",
@@ -1355,7 +1371,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "appearsIn",
@@ -1454,7 +1471,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "appearsIn",
@@ -1543,7 +1561,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -1632,7 +1651,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -1735,7 +1755,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -1843,7 +1864,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -1937,7 +1959,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -2061,7 +2084,8 @@
 									"variableName": "includeDetails",
 									"inverted": false
 								}
-							]
+							],
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -2130,7 +2154,8 @@
 											"variableName": "includeDetails",
 											"inverted": false
 										}
-									]
+									],
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -2231,7 +2256,8 @@
 											"variableName": "includeDetails",
 											"inverted": false
 										}
-									]
+									],
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -2385,7 +2411,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -2435,7 +2462,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -2525,7 +2553,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "friends",
@@ -2566,7 +2595,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -2609,7 +2639,8 @@
 													}
 												}
 											},
-											"isConditional": false
+											"isConditional": false,
+											"isDeprecated": false
 										},
 										{
 											"responseName": "name",
@@ -2711,7 +2742,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "friends",
@@ -2759,7 +2791,8 @@
 											"variableName": "includeFriendsDetails",
 											"inverted": false
 										}
-									]
+									],
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -2821,7 +2854,8 @@
 													"variableName": "includeFriendsDetails",
 													"inverted": false
 												}
-											]
+											],
+											"isDeprecated": false
 										},
 										{
 											"responseName": "name",
@@ -2956,7 +2990,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -2999,7 +3034,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -3057,7 +3093,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -3169,7 +3206,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -3214,7 +3252,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -3274,7 +3313,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -3390,7 +3430,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						}
 					],
 					"fragmentSpreads": [
@@ -3417,7 +3458,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -3533,7 +3575,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "friends",
@@ -3567,7 +3610,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "id",
@@ -3619,7 +3663,8 @@
 													}
 												}
 											},
-											"isConditional": false
+											"isConditional": false,
+											"isDeprecated": false
 										},
 										{
 											"responseName": "name",
@@ -3723,7 +3768,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -3819,7 +3865,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "id",
@@ -3933,7 +3980,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -4033,7 +4081,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "id",
@@ -4151,7 +4200,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -4272,7 +4322,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -4315,7 +4366,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -4367,7 +4419,8 @@
 													}
 												}
 											},
-											"isConditional": false
+											"isConditional": false,
+											"isDeprecated": false
 										},
 										{
 											"responseName": "name",
@@ -4410,7 +4463,8 @@
 															}
 														}
 													},
-													"isConditional": false
+													"isConditional": false,
+													"isDeprecated": false
 												},
 												{
 													"responseName": "name",
@@ -4487,7 +4541,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -4539,7 +4594,8 @@
 													}
 												}
 											},
-											"isConditional": false
+											"isConditional": false,
+											"isDeprecated": false
 										},
 										{
 											"responseName": "name",
@@ -4582,7 +4638,8 @@
 															}
 														}
 													},
-													"isConditional": false
+													"isConditional": false,
+													"isDeprecated": false
 												},
 												{
 													"responseName": "name",
@@ -4713,7 +4770,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						}
 					],
 					"fragmentSpreads": [],
@@ -4738,7 +4796,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "property",
@@ -4778,7 +4837,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "property",
@@ -4843,7 +4903,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -4895,7 +4956,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "appearsIn",
@@ -4928,6 +4990,275 @@
 			"fragmentsReferenced": [],
 			"sourceWithFragments": "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}",
 			"operationId": "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364"
+		},
+		{
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/Search.graphql",
+			"operationName": "Search",
+			"operationType": "query",
+			"rootType": "Query",
+			"variables": [
+				{
+					"name": "term",
+					"type": "String",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "String"
+						}
+					}
+				}
+			],
+			"source": "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      id\n      name\n    }\n    ... on Droid {\n      id\n      name\n    }\n    ... on Starship {\n      id\n      name\n    }\n  }\n}",
+			"fields": [
+				{
+					"responseName": "search",
+					"fieldName": "search",
+					"type": "[SearchResult]",
+					"typeNode": {
+						"kind": "ListType",
+						"type": {
+							"kind": "NamedType",
+							"name": {
+								"kind": "Name",
+								"value": "SearchResult"
+							}
+						}
+					},
+					"args": [
+						{
+							"name": "text",
+							"value": {
+								"kind": "Variable",
+								"variableName": "term"
+							},
+							"type": "String",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "String"
+								}
+							}
+						}
+					],
+					"isConditional": false,
+					"isDeprecated": false,
+					"fields": [
+						{
+							"responseName": "__typename",
+							"fieldName": "__typename",
+							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
+							"isConditional": false,
+							"isDeprecated": false
+						}
+					],
+					"fragmentSpreads": [],
+					"inlineFragments": [
+						{
+							"typeCondition": "Human",
+							"possibleTypes": [
+								"Human"
+							],
+							"fields": [
+								{
+									"responseName": "__typename",
+									"fieldName": "__typename",
+									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
+									"isConditional": false,
+									"isDeprecated": false
+								},
+								{
+									"responseName": "id",
+									"fieldName": "id",
+									"type": "ID!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "ID"
+											}
+										}
+									},
+									"isConditional": false,
+									"description": "The ID of the human",
+									"isDeprecated": false
+								},
+								{
+									"responseName": "name",
+									"fieldName": "name",
+									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
+									"isConditional": false,
+									"description": "What this human calls themselves",
+									"isDeprecated": false
+								}
+							],
+							"fragmentSpreads": []
+						},
+						{
+							"typeCondition": "Droid",
+							"possibleTypes": [
+								"Droid"
+							],
+							"fields": [
+								{
+									"responseName": "__typename",
+									"fieldName": "__typename",
+									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
+									"isConditional": false,
+									"isDeprecated": false
+								},
+								{
+									"responseName": "id",
+									"fieldName": "id",
+									"type": "ID!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "ID"
+											}
+										}
+									},
+									"isConditional": false,
+									"description": "The ID of the droid",
+									"isDeprecated": false
+								},
+								{
+									"responseName": "name",
+									"fieldName": "name",
+									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
+									"isConditional": false,
+									"description": "What others call this droid",
+									"isDeprecated": false
+								}
+							],
+							"fragmentSpreads": []
+						},
+						{
+							"typeCondition": "Starship",
+							"possibleTypes": [
+								"Starship"
+							],
+							"fields": [
+								{
+									"responseName": "__typename",
+									"fieldName": "__typename",
+									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
+									"isConditional": false,
+									"isDeprecated": false
+								},
+								{
+									"responseName": "id",
+									"fieldName": "id",
+									"type": "ID!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "ID"
+											}
+										}
+									},
+									"isConditional": false,
+									"description": "The ID of the starship",
+									"isDeprecated": false
+								},
+								{
+									"responseName": "name",
+									"fieldName": "name",
+									"type": "String!",
+									"typeNode": {
+										"kind": "NonNullType",
+										"type": {
+											"kind": "NamedType",
+											"name": {
+												"kind": "Name",
+												"value": "String"
+											}
+										}
+									},
+									"isConditional": false,
+									"description": "The name of the starship",
+									"isDeprecated": false
+								}
+							],
+							"fragmentSpreads": []
+						}
+					]
+				}
+			],
+			"fragmentSpreads": [],
+			"inlineFragments": [],
+			"fragmentsReferenced": [],
+			"sourceWithFragments": "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      id\n      name\n    }\n    ... on Droid {\n      id\n      name\n    }\n    ... on Starship {\n      id\n      name\n    }\n  }\n}",
+			"operationId": "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77"
 		},
 		{
 			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/Starship.graphql",
@@ -4982,7 +5313,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5128,7 +5460,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5265,7 +5598,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "episode",
@@ -5397,7 +5731,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5479,7 +5814,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5545,7 +5881,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5608,7 +5945,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -5681,7 +6019,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -5727,7 +6066,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5801,7 +6141,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -5844,7 +6185,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -5920,7 +6262,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -5974,7 +6317,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "primaryFunction",
@@ -6025,7 +6369,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "height",
@@ -6094,7 +6439,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -6172,7 +6518,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -6250,7 +6597,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				}
 			],
 			"fragmentSpreads": [],
@@ -6275,7 +6623,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "friends",
@@ -6309,7 +6658,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "appearsIn",
@@ -6359,7 +6709,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -6411,7 +6762,8 @@
 											}
 										}
 									},
-									"isConditional": false
+									"isConditional": false,
+									"isDeprecated": false
 								},
 								{
 									"responseName": "name",
@@ -6474,7 +6826,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "friends",
@@ -6508,7 +6861,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -6567,7 +6921,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "appearsIn",
@@ -6625,7 +6980,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -6668,7 +7024,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -6726,7 +7083,8 @@
 									}
 								}
 							},
-							"isConditional": false
+							"isConditional": false,
+							"isDeprecated": false
 						},
 						{
 							"responseName": "name",
@@ -6796,7 +7154,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -6866,7 +7225,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -6921,7 +7281,8 @@
 							}
 						}
 					},
-					"isConditional": false
+					"isConditional": false,
+					"isDeprecated": false
 				},
 				{
 					"responseName": "name",
@@ -7053,7 +7414,8 @@
 								"value": "Int"
 							}
 						}
-					}
+					},
+					"description": ""
 				},
 				{
 					"name": "green",
@@ -7067,7 +7429,8 @@
 								"value": "Int"
 							}
 						}
-					}
+					},
+					"description": ""
 				},
 				{
 					"name": "blue",
@@ -7081,8 +7444,28 @@
 								"value": "Int"
 							}
 						}
-					}
+					},
+					"description": ""
 				}
+			]
+		}
+	],
+	"unionTypes": [
+		{
+			"name": "SearchResult",
+			"types": [
+				"Human",
+				"Droid",
+				"Starship"
+			]
+		}
+	],
+	"interfaceTypes": [
+		{
+			"name": "Character",
+			"types": [
+				"Human",
+				"Droid"
 			]
 		}
 	]

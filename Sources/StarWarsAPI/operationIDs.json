@@ -123,6 +123,10 @@
     "name": "SameHeroTwice",
     "source": "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}"
   },
+  "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77": {
+    "name": "Search",
+    "source": "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      id\n      name\n    }\n    ... on Droid {\n      id\n      name\n    }\n    ... on Starship {\n      id\n      name\n    }\n  }\n}"
+  },
   "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a": {
     "name": "Starship",
     "source": "query Starship {\n  starship(id: 3000) {\n    __typename\n    name\n    coordinates\n  }\n}"

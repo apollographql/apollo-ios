@@ -153,6 +153,6 @@ class ApolloCodegenTests: XCTestCase {
     XCTAssertTrue(FileManager.default.apollo.folderExists(at: outputFolder))
     
     let contents = try FileManager.default.contentsOfDirectory(atPath: outputFolder.path)
-    XCTAssertEqual(contents.count, 17)
+    XCTAssertEqual(contents.count, 18)
   }
 }
