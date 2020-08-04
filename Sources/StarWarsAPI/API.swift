@@ -5647,6 +5647,301 @@ public final class SameHeroTwiceQuery: GraphQLQuery {
   }
 }
 
+public final class SearchQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query Search($term: String) {
+      search(text: $term) {
+        __typename
+        ... on Human {
+          id
+          name
+        }
+        ... on Droid {
+          id
+          name
+        }
+        ... on Starship {
+          id
+          name
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "Search"
+
+  public let operationIdentifier: String? = "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77"
+
+  public var term: String?
+
+  public init(term: String? = nil) {
+    self.term = term
+  }
+
+  public var variables: GraphQLMap? {
+    return ["term": term]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("search", arguments: ["text": GraphQLVariable("term")], type: .list(.object(Search.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(search: [Search?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "search": search.flatMap { (value: [Search?]) -> [ResultMap?] in value.map { (value: Search?) -> ResultMap? in value.flatMap { (value: Search) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var search: [Search?]? {
+      get {
+        return (resultMap["search"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Search?] in value.map { (value: ResultMap?) -> Search? in value.flatMap { (value: ResultMap) -> Search in Search(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Search?]) -> [ResultMap?] in value.map { (value: Search?) -> ResultMap? in value.flatMap { (value: Search) -> ResultMap in value.resultMap } } }, forKey: "search")
+      }
+    }
+
+    public struct Search: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Human", "Droid", "Starship"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLTypeCase(
+            variants: ["Human": AsHuman.selections, "Droid": AsDroid.selections, "Starship": AsStarship.selections],
+            default: [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            ]
+          )
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public static func makeHuman(id: GraphQLID, name: String) -> Search {
+        return Search(unsafeResultMap: ["__typename": "Human", "id": id, "name": name])
+      }
+
+      public static func makeDroid(id: GraphQLID, name: String) -> Search {
+        return Search(unsafeResultMap: ["__typename": "Droid", "id": id, "name": name])
+      }
+
+      public static func makeStarship(id: GraphQLID, name: String) -> Search {
+        return Search(unsafeResultMap: ["__typename": "Starship", "id": id, "name": name])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var asHuman: AsHuman? {
+        get {
+          if !AsHuman.possibleTypes.contains(__typename) { return nil }
+          return AsHuman(unsafeResultMap: resultMap)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          resultMap = newValue.resultMap
+        }
+      }
+
+      public struct AsHuman: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Human"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: GraphQLID, name: String) {
+          self.init(unsafeResultMap: ["__typename": "Human", "id": id, "name": name])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The ID of the human
+        public var id: GraphQLID {
+          get {
+            return resultMap["id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// What this human calls themselves
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+      }
+
+      public var asDroid: AsDroid? {
+        get {
+          if !AsDroid.possibleTypes.contains(__typename) { return nil }
+          return AsDroid(unsafeResultMap: resultMap)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          resultMap = newValue.resultMap
+        }
+      }
+
+      public struct AsDroid: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Droid"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: GraphQLID, name: String) {
+          self.init(unsafeResultMap: ["__typename": "Droid", "id": id, "name": name])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The ID of the droid
+        public var id: GraphQLID {
+          get {
+            return resultMap["id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// What others call this droid
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+      }
+
+      public var asStarship: AsStarship? {
+        get {
+          if !AsStarship.possibleTypes.contains(__typename) { return nil }
+          return AsStarship(unsafeResultMap: resultMap)
+        }
+        set {
+          guard let newValue = newValue else { return }
+          resultMap = newValue.resultMap
+        }
+      }
+
+      public struct AsStarship: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Starship"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(id: GraphQLID, name: String) {
+          self.init(unsafeResultMap: ["__typename": "Starship", "id": id, "name": name])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The ID of the starship
+        public var id: GraphQLID {
+          get {
+            return resultMap["id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// The name of the starship
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class StarshipQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
