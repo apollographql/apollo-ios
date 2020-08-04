@@ -31,7 +31,7 @@ class ASTParsingTests: XCTestCase {
   func testLoadingStarWarsJSON() throws {
     do {
       let output = try loadAST(from: starWarsJSONURL)
-      XCTAssertEqual(output.operations.count, 36)
+      XCTAssertEqual(output.operations.count, 37)
       XCTAssertEqual(output.fragments.count, 15)
       XCTAssertEqual(output.typesUsed.count, 3)
       XCTAssertEqual(output.unionTypes.count, 1)
@@ -81,7 +81,6 @@ class ASTParsingTests: XCTestCase {
     XCTAssertEqual(type.types, [
       "Human",
       "Droid",
-      "Alien"
     ])
   }
   
