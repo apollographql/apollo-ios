@@ -19,16 +19,10 @@
 		9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD762422C8CC00998B5C /* TestFileHelper.swift */; };
 		9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
 		9B21FD792424305E00998B5C /* ExpectedEnumWithSanitizedCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F063241703B200E97318 /* ExpectedEnumWithSanitizedCases.swift */; };
-		9B455CDF2492D05E002255A9 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
-		9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE22492D0A3002255A9 /* ApolloExtension.swift */; };
-		9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */; };
-		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
-		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
 		9B3D70F92488340400D8BAF4 /* ASTUnionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70F82488340400D8BAF4 /* ASTUnionType.swift */; };
 		9B3D70FA2488340C00D8BAF4 /* ASTInterfaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70F6248833CB00D8BAF4 /* ASTInterfaceType.swift */; };
 		9B3D70FC2488388300D8BAF4 /* InterfaceEnumGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70FB2488388300D8BAF4 /* InterfaceEnumGenerator.swift */; };
 		9B3D70FE2488388E00D8BAF4 /* UnionEnumGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D70FD2488388E00D8BAF4 /* UnionEnumGenerator.swift */; };
-		9B3D71012488429E00D8BAF4 /* ExpectedCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71002488429E00D8BAF4 /* ExpectedCharacterType.swift */; };
 		9B3D71032488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71022488448F00D8BAF4 /* IntefaceEnumGenerationTests.swift */; };
 		9B3D7105248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D7104248847D400D8BAF4 /* ExpectedSanitizedCharacterType.swift */; };
 		9B3D71072488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71062488495900D8BAF4 /* ExpectedNoCasesCharacterType.swift */; };
@@ -39,6 +33,12 @@
 		9B3D711324889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */; };
 		9B3D711524889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */; };
 		9B3D711724889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */; };
+		9B3FB4F124D9ED01002C8B1B /* ExpectedCharacterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D71002488429E00D8BAF4 /* ExpectedCharacterType.swift */; };
+		9B455CDF2492D05E002255A9 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6CB23D238077B60007259D /* Atomic.swift */; };
+		9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE22492D0A3002255A9 /* ApolloExtension.swift */; };
+		9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */; };
+		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
+		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -417,10 +417,6 @@
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFileTests.swift; sourceTree = "<group>"; };
 		9B21FD762422C8CC00998B5C /* TestFileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileHelper.swift; sourceTree = "<group>"; };
-		9B455CE22492D0A3002255A9 /* ApolloExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloExtension.swift; sourceTree = "<group>"; };
-		9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
-		9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
-		9B455CEA2492FB03002255A9 /* String+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
 		9B3D70F5248832AE00D8BAF4 /* API.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API.json; sourceTree = "<group>"; };
 		9B3D70F6248833CB00D8BAF4 /* ASTInterfaceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTInterfaceType.swift; sourceTree = "<group>"; };
 		9B3D70F82488340400D8BAF4 /* ASTUnionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTUnionType.swift; sourceTree = "<group>"; };
@@ -437,6 +433,10 @@
 		9B3D711224889DB200D8BAF4 /* ExpectedSanitizedSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedSanitizedSearchResultType.swift; sourceTree = "<group>"; };
 		9B3D711424889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoCasesSearchResultType.swift; sourceTree = "<group>"; };
 		9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedNoModifierSearchResultType.swift; sourceTree = "<group>"; };
+		9B455CE22492D0A3002255A9 /* ApolloExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloExtension.swift; sourceTree = "<group>"; };
+		9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
+		9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
+		9B455CEA2492FB03002255A9 /* String+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
 		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
 		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
@@ -830,17 +830,6 @@
 			name = TestHelpers;
 			sourceTree = "<group>";
 		};
-		9B455CE82492D0A7002255A9 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				9B455CE22492D0A3002255A9 /* ApolloExtension.swift */,
-				9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */,
-				9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */,
-				9B455CEA2492FB03002255A9 /* String+SHA.swift */,
-			);
-			name = Extensions;
-            sourceTree = "<group>";
-        };
 		9B3D70FF2488428A00D8BAF4 /* InterfaceEnum */ = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +850,17 @@
 				9B3D711624889EF200D8BAF4 /* ExpectedNoModifierSearchResultType.swift */,
 			);
 			name = UnionEnum;
+			sourceTree = "<group>";
+		};
+		9B455CE82492D0A7002255A9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9B455CE22492D0A3002255A9 /* ApolloExtension.swift */,
+				9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */,
+				9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */,
+				9B455CEA2492FB03002255A9 /* String+SHA.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		9B6835472463486200337AE6 /* ApolloCore */ = {
@@ -2054,14 +2054,12 @@
 				9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */,
 				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
 				9B3D70FA2488340C00D8BAF4 /* ASTInterfaceType.swift in Sources */,
-				9B3D71012488429E00D8BAF4 /* ExpectedCharacterType.swift in Sources */,
 				9BAEEBF123467E0A00808306 /* ApolloCLI.swift in Sources */,
 				9BD6812B2405F410000874CB /* ASTFragment.swift in Sources */,
 				9B68F04A24130D6500E97318 /* EnumGenerator.swift in Sources */,
 				9B68F06524198D1000E97318 /* InputObjectGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				9B3D70F92488340400D8BAF4 /* ASTUnionType.swift in Sources */,
-				AE1CFBD0245EBA25002C8CEE /* ApolloExtension.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				9B68F068241ADA9D00E97318 /* Dictionary+Apollo.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
@@ -2070,7 +2068,6 @@
 				9B0E471E240B239D0093BDA7 /* ASTEnumValue.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
-				9BCB58602407593C002F766E /* OptionalBoolean.swift in Sources */,
 				9B3D70FC2488388300D8BAF4 /* InterfaceEnumGenerator.swift in Sources */,
 				9BD6813B2405FA56000874CB /* ASTOperation.swift in Sources */,
 				9BD681292405F149000874CB /* ASTTypeUsed.swift in Sources */,
@@ -2134,6 +2131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B68F0572416B5F700E97318 /* ExpectedEpisodeEnumNoDescription.swift in Sources */,
+				9B3FB4F124D9ED01002C8B1B /* ExpectedCharacterType.swift in Sources */,
 				9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */,
 				9B3D710F24884D7500D8BAF4 /* ExpectedSearchResultType.swift in Sources */,
 				9B3D710B24884B2100D8BAF4 /* ExpectedEpisodeEnumWithoutModifier.swift in Sources */,
