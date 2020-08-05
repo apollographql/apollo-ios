@@ -464,6 +464,10 @@ extension HTTPNetworkTransport: UploadingNetworkTransport {
                 files: files,
                 completionHandler: completionHandler)
   }
+  
+  public func uploadForResult<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+        fatalError("Trying things out here")
+  }
 }
 
 // MARK: - Equatable conformance

@@ -32,34 +32,71 @@ public class RequestChainNetworkTransport: NetworkTransport {
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
   }
   
+  private func constructJSONRequest<Operation: GraphQLOperation>(for operation: Operation) -> JSONRequest<Operation> {
+    JSONRequest(operation: operation,
+                graphQLEndpoint: self.endpointURL,
+                additionalHeaders: additionalHeaders,
+                cachePolicy: self.cachePolicy,
+                autoPersistQueries: self.autoPersistQueries,
+                useGETForQueries: self.useGETForQueries,
+                useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
+                requestCreator: self.requestCreator)
+  }
+  
   public func send<Operation: GraphQLOperation>(operation: Operation,
                                                 completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
     let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
+    let request = self.constructJSONRequest(for: operation)
+    chain.kickoff(request: request, completion: completionHandler)
+    return chain
+  }
+  
+  public func sendForResult<Operation: GraphQLOperation>(
+    operation: Operation,
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    
+    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
         
-    let request: JSONRequest<Operation> = JSONRequest(operation: operation,
-                                                      graphQLEndpoint: self.endpointURL,
-                                                      additionalHeaders: additionalHeaders,
-                                                      cachePolicy: self.cachePolicy,
-                                                      autoPersistQueries: self.autoPersistQueries,
-                                                      useGETForQueries: self.useGETForQueries,
-                                                      useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
-                                                      requestCreator: self.requestCreator)
+    let request = self.constructJSONRequest(for: operation)
+    
+    chain.kickoff(request: request, completion: completionHandler)
+    return chain
+  }
+}
+
+extension RequestChainNetworkTransport: UploadingNetworkTransport {
+  
+  private func createUploadRequest<Operation: GraphQLOperation>(
+    for operation: Operation,
+    with files: [GraphQLFile]) -> UploadRequest<Operation> {
+    
+    UploadRequest(graphQLEndpoint: self.endpointURL,
+                  operation: operation,
+                  files: files,
+                  requestCreator: self.requestCreator)
+  }
+  
+  public func upload<Operation: GraphQLOperation>(
+    operation: Operation,
+    files: [GraphQLFile],
+    completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
+    
+    let request = self.createUploadRequest(for: operation, with: files)
+    
+    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain
   }
   
-  public func sendForResult<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
+  public func uploadForResult<Operation: GraphQLOperation>(
+    operation: Operation,
+    files: [GraphQLFile],
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    
+    let request = self.createUploadRequest(for: operation, with: files)
+    
     let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
-        
-    let request: JSONRequest<Operation> = JSONRequest(operation: operation,
-                                                      graphQLEndpoint: self.endpointURL,
-                                                      additionalHeaders: additionalHeaders,
-                                                      cachePolicy: self.cachePolicy,
-                                                      autoPersistQueries: self.autoPersistQueries,
-                                                      useGETForQueries: self.useGETForQueries,
-                                                      useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
-                                                      requestCreator: self.requestCreator)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain

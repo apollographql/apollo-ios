@@ -95,4 +95,6 @@ public protocol UploadingNetworkTransport: NetworkTransport {
   ///   - completionHandler: The completion handler to execute when the request completes or errors
   /// - Returns: An object that can be used to cancel an in progress request.
   func upload<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
+  
+  func uploadForResult<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (Result<GraphQLResult<Operation.Data>,Error>) -> Void) -> Cancellable
 }
