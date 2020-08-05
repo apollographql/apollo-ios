@@ -16,11 +16,11 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
     self.store = store
   }
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     switch request.operation.operationType {
     case .mutation,
@@ -47,7 +47,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                                    response: response,
                                    completion: completion)
           case .success(let graphQLResult):
-            chain.returnValueAsync(value: graphQLResult as! ParsedValue,
+            chain.returnValueAsync(for: request,
+                                   value: graphQLResult,
                                    completion: completion)
           }
           
@@ -66,7 +67,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                                completion: completion)
           case .success(let graphQLResult):
             // Cache hit! We're done.
-            chain.returnValueAsync(value: graphQLResult as! ParsedValue,
+            chain.returnValueAsync(for: request,
+                                   value: graphQLResult,
                                    completion: completion)
           }
         }
@@ -80,7 +82,8 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                                    response: response,
                                    completion: completion)
           case .success(let result):
-            chain.returnValueAsync(value: result as! ParsedValue,
+            chain.returnValueAsync(for: request,
+                                   value: result,
                                    completion: completion)
           }
         }

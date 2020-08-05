@@ -7,11 +7,11 @@ public class FinalizingInterceptor: ApolloInterceptor {
     case nilParsedValue(httpResponse: HTTPURLResponse?, rawData: Data?)
   }
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard let parsed = response.parsedResponse else {
       chain.handleErrorAsync(FinalizationError.nilParsedValue(httpResponse: response.httpResponse,
@@ -22,7 +22,8 @@ public class FinalizingInterceptor: ApolloInterceptor {
       return
     }
     
-    chain.returnValueAsync(value: parsed,
+    chain.returnValueAsync(for: request,
+                           value: parsed,
                            completion: completion)
   }
 }

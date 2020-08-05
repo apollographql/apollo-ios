@@ -40,10 +40,12 @@ public class RequestChain: Cancellable {
   /// - Parameters:
   ///   - request: The request to send.
   ///   - completion: The completion closure to call when the request has completed.
-  public func kickoff<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>, completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+  public func kickoff<Operation: GraphQLOperation>(
+    request: HTTPRequest<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     assert(self.currentIndex == 0, "The interceptor index should be zero when calling this method")
     
-    let response: HTTPResponse<ParsedValue> = HTTPResponse(response: nil,
+    let response: HTTPResponse<Operation> = HTTPResponse(response: nil,
                                                            rawData: nil,
                                                            parsedResponse: nil)
     guard let firstInterceptor = self.interceptors.first else {
@@ -66,9 +68,9 @@ public class RequestChain: Cancellable {
   ///   - request: The in-progress request object
   ///   - response: The in-progress response object
   ///   - completion: The completion closure to call when data has been processed and should be returned to the UI.
-  public func proceedAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
-                           response: HTTPResponse<ParsedValue>,
-                           completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+  public func proceedAsync<Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
+                           response: HTTPResponse<Operation>,
+                           completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard self.isNotCancelled else {
       // Do not proceed, this chain has been cancelled.
       return
@@ -109,9 +111,9 @@ public class RequestChain: Cancellable {
   /// - Parameters:
   ///   - request: The request to retry
   ///   - completion: The completion closure to call when the request has completed.
-  public func retry<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func retry<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard self.isNotCancelled else {
       // Don't retry something that's been cancelled.
@@ -130,11 +132,11 @@ public class RequestChain: Cancellable {
   ///   - request: The request, as far as it has been constructed.
   ///   - response: The response, as far as it has been constructed.
   ///   - completion: The completion closure to call when work is complete.
-  public func handleErrorAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func handleErrorAsync<Operation: GraphQLOperation>(
     _ error: Error,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard self.isNotCancelled else {
       return
     }
@@ -154,9 +156,10 @@ public class RequestChain: Cancellable {
                                        completion: completion)
   }
   
-  public func returnValueAsync<ParsedValue: Parseable>(
-    value: ParsedValue,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+  public func returnValueAsync<Operation: GraphQLOperation>(
+    for request: HTTPRequest<Operation>,
+    value: GraphQLResult<Operation.Data>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
    
     guard self.isNotCancelled else {
       return

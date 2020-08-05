@@ -45,10 +45,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
   
   public func send<Operation: GraphQLOperation>(operation: Operation,
                                                 completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
-    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
-    let request = self.constructJSONRequest(for: operation)
-    chain.kickoff(request: request, completion: completionHandler)
-    return chain
+    fatalError("Unsupported ye olde method")
   }
   
   public func sendForResult<Operation: GraphQLOperation>(
@@ -81,12 +78,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     files: [GraphQLFile],
     completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
     
-    let request = self.createUploadRequest(for: operation, with: files)
-    
-    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
-    
-    chain.kickoff(request: request, completion: completionHandler)
-    return chain
+    fatalError("Unsupported ye olde method")
   }
   
   public func uploadForResult<Operation: GraphQLOperation>(

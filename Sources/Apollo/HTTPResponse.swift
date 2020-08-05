@@ -1,10 +1,10 @@
 import Foundation
 
 /// Data about a response received by an HTTP request.
-public class HTTPResponse<ParsedValue: Parseable> {
+public class HTTPResponse<Operation: GraphQLOperation> {
   public var httpResponse: HTTPURLResponse?
   public var rawData: Data?
-  public var parsedResponse: ParsedValue?
+  public var parsedResponse: GraphQLResult<Operation.Data>?
   
   /// Designated initializer
   ///
@@ -14,7 +14,7 @@ public class HTTPResponse<ParsedValue: Parseable> {
   ///   - parsedResponse: [optional] The response parsed into the `ParsedValue` type. Will be nil if not yet received, not yet parsed, or if parsing failed.
   public init(response: HTTPURLResponse?,
               rawData: Data?,
-              parsedResponse: ParsedValue?) {
+              parsedResponse: GraphQLResult<Operation.Data>?) {
     self.httpResponse = response
     self.rawData = rawData
     self.parsedResponse = parsedResponse

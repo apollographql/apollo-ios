@@ -12,11 +12,11 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
     self.store = store
   }
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
       // If we're ignoring the cache completely, we're not writing to it.
@@ -59,7 +59,8 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
           }
         }
         
-        chain.returnValueAsync(value: result as! ParsedValue,
+        chain.returnValueAsync(for: request,
+                               value: result,
                                completion: completion)
       }.catch { error in
         chain.handleErrorAsync(error,

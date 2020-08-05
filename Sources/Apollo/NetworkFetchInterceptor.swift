@@ -12,11 +12,11 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
     self.client = client
   }
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     let urlRequest: URLRequest
     do {

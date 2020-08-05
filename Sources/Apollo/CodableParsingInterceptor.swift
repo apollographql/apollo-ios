@@ -15,11 +15,11 @@ public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInte
     self.decoder = decoder
   }
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard !self.isCancelled else {
       return
     }
@@ -30,7 +30,7 @@ public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInte
     }
     
     do {
-      let parsedData = try ParsedValue(from: data, decoder: self.decoder)
+      let parsedData = try GraphQLResult<Operation.Data>(from: data, decoder: self.decoder)
       response.parsedResponse = parsedData
       chain.proceedAsync(request: request,
                          response: response,

@@ -3,6 +3,7 @@ import Foundation
 public enum ParseableError: Error {
   case unexpectedType
   case unsupportedInitializer
+  case notYetImplemented
 }
 
 public protocol Parseable {

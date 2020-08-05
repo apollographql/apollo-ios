@@ -3,11 +3,11 @@ import Foundation
 /// An interceptor which parses code using the legacy parsing system.
 public class LegacyParsingInterceptor: ApolloInterceptor {
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard let data = response.rawData else {
       chain.handleErrorAsync(ParserError.nilData,
@@ -25,7 +25,7 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
       let parsedResult = try graphQLResponse.parseResultFast()
-      let typedResult = parsedResult as! ParsedValue      
+      let typedResult = parsedResult    
       response.parsedResponse = typedResult
       
       chain.proceedAsync(request: request,

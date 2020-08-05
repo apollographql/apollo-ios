@@ -1,8 +1,14 @@
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResult<Data>: Parseable {
   
-  public init<T>(from data: Foundation.Data, decoder: T) throws where T : FlexibleDecoder {
-    throw ParseableError.unsupportedInitializer
+  public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws {
+    guard Data.self is Parseable else {
+      throw ParseableError.unsupportedInitializer
+    }
+    
+    // TODO: Figure out how to make this work
+    // self = try decoder.decode(Data.self, from: data)
+    throw ParseableError.notYetImplemented    
   }
   
   /// The typed result data, or `nil` if an error was encountered that prevented a valid response.

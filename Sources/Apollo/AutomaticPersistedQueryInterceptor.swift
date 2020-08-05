@@ -6,11 +6,11 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     case noParsedResponse
   }
   
-  public func interceptAsync<ParsedValue: Parseable, Operation: GraphQLOperation>(
+  public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<ParsedValue>,
-    completion: @escaping (Result<ParsedValue, Error>) -> Void) {
+    response: HTTPResponse<Operation>,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard
       let jsonRequest = request as? JSONRequest,
@@ -22,8 +22,8 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
         return
     }
     
-    guard let result = response.parsedResponse as? GraphQLResult<Operation.Data> else {
-      // We can't handle this situation.
+    guard let result = response.parsedResponse else {
+      // This is in the wrong order - this needs to be parsed before we can check it.
       chain.handleErrorAsync(APQError.noParsedResponse,
                              request: request,
                              response: response,
