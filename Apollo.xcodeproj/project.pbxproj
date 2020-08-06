@@ -566,6 +566,7 @@
 		9B9BBB1324DB72F40021C30F /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		9B9BBB1424DB731A0021C30F /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9B9BBB1624DB74720021C30F /* Apollo-Target-UploadAPI.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Apollo-Target-UploadAPI.xcconfig"; sourceTree = "<group>"; };
+		9B9BBB1D24DB83060021C30F /* UploadMultipleFiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadMultipleFiles.graphql; sourceTree = "<group>"; };
 		9BA1244922D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONSerialization+Sorting.swift"; sourceTree = "<group>"; };
 		9BA1245D22DE116B00BF1D24 /* Result+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Helpers.swift"; sourceTree = "<group>"; };
 		9BA22FD823FF306300C537FC /* Configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
@@ -1100,6 +1101,7 @@
 			children = (
 				9B9BBB1424DB731A0021C30F /* API.swift */,
 				9B9BBB1324DB72F40021C30F /* schema.json */,
+				9B9BBB1D24DB83060021C30F /* UploadMultipleFiles.graphql */,
 				9B9BBB1124DB709F0021C30F /* UploadOneFile.graphql */,
 				9B9BBB0E24DB702C0021C30F /* UploadAPI.h */,
 				9B9BBB0F24DB702C0021C30F /* Info.plist */,

@@ -1,0 +1,8 @@
+mutation UploadMultipleFilesToTheSameParameter($files:[Upload!]!) {
+  multipleUpload(files:$files) {
+    id
+    path
+    filename
+    mimetype
+  }
+}
