@@ -6,7 +6,7 @@ import StarWarsAPI
 import Starscream
 
 class StarWarsSubscriptionTests: XCTestCase {
-  let SERVER: String = "ws://localhost:8080/websocket"
+  let SERVER = "ws://localhost:8080/websocket"
   let concurrentQueue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
   
   var client: ApolloClient!
