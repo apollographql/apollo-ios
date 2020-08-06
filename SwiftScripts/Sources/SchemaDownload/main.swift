@@ -14,11 +14,11 @@ let cliFolderURL = sourceRootURL
     .appendingPathComponent("SwiftScripts")
     .appendingPathComponent("ApolloCLI")
 
-let endpoint = URL(string: "http://localhost:8080/graphql")!
+let endpoint = URL(string: "http://localhost:4000/")!
 
 let output = sourceRootURL
     .appendingPathComponent("Sources")
-    .appendingPathComponent("StarWarsAPI")
+    .appendingPathComponent("UploadAPI")
 
 let options = ApolloSchemaOptions(schemaFileName: "downloaded_schema",
                                   endpointURL: endpoint,
