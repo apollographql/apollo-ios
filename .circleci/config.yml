@@ -44,10 +44,10 @@ commands:
           command: cd ../starwars-server && npm start
           name: Start StarWars Server
           background: true
-      - run:
-          command: cd SimpleUploadServer && npm install && npm start
-          name: Start Upload Server
-          background: true
+      # - run:
+      #     command: cd SimpleUploadServer && npm install && npm start
+      #     name: Start Upload Server
+      #     background: true
       - run:
           command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
           name: Clean and build for testing
