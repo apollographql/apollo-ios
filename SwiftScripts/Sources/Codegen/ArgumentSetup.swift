@@ -6,6 +6,7 @@ enum Target {
     case starWars
     case starWarsSwiftCodegen
     case gitHub
+    case upload
     
     init?(name: String) {
         switch name {
@@ -15,6 +16,8 @@ enum Target {
             self = .starWarsSwiftCodegen
         case "GitHub":
             self = .gitHub
+        case "Upload":
+            self = .upload
         default:
             return nil
         }
@@ -31,12 +34,18 @@ enum Target {
             return sourceRootURL
                 .apollo.childFolderURL(folderName: "Sources")
                 .apollo.childFolderURL(folderName: "StarWarsAPI")
+        case .upload:
+            return sourceRootURL
+            .apollo.childFolderURL(folderName: "Sources")
+            .apollo.childFolderURL(folderName: "UploadAPI")
         }
     }
     
     func options(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenOptions {
         let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
         switch self {
+        case .upload:
+            return ApolloCodegenOptions(targetRootURL: targetRootURL)
         case .starWars:
             return ApolloCodegenOptions(targetRootURL: targetRootURL)
         case .starWarsSwiftCodegen:
