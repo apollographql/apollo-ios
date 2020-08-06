@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FC7504D1D2A532D00458D91"
-               BuildableName = "ApolloTests.xctest"
-               BlueprintName = "ApolloTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
