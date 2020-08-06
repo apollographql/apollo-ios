@@ -3,15 +3,18 @@ import Apollo
 import ApolloTestSupport
 @testable import ApolloWebSocket
 import StarWarsAPI
+import Starscream
 
 class StarWarsSubscriptionTests: XCTestCase {
-  let SERVER: String = "ws://localhost:8080/websocket"
+  let SERVER = "ws://localhost:8080/websocket"
   let concurrentQueue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
   
   var client: ApolloClient!
   var webSocketTransport: WebSocketTransport!
   
   var connectionStartedExpectation: XCTestExpectation?
+  var disconnectedExpectation: XCTestExpectation?
+  var reconnectedExpectation: XCTestExpectation?
   
   override func setUp() {
     super.setUp()
@@ -408,11 +411,85 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     waitForExpectations(timeout: 10, handler: nil)
   }
+  
+  func testPausingAndResumingWebSocketConnection() {
+    let subscription = ReviewAddedSubscription()
+    let reviewMutation = CreateAwesomeReviewMutation()
+    
+    // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
+    let httpTransport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+    let httpClient = ApolloClient(networkTransport: httpTransport)
+    
+    func sendReview() {
+      let reviewSentExpectation = self.expectation(description: "review sent")
+      httpClient.perform(mutation: reviewMutation) { mutationResult in
+        switch mutationResult {
+        case .success:
+          break
+        case .failure(let error):
+          XCTFail("Unexpected error sending review: \(error)")
+        }
+        
+        reviewSentExpectation.fulfill()
+      }
+      self.wait(for: [reviewSentExpectation], timeout: 10)
+    }
+    
+    let subscriptionExpectation = self.expectation(description: "Received review")
+    // This should get hit twice - once before we pause the web socket and once after.
+    subscriptionExpectation.expectedFulfillmentCount = 2
+    let reviewAddedSubscription = self.client.subscribe(subscription: subscription) { subscriptionResult in
+      switch subscriptionResult {
+      case .success(let graphQLResult):
+        XCTAssertEqual(graphQLResult.data?.reviewAdded?.episode, .jedi)
+        subscriptionExpectation.fulfill()
+      case .failure(let error):
+        if let wsError = error as? Starscream.WSError {
+          // This is an expected error on disconnection, ignore it.
+          XCTAssertEqual(wsError.code, 1000)
+        } else {
+          XCTFail("Unexpected error receiving subscription: \(error)")
+          subscriptionExpectation.fulfill()
+        }
+      }
+    }
+    
+    self.waitForSubscriptionsToStart()
+    sendReview()
+    
+    self.disconnectedExpectation = self.expectation(description: "Web socket disconnected")
+    webSocketTransport.pauseWebSocketConnection()
+    self.wait(for: [self.disconnectedExpectation!], timeout: 10)
+
+    // This should not go through since the socket is paused
+    sendReview()
+
+    self.reconnectedExpectation = self.expectation(description: "Web socket reconnected")
+    webSocketTransport.resumeWebSocketConnection()
+    self.wait(for: [self.reconnectedExpectation!], timeout: 10)
+    self.waitForSubscriptionsToStart()
+
+    // Now that we've reconnected, this should go through to the same subscription.
+    sendReview()
+    
+    self.wait(for: [subscriptionExpectation], timeout: 10)
+
+    // Cancel subscription so it doesn't keep receiving from other tests.
+    reviewAddedSubscription.cancel()    
+  }
 }
 
 extension StarWarsSubscriptionTests: WebSocketTransportDelegate {
   
   func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {
     self.connectionStartedExpectation?.fulfill()
+  }
+  
+  func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {
+    self.reconnectedExpectation?.fulfill()
+  }
+  
+  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error: Error?) {
+    self.disconnectedExpectation?.fulfill()
   }
 }

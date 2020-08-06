@@ -323,6 +323,23 @@ public class WebSocketTransport {
 
     reconnect.value = oldReconnectValue
   }
+  
+  /// Disconnects the websocket while setting the auto-reconnect value to false,
+  /// allowing purposeful disconnects that do not dump existing subscriptions.
+  /// NOTE: You will receive an error on the subscription (should be a `Starscream.WSError` with code 1000) when the socket disconnects.
+  /// ALSO NOTE: To reconnect after calling this, you will need to call `resumeWebSocketConnection`.
+  public func pauseWebSocketConnection() {
+    self.reconnect.value = false
+    self.websocket.disconnect()
+  }
+  
+  /// Reconnects a paused web socket.
+  ///
+  /// - Parameter autoReconnect: `true` if you want the websocket to automatically reconnect if the connection drops. Defaults to true.
+  public func resumeWebSocketConnection(autoReconnect: Bool = true) {
+    self.reconnect.value = autoReconnect
+    self.websocket.connect()
+  }
 }
 
 // MARK: - HTTPNetworkTransport conformance
