@@ -9,6 +9,7 @@
 import XCTest
 @testable import Apollo
 import StarWarsAPI
+import UploadAPI
 
 class RequestCreatorTests: XCTestCase {
   private let customRequestCreator = TestCustomRequestCreator()
@@ -164,13 +165,13 @@ Charlie file content.
   func testSingleFileWithApolloRequestCreator() throws {
     let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
     
-    let alphaFile = try GraphQLFile(fieldName: "upload",
+    let alphaFile = try GraphQLFile(fieldName: "file",
                                     originalName: "a.txt",
-                                mimeType: "text/plain",
-                                fileURL: alphaFileUrl)
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileUrl)
     
     let data = try apolloRequestCreator.requestMultipartFormData(
-      for: HeroNameQuery(),
+      for: UploadOneFileMutation(file: alphaFile.originalName),
       files: [alphaFile],
       sendOperationIdentifiers: false,
       serializationFormat: JSONSerializationFormat.self,
@@ -184,11 +185,11 @@ Charlie file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,"upload":null}}
+{"operationName":"UploadOneFile","query":"mutation UploadOneFile($file: Upload!) {\\n  singleUpload(file: $file) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"file":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"0":["variables.upload"]}
+{"0":["variables.file"]}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
@@ -204,7 +205,7 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"0":["variables.upload"]}
+{"0":["variables.file"]}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
@@ -219,21 +220,21 @@ Alpha file content.
 
   func testMultipleFilesWithApolloRequestCreator() throws {
     let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
-    let alphaFile = try GraphQLFile(fieldName: "uploads",
+    let alphaFile = try GraphQLFile(fieldName: "files",
                                     originalName: "a.txt",
                                     mimeType: "text/plain",
                                     fileURL: alphaFileURL)
     
     let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
-    let betaFile = try GraphQLFile(fieldName: "uploads",
+    let betaFile = try GraphQLFile(fieldName: "files",
                                    originalName: "b.txt",
                                    mimeType: "text/plain",
                                    fileURL: betaFileURL)
     
-    
+    let files = [alphaFile, betaFile]
     let data = try apolloRequestCreator.requestMultipartFormData(
-      for: HeroNameQuery(),
-      files: [alphaFile, betaFile],
+      for: UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName }),
+      files: files,
       sendOperationIdentifiers: false,
       serializationFormat: JSONSerializationFormat.self,
       manualBoundary: "TEST.BOUNDARY"
@@ -246,11 +247,11 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,\"uploads\":null}}
+{"operationName":"UploadMultipleFilesToTheSameParameter","query":"mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\\n  multipleUpload(files: $files) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"files":[null,null]}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
-{"0":["variables.uploads.0"],"1":["variables.uploads.1"]}
+{"0":["variables.files.0"],"1":["variables.files.1"]}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="0"; filename="a.txt"
 Content-Type: text/plain
@@ -393,7 +394,7 @@ Bravo file content.
                                     fileURL: alphaFileUrl)
 
     let data = try customRequestCreator.requestMultipartFormData(
-      for: HeroNameQuery(),
+      for: UploadOneFileMutation(file: alphaFile.originalName),
       files: [alphaFile],
       sendOperationIdentifiers: false,
       serializationFormat: JSONSerializationFormat.self,
@@ -417,10 +418,13 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="test_query"
 
-query HeroName($episode: Episode) {
-  hero(episode: $episode) {
+mutation UploadOneFile($file: Upload!) {
+  singleUpload(file: $file) {
     __typename
-    name
+    id
+    path
+    filename
+    mimetype
   }
 }
 """
