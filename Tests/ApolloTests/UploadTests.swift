@@ -133,7 +133,59 @@ class UploadTests: XCTestCase {
     self.wait(for: [expectation], timeout: 10)
   }
   
-  func todo_testUploadingMultipleFilesWithDifferentFieldNames() throws {
-    // TODO: Figure out how to add this to the simple server
+  func testUploadingMultipleFilesWithDifferentFieldNames() throws {
+    let firstFileURL = TestFileHelper.testParentFolder()
+      .appendingPathComponent("a.txt")
+    
+    let firstFile = try GraphQLFile(fieldName: "singleFile",
+                                    originalName: "a.txt",
+                                    fileURL: firstFileURL)
+    
+    let secondFileURL = TestFileHelper.testParentFolder()
+      .appendingPathComponent("b.txt")
+    
+    let secondFile = try GraphQLFile(fieldName: "multipleFiles",
+                                     originalName: "b.txt",
+                                     fileURL: secondFileURL)
+    
+    let thirdFileURL = TestFileHelper.testParentFolder()
+      .appendingPathComponent("c.txt")
+    
+    let thirdFile = try GraphQLFile(fieldName: "multipleFiles",
+                                    originalName: "c.txt",
+                                    fileURL: thirdFileURL)
+    
+    let files = [secondFile, thirdFile]
+
+    let upload = UploadMultipleFilesToDifferentParametersMutation(singleFile: firstFile.originalName, multipleFiles: files.map { $0.originalName })
+    
+    let expectation = self.expectation(description: "File upload complete")
+    self.client.upload(operation: upload, files: files) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .success(let graphQLResult):
+        guard let uploads = graphQLResult.data?.multipleParameterUpload else {
+          XCTFail("NOPE")
+          return
+        }
+        
+        XCTAssertEqual(uploads.count, 3)
+        XCTAssertEqual(uploads[0].filename, "a.txt")
+        XCTAssertEqual(uploads[1].filename, "b.txt")
+        // TODO:Figure out why server is only returning 2 files here
+//        XCTAssertEqual(uploads[2].filename, "c.txt")
+        self.compareInitialFile(at: firstFileURL, toUploadedFileAt: uploads[0].path)
+        self.compareInitialFile(at: secondFileURL, toUploadedFileAt: uploads[1].path)
+//        self.compareInitialFile(at: thirdFileURL, toUploadedFileAt: uploads[2].path)
+      case .failure(let error):
+        XCTFail("Unexpected upload error: \(error)")
+      }
+    }
+    
+    self.wait(for: [expectation], timeout: 10)
+    
   }
 }

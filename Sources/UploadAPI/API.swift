@@ -132,6 +132,136 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
   }
 }
 
+public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {
+      multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) {
+        __typename
+        id
+        path
+        filename
+        mimetype
+      }
+    }
+    """
+
+  public let operationName: String = "UploadMultipleFilesToDifferentParameters"
+
+  public let operationIdentifier: String? = "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
+
+  public var singleFile: String
+  public var multipleFiles: [String]
+
+  public init(singleFile: String, multipleFiles: [String]) {
+    self.singleFile = singleFile
+    self.multipleFiles = multipleFiles
+  }
+
+  public var variables: GraphQLMap? {
+    return ["singleFile": singleFile, "multipleFiles": multipleFiles]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("multipleParameterUpload", arguments: ["singleFile": GraphQLVariable("singleFile"), "multipleFiles": GraphQLVariable("multipleFiles")], type: .nonNull(.list(.nonNull(.object(MultipleParameterUpload.selections))))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(multipleParameterUpload: [MultipleParameterUpload]) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "multipleParameterUpload": multipleParameterUpload.map { (value: MultipleParameterUpload) -> ResultMap in value.resultMap }])
+    }
+
+    public var multipleParameterUpload: [MultipleParameterUpload] {
+      get {
+        return (resultMap["multipleParameterUpload"] as! [ResultMap]).map { (value: ResultMap) -> MultipleParameterUpload in MultipleParameterUpload(unsafeResultMap: value) }
+      }
+      set {
+        resultMap.updateValue(newValue.map { (value: MultipleParameterUpload) -> ResultMap in value.resultMap }, forKey: "multipleParameterUpload")
+      }
+    }
+
+    public struct MultipleParameterUpload: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["File"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("path", type: .nonNull(.scalar(String.self))),
+          GraphQLField("filename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("mimetype", type: .nonNull(.scalar(String.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID, path: String, filename: String, mimetype: String) {
+        self.init(unsafeResultMap: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var path: String {
+        get {
+          return resultMap["path"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "path")
+        }
+      }
+
+      public var filename: String {
+        get {
+          return resultMap["filename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "filename")
+        }
+      }
+
+      public var mimetype: String {
+        get {
+          return resultMap["mimetype"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "mimetype")
+        }
+      }
+    }
+  }
+}
+
 public final class UploadOneFileMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =

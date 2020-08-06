@@ -20,7 +20,7 @@ let output = sourceRootURL
     .appendingPathComponent("Sources")
     .appendingPathComponent("UploadAPI")
 
-let options = ApolloSchemaOptions(schemaFileName: "downloaded_schema",
+let options = ApolloSchemaOptions(schemaFileName: "schema",
                                   endpointURL: endpoint,
                                   outputFolderURL: output)
 

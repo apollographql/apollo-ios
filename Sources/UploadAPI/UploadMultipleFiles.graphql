@@ -6,3 +6,12 @@ mutation UploadMultipleFilesToTheSameParameter($files:[Upload!]!) {
     mimetype
   }
 }
+
+mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles:[Upload!]!) {
+  multipleParameterUpload(singleFile:$singleFile, multipleFiles:$multipleFiles) {
+    id
+    path
+    filename
+    mimetype
+  }
+}
