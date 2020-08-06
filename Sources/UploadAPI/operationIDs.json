@@ -1,0 +1,6 @@
+{
+  "c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533": {
+    "name": "UploadOneFile",
+    "source": "mutation UploadOneFile($file: Upload!) {\n  singleUpload(file: $file) {\n    __typename\n    id\n    path\n    filename\n    mimetype\n  }\n}"
+  }
+}
