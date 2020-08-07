@@ -121,10 +121,11 @@ class UploadTests: XCTestCase {
         }
         
         XCTAssertEqual(uploads.count, 2)
-        XCTAssertEqual(uploads[0].filename, "a.txt")
-        XCTAssertEqual(uploads[1].filename, "b.txt")
-        self.compareInitialFile(at: firstFileURL, toUploadedFileAt: uploads[0].path)
-        self.compareInitialFile(at: secondFileURL, toUploadedFileAt: uploads[1].path)
+        let sortedUploads = uploads.sorted { $0.filename < $1.filename }
+        XCTAssertEqual(sortedUploads[0].filename, "a.txt")
+        XCTAssertEqual(sortedUploads[1].filename, "b.txt")
+        self.compareInitialFile(at: firstFileURL, toUploadedFileAt: sortedUploads[0].path)
+        self.compareInitialFile(at: secondFileURL, toUploadedFileAt: sortedUploads[1].path)
       case .failure(let error):
         XCTFail("Unexpected upload error: \(error)")
       }
@@ -183,7 +184,7 @@ class UploadTests: XCTestCase {
         XCTAssertEqual(sortedUploads[2].filename, "c.txt")
         self.compareInitialFile(at: firstFileURL, toUploadedFileAt: sortedUploads[0].path)
         self.compareInitialFile(at: secondFileURL, toUploadedFileAt: sortedUploads[1].path)
-        self.compareInitialFile(at: thirdFileURL, toUploadedFileAt: sortedUploads[2].path)
+        self.compareInitialFile(at: thirdFileURL, toUploadedFileAt: sortedUploads [2].path)
       case .failure(let error):
         XCTFail("Unexpected upload error: \(error)")
       }
