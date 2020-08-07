@@ -49,7 +49,7 @@ commands:
           name: Start Upload Server
           background: true
       - run:
-          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}"
           name: Clean and build for testing
       - run:
           command: xcodebuild test-without-building -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
