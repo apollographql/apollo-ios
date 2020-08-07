@@ -155,12 +155,16 @@ class UploadTests: XCTestCase {
                                     originalName: "c.txt",
                                     fileURL: thirdFileURL)
     
-    let files = [secondFile, thirdFile]
+    // This is the array of Files for the `multipleFiles` parameter only
+    let multipleFiles = [secondFile, thirdFile]
 
-    let upload = UploadMultipleFilesToDifferentParametersMutation(singleFile: firstFile.originalName, multipleFiles: files.map { $0.originalName })
+    let upload = UploadMultipleFilesToDifferentParametersMutation(singleFile: firstFile.originalName, multipleFiles: multipleFiles.map { $0.originalName })
     
     let expectation = self.expectation(description: "File upload complete")
-    self.client.upload(operation: upload, files: files) { result in
+    
+    // This is the array of Files for all parameters
+    let allFiles = [firstFile, secondFile, thirdFile]
+    self.client.upload(operation: upload, files: allFiles) { result in
       defer {
         expectation.fulfill()
       }
@@ -173,13 +177,13 @@ class UploadTests: XCTestCase {
         }
         
         XCTAssertEqual(uploads.count, 3)
-        XCTAssertEqual(uploads[0].filename, "a.txt")
-        XCTAssertEqual(uploads[1].filename, "b.txt")
-        // TODO:Figure out why server is only returning 2 files here
-//        XCTAssertEqual(uploads[2].filename, "c.txt")
-        self.compareInitialFile(at: firstFileURL, toUploadedFileAt: uploads[0].path)
-        self.compareInitialFile(at: secondFileURL, toUploadedFileAt: uploads[1].path)
-//        self.compareInitialFile(at: thirdFileURL, toUploadedFileAt: uploads[2].path)
+        let sortedUploads = uploads.sorted { $0.filename < $1.filename }
+        XCTAssertEqual(sortedUploads[0].filename, "a.txt")
+        XCTAssertEqual(sortedUploads[1].filename, "b.txt")
+        XCTAssertEqual(sortedUploads[2].filename, "c.txt")
+        self.compareInitialFile(at: firstFileURL, toUploadedFileAt: sortedUploads[0].path)
+        self.compareInitialFile(at: secondFileURL, toUploadedFileAt: sortedUploads[1].path)
+        self.compareInitialFile(at: thirdFileURL, toUploadedFileAt: sortedUploads[2].path)
       case .failure(let error):
         XCTFail("Unexpected upload error: \(error)")
       }
