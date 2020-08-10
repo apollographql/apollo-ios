@@ -34,10 +34,6 @@ commands:
           key: starwars-server
       - checkout
       - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule update --init
-      - run:
           command: ./scripts/install-or-update-starwars-server.sh
           name: Install/Update StarWars Server
       - run:
