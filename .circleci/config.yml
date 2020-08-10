@@ -41,6 +41,9 @@ commands:
           name: Start StarWars Server
           background: true
       - run:
+          command: chmod -R +w SimpleUploadServer
+          name: Make upload server writeable
+      - run:
           command: cd SimpleUploadServer && npm install && npm start
           name: Start Upload Server
           background: true
