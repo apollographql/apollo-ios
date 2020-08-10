@@ -41,8 +41,8 @@ commands:
           name: Start StarWars Server
           background: true
       - run:
-          command: sudo chmod -R +wx SimpleUploadServer
-          name: Make upload server writeable and executable
+          command: sudo chmod -R +rwx SimpleUploadServer
+          name: Adjust permissions for simple upload server folder
       - run:
           command: cd SimpleUploadServer && npm install && npm start
           name: Start Upload Server
