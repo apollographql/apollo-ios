@@ -42,7 +42,7 @@ commands:
           background: true
       - run:
           command: chmod -R +wx SimpleUploadServer
-          name: Make upload server writeable
+          name: Make upload server writeable and executable
       - run:
           command: cd SimpleUploadServer && npm install && npm start
           name: Start Upload Server
