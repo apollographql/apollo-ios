@@ -1798,10 +1798,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B9BBB0324DB6CF10021C30F /* Build configuration list for PBXNativeTarget "UploadAPI" */;
 			buildPhases = (
-				9B9BBAF624DB6CF10021C30F /* Headers */,
 				9B9BBB1224DB70B20021C30F /* Generate Apollo Client API */,
 				9B9BBAF724DB6CF10021C30F /* Sources */,
 				9B9BBAF824DB6CF10021C30F /* Frameworks */,
+				9B9BBAF624DB6CF10021C30F /* Headers */,
 			);
 			buildRules = (
 			);
