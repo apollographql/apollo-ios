@@ -185,6 +185,15 @@ extension ApolloClient: ApolloClientProtocol {
                      context: context,
                      resultHandler: wrapResultHandler(resultHandler, queue: queue))
   }
+  
+  @discardableResult
+  public func performForResult<Mutation: GraphQLMutation>(mutation: Mutation,
+                                                          queue: DispatchQueue = .main,
+                                                          resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
+    return self.networkTransport.sendForResult(operation: mutation) { result in
+      resultHandler?(result)
+    }
+  }
 
   @discardableResult
   public func upload<Operation: GraphQLOperation>(operation: Operation,

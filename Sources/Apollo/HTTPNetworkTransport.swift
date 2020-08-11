@@ -447,8 +447,23 @@ extension HTTPNetworkTransport: NetworkTransport {
                 completionHandler: completionHandler)
   }
   
-  public func sendForResult<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
-    fatalError("Trying things out here")
+  public func sendForResult<Operation: GraphQLOperation>(
+    operation: Operation,
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+
+    return send(operation: operation) { responseResult in
+      switch responseResult {
+      case .failure(let error):
+        completionHandler(.failure(error))
+      case .success(let response):
+        do {
+          let result = try response.parseResultFast()
+          completionHandler(.success(result))
+        } catch {
+          completionHandler(.failure(error))
+        }
+      }
+    }
   }
 }
 
