@@ -34,6 +34,9 @@ commands:
           key: starwars-server
       - checkout
       - run:
+          command: ./scripts/install-node.sh
+          name: Install Node
+      - run:
           command: ./scripts/install-or-update-starwars-server.sh
           name: Install/Update StarWars Server
       - run:
