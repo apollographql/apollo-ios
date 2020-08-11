@@ -28,6 +28,20 @@ class RequestChainConfig: TestConfig {
   }
 }
 
+class RequestChainAPQsConfig: TestConfig {
+  
+  func transport(with store: ApolloStore) -> NetworkTransport {
+    let provider = LegacyInterceptorProvider(store: store)
+    return RequestChainNetworkTransport(interceptorProvider: provider,
+                                        endpointURL: URL(string: "http://localhost:8080/graphql")!,
+                                        autoPersistQueries: true)
+  }
+  
+  func network(store: ApolloStore) -> NetworkTransport {
+    return transport(with: store)
+  }
+}
+
 class APQsConfig: TestConfig {
   let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                        enableAutoPersistedQueries: true)
@@ -51,13 +65,19 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
     transport.delegate = self
     return transport
   }
-  
 }
 
 class StarWarsServerRequestChainTests: StarWarsServerTests {
   override func setUp() {
     super.setUp()
     config = RequestChainConfig()
+  }
+}
+
+class StarWarsServerRequestChainAPQsTests: StarWarsServerTests {
+  override func setUp() {
+    super.setUp()
+    config = RequestChainAPQsConfig()
   }
 }
 

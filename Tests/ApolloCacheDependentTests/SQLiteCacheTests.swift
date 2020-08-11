@@ -49,3 +49,15 @@ class SQLiteWatchQueryTests: WatchQueryTests {
     SQLiteTestCacheProvider.self
   }
 }
+
+class SQLiteStarWarsServerRequestChainTests: StarWarsServerRequestChainTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
+class SQLiteStarWarsServerRequestChainAPQsTests: StarWarsServerRequestChainAPQsTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
