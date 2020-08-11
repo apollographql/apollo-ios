@@ -34,9 +34,8 @@ commands:
           key: starwars-server
       - checkout
       - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule update --init
+          command: ./scripts/install-node.sh
+          name: Install Node
       - run:
           command: ./scripts/install-or-update-starwars-server.sh
           name: Install/Update StarWars Server
@@ -48,6 +47,9 @@ commands:
           command: cd SimpleUploadServer && npm install && npm start
           name: Start Upload Server
           background: true
+      - run:
+          command: sudo chmod -R +rwx SimpleUploadServer
+          name: Adjust permissions for simple upload server folder
       - run:
           command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
           name: Clean and build for testing

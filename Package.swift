@@ -82,12 +82,17 @@ let package = Package(
       dependencies: [
         "Apollo",
       ]),
-
+    .target(
+      name: "UploadAPI",
+      dependencies: [
+        "Apollo",
+      ]),
     .testTarget(
       name: "ApolloTests",
       dependencies: [
         "ApolloTestSupport",
         "StarWarsAPI",
+        "UploadAPI"
       ]),
     .testTarget(
       name: "ApolloCacheDependentTests",
