@@ -5,12 +5,26 @@ import StarWarsAPI
 
 
 protocol TestConfig {
-  func network() -> HTTPNetworkTransport
+  func network() -> NetworkTransport
 }
 
 class DefaultConfig: TestConfig {
   let transport =  HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
-  func network() -> HTTPNetworkTransport {
+  func network() -> NetworkTransport {
+    return transport
+  }
+}
+
+class RequestChainConfig: TestConfig {
+  
+  let transport: NetworkTransport = {
+    let store = ApolloStore(cache: InMemoryNormalizedCache())
+    let provider = LegacyInterceptorProvider(store: store)
+    return RequestChainNetworkTransport(interceptorProvider: provider,
+                                        endpointURL: URL(string: "http://localhost:8080/graphql")!)
+  }()
+  
+  func network() -> NetworkTransport {
     return transport
   }
 }
@@ -18,7 +32,7 @@ class DefaultConfig: TestConfig {
 class APQsConfig: TestConfig {
   let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                        enableAutoPersistedQueries: true)
-  func network() -> HTTPNetworkTransport {
+  func network() -> NetworkTransport {
     return transport
   }
 }
@@ -31,7 +45,7 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
     alreadyRetried = true
   }
   
-  func network() -> HTTPNetworkTransport {
+  func network() -> NetworkTransport {
     let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                 enableAutoPersistedQueries: true,
                                 useGETForPersistedQueryRetry: true)
@@ -39,6 +53,13 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
     return transport
   }
   
+}
+
+class StarWarsServerRequestChainTests: StarWarsServerTests {
+  override func setUp() {
+    super.setUp()
+    config = RequestChainConfig()
+  }
 }
 
 class StarWarsServerAPQsGetMethodTests: StarWarsServerTests {
