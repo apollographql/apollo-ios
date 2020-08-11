@@ -3,10 +3,6 @@ import Foundation
 /// Encapsulation of all information about a request before it hits the network
 open class HTTPRequest<Operation: GraphQLOperation> {
   
-  public enum HTTPRequestError: Error {
-    case noRequestConstructed
-  }
-  
   /// The endpoint to make a GraphQL request to
   open var graphQLEndpoint: URL
   
