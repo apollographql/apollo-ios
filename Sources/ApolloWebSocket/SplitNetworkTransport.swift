@@ -4,11 +4,11 @@ import Apollo
 
 /// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP.
 public class SplitNetworkTransport {
-  private let httpNetworkTransport: UploadingNetworkTransport
+  private let uploadingNetworkTransport: UploadingNetworkTransport
   private let webSocketNetworkTransport: NetworkTransport
 
   public var clientName: String {
-    let httpName = self.httpNetworkTransport.clientName
+    let httpName = self.uploadingNetworkTransport.clientName
     let websocketName = self.webSocketNetworkTransport.clientName
     if httpName == websocketName {
       return httpName
@@ -18,7 +18,7 @@ public class SplitNetworkTransport {
   }
 
   public var clientVersion: String {
-    let httpVersion = self.httpNetworkTransport.clientVersion
+    let httpVersion = self.uploadingNetworkTransport.clientVersion
     let websocketVersion = self.webSocketNetworkTransport.clientVersion
     if httpVersion == websocketVersion {
       return httpVersion
@@ -30,10 +30,10 @@ public class SplitNetworkTransport {
   /// Designated initializer
   ///
   /// - Parameters:
-  ///   - httpNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
+  ///   - uploadingNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
   ///   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
-  public init(httpNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport) {
-    self.httpNetworkTransport = httpNetworkTransport
+  public init(uploadingNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport) {
+    self.uploadingNetworkTransport = uploadingNetworkTransport
     self.webSocketNetworkTransport = webSocketNetworkTransport
   }
 }
@@ -46,7 +46,15 @@ extension SplitNetworkTransport: NetworkTransport {
     if operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation, completionHandler: completionHandler)
     } else {
-      return httpNetworkTransport.send(operation: operation, completionHandler: completionHandler)
+      return uploadingNetworkTransport.send(operation: operation, completionHandler: completionHandler)
+    }
+  }
+  
+  public func sendForResult<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    if operation.operationType == .subscription {
+      return webSocketNetworkTransport.sendForResult(operation: operation, completionHandler: completionHandler)
+    } else {
+      return uploadingNetworkTransport.sendForResult(operation: operation, completionHandler: completionHandler)
     }
   }
 }
@@ -58,8 +66,17 @@ extension SplitNetworkTransport: UploadingNetworkTransport {
   public func upload<Operation: GraphQLOperation>(operation: Operation,
                                                   files: [GraphQLFile],
                                                   completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
-    return httpNetworkTransport.upload(operation: operation,
-                                       files: files,
-                                       completionHandler: completionHandler)
+    return uploadingNetworkTransport.upload(operation: operation,
+                                            files: files,
+                                            completionHandler: completionHandler)
+  }
+  
+  public func uploadForResult<Operation: GraphQLOperation>(
+    operation: Operation,
+    files: [GraphQLFile],
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    return uploadingNetworkTransport.uploadForResult(operation: operation,
+                                                     files: files,
+                                                     completionHandler: completionHandler)
   }
 }

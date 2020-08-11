@@ -36,7 +36,7 @@ class SplitNetworkTransportTests: XCTestCase {
   }()
   
   private lazy var splitTransport = SplitNetworkTransport(
-    httpNetworkTransport: self.httpTransport,
+    uploadingNetworkTransport: self.httpTransport,
     webSocketNetworkTransport: self.webSocketTransport
   )
   

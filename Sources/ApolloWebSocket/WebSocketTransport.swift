@@ -361,6 +361,28 @@ extension WebSocketTransport: NetworkTransport {
       }
     }
   }
+  
+  public func sendForResult<Operation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
+    if let error = self.error.value {
+      completionHandler(.failure(error))
+      return EmptyCancellable()
+    }
+
+    return WebSocketTask(self, operation) { result in
+      switch result {
+      case .success(let jsonBody):
+        let response = GraphQLResponse(operation: operation, body: jsonBody)
+        do {
+          let graphQLResult = try response.parseResultFast()
+          completionHandler(.success(graphQLResult))
+        } catch {
+          completionHandler(.failure(error))
+        }
+      case .failure(let error):
+        completionHandler(.failure(error))
+      }
+    }
+  }
 }
 
 // MARK: - WebSocketDelegate implementation
