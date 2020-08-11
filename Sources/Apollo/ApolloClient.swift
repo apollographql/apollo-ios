@@ -208,6 +208,24 @@ extension ApolloClient: ApolloClientProtocol {
                                  resultHandler: wrappedHandler)
     }
   }
+  
+  @discardableResult
+  public func uploadForResult<Operation: GraphQLOperation>(operation: Operation,
+                                                           files: [GraphQLFile],
+                                                           queue: DispatchQueue = .main,
+                                                           resultHandler: GraphQLResultHandler<Operation.Data>? = nil) -> Cancellable {
+    let wrappedHandler = wrapResultHandler(resultHandler, queue: queue)
+    guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
+      assertionFailure("Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`.")
+      wrappedHandler(.failure(ApolloClientError.noUploadTransport))
+      return EmptyCancellable()
+    }
+
+    return uploadingTransport.uploadForResult(operation: operation, files: files) { result in
+      resultHandler?(result)
+    }
+  }
+  
 
   @discardableResult
   public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
