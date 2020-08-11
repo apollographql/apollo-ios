@@ -5,34 +5,33 @@ import StarWarsAPI
 
 
 protocol TestConfig {
-  func network() -> NetworkTransport
+  func network(store: ApolloStore) -> NetworkTransport
 }
 
 class DefaultConfig: TestConfig {
   let transport =  HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
-  func network() -> NetworkTransport {
+  func network(store: ApolloStore) -> NetworkTransport {
     return transport
   }
 }
 
 class RequestChainConfig: TestConfig {
   
-  let transport: NetworkTransport = {
-    let store = ApolloStore(cache: InMemoryNormalizedCache())
+  func transport(with store: ApolloStore) -> NetworkTransport {
     let provider = LegacyInterceptorProvider(store: store)
     return RequestChainNetworkTransport(interceptorProvider: provider,
                                         endpointURL: URL(string: "http://localhost:8080/graphql")!)
-  }()
+  }
   
-  func network() -> NetworkTransport {
-    return transport
+  func network(store: ApolloStore) -> NetworkTransport {
+    return transport(with: store)
   }
 }
 
 class APQsConfig: TestConfig {
   let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                        enableAutoPersistedQueries: true)
-  func network() -> NetworkTransport {
+  func network(store: ApolloStore) -> NetworkTransport {
     return transport
   }
 }
@@ -45,7 +44,7 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
     alreadyRetried = true
   }
   
-  func network() -> NetworkTransport {
+  func network(store: ApolloStore) -> NetworkTransport {
     let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
                                 enableAutoPersistedQueries: true,
                                 useGETForPersistedQueryRetry: true)
@@ -351,7 +350,7 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
     withCache { (cache) in
       
       let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: config.network(), store: store)
+      let client = ApolloClient(networkTransport: config.network(store: store), store: store)
 
       let expectation = self.expectation(description: "Fetching query")
 
@@ -384,7 +383,7 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
     withCache { (cache) in
       
       let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: config.network(), store: store)
+      let client = ApolloClient(networkTransport: config.network(store: store), store: store)
 
       let expectation = self.expectation(description: "Performing mutation")
 
