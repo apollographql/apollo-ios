@@ -6,7 +6,14 @@ class UploadTests: XCTestCase {
   
   let uploadClientURL = URL(string: "http://localhost:4000")!
   
-  lazy var client = ApolloClient(url: self.uploadClientURL)
+  lazy var client: ApolloClient = {
+    let store = ApolloStore(cache: InMemoryNormalizedCache())
+    let provider = LegacyInterceptorProvider(store: store)
+    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: self.uploadClientURL)
+    
+    return ApolloClient(networkTransport: transport)
+  }()
   
   override static func tearDown() {
     // Recreate the uploads folder at the end of all tests in this suite to avoid having one billion files in there
@@ -71,7 +78,7 @@ class UploadTests: XCTestCase {
     let upload = UploadOneFileMutation(file: "a.txt")
     
     let expectation = self.expectation(description: "File upload complete")
-    self.client.upload(operation: upload, files: [file]) { result in
+    self.client.uploadForResult(operation: upload, files: [file]) { result in
       defer {
         expectation.fulfill()
       }
@@ -108,7 +115,7 @@ class UploadTests: XCTestCase {
     let upload = UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName })
     
     let expectation = self.expectation(description: "File upload complete")
-    self.client.upload(operation: upload, files: files) { result in
+    self.client.uploadForResult(operation: upload, files: files) { result in
       defer {
         expectation.fulfill()
       }
@@ -165,7 +172,7 @@ class UploadTests: XCTestCase {
     
     // This is the array of Files for all parameters
     let allFiles = [firstFile, secondFile, thirdFile]
-    self.client.upload(operation: upload, files: allFiles) { result in
+    self.client.uploadForResult(operation: upload, files: allFiles) { result in
       defer {
         expectation.fulfill()
       }
