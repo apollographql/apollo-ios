@@ -35,6 +35,7 @@ public class LegacyInterceptorProvider: InterceptorProvider {
         LegacyCacheReadInterceptor(store: self.store),
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
+        AutomaticPersistedQueryInterceptor(),
         LegacyParsingInterceptor(),
         LegacyCacheWriteInterceptor(store: self.store),
         FinalizingInterceptor(),
