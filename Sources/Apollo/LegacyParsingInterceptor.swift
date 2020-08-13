@@ -9,10 +9,8 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
-    guard
-      let createdResponse = response,
-      let data = createdResponse.rawData else {
-        chain.handleErrorAsync(ParserError.nilData,
+    guard let createdResponse = response else {
+        chain.handleErrorAsync(ParserError.noResponseToParse,
                                request: request,
                                response: response,
                                completion: completion)
@@ -20,7 +18,7 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     }
     
     do {
-      let json = try JSONSerializationFormat.deserialize(data: data) as? JSONObject
+      let json = try JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
       guard let body = json else {
         throw ParserError.couldNotParseToLegacyJSON
       }

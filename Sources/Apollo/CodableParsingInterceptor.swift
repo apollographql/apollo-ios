@@ -1,7 +1,6 @@
 import Foundation
 
 public enum ParserError: Error {
-  case nilData
   case noResponseToParse
   case couldNotParseToLegacyJSON
 }
@@ -33,16 +32,8 @@ public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInte
       return
     }
     
-    guard let data = response?.rawData else {
-      chain.handleErrorAsync(ParserError.nilData,
-                             request: request,
-                             response: createdResponse,
-                             completion: completion)
-      return
-    }
-    
     do {
-      let parsedData = try GraphQLResult<Operation.Data>(from: data, decoder: self.decoder)
+      let parsedData = try GraphQLResult<Operation.Data>(from: createdResponse.rawData, decoder: self.decoder)
       createdResponse.parsedResponse = parsedData
       chain.proceedAsync(request: request,
                          response: response,

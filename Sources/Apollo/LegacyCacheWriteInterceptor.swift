@@ -26,8 +26,8 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
       return
     }
     
-    guard let data = response?.rawData else {
-      chain.handleErrorAsync(ParserError.nilData,
+    guard let createdResponse = response else {
+      chain.handleErrorAsync(ParserError.noResponseToParse,
                              request: request,
                              response: response,
                              completion: completion)
@@ -36,7 +36,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
 
     do {
       // TODO: There's got to be a better way to do this than deserializing again
-      let json = try JSONSerializationFormat.deserialize(data: data) as? JSONObject
+      let json = try JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
       guard let body = json else {
         throw ParserError.couldNotParseToLegacyJSON
       }

@@ -63,7 +63,7 @@ public class RequestChain: Cancellable {
   ///
   /// - Parameters:
   ///   - request: The in-progress request object
-  ///   - response: The in-progress response object
+  ///   - response: [optional] The in-progress response object, if received yet
   ///   - completion: The completion closure to call when data has been processed and should be returned to the UI.
   public func proceedAsync<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
