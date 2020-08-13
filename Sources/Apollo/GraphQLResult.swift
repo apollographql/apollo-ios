@@ -6,7 +6,7 @@ public struct GraphQLResult<Data>: Parseable {
       throw ParseableError.unsupportedInitializer
     }
     
-    // TODO: Figure out how to make this work
+    #warning("Figure out how to make this work")
     // self = try decoder.decode(Data.self, from: data)
     throw ParseableError.notYetImplemented    
   }

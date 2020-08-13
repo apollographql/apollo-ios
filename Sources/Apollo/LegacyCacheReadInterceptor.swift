@@ -41,7 +41,7 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
         self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
           switch cacheFetchResult {
           case .failure(let error):
-            // TODO: Does this need to return an error? What are we doing now
+            #warning("Does this need to return an error? What are we doing now")
             chain.handleErrorAsync(CacheReadError.cacheMiss(underlying: error),
                                    request: request,
                                    response: response,
