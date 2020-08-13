@@ -15,7 +15,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<Operation>,
+    response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
@@ -26,7 +26,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
       return
     }
     
-    guard let data = response.rawData else {
+    guard let data = response?.rawData else {
       chain.handleErrorAsync(ParserError.nilData,
                              request: request,
                              response: response,

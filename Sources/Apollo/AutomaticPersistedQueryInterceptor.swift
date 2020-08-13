@@ -9,7 +9,7 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<Operation>,
+    response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard
@@ -22,7 +22,7 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
         return
     }
     
-    guard let result = response.parsedResponse else {
+    guard let result = response?.parsedResponse else {
       // This is in the wrong order - this needs to be parsed before we can check it.
       chain.handleErrorAsync(APQError.noParsedResponse,
                              request: request,

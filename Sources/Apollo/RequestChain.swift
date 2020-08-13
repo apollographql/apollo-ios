@@ -44,21 +44,18 @@ public class RequestChain: Cancellable {
     request: HTTPRequest<Operation>,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     assert(self.currentIndex == 0, "The interceptor index should be zero when calling this method")
-    
-    let response: HTTPResponse<Operation> = HTTPResponse(response: nil,
-                                                           rawData: nil,
-                                                           parsedResponse: nil)
+
     guard let firstInterceptor = self.interceptors.first else {
       handleErrorAsync(ChainError.noInterceptors,
                        request: request,
-                       response: response,
+                       response: nil,
                        completion: completion)
       return
     }
     
     firstInterceptor.interceptAsync(chain: self,
                                     request: request,
-                                    response: response,
+                                    response: nil,
                                     completion: completion)
   }
 
@@ -68,9 +65,10 @@ public class RequestChain: Cancellable {
   ///   - request: The in-progress request object
   ///   - response: The in-progress response object
   ///   - completion: The completion closure to call when data has been processed and should be returned to the UI.
-  public func proceedAsync<Operation: GraphQLOperation>(request: HTTPRequest<Operation>,
-                           response: HTTPResponse<Operation>,
-                           completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+  public func proceedAsync<Operation: GraphQLOperation>(
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard self.isNotCancelled else {
       // Do not proceed, this chain has been cancelled.
       return
@@ -135,7 +133,7 @@ public class RequestChain: Cancellable {
   public func handleErrorAsync<Operation: GraphQLOperation>(
     _ error: Error,
     request: HTTPRequest<Operation>,
-    response: HTTPResponse<Operation>,
+    response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard self.isNotCancelled else {
       return
