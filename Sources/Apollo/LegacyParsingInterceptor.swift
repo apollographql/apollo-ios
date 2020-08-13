@@ -2,6 +2,10 @@ import Foundation
 
 /// An interceptor which parses code using the legacy parsing system.
 public class LegacyParsingInterceptor: ApolloInterceptor {
+  public enum LegacyParsingError: Error {
+    case noResponseToParse
+    case couldNotParseToLegacyJSON
+  }
   
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
@@ -10,7 +14,7 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard let createdResponse = response else {
-        chain.handleErrorAsync(ParserError.noResponseToParse,
+        chain.handleErrorAsync(LegacyParsingError.noResponseToParse,
                                request: request,
                                response: response,
                                completion: completion)
@@ -20,7 +24,7 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     do {
       let json = try JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
       guard let body = json else {
-        throw ParserError.couldNotParseToLegacyJSON
+        throw LegacyParsingError.couldNotParseToLegacyJSON
       }
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)

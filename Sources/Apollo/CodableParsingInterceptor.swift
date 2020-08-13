@@ -1,11 +1,10 @@
 import Foundation
 
-public enum ParserError: Error {
-  case noResponseToParse
-  case couldNotParseToLegacyJSON
-}
-
 public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
+  
+  enum CodableParsingError: Error {
+    case noResponseToParse
+  }
 
   let decoder: FlexDecoder
   
@@ -25,7 +24,7 @@ public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInte
     }
     
     guard let createdResponse = response else {
-      chain.handleErrorAsync(ParserError.noResponseToParse,
+      chain.handleErrorAsync(CodableParsingError.noResponseToParse,
                              request: request,
                              response: response,
                              completion: completion)

@@ -2,6 +2,9 @@ import Foundation
 
 /// An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
 public class LegacyCacheWriteInterceptor: ApolloInterceptor {
+  public enum LegacyCacheWriteError: Error {
+    case noResponseToParse
+  }
   
   public let store: ApolloStore
   
@@ -27,7 +30,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
     }
     
     guard let createdResponse = response else {
-      chain.handleErrorAsync(ParserError.noResponseToParse,
+      chain.handleErrorAsync(LegacyCacheWriteError.noResponseToParse,
                              request: request,
                              response: response,
                              completion: completion)
@@ -38,7 +41,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
       // TODO: There's got to be a better way to do this than deserializing again
       let json = try JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
       guard let body = json else {
-        throw ParserError.couldNotParseToLegacyJSON
+        throw LegacyParsingInterceptor.LegacyParsingError.couldNotParseToLegacyJSON
       }
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
