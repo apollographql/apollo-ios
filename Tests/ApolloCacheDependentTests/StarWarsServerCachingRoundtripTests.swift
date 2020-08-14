@@ -40,8 +40,11 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheTesting {
   
   private func fetchAndLoadFromStore<Query: GraphQLQuery>(query: Query, setupClient: ((ApolloClient) -> Void)? = nil, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: TestURL.starWarsServer.url)
       let store = ApolloStore(cache: cache)
+      let provider = LegacyInterceptorProvider(store: store)
+      let network = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: TestURL.starWarsServer.url)
+
       let client = ApolloClient(networkTransport: network, store: store)
 
       if let setupClient = setupClient {
@@ -50,7 +53,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheTesting {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetch(query: query) { outerResult in
+      client.fetchForResult(query: query) { outerResult in
         switch outerResult {
         case .failure(let error):
           XCTFail("Unexpected error with fetch: \(error)")
