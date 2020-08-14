@@ -4,10 +4,7 @@ import ApolloTestSupport
 @testable import ApolloWebSocket
 import StarWarsAPI
 
-// import StarWarsAPI
-
 class StarWarsWebSocketTests: XCTestCase, CacheTesting {
-  let SERVER = "http://localhost:8080/websocket"
     
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
@@ -275,7 +272,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheTesting {
   
   private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+      let network = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 
@@ -304,7 +301,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheTesting {
 
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     withCache { (cache) in
-      let network = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+      let network = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
       let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: network, store: store)
 

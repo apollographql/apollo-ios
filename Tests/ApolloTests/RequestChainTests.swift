@@ -8,12 +8,13 @@
 
 import XCTest
 import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class RequestChainTests: XCTestCase {
   
   lazy var legacyClient: ApolloClient = {
-    let url = URL(string: "http://localhost:8080/graphql")!
+    let url = TestURL.starWarsServer.url
     
     let store = ApolloStore(cache: InMemoryNormalizedCache())
     let provider = LegacyInterceptorProvider(store: store)

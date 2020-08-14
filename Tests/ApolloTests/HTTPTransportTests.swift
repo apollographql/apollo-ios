@@ -27,7 +27,7 @@ class HTTPTransportTests: XCTestCase {
 
   private var graphQlErrors = [GraphQLError]()
 
-  private lazy var url = URL(string: "http://localhost:8080/graphql")!
+  private lazy var url = TestURL.starWarsServer.url
   private lazy var networkTransport: HTTPNetworkTransport = {
     let transport = HTTPNetworkTransport(url: self.url,
                                          useGETForQueries: true)
@@ -203,7 +203,8 @@ class HTTPTransportTests: XCTestCase {
     
     let mockRetryDelegate = MockRetryDelegate()
     
-    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql_non_existant")!)
+    // This needs to connect to a real server but an incorrect path to hit the error handler.
+    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql_non_existent")!)
     transport.delegate = mockRetryDelegate
     
     let expectationErrorResponse = self.expectation(description: "Send operation completed")
@@ -239,7 +240,7 @@ class HTTPTransportTests: XCTestCase {
     
     let mockRetryDelegate = MockRetryDelegate()
     
-    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql_non_existant")!)
+    let transport = HTTPNetworkTransport(url: TestURL.mockServer.url)
     transport.delegate = mockRetryDelegate
     
     let expectationErrorResponse = self.expectation(description: "Send operation completed")

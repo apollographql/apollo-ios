@@ -9,7 +9,7 @@ protocol TestConfig {
 }
 
 class DefaultConfig: TestConfig {
-  let transport =  HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+  let transport =  HTTPNetworkTransport(url: TestURL.starWarsServer.url)
   func network(store: ApolloStore) -> NetworkTransport {
     return transport
   }
@@ -20,7 +20,7 @@ class RequestChainConfig: TestConfig {
   func transport(with store: ApolloStore) -> NetworkTransport {
     let provider = LegacyInterceptorProvider(store: store)
     return RequestChainNetworkTransport(interceptorProvider: provider,
-                                        endpointURL: URL(string: "http://localhost:8080/graphql")!)
+                                        endpointURL: TestURL.starWarsServer.url)
   }
   
   func network(store: ApolloStore) -> NetworkTransport {
@@ -33,7 +33,7 @@ class RequestChainAPQsConfig: TestConfig {
   func transport(with store: ApolloStore) -> NetworkTransport {
     let provider = LegacyInterceptorProvider(store: store)
     return RequestChainNetworkTransport(interceptorProvider: provider,
-                                        endpointURL: URL(string: "http://localhost:8080/graphql")!,
+                                        endpointURL: TestURL.starWarsServer.url,
                                         autoPersistQueries: true)
   }
   
@@ -43,7 +43,7 @@ class RequestChainAPQsConfig: TestConfig {
 }
 
 class APQsConfig: TestConfig {
-  let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
+  let transport = HTTPNetworkTransport(url: TestURL.starWarsServer.url,
                                        enableAutoPersistedQueries: true)
   func network(store: ApolloStore) -> NetworkTransport {
     return transport
@@ -59,7 +59,7 @@ class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
   }
   
   func network(store: ApolloStore) -> NetworkTransport {
-    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!,
+    let transport = HTTPNetworkTransport(url: TestURL.starWarsServer.url,
                                 enableAutoPersistedQueries: true,
                                 useGETForPersistedQueryRetry: true)
     transport.delegate = self

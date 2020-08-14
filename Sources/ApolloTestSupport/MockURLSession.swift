@@ -47,6 +47,6 @@ public final class MockURLSessionClient: URLSessionClient {
 
 private final class URLSessionDataTaskMock: URLSessionDataTask {
   override func resume() {
-
+    // No-op
   }
 }

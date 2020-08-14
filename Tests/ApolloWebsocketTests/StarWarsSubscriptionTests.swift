@@ -6,7 +6,6 @@ import StarWarsAPI
 import Starscream
 
 class StarWarsSubscriptionTests: XCTestCase {
-  let SERVER = "ws://localhost:8080/websocket"
   let concurrentQueue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
   
   var client: ApolloClient!
@@ -22,7 +21,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.connectionStartedExpectation = self.expectation(description: "Web socket connected")
     
     WebSocketTransport.provider = ApolloWebSocket.self
-    webSocketTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+    webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
     webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport)
 
@@ -393,7 +392,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   
   func testConcurrentConnectAndCloseConnection() {
     WebSocketTransport.provider = MockWebSocket.self
-    let webSocketTransport = WebSocketTransport(request: URLRequest(url: URL(string: SERVER)!))
+    let webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
     let expectation = self.expectation(description: "Connection closed")
     expectation.expectedFulfillmentCount = 2
     
@@ -417,7 +416,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let reviewMutation = CreateAwesomeReviewMutation()
     
     // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
-    let httpTransport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
+    let httpTransport = HTTPNetworkTransport(url: TestURL.starWarsServer.url)
     let httpClient = ApolloClient(networkTransport: httpTransport)
     
     func sendReview() {

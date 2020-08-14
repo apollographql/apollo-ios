@@ -1,15 +1,15 @@
 import XCTest
 import Apollo
+import ApolloTestSupport
 import Starscream
 @testable import ApolloWebSocket
 
 class WebSocketTransportTests: XCTestCase {
 
-  private let mockSocketURL = URL(string: "http://localhost/dummy_url")!
   private var webSocketTransport: WebSocketTransport!
 
   func testUpdateHeaderValues() {
-    var request = URLRequest(url: mockSocketURL)
+    var request = URLRequest(url: TestURL.mockServer.url)
     request.addValue("OldToken", forHTTPHeaderField: "Authorization")
 
     self.webSocketTransport = WebSocketTransport(request: request)
@@ -22,7 +22,7 @@ class WebSocketTransportTests: XCTestCase {
   func testUpdateConnectingPayload() {
     WebSocketTransport.provider = MockWebSocket.self
 
-    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: mockSocketURL),
+    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
                                                  connectingPayload: ["Authorization": "OldToken"])
 
     let mockWebSocketDelegate = MockWebSocketDelegate()

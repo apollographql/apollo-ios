@@ -35,5 +35,6 @@ public final class MockNetworkTransport: NetworkTransport {
 
 private final class MockTask: Cancellable {
   func cancel() {
+    // no-op
   }
 }

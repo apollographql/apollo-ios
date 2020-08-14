@@ -8,6 +8,7 @@
 import Foundation
 import XCTest
 import Apollo
+import ApolloTestSupport
 @testable import ApolloWebSocket
 
 class SplitNetworkTransportTests: XCTestCase {
@@ -19,8 +20,7 @@ class SplitNetworkTransportTests: XCTestCase {
   private let webSocketVersion = "TestWebSocketTransportVersion"
   
   private lazy var httpTransport: HTTPNetworkTransport = {
-    let url = URL(string: "http://localhost:8080/graphql")!
-    let transport = HTTPNetworkTransport(url: url)
+    let transport = HTTPNetworkTransport(url: TestURL.starWarsServer.url)
     
     transport.clientName = self.httpName
     transport.clientVersion = self.httpVersion
@@ -28,8 +28,7 @@ class SplitNetworkTransportTests: XCTestCase {
   }()
 
   private lazy var webSocketTransport: WebSocketTransport = {
-    let url = URL(string: "ws://localhost:8080/websocket")!
-    let request = URLRequest(url: url)
+    let request = URLRequest(url: TestURL.starWarsWebSocket.url)
     return WebSocketTransport(request: request,
                               clientName: self.webSocketName,
                               clientVersion: self.webSocketVersion)

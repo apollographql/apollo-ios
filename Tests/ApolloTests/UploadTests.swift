@@ -1,10 +1,11 @@
 import XCTest
 import Apollo
+import ApolloTestSupport
 import UploadAPI
 
 class UploadTests: XCTestCase {
   
-  let uploadClientURL = URL(string: "http://localhost:4000")!
+  let uploadClientURL = TestURL.uploadServer.url
   
   lazy var client: ApolloClient = {
     let store = ApolloStore(cache: InMemoryNormalizedCache())

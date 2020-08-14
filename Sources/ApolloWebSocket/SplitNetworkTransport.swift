@@ -30,7 +30,7 @@ public class SplitNetworkTransport {
   /// Designated initializer
   ///
   /// - Parameters:
-  ///   - uploadingNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
+  ///   - uploadingNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `RequestChainNetworkTransport` or something similar.
   ///   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
   public init(uploadingNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport) {
     self.uploadingNetworkTransport = uploadingNetworkTransport

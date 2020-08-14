@@ -342,7 +342,7 @@ public class WebSocketTransport {
   }
 }
 
-// MARK: - HTTPNetworkTransport conformance
+// MARK: - NetworkTransport conformance
 
 extension WebSocketTransport: NetworkTransport {
   public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>,Error>) -> Void) -> Cancellable {

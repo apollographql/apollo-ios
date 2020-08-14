@@ -5,7 +5,7 @@ import StarWarsAPI
 
 class AutomaticPersistedQueriesTests: XCTestCase {
 
-  private final let endpoint = "http://localhost:8080/graphql"
+  private final let endpoint = TestURL.starWarsServer.url
   
   // MARK: - Helper Methods
   
@@ -231,7 +231,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testRequestBody() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!, client: mockClient)
+    let network = HTTPNetworkTransport(url: self.endpoint, client: mockClient)
     let query = HeroNameQuery()
     let _ = network.send(operation: query) { _ in }
     
@@ -248,7 +248,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testRequestBodyWithVariable() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!, client: mockClient)
+    let network = HTTPNetworkTransport(url: self.endpoint, client: mockClient)
     let query = HeroNameQuery(episode: .jedi)
     let _ = network.send(operation: query) { _ in }
     
@@ -265,7 +265,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testRequestBodyForAPQsWithVariable() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        enableAutoPersistedQueries: true)
     let query = HeroNameQuery(episode: .empire)
@@ -284,7 +284,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
 
   func testMutationRequestBodyForAPQs() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        enableAutoPersistedQueries: true)
     let mutation = CreateAwesomeReviewMutation()
@@ -303,7 +303,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testQueryStringForAPQsUseGetMethod() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        enableAutoPersistedQueries: true,
                                        useGETForPersistedQueryRetry: true)
@@ -321,7 +321,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testQueryStringForAPQsUseGetMethodWithVariable() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        enableAutoPersistedQueries: true,
                                        useGETForPersistedQueryRetry: true)
@@ -341,7 +341,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testUseGETForQueriesRequest() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        useGETForQueries: true)
     let query = HeroNameQuery()
@@ -360,7 +360,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testNotUseGETForQueriesRequest() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!, client: mockClient)
+    let network = HTTPNetworkTransport(url: self.endpoint, client: mockClient)
     let query = HeroNameQuery()
     let _ = network.send(operation: query) { _ in }
     
@@ -377,7 +377,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testNotUseGETForQueriesAPQsRequest() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        enableAutoPersistedQueries: true)
     let query = HeroNameQuery(episode: .empire)
@@ -396,7 +396,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testUseGETForQueriesAPQsRequest() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        useGETForQueries: true,
                                        enableAutoPersistedQueries: true)
@@ -416,7 +416,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   
   func testNotUseGETForQueriesAPQsGETRequest() throws {
     let mockClient = MockURLSessionClient()
-    let network = HTTPNetworkTransport(url: URL(string: endpoint)!,
+    let network = HTTPNetworkTransport(url: self.endpoint,
                                        client: mockClient,
                                        enableAutoPersistedQueries: true,
                                        useGETForPersistedQueryRetry: true)
