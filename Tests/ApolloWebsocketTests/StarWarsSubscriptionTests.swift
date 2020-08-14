@@ -416,12 +416,15 @@ class StarWarsSubscriptionTests: XCTestCase {
     let reviewMutation = CreateAwesomeReviewMutation()
     
     // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
-    let httpTransport = HTTPNetworkTransport(url: TestURL.starWarsServer.url)
-    let httpClient = ApolloClient(networkTransport: httpTransport)
+    let store = ApolloStore(cache: InMemoryNormalizedCache())
+    let interceptorProvider = LegacyInterceptorProvider(store: store)
+    let alternateTransport = RequestChainNetworkTransport(interceptorProvider: interceptorProvider,
+                                                          endpointURL: TestURL.starWarsServer.url)
+    let alternateClient = ApolloClient(networkTransport: alternateTransport)
     
     func sendReview() {
       let reviewSentExpectation = self.expectation(description: "review sent")
-      httpClient.perform(mutation: reviewMutation) { mutationResult in
+      alternateClient.performForResult(mutation: reviewMutation) { mutationResult in
         switch mutationResult {
         case .success:
           break
