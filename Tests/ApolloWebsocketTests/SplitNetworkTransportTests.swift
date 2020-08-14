@@ -13,17 +13,17 @@ import ApolloTestSupport
 
 class SplitNetworkTransportTests: XCTestCase {
   
-  private let httpName = "TestHTTPNetworkTransport"
-  private let httpVersion = "TestHTTPNetworkTransportVersion"
+  private let mockTransportName = "TestMockNetworkTransport"
+  private let mockTransportVersion = "TestMockNetworkTransportVersion"
   
   private let webSocketName = "TestWebSocketTransport"
   private let webSocketVersion = "TestWebSocketTransportVersion"
   
-  private lazy var httpTransport: HTTPNetworkTransport = {
-    let transport = HTTPNetworkTransport(url: TestURL.starWarsServer.url)
+  private lazy var mockTransport: MockNetworkTransport = {
+    let transport = MockNetworkTransport(body: JSONObject())
     
-    transport.clientName = self.httpName
-    transport.clientVersion = self.httpVersion
+    transport.clientName = self.mockTransportName
+    transport.clientVersion = self.mockTransportVersion
     return transport
   }()
 
@@ -35,21 +35,21 @@ class SplitNetworkTransportTests: XCTestCase {
   }()
   
   private lazy var splitTransport = SplitNetworkTransport(
-    uploadingNetworkTransport: self.httpTransport,
+    uploadingNetworkTransport: self.mockTransport,
     webSocketNetworkTransport: self.webSocketTransport
   )
   
   func testGettingSplitClientNameWithDifferentNames() {
     let splitName = self.splitTransport.clientName
     XCTAssertTrue(splitName.hasPrefix("SPLIT_"))
-    XCTAssertTrue(splitName.contains(self.httpName))
+    XCTAssertTrue(splitName.contains(self.mockTransportName))
     XCTAssertTrue(splitName.contains(self.webSocketName))
   }
   
   func testGettingSplitClientVersionWithDifferentVersions() {
     let splitVersion = self.splitTransport.clientVersion
     XCTAssertTrue(splitVersion.hasPrefix("SPLIT_"))
-    XCTAssertTrue(splitVersion.contains(self.httpVersion))
+    XCTAssertTrue(splitVersion.contains(self.mockTransportVersion))
     XCTAssertTrue(splitVersion.contains(self.webSocketVersion))
   }
 
@@ -57,7 +57,7 @@ class SplitNetworkTransportTests: XCTestCase {
     let splitName = "TestSplitClientName"
     
     self.webSocketTransport.clientName = splitName
-    self.httpTransport.clientName = splitName
+    self.mockTransport.clientName = splitName
     
     XCTAssertEqual(self.splitTransport.clientName, splitName)
   }
@@ -66,7 +66,7 @@ class SplitNetworkTransportTests: XCTestCase {
     let splitVersion = "TestSplitClientVersion"
     
     self.webSocketTransport.clientVersion = splitVersion
-    self.httpTransport.clientVersion = splitVersion
+    self.mockTransport.clientVersion = splitVersion
     
     XCTAssertEqual(self.splitTransport.clientVersion, splitVersion)
   }

@@ -33,6 +33,17 @@ public final class MockNetworkTransport: NetworkTransport {
   }
 }
 
+extension MockNetworkTransport: UploadingNetworkTransport {
+  
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
+    return self.send(operation: operation, completionHandler: completionHandler)
+  }
+  
+  public func uploadForResult<Operation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable where Operation : GraphQLOperation {
+    self.sendForResult(operation: operation, completionHandler: completionHandler)
+  }
+}
+
 private final class MockTask: Cancellable {
   func cancel() {
     // no-op
