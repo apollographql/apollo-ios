@@ -11,10 +11,9 @@ public protocol NetworkTransport: class {
   ///   - operation: The operation to send.
   ///   - completionHandler: A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred.
   /// - Returns: An object that can be used to cancel an in progress request.
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
-  
-  func sendForResult<Operation: GraphQLOperation>(operation: Operation,
-                                                  completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable
+  func send<Operation: GraphQLOperation>(operation: Operation,
+                                         cachePolicy: CachePolicy,
+                                         completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable
 
   /// The name of the client to send as a header value.
   var clientName: String { get }
@@ -94,7 +93,8 @@ public protocol UploadingNetworkTransport: NetworkTransport {
   ///   - files: An array of `GraphQLFile` objects to send.
   ///   - completionHandler: The completion handler to execute when the request completes or errors
   /// - Returns: An object that can be used to cancel an in progress request.
-  func upload<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
-  
-  func uploadForResult<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (Result<GraphQLResult<Operation.Data>,Error>) -> Void) -> Cancellable
+  func upload<Operation: GraphQLOperation>(
+    operation: Operation,
+    files: [GraphQLFile],
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>,Error>) -> Void) -> Cancellable
 }

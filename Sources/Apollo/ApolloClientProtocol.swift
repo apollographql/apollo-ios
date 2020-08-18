@@ -55,7 +55,6 @@ public protocol ApolloClientProtocol: class {
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
-                                          context: UnsafeMutableRawPointer?,
                                           queue: DispatchQueue,
                                           resultHandler: GraphQLResultHandler<Mutation.Data>?) -> Cancellable
 
@@ -70,7 +69,6 @@ public protocol ApolloClientProtocol: class {
   /// - Returns: An object that can be used to cancel an in progress request.
   /// - Throws: If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   func upload<Operation: GraphQLOperation>(operation: Operation,
-                                           context: UnsafeMutableRawPointer?,
                                            files: [GraphQLFile],
                                            queue: DispatchQueue,
                                            resultHandler: GraphQLResultHandler<Operation.Data>?) -> Cancellable

@@ -374,7 +374,7 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetchForResult(query: query) { result in
+      client.fetch(query: query) { result in
         defer { expectation.fulfill() }
       
         switch result {
@@ -407,7 +407,7 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
 
       let expectation = self.expectation(description: "Performing mutation")
 
-      client.performForResult(mutation: mutation) { result in
+      client.perform(mutation: mutation) { result in
         defer { expectation.fulfill() }
         
         switch result {

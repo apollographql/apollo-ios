@@ -53,7 +53,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheTesting {
 
       let expectation = self.expectation(description: "Fetching query")
 
-      client.fetchForResult(query: query) { outerResult in
+      client.fetch(query: query) { outerResult in
         switch outerResult {
         case .failure(let error):
           XCTFail("Unexpected error with fetch: \(error)")

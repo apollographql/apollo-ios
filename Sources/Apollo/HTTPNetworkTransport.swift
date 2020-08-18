@@ -434,35 +434,37 @@ public class HTTPNetworkTransport {
 
     return request
   }
+  
+  private func convertResponseResultToRequestResult<Operation: GraphQLOperation>(
+    for operation: Operation, // This isn't used but is necessary to satisfy the compiler for generics.
+    responseResult: Result<GraphQLResponse<Operation.Data>, Error>) -> Result<GraphQLResult<Operation.Data>, Error> {
+    switch responseResult {
+    case .failure(let error):
+      return .failure(error)
+    case .success(let response):
+      do {
+        let result = try response.parseResultFast()
+        return .success(result)
+      } catch {
+        return .failure(error)
+      }
+    }
+  }
 }
 
 // MARK: - NetworkTransport conformance
 
 extension HTTPNetworkTransport: NetworkTransport {
-
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
+  
+  public func send<Operation: GraphQLOperation>(
+    operation: Operation,
+    cachePolicy: CachePolicy = .default,
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     return send(operation: operation,
                 isPersistedQueryRetry: false,
-                files: nil,
-                completionHandler: completionHandler)
-  }
-  
-  public func sendForResult<Operation: GraphQLOperation>(
-    operation: Operation,
-    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
-
-    return send(operation: operation) { responseResult in
-      switch responseResult {
-      case .failure(let error):
-        completionHandler(.failure(error))
-      case .success(let response):
-        do {
-          let result = try response.parseResultFast()
-          completionHandler(.success(result))
-        } catch {
-          completionHandler(.failure(error))
-        }
-      }
+                files: nil) { (responseResult: Result<GraphQLResponse<Operation.Data>, Error>) -> Void in
+      let result = self.convertResponseResultToRequestResult(for: operation, responseResult: responseResult)
+      completionHandler(result)
     }
   }
 }
@@ -471,17 +473,17 @@ extension HTTPNetworkTransport: NetworkTransport {
 
 extension HTTPNetworkTransport: UploadingNetworkTransport {
 
-  public func upload<Operation: GraphQLOperation>(operation: Operation,
-                                                  files: [GraphQLFile],
-                                                  completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
+  public func upload<Operation: GraphQLOperation>(
+    operation: Operation,
+    files: [GraphQLFile],
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     return send(operation: operation,
                 isPersistedQueryRetry: false,
-                files: files,
-                completionHandler: completionHandler)
-  }
-  
-  public func uploadForResult<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
-        fatalError("Trying things out here")
+                files: files) { (responseResult: Result<GraphQLResponse<Operation.Data>, Error>) -> Void in
+                
+      let result = self.convertResponseResultToRequestResult(for: operation, responseResult: responseResult)
+      completionHandler(result)
+    }
   }
 }
 

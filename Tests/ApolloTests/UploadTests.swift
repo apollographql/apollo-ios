@@ -79,7 +79,7 @@ class UploadTests: XCTestCase {
     let upload = UploadOneFileMutation(file: "a.txt")
     
     let expectation = self.expectation(description: "File upload complete")
-    self.client.uploadForResult(operation: upload, files: [file]) { result in
+    self.client.upload(operation: upload, files: [file]) { result in
       defer {
         expectation.fulfill()
       }
@@ -116,7 +116,7 @@ class UploadTests: XCTestCase {
     let upload = UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName })
     
     let expectation = self.expectation(description: "File upload complete")
-    self.client.uploadForResult(operation: upload, files: files) { result in
+    self.client.upload(operation: upload, files: files) { result in
       defer {
         expectation.fulfill()
       }
@@ -173,7 +173,7 @@ class UploadTests: XCTestCase {
     
     // This is the array of Files for all parameters
     let allFiles = [firstFile, secondFile, thirdFile]
-    self.client.uploadForResult(operation: upload, files: allFiles) { result in
+    self.client.upload(operation: upload, files: allFiles) { result in
       defer {
         expectation.fulfill()
       }

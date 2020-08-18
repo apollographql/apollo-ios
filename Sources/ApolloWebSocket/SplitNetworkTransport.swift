@@ -42,19 +42,17 @@ public class SplitNetworkTransport {
 
 extension SplitNetworkTransport: NetworkTransport {
 
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(operation: Operation,
+                                                cachePolicy: CachePolicy,
+                                                completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     if operation.operationType == .subscription {
-      return webSocketNetworkTransport.send(operation: operation, completionHandler: completionHandler)
+      return webSocketNetworkTransport.send(operation: operation,
+                                            cachePolicy: cachePolicy,
+                                            completionHandler: completionHandler)
     } else {
-      return uploadingNetworkTransport.send(operation: operation, completionHandler: completionHandler)
-    }
-  }
-  
-  public func sendForResult<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
-    if operation.operationType == .subscription {
-      return webSocketNetworkTransport.sendForResult(operation: operation, completionHandler: completionHandler)
-    } else {
-      return uploadingNetworkTransport.sendForResult(operation: operation, completionHandler: completionHandler)
+      return uploadingNetworkTransport.send(operation: operation,
+                                            cachePolicy: cachePolicy,
+                                            completionHandler: completionHandler)
     }
   }
 }
@@ -63,19 +61,11 @@ extension SplitNetworkTransport: NetworkTransport {
 
 extension SplitNetworkTransport: UploadingNetworkTransport {
 
-  public func upload<Operation: GraphQLOperation>(operation: Operation,
-                                                  files: [GraphQLFile],
-                                                  completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable {
-    return uploadingNetworkTransport.upload(operation: operation,
-                                            files: files,
-                                            completionHandler: completionHandler)
-  }
-  
-  public func uploadForResult<Operation: GraphQLOperation>(
+  public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
-    return uploadingNetworkTransport.uploadForResult(operation: operation,
+    return uploadingNetworkTransport.upload(operation: operation,
                                                      files: files,
                                                      completionHandler: completionHandler)
   }
