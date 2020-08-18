@@ -47,7 +47,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
   
   public func send<Operation: GraphQLOperation>(
     operation: Operation,
-    cachePolicy: CachePolicy,
+    cachePolicy: CachePolicy = .default,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
     let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
