@@ -18,7 +18,7 @@ class ApolloSchemaTests: XCTestCase {
                                       outputFolderURL: sourceRoot)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
-    XCTAssertEqual(options.endpointURL, self.endpointURL)
+    XCTAssertEqual(options.endpointURL, TestURL.starWarsServer.url)
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertNil(options.apiKey)
     XCTAssertTrue(options.headers.isEmpty)
@@ -44,7 +44,7 @@ class ApolloSchemaTests: XCTestCase {
                                       headers: headers,
                                       outputFolderURL: sourceRoot)
     XCTAssertEqual(options.apiKey, apiKey)
-    XCTAssertEqual(options.endpointURL, self.endpointURL)
+    XCTAssertEqual(options.endpointURL, TestURL.starWarsServer.url)
     XCTAssertEqual(options.headers, headers)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
@@ -63,7 +63,7 @@ class ApolloSchemaTests: XCTestCase {
   func testDownloadingSchemaAsJSON() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
-    let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
+    let options = ApolloSchemaOptions(endpointURL: TestURL.starWarsServer.url,
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
@@ -97,7 +97,7 @@ class ApolloSchemaTests: XCTestCase {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloSchemaOptions(schemaFileType: .schemaDefinitionLanguage,
-                                      endpointURL: self.endpointURL,
+                                      endpointURL: TestURL.starWarsServer.url,
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
