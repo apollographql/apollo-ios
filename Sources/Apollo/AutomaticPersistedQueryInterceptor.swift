@@ -4,6 +4,7 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
   
   public enum APQError: Error {
     case noParsedResponse
+    case persistedQueryRetryFailed(operationName: String)
   }
   
   public func interceptAsync<Operation: GraphQLOperation>(
@@ -45,6 +46,15 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
       chain.proceedAsync(request: request,
                          response: response,
                          completion: completion)
+      return
+    }
+    
+    guard !jsonRequest.isPersistedQueryRetry else {
+      // We already retried this and it didn't work.
+      chain.handleErrorAsync(APQError.persistedQueryRetryFailed(operationName: jsonRequest.operation.operationName),
+                             request: jsonRequest,
+                             response: response,
+                             completion: completion)
       return
     }
     
