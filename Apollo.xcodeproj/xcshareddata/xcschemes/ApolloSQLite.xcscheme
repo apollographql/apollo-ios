@@ -88,12 +88,6 @@
                   Identifier = "StarWarsServerHTTPNetworkTransportTests">
                </Test>
                <Test
-                  Identifier = "StarWarsServerRequestChainAPQsTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerRequestChainTests">
-               </Test>
-               <Test
                   Identifier = "StarWarsServerTests">
                </Test>
                <Test
