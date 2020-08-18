@@ -235,11 +235,17 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint)
-    let query = HeroNameQuery()
-    let _ = network.send(operation: query) { _ in }
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let expectation = self.expectation(description: "Query sent")
+    let query = HeroNameQuery()
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
+    
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "POST")
@@ -256,14 +262,19 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint)
     
+    let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery(episode: .jedi)
-    let _ = network.send(operation: query) { _ in }
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "POST")
-
+    
     try validatePostBody(with: request,
                          query: query,
                          queryDocument: true)
@@ -277,12 +288,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint,
                                                autoPersistQueries: true)
-    let query = HeroNameQuery(episode: .empire)
-    let _ = network.send(operation: query) { _ in }
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
-
+    let expectation = self.expectation(description: "Query sent")
+    let query = HeroNameQuery(episode: .empire)
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
+    
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "POST")
     
@@ -290,7 +307,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                               query: query,
                               persistedQuery: true)
   }
-
+  
   func testMutationRequestBodyForAPQs() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore(cache: InMemoryNormalizedCache())
@@ -298,12 +315,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint,
                                                autoPersistQueries: true)
+    
+    let expectation = self.expectation(description: "Mutation sent")
     let mutation = CreateAwesomeReviewMutation()
-    let _ = network.send(operation: mutation) { _ in }
-
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
-
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: mutation) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
+    
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "POST")
 
@@ -321,11 +344,16 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true,
                                                useGETForPersistedQueryRetry: true)
 
+    let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery()
-    let _ = network.send(operation: query) { _ in }
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     
     try self.validateUrlParams(with: request,
@@ -341,12 +369,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: self.endpoint,
                                                autoPersistQueries: true,
                                                useGETForPersistedQueryRetry: true)
-    let query = HeroNameQuery(episode: .empire)
-    let _ = network.send(operation: query) { _ in }
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
-
+    let expectation = self.expectation(description: "Query sent")
+    let query = HeroNameQuery(episode: .empire)
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
+    
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "GET")
     
@@ -362,11 +396,17 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint,
                                                useGETForQueries: true)
-    let query = HeroNameQuery()
-    let _ = network.send(operation: query) { _ in }
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let expectation = self.expectation(description: "Query sent")
+    let query = HeroNameQuery()
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
+    
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "GET")
@@ -383,11 +423,16 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint)
     
+    let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery()
-    let _ = network.send(operation: query) { _ in }
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "POST")
@@ -405,12 +450,17 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: self.endpoint,
                                                autoPersistQueries: true)
     
+    let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery(episode: .empire)
-    let _ = network.send(operation: query) { _ in }
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
-
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "POST")
     
@@ -428,11 +478,16 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true,
                                                useGETForQueries: true)
     
+    let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery(episode: .empire)
-    let _ = network.send(operation: query) { _ in }
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "GET")
@@ -450,11 +505,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: self.endpoint,
                                                autoPersistQueries: true,
                                                useGETForPersistedQueryRetry: true)
-    let query = HeroNameQuery(episode: .empire)
-    let _ = network.send(operation: query) { _ in }
     
-    let request = try XCTUnwrap(mockClient.lastRequest.value,
-                                "last request should not be nil")
+    let expectation = self.expectation(description: "Query sent")
+    let query = HeroNameQuery(episode: .empire)
+    var lastRequest: URLRequest?
+    let _ = network.send(operation: query) { _ in
+      lastRequest = mockClient.lastRequest.value
+      expectation.fulfill()
+    }
+    self.wait(for: [expectation], timeout: 1)
+    
+    let request = try XCTUnwrap(lastRequest, "last request should not be nil")
+    
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "GET")
     
