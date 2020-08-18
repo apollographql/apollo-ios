@@ -2,13 +2,7 @@
 public struct GraphQLResult<Data>: Parseable {
   
   public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws {
-    guard Data.self is Parseable else {
-      throw ParseableError.unsupportedInitializer
-    }
-    
-    #warning("Figure out how to make this work")
-    // self = try decoder.decode(Data.self, from: data)
-    throw ParseableError.notYetImplemented    
+    throw ParseableError.unsupportedInitializer
   }
   
   /// The typed result data, or `nil` if an error was encountered that prevented a valid response.
@@ -38,5 +32,16 @@ public struct GraphQLResult<Data>: Parseable {
     self.errors = errors
     self.source = source
     self.dependentKeys = dependentKeys
+  }
+}
+
+extension GraphQLResult where Data: Decodable {
+  
+  public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws {
+    let data = try decoder.decode(Data.self, from: data)
+    self.init(data: data,
+              errors: [],
+              source: .server,
+              dependentKeys: nil)
   }
 }
