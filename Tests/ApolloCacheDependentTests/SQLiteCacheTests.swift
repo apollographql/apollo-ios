@@ -50,14 +50,9 @@ class SQLiteWatchQueryTests: WatchQueryTests {
   }
 }
 
-class SQLiteStarWarsServerRequestChainTests: StarWarsServerRequestChainTests {
+class SQLiteStarWarsServerHTTPNetworkTransportTests: StarWarsServerHTTPNetworkTransportTests {
   override var cacheType: TestCacheProvider.Type {
     SQLiteTestCacheProvider.self
   }
 }
 
-class SQLiteStarWarsServerRequestChainAPQsTests: StarWarsServerRequestChainAPQsTests {
-  override var cacheType: TestCacheProvider.Type {
-    SQLiteTestCacheProvider.self
-  }
-}

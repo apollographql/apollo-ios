@@ -8,14 +8,14 @@ protocol TestConfig {
   func network(store: ApolloStore) -> NetworkTransport
 }
 
-class DefaultConfig: TestConfig {
+class HTTPNetworkTransportConfig: TestConfig {
   let transport =  HTTPNetworkTransport(url: TestURL.starWarsServer.url)
   func network(store: ApolloStore) -> NetworkTransport {
     return transport
   }
 }
 
-class RequestChainConfig: TestConfig {
+class DefaultConfig: TestConfig {
   
   func transport(with store: ApolloStore) -> NetworkTransport {
     let provider = LegacyInterceptorProvider(store: store)
@@ -28,7 +28,7 @@ class RequestChainConfig: TestConfig {
   }
 }
 
-class RequestChainAPQsConfig: TestConfig {
+class APQsConfig: TestConfig {
   
   func transport(with store: ApolloStore) -> NetworkTransport {
     let provider = LegacyInterceptorProvider(store: store)
@@ -42,42 +42,25 @@ class RequestChainAPQsConfig: TestConfig {
   }
 }
 
-class APQsConfig: TestConfig {
-  let transport = HTTPNetworkTransport(url: TestURL.starWarsServer.url,
-                                       enableAutoPersistedQueries: true)
-  func network(store: ApolloStore) -> NetworkTransport {
-    return transport
-  }
-}
-
-class APQsWithGetMethodConfig: TestConfig, HTTPNetworkTransportRetryDelegate{
+class APQsWithGetMethodConfig: TestConfig {
   
-  var alreadyRetried = false
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedError error: Error, for request: URLRequest, response: URLResponse?, continueHandler: @escaping (HTTPNetworkTransport.ContinueAction) -> Void) {
-    continueHandler(!alreadyRetried ? .retry : .fail(error))
-    alreadyRetried = true
+  func transport(with store: ApolloStore) -> NetworkTransport {
+    let provider = LegacyInterceptorProvider(store: store)
+    return RequestChainNetworkTransport(interceptorProvider: provider,
+                                        endpointURL: TestURL.starWarsServer.url,
+                                        autoPersistQueries: true,
+                                        useGETForPersistedQueryRetry: true)
   }
   
   func network(store: ApolloStore) -> NetworkTransport {
-    let transport = HTTPNetworkTransport(url: TestURL.starWarsServer.url,
-                                enableAutoPersistedQueries: true,
-                                useGETForPersistedQueryRetry: true)
-    transport.delegate = self
-    return transport
+    return transport(with: store)
   }
 }
 
-class StarWarsServerRequestChainTests: StarWarsServerTests {
+class StarWarsServerHTTPNetworkTransportTests: StarWarsServerTests {
   override func setUp() {
     super.setUp()
-    config = RequestChainConfig()
-  }
-}
-
-class StarWarsServerRequestChainAPQsTests: StarWarsServerTests {
-  override func setUp() {
-    super.setUp()
-    config = RequestChainAPQsConfig()
+    config = HTTPNetworkTransportConfig()
   }
 }
 
