@@ -7,10 +7,11 @@
 
 import Foundation
 import Apollo
+import ApolloCore
 
 public final class MockURLSessionClient: URLSessionClient {
 
-  public private (set) var lastRequest: URLRequest?
+  public private (set) var lastRequest: Atomic<URLRequest?> = Atomic(nil)
 
   public var data: Data?
   public var response: HTTPURLResponse?
@@ -19,7 +20,7 @@ public final class MockURLSessionClient: URLSessionClient {
   public override func sendRequest(_ request: URLRequest,
                                    rawTaskCompletionHandler: URLSessionClient.RawCompletion? = nil,
                                    completion: @escaping URLSessionClient.Completion) -> URLSessionTask {
-    self.lastRequest = request
+    self.lastRequest.value = request
     rawTaskCompletionHandler?(self.data, self.response, self.error)
     
   

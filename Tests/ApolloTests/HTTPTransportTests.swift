@@ -35,28 +35,28 @@ class HTTPTransportTests: XCTestCase {
     return transport
   }()
   
-  private func validateHeroNameQueryResponse<Data: GraphQLSelectionSet>(result: Result<GraphQLResponse<Data>, Error>,
-                                                                        expectation: XCTestExpectation,
-                                                                        file: StaticString = #file,
-                                                                        line: UInt = #line) {
+  private func validateHeroNameQueryResponse(
+    result: Result<GraphQLResult<HeroNameQuery.Data>, Error>,
+    expectation: XCTestExpectation,
+    file: StaticString = #file,
+    line: UInt = #line) {
+    
     defer {
       expectation.fulfill()
     }
     
     switch result {
-    case .success(let graphQLResponse):
+    case .success(let grapqhQLResult):
       guard
-        let dictionary = graphQLResponse.body as? [String: AnyHashable],
-        let dataDict = dictionary["data"] as? [String: AnyHashable],
-        let heroDict = dataDict["hero"] as? [String: AnyHashable],
-        let name = heroDict["name"] as? String else {
+        let data = grapqhQLResult.data,
+        let hero = data.hero else {
           XCTFail("No hero for you!",
                   file: file,
                   line: line)
           return
       }
       
-      XCTAssertEqual(name,
+      XCTAssertEqual(hero.name,
                      "R2-D2",
                      file: file,
                      line: line)
@@ -71,7 +71,7 @@ class HTTPTransportTests: XCTestCase {
     self.shouldSend = false
     
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery(episode: .empire)) { result in
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery(episode: .empire), cachePolicy: .default) { result in
       
       defer {
         expectation.fulfill()
@@ -113,7 +113,7 @@ class HTTPTransportTests: XCTestCase {
     self.updatedHeaders = ["Authorization": "Bearer HelloApollo"]
 
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { result in
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery(), cachePolicy: .default) { result in
       self.validateHeroNameQueryResponse(result: result, expectation: expectation)
     }
     
@@ -140,7 +140,7 @@ class HTTPTransportTests: XCTestCase {
   
   func testPreflightDelegateNeitherModifyingOrStoppingRequest() {
     let expectation = self.expectation(description: "Send operation completed")
-    let cancellable = self.networkTransport.send(operation: HeroNameQuery()) { result in
+    let cancellable = self.networkTransport.send(operation: HeroNameQuery(), cachePolicy: .default) { result in
       self.validateHeroNameQueryResponse(result: result, expectation: expectation)
     }
     
@@ -294,7 +294,7 @@ class HTTPTransportTests: XCTestCase {
       }
     }
 
-    let request = try XCTUnwrap(mockClient.lastRequest,
+    let request = try XCTUnwrap(mockClient.lastRequest.value,
                                 "last request should not be nil")
     
     XCTAssertEqual(request.url?.host, network.url.host)
@@ -329,7 +329,7 @@ class HTTPTransportTests: XCTestCase {
       }
     }
 
-    let request = try XCTUnwrap(mockClient.lastRequest,
+    let request = try XCTUnwrap(mockClient.lastRequest.value,
                                 "last request should not be nil")
 
     XCTAssertEqual(request.url?.host, network.url.host)
@@ -349,13 +349,13 @@ class HTTPTransportTests: XCTestCase {
     let request = try XCTUnwrap(mockClient.lastRequest,
                                 "last request should not be nil")
     
-    let clientName = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientName),
+    let clientName = try XCTUnwrap(request.value?.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientName),
                                    "Client name on last request was nil!")
     
     XCTAssertFalse(clientName.isEmpty, "Client name was empty!")
     XCTAssertEqual(clientName, network.clientName)
     
-    let clientVersion = try XCTUnwrap(request.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientVersion),
+    let clientVersion = try XCTUnwrap(request.value?.value(forHTTPHeaderField: HTTPNetworkTransport.headerFieldNameApolloClientVersion),
                                       "Client version on last request was nil!")
     
     XCTAssertFalse(clientVersion.isEmpty, "Client version was empty!")
