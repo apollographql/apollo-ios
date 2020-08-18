@@ -13,6 +13,9 @@ public class RequestChainNetworkTransport: NetworkTransport {
   
   var requestCreator: RequestCreator
   
+  public var clientName = RequestChainNetworkTransport.defaultClientName
+  public var clientVersion = RequestChainNetworkTransport.defaultClientVersion
+  
   public init(interceptorProvider: InterceptorProvider,
               endpointURL: URL,
               additionalHeaders: [String: String] = [:],

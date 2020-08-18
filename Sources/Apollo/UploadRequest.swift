@@ -10,6 +10,8 @@ public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> 
   
   public init(graphQLEndpoint: URL,
               operation: Operation,
+              clientName: String? = nil,
+              clientVersion: String? = nil,
               additionalHeaders: [String: String] = [:],
               files: [GraphQLFile],
               manualBoundary: String? = nil,
@@ -20,8 +22,9 @@ public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> 
     super.init(graphQLEndpoint: graphQLEndpoint,
                operation: operation,
                contentType: "multipart/form-data",
+               clientName: clientName,
+               clientVersion: clientVersion,
                additionalHeaders: additionalHeaders)
-
   }
   
   public override func toURLRequest() throws -> URLRequest {

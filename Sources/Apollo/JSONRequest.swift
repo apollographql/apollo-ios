@@ -25,6 +25,8 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
   public init(operation: Operation,
               graphQLEndpoint: URL,
+              clientName: String? = nil,
+              clientVersion: String? = nil,
               additionalHeaders: [String: String] = [:],
               cachePolicy: CachePolicy = .default,
               autoPersistQueries: Bool = false,
@@ -39,6 +41,8 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     super.init(graphQLEndpoint: graphQLEndpoint,
                operation: operation,
                contentType: "application/json",
+               clientName: clientName,
+               clientVersion: clientVersion,
                additionalHeaders: additionalHeaders,
                cachePolicy: cachePolicy)
   }

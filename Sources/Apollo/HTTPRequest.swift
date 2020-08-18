@@ -38,11 +38,15 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   public init(graphQLEndpoint: URL,
               operation: Operation,
               contentType: String,
+              clientName: String? = nil,
+              clientVersion: String? = nil,
               additionalHeaders: [String: String],
               cachePolicy: CachePolicy = .default) {
     self.graphQLEndpoint = graphQLEndpoint
     self.operation = operation
     self.contentType = contentType
+    self.clientName = clientName
+    self.clientVersion = clientVersion
     self.additionalHeaders = additionalHeaders
     self.cachePolicy = cachePolicy
   }
