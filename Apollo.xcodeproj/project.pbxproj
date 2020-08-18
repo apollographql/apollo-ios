@@ -224,7 +224,6 @@
 		9FC9A9C81E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */; };
 		9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9CB1E2FD0760023C4D5 /* Record.swift */; };
 		9FC9A9D31E2FD48B0023C4D5 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
-		9FCDFD231E33A0D8007519DC /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDFD221E33A0D8007519DC /* AsynchronousOperation.swift */; };
 		9FCDFD291E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */; };
 		9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */; };
 		9FCE2D091E6C254700E34457 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
@@ -729,7 +728,6 @@
 		9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheKeyForFieldTests.swift; sourceTree = "<group>"; };
 		9FC9A9CB1E2FD0760023C4D5 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLError.swift; sourceTree = "<group>"; };
-		9FCDFD221E33A0D8007519DC /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLQueryWatcher.swift; sourceTree = "<group>"; };
 		9FCE2CED1E6BE2D800E34457 /* NormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizedCache.swift; sourceTree = "<group>"; };
 		9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StarWarsAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1562,7 +1560,6 @@
 		9FCDFD211E33A09F007519DC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				9FCDFD221E33A0D8007519DC /* AsynchronousOperation.swift */,
 				9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */,
 				9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */,
 				9BE071B02368D3F500FA5952 /* Dictionary+Helpers.swift */,
@@ -2456,7 +2453,6 @@
 				9BDE43DD22C6705300FD7C7F /* GraphQLHTTPResponseError.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9B9BBAF524DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift in Sources */,
-				9FCDFD231E33A0D8007519DC /* AsynchronousOperation.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
 				9B260BF1245A025400562176 /* HTTPRequest.swift in Sources */,
 				9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */,
