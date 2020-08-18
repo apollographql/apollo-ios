@@ -103,6 +103,7 @@ let package = Package(
     .testTarget(
       name: "ApolloCodegenTests",
       dependencies: [
+        "ApolloTestSupport",
         "ApolloCodegenLib"
       ]),
     .testTarget(

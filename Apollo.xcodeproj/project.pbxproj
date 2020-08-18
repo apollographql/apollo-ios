@@ -370,6 +370,13 @@
 			remoteGlobalIDString = 9B7B6F46233C26D100F32205;
 			remoteInfo = ApolloCodegenLib;
 		};
+		9BEEDC2C24EB6419001D1294 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F8A95771EC0FC1200304A2D;
+			remoteInfo = ApolloTestSupport;
+		};
 		9F65B11F1EC106E80090B25F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -1860,6 +1867,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9BEEDC2D24EB6419001D1294 /* PBXTargetDependency */,
 				9B68354D24634A2000337AE6 /* PBXTargetDependency */,
 				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
 			);
@@ -2634,6 +2642,11 @@
 			isa = PBXTargetDependency;
 			target = 9B7B6F46233C26D100F32205 /* ApolloCodegenLib */;
 			targetProxy = 9BAEEC02234BB8FD00808306 /* PBXContainerItemProxy */;
+		};
+		9BEEDC2D24EB6419001D1294 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F8A95771EC0FC1200304A2D /* ApolloTestSupport */;
+			targetProxy = 9BEEDC2C24EB6419001D1294 /* PBXContainerItemProxy */;
 		};
 		9F65B1201EC106E80090B25F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
