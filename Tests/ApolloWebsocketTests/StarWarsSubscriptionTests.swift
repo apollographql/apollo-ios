@@ -424,7 +424,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     func sendReview() {
       let reviewSentExpectation = self.expectation(description: "review sent")
-      alternateClient.performForResult(mutation: reviewMutation) { mutationResult in
+      alternateClient.perform(mutation: reviewMutation) { mutationResult in
         switch mutationResult {
         case .success:
           break

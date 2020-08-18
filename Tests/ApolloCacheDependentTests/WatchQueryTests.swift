@@ -20,7 +20,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       ]
     ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -28,8 +29,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Droid"
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       var verifyResult: GraphQLResultHandler<HeroNameQuery.Data>
@@ -88,7 +88,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -96,8 +97,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Droid"
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let query = HeroAndFriendsNamesQuery()
@@ -175,7 +175,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -187,8 +188,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let query = HeroAndFriendsNamesQuery()
@@ -267,7 +267,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
     ]
     
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -275,9 +276,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Droid"
           ]
         ]
-      ])
+      ], store: store)
       
-      let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
 
@@ -339,7 +339,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       ]
     ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -348,8 +349,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Human"
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+        ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
 
@@ -411,7 +411,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "LO": ["__typename": "Human", "id": "LO", "name": "Leia Organa"],
     ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -424,8 +425,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
 
@@ -500,9 +500,9 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
             ]
     withCache(initialRecords: initialRecords) { (cache) in
-      let networkTransport = MockNetworkTransport(body: [:])
-
       let store = ApolloStore(cache: cache)
+      let networkTransport = MockNetworkTransport(body: [:], store: store)
+
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
 
