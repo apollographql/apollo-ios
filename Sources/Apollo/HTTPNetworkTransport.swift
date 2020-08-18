@@ -92,6 +92,7 @@ public protocol HTTPNetworkTransportGraphQLErrorDelegate: HTTPNetworkTransportDe
 // MARK: -
 
 /// A network transport that uses HTTP POST requests to send GraphQL operations to a server, and that uses `URLSession` as the networking implementation.
+#warning("Should we deprecate this or just straight up remove it?")
 public class HTTPNetworkTransport {
   
   /// The action to take when retrying
