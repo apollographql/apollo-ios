@@ -94,6 +94,9 @@
                   Identifier = "SQLiteStarWarsServerCachingRoundtripTests">
                </Test>
                <Test
+                  Identifier = "SQLiteStarWarsServerHTTPNetworkTransportTests">
+               </Test>
+               <Test
                   Identifier = "SQLiteStarWarsServerRequestChainAPQsTests">
                </Test>
                <Test

@@ -85,6 +85,9 @@
                   Identifier = "StarWarsServerCachingRoundtripTests">
                </Test>
                <Test
+                  Identifier = "StarWarsServerHTTPNetworkTransportTests">
+               </Test>
+               <Test
                   Identifier = "StarWarsServerRequestChainAPQsTests">
                </Test>
                <Test
