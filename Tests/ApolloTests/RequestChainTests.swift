@@ -72,4 +72,37 @@ class RequestChainTests: XCTestCase {
     
     self.wait(for: [secondLoadExpectation], timeout: 10)
   }
+  
+  func testEmptyInterceptorArrayReturnsCorrectError() {
+    class TestProvider: InterceptorProvider {
+      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        []
+      }
+    }
+    
+    let transport = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+                                                 endpointURL: TestURL.mockServer.url)
+    let expectation = self.expectation(description: "kickoff failed")
+    _ = transport.send(operation: HeroNameQuery()) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .success:
+        XCTFail("This should not have succeeded")
+      case .failure(let error):
+        switch error {
+        case RequestChain.ChainError.noInterceptors:
+          // This is what we want.
+          break
+        default:
+          XCTFail("Incorrect error for no interceptors: \(error)")
+        }
+      }
+    }
+    
+    
+    self.wait(for: [expectation], timeout: 1)
+  }
 }
