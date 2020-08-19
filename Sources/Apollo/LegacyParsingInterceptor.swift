@@ -4,7 +4,7 @@ import Foundation
 public class LegacyParsingInterceptor: ApolloInterceptor {
   public enum LegacyParsingError: Error {
     case noResponseToParse
-    case couldNotParseToLegacyJSON
+    case couldNotParseToLegacyJSON(data: Data)
   }
   
   public func interceptAsync<Operation: GraphQLOperation>(
@@ -22,9 +22,10 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     }
     
     do {
-      let json = try JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
+      let deserialized = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData)
+      let json = deserialized as? JSONObject
       guard let body = json else {
-        throw LegacyParsingError.couldNotParseToLegacyJSON
+        throw LegacyParsingError.couldNotParseToLegacyJSON(data: createdResponse.rawData)
       }
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)

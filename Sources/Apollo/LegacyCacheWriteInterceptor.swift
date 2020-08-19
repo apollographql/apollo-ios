@@ -39,9 +39,10 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
 
     do {
       #warning("There's got to be a better way to do this than deserializing again")
-      let json = try JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
+      let deserialized = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData)
+      let json = deserialized as? JSONObject
       guard let body = json else {
-        throw LegacyParsingInterceptor.LegacyParsingError.couldNotParseToLegacyJSON
+        throw LegacyParsingInterceptor.LegacyParsingError.couldNotParseToLegacyJSON(data: createdResponse.rawData)
       }
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
