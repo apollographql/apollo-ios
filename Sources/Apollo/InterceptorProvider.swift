@@ -39,7 +39,6 @@ public class LegacyInterceptorProvider: InterceptorProvider {
         LegacyParsingInterceptor(),
         AutomaticPersistedQueryInterceptor(),
         LegacyCacheWriteInterceptor(store: self.store),
-        FinalizingInterceptor(),
     ]
   }
 }
@@ -74,10 +73,9 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
          // Swift Codegen Phase 2: Add Cache Read interceptor
          NetworkFetchInterceptor(client: self.client),
          ResponseCodeInterceptor(),
-         CodableParsingInterceptor(decoder: self.decoder),
          AutomaticPersistedQueryInterceptor(),
+         CodableParsingInterceptor(decoder: self.decoder),
          // Swift codegen Phase 2: Add Cache Write interceptor
-         FinalizingInterceptor(),
      ]
    }
 }
