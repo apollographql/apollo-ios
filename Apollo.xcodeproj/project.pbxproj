@@ -145,6 +145,9 @@
 		9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC14234C132600808306 /* CLIExtractorTests.swift */; };
 		9BAEEC17234C275600808306 /* ApolloSchemaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC16234C275600808306 /* ApolloSchemaTests.swift */; };
 		9BAEEC19234C297800808306 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAEEC18234C297800808306 /* ApolloCodegenTests.swift */; };
+		9BC139A424EDCA6C00876D29 /* InterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC139A224EDCA4400876D29 /* InterceptorTests.swift */; };
+		9BC139A624EDCAD900876D29 /* BlindRetryingTestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC139A524EDCAD900876D29 /* BlindRetryingTestInterceptor.swift */; };
+		9BC139A824EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC139A724EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift */; };
 		9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2D9D1233C6DC0007BD083 /* Basher.swift */; };
 		9BC742AC24CFB2FF0029282C /* ApolloErrorInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC742AB24CFB2FF0029282C /* ApolloErrorInterceptor.swift */; };
 		9BC742AE24CFB6450029282C /* LegacyCacheWriteInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC742AD24CFB6450029282C /* LegacyCacheWriteInterceptor.swift */; };
@@ -626,6 +629,9 @@
 		9BAEEC14234C132600808306 /* CLIExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIExtractorTests.swift; sourceTree = "<group>"; };
 		9BAEEC16234C275600808306 /* ApolloSchemaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloSchemaTests.swift; sourceTree = "<group>"; };
 		9BAEEC18234C297800808306 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
+		9BC139A224EDCA4400876D29 /* InterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorTests.swift; sourceTree = "<group>"; };
+		9BC139A524EDCAD900876D29 /* BlindRetryingTestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlindRetryingTestInterceptor.swift; sourceTree = "<group>"; };
+		9BC139A724EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryToCountThenSucceedInterceptor.swift; sourceTree = "<group>"; };
 		9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegen.xcconfig"; sourceTree = "<group>"; };
 		9BC2D9D1233C6DC0007BD083 /* Basher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basher.swift; sourceTree = "<group>"; };
 		9BC742AB24CFB2FF0029282C /* ApolloErrorInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloErrorInterceptor.swift; sourceTree = "<group>"; };
@@ -925,6 +931,8 @@
 				9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */,
 				9B21FD762422C8CC00998B5C /* TestFileHelper.swift */,
 				9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */,
+				9BC139A524EDCAD900876D29 /* BlindRetryingTestInterceptor.swift */,
+				9BC139A724EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift */,
 			);
 			name = TestHelpers;
 			sourceTree = "<group>";
@@ -1504,6 +1512,7 @@
 				9F8622F91EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift */,
 				9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */,
 				9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */,
+				9BC139A224EDCA4400876D29 /* InterceptorTests.swift */,
 				9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */,
 				E86D8E03214B32DA0028EFE1 /* JSONTests.swift */,
 				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
@@ -2507,7 +2516,9 @@
 				9FC9A9C81E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift in Sources */,
 				9F91CF8F1F6C0DB2008DD0BE /* MutatingResultsTests.swift in Sources */,
 				9B9BBB1C24DB760B0021C30F /* UploadTests.swift in Sources */,
+				9BC139A424EDCA6C00876D29 /* InterceptorTests.swift in Sources */,
 				F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */,
+				9BC139A824EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift in Sources */,
 				9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */,
 				9F19D8461EED8D3B00C57247 /* ResultOrPromiseTests.swift in Sources */,
 				9F533AB31E6C4A4200CBE097 /* BatchedLoadTests.swift in Sources */,
@@ -2518,6 +2529,7 @@
 				9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */,
 				9FADC8541E6B86D900C677E6 /* DataLoaderTests.swift in Sources */,
 				9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */,
+				9BC139A624EDCAD900876D29 /* BlindRetryingTestInterceptor.swift in Sources */,
 				9B96500A24BE62B7003C29C0 /* RequestChainTests.swift in Sources */,
 				9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */,
 				E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */,
