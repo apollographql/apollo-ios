@@ -63,9 +63,9 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
           }
         }
         
-        chain.returnValueAsync(for: request,
-                               value: result,
-                               completion: completion)
+        chain.proceedAsync(request: request,
+                           response: createdResponse,
+                           completion: completion)
       }.catch { error in
         chain.handleErrorAsync(error,
                                request: request,
