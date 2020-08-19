@@ -8,13 +8,6 @@ protocol TestConfig {
   func network(store: ApolloStore) -> NetworkTransport
 }
 
-class HTTPNetworkTransportConfig: TestConfig {
-  let transport =  HTTPNetworkTransport(url: TestURL.starWarsServer.url)
-  func network(store: ApolloStore) -> NetworkTransport {
-    return transport
-  }
-}
-
 class DefaultConfig: TestConfig {
   
   func transport(with store: ApolloStore) -> NetworkTransport {
@@ -54,13 +47,6 @@ class APQsWithGetMethodConfig: TestConfig {
   
   func network(store: ApolloStore) -> NetworkTransport {
     return transport(with: store)
-  }
-}
-
-class StarWarsServerHTTPNetworkTransportTests: StarWarsServerTests {
-  override func setUp() {
-    super.setUp()
-    config = HTTPNetworkTransportConfig()
   }
 }
 
