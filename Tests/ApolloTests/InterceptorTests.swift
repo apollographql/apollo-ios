@@ -24,7 +24,6 @@ class InterceptorTests: XCTestCase {
           MaxRetryInterceptor(maxRetriesAllowed: self.retryCount),
           self.testInterceptor,
           NetworkFetchInterceptor(client: MockURLSessionClient()),
-          FinalizingInterceptor()
         ]
       }
     }
@@ -90,7 +89,6 @@ class InterceptorTests: XCTestCase {
           self.testInterceptor,
           NetworkFetchInterceptor(client: self.mockClient),
           LegacyParsingInterceptor(),
-          FinalizingInterceptor()
         ]
       }
     }
@@ -137,7 +135,6 @@ class InterceptorTests: XCTestCase {
         [
           NetworkFetchInterceptor(client: self.mockClient),
           LegacyParsingInterceptor(),
-          FinalizingInterceptor()
         ]
       }
     }
@@ -186,8 +183,7 @@ class InterceptorTests: XCTestCase {
         [
           NetworkFetchInterceptor(client: self.mockClient),
           ResponseCodeInterceptor(),
-          LegacyParsingInterceptor(),
-          FinalizingInterceptor()
+          LegacyParsingInterceptor()
         ]
       }
     }
@@ -244,7 +240,6 @@ class InterceptorTests: XCTestCase {
           NetworkFetchInterceptor(client: self.mockClient),
           ResponseCodeInterceptor(),
           LegacyParsingInterceptor(),
-          FinalizingInterceptor()
         ]
       }
     }

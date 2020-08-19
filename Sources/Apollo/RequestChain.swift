@@ -75,21 +75,28 @@ public class RequestChain: Cancellable {
     }
     
     let nextIndex = self.currentIndex + 1
-    guard self.interceptors.indices.contains(nextIndex) else {
-      self.handleErrorAsync(ChainError.invalidIndex(chain: self, index: nextIndex),
-                            request: request,
-                            response: response,
-                            completion: completion)
-      return
+    if self.interceptors.indices.contains(nextIndex) {
+      self.currentIndex = nextIndex
+      let interceptor = self.interceptors[self.currentIndex]
+      
+      interceptor.interceptAsync(chain: self,
+                                 request: request,
+                                 response: response,
+                                 completion: completion)
+    } else {
+      if let result = response?.parsedResponse {
+        // We got to the end of the chain with a parsed response. Yay! Return it.
+        self.returnValueAsync(for: request,
+                              value: result,
+                              completion: completion)
+      } else {
+        // We got to the end of the chain and no parsed response is there, there needs to be more processing.
+        self.handleErrorAsync(ChainError.invalidIndex(chain: self, index: nextIndex),
+                              request: request,
+                              response: response,
+                              completion: completion)
+      }
     }
-    
-    self.currentIndex = nextIndex
-    let interceptor = self.interceptors[self.currentIndex]
-    
-    interceptor.interceptAsync(chain: self,
-                               request: request,
-                               response: response,
-                               completion: completion)
   }
   
   /// Cancels the entire chain of interceptors.
