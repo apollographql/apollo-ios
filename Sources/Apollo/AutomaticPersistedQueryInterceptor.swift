@@ -7,6 +7,9 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     case persistedQueryRetryFailed(operationName: String)
   }
   
+  /// Designated initializer
+  public init() {}
+  
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,

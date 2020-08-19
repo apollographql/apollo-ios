@@ -7,6 +7,9 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     case couldNotParseToLegacyJSON(data: Data)
   }
   
+  /// Designated Initializer
+  public init() {}
+  
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,

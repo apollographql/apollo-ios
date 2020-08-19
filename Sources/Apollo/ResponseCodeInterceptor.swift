@@ -7,6 +7,9 @@ public class ResponseCodeInterceptor: ApolloInterceptor {
     case invalidResponseCode(response: HTTPURLResponse?, rawData: Data?)
   }
   
+  /// Designated initializer
+  public init() {}
+  
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,

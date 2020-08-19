@@ -3,9 +3,12 @@ import Foundation
 /// The last interceptor in a normal chain, which checks that parsing has been completed and returns information to the UI.
 public class FinalizingInterceptor: ApolloInterceptor {
     
-  enum FinalizationError: Error {
+  public enum FinalizationError: Error {
     case nilParsedValue(httpResponse: HTTPURLResponse?, rawData: Data?)
   }
+  
+  /// Designated initializer
+  public init() {}
   
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
