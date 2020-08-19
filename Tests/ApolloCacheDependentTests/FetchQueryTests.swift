@@ -465,7 +465,7 @@ class FetchQueryTests: XCTestCase, CacheTesting {
       
       group.enter()
       DispatchQueue.global().async {
-        _ = client1.clearCache() { _ in
+        client1.clearCache() { _ in
           group.leave()
         }
       }
