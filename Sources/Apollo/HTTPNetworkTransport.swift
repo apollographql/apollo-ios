@@ -141,6 +141,10 @@ public class HTTPNetworkTransport {
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
     self.requestCreator = requestCreator
   }
+  
+  deinit {
+    self.client.invalidate()
+  }
 
   private func send<Operation: GraphQLOperation>(operation: Operation,
                                                  isPersistedQueryRetry: Bool,
