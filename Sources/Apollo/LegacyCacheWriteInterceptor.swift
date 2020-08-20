@@ -29,51 +29,37 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
       return
     }
     
-    guard let createdResponse = response else {
-      chain.handleErrorAsync(LegacyCacheWriteError.noResponseToParse,
+    guard
+      let createdResponse = response,
+      let legacyResponse = createdResponse.legacyResponse else {
+        chain.handleErrorAsync(LegacyCacheWriteError.noResponseToParse,
                              request: request,
                              response: response,
                              completion: completion)
-      return
+        return
     }
 
-    do {
-      #warning("There's got to be a better way to do this than deserializing again")
-      let deserialized = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData)
-      let json = deserialized as? JSONObject
-      guard let body = json else {
-        throw LegacyParsingInterceptor.LegacyParsingError.couldNotParseToLegacyJSON(data: createdResponse.rawData)
+    firstly {
+      try legacyResponse.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+    }.andThen { [weak self] (result, records) in
+      guard let self = self else {
+        return
+      }
+      guard chain.isNotCancelled else {
+        return
       }
       
-      let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
-      firstly {
-        try graphQLResponse.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
-      }.andThen { [weak self] (result, records) in
-        guard let self = self else {
-          return
+      if let records = records {
+        self.store.publish(records: records)
+          .catch { error in
+            preconditionFailure(String(describing: error))
         }
-        guard chain.isNotCancelled else {
-          return
-        }
-        
-        if let records = records {
-          self.store.publish(records: records)
-            .catch { error in
-              preconditionFailure(String(describing: error))
-          }
-        }
-        
-        chain.proceedAsync(request: request,
-                           response: createdResponse,
-                           completion: completion)
-      }.catch { error in
-        chain.handleErrorAsync(error,
-                               request: request,
-                               response: response,
-                               completion: completion)
       }
       
-    } catch {
+      chain.proceedAsync(request: request,
+                         response: createdResponse,
+                         completion: completion)
+    }.catch { error in
       chain.handleErrorAsync(error,
                              request: request,
                              response: response,

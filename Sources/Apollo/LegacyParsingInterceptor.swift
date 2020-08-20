@@ -32,10 +32,10 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
       }
       
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
-      let parsedResult = try graphQLResponse.parseResultFast()
-      let typedResult = parsedResult
+      createdResponse.legacyResponse = graphQLResponse
       
-      createdResponse.parsedResponse = typedResult
+      let parsedResult = try graphQLResponse.parseResultFast()
+      createdResponse.parsedResponse = parsedResult
       
       chain.proceedAsync(request: request,
                          response: createdResponse,
