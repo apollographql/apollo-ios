@@ -1,5 +1,12 @@
 # Change log
 
+## v0.31.0
+- Adds the ability to pause and resume a WebSocket connection without dumping existing subscriptions. ([#1335](https://github.com/apollographql/apollo-ios/pull/1335)) 
+- Adds an initializer to `SQLiteNormalizedCache` that takes a `SQLite.swift` `DatabaseConnection` to more easily allow setup of pre-configured connections. ([#1330](https://github.com/apollographql/apollo-ios/pull/1330))
+- Addresses a retain cycle that could cause memory leaks when using multiple instances of `HTTPNetworkTransport`.
+
+    **NOTE:** If you're using `URLSessionClient` outside the context of `HTTPNetworkTransport`, make sure to call `invalidate()` on it when whatever is holding onto it hits `deinit()` to prevent leaks. ([#1366](https://github.com/apollographql/apollo-ios/pull/1366))
+
 ## v0.30.0
 - **BREAKING**: Updates the CLI to `2.30.1` to fix a long-standing issue where when generating operation IDs and their related JSON file, the correct operations + fragments would be used in generating the operation ID, but not output with the JSON file. This will slightly change the output in `API.swift`, but it also means we can remove a related workaround from the iOS SDK. ([#1316](https://github.com/apollographql/apollo-ios/pull/1316))
 - **BREAKING**: Removed the `Cartfile` which declared our dependencies, since we're now internally managing them with SPM, and newer versions of Carthage just use the SPM dependencies. Note that this can cause issues if you need to use a fork of dependencies, or if you're using an older version of Carthage. ([#1311](https://github.com/apollographql/apollo-ios/pull/1311))
