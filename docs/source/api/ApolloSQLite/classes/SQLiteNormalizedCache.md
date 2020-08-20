@@ -28,3 +28,23 @@ public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws
 | ---- | ----------- |
 | fileURL | The file URL to use for your database. |
 | shouldVacuumOnClear | If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. |
+
+### `init(db:shouldVacuumOnClear:)`
+
+```swift
+public init(db: Connection, shouldVacuumOnClear: Bool = false) throws
+```
+
+>
+> Initializer that takes the Connection to use
+> - Parameters:
+>   - db: The database Connection to use
+>   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
+> - Throws: Any errors attempting to access the database
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| db | The database Connection to use |
+| shouldVacuumOnClear | If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache. |

@@ -42,3 +42,9 @@ public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONVal
 ```swift
 public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONObject
 ```
+
+### `init(jsonValue:)`
+
+```swift
+public init(jsonValue value: JSONValue) throws
+```

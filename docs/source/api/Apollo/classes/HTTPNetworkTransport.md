@@ -62,3 +62,9 @@ public init(url: URL,
 | useGETForQueries | If query operation should be sent using GET instead of POST. Defaults to false. |
 | enableAutoPersistedQueries | Whether to send persistedQuery extension. QueryDocument will be absent at 1st request, retry with QueryDocument if server respond PersistedQueryNotFound or PersistedQueryNotSupport. Defaults to false. |
 | useGETForPersistedQueryRetry | Whether to retry persistedQuery request with HttpGetMethod. Defaults to false. |
+
+### `deinit`
+
+```swift
+deinit
+```

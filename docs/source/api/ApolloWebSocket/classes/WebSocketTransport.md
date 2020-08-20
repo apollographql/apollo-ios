@@ -135,3 +135,30 @@ public func updateHeaderValues(_ values: [String: String?])
 ```swift
 public func updateConnectingPayload(_ payload: GraphQLMap)
 ```
+
+### `pauseWebSocketConnection()`
+
+```swift
+public func pauseWebSocketConnection()
+```
+
+> Disconnects the websocket while setting the auto-reconnect value to false,
+> allowing purposeful disconnects that do not dump existing subscriptions.
+> NOTE: You will receive an error on the subscription (should be a `Starscream.WSError` with code 1000) when the socket disconnects.
+> ALSO NOTE: To reconnect after calling this, you will need to call `resumeWebSocketConnection`.
+
+### `resumeWebSocketConnection(autoReconnect:)`
+
+```swift
+public func resumeWebSocketConnection(autoReconnect: Bool = true)
+```
+
+> Reconnects a paused web socket.
+>
+> - Parameter autoReconnect: `true` if you want the websocket to automatically reconnect if the connection drops. Defaults to true.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| autoReconnect | `true` if you want the websocket to automatically reconnect if the connection drops. Defaults to true. |

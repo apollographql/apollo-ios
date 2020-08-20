@@ -3,7 +3,7 @@
 # `URLSessionClient.URLSessionClientError`
 
 ```swift
-public enum URLSessionClientError: Error
+public enum URLSessionClientError: Error, LocalizedError
 ```
 
 ## Cases
@@ -29,4 +29,11 @@ case dataForRequestNotFound(request: URLRequest?)
 
 ```swift
 case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
+```
+
+## Properties
+### `errorDescription`
+
+```swift
+public var errorDescription: String?
 ```

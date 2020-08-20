@@ -45,11 +45,15 @@ public init(sessionConfiguration: URLSessionConfiguration = .default,
 | sessionConfiguration | The `URLSessionConfiguration` to use to set up the URL session. |
 | callbackQueue | [optional] The `OperationQueue` to tell the URL session to call back to this class on, which will in turn call back to your class. Defaults to `.main`. |
 
-### `deinit`
+### `invalidate()`
 
 ```swift
-deinit
+public func invalidate()
 ```
+
+> Cleans up and invalidates everything related to this session client.
+>
+> NOTE: This must be called from the `deinit` of anything holding onto this client in order to break a retain cycle with the delegate.
 
 ### `clear(task:)`
 

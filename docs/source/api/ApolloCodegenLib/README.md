@@ -15,7 +15,11 @@
 -   [EnumGenerator.SanitizedEnumValue](structs/EnumGenerator.SanitizedEnumValue/)
 -   [FileFinder](structs/FileFinder/)
 -   [InputObjectGenerator.SanitizedInputObject](structs/InputObjectGenerator.SanitizedInputObject/)
+-   [InterfaceEnumGenerator.SanitizedInterfaceObject](structs/InterfaceEnumGenerator.SanitizedInterfaceObject/)
 -   [SanitizedInputObject.SanitizedInputObjectField](structs/SanitizedInputObject.SanitizedInputObjectField/)
+-   [SanitizedInterfaceObject.SanitizedCase](structs/SanitizedInterfaceObject.SanitizedCase/)
+-   [SanitizedUnionObject.SanitizedCase](structs/SanitizedUnionObject.SanitizedCase/)
+-   [UnionEnumGenerator.SanitizedUnionObject](structs/UnionEnumGenerator.SanitizedUnionObject/)
 
 ## Classes
 
@@ -23,6 +27,8 @@
 -   [CodeGenerator](classes/CodeGenerator/)
 -   [EnumGenerator](classes/EnumGenerator/)
 -   [InputObjectGenerator](classes/InputObjectGenerator/)
+-   [InterfaceEnumGenerator](classes/InterfaceEnumGenerator/)
+-   [UnionEnumGenerator](classes/UnionEnumGenerator/)
 
 ## Enums
 
@@ -38,8 +44,10 @@
 -   [EnumGenerator.EnumContextKey](enums/EnumGenerator.EnumContextKey/)
 -   [EnumGenerator.EnumGenerationError](enums/EnumGenerator.EnumGenerationError/)
 -   [InputObjectGenerator.InputObjectEnvironmentKey](enums/InputObjectGenerator.InputObjectEnvironmentKey/)
+-   [InterfaceEnumGenerator.InterfaceEnumContextKey](enums/InterfaceEnumGenerator.InterfaceEnumContextKey/)
 -   [JSONValue](enums/JSONValue/)
 -   [JSONValue.JSONValueError](enums/JSONValue.JSONValueError/)
+-   [UnionEnumGenerator.InterfaceEnumContextKey](enums/UnionEnumGenerator.InterfaceEnumContextKey/)
 
 ## Extensions
 
