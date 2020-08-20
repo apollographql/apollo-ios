@@ -62,7 +62,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// NOTE: This must be called from the `deinit` of anything holding onto this client in order to break a retain cycle with the delegate.
   public func invalidate() {
     self.clearAllTasks()
-    self.session.invalidateAndCancel()
+    self.session?.invalidateAndCancel()
     self.session = nil
   }
   
