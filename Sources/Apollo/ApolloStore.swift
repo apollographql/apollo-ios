@@ -175,6 +175,7 @@ public final class ApolloStore {
                                      accumulator: zip(mapper, dependencyTracker))
     }.map { (data: Query.Data, dependentKeys: Set<CacheKey>) in
       GraphQLResult(data: data,
+                    extensions: nil,
                     errors: nil,
                     source:.cache,
                     dependentKeys: dependentKeys)

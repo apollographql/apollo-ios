@@ -30,6 +30,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
       let mapper = GraphQLSelectionSetMapper<Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
+      let extensions = body["extensions"] as? JSONObject
 
       return firstly {
         try executor.execute(selections: Data.selections,
@@ -40,15 +41,17 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
         }.map { (data, records, dependentKeys) in
           (
             GraphQLResult(data: data,
-                         errors: errors,
-                         source: .server,
-                         dependentKeys: dependentKeys),
+                          extensions: extensions,
+                          errors: errors,
+                          source: .server,
+                          dependentKeys: dependentKeys),
             records
           )
       }
     } else {
       return Promise(fulfilled: (
         GraphQLResult(data: nil,
+                      extensions: nil,
                       errors: errors,
                       source: .server,
                       dependentKeys: nil),
@@ -72,13 +75,16 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
       let data = try decode(selectionSet: Data.self,
                             from: dataEntry,
                             variables: variables)
+      let extensions = body["extensions"] as? JSONObject
 
       return GraphQLResult(data: data,
+                           extensions: extensions,
                            errors: errors,
                            source: .server,
                            dependentKeys: nil)
     } else {
       return GraphQLResult(data: nil,
+                           extensions: nil,
                            errors: errors,
                            source: .server,
                            dependentKeys: nil)
