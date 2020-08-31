@@ -38,8 +38,10 @@ public struct GraphQLResult<Data>: Parseable {
 extension GraphQLResult where Data: Decodable {
   
   public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws {
+    // SWIFT CODEGEN: fix this to handle codable better
     let data = try decoder.decode(Data.self, from: data)
     self.init(data: data,
+              extensions: nil,
               errors: [],
               source: .server,
               dependentKeys: nil)
