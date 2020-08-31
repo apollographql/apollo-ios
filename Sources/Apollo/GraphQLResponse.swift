@@ -20,6 +20,8 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
       errors = nil
     }
 
+    let extensions = body["extensions"] as? JSONObject
+
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
         return .result(.success(object[info.responseKeyForField]))
@@ -30,7 +32,6 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
       let mapper = GraphQLSelectionSetMapper<Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
-      let extensions = body["extensions"] as? JSONObject
 
       return firstly {
         try executor.execute(selections: Data.selections,
@@ -51,7 +52,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
     } else {
       return Promise(fulfilled: (
         GraphQLResult(data: nil,
-                      extensions: nil,
+                      extensions: extensions,
                       errors: errors,
                       source: .server,
                       dependentKeys: nil),
@@ -70,12 +71,12 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
 
   func parseResultFast() throws -> GraphQLResult<Data>  {
     let errors = self.parseErrorsOnlyFast()
+    let extensions = body["extensions"] as? JSONObject
 
     if let dataEntry = body["data"] as? JSONObject {
       let data = try decode(selectionSet: Data.self,
                             from: dataEntry,
                             variables: variables)
-      let extensions = body["extensions"] as? JSONObject
 
       return GraphQLResult(data: data,
                            extensions: extensions,
@@ -84,7 +85,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
                            dependentKeys: nil)
     } else {
       return GraphQLResult(data: nil,
-                           extensions: nil,
+                           extensions: extensions,
                            errors: errors,
                            source: .server,
                            dependentKeys: nil)

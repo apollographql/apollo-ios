@@ -356,7 +356,7 @@ class ParseQueryResponseTests: XCTestCase {
     XCTAssertNil(result.extensions)
   }
 
-  func testExtensionsEntryNullWhenDataEntryNotProvidedInResponse() throws {
+  func testExtensionsEntryNotNullWhenDataEntryNotProvidedInResponse() throws {
     let query = HumanQuery(id: "9999")
 
     let response = GraphQLResponse(operation: query, body: [
@@ -365,7 +365,7 @@ class ParseQueryResponseTests: XCTestCase {
 
     let (result, _) = try response.parseResult().await()
 
-    XCTAssertNil(result.extensions)
+    XCTAssertNotNil(result.extensions)
   }
 
   // MARK: Mutations
