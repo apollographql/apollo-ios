@@ -314,6 +314,60 @@ class ParseQueryResponseTests: XCTestCase {
     }
   }
   
+  func testExtensionsEntryNotNullWhenProvidedInResponseAccompanyingDataEntry() throws {
+    let query = HumanQuery(id: "9999")
+
+    let response = GraphQLResponse(operation: query, body: [
+      "data": ["human": NSNull()],
+      "extensions": [:]
+    ])
+
+    let (result, _) = try response.parseResult().await()
+
+    XCTAssertNotNil(result.extensions)
+  }
+
+  func testExtensionsValuesWhenPopulatedInResponse() throws {
+    let query = HumanQuery(id: "9999")
+
+    let response = GraphQLResponse(operation: query, body: [
+      "data": ["human": NSNull()],
+      "extensions": ["parentKey": ["childKey": "someValue"]]
+    ])
+
+    let (result, _) = try response.parseResult().await()
+    let extensionsDictionary = result.extensions
+    let childDictionary = extensionsDictionary?["parentKey"] as? JSONObject
+
+    XCTAssertNotNil(extensionsDictionary)
+    XCTAssertNotNil(childDictionary)
+    XCTAssertEqual(childDictionary, ["childKey": "someValue"])
+  }
+
+  func testExtensionsEntryNullWhenNotProvidedInResponse() throws {
+    let query = HumanQuery(id: "9999")
+
+    let response = GraphQLResponse(operation: query, body: [
+      "data": ["human": NSNull()]
+    ])
+
+    let (result, _) = try response.parseResult().await()
+
+    XCTAssertNil(result.extensions)
+  }
+
+  func testExtensionsEntryNotNullWhenDataEntryNotProvidedInResponse() throws {
+    let query = HumanQuery(id: "9999")
+
+    let response = GraphQLResponse(operation: query, body: [
+      "extensions": [:]
+    ])
+
+    let (result, _) = try response.parseResult().await()
+
+    XCTAssertNotNil(result.extensions)
+  }
+
   // MARK: Mutations
   
   func testCreateReviewForEpisode() throws {
