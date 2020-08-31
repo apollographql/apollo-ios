@@ -1,5 +1,5 @@
 /// Represents a GraphQL response received from a server.
-public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable{
+public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
   
   public init<T>(from data: Foundation.Data, decoder: T) throws where T : FlexibleDecoder {
     // Giant hack to make all this conform to Parseable.
