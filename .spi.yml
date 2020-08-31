@@ -1,0 +1,14 @@
+
+version: 1
+builder:
+  configs:
+  - platform: ios
+    scheme: Apollo
+  - platform: macos-xcodebuild
+    scheme: Apollo
+  - platform: macos-xcodebuild-arm
+    scheme: Apollo
+  - platform: tvos
+    scheme: Apollo
+  - platform: watchos
+    scheme: Apollo
