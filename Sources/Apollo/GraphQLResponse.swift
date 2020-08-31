@@ -61,7 +61,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
     }
   }
 
-  func parseErrorsOnlyFast() -> [GraphQLError]? {
+  public func parseErrorsOnlyFast() -> [GraphQLError]? {
     guard let errorsEntry = self.body["errors"] as? [JSONObject] else {
       return nil
     }
@@ -69,7 +69,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
     return errorsEntry.map(GraphQLError.init)
   }
 
-  func parseResultFast() throws -> GraphQLResult<Data>  {
+  public func parseResultFast() throws -> GraphQLResult<Data>  {
     let errors = self.parseErrorsOnlyFast()
     let extensions = body["extensions"] as? JSONObject
 
