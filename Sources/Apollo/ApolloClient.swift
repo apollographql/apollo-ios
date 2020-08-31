@@ -73,7 +73,6 @@ public class ApolloClient {
   }
 
   private func handleOperationResult<Data: GraphQLSelectionSet>(shouldPublishResultToStore: Bool,
-                                                                context: UnsafeMutableRawPointer?,
                                                                 _ result: Result<GraphQLResponse<Data>, Error>,
                                                                 resultHandler: @escaping GraphQLResultHandler<Data>) {
     switch result {
@@ -98,7 +97,7 @@ public class ApolloClient {
             return
           }
           if let records = records {
-            self.store.publish(records: records, context: context).catch { error in
+            self.store.publish(records: records).catch { error in
               preconditionFailure(String(describing: error))
             }
           }
@@ -129,10 +128,9 @@ extension ApolloClient: ApolloClientProtocol {
   }
   
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
-                                                                     cachePolicy: CachePolicy = .returnCacheDataElseFetch,
-                                                                     context: UnsafeMutableRawPointer? = nil,
-                                                                     queue: DispatchQueue = DispatchQueue.main,
-                                                                     resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
+                                                            cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                                            queue: DispatchQueue = DispatchQueue.main,
+                                                            resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: query,
                                       cachePolicy: cachePolicy,
                                       completionHandler: wrapResultHandler(resultHandler, queue: queue))
@@ -151,8 +149,8 @@ extension ApolloClient: ApolloClientProtocol {
 
   @discardableResult
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
-                                                          queue: DispatchQueue = .main,
-                                                          resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
+                                                 queue: DispatchQueue = .main,
+                                                 resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: mutation, cachePolicy: .default) { result in
       resultHandler?(result)
     }

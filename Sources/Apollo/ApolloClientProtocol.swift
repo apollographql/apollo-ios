@@ -22,13 +22,11 @@ public protocol ApolloClientProtocol: class {
   /// - Parameters:
   ///   - query: The query to fetch.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
-  ///   - context: [optional] A context to use for the cache to work with results. Should default to nil.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
-                                  context: UnsafeMutableRawPointer?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> Cancellable
 
@@ -50,7 +48,6 @@ public protocol ApolloClientProtocol: class {
   ///
   /// - Parameters:
   ///   - mutation: The mutation to perform.
-  ///   - context: [optional] A context to use for the cache to work with results. Should default to nil.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
@@ -62,7 +59,6 @@ public protocol ApolloClientProtocol: class {
   ///
   /// - Parameters:
   ///   - operation: The operation to send
-  ///   - context: [optional] A context to use for the cache to work with results. Should default to nil.
   ///   - files: An array of `GraphQLFile` objects to send.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - completionHandler: The completion handler to execute when the request completes or errors
