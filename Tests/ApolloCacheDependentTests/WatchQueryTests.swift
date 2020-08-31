@@ -68,6 +68,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       watcher.refetch()
       
       waitForExpectations(timeout: 5, handler: nil)
+      
+      watcher.cancel()
     }
   }
   
