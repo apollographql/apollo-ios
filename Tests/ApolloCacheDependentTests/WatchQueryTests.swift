@@ -580,6 +580,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
   
   func testWatchedQueryDependentKeysAreUpdated() {
     withCache { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -595,9 +596,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-      ])
+      ], store: store)
 
-      let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
 
@@ -676,7 +676,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
 
       /// Send an update that updates friend #11 on a different query
-      networkTransport.body = [
+      networkTransport.updateBody(to: [
         "data": [
           "hero": [
             "id": "2",
@@ -691,7 +691,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-      ]
+      ])
 
       /// This fetch should trigger our watcher on friend #11
       client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)

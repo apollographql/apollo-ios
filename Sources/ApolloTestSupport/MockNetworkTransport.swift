@@ -19,7 +19,7 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
                endpointURL: TestURL.mockServer.url)
   }
   
-  func updateBody(to body: JSONObject) {
+  public func updateBody(to body: JSONObject) {
     self.mockClient.data = try! JSONSerializationFormat.serialize(value: body)
   }
 }
