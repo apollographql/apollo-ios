@@ -600,6 +600,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       client.store.cacheKeyForObject = { $0["id"] }
 
       let query = HeroAndFriendsNamesWithIDsQuery()
+      let hasPicardFriendExpecation = self.expectation(description: "Has friend named Jean-Luc Picard")
       let hasHanSoloFriendExpecation = self.expectation(description: "Has friend named Han Solo")
       let initialFetchExpectation = self.expectation(description: "Initial fetch")
       var isInitialFetch = true
@@ -628,6 +629,10 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             XCTFail("404 friends not found")
             return
           }
+          
+          if friends.contains(where: { $0?.name == "Jean-Luc Picard" }) {
+            hasPicardFriendExpecation.fulfill()
+          }
           if friends.contains(where: { $0?.name == "Han Solo" }) {
             hasHanSoloFriendExpecation.fulfill()
           }
@@ -649,7 +654,24 @@ class WatchQueryTests: XCTestCase, CacheTesting {
           updateInitialQueryExpectation.fulfill()
         }
       })
-      wait(for: [updateInitialQueryExpectation], timeout: 1)
+      
+      /// The dependent keys should have changed here since we've now added a new friend to the user's friends.
+      expectedDependentKeys = [
+        "0.__typename",
+        "0.friends",
+        "0.id",
+        "0.name",
+        "10.__typename",
+        "10.id",
+        "10.name",
+        "11.__typename",
+        "11.id",
+        "11.name",
+        "QUERY_ROOT.hero"
+      ]
+      
+      wait(for: [updateInitialQueryExpectation, hasPicardFriendExpecation], timeout: 1)
+      
 
       /// Send an update that updates friend #11 on a different query
       networkTransport.body = [
@@ -668,27 +690,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
           ]
         ]
       ]
+
+      /// This fetch should trigger our watcher on friend #11
+      client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)
       
-      expectedDependentKeys = [
-        "0.__typename",
-        "0.friends",
-        "0.id",
-        "0.name",
-        "10.__typename",
-        "10.id",
-        "10.name",
-        "11.__typename",
-        "11.id",
-        "11.name",
-        "QUERY_ROOT.hero"
-      ]
-
-      let finalFetchExpectation = self.expectation(description: "Final fetch executed")
-      client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData) { result in
-        finalFetchExpectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
+      self.wait(for: [hasHanSoloFriendExpecation], timeout: 1)
     }
   }
 }
