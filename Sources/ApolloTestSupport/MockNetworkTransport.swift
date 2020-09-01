@@ -2,7 +2,7 @@ import Apollo
 import Dispatch
 
 public final class MockNetworkTransport: NetworkTransport {
-  let body: JSONObject
+  public var body: JSONObject
 
   public var clientName = "MockNetworkTransport"
   public var clientVersion = "mock_version"
