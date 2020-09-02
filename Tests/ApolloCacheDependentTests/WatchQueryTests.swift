@@ -604,7 +604,6 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       let hasPicardFriendExpecation = self.expectation(description: "Has friend named Jean-Luc Picard")
       let hasHanSoloFriendExpecation = self.expectation(description: "Has friend named Han Solo")
       let initialFetchExpectation = self.expectation(description: "Initial fetch")
-      var isInitialFetch = true
       var expectedDependentKeys = [
         "0.__typename",
         "0.friends",
@@ -616,12 +615,14 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "QUERY_ROOT.hero",
       ]
       
+      #warning("Figure out if there's a way not have the fetch also cause a cache update to fire without putting the context back in everywhere")
+      var fetchCount = 0
       _ = client.watch(query: query) { result in
         defer {
-          if isInitialFetch {
-            isInitialFetch = false
+          if fetchCount == 1 {
             initialFetchExpectation.fulfill()
           }
+          fetchCount += 1
         }
         switch result {
         case .success(let graphQLResult):
