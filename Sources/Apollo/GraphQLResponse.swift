@@ -21,6 +21,16 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
     self.rootKey = rootCacheKey(for: operation)
     self.variables = operation.variables
   }
+  
+  public func parseResultWithCompletion(cacheKeyForObject: CacheKeyForObject? = nil,
+                                        completion: (Result<(GraphQLResult<Data>, RecordSet?), Error>) -> Void) {
+    do {
+      let result = try parseResult(cacheKeyForObject: cacheKeyForObject).await()
+      completion(.success(result))
+    } catch {
+      completion(.failure(error))
+    }
+  }
 
   func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Data>, RecordSet?)>  {
     let errors: [GraphQLError]?

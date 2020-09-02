@@ -7,8 +7,12 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     case couldNotParseToLegacyJSON(data: Data)
   }
   
+  public var cacheKeyForObject: CacheKeyForObject?
+
   /// Designated Initializer
-  public init() {}
+  public init(cacheKeyForObject: CacheKeyForObject? = nil) {
+    self.cacheKeyForObject = cacheKeyForObject
+  }
   
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
@@ -34,13 +38,30 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
       createdResponse.legacyResponse = graphQLResponse
       
-      let parsedResult = try graphQLResponse.parseResultFast()
-      createdResponse.parsedResponse = parsedResult
-      
-      chain.proceedAsync(request: request,
-                         response: createdResponse,
-                         completion: completion)
-      
+      switch request.cachePolicy {
+      case .fetchIgnoringCacheCompletely:
+        // There is no cache, so we don't need to get any info on dependencies. Use fast parsing.
+        let fastResult = try graphQLResponse.parseResultFast()
+        createdResponse.parsedResponse = fastResult
+        chain.proceedAsync(request: request,
+                           response: createdResponse,
+                           completion: completion)
+      default:
+        graphQLResponse.parseResultWithCompletion(cacheKeyForObject: self.cacheKeyForObject) { parsingResult in
+          switch parsingResult {
+          case .failure(let error):
+            chain.handleErrorAsync(error,
+                                   request: request,
+                                   response: createdResponse,
+                                   completion: completion)
+          case .success(let (parsedResult, _)):
+            createdResponse.parsedResponse = parsedResult
+            chain.proceedAsync(request: request,
+                               response: createdResponse,
+                               completion: completion)
+          }
+        }
+      }
     } catch {
       chain.handleErrorAsync(error,
                              request: request,

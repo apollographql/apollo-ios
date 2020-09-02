@@ -581,6 +581,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
   func testWatchedQueryDependentKeysAreUpdated() {
     withCache { cache in
       let store = ApolloStore(cache: cache)
+      store.cacheKeyForObject = { $0["id"] }
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -599,8 +600,6 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       ], store: store)
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
-      client.store.cacheKeyForObject = { $0["id"] }
-
       let query = HeroAndFriendsNamesWithIDsQuery()
       let hasPicardFriendExpecation = self.expectation(description: "Has friend named Jean-Luc Picard")
       let hasHanSoloFriendExpecation = self.expectation(description: "Has friend named Han Solo")
