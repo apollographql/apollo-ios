@@ -21,3 +21,15 @@ public let body: JSONObject
 ```swift
 public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data
 ```
+
+### `parseErrorsOnlyFast()`
+
+```swift
+public func parseErrorsOnlyFast() -> [GraphQLError]?
+```
+
+### `parseResultFast()`
+
+```swift
+public func parseResultFast() throws -> GraphQLResult<Data>
+```
