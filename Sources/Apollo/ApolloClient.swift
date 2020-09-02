@@ -71,42 +71,6 @@ public class ApolloClient {
     
     self.init(networkTransport: transport, store: store)
   }
-
-  private func handleOperationResult<Data: GraphQLSelectionSet>(shouldPublishResultToStore: Bool,
-                                                                _ result: Result<GraphQLResponse<Data>, Error>,
-                                                                resultHandler: @escaping GraphQLResultHandler<Data>) {
-    switch result {
-    case .failure(let error):
-      resultHandler(.failure(error))
-    case .success(let response):
-      // If there is no need to publish the result to the store, we can use a fast path.
-      if !shouldPublishResultToStore {
-        do {
-          let result = try response.parseResultFast()
-          resultHandler(.success(result))
-        } catch {
-          resultHandler(.failure(error))
-        }
-        return
-      }
-
-      firstly {
-        try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
-        }.andThen { [weak self] (result, records) in
-          guard let self = self else {
-            return
-          }
-          if let records = records {
-            self.store.publish(records: records).catch { error in
-              preconditionFailure(String(describing: error))
-            }
-          }
-          resultHandler(.success(result))
-        }.catch { error in
-          resultHandler(.failure(error))
-      }
-    }
-  }
 }
 
 // MARK: - ApolloClientProtocol conformance
