@@ -641,7 +641,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
           XCTFail("Watcher error: \(error)")
         }
       }
-      wait(for: [initialFetchExpectation], timeout: 5)
+      wait(for: [initialFetchExpectation], timeout: 1)
       
       /// Add an additional friend to the results so that the watcher for this query knows to look for updates to friend #11
       let updateInitialQueryExpectation = self.expectation(description: "Update initial query")
