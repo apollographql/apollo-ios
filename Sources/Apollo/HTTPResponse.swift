@@ -27,7 +27,6 @@ public class HTTPResponse<Operation: GraphQLOperation> {
               parsedResponse: GraphQLResult<Operation.Data>?) {
     self.httpResponse = response
     self.rawData = rawData
-    
     self.parsedResponse = parsedResponse
   }
 }
