@@ -348,6 +348,8 @@ extension WebSocketTransport: NetworkTransport {
   public func send<Operation: GraphQLOperation>(
     operation: Operation,
     cachePolicy: CachePolicy,
+    taskIdentifier: UUID? = nil,
+    callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     if let error = self.error.value {
       completionHandler(.failure(error))
