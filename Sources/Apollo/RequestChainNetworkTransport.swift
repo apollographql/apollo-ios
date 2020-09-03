@@ -44,11 +44,11 @@ public class RequestChainNetworkTransport: NetworkTransport {
   private func constructJSONRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     cachePolicy: CachePolicy,
-    identifier: UUID?) -> JSONRequest<Operation> {
+    contextIdentifier: UUID?) -> JSONRequest<Operation> {
     
     JSONRequest(operation: operation,
                 graphQLEndpoint: self.endpointURL,
-                identifier: identifier,
+                contextIdentifier: contextIdentifier,
                 clientName: self.clientName,
                 clientVersion: self.clientVersion,
                 additionalHeaders: additionalHeaders,
@@ -67,7 +67,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
   public func send<Operation: GraphQLOperation>(
     operation: Operation,
     cachePolicy: CachePolicy = .default,
-    taskIdentifier: UUID? = nil,
+    contextIdentifier: UUID? = nil,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
@@ -75,7 +75,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
     let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
     let request = self.constructJSONRequest(for: operation,
                                             cachePolicy: cachePolicy,
-                                            identifier: taskIdentifier)
+                                            contextIdentifier: contextIdentifier)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain

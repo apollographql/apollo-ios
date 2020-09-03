@@ -8,7 +8,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   public let query: Query
   let resultHandler: GraphQLResultHandler<Query.Data>
 
-  private var identifier = UUID()
+  private var contextIdentifier = UUID()
 
   private weak var fetching: Cancellable?
 
@@ -41,7 +41,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   func fetch(cachePolicy: CachePolicy) {
     // Cancel anything already in flight before starting a new fetch
     fetching?.cancel()
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy,taskIdentifier: self.identifier, queue: callbackQueue) { [weak self] result in
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
       guard let self = self else { return }
 
       switch result {
@@ -66,7 +66,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
              identifier: UUID?) {
     if
       let updatedIdentifier = identifier,
-      updatedIdentifier == self.identifier {
+      updatedIdentifier == self.contextIdentifier {
         // This is from changes to the keys made from the `fetch` method above,
         // changes will be returned through that and do not need to be returned
         // here as well.

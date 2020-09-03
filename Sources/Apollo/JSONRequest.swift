@@ -17,7 +17,7 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   /// - Parameters:
   ///   - operation: The GraphQL Operation to execute
   ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
-  ///   - identifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
+  ///   - contextIdentifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
   ///   - clientName: The name of the client to send with the `"apollographql-client-name"` header
   ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
   ///   - additionalHeaders: Any additional headers you wish to add by default to this request
@@ -28,7 +28,7 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
   public init(operation: Operation,
               graphQLEndpoint: URL,
-              identifier: UUID? = nil,
+              contextIdentifier: UUID? = nil,
               clientName: String,
               clientVersion: String,
               additionalHeaders: [String: String] = [:],
@@ -44,7 +44,7 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     
     super.init(graphQLEndpoint: graphQLEndpoint,
                operation: operation,
-               identifier: identifier,
+               contextIdentifier: contextIdentifier,
                contentType: "application/json",
                clientName: clientName,
                clientVersion: clientVersion,

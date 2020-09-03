@@ -44,19 +44,19 @@ extension SplitNetworkTransport: NetworkTransport {
 
   public func send<Operation: GraphQLOperation>(operation: Operation,
                                                 cachePolicy: CachePolicy,
-                                                taskIdentifier: UUID? = nil,
+                                                contextIdentifier: UUID? = nil,
                                                 callbackQueue: DispatchQueue = .main,
                                                 completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     if operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
-                                            taskIdentifier: taskIdentifier,
+                                            contextIdentifier: contextIdentifier,
                                             callbackQueue: callbackQueue,
                                             completionHandler: completionHandler)
     } else {
       return uploadingNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
-                                            taskIdentifier: taskIdentifier,
+                                            contextIdentifier: contextIdentifier,
                                             callbackQueue: callbackQueue,
                                             completionHandler: completionHandler)
     }

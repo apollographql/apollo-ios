@@ -87,12 +87,12 @@ extension ApolloClient: ApolloClientProtocol {
   
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
                                                             cachePolicy: CachePolicy = .returnCacheDataElseFetch,
-                                                            taskIdentifier: UUID? = nil,
+                                                            contextIdentifier: UUID? = nil,
                                                             queue: DispatchQueue = DispatchQueue.main,
                                                             resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: query,
                                       cachePolicy: cachePolicy,
-                                      taskIdentifier: taskIdentifier,
+                                      contextIdentifier: contextIdentifier,
                                       callbackQueue: queue) { result in
       resultHandler?(result)
     }
@@ -114,7 +114,7 @@ extension ApolloClient: ApolloClientProtocol {
                                                  resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: mutation,
                                       cachePolicy: .default,
-                                      taskIdentifier: nil,
+                                      contextIdentifier: nil,
                                       callbackQueue: queue) { result in
        resultHandler?(result)
     }
@@ -146,7 +146,7 @@ extension ApolloClient: ApolloClientProtocol {
                                                            resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable {
     return self.networkTransport.send(operation: subscription,
                                       cachePolicy: .default,
-                                      taskIdentifier: nil,
+                                      contextIdentifier: nil,
                                       callbackQueue: queue,
                                       completionHandler: resultHandler)
   }
