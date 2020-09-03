@@ -48,10 +48,11 @@ public class RequestChainNetworkTransport: NetworkTransport {
   public func send<Operation: GraphQLOperation>(
     operation: Operation,
     cachePolicy: CachePolicy = .default,
+    callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
-    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
-        
+    let interceptors = self.interceptorProvider.interceptors(for: operation)
+    let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
     let request = self.constructJSONRequest(for: operation, cachePolicy: cachePolicy)
     
     chain.kickoff(request: request, completion: completionHandler)
@@ -74,11 +75,12 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
+    callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
     let request = self.createUploadRequest(for: operation, with: files)
-    
-    let chain = RequestChain(interceptors: interceptorProvider.interceptors(for: operation))
+    let interceptors = self.interceptorProvider.interceptors(for: operation)
+    let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain

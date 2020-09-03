@@ -80,7 +80,8 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
 
-  public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
+  public func clearCache(callbackQueue: DispatchQueue = .main,
+                         completion: ((Result<Void, Error>) -> Void)? = nil) {
     self.store.clearCache(completion: completion)
   }
   
@@ -90,16 +91,17 @@ extension ApolloClient: ApolloClientProtocol {
                                                             resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: query,
                                       cachePolicy: cachePolicy,
-                                      completionHandler: wrapResultHandler(resultHandler, queue: queue))
+                                      callbackQueue: queue) { result in
+      resultHandler?(result)
+    }
   }
 
   public func watch<Query: GraphQLQuery>(query: Query,
                                          cachePolicy: CachePolicy = .returnCacheDataElseFetch,
-                                         queue: DispatchQueue = .main,
                                          resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query> {
     let watcher = GraphQLQueryWatcher(client: self,
                                       query: query,
-                                      resultHandler: wrapResultHandler(resultHandler, queue: queue))
+                                      resultHandler: resultHandler)
     watcher.fetch(cachePolicy: cachePolicy)
     return watcher
   }
@@ -108,8 +110,10 @@ extension ApolloClient: ApolloClientProtocol {
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                                  queue: DispatchQueue = .main,
                                                  resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
-    return self.networkTransport.send(operation: mutation, cachePolicy: .default) { result in
-      resultHandler?(result)
+    return self.networkTransport.send(operation: mutation,
+                                      cachePolicy: .default,
+                                      callbackQueue: queue) { result in
+       resultHandler?(result)
     }
   }
 
@@ -118,37 +122,30 @@ extension ApolloClient: ApolloClientProtocol {
                                                   files: [GraphQLFile],
                                                   queue: DispatchQueue = .main,
                                                   resultHandler: GraphQLResultHandler<Operation.Data>? = nil) -> Cancellable {
-    let wrappedHandler = wrapResultHandler(resultHandler, queue: queue)
     guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
       assertionFailure("Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`.")
-      wrappedHandler(.failure(ApolloClientError.noUploadTransport))
+      queue.async {
+        resultHandler?(.failure(ApolloClientError.noUploadTransport))
+      }
       return EmptyCancellable()
     }
 
-    return uploadingTransport.upload(operation: operation, files: files) { result in
+    return uploadingTransport.upload(operation: operation,
+                                     files: files,
+                                     callbackQueue: queue) { result in
       resultHandler?(result)
     }
   }
   
-
   @discardableResult
   public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
                                                            queue: DispatchQueue = .main,
                                                            resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable {
     return self.networkTransport.send(operation: subscription,
                                       cachePolicy: .default,
-                                      completionHandler: wrapResultHandler(resultHandler, queue: queue))
+                                      callbackQueue: queue,
+                                      completionHandler: resultHandler)
   }
 }
 
-private func wrapResultHandler<Data>(_ resultHandler: GraphQLResultHandler<Data>?, queue handlerQueue: DispatchQueue) -> GraphQLResultHandler<Data> {
-  guard let resultHandler = resultHandler else {
-    return { _ in }
-  }
 
-  return { result in
-    handlerQueue.async {
-      resultHandler(result)
-    }
-  }
-}

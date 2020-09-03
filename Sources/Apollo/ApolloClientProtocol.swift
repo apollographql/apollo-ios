@@ -34,14 +34,11 @@ public protocol ApolloClientProtocol: class {
   ///
   /// - Parameters:
   ///   - query: The query to fetch.
-  ///   - fetchHTTPMethod: The HTTP Method to be used.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the local cache.
-  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   func watch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
-                                  queue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 
   /// Performs a mutation by sending it to the server.
@@ -61,9 +58,8 @@ public protocol ApolloClientProtocol: class {
   ///   - operation: The operation to send
   ///   - files: An array of `GraphQLFile` objects to send.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
-  ///   - completionHandler: The completion handler to execute when the request completes or errors
+  ///   - completionHandler: The completion handler to execute when the request completes or errors. Note that an error will be returned If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   /// - Returns: An object that can be used to cancel an in progress request.
-  /// - Throws: If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   func upload<Operation: GraphQLOperation>(operation: Operation,
                                            files: [GraphQLFile],
                                            queue: DispatchQueue,
