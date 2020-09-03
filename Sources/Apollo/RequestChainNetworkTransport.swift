@@ -41,9 +41,14 @@ public class RequestChainNetworkTransport: NetworkTransport {
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
   }
   
-  private func constructJSONRequest<Operation: GraphQLOperation>(for operation: Operation, cachePolicy: CachePolicy) -> JSONRequest<Operation> {
+  private func constructJSONRequest<Operation: GraphQLOperation>(
+    for operation: Operation,
+    cachePolicy: CachePolicy,
+    identifier: UUID?) -> JSONRequest<Operation> {
+    
     JSONRequest(operation: operation,
                 graphQLEndpoint: self.endpointURL,
+                identifier: identifier,
                 clientName: self.clientName,
                 clientVersion: self.clientVersion,
                 additionalHeaders: additionalHeaders,
@@ -62,12 +67,15 @@ public class RequestChainNetworkTransport: NetworkTransport {
   public func send<Operation: GraphQLOperation>(
     operation: Operation,
     cachePolicy: CachePolicy = .default,
+    taskIdentifier: UUID? = nil,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
     let interceptors = self.interceptorProvider.interceptors(for: operation)
     let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
-    let request = self.constructJSONRequest(for: operation, cachePolicy: cachePolicy)
+    let request = self.constructJSONRequest(for: operation,
+                                            cachePolicy: cachePolicy,
+                                            identifier: taskIdentifier)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain

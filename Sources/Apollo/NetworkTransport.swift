@@ -14,6 +14,7 @@ public protocol NetworkTransport: class {
   /// - Returns: An object that can be used to cancel an in progress request.
   func send<Operation: GraphQLOperation>(operation: Operation,
                                          cachePolicy: CachePolicy,
+                                         taskIdentifier: UUID?,
                                          callbackQueue: DispatchQueue,
                                          completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable
 

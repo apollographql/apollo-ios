@@ -27,6 +27,7 @@ public protocol ApolloClientProtocol: class {
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
+                                  taskIdentifier: UUID?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> Cancellable
 

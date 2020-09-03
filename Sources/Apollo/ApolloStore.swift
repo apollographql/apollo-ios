@@ -2,7 +2,7 @@ import Dispatch
 
 /// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
 public typealias CacheKeyForObject = (_ object: JSONObject) -> JSONValue?
-public typealias DidChangeKeysFunc = (Set<CacheKey>, UnsafeMutableRawPointer?) -> Void
+public typealias DidChangeKeysFunc = (Set<CacheKey>, UUID?) -> Void
 
 func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> String {
   switch operation.operationType {
@@ -18,7 +18,7 @@ func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> Stri
 protocol ApolloStoreSubscriber: class {
   func store(_ store: ApolloStore,
              didChangeKeys changedKeys: Set<CacheKey>,
-             context: UnsafeMutableRawPointer?)
+             identifier: UUID?)
 }
 
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
@@ -43,9 +43,9 @@ public final class ApolloStore {
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
   }
 
-  fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?) {
+  fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>, identifier: UUID?) {
     for subscriber in self.subscribers {
-      subscriber.store(self, didChangeKeys: changedKeys, context: context)
+      subscriber.store(self, didChangeKeys: changedKeys, identifier: identifier)
     }
   }
 
@@ -64,13 +64,13 @@ public final class ApolloStore {
     }
   }
 
-  func publish(records: RecordSet, context: UnsafeMutableRawPointer? = nil) -> Promise<Void> {
+  func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
           self.cache.mergePromise(records: records)
         }.andThen { changedKeys in
-          self.didChangeKeys(changedKeys, context: context)
+          self.didChangeKeys(changedKeys, identifier: identifier)
           fulfill(())
         }.wait()
       }

@@ -27,11 +27,15 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   /// The `CachePolicy` to use for this request.
   public let cachePolicy: CachePolicy
   
+  /// [optional] A unique identifier for this request, to help with deduping cache hits for watchers.
+  public let identifier: UUID?
+  
   /// Designated Initializer
   ///
   /// - Parameters:
   ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
   ///   - operation: The GraphQL Operation to execute
+  ///   - identifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
   ///   - contentType: The `Content-Type` header's value. Should usually be set for you by a subclass.
   ///   - clientName: The name of the client to send with the `"apollographql-client-name"` header
   ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
@@ -39,6 +43,7 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   ///   - cachePolicy: The `CachePolicy` to use for this request. Defaults to the `.default` policy
   public init(graphQLEndpoint: URL,
               operation: Operation,
+              identifier: UUID? = nil,
               contentType: String,
               clientName: String,
               clientVersion: String,
@@ -46,6 +51,7 @@ open class HTTPRequest<Operation: GraphQLOperation> {
               cachePolicy: CachePolicy = .default) {
     self.graphQLEndpoint = graphQLEndpoint
     self.operation = operation
+    self.identifier = identifier
     self.contentType = contentType
     self.clientName = clientName
     self.clientVersion = clientVersion

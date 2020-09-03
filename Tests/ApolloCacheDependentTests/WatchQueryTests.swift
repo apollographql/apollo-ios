@@ -615,11 +615,10 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "QUERY_ROOT.hero",
       ]
       
-      #warning("Figure out if there's a way not have the fetch also cause a cache update to fire without putting the context back in everywhere")
       var fetchCount = 0
       let watcher = client.watch(query: query) { result in
         defer {
-          if fetchCount == 1 {
+          if fetchCount == 0 {
             initialFetchExpectation.fulfill()
           }
           fetchCount += 1

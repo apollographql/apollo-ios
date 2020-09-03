@@ -50,7 +50,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
       }
       
       if let records = records {
-        self.store.publish(records: records)
+        self.store.publish(records: records, identifier: request.identifier)
           .catch { error in
             preconditionFailure(String(describing: error))
         }
