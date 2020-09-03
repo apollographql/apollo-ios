@@ -617,7 +617,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       #warning("Figure out if there's a way not have the fetch also cause a cache update to fire without putting the context back in everywhere")
       var fetchCount = 0
-      _ = client.watch(query: query) { result in
+      let watcher = client.watch(query: query) { result in
         defer {
           if fetchCount == 1 {
             initialFetchExpectation.fulfill()
@@ -697,6 +697,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)
       
       self.wait(for: [hasHanSoloFriendExpecation], timeout: 1)
+      
+      watcher.cancel()
     }
   }
 }
