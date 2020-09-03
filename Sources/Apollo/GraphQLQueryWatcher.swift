@@ -74,7 +74,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     }
 
     guard let dependentKeys = dependentKeys else {
-      // This query has nil dependent keys, so nothing that canged will affect it.
+      // This query has nil dependent keys, so nothing that changed will affect it.
       return
     }
 
