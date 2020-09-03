@@ -16,7 +16,7 @@ public class RequestChain: Cancellable {
   public private(set) var callbackQueue: DispatchQueue
   public private(set) var isCancelled = Atomic<Bool>(false)
   
-  /// Helper var for readability in guard statements
+  /// Checks the underlying value of `isCancelled`. Set up like this for better readability in `guard` statements
   public var isNotCancelled: Bool {
     !self.isCancelled.value
   }

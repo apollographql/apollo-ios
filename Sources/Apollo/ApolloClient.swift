@@ -14,6 +14,7 @@ public enum CachePolicy {
   /// Return data from the cache if available, and always fetch results from the server.
   case returnCacheDataAndFetch
   
+  /// The current default cache policy.
   public static var `default`: CachePolicy {
     .returnCacheDataElseFetch
   }
@@ -74,7 +75,6 @@ extension ApolloClient: ApolloClientProtocol {
     get {
       return self.store.cacheKeyForObject
     }
-
     set {
       self.store.cacheKeyForObject = newValue
     }
