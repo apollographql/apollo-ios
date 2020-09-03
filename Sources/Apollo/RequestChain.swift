@@ -13,8 +13,8 @@ public class RequestChain: Cancellable {
   
   private let interceptors: [ApolloInterceptor]
   private var currentIndex: Int
-  public private(set) var callbackQueue: DispatchQueue
-  public private(set) var isCancelled = Atomic<Bool>(false)
+  private var callbackQueue: DispatchQueue
+  private var isCancelled = Atomic<Bool>(false)
   
   /// Checks the underlying value of `isCancelled`. Set up like this for better readability in `guard` statements
   public var isNotCancelled: Bool {

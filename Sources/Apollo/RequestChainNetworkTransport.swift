@@ -82,6 +82,8 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     
     UploadRequest(graphQLEndpoint: self.endpointURL,
                   operation: operation,
+                  clientName: self.clientName,
+                  clientVersion: self.clientVersion,
                   files: files,
                   requestCreator: self.requestCreator)
   }

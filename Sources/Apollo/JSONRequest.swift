@@ -17,6 +17,8 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   /// - Parameters:
   ///   - operation: The GraphQL Operation to execute
   ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
+  ///   - clientName: The name of the client to send with the `"apollographql-client-name"` header
+  ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
   ///   - additionalHeaders: Any additional headers you wish to add by default to this request
   ///   - cachePolicy: The `CachePolicy` to use for this request.
   ///   - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
@@ -25,8 +27,8 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
   public init(operation: Operation,
               graphQLEndpoint: URL,
-              clientName: String? = nil,
-              clientVersion: String? = nil,
+              clientName: String,
+              clientVersion: String,
               additionalHeaders: [String: String] = [:],
               cachePolicy: CachePolicy = .default,
               autoPersistQueries: Bool = false,

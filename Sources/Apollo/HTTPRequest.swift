@@ -15,11 +15,11 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   /// Any additional headers you wish to add by default to this request
   open var additionalHeaders: [String: String]
   
-  /// [optional] The name of the current client, defaults to nil
-  open var clientName: String? = nil
+  /// The name of the client to send with the `"apollographql-client-name"` header
+  open var clientName: String
   
-  /// [optional] The version of the current client, defaults to nil
-  open var clientVersion: String? = nil
+  /// The version of the client to send with the `"apollographql-client-version"` header
+  open var clientVersion: String
   
   /// How many times this request has been retried. Must be incremented manually. Defaults to zero.
   open var retryCount: Int = 0
@@ -33,13 +33,15 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
   ///   - operation: The GraphQL Operation to execute
   ///   - contentType: The `Content-Type` header's value. Should usually be set for you by a subclass.
+  ///   - clientName: The name of the client to send with the `"apollographql-client-name"` header
+  ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
   ///   - additionalHeaders: Any additional headers you wish to add by default to this request.
   ///   - cachePolicy: The `CachePolicy` to use for this request. Defaults to the `.default` policy
   public init(graphQLEndpoint: URL,
               operation: Operation,
               contentType: String,
-              clientName: String? = nil,
-              clientVersion: String? = nil,
+              clientName: String,
+              clientVersion: String,
               additionalHeaders: [String: String],
               cachePolicy: CachePolicy = .default) {
     self.graphQLEndpoint = graphQLEndpoint
@@ -49,35 +51,6 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     self.clientVersion = clientVersion
     self.additionalHeaders = additionalHeaders
     self.cachePolicy = cachePolicy
-  }
-  
-  public var defaultClientName: String {
-    guard let identifier = Bundle.main.bundleIdentifier else {
-      return "apollo-ios-client"
-    }
-    
-    return "\(identifier)-apollo-ios"
-  }
-  
-  public var defaultClientVersion: String {
-    var version = String()
-    if let shortVersion = Bundle.main.apollo.shortVersion {
-      version.append(shortVersion)
-    }
-    
-    if let buildNumber = Bundle.main.apollo.buildNumber {
-      if version.isEmpty {
-        version.append(buildNumber)
-      } else {
-        version.append("-\(buildNumber)")
-      }
-    }
-    
-    if version.isEmpty {
-      version = "(unknown)"
-    }
-    
-    return version
   }
   
   open func addHeader(name: String, value: String) {
@@ -100,8 +73,8 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     if let operationID = self.operation.operationIdentifier {
       request.addValue(operationID, forHTTPHeaderField: "X-APOLLO-OPERATION-ID")
     }
-    request.addValue(self.clientVersion ?? self.defaultClientVersion, forHTTPHeaderField: "apollographql-client-version")
-    request.addValue(self.clientName ?? self.defaultClientVersion   , forHTTPHeaderField: "apollographql-client-name")
+    request.addValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
+    request.addValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
     
     return request
   }
