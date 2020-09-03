@@ -32,9 +32,6 @@ public class ApolloClient {
 
   public let store: ApolloStore // <- conformance to ApolloClientProtocol
 
-  private let queue: DispatchQueue
-  private let operationQueue: OperationQueue
-
   public enum ApolloClientError: Error, LocalizedError {
     case noUploadTransport
 
@@ -54,10 +51,6 @@ public class ApolloClient {
   public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
     self.networkTransport = networkTransport
     self.store = store
-
-    queue = DispatchQueue(label: "com.apollographql.ApolloClient")
-    operationQueue = OperationQueue()
-    operationQueue.underlyingQueue = queue
   }
 
   /// Creates a client with an HTTP network transport connecting to the specified URL.
