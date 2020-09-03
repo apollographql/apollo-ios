@@ -16,9 +16,16 @@ func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> Stri
 }
 
 protocol ApolloStoreSubscriber: class {
+  
+  /// A callback that can be received by subcribers when keys are changed within the database
+  ///
+  /// - Parameters:
+  ///   - store: The store which made the changes
+  ///   - changedKeys: The list of changed keys
+  ///   - contextIdentifier: [optional] A unique identifier for the request that kicked off this change, to assist in de-duping cache hits for watchers.
   func store(_ store: ApolloStore,
              didChangeKeys changedKeys: Set<CacheKey>,
-             identifier: UUID?)
+             contextIdentifier: UUID?)
 }
 
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.

@@ -63,10 +63,10 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   func store(_ store: ApolloStore,
              didChangeKeys changedKeys: Set<CacheKey>,
-             identifier: UUID?) {
+             contextIdentifier: UUID?) {
     if
-      let updatedIdentifier = identifier,
-      updatedIdentifier == self.contextIdentifier {
+      let incomingIdentifier = contextIdentifier,
+      incomingIdentifier == self.contextIdentifier {
         // This is from changes to the keys made from the `fetch` method above,
         // changes will be returned through that and do not need to be returned
         // here as well.
