@@ -3,6 +3,7 @@ import Foundation
 import ApolloCore
 #endif
 
+/// A chain that allows a single network request to be created and executed.
 public class RequestChain: Cancellable {
   
   public enum ChainError: Error {
@@ -130,7 +131,7 @@ public class RequestChain: Cancellable {
     self.kickoff(request: request, completion: completion)
   }
   
-  /// Handles the error by returning it, or by applying an additional error interceptor if one has been provided.
+  /// Handles the error by returning it on the appropriate queue, or by applying an additional error interceptor if one has been provided.
   ///
   /// - Parameters:
   ///   - error: The error to handle
@@ -161,6 +162,12 @@ public class RequestChain: Cancellable {
                                        completion: completion)
   }
   
+  /// Handles a resulting value by returning it on the appropriate queue.
+  ///
+  /// - Parameters:
+  ///   - request: The request, as far as it has been constructed.
+  ///   - value: The value to be returned
+  ///   - completion: The completion closure to call when work is complete.
   public func returnValueAsync<Operation: GraphQLOperation>(
     for request: HTTPRequest<Operation>,
     value: GraphQLResult<Operation.Data>,
