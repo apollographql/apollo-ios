@@ -52,7 +52,7 @@ public final class ApolloStore {
 
   fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>, identifier: UUID?) {
     for subscriber in self.subscribers {
-      subscriber.store(self, didChangeKeys: changedKeys, identifier: identifier)
+      subscriber.store(self, didChangeKeys: changedKeys, contextIdentifier: identifier)
     }
   }
 
