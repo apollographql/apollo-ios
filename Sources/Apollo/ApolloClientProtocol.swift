@@ -23,7 +23,7 @@ public protocol ApolloClientProtocol: class {
   ///   - query: The query to fetch.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
-  ///   - contextIdentifier: 
+  ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
