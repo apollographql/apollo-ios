@@ -6,9 +6,18 @@ import ApolloCore
 /// A chain that allows a single network request to be created and executed.
 public class RequestChain: Cancellable {
   
-  public enum ChainError: Error {
+  public enum ChainError: Error, LocalizedError {
     case invalidIndex(chain: RequestChain, index: Int)
     case noInterceptors
+    
+    public var errorDescription: String? {
+      switch self {
+      case .noInterceptors:
+        return "No interceptors were provided to this chain. This is a developer error."
+      case .invalidIndex(_, let index):
+        return "`proceedAsync` was called for index \(index), which is out of bounds of the receiver for this chain. Double-check the order of your interceptors."
+      }
+    }
   }
   
   private let interceptors: [ApolloInterceptor]

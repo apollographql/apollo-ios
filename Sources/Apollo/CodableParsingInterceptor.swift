@@ -2,8 +2,15 @@ import Foundation
 
 public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInterceptor {
   
-  enum CodableParsingError: Error {
+  public enum CodableParsingError: Error, LocalizedError {
     case noResponseToParse
+    
+    public var errorDescription: String? {
+      switch self {
+      case .noResponseToParse:
+        return "The Codable Parsing Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
+      }
+    }
   }
 
   let decoder: FlexDecoder

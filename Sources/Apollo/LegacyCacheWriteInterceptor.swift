@@ -2,8 +2,16 @@ import Foundation
 
 /// An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
 public class LegacyCacheWriteInterceptor: ApolloInterceptor {
-  public enum LegacyCacheWriteError: Error {
+  
+  public enum LegacyCacheWriteError: Error, LocalizedError {
     case noResponseToParse
+    
+    public var errorDescription: String? {
+      switch self {
+      case .noResponseToParse:
+        return "The Legacy Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
+      }
+    }
   }
   
   public let store: ApolloStore

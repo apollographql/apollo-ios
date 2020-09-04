@@ -2,9 +2,18 @@ import Foundation
 
 public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
   
-  public enum APQError: Error {
+  public enum APQError: LocalizedError {
     case noParsedResponse
     case persistedQueryRetryFailed(operationName: String)
+    
+    public var errorDescription: String? {
+      switch self {
+      case .noParsedResponse:
+        return "The Automatic Persisted Query Interceptor was called before a response was received. Double-check the order of your interceptors."
+      case .persistedQueryRetryFailed(let operationName):
+        return "Persisted query retry failed for operation \"\(operationName)\"."
+      }
+    }
   }
   
   /// Designated initializer

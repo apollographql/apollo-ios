@@ -2,9 +2,28 @@ import Foundation
 
 /// An interceptor which parses code using the legacy parsing system.
 public class LegacyParsingInterceptor: ApolloInterceptor {
-  public enum LegacyParsingError: Error {
+  
+  public enum LegacyParsingError: Error, LocalizedError {
     case noResponseToParse
     case couldNotParseToLegacyJSON(data: Data)
+    
+    public var errorDescription: String? {
+      switch self {
+      case .noResponseToParse:
+        return "The Codable Parsing Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
+      case .couldNotParseToLegacyJSON(let data):
+        var errorStrings = [String]()
+        errorStrings.append("Could not parse data to legacy JSON format.")
+        if let dataString = String(bytes: data, encoding: .utf8) {
+          errorStrings.append("Data received as a String was:")
+          errorStrings.append(dataString)
+        } else {
+          errorStrings.append("Data of count \(data.count) also could not be parsed into a String.")
+        }
+        
+        return errorStrings.joined(separator: " ")
+      }
+    }
   }
   
   public var cacheKeyForObject: CacheKeyForObject?

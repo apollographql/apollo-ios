@@ -6,8 +6,15 @@ public class MaxRetryInterceptor: ApolloInterceptor {
   private let maxRetries: Int
   private var hitCount = 0
   
-  public enum RetryError: Error {
+  public enum RetryError: Error, LocalizedError {
     case hitMaxRetryCount(count: Int, operationName: String)
+    
+    public var errorDescription: String? {
+      switch self {
+      case .hitMaxRetryCount(let count, let operationName):
+        return "The maximum number of retries (\(count)) was hit without success for operation \"\(operationName)\"."
+      }
+    }
   }
   
   /// Designated initializer.
