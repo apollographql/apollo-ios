@@ -6,10 +6,18 @@ public enum ParseableError: Error {
   case notYetImplemented
 }
 
+/// A protocol to represent anything that can be decoded by a `FlexibleDecoder`
 public protocol Parseable {
-    
-    init<T: FlexibleDecoder>(from data: Data, decoder: T) throws
+  
+  /// Required initializer
+  ///
+  /// - Parameters:
+  ///   - data: The data to decode
+  ///   - decoder: The decoder to use to decode it
+  init<T: FlexibleDecoder>(from data: Data, decoder: T) throws
 }
+
+// MARK: - Default implementation for Decodable
 
 public extension Parseable where Self: Decodable {
     
