@@ -21,9 +21,6 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   /// The version of the client to send with the `"apollographql-client-version"` header
   open var clientVersion: String
   
-  /// How many times this request has been retried. Must be incremented manually. Defaults to zero.
-  open var retryCount: Int = 0
-  
   /// The `CachePolicy` to use for this request.
   public let cachePolicy: CachePolicy
   

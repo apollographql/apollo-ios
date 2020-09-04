@@ -4,6 +4,7 @@ import Foundation
 public class MaxRetryInterceptor: ApolloInterceptor {
   
   private let maxRetries: Int
+  private var hitCount = 0
   
   public enum RetryError: Error {
     case hitMaxRetryCount(count: Int, operationName: String)
@@ -21,7 +22,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    guard request.retryCount <= self.maxRetries else {
+    guard self.hitCount <= self.maxRetries else {
       let error = RetryError.hitMaxRetryCount(count: self.maxRetries,
                                               operationName: request.operation.operationName)
       chain.handleErrorAsync(error,
@@ -31,6 +32,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
       return
     }
     
+    self.hitCount += 1
     chain.proceedAsync(request: request,
                        response: response,
                        completion: completion)

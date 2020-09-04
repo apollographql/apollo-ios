@@ -22,7 +22,7 @@ class RetryToCountThenSucceedInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    if request.retryCount < self.timesToCallRetry {
+    if self.timesRetryHasBeenCalled < self.timesToCallRetry {
       self.timesRetryHasBeenCalled += 1
       chain.retry(request: request,
                   completion: completion)

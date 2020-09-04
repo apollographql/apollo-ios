@@ -126,7 +126,6 @@ public class RequestChain: Cancellable {
       return
     }
     
-    request.retryCount += 1
     self.currentIndex = 0
     self.kickoff(request: request, completion: completion)
   }
