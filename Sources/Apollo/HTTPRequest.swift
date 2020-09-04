@@ -90,6 +90,7 @@ extension HTTPRequest: Equatable {
   
   public static func == (lhs: HTTPRequest<Operation>, rhs: HTTPRequest<Operation>) -> Bool {
     lhs.graphQLEndpoint == rhs.graphQLEndpoint
+      && lhs.contextIdentifier == rhs.contextIdentifier
       && lhs.additionalHeaders == rhs.additionalHeaders
       && lhs.cachePolicy == rhs.cachePolicy
       && lhs.contentType == rhs.contentType
