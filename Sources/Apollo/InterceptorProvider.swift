@@ -61,8 +61,6 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
   
   private let client: URLSessionClient
   private let shouldInvalidateClientOnDeinit: Bool
-  private let store: ApolloStore
-  
   private let decoder: FlexDecoder
   
   /// Designated initializer
@@ -70,7 +68,6 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
   /// - Parameters:
   ///   - client: The URLSessionClient to use. Defaults to the default setup.
   ///   - shouldInvalidateClientOnDeinit: If the passed-in client should be invalidated when this interceptor provider is deinitialized. If you are recreating the `URLSessionClient` every time you create a new provider, you should do this to prevent memory leaks. Defaults to true, since by default we provide a `URLSessionClient` to new instances.
-  ///   - store: The `ApolloStore` to use when reading from or writing to the cache.
   ///   - decoder: A `FlexibleDecoder` which can decode `Codable` objects.
   public init(client: URLSessionClient = URLSessionClient(),
               shouldInvalidateClientOnDeinit: Bool = true,
@@ -78,7 +75,6 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
               decoder: FlexDecoder) {
     self.client = client
     self.shouldInvalidateClientOnDeinit = shouldInvalidateClientOnDeinit
-    self.store = store
     self.decoder = decoder
   }
   
