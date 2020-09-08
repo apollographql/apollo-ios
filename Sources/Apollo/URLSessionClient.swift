@@ -74,10 +74,10 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     let currentTaskIDs = self.tasks.value.keys
     if #available(OSX 10.11, *) {
-      session.getAllTasks { tasks in
+      session.getAllTasks { [weak self] tasks in
         for task in tasks {
           if currentTaskIDs.contains(task.taskIdentifier) {
-            task.cancel()
+            self?.cancel(task: task)
           }
         }
         
