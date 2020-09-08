@@ -1,3 +1,5 @@
+import Foundation
+
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResult<Data>: Parseable {
   
