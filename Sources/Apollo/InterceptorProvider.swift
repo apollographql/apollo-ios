@@ -14,7 +14,7 @@ public protocol InterceptorProvider {
 // MARK: - Default implementation for typescript codegen
 
 /// The default interceptor provider for typescript-generated code
-public class LegacyInterceptorProvider: InterceptorProvider {
+open class LegacyInterceptorProvider: InterceptorProvider {
   
   private let client: URLSessionClient
   private let store: ApolloStore
@@ -40,7 +40,7 @@ public class LegacyInterceptorProvider: InterceptorProvider {
     }
   }
   
-  public func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+  open func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
       return [
         MaxRetryInterceptor(),
         LegacyCacheReadInterceptor(store: self.store),
@@ -57,7 +57,7 @@ public class LegacyInterceptorProvider: InterceptorProvider {
 
 
 /// The default interceptor proider for code generated with Swift Codegen™
-public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider {
+open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider {
   
   private let client: URLSessionClient
   private let shouldInvalidateClientOnDeinit: Bool
@@ -84,7 +84,7 @@ public class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Intercept
     }
   }
 
-  public func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+  open func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
        return [
          MaxRetryInterceptor(),
          // Swift Codegen Phase 2: Add Cache Read interceptor
