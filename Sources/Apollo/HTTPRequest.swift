@@ -9,17 +9,8 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   /// The GraphQL Operation to execute
   open var operation: Operation
   
-  /// The `Content-Type` header's value
-  open var contentType: String
-  
   /// Any additional headers you wish to add by default to this request
   open var additionalHeaders: [String: String]
-  
-  /// The name of the client to send with the `"apollographql-client-name"` header
-  open var clientName: String
-  
-  /// The version of the client to send with the `"apollographql-client-version"` header
-  open var clientVersion: String
   
   /// The `CachePolicy` to use for this request.
   public let cachePolicy: CachePolicy
@@ -49,15 +40,25 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     self.graphQLEndpoint = graphQLEndpoint
     self.operation = operation
     self.contextIdentifier = contextIdentifier
-    self.contentType = contentType
-    self.clientName = clientName
-    self.clientVersion = clientVersion
     self.additionalHeaders = additionalHeaders
     self.cachePolicy = cachePolicy
+    
+    self.addHeader(name: "Content-Type", value: contentType)
+    self.addHeader(name: "X-APOLLO-OPERATION-NAME", value: self.operation.operationName)
+    if let operationID = self.operation.operationIdentifier {
+      self.addHeader(name: "X-APOLLO-OPERATION-ID", value: operationID)
+    }
+    
+    self.addHeader(name: "apollographql-client-version", value: clientVersion)
+    self.addHeader(name: "apollographql-client-name", value: clientName)
   }
   
   open func addHeader(name: String, value: String) {
     self.additionalHeaders[name] = value
+  }
+  
+  open func updateContentType(to contentType: String) {
+    self.addHeader(name: "Content-Type", value: contentType)
   }
   
   /// Converts this object to a fully fleshed-out `URLRequest`
@@ -71,14 +72,6 @@ open class HTTPRequest<Operation: GraphQLOperation> {
       request.addValue(value, forHTTPHeaderField: fieldName)
     }
     
-    request.addValue(self.contentType, forHTTPHeaderField: "Content-Type")
-    request.addValue(self.operation.operationName, forHTTPHeaderField: "X-APOLLO-OPERATION-NAME")
-    if let operationID = self.operation.operationIdentifier {
-      request.addValue(operationID, forHTTPHeaderField: "X-APOLLO-OPERATION-ID")
-    }
-    request.addValue(self.clientVersion, forHTTPHeaderField: "apollographql-client-version")
-    request.addValue(self.clientName, forHTTPHeaderField: "apollographql-client-name")
-    
     return request
   }
 }
@@ -90,9 +83,6 @@ extension HTTPRequest: Equatable {
       && lhs.contextIdentifier == rhs.contextIdentifier
       && lhs.additionalHeaders == rhs.additionalHeaders
       && lhs.cachePolicy == rhs.cachePolicy
-      && lhs.contentType == rhs.contentType
       && lhs.operation.queryDocument == rhs.operation.queryDocument
-      && lhs.clientName == rhs.clientName
-      && lhs.clientVersion == rhs.clientVersion
-  }  
+  }
 }

@@ -47,7 +47,7 @@ public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> 
                                             sendOperationIdentifiers: shouldSendOperationID,
                                             serializationFormat: self.serializationFormat,
                                             manualBoundary: self.manualBoundary)
-    self.contentType = "multipart/form-data; boundary=\(formData.boundary)"
+    self.updateContentType(to: "multipart/form-data; boundary=\(formData.boundary)")
     var request = try super.toURLRequest()
     request.httpBody = try formData.encode()
     request.httpMethod = GraphQLHTTPMethod.POST.rawValue
