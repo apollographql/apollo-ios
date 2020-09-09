@@ -86,3 +86,20 @@ extension HTTPRequest: Equatable {
       && lhs.operation.queryDocument == rhs.operation.queryDocument
   }
 }
+
+extension HTTPRequest: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    var debugStrings = [String]()
+    debugStrings.append("HTTPRequest details:")
+    debugStrings.append("Endpoint: \(self.graphQLEndpoint)")
+    debugStrings.append("Additional Headers: [")
+    for (key, value) in self.additionalHeaders {
+      debugStrings.append("\t\(key): \(value),")
+    }
+    debugStrings.append("]")
+    debugStrings.append("Cache Policy: \(self.cachePolicy)")
+    debugStrings.append("Operation: \(self.operation)")
+    debugStrings.append("Context identifier: \(String(describing: self.contextIdentifier))")
+    return debugStrings.joined(separator: "\n\t")
+  }
+}
