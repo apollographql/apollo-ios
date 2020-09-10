@@ -1,5 +1,8 @@
 # Change log
 
+## v0.32.1
+- Improves invalidation of a `URLSesionClient` to include cancellation of in-flight operations. ([#1376](https://github.com/apollographql/apollo-ios/issues/1376))
+
 ## v0.32.0
 - Fixes an issue that would occur when a GraphQL query watcher's dependent keys would not get updated. ([#1375](https://github.com/apollographql/apollo-ios/issues/1375))
 - Adds an `extensions` dictionary property to `GraphQLResult`. ([#1370](https://github.com/apollographql/apollo-ios/pull/1370))
