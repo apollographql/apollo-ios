@@ -91,7 +91,7 @@ public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransactio
 ### `load(query:resultHandler:)`
 
 ```swift
-public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>)
+public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>)
 ```
 
 > Loads the results for the given query from the cache.

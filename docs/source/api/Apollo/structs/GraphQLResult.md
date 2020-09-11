@@ -3,7 +3,7 @@
 # `GraphQLResult`
 
 ```swift
-public struct GraphQLResult<Data>
+public struct GraphQLResult<Data>: Parseable
 ```
 
 > Represents the result of a GraphQL operation.
@@ -42,6 +42,19 @@ public let source: Source
 > Source of data
 
 ## Methods
+### `init(from:decoder:)`
+
+```swift
+public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| data | The data to decode |
+| decoder | The decoder to use to decode it |
+
 ### `init(data:extensions:errors:source:dependentKeys:)`
 
 ```swift
