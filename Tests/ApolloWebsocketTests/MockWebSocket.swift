@@ -1,5 +1,6 @@
 import Starscream
 import Foundation
+import ApolloTestSupport
 @testable import ApolloWebSocket
 
 class MockWebSocket: ApolloWebSocketClient {
@@ -16,7 +17,7 @@ class MockWebSocket: ApolloWebSocketClient {
   }
   
   public init() {
-    self.request = URLRequest(url: URL(string: "http://localhost:8080")!)
+    self.request = URLRequest(url: TestURL.starWarsServer.url)
   }
   
   open func reportDidConnect() {

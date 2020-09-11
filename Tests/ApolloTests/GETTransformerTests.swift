@@ -8,11 +8,12 @@
 
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 import StarWarsAPI
 
 class GETTransformerTests: XCTestCase {
   private let requestCreator = ApolloRequestCreator()
-  private lazy var url = URL(string: "http://localhost:8080/graphql")!
+  private lazy var url = TestURL.starWarsServer.url
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)

@@ -20,7 +20,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       ]
     ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -28,8 +29,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Droid"
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       var verifyResult: GraphQLResultHandler<HeroNameQuery.Data>
@@ -68,6 +68,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       watcher.refetch()
       
       waitForExpectations(timeout: 5, handler: nil)
+      
+      watcher.cancel()
     }
   }
   
@@ -88,7 +90,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -96,8 +99,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Droid"
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let query = HeroAndFriendsNamesQuery()
@@ -175,7 +177,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
       ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -187,8 +190,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let query = HeroAndFriendsNamesQuery()
@@ -267,7 +269,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
     ]
     
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -275,9 +278,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Droid"
           ]
         ]
-      ])
+      ], store: store)
       
-      let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
 
@@ -339,7 +341,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       ]
     ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -348,8 +351,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "__typename": "Human"
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+        ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
 
@@ -411,7 +413,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       "LO": ["__typename": "Human", "id": "LO", "name": "Leia Organa"],
     ]
 
-    withCache(initialRecords: initialRecords) { (cache) in
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -424,8 +427,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-        ])
-      let store = ApolloStore(cache: cache)
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
 
@@ -500,9 +502,9 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "QUERY_ROOT.hero.friends.2": ["__typename": "Human", "name": "Leia Organa"],
             ]
     withCache(initialRecords: initialRecords) { (cache) in
-      let networkTransport = MockNetworkTransport(body: [:])
-
       let store = ApolloStore(cache: cache)
+      let networkTransport = MockNetworkTransport(body: [:], store: store)
+
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
 
@@ -578,6 +580,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
   
   func testWatchedQueryDependentKeysAreUpdated() {
     withCache { cache in
+      let store = ApolloStore(cache: cache)
+      store.cacheKeyForObject = { $0["id"] }
       let networkTransport = MockNetworkTransport(body: [
         "data": [
           "hero": [
@@ -593,17 +597,13 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-      ])
+      ], store: store)
 
-      let store = ApolloStore(cache: cache)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
-      client.store.cacheKeyForObject = { $0["id"] }
-
       let query = HeroAndFriendsNamesWithIDsQuery()
       let hasPicardFriendExpecation = self.expectation(description: "Has friend named Jean-Luc Picard")
       let hasHanSoloFriendExpecation = self.expectation(description: "Has friend named Han Solo")
       let initialFetchExpectation = self.expectation(description: "Initial fetch")
-      var isInitialFetch = true
       var expectedDependentKeys = [
         "0.__typename",
         "0.friends",
@@ -615,12 +615,13 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "QUERY_ROOT.hero",
       ]
       
-      _ = client.watch(query: query) { result in
+      var fetchCount = 0
+      let watcher = client.watch(query: query) { result in
         defer {
-          if isInitialFetch {
-            isInitialFetch = false
+          if fetchCount == 0 {
             initialFetchExpectation.fulfill()
           }
+          fetchCount += 1
         }
         switch result {
         case .success(let graphQLResult):
@@ -674,7 +675,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
 
       /// Send an update that updates friend #11 on a different query
-      networkTransport.body = [
+      networkTransport.updateBody(to: [
         "data": [
           "hero": [
             "id": "2",
@@ -689,12 +690,14 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             ]
           ]
         ]
-      ]
+      ])
 
       /// This fetch should trigger our watcher on friend #11
       client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)
       
       self.wait(for: [hasHanSoloFriendExpecation], timeout: 1)
+      
+      watcher.cancel()
     }
   }
 }

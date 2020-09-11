@@ -21,7 +21,7 @@ class CachePersistenceTests: XCTestCase {
             "__typename": "Human"
           ]
         ]
-        ])
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let networkExpectation = self.expectation(description: "Fetching query from network")
@@ -77,7 +77,7 @@ class CachePersistenceTests: XCTestCase {
             "__typename": "Human"
           ]
         ]
-        ])
+      ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let networkExpectation = self.expectation(description: "Fetching query from network")

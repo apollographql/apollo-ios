@@ -1,4 +1,4 @@
-import Dispatch
+import Foundation
 
 /// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
 ///
@@ -8,7 +8,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   public let query: Query
   let resultHandler: GraphQLResultHandler<Query.Data>
 
-  private var context = 0
+  private var contextIdentifier = UUID()
 
   private weak var fetching: Cancellable?
 
@@ -41,7 +41,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   func fetch(cachePolicy: CachePolicy) {
     // Cancel anything already in flight before starting a new fetch
     fetching?.cancel()
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, context: &context, queue: callbackQueue) { [weak self] result in
+    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
       guard let self = self else { return }
 
       switch result {
@@ -63,10 +63,20 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   func store(_ store: ApolloStore,
              didChangeKeys changedKeys: Set<CacheKey>,
-             context: UnsafeMutableRawPointer?) {
-    if context == &self.context { return }
+             contextIdentifier: UUID?) {
+    if
+      let incomingIdentifier = contextIdentifier,
+      incomingIdentifier == self.contextIdentifier {
+        // This is from changes to the keys made from the `fetch` method above,
+        // changes will be returned through that and do not need to be returned
+        // here as well.
+        return
+    }
 
-    guard let dependentKeys = dependentKeys else { return }
+    guard let dependentKeys = dependentKeys else {
+      // This query has nil dependent keys, so nothing that changed will affect it.
+      return
+    }
 
     if !dependentKeys.isDisjoint(with: changedKeys) {
       // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.

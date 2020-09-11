@@ -1,12 +1,20 @@
 import XCTest
 import Apollo
+import ApolloTestSupport
 import UploadAPI
 
 class UploadTests: XCTestCase {
   
-  let uploadClientURL = URL(string: "http://localhost:4000")!
+  let uploadClientURL = TestURL.uploadServer.url
   
-  lazy var client = ApolloClient(url: self.uploadClientURL)
+  lazy var client: ApolloClient = {
+    let store = ApolloStore(cache: InMemoryNormalizedCache())
+    let provider = LegacyInterceptorProvider(store: store)
+    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: self.uploadClientURL)
+    
+    return ApolloClient(networkTransport: transport)
+  }()
   
   override static func tearDown() {
     // Recreate the uploads folder at the end of all tests in this suite to avoid having one billion files in there

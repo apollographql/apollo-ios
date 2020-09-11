@@ -342,10 +342,15 @@ public class WebSocketTransport {
   }
 }
 
-// MARK: - HTTPNetworkTransport conformance
+// MARK: - NetworkTransport conformance
 
 extension WebSocketTransport: NetworkTransport {
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>,Error>) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(
+    operation: Operation,
+    cachePolicy: CachePolicy,
+    contextIdentifier: UUID? = nil,
+    callbackQueue: DispatchQueue = .main,
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     if let error = self.error.value {
       completionHandler(.failure(error))
       return EmptyCancellable()
@@ -355,7 +360,12 @@ extension WebSocketTransport: NetworkTransport {
       switch result {
       case .success(let jsonBody):
         let response = GraphQLResponse(operation: operation, body: jsonBody)
-        completionHandler(.success(response))
+        do {
+          let graphQLResult = try response.parseResultFast()
+          completionHandler(.success(graphQLResult))
+        } catch {
+          completionHandler(.failure(error))
+        }
       case .failure(let error):
         completionHandler(.failure(error))
       }

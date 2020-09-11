@@ -9,9 +9,16 @@ public protocol NetworkTransport: class {
   ///
   /// - Parameters:
   ///   - operation: The operation to send.
+  ///   - cachePolicy: The `CachePolicy` to use making this request.
+  ///   - contextIdentifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
+  ///   - callbackQueue: The queue to call back on with the results. Should default to `.main`.
   ///   - completionHandler: A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred.
   /// - Returns: An object that can be used to cancel an in progress request.
-  func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
+  func send<Operation: GraphQLOperation>(operation: Operation,
+                                         cachePolicy: CachePolicy,
+                                         contextIdentifier: UUID?,
+                                         callbackQueue: DispatchQueue,
+                                         completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable
 
   /// The name of the client to send as a header value.
   var clientName: String { get }
@@ -89,7 +96,12 @@ public protocol UploadingNetworkTransport: NetworkTransport {
   /// - Parameters:
   ///   - operation: The operation to send
   ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - callbackQueue: The queue to call back on with the results. Should default to `.main`.
   ///   - completionHandler: The completion handler to execute when the request completes or errors
   /// - Returns: An object that can be used to cancel an in progress request.
-  func upload<Operation: GraphQLOperation>(operation: Operation, files: [GraphQLFile], completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>, Error>) -> Void) -> Cancellable
+  func upload<Operation: GraphQLOperation>(
+    operation: Operation,
+    files: [GraphQLFile],
+    callbackQueue: DispatchQueue,
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>,Error>) -> Void) -> Cancellable
 }

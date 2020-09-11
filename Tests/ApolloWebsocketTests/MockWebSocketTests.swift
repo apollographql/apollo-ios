@@ -1,5 +1,6 @@
 import XCTest
 import Apollo
+import ApolloTestSupport
 @testable import ApolloWebSocket
 import StarWarsAPI
 
@@ -20,7 +21,7 @@ class MockWebSocketTests: XCTestCase {
     super.setUp()
   
     WebSocketTransport.provider = MockWebSocket.self
-    networkTransport = WebSocketTransport(request: URLRequest(url: URL(string: "http://localhost/dummy_url")!))
+    networkTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url))
     client = ApolloClient(networkTransport: networkTransport!)
   }
     

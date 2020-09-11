@@ -27,18 +27,65 @@ public init(networkTransport: NetworkTransport,
 
 The available implementations are: 
 
-- **`HTTPNetworkTransport`**, which has a number of configurable options and uses standard HTTP requests to communicate with the server
+- **`RequestChainNetworkTransport`**, which passes a request through a chain of interceptors that can do work both before and after going to the network, and uses standard HTTP requests to communicate with the server
 - **`WebSocketTransport`**, which will send everything using a web socket. If you're using CocoaPods, make sure to install the `Apollo/WebSocket` sub-spec to access this. 
 - **`SplitNetworkTransport`**, which will send subscription operations via a web socket and all other operations via HTTP. If you're using CocoaPods, make sure to install the `Apollo/WebSocket` sub-spec to access this. 
 
-### Using `HTTPNetworkTransport`
+### Using `RequestChainNetworkTransport`
 
-The initializer for `HTTPNetworkTransport` has several properties which can allow you to get better information and finer-grained control of your HTTP requests and responses:
+The initializer for `RequestChainNetworkTransport` has several properties which can allow you to get better information and finer-grained control of your HTTP requests and responses:
 
-- `client` allows you to pass in a [subclass of `URLSessionClient`](#the-urlsessionclient-class) to handle managing a background-compatible URL session, and set up anything which needs to be done for every single request without alteration. 
-- `sendOperationIdentifiers` allows you send operation identifiers along with your requests. **NOTE:** To send operation identifiers, Apollo types must be generated with `operationIdentifier`s or sending data will crash. Due to this restriction, this option defaults to `false`.
-- `useGETForQueries` sends all requests of `query` type using `GET` instead of `POST`. This defaults to `false` to preserve existing behavior in older versions of the client. 
-- `delegate` Can conform to one or many of several sub-protocols for `HTTPNetworkTransportDelegate`, detailed below.
+- `interceptorProvider`: The interceptor provider to use when constructing chains for a request. See below for details on interceptor providers.
+- `endpointURL`: The GraphQL endpoint URL to use for all calls.
+- `additionalHeaders`: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
+- `autoPersistQueries`: Pass `true` if [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/) should be used to send an operation's hash instead of the full operation body by default. **NOTE:** To use APQs, you need to make sure to generate your types with operation identifiers. In your Swift Script, make sure to pass a non-nil `operationIDsURL` to have this output. Due to this restriction, this option defaults to `false`.
+- `requestCreator`: The `RequestCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestCreator` implementation.
+- `useGETForQueries`: Sends all requests of `query` and `mutation` types using `GET` instead of `POST`. This is mostly useful for large companies taking advantage of CDNs (Content Distribution Networks) that allow local caches instead of going all the way to your server for data which does not change often. This defaults to `false` to preserve existing behavior in older versions of the client. 
+- `useGETForPersistedQueryRetry`: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`. 
+
+### How the `RequestChain` works
+
+A `RequestChain` is constructed using an array of interceptors, to be run in the order given, and handles calling back on a specified `DispatchQueue` after all work is complete. 
+
+In each interceptor, work can be performed asynchronously on any thread. To move along to the next interceptor in the chain, call `proceedAsync`. 
+
+By default, when the interceptor chain ends, if you have a parsed result available, this result will be returned to the caller.
+
+If you want to directly return a value to the caller, call `returnValueAsync`. If you want to have the chain return an error, call `handleErrorAsync`. Both of these methods will call your completion block on the queue specified when creating the `RequestChain.
+
+Note that calling `returnValue` does **NOT** forbid calling `handleError` - or calling each more than once. For example, if you want to return data from the cache to the UI while a network fetch executes, you'd want to make sure that `returnValueAsync` was called twice. 
+
+The chain also includes a `retry` mechanism, which will go all the way back to the first interceptor in the chain, then start running through the interceptors again. 
+
+**IMPORTANT**: Do not call `retry` blindly. If your server is returning 500s or if the user has no internet, this will create an infinite loop of requests that are retrying (especially if you're not using something like the `MaxRetryInterceptor` to limit how many retries are made). This **will** kill your user's battery, and might also run up the bill on their data plan. Make sure to only request a retry when there's something your code can actually do about the problem!
+
+In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `ApolloInterceptorProvider` 
+
+### Setting up `ApolloInterceptor` chains with `ApolloInterceptorProvider`
+
+Every operation sent through a `RequestChainNetworkTransport` will be passed into an `ApolloInterceptorProvider` before going to the network. This protocol creates an array of interceptors for use by a single request chain based on the provided operation. 
+
+There are two default implementations for this protocol provided:
+
+- `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses.
+- `CodableInterceptorProvider` is a **work in progress**, which is going to be for use with our [Swift Codegen Rewrite](https://github.com/apollographql/apollo-ios/projects/2), (which, I swear, will eventually be finished). It is not suitable for use at this time. It takes a `URLSessionClient`, a `FlexibleDecoder` (something can decode anything that conforms to `Decodable`). It does not support caching yet.
+
+If you wish to make your own `ApolloInterceptorProvider` instead of using the provided one, you can take advantage of several interceptors that are included in the library: 
+
+#### Pre-network
+- `MaxRetryInterceptor` checks to make sure a query has not been tried more than a maximum number of times. 
+- `LegacyCacheReadInterceptor` reads from a provided `ApolloStore` based on the `cachePolicy`, and will return a resul if one is found.
+
+#### Network 
+- `NetworkFetchInterceptor` takes a `URLSessionClient` and uses it to send the prepared `HTTPRequest` (or subclass thereof) to the server. 
+
+#### Post-Network
+
+- `ResponseCodeInterceptor` checks to make sure a valid response status code has been returned. **NOTE**: Most errors at the GraphQL level are returned with a `200` status code and information in the `errors` array per the GraphQL Spec. This interceptor helps with things like server errors and errors that are returned by middleware. [This article on error handling in GraphQL](https://medium.com/@sachee/200-ok-error-handling-in-graphql-7ec869aec9bc) is a really helpful look at how and why these differences occur. 
+- `AutomaticPersistedQueryInterceptor` handles checking responses to see if an error is because an automatic persisted query failed, and the full operation needs to be resent to the server.
+- `LegacyParsingInterceptor` parses code generated by our Typescript code generation. 
+- `LegacyCacheWriteInterceptor` writes to a provided `ApolloStore`. 
+- `CodableParsingError` is a **work in progress** which will parse `Codable` results form the Swift Codegen Rewrite.
 
 ### The URLSessionClient class
 
@@ -50,148 +97,223 @@ By default, instances of `URLSessionClient` use `URLSessionConfiguration.default
 
 The `URLSessionClient` class and most of its methods are `open` so you can subclass it if you need to override any of the delegate methods for the `URLSession` delegates we're using or you need to handle additional delegate scenarios.  
 
-### Using `HTTPNetworkTransportDelegate`
-
-This delegate includes several sub-protocols so that a single parameter can be passed no matter how many sub-protocols it conforms to. 
-
-If you conform to a particular sub-protocol, you must implement all the methods in that sub-protocol, but we've tried to break things out in a sensible fashion. The sub-protocols are: 
-
-#### `HTTPNetworkTransportPreflightDelegate`
-
-This protocol allows pre-flight validation of requests, the ability to bail out before modifying the request, and the ability to modify the `URLRequest` with things like additional headers.
-
-The `shouldSend` method is called before any modifications are made by `willSend`. This allows you do things like check that you have an authentication token in your keychain, and if not, prevent the request from hitting the network. When you cancel a request in `shouldSend`, you will receive an error indicating the request was cancelled. 
-
-The `willSend` method is called with an `inout` parameter for the `URLRequest` which is about to be sent. There are several uses for this functionality. 
-
-The first is simple logging of the request that's about to go out. You could theoretically do this in `shouldSend`, but particularly if you're making any changes to the request, you'd probably want to do your logging after you've finished those changes. 
-
-The most common usage is to modify the request headers. Note that when modifying request headers, you'll need to make a copy of any pre-existing headers before adding new ones. See the [Example Advanced Client Setup](#example-advanced-client-setup) for details. 
-
-You can also make any other changes you need to the request, but be aware that going too crazy with this may lead to Unexpected Behavior™. 
-
-#### `HTTPNetworkTransportTaskCompletedDelegate`
-
-This delegate allows you to peer in to the raw data returned to the `URLSession`. This is helpful both for logging what you're getting directly from your server and for grabbing any information out of the raw response, such as updated authentication tokens, which would be removed before parsing is completed.
-
-#### `HTTPNetworkTransportRetryDelegate`
-
-This delegate allows you to asynchronously determine whether to retry your request. This is asynchronous to allow for things like re-authenticating your user. 
-
-When you decide to retry, the `send` operation for your `GraphQLOperation` will be retried. This means you'll get brand new callbacks from `HTTPNetworkTransportPreflightDelegate` to update your headers again as if it was a totally new request. Therefore, the parameter for the completion closure is a simple `true`/`false` option: Pass `true` to retry, pass `false` to error out. 
-
-**IMPORTANT**: Do not call `true` blindly in the completion closure. If your server is returning 500s or if the user has no internet, this will create an infinite loop of requests that are retrying. This **will** kill your user's battery, and might also run up the bill on their data plan. Make sure to only request a retry when there's something your code can actually do about the problem!
-
 ### Example Advanced Client Setup
 
-Here's a sample of a singleton using an advanced client which handles all three sub-protocols. This code assumes you've got the following classes in your own code (these are **not** part of the Apollo library): 
+Here's a sample how to use an advanced client with some custom interceptors. This code assumes you've got the following classes in your own code (**these are not part of the Apollo library**): 
 
-- **`UserManager`** to check whether the user is logged in, perform associated checks on errors and responses to see if they need to reauthenticate, and perform reauthentication
+- **`UserManager`** to check whether the user is logged in, perform associated checks on errors and responses to see if they need to renew their token, and perform that renewal
 - **`Logger`** to handle printing logs based on their level, and which supports `.debug`, `.error`, or `.always` log levels.
 
+#### Example interceptors
+
+##### Sample `UserManagementInteceptor` 
+
+An interceptor which checks if the user is logged in and then renews the user's token if it is expired asynchronously before continuing the chain, using the above-mentioned `UserManager` class: 
+
 ```swift
-import Foundation
-import Apollo
-
-// MARK: - Singleton Wrapper
-
-class Network {
-  static let shared = Network() 
-  
-  // Configure the network transport to use the singleton as the delegate. 
-  private lazy var networkTransport: HTTPNetworkTransport = {
-    let transport = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
-    transport.delegate = self
-    return transport
-  }()
+class UserManagementInterceptor: ApolloInterceptor {
     
-  // Use the configured network transport in your Apollo client.
-  private(set) lazy var apollo = ApolloClient(networkTransport: self.networkTransport)
-}
-
-// MARK: - Pre-flight delegate 
-
-extension Network: HTTPNetworkTransportPreflightDelegate {
-
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, 
-                          shouldSend request: URLRequest) -> Bool {
-    // If there's an authenticated user, send the request. If not, don't.                        
-    return UserManager.shared.hasAuthenticatedUser
-  }
-  
-  func networkTransport(_ networkTransport: HTTPNetworkTransport, 
-                        willSend request: inout URLRequest) {
-                        
-    // Get the existing headers, or create new ones if they're nil
-    var headers = request.allHTTPHeaderFields ?? [String: String]()
-
-    // Add any new headers you need
-    headers["Authorization"] = "Bearer \(UserManager.shared.currentAuthToken)"
-  
-    // Re-assign the updated headers to the request.
-    request.allHTTPHeaderFields = headers
-    
-    Logger.log(.debug, "Outgoing request: \(request)")
-  }
-}
-
-// MARK: - Task Completed Delegate
-
-extension Network: HTTPNetworkTransportTaskCompletedDelegate {
-  func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        didCompleteRawTaskForRequest request: URLRequest,
-                        withData data: Data?,
-                        response: URLResponse?,
-                        error: Error?) {
-    Logger.log(.debug, "Raw task completed for request: \(request)")
-                        
-    if let error = error {
-      Logger.log(.error, "Error: \(error)")
+    enum UserError: Error {
+        case noUserLoggedIn
     }
     
-    if let response = response {
-      Logger.log(.debug, "Response: \(response)")
-    } else {
-      Logger.log(.error, "No URL Response received!")
+    /// Helper function to add the token then move on to the next step
+    private func addTokenAndProceed<Operation: GraphQLOperation>(
+        _ token: Token,
+        to request: HTTPRequest<Operation>,
+        chain: RequestChain,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        
+        request.addHeader(name: "Authentication", value: "Bearer: \(token.value)")
+        chain.proceedAsync(request: request,
+                           response: response,
+                           completion: completion)
     }
     
-    if let data = data {
-      Logger.log(.debug, "Data: \(String(describing: String(bytes: data, encoding: .utf8)))")
-    } else {
-      Logger.log(.error, "No data received!")
+    func interceptAsync<Operation: GraphQLOperation>(
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        
+        guard let token = UserManager.shared.token else {
+            // In this instance, no user is logged in, so we want to call 
+            // the error handler, then return to prevent further work
+            chain.handleErrorAsync(UserError.noUserLoggedIn,
+                                   request: request,
+                                   response: response,
+                                   completion: completion)
+            return
+        }
+        
+        // If we've gotten here, there is a token!
+        if token.isExpired {
+            // Call an async method to renew the token
+            UserManager.shared.renewToken { [weak self] tokenRenewResult in
+                guard let self = self else {
+                    return
+                }
+                
+                switch tokenRenewResult {
+                case .failure(let error):
+                    // Pass the token renewal error up the chain, and do 
+                    // not proceed further. Note that you could also wrap this in a 
+                    // `UserError` if you want.
+                    chain.handleErrorAsync(error,
+                                           request: request,
+                                           response: response,
+                                           completion: completion)
+                case .success(let token):
+                    // Renewing worked! Add the token and move on
+                    self.addTokenAndProceed(token,
+                                            to: request,
+                                            chain: chain,
+                                            response: response,
+                                            completion: completion)
+                }
+            }
+        } else {
+            // We don't need to wait for renewal, add token and move on
+            self.addTokenAndProceed(token,
+                                    to: request,
+                                    chain: chain,
+                                    response: response,
+                                    completion: completion)
+        }
     }
-  }
-}
-
-// MARK: - Retry Delegate
-
-extension Network: HTTPNetworkTransportRetryDelegate {
-
-  func networkTransport(_ networkTransport: HTTPNetworkTransport,
-                        receivedError error: Error,
-                        for request: URLRequest,
-                        response: URLResponse?,
-                        continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void) {
-    // Check if the error and/or response you've received are something that requires authentication
-    guard UserManager.shared.requiresReAuthentication(basedOn: error, response: response) else {
-      // This is not something this application can handle, do not retry.
-      continueHandler(.fail(error))
-      return
-    }
-    
-    // Attempt to re-authenticate asynchronously
-    UserManager.shared.reAuthenticate { (reAuthenticateError: Error?) in 
-      // If re-authentication succeeded, try again. If it didn't, don't.
-      if let reAuthenticateError = reAuthenticateError {
-        continueHandler(.fail(reAuthenticateError)) // Will return re authenticate error to query callback 
-        // or (depending what error you want to get to callback)
-        continueHandler(.fail(error)) // Will return original error
-      } else {
-        continueHandler(.retry)
-      }
-    }
-  }
 }
 ```
+
+##### Sample `RequestLoggingInterceptor` 
+
+An interceptor which logs the outgoing request using the above-mentioned `Logger` class, then moves on:
+
+```swift
+class RequestLoggingInterceptor: ApolloInterceptor {
+    
+    func interceptAsync<Operation: GraphQLOperation>(
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        
+        Logger.log(.debug, "Outgoing request: \(request)")
+        chain.proceedAsync(request: request,
+                           response: response,
+                           completion: completion)
+    }
+}
+```
+
+##### Sample `‌ResponseLoggingInterceptor`
+
+An interceptor using the above-mentioned `Logger` which logs the incoming response if it exists, and moves on. 
+
+Note that this is an example of an interceptor which can both proceed **and** throw an error - we don't necessarily want to stop processing if this was set up in the wrong place, but we do want to know about it. 
+
+```swift
+class ResponseLoggingInterceptor: ApolloInterceptor {
+    
+    enum ResponseLoggingError: Error {
+        case notYetReceived
+    }
+    
+    func interceptAsync<Operation: GraphQLOperation>(
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        
+        defer {
+            // Even if we can't log, we still want to keep going.
+            chain.proceedAsync(request: request,
+                               response: response,
+                               completion: completion)
+        }
+        
+        guard let receivedResponse = response else {
+            chain.handleErrorAsync(ResponseLoggingError.notYetReceived,
+                                   request: request,
+                                   response: response,
+                                   completion: completion)
+            return
+        }
+        
+        Logger.log(.debug, "HTTP Response: \(receivedResponse.httpResponse)")
+        
+        if let stringData = String(bytes: receivedResponse.rawData, encoding: .utf8) {
+            Logger.log(.debug, "Data: \(stringData)")
+        } else {
+            Logger.log(.error, "Could not convert data to string!")
+        }
+    }
+}
+```
+
+#### Example Custom Interceptor Provider
+
+This `InterceptorProvider` uses all of the interceptors that (as of this writing) are in the default `LegacyInterceptorProvider`, interspersed at the appropriate points with the sample interceptors created above: 
+
+```
+struct NetworkInterceptorProvider: InterceptorProvider {
+    
+    // These properties will remain the same throughout the life of the `InterceptorProvider`, even though they
+    // will be handed to different interceptors.
+    private let store: ApolloStore
+    private let client: URLSessionClient
+    
+    init(store: ApolloStore,
+         client: URLSessionClient) {
+        self.store = store
+        self.client = client
+    }
+    
+    func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        return [
+            MaxRetryInterceptor(),
+            LegacyCacheReadInterceptor(store: self.store),
+            TokenAddingInterceptor(),
+            RequestLoggingInterceptor(),
+            NetworkFetchInterceptor(client: self.client),
+            ResponseLoggingInterceptor(),
+            ResponseCodeInterceptor(),
+            LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+            AutomaticPersistedQueryInterceptor(),
+            LegacyCacheWriteInterceptor(store: self.store)
+        ]
+    }
+}
+```
+
+#### Example Network Singleton Setup
+
+This is the equivalent of what you'd set up in the [Basic Client Creation](#basic-client-creation) section, and what you'd call into from your application.
+
+```swift
+class Network {
+  static let shared = Network()
+  
+  private(set) lazy var apollo: ApolloClient = {
+      // The cache is necessary to set up the store, which we're going to hand to the provider
+      let cache = InMemoryNormalizedCache()
+      let store = ApolloStore(cache: cache)
+      
+      let client = URLSessionClient()
+      let provider = NetworkInterceptorProvider(store: store, client: client)
+      let url = URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!
+
+      let requestChainTransport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                               endpointURL: url)
+                                                               
+
+      // Remember to give the store you already created to the client so it 
+      // doesn't create one on its own                                                               
+      return ApolloClient(networkTransport: requestChainTransport,
+                          store: store)
+  }()
+}
+```
+
 
 An example of setting up a client which can handle web sockets and subscriptions is included in the [subscription documentation](subscriptions/#sample-subscription-supporting-initializer). 
