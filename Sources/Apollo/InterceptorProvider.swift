@@ -56,7 +56,7 @@ open class LegacyInterceptorProvider: InterceptorProvider {
 // MARK: - Default implementation for swift codegen
 
 
-/// The default interceptor proider for code generated with Swift Codegen™
+/// The default interceptor provider for code generated with Swift Codegen™
 open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider {
   
   private let client: URLSessionClient
