@@ -59,18 +59,18 @@ The chain also includes a `retry` mechanism, which will go all the way back to t
 
 **IMPORTANT**: Do not call `retry` blindly. If your server is returning 500s or if the user has no internet, this will create an infinite loop of requests that are retrying (especially if you're not using something like the `MaxRetryInterceptor` to limit how many retries are made). This **will** kill your user's battery, and might also run up the bill on their data plan. Make sure to only request a retry when there's something your code can actually do about the problem!
 
-In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `ApolloInterceptorProvider` 
+In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `InterceptorProvider` 
 
-### Setting up `ApolloInterceptor` chains with `ApolloInterceptorProvider`
+### Setting up `ApolloInterceptor` chains with `InterceptorProvider`
 
-Every operation sent through a `RequestChainNetworkTransport` will be passed into an `ApolloInterceptorProvider` before going to the network. This protocol creates an array of interceptors for use by a single request chain based on the provided operation. 
+Every operation sent through a `RequestChainNetworkTransport` will be passed into an `InterceptorProvider` before going to the network. This protocol creates an array of interceptors for use by a single request chain based on the provided operation. 
 
 There are two default implementations for this protocol provided:
 
 - `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses.
 - `CodableInterceptorProvider` is a **work in progress**, which is going to be for use with our [Swift Codegen Rewrite](https://github.com/apollographql/apollo-ios/projects/2), (which, I swear, will eventually be finished). It is not suitable for use at this time. It takes a `URLSessionClient`, a `FlexibleDecoder` (something can decode anything that conforms to `Decodable`). It does not support caching yet.
 
-If you wish to make your own `ApolloInterceptorProvider` instead of using the provided one, you can take advantage of several interceptors that are included in the library: 
+If you wish to make your own `InterceptorProvider` instead of using the provided one, you can take advantage of several interceptors that are included in the library: 
 
 #### Pre-network
 - `MaxRetryInterceptor` checks to make sure a query has not been tried more than a maximum number of times. 
