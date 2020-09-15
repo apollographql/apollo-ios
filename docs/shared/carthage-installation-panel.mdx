@@ -18,7 +18,7 @@ Add `github "apollographql/apollo-ios"` to your Cartfile.
 
 <h4>Checkout and build dependencies</h4>
 
-Run `carthage update --platform ios` (or `--platform ios,macos` to build both Mac and iOS). **NOTE:** There's an issue with Carthage that has been causing [some frustration](https://github.com/apollographql/apollo-ios/issues/386) for folks trying to build for watch and tvOS - don't build those targets if you don't need to. 
+Run `carthage update --platform ios` (or `--platform ios,macos` to build both Mac and iOS). **NOTE:** There's an issue with the way Carthage uses Lipo in the Xcode 12 GM, please cd into `[YourProject]/Carthage/Checkouts/apollo-ios/scripts` and then run `./carthage-build-workaround.sh` to actually get Carthage builds that work.
 
 </ExpansionPanelListItem>
 <ExpansionPanelListItem number="3"> 

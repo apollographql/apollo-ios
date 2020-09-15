@@ -25,7 +25,7 @@ struct CodegenTestHelper {
   }
   
   static func handleFileLoadError(_ error: Error,
-                                  file: StaticString = #file,
+                                  file: StaticString = #filePath,
                                   line: UInt = #line) {
     let nsError = error as NSError
     if let underlying = nsError.userInfo["NSUnderlyingError"] as? NSError,
@@ -95,7 +95,7 @@ struct CodegenTestHelper {
       .appendingPathComponent("Output")
   }
   
-  static func deleteExistingOutputFolder(file: StaticString = #file,
+  static func deleteExistingOutputFolder(file: StaticString = #filePath,
                                          line: UInt = #line) {
     do {
       let outputFolderURL = self.outputFolderURL()
@@ -107,7 +107,7 @@ struct CodegenTestHelper {
     }
   }
   
-  static func downloadCLIIfNeeded(file: StaticString = #file,
+  static func downloadCLIIfNeeded(file: StaticString = #filePath,
                                   line: UInt = #line) {
     do {
       let cliFolderURL = self.cliFolderURL()
@@ -119,7 +119,7 @@ struct CodegenTestHelper {
     }
   }
   
-  static func deleteExistingApolloFolder(file: StaticString = #file,
+  static func deleteExistingApolloFolder(file: StaticString = #filePath,
                                          line: UInt = #line) {
     do {
       let apolloFolderURL = self.apolloFolderURL()

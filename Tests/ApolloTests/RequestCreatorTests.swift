@@ -17,7 +17,7 @@ class RequestCreatorTests: XCTestCase {
 
   private func checkString(_ string: String,
                            includes expectedString: String,
-                           file: StaticString = #file,
+                           file: StaticString = #filePath,
                            line: UInt = #line) {
     XCTAssertTrue(string.contains(expectedString),
                   "Expected string:\n\n\(expectedString)\n\ndid not appear in string\n\n\(string)",

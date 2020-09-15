@@ -20,6 +20,34 @@
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9FCE2CF91E6C213D00E34457"
+               BuildableName = "StarWarsAPI.framework"
+               BlueprintName = "StarWarsAPI"
+               ReferencedContainer = "container:Apollo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
+               BuildableName = "ApolloWebSocket.framework"
+               BlueprintName = "ApolloWebSocket"
+               ReferencedContainer = "container:Apollo.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

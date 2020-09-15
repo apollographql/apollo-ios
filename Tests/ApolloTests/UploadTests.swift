@@ -31,7 +31,7 @@ class UploadTests: XCTestCase {
 
   private func compareInitialFile(at initialFileURL: URL,
                                   toUploadedFileAt path: String?,
-                                  file: StaticString = #file,
+                                  file: StaticString = #filePath,
                                   line: UInt = #line) {
     guard let path = path else {
       XCTFail("Path was nil!",

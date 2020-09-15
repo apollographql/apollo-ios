@@ -19,7 +19,7 @@ class CLIExtractorTests: XCTestCase {
   
   private func checkSHASUMFileContentsDirectly(at url: URL,
                                                match expected: String,
-                                               file: StaticString = #file,
+                                               file: StaticString = #filePath,
                                                line: UInt = #line) {
     guard let contents = try? String(contentsOf: url, encoding: .utf8) else {
       XCTFail("Could not load file at \(url.path)",
@@ -38,7 +38,7 @@ class CLIExtractorTests: XCTestCase {
   private func validateSHASUMFile(shouldBeValid: Bool,
                                   apolloFolderURL: URL,
                                   match expected: String,
-                                  file: StaticString = #file,
+                                  file: StaticString = #filePath,
                                   line: UInt = #line) {
     do {
       let isValid = try CLIExtractor.validateSHASUMInExtractedFile(apolloFolderURL: apolloFolderURL, expected: expected)
@@ -53,7 +53,7 @@ class CLIExtractorTests: XCTestCase {
     }
   }
   
-  func validateCLIIsExtractedWithRealSHASUM(file: StaticString = #file,
+  func validateCLIIsExtractedWithRealSHASUM(file: StaticString = #filePath,
                                             line: UInt = #line) {
     let binaryFolderURL = CodegenTestHelper.binaryFolderURL()
     XCTAssertTrue(FileManager.default.apollo.folderExists(at: binaryFolderURL),

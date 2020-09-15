@@ -630,6 +630,7 @@
 		9BC139A224EDCA4400876D29 /* InterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorTests.swift; sourceTree = "<group>"; };
 		9BC139A524EDCAD900876D29 /* BlindRetryingTestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlindRetryingTestInterceptor.swift; sourceTree = "<group>"; };
 		9BC139A724EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryToCountThenSucceedInterceptor.swift; sourceTree = "<group>"; };
+		9BB1DAC624A66B2500396235 /* ApolloMacPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ApolloMacPlayground.playground; path = Playgrounds/ApolloMacPlayground.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9BC2D9CE233C3531007BD083 /* Apollo-Target-ApolloCodegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegen.xcconfig"; sourceTree = "<group>"; };
 		9BC2D9D1233C6DC0007BD083 /* Basher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Basher.swift; sourceTree = "<group>"; };
 		9BC742AB24CFB2FF0029282C /* ApolloErrorInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloErrorInterceptor.swift; sourceTree = "<group>"; };
@@ -1478,6 +1479,7 @@
 		9FC750461D2A532C00458D91 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
+				9BB1DAC624A66B2500396235 /* ApolloMacPlayground.playground */,
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
@@ -2001,7 +2003,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					9B2DFBB524E1FA0D00ED3AE6 = {
