@@ -2,7 +2,7 @@ import Foundation
 
 public struct FileFinder {
     
-    public static func findParentFolder(from filePath: StaticString = #file) -> URL {
+    public static func findParentFolder(from filePath: StaticString = #filePath) -> URL {
       self.findParentFolder(from: filePath.apollo.toString)
     }
     

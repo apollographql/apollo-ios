@@ -13,7 +13,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                 query: HeroNameQuery,
                                 queryDocument: Bool = false,
                                 persistedQuery: Bool = false,
-                                file: StaticString = #file,
+                                file: StaticString = #filePath,
                                 line: UInt = #line) throws {
     
     guard
@@ -85,7 +85,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                 mutation: CreateAwesomeReviewMutation,
                                 queryDocument: Bool = false,
                                 persistedQuery: Bool = false,
-                                file: StaticString = #file,
+                                file: StaticString = #filePath,
                                 line: UInt = #line) throws {
 
     guard
@@ -146,7 +146,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                  query: HeroNameQuery,
                                  queryDocument: Bool = false,
                                  persistedQuery: Bool = false,
-                                 file: StaticString = #file,
+                                 file: StaticString = #filePath,
                                  line: UInt = #line) throws {
     let url = try XCTUnwrap(request.url,
                             "URL not valid",

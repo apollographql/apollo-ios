@@ -23,7 +23,7 @@ struct LineByLineComparison {
   static func between(received: String,
                       expectedFileURL: URL,
                       trimImports: Bool = false,
-                      file: StaticString = #file,
+                      file: StaticString = #filePath,
                       line: UInt = #line) {
     guard FileManager.default.apollo.fileExists(at: expectedFileURL) else {
       XCTFail("File not found at \(expectedFileURL)",
@@ -65,7 +65,7 @@ struct LineByLineComparison {
   ///   - line: The line where this function is being called. Defaults to the direct caller
   static func between(received: String,
                       expected: String,
-                      file: StaticString = #file,
+                      file: StaticString = #filePath,
                       line: UInt = #line) {
     
     let receivedLines = received.components(separatedBy: "\n")

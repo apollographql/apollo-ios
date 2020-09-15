@@ -37,7 +37,7 @@ class HTTPTransportTests: XCTestCase {
   
   private func validateHeroNameQueryResponse<Data: GraphQLSelectionSet>(result: Result<GraphQLResponse<Data>, Error>,
                                                                         expectation: XCTestExpectation,
-                                                                        file: StaticString = #file,
+                                                                        file: StaticString = #filePath,
                                                                         line: UInt = #line) {
     defer {
       expectation.fulfill()

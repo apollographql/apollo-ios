@@ -3,28 +3,28 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "11.6.0"
+    default: "12.0.0"
   ios_current_version:
     type: string
-    default: "13.6"
+    default: "14.0"
   ios_previous_version:
     type: string
-    default: "12.4"
+    default: "13.5"
   ios_sdk:
     type: string
-    default: "iphonesimulator13.6"
+    default: "iphonesimulator14.0"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "10.15"
+    default: "11.0"
   macos_sdk: # The full SDK string to use for macOS builds
     type: string
-    default: "macosx10.15"
+    default: "macosx11.0"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "13.4"
+    default: "14.0"
   tvos_sdk:
     type: string
-    default: "appletvsimulator13.4"
+    default: "appletvsimulator14.0"
 
 commands:
   common_test_steps:
@@ -89,7 +89,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone Xs
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
@@ -129,7 +129,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone Xs
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloSQLite
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
@@ -159,7 +159,7 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone Xs
+      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: ApolloWebSocket
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
