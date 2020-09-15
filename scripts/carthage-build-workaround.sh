@@ -2,7 +2,11 @@
 # Usage example: ./carthage-build.sh --platform iOS
 
 set -euo pipefail
-cd ..
+
+cd .. # apollo-ios
+cd .. # Checkouts
+cd .. # Carthage
+cd .. # your project
 
 xcconfig=$(mktemp /tmp/static.xcconfig.XXXXXX)
 trap 'rm -f "$xcconfig"' INT TERM HUP EXIT
@@ -25,4 +29,4 @@ echo 'EXCLUDED_ARCHS = $(inherited) $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_
 
 export XCODE_XCCONFIG_FILE="$xcconfig"
 echo $XCODE_XCCONFIG_FILE
-carthage update "$@"
+carthage update
