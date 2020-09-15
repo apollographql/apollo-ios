@@ -1,10 +1,20 @@
 # Change log
 
+## v0.34.0-beta2
+
+Networking Stack, Beta 2
+
+- Merges `0.33.0` changes into the networking stack for Swift 5.3 and Xcode 12.
+- Makes `JSONRequest` an `open` class so it can be subclassed. 
+- Fixes some documentation issues
+
 ## v0.33.0
 - Adds support for Xcode 12 and Swift 5.3. ([#1280](https://github.com/apollographql/apollo-ios/pull/1280))
 - Adds workaround script for Carthage support in Xcode 12. Please see [Carthage-3019](https://github.com/Carthage/Carthage/issues/3019) for details. TL;DR: cd into `[YourProject]/Carthage/Checkouts/apollo-ios/scripts` and then run `./carthage-build-workaround.sh` to actually get Carthage builds that work. (#yolo committed to `main`)
 
 ### 0.33.0-beta1
+
+Networking Stack, Beta 1
 
 - **SPECTACULARLY BREAKING**: The networking stack for HTTP requests has been completely rewritten. This is described in great detail in the [RFC for the networking changes](https://github.com/apollographql/apollo-ios/issues/1340), as well as the [updated documentation for Advanced Client Creation](https://deploy-preview-1386--apollo-ios-docs.netlify.app/docs/ios/initialization/#advanced-client-creation). Please, please, please file bugs or requests for clarification of the docs as soon as possible. Note that all changes until the networking stack comes out of beta will live on the `betas/networking-stack` branch. ([#1341](https://github.com/apollographql/apollo-ios/issues/1341))
 
