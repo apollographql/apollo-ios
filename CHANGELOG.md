@@ -1,5 +1,8 @@
 # Change log
 
+## v0.33.0
+- Adds support for Xcode 12 and Swift 5.3. ([#1280](https://github.com/apollographql/apollo-ios/pull/1280))
+
 ## v0.32.1
 - Improves invalidation of a `URLSesionClient` to include cancellation of in-flight operations. ([#1376](https://github.com/apollographql/apollo-ios/issues/1376))
 
