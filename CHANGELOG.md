@@ -5,8 +5,6 @@
 Networking Stack, Beta 2
 
 - Merges `0.33.0` changes into the networking stack for Swift 5.3 and Xcode 12.
-- Makes `JSONRequest` an `open` class so it can be subclassed. 
-- Fixes some documentation issues
 
 ## v0.33.0
 - Adds support for Xcode 12 and Swift 5.3. ([#1280](https://github.com/apollographql/apollo-ios/pull/1280))
