@@ -2,7 +2,7 @@
 
 This document is meant to give the community some idea of where we're going with the iOS SDK in the short and longer term. 
 
-This document was last updated on June 16, 2020. 
+This document was last updated on September 16, 2020. 
 
 ^ If that's more than three months ago, please file an issue asking [@designatednerd](https://github.com/designatednerd) to update this document. 😃
 
@@ -11,7 +11,9 @@ This document was last updated on June 16, 2020.
 
 These are things we plan to be working on **within the next 3 months**.
 
-- **Swift Codegen Rewrite, Continued**: As outlined in much greater detail in the [RFC issue](https://github.com/apollographql/apollo-ios/issues/939), we're rewriting our code generation. This has taken somewhat longer than expected, but the following phases are still in progress:
+- **Updated Networking Architecture**: This is now in beta and will be out hopefully within the next couple weeks. Please see [the beta branch PR](https://github.com/apollographql/apollo-ios/pull/1386) for more details.
+
+- **Swift Codegen Rewrite, Continued**: As outlined in much greater detail in the [RFC issue](https://github.com/apollographql/apollo-ios/issues/939), we're rewriting our code generation. This has taken ~~somewhat~~ a lot longer than expected, but the following phases are still in progress:
     
     - **Start generating code with Swift instead of Typescript**. This will allow much easier community contribution to code generation, and allow us to take on a bunch of improvements like `Hashable`, `Equatable`, and potentially `Identifiable` without having to fight with Typescript to do it.
     - **Add immutable caching to new generated code**. Caching is currently heavily tied into our existing parsing mechanism. We're going to separate that out in two phases: The first will allow caching that *cannot* be changed by the consumer.
@@ -20,11 +22,8 @@ These are things we plan to be working on **within the next 3 months**.
 
     You can follow this effort through the [Swift Codegen GitHub project](https://github.com/apollographql/apollo-ios/projects/2).
     
-- **Updated Networking Architecture**: We've seen some significant limitations of using a delegate-based system crop up, particularly in terms of flexibility. We'll be outlining and working on a new architecture that uses something somewhat similar to [Apollo Link](https://github.com/apollographql/apollo-link) on the web and [ApolloInterceptor](https://github.com/apollographql/apollo-android/blob/master/apollo-runtime/src/main/java/com/apollographql/apollo/interceptor/ApolloInterceptor.java) on Android, to allow you to intercept and modify both outgoing network requests and the responses to those requests.
-  
-    Please keep an eye out for an RFC coming later this summer with significantly more detail in the [Issues tab](https://github.com/apollographql/apollo-ios/issues). 
-    
-- **New Apple Software Support**: It's that time of year! We'll be carefully working with betas of Xcode 12, iOS 14, and other related software to make sure everything still works on those versions. Check back after WWDC for updates on whether there are new technologies we plan to support. 
+
+- **New Apple Hardware Support**: We're working to make sure Apple Silicon is fully supported when it comes out.
 
 - **General bug-bashing**: There's still a few outstanding general issues and small feature requests I'd like to address, and we'll be dealing with any new issues as they come up.
 
