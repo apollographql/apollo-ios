@@ -3076,7 +3076,7 @@
 			repositoryURL = "https://github.com/stencilproject/Stencil.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.13.1;
+				minimumVersion = 0.14.0;
 			};
 		};
 		9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */ = {
