@@ -6,10 +6,6 @@ import PlaygroundSupport
 
 //: # Setting up a client with a SQLite cache
 
-//: First, you'll need to set up a network transport, since you will also need that to set up the client:
-let serverURL = URL(string: "http://localhost:8080/graphql")!
-let networkTransport = HTTPNetworkTransport(url: serverURL)
-
 //: You'll need to make sure you import the ApolloSQLite library IF you are not using CocoaPods (CocoaPods will automatically flatten everything down to a single Apollo import):
 import ApolloSQLite
 
@@ -26,12 +22,16 @@ let sqliteCache = try SQLiteNormalizedCache(fileURL: sqliteFileURL)
 //: And then instantiate an instance of `ApolloStore` with the cache you've just created:
 let store = ApolloStore(cache: sqliteCache)
 
+//: Next, you'll need to set up a network transport, since you will also need that to set up the client:
+let serverURL = URL(string: "http://localhost:8080/graphql")!
+let networkTransport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(store: store), endpointURL: serverURL)
+
 //: Finally, pass that into your `ApolloClient` initializer, and you're now set up to use the SQLite cache for persistent storage:
 let apolloClient = ApolloClient(networkTransport: networkTransport, store: store)
 
-
-//: Now, let's test
+//: Now, let's test it out against the Star Wars API!
 import StarWarsAPI
+
 let query = HeroDetailsQuery(episode: .newhope)
 apolloClient.fetch(query: query) { result in
     // This is the outer Result, which has either a `GraphQLResult` or an `Error`
