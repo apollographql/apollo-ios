@@ -73,6 +73,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
     
     let interceptors = self.interceptorProvider.interceptors(for: operation)
     let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
+    chain.additionalErrorHandler = self.interceptorProvider.additionalErrorInterceptor(for: operation)
     let request = self.constructJSONRequest(for: operation,
                                             cachePolicy: cachePolicy,
                                             contextIdentifier: contextIdentifier)

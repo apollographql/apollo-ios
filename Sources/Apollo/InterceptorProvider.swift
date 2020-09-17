@@ -9,6 +9,20 @@ public protocol InterceptorProvider {
   ///
   /// - Parameter operation: The operation to provide interceptors for
   func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor]
+  
+  /// Provides an additional error interceptor for any additional handling of errors
+  /// before returning to the UI, such as logging.
+  /// - Parameter operation: The oper
+  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor?
+}
+
+/// MARK: - Default Implementation
+
+public extension InterceptorProvider {
+  
+  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
+    return nil
+  }
 }
 
 // MARK: - Default implementation for typescript codegen
