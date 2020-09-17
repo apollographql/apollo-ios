@@ -44,8 +44,8 @@ public final class ApolloStore {
 
   /// Designated initializer
   ///
-  /// - Parameter cache: An instance of `normalizedCache` to use to cache results.
-  public init(cache: NormalizedCache) {
+  /// - Parameter cache: An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`.
+  public init(cache: NormalizedCache = InMemoryNormalizedCache()) {
     self.cache = cache
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
   }
