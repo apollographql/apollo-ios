@@ -105,4 +105,33 @@ class RequestChainTests: XCTestCase {
     
     self.wait(for: [expectation], timeout: 1)
   }
+  
+  func testCancellingChainCallsCancelOnInterceptorsWhichImplementCancellableAndNotOnOnesThatDont() {
+    class TestProvider: InterceptorProvider {
+      let cancellationInterceptor = CancellationHandlingInterceptor()
+      let retryInterceptor = BlindRetryingTestInterceptor()
+
+      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        [
+          self.cancellationInterceptor,
+          self.retryInterceptor
+        ]
+      }
+    }
+    
+    let provider = TestProvider()
+    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: TestURL.mockServer.url)
+    let expectation = self.expectation(description: "Send succeeded")
+    expectation.isInverted = true
+    let cancellable = transport.send(operation: HeroNameQuery()) { _ in
+      XCTFail("This should not have gone through")
+      expectation.fulfill()
+    }
+    
+    cancellable.cancel()
+    XCTAssertTrue(provider.cancellationInterceptor.hasBeenCancelled)
+    XCTAssertFalse(provider.retryInterceptor.hasBeenCancelled)
+    self.wait(for: [expectation], timeout: 2)
+  }
 }
