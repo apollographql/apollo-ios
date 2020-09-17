@@ -34,6 +34,14 @@ commands:
           key: starwars-server
       - checkout
       - run:
+          command: rm ~/.ssh/id_rsa
+          name: Remove old SSH key
+      - run:
+          command: for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+      - run:
+          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+          name: Github Key Workaround
+      - run:
           command: ./scripts/install-node.sh
           name: Install Node
       - run:
