@@ -38,6 +38,7 @@ commands:
           name: Remove old SSH key
       - run:
           command: for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+          name: Bitbucket Key Workaround
       - run:
           command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
           name: Github Key Workaround
