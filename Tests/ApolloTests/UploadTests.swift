@@ -8,8 +8,7 @@ class UploadTests: XCTestCase {
   let uploadClientURL = TestURL.uploadServer.url
   
   lazy var client: ApolloClient = {
-    let store = ApolloStore(cache: InMemoryNormalizedCache())
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = LegacyInterceptorProvider()
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: self.uploadClientURL)
     

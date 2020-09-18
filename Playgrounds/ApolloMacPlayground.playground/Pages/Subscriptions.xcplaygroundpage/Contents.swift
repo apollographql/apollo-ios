@@ -17,15 +17,15 @@ Your web backend must declare support for subscriptions in the Schema just like 
  
 To use subscriptions, you need to have a `NetworkTransport` implementation which supports them. Fortunately, with the `ApolloWebSocket` package, there are two!
  
-The first is the `WebSocketTransport`, which works with the web socket, and the second is the `SplitNetworkTransport`, which uses a web socket for subscriptions but a normal `HTTPNetworkTransport` for everything else.
+The first is the `WebSocketTransport`, which works with the web socket, and the second is the `SplitNetworkTransport`, which uses a web socket for subscriptions but a normal `RequestChainNetworkTransport` for everything else.
 
 In this instance, we'll use a `SplitNetworkTransport` since we want to demonstrate subscribing to changes, but we need to also be able to send changes for that subscription to come through.
 */
 
-//:First, setup the `HTTPNetworkTransport`:
+//:First, setup the `RequestChainNetworkTransport` that will handle your HTTP requests:
 
 let url = URL(string: "http://localhost:8080/graphql")!
-let normalTransport = HTTPNetworkTransport(url: url)
+let normalTransport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
 
 //: Next, set up the `WebSocketTransport` to talk to the websocket endpoint. Note that this may take a different URL, sometimes with a `ws` prefix, than your normal http endpoint:
 
@@ -34,7 +34,7 @@ let webSocketTransport = WebSocketTransport(request: URLRequest(url: webSocketUR
 
 //: Then, set up the split transport with the two transports you've just created:
 
-let splitTransport = SplitNetworkTransport(httpNetworkTransport: normalTransport, webSocketNetworkTransport: webSocketTransport)
+let splitTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTransport, webSocketNetworkTransport: webSocketTransport)
 
 //: Finally, instantiate your client with the split transport:
 

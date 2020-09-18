@@ -9,6 +9,20 @@ public protocol InterceptorProvider {
   ///
   /// - Parameter operation: The operation to provide interceptors for
   func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor]
+  
+  /// Provides an additional error interceptor for any additional handling of errors
+  /// before returning to the UI, such as logging.
+  /// - Parameter operation: The oper
+  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor?
+}
+
+/// MARK: - Default Implementation
+
+public extension InterceptorProvider {
+  
+  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
+    return nil
+  }
 }
 
 // MARK: - Default implementation for typescript codegen
@@ -25,10 +39,10 @@ open class LegacyInterceptorProvider: InterceptorProvider {
   /// - Parameters:
   ///   - client: The `URLSessionClient` to use. Defaults to the default setup.
   ///   - shouldInvalidateClientOnDeinit: If the passed-in client should be invalidated when this interceptor provider is deinitialized. If you are recreating the `URLSessionClient` every time you create a new provider, you should do this to prevent memory leaks. Defaults to true, since by default we provide a `URLSessionClient` to new instances.
-  ///   - store: The `ApolloStore` to use when reading from or writing to the cache.
+  ///   - store: The `ApolloStore` to use when reading from or writing to the cache. Defaults to the default initializer for ApolloStore.
   public init(client: URLSessionClient = URLSessionClient(),
               shouldInvalidateClientOnDeinit: Bool = true,
-              store: ApolloStore) {
+              store: ApolloStore = ApolloStore()) {
     self.client = client
     self.shouldInvalidateClientOnDeinit = shouldInvalidateClientOnDeinit
     self.store = store

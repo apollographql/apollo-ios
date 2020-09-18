@@ -1,7 +1,7 @@
 import Foundation
 
 /// A request which sends JSON related to a GraphQL operation.
-public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
+open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
   public let requestCreator: RequestCreator
   
@@ -52,11 +52,11 @@ public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
                cachePolicy: cachePolicy)
   }
   
-  public var sendOperationIdentifier: Bool {
+  open var sendOperationIdentifier: Bool {
     self.operation.operationIdentifier != nil
   }
   
-  public override func toURLRequest() throws -> URLRequest {
+  open override func toURLRequest() throws -> URLRequest {
     var request = try super.toURLRequest()
         
     let useGetMethod: Bool
