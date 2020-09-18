@@ -3,7 +3,7 @@
 # `JSONRequest`
 
 ```swift
-public class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation>
+open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation>
 ```
 
 > A request which sends JSON related to a GraphQL operation.
@@ -48,7 +48,7 @@ public let serializationFormat = JSONSerializationFormat.self
 ### `sendOperationIdentifier`
 
 ```swift
-public var sendOperationIdentifier: Bool
+open var sendOperationIdentifier: Bool
 ```
 
 ## Methods
@@ -102,5 +102,5 @@ public init(operation: Operation,
 ### `toURLRequest()`
 
 ```swift
-public override func toURLRequest() throws -> URLRequest
+open override func toURLRequest() throws -> URLRequest
 ```

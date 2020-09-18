@@ -6,7 +6,7 @@
 open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider
 ```
 
-> The default interceptor proider for code generated with Swift Codegen™
+> The default interceptor provider for code generated with Swift Codegen™
 
 ## Methods
 ### `init(client:shouldInvalidateClientOnDeinit:store:decoder:)`

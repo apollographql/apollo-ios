@@ -24,3 +24,19 @@ func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [Apo
 | Name | Description |
 | ---- | ----------- |
 | operation | The operation to provide interceptors for |
+
+### `additionalErrorInterceptor(for:)`
+
+```swift
+func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor?
+```
+
+> Provides an additional error interceptor for any additional handling of errors
+> before returning to the UI, such as logging.
+> - Parameter operation: The oper
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| operation | The oper |

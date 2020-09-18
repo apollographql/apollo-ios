@@ -19,18 +19,18 @@ public var cacheKeyForObject: CacheKeyForObject?
 ### `init(cache:)`
 
 ```swift
-public init(cache: NormalizedCache)
+public init(cache: NormalizedCache = InMemoryNormalizedCache())
 ```
 
 > Designated initializer
 >
-> - Parameter cache: An instance of `normalizedCache` to use to cache results.
+> - Parameter cache: An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| cache | An instance of `normalizedCache` to use to cache results. |
+| cache | An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`. |
 
 ### `clearCache(callbackQueue:completion:)`
 

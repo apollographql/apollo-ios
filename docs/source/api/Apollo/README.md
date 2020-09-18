@@ -118,6 +118,7 @@
 -   [GraphQLVariable](extensions/GraphQLVariable/)
 -   [HTTPRequest](extensions/HTTPRequest/)
 -   [Int](extensions/Int/)
+-   [InterceptorProvider](extensions/InterceptorProvider/)
 -   [JSONDecodingError](extensions/JSONDecodingError/)
 -   [JSONEncodable](extensions/JSONEncodable/)
 -   [NetworkTransport](extensions/NetworkTransport/)
