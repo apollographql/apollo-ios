@@ -1,5 +1,17 @@
 # Change log
 
+## v0.34.0-rc.1
+
+Networking Stack, Release Candidate
+
+- Added some final tweaks: 
+    - Updated `ApolloStore` to take a default cache of the `InMemoryNormalizedCache`.
+    - Updated LegacyInterceptorProvider to take a default store of the `ApolloStore` with that default cache.
+    - Added a method to `InterceptorProvider` to provide an error interceptor, along with a default implementation that returns `nil`.
+    - Updated `JSONRequest` to be open so it can be subclassed.
+
+    This is now at the point where if there are no further major bugs, I'd like to release this - get your bugs in ASAP! ([#1399](https://github.com/apollographql/apollo-ios/pull/1399)
+
 ## v0.34.0-beta2
 
 Networking Stack, Beta 2
