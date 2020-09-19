@@ -21,7 +21,7 @@ This combination of models with value semantics, one way data flow, and automati
 
 ## Contributing
 
-This project is being developed using Xcode 11 and Swift 5.0.
+This project is being developed using Xcode 12 and Swift 5.3.
 
 If you open `Apollo.xcworkspace`, you should be able to run the tests of the Apollo, ApolloSQLite, and ApolloWebSocket frameworks on your Mac or an iOS Simulator.
 
