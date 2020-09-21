@@ -1,7 +1,7 @@
 import Foundation
 
 /// A request class allowing for a multipart-upload request.
-public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
+open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
   public let requestBodyCreator: RequestBodyCreator
   public let files: [GraphQLFile]
