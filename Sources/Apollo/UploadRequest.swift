@@ -3,7 +3,7 @@ import Foundation
 /// A request class allowing for a multipart-upload request.
 public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
-  public let requestCreator: RequestCreator
+  public let requestBodyCreator: RequestBodyCreator
   public let files: [GraphQLFile]
   public let manualBoundary: String?
   
@@ -19,7 +19,7 @@ public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> 
   ///   - additionalHeaders: Any additional headers you wish to add by default to this request. Defaults to an empty dictionary.
   ///   - files: The array of files to upload for all `Upload` parameters in the mutation.
   ///   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise. Defaults to nil.
-  ///   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
+  ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
   public init(graphQLEndpoint: URL,
               operation: Operation,
               clientName: String,
@@ -27,8 +27,8 @@ public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> 
               additionalHeaders: [String: String] = [:],
               files: [GraphQLFile],
               manualBoundary: String? = nil,
-              requestCreator: RequestCreator = ApolloRequestCreator()) {
-    self.requestCreator = requestCreator
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+    self.requestBodyCreator = requestBodyCreator
     self.files = files
     self.manualBoundary = manualBoundary
     super.init(graphQLEndpoint: graphQLEndpoint,
@@ -69,7 +69,7 @@ public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> 
     // Make sure all fields for files are set to null, or the server won't look
     // for the files in the rest of the form data
     let fieldsForFiles = Set(files.map { $0.fieldName }).sorted()
-    var fields = self.requestCreator.requestBody(for: operation, sendOperationIdentifiers: shouldSendOperationID)
+    var fields = self.requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: shouldSendOperationID)
     var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
     for fieldName in fieldsForFiles {
       if

@@ -1,5 +1,5 @@
 //
-//  TestCustomRequestCreator.swift
+//  TestCustomRequestBodyCreator.swift
 //  Apollo
 //
 //  Created by Kim de Vos on 02/10/2019.
@@ -8,7 +8,7 @@
 
 import Apollo
 
-struct TestCustomRequestCreator: RequestCreator {
+struct TestCustomRequestBodyCreator: RequestBodyCreator {
   public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
     var body: GraphQLMap = [
       "test_variables": operation.variables,

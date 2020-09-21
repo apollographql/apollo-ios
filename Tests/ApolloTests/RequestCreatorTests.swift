@@ -11,22 +11,22 @@ import XCTest
 import StarWarsAPI
 import UploadAPI
 
-class RequestCreatorTests: XCTestCase {
-  private let customRequestCreator = TestCustomRequestCreator()
-  private let apolloRequestCreator = ApolloRequestCreator()
+class RequestBodyCreatorTests: XCTestCase {
+  private let customRequestBodyCreator = TestCustomRequestBodyCreator()
+  private let apolloRequestBodyCreator = ApolloRequestBodyCreator()
   
   // MARK: - Tests
   
-  func testRequestBodyWithApolloRequestCreator() {
+  func testRequestBodyWithApolloRequestBodyCreator() {
     let query = HeroNameQuery()
-    let req = apolloRequestCreator.requestBody(for: query, sendOperationIdentifiers: false)
+    let req = apolloRequestBodyCreator.requestBody(for: query, sendOperationIdentifiers: false)
 
     XCTAssertEqual(query.queryDocument, req["query"] as? String)
   }
 
-  func testRequestBodyWithCustomRequestCreator() {
+  func testRequestBodyWithCustomRequestBodyCreator() {
     let query = HeroNameQuery()
-    let req = customRequestCreator.requestBody(for: query, sendOperationIdentifiers: false)
+    let req = customRequestBodyCreator.requestBody(for: query, sendOperationIdentifiers: false)
 
     XCTAssertEqual(query.queryDocument, req["test_query"] as? String)
   }

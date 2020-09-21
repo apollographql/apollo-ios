@@ -21,8 +21,8 @@ open class RequestChainNetworkTransport: NetworkTransport {
   /// Set to `true` to use `GET` instead of `POST` for a retry of a persisted query.
   public let useGETForPersistedQueryRetry: Bool
   
-  /// The `RequestCreator` object to use to build your `URLRequest`.
-  public var requestCreator: RequestCreator
+  /// The `RequestBodyCreator` object to use to build your `URLRequest`.
+  public var requestBodyCreator: RequestBodyCreator
   
   /// Designated initializer
   ///
@@ -31,14 +31,14 @@ open class RequestChainNetworkTransport: NetworkTransport {
   ///   - endpointURL: The GraphQL endpoint URL to use.
   ///   - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
   ///   - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default. Defaults to `false`.
-  ///   - requestCreator: The `RequestCreator` object to use to build your `URLRequest`. Defaults to the providedd `ApolloRequestCreator` implementation.
+  ///   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the providedd `ApolloRequestBodyCreator` implementation.
   ///   - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`. 
   public init(interceptorProvider: InterceptorProvider,
               endpointURL: URL,
               additionalHeaders: [String: String] = [:],
               autoPersistQueries: Bool = false,
-              requestCreator: RequestCreator = ApolloRequestCreator(),
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
               useGETForQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false) {
     self.interceptorProvider = interceptorProvider
@@ -46,7 +46,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
 
     self.additionalHeaders = additionalHeaders
     self.autoPersistQueries = autoPersistQueries
-    self.requestCreator = requestCreator
+    self.requestBodyCreator = requestBodyCreator
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
   }
@@ -74,7 +74,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
                 autoPersistQueries: self.autoPersistQueries,
                 useGETForQueries: self.useGETForQueries,
                 useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
-                requestCreator: self.requestCreator)
+                requestBodyCreator: self.requestBodyCreator)
   }
   
   // MARK: - NetworkTransport Conformance
@@ -120,7 +120,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
                   clientName: self.clientName,
                   clientVersion: self.clientVersion,
                   files: files,
-                  requestCreator: self.requestCreator)
+                  requestBodyCreator: self.requestBodyCreator)
   }
   
   public func upload<Operation: GraphQLOperation>(

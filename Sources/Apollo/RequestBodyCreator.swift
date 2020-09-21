@@ -3,7 +3,7 @@ import Foundation
 import ApolloCore
 #endif
 
-public protocol RequestCreator {
+public protocol RequestBodyCreator {
   /// Creates a `GraphQLMap` out of the passed-in operation
   ///
   /// - Parameters:
@@ -16,7 +16,7 @@ public protocol RequestCreator {
                                                 autoPersistQuery: Bool) -> GraphQLMap
 }
 
-extension RequestCreator {
+extension RequestBodyCreator {
   /// Creates a `GraphQLMap` out of the passed-in operation
   ///
   /// - Parameters:
@@ -61,7 +61,7 @@ extension RequestCreator {
 }
 
 // Helper struct to create requests independently of HTTP operations.
-public struct ApolloRequestCreator: RequestCreator {
+public struct ApolloRequestBodyCreator: RequestBodyCreator {
   // Internal init methods cannot be used in public methods
   public init() { }
 }
