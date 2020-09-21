@@ -1,5 +1,5 @@
 //
-//  MultipartFormDataTests.swift
+//  RequestBodyCreatorTests.swift
 //  ApolloTests
 //
 //  Created by Kim de Vos on 16/07/2019.
