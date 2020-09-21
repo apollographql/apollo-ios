@@ -27,40 +27,4 @@ struct TestCustomRequestCreator: RequestCreator {
 
     return body
   }
-
-  public func requestMultipartFormData<Operation: GraphQLOperation>(for operation: Operation,
-                                                                    files: [GraphQLFile],
-                                                                    sendOperationIdentifiers: Bool,
-                                                                    serializationFormat: JSONSerializationFormat.Type,
-                                                                    manualBoundary: String?) throws -> MultipartFormData {
-    let formData: MultipartFormData
-
-    if let boundary = manualBoundary {
-      formData = MultipartFormData(boundary: boundary)
-    } else {
-      formData = MultipartFormData()
-    }
-
-    let fields = requestBody(for: operation, sendOperationIdentifiers: false)
-    for (name, data) in fields {
-      if let data = data as? GraphQLMap {
-        let data = try serializationFormat.serialize(value: data)
-        formData.appendPart(data: data, name: name)
-      } else if let data = data as? String {
-        try formData.appendPart(string: data, name: name)
-      } else {
-        try formData.appendPart(string: data.debugDescription, name: name)
-      }
-    }
-
-    try files.forEach {
-      formData.appendPart(inputStream: try $0.generateInputStream(),
-                          contentLength: $0.contentLength,
-                          name: $0.fieldName,
-                          contentType: $0.mimeType,
-                          filename: $0.originalName)
-    }
-
-    return formData
-  }
 }
