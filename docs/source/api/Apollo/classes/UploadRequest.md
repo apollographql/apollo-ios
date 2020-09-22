@@ -3,16 +3,16 @@
 # `UploadRequest`
 
 ```swift
-public class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation>
+open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation>
 ```
 
 > A request class allowing for a multipart-upload request.
 
 ## Properties
-### `requestCreator`
+### `requestBodyCreator`
 
 ```swift
-public let requestCreator: RequestCreator
+public let requestBodyCreator: RequestBodyCreator
 ```
 
 ### `files`
@@ -34,7 +34,7 @@ public let serializationFormat = JSONSerializationFormat.self
 ```
 
 ## Methods
-### `init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestCreator:)`
+### `init(graphQLEndpoint:operation:clientName:clientVersion:additionalHeaders:files:manualBoundary:requestBodyCreator:)`
 
 ```swift
 public init(graphQLEndpoint: URL,
@@ -44,7 +44,7 @@ public init(graphQLEndpoint: URL,
             additionalHeaders: [String: String] = [:],
             files: [GraphQLFile],
             manualBoundary: String? = nil,
-            requestCreator: RequestCreator = ApolloRequestCreator())
+            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
 ```
 
 > Designated Initializer
@@ -57,7 +57,7 @@ public init(graphQLEndpoint: URL,
 >   - additionalHeaders: Any additional headers you wish to add by default to this request. Defaults to an empty dictionary.
 >   - files: The array of files to upload for all `Upload` parameters in the mutation.
 >   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise. Defaults to nil.
->   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
+>   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
 
 #### Parameters
 
@@ -70,10 +70,23 @@ public init(graphQLEndpoint: URL,
 | additionalHeaders | Any additional headers you wish to add by default to this request. Defaults to an empty dictionary. |
 | files | The array of files to upload for all `Upload` parameters in the mutation. |
 | manualBoundary | [optional] A manual boundary to pass in. A default boundary will be used otherwise. Defaults to nil. |
-| requestCreator | An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation. |
+| requestBodyCreator | An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation. |
 
 ### `toURLRequest()`
 
 ```swift
 public override func toURLRequest() throws -> URLRequest
 ```
+
+### `requestMultipartFormData()`
+
+```swift
+open func requestMultipartFormData() throws -> MultipartFormData
+```
+
+> Creates the `MultipartFormData` object to use when creating the URL Request.
+>
+> This method follows the [GraphQL Multipart Request Spec](https://github.com/jaydenseric/graphql-multipart-request-spec) Override this method to use a different upload spec.
+>
+> - Throws: Any error arising from creating the form data
+> - Returns: The created form data

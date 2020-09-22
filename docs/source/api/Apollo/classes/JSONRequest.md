@@ -9,10 +9,10 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation>
 > A request which sends JSON related to a GraphQL operation.
 
 ## Properties
-### `requestCreator`
+### `requestBodyCreator`
 
 ```swift
-public let requestCreator: RequestCreator
+public let requestBodyCreator: RequestBodyCreator
 ```
 
 ### `autoPersistQueries`
@@ -52,7 +52,7 @@ open var sendOperationIdentifier: Bool
 ```
 
 ## Methods
-### `init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestCreator:)`
+### `init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)`
 
 ```swift
 public init(operation: Operation,
@@ -65,7 +65,7 @@ public init(operation: Operation,
             autoPersistQueries: Bool = false,
             useGETForQueries: Bool = false,
             useGETForPersistedQueryRetry: Bool = false,
-            requestCreator: RequestCreator = ApolloRequestCreator())
+            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
 ```
 
 > Designated initializer
@@ -81,7 +81,7 @@ public init(operation: Operation,
 >   - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
 >   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
 >   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
->   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
+>   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
 
 #### Parameters
 
@@ -97,7 +97,7 @@ public init(operation: Operation,
 | autoPersistQueries | `true` if Auto-Persisted Queries should be used. Defaults to `false`. |
 | useGETForQueries | `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`. |
 | useGETForPersistedQueryRetry | `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`. |
-| requestCreator | An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation. |
+| requestBodyCreator | An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation. |
 
 ### `toURLRequest()`
 

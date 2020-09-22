@@ -23,12 +23,12 @@
 -   [NetworkTransport](protocols/NetworkTransport/)
 -   [NormalizedCache](protocols/NormalizedCache/)
 -   [Parseable](protocols/Parseable/)
--   [RequestCreator](protocols/RequestCreator/)
+-   [RequestBodyCreator](protocols/RequestBodyCreator/)
 -   [UploadingNetworkTransport](protocols/UploadingNetworkTransport/)
 
 ## Structs
 
--   [ApolloRequestCreator](structs/ApolloRequestCreator/)
+-   [ApolloRequestBodyCreator](structs/ApolloRequestBodyCreator/)
 -   [GraphQLBooleanCondition](structs/GraphQLBooleanCondition/)
 -   [GraphQLError](structs/GraphQLError/)
 -   [GraphQLError.Location](structs/GraphQLError.Location/)
@@ -128,8 +128,8 @@
 -   [Record](extensions/Record/)
 -   [RecordSet](extensions/RecordSet/)
 -   [Reference](extensions/Reference/)
+-   [RequestBodyCreator](extensions/RequestBodyCreator/)
 -   [RequestChainNetworkTransport](extensions/RequestChainNetworkTransport/)
--   [RequestCreator](extensions/RequestCreator/)
 -   [String](extensions/String/)
 -   [URL](extensions/URL/)
 
