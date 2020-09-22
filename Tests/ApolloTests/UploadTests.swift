@@ -1,7 +1,8 @@
 import XCTest
-import Apollo
+@testable import Apollo
 import ApolloTestSupport
 import UploadAPI
+import StarWarsAPI
 
 class UploadTests: XCTestCase {
   
@@ -198,6 +199,225 @@ class UploadTests: XCTestCase {
     }
     
     self.wait(for: [expectation], timeout: 10)
+  }
+  
+  // MARK: - UploadRequest
+  
+  private func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
+    return TestFileHelper.testParentFolder()
+        .appendingPathComponent(name)
+        .appendingPathExtension(fileExtension)
+  }
+  
+  func testSingleFileWithUploadRequest() throws {
+    let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
     
+    let alphaFile = try GraphQLFile(fieldName: "file",
+                                    originalName: "a.txt",
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileUrl)
+    let operation = UploadOneFileMutation(file: alphaFile.originalName)
+    let uploadRequest = UploadRequest(graphQLEndpoint: TestURL.mockServer.url,
+                                      operation: operation,
+                                      clientName: "test",
+                                      clientVersion: "test",
+                                      files: [alphaFile],
+                                      manualBoundary: "TEST.BOUNDARY")
+    let formData = try uploadRequest.requestMultipartFormData()
+    let stringToCompare = try formData.toTestString()
+    
+    if JSONSerialization.dataCanBeSorted() {
+      let expectedString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="operations"
+
+{"id":"c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533","operationName":"UploadOneFile","query":"mutation UploadOneFile($file: Upload!) {\\n  singleUpload(file: $file) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"file":null}}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="map"
+
+{"0":["variables.file"]}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="0"; filename="a.txt"
+Content-Type: text/plain
+
+Alpha file content.
+
+--TEST.BOUNDARY--
+"""
+      XCTAssertEqual(stringToCompare, expectedString)
+    } else {
+      // Operation parameters may be in weird order, so let's at least check that the files and single parameter got encoded properly.
+      let expectedEndString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="map"
+
+{"0":["variables.file"]}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="0"; filename="a.txt"
+Content-Type: text/plain
+
+Alpha file content.
+
+--TEST.BOUNDARY--
+"""
+      stringToCompare.apollo.checkIncludes(expectedString: expectedEndString)
+    }
+  }
+
+  func testMultipleFilesWithUploadRequest() throws {
+    let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
+    let alphaFile = try GraphQLFile(fieldName: "files",
+                                    originalName: "a.txt",
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileURL)
+    
+    let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
+    let betaFile = try GraphQLFile(fieldName: "files",
+                                   originalName: "b.txt",
+                                   mimeType: "text/plain",
+                                   fileURL: betaFileURL)
+    
+    let files = [alphaFile, betaFile]
+    let operation = UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName })
+    let uploadRequest = UploadRequest(graphQLEndpoint: TestURL.mockServer.url,
+                                      operation: operation,
+                                      clientName: "test",
+                                      clientVersion: "test",
+                                      files: files,
+                                      manualBoundary: "TEST.BOUNDARY")
+    let multipartData = try uploadRequest.requestMultipartFormData()
+    let stringToCompare = try multipartData.toTestString()
+    
+    if JSONSerialization.dataCanBeSorted() {
+      let expectedString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="operations"
+
+{"id":"88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7","operationName":"UploadMultipleFilesToTheSameParameter","query":"mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\\n  multipleUpload(files: $files) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"files":[null,null]}}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="map"
+
+{"0":["variables.files.0"],"1":["variables.files.1"]}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="0"; filename="a.txt"
+Content-Type: text/plain
+
+Alpha file content.
+
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="1"; filename="b.txt"
+Content-Type: text/plain
+
+Bravo file content.
+
+--TEST.BOUNDARY--
+"""
+      XCTAssertEqual(stringToCompare, expectedString)
+    } else {
+      // Query and operation parameters may be in weird order, so let's at least check that the files got encoded properly.
+      let endString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="0"; filename="a.txt"
+Content-Type: text/plain
+
+Alpha file content.
+
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="1"; filename="b.txt"
+Content-Type: text/plain
+
+Bravo file content.
+
+--TEST.BOUNDARY--
+"""
+      stringToCompare.apollo.checkIncludes(expectedString: endString)
+    }
+  }
+
+  func testMultipleFilesWithMultipleFieldsWithUploadRequest() throws {
+    let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
+    let alphaFile = try GraphQLFile(fieldName: "uploads",
+                                    originalName: "a.txt",
+                                    mimeType: "text/plain",
+                                    fileURL: alphaFileURL)
+    
+    let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
+    let betaFile = try GraphQLFile(fieldName: "uploads",
+                                   originalName: "b.txt",
+                                   mimeType: "text/plain",
+                                   fileURL: betaFileURL)
+    
+    let charlieFileUrl = self.fileURLForFile(named: "c", extension: "txt")
+    let charlieFile = try GraphQLFile(fieldName: "secondField",
+                                      originalName: "c.txt",
+                                      mimeType: "text/plain",
+                                      fileURL: charlieFileUrl)
+    
+    let uploadRequest = UploadRequest(graphQLEndpoint: TestURL.mockServer.url,
+                                      operation:  HeroNameQuery(),
+                                      clientName: "test",
+                                      clientVersion: "test",
+                                      files: [alphaFile, betaFile, charlieFile],
+                                      manualBoundary: "TEST.BOUNDARY")
+    
+    let multipartData = try uploadRequest.requestMultipartFormData()
+    let stringToCompare = try multipartData.toTestString()
+    
+    if JSONSerialization.dataCanBeSorted() {
+      let expectedString = """
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="operations"
+
+  {"id":"f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671","operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,\"secondField\":null,\"uploads\":null}}
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="map"
+
+  {"0":["variables.secondField"],"1":["variables.uploads.0"],"2":["variables.uploads.1"]}
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="0"; filename="c.txt"
+  Content-Type: text/plain
+
+  Charlie file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="1"; filename="a.txt"
+  Content-Type: text/plain
+
+  Alpha file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="2"; filename="b.txt"
+  Content-Type: text/plain
+
+  Bravo file content.
+
+  --TEST.BOUNDARY--
+  """
+      XCTAssertEqual(stringToCompare, expectedString)
+    } else {
+      // Query and operation parameters may be in weird order, so let's at least check that the files got encoded properly.
+      let endString = """
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="0"; filename="c.txt"
+  Content-Type: text/plain
+
+  Charlie file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="1"; filename="a.txt"
+  Content-Type: text/plain
+
+  Alpha file content.
+
+  --TEST.BOUNDARY
+  Content-Disposition: form-data; name="2"; filename="b.txt"
+  Content-Type: text/plain
+
+  Bravo file content.
+
+  --TEST.BOUNDARY--
+  """
+      stringToCompare.apollo.checkIncludes(expectedString: endString)
+    }
   }
 }

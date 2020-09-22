@@ -2,17 +2,27 @@ import Foundation
 
 /// An implementation of `NetworkTransport` which creates a `RequestChain` object
 /// for each item sent through it.
-public class RequestChainNetworkTransport: NetworkTransport {
+open class RequestChainNetworkTransport: NetworkTransport {
   
   let interceptorProvider: InterceptorProvider
-  let endpointURL: URL
   
-  var additionalHeaders: [String: String]
-  let autoPersistQueries: Bool
-  let useGETForQueries: Bool
-  let useGETForPersistedQueryRetry: Bool
+  /// The GraphQL endpoint URL to use.
+  public let endpointURL: URL
   
-  var requestCreator: RequestCreator
+  /// Any additional headers that should be automatically added to every request.
+  public private(set) var additionalHeaders: [String: String]
+  
+  /// Set to `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default.
+  public let autoPersistQueries: Bool
+  
+  /// Set to  `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN.
+  public let useGETForQueries: Bool
+  
+  /// Set to `true` to use `GET` instead of `POST` for a retry of a persisted query.
+  public let useGETForPersistedQueryRetry: Bool
+  
+  /// The `RequestBodyCreator` object to use to build your `URLRequest`.
+  public var requestBodyCreator: RequestBodyCreator
   
   /// Designated initializer
   ///
@@ -21,14 +31,14 @@ public class RequestChainNetworkTransport: NetworkTransport {
   ///   - endpointURL: The GraphQL endpoint URL to use.
   ///   - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
   ///   - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default. Defaults to `false`.
-  ///   - requestCreator: The `RequestCreator` object to use to build your `URLRequest`. Defaults to the providedd `ApolloRequestCreator` implementation.
+  ///   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the providedd `ApolloRequestBodyCreator` implementation.
   ///   - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`. 
   public init(interceptorProvider: InterceptorProvider,
               endpointURL: URL,
               additionalHeaders: [String: String] = [:],
               autoPersistQueries: Bool = false,
-              requestCreator: RequestCreator = ApolloRequestCreator(),
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
               useGETForQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false) {
     self.interceptorProvider = interceptorProvider
@@ -36,16 +46,24 @@ public class RequestChainNetworkTransport: NetworkTransport {
 
     self.additionalHeaders = additionalHeaders
     self.autoPersistQueries = autoPersistQueries
-    self.requestCreator = requestCreator
+    self.requestBodyCreator = requestBodyCreator
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
   }
   
-  private func constructJSONRequest<Operation: GraphQLOperation>(
+  /// Constructs a default (ie, non-multipart) GraphQL request.
+  ///
+  /// Override this method if you need to use a custom subclass of `HTTPRequest`.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to create the request for
+  ///   - cachePolicy: The `CachePolicy` to use when creating the request
+  ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
+  /// - Returns: The constructed request.
+  open func constructRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     cachePolicy: CachePolicy,
-    contextIdentifier: UUID?) -> JSONRequest<Operation> {
-    
+    contextIdentifier: UUID? = nil) -> HTTPRequest<Operation> {
     JSONRequest(operation: operation,
                 graphQLEndpoint: self.endpointURL,
                 contextIdentifier: contextIdentifier,
@@ -56,7 +74,7 @@ public class RequestChainNetworkTransport: NetworkTransport {
                 autoPersistQueries: self.autoPersistQueries,
                 useGETForQueries: self.useGETForQueries,
                 useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
-                requestCreator: self.requestCreator)
+                requestBodyCreator: self.requestBodyCreator)
   }
   
   // MARK: - NetworkTransport Conformance
@@ -74,9 +92,9 @@ public class RequestChainNetworkTransport: NetworkTransport {
     let interceptors = self.interceptorProvider.interceptors(for: operation)
     let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
     chain.additionalErrorHandler = self.interceptorProvider.additionalErrorInterceptor(for: operation)
-    let request = self.constructJSONRequest(for: operation,
-                                            cachePolicy: cachePolicy,
-                                            contextIdentifier: contextIdentifier)
+    let request = self.constructRequest(for: operation,
+                                        cachePolicy: cachePolicy,
+                                        contextIdentifier: contextIdentifier)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain
@@ -85,16 +103,24 @@ public class RequestChainNetworkTransport: NetworkTransport {
 
 extension RequestChainNetworkTransport: UploadingNetworkTransport {
   
-  private func createUploadRequest<Operation: GraphQLOperation>(
+  /// Constructs an uploading (ie, multipart) GraphQL request
+  ///
+  /// Override this method if you need to use a custom subclass of `HTTPRequest`.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to create a request for
+  ///   - files: The files you wish to upload
+  /// - Returns: The created request.
+  open func constructUploadRequest<Operation: GraphQLOperation>(
     for operation: Operation,
-    with files: [GraphQLFile]) -> UploadRequest<Operation> {
+    with files: [GraphQLFile]) -> HTTPRequest<Operation> {
     
     UploadRequest(graphQLEndpoint: self.endpointURL,
                   operation: operation,
                   clientName: self.clientName,
                   clientVersion: self.clientVersion,
                   files: files,
-                  requestCreator: self.requestCreator)
+                  requestBodyCreator: self.requestBodyCreator)
   }
   
   public func upload<Operation: GraphQLOperation>(
@@ -103,7 +129,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
-    let request = self.createUploadRequest(for: operation, with: files)
+    let request = self.constructUploadRequest(for: operation, with: files)
     let interceptors = self.interceptorProvider.interceptors(for: operation)
     let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
     

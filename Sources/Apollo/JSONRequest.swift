@@ -3,7 +3,7 @@ import Foundation
 /// A request which sends JSON related to a GraphQL operation.
 open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
-  public let requestCreator: RequestCreator
+  public let requestBodyCreator: RequestBodyCreator
   
   public let autoPersistQueries: Bool
   public let useGETForQueries: Bool
@@ -25,7 +25,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
   ///   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
-  ///   - requestCreator: An object conforming to the `RequestCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestCreator` implementation.
+  ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
   public init(operation: Operation,
               graphQLEndpoint: URL,
               contextIdentifier: UUID? = nil,
@@ -36,11 +36,11 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
               autoPersistQueries: Bool = false,
               useGETForQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false,
-              requestCreator: RequestCreator = ApolloRequestCreator()) {
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
     self.autoPersistQueries = autoPersistQueries
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
-    self.requestCreator = requestCreator
+    self.requestBodyCreator = requestBodyCreator
     
     super.init(graphQLEndpoint: graphQLEndpoint,
                operation: operation,
@@ -88,7 +88,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       autoPersistQueries = false
     }
     
-    let body = self.requestCreator.requestBody(for: operation,
+    let body = self.requestBodyCreator.requestBody(for: operation,
                                                sendOperationIdentifiers: self.sendOperationIdentifier,
                                                sendQueryDocument: sendQueryDocument,
                                                autoPersistQuery: autoPersistQueries)
