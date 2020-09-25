@@ -4,6 +4,9 @@ import ApolloCore
 #endif
 
 public protocol RequestCreator {
+
+  func requestHeaders<Operation: GraphQLOperation>(for operation: Operation) -> [String: String]?
+
   /// Creates a `GraphQLMap` out of the passed-in operation
   ///
   /// - Parameters:
@@ -33,6 +36,11 @@ public protocol RequestCreator {
 }
 
 extension RequestCreator {
+
+  public func requestHeaders<Operation: GraphQLOperation>(for operation: Operation) -> [String: String]? {
+    return nil
+  }
+
   /// Creates a `GraphQLMap` out of the passed-in operation
   ///
   /// - Parameters:
