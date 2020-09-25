@@ -66,6 +66,28 @@ public protocol HTTPNetworkTransportRetryDelegate: HTTPNetworkTransportDelegate 
                         continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void)
 }
 
+/// Methods which will be called if an error is receieved at the network level.
+public protocol HTTPNetworkTransportRetryOperationDelegate: HTTPNetworkTransportRetryDelegate {
+  
+  /// Called when an error has been received after a request has been sent to the server to see if an operation should be retried or not.
+  /// NOTE: Don't just call the `continueHandler` with `.retry` all the time, or you can potentially wind up in an infinite loop of errors
+  ///
+  /// - Parameters:
+  ///   - networkTransport: The network transport which received the error
+  ///   - error: The received error
+  ///   - request: The URLRequest which generated the error
+  ///   - response: [Optional] Any response received when the error was generated
+  ///   - continueHandler: A closure indicating whether the operation should be retried. Asyncrhonous to allow for re-authentication or other async operations to complete.
+  func networkTransport<Operation: GraphQLOperation>(
+    _ networkTransport: HTTPNetworkTransport,
+    receivedError error: Error,
+    for request: URLRequest,
+    response: URLResponse?,
+    operation: Operation,
+    continueHandler: @escaping (_ action: HTTPNetworkTransport.ContinueAction) -> Void
+  )
+}
+
 // MARK: -
 
 /// Methods which will be called after some kind of response has been received and it contains GraphQLErrors.
@@ -288,27 +310,40 @@ public class HTTPNetworkTransport {
         return
     }
 
-    retrier.networkTransport(
-      self,
-      receivedError: error,
-      for: request,
-      response: response,
-      continueHandler: { [weak self] (action: HTTPNetworkTransport.ContinueAction) in
-        guard let self = self else {
-          // None of the rest of this really matters
-          return
-        }
+    let continueHandler = { [weak self] (action: HTTPNetworkTransport.ContinueAction) in
+      guard let self = self else {
+        // None of the rest of this really matters
+        return
+      }
 
-        switch action {
-        case .retry:
-          _ = self.send(operation: operation,
-                        isPersistedQueryRetry: self.enableAutoPersistedQueries,
-                        files: files,
-                        completionHandler: completionHandler)
-        case .fail(let error):
-          completionHandler(.failure(error))
-        }
-    })
+      switch action {
+      case .retry:
+        _ = self.send(operation: operation,
+                      isPersistedQueryRetry: self.enableAutoPersistedQueries,
+                      files: files,
+                      completionHandler: completionHandler)
+      case .fail(let error):
+        completionHandler(.failure(error))
+      }
+    }
+    if let retrier = retrier as? HTTPNetworkTransportRetryOperationDelegate {
+      retrier.networkTransport(
+        self,
+        receivedError: error,
+        for: request,
+        response: response,
+        operation: operation,
+        continueHandler: continueHandler
+      )
+    } else {
+      retrier.networkTransport(
+        self,
+        receivedError: error,
+        for: request,
+        response: response,
+        continueHandler: continueHandler
+      )
+    }
   }
 
   private func rawTaskCompleted(request: URLRequest,
