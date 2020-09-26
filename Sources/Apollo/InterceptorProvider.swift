@@ -65,6 +65,10 @@ open class LegacyInterceptorProvider: InterceptorProvider {
         LegacyCacheWriteInterceptor(store: self.store),
     ]
   }
+  
+  open func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
+    return nil
+  }
 }
 
 // MARK: - Default implementation for swift codegen
@@ -109,4 +113,8 @@ open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Interceptor
          // Swift codegen Phase 2: Add Cache Write interceptor
      ]
    }
+  
+  open func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
+    return nil
+  }
 }
