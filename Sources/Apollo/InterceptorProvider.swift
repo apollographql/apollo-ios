@@ -66,7 +66,7 @@ open class LegacyInterceptorProvider: InterceptorProvider {
     ]
   }
   
-  open func additionalErrorInterceptor<Operation>(for operation: Operation) -> ApolloErrorInterceptor? where Operation : GraphQLOperation {
+  open func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
     return nil
   }
 }
@@ -114,7 +114,7 @@ open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Interceptor
      ]
    }
   
-  open func additionalErrorInterceptor<Operation>(for operation: Operation) -> ApolloErrorInterceptor? where Operation : GraphQLOperation {
+  open func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
     return nil
   }
 }
