@@ -229,7 +229,7 @@ class RequestChainTests: XCTestCase {
         ]
       }
       
-      func additionalErrorInterceptor<Operation>(for operation: Operation) -> ApolloErrorInterceptor? where Operation : GraphQLOperation {
+      override func additionalErrorInterceptor<Operation>(for operation: Operation) -> ApolloErrorInterceptor? where Operation : GraphQLOperation {
         return self.errorInterceptor
       }
     }
