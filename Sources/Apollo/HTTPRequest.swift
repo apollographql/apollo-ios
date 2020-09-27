@@ -45,6 +45,7 @@ open class HTTPRequest<Operation: GraphQLOperation> {
     
     self.addHeader(name: "Content-Type", value: contentType)
     self.addHeader(name: "X-APOLLO-OPERATION-NAME", value: self.operation.operationName)
+    self.addHeader(name: "X-APOLLO-OPERATION-TYPE", value: String(describing: operation.operationType))
     if let operationID = self.operation.operationIdentifier {
       self.addHeader(name: "X-APOLLO-OPERATION-ID", value: operationID)
     }
