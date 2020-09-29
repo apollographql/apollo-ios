@@ -388,6 +388,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let provider = LegacyInterceptorProvider(client: mockClient)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: self.endpoint,
+                                               additionalHeaders: ["Authentication": "Bearer 1234"],
                                                useGETForQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
@@ -403,6 +404,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     
     XCTAssertEqual(request.url?.host, network.endpointURL.host)
     XCTAssertEqual(request.httpMethod, "GET")
+    XCTAssertEqual(request.allHTTPHeaderFields!["Authentication"], "Bearer 1234")
     
     try self.validateUrlParams(with: request,
                                query: query,
