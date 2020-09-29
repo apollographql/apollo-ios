@@ -31,6 +31,6 @@ _* - You will need write permissions for this to actually work, please contact [
 
 Things to do after release has been made
 
-- [ ] Update version of library in sample applications (Currently: [Frontpage](https://github.com/apollographql/frontpage-ios-app) and [RocketReserver](https://github.com/apollographql/iOSTutorial))
+- [ ] Update version of library in sample applications (Currently: [RocketReserver](https://github.com/apollographql/iOSTutorial))
 - [ ] Close out milestone in GitHub and all related issues
 - [ ] Create next expected milestone in GitHub
