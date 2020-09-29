@@ -6,7 +6,7 @@ Welcome! This tutorial demonstrates adding the Apollo iOS SDK to an app to commu
 
 - Xcode 12.0
 - Swift 5.3
-- Apollo iOS SDK 0.34.0 (BETA)
+- Apollo iOS SDK 0.34.0
 
 The tutorial assumes that you're using a Mac with Xcode installed. It also assumes some prior experience with iOS development.
 
