@@ -1,6 +1,7 @@
 ---
 name: Question
 about: Use this template to ask questions.
+labels: question
 ---
 
 
