@@ -3,7 +3,7 @@
 ## v0.34.0
 
 - **SPECTACULARLY BREAKING**: As noted in the Beta release notes below, the networking stack for HTTP requests has been completely rewritten. This is described in great detail in the [RFC for the networking changes](https://github.com/apollographql/apollo-ios/issues/1340), as well as the [updated documentation for Advanced Client Creation](https://www.apollographql.com/docs/ios/initialization/#advanced-client-creation) and the [updated tutorial section on setting up authentication](https://www.apollographql.com/docs/ios/tutorial/tutorial-mutations/). Thank you all for the excellent feedback and looking forward to hearing about the cool stuff you're able to build with this! ([#1386](https://github.com/apollographql/apollo-ios/pull/1386)) 
-- **REMINDER**: If you're using Carthage with Xcode 12, please make sure you're using the workaround script as outlined in the [release notes for `0.33.0`](#v0.33.0).
+- **REMINDER**: If you're using Carthage with Xcode 12, please make sure you're using the workaround script as outlined in the [release notes for `0.33.0`](#v0330).
 
 ## v0.34.0-rc.2
 
