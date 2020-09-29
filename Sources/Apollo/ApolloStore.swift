@@ -1,8 +1,8 @@
-import Dispatch
+import Foundation
 
 /// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
 public typealias CacheKeyForObject = (_ object: JSONObject) -> JSONValue?
-public typealias DidChangeKeysFunc = (Set<CacheKey>, UnsafeMutableRawPointer?) -> Void
+public typealias DidChangeKeysFunc = (Set<CacheKey>, UUID?) -> Void
 
 func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> String {
   switch operation.operationType {
@@ -16,9 +16,16 @@ func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> Stri
 }
 
 protocol ApolloStoreSubscriber: class {
+  
+  /// A callback that can be received by subcribers when keys are changed within the database
+  ///
+  /// - Parameters:
+  ///   - store: The store which made the changes
+  ///   - changedKeys: The list of changed keys
+  ///   - contextIdentifier: [optional] A unique identifier for the request that kicked off this change, to assist in de-duping cache hits for watchers.
   func store(_ store: ApolloStore,
              didChangeKeys changedKeys: Set<CacheKey>,
-             context: UnsafeMutableRawPointer?)
+             contextIdentifier: UUID?)
 }
 
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
@@ -37,15 +44,15 @@ public final class ApolloStore {
 
   /// Designated initializer
   ///
-  /// - Parameter cache: An instance of `normalizedCache` to use to cache results.
-  public init(cache: NormalizedCache) {
+  /// - Parameter cache: An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`.
+  public init(cache: NormalizedCache = InMemoryNormalizedCache()) {
     self.cache = cache
     queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
   }
 
-  fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>, context: UnsafeMutableRawPointer?) {
+  fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>, identifier: UUID?) {
     for subscriber in self.subscribers {
-      subscriber.store(self, didChangeKeys: changedKeys, context: context)
+      subscriber.store(self, didChangeKeys: changedKeys, contextIdentifier: identifier)
     }
   }
 
@@ -64,13 +71,13 @@ public final class ApolloStore {
     }
   }
 
-  func publish(records: RecordSet, context: UnsafeMutableRawPointer? = nil) -> Promise<Void> {
+  func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
           self.cache.mergePromise(records: records)
         }.andThen { changedKeys in
-          self.didChangeKeys(changedKeys, context: context)
+          self.didChangeKeys(changedKeys, identifier: identifier)
           fulfill(())
         }.wait()
       }
@@ -164,16 +171,16 @@ public final class ApolloStore {
       }
   }
 
-  func load<Query: GraphQLQuery>(query: Query) -> Promise<GraphQLResult<Query.Data>> {
+  func load<Operation: GraphQLOperation>(query: Operation) -> Promise<GraphQLResult<Operation.Data>> {
     return withinReadTransactionPromise { transaction in
-      let mapper = GraphQLSelectionSetMapper<Query.Data>()
+      let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
 
-      return try transaction.execute(selections: Query.Data.selections,
+      return try transaction.execute(selections: Operation.Data.selections,
                                      onObjectWithKey: rootCacheKey(for: query),
                                      variables: query.variables,
                                      accumulator: zip(mapper, dependencyTracker))
-    }.map { (data: Query.Data, dependentKeys: Set<CacheKey>) in
+    }.map { (data: Operation.Data, dependentKeys: Set<CacheKey>) in
       GraphQLResult(data: data,
                     extensions: nil,
                     errors: nil,
@@ -187,7 +194,7 @@ public final class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+  public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
     load(query: query).andThen { result in
       resultHandler(.success(result))
     }.catch { error in

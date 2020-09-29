@@ -15,7 +15,7 @@ Once those operations are generated, you can use an instance of `ApolloClient` u
 There are two different classes which conform to the [`NetworkTransport` protocol](api/Apollo/protocols/NetworkTransport/) within the `ApolloWebSocket` library: 
 
 - **`WebSocketTransport`** sends all operations over a web socket. 
-- **`SplitNetworkTransport`** hangs onto both a [`WebSocketTransport`](api/ApolloWebSocket/classes/WebSocketTransport/) instance and an [`UploadingNetworkTransport`](api/Apollo/protocols/UploadingNetworkTransport/) instance (usually [`HTTPNetworkTransport`](api/Apollo/classes/HTTPNetworkTransport/)) in order to create a single network transport that can use http for queries and mutations, and web sockets for subscriptions. 
+- **`SplitNetworkTransport`** hangs onto both a [`WebSocketTransport`](api/ApolloWebSocket/classes/WebSocketTransport/) instance and an [`UploadingNetworkTransport`](api/Apollo/protocols/UploadingNetworkTransport/) instance (usually [`RequestChainNetworkTransport`](api/Apollo/classes/RequestChainNetworkTransport/)) in order to create a single network transport that can use http for queries and mutations, and web sockets for subscriptions. 
 
 Typically, you'll want to use `SplitNetworkTransport`, since this allows you to retain the single `NetworkTransport` setup and avoids any potential issues of using multiple client objects. 
 

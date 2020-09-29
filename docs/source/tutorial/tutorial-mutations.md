@@ -8,72 +8,95 @@ In this section, you'll learn how to build authenticated mutations and handle in
 
 Before you can book a trip, you need to be able to pass your authentication token along to the example server. To do that, let's dig a little deeper into how Apollo Client works. 
 
-The `ApolloClient` uses something called a `NetworkTransport` under the hood. By default, the client creates an `HTTPNetworkTransport` instance to handle talking over HTTP to your server.
+The `ApolloClient` uses something called a `NetworkTransport` under the hood. By default, the client creates a `RequestChainNetworkTransport` instance to handle talking over HTTP to your server.
 
-If you need to do anything before a request hits the wire but after Apollo has done most of the configuration for you, there's a delegate protocol called `HTTPNetworkTransportPreflightDelegate` that allows you to do that. 
+A `RequestChain` runs your request through an array of `ApolloInterceptor` objects which can mutate the request and/or check the cache before it hits the network, and then do additional work after a response is received from the network. 
 
-Open `Network.swift` and add an extension to conform to that delegate: 
+The `RequestChainNetworkTransport` uses an object that conforms to the `InterceptorProivder` protocol in order to create that array of interceptors for each operation it executes. There are a couple of providers that are set up by default, which return a fairly standard array of interceptors. 
 
-```swift:title=Network.swift
-extension Network: HTTPNetworkTransportPreflightDelegate { 
+The nice thing is that you can also add your own interceptors to the chain anywhere you need to perform custom actions. In this case, you want to have an interceptor that will add 
 
+First, create the new interceptor. Go to **File > New > File...** and create a new **Swift File**. Name it **TokenAddingInterceptor.swift**. Open that file, and add the 
+
+```swift:title=TokenAddingInterceptor.swift
+import Foundation
+import Apollo
+
+class TokenAddingInterceptor: ApolloInterceptor {
+    func interceptAsync<Operation: GraphQLOperation>(
+        chain: RequestChain,
+        request: HTTPRequest<Operation>,
+        response: HTTPResponse<Operation>?,
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        
+        // TODO
+    }
 }
 ```
 
-You'll get an error telling you that protocol stubs must be implemented, and asking you if you want to fix this. Click **Fix**.
+Next, import `KeychainSwift` at the top of the file so you can access the key you've just stored in the keychain.
 
-<img src="images/preflight_delegate_add_protocol_stubs.png" class="screenshot" alt="Do you wish to add protocol stubs with fix button"/>
-
-Two protocol methods will be added: `networkTransport(_:shouldSend:)` and `networkTransport(_:willSend:)`. 
-
-The `shouldSend` method enables you to make sure a request should go out to the network at all. This is useful for things like checking that your user is logged in before trying to make a request. 
-
-However, you're not going to use that functionality in this application. Update the method to have it return `true` all the time:
-
-```swift:title=Network.swift  
-func networkTransport(_ networkTransport: HTTPNetworkTransport, 
-                      shouldSend request: URLRequest) -> Bool {
-	return true
-}
-```
-
-The `willSend` request is the last thing that can manipulate the request before it goes out to the network. Because the request is passed as an `inout` variable, you can manipulate its contents directly. 
-
-Update the `willSend` method to add your token as the value for the `Authorization` header: 
-
-```swift:title=Network.swift
-func networkTransport(_ networkTransport: HTTPNetworkTransport, 
-                      willSend request: inout URLRequest) {
-  let keychain = KeychainSwift()
-  if let token = keychain.get(LoginViewController.loginKeychainKey) {
-    request.addValue(token, forHTTPHeaderField: "Authorization")
-  } // else do nothing
-}
-```
-
-Then, import `KeychainSwift` at the top of the file:
-
-```swift:title=Network.swift
+```swift:title=TokenAddingInterceptor.swift
 import KeychainSwift
 ```
 
-Next, you need to make sure that Apollo knows that this delegate exists. To do that, you need to do something that Apollo Client has thus far been doing for you under the hood: instantiating the `HTTPNetworkTransport`.
+Then, replace the `TODO` within the `interceptAsync` method with code to get the token from the keychain, and add it to your headers if it exists:
 
-In the primary declaration of `Network`, update your `lazy var` to create this transport and set the `Network` object as its delegate, then pass it through to the `ApolloClient`: 
-
-```swift:title=Network.swift
-private(set) lazy var apollo: ApolloClient = {
- let httpNetworkTransport = HTTPNetworkTransport(url: URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!)
- httpNetworkTransport.delegate = self
- return ApolloClient(networkTransport: httpNetworkTransport)
-}()
+```swift:title=TokenAddingInterceptor.swift
+let keychain = KeychainSwift()
+if let token = keychain.get(LoginViewController.loginKeychainKey) {
+    request.addHeader(name: "Authorization", value: token)
+} // else do nothing
+        
+chain.proceedAsync(request: request,
+                   response: response,
+                   completion: completion)
 ```
 
+Next, since you're only adding one interceptor that can run at the very beginning of other interceptors, you can subclass the existing `LegacyInterceptorProvider` (which is the default interceptor provider). 
+
+Go to **File > New > File...** and create a new **Swift File**. Name it **NetworkInterceptorProvider.swift**. Add an initial Add code which inserts your `TokenAddingInterceptor` before the other interceptors provided by the `LegacyInterceptorProvider`: 
+
+```swift:title=NetworkInterceptorProvider.swift
+import Foundation
+import Apollo
+
+class NetworkInterceptorProvider: LegacyInterceptorProvider {
+    override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        var interceptors = super.interceptors(for: operation)
+        interceptors.insert(TokenAddingInterceptor(), at: 0)
+        return interceptors
+    }
+}
+```
+
+> Another way to do this would be to copy the interceptors provided by the `LegacyInterceptorProvider` (which are all public), and then place your interceptors in the points in the array where you want them. However, since in this case we can run this interceptor first, it's just as simple to subclass. 
+
+Next, go back to your `Network` class. Replace the `ApolloClient` with an updated `lazy var` which creates the `RequestChainNetworkTransport` manually, using your custom interceptor provider: 
+
+```swift:title=Network.swift
+class Network {
+    static let shared = Network()
+    
+    private(set) lazy var apollo: ApolloClient = {
+        let client = URLSessionClient()
+        let cache = InMemoryNormalizedCache()
+        let store = ApolloStore(cache: cache)
+        let provider = NetworkInterceptorProvider(client: client, store: store)
+        let url = URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!
+        let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                     endpointURL: url)
+        return ApolloClient(networkTransport: transport)
+    }()
+}
+```
+
+Now, go back to **TokenAddingInterceptor.swift**.
 Click on the line numbers to add a breakpoint at the line where you're instantiating the `Keychain`: 
 
-<img alt="adding a breakpoint" class="screenshot" src="images/preflight_delegate_breakpoint.png"/>
+<img alt="adding a breakpoint" class="screenshot" src="images/interceptor_breakpoint.png"/>
 
-Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. If you're logged in, your token will be sent to the server whenever you make a request. 
+Build and run the application. Whenever a network request goes out, that breakpoint should now get hit. If you're logged in, your token will be sent to the server whenever you make a request!
 
 ## Add Alert helper methods
 

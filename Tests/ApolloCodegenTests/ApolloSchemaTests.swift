@@ -7,19 +7,18 @@
 //
 
 import XCTest
+import ApolloTestSupport
 @testable import ApolloCodegenLib
 
 class ApolloSchemaTests: XCTestCase {
-  
-  private lazy var endpointURL = URL(string: "http://localhost:8080/graphql")!
-  
+    
   func testCreatingOptionsWithDefaultParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
-    let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
+    let options = ApolloSchemaOptions(endpointURL: TestURL.starWarsServer.url,
                                       outputFolderURL: sourceRoot)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
-    XCTAssertEqual(options.endpointURL, self.endpointURL)
+    XCTAssertEqual(options.endpointURL, TestURL.starWarsServer.url)
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertNil(options.apiKey)
     XCTAssertTrue(options.headers.isEmpty)
@@ -41,11 +40,11 @@ class ApolloSchemaTests: XCTestCase {
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
                                       schemaFileType: .schemaDefinitionLanguage,
                                       apiKey: apiKey,
-                                      endpointURL: self.endpointURL,
+                                      endpointURL: TestURL.starWarsServer.url,
                                       headers: headers,
                                       outputFolderURL: sourceRoot)
     XCTAssertEqual(options.apiKey, apiKey)
-    XCTAssertEqual(options.endpointURL, self.endpointURL)
+    XCTAssertEqual(options.endpointURL, TestURL.starWarsServer.url)
     XCTAssertEqual(options.headers, headers)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
@@ -64,7 +63,7 @@ class ApolloSchemaTests: XCTestCase {
   func testDownloadingSchemaAsJSON() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
-    let options = ApolloSchemaOptions(endpointURL: self.endpointURL,
+    let options = ApolloSchemaOptions(endpointURL: TestURL.starWarsServer.url,
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
@@ -98,7 +97,7 @@ class ApolloSchemaTests: XCTestCase {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloSchemaOptions(schemaFileType: .schemaDefinitionLanguage,
-                                      endpointURL: self.endpointURL,
+                                      endpointURL: TestURL.starWarsServer.url,
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL

@@ -30,4 +30,10 @@ struct TestFileHelper {
     self.uploadServerFolder(from: file)
       .appendingPathComponent("uploads")
   }
+  
+  static func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
+    return self.testParentFolder()
+        .appendingPathComponent(name)
+        .appendingPathExtension(fileExtension)
+  }
 }

@@ -30,7 +30,7 @@ public class WebSocketTransport {
   var websocket: ApolloWebSocketClient
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
-  private let requestCreator: RequestCreator
+  private let requestBodyCreator: RequestBodyCreator
 
   private final let protocols = ["graphql-ws"]
 
@@ -104,7 +104,7 @@ public class WebSocketTransport {
   /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
   /// - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
   /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
-  /// - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
+  /// - Parameter requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
   public init(request: URLRequest,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
@@ -113,13 +113,13 @@ public class WebSocketTransport {
               reconnectionInterval: TimeInterval = 0.5,
               allowSendingDuplicates: Bool = true,
               connectingPayload: GraphQLMap? = [:],
-              requestCreator: RequestCreator = ApolloRequestCreator()) {
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.reconnect = Atomic(reconnect)
     self.reconnectionInterval = reconnectionInterval
     self.allowSendingDuplicates = allowSendingDuplicates
-    self.requestCreator = requestCreator
+    self.requestBodyCreator = requestBodyCreator
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
     self.clientVersion = clientVersion
@@ -270,7 +270,7 @@ public class WebSocketTransport {
   }
 
   func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
-    let body = requestCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
+    let body = requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
     let sequenceNumber = "\(sequenceNumberCounter.increment())"
 
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
@@ -342,10 +342,15 @@ public class WebSocketTransport {
   }
 }
 
-// MARK: - HTTPNetworkTransport conformance
+// MARK: - NetworkTransport conformance
 
 extension WebSocketTransport: NetworkTransport {
-  public func send<Operation: GraphQLOperation>(operation: Operation, completionHandler: @escaping (_ result: Result<GraphQLResponse<Operation.Data>,Error>) -> Void) -> Cancellable {
+  public func send<Operation: GraphQLOperation>(
+    operation: Operation,
+    cachePolicy: CachePolicy,
+    contextIdentifier: UUID? = nil,
+    callbackQueue: DispatchQueue = .main,
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     if let error = self.error.value {
       completionHandler(.failure(error))
       return EmptyCancellable()
@@ -355,7 +360,12 @@ extension WebSocketTransport: NetworkTransport {
       switch result {
       case .success(let jsonBody):
         let response = GraphQLResponse(operation: operation, body: jsonBody)
-        completionHandler(.success(response))
+        do {
+          let graphQLResult = try response.parseResultFast()
+          completionHandler(.success(graphQLResult))
+        } catch {
+          completionHandler(.failure(error))
+        }
       case .failure(let error):
         completionHandler(.failure(error))
       }

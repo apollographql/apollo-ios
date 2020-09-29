@@ -22,13 +22,13 @@ public protocol ApolloClientProtocol: class {
   /// - Parameters:
   ///   - query: The query to fetch.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
-  ///   - context: [optional] A context to use for the cache to work with results. Should default to nil.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
-                                  context: UnsafeMutableRawPointer?,
+                                  contextIdentifier: UUID?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> Cancellable
 
@@ -36,26 +36,21 @@ public protocol ApolloClientProtocol: class {
   ///
   /// - Parameters:
   ///   - query: The query to fetch.
-  ///   - fetchHTTPMethod: The HTTP Method to be used.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the local cache.
-  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   func watch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
-                                  queue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 
   /// Performs a mutation by sending it to the server.
   ///
   /// - Parameters:
   ///   - mutation: The mutation to perform.
-  ///   - context: [optional] A context to use for the cache to work with results. Should default to nil.
   ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
-                                          context: UnsafeMutableRawPointer?,
                                           queue: DispatchQueue,
                                           resultHandler: GraphQLResultHandler<Mutation.Data>?) -> Cancellable
 
@@ -63,14 +58,11 @@ public protocol ApolloClientProtocol: class {
   ///
   /// - Parameters:
   ///   - operation: The operation to send
-  ///   - context: [optional] A context to use for the cache to work with results. Should default to nil.
   ///   - files: An array of `GraphQLFile` objects to send.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
-  ///   - completionHandler: The completion handler to execute when the request completes or errors
+  ///   - completionHandler: The completion handler to execute when the request completes or errors. Note that an error will be returned If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   /// - Returns: An object that can be used to cancel an in progress request.
-  /// - Throws: If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   func upload<Operation: GraphQLOperation>(operation: Operation,
-                                           context: UnsafeMutableRawPointer?,
                                            files: [GraphQLFile],
                                            queue: DispatchQueue,
                                            resultHandler: GraphQLResultHandler<Operation.Data>?) -> Cancellable

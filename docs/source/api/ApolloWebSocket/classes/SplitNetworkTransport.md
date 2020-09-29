@@ -22,21 +22,21 @@ public var clientVersion: String
 ```
 
 ## Methods
-### `init(httpNetworkTransport:webSocketNetworkTransport:)`
+### `init(uploadingNetworkTransport:webSocketNetworkTransport:)`
 
 ```swift
-public init(httpNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport)
+public init(uploadingNetworkTransport: UploadingNetworkTransport, webSocketNetworkTransport: NetworkTransport)
 ```
 
 > Designated initializer
 >
 > - Parameters:
->   - httpNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar.
+>   - uploadingNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `RequestChainNetworkTransport` or something similar.
 >   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| httpNetworkTransport | An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `HTTPNetworkTransport` or something similar. |
+| uploadingNetworkTransport | An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `RequestChainNetworkTransport` or something similar. |
 | webSocketNetworkTransport | A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar. |

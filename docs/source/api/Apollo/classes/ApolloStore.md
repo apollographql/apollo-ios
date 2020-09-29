@@ -19,18 +19,18 @@ public var cacheKeyForObject: CacheKeyForObject?
 ### `init(cache:)`
 
 ```swift
-public init(cache: NormalizedCache)
+public init(cache: NormalizedCache = InMemoryNormalizedCache())
 ```
 
 > Designated initializer
 >
-> - Parameter cache: An instance of `normalizedCache` to use to cache results.
+> - Parameter cache: An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| cache | An instance of `normalizedCache` to use to cache results. |
+| cache | An instance of `normalizedCache` to use to cache results. Defaults to an `InMemoryNormalizedCache`. |
 
 ### `clearCache(callbackQueue:completion:)`
 
@@ -91,7 +91,7 @@ public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransactio
 ### `load(query:resultHandler:)`
 
 ```swift
-public func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>)
+public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>)
 ```
 
 > Loads the results for the given query from the cache.

@@ -3,5 +3,5 @@
 # `DidChangeKeysFunc`
 
 ```swift
-public typealias DidChangeKeysFunc = (Set<CacheKey>, UnsafeMutableRawPointer?) -> Void
+public typealias DidChangeKeysFunc = (Set<CacheKey>, UUID?) -> Void
 ```

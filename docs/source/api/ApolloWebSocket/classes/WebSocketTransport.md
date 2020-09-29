@@ -48,7 +48,7 @@ public var enableSOCKSProxy: Bool
 > Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
 
 ## Methods
-### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectingPayload:requestCreator:)`
+### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectingPayload:requestBodyCreator:)`
 
 ```swift
 public init(request: URLRequest,
@@ -59,7 +59,7 @@ public init(request: URLRequest,
             reconnectionInterval: TimeInterval = 0.5,
             allowSendingDuplicates: Bool = true,
             connectingPayload: GraphQLMap? = [:],
-            requestCreator: RequestCreator = ApolloRequestCreator())
+            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
 ```
 
 > Designated initializer
@@ -72,7 +72,7 @@ public init(request: URLRequest,
 > - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
 > - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
 > - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
-> - Parameter requestCreator: The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`.
+> - Parameter requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
 
 #### Parameters
 
@@ -86,7 +86,7 @@ public init(request: URLRequest,
 | reconnectionInterval | How long to wait before attempting to reconnect. Defaults to half a second. |
 | allowSendingDuplicates | Allow sending duplicate messages. Important when reconnected. Defaults to true. |
 | connectingPayload | [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`. |
-| requestCreator | The request creator to use when serializing requests. Defaults to an `ApolloRequestCreator`. |
+| requestBodyCreator | The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`. |
 
 ### `isConnected()`
 

@@ -49,3 +49,4 @@ class SQLiteWatchQueryTests: WatchQueryTests {
     SQLiteTestCacheProvider.self
   }
 }
+

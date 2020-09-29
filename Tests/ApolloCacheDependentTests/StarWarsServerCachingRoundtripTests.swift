@@ -40,8 +40,11 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheTesting {
   
   private func fetchAndLoadFromStore<Query: GraphQLQuery>(query: Query, setupClient: ((ApolloClient) -> Void)? = nil, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     withCache { (cache) in
-      let network = HTTPNetworkTransport(url: URL(string: "http://localhost:8080/graphql")!)
       let store = ApolloStore(cache: cache)
+      let provider = LegacyInterceptorProvider(store: store)
+      let network = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: TestURL.starWarsServer.url)
+
       let client = ApolloClient(networkTransport: network, store: store)
 
       if let setupClient = setupClient {
