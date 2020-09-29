@@ -98,7 +98,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     case .GET:
       let transformer = GraphQLGETTransformer(body: body, url: self.graphQLEndpoint)
       if let urlForGet = transformer.createGetURL() {
-        request = URLRequest(url: urlForGet)
+        request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
       } else {
         throw GraphQLHTTPRequestError.serializedQueryParamsMessageError
