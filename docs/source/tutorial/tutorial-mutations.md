@@ -12,7 +12,7 @@ The `ApolloClient` uses something called a `NetworkTransport` under the hood. By
 
 A `RequestChain` runs your request through an array of `ApolloInterceptor` objects which can mutate the request and/or check the cache before it hits the network, and then do additional work after a response is received from the network. 
 
-The `RequestChainNetworkTransport` uses an object that conforms to the `InterceptorProivder` protocol in order to create that array of interceptors for each operation it executes. There are a couple of providers that are set up by default, which return a fairly standard array of interceptors. 
+The `RequestChainNetworkTransport` uses an object that conforms to the `InterceptorProvider` protocol in order to create that array of interceptors for each operation it executes. There are a couple of providers that are set up by default, which return a fairly standard array of interceptors. 
 
 The nice thing is that you can also add your own interceptors to the chain anywhere you need to perform custom actions. In this case, you want to have an interceptor that will add 
 
