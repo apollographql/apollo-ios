@@ -8,12 +8,36 @@
 
 import Apollo
 import XCTest
+import StarWarsAPI
 
 class ErrorGenerationTests: XCTestCase {
   
-  func testLocalizedStringFromErrorResponse() throws {
+  private func checkExtensions(on error: GraphQLError,
+                               expectedDict: [String: Any?],
+                               file: StaticString = #filePath,
+                               line: UInt = #line) {
+    XCTAssertEqual(error.extensions?.count,
+                   expectedDict.count,
+                   file: file,
+                   line: line)
+    
+    for (key, expectedValue) in expectedDict {
+      let actualValue = error.extensions?[key] as? String
+      let stringExpectedValue = expectedValue as? String
+      XCTAssertEqual(actualValue,
+                     stringExpectedValue,
+                     "Value for key \(key) did not match expected value \(String(describing: stringExpectedValue)), it was \(String(describing: actualValue))",
+                     file: file,
+                     line: line)
+    }
+  }
+  
+  func testSingleErrorParsing() throws {
     let json = """
 {
+  "data": {
+    "hero": null
+  },
   "errors": [
     {
       "message": "Invalid client auth token.",
@@ -25,24 +49,30 @@ class ErrorGenerationTests: XCTestCase {
 }
 """
  
-    let response = HTTPURLResponse(url: URL(string: "https://www.fake.com")!,
-                                   statusCode: 403,
-                                   httpVersion: nil,
-                                   headerFields: nil)!
-    
     let data = try XCTUnwrap(json.data(using: .utf8),
                              "Couldn't create json data")
+    let deserialized = try JSONSerializationFormat.deserialize(data: data)
+    let jsonObject = try XCTUnwrap(deserialized as? JSONObject)
+    let response = GraphQLResponse(operation: HeroNameQuery(), body: jsonObject)
+    let result = try response.parseResultFast()
+    XCTAssertNotNil(result.data)
+    XCTAssertNil(result.data?.hero)
     
-    let httpResponseError = GraphQLHTTPResponseError(body: data,
-                                                     response: response,
-                                                     kind: .errorResponse)
-    XCTAssertEqual(httpResponseError.graphQLErrors?.count, 1)
-    XCTAssertEqual(httpResponseError.localizedDescription, "Received error response: Invalid client auth token.")
+    XCTAssertEqual(result.errors?.count, 1)
+    let error = try XCTUnwrap(result.errors?.first)
+    XCTAssertEqual(error.message, "Invalid client auth token.")
+    
+    self.checkExtensions(on: error, expectedDict:  [
+      "code": "INTERNAL_SERVER_ERROR"
+    ])
   }
   
   func testLocalizedStringFromErrorResponseWithMultipleErrors() throws {
     let json = """
 {
+  "data": {
+    "hero": null
+  },
   "errors": [
     {
       "message": "Invalid client auth token.",
@@ -60,52 +90,27 @@ class ErrorGenerationTests: XCTestCase {
 }
 """
     
-    let response = HTTPURLResponse(url: URL(string: "https://www.fake.com")!,
-                                   statusCode: 403,
-                                   httpVersion: nil,
-                                   headerFields: nil)!
-    
     let data = try XCTUnwrap(json.data(using: .utf8),
                              "Couldn't create json data")
+    let deserialized = try JSONSerializationFormat.deserialize(data: data)
+    let jsonObject = try XCTUnwrap(deserialized as? JSONObject)
+    let response = GraphQLResponse(operation: HeroNameQuery(), body: jsonObject)
+    let result = try response.parseResultFast()
+    XCTAssertNotNil(result.data)
+    XCTAssertNil(result.data?.hero)
     
-    let httpResponseError = GraphQLHTTPResponseError(body: data,
-                                                     response: response,
-                                                     kind: .errorResponse)
-    XCTAssertEqual(httpResponseError.graphQLErrors?.count, 2)
-    XCTAssertEqual(httpResponseError.localizedDescription, "Received error response: Invalid client auth token.\nServer is having a sad.")
-  }
-  
-  func testLocalizedStringFromPlaintextResponse() throws {
-    let text = "The server is having a sad."
+    let errors = try XCTUnwrap(result.errors)
     
-    let response = HTTPURLResponse(url: URL(string: "https://www.fake.com")!,
-                                   statusCode: 500,
-                                   httpVersion: nil,
-                                   headerFields: nil)!
+    XCTAssertEqual(errors.count, 2)
+    XCTAssertEqual(errors.map { $0.message }, [
+      "Invalid client auth token.",
+      "Server is having a sad.",
+    ])
     
-    let data = try XCTUnwrap(text.data(using: .utf8),
-                             "Couldn't create text data")
-
-    
-    let httpResponseError = GraphQLHTTPResponseError(body: data,
-                                                     response: response,
-                                                     kind: .errorResponse)
-    
-    XCTAssertNil(httpResponseError.graphQLErrors)
-    XCTAssertEqual(httpResponseError.localizedDescription, "Received error response (500 internal server error): The server is having a sad.")
-  }
-  
-  func testLocalizedStringFromNullDataResponse() {
-    let response = HTTPURLResponse(url: URL(string: "https://www.fake.com")!,
-                                   statusCode: 500,
-                                   httpVersion: nil,
-                                   headerFields: nil)!
-    
-    let httpResponseError = GraphQLHTTPResponseError(body: nil,
-                                                     response: response,
-                                                     kind: .errorResponse)
-    
-    XCTAssertNil(httpResponseError.graphQLErrors)
-    XCTAssertEqual(httpResponseError.localizedDescription, "Received error response (500 internal server error): [Empty response body]")
+    for error in errors {
+      self.checkExtensions(on: error, expectedDict: [
+        "code": "INTERNAL_SERVER_ERROR"
+      ])
+    }
   }
 }

@@ -356,11 +356,7 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
           
           completionHandler(data)
         case .failure(let error):
-          if let responseError = error as? GraphQLHTTPResponseError {
-            XCTFail("Response error: \(responseError.bodyDescription)")
-          } else {
-            XCTFail("Unexpected error: \(error)")
-          }
+          XCTFail("Unexpected error: \(error)")
         }
       }
       
