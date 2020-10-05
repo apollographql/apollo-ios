@@ -1,5 +1,6 @@
 import Foundation
 
+/// A wrapper for data about a particular task handled by `URLSessionClient`
 public class TaskData {
   
   public let rawCompletion: URLSessionClient.RawCompletion?
