@@ -70,8 +70,20 @@ public final class ApolloStore {
       }
     }
   }
+  
+  func publishWithCompletion(recordSet: RecordSet,
+                             identifier: UUID? = nil,
+                             completion: @escaping (Result<Void, Error>) -> Void) {
+    self.publish(records: recordSet)
+      .andThen {
+        completion(.success(()))
+      }
+      .catch { error in
+        completion(.failure(error))
+      }
+  }
 
-  func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
+  private func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
@@ -133,7 +145,7 @@ public final class ApolloStore {
     }
   }
 
-  func withinReadWriteTransactionPromise<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
+  private func withinReadWriteTransactionPromise<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
     return Promise<ReadWriteTransaction> { fulfill, reject in
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
@@ -169,7 +181,7 @@ public final class ApolloStore {
       }
   }
 
-  func load<Operation: GraphQLOperation>(query: Operation) -> Promise<GraphQLResult<Operation.Data>> {
+  private func load<Operation: GraphQLOperation>(query: Operation) -> Promise<GraphQLResult<Operation.Data>> {
     return withinReadTransactionPromise { transaction in
       let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
