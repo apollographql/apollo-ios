@@ -125,9 +125,9 @@ Because the above query won't fetch `appearsIn`, this property is not part of th
 
 By default, Apollo constructs queries and sends them to your graphql endpoint using `POST` with the JSON generated. 
 
-If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `HTTPNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`. 
+If you want Apollo to use `GET` instead, pass `true` to the optional `useGETForQueries` parameter when setting up your `RequestChainNetworkTransport`. This will set up all queries conforming to `GraphQLQuery` sent through the HTTP transport to use `GET`.
 
->**NOTE:** This is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `HTTPNetworkTransport`.
+>**NOTE:** This is a toggle which affects all queries sent through that client, so if you need to have certain queries go as `POST` and certain ones go as `GET`, you will likely have to swap out the `RequestChainNetworkTransport`.
 
 ## JSON serialization
 
@@ -160,9 +160,9 @@ To use APQs with the iOS SDK:
 - When generating your code, pass a local path for output for the `--operationIdsPath` (or pass a file URL to the `operationIDsURL` on `ApolloCodegenOptions` if using Swift Scripting).  
 
     This will generate a document with all your operations, but more importantly it will cause operation identifiers to be generated with your code. 
-- When creating your `ApolloClient`, make sure to manually instantiate your `HTTPNetworkTransport` and set `enableAutoPersistedQueries` and `sendOperationIdentifiers` to `true`.
+- When creating your `ApolloClient`, make sure to manually instantiate your `RequestChainNetworkTransport` and set `autoPersistQueries`.
 
-    This will cause the `HTTPNetworkTransport` to actively look for the "Oh no, I don't have this hash!" error from the server.
+    This will cause the `RequestChainNetworkTransport` to actively look for the "Oh no, I don't have this hash!" error from the server.
 
 By default, retries of queries will use `POST`.  If for some reason (for example, your queries are hitting a CDN that has considerably better performance with `GET`), you need to use a `GET` for the 2nd try of a query, make sure to set the `useGETForPersistedQueryRetry` option to `true`. Most users will want to leave this option as `false`. 
 
