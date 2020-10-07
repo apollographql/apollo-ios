@@ -41,15 +41,15 @@ class Apollo {
   }()
   
   /// An HTTP transport to use for queries and mutations
-  private lazy var httpTransport: HTTPNetworkTransport = {
+  private lazy var normalTransport: RequestChainNetworkTransport = {
     let url = URL(string: "http://localhost:8080/graphql")!
-    return HTTPNetworkTransport(url: url)
+    return RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
   }()
 
-  /// A split network transport to allow the use of both of the above 
+  /// A split network transport to allow the use of both of the above
   /// transports through a single `NetworkTransport` instance.
   private lazy var splitNetworkTransport = SplitNetworkTransport(
-    httpNetworkTransport: self.httpTransport, 
+    uploadingNetworkTransport: self.normalTransport,
     webSocketNetworkTransport: self.webSocketTransport
   )
 
@@ -163,15 +163,15 @@ class Apollo {
   }()
   
   /// An HTTP transport to use for queries and mutations.
-  private lazy var httpTransport: HTTPNetworkTransport = {
+  private lazy var normalTransport: RequestChainNetworkTransport = {
     let url = URL(string: "http://localhost:8080/graphql")!
-    return HTTPNetworkTransport(url: url)
+    return RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
   }()
 
-  /// A split network transport to allow the use of both of the above 
+  /// A split network transport to allow the use of both of the above
   /// transports through a single `NetworkTransport` instance.
   private lazy var splitNetworkTransport = SplitNetworkTransport(
-    httpNetworkTransport: self.httpTransport, 
+    uploadingNetworkTransport: self.normalTransport,
     webSocketNetworkTransport: self.webSocketTransport
   )
 
