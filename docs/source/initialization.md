@@ -14,7 +14,7 @@ class Network {
 }
 ```
 
-Under the hood, this will create a client using `HTTPNetworkTransport` with a default configuration. You can then use this client from anywhere in your code with `Network.shared.apollo`. 
+Under the hood, this will create a client using `RequestChainNetworkTransport` with a default configuration. You can then use this client from anywhere in your code with `Network.shared.apollo`.
 
 ## Advanced Client Creation
 
@@ -93,7 +93,7 @@ Since `URLSession` only supports use in the background using the delegate-based 
 
 One thing to be aware of: Because setting up a delegate is only possible in the initializer for `URLSession`, you can only pass in a `URLSessionConfiguration`, **not** an existing `URLSession`, to this class's initializer. 
 
-By default, instances of `URLSessionClient` use `URLSessionConfiguration.default` to set up their URL session, and instances of `HTTPNetworkTransport` use the default initializer for `URLSessionClient`.
+By default, instances of `URLSessionClient` use `URLSessionConfiguration.default` to set up their URL session, and instances of `LegacyInterceptorProvider` and `CodableInterceptorProvider` use the default initializer for `URLSessionClient`.
 
 The `URLSessionClient` class and most of its methods are `open` so you can subclass it if you need to override any of the delegate methods for the `URLSession` delegates we're using or you need to handle additional delegate scenarios.  
 
