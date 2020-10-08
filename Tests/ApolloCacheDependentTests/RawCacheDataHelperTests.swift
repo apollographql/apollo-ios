@@ -18,7 +18,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
   }
   
   private class TestFetcher: RawNetworkFetcher {
-    func fetchData(onSuccess: (Data) -> Void) {
+    func fetchData<Operation: GraphQLOperation>(operation: Operation, onSuccess: @escaping (Data) -> Void) {
       let json = """
 {
   "data": {
