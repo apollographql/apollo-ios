@@ -65,29 +65,15 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
       self.session = nil
       self.clearAllTasks()
     }
-    
+
     guard let session = self.session else {
       // Session's already gone, just cleanup.
       cleanup()
       return
     }
-    
-    let currentTaskIDs = self.tasks.value.keys
-    if #available(OSX 10.11, iOS 9.0, *) {
-      session.getAllTasks { [weak self] tasks in
-        for task in tasks {
-          if currentTaskIDs.contains(task.taskIdentifier) {
-            self?.cancel(task: task)
-          }
-        }
-        
-        cleanup()
-      }
-    } else {
-      // Fallback on earlier versions - note that per docs this does *not* cancel all operations on the shared session.
-      session.invalidateAndCancel()
-      cleanup()
-    }
+
+    session.invalidateAndCancel()
+    cleanup()
   }
   
   /// Clears underlying dictionaries of any data related to a particular task identifier.
