@@ -82,6 +82,9 @@
                   Identifier = "SQLiteLoadQueryFromStoreTests">
                </Test>
                <Test
+                  Identifier = "SQLiteRawCacheDataHelperTests">
+               </Test>
+               <Test
                   Identifier = "SQLiteReadWriteFromStoreTests">
                </Test>
                <Test

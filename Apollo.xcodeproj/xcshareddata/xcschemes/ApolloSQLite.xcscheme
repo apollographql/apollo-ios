@@ -73,6 +73,9 @@
                   Identifier = "LoadQueryFromStoreTests">
                </Test>
                <Test
+                  Identifier = "RawCacheDataHelperTests">
+               </Test>
+               <Test
                   Identifier = "ReadWriteFromStoreTests">
                </Test>
                <Test

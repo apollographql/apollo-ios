@@ -50,3 +50,10 @@ class SQLiteWatchQueryTests: WatchQueryTests {
   }
 }
 
+class SQLiteRawCacheDataHelperTests: RawCacheDataHelperTests {
+  
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
