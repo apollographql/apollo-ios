@@ -29,6 +29,22 @@ extension RequestBodyCreator {
                                                        sendOperationIdentifiers: Bool = false,
                                                        sendQueryDocument: Bool = true,
                                                        autoPersistQuery: Bool = false) -> GraphQLMap {
+    self.requestBody(for: operation,
+                     sendOperationIdentifiers: sendOperationIdentifiers,
+                     sendQueryDocument: sendQueryDocument,
+                     autoPersistQuery: autoPersistQuery)
+  }
+}
+
+// Helper struct to create requests independently of HTTP operations.
+public struct ApolloRequestBodyCreator: RequestBodyCreator {
+  // Internal init methods cannot be used in public methods
+  public init() { }
+
+  public func requestBody<Operation>(for operation: Operation,
+                              sendOperationIdentifiers: Bool,
+                              sendQueryDocument: Bool,
+                              autoPersistQuery: Bool) -> GraphQLMap where Operation : GraphQLOperation {
     var body: GraphQLMap = [
       "variables": operation.variables,
       "operationName": operation.operationName,
@@ -58,10 +74,4 @@ extension RequestBodyCreator {
 
     return body
   }
-}
-
-// Helper struct to create requests independently of HTTP operations.
-public struct ApolloRequestBodyCreator: RequestBodyCreator {
-  // Internal init methods cannot be used in public methods
-  public init() { }
 }
