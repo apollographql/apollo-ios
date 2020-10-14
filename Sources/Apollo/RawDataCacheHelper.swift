@@ -10,8 +10,8 @@ public protocol RawNetworkFetcher {
   /// This should generally be called from a custom `NetworkTransport` implementation.
   /// - Parameters:
   ///   - operation: The operation being executed
-  ///   - onSuccess: The completion closure to call when data has been successfully fetched from the network.
-  func fetchData<Operation: GraphQLOperation>(operation: Operation, onSuccess: @escaping (Data) -> Void)
+  ///   - completion: The completion closure to call when the network fetch has completed.
+  func fetchData<Operation: GraphQLOperation>(operation: Operation, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 /// A class to provide a bridge to allow users with custom `NetworkTransports`
@@ -49,10 +49,15 @@ public class RawDataCacheHelper {
     
     switch cachePolicy {
     case .fetchIgnoringCacheCompletely:
-      networkFetcher.fetchData(operation: operation) { data in
-        self.parseDataFast(data: data,
-                           operation: operation,
-                           completion: completion)
+      networkFetcher.fetchData(operation: operation) { [weak self] networkResult in
+        switch networkResult {
+        case .failure(let error):
+          completion(.failure(error))
+        case .success(let data):
+          self?.parseDataFast(data: data,
+                              operation: operation,
+                              completion: completion)
+        }
       }
     case .returnCacheDataElseFetch:
       self.fetchFromStore(store: store,
@@ -61,22 +66,32 @@ public class RawDataCacheHelper {
         case .success(let graphQLResult):
           completion(.success(graphQLResult))
         case .failure:
-          networkFetcher.fetchData(operation: operation) { data in
-            self.parseThenWriteToStore(data: data,
-                                       store: store,
-                                       operation: operation,
-                                       contextIdentifier: contextIdentifier,
-                                       completion: completion)
+          networkFetcher.fetchData(operation: operation) { [weak self] networkResult in
+            switch networkResult {
+            case .failure(let error):
+              completion(.failure(error))
+            case .success(let data):
+              self?.parseThenWriteToStore(data: data,
+                                          store: store,
+                                          operation: operation,
+                                          contextIdentifier: contextIdentifier,
+                                          completion: completion)
+            }
           }
         }
       }
     case .fetchIgnoringCacheData:
-      networkFetcher.fetchData(operation: operation) { [weak self] data in
-        self?.parseThenWriteToStore(data: data,
-                                    store: store,
-                                    operation: operation,
-                                    contextIdentifier: contextIdentifier,
-                                    completion: completion)
+      networkFetcher.fetchData(operation: operation) { [weak self] networkResult in
+        switch networkResult {
+        case .failure(let error):
+          completion(.failure(error))
+        case .success(let data):
+          self?.parseThenWriteToStore(data: data,
+                                      store: store,
+                                      operation: operation,
+                                      contextIdentifier: contextIdentifier,
+                                      completion: completion)
+        }
       }
     case .returnCacheDataDontFetch:
       self.fetchFromStore(store: store,
@@ -95,12 +110,17 @@ public class RawDataCacheHelper {
           completion(.success(result))
         }
         
-        networkFetcher.fetchData(operation: operation) { [weak self] data in
-          self?.parseThenWriteToStore(data: data,
-                                      store: store,
-                                      operation: operation,
-                                      contextIdentifier: contextIdentifier,
-                                      completion: completion)
+        networkFetcher.fetchData(operation: operation) { [weak self] networkResult in
+          switch networkResult {
+          case .failure(let error):
+            completion(.failure(error))
+          case .success(let data):
+            self?.parseThenWriteToStore(data: data,
+                                        store: store,
+                                        operation: operation,
+                                        contextIdentifier: contextIdentifier,
+                                        completion: completion)
+          }
         }
       }
     }
