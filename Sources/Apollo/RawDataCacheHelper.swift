@@ -28,6 +28,8 @@ public class RawDataCacheHelper {
     !self.isCancelled.value
   }
   
+  let id = UUID()
+  
   /// Designated initializer.
   public init() {}
   
@@ -242,6 +244,12 @@ public class RawDataCacheHelper {
       }
     
     completion(.success(result))
+  }
+}
+
+extension RawDataCacheHelper: Equatable {
+  public static func == (lhs: RawDataCacheHelper, rhs: RawDataCacheHelper) -> Bool {
+    lhs.id == rhs.id
   }
 }
 
