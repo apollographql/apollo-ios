@@ -35,6 +35,16 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
+  fileprivate class ErrorFetcher: RawNetworkFetcher {
+    enum TestError: Error {
+      case anError
+    }
+    
+    func fetchData<Operation: GraphQLOperation>(operation: Operation, completion: @escaping (Result<Data, Error>) -> Void) {
+      completion(.failure(TestError.anError))
+    }
+  }
+  
   func testFetchIgnoringCacheCompletelyIgnoresExistingCacheAndReturnsDataAndDoesNotWriteToCache() {
     
     let initialRecords: RecordSet = [
@@ -83,8 +93,59 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
-  func testFetchIgnoringCacheDataIgnoresExistingCacheAndReturnsDataAndWritesToCache() {
+  func testFetchIgnoringCacheCompletelyPropagatesNetworkErrorAndDoesNotAffectCache() {
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+      ]
+    ]
     
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
+      
+      let fetchExpectation = self.expectation(description: "Fetch complete")
+      RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
+                                        cachePolicy: .fetchIgnoringCacheCompletely,
+                                        store: store,
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
+        switch cacheHelperResult {
+        case .success:
+          XCTFail("This should not have succeeded")
+        case .failure(let error):
+          switch error {
+          case ErrorFetcher.TestError.anError:
+            // This is what we want
+            break
+          default:
+            XCTFail("Unexpected error with cache helper: \(error)")
+          }
+        }
+        
+        fetchExpectation.fulfill()
+      }
+      
+      self.wait(for: [fetchExpectation], timeout: 2)
+      
+      let loadExpectation = self.expectation(description: "Load complete")
+      store.load(query: HeroNameQuery()) { cacheResult in
+        // The existing item in the cache should not have been touched:
+        switch cacheResult {
+        case .failure(let error):
+          XCTFail("Unexpected error fetching from cache: \(error)")
+        case .success(let graphQLResult):
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+          XCTAssertEqual(graphQLResult.data?.hero?.__typename, "Droid")
+        }
+        
+        loadExpectation.fulfill()
+      }
+      self.wait(for: [loadExpectation], timeout: 2)
+    }
+  }
+  
+  func testFetchIgnoringCacheDataIgnoresExistingCacheAndReturnsDataAndWritesToCache() {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": [
@@ -131,7 +192,58 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
-  func testReturnCacheDataDontFetchWithRecordReturnsTheRecordAndDoesNotUpdateTheCache() {
+  func testFetchIgnoringCacheDataPropagatesErrorAndDoesNotAffectCache() {
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+      ]
+    ]
+    
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
+      
+      let fetchExpectation = self.expectation(description: "Fetch complete")
+      RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
+                                        cachePolicy: .fetchIgnoringCacheData,
+                                        store: store,
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
+        switch cacheHelperResult {
+        case .success:
+          XCTFail("This should not have succeeded")
+        case .failure(let error):
+          switch error {
+          case ErrorFetcher.TestError.anError:
+            // This is what we want
+            break
+          default:
+            XCTFail("Unexpected error with cache helper: \(error)")
+          }
+        }
+        
+        fetchExpectation.fulfill()
+      }
+      self.wait(for: [fetchExpectation], timeout: 2)
+      
+      // The existing item in the cache should not have been updated
+      let loadExpectation = self.expectation(description: "Load complete")
+      store.load(query: HeroNameQuery()) { cacheResult in
+        switch cacheResult {
+        case .failure(let error):
+          XCTFail("Unexpected error fetching from cache: \(error)")
+        case .success(let graphQLResult):
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+          XCTAssertEqual(graphQLResult.data?.hero?.__typename, "Droid")
+        }
+        
+        loadExpectation.fulfill()
+      }
+      self.wait(for: [loadExpectation], timeout: 2)
+    }
+  }
+  
+  func testReturnCacheDataDontFetchWithRecordReturnsTheRecordWithoutHittingNetworkAndDoesNotUpdateTheCache() {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": [
@@ -147,7 +259,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
       RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
                                         cachePolicy: .returnCacheDataDontFetch,
                                         store: store,
-                                        networkFetcher: TestFetcher()) { cacheHelperResult in
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
         // This should have the result from the network:
         switch cacheHelperResult {
         case .failure(let error):
@@ -178,7 +290,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
-  func testReturnCacheDataDontFetchWithoutRecordReturnsAnErrorAndDoesNotUpdateTheCache() {
+  func testReturnCacheDataDontFetchWithoutRecordReturnsACacheErrorAndDoesNotUpdateTheCache() {
     withCache { cache in
       let store = ApolloStore(cache: cache)
       
@@ -186,7 +298,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
       RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
                                         cachePolicy: .returnCacheDataDontFetch,
                                         store: store,
-                                        networkFetcher: TestFetcher()) { cacheHelperResult in
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
         // This should be an error since there's nothing in the initial cache and we're not going out to fetch:
         switch cacheHelperResult {
         case .failure(let error):
@@ -194,6 +306,8 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
           case JSONDecodingError.missingValue:
             // This is what we expect.
             break
+          case ErrorFetcher.TestError.anError:
+            XCTFail("This went through and called the network fetcher when it shouldn't have")
           default:
             XCTFail("Unexpected error type: \(error)")
           }
@@ -227,7 +341,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
-  func testReturnCacheDataElseFetchWithRecordReturnsTheRecordAndDoesNotUpdateTheCache() {
+  func testReturnCacheDataElseFetchWithRecordReturnsTheRecordWithoutHittingNetworkAndDoesNotUpdateTheCache() {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": [
@@ -243,7 +357,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
       RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
                                         cachePolicy: .returnCacheDataElseFetch,
                                         store: store,
-                                        networkFetcher: TestFetcher()) { cacheHelperResult in
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
         // This should have the result from the network:
         switch cacheHelperResult {
         case .failure(let error):
@@ -313,6 +427,54 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
+  func testReturnCacheDataElseFetchWithoutRecordPropagatesErrorFromNetworkAndDoesNotUpdateCache() {
+    withCache { cache in
+      let store = ApolloStore(cache: cache)
+      
+      let fetchExpectation = self.expectation(description: "Fetch complete")
+      RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
+                                        cachePolicy: .returnCacheDataElseFetch,
+                                        store: store,
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
+        switch cacheHelperResult {
+        case .success:
+          XCTFail("This should not have succeeded")
+        case .failure(let error):
+          switch error {
+          case ErrorFetcher.TestError.anError:
+            // This is what we want
+            break
+          default:
+            XCTFail("Unexpected error with cache helper: \(error)")
+          }
+        }
+        
+        fetchExpectation.fulfill()
+      }
+      self.wait(for: [fetchExpectation], timeout: 2)
+      
+      let loadExpectation = self.expectation(description: "Load complete")
+      store.load(query: HeroNameQuery()) { cacheResult in
+        // Cache should still be empty
+        switch cacheResult {
+        case .success:
+          XCTFail("This should not have succeeded")
+        case .failure(let error):
+          switch error {
+          case JSONDecodingError.missingValue:
+            // This is what we want
+            break
+          default:
+            XCTFail("Unexpected error fetching from cache: \(error)")
+          }
+        }
+        
+        loadExpectation.fulfill()
+      }
+      self.wait(for: [loadExpectation], timeout: 2)
+    }
+  }
+  
   func testReturnCacheDataAndFetchWithRecordReturnsCacheRecordThenNetworkRecordAndUpdatesCache() {
     let initialRecords: RecordSet = [
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
@@ -372,13 +534,77 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
     }
   }
   
+  func testReturnCacheDataAndFetchWithRecordReturnsCacheRecordThenPropagatesNetworkErrorAndDoesNotUpdateCache() {
+    let initialRecords: RecordSet = [
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+      ]
+    ]
+    
+    withCache(initialRecords: initialRecords) { cache in
+      let store = ApolloStore(cache: cache)
+      
+      let fetchExpectation = self.expectation(description: "Fetch complete")
+      fetchExpectation.expectedFulfillmentCount = 2
+      var callbackCount = 0
+      RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
+                                        cachePolicy: .returnCacheDataAndFetch,
+                                        store: store,
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
+        callbackCount += 1
+        switch cacheHelperResult {
+        case .failure(let error):
+          if callbackCount == 2 {
+            switch error {
+            case ErrorFetcher.TestError.anError:
+              // this is what we want
+              break
+            default:
+              XCTFail("Unexpected error on callback \(callbackCount) with cache helper: \(error)")
+            }
+          } else {
+            XCTFail("Unexpected error on callback \(callbackCount) with cache helper: \(error)")
+          }
+        case .success(let graphQLResult):
+          if callbackCount == 1 {
+            // This should have the result from the cache:
+            XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+            XCTAssertEqual(graphQLResult.data?.hero?.__typename, "Droid")
+          } else {
+            XCTFail("Callback \(callbackCount) should not have succeeded!")
+          }
+        }
+        
+        fetchExpectation.fulfill()
+      }
+      self.wait(for: [fetchExpectation], timeout: 2)
+      
+      let loadExpectation = self.expectation(description: "Load complete")
+      store.load(query: HeroNameQuery()) { cacheResult in
+        // This should still be the result from the cache:
+        switch cacheResult {
+        case .failure(let error):
+          XCTFail("Unexpected error fetching from cache: \(error)")
+        case .success(let graphQLResult):
+          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+          XCTAssertEqual(graphQLResult.data?.hero?.__typename, "Droid")
+        }
+        
+        loadExpectation.fulfill()
+      }
+      self.wait(for: [loadExpectation], timeout: 2)
+    }
+  }
+  
   func testReturnCacheDataAndFetchWithoutRecordReturnsOnceWithFetchedRecordAndUpdatesCache() {
     withCache { cache in
       let store = ApolloStore(cache: cache)
       
       let fetchExpectation = self.expectation(description: "Fetch complete")
       RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
-                                        cachePolicy: .returnCacheDataElseFetch,
+                                        cachePolicy: .returnCacheDataAndFetch,
                                         store: store,
                                         networkFetcher: TestFetcher()) { cacheHelperResult in
         // We should get the result from the network here, and only once
@@ -403,6 +629,57 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
           XCTAssertEqual(graphQLResult.data?.hero?.__typename, "Human")
+        }
+        
+        loadExpectation.fulfill()
+      }
+      self.wait(for: [loadExpectation], timeout: 2)
+    }
+  }
+  
+  func testReturnCacheDataAndFetchWithoutRecordReturnsOnceWithNetworkErrorAndDoesNotUpdateCache() {
+    withCache { cache in
+      let store = ApolloStore(cache: cache)
+      
+      let fetchExpectation = self.expectation(description: "Fetch complete")
+      RawDataCacheHelper().sendViaCache(operation: HeroNameQuery(),
+                                        cachePolicy: .returnCacheDataAndFetch,
+                                        store: store,
+                                        networkFetcher: ErrorFetcher()) { cacheHelperResult in
+        // We should get the result from the network here, and only once
+        switch cacheHelperResult {
+        case .success:
+          XCTFail("This should not have succeeded")
+        case .failure(let error):
+          switch error {
+          case ErrorFetcher.TestError.anError:
+            // This is what we want
+            break
+          case JSONDecodingError.missingValue:
+            XCTFail("Cache error was returned instead of network error")
+          default:
+            XCTFail("Unexpected error with cache helper: \(error)")
+          }
+        }
+        
+        fetchExpectation.fulfill()
+      }
+      self.wait(for: [fetchExpectation], timeout: 2)
+      
+      let loadExpectation = self.expectation(description: "Load complete")
+      store.load(query: HeroNameQuery()) { cacheResult in
+        // The cache should still be empty
+        switch cacheResult {
+        case .success:
+          XCTFail("This should not have succeeded")
+        case .failure(let error):
+          switch error {
+          case JSONDecodingError.missingValue:
+            // This is what wew want
+            break
+          default:
+            XCTFail("Unexpected error fetching from cache: \(error)")
+          }
         }
         
         loadExpectation.fulfill()
