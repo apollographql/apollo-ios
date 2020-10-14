@@ -18,7 +18,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
   }
   
   private class TestFetcher: RawNetworkFetcher {
-    func fetchData<Operation: GraphQLOperation>(operation: Operation, onSuccess: @escaping (Data) -> Void) {
+    func fetchData<Operation: GraphQLOperation>(operation: Operation, completion: @escaping (Result<Data, Error>) -> Void) {
       let json = """
 {
   "data": {
@@ -31,7 +31,7 @@ class RawCacheDataHelperTests: XCTestCase, CacheTesting {
 }
 """
       
-      onSuccess(json.data(using: .utf8)!)
+      completion(.success(json.data(using: .utf8)!))
     }
   }
   
