@@ -215,14 +215,13 @@ public class RawDataCacheHelper {
       return
     }
       
-    store.publishWithCompletion(recordSet: records, identifier: contextIdentifier) { publishResult in
-      switch publishResult {
-      case .failure(let error):
-        completion(.failure(error))
-      case .success:
-        completion(.success(result))
+    store.publish(records: records, identifier: contextIdentifier)
+      .catch { error in
+        // Something has gone terribly wrong and we should at least know about it during development
+        assertionFailure(String(describing: error))
       }
-    }
+    
+    completion(.success(result))
   }
 }
 

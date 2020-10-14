@@ -47,37 +47,31 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
       return
     }
     
-    legacyResponse.parseResultWithCompletion(cacheKeyForObject: self.store.cacheKeyForObject) { [weak self] parseResult in
-      switch parseResult {
-      case .failure(let parseError):
-        chain.handleErrorAsync(parseError,
-                               request: request,
-                               response: response,
-                               completion: completion)
-      case .success(let (_, recordSet)):
-        guard let records = recordSet else {
-          // Nothing to publish, move on.
-          chain.proceedAsync(request: request,
-                             response: response,
-                             completion: completion)
-          return
-        }
-        
-        self?.store.publishWithCompletion(recordSet: records,
-                                          identifier: request.contextIdentifier) { publishResult in
-          switch publishResult {
-          case .failure(let publishError):
-            chain.handleErrorAsync(publishError,
-                                   request: request,
-                                   response: response,
-                                   completion: completion)
-          case .success:
-            chain.proceedAsync(request: request,
-                               response: createdResponse,
-                               completion: completion)
-          }
+    firstly {
+      try legacyResponse.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+    }.andThen { [weak self] (result, records) in
+      guard let self = self else {
+        return
+      }
+      guard chain.isNotCancelled else {
+        return
+      }
+      
+      if let records = records {
+        self.store.publish(records: records, identifier: request.contextIdentifier)
+          .catch { error in
+            preconditionFailure(String(describing: error))
         }
       }
+      
+      chain.proceedAsync(request: request,
+                         response: createdResponse,
+                         completion: completion)
+    }.catch { error in
+      chain.handleErrorAsync(error,
+                             request: request,
+                             response: response,
+                             completion: completion)
     }
   }
 }

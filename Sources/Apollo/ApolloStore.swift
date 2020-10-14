@@ -71,19 +71,7 @@ public final class ApolloStore {
     }
   }
   
-  func publishWithCompletion(recordSet: RecordSet,
-                             identifier: UUID? = nil,
-                             completion: @escaping (Result<Void, Error>) -> Void) {
-    self.publish(records: recordSet)
-      .andThen {
-        completion(.success(()))
-      }
-      .catch { error in
-        completion(.failure(error))
-      }
-  }
-
-  private func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
+  func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
     return Promise<Void> { fulfill, reject in
       queue.async(flags: .barrier) {
         self.cacheLock.withWriteLock {
