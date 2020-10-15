@@ -15,18 +15,25 @@ class RequestBodyCreatorTests: XCTestCase {
   private let customRequestBodyCreator = TestCustomRequestBodyCreator()
   private let apolloRequestBodyCreator = ApolloRequestBodyCreator()
   
+  func create<Operation: GraphQLOperation>(with creator: RequestBodyCreator, for query: Operation) -> GraphQLMap {
+    creator.requestBody(for: query,
+                        sendOperationIdentifiers: false,
+                        sendQueryDocument: true,
+                        autoPersistQuery: false)
+  }
+  
   // MARK: - Tests
   
   func testRequestBodyWithApolloRequestBodyCreator() {
     let query = HeroNameQuery()
-    let req = apolloRequestBodyCreator.requestBody(for: query, sendOperationIdentifiers: false)
+    let req = self.create(with: apolloRequestBodyCreator, for: query)
 
     XCTAssertEqual(query.queryDocument, req["query"] as? String)
   }
 
   func testRequestBodyWithCustomRequestBodyCreator() {
     let query = HeroNameQuery()
-    let req = customRequestBodyCreator.requestBody(for: query, sendOperationIdentifiers: false)
+    let req = self.create(with: customRequestBodyCreator, for: query)
 
     XCTAssertEqual(query.queryDocument, req["test_query"] as? String)
   }

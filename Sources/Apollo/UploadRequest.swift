@@ -69,7 +69,10 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     // Make sure all fields for files are set to null, or the server won't look
     // for the files in the rest of the form data
     let fieldsForFiles = Set(files.map { $0.fieldName }).sorted()
-    var fields = self.requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: shouldSendOperationID)
+    var fields = self.requestBodyCreator.requestBody(for: operation,
+                                                     sendOperationIdentifiers: shouldSendOperationID,
+                                                     sendQueryDocument: true,
+                                                     autoPersistQuery: false)
     var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
     for fieldName in fieldsForFiles {
       if

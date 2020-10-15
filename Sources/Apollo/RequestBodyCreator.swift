@@ -25,10 +25,10 @@ extension RequestBodyCreator {
   ///   - sendQueryDocument: Whether or not to send the full query document. Defaults to true.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Defaults to false.
   /// - Returns: The created `GraphQLMap`
-  public func requestBody<Operation: GraphQLOperation>(for operation: Operation,
-                                                       sendOperationIdentifiers: Bool = false,
-                                                       sendQueryDocument: Bool = true,
-                                                       autoPersistQuery: Bool = false) -> GraphQLMap {
+  public func defaultRequestBody<Operation: GraphQLOperation>(for operation: Operation,
+                                                              sendOperationIdentifiers: Bool,
+                                                              sendQueryDocument: Bool,
+                                                              autoPersistQuery: Bool) -> GraphQLMap {
     var body: GraphQLMap = [
       "variables": operation.variables,
       "operationName": operation.operationName,
@@ -64,4 +64,16 @@ extension RequestBodyCreator {
 public struct ApolloRequestBodyCreator: RequestBodyCreator {
   // Internal init methods cannot be used in public methods
   public init() { }
+  
+  public func requestBody<Operation: GraphQLOperation>(
+    for operation: Operation,
+    sendOperationIdentifiers: Bool = false,
+    sendQueryDocument: Bool = true,
+    autoPersistQuery: Bool = false) -> GraphQLMap {
+    
+    return self.defaultRequestBody(for: operation,
+                                   sendOperationIdentifiers: sendOperationIdentifiers,
+                                   sendQueryDocument: sendQueryDocument,
+                                   autoPersistQuery: autoPersistQuery)
+  }
 }
