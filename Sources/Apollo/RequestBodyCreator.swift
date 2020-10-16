@@ -8,7 +8,9 @@ public protocol RequestBodyCreator {
   ///
   /// - Parameters:
   ///   - operation: The operation to use
-  ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Defaults to false.
+  ///   - sendOperationIdentifiers: Whether or not to send operation identifiers. Should default to `false`.
+  ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
+  ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
   /// - Returns: The created `GraphQLMap`
   func requestBody<Operation: GraphQLOperation>(for operation: Operation,
                                                 sendOperationIdentifiers: Bool,
