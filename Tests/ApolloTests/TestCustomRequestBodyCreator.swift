@@ -9,7 +9,11 @@
 import Apollo
 
 struct TestCustomRequestBodyCreator: RequestBodyCreator {
-  public func requestBody<Operation: GraphQLOperation>(for operation: Operation, sendOperationIdentifiers: Bool) -> GraphQLMap {
+  func requestBody<Operation: GraphQLOperation>(
+    for operation: Operation,
+    sendOperationIdentifiers: Bool,
+    sendQueryDocument: Bool, autoPersistQuery: Bool) -> GraphQLMap {
+    
     var body: GraphQLMap = [
       "test_variables": operation.variables,
       "test_operationName": operation.operationName,

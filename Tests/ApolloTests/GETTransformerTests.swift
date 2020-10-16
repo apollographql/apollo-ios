@@ -17,7 +17,10 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)
-    let body = requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: false)
+    let body = requestBodyCreator.requestBody(for: operation,
+                                              sendOperationIdentifiers: false,
+                                              sendQueryDocument: true,
+                                              autoPersistQuery: false)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
@@ -28,7 +31,10 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithMoreThanOneParameterIncludingNonHashableValue() throws {
     let operation = HeroNameTypeSpecificConditionalInclusionQuery(episode: .jedi, includeName: true)
-    let body = requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: false)
+    let body = requestBodyCreator.requestBody(for: operation,
+                                              sendOperationIdentifiers: false,
+                                              sendQueryDocument: true,
+                                              autoPersistQuery: false)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     
@@ -195,7 +201,10 @@ class GETTransformerTests: XCTestCase {
   
   func testEncodingQueryWithNullDefaultParameter() {
     let operation = HeroNameQuery()
-    let body = requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: false)
+    let body = requestBodyCreator.requestBody(for: operation,
+                                              sendOperationIdentifiers: false,
+                                              sendQueryDocument: true,
+                                              autoPersistQuery: false)
     
     let transformer = GraphQLGETTransformer(body: body, url: self.url)
     

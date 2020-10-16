@@ -270,7 +270,10 @@ public class WebSocketTransport {
   }
 
   func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
-    let body = requestBodyCreator.requestBody(for: operation, sendOperationIdentifiers: self.sendOperationIdentifiers)
+    let body = requestBodyCreator.requestBody(for: operation,
+                                              sendOperationIdentifiers: self.sendOperationIdentifiers,
+                                              sendQueryDocument: true,
+                                              autoPersistQuery: false)
     let sequenceNumber = "\(sequenceNumberCounter.increment())"
 
     guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
