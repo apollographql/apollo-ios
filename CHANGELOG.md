@@ -1,5 +1,10 @@
 # Change log
 
+## v0.35.0
+- **BREAKING**: Removed the now-unused-in-the-SDK `GraphQLHTTPResponseError` type. If you were relying on this class, please copy it out of v0.34.1. ([#1437](https://github.com/apollographql/apollo-ios/pull/1437)
+- **BREAKING**: Removed default parameters from `RequestBodyCreator`'s default implementation to fix an issue where when default parameters were passed, the compiler would always select the default implementation even if a full alternate implementation was provided. ([#1450](https://github.com/apollographql/apollo-ios/pull/1450))
+- Removed unnecessary manual task clearing when invalidating a URLSession. ([#1443](https://github.com/apollographql/apollo-ios/pull/1443)
+
 ## v0.34.1
 
 - Fixes an issue that would cause headers to get lost when sending with `useGETForQueries`. ([#1420](https://github.com/apollographql/apollo-ios/pull/1420))
