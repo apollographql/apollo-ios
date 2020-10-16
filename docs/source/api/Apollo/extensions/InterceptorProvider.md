@@ -16,4 +16,4 @@ func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Oper
 
 | Name | Description |
 | ---- | ----------- |
-| operation | The oper |
+| operation | The operation to provide an additional error interceptor for |

@@ -33,10 +33,10 @@ func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Oper
 
 > Provides an additional error interceptor for any additional handling of errors
 > before returning to the UI, such as logging.
-> - Parameter operation: The oper
+> - Parameter operation: The operation to provide an additional error interceptor for
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| operation | The oper |
+| operation | The operation to provide an additional error interceptor for |

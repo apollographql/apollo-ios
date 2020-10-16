@@ -6,6 +6,8 @@
 public class TaskData
 ```
 
+> A wrapper for data about a particular task handled by `URLSessionClient`
+
 ## Properties
 ### `rawCompletion`
 

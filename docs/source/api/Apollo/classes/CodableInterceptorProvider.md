@@ -50,3 +50,15 @@ open func interceptors<Operation: GraphQLOperation>(for operation: Operation) ->
 | Name | Description |
 | ---- | ----------- |
 | operation | The operation to provide interceptors for |
+
+### `additionalErrorInterceptor(for:)`
+
+```swift
+open func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor?
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| operation | The operation to provide an additional error interceptor for |
