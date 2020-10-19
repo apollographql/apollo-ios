@@ -15,11 +15,12 @@ class RequestChainTests: XCTestCase {
   
   lazy var legacyClient: ApolloClient = {
     let url = TestURL.starWarsServer.url
-    let provider = LegacyInterceptorProvider()
+    let store = ApolloStore()
+    let provider = LegacyInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: url)
     
-    return ApolloClient(networkTransport: transport)
+    return ApolloClient(networkTransport: transport, store: store)
   }()
   
   func testLoading() {

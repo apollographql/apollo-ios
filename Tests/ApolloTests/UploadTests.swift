@@ -9,11 +9,12 @@ class UploadTests: XCTestCase {
   let uploadClientURL = TestURL.uploadServer.url
   
   lazy var client: ApolloClient = {
-    let provider = LegacyInterceptorProvider()
+    let store = ApolloStore()
+    let provider = LegacyInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: self.uploadClientURL)
     
-    return ApolloClient(networkTransport: transport)
+    return ApolloClient(networkTransport: transport, store: store)
   }()
   
   override static func tearDown() {

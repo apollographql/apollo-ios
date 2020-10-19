@@ -86,7 +86,7 @@ class Network {
         let url = URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!
         let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                      endpointURL: url)
-        return ApolloClient(networkTransport: transport)
+        return ApolloClient(networkTransport: transport, store: store)
     }()
 }
 ```
