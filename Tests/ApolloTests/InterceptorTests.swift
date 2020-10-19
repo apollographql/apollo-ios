@@ -27,8 +27,9 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
-    let testProvider = TestProvider()
+
+    let store = ApolloStore()
+    let testProvider = TestProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: testProvider,
                                                endpointURL: TestURL.mockServer.url)
     
@@ -92,8 +93,9 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
-    let testProvider = TestProvider()
+
+    let store = ApolloStore()
+    let testProvider = TestProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: testProvider,
                                                endpointURL: TestURL.mockServer.url)
     
@@ -138,8 +140,9 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
-    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+
+    let store = ApolloStore()
+    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(store: store),
                                                endpointURL: TestURL.mockServer.url)
     
     let expectation = self.expectation(description: "Reqeust sent")
@@ -187,8 +190,9 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
-    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+
+    let store = ApolloStore()
+    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(store: store),
                                                endpointURL: TestURL.mockServer.url)
     
     let expectation = self.expectation(description: "Reqeust sent")
@@ -243,8 +247,9 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
-    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+
+    let store = ApolloStore()
+    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(store: store),
                                                endpointURL: TestURL.mockServer.url)
     
     let expectation = self.expectation(description: "Reqeust sent")
