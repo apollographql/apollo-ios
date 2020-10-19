@@ -235,7 +235,7 @@ class RequestChainTests: XCTestCase {
       }
     }
 
-    let provider = TestProvider()
+    let provider = TestProvider(store: ApolloStore())
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
                                                  autoPersistQueries: true)
