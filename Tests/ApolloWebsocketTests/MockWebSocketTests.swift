@@ -22,7 +22,7 @@ class MockWebSocketTests: XCTestCase {
   
     WebSocketTransport.provider = MockWebSocket.self
     networkTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url))
-    client = ApolloClient(networkTransport: networkTransport!)
+    client = ApolloClient(networkTransport: networkTransport!, store: ApolloStore())
   }
     
   override func tearDown() {

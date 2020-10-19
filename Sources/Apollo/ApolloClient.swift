@@ -49,7 +49,7 @@ public class ApolloClient {
   /// - Parameters:
   ///   - networkTransport: A network transport used to send operations to a server.
   ///   - store: A store used as a local cache. Should default to an empty store backed by an in-memory cache.
-  public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache())) {
+  public init(networkTransport: NetworkTransport, store: ApolloStore) {
     self.networkTransport = networkTransport
     self.store = store
   }

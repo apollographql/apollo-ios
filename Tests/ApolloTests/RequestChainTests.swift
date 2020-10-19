@@ -15,11 +15,12 @@ class RequestChainTests: XCTestCase {
   
   lazy var legacyClient: ApolloClient = {
     let url = TestURL.starWarsServer.url
-    let provider = LegacyInterceptorProvider()
+    let store = ApolloStore()
+    let provider = LegacyInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: url)
     
-    return ApolloClient(networkTransport: transport)
+    return ApolloClient(networkTransport: transport, store: store)
   }()
   
   func testLoading() {
@@ -77,7 +78,7 @@ class RequestChainTests: XCTestCase {
         []
       }
     }
-    
+
     let transport = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                  endpointURL: TestURL.mockServer.url)
     let expectation = self.expectation(description: "kickoff failed")
@@ -116,7 +117,7 @@ class RequestChainTests: XCTestCase {
         ]
       }
     }
-    
+
     let provider = TestProvider()
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url)
@@ -162,7 +163,7 @@ class RequestChainTests: XCTestCase {
         return self.errorInterceptor
       }
     }
-    
+
     let provider = TestProvider()
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
@@ -233,8 +234,8 @@ class RequestChainTests: XCTestCase {
         return self.errorInterceptor
       }
     }
-    
-    let provider = TestProvider()
+
+    let provider = TestProvider(store: ApolloStore())
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
                                                  autoPersistQueries: true)

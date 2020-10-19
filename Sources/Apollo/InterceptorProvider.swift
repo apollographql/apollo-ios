@@ -42,7 +42,7 @@ open class LegacyInterceptorProvider: InterceptorProvider {
   ///   - store: The `ApolloStore` to use when reading from or writing to the cache. Defaults to the default initializer for ApolloStore.
   public init(client: URLSessionClient = URLSessionClient(),
               shouldInvalidateClientOnDeinit: Bool = true,
-              store: ApolloStore = ApolloStore()) {
+              store: ApolloStore) {
     self.client = client
     self.shouldInvalidateClientOnDeinit = shouldInvalidateClientOnDeinit
     self.store = store

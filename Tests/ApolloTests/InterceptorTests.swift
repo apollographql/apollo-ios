@@ -27,7 +27,7 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let testProvider = TestProvider()
     let network = RequestChainNetworkTransport(interceptorProvider: testProvider,
                                                endpointURL: TestURL.mockServer.url)
@@ -92,7 +92,7 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let testProvider = TestProvider()
     let network = RequestChainNetworkTransport(interceptorProvider: testProvider,
                                                endpointURL: TestURL.mockServer.url)
@@ -138,7 +138,7 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
     
@@ -187,7 +187,7 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
     
@@ -243,7 +243,7 @@ class InterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
     
