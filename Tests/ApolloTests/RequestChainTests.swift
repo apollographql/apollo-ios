@@ -79,8 +79,7 @@ class RequestChainTests: XCTestCase {
       }
     }
 
-    let store = ApolloStore()
-    let transport = RequestChainNetworkTransport(interceptorProvider: TestProvider(store: store),
+    let transport = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                  endpointURL: TestURL.mockServer.url)
     let expectation = self.expectation(description: "kickoff failed")
     _ = transport.send(operation: HeroNameQuery()) { result in
@@ -119,8 +118,7 @@ class RequestChainTests: XCTestCase {
       }
     }
 
-    let store = ApolloStore()
-    let provider = TestProvider(store: store)
+    let provider = TestProvider()
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url)
     let expectation = self.expectation(description: "Send succeeded")
@@ -166,8 +164,7 @@ class RequestChainTests: XCTestCase {
       }
     }
 
-    let store = ApolloStore()
-    let provider = TestProvider(store: store)
+    let provider = TestProvider()
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
                                                  autoPersistQueries: true)
@@ -238,8 +235,7 @@ class RequestChainTests: XCTestCase {
       }
     }
 
-    let store = ApolloStore()
-    let provider = TestProvider(store: store)
+    let provider = TestProvider()
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
                                                  autoPersistQueries: true)

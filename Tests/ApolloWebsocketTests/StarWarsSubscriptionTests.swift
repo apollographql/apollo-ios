@@ -23,7 +23,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     WebSocketTransport.provider = ApolloWebSocket.self
     webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
     webSocketTransport.delegate = self
-    client = ApolloClient(networkTransport: webSocketTransport)
+    client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
 
     self.wait(for: [self.connectionStartedExpectation!], timeout: 5)
   }
