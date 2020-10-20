@@ -89,7 +89,6 @@ open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Interceptor
   ///   - decoder: A `FlexibleDecoder` which can decode `Codable` objects.
   public init(client: URLSessionClient = URLSessionClient(),
               shouldInvalidateClientOnDeinit: Bool = true,
-              store: ApolloStore,
               decoder: FlexDecoder) {
     self.client = client
     self.shouldInvalidateClientOnDeinit = shouldInvalidateClientOnDeinit
