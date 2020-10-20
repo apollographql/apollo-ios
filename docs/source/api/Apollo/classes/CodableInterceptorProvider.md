@@ -9,12 +9,11 @@ open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: Interceptor
 > The default interceptor provider for code generated with Swift Codegen™
 
 ## Methods
-### `init(client:shouldInvalidateClientOnDeinit:store:decoder:)`
+### `init(client:shouldInvalidateClientOnDeinit:decoder:)`
 
 ```swift
 public init(client: URLSessionClient = URLSessionClient(),
             shouldInvalidateClientOnDeinit: Bool = true,
-            store: ApolloStore,
             decoder: FlexDecoder)
 ```
 

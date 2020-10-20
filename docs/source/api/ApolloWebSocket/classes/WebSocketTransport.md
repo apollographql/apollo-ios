@@ -48,7 +48,7 @@ public var enableSOCKSProxy: Bool
 > Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
 
 ## Methods
-### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectingPayload:requestBodyCreator:)`
+### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:)`
 
 ```swift
 public init(request: URLRequest,
@@ -58,6 +58,7 @@ public init(request: URLRequest,
             reconnect: Bool = true,
             reconnectionInterval: TimeInterval = 0.5,
             allowSendingDuplicates: Bool = true,
+            connectOnInit: Bool = true,
             connectingPayload: GraphQLMap? = [:],
             requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
 ```
@@ -71,6 +72,7 @@ public init(request: URLRequest,
 > - Parameter reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
 > - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
 > - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
+> - Parameter connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
 > - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
 > - Parameter requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
 
@@ -85,6 +87,7 @@ public init(request: URLRequest,
 | reconnect | Whether to auto reconnect when websocket looses connection. Defaults to true. |
 | reconnectionInterval | How long to wait before attempting to reconnect. Defaults to half a second. |
 | allowSendingDuplicates | Allow sending duplicate messages. Important when reconnected. Defaults to true. |
+| connectOnInit | Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true. |
 | connectingPayload | [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`. |
 | requestBodyCreator | The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`. |
 
