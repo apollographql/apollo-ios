@@ -18,11 +18,11 @@ Under the hood, this will create a client using `RequestChainNetworkTransport` w
 
 ## Advanced Client Creation
 
-For more advanced usage of the client, you can use this initializer which allows you to pass in an object conforming to the `NetworkTransport` protocol, as well as a store if you wish: 
+For more advanced usage of the client, you can use this initializer which allows you to pass in an object conforming to the `NetworkTransport` protocol, as well as a store: 
 
 ```swift
 public init(networkTransport: NetworkTransport, 
-            store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache()))
+            store: ApolloStore)
 ```
 
 The available implementations are: 
