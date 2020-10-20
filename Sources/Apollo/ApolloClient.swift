@@ -48,13 +48,13 @@ public class ApolloClient {
   ///
   /// - Parameters:
   ///   - networkTransport: A network transport used to send operations to a server.
-  ///   - store: A store used as a local cache. Should default to an empty store backed by an in-memory cache.
+  ///   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes a store, you should make sure the same store is passed here so that it can be cleared properly.
   public init(networkTransport: NetworkTransport, store: ApolloStore) {
     self.networkTransport = networkTransport
     self.store = store
   }
 
-  /// Creates a client with an HTTP network transport connecting to the specified URL.
+  /// Creates a client with a `RequestChainNetworkTransport` connecting to the specified URL.
   ///
   /// - Parameter url: The URL of a GraphQL server to connect to.
   public convenience init(url: URL) {
