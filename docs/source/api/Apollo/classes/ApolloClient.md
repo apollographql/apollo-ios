@@ -19,21 +19,21 @@ public let store: ApolloStore
 ### `init(networkTransport:store:)`
 
 ```swift
-public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore(cache: InMemoryNormalizedCache()))
+public init(networkTransport: NetworkTransport, store: ApolloStore)
 ```
 
 > Creates a client with the specified network transport and store.
 >
 > - Parameters:
 >   - networkTransport: A network transport used to send operations to a server.
->   - store: A store used as a local cache. Should default to an empty store backed by an in-memory cache.
+>   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes a store, you should make sure the same store is passed here so that it can be cleared properly.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
 | networkTransport | A network transport used to send operations to a server. |
-| store | A store used as a local cache. Should default to an empty store backed by an in-memory cache. |
+| store | A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes a store, you should make sure the same store is passed here so that it can be cleared properly. |
 
 ### `init(url:)`
 
@@ -41,7 +41,7 @@ public init(networkTransport: NetworkTransport, store: ApolloStore = ApolloStore
 public convenience init(url: URL)
 ```
 
-> Creates a client with an HTTP network transport connecting to the specified URL.
+> Creates a client with a `RequestChainNetworkTransport` connecting to the specified URL.
 >
 > - Parameter url: The URL of a GraphQL server to connect to.
 
