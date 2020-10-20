@@ -26,6 +26,7 @@ public class WebSocketTransport {
   public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
 
+  let connectOnInit: Bool
   let reconnect: Atomic<Bool>
   var websocket: ApolloWebSocketClient
   let error: Atomic<Error?> = Atomic(nil)
@@ -103,6 +104,7 @@ public class WebSocketTransport {
   /// - Parameter reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
   /// - Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
   /// - Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
+  /// - Parameter connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
   /// - Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   /// - Parameter requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
   public init(request: URLRequest,
@@ -112,6 +114,7 @@ public class WebSocketTransport {
               reconnect: Bool = true,
               reconnectionInterval: TimeInterval = 0.5,
               allowSendingDuplicates: Bool = true,
+              connectOnInit: Bool = true,
               connectingPayload: GraphQLMap? = [:],
               requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
     self.connectingPayload = connectingPayload
@@ -123,9 +126,12 @@ public class WebSocketTransport {
     self.websocket = WebSocketTransport.provider.init(request: request, protocols: protocols)
     self.clientName = clientName
     self.clientVersion = clientVersion
+    self.connectOnInit = connectOnInit
     self.addApolloClientHeaders(to: &self.websocket.request)
     self.websocket.delegate = self
-    self.websocket.connect()
+    if connectOnInit {
+      self.websocket.connect()
+    }
     self.websocket.callbackQueue = processingQueue
   }
 
