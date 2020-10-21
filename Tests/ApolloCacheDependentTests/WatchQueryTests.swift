@@ -3,6 +3,16 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
+internal extension XCTestCase {
+  func makeResultObserver<Operation: GraphQLOperation>(for operation: Operation) -> AsyncResultObserver<GraphQLResult<Operation.Data>, Error> {
+    return AsyncResultObserver()
+  }
+  
+  func runActivity<Result>(_ name: String, perform: (XCTActivity) throws -> Result) rethrows -> Result {
+    try XCTContext.runActivity(named: name, block: perform)
+  }
+}
+
 class WatchQueryTests: XCTestCase, CacheTesting {
 
   var cacheType: TestCacheProvider.Type {
@@ -28,48 +38,44 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "name": "Artoo",
             "__typename": "Droid"
           ]
-        ]
+        ],
       ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
-
-      var verifyResult: GraphQLResultHandler<HeroNameQuery.Data>
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
-        case .failure(let error):
-          XCTFail("Unexpexcted error: \(error)")
-        }
-      }
-
-      var expectation = self.expectation(description: "Fetching query")
-
-      let watcher = client.watch(query: query) { result in
-        verifyResult(result)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Artoo")
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
-      }
-
-      expectation = self.expectation(description: "Refetching query")
-
-      watcher.refetch()
       
-      waitForExpectations(timeout: 5, handler: nil)
+      let resultObserver = makeResultObserver(for: query)
       
-      watcher.cancel()
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
+      }
+              
+      runActivity("Refetch from server") { _ in
+        let refetchedResultExpectation = resultObserver.expectation(description: "Refetched result from server") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+        }
+        
+        watcher.refetch()
+        
+        wait(for: [refetchedResultExpectation], timeout: 1)
+      }
     }
   }
   
@@ -103,43 +109,36 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let query = HeroAndFriendsNamesQuery()
+      
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
 
-      var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No data in graphQLResult!")
-            return
-          }
           
+          let data = try XCTUnwrap(graphQLResult.data)
           XCTAssertEqual(data.hero?.name, "R2-D2")
           let friendsNames = data.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
       }
-
-      var expectation = self.expectation(description: "Fetching query")
-
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      
+      runActivity("Fetch other query from server") { _ in
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after fetching other query") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No data in GraphQL result!")
-            return
-          }
+          
+          let data = try XCTUnwrap(graphQLResult.data)
           XCTAssertEqual(data.hero?.name, "Artoo")
           let friendsNames = data.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, [
@@ -147,16 +146,12 @@ class WatchQueryTests: XCTestCase, CacheTesting {
             "Han Solo",
             "Leia Organa",
           ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+        
+        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
+        
+        wait(for: [updatedResultExpectation], timeout: 1)
       }
-
-      expectation = self.expectation(description: "Updated after fetching other query")
-
-      client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
-
-      waitForExpectations(timeout: 5, handler: nil)
     }
   }
 
@@ -194,61 +189,48 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       let client = ApolloClient(networkTransport: networkTransport, store: store)
 
       let query = HeroAndFriendsNamesQuery()
-
-      var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
-
-      // verify initial state
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+      
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No data in graphQLResult!")
-            return
-          }
-
+          
+          let data = try XCTUnwrap(graphQLResult.data)
           XCTAssertEqual(data.hero?.name, "R2-D2")
           let friendsNames = data.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
       }
 
-      var expectation = self.expectation(description: "Fetching query")
-
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      // verify cache update
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      runActivity("Fetch other query from server") { _ in
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after fetching other query") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No data in GraphQL result!")
-            return
-          }
+                    
+          let data = try XCTUnwrap(graphQLResult.data)
           XCTAssertEqual(data.hero?.name, "Artoo")
           let friendsNames = data.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, [
             "Luke Skywalker",
             "Leia Organa",
           ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+                
+        client.fetch(query: HeroAndFriendsNamesQuery(), cachePolicy: .fetchIgnoringCacheData)
+        
+        wait(for: [updatedResultExpectation], timeout: 1)
       }
-
-      expectation = self.expectation(description: "Updated after fetching other query")
-
-      client.fetch(query: HeroAndFriendsNamesQuery(), cachePolicy: .fetchIgnoringCacheData)
-
-      waitForExpectations(timeout: 5, handler: nil)
     }
   }
 
@@ -282,50 +264,44 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
-
-      let fetching = self.expectation(description: "Fetching query")
-      var refetching: XCTestExpectation?
       
-      let _ = client.watch(query: query) { result in
-        guard refetching == nil else {
-          return refetching!.fulfill()
-        }
-        
-        defer {
-          fetching.fulfill()
-        }
-        
-        switch result {
-        case .success(let graphQLResult):
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+      
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
           
-          guard let data = graphQLResult.data else {
-            XCTFail("No data on graphQL result!")
-            return
-          }
+          let data = try XCTUnwrap(graphQLResult.data)
           
           XCTAssertEqual(data.hero?.name, "R2-D2")
           
           let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          
           XCTAssertEqual(friendsNames, [
             "Luke Skywalker",
             "Han Solo",
             "Leia Organa",
           ])
-          
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
       }
       
-      wait(for: [fetching], timeout: 5)
-      
-      refetching = self.expectation(description: "Refetching query")
-      refetching?.isInverted = true
-      
-      client.fetch(query: HeroNameQuery(episode: .empire), cachePolicy: .fetchIgnoringCacheData)
-      wait(for: [refetching!], timeout: 1)
+      runActivity("Fetch other query from server") { _ in
+        let noUpdatedResultExpectation = resultObserver.expectation(description: "Unrelated other query shouldn't trigger update")
+        
+        noUpdatedResultExpectation.isInverted = true
+        
+        client.fetch(query: HeroNameQuery(episode: .empire), cachePolicy: .fetchIgnoringCacheData)
+        
+        wait(for: [noUpdatedResultExpectation], timeout: 1)
+      }
     }
   }
   
@@ -347,50 +323,49 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "data": [
           "hero": [
             "id": "2001",
-            "name": "Luke Skywalker",
-            "__typename": "Human"
+            "name": "Artoo",
+            "__typename": "Droid"
           ]
         ]
         ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
-
-      var verifyResult: GraphQLResultHandler<HeroNameWithIdQuery.Data>
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+      
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
         }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
       }
-
-      var expectation = self.expectation(description: "Fetching query")
-
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      
+      runActivity("Fetch related query from server") { _ in
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after fetching related query") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
+                    
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
         }
+                
+        client.fetch(query: HeroNameWithIdQuery(), cachePolicy: .fetchIgnoringCacheData)
+        
+        wait(for: [updatedResultExpectation], timeout: 1)
       }
-
-      expectation = self.expectation(description: "Fetching other query")
-
-      client.fetch(query: HeroNameWithIdQuery(), cachePolicy: .fetchIgnoringCacheData)
-
-      waitForExpectations(timeout: 5, handler: nil)
     }
   }
 
@@ -419,8 +394,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "data": [
           "hero": [
             "id": "2001",
-            "name": "Luke Skywalker",
-            "__typename": "Human",
+            "name": "R2-D2",
+            "__typename": "Droid",
             "friends": [
               ["__typename": "Human", "id": "LO"],
               ["__typename": "Human", "id": "LS"],
@@ -430,60 +405,57 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       ], store: store)
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       client.store.cacheKeyForObject = { $0["id"] }
-
-      var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesWithIDsQuery.Data>
-
-      // verify initial cache state
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+      
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
           let friendsNames = graphQLResult.data?.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, [
             "Luke Skywalker",
             "Han Solo",
             "Leia Organa",
           ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
       }
 
-      var expectation = self.expectation(description: "Fetching query")
-
-      _ = client.watch(query: query, cachePolicy: .returnCacheDataDontFetch) { result in
-        verifyResult(result)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      // verify cache update
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      runActivity("Fetch related query from server") { _ in
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after fetching related query") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
-
+                    
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
           let friendsNames = graphQLResult.data?.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, [
             "Leia Organa",
             "Luke Skywalker",
           ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+                
+        client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData)
+        
+        wait(for: [updatedResultExpectation], timeout: 1)
       }
-
-      expectation = self.expectation(description: "Fetching other query")
-
-      client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData)
-
-      waitForExpectations(timeout: 5, handler: nil)
     }
   }
-
 
   func testWatchedQueryGetsUpdatedWithResultFromReadWriteTransaction() throws {
     let initialRecords: RecordSet = [
@@ -507,74 +479,62 @@ class WatchQueryTests: XCTestCase, CacheTesting {
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesQuery()
-
-      var verifyResult: GraphQLResultHandler<HeroAndFriendsNamesQuery.Data>
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
+      
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+      
+      runActivity("Initial fetch from cache") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
           XCTAssertNil(graphQLResult.errors)
-
-          guard let data = graphQLResult.data else {
-            XCTFail("No data returned with GraphQL result!")
-            return
-          }
-
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, [
-            "Luke Skywalker",
-            "Han Solo",
-            "Leia Organa",
-          ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
-      }
-
-      var expectation = self.expectation(description: "Fetching query")
-
-      _ = client.watch(query: query) { result in
-        verifyResult(result)
-        expectation.fulfill()
-      }
-
-      waitForExpectations(timeout: 5, handler: nil)
-
-      let nameQuery = HeroNameQuery()
-      expectation = self.expectation(description: "transaction'd")
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: nameQuery) { (data: inout HeroNameQuery.Data) in
-          data.hero?.name = "Artoo"
-        }
-        expectation.fulfill()
-      })
-      self.waitForExpectations(timeout: 1, handler: nil)
-
-      verifyResult = { result in
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("GraphqlResult had no data!")
-            return
-          }
           
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
+          let friendsNames = graphQLResult.data?.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, [
+            "Luke Skywalker",
+            "Han Solo",
+            "Leia Organa",
+          ])
+        }
+                
+        watcher.fetch(cachePolicy: .returnCacheDataDontFetch)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
+      }
+      
+      runActivity("Update query in store") { _ in
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after direct store update") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+                    
+          let data = try XCTUnwrap(graphQLResult.data)
           XCTAssertEqual(data.hero?.name, "Artoo")
+          
           let friendsNames = data.hero?.friends?.compactMap { $0?.name }
           XCTAssertEqual(friendsNames, [
             "Luke Skywalker",
             "Han Solo",
             "Leia Organa",
           ])
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
         }
+        
+        let nameQuery = HeroNameQuery()
+                
+        store.withinReadWriteTransaction({ transaction in
+          try transaction.update(query: nameQuery) { (data: inout HeroNameQuery.Data) in
+            data.hero?.name = "Artoo"
+          }
+        })
+        
+        wait(for: [updatedResultExpectation], timeout: 1)
       }
-
-      expectation = self.expectation(description: "Updated after fetching other query")
-      client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
-      waitForExpectations(timeout: 5, handler: nil)
     }
   }
   
@@ -586,7 +546,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "data": [
           "hero": [
             "id": "0",
-            "name": "Artoo",
+            "name": "R2-D2",
             "__typename": "Droid",
             "friends": [
               [
@@ -601,103 +561,130 @@ class WatchQueryTests: XCTestCase, CacheTesting {
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesWithIDsQuery()
-      let hasPicardFriendExpecation = self.expectation(description: "Has friend named Jean-Luc Picard")
-      let hasHanSoloFriendExpecation = self.expectation(description: "Has friend named Han Solo")
-      let initialFetchExpectation = self.expectation(description: "Initial fetch")
-      var expectedDependentKeys = [
-        "0.__typename",
-        "0.friends",
-        "0.id",
-        "0.name",
-        "10.__typename",
-        "10.id",
-        "10.name",
-        "QUERY_ROOT.hero",
-      ]
       
-      var fetchCount = 0
-      let watcher = client.watch(query: query) { result in
-        defer {
-          if fetchCount == 0 {
-            initialFetchExpectation.fulfill()
-          }
-          fetchCount += 1
-        }
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertEqual(graphQLResult.dependentKeys?.sorted(), expectedDependentKeys)
-          guard let friends = graphQLResult.data?.hero?.friends else {
-            XCTFail("404 friends not found")
-            return
-          }
+      let resultObserver = makeResultObserver(for: query)
+      
+      let watcher = GraphQLQueryWatcher(client: client, query: query, resultHandler: resultObserver.handler)
+      defer { watcher.cancel() }
+      
+      runActivity("Initial fetch from server") { _ in
+        let initialResultExpectation = resultObserver.expectation(description: "Initial result") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
           
-          if friends.contains(where: { $0?.name == "Jean-Luc Picard" }) {
-            hasPicardFriendExpecation.fulfill()
-          }
-          if friends.contains(where: { $0?.name == "Han Solo" }) {
-            hasHanSoloFriendExpecation.fulfill()
-          }
-        case .failure(let error):
-          XCTFail("Watcher error: \(error)")
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
+          let friendsNames = graphQLResult.data?.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, [
+            "Luke Skywalker"
+          ])
+          
+          let expectedDependentKeys: Set = [
+            "0.__typename",
+            "0.friends",
+            "0.id",
+            "0.name",
+            "10.__typename",
+            "10.id",
+            "10.name",
+            "QUERY_ROOT.hero",
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
         }
+                
+        watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
+        
+        wait(for: [initialResultExpectation], timeout: 1)
       }
-      wait(for: [initialFetchExpectation], timeout: 1)
       
-      /// Add an additional friend to the results so that the watcher for this query knows to look for updates to friend #11
-      let updateInitialQueryExpectation = self.expectation(description: "Update initial query")
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { (data: inout HeroAndFriendsNamesWithIDsQuery.Data) in
-          data.hero?.friends?.append(try .init(jsonObject: [
-            "id": "11",
-            "__typename": "Human",
-            "name": "Jean-Luc Picard"
-          ]))
-          updateInitialQueryExpectation.fulfill()
-        }
-      })
-      
-      /// The dependent keys should have changed here since we've now added a new friend to the user's friends.
-      expectedDependentKeys = [
-        "0.__typename",
-        "0.friends",
-        "0.id",
-        "0.name",
-        "10.__typename",
-        "10.id",
-        "10.name",
-        "11.__typename",
-        "11.id",
-        "11.name",
-        "QUERY_ROOT.hero"
-      ]
-      
-      wait(for: [updateInitialQueryExpectation, hasPicardFriendExpecation], timeout: 1)
-      
+      runActivity("Update query in store") { _ in
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after direct store update") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+                    
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
 
-      /// Send an update that updates friend #11 on a different query
-      networkTransport.updateBody(to: [
-        "data": [
-          "hero": [
-            "id": "2",
-            "name": "R2-D2",
-            "__typename": "Droid",
-            "friends": [
-              [
-                "id": "11",
-                "__typename": "Human",
-                "name": "Han Solo"
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, [
+            "Luke Skywalker",
+            "Jean-Luc Picard"
+          ])
+          
+          let expectedDependentKeys: Set = [
+            "0.__typename",
+            "0.friends",
+            "0.id",
+            "0.name",
+            "10.__typename",
+            "10.id",
+            "10.name",
+            "11.__typename",
+            "11.id",
+            "11.name",
+            "QUERY_ROOT.hero"
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        }
+        
+        store.withinReadWriteTransaction({ transaction in
+          try transaction.update(query: query) { (data: inout HeroAndFriendsNamesWithIDsQuery.Data) in
+            data.hero?.friends?.append(try .init(jsonObject: [
+              "id": "11",
+              "__typename": "Human",
+              "name": "Jean-Luc Picard"
+            ]))
+          }
+        })
+        
+        wait(for: [updatedResultExpectation], timeout: 1)
+      }
+      
+      runActivity("Fetch related query from server") { _ in
+        networkTransport.updateBody(to: [
+          "data": [
+            "hero": [
+              "id": "2",
+              "name": "R2-D2",
+              "__typename": "Droid",
+              "friends": [
+                [
+                  "id": "11",
+                  "__typename": "Human",
+                  "name": "Han Solo"
+                ]
               ]
             ]
           ]
-        ]
-      ])
+        ])
+        
+        let updatedResultExpectation = resultObserver.expectation(description: "Updated result after fetching related query") { result in
+          let graphQLResult = try result.get()
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+                    
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
 
-      /// This fetch should trigger our watcher on friend #11
-      client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)
-      
-      self.wait(for: [hasHanSoloFriendExpecation], timeout: 1)
-      
-      watcher.cancel()
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, [
+            "Luke Skywalker",
+            "Han Solo"
+          ])
+        }
+                
+        client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)
+
+        wait(for: [updatedResultExpectation], timeout: 1)
+      }
     }
   }
 }
