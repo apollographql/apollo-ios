@@ -20,6 +20,12 @@ public class SQLiteTestCacheProvider: TestCacheProvider {
     }
     try test(cache)
   }
+  
+  public static func makeNormalizedCache(_ completionHandler: (Result<TestDependency<NormalizedCache>, Error>) -> ()) {
+    let fileURL = temporarySQLiteFileURL()
+    let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
+    completionHandler(.success((cache, nil)))
+  }
 
   public static func temporarySQLiteFileURL() -> URL {
     let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
