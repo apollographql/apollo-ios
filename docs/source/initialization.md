@@ -255,7 +255,7 @@ class ResponseLoggingInterceptor: ApolloInterceptor {
 
 This `InterceptorProvider` uses all of the interceptors that (as of this writing) are in the default `LegacyInterceptorProvider`, interspersed at the appropriate points with the sample interceptors created above: 
 
-```
+```swift
 struct NetworkInterceptorProvider: InterceptorProvider {
     
     // These properties will remain the same throughout the life of the `InterceptorProvider`, even though they
