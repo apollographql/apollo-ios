@@ -5,10 +5,13 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
 
   private let mockClient: MockURLSessionClient
 
-  public init(body: JSONObject, store: ApolloStore) {
+  public init(body: JSONObject? = nil, store: ApolloStore) {
     let testURL = TestURL.mockServer.url
     self.mockClient = MockURLSessionClient()
-    self.mockClient.data = try! JSONSerializationFormat.serialize(value: body)
+    
+    if let body = body {
+      self.mockClient.data = try! JSONSerializationFormat.serialize(value: body)
+    }
     self.mockClient.response = HTTPURLResponse(url: testURL,
                                                statusCode: 200,
                                                httpVersion: nil,
@@ -21,7 +24,7 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
   
   public func updateBody(to body: JSONObject) {
     self.mockClient.data = try! JSONSerializationFormat.serialize(value: body)
-  }
+  }  
 }
 
 private final class MockTask: Cancellable {
