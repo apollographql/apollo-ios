@@ -72,7 +72,7 @@ struct LineByLineComparison {
     let expectedLines = expected.components(separatedBy: "\n")
 
     guard receivedLines.count == expectedLines.count else {
-      XCTFail("Expected \(expectedLines.count) lines, received \(receivedLines.count) lines.\nExpected: \n\(expected)\nRecieved: \n\(received)",
+      XCTFail("Expected \(expectedLines.count) lines, received \(receivedLines.count) lines.\nExpected: \n\(expected)\nReceived: \n\(received)",
               file: file,
               line: line)
       return
