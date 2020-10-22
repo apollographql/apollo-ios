@@ -17,9 +17,11 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
     }
   }
   
+  private let testCase: XCTestCase
   private var expectations: [AsyncResultExpectation] = []
   
-  public init() {
+  public init(testCase: XCTestCase) {
+    self.testCase = testCase
   }
   
   public func expectation(description: String, file: StaticString = #filePath, line: UInt = #line, resultHandler: ResultHandler? = nil) -> XCTestExpectation {
@@ -35,7 +37,11 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
     let expectation = expectations.removeFirst()
     
     if let handler = expectation.handler {
-      XCTAssertNoThrow(try handler(result), file: expectation.file, line: expectation.line)
+      do {
+        try handler(result)
+      } catch {
+        testCase.record(error, file: expectation.file, line: expectation.line)
+      }
     }
     
     expectation.fulfill()

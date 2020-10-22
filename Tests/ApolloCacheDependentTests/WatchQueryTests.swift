@@ -3,16 +3,6 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-internal extension XCTestCase {
-  func makeResultObserver<Operation: GraphQLOperation>(for operation: Operation) -> AsyncResultObserver<GraphQLResult<Operation.Data>, Error> {
-    return AsyncResultObserver()
-  }
-  
-  func runActivity<Result>(_ name: String, perform: (XCTActivity) throws -> Result) rethrows -> Result {
-    try XCTContext.runActivity(named: name, block: perform)
-  }
-}
-
 class WatchQueryTests: XCTestCase, CacheTesting {
 
   var cacheType: TestCacheProvider.Type {
