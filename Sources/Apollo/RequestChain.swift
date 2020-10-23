@@ -37,7 +37,7 @@ public class RequestChain: Cancellable {
   ///
   /// - Parameters:
   ///   - interceptors: The array of interceptors to use.
-  ///   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs. Defauls to `.main`.
+  ///   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs. Defaults to `.main`.
   public init(interceptors: [ApolloInterceptor],
               callbackQueue: DispatchQueue = .main) {
     self.interceptors = interceptors
@@ -121,7 +121,7 @@ public class RequestChain: Cancellable {
     }
   }
   
-  /// Restarts the request starting from the first inteceptor.
+  /// Restarts the request starting from the first interceptor.
   ///
   /// - Parameters:
   ///   - request: The request to retry

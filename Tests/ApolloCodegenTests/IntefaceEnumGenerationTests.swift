@@ -1,5 +1,5 @@
 //
-//  IntefaceObjectGenerationTests.swift
+//  InterfaceObjectGenerationTests.swift
 //  ApolloCodegenTests
 //
 //  Created by Ellen Shapiro on 6/3/20.

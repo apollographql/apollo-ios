@@ -15,7 +15,7 @@ public struct ApolloCLI {
     try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
     
     if !(try CLIExtractor.validateSHASUMOfDownloadedFile(in: cliFolderURL)) {
-      CodegenLogger.log("Downloaded zip file has incorrect SHASUM, forcing redownolad")
+      CodegenLogger.log("Downloaded zip file has incorrect SHASUM, forcing redownload")
       try CLIDownloader.forceRedownload(cliFolderURL: cliFolderURL, timeout: timeout)
     }
     

@@ -40,7 +40,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
           XCTAssertNil(graphQLResult.errors)
           XCTAssertEqual(graphQLResult.data?.hero?.name, "R2-D2")
         case .failure(let error):
-          XCTFail("Unexpexcted error: \(error)")
+          XCTFail("Unexpected error: \(error)")
         }
       }
 
@@ -601,8 +601,8 @@ class WatchQueryTests: XCTestCase, CacheTesting {
 
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       let query = HeroAndFriendsNamesWithIDsQuery()
-      let hasPicardFriendExpecation = self.expectation(description: "Has friend named Jean-Luc Picard")
-      let hasHanSoloFriendExpecation = self.expectation(description: "Has friend named Han Solo")
+      let hasPicardFriendExpectation = self.expectation(description: "Has friend named Jean-Luc Picard")
+      let hasHanSoloFriendExpectation = self.expectation(description: "Has friend named Han Solo")
       let initialFetchExpectation = self.expectation(description: "Initial fetch")
       var expectedDependentKeys = [
         "0.__typename",
@@ -632,10 +632,10 @@ class WatchQueryTests: XCTestCase, CacheTesting {
           }
           
           if friends.contains(where: { $0?.name == "Jean-Luc Picard" }) {
-            hasPicardFriendExpecation.fulfill()
+            hasPicardFriendExpectation.fulfill()
           }
           if friends.contains(where: { $0?.name == "Han Solo" }) {
-            hasHanSoloFriendExpecation.fulfill()
+            hasHanSoloFriendExpectation.fulfill()
           }
         case .failure(let error):
           XCTFail("Watcher error: \(error)")
@@ -671,7 +671,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         "QUERY_ROOT.hero"
       ]
       
-      wait(for: [updateInitialQueryExpectation, hasPicardFriendExpecation], timeout: 1)
+      wait(for: [updateInitialQueryExpectation, hasPicardFriendExpectation], timeout: 1)
       
 
       /// Send an update that updates friend #11 on a different query
@@ -695,7 +695,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       /// This fetch should trigger our watcher on friend #11
       client.fetch(query: HeroAndFriendsNamesWithIDsQuery(episode: .newhope), cachePolicy: .fetchIgnoringCacheData)
       
-      self.wait(for: [hasHanSoloFriendExpecation], timeout: 1)
+      self.wait(for: [hasHanSoloFriendExpectation], timeout: 1)
       
       watcher.cancel()
     }

@@ -157,7 +157,7 @@ extension Dictionary: JSONDecodable {
 
 extension Array: JSONEncodable {
   public var jsonValue: JSONValue {
-    return map() { element -> (JSONValue) in
+    return map { element -> JSONValue in
       if case let element as JSONEncodable = element {
         return element.jsonValue
       } else {

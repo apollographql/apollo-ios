@@ -60,7 +60,7 @@ let package = Package(
         "ApolloSQLite",
         "ApolloTestSupport"
       ]),
-	.target(
+    .target(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo",

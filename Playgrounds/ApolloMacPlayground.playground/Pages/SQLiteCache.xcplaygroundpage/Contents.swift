@@ -1,4 +1,4 @@
-//: [Subscriptons](@previous)
+//: [Subscriptions](@previous)
 
 import Apollo
 import Foundation

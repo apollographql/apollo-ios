@@ -46,7 +46,7 @@ struct ASTOperation: Codable, Equatable {
   /// Fragments defined inline at this level
   let inlineFragments: [ASTInlineFragment]
   
-  /// Names of any fragments referenced wtihin this operation at any level
+  /// Names of any fragments referenced within this operation at any level
   let fragmentsReferenced: [String]
   
   /// The full source with all fragments appended.

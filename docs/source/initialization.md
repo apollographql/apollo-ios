@@ -74,7 +74,7 @@ If you wish to make your own `InterceptorProvider` instead of using the provided
 
 #### Pre-network
 - `MaxRetryInterceptor` checks to make sure a query has not been tried more than a maximum number of times. 
-- `LegacyCacheReadInterceptor` reads from a provided `ApolloStore` based on the `cachePolicy`, and will return a resul if one is found.
+- `LegacyCacheReadInterceptor` reads from a provided `ApolloStore` based on the `cachePolicy`, and will return a result if one is found.
 
 #### Network 
 - `NetworkFetchInterceptor` takes a `URLSessionClient` and uses it to send the prepared `HTTPRequest` (or subclass thereof) to the server. 
