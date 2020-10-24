@@ -161,13 +161,12 @@ public class RequestChain: Cancellable {
       }
       return
     }
-    
-    
-    additionalHandler.handleErrorAsync(error: error,
-                                       chain: self,
-                                       request: request,
-                                       response: response,
-                                       completion: completion)
+
+    additionalHandler.handleErrorAsync(error: error, chain: self, request: request, response: response) { [weak self] result in
+      self?.callbackQueue.async {
+        completion(result)
+      }
+    }
   }
   
   /// Handles a resulting value by returning it on the appropriate queue.
