@@ -75,7 +75,7 @@ extension RecordSet: CustomStringConvertible {
 }
 
 extension RecordSet: CustomPlaygroundDisplayConvertible {
-	public var playgroundDescription: Any {
-		 return description
-	}
+  public var playgroundDescription: Any {
+    return description
+  }
 }

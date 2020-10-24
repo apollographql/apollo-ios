@@ -136,7 +136,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testSubscribeThenCancel() {
-    let expectation = self.expectation(description: "Subscription then cancel - expecting timeput")
+    let expectation = self.expectation(description: "Subscription then cancel - expecting timeout")
     expectation.isInverted = true
     
     let sub = client.subscribe(subscription: ReviewAddedSubscription(episode: .jedi)) { _ in

@@ -17,7 +17,7 @@ func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> Stri
 
 protocol ApolloStoreSubscriber: class {
   
-  /// A callback that can be received by subcribers when keys are changed within the database
+  /// A callback that can be received by subscribers when keys are changed within the database
   ///
   /// - Parameters:
   ///   - store: The store which made the changes

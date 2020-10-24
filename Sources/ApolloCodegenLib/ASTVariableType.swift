@@ -1,7 +1,7 @@
 import Foundation
 
 /// Nestable variable type so that we can determine nullability and lists etc.
-/// NOTE: This has to be a class because it contains an instance of itself recursievely
+/// NOTE: This has to be a class because it contains an instance of itself recursively
 class ASTVariableType: Codable {
 
   /// What kind of type are we dealing with here?
