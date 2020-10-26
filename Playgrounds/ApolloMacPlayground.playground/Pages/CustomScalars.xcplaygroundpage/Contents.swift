@@ -10,15 +10,15 @@ Custom scalars allow you to define your own scalar types based on existing Graph
   
 To use these types in your code, you'll need to first make sure that when you generate code, `passthroughCustomScalars` is true, since otherwise you'll only get the underlying scalar types.
  
-The most common example is having your own date type. In this example,
+The most common example is having your own date type. In this example, you'll take a type generated using `passthroughCustomScalars` called `CustomDate` and transform it into a `Foundation.Date` object you can use throughout your code.
 
-Next, **outside your API.swift file**, you will need to add a typealias to the underlying Swift type:
+After generating the code using our code generation tooling, in a file **other than your API.swift file**, you will need to add a typealias to the underlying Swift type, so that Swift knows `CustomDate` is actually just a `Date` under the hood:
 */
 
 public typealias CustomDate = Foundation.Date
 
 /*:
-Along with an extension that conforms that type to the `JSONDecodable` protocol, which takes in a raw value from JSON and then tries to create your underlying type:
+Next, add an extension that conforms that type to the `JSONDecodable` protocol, which takes in a raw value from JSON and then tries to create your underlying type:
 */
 
 extension CustomDate: JSONDecodable {
