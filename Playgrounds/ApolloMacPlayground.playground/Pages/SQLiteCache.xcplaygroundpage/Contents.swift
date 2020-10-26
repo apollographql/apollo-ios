@@ -64,4 +64,4 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 //: Once "FINISHED" prints, you can open the database file at the path printed out with "File path" and examine it to see the persisted data.
 //: If you don't already have a SQLite file browser, you can try the free one at https://sqlitebrowser.org/
 
-//: [Next](@next)
+//: [Custom Scalars](@next)
