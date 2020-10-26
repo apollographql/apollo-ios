@@ -146,7 +146,6 @@ public final class CustomScalarDateQuery: GraphQLQuery {
         }
       }
 
-      /// The name of the character
       public var date: CustomDate {
         get {
           return resultMap["date"]! as! CustomDate
