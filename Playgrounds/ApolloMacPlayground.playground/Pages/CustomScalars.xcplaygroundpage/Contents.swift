@@ -50,11 +50,11 @@ Here's a small sample schema we'll use to simulate the code generated here by ou
  
  ```graphql
  type DateInfo {
-   date: CustomDate
+   date: CustomDate!
  }
  
  type Query {
-   whatTimeIsIt: DateInfo
+   whatTimeIsIt: DateInfo!
  }
  ```
  
