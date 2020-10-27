@@ -29,7 +29,13 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
       return
     }
     
-    self.currentTask = self.client.sendRequest(urlRequest) { result in
+    self.currentTask?.cancel()
+    
+    self.currentTask = self.client.sendRequest(urlRequest) { [weak self] result in
+      guard let self = self else {
+        return
+	  }
+      
       defer {
         self.currentTask = nil
       }
