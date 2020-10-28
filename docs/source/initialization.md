@@ -47,6 +47,8 @@ The initializer for `RequestChainNetworkTransport` has several properties which 
 
 A `RequestChain` is constructed using an array of interceptors, to be run in the order given, and handles calling back on a specified `DispatchQueue` after all work is complete. 
 
+A chain is started by calling `kickoff`. This causes the chain to start running through the chain of interceptors in order.
+
 In each interceptor, work can be performed asynchronously on any thread. To move along to the next interceptor in the chain, call `proceedAsync`. 
 
 By default, when the interceptor chain ends, if you have a parsed result available, this result will be returned to the caller.
