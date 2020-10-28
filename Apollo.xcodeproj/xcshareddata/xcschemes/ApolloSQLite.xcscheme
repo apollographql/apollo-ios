@@ -70,10 +70,16 @@
                   Identifier = "FetchQueryTests">
                </Test>
                <Test
+                  Identifier = "FetchQueryTests/testThreadedCache()">
+               </Test>
+               <Test
                   Identifier = "LoadQueryFromStoreTests">
                </Test>
                <Test
                   Identifier = "ReadWriteFromStoreTests">
+               </Test>
+               <Test
+                  Identifier = "SQLiteFetchQueryTests/testThreadedCache()">
                </Test>
                <Test
                   Identifier = "StarWarsServerAPQsGetMethodTests">

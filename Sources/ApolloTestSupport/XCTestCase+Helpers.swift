@@ -1,5 +1,11 @@
 import XCTest
 
+public extension XCTestExpectation {
+  var numberOfFulfillments: Int {
+    value(forKey: "numberOfFulfillments") as! Int
+  }
+}
+
 public extension XCTestCase {
   func record(_ error: Error, compactDescription: String? = nil, file: StaticString = #filePath, line: UInt = #line) {
     var issue = XCTIssue(type: .assertionFailure, compactDescription: compactDescription ?? String(describing: error))
@@ -13,7 +19,7 @@ public extension XCTestCase {
   }
   
   func runActivity<Result>(_ name: String, perform: (XCTActivity) throws -> Result) rethrows -> Result {
-    try XCTContext.runActivity(named: name, block: perform)
+    return try XCTContext.runActivity(named: name, block: perform)
   }
 }
 

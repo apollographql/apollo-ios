@@ -26,6 +26,7 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
   
   public func expectation(description: String, file: StaticString = #filePath, line: UInt = #line, resultHandler: ResultHandler? = nil) -> XCTestExpectation {
     let expectation = AsyncResultExpectation(description: description, file: file, line: line, handler: resultHandler)
+    expectation.assertForOverFulfill = true
     
     expectations.append(expectation)
     
@@ -33,17 +34,25 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
   }
   
   public func handler(_ result: Result<Success, Failure>) {
-    precondition(!expectations.isEmpty)
-    let expectation = expectations.removeFirst()
-    
+    guard let expectation = expectations.first else {
+      XCTFail("Unexpected result received by handler")
+      return
+    }
+        
     if let handler = expectation.handler {
       do {
         try handler(result)
       } catch {
         testCase.record(error, file: expectation.file, line: expectation.line)
       }
+    } else if case .failure(let error) = result {
+      testCase.record(error, file: expectation.file, line: expectation.line)
     }
     
     expectation.fulfill()
+    
+    if expectation.numberOfFulfillments >= expectation.expectedFulfillmentCount {
+      expectations.removeFirst()
+    }
   }
 }
