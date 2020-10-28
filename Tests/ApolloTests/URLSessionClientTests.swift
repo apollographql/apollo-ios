@@ -214,4 +214,27 @@ class URLSessionClientLiveTests: XCTestCase {
     let set = Set(taskIDs.value)
     XCTAssertEqual(set.count, iterations)
   }
+  
+  func testCleanup() {
+    let client = URLSessionClient(sessionConfiguration: URLSessionConfiguration.default, callbackQueue: .main)
+    client.invalidate()
+    
+    let expectation = self.expectation(description: "Basic GET request completed")
+    client.sendRequest(self.request(for: .get)) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      case .success(let (data, _)):
+        XCTAssertFalse(data.isEmpty)
+      }
+    }
+    
+    self.wait(for: [expectation], timeout: 10)
+    
+  }
+  
 }
