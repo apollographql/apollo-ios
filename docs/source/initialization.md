@@ -87,6 +87,10 @@ If you wish to make your own `InterceptorProvider` instead of using the provided
 - `LegacyCacheWriteInterceptor` writes to a provided `ApolloStore` based on code from our current Typescript-based code generation.
 - `CodableParsingError` is a **work in progress** which will parse `Codable` results form the Swift Codegen Rewrite.
 
+Interceptors are designed to be **short-lived**. A new set of interceptors should be provided for each request in order to avoid having multiple calls hitting the same instance of a single interceptor at the same time. 
+
+Holding references to individual interceptors (outside of test verification) is generally not recommended. Instead, you can create an interceptor that holds on to a longer-lived object. That way the interceptor itself can be easily disposable, but you don't have to recreate whatever the underlying object doing heavier work is.
+
 ### The URLSessionClient class
 
 Since `URLSession` only supports use in the background using the delegate-based API, we have created our own `URLSessionClient` which handles the basics of setup for that. 
