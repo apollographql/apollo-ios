@@ -13,6 +13,10 @@ let package = Package(
       name: "Apollo",
       targets: ["Apollo"]),
     .library(
+        name: "Apollo-Dynamic",
+        type: .dynamic,
+        targets: ["Apollo"]),
+    .library(
       name: "ApolloCodegenLib",
       targets: ["ApolloCodegenLib"]),
     .library(
