@@ -24,6 +24,9 @@ open class RequestChainNetworkTransport: NetworkTransport {
   /// The `RequestBodyCreator` object to use to build your `URLRequest`.
   public var requestBodyCreator: RequestBodyCreator
   
+  /// List of all active RequestChain
+  private var activeRequestChains = NSHashTable<RequestChain>.weakObjects()
+  
   /// Designated initializer
   ///
   /// - Parameters:
@@ -49,6 +52,12 @@ open class RequestChainNetworkTransport: NetworkTransport {
     self.requestBodyCreator = requestBodyCreator
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
+  }
+  
+  deinit {
+    for requestChain in activeRequestChains.allObjects {
+      requestChain.cancel()
+    }
   }
   
   /// Constructs a default (ie, non-multipart) GraphQL request.
@@ -132,6 +141,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     let request = self.constructUploadRequest(for: operation, with: files)
     let interceptors = self.interceptorProvider.interceptors(for: operation)
     let chain = RequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
+    activeRequestChains.add(chain)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain
