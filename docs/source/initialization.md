@@ -59,7 +59,7 @@ The chain also includes a `retry` mechanism, which will go all the way back to t
 
 **IMPORTANT**: Do not call `retry` blindly. If your server is returning 500s or if the user has no internet, this will create an infinite loop of requests that are retrying (especially if you're not using something like the `MaxRetryInterceptor` to limit how many retries are made). This **will** kill your user's battery, and might also run up the bill on their data plan. Make sure to only request a retry when there's something your code can actually do about the problem!
 
-In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `InterceptorProvider` 
+In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `InterceptorProvider` to figure out which interceptors should be handed to that chain. 
 
 ### Setting up `ApolloInterceptor` chains with `InterceptorProvider`
 
