@@ -67,7 +67,7 @@ Every operation sent through a `RequestChainNetworkTransport` will be passed int
 
 There are two default implementations for this protocol provided:
 
-- `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses. **This is the provider that developers will want to use at this time.**
+- `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses. **This is the provider that developers will want to use at this time.** You can also sublcass this interceptor provider if you only need to insert interceptors at the beginning or end of the chain rather than intersperse them throughout.
 - `CodableInterceptorProvider` is a **work in progress**, which is going to be for use with our [Swift Codegen Rewrite](https://github.com/apollographql/apollo-ios/projects/2), (which, I swear, will eventually be finished). It is not suitable for use at this time. It takes a `URLSessionClient`, a `FlexibleDecoder` (something can decode anything that conforms to `Decodable`). It does not support caching yet.
 
 If you wish to make your own `InterceptorProvider` instead of using the provided one, you can take advantage of several interceptors that are included in the library: 
