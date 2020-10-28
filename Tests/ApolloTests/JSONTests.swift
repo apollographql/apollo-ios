@@ -74,6 +74,14 @@ class JSONTests: XCTestCase {
 """)
   }
 
+  func testEncodingNSNullDoesNotCrash() throws {
+    let nsNull = ["aWeirdNull": NSNull()]
+    let serialized = try JSONSerializationFormat.serialize(value: nsNull)
+    let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
+
+    XCTAssertEqual(stringFromSerialized, #"{"aWeirdNull":null}"#)
+  }
+
   func testEncodingOptionalNSNullDoesNotCrash() throws {
     let optionalNSNull = ["aWeirdNull": Optional.some(NSNull())]
     let serialized = try JSONSerializationFormat.serialize(value: optionalNSNull)
