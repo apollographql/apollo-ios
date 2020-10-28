@@ -24,7 +24,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
   /// The `RequestBodyCreator` object to use to build your `URLRequest`.
   public var requestBodyCreator: RequestBodyCreator
   
-  /// List of all active RequestChain
+  /// List of all active `RequestChain`.
   private var activeRequestChains = NSHashTable<RequestChain>.weakObjects()
   
   /// Designated initializer
