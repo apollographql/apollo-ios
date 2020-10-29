@@ -515,7 +515,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       lastRequest = mockClient.lastRequest.value
       expectation.fulfill()
     }
-    self.wait(for: [expectation], timeout: 1)
+    self.wait(for: [expectation], timeout: 2)
     
     let request = try XCTUnwrap(lastRequest, "last request should not be nil")
     
