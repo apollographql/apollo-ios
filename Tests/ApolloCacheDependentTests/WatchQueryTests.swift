@@ -3,31 +3,7 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class WatchQueryTests: XCTestCase, CacheTesting {
-  
-  var cacheType: TestCacheProvider.Type {
-    InMemoryTestCacheProvider.self
-  }
-  
-  var cache: NormalizedCache!
-  var server: MockGraphQLServer!
-  var client: ApolloClient!
-  
-  override func setUpWithError() throws {
-    cache = try makeNormalizedCache()
-    let store = ApolloStore(cache: cache)
-    
-    server = MockGraphQLServer()
-    let networkTransport = MockNetworkTransport(server: server, store: store)
-    
-    client = ApolloClient(networkTransport: networkTransport, store: store)
-  }
-  
-  override func tearDownWithError() throws {
-    cache = nil
-    server = nil
-    client = nil
-  }
+class WatchQueryTests: ClientIntegrationTests {
   
   func testRefetchWatchedQueryFromServerThroughWatcher() throws {
     let watchedQuery = HeroNameQuery()
@@ -38,7 +14,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -49,7 +25,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -60,11 +36,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
     runActivity("Refetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -75,7 +51,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let refetchedResultExpectation = resultObserver.expectation(description: "Watcher received refetched result from server") { result in
+      let refetchedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received refetched result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -86,11 +62,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.refetch()
       
-      wait(for: [serverExpectation, refetchedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, refetchedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryGetsUpdatedWithResultFromSameQuery() throws {
+  func testWatchedQueryGetsUpdatedAfterFetchingSameQueryWithChangedData() throws {
     let watchedQuery = HeroNameQuery()
     
     let resultObserver = makeResultObserver(for: watchedQuery)
@@ -99,7 +75,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -110,7 +86,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -121,11 +97,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Fetch same query from server with changed result") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+    runActivity("Fetch same query from server returning changed data") { _ in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -136,7 +112,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -145,10 +121,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(data.hero?.name, "Artoo")
       }
       
-      let fetchedResultExpectation = fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched same query again")
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in
+        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: resultHandler)
+      }
       
-      wait(for: [serverExpectation, fetchedResultExpectation, updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
@@ -161,7 +138,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -172,7 +149,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -183,11 +160,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
     runActivity("Fetch same query from server with different argument") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         XCTAssertEqual(request.operation.episode, .jedi)
         
         return [
@@ -203,14 +180,15 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       let noUpdatedResultExpectation = resultObserver.expectation(description: "Other query shouldn't trigger refetch")
       noUpdatedResultExpectation.isInverted = true
       
-      let fetchedResultExpectation = fetch(query: HeroNameQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched same query with different argument")
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in
+        client.fetch(query: HeroNameQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData, resultHandler: resultHandler)
+      }
       
-      wait(for: [serverExpectation, fetchedResultExpectation, noUpdatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, noUpdatedResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryGetsUpdatedWithResultForSameObject() throws {
+  func testWatchedQueryGetsUpdatedWhenSameObjectHasChangedInDifferentQuery() throws {
     client.cacheKeyForObject = { $0["id"] }
     
     let watchedQuery = HeroNameWithIdQuery()
@@ -221,7 +199,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameWithIdQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameWithIdQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -233,7 +211,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -245,11 +223,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Fetch same query from server with different result") { _ in
-      let serverExpectation = server.expect(HeroNameWithIdQuery.self) { request in
+    runActivity("Fetch same query from server with different argument but returning same object with changed data") { _ in
+      let serverRequestExpectation = server.expect(HeroNameWithIdQuery.self) { request in
         XCTAssertEqual(request.operation.episode, .jedi)
         return [
           "data": [
@@ -262,7 +240,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Updated result after refetching query") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Updated result after refetching query") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -271,14 +249,15 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(data.hero?.name, "Artoo")
       }
       
-      let fetchedResultExpectation = fetch(query: HeroNameWithIdQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched same query again")
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in
+        client.fetch(query: HeroNameWithIdQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData, resultHandler: resultHandler)
+      }
       
-      wait(for: [serverExpectation, fetchedResultExpectation, updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryGetsUpdatedWithResultFromSubQuery() throws {
+  func testWatchedQueryGetsUpdatedWhenOverlappingQueryReturnsChangedData() throws {
     let watchedQuery = HeroAndFriendsNamesQuery()
     
     let resultObserver = makeResultObserver(for: watchedQuery)
@@ -287,7 +266,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -303,7 +282,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -316,11 +295,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Fetch subquery from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+    runActivity("Fetch overlapping query from server") { _ in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -331,7 +310,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -342,21 +321,15 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
       
-      let fetchResultExpectation = fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched related query") { result in
-          let graphQLResult = try result.get()
-          XCTAssertEqual(graphQLResult.source, .server)
-          XCTAssertNil(graphQLResult.errors)
-          
-          let data = try XCTUnwrap(graphQLResult.data)
-          XCTAssertEqual(data.hero?.name, "Artoo")
-        }
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
+        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      }
       
-      wait(for: [serverExpectation, fetchResultExpectation, updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryGetsUpdatedWithListFromOtherQuery() throws {
+  func testListInWatchedQueryGetsUpdatedByListOfKeysFromOtherQuery() throws {
     client.cacheKeyForObject = { $0["id"] }
     
     let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
@@ -367,7 +340,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -384,7 +357,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -397,11 +370,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Fetch related query from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsIDsQuery.self) { request in
+    runActivity("Fetch other query with list of updated keys from server") { _ in
+      let serverRequestExpectation = server.expect(HeroAndFriendsIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -417,7 +390,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -428,21 +401,15 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(friendsNames, ["Leia Organa", "Luke Skywalker"])
       }
       
-      let fetchResultExpectation = fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched related query") { result in
-          let graphQLResult = try result.get()
-          XCTAssertEqual(graphQLResult.source, .server)
-          XCTAssertNil(graphQLResult.errors)
-          
-          let data = try XCTUnwrap(graphQLResult.data)
-          XCTAssertEqual(data.hero?.name, "Artoo")
-        }
-      
-      wait(for: [serverExpectation, fetchResultExpectation, updatedResultExpectation], timeout: 1)
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
+        client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      }
+            
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryRefectchesFromServerAfterOtherQueryUpdatesListWithIncompleteObject() throws {
+  func testWatchedQueryRefetchesFromServerAfterOtherQueryUpdatesListWithIncompleteObject() throws {
     client.store.cacheKeyForObject = { $0["id"] }
     
     let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
@@ -453,7 +420,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -470,7 +437,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -483,11 +450,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Fetch related query from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsIDsQuery.self) { request in
+    runActivity("Fetch other query with list of updated keys from server") { _ in
+      let serverRequestExpectation = server.expect(HeroAndFriendsIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -504,7 +471,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let refetchServerExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+      let refetchServerRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -521,7 +488,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -532,21 +499,15 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(friendsNames, ["Leia Organa", "Wilhuff Tarkin", "Luke Skywalker"])
       }
       
-      let fetchResultExpectation = fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched related query") { result in
-          let graphQLResult = try result.get()
-          XCTAssertEqual(graphQLResult.source, .server)
-          XCTAssertNil(graphQLResult.errors)
-          
-          let data = try XCTUnwrap(graphQLResult.data)
-          XCTAssertEqual(data.hero?.name, "Artoo")
-        }
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
+        client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      }
       
-      wait(for: [serverExpectation, fetchResultExpectation, refetchServerExpectation, updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, refetchServerRequestExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryGetsUpdatedWithResultFromDirectStoreUpdate() throws {
+  func testWatchedQueryGetsUpdatedWhenObjectIsChangedByDirectStoreUpdate() throws {
     let watchedQuery = HeroAndFriendsNamesQuery()
     
     let resultObserver = makeResultObserver(for: watchedQuery)
@@ -555,7 +516,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -571,7 +532,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -584,11 +545,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Update subquery in store") { _ in
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+    runActivity("Update object directly in store") { _ in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -606,11 +567,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         }
       })
       
-      wait(for: [updatedResultExpectation], timeout: 1)
+      wait(for: [updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryIsOnlyUpdatedOnceIfRelatedFetchesAllReturnTheSameResults() throws {
+  func testWatchedQueryIsOnlyUpdatedOnceIfConcurrentFetchesAllReturnTheSameResult() throws {
     let watchedQuery = HeroNameQuery()
     
     let resultObserver = makeResultObserver(for: watchedQuery)
@@ -619,7 +580,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -630,7 +591,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -641,13 +602,13 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Same query fetched concurrently") { _ in
-      let numberOfFetches = 100
-      
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+    let numberOfFetches = 1000
+    
+    runActivity("Fetch same query concurrently \(numberOfFetches) times") { _ in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -658,9 +619,9 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      serverExpectation.expectedFulfillmentCount = numberOfFetches
+      serverRequestExpectation.expectedFulfillmentCount = numberOfFetches
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -669,22 +630,26 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(data.hero?.name, "Artoo")
       }
       
-      DispatchQueue.concurrentPerform(iterations: numberOfFetches) { i in
-        fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData)
-          .expectation(description: "Fetched related query #\(i)") { result in
-            let graphQLResult = try result.get()
-            let data = try XCTUnwrap(graphQLResult.data)
-            XCTAssertEqual(data.hero?.name, "Artoo")
+      let otherFetchesCompletedExpectation = XCTestExpectation(description: "Other fetches completed")
+      otherFetchesCompletedExpectation.expectedFulfillmentCount = numberOfFetches
+      
+      DispatchQueue.concurrentPerform(iterations: numberOfFetches) { _ in
+        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
+          otherFetchesCompletedExpectation.fulfill()
+          
+          if let self = self, case .failure(let error) = result {
+            self.record(error)
           }
+        }
       }
       
-      wait(for: [updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 5)
       
-      XCTAssertEqual(updatedResultExpectation.numberOfFulfillments, 1)
+      XCTAssertEqual(updatedWatcherResultExpectation.numberOfFulfillments, 1)
     }
   }
   
-  func testWatchedQueryIsUpdatedMultipleTimesIfRelatedFetchesReturnDifferentResults() throws {
+  func testWatchedQueryIsUpdatedMultipleTimesIfConcurrentFetchesReturnChangedData() throws {
     let watchedQuery = HeroNameQuery()
     
     let resultObserver = makeResultObserver(for: watchedQuery)
@@ -693,7 +658,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -704,7 +669,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -715,26 +680,26 @@ class WatchQueryTests: XCTestCase, CacheTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
     
-    runActivity("Same query fetched concurrently") { _ in
-      let numberOfFetches = 100
-      
-      let serverExpectation = server.expect(HeroNameQuery.self) { request in
+    let numberOfFetches = 1000
+    
+    runActivity("Fetch same query concurrently \(numberOfFetches) times") { _ in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
         [
           "data": [
             "hero": [
-              "name": "Artoo #\(String(describing: request.contextIdentifier!))",
+              "name": "Artoo #\(UUID())",
               "__typename": "Droid"
             ]
           ]
         ]
       }
       
-      serverExpectation.expectedFulfillmentCount = numberOfFetches
+      serverRequestExpectation.expectedFulfillmentCount = numberOfFetches
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -743,22 +708,24 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertTrue(try XCTUnwrap(data.hero?.name).hasPrefix("Artoo"))
       }
       
-      updatedResultExpectation.expectedFulfillmentCount = numberOfFetches
+      updatedWatcherResultExpectation.expectedFulfillmentCount = numberOfFetches
       
-      DispatchQueue.concurrentPerform(iterations: numberOfFetches) { i in
-        let contextIdentifier = UUID()
-        
-        fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData, contextIdentifier: contextIdentifier)
-          .expectation(description: "Fetched related query") { result in
-            let graphQLResult = try result.get()
-            let data = try XCTUnwrap(graphQLResult.data)
-            XCTAssertEqual(data.hero?.name, "Artoo #\(String(describing: contextIdentifier))")
+      let otherFetchesCompletedExpectation = XCTestExpectation(description: "Other fetches completed")
+      otherFetchesCompletedExpectation.expectedFulfillmentCount = numberOfFetches
+      
+      DispatchQueue.concurrentPerform(iterations: numberOfFetches) { _ in
+        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
+          otherFetchesCompletedExpectation.fulfill()
+          
+          if let self = self, case .failure(let error) = result {
+            self.record(error)
           }
+        }
       }
       
-      wait(for: [serverExpectation, updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 5)
       
-      XCTAssertEqual(updatedResultExpectation.numberOfFulfillments, numberOfFetches)
+      XCTAssertEqual(updatedWatcherResultExpectation.numberOfFulfillments, numberOfFetches)
     }
   }
   
@@ -773,7 +740,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -788,7 +755,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
 
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -816,11 +783,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
 
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
 
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
 
     runActivity("Update same query directly in store") { _ in
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -855,11 +822,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         }
       })
 
-      wait(for: [updatedResultExpectation], timeout: 1)
+      wait(for: [updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
-  func testWatchedQueryDependentKeysAreUpdatedAfterRelatedFetch() {
+  func testWatchedQueryDependentKeysAreUpdatedAfterOtherFetchReturnsChangedData() {
     client.store.cacheKeyForObject = { $0["id"] }
 
     let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
@@ -870,7 +837,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
     defer { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -885,7 +852,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
 
-      let initialResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
@@ -913,11 +880,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
 
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
 
-      wait(for: [serverExpectation, initialResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
 
-    runActivity("Fetch related query from server") { _ in
-      let serverExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+    runActivity("Fetch other query from server") { _ in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
           "data": [
             "hero": [
@@ -933,7 +900,7 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         ]
       }
       
-      let updatedResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
+      let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
@@ -962,28 +929,11 @@ class WatchQueryTests: XCTestCase, CacheTesting {
         XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
       }
       
-      let fetchResultExpectation = fetch(query: HeroAndFriendsNamesWithIDsQuery(), cachePolicy: .fetchIgnoringCacheData)
-        .expectation(description: "Fetched related query")
+      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
+        client.fetch(query: HeroAndFriendsNamesWithIDsQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      }
 
-      wait(for: [serverExpectation, fetchResultExpectation, updatedResultExpectation], timeout: 1)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
-  }
-  
-  // MARK: - Helpers
-  
-  private func mergeRecordsIntoCache(_ records: RecordSet) {
-    let expectation = XCTestExpectation(description: "Merged records into cache")
-    
-    cache.merge(records: records, callbackQueue: nil) { _ in
-      expectation.fulfill()
-    }
-    
-    wait(for: [expectation], timeout: 1)
-  }
-  
-  private func fetch<Query: GraphQLQuery>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID? = nil) -> AsyncResultObserver<GraphQLResult<Query.Data>, Error> {
-    let resultObserver = makeResultObserver(for: query)
-    client.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: contextIdentifier, resultHandler: resultObserver.handler)
-    return resultObserver
   }
 }

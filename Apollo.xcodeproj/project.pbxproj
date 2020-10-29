@@ -243,6 +243,7 @@
 		9FF90A6F1DDDEB420034C3B6 /* InputValueEncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */; };
 		9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */; };
 		9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */; };
+		9FFFC1AB254B3C7200EA17FA /* ClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFFC1AA254B3C7200EA17FA /* ClientIntegrationTests.swift */; };
 		C3279FC72345234D00224790 /* TestCustomRequestBodyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3279FC52345233000224790 /* TestCustomRequestBodyCreator.swift */; };
 		C338DF1722DD9DE9006AF33E /* RequestBodyCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */; };
 		C35D43C222DDD4AC00BCBABE /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = C35D43BE22DDD3C100BCBABE /* b.txt */; };
@@ -760,6 +761,7 @@
 		9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputValueEncodingTests.swift; sourceTree = "<group>"; };
 		9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadFieldValueTests.swift; sourceTree = "<group>"; };
 		9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseQueryResponseTests.swift; sourceTree = "<group>"; };
+		9FFFC1AA254B3C7200EA17FA /* ClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientIntegrationTests.swift; sourceTree = "<group>"; };
 		C304EBD322DDC7B200748F72 /* a.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		C3279FC52345233000224790 /* TestCustomRequestBodyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCustomRequestBodyCreator.swift; sourceTree = "<group>"; };
 		C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyCreatorTests.swift; sourceTree = "<group>"; };
@@ -1429,6 +1431,7 @@
 		9FA6ABBD1EC0A988000017BE /* ApolloCacheDependentTests */ = {
 			isa = PBXGroup;
 			children = (
+				9FFFC1AA254B3C7200EA17FA /* ClientIntegrationTests.swift */,
 				9FA6ABC51EC0A9F7000017BE /* FetchQueryTests.swift */,
 				9FA6ABC61EC0A9F7000017BE /* LoadQueryFromStoreTests.swift */,
 				9FA6ABC81EC0A9F7000017BE /* StarWarsServerCachingRoundtripTests.swift */,
@@ -2438,6 +2441,7 @@
 				9FA6ABCF1EC0A9F7000017BE /* StarWarsServerCachingRoundtripTests.swift in Sources */,
 				9FA6ABD21EC0A9F7000017BE /* WatchQueryTests.swift in Sources */,
 				9B60204F23FDFA9F00D0C8E0 /* SQLiteCacheTests.swift in Sources */,
+				9FFFC1AB254B3C7200EA17FA /* ClientIntegrationTests.swift in Sources */,
 				9FA6ABD01EC0A9F7000017BE /* StarWarsServerTests.swift in Sources */,
 				9F8622F81EC2004200C38162 /* ReadWriteFromStoreTests.swift in Sources */,
 			);
