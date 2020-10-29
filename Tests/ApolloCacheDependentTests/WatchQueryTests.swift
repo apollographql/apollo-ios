@@ -11,7 +11,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -72,7 +72,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -135,7 +135,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -196,7 +196,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroNameWithIdQuery.self) { request in
@@ -263,7 +263,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesQuery.self) { request in
@@ -337,7 +337,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
@@ -417,7 +417,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
@@ -513,7 +513,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesQuery.self) { request in
@@ -577,7 +577,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -655,7 +655,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
     
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -737,7 +737,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
 
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
@@ -834,7 +834,7 @@ class WatchQueryTests: ClientIntegrationTests {
     let resultObserver = makeResultObserver(for: watchedQuery)
 
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
-    defer { watcher.cancel() }
+    addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
