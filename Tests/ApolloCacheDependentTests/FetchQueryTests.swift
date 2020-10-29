@@ -118,21 +118,23 @@ class FetchQueryTests: ClientIntegrationTests {
   }
   
   func testReturnCacheDataElseFetchWhenNotAllDataIsCached() throws {
-    let query = HeroNameQuery()
+    let query = HeroNameAndAppearsInQuery()
     
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": [
         "name": "R2-D2",
+        "__typename": "Droid"
       ]
     ])
     
-    let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
+    let serverRequestExpectation = server.expect(HeroNameAndAppearsInQuery.self) { request in
       [
         "data": [
           "hero": [
-            "name": "Luke Skywalker",
-            "__typename": "Human"
+            "name": "R2-D2",
+            "appearsIn": ["NEWHOPE", "EMPIRE", "JEDI"],
+            "__typename": "Droid"
           ]
         ]
       ]
@@ -146,7 +148,8 @@ class FetchQueryTests: ClientIntegrationTests {
       XCTAssertNil(graphQLResult.errors)
       
       let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
     }
     
     client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, resultHandler: resultObserver.handler)
@@ -182,12 +185,13 @@ class FetchQueryTests: ClientIntegrationTests {
   }
   
   func testReturnCacheDataDontFetchWhenNotAllDataIsCached() throws {
-    let query = HeroNameQuery()
+    let query = HeroNameAndAppearsInQuery()
     
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": [
         "name": "R2-D2",
+        "__typename": "Droid"
       ]
     ])
     
