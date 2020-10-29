@@ -5,5 +5,7 @@
         <page name='Queries'/>
         <page name='Mutations'/>
         <page name='Subscriptions'/>
+        <page name='SQLiteCache'/>
+        <page name='CustomScalars'/>
     </pages>
 </playground>
