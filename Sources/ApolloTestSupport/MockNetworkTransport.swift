@@ -30,7 +30,9 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
 }
 
 private final class MockTask: Cancellable {
-  func cancel() { }
+  func cancel() {
+    // no-op
+  }
 }
 
 private class MockGraphQLServerInterceptor: ApolloInterceptor {
