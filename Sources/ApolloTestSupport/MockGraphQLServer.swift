@@ -33,7 +33,9 @@ public class MockGraphQLServer {
     
   public init() { }
   
-  // Using existentials to avoid having to deal with type erasure.
+  // Since RequestExpectation is generic over a specific GraphQLOperation, we can't store these in the dictionary
+  // directly. Moreover, there is no way to specify the type relationship that holds between the key and value.
+  // To work around this, we store values as Any and use a generic subscript as a type-safe way to access them.
   private var requestExpectations: [AnyHashable: Any] = [:]
   
   private subscript<Operation: GraphQLOperation>(_ operationType: Operation.Type) -> RequestExpectation<Operation>? {
