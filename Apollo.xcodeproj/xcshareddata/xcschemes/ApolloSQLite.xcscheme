@@ -79,9 +79,6 @@
                   Identifier = "ReadWriteFromStoreTests">
                </Test>
                <Test
-                  Identifier = "SQLiteFetchQueryTests/testThreadedCache()">
-               </Test>
-               <Test
                   Identifier = "StarWarsServerAPQsGetMethodTests">
                </Test>
                <Test
