@@ -16,12 +16,21 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
       super.init(description: description)
     }
   }
-  
+
   private let testCase: XCTestCase
+  
+  // We keep track of the file and line number associated with the constructor as a fallback, in addition te keeping
+  // these for each expectation. That way, we can still show a failure within the context of the test in case unexpected
+  // results are received (which by definition do not have an associated expectation).
+  private let file: StaticString
+  private let line: UInt
+  
   private var expectations: [AsyncResultExpectation] = []
   
-  public init(testCase: XCTestCase) {
+  public init(testCase: XCTestCase, file: StaticString = #filePath, line: UInt = #line) {
     self.testCase = testCase
+    self.file = file
+    self.line = line
   }
   
   public func expectation(description: String, file: StaticString = #filePath, line: UInt = #line, resultHandler: ResultHandler? = nil) -> XCTestExpectation {
@@ -35,7 +44,7 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
   
   public func handler(_ result: Result<Success, Failure>) {
     guard let expectation = expectations.first else {
-      XCTFail("Unexpected result received by handler")
+      XCTFail("Unexpected result received by handler", file: file, line: line)
       return
     }
         
