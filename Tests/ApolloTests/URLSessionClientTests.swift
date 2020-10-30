@@ -214,4 +214,31 @@ class URLSessionClientLiveTests: XCTestCase {
     let set = Set(taskIDs.value)
     XCTAssertEqual(set.count, iterations)
   }
+  
+  func testInvalidatingClientAndThenTryingToSendARequestReturnsAppropriateError() {
+    let client = URLSessionClient()
+    client.invalidate()
+    
+    let expectation = self.expectation(description: "Basic GET request completed")
+    client.sendRequest(self.request(for: .get)) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .failure(let error):
+        switch error {
+        case URLSessionClient.URLSessionClientError.sessionInvalidated:
+          // This is what we want
+          break
+        default:
+          XCTFail("Unexpected error: \(error)")
+        }
+      case .success:
+        XCTFail("This should not have succeeded")
+      }
+    }
+    
+    self.wait(for: [expectation], timeout: 10)
+  }
 }
