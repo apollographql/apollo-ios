@@ -93,7 +93,11 @@ If you wish to make your own `InterceptorProvider` instead of using the provided
 - `LegacyCacheWriteInterceptor` writes to a provided `ApolloStore` based on code from our current Typescript-based code generation.
 - `CodableParsingError` is a **work in progress** which will parse `Codable` results form the Swift Codegen Rewrite.
 
+#### The Additional Error Interceptor
 
+The `InterceptorProvider` can optionally provide an `additionalErrorInterceptor` which will get called before returning an error to the caller, regardless of the origin of the error. This is mostly useful for logging and tracing errors. 
+
+Note that if there is a particular _expected_ error, such as an expired authentication token, that type of error is best handled by having an interceptor within the interceptor chain, which will allow you to retry your request much more easily. 
 
 ### The URLSessionClient class
 
