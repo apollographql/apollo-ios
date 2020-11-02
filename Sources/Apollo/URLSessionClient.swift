@@ -18,6 +18,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     case sessionBecameInvalidWithoutUnderlyingError
     case dataForRequestNotFound(request: URLRequest?)
     case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
+    case sessionInvalidated
     
     public var errorDescription: String? {
       switch self {
@@ -29,6 +30,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         return "URLSessionClient was not able to locate the stored data for request \(String(describing: request))"
       case .networkError(_, _, let underlyingError):
         return "A network error occurred: \(underlyingError.localizedDescription)"
+      case .sessionInvalidated:
+        return "Attempting to create a new request after the session has been invalidated!"
       }
     }
   }
@@ -43,6 +46,12 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   /// The raw URLSession being used for this client
   open private(set) var session: URLSession!
+  
+  private var hasBeenInvalidated = Atomic<Bool>(false)
+  
+  private var hasNotBeenInvalidated: Bool {
+    !self.hasBeenInvalidated.value
+  }
   
   /// Designated initializer.
   ///
@@ -61,6 +70,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// NOTE: This must be called from the `deinit` of anything holding onto this client in order to break a retain cycle with the delegate.
   public func invalidate() {
+    self.hasBeenInvalidated.value = true
     func cleanup() {
       self.session = nil
       self.clearAllTasks()
@@ -107,6 +117,11 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func sendRequest(_ request: URLRequest,
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
+    guard self.hasNotBeenInvalidated else {
+      completion(.failure(URLSessionClientError.sessionInvalidated))
+      return URLSessionTask()
+    }
+    
     let task = self.session.dataTask(with: request)
     let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
                             completionBlock: completion)
