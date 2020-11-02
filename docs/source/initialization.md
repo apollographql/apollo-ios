@@ -53,7 +53,7 @@ In each interceptor, work can be performed asynchronously on any thread. To move
 
 By default, when the interceptor chain ends, if you have a parsed result available, this result will be returned to the caller.
 
-If you want to directly return a value to the caller, call `returnValueAsync`. If you want to have the chain return an error, call `handleErrorAsync`. Both of these methods will call your completion block on the queue specified when creating the `RequestChain.
+If you want to directly return a value to the caller, call `returnValueAsync`. If you want to have the chain return an error, call `handleErrorAsync`. Both of these methods will call your completion block on the queue specified when creating the `RequestChain`.
 
 Note that calling `returnValue` does **NOT** forbid calling `handleError` - or calling each more than once. For example, if you want to return data from the cache to the UI while a network fetch executes, you'd want to make sure that `returnValueAsync` was called twice. 
 
