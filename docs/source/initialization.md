@@ -67,7 +67,11 @@ In the `RequestChainNetworkTransport`, each request creates an individual reques
 
 Every operation sent through a `RequestChainNetworkTransport` will be passed into an `InterceptorProvider` before going to the network. This protocol creates an array of interceptors for use by a single request chain based on the provided operation. 
 
-There are two default implementations for this protocol provided:
+Interceptors themselves are designed to be **short-lived**. A new set of interceptors should be provided for each request in order to avoid having multiple calls hitting the same instance of a single interceptor at the same time. 
+
+Holding references to individual interceptors (outside of test verification) is generally not recommended. Instead, you can create an interceptor that holds on to a longer-lived object, and the provider can pass this object into each new set of interceptors. That way an interceptor itself can be easily disposable, but you don't have to recreate the underlying object doing heavier work.
+
+There are two default implementations for `InterceptorProvider` provided for you:
 
 - `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses. **This is the provider that developers will want to use at this time.** You can also sublcass this interceptor provider if you only need to insert interceptors at the beginning or end of the chain rather than intersperse them throughout.
 - `CodableInterceptorProvider` is a **work in progress**, which is going to be for use with our [Swift Codegen Rewrite](https://github.com/apollographql/apollo-ios/projects/2), (which, I swear, will eventually be finished). It is not suitable for use at this time. It takes a `URLSessionClient`, a `FlexibleDecoder` (something can decode anything that conforms to `Decodable`). It does not support caching yet.
@@ -89,9 +93,7 @@ If you wish to make your own `InterceptorProvider` instead of using the provided
 - `LegacyCacheWriteInterceptor` writes to a provided `ApolloStore` based on code from our current Typescript-based code generation.
 - `CodableParsingError` is a **work in progress** which will parse `Codable` results form the Swift Codegen Rewrite.
 
-Interceptors are designed to be **short-lived**. A new set of interceptors should be provided for each request in order to avoid having multiple calls hitting the same instance of a single interceptor at the same time. 
 
-Holding references to individual interceptors (outside of test verification) is generally not recommended. Instead, you can create an interceptor that holds on to a longer-lived object. That way the interceptor itself can be easily disposable, but you don't have to recreate whatever the underlying object doing heavier work is.
 
 ### The URLSessionClient class
 
