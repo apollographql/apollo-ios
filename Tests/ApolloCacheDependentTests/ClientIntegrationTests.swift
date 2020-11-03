@@ -33,14 +33,4 @@ class ClientIntegrationTests: XCTestCase, CacheTesting {
     
     try super.tearDownWithError()
   }
-  
-  // MARK: - Helpers
-  
-  func mergeRecordsIntoCache(_ records: RecordSet) {
-    let expectation = expectSuccessfulResult(description: "Merged records into cache") { handler in
-      cache.merge(records: records, callbackQueue: nil, completion: handler)
-    }
-        
-    wait(for: [expectation], timeout: defaultWaitTimeout)
-  }
 }

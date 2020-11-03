@@ -72,9 +72,27 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
     InMemoryTestCacheProvider.self
   }
   
-  override func setUp() {
-    super.setUp()
+  var defaultWaitTimeout: TimeInterval = 5
+  
+  var cache: NormalizedCache!
+  var client: ApolloClient!
+  
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    
     config = DefaultConfig()
+    
+    cache = try makeNormalizedCache()
+    let store = ApolloStore(cache: cache)
+    
+    client = ApolloClient(networkTransport: config.network(store: store), store: store)
+  }
+  
+  override func tearDownWithError() throws {
+    cache = nil
+    client = nil
+    
+    try super.tearDownWithError()
   }
   
   func testHeroNameQuery() {
@@ -335,62 +353,37 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
 
   // MARK: - Helpers
   
-  private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
-    withCache { (cache) in
-      
-      let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: config.network(store: store), store: store)
-
-      let expectation = self.expectation(description: "Fetching query")
-
-      client.fetch(query: query) { result in
-        defer { expectation.fulfill() }
-      
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No query result data")
-            return
-          }
-          
-          completionHandler(data)
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
-      }
-      
-      waitForExpectations(timeout: 5, handler: nil)
-    }
-  }
-
-  private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
-    withCache { (cache) in
-      
-      let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: config.network(store: store), store: store)
-
-      let expectation = self.expectation(description: "Performing mutation")
-
-      client.perform(mutation: mutation) { result in
-        defer { expectation.fulfill() }
+  private func fetch<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Query.Data) -> Void) {
+    let resultObserver = makeResultObserver(for: query, file: file, line: line)
         
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          
-          guard let data = graphQLResult.data else {
-            XCTFail("No mutation result data")
-            return
-          }
-          
-          completionHandler(data)
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
-      }
+    let expectation = resultObserver.expectation(description: "Fetched query from server", file: file, line: line) { result in
+      let graphQLResult = try result.get()
+      XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
+      XCTAssertNil(graphQLResult.errors, file: file, line: line)
       
-      waitForExpectations(timeout: 5, handler: nil)
+      let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+      completionHandler(data)
     }
+    
+    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
+    
+    wait(for: [expectation], timeout: defaultWaitTimeout)
+  }
+  
+  private func perform<Mutation: GraphQLMutation>(mutation: Mutation, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
+    let resultObserver = makeResultObserver(for: mutation, file: file, line: line)
+        
+    let expectation = resultObserver.expectation(description: "Performing mutation on server", file: file, line: line) { result in
+      let graphQLResult = try result.get()
+      XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
+      XCTAssertNil(graphQLResult.errors, file: file, line: line)
+      
+      let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+      completionHandler(data)
+    }
+    
+    client.perform(mutation: mutation, resultHandler: resultObserver.handler)
+    
+    wait(for: [expectation], timeout: defaultWaitTimeout)
   }
 }

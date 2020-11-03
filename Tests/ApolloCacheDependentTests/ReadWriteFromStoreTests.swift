@@ -4,69 +4,79 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
+
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
   
+  var defaultWaitTimeout: TimeInterval = 5
+  
+  var cache: NormalizedCache!
+  var store: ApolloStore!
+  
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    
+    cache = try makeNormalizedCache()
+    store = ApolloStore(cache: cache)
+  }
+  
+  override func tearDownWithError() throws {
+    cache = nil
+    store = nil
+    
+    try super.tearDownWithError()
+  }
+  
   func testReadHeroNameQuery() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
-    ]
-    let readExpectation = self.expectation(description: "Read complete")
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-
-      let query = HeroNameQuery()
-      
+    ])
+    
+    let query = HeroNameQuery()
+        
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         let data = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.__typename, "Droid")
         XCTAssertEqual(data.hero?.name, "R2-D2")
-        readExpectation.fulfill()
-      })
+      }, completion: handler)
     }
     
-    self.wait(for: [readExpectation], timeout: 1)
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
   
   func testReadHeroNameQueryWithVariable() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:JEDI)": Reference(key: "hero(episode:JEDI)")],
       "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
-    ]
+    ])
     
-    let readExpectation = self.expectation(description: "Read complete")
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-      
-      let query = HeroNameQuery(episode: .jedi)
-     
+    let query = HeroNameQuery(episode: .jedi)
+    
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         let data = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.__typename, "Droid")
         XCTAssertEqual(data.hero?.name, "R2-D2")
-        readExpectation.fulfill()
-      })
+      }, completion: handler)
     }
     
-    self.wait(for: [readExpectation], timeout: 1)
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
-
+  
   func testReadHeroNameQueryWithMissingName() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": ["__typename": "Droid"]
-    ]
+    ])
     
-    let readExpectation = self.expectation(description: "Read complete")
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-      
-      let query = HeroNameQuery()
-      
+    let query = HeroNameQuery()
+    
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         XCTAssertThrowsError(try transaction.read(query: query)) { error in
           if case let error as GraphQLResultError = error {
@@ -75,87 +85,67 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
           } else {
             XCTFail("Unexpected error: \(error)")
           }
-          readExpectation.fulfill()
         }
-      })
-      
-      self.wait(for: [readExpectation], timeout: 1)
+      }, completion: handler)
     }
+    
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
   
   func testUpdateHeroNameQuery() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "QUERY_ROOT.hero")],
       "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
-    ]
-
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-
-      let query = HeroNameQuery()
-      let updateExpectation = self.expectation(description: "Update complete")
-
+    ])
+    
+    let query = HeroNameQuery()
+    
+    let updateExpectation = expectSuccessfulResult(description: "Update complete") { handler in
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
           data.hero?.name = "Artoo"
-          updateExpectation.fulfill()
         }
-      })
-      self.wait(for: [updateExpectation], timeout: 1)
-
-      let loadExpectation = self.expectation(description: "Data loaded")
-      store.load(query: query) { result in
-        defer {
-          loadExpectation.fulfill()
-        }
-        
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Artoo")
-        case .failure(let error):
-          XCTFail("Unexpected error loading: \(error)")
-        }
-      }
-      self.wait(for: [loadExpectation], timeout: 1)
-    }
-  }
-
-  func testWriteHeroNameQueryWhenWriteErrorIsThrown() throws {
-    let writeExpectation = self.expectation(description: "Write complete")
-    withCache(initialRecords: nil) { (cache) in
-      let store = ApolloStore(cache: cache)
-      
-      store.withinReadWriteTransaction({ transaction in
-        let data = HeroNameQuery.Data(unsafeResultMap: [:])
-        try transaction.write(data: data, forQuery: HeroNameQuery(episode: nil))
-      }, completion: { result in
-        defer {
-          writeExpectation.fulfill()
-        }
-        switch result {
-        case .success:
-          XCTFail("write should fail")
-        case .failure(let error):
-          guard
-            let error = error as? GraphQLResultError,
-            let jsonError = error.underlying as? JSONDecodingError else {
-              XCTFail("unexpected error")
-              return
-          }
-          
-          switch jsonError {
-          case .missingValue: break
-          default: XCTFail("unexpected error")
-          }
-        }
-      })
+      }, completion: handler)
     }
     
-    self.wait(for: [writeExpectation], timeout: 1)
+    self.wait(for: [updateExpectation], timeout: defaultWaitTimeout)
+    
+    loadFromStore(query: query) { result in
+      let graphQLResult = try result.get()
+      XCTAssertEqual(graphQLResult.source, .cache)
+      XCTAssertNil(graphQLResult.errors)
+      
+      let data = try XCTUnwrap(graphQLResult.data)
+      XCTAssertEqual(data.hero?.name, "Artoo")
+    }
+  }
+  
+  func testWriteHeroNameQueryWhenErrorIsThrown() throws {
+    let writeExpectation = self.expectation(description: "Write complete")
+    
+    store.withinReadWriteTransaction({ transaction in
+      let data = HeroNameQuery.Data(unsafeResultMap: [:])
+      try transaction.write(data: data, forQuery: HeroNameQuery(episode: nil))
+    }, completion: { result in
+      defer {
+        writeExpectation.fulfill()
+      }
+      
+      XCTAssertFailureResult(result) { error in
+        if let error = error as? GraphQLResultError {
+          XCTAssertEqual(error.path, ["hero"])
+          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+        } else {
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+    })
+    
+    self.wait(for: [writeExpectation], timeout: defaultWaitTimeout)
   }
   
   func testReadHeroAndFriendsNamesQuery() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "2001")],
       "2001": [
         "name": "R2-D2",
@@ -169,29 +159,25 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
       "1002": ["__typename": "Human", "name": "Han Solo"],
       "1003": ["__typename": "Human", "name": "Leia Organa"],
-    ]
+    ])
     
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
+    let query = HeroAndFriendsNamesQuery()
     
-      let query = HeroAndFriendsNamesQuery()
-      
-      let readExpectation = self.expectation(description: "Read complete")
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         let data = try transaction.read(query: query)
         
         XCTAssertEqual(data.hero?.name, "R2-D2")
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-        readExpectation.fulfill()
-      })
-      
-      self.wait(for: [readExpectation], timeout: 1)
+      }, completion: handler)
     }
+    
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
   
   func testUpdateHeroAndFriendsNamesQuery() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "2001")],
       "2001": [
         "name": "R2-D2",
@@ -205,49 +191,34 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
       "1002": ["__typename": "Human", "name": "Han Solo"],
       "1003": ["__typename": "Human", "name": "Leia Organa"],
-      ]
-
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-
-      let query = HeroAndFriendsNamesQuery()
-
-      let updateExpectation = self.expectation(description: "Transaction updated")
+    ])
+    
+    let query = HeroAndFriendsNamesQuery()
+    
+    let updateExpectation = expectSuccessfulResult(description: "Transaction updated") { handler in
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: query) { (data: inout HeroAndFriendsNamesQuery.Data) in
           data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
-          updateExpectation.fulfill()
         }
-      })
-      self.wait(for: [updateExpectation], timeout: 1)
+      }, completion: handler)
+    }
+    
+    self.wait(for: [updateExpectation], timeout: defaultWaitTimeout)
+    
+    loadFromStore(query: query) { result in
+      let graphQLResult = try result.get()
+      XCTAssertEqual(graphQLResult.source, .cache)
+      XCTAssertNil(graphQLResult.errors)
       
-      let loadExpectation = self.expectation(description: "Query reloaded")
-      store.load(query: query) { result in
-        defer {
-          loadExpectation.fulfill()
-        }
-
-        switch result {
-        case .success(let graphQLResult):
-          guard let data = graphQLResult.data else {
-            XCTFail("No data!")
-            return
-          }
-          
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
-        case .failure(let error):
-          XCTFail("Unexpected error loading: \(error)")
-        }
-      }
-      
-      self.wait(for: [loadExpectation], timeout: 1)
+      let data = try XCTUnwrap(graphQLResult.data)
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }
-    
+  
   func testUpdateHeroAndFriendsNamesQueryWithVariable() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:NEWHOPE)": Reference(key: "2001")],
       "2001": [
         "name": "R2-D2",
@@ -261,77 +232,55 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
       "1002": ["__typename": "Human", "name": "Han Solo"],
       "1003": ["__typename": "Human", "name": "Leia Organa"],
-      ]
-
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-
-      let query = HeroAndFriendsNamesQuery(episode: Episode.newhope)
-
-      let updateExpectation = self.expectation(description: "Update complete")
+    ])
+    
+    let query = HeroAndFriendsNamesQuery(episode: Episode.newhope)
+    
+    let updateExpectation = expectSuccessfulResult(description: "Update complete") { handler in
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: query) { (data: inout HeroAndFriendsNamesQuery.Data) in
           data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
-          updateExpectation.fulfill()
         }
-      })
-      self.wait(for: [updateExpectation], timeout: 1)
-
-      let loadExpectation = self.expectation(description: "Query loaded")
-      store.load(query: query) { result in
-        defer {
-          loadExpectation.fulfill()
-        }
-        
-        switch result {
-        case .success(let graphQLResult):
-          guard let data = graphQLResult.data else {
-            XCTFail("No data!")
-            return
-          }
-
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
-        case .failure(let error):
-          XCTFail("Unexpected error loading: \(error)")
-        }
-      }
+      }, completion: handler)
+    }
+    
+    self.wait(for: [updateExpectation], timeout: defaultWaitTimeout)
+    
+    loadFromStore(query: query) { result in
+      let graphQLResult = try result.get()
+      XCTAssertEqual(graphQLResult.source, .cache)
+      XCTAssertNil(graphQLResult.errors)
       
-      self.wait(for: [loadExpectation], timeout: 1)
+      let data = try XCTUnwrap(graphQLResult.data)
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
   }
-
+  
   func testReadHeroDetailsFragmentWithTypeSpecificProperty() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "2001": ["name": "R2-D2", "__typename": "Droid", "primaryFunction": "Protocol"]
-    ]
+    ])
     
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-      
-      let readExpectation = self.expectation(description: "Read complete")
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         let r2d2 = try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")
         
         XCTAssertEqual(r2d2.name, "R2-D2")
         XCTAssertEqual(r2d2.asDroid?.primaryFunction, "Protocol")
-        readExpectation.fulfill()
-      })
-      
-      self.waitForExpectations(timeout: 1, handler: nil)
+      }, completion: handler)
     }
+    
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
   
   func testReadHeroDetailsFragmentWithMissingTypeSpecificProperty() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "2001": ["name": "R2-D2", "__typename": "Droid"]
-    ]
+    ])
     
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-      
-      let readExpectation = self.expectation(description: "Read complete")
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         XCTAssertThrowsError(try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")) { error in
           if case let error as GraphQLResultError = error {
@@ -340,17 +289,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
           } else {
             XCTFail("Unexpected error: \(error)")
           }
-          
-          readExpectation.fulfill()
         }
-      })
-      
-      self.wait(for: [readExpectation], timeout: 1)
+      }, completion: handler)
     }
+    
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
   
   func testReadFriendsNamesFragment() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "2001")],
       "2001": [
         "name": "R2-D2",
@@ -364,26 +311,22 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
       "1002": ["__typename": "Human", "name": "Han Solo"],
       "1003": ["__typename": "Human", "name": "Leia Organa"],
-      ]
-
-    withCache(initialRecords: initialRecords) { (cache) in
-      let store = ApolloStore(cache: cache)
-
-      let readExpectation = self.expectation(description: "Read complete")
+    ])
+    
+    let readExpectation = expectSuccessfulResult(description: "Read complete") { handler in
       store.withinReadTransaction({ transaction in
         let friendsNamesFragment = try transaction.readObject(ofType: FriendsNames.self, withKey: "2001")
-
+        
         let friendsNames = friendsNamesFragment.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-        readExpectation.fulfill()
-      })
-      
-      self.wait(for: [readExpectation], timeout: 1)
+      }, completion: handler)
     }
+    
+    self.wait(for: [readExpectation], timeout: defaultWaitTimeout)
   }
   
   func testUpdateFriendsNamesFragment() throws {
-    let initialRecords: RecordSet = [
+    mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": Reference(key: "2001")],
       "2001": [
         "name": "R2-D2",
@@ -397,40 +340,39 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
       "1002": ["__typename": "Human", "name": "Han Solo"],
       "1003": ["__typename": "Human", "name": "Leia Organa"],
-    ]
-
-    withCache(initialRecords: initialRecords) { cache in
-      let store = ApolloStore(cache: cache)
-
-      let updateExpecation = self.expectation(description: "Update complete")
+    ])
+    
+    let updateExpecation = expectSuccessfulResult(description: "Update complete") { handler in
       store.withinReadWriteTransaction({ transaction in
         try transaction.updateObject(ofType: FriendsNames.self, withKey: "2001") { (friendsNames: inout FriendsNames) in
           friendsNames.friends?.append(.makeDroid(name: "C-3PO"))
-          updateExpecation.fulfill()
         }
-      })
-      self.wait(for: [updateExpecation], timeout: 1)
-      
-      let loadExpectation = self.expectation(description: "Load complete")
-      store.load(query: HeroAndFriendsNamesQuery()) { result in
-        defer {
-          loadExpectation.fulfill()
-        }
-        switch result {
-        case .success(let graphQLResult):
-          guard let data = graphQLResult.data else {
-            XCTFail("No data received!")
-            return
-          }
-          XCTAssertEqual(data.hero?.name, "R2-D2")
-          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
-        case .failure(let error):
-          XCTFail("Unexpected error loading: \(error)")
-        }
-      }
-      
-      self.wait(for: [loadExpectation], timeout: 1)
+      }, completion: handler)
     }
+    
+    self.wait(for: [updateExpecation], timeout: defaultWaitTimeout)
+    
+    loadFromStore(query: HeroAndFriendsNamesQuery()) { result in
+      let graphQLResult = try result.get()
+      XCTAssertEqual(graphQLResult.source, .cache)
+      XCTAssertNil(graphQLResult.errors)
+      
+      let data = try XCTUnwrap(graphQLResult.data)
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+    }
+  }
+  
+  // MARK: - Helpers
+  
+  private func loadFromStore<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, resultHandler: @escaping AsyncResultObserver<GraphQLResult<Query.Data>, Error>.ResultHandler) {
+    let resultObserver = makeResultObserver(for: query, file: file, line: line)
+        
+    let expectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line, resultHandler: resultHandler)
+    
+    store.load(query: query, resultHandler: resultObserver.handler)
+    
+    wait(for: [expectation], timeout: defaultWaitTimeout)
   }
 }

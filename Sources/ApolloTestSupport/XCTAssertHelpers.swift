@@ -28,6 +28,17 @@ public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure (
   }
   
   if case pattern = value { return }
-  
+    
   XCTFail(message(), file: file, line: line)
+}
+
+public func XCTAssertFailureResult<Success>(_ expression: @autoclosure () throws -> Result<Success, Error>, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line, _ errorHandler: (_ error: Error) throws -> Void = { _ in }) rethrows {
+  let result = try expression()
+  
+  switch result {
+  case .success(let success):
+    XCTFail("Expected failure result, but result was successful: \(String(describing: success))", file: file, line: line)
+  case .failure(let error):
+    try errorHandler(error)
+  }
 }

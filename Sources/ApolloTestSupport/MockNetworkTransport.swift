@@ -6,11 +6,6 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
                endpointURL: TestURL.mockServer.url)
   }
   
-  public convenience init(body: JSONObject? = nil, store: ApolloStore) {
-    let server = MockGraphQLServer()
-    self.init(server: server, store: store)
-  }
-  
   struct TestInterceptorProvider: InterceptorProvider {
     let store: ApolloStore
     let server: MockGraphQLServer
