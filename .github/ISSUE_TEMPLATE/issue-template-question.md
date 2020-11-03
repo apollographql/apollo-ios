@@ -21,3 +21,4 @@ Please fill in the versions you're currently using:
 - `apollo-ios` SDK version:
 - Xcode version: 
 - Swift version: 
+- Package manager:
