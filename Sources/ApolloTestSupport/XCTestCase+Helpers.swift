@@ -32,7 +32,11 @@ public extension XCTestCase {
   
   func expectSuccessfulResult<Success, Failure: Error>(description: String, file: StaticString = #filePath, line: UInt = #line, perform: (@escaping (Result<Success, Failure>) -> Void) -> Void) -> XCTestExpectation {
     let resultObserver = AsyncResultObserver<Success, Failure>(testCase: self, file: file, line: line)
-    let expectation = resultObserver.expectation(description: description, file: file, line: line)
+    let expectation = resultObserver.expectation(description: description, file: file, line: line) { result in
+      if case .failure(let error) = result {
+        throw error
+      }
+    }
     perform(resultObserver.handler)
     return expectation
   }

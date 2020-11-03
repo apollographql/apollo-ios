@@ -177,7 +177,7 @@ class WatchQueryTests: ClientIntegrationTests {
         ]
       }
       
-      let noUpdatedResultExpectation = resultObserver.expectation(description: "Other query shouldn't trigger refetch")
+      let noUpdatedResultExpectation = resultObserver.expectation(description: "Other query shouldn't trigger refetch") { _ in }
       noUpdatedResultExpectation.isInverted = true
       
       let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in

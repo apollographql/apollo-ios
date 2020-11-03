@@ -6,9 +6,9 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
   private class AsyncResultExpectation: XCTestExpectation {
     let file: StaticString
     let line: UInt
-    let handler: ResultHandler?
+    let handler: ResultHandler
     
-    init(description: String, file: StaticString = #filePath, line: UInt = #line, handler: ResultHandler?) {
+    init(description: String, file: StaticString = #filePath, line: UInt = #line, handler: @escaping ResultHandler) {
       self.file = file
       self.line = line
       self.handler = handler
@@ -33,7 +33,7 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
     self.line = line
   }
   
-  public func expectation(description: String, file: StaticString = #filePath, line: UInt = #line, resultHandler: ResultHandler? = nil) -> XCTestExpectation {
+  public func expectation(description: String, file: StaticString = #filePath, line: UInt = #line, resultHandler: @escaping ResultHandler) -> XCTestExpectation {
     let expectation = AsyncResultExpectation(description: description, file: file, line: line, handler: resultHandler)
     expectation.assertForOverFulfill = true
     
@@ -48,13 +48,9 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
       return
     }
         
-    if let handler = expectation.handler {
-      do {
-        try handler(result)
-      } catch {
-        testCase.record(error, file: expectation.file, line: expectation.line)
-      }
-    } else if case .failure(let error) = result {
+    do {
+      try expectation.handler(result)
+    } catch {
       testCase.record(error, file: expectation.file, line: expectation.line)
     }
     
