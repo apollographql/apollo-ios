@@ -102,7 +102,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
     
     let updateExpectation = expectSuccessfulResult(description: "Update complete") { handler in
       store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { (data: inout HeroNameQuery.Data) in
+        try transaction.update(query: query) { data in
           data.hero?.name = "Artoo"
         }
       }, completion: handler)
@@ -197,7 +197,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
     
     let updateExpectation = expectSuccessfulResult(description: "Transaction updated") { handler in
       store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { (data: inout HeroAndFriendsNamesQuery.Data) in
+        try transaction.update(query: query) { data in
           data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
         }
       }, completion: handler)
@@ -238,7 +238,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
     
     let updateExpectation = expectSuccessfulResult(description: "Update complete") { handler in
       store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { (data: inout HeroAndFriendsNamesQuery.Data) in
+        try transaction.update(query: query) { data in
           data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
         }
       }, completion: handler)
@@ -344,7 +344,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
     
     let updateExpecation = expectSuccessfulResult(description: "Update complete") { handler in
       store.withinReadWriteTransaction({ transaction in
-        try transaction.updateObject(ofType: FriendsNames.self, withKey: "2001") { (friendsNames: inout FriendsNames) in
+        try transaction.updateObject(ofType: FriendsNames.self, withKey: "2001") { friendsNames in
           friendsNames.friends?.append(.makeDroid(name: "C-3PO"))
         }
       }, completion: handler)
