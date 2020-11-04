@@ -3,7 +3,37 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class WatchQueryTests: ClientIntegrationTests {
+class WatchQueryTests: XCTestCase, CacheTesting {
+  
+  var cacheType: TestCacheProvider.Type {
+    InMemoryTestCacheProvider.self
+  }
+  
+  var defaultWaitTimeout: TimeInterval = 1
+  
+  var cache: NormalizedCache!
+  var server: MockGraphQLServer!
+  var client: ApolloClient!
+  
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    
+    cache = try makeNormalizedCache()
+    let store = ApolloStore(cache: cache)
+    
+    server = MockGraphQLServer()
+    let networkTransport = MockNetworkTransport(server: server, store: store)
+    
+    client = ApolloClient(networkTransport: networkTransport, store: store)
+  }
+  
+  override func tearDownWithError() throws {
+    cache = nil
+    server = nil
+    client = nil
+    
+    try super.tearDownWithError()
+  }
   
   func testRefetchWatchedQueryFromServerThroughWatcher() throws {
     let watchedQuery = HeroNameQuery()
