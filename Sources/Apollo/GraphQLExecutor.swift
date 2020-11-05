@@ -98,9 +98,8 @@ final class GraphQLExecutor {
   var shouldComputeCachePath = true
 
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
-  init(resolver: @escaping GraphQLResolver) {
-    queue = DispatchQueue(label: "com.apollographql.GraphQLExecutor")
-
+  init(queue: DispatchQueue? = nil, resolver: @escaping GraphQLResolver) {
+    self.queue = queue ?? DispatchQueue(label: "com.apollographql.GraphQLExecutor")
     self.resolver = resolver
   }
 
@@ -125,6 +124,10 @@ final class GraphQLExecutor {
                                                       withKey key: CacheKey? = nil,
                                                       variables: GraphQLMap? = nil,
                                                       accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
+      dispatchPrecondition(condition: .notOnQueue(queue))
+    }
+    
     return try queue.sync {
       let info = GraphQLResolveInfo(rootKey: key, variables: variables)
       

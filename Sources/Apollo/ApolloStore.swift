@@ -101,7 +101,7 @@ public final class ApolloStore {
       self.queue.async {
         self.cacheLock.lockForReading()
 
-        fulfill(ReadTransaction(cache: self.cache, cacheKeyForObject: self.cacheKeyForObject))
+        fulfill(ReadTransaction(store: self))
       }
     }.flatMap(body)
      .finally {
@@ -137,9 +137,7 @@ public final class ApolloStore {
     return Promise<ReadWriteTransaction> { fulfill, reject in
       self.queue.async(flags: .barrier) {
         self.cacheLock.lockForWriting()
-        fulfill(ReadWriteTransaction(cache: self.cache,
-                                     cacheKeyForObject: self.cacheKeyForObject,
-                                     updateChangedKeysFunc: self.didChangeKeys))
+        fulfill(ReadWriteTransaction(store: self))
       }
     }.flatMap(body)
      .finally {
@@ -203,14 +201,16 @@ public final class ApolloStore {
   }
 
   public class ReadTransaction {
+    fileprivate let queue: DispatchQueue
     fileprivate let cache: NormalizedCache
     fileprivate let cacheKeyForObject: CacheKeyForObject?
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecordsPromise)
 
-    init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?) {
-      self.cache = cache
-      self.cacheKeyForObject = cacheKeyForObject
+    fileprivate init(store: ApolloStore) {
+      self.queue = DispatchQueue(label: "com.apollographql.ApolloStore.\(type(of: self))")
+      self.cache = store.cache
+      self.cacheKeyForObject = store.cacheKeyForObject
     }
 
     public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
@@ -242,17 +242,15 @@ public final class ApolloStore {
         return .promise(loader[reference.key].map { $0?.fields })
       } else if let array = value as? Array<Any?> {
         let completedValues = array.map(complete)
-        // Make sure to dispatch on a global queue and not on the local queue,
-        // because that could result in a deadlock (if someone is waiting for the write lock).
-        return whenAll(completedValues, notifyOn: .global()).map { $0 }
+        return whenAll(completedValues, notifyOn: queue).map { $0 }
       } else {
         return .result(.success(value))
       }
     }
 
-    final func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-      return loadObject(forKey: key).flatMap { object in
-        let executor = GraphQLExecutor { object, info in
+    fileprivate func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+      return loadObject(forKey: key).flatMap { [queue] object in
+        let executor = GraphQLExecutor(queue: queue) { object, info in
           let value = object[info.cacheKeyForField]
           return self.complete(value: value)
         }
@@ -282,9 +280,9 @@ public final class ApolloStore {
 
     fileprivate var updateChangedKeysFunc: DidChangeKeysFunc?
 
-    init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?, updateChangedKeysFunc: @escaping DidChangeKeysFunc) {
-      self.updateChangedKeysFunc = updateChangedKeysFunc
-      super.init(cache: cache, cacheKeyForObject: cacheKeyForObject)
+    override init(store: ApolloStore) {
+      self.updateChangedKeysFunc = store.didChangeKeys
+      super.init(store: store)
     }
 
     public func update<Query: GraphQLQuery>(query: Query, _ body: (inout Query.Data) throws -> Void) throws {
@@ -323,7 +321,7 @@ public final class ApolloStore {
                        withKey key: CacheKey,
                        variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
-      let executor = GraphQLExecutor { object, info in
+      let executor = GraphQLExecutor(queue: queue) { object, info in
         return .result(.success(object[info.responseKeyForField]))
       }
 

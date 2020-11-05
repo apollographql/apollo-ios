@@ -19,6 +19,16 @@ public func XCTAssertEqual<T, U>(_ expression1: @autoclosure () throws -> [T : U
   }
 }
 
+public func XCTAssertEqualUnordered<Element, C1: Collection, C2: Collection>(_ expression1: @autoclosure () throws -> C1, _ expression2: @autoclosure () throws -> C2, file: StaticString = #filePath, line: UInt = #line) rethrows where Element: Hashable, C1.Element == Element, C2.Element == Element {
+  let collection1 = try expression1()
+  let collection2 = try expression2()
+  
+  // Convert to sets to ignore ordering and only check whether all elements are accounted for,
+  // but also check count to detect duplicates.
+  XCTAssertEqual(collection1.count, collection2.count, file: file, line: line)
+  XCTAssertEqual(Set(collection1), Set(collection2), file: file, line: line)
+}
+
 public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure () throws -> Pattern.Base, _ patternExpression: @autoclosure () throws -> Pattern, file: StaticString = #filePath, line: UInt = #line) rethrows {
   let value = try valueExpression()
   let pattern = try patternExpression()
@@ -32,12 +42,34 @@ public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure (
   XCTFail(message(), file: file, line: line)
 }
 
-public func XCTAssertFailureResult<Success>(_ expression: @autoclosure () throws -> Result<Success, Error>, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line, _ errorHandler: (_ error: Error) throws -> Void = { _ in }) rethrows {
+// We need overloaded versions instead of relying on default arguments
+// due to https://bugs.swift.org/browse/SR-1534
+
+public func XCTAssertSuccessResult<Success>(_ expression: @autoclosure () throws -> Result<Success, Error>, file: StaticString = #file, line: UInt = #line) rethrows {
+  try XCTAssertSuccessResult(expression(), file: file, line: line, {_ in })
+}
+
+public func XCTAssertSuccessResult<Success>(_ expression: @autoclosure () throws -> Result<Success, Error>, file: StaticString = #file, line: UInt = #line, _ successHandler: (_ value: Success) throws -> Void) rethrows {
+  let result = try expression()
+  
+  switch result {
+  case .success(let value):
+    try successHandler(value)
+  case .failure(let error):
+    XCTFail("Expected success, but result was an error: \(String(describing: error))", file: file, line: line)
+  }
+}
+
+public func XCTAssertFailureResult<Success>(_ expression: @autoclosure () throws -> Result<Success, Error>, file: StaticString = #file, line: UInt = #line) rethrows {
+  try XCTAssertFailureResult(expression(), file: file, line: line, {_ in })
+}
+
+public func XCTAssertFailureResult<Success>(_ expression: @autoclosure () throws -> Result<Success, Error>, file: StaticString = #file, line: UInt = #line, _ errorHandler: (_ error: Error) throws -> Void) rethrows {
   let result = try expression()
   
   switch result {
   case .success(let success):
-    XCTFail("Expected failure result, but result was successful: \(String(describing: success))", file: file, line: line)
+    XCTFail("Expected failure, but result was successful: \(String(describing: success))", file: file, line: line)
   case .failure(let error):
     try errorHandler(error)
   }
