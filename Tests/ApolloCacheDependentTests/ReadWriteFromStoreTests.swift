@@ -258,6 +258,43 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
     }
   }
   
+  func testReadAfterWriteWithinSameTransaction() throws {
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "2001": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+        "friends": [
+          Reference(key: "1000"),
+          Reference(key: "1002"),
+          Reference(key: "1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
+      "1002": ["__typename": "Human", "name": "Han Solo"],
+      "1003": ["__typename": "Human", "name": "Leia Organa"],
+    ])
+    
+    let query = HeroAndFriendsNamesQuery()
+    
+    let transactionCompletedExpectation = expectSuccessfulResult(description: "Transaction completed") { handler in
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(query: query) { data in
+          data.hero?.name = "Artoo"
+          data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
+        }
+        
+        let data = try transaction.read(query: query)
+                
+        XCTAssertEqual(data.hero?.name, "Artoo")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      }, completion: handler)
+    }
+    
+    self.wait(for: [transactionCompletedExpectation], timeout: defaultWaitTimeout)
+  }
+  
   func testReadHeroDetailsFragmentWithTypeSpecificProperty() throws {
     mergeRecordsIntoCache([
       "2001": ["name": "R2-D2", "__typename": "Droid", "primaryFunction": "Protocol"]

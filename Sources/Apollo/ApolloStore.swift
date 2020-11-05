@@ -337,6 +337,10 @@ public final class ApolloStore {
       .flatMap {
         self.cache.mergePromise(records: $0)
       }.andThen { changedKeys in
+        // Remove cached values from the data loader, so subsequent reads
+        // within the same transaction will reload the updated value.
+        self.loader.removeAll()
+        
         if let didChangeKeysFunc = self.updateChangedKeysFunc {
           didChangeKeysFunc(changedKeys, nil)
         }

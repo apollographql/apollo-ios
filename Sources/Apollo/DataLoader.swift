@@ -48,4 +48,8 @@ final class DataLoader<Key: Hashable, Value> {
       }
     }
   }
+  
+  func removeAll() {
+    cache.removeAll()
+  }
 }
