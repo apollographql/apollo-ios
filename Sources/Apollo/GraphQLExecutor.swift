@@ -125,20 +125,26 @@ final class GraphQLExecutor {
                                                       withKey key: CacheKey? = nil,
                                                       variables: GraphQLMap? = nil,
                                                       accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-    let info = GraphQLResolveInfo(rootKey: key, variables: variables)
-
-    return try execute(selections: selections,
-                       on: object,
-                       info: info,
-                       accumulator: accumulator).map {
-      try accumulator.finish(rootValue: $0, info: info)
-    }.asPromise()
+    return try queue.sync {
+      let info = GraphQLResolveInfo(rootKey: key, variables: variables)
+      
+      return try execute(selections: selections,
+                         on: object,
+                         info: info,
+                         accumulator: accumulator).map {
+                          try accumulator.finish(rootValue: $0, info: info)
+                         }.asPromise()
+    }
   }
 
   private func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection],
                                                               on object: JSONObject,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
+    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
+      dispatchPrecondition(condition: .onQueue(queue))
+    }
+    
     var groupedFields = GroupedSequence<String, GraphQLField>()
     try collectFields(selections: selections,
                       forRuntimeType: runtimeType(of: object),
@@ -175,6 +181,10 @@ final class GraphQLExecutor {
                              forRuntimeType runtimeType: String?,
                              into groupedFields: inout GroupedSequence<String, GraphQLField>,
                              info: GraphQLResolveInfo) throws {
+    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
+      dispatchPrecondition(condition: .onQueue(queue))
+    }
+    
     for selection in selections {
       switch selection {
       case let field as GraphQLField:
@@ -220,6 +230,10 @@ final class GraphQLExecutor {
                                                               on object: JSONObject,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
+    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
+      dispatchPrecondition(condition: .onQueue(queue))
+    }
+    
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
     let firstField = fields[0]
 
@@ -263,6 +277,10 @@ final class GraphQLExecutor {
                                                                ofType returnType: GraphQLOutputType,
                                                                info: GraphQLResolveInfo,
                                                                accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.PartialResult> {
+    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
+      dispatchPrecondition(condition: .onQueue(queue))
+    }
+    
     if case .nonNull(let innerType) = returnType {
       if value is NSNull {
         return .result(.failure(JSONDecodingError.nullValue))
