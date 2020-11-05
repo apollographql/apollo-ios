@@ -12,12 +12,7 @@ public class SQLiteTestCacheProvider: TestCacheProvider {
   /// asynchronous at some point.
   public static func withCache(initialRecords: RecordSet? = nil, fileURL: URL? = nil, execute test: (NormalizedCache) throws -> ()) rethrows {
     let fileURL = fileURL ?? temporarySQLiteFileURL()
-    let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
-    if let initialRecords = initialRecords {
-      cache.merge(records: initialRecords, callbackQueue: nil, completion: { _ in
-        // Theoretically, this should be synchronous
-      }) // This is synchronous
-    }
+    let cache = try! SQLiteNormalizedCache(fileURL: fileURL, initialRecords: initialRecords)
     try test(cache)
   }
 

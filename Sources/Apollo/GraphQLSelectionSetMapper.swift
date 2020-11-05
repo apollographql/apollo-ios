@@ -1,11 +1,13 @@
+import struct Foundation.Date
+
 final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQLResultAccumulator {
-  func accept(scalar: JSONValue, info: GraphQLResolveInfo) throws -> Any? {
+  func accept(scalar: JSONValue, firstReceivedAt: Date, info: GraphQLResolveInfo) throws -> Any? {
     guard case .scalar(let decodable) = info.fields[0].type.namedType else { preconditionFailure() }
     // This will convert a JSON value to the expected value type, which could be a custom scalar or an enum.
     return try decodable.init(jsonValue: scalar)
   }
 
-  func acceptNullValue(info: GraphQLResolveInfo) -> Any? {
+  func acceptNullValue(firstReceivedAt: Date, info: GraphQLResolveInfo) -> Any? {
     return nil
   }
 

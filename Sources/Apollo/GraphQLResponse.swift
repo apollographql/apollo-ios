@@ -47,7 +47,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
 
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
-        return .result(.success(object[info.responseKeyForField]))
+        return .result(.success((object[info.responseKeyForField], Date())))
       }
 
       executor.cacheKeyForObject = cacheKeyForObject
@@ -55,20 +55,23 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
       let mapper = GraphQLSelectionSetMapper<Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
+      let firstReceivedTracker = GraphQLFirstReceivedAtTracker()
 
       return firstly {
         try executor.execute(selections: Data.selections,
                              on: dataEntry,
+                             firstReceivedAt: Date(),
                              withKey: rootKey,
                              variables: variables,
-                             accumulator: zip(mapper, normalizer, dependencyTracker))
-        }.map { (data, records, dependentKeys) in
+                             accumulator: zip(mapper, normalizer, dependencyTracker, firstReceivedTracker))
+        }.map { (data, records, dependentKeys, resultContext) in
           (
             GraphQLResult(data: data,
                           extensions: extensions,
                           errors: errors,
                           source: .server,
-                          dependentKeys: dependentKeys),
+                          dependentKeys: dependentKeys,
+                          context: resultContext),
             records
           )
       }
@@ -78,7 +81,8 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
                       extensions: extensions,
                       errors: errors,
                       source: .server,
-                      dependentKeys: nil),
+                      dependentKeys: nil,
+                      context: .init()),
         nil
       ))
     }
@@ -105,13 +109,15 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
                            extensions: extensions,
                            errors: errors,
                            source: .server,
-                           dependentKeys: nil)
+                           dependentKeys: nil,
+                           context: .init())
     } else {
       return GraphQLResult(data: nil,
                            extensions: extensions,
                            errors: errors,
                            source: .server,
-                           dependentKeys: nil)
+                           dependentKeys: nil,
+                           context: .init())
     }
   }
 }

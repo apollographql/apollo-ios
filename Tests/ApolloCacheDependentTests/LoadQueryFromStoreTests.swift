@@ -347,7 +347,48 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
     }
   }
 
-  // MARK: - Helpers
+
+  func testResultContextWithDataFromYesterday() throws {
+    let yesterday = Date().addingTimeInterval(-.oneDay)
+    let aYearAgo = Date().addingTimeInterval(-.oneYear)
+    let initialRecords = RecordSet([
+      "QUERY_ROOT": (["hero": Reference(key: "hero")], yesterday),
+      "hero": (["__typename": "Droid", "name": "R2-D2"], yesterday),
+      "ignoredData": (["__typename": "Droid", "name": "R2-D3"], aYearAgo)
+    ])
+
+    self.testResulContextWhenLoadingHeroNameQueryWithAge(initialRecords: initialRecords, expectedResultAge: yesterday)
+  }
+
+  func testResultContextWithDataFromMixedDates() throws {
+    let yesterday = Date().addingTimeInterval(-.oneDay)
+    let oneHourAgo = Date().addingTimeInterval(-.oneHour)
+    let aYearAgo = Date().addingTimeInterval(-.oneYear)
+    let fields = (
+      Record.Fields(["hero": Reference(key: "hero")]),
+      ["__typename": "Droid", "name": "R2-D2"],
+      ["__typename": "Droid", "name": "R2-D3"]
+    )
+
+    let initialRecords1 = RecordSet([
+      "QUERY_ROOT": (fields.0, oneHourAgo),
+      "hero": (fields.1, yesterday),
+      "ignoredData": (fields.2, aYearAgo)
+    ])
+    self.testResulContextWhenLoadingHeroNameQueryWithAge(initialRecords: initialRecords1, expectedResultAge: yesterday)
+
+    let initialRecords2 = RecordSet([
+      "QUERY_ROOT": (fields.0, yesterday),
+      "hero": (fields.1, oneHourAgo),
+      "ignoredData": (fields.2, aYearAgo)
+    ])
+    self.testResulContextWhenLoadingHeroNameQueryWithAge(initialRecords: initialRecords2, expectedResultAge: yesterday)
+  }
+}
+
+// MARK: - Helpers
+
+extension LoadQueryFromStoreTests {
   
   private func load<Query: GraphQLQuery>(query: Query, resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     let expectation = self.expectation(description: "Loading query from store")
@@ -358,5 +399,42 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
     }
     
     waitForExpectations(timeout: 5, handler: nil)
+  }
+
+  private func testResulContextWhenLoadingHeroNameQueryWithAge(
+    initialRecords: RecordSet,
+    expectedResultAge: Date,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) {
+    self.withCache(initialRecords: initialRecords) {
+      self.store = .init(cache: $0)
+
+      self.load(query: HeroNameQuery()) {
+        switch $0 {
+        case let .success(result):
+          XCTAssertNil(result.errors, file: file, line: line)
+          XCTAssertEqual(result.data?.hero?.name, "R2-D2", file: file, line: line)
+          XCTAssertEqual(
+            expectedResultAge.timeIntervalSince1970,
+            result.context.resultAge.timeIntervalSince1970,
+            accuracy: 1,
+            file: file,
+            line: line
+          )
+
+        case let .failure(error):
+          XCTFail("Unexpected error: \(error)", file: file, line: line)
+        }
+      }
+    }
+  }
+}
+
+extension RecordSet {
+  init(_ dictionary: Dictionary<CacheKey, (fields: Record.Fields, receivedAt: Date)>) {
+    self.init(rows: dictionary.map {
+      RecordRow(record: .init(key: $0.key, $0.value.fields), lastReceivedAt: $0.value.receivedAt)
+    })
   }
 }

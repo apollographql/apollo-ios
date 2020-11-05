@@ -10,7 +10,7 @@ public protocol NormalizedCache {
   ///   - completion: A completion closure to fire when the load has completed. If successful, will contain an array. Each index will contain either the record corresponding to the key at the same index in the passed-in array of cache keys, or nil if that record was not found.
   func loadRecords(forKeys keys: [CacheKey],
                    callbackQueue: DispatchQueue?,
-                   completion: @escaping (Result<[Record?], Error>) -> Void)
+                   completion: @escaping (Result<[RecordRow?], Error>) -> Void)
 
   /// Merges a set of records into the cache.
   ///

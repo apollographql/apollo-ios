@@ -1,11 +1,13 @@
+import struct Foundation.Date
+
 final class GraphQLDependencyTracker: GraphQLResultAccumulator {
   private var dependentKeys: Set<CacheKey> = Set()
 
-  func accept(scalar: JSONValue, info: GraphQLResolveInfo) {
+  func accept(scalar: JSONValue, firstReceivedAt: Date, info: GraphQLResolveInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }
 
-  func acceptNullValue(info: GraphQLResolveInfo) {
+  func acceptNullValue(firstReceivedAt: Date, info: GraphQLResolveInfo) {
     dependentKeys.insert(info.cachePath.joined)
   }
 

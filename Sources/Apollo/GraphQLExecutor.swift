@@ -2,7 +2,7 @@ import Dispatch
 import Foundation
 
 /// A resolver is responsible for resolving a value for a field.
-typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<JSONValue?>
+typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<(JSONValue?, Date)>
 
 struct GraphQLResolveInfo {
   let variables: GraphQLMap?
@@ -120,25 +120,34 @@ final class GraphQLExecutor {
 
   // MARK: - Execution
 
-  func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection],
-                                                      on object: JSONObject,
-                                                      withKey key: CacheKey? = nil,
-                                                      variables: GraphQLMap? = nil,
-                                                      accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
+  func execute<Accumulator: GraphQLResultAccumulator>(
+    selections: [GraphQLSelection],
+    on object: JSONObject,
+    firstReceivedAt: Date,
+    withKey key: CacheKey? = nil,
+    variables: GraphQLMap? = nil,
+    accumulator: Accumulator
+  ) throws -> Promise<Accumulator.FinalResult> {
     let info = GraphQLResolveInfo(rootKey: key, variables: variables)
 
-    return try execute(selections: selections,
-                       on: object,
-                       info: info,
-                       accumulator: accumulator).map {
-      try accumulator.finish(rootValue: $0, info: info)
-    }.asPromise()
+    return try execute(
+        selections: selections,
+        on: object,
+        firstReceivedAt: firstReceivedAt,
+        info: info,
+        accumulator: accumulator
+      )
+      .map { try accumulator.finish(rootValue: $0, info: info) }
+      .asPromise()
   }
 
-  private func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection],
-                                                              on object: JSONObject,
-                                                              info: GraphQLResolveInfo,
-                                                              accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
+  private func execute<Accumulator: GraphQLResultAccumulator>(
+    selections: [GraphQLSelection],
+    on object: JSONObject,
+    firstReceivedAt: Date,
+    info: GraphQLResolveInfo,
+    accumulator: Accumulator
+  ) throws -> ResultOrPromise<Accumulator.ObjectResult> {
     var groupedFields = GroupedSequence<String, GraphQLField>()
     try collectFields(selections: selections,
                       forRuntimeType: runtimeType(of: object),
@@ -149,10 +158,13 @@ final class GraphQLExecutor {
     fieldEntries.reserveCapacity(groupedFields.keys.count)
 
     for (_, fields) in groupedFields {
-      let fieldEntry = try execute(fields: fields,
-                                   on: object,
-                                   info: info,
-                                   accumulator: accumulator)
+      let fieldEntry = try execute(
+        fields: fields,
+        on: object,
+        firstReceivedAt: firstReceivedAt,
+        info: info,
+        accumulator: accumulator
+      )
       fieldEntries.append(fieldEntry)
     }
 
@@ -216,10 +228,13 @@ final class GraphQLExecutor {
   }
 
   /// Each field requested in the grouped field set that is defined on the selected objectType will result in an entry in the response map. Field execution first coerces any provided argument values, then resolves a value for the field, and finally completes that value either by recursively executing another selection set or coercing a scalar value.
-  private func execute<Accumulator: GraphQLResultAccumulator>(fields: [GraphQLField],
-                                                              on object: JSONObject,
-                                                              info: GraphQLResolveInfo,
-                                                              accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
+  private func execute<Accumulator: GraphQLResultAccumulator>(
+    fields: [GraphQLField],
+    on object: JSONObject,
+    firstReceivedAt: Date,
+    info: GraphQLResolveInfo,
+    accumulator: Accumulator
+  ) throws -> ResultOrPromise<Accumulator.FieldEntry> {
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
     let firstField = fields[0]
 
@@ -240,47 +255,57 @@ final class GraphQLExecutor {
 
     let resultOrPromise = resolver(object, info)
 
-    return resultOrPromise.on(queue: queue).flatMap { value in
-      guard let value = value else {
-        throw JSONDecodingError.missingValue
-      }
+    return resultOrPromise.on(queue: queue)
+      .flatMap { (value, valueFirstReceivedAt) in
+        guard let value = value else {
+          throw JSONDecodingError.missingValue
+        }
 
-      return try self.complete(value: value,
-                               ofType: firstField.type,
-                               info: info,
-                               accumulator: accumulator)
-    }.map {
-      try accumulator.accept(fieldEntry: $0, info: info)
-    }.catch { error in
-      if !(error is GraphQLResultError) {
-        throw GraphQLResultError(path: info.responsePath, underlying: error)
+        return try self.complete(
+          value: value,
+          ofType: firstField.type,
+          firstReceivedAt: min(firstReceivedAt, valueFirstReceivedAt),
+          info: info,
+          accumulator: accumulator
+        )
       }
-    }
+      .map { try accumulator.accept(fieldEntry: $0, info: info) }
+      .catch { error in
+        if !(error is GraphQLResultError) {
+          throw GraphQLResultError(path: info.responsePath, underlying: error)
+        }
+      }
   }
 
   /// After resolving the value for a field, it is completed by ensuring it adheres to the expected return type. If the return type is another Object type, then the field execution process continues recursively.
-  private func complete<Accumulator: GraphQLResultAccumulator>(value: JSONValue,
-                                                               ofType returnType: GraphQLOutputType,
-                                                               info: GraphQLResolveInfo,
-                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.PartialResult> {
+  private func complete<Accumulator: GraphQLResultAccumulator>(
+    value: JSONValue,
+    ofType returnType: GraphQLOutputType,
+    firstReceivedAt: Date,
+    info: GraphQLResolveInfo,
+    accumulator: Accumulator
+  ) throws -> ResultOrPromise<Accumulator.PartialResult> {
     if case .nonNull(let innerType) = returnType {
       if value is NSNull {
         return .result(.failure(JSONDecodingError.nullValue))
       }
 
-      return try complete(value: value,
-                          ofType: innerType,
-                          info: info,
-                          accumulator: accumulator)
+      return try complete(
+        value: value,
+        ofType: innerType,
+        firstReceivedAt: firstReceivedAt,
+        info: info,
+        accumulator: accumulator
+      )
     }
 
     if value is NSNull {
-      return ResultOrPromise { try accumulator.acceptNullValue(info: info) }
+      return ResultOrPromise { try accumulator.acceptNullValue(firstReceivedAt: firstReceivedAt, info: info) }
     }
 
     switch returnType {
     case .scalar:
-      return ResultOrPromise { try accumulator.accept(scalar: value, info: info) }
+      return ResultOrPromise { try accumulator.accept(scalar: value, firstReceivedAt: firstReceivedAt, info: info) }
     case .list(let innerType):
       guard let array = value as? [JSONValue] else { return .result(.failure(JSONDecodingError.wrongType)) }
 
@@ -291,10 +316,13 @@ final class GraphQLExecutor {
         info.responsePath.append(indexSegment)
         info.cachePath.append(indexSegment)
 
-        return try self.complete(value: element,
-                                 ofType: innerType,
-                                 info: info,
-                                 accumulator: accumulator)
+        return try self.complete(
+          value: element,
+          ofType: innerType,
+          firstReceivedAt: firstReceivedAt,
+          info: info,
+          accumulator: accumulator
+        )
       }, notifyOn: queue).map { completedArray in
         return try accumulator.accept(list: completedArray, info: info)
       }
@@ -310,10 +338,14 @@ final class GraphQLExecutor {
       }
 
       // We execute the merged selection set on the object to complete the value. This is the recursive step in the GraphQL execution model.
-      return try execute(selections: selections,
-                         on: object,
-                         info: info,
-                         accumulator: accumulator).map { return $0 as! Accumulator.PartialResult }
+      return try execute(
+          selections: selections,
+          on: object,
+          firstReceivedAt: firstReceivedAt,
+          info: info,
+          accumulator: accumulator
+        )
+        .map { return $0 as! Accumulator.PartialResult }
     default:
       preconditionFailure()
     }

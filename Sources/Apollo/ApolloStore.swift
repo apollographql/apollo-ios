@@ -175,17 +175,19 @@ public final class ApolloStore {
     return withinReadTransactionPromise { transaction in
       let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
+      let firstReceivedTracker = GraphQLFirstReceivedAtTracker()
 
       return try transaction.execute(selections: Operation.Data.selections,
                                      onObjectWithKey: rootCacheKey(for: query),
                                      variables: query.variables,
-                                     accumulator: zip(mapper, dependencyTracker))
-    }.map { (data: Operation.Data, dependentKeys: Set<CacheKey>) in
+                                     accumulator: zip(mapper, dependencyTracker, firstReceivedTracker))
+    }.map { (data: Operation.Data, dependentKeys: Set<CacheKey>, resultContext) in
       GraphQLResult(data: data,
                     extensions: nil,
                     errors: nil,
                     source:.cache,
-                    dependentKeys: dependentKeys)
+                    dependentKeys: dependentKeys,
+                    context: resultContext)
     }
   }
 
@@ -206,14 +208,14 @@ public final class ApolloStore {
     fileprivate let cache: NormalizedCache
     fileprivate let cacheKeyForObject: CacheKeyForObject?
 
-    fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecordsPromise)
+    fileprivate lazy var loader: DataLoader<CacheKey, RecordRow?> = DataLoader(self.cache.loadRecordsPromise)
 
     init(cache: NormalizedCache, cacheKeyForObject: CacheKeyForObject?) {
       self.cache = cache
       self.cacheKeyForObject = cacheKeyForObject
     }
 
-    public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
+    public func read<Query: GraphQLQuery>(query: Query) throws -> (Query.Data, GraphQLResultContext) {
       return try readObject(ofType: Query.Data.self,
                             withKey: rootCacheKey(for: query),
                             variables: query.variables)
@@ -221,40 +223,49 @@ public final class ApolloStore {
 
     public func readObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type,
                                                               withKey key: CacheKey,
-                                                              variables: GraphQLMap? = nil) throws -> SelectionSet {
+                                                              variables: GraphQLMap? = nil) throws -> (SelectionSet, GraphQLResultContext) {
       let mapper = GraphQLSelectionSetMapper<SelectionSet>()
+      let firstReceivedTracker = GraphQLFirstReceivedAtTracker()
+
       return try execute(selections: type.selections,
                          onObjectWithKey: key,
                          variables: variables,
-                         accumulator: mapper).await()
+                         accumulator: zip(mapper, firstReceivedTracker)).await()
     }
 
     public func loadRecords(forKeys keys: [CacheKey],
                             callbackQueue: DispatchQueue = .main,
-                            completion: @escaping (Result<[Record?], Error>) -> Void) {
+                            completion: @escaping (Result<[RecordRow?], Error>) -> Void) {
       self.cache.loadRecords(forKeys: keys,
                              callbackQueue: callbackQueue,
                              completion: completion)
     }
 
-    private final func complete(value: Any?) -> ResultOrPromise<JSONValue?> {
+    private final func complete(value: Any?, firstReceivedAt: Date) -> ResultOrPromise<(JSONValue?, Date)> {
       if let reference = value as? Reference {
-        return .promise(loader[reference.key].map { $0?.fields })
+        return .promise(loader[reference.key].map { ($0?.record.fields, min(firstReceivedAt, $0?.lastReceivedAt)) })
       } else if let array = value as? Array<Any?> {
-        let completedValues = array.map(complete)
+        let completedValues = array.map { complete(value: $0, firstReceivedAt: firstReceivedAt ) }
         // Make sure to dispatch on a global queue and not on the local queue,
         // because that could result in a deadlock (if someone is waiting for the write lock).
-        return whenAll(completedValues, notifyOn: .global()).map { $0 }
+        return whenAll(completedValues, notifyOn: .global()).map { values in
+          return (values.map(\.0) as JSONValue, min(firstReceivedAt, values.map(\.1).min()))
+        }
       } else {
-        return .result(.success(value))
+        return .result(.success((value, firstReceivedAt)))
       }
     }
 
-    final func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-      return loadObject(forKey: key).flatMap { object in
+    final func execute<Accumulator: GraphQLResultAccumulator>(
+      selections: [GraphQLSelection],
+      onObjectWithKey key: CacheKey,
+      variables: GraphQLMap?,
+      accumulator: Accumulator
+    ) throws -> Promise<Accumulator.FinalResult> {
+      return loadObject(forKey: key).flatMap { (object, receivedAt) in
         let executor = GraphQLExecutor { object, info in
           let value = object[info.cacheKeyForField]
-          return self.complete(value: value)
+          return self.complete(value: value, firstReceivedAt: receivedAt)
         }
 
         executor.dispatchDataLoads = self.loader.dispatch
@@ -262,18 +273,19 @@ public final class ApolloStore {
 
         return try executor.execute(selections: selections,
                                     on: object,
+                                    firstReceivedAt: receivedAt,
                                     withKey: key,
                                     variables: variables,
                                     accumulator: accumulator)
       }
     }
 
-    private final func loadObject(forKey key: CacheKey) -> Promise<JSONObject> {
+    private final func loadObject(forKey key: CacheKey) -> Promise<(JSONObject, Date)> {
       defer { loader.dispatch() }
 
-      return loader[key].map { record in
-        guard let object = record?.fields else { throw JSONDecodingError.missingValue }
-        return object
+      return loader[key].map { row in
+        guard let row = row else { throw JSONDecodingError.missingValue }
+        return (row.record.fields, row.lastReceivedAt)
       }
     }
   }
@@ -288,7 +300,7 @@ public final class ApolloStore {
     }
 
     public func update<Query: GraphQLQuery>(query: Query, _ body: (inout Query.Data) throws -> Void) throws {
-      var data = try read(query: query)
+      var (data, _) = try read(query: query)
       try body(&data)
       try write(data: data, forQuery: query)
     }
@@ -297,7 +309,7 @@ public final class ApolloStore {
                                                                 withKey key: CacheKey,
                                                                 variables: GraphQLMap? = nil,
                                                                 _ body: (inout SelectionSet) throws -> Void) throws {
-      var object = try readObject(ofType: type,
+      var (object, _) = try readObject(ofType: type,
                                   withKey: key,
                                   variables: variables)
       try body(&object)
@@ -324,13 +336,14 @@ public final class ApolloStore {
                        variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
       let executor = GraphQLExecutor { object, info in
-        return .result(.success(object[info.responseKeyForField]))
+        return .result(.success((object[info.responseKeyForField], Date())))
       }
 
       executor.cacheKeyForObject = self.cacheKeyForObject
 
       _ = try executor.execute(selections: selections,
                                on: object,
+                               firstReceivedAt: Date(),
                                withKey: key,
                                variables: variables,
                                accumulator: normalizer)
@@ -346,7 +359,7 @@ public final class ApolloStore {
 }
 
 internal extension NormalizedCache {
-  func loadRecordsPromise(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
+  func loadRecordsPromise(forKeys keys: [CacheKey]) -> Promise<[RecordRow?]> {
     return Promise { fulfill, reject in
       self.loadRecords(
         forKeys: keys,

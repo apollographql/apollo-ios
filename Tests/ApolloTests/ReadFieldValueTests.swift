@@ -15,10 +15,17 @@ private struct MockSelectionSet: GraphQLSelectionSet {
 
 func readFieldValue(_ field: GraphQLField, from object: JSONObject) throws -> Any? {
   let executor = GraphQLExecutor { object, info in
-    return .result(.success(object[info.responseKeyForField]))
+    return .result(.success((object[info.responseKeyForField], Date())))
   }
   
-  return try executor.execute(selections: [field], on: object, withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).await().resultMap[field.responseKey]!
+  return try executor.execute(
+    selections: [field],
+    on: object,
+    firstReceivedAt: Date(),
+    withKey: "",
+    variables: [:],
+    accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()
+  ).await().resultMap[field.responseKey]!
 }
 
 class ReadFieldValueTests: XCTestCase {

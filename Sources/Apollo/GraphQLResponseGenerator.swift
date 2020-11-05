@@ -1,11 +1,11 @@
 import Foundation
 
 final class GraphQLResponseGenerator: GraphQLResultAccumulator {
-  func accept(scalar: JSONValue, info: GraphQLResolveInfo) -> JSONValue {
+  func accept(scalar: JSONValue, firstReceivedAt: Date, info: GraphQLResolveInfo) -> JSONValue {
     return scalar
   }
 
-  func acceptNullValue(info: GraphQLResolveInfo) -> JSONValue {
+  func acceptNullValue(firstReceivedAt: Date, info: GraphQLResolveInfo) -> JSONValue {
     return NSNull()
   }
 

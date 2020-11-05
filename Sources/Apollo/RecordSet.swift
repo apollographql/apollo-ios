@@ -15,27 +15,23 @@ public struct RecordRow {
 public struct RecordSet {
   public private(set) var storage: [CacheKey: RecordRow] = [:]
 
-  public init<S: Sequence>(records: S) where S.Iterator.Element == Record {
-    insert(contentsOf: records)
+  public init<S: Sequence>(rows: S) where S.Iterator.Element == RecordRow {
+    self.insert(contentsOf: rows)
   }
 
-  public mutating func insert(_ record: Record) {
-    storage[record.key] = .init(record: record, lastReceivedAt: Date())
+  public mutating func insert(_ row: RecordRow) {
+    self.storage[row.record.key] = row
   }
 
   public mutating func clear() {
     storage.removeAll()
   }
 
-  public mutating func insert<S: Sequence>(contentsOf records: S) where S.Iterator.Element == Record {
-    for record in records {
-      insert(record)
-    }
+  public mutating func insert<S: Sequence>(contentsOf rows: S) where S.Iterator.Element == RecordRow {
+    rows.forEach { self.insert($0) }
   }
 
-  public subscript(key: CacheKey) -> Record? {
-    return storage[key]?.record
-  }
+  public subscript(key: CacheKey) -> RecordRow? { self.storage[key] }
 
   public var isEmpty: Bool {
     return storage.isEmpty
@@ -76,7 +72,12 @@ public struct RecordSet {
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (CacheKey, Record.Fields)...) {
-    self.init(records: elements.map { Record(key: $0.0, $0.1) })
+    self.init(rows: elements.map {
+      RecordRow(
+        record: .init(key: $0.0, $0.1),
+        lastReceivedAt: Date()
+      )
+    })
   }
 }
 

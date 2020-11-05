@@ -26,11 +26,14 @@ public final class SQLiteNormalizedCache {
   /// - Parameters:
   ///   - fileURL: The file URL to use for your database.
   ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
+  ///   - initialRecords: A set of records to initialize the database with.
   /// - Throws: Any errors attempting to open or create the database.
-  public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
-    self.shouldVacuumOnClear = shouldVacuumOnClear
-    self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
-    try self.setUpDatabase()
+  convenience public init(fileURL: URL, shouldVacuumOnClear: Bool = false, initialRecords: RecordSet? = nil) throws {
+    try self.init(
+      db: try Connection(.uri(fileURL.absoluteString), readonly: false),
+      shouldVacuumOnClear: shouldVacuumOnClear,
+      initialRecords: initialRecords
+    )
   }
 
   ///
@@ -38,11 +41,28 @@ public final class SQLiteNormalizedCache {
   /// - Parameters:
   ///   - db: The database Connection to use
   ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
+  ///   - initialRecords: A set of records to initialize the database with.
   /// - Throws: Any errors attempting to access the database
-  public init(db: Connection, shouldVacuumOnClear: Bool = false) throws {
+  public init(db: Connection, shouldVacuumOnClear: Bool = false, initialRecords: RecordSet? = nil) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = db
     try self.setUpDatabase()
+
+    guard let initialRecords = initialRecords else { return }
+
+    try initialRecords.keys.forEach { key in
+      guard let row = initialRecords[key] else {
+        assertionFailure("No record was found for the existing key")
+        return
+      }
+      guard let serializedRecord = try row.record.serialized() else { return }
+      try self.db.run(self.records.insert(
+        or: .replace,
+        self.key <- key,
+        self.record <- serializedRecord,
+        self.lastReceivedAt <- Int64(row.lastReceivedAt.timeIntervalSince1970)
+      ))
+    }
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
@@ -78,28 +98,25 @@ public final class SQLiteNormalizedCache {
   }
 
   private func mergeRecords(records: RecordSet) throws -> Set<CacheKey> {
-    var recordSet = RecordSet(records: try self.selectRecords(forKeys: records.keys))
-    let changedFieldKeys = recordSet.merge(records: records)
-    let changedRecordKeys = changedFieldKeys.map { self.recordCacheKey(forFieldCacheKey: $0) }
-    for recordKey in Set(changedRecordKeys) {
-      if let recordFields = recordSet[recordKey]?.fields {
-        let recordData = try SQLiteSerialization.serialize(fields: recordFields)
-        guard let recordString = String(data: recordData, encoding: .utf8) else {
-          assertionFailure("Serialization should yield UTF-8 data")
-          continue
-        }
-        try self.db.run(self.records.insert(
-          or: .replace,
-          self.key <- recordKey,
-          self.record <- recordString,
-          self.lastReceivedAt <- Int64(Date().timeIntervalSince1970 * 1000)
-        ))
-      }
+    var recordSet = RecordSet(rows: try self.selectRows(forKeys: records.keys))
+    let changedFieldKeys = Set(recordSet.merge(records: records))
+    let changedRecordKeys = Set(changedFieldKeys.map { self.recordCacheKey(forFieldCacheKey: $0) })
+
+    try changedRecordKeys.forEach { recordKey in
+      guard let serializedRecord = try recordSet[recordKey]?.record.serialized() else { return }
+
+      try self.db.run(self.records.insert(
+        or: .replace,
+        self.key <- recordKey,
+        self.record <- serializedRecord,
+        self.lastReceivedAt <- Int64(Date().timeIntervalSince1970)
+      ))
     }
-    return Set(changedFieldKeys)
+
+    return changedFieldKeys
   }
 
-  private func selectRecords(forKeys keys: [CacheKey]) throws -> [Record] {
+  private func selectRows(forKeys keys: [CacheKey]) throws -> [RecordRow] {
     let query = self.records.filter(keys.contains(key))
     return try self.db.prepare(query).map { try parse(row: $0) }
   }
@@ -111,7 +128,7 @@ public final class SQLiteNormalizedCache {
     }
   }
 
-  private func parse(row: Row) throws -> Record {
+  private func parse(row: Row) throws -> RecordRow {
     let record = row[self.record]
 
     guard let recordData = record.data(using: .utf8) else {
@@ -119,7 +136,10 @@ public final class SQLiteNormalizedCache {
     }
 
     let fields = try SQLiteSerialization.deserialize(data: recordData)
-    return Record(key: row[key], fields)
+    return .init(
+      record: .init(key: row[key], fields),
+      lastReceivedAt: .init(timeIntervalSince1970: .init(row[self.lastReceivedAt]))
+    )
   }
 }
 
@@ -174,18 +194,16 @@ extension SQLiteNormalizedCache: NormalizedCache {
 
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
-                          completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
-    let result: Swift.Result<[Record?], Error>
+                          completion: @escaping (Swift.Result<[RecordRow?], Error>) -> Void) {
+    let result: Swift.Result<[RecordRow?], Error>
     do {
-      let records = try self.selectRecords(forKeys: keys)
-      let recordsOrNil: [Record?] = keys.map { key in
-        if let recordIndex = records.firstIndex(where: { $0.key == key }) {
-          return records[recordIndex]
+      let rows = try self.selectRows(forKeys: keys)
+      result = .success(
+        keys.map { key in
+          guard let recordIndex = rows.firstIndex(where: { $0.record.key == key }) else { return nil }
+          return rows[recordIndex]
         }
-        return nil
-      }
-
-      result = .success(recordsOrNil)
+      )
     } catch {
       result = .failure(error)
     }
@@ -211,5 +229,18 @@ extension SQLiteNormalizedCache: NormalizedCache {
 
   public func clearImmediately() throws {
     try clearRecords()
+  }
+}
+
+// MARK: Record serialization
+
+extension Record {
+  func serialized() throws -> String? {
+    let serializedData = try SQLiteSerialization.serialize(fields: self.fields)
+    guard let string = String(data: serializedData, encoding: .utf8) else {
+      assertionFailure("Serialization should yield UTF-8 data")
+      return nil
+    }
+    return string
   }
 }

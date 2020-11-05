@@ -10,7 +10,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
 
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
-                          completion: @escaping (Result<[Record?], Error>) -> Void) {
+                          completion: @escaping (Result<[RecordRow?], Error>) -> Void) {
     self.recordsLock.lock()
     let records = keys.map { self.records[$0] }
     self.recordsLock.unlock()

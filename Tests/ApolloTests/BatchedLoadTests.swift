@@ -14,7 +14,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
   
   func loadRecords(forKeys keys: [CacheKey],
                    callbackQueue: DispatchQueue?,
-                   completion: @escaping (Result<[Record?], Error>) -> Void) {
+                   completion: @escaping (Result<[RecordRow?], Error>) -> Void) {
     OSAtomicIncrement32(&numberOfBatchLoads)
     
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
@@ -53,16 +53,21 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
 class BatchedLoadTests: XCTestCase {  
   func testListsAreLoadedInASingleBatch() {
     var records = RecordSet()
-    let drones = (1...100).map { number in
-      Record(key: "Drone_\(number)", ["__typename": "Droid", "name": "Droid #\(number)"])
-    }
+    let drones = (1...100)
+      .map { Record(key: "Drone_\($0)", ["__typename": "Droid", "name": "Droid #\($0)"]) }
+      .map { RecordRow(record: $0, lastReceivedAt: Date()) }
     
-    records.insert(Record(key: "QUERY_ROOT", ["hero": Reference(key: "2001")]))
-    records.insert(Record(key: "2001", [
-      "name": "R2-D2",
-      "__typename": "Droid",
-      "friends": drones.map { Reference(key: $0.key) }
-    ]))
+    records.insert(RecordRow(record: .init(key: "QUERY_ROOT", ["hero": Reference(key: "2001")]), lastReceivedAt: Date()))
+    records.insert(
+      RecordRow(
+        record: Record(key: "2001", [
+          "name": "R2-D2",
+          "__typename": "Droid",
+          "friends": drones.map { Reference(key: $0.record.key) }
+        ]),
+        lastReceivedAt: Date()
+      )
+    )
     records.insert(contentsOf: drones)
     
     let cache = MockBatchedNormalizedCache(records: records)
