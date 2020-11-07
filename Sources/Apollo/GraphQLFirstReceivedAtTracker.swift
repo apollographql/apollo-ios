@@ -10,7 +10,7 @@ final class GraphQLFirstReceivedAtTracker: GraphQLResultAccumulator {
   }
 
   func accept(list: [Date], info: GraphQLResolveInfo) throws -> Date {
-    return list.min() ?? Date(timeIntervalSince1970: 0)
+    return list.min() ?? .distantPast
   }
 
   func accept(fieldEntry: Date, info: GraphQLResolveInfo) throws -> Date {
@@ -18,7 +18,7 @@ final class GraphQLFirstReceivedAtTracker: GraphQLResultAccumulator {
   }
 
   func accept(fieldEntries: [Date], info: GraphQLResolveInfo) throws -> Date {
-    return fieldEntries.min() ?? Date(timeIntervalSince1970: 0)
+    return fieldEntries.min() ?? .distantPast
   }
 
   func finish(rootValue: Date, info: GraphQLResolveInfo) throws -> GraphQLResultContext {
