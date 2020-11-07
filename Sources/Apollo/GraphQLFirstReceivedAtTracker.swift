@@ -22,6 +22,6 @@ final class GraphQLFirstReceivedAtTracker: GraphQLResultAccumulator {
   }
 
   func finish(rootValue: Date, info: GraphQLResolveInfo) throws -> GraphQLResultContext {
-    return .init(resultAge: rootValue)
+    return GraphQLResultContext(resultAge: rootValue)
   }
 }

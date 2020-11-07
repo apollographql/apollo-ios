@@ -408,7 +408,7 @@ extension LoadQueryFromStoreTests {
     line: UInt = #line
   ) {
     self.withCache(initialRecords: initialRecords) {
-      self.store = .init(cache: $0)
+      self.store = ApolloStore(cache: $0)
 
       self.load(query: HeroNameQuery()) {
         switch $0 {
@@ -433,8 +433,11 @@ extension LoadQueryFromStoreTests {
 
 extension RecordSet {
   init(_ dictionary: Dictionary<CacheKey, (fields: Record.Fields, receivedAt: Date)>) {
-    self.init(rows: dictionary.map {
-      RecordRow(record: .init(key: $0.key, $0.value.fields), lastReceivedAt: $0.value.receivedAt)
+    self.init(rows: dictionary.map { element in
+      RecordRow(
+        record: Record(key: element.key, element.value.fields),
+        lastReceivedAt: element.value.receivedAt
+      )
     })
   }
 }

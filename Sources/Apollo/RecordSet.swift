@@ -72,9 +72,9 @@ public struct RecordSet {
 
 extension RecordSet: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (CacheKey, Record.Fields)...) {
-    self.init(rows: elements.map {
+    self.init(rows: elements.map { element in
       RecordRow(
-        record: .init(key: $0.0, $0.1),
+        record: Record(key: element.0, element.1),
         lastReceivedAt: Date()
       )
     })

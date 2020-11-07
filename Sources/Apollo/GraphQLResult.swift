@@ -7,7 +7,7 @@ public struct GraphQLResultContext {
   /// When such a merge happens, this value will be the age of the oldest record.
   public let resultAge: Date
 
-  init(resultAge: Date = .init()) {
+  init(resultAge: Date = Date()) {
     self.resultAge = resultAge
   }
 }
@@ -63,6 +63,6 @@ extension GraphQLResult where Data: Decodable {
               errors: [],
               source: .server,
               dependentKeys: nil,
-              context: .init())
+              context: GraphQLResultContext())
   }
 }

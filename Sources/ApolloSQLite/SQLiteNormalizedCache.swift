@@ -136,9 +136,9 @@ public final class SQLiteNormalizedCache {
     }
 
     let fields = try SQLiteSerialization.deserialize(data: recordData)
-    return .init(
-      record: .init(key: row[key], fields),
-      lastReceivedAt: .init(timeIntervalSince1970: .init(row[self.lastReceivedAt]))
+    return RecordRow(
+      record: Record(key: row[key], fields),
+      lastReceivedAt: Date(timeIntervalSince1970: TimeInterval(row[self.lastReceivedAt]))
     )
   }
 }
