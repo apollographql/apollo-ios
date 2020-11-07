@@ -349,8 +349,9 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
 
 
   func testResultContextWithDataFromYesterday() throws {
-    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-    let aYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
+    let now = Date()
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now)!
+    let aYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: now)!
     let initialRecords = RecordSet([
       "QUERY_ROOT": (["hero": Reference(key: "hero")], yesterday),
       "hero": (["__typename": "Droid", "name": "R2-D2"], yesterday),
@@ -361,9 +362,10 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
   }
 
   func testResultContextWithDataFromMixedDates() throws {
-    let oneHourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: Date())!
-    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-    let aYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
+    let now = Date()
+    let oneHourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: now)!
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now)!
+    let aYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: now)!
     let fields = (
       Record.Fields(["hero": Reference(key: "hero")]),
       ["__typename": "Droid", "name": "R2-D2"],
