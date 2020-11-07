@@ -54,7 +54,9 @@ class BatchedLoadTests: XCTestCase {
   func testListsAreLoadedInASingleBatch() {
     var records = RecordSet()
     let drones = (1...100)
-      .map { Record(key: "Drone_\($0)", ["__typename": "Droid", "name": "Droid #\($0)"]) }
+      .map { index in
+        Record(key: "Drone_\(index)", ["__typename": "Droid", "name": "Droid #\(index)"])
+      }
       .map { RecordRow(record: $0, lastReceivedAt: Date()) }
     
     records.insert(RecordRow(record: .init(key: "QUERY_ROOT", ["hero": Reference(key: "2001")]), lastReceivedAt: Date()))
