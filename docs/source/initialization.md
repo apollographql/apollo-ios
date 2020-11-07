@@ -118,7 +118,7 @@ Here's a sample how to use an advanced client with some custom interceptors. Thi
 
 #### Example interceptors
 
-##### Sample `UserManagementInteceptor` 
+##### Sample `UserManagementInterceptor` 
 
 An interceptor which checks if the user is logged in and then renews the user's token if it is expired asynchronously before continuing the chain, using the above-mentioned `UserManager` class: 
 
