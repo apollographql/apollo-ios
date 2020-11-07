@@ -1,4 +1,4 @@
-import struct Foundation.Date
+import Foundation
 
 final class GraphQLDependencyTracker: GraphQLResultAccumulator {
   private var dependentKeys: Set<CacheKey> = Set()

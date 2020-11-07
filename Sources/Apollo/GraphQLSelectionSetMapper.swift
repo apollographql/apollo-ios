@@ -1,4 +1,4 @@
-import struct Foundation.Date
+import Foundation
 
 final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQLResultAccumulator {
   func accept(scalar: JSONValue, firstReceivedAt: Date, info: GraphQLResolveInfo) throws -> Any? {

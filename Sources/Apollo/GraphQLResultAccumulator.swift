@@ -1,4 +1,4 @@
-import struct Foundation.Date
+import Foundation
 
 protocol GraphQLResultAccumulator: class {
   associatedtype PartialResult
