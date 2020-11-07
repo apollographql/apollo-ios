@@ -249,7 +249,6 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D89918CC2553CEF500FBB042 /* GraphQLFirstReceivedAtTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89918CB2553CEF500FBB042 /* GraphQLFirstReceivedAtTracker.swift */; };
 		D8A11D352555037000E93E9D /* Math+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A11D342555037000E93E9D /* Math+Helpers.swift */; };
-		D8A11D6225550EC600E93E9D /* TimeInterval+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A11D5225550D3900E93E9D /* TimeInterval+Helpers.swift */; };
 		D90F1AFB2479E57A007A1534 /* WebSocketTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
@@ -766,7 +765,6 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D89918CB2553CEF500FBB042 /* GraphQLFirstReceivedAtTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFirstReceivedAtTracker.swift; sourceTree = "<group>"; };
 		D8A11D342555037000E93E9D /* Math+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Math+Helpers.swift"; sourceTree = "<group>"; };
-		D8A11D5225550D3900E93E9D /* TimeInterval+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Helpers.swift"; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
@@ -1254,7 +1252,6 @@
 				9BCF0CDF23FC9CA50031D2A2 /* MockNetworkTransport.swift */,
 				9BCF0CD923FC9CA50031D2A2 /* TestCacheProvider.swift */,
 				9BEEDC2A24E61995001D1294 /* TestURLs.swift */,
-				D8A11D5225550D3900E93E9D /* TimeInterval+Helpers.swift */,
 				9BCF0CDC23FC9CA50031D2A2 /* XCTAssertHelpers.swift */,
 			);
 			name = ApolloTestSupport;
@@ -2421,7 +2418,6 @@
 				9BCF0CE423FC9CA50031D2A2 /* MockURLSession.swift in Sources */,
 				9BEEDC2B24E61995001D1294 /* TestURLs.swift in Sources */,
 				9BCF0CE023FC9CA50031D2A2 /* TestCacheProvider.swift in Sources */,
-				D8A11D6225550EC600E93E9D /* TimeInterval+Helpers.swift in Sources */,
 				9BCF0CE323FC9CA50031D2A2 /* XCTAssertHelpers.swift in Sources */,
 				9BCF0CE523FC9CA50031D2A2 /* MockNetworkTransport.swift in Sources */,
 			);

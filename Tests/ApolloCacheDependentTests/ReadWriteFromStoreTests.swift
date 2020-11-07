@@ -435,7 +435,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
   }
 
   func testReceivedAtAfterUpdateQuery() throws {
-    let yesterday = Date().addingTimeInterval(-.oneDay)
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
     let initialRecords = RecordSet([
       "QUERY_ROOT": (["hero": Reference(key: "QUERY_ROOT.hero")], yesterday),
       "QUERY_ROOT.hero": (["__typename": "Droid", "name": "R2-D2"], yesterday)
@@ -458,7 +458,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
 
       // the query age is that of the oldest row read, so still yesterday
       let result = try store.load(query: query).await()
-      XCTAssertEqual(result.context.resultAge.timeIntervalSince1970, yesterday.timeIntervalSince1970, accuracy: 1)
+      XCTAssertEqual(
+        Calendar.current.compare(result.context.resultAge, to: yesterday, toGranularity: .minute),
+        .orderedSame
+      )
 
       // verify that the age of the modified row is from just now
       let cacheReadExpectation = self.expectation(description: "cacheReadExpectation")
@@ -469,7 +472,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
         completion: {
           do {
             let (_, context) = try $0.get()
-            XCTAssertEqual(Date().timeIntervalSince1970, context.resultAge.timeIntervalSince1970, accuracy: 1)
+            XCTAssertEqual(
+              Calendar.current.compare(Date(), to: context.resultAge, toGranularity: .minute),
+              .orderedSame
+            )
             cacheReadExpectation.fulfill()
           } catch {
             XCTAssertThrowsError(error)

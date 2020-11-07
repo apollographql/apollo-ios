@@ -349,8 +349,8 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
 
 
   func testResultContextWithDataFromYesterday() throws {
-    let yesterday = Date().addingTimeInterval(-.oneDay)
-    let aYearAgo = Date().addingTimeInterval(-.oneYear)
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+    let aYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
     let initialRecords = RecordSet([
       "QUERY_ROOT": (["hero": Reference(key: "hero")], yesterday),
       "hero": (["__typename": "Droid", "name": "R2-D2"], yesterday),
@@ -361,9 +361,9 @@ class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
   }
 
   func testResultContextWithDataFromMixedDates() throws {
-    let yesterday = Date().addingTimeInterval(-.oneDay)
-    let oneHourAgo = Date().addingTimeInterval(-.oneHour)
-    let aYearAgo = Date().addingTimeInterval(-.oneYear)
+    let oneHourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: Date())!
+    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+    let aYearAgo = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
     let fields = (
       Record.Fields(["hero": Reference(key: "hero")]),
       ["__typename": "Droid", "name": "R2-D2"],
@@ -416,9 +416,8 @@ extension LoadQueryFromStoreTests {
           XCTAssertNil(result.errors, file: file, line: line)
           XCTAssertEqual(result.data?.hero?.name, "R2-D2", file: file, line: line)
           XCTAssertEqual(
-            expectedResultAge.timeIntervalSince1970,
-            result.context.resultAge.timeIntervalSince1970,
-            accuracy: 1,
+            Calendar.current.compare(expectedResultAge, to: result.context.resultAge, toGranularity: .minute),
+            .orderedSame,
             file: file,
             line: line
           )
