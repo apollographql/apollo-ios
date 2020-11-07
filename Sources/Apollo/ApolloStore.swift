@@ -243,13 +243,15 @@ public final class ApolloStore {
 
     private final func complete(value: Any?, firstReceivedAt: Date) -> ResultOrPromise<(JSONValue?, Date)> {
       if let reference = value as? Reference {
-        return .promise(loader[reference.key].map { ($0?.record.fields, min(firstReceivedAt, $0?.lastReceivedAt)) })
+        return .promise(
+          loader[reference.key].map { ($0?.record.fields, ApolloMath.min(firstReceivedAt, $0?.lastReceivedAt)) }
+        )
       } else if let array = value as? Array<Any?> {
         let completedValues = array.map { complete(value: $0, firstReceivedAt: firstReceivedAt ) }
         // Make sure to dispatch on a global queue and not on the local queue,
         // because that could result in a deadlock (if someone is waiting for the write lock).
         return whenAll(completedValues, notifyOn: .global()).map { values in
-          return (values.map(\.0) as JSONValue, min(firstReceivedAt, values.map(\.1).min()))
+          return (values.map(\.0) as JSONValue, ApolloMath.min(firstReceivedAt, values.map(\.1).min()))
         }
       } else {
         return .result(.success((value, firstReceivedAt)))
