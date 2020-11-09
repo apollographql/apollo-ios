@@ -160,7 +160,7 @@ extension CachePersistenceTests {
                   case .failure(let error):
                     XCTFail("Unexpected error with new client: \(error)", file: file, line: line)
                   }
-                  _ = newClient // Workaround for a bug - ensure that newClient is retained until this block is run
+                  _ = newClient // ensure that newClient is retained until this block is run
                 }
               }
             }
