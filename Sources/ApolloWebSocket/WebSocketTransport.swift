@@ -360,8 +360,15 @@ extension WebSocketTransport: NetworkTransport {
     contextIdentifier: UUID? = nil,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    
+    func callCompletion(with result: Result<GraphQLResult<Operation.Data>, Error>) {
+      callbackQueue.async {
+        completionHandler(result)
+      }
+    }
+    
     if let error = self.error.value {
-      completionHandler(.failure(error))
+      callCompletion(with: .failure(error))
       return EmptyCancellable()
     }
 
@@ -371,12 +378,12 @@ extension WebSocketTransport: NetworkTransport {
         let response = GraphQLResponse(operation: operation, body: jsonBody)
         do {
           let graphQLResult = try response.parseResultFast()
-          completionHandler(.success(graphQLResult))
+          callCompletion(with: .success(graphQLResult))
         } catch {
-          completionHandler(.failure(error))
+          callCompletion(with: .failure(error))
         }
       case .failure(let error):
-        completionHandler(.failure(error))
+        callCompletion(with: .failure(error))
       }
     }
   }
