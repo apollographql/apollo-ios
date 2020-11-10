@@ -1,5 +1,11 @@
 import XCTest
 
+/// `AsyncResultObserver` is a helper class that can be used to test `Result` values received through a completion handler against one or more expectations. It is primarily useful if you expect the completion handler to be called multiple times,  when receiving a fetch result from the cache and then from the server for example.
+///
+/// The main benefit is that it avoids having to manually keep track of expectations and mutable closures (like `verifyResult`), which can make code hard to read and is prone to mistakes. Instead, you can use a result observer to create multiple expectations that will be automatically fulfilled in order when results are received. Often, you'll also want to run assertions against the result, which you can do by passing in an optional handler that is specific to that expectation. These handlers are throwing, which means you can use `result.get()` and `XCTUnwrap` for example. Thrown errors will automatically be recorded as failures in the test case (with the right line numbers, etc.).
+///
+/// By default, expectations returned from `AsyncResultObserver` only expect to be called once, which is similar to how other built-in expectations work. Unexpected fulfillments will result in test failures. Usually this is what you want, and you add additional expectations with their own assertions if you expect further results.
+/// If multiple fulfillments of a single expectation are expected however, you can use the standard `expectedFulfillmentCount` property to change that.
 public class AsyncResultObserver<Success, Failure> where Failure: Error {
   public typealias ResultHandler = (Result<Success, Failure>) throws -> Void
   

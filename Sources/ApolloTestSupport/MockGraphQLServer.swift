@@ -1,6 +1,33 @@
 @testable import Apollo
 import XCTest
 
+/// A `MockGraphQLServer` can be used during tests to check whether expected GraphQL requests are received, and to respond with appropriate test data for a particular request.
+///
+/// You usually create a  mock server in the test's `setUpWithError`, and use it to initialize a `MockNetworkTransport` that is in turn used  to initialize an `ApolloClient`:
+///  ```
+/// let server = MockGraphQLServer()
+/// let networkTransport = MockNetworkTransport(server: server, store: store)
+/// let client = ApolloClient(networkTransport: networkTransport, store: store)
+///  ```
+/// A mock server should be configured to expect particular operation types, and invokes the passed in request handler when a request of that type comes in. Because the request allows access to `operation`, you can return different responses based on query variables for example:
+
+/// ```
+/// let serverExpectation = server.expect(HeroNameQuery.self) { request in
+///   [
+///     "data": [
+///       "hero": [
+///         "name": request.operation.episode == .empire ? "Luke Skywalker" : "R2-D2",
+///         "__typename": "Droid"
+///       ]
+///     ]
+///   ]
+/// }
+/// ```
+/// By default, expectations returned from `MockGraphQLServer` only expect to be called once, which is similar to how other built-in expectations work. Unexpected fulfillments will result in test failures. But if multiple fulfillments  are expected, you can use the standard `expectedFulfillmentCount` property to change that. For example, some of the concurrent tests expect the server to receive the same number of request as the number of invoked fetch operations, so in that case we can use:
+
+/// ```
+/// serverExpectation.expectedFulfillmentCount = numberOfFetches
+/// ```
 public class MockGraphQLServer {
   enum ServerError: Error, CustomStringConvertible {
     case unexpectedRequest(String)
