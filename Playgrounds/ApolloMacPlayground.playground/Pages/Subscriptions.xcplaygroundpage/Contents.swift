@@ -25,7 +25,8 @@ In this instance, we'll use a `SplitNetworkTransport` since we want to demonstra
 //:First, setup the `RequestChainNetworkTransport` that will handle your HTTP requests:
 
 let url = URL(string: "http://localhost:8080/graphql")!
-let normalTransport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
+let store = ApolloStore()
+let normalTransport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(store: store), endpointURL: url)
 
 //: Next, set up the `WebSocketTransport` to talk to the websocket endpoint. Note that this may take a different URL, sometimes with a `ws` prefix, than your normal http endpoint:
 
@@ -38,7 +39,7 @@ let splitTransport = SplitNetworkTransport(uploadingNetworkTransport: normalTran
 
 //: Finally, instantiate your client with the split transport:
 
-let client = ApolloClient(networkTransport: splitTransport)
+let client = ApolloClient(networkTransport: splitTransport, store: store)
 
 /*:
  ### Creating a subscription

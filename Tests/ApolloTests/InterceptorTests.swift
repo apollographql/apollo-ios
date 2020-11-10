@@ -32,7 +32,7 @@ class InterceptorTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: testProvider,
                                                endpointURL: TestURL.mockServer.url)
     
-    let expectation = self.expectation(description: "Reqeust sent")
+    let expectation = self.expectation(description: "Request sent")
     
     let operation = HeroNameQuery()
     _ = network.send(operation: operation) { result in
@@ -97,7 +97,7 @@ class InterceptorTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: testProvider,
                                                endpointURL: TestURL.mockServer.url)
     
-    let expectation = self.expectation(description: "Reqeust sent")
+    let expectation = self.expectation(description: "Request sent")
     
     let operation = HeroNameQuery()
     _ = network.send(operation: operation) { result in
@@ -142,7 +142,7 @@ class InterceptorTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
     
-    let expectation = self.expectation(description: "Reqeust sent")
+    let expectation = self.expectation(description: "Request sent")
     
     _ = network.send(operation: HeroNameQuery()) { result in
       defer {
@@ -191,7 +191,7 @@ class InterceptorTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
     
-    let expectation = self.expectation(description: "Reqeust sent")
+    let expectation = self.expectation(description: "Request sent")
     
     _ = network.send(operation: HeroNameQuery()) { result in
       defer {
@@ -247,7 +247,7 @@ class InterceptorTests: XCTestCase {
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
     
-    let expectation = self.expectation(description: "Reqeust sent")
+    let expectation = self.expectation(description: "Request sent")
     
     _ = network.send(operation: HeroNameQuery()) { result in
       defer {

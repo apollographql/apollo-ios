@@ -43,7 +43,7 @@ public struct CodegenLogger {
   }
 }
 
-// Extension which allows `print` to ouput to a FileHandle
+// Extension which allows `print` to output to a FileHandle
 extension FileHandle: TextOutputStream {
   public func write(_ string: String) {
     guard let data = string.data(using: .utf8) else { return }

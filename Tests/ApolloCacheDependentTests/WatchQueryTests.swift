@@ -812,7 +812,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
         XCTAssertEqual(data.hero?.name, "R2-D2")
 
-        let friendsNames = graphQLResult.data?.hero?.friends?.compactMap { $0?.name }
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker"])
 
         let expectedDependentKeys: Set = [
@@ -909,7 +909,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
         XCTAssertEqual(data.hero?.name, "R2-D2")
 
-        let friendsNames = graphQLResult.data?.hero?.friends?.compactMap { $0?.name }
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker"])
 
         let expectedDependentKeys: Set = [

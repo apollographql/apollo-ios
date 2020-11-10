@@ -63,7 +63,7 @@ override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
 }
 ```
 
-For `tableView(_:cellForRowAt:)`, you can use the existing cell dequeueing mechansim, the same section check as in `tableView(_:numberOfRowsInSection)`, and then configure the cell based on what section it's in.
+For `tableView(_:cellForRowAt:)`, you can use the existing cell dequeueing mechanism, the same section check as in `tableView(_:numberOfRowsInSection)`, and then configure the cell based on what section it's in.
 
 For this initial section, grab a launch out of the `launches` array at the index of `indexPath.row`, and update the `textLabel` to display the launch site:
 
@@ -302,7 +302,7 @@ When you recompile, if you look in `API.swift`, you'll see a new nested type, `M
 
 Because `missionPatch` returns a URL string to an image that can be displayed, you want to make it straightforward to display an image from its URL.
 
-To save time, go to **File > Swift Packages > Add Package Dependency...** and add a depenency on [SDWebImage](https://github.com/SDWebImage/SDWebImage). Paste in the URL to its git repo, `https://github.com/SDWebImage/SDWebImage.git`, and then select the main `SDWebImage` from the list of package products Xcode offers you once it resolves the repo. 
+To save time, go to **File > Swift Packages > Add Package Dependency...** and add a dependency on [SDWebImage](https://github.com/SDWebImage/SDWebImage). Paste in the URL to its git repo, `https://github.com/SDWebImage/SDWebImage.git`, and then select the main `SDWebImage` from the list of package products Xcode offers you once it resolves the repo.
 
 When SDWebImage finishes installing, go back to `MasterViewController.swift` and add the following import to the top of the file:
 

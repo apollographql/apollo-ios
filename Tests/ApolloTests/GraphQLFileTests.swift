@@ -65,7 +65,7 @@ class GraphQLFileTests: XCTestCase {
     inputStream.close()
   }
   
-  func testCreatingFileWithNonEmptyDataSuccedsAndCreatesAndCanRecreateInputStream() throws {
+  func testCreatingFileWithNonEmptyDataSucceedsAndCreatesAndCanRecreateInputStream() throws {
     let data = try XCTUnwrap("A test string".data(using: .utf8))
     XCTAssertFalse(data.isEmpty)
     

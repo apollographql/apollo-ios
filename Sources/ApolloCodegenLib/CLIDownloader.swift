@@ -16,9 +16,9 @@ struct CLIDownloader {
     var errorDescription: String? {
       switch self {
       case .badResponse(let code, let response):
-        return "Recieved bad response from server (code \(code)): \(String(describing: response))"
+        return "Received bad response from server (code \(code)): \(String(describing: response))"
       case .emptyDataReceived:
-        return "Empty data was receieved from the server."
+        return "Empty data was received from the server."
       case .noDataReceived:
         return "No data was received from the server."
       case .downloadTimedOut(let seconds):

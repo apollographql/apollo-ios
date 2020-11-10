@@ -37,8 +37,8 @@ The initializer for `RequestChainNetworkTransport` has several properties which 
 
 - `interceptorProvider`: The interceptor provider to use when constructing chains for a request. See below for details on interceptor providers.
 - `endpointURL`: The GraphQL endpoint URL to use for all calls.
-- `additionalHeaders`: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
-- `autoPersistQueries`: Pass `true` if [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/) should be used to send an operation's hash instead of the full operation body by default. **NOTE:** To use APQs, you need to make sure to generate your types with operation identifiers. In your Swift Script, make sure to pass a non-nil `operationIDsURL` to have this output. Due to this restriction, this option defaults to `false`.
+- `additionalHeaders`: Any additional headers that should be automatically added to **every** request, such as an API key or a language setting. Headers that should not be sent with every request (or whose values can change across requests) should be configured through an interceptor. Defaults to an empty dictionary. 
+- `autoPersistQueries`: Pass `true` if [Automatic Persisted Queries](https://www.apollographql.com/docs/apollo-server/performance/apq/) should be used to send an operation's hash instead of the full operation body by default. **NOTE:** To use APQs, you need to make sure to generate your types with operation identifiers. In your Swift Script, make sure to pass a non-nil `operationIDsURL` to have this output. Due to this restriction, this option defaults to `false`. You will also want to make sure you're using the `AutomaticPersistedQueryInterceptor` in your chain after a network request has come back to handle known APQ errors. 
 - `requestCreator`: The `RequestCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestCreator` implementation.
 - `useGETForQueries`: Sends all requests of `query` and `mutation` types using `GET` instead of `POST`. This is mostly useful for large companies taking advantage of CDNs (Content Distribution Networks) that allow local caches instead of going all the way to your server for data which does not change often. This defaults to `false` to preserve existing behavior in older versions of the client. 
 - `useGETForPersistedQueryRetry`: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`. 
@@ -47,11 +47,13 @@ The initializer for `RequestChainNetworkTransport` has several properties which 
 
 A `RequestChain` is constructed using an array of interceptors, to be run in the order given, and handles calling back on a specified `DispatchQueue` after all work is complete. 
 
+A chain is started by calling `kickoff`. This causes the chain to start running through the chain of interceptors in order.
+
 In each interceptor, work can be performed asynchronously on any thread. To move along to the next interceptor in the chain, call `proceedAsync`. 
 
 By default, when the interceptor chain ends, if you have a parsed result available, this result will be returned to the caller.
 
-If you want to directly return a value to the caller, call `returnValueAsync`. If you want to have the chain return an error, call `handleErrorAsync`. Both of these methods will call your completion block on the queue specified when creating the `RequestChain.
+If you want to directly return a value to the caller, call `returnValueAsync`. If you want to have the chain return an error, call `handleErrorAsync`. Both of these methods will call your completion block on the queue specified when creating the `RequestChain`.
 
 Note that calling `returnValue` does **NOT** forbid calling `handleError` - or calling each more than once. For example, if you want to return data from the cache to the UI while a network fetch executes, you'd want to make sure that `returnValueAsync` was called twice. 
 
@@ -59,22 +61,26 @@ The chain also includes a `retry` mechanism, which will go all the way back to t
 
 **IMPORTANT**: Do not call `retry` blindly. If your server is returning 500s or if the user has no internet, this will create an infinite loop of requests that are retrying (especially if you're not using something like the `MaxRetryInterceptor` to limit how many retries are made). This **will** kill your user's battery, and might also run up the bill on their data plan. Make sure to only request a retry when there's something your code can actually do about the problem!
 
-In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `InterceptorProvider` 
+In the `RequestChainNetworkTransport`, each request creates an individual request chain, and uses an `InterceptorProvider` to figure out which interceptors should be handed to that chain. 
 
 ### Setting up `ApolloInterceptor` chains with `InterceptorProvider`
 
 Every operation sent through a `RequestChainNetworkTransport` will be passed into an `InterceptorProvider` before going to the network. This protocol creates an array of interceptors for use by a single request chain based on the provided operation. 
 
-There are two default implementations for this protocol provided:
+Interceptors themselves are designed to be **short-lived**. A new set of interceptors should be provided for each request in order to avoid having multiple calls hitting the same instance of a single interceptor at the same time. 
 
-- `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses.
+Holding references to individual interceptors (outside of test verification) is generally not recommended. Instead, you can create an interceptor that holds on to a longer-lived object, and the provider can pass this object into each new set of interceptors. That way an interceptor itself can be easily disposable, but you don't have to recreate the underlying object doing heavier work.
+
+There are two default implementations for `InterceptorProvider` provided for you:
+
+- `LegacyInterceptorProvider` works with our existing parsing and caching system and tries to replicate the experience of using the old `HTTPNetworkTransport` as closely as possible. It takes a `URLSessionClient` and an `ApolloStore` to pass into the interceptors it uses. **This is the provider that developers will want to use at this time.** You can also sublcass this interceptor provider if you only need to insert interceptors at the beginning or end of the chain rather than intersperse them throughout.
 - `CodableInterceptorProvider` is a **work in progress**, which is going to be for use with our [Swift Codegen Rewrite](https://github.com/apollographql/apollo-ios/projects/2), (which, I swear, will eventually be finished). It is not suitable for use at this time. It takes a `URLSessionClient`, a `FlexibleDecoder` (something can decode anything that conforms to `Decodable`). It does not support caching yet.
 
 If you wish to make your own `InterceptorProvider` instead of using the provided one, you can take advantage of several interceptors that are included in the library: 
 
 #### Pre-network
 - `MaxRetryInterceptor` checks to make sure a query has not been tried more than a maximum number of times. 
-- `LegacyCacheReadInterceptor` reads from a provided `ApolloStore` based on the `cachePolicy`, and will return a resul if one is found.
+- `LegacyCacheReadInterceptor` reads from a provided `ApolloStore` based on the `cachePolicy`, and will return a result if one is found.
 
 #### Network 
 - `NetworkFetchInterceptor` takes a `URLSessionClient` and uses it to send the prepared `HTTPRequest` (or subclass thereof) to the server. 
@@ -83,9 +89,15 @@ If you wish to make your own `InterceptorProvider` instead of using the provided
 
 - `ResponseCodeInterceptor` checks to make sure a valid response status code has been returned. **NOTE**: Most errors at the GraphQL level are returned with a `200` status code and information in the `errors` array per the GraphQL Spec. This interceptor helps with things like server errors and errors that are returned by middleware. [This article on error handling in GraphQL](https://medium.com/@sachee/200-ok-error-handling-in-graphql-7ec869aec9bc) is a really helpful look at how and why these differences occur. 
 - `AutomaticPersistedQueryInterceptor` handles checking responses to see if an error is because an automatic persisted query failed, and the full operation needs to be resent to the server.
-- `LegacyParsingInterceptor` parses code generated by our Typescript code generation. 
-- `LegacyCacheWriteInterceptor` writes to a provided `ApolloStore`. 
+- `LegacyParsingInterceptor` parses code generated by our current Typescript-based code generation. 
+- `LegacyCacheWriteInterceptor` writes to a provided `ApolloStore` based on code from our current Typescript-based code generation.
 - `CodableParsingError` is a **work in progress** which will parse `Codable` results form the Swift Codegen Rewrite.
+
+#### The Additional Error Interceptor
+
+The `InterceptorProvider` can optionally provide an `additionalErrorInterceptor` which will get called before returning an error to the caller, regardless of the origin of the error. This is mostly useful for logging and tracing errors. 
+
+Note that if there is a particular _expected_ error, such as an expired authentication token, that type of error is best handled by having an interceptor within the interceptor chain, which will allow you to retry your request much more easily. 
 
 ### The URLSessionClient class
 
@@ -106,7 +118,7 @@ Here's a sample how to use an advanced client with some custom interceptors. Thi
 
 #### Example interceptors
 
-##### Sample `UserManagementInteceptor` 
+##### Sample `UserManagementInterceptor` 
 
 An interceptor which checks if the user is logged in and then renews the user's token if it is expired asynchronously before continuing the chain, using the above-mentioned `UserManager` class: 
 
@@ -255,7 +267,7 @@ class ResponseLoggingInterceptor: ApolloInterceptor {
 
 This `InterceptorProvider` uses all of the interceptors that (as of this writing) are in the default `LegacyInterceptorProvider`, interspersed at the appropriate points with the sample interceptors created above: 
 
-```
+```swift
 struct NetworkInterceptorProvider: InterceptorProvider {
     
     // These properties will remain the same throughout the life of the `InterceptorProvider`, even though they

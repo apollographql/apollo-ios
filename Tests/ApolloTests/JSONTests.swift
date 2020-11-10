@@ -70,7 +70,31 @@ class JSONTests: XCTestCase {
     
     let stringFromReserialized = try XCTUnwrap(String(bytes: reserialized, encoding: .utf8))
     XCTAssertEqual(stringFromReserialized, """
-{"a_dict":{"a_bool":1,"a_null":null,"an_array":["one","two","three"],"another_dict":{"a_double":23.100000000000001,"a_string":"LOL wat","an_int":8}}}
+{"a_dict":{"a_bool":true,"a_null":null,"an_array":["one","two","three"],"another_dict":{"a_double":23.100000000000001,"a_string":"LOL wat","an_int":8}}}
 """)
+  }
+
+  func testEncodingNSNullDoesNotCrash() throws {
+    let nsNull = ["aWeirdNull": NSNull()]
+    let serialized = try JSONSerializationFormat.serialize(value: nsNull)
+    let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
+
+    XCTAssertEqual(stringFromSerialized, #"{"aWeirdNull":null}"#)
+  }
+
+  func testEncodingOptionalNSNullDoesNotCrash() throws {
+    let optionalNSNull = ["aWeirdNull": Optional.some(NSNull())]
+    let serialized = try JSONSerializationFormat.serialize(value: optionalNSNull)
+    let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
+
+    XCTAssertEqual(stringFromSerialized, #"{"aWeirdNull":null}"#)
+  }
+
+  func testEncodingDoubleOptionalsDoesNotCrash() throws {
+    let doubleOptional = ["aWeirdNull": Optional.some(Optional<Int>.none)]
+    let serialized = try JSONSerializationFormat.serialize(value: doubleOptional)
+    let stringFromSerialized = try XCTUnwrap(String(data: serialized, encoding: .utf8))
+
+    XCTAssertEqual(stringFromSerialized, #"{"aWeirdNull":null}"#)
   }
 }

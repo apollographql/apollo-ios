@@ -305,7 +305,7 @@ class FragmentConstructionAndConversionTests: XCTestCase {
   
   // MARK: - Converting fragments into another type of fragment
   
-  func testConvertCharacterNameAndApearsInFragmentIntoCharacterNameFragment() throws {
+  func testConvertCharacterNameAndAppearsInFragmentIntoCharacterNameFragment() throws {
     let characterNameAndAppearsIn = CharacterNameAndAppearsIn.makeDroid(name: "R2-D2", appearsIn: [.newhope, .empire, .jedi])
     
     let characterName = try CharacterName(characterNameAndAppearsIn)

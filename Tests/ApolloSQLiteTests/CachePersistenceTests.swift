@@ -103,7 +103,7 @@ class CachePersistenceTests: XCTestCase {
         
         switch outerResult {
         case .failure(let error):
-          XCTFail("Unexpected faillure: \(error)")
+          XCTFail("Unexpected failure: \(error)")
         case .success(let graphQLResult):
           XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
         }

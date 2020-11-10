@@ -4,7 +4,7 @@ Excited about Apollo iOS and want to make it better? We’re excited too!
 
 Apollo is a community of developers just like you, striving to create the best tools and libraries around GraphQL. We welcome anyone who wants to contribute or provide constructive feedback, no matter your age or level of experience. If you want to help but don't know where to start, let us know, and we'll find something for you.
 
-Oh, and if you haven't already, stop by our [Spectrum Chat](https://spectrum.chat/apollo/apollo-ios)!
+Oh, and if you haven't already, stop by our [Github Discussions!](https://github.com/apollographql/apollo-ios/discussions)!
 
 Here are some ways to contribute to the project, from easiest to most difficult:
 
@@ -35,7 +35,7 @@ Improving the documentation, examples, and other open source content can be the 
 
 ### Responding to issues
 
-In addition to reporting issues, a great way to contribute to Apollo is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. And don't forget to say "Hi" on our Spectrum Chat!
+In addition to reporting issues, a great way to contribute to Apollo is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. And don't forget to say "Hi" on our Github Discussions board!
 
 ### Small bug fixes
 
@@ -78,5 +78,5 @@ It’s important that every piece of code in Apollo packages is reviewed by at l
 2. **Simplicity.** Is this the simplest way to achieve the intended goal? If there are too many files, redundant functions, or complex lines of code, suggest a simpler way to do the same thing. In particular, avoid implementing an overly general solution when a simple, small, and pragmatic fix will do.
 3. **Testing.** Do the tests ensure this code won’t break when other stuff changes around it? When it does break, will the tests added help us identify which part of the library has the problem? Did we cover an appropriate set of edge cases? Look at the test coverage report if there is one. Are all significant code paths in the new code exercised at least once?
 4. **No unnecessary or unrelated changes.** PRs shouldn’t come with random formatting changes, especially in unrelated parts of the code. If there is some refactoring that needs to be done, it should be in a separate PR from a bug fix or feature, if possible.
-5. **Code has appropriate comments.** Code should be commented for *why* things are happening, not *what* is happening. *What* is happening should be clear from the names of your functions and variables. This is sometimes called "self-documenting code", but you may still need to add commenets to explain why a workaround is necessary so other developers can better understand your code.
-6. **Idiomatic use of the language.** Make sure to use idomatic Swift when working with this repository. We don't presently use SwiftLint or any other linter, but please use your common sense and follow the style of the surrounding code.
+5. **Code has appropriate comments.** Code should be commented for *why* things are happening, not *what* is happening. *What* is happening should be clear from the names of your functions and variables. This is sometimes called "self-documenting code", but you may still need to add comments to explain why a workaround is necessary so other developers can better understand your code.
+6. **Idiomatic use of the language.** Make sure to use idiomatic Swift when working with this repository. We don't presently use SwiftLint or any other linter, but please use your common sense and follow the style of the surrounding code.
