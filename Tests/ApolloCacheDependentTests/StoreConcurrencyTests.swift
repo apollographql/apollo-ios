@@ -51,7 +51,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     
     let allReadsCompletedExpectation = XCTestExpectation(description: "All reads completed")
     allReadsCompletedExpectation.expectedFulfillmentCount = numberOfReads
-        
+    
     for _ in 0..<numberOfReads {
       store.withinReadTransaction({ transaction in
         let data = try transaction.read(query: query)
@@ -124,7 +124,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     
     let allUpdatesCompletedExpectation = XCTestExpectation(description: "All store updates completed")
     allUpdatesCompletedExpectation.expectedFulfillmentCount = numberOfUpdates
-        
+    
     for i in 0..<numberOfUpdates {
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: query) { data in
@@ -144,19 +144,22 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     
     self.wait(for: [allUpdatesCompletedExpectation], timeout: defaultWaitTimeout)
     
-    let readExpectation = expectSuccessfulResult(description: "Read completed") { handler in
-      store.withinReadTransaction({ transaction in
-        let data = try transaction.read(query: query)
-                
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        
-        let friendsNames = try XCTUnwrap(data.hero?.friends?.compactMap { $0?.name })
-        let expectedFriendsNames = (0..<numberOfUpdates).map { i in "Droid #\(i)" }
-        XCTAssertEqualUnordered(friendsNames, expectedFriendsNames)
-      }, completion: handler)
-    }
+    let readCompletedExpectation = expectation(description: "Read completed")
     
-    self.wait(for: [readExpectation], timeout: 1)
+    store.withinReadTransaction({ transaction in
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.name, "Artoo")
+      
+      let friendsNames = try XCTUnwrap(data.hero?.friends?.compactMap { $0?.name })
+      let expectedFriendsNames = (0..<numberOfUpdates).map { i in "Droid #\(i)" }
+      XCTAssertEqualUnordered(friendsNames, expectedFriendsNames)
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [readCompletedExpectation], timeout: 1)
   }
   
   func testConcurrentUpdatesInitiatedFromBackgroundThreads() throws {
@@ -175,16 +178,16 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     
     let allUpdatesCompletedExpectation = XCTestExpectation(description: "All store updates completed")
     allUpdatesCompletedExpectation.expectedFulfillmentCount = numberOfUpdates
-        
+    
     DispatchQueue.concurrentPerform(iterations: numberOfUpdates) { i in      
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: query) { data in
           data.hero?.name = "Artoo"
           data.hero?.friends?.append(.makeDroid(name: "Droid #\(i)"))
         }
-      
+        
         let data = try transaction.read(query: query)
-
+        
         XCTAssertEqual(data.hero?.name, "Artoo")
         XCTAssertEqual(data.hero?.friends?.last??.name, "Droid #\(i)")
       }, completion: { result in
@@ -195,18 +198,21 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     
     self.wait(for: [allUpdatesCompletedExpectation], timeout: defaultWaitTimeout)
     
-    let readExpectation = expectSuccessfulResult(description: "Read completed") { handler in
-      store.withinReadTransaction({ transaction in
-        let data = try transaction.read(query: query)
-                
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        
-        let friendsNames = try XCTUnwrap(data.hero?.friends?.compactMap { $0?.name })
-        let expectedFriendsNames = (0..<numberOfUpdates).map { i in "Droid #\(i)" }
-        XCTAssertEqualUnordered(friendsNames, expectedFriendsNames)
-      }, completion: handler)
-    }
+    let readCompletedExpectation = expectation(description: "Read completed")
     
-    self.wait(for: [readExpectation], timeout: 1)
+    store.withinReadTransaction({ transaction in
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.name, "Artoo")
+      
+      let friendsNames = try XCTUnwrap(data.hero?.friends?.compactMap { $0?.name })
+      let expectedFriendsNames = (0..<numberOfUpdates).map { i in "Droid #\(i)" }
+      XCTAssertEqualUnordered(friendsNames, expectedFriendsNames)
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [readCompletedExpectation], timeout: 1)
   }
 }

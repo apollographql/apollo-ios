@@ -151,10 +151,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(data.hero?.name, "Artoo")
       }
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in
-        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: resultHandler)
-      }
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
       
+      client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      }
+  
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
@@ -210,8 +213,11 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       let noUpdatedResultExpectation = resultObserver.expectation(description: "Other query shouldn't trigger refetch") { _ in }
       noUpdatedResultExpectation.isInverted = true
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in
-        client.fetch(query: HeroNameQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData, resultHandler: resultHandler)
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+      
+      client.fetch(query: HeroNameQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
       }
       
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, noUpdatedResultExpectation], timeout: defaultWaitTimeout)
@@ -279,8 +285,11 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(data.hero?.name, "Artoo")
       }
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { resultHandler in
-        client.fetch(query: HeroNameWithIdQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData, resultHandler: resultHandler)
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+      
+      client.fetch(query: HeroNameWithIdQuery(episode: .jedi), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
       }
       
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
@@ -351,8 +360,11 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
-        client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+      
+      client.fetch(query: HeroNameQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
       }
       
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
@@ -431,8 +443,11 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(friendsNames, ["Leia Organa", "Luke Skywalker"])
       }
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
-        client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+      
+      client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
       }
             
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
@@ -529,8 +544,11 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(friendsNames, ["Leia Organa", "Wilhuff Tarkin", "Luke Skywalker"])
       }
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
-        client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+      
+      client.fetch(query: HeroAndFriendsIDsQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
       }
       
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, refetchServerRequestExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
@@ -660,7 +678,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(data.hero?.name, "Artoo")
       }
       
-      let otherFetchesCompletedExpectation = XCTestExpectation(description: "Other fetches completed")
+      let otherFetchesCompletedExpectation = expectation(description: "Other fetches completed")
       otherFetchesCompletedExpectation.expectedFulfillmentCount = numberOfFetches
       
       DispatchQueue.concurrentPerform(iterations: numberOfFetches) { _ in
@@ -740,7 +758,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       updatedWatcherResultExpectation.expectedFulfillmentCount = numberOfFetches
       
-      let otherFetchesCompletedExpectation = XCTestExpectation(description: "Other fetches completed")
+      let otherFetchesCompletedExpectation = expectation(description: "Other fetches completed")
       otherFetchesCompletedExpectation.expectedFulfillmentCount = numberOfFetches
       
       DispatchQueue.concurrentPerform(iterations: numberOfFetches) { _ in
@@ -959,8 +977,11 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
       }
       
-      let otherFetchCompletedExpectation = expectSuccessfulResult(description: "Other fetch completed") { handler in
-        client.fetch(query: HeroAndFriendsNamesWithIDsQuery(), cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+      
+      client.fetch(query: HeroAndFriendsNamesWithIDsQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
       }
 
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)

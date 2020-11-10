@@ -69,8 +69,11 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   // MARK: - Helpers
   
   private func fetchAndLoadFromStore<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Query.Data) -> Void) {
-    let fetchedFromServerExpectation = expectSuccessfulResult(description: "Fetched query from server", file: file, line: line) { handler in
-      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: handler)
+    let fetchedFromServerExpectation = expectation(description: "Fetched query from server")
+    
+    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { result in
+      defer { fetchedFromServerExpectation.fulfill() }
+      XCTAssertSuccessResult(result, file: file, line: line)
     }
     
     wait(for: [fetchedFromServerExpectation], timeout: defaultWaitTimeout)

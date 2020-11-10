@@ -268,8 +268,10 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
       XCTAssertThrowsError(try result.get())
     }
     
-    let cacheClearedExpectation = expectSuccessfulResult(description: "Cache cleared") { handler in
-      client.clearCache(completion: handler)
+    let cacheClearedExpectation = expectation(description: "Cache cleared")
+    client.clearCache { result in
+      XCTAssertSuccessResult(result)
+      cacheClearedExpectation.fulfill()
     }
     
     wait(for: [cacheClearedExpectation], timeout: defaultWaitTimeout)
