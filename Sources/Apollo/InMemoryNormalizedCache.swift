@@ -33,11 +33,6 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   public func clear(callbackQueue: DispatchQueue?,
                     completion: ((Result<Void, Error>) -> Void)?) {
     clearImmediately()
-
-    guard let completion = completion else {
-      return
-    }
-
     DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(()))
