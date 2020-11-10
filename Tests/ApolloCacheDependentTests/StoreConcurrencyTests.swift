@@ -9,7 +9,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 30
+  var defaultWaitTimeout: TimeInterval = 60
   
   var cache: NormalizedCache!
   var store: ApolloStore!
@@ -159,7 +159,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: 1)
+    self.wait(for: [readCompletedExpectation], timeout: 5)
   }
   
   func testConcurrentUpdatesInitiatedFromBackgroundThreads() throws {
@@ -213,6 +213,6 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: 1)
+    self.wait(for: [readCompletedExpectation], timeout: 5)
   }
 }
