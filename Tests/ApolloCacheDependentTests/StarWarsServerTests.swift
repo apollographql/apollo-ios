@@ -64,7 +64,7 @@ class StarWarsServerAPQsTests: StarWarsServerTests {
   }
 }
 
-class StarWarsServerTests: XCTestCase, CacheTesting {
+class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   // MARK: Queries
   var config: TestConfig!
 

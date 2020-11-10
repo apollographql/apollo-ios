@@ -3,7 +3,7 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class ReadWriteFromStoreTests: XCTestCase, CacheTesting {
+class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting {
 
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self

@@ -15,13 +15,13 @@ public class InMemoryTestCacheProvider: TestCacheProvider {
   }
 }
 
-public protocol CacheTesting {
+public protocol CacheDependentTesting {
   var cacheType: TestCacheProvider.Type { get }
   var cache: NormalizedCache! { get }
   var defaultWaitTimeout: TimeInterval { get }
 }
 
-extension CacheTesting where Self: XCTestCase {
+extension CacheDependentTesting where Self: XCTestCase {
   public func makeNormalizedCache() throws -> NormalizedCache {
     var result: Result<NormalizedCache, Error> = .failure(XCTestError(.timeoutWhileWaiting))
     

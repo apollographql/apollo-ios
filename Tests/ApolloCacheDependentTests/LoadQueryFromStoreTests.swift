@@ -6,7 +6,7 @@ import ApolloSQLite
 import ApolloTestSupport
 import StarWarsAPI
 
-class LoadQueryFromStoreTests: XCTestCase, CacheTesting {
+class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting {
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }

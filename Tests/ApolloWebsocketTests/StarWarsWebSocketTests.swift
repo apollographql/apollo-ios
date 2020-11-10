@@ -4,7 +4,7 @@ import ApolloTestSupport
 @testable import ApolloWebSocket
 import StarWarsAPI
 
-class StarWarsWebSocketTests: XCTestCase, CacheTesting {
+class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
