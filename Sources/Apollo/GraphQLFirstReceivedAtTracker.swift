@@ -21,7 +21,7 @@ final class GraphQLFirstReceivedAtTracker: GraphQLResultAccumulator {
     return fieldEntries.min() ?? .distantPast
   }
 
-  func finish(rootValue: Date, info: GraphQLResolveInfo) throws -> GraphQLResultContext {
-    return GraphQLResultContext(resultAge: rootValue)
+  func finish(rootValue: Date, info: GraphQLResolveInfo) throws -> GraphQLResultMetadata {
+    return GraphQLResultMetadata(maxAge: rootValue)
   }
 }

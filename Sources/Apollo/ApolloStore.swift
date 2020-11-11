@@ -187,7 +187,7 @@ public final class ApolloStore {
                     errors: nil,
                     source:.cache,
                     dependentKeys: dependentKeys,
-                    context: resultContext)
+                    metadata: resultContext)
     }
   }
 
@@ -215,7 +215,7 @@ public final class ApolloStore {
       self.cacheKeyForObject = cacheKeyForObject
     }
 
-    public func read<Query: GraphQLQuery>(query: Query) throws -> (Query.Data, GraphQLResultContext) {
+    public func read<Query: GraphQLQuery>(query: Query) throws -> (Query.Data, GraphQLResultMetadata) {
       return try readObject(ofType: Query.Data.self,
                             withKey: rootCacheKey(for: query),
                             variables: query.variables)
@@ -223,7 +223,7 @@ public final class ApolloStore {
 
     public func readObject<SelectionSet: GraphQLSelectionSet>(ofType type: SelectionSet.Type,
                                                               withKey key: CacheKey,
-                                                              variables: GraphQLMap? = nil) throws -> (SelectionSet, GraphQLResultContext) {
+                                                              variables: GraphQLMap? = nil) throws -> (SelectionSet, GraphQLResultMetadata) {
       let mapper = GraphQLSelectionSetMapper<SelectionSet>()
       let firstReceivedTracker = GraphQLFirstReceivedAtTracker()
 
