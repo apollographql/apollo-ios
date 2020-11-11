@@ -35,7 +35,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     try super.tearDownWithError()
   }
   
-  func testRefetchWatchedQueryFromServerThroughWatcher() throws {
+  func testRefetchWatchedQueryFromServerThroughWatcherReturnsRefetchedResults() throws {
     let watchedQuery = HeroNameQuery()
     
     let resultObserver = makeResultObserver(for: watchedQuery)

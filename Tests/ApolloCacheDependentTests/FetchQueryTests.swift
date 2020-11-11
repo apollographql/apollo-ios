@@ -35,7 +35,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     try super.tearDownWithError()
   }
   
-  func testFetchIgnoringCacheData() throws {
+  func testFetchIgnoringCacheDataOnlyHitsNetwork() throws {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
@@ -73,7 +73,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
   }
   
-  func testReturnCacheDataAndFetch() throws {
+  func testReturnCacheDataAndFetchHitsCacheFirstAndNetworkAfter() throws {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
@@ -120,7 +120,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     wait(for: [fetchResultFromCacheExpectation, serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
   }
   
-  func testReturnCacheDataElseFetchWhenDataIsCached() throws {
+  func testReturnCacheDataElseFetchWhenDataIsCachedDoesntHitNetwork() throws {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
@@ -147,7 +147,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     wait(for: [fetchResultFromCacheExpectation], timeout: defaultWaitTimeout)
   }
   
-  func testReturnCacheDataElseFetchWhenNotAllDataIsCached() throws {
+  func testReturnCacheDataElseFetchWhenNotAllDataIsCachedHitsNetwork() throws {
     let query = HeroNameAndAppearsInQuery()
     
     mergeRecordsIntoCache([
@@ -187,7 +187,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
   }
   
-  func testReturnCacheDataDontFetchWhenDataIsCached() throws {
+  func testReturnCacheDataDontFetchWhenDataIsCachedDoesntHitNetwork() throws {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
@@ -214,7 +214,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     wait(for: [fetchResultFromCacheExpectation], timeout: defaultWaitTimeout)
   }
   
-  func testReturnCacheDataDontFetchWhenNotAllDataIsCached() throws {
+  func testReturnCacheDataDontFetchWhenNotAllDataIsCachedReturnsError() throws {
     let query = HeroNameAndAppearsInQuery()
     
     mergeRecordsIntoCache([
