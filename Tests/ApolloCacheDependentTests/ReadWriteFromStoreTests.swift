@@ -4,7 +4,7 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
-
+  
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
@@ -35,7 +35,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     ])
     
     let query = HeroNameQuery()
-        
+    
     let readCompletedExpectation = expectation(description: "Read completed")
     
     store.withinReadTransaction({ transaction in
@@ -111,14 +111,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let updateCompletedExpectation = expectation(description: "Update completed")
     
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { data in
-          data.hero?.name = "Artoo"
-        }
-      }, completion: { result in
-        defer { updateCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.update(query: query) { data in
+        data.hero?.name = "Artoo"
+      }
+    }, completion: { result in
+      defer { updateCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
@@ -175,16 +175,16 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let readCompletedExpectation = expectation(description: "Read completed")
     
-      store.withinReadTransaction({ transaction in
-        let data = try transaction.read(query: query)
-        
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-      }, completion: { result in
-        defer { readCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadTransaction({ transaction in
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
   }
@@ -210,14 +210,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let updateCompletedExpectation = expectation(description: "Update completed")
     
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { data in
-          data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
-        }
-      }, completion: { result in
-        defer { updateCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.update(query: query) { data in
+        data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
+      }
+    }, completion: { result in
+      defer { updateCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
@@ -254,14 +254,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let updateCompletedExpectation = expectation(description: "Update completed")
     
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { data in
-          data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
-        }
-      }, completion: { result in
-        defer { updateCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.update(query: query) { data in
+        data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
+      }
+    }, completion: { result in
+      defer { updateCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
@@ -298,21 +298,21 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let readAfterUpdateCompletedExpectation = expectation(description: "Read after update completed")
     
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(query: query) { data in
-          data.hero?.name = "Artoo"
-          data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
-        }
-        
-        let data = try transaction.read(query: query)
-                
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
-      }, completion: { result in
-        defer { readAfterUpdateCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.update(query: query) { data in
+        data.hero?.name = "Artoo"
+        data.hero?.friends?.append(.makeDroid(name: "C-3PO"))
+      }
+      
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.name, "Artoo")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+    }, completion: { result in
+      defer { readAfterUpdateCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [readAfterUpdateCompletedExpectation], timeout: defaultWaitTimeout)
   }
@@ -324,15 +324,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let readCompletedExpectation = expectation(description: "Read completed")
     
-      store.withinReadTransaction({ transaction in
-        let r2d2 = try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")
-        
-        XCTAssertEqual(r2d2.name, "R2-D2")
-        XCTAssertEqual(r2d2.asDroid?.primaryFunction, "Protocol")
-      }, completion: { result in
-        defer { readCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadTransaction({ transaction in
+      let r2d2 = try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")
+      
+      XCTAssertEqual(r2d2.name, "R2-D2")
+      XCTAssertEqual(r2d2.asDroid?.primaryFunction, "Protocol")
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
   }
@@ -344,19 +344,19 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let readCompletedExpectation = expectation(description: "Read completed")
     
-      store.withinReadTransaction({ transaction in
-        XCTAssertThrowsError(try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")) { error in
-          if case let error as GraphQLResultError = error {
-            XCTAssertEqual(error.path, ["primaryFunction"])
-            XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
-          } else {
-            XCTFail("Unexpected error: \(error)")
-          }
+    store.withinReadTransaction({ transaction in
+      XCTAssertThrowsError(try transaction.readObject(ofType: HeroDetails.self, withKey: "2001")) { error in
+        if case let error as GraphQLResultError = error {
+          XCTAssertEqual(error.path, ["primaryFunction"])
+          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+        } else {
+          XCTFail("Unexpected error: \(error)")
         }
-      }, completion: { result in
-        defer { readCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+      }
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
   }
@@ -380,15 +380,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let readCompletedExpectation = expectation(description: "Read completed")
     
-      store.withinReadTransaction({ transaction in
-        let friendsNamesFragment = try transaction.readObject(ofType: FriendsNames.self, withKey: "2001")
-        
-        let friendsNames = friendsNamesFragment.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
-      }, completion: { result in
-        defer { readCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadTransaction({ transaction in
+      let friendsNamesFragment = try transaction.readObject(ofType: FriendsNames.self, withKey: "2001")
+      
+      let friendsNames = friendsNamesFragment.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
   }
@@ -412,14 +412,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     
     let updateCompletedExpectation = expectation(description: "Update completed")
     
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.updateObject(ofType: FriendsNames.self, withKey: "2001") { friendsNames in
-          friendsNames.friends?.append(.makeDroid(name: "C-3PO"))
-        }
-      }, completion: { result in
-        defer { updateCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.updateObject(ofType: FriendsNames.self, withKey: "2001") { friendsNames in
+        friendsNames.friends?.append(.makeDroid(name: "C-3PO"))
+      }
+    }, completion: { result in
+      defer { updateCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
     
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     

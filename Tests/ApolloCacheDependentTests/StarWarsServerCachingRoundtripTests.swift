@@ -16,13 +16,13 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-        
+    
     cache = try makeNormalizedCache()
     store = ApolloStore(cache: cache)
     let provider = LegacyInterceptorProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: TestURL.starWarsServer.url)
-
+    
     client = ApolloClient(networkTransport: network, store: store)
   }
   
@@ -30,7 +30,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     cache = nil
     store = nil
     client = nil
-
+    
     try super.tearDownWithError()
   }
   
@@ -79,7 +79,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     wait(for: [fetchedFromServerExpectation], timeout: defaultWaitTimeout)
     
     let resultObserver = makeResultObserver(for: query, file: file, line: line)
-        
+    
     let loadedFromStoreExpectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line) { result in
       let graphQLResult = try result.get()
       XCTAssertEqual(graphQLResult.source, .cache, file: file, line: line)

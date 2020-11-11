@@ -157,7 +157,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         defer { otherFetchCompletedExpectation.fulfill() }
         XCTAssertSuccessResult(result)
       }
-  
+      
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
@@ -449,7 +449,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         defer { otherFetchCompletedExpectation.fulfill() }
         XCTAssertSuccessResult(result)
       }
-            
+      
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
@@ -608,7 +608,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       }
-            
+      
       client.store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: HeroNameQuery()) { data in
           data.hero?.name = "Artoo"
@@ -779,14 +779,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   
   func testWatchedQueryDependentKeysAreUpdatedAfterDirectStoreUpdate() {
     client.store.cacheKeyForObject = { $0["id"] }
-
+    
     let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
-
+    
     let resultObserver = makeResultObserver(for: watchedQuery)
-
+    
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
-
+    
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
@@ -802,19 +802,19 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
           ]
         ]
       }
-
+      
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
-
+        
         let data = try XCTUnwrap(graphQLResult.data)
-
+        
         XCTAssertEqual(data.hero?.name, "R2-D2")
-
+        
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker"])
-
+        
         let expectedDependentKeys: Set = [
           "2001.__typename",
           "2001.friends",
@@ -828,25 +828,25 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
         XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
       }
-
+      
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
-
+      
       wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
-
+    
     runActivity("Update same query directly in store") { _ in
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
-
+        
         let data = try XCTUnwrap(graphQLResult.data)
-
+        
         XCTAssertEqual(data.hero?.name, "R2-D2")
-
+        
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo"])
-
+        
         let expectedDependentKeys: Set = [
           "2001.__typename",
           "2001.friends",
@@ -863,27 +863,27 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
         XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
       }
-
+      
       client.store.withinReadWriteTransaction({ transaction in
         try transaction.update(query: HeroAndFriendsNamesWithIDsQuery()) { data in
           data.hero?.friends?.append(.makeHuman(id: "1002", name: "Han Solo"))
         }
       })
-
+      
       wait(for: [updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
   
   func testWatchedQueryDependentKeysAreUpdatedAfterOtherFetchReturnsChangedData() {
     client.store.cacheKeyForObject = { $0["id"] }
-
+    
     let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
-
+    
     let resultObserver = makeResultObserver(for: watchedQuery)
-
+    
     let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
-
+    
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
@@ -899,19 +899,19 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
           ]
         ]
       }
-
+      
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .server)
         XCTAssertNil(graphQLResult.errors)
-
+        
         let data = try XCTUnwrap(graphQLResult.data)
-
+        
         XCTAssertEqual(data.hero?.name, "R2-D2")
-
+        
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker"])
-
+        
         let expectedDependentKeys: Set = [
           "2001.__typename",
           "2001.friends",
@@ -925,12 +925,12 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
         XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
       }
-
+      
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
-
+      
       wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
-
+    
     runActivity("Fetch other query from server") { _ in
       let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
         [
@@ -952,14 +952,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         let graphQLResult = try result.get()
         XCTAssertEqual(graphQLResult.source, .cache)
         XCTAssertNil(graphQLResult.errors)
-
+        
         let data = try XCTUnwrap(graphQLResult.data)
-
+        
         XCTAssertEqual(data.hero?.name, "R2-D2")
-
+        
         let friendsNames = data.hero?.friends?.compactMap { $0?.name }
         XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo"])
-
+        
         let expectedDependentKeys: Set = [
           "2001.__typename",
           "2001.friends",
@@ -983,7 +983,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         defer { otherFetchCompletedExpectation.fulfill() }
         XCTAssertSuccessResult(result)
       }
-
+      
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }

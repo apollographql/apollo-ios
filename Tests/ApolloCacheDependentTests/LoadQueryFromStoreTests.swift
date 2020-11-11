@@ -73,7 +73,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     ])
     
     let query = HeroNameQuery()
-        
+    
     loadFromStore(query: query) { result in
       XCTAssertThrowsError(try result.get()) { error in
         if let error = error as? GraphQLResultError {
@@ -91,7 +91,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       "QUERY_ROOT": ["hero": Reference(key: "hero")],
       "hero": ["__typename": "Droid", "name": NSNull()]
     ])
-
+    
     let query = HeroNameQuery()
     
     loadFromStore(query: query) { result in
@@ -243,7 +243,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     }
   }
-
+  
   func testLoadingQueryWithFloats() throws {
     let starshipLength = 1234.5
     let coordinates = [[38.857150, -94.798464]]
