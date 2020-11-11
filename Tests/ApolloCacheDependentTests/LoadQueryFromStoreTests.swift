@@ -6,7 +6,7 @@ import ApolloSQLite
 import ApolloTestSupport
 import StarWarsAPI
 
-class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting {
+class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
@@ -268,17 +268,5 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting {
       XCTAssertEqual(data.starshipCoordinates?.length, starshipLength)
       XCTAssertEqual(data.starshipCoordinates?.coordinates, coordinates)
     }
-  }
-
-  // MARK: - Helpers
-  
-  private func loadFromStore<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, resultHandler: @escaping AsyncResultObserver<GraphQLResult<Query.Data>, Error>.ResultHandler) {
-    let resultObserver = makeResultObserver(for: query, file: file, line: line)
-        
-    let expectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line, resultHandler: resultHandler)
-    
-    store.load(query: query, resultHandler: resultObserver.handler)
-    
-    wait(for: [expectation], timeout: defaultWaitTimeout)
   }
 }

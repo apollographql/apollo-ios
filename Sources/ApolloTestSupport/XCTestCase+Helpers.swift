@@ -37,3 +37,20 @@ public extension XCTestCase {
     return AsyncResultObserver(testCase: self, file: file, line: line)
   }
 }
+
+public protocol StoreLoading {
+  var defaultWaitTimeout: TimeInterval { get }
+  var store: ApolloStore! { get }
+}
+
+extension StoreLoading where Self: XCTestCase {
+  public func loadFromStore<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, resultHandler: @escaping AsyncResultObserver<GraphQLResult<Query.Data>, Error>.ResultHandler) {
+    let resultObserver = makeResultObserver(for: query, file: file, line: line)
+        
+    let expectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line, resultHandler: resultHandler)
+    
+    store.load(query: query, resultHandler: resultObserver.handler)
+    
+    wait(for: [expectation], timeout: defaultWaitTimeout)
+  }
+}

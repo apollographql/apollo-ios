@@ -3,7 +3,7 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting {
+class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
@@ -433,17 +433,5 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting {
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
     }
-  }
-  
-  // MARK: - Helpers
-  
-  private func loadFromStore<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, resultHandler: @escaping AsyncResultObserver<GraphQLResult<Query.Data>, Error>.ResultHandler) {
-    let resultObserver = makeResultObserver(for: query, file: file, line: line)
-        
-    let expectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line, resultHandler: resultHandler)
-    
-    store.load(query: query, resultHandler: resultObserver.handler)
-    
-    wait(for: [expectation], timeout: defaultWaitTimeout)
   }
 }
