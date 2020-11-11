@@ -76,6 +76,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "SQLiteFetchQueryTests">
+               </Test>
+               <Test
                   Identifier = "SQLiteLoadQueryFromStoreTests">
                </Test>
                <Test
