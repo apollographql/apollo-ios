@@ -86,8 +86,9 @@ commands:
           working_directory: ~/TestResults
           command: zip -r ResultBundle.zip ResultBundle.xcresult
       - store_artifacts:
-          name: Save test output
+          name: Save test results
           path: ~/TestResults/ResultBundle.zip
+          destination: results
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
