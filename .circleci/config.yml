@@ -85,6 +85,7 @@ commands:
           name: Zip result bundle
           working_directory: ~/TestResults
           command: zip -r ResultBundle.zip ResultBundle.xcresult
+          when: always
       - store_artifacts:
           name: Save test results
           path: ~/TestResults/ResultBundle.zip
