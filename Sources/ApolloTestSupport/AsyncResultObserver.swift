@@ -62,8 +62,9 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
     
     expectation.fulfill()
     
-    if expectation.numberOfFulfillments >= expectation.expectedFulfillmentCount {
+    if expectation.apollo.numberOfFulfillments >= expectation.expectedFulfillmentCount {
       expectations.removeFirst()
     }
   }
 }
+
