@@ -45,18 +45,34 @@ public final class ApolloStore {
     }
   }
 
-  /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
-  ///
-  /// - Returns: A promise which fulfills when the Cache is cleared.
+  /// Clears all records from the cache.
+  /// - Warning: If this cache is shared between multiple `ApolloClient` objects, each client will be affected by the change in the cache.
+  /// - Parameters:
+  ///   - callbackQueue: An optional callback queue to execute the `completion` handler on. The default is `.main`.
+  ///   - completion: An optional completion handler to execute when the cache has been cleared according the specified policy.
+  /// - Returns: A promise which fulfills when the cache has been cleared.
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
-    queue.async(flags: .barrier) {
-      self.cacheLock.withWriteLock {
-          self.cache.clearPromise()
-        }.andThen {
-          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                         action: completion,
-                                                         result: .success(()))
-      }
+    self.clearCache(usingPolicy: .allRecords, callbackQueue: callbackQueue, completion: completion)
+  }
+
+  /// Clears the cache according to the specified policy.
+  /// - Warning: If this cache is shared between multiple `ApolloClient` objects, each client will be affected by the change in the cache.
+  /// - Parameters:
+  ///   - policy: The cache clearing policy to use during cleanup.
+  ///   - callbackQueue: An optional callback queue to execute the `completion` handler on. The default is `.main`.
+  ///   - completion: An optional completion handler to execute when the cache has been cleared according the specified policy.
+  /// - Returns: A promise which fulfills when the cache has been cleared.
+  public func clearCache(
+    usingPolicy policy: CacheClearingPolicy,
+    callbackQueue: DispatchQueue = .main,
+    completion: ((Result<Void, Error>) -> Void)? = nil
+  ) {
+    self.queue.async(flags: .barrier) {
+      self.cacheLock
+        .withWriteLock { self.cache.clearPromise(policy) }
+        .andThen {
+          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue, action: completion, result: .success(()))
+        }
     }
   }
 
@@ -367,9 +383,9 @@ internal extension NormalizedCache {
     }
   }
 
-  func clearPromise() -> Promise<Void> {
+  func clearPromise(_ policy: CacheClearingPolicy) -> Promise<Void> {
     return Promise { fulfill, reject in
-      self.clear(callbackQueue: nil) { result in
+      self.clear(policy, callbackQueue: nil) { result in
         switch result {
         case .success(let success):
           fulfill(success)

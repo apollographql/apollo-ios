@@ -9,13 +9,15 @@ public protocol ApolloClientProtocol: class {
   /// A function that returns a cache key for a particular result object. If it returns `nil`, a default cache key based on the field path will be used.
   var cacheKeyForObject: CacheKeyForObject? { get set }
 
-  /// Clears the underlying cache.
-  /// Be aware: In more complex setups, the same underlying cache can be used across multiple instances, so if you call this on one instance, it'll clear that cache across all instances which share that cache.
-  ///
+  /// Clears the cache store according to the specified policy.
+  /// - Warning: The cache may be used by other clients. Calling this method will affect all clients using the same cache!
   /// - Parameters:
-  ///   - callbackQueue: The queue to fall back on. Should default to the main queue.
-  ///   - completion: [optional] A completion closure to execute when clearing has completed. Should default to nil.
-  func clearCache(callbackQueue: DispatchQueue, completion: ((Result<Void, Error>) -> Void)?)
+  ///   - policy: The cache cleaning policy to use.
+  ///   - callbackQueue: An optional queue to execute the completion handler on. Should default to the `.main` queue.
+  ///   - completion: An optional completion closure to execute when the cache has been cleared. Should default to `nil`.
+  func clearCache(usingPolicy policy: CacheClearingPolicy,
+                  callbackQueue: DispatchQueue,
+                  completion: ((Result<Void, Error>) -> Void)?)
 
   /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
   ///
@@ -78,4 +80,17 @@ public protocol ApolloClientProtocol: class {
   func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
                                                     queue: DispatchQueue,
                                                     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable
+}
+
+// MARK: conveniences
+
+extension ApolloClientProtocol {
+  /// Clears all records from the cache store.
+  /// - Warning: The cache may be used by other clients. Calling this method will affect all clients using the same cache!
+  /// - Parameters:
+  ///   - callbackQueue: An optional queue to execute the completion handler on. The default is `.main`.
+  ///   - completion: An optional completion closure to execute when the cache has been cleared. The default is `nil`.
+  func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    self.clearCache(usingPolicy: .allRecords, callbackQueue: callbackQueue, completion: completion)
+  }
 }

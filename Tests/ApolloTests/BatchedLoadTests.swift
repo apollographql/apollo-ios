@@ -36,7 +36,11 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
-  func clear(callbackQueue: DispatchQueue?, completion: ((Result<Void, Error>) -> Void)?) {
+  func clear(
+    _ clearingPolicy: CacheClearingPolicy,
+    callbackQueue: DispatchQueue?,
+    completion: ((Result<Void, Error>) -> Void)?
+  ) {
     DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(1)) {
       self.records.clear()
       DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
@@ -45,7 +49,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
-  func clearImmediately() {
+  func clearImmediately(_ clearingPolicy: CacheClearingPolicy) {
     records.clear()
   }
 }

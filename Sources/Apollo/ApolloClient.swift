@@ -80,9 +80,12 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
 
-  public func clearCache(callbackQueue: DispatchQueue = .main,
-                         completion: ((Result<Void, Error>) -> Void)? = nil) {
-    self.store.clearCache(completion: completion)
+  public func clearCache(
+    usingPolicy policy: CacheClearingPolicy,
+    callbackQueue: DispatchQueue = .main,
+    completion: ((Result<Void, Error>) -> Void)? = nil
+  ) {
+    self.store.clearCache(usingPolicy: policy, callbackQueue: callbackQueue, completion: completion)
   }
   
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,

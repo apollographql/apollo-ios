@@ -96,11 +96,30 @@ public final class SQLiteNormalizedCache {
     return try self.db.prepare(query).map { try parse(row: $0) }
   }
 
-  private func clearRecords() throws {
-    try self.db.run(records.delete())
-    if self.shouldVacuumOnClear {
-      try self.db.prepare("VACUUM;").run()
+  private func clearRecords(accordingTo policy: CacheClearingPolicy) throws {
+    switch policy._value {
+    case let .first(count):
+      let firstKRecords = records.select(self.id).order(self.id.asc).limit(count)
+      try self.db.run(firstKRecords.delete())
+
+    case let .last(count):
+      let lastKRecords = records.select(self.id).order(self.id.desc).limit(count)
+      try self.db.run(lastKRecords.delete())
+
+    case let .allMatchingKeyPattern(pattern):
+      let matchingRecords = records.where(
+        self.key.like(pattern.replacingOccurrences(of: "*", with: "%"))
+      )
+      try self.db.run(matchingRecords.delete())
+
+    case .allRecords: fallthrough
+    default:
+      try self.db.run(records.delete())
     }
+
+    guard self.shouldVacuumOnClear else { return }
+
+    try self.db.prepare("VACUUM;").run()
   }
 
   private func parse(row: Row) throws -> Record {
@@ -158,10 +177,14 @@ extension SQLiteNormalizedCache: NormalizedCache {
                                                    result: result)
   }
 
-  public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
+  public func clear(
+    _ clearingPolicy: CacheClearingPolicy,
+    callbackQueue: DispatchQueue?,
+    completion: ((Swift.Result<Void, Error>) -> Void)?
+  ) {
     let result: Swift.Result<Void, Error>
     do {
-      try clearImmediately()
+      try self.clearRecords(accordingTo: clearingPolicy)
       result = .success(())
     } catch {
       result = .failure(error)
@@ -172,7 +195,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
                                                    result: result)
   }
 
-  public func clearImmediately() throws {
-    try clearRecords()
+  public func clearImmediately(_ clearingPolicy: CacheClearingPolicy) throws {
+    try self.clearRecords(accordingTo: clearingPolicy)
   }
 }

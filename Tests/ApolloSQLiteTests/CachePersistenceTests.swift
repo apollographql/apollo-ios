@@ -70,9 +70,42 @@ class CachePersistenceTests: XCTestCase {
   func testPassInConnectionDoesNotThrow() {
     XCTAssertNoThrow(try SQLiteNormalizedCache(db: Connection()))
   }
+}
 
-  func testClearCache() {
-    let query = HeroNameQuery()
+// MARK: Cache clearing
+
+extension CachePersistenceTests {
+  func testClearMatchingKeyPattern() {
+    self.testCacheClearing(withPolicy: .allMatchingKeyPattern("*hero*")) {
+      guard let error = $0 as? GraphQLResultError else { return XCTFail("Unexpected error \($0)") }
+      switch error.underlying as? JSONDecodingError {
+      // nothing to do, this is what we expected
+      case .missingValue: break
+
+      default:
+        XCTFail("Unexpected JSON error: \(error)")
+      }
+    }
+  }
+
+  func testClearAllRecords() {
+    self.testCacheClearing(withPolicy: .allRecords) { error in
+      switch error as? JSONDecodingError {
+      // nothing to do, this is what we expected
+      case .missingValue: break
+
+      default:
+        XCTFail("Unexpected error \(error)")
+      }
+    }
+  }
+
+  private func testCacheClearing(
+    withPolicy policy: CacheClearingPolicy,
+    validateError: @escaping (Error) -> Void,
+    file: StaticString = #filePath, line: UInt = #line
+  ) {
+    let query = TwoHeroesQuery()
     let sqliteFileURL = SQLiteTestCacheProvider.temporarySQLiteFileURL()
 
     SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
@@ -83,13 +116,11 @@ class CachePersistenceTests: XCTestCase {
       
       let client = ApolloClient(networkTransport: networkTransport, store: store)
       
-      _ = server.expect(HeroNameQuery.self) { request in
+      _ = server.expect(TwoHeroesQuery.self) { _ in
         [
           "data": [
-            "hero": [
-              "name": "Luke Skywalker",
-              "__typename": "Human"
-            ]
+            "luke": ["name": "Luke Skywalker", "__typename": "Human"],
+            "r2": ["name": "R2-D2", "__typename": "Droid"]
           ]
         ]
       }
@@ -98,49 +129,45 @@ class CachePersistenceTests: XCTestCase {
       let emptyCacheExpectation = self.expectation(description: "Fetch query from empty cache")
       let cacheClearExpectation = self.expectation(description: "cache cleared")
 
-      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { outerResult in
+      // load the cache for the test
+      client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { initialResult in
         defer { networkExpectation.fulfill() }
-        
-        switch outerResult {
-        case .failure(let error):
-          XCTFail("Unexpected failure: \(error)")
-        case .success(let graphQLResult):
-          XCTAssertEqual(graphQLResult.data?.hero?.name, "Luke Skywalker")
-        }
-        
-        client.clearCache(completion: { result in
-          switch result {
-          case .success:
-            break
-          case .failure(let error):
-            XCTFail("Error clearing cache: \(error)")
-          }
-          cacheClearExpectation.fulfill()
-        })
 
-        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { innerResult in
+        // sanity check that the test is ready
+        do {
+          let data = try initialResult.get().data
+          XCTAssertEqual(data?.luke?.name, "Luke Skywalker", file: file, line: line)
+        } catch {
+          XCTFail("Unexpected failure: \(error)", file: file, line: line)
+          return
+        }
+
+        // clear the cache as specified for the test
+        client.clearCache(usingPolicy: policy) { result in
+          defer { cacheClearExpectation.fulfill() }
+
+          switch result {
+          case .success: break
+
+          case let .failure(error):
+            XCTFail("Error clearing cache: \(error)", file: file, line: line)
+          }
+        }
+
+        // validate the test
+        client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch) { finalResult in
           defer { emptyCacheExpectation.fulfill() }
-          
-          switch innerResult {
-          case .success:
-            XCTFail("This should have returned an error")
-          case .failure(let error):
-            if let resultError = error as? JSONDecodingError {
-              switch resultError {
-              case .missingValue:
-                // Correct error!
-                break
-              default:
-                XCTFail("Unexpected JSON error: \(error)")
-              }
-            } else {
-              XCTFail("Unexpected error: \(error)")
-            }
+
+          do {
+            _ = try finalResult.get()
+            XCTFail("This should have returned an error", file: file, line: line)
+          } catch {
+            validateError(error)
           }
         }
       }
 
-      self.waitForExpectations(timeout: 2, handler: nil)
+      self.waitForExpectations(timeout: 2)
     }
   }
 }

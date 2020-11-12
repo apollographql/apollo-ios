@@ -4,16 +4,14 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
   private let recordsLock = NSRecursiveLock()
 
-  public init(records: RecordSet = RecordSet()) {
+  public init(records: RecordSet = .init()) {
     self.records = records
   }
 
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Result<[Record?], Error>) -> Void) {
-    self.recordsLock.lock()
-    let records = keys.map { self.records[$0] }
-    self.recordsLock.unlock()
+    let records = self.threadSafe { keys.map{ self.records[$0] } }
     DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(records))
@@ -22,25 +20,31 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
-    self.recordsLock.lock()
-    let cacheKeys = self.records.merge(records: records)
-    self.recordsLock.unlock()
+    let cacheKeys = self.threadSafe { self.records.merge(records: records) }
     DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(cacheKeys))
   }
 
-  public func clear(callbackQueue: DispatchQueue?,
-                    completion: ((Result<Void, Error>) -> Void)?) {
-    clearImmediately()
+  public func clear(
+    _ clearingPolicy: CacheClearingPolicy,
+    callbackQueue: DispatchQueue?,
+    completion: ((Result<Void, Error>) -> Void)?
+  ) {
+    self.clearImmediately(clearingPolicy)
     DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(()))
   }
 
-  public func clearImmediately() {
+  public func clearImmediately(_ clearingPolicy: CacheClearingPolicy) {
+    self.threadSafe { self.records.clear(clearingPolicy) }
+  }
+
+  private func threadSafe<Result>(_ operation: () -> Result) -> Result {
     self.recordsLock.lock()
-    self.records.clear()
+    let result = operation()
     self.recordsLock.unlock()
+    return result
   }
 }
