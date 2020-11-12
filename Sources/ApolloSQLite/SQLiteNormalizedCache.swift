@@ -19,28 +19,29 @@ public final class SQLiteNormalizedCache {
   private let record = Expression<String>("record")
   private let shouldVacuumOnClear: Bool
 
-  /// Designated initializer
-  ///
+  /// Creates a store that uses the provided SQLite file connection.
   /// - Parameters:
-  ///   - fileURL: The file URL to use for your database.
-  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
-  /// - Throws: Any errors attempting to open or create the database.
-  public init(fileURL: URL, shouldVacuumOnClear: Bool = false) throws {
-    self.shouldVacuumOnClear = shouldVacuumOnClear
-    self.db = try Connection(.uri(fileURL.absoluteString), readonly: false)
-    try self.createTableIfNeeded()
-  }
-
-  ///
-  /// Initializer that takes the Connection to use
-  /// - Parameters:
-  ///   - db: The database Connection to use
-  ///   - shouldVacuumOnClear: If the database should also be `VACCUM`ed on clear to remove all traces of info. Defaults to `false` since this involves a performance hit, but this should be used if you are storing any Personally Identifiable Information in the cache.
-  /// - Throws: Any errors attempting to access the database
-  public init(db: Connection, shouldVacuumOnClear: Bool = false) throws {
+  ///   - db: The database connection to use.
+  ///   - shouldVacuumOnClear: If the database file should compact "VACUUM" its storage when clearing records. This can be a potentially long operation.
+  ///   Default is `false`. This SHOULD be set to `true` if you are storing any Personally Identifiable Information in the cache.
+  /// - Throws: Any errors attempting to access the database.
+  public init(db: Connection, compactFileOnClear shouldVacuumOnClear: Bool = false) throws {
     self.shouldVacuumOnClear = shouldVacuumOnClear
     self.db = db
     try self.createTableIfNeeded()
+  }
+
+  /// Creates a store that will establish its own connection to the SQLite file at the provided url.
+  /// - Parameters:
+  ///   - fileURL: The file URL to use for your database.
+  ///   - shouldVacuumOnClear: If the database file should compact "VACUUM" its storage when clearing records. This can be a potentially long operation.
+  ///   Default is `false`. This SHOULD be set to `true` if you are storing any Personally Identifiable Information in the cache.
+  /// - Throws: Any errors attempting to open or create the database.
+  convenience public init(fileURL: URL, compactFileOnClear shouldVacuumOnClear: Bool = false) throws {
+    try self.init(
+      db: try Connection(.uri(fileURL.absoluteString), readonly: false),
+      compactFileOnClear: shouldVacuumOnClear
+    )
   }
 
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
