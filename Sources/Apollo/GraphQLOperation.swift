@@ -1,10 +1,19 @@
+/// Enumeration of the possible GraphQL operations that can be executed against an API endpoint.
 public enum GraphQLOperationType {
   case query
   case mutation
   case subscription
+
+  var cacheKey: String {
+    switch self {
+    case .query: return "QUERY_ROOT"
+    case .mutation: return "MUTATION_ROOT"
+    case .subscription: return "SUBSCRIPTION_ROOT"
+    }
+  }
 }
 
-public protocol GraphQLOperation: class {
+public protocol GraphQLOperation: AnyObject {
   var operationType: GraphQLOperationType { get }
 
   var operationDefinition: String { get }
@@ -32,6 +41,8 @@ public extension GraphQLOperation {
   }
 }
 
+// - MARK: Conformances
+
 public protocol GraphQLQuery: GraphQLOperation {}
 public extension GraphQLQuery {
   var operationType: GraphQLOperationType { return .query }
@@ -45,9 +56,4 @@ public extension GraphQLMutation {
 public protocol GraphQLSubscription: GraphQLOperation {}
 public extension GraphQLSubscription {
   var operationType: GraphQLOperationType { return .subscription }
-}
-
-public protocol GraphQLFragment: GraphQLSelectionSet {
-  static var fragmentDefinition: String { get }
-  static var possibleTypes: [String] { get }
 }

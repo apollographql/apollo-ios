@@ -119,6 +119,11 @@ public struct GraphQLTypeCondition: GraphQLSelection {
   }
 }
 
+public protocol GraphQLFragment: GraphQLSelectionSet {
+  static var fragmentDefinition: String { get }
+  static var possibleTypes: [String] { get }
+}
+
 public struct GraphQLFragmentSpread: GraphQLSelection {
   let fragment: GraphQLFragment.Type
 
