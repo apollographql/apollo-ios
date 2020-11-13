@@ -19,7 +19,7 @@ public struct RecordSet {
       self.storage = Dictionary(self.storage.dropLast(count))
 
     case let .allMatchingKeyPattern(pattern):
-      self.storage = self.storage.filter { !$0.key.contains(pattern) }
+      self.storage = self.storage.filter { !$0.key.contains(pattern.replacingOccurrences(of: "*", with: "")) }
 
     case .allRecords: fallthrough
     default:
