@@ -39,12 +39,13 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = HeroNameQuery()
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+      }
     }
   }
   
@@ -57,12 +58,13 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = HeroNameQuery(episode: .jedi)
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+      }
     }
   }
   
@@ -126,14 +128,15 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = HeroAndFriendsNamesQuery(episode: .jedi)
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      }
     }
   }
   
@@ -157,14 +160,15 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = HeroAndFriendsNamesQuery()
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      }
     }
   }
   
@@ -181,13 +185,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = HeroAndFriendsNamesQuery()
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertNil(data.hero?.friends)
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        XCTAssertNil(data.hero?.friends)
+      }
     }
   }
   
@@ -259,14 +264,15 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let query = StarshipCoordinatesQuery(coordinates: coordinates)
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.starshipCoordinates?.name, "Millennium Falcon")
-      XCTAssertEqual(data.starshipCoordinates?.length, starshipLength)
-      XCTAssertEqual(data.starshipCoordinates?.coordinates, coordinates)
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.starshipCoordinates?.name, "Millennium Falcon")
+        XCTAssertEqual(data.starshipCoordinates?.length, starshipLength)
+        XCTAssertEqual(data.starshipCoordinates?.coordinates, coordinates)
+      }
     }
   }
 }

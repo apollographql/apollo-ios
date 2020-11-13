@@ -56,12 +56,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -82,12 +83,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let refetchedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received refetched result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+        }
       }
       
       watcher.refetch()
@@ -117,12 +119,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -143,12 +146,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+        }
       }
       
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
@@ -183,12 +187,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -248,13 +253,14 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.id, "2001")
-        XCTAssertEqual(data.hero?.name, "R2-D2")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.id, "2001")
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -277,12 +283,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Updated result after refetching query") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+        }
       }
       
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
@@ -322,14 +329,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -350,14 +358,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
       }
       
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
@@ -400,14 +409,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -433,14 +443,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Leia Organa", "Luke Skywalker"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Leia Organa", "Luke Skywalker"])
+        }
       }
       
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
@@ -483,14 +494,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -534,14 +546,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Leia Organa", "Wilhuff Tarkin", "Luke Skywalker"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Leia Organa", "Wilhuff Tarkin", "Luke Skywalker"])
+        }
       }
       
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
@@ -581,14 +594,15 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -598,15 +612,16 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     runActivity("Update object directly in store") { _ in
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
-        
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+          
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
       }
       
       client.store.withinReadWriteTransaction({ transaction in
@@ -640,12 +655,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -670,12 +686,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       serverRequestExpectation.expectedFulfillmentCount = numberOfFetches
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "Artoo")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "Artoo")
+        }
       }
       
       let otherFetchesCompletedExpectation = expectation(description: "Other fetches completed")
@@ -718,12 +735,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero?.name, "R2-D2")
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -748,12 +766,13 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       serverRequestExpectation.expectedFulfillmentCount = numberOfFetches
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertTrue(try XCTUnwrap(data.hero?.name).hasPrefix("Artoo"))
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertTrue(try XCTUnwrap(data.hero?.name).hasPrefix("Artoo"))
+        }
       }
       
       updatedWatcherResultExpectation.expectedFulfillmentCount = numberOfFetches
@@ -804,29 +823,30 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker"])
-        
-        let expectedDependentKeys: Set = [
-          "2001.__typename",
-          "2001.friends",
-          "2001.id",
-          "2001.name",
-          "1000.__typename",
-          "1000.id",
-          "1000.name",
-          "QUERY_ROOT.hero",
-        ]
-        let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
-        XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker"])
+          
+          let expectedDependentKeys: Set = [
+            "2001.__typename",
+            "2001.friends",
+            "2001.id",
+            "2001.name",
+            "1000.__typename",
+            "1000.id",
+            "1000.name",
+            "QUERY_ROOT.hero",
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -836,32 +856,33 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     runActivity("Update same query directly in store") { _ in
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo"])
-        
-        let expectedDependentKeys: Set = [
-          "2001.__typename",
-          "2001.friends",
-          "2001.id",
-          "2001.name",
-          "1000.__typename",
-          "1000.id",
-          "1000.name",
-          "1002.__typename",
-          "1002.id",
-          "1002.name",
-          "QUERY_ROOT.hero",
-        ]
-        let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
-        XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo"])
+          
+          let expectedDependentKeys: Set = [
+            "2001.__typename",
+            "2001.friends",
+            "2001.id",
+            "2001.name",
+            "1000.__typename",
+            "1000.id",
+            "1000.name",
+            "1002.__typename",
+            "1002.id",
+            "1002.name",
+            "QUERY_ROOT.hero",
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        }
       }
       
       client.store.withinReadWriteTransaction({ transaction in
@@ -901,29 +922,30 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .server)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker"])
-        
-        let expectedDependentKeys: Set = [
-          "2001.__typename",
-          "2001.friends",
-          "2001.id",
-          "2001.name",
-          "1000.__typename",
-          "1000.id",
-          "1000.name",
-          "QUERY_ROOT.hero",
-        ]
-        let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
-        XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker"])
+          
+          let expectedDependentKeys: Set = [
+            "2001.__typename",
+            "2001.friends",
+            "2001.id",
+            "2001.name",
+            "1000.__typename",
+            "1000.id",
+            "1000.name",
+            "QUERY_ROOT.hero",
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        }
       }
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
@@ -949,32 +971,33 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
       
       let updatedWatcherResultExpectation = resultObserver.expectation(description: "Watcher received updated result from cache") { result in
-        let graphQLResult = try result.get()
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-        
-        let data = try XCTUnwrap(graphQLResult.data)
-        
-        XCTAssertEqual(data.hero?.name, "R2-D2")
-        
-        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo"])
-        
-        let expectedDependentKeys: Set = [
-          "2001.__typename",
-          "2001.friends",
-          "2001.id",
-          "2001.name",
-          "1000.__typename",
-          "1000.id",
-          "1000.name",
-          "1002.__typename",
-          "1002.id",
-          "1002.name",
-          "QUERY_ROOT.hero",
-        ]
-        let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
-        XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+          
+          let data = try XCTUnwrap(graphQLResult.data)
+          
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo"])
+          
+          let expectedDependentKeys: Set = [
+            "2001.__typename",
+            "2001.friends",
+            "2001.id",
+            "2001.name",
+            "1000.__typename",
+            "1000.id",
+            "1000.name",
+            "1002.__typename",
+            "1002.id",
+            "1002.name",
+            "QUERY_ROOT.hero",
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        }
       }
       
       let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")

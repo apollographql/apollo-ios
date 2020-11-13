@@ -123,12 +123,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "Artoo")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "Artoo")
+      }
     }
   }
   
@@ -222,14 +223,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      }
     }
   }
   
@@ -266,14 +268,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
     loadFromStore(query: query) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      }
     }
   }
   
@@ -424,14 +427,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
     
     loadFromStore(query: HeroAndFriendsNamesQuery()) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
-      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa", "C-3PO"])
+      }
     }
   }
 }

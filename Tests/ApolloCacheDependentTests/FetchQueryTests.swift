@@ -60,12 +60,13 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query)
     
     let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received result from server") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .server)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+      }
     }
     
     client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
@@ -98,21 +99,23 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query)
     
     let fetchResultFromCacheExpectation = resultObserver.expectation(description: "Received result from cache") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+      }
     }
     
     let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received result from server") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .server)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+      }
     }
     
     client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, resultHandler: resultObserver.handler)
@@ -134,12 +137,13 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query)
     
     let fetchResultFromCacheExpectation = resultObserver.expectation(description: "Received result from cache") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+      }
     }
     
     client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch, resultHandler: resultObserver.handler)
@@ -173,13 +177,14 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query)
     
     let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received result from server") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .server)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
-      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+        XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
+      }
     }
     
     client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, resultHandler: resultObserver.handler)
@@ -201,12 +206,13 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query)
     
     let fetchResultFromCacheExpectation = resultObserver.expectation(description: "Received result from cache") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+      }
     }
     
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch, resultHandler: resultObserver.handler)
@@ -251,12 +257,13 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query)
     
     let fetchResultFromCacheExpectation = resultObserver.expectation(description: "Received result from cache") { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache)
-      XCTAssertNil(graphQLResult.errors)
-      
-      let data = try XCTUnwrap(graphQLResult.data)
-      XCTAssertEqual(data.hero?.name, "R2-D2")
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache)
+        XCTAssertNil(graphQLResult.errors)
+        
+        let data = try XCTUnwrap(graphQLResult.data)
+        XCTAssertEqual(data.hero?.name, "R2-D2")
+      }
     }
     
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch, resultHandler: resultObserver.handler)

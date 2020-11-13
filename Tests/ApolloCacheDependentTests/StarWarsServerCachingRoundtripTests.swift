@@ -81,12 +81,13 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query, file: file, line: line)
     
     let loadedFromStoreExpectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .cache, file: file, line: line)
-      XCTAssertNil(graphQLResult.errors, file: file, line: line)
-      
-      let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
-      completionHandler(data)
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .cache, file: file, line: line)
+        XCTAssertNil(graphQLResult.errors, file: file, line: line)
+        
+        let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+        completionHandler(data)
+      }
     }
     
     store.load(query: query, resultHandler: resultObserver.handler)

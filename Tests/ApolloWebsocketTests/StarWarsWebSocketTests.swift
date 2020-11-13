@@ -297,12 +297,13 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: query, file: file, line: line)
         
     let expectation = resultObserver.expectation(description: "Fetched query from server", file: file, line: line) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
-      XCTAssertNil(graphQLResult.errors, file: file, line: line)
-      
-      let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
-      completionHandler(data)
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
+        XCTAssertNil(graphQLResult.errors, file: file, line: line)
+        
+        let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+        completionHandler(data)
+      }
     }
     
     client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
@@ -314,12 +315,13 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     let resultObserver = makeResultObserver(for: mutation, file: file, line: line)
         
     let expectation = resultObserver.expectation(description: "Performing mutation on server", file: file, line: line) { result in
-      let graphQLResult = try result.get()
-      XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
-      XCTAssertNil(graphQLResult.errors, file: file, line: line)
-      
-      let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
-      completionHandler(data)
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
+        XCTAssertNil(graphQLResult.errors, file: file, line: line)
+        
+        let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+        completionHandler(data)
+      }
     }
     
     client.perform(mutation: mutation, resultHandler: resultObserver.handler)
