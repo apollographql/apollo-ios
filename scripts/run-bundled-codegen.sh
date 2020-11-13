@@ -52,13 +52,13 @@ remove_existing_apollo() {
 
 extract_cli() {
   tar xzf "${SCRIPT_DIR}"/apollo.tar.gz -C "${SCRIPT_DIR}"
-  
+
   echo "${SHASUM}" | tee "${SHASUM_FILE}"
 }
 
 validate_codegen_and_extract_if_needed() {
   # Make sure the SHASUM matches the release for this version
-  EXPECTED_SHASUM="d8ff4cd914708479317354721dee8b156acebddb79abbdcda4348a341ab6e53d"
+  EXPECTED_SHASUM="f62891cbe78d159664d06e087ee2d26bf6fdb9f31ce08b9030b8adc9fb80dc7e"
   update_shasum
 
   if [[ ${SHASUM} = ${EXPECTED_SHASUM}* ]]; then
