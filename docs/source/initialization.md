@@ -137,7 +137,7 @@ class UserManagementInterceptor: ApolloInterceptor {
         response: HTTPResponse<Operation>?,
         completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
         
-        request.addHeader(name: "Authentication", value: "Bearer: \(token.value)")
+        request.addHeader(name: "Authorization", value: "Bearer \(token.value)")
         chain.proceedAsync(request: request,
                            response: response,
                            completion: completion)
