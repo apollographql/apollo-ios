@@ -1,5 +1,6 @@
 import Dispatch
 import Foundation
+import ApolloCore
 
 /// A resolver is responsible for resolving a value for a field.
 typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<JSONValue?>
@@ -124,9 +125,7 @@ final class GraphQLExecutor {
                                                       withKey key: CacheKey? = nil,
                                                       variables: GraphQLMap? = nil,
                                                       accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
-      dispatchPrecondition(condition: .notOnQueue(queue))
-    }
+    ensureNotOnQueueIfPossible(queue)
     
     return try queue.sync {
       let info = GraphQLResolveInfo(rootKey: key, variables: variables)
@@ -144,9 +143,7 @@ final class GraphQLExecutor {
                                                               on object: JSONObject,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
-    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
-      dispatchPrecondition(condition: .onQueue(queue))
-    }
+    ensureOnQueueIfPossible(queue)
     
     var groupedFields = GroupedSequence<String, GraphQLField>()
     try collectFields(selections: selections,
@@ -184,9 +181,7 @@ final class GraphQLExecutor {
                              forRuntimeType runtimeType: String?,
                              into groupedFields: inout GroupedSequence<String, GraphQLField>,
                              info: GraphQLResolveInfo) throws {
-    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
-      dispatchPrecondition(condition: .onQueue(queue))
-    }
+    ensureOnQueueIfPossible(queue)
     
     for selection in selections {
       switch selection {
@@ -233,9 +228,7 @@ final class GraphQLExecutor {
                                                               on object: JSONObject,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
-    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
-      dispatchPrecondition(condition: .onQueue(queue))
-    }
+    ensureOnQueueIfPossible(queue)
     
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
     let firstField = fields[0]
@@ -280,9 +273,7 @@ final class GraphQLExecutor {
                                                                ofType returnType: GraphQLOutputType,
                                                                info: GraphQLResolveInfo,
                                                                accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.PartialResult> {
-    if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *) {
-      dispatchPrecondition(condition: .onQueue(queue))
-    }
+    ensureOnQueueIfPossible(queue)
     
     if case .nonNull(let innerType) = returnType {
       if value is NSNull {
