@@ -13,7 +13,7 @@ extension XCTestExpectation: ApolloCompatible {}
 public extension XCTestCase {
   /// Record  the specified`error` as an `XCTIssue`.
   func record(_ error: Error, compactDescription: String? = nil, file: StaticString = #filePath, line: UInt = #line) {
-    var issue = XCTIssue(type: .assertionFailure, compactDescription: compactDescription ?? String(describing: error))
+    var issue = XCTIssue(type: .thrownError, compactDescription: compactDescription ?? String(describing: error))
 
     issue.associatedError = error
 
@@ -21,6 +21,16 @@ public extension XCTestCase {
     issue.sourceCodeContext = XCTSourceCodeContext(location: location)
 
     record(issue)
+  }
+  
+  /// Invoke a throwing closure, and record any thrown errors without rethrowing. This is useful if you need to run code that may throw
+  /// in a place where throwing isn't allowed, like `measure` blocks.
+  func whileRecordingErrors(file: StaticString = #file, line: UInt = #line, _ perform: () throws -> Void) {
+    do {
+      try perform()
+    } catch {
+      record(error, file: file, line: line)
+    }
   }
   
   /// Wrapper around `XCTContext.runActivity` to  allow for future extension.
