@@ -70,9 +70,6 @@
                   Identifier = "FetchQueryTests">
                </Test>
                <Test
-                  Identifier = "FetchQueryTests/testThreadedCache()">
-               </Test>
-               <Test
                   Identifier = "LoadQueryFromStoreTests">
                </Test>
                <Test
