@@ -4,7 +4,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
   private let recordsLock = NSRecursiveLock()
 
-  public init(records: RecordSet = .init()) {
+  public init(records: RecordSet = RecordSet()) {
     self.records = records
   }
 

@@ -96,7 +96,7 @@ public final class SQLiteNormalizedCache {
     return try self.db.prepare(query).map { try parse(row: $0) }
   }
 
-  private func clearRecords(accordingTo policy: CacheClearingPolicy) throws {
+  private func clearRecords(with policy: CacheClearingPolicy) throws {
     switch policy._value {
     case let .first(count):
       let firstKRecords = records.select(self.id).order(self.id.asc).limit(count)
@@ -184,7 +184,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
   ) {
     let result: Swift.Result<Void, Error>
     do {
-      try self.clearRecords(accordingTo: clearingPolicy)
+      try self.clearRecords(with: clearingPolicy)
       result = .success(())
     } catch {
       result = .failure(error)
@@ -196,6 +196,6 @@ extension SQLiteNormalizedCache: NormalizedCache {
   }
 
   public func clearImmediately(_ clearingPolicy: CacheClearingPolicy) throws {
-    try self.clearRecords(accordingTo: clearingPolicy)
+    try self.clearRecords(with: clearingPolicy)
   }
 }

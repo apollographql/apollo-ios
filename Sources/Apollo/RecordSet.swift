@@ -12,14 +12,18 @@ public struct RecordSet {
 
   public mutating func clear(_ clearingPolicy: CacheClearingPolicy = .allRecords) {
     switch clearingPolicy._value {
-    case let .first(count): self.storage = .init(self.storage.dropFirst(count))
+    case let .first(count):
+      self.storage = Dictionary(self.storage.dropFirst(count))
 
-    case let .last(count): self.storage = .init(self.storage.dropLast(count))
+    case let .last(count):
+      self.storage = Dictionary(self.storage.dropLast(count))
 
-    case let .allMatchingKeyPattern(pattern): self.storage = self.storage.filter { !$0.key.contains(pattern) }
+    case let .allMatchingKeyPattern(pattern):
+      self.storage = self.storage.filter { !$0.key.contains(pattern) }
 
     case .allRecords: fallthrough
-    default: self.storage.removeAll()
+    default:
+      self.storage.removeAll()
     }
   }
 
