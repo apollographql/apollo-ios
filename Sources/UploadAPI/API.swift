@@ -21,8 +21,6 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
 
   public let operationName: String = "UploadMultipleFilesToTheSameParameter"
 
-  public let operationIdentifier: String? = "88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7"
-
   public var files: [String]
 
   public init(files: [String]) {
@@ -148,8 +146,6 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
     """
 
   public let operationName: String = "UploadMultipleFilesToDifferentParameters"
-
-  public let operationIdentifier: String? = "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
 
   public var singleFile: String
   public var multipleFiles: [String]
@@ -278,8 +274,6 @@ public final class UploadOneFileMutation: GraphQLMutation {
     """
 
   public let operationName: String = "UploadOneFile"
-
-  public let operationIdentifier: String? = "c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533"
 
   public var file: String
 
