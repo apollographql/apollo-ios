@@ -4,7 +4,7 @@ public enum GraphQLOperationType {
   case mutation
   case subscription
 
-  var cacheKey: String {
+  var rootCacheKey: String {
     switch self {
     case .query: return "QUERY_ROOT"
     case .mutation: return "MUTATION_ROOT"

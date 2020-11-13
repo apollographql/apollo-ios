@@ -180,7 +180,7 @@ public final class ApolloStore {
       let dependencyTracker = GraphQLDependencyTracker()
 
       return try transaction.execute(selections: Operation.Data.selections,
-                                     onObjectWithKey: query.operationType.cacheKey,
+                                     onObjectWithKey: query.operationType.rootCacheKey,
                                      variables: query.variables,
                                      accumulator: zip(mapper, dependencyTracker))
     }.map { (data: Operation.Data, dependentKeys: Set<CacheKey>) in
@@ -220,7 +220,7 @@ public final class ApolloStore {
 
     public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
       return try readObject(ofType: Query.Data.self,
-                            withKey: query.operationType.cacheKey,
+                            withKey: query.operationType.rootCacheKey,
                             variables: query.variables)
     }
 
@@ -309,7 +309,7 @@ public final class ApolloStore {
 
     public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
       try write(object: data,
-                withKey: query.operationType.cacheKey,
+                withKey: query.operationType.rootCacheKey,
                 variables: query.variables)
     }
 

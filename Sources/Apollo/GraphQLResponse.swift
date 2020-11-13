@@ -15,12 +15,12 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
 
   public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data {
     self.body = body
-    rootKey = operation.operationType.cacheKey
+    rootKey = operation.operationType.rootCacheKey
     variables = operation.variables
   }
   
   func setupOperation<Operation: GraphQLOperation> (_ operation: Operation) {
-    self.rootKey = operation.operationType.cacheKey
+    self.rootKey = operation.operationType.rootCacheKey
     self.variables = operation.variables
   }
   
