@@ -97,7 +97,7 @@ public final class SQLiteNormalizedCache {
   }
 
   private func clearRecords(with policy: CacheClearingPolicy) throws {
-    switch policy._value {
+    switch policy {
     case let .first(count):
       let firstKRecords = records.select(self.id).order(self.id.asc).limit(count)
       try self.db.run(firstKRecords.delete())
@@ -112,8 +112,7 @@ public final class SQLiteNormalizedCache {
       )
       try self.db.run(matchingRecords.delete())
 
-    case .allRecords: fallthrough
-    default:
+    case .allRecords:
       try self.db.run(records.delete())
     }
 

@@ -1,44 +1,17 @@
 import Foundation
 
-/// An object that drives behavior of clear operations on a given cache.
-public struct CacheClearingPolicy: Equatable {
+/// An enumeration of behaviors for clear operations on a given cache.
+public enum CacheClearingPolicy: Equatable {
   /// Clears all records in the cache.
-  public static let allRecords = CacheClearingPolicy(.allRecords)
+  case allRecords
   /// Clears all records whose key matches the provided glob pattern.
-  /// - Parameter pattern: The glob pattern to use for key matching. For example `*pollo` will match both `Apollo` and `pollo`.
-  public static func allMatchingKeyPattern(_ pattern: String) -> CacheClearingPolicy { .init(.allMatchingKeyPattern(pattern)) }
+  ///
+  /// For example `*pollo` will match both `Apollo` and `pollo`.
+  case allMatchingKeyPattern(String)
   /// Clears the the first (oldest) records in the cache up to the given limit.
-  /// - Parameter k: The number of records to remove from the cache.
-  public static func first(_ k: Int) -> CacheClearingPolicy { .init(.first(k)) }
+  case first(Int)
   /// Clears the the last (most recent) records in the cache up to the given limit.
-  /// - Parameter k: The number of records to remove from the cache.
-  public static func last(_ k: Int) -> CacheClearingPolicy { .init(.last(k)) }
-
-  // actual policy storage
-
-  /// This is public due to language requirements for cross-target access.
-  /// Do not use this value, nor its type as they are an implementation detail.
-  public let _value: _Policy
-  private init(_ policy: _Policy) { self._value = policy }
-
-  /// This is public due to language requirements for cross-target access.
-  /// Do not use this type, nor any of its values, as they are an implementation detail.
-  public enum _Policy: Equatable {
-    case allRecords
-    case allMatchingKeyPattern(String)
-    case first(Int)
-    case last(Int)
-
-    public static func ==(lhs: _Policy, rhs: _Policy) -> Bool {
-      switch (lhs, rhs) {
-      case (.allRecords, .allRecords): return true
-      case let (.allMatchingKeyPattern(left), .allMatchingKeyPattern(right)): return left == right
-      case let (.first(left), .first(right)): return left == right
-      case let (.last(left), .last(right)): return left == right
-      default: return false
-      }
-    }
-  }
+  case last(Int)
 }
 
 public protocol NormalizedCache {
