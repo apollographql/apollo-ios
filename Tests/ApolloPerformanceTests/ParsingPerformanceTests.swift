@@ -5,12 +5,6 @@ import GitHubAPI
 
 class ParsingPerformanceTests: XCTestCase {
   
-  override func setUpWithError() throws {
-  }
-  
-  override func tearDownWithError() throws {
-  }
-  
   func testParseResult() throws {
     let query = IssuesAndCommentsForRepositoryQuery()
     
