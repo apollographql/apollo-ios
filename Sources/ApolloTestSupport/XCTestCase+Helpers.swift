@@ -29,7 +29,11 @@ public extension XCTestCase {
     do {
       try perform()
     } catch {
-      record(error, file: file, line: line)
+      // Respect XCTestErrorUserInfoKeyShouldIgnore key that is used by XCTUnwrap, XCTSkip, and our own XCTFailure.
+      let shouldIgnore = (((error as NSError).userInfo["XCTestErrorUserInfoKeyShouldIgnore"] as? Bool) == true)
+      if !shouldIgnore {
+        record(error, file: file, line: line)
+      }
     }
   }
   
