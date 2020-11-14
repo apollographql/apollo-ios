@@ -74,3 +74,25 @@ public func XCTAssertFailureResult<Success>(_ expression: @autoclosure () throws
     try errorHandler(error)
   }
 }
+
+/// An error which causes the current test to cease executing and fail when it is thrown.
+/// Similar to `XCTSkip`, but without marking the test as skipped.
+public struct XCTFailure: Error, CustomNSError {
+  
+  public init(_ message: @autoclosure () -> String = "", file: StaticString = #filePath, line: UInt = #line) {
+    XCTFail(message(), file: file, line: line)
+  }
+  
+  /// The domain of the error.
+  public static let errorDomain = XCTestErrorDomain
+  
+  /// The error code within the given domain.
+  public let errorCode: Int = 0
+  
+  /// The user-info dictionary.
+  public let errorUserInfo: [String : Any] = [
+    // Make sure the thrown error doesn't show up as a test failure, because we already record
+    // a more detailed failure (with the right source location) ourselves.
+    "XCTestErrorUserInfoKeyShouldIgnore": true
+  ]
+}

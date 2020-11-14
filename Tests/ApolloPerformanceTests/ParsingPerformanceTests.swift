@@ -41,7 +41,7 @@ class ParsingPerformanceTests: XCTestCase {
     let bundle = Bundle(for: type(of: self))
     
     guard let url = bundle.url(forResource: query.operationName, withExtension: "json") else {
-      throw XCTSkip("Missing response file for query: \(query.operationName)", file: file, line: line)
+      throw XCTFailure("Missing response file for query: \(query.operationName)", file: file, line: line)
     }
 
     let data = try Data(contentsOf: url)
