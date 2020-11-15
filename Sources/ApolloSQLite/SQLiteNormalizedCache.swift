@@ -140,11 +140,12 @@ extension SQLiteNormalizedCache: NormalizedCache {
     let result: Swift.Result<[Record?], Error>
     do {
       let records = try self.selectRecords(forKeys: keys)
+      let recordsIndexMap = records.indices.reversed().reduce(into: [:]) { recordsIndexMap, index in
+        recordsIndexMap[records[index].key, default: index] = index
+      }
+
       let recordsOrNil: [Record?] = keys.map { key in
-        if let recordIndex = records.firstIndex(where: { $0.key == key }) {
-          return records[recordIndex]
-        }
-        return nil
+        recordsIndexMap[key].flatMap { records[$0] }
       }
 
       result = .success(recordsOrNil)
