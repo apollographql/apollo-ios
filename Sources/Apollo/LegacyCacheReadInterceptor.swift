@@ -2,6 +2,9 @@ import Foundation
 
 /// An interceptor that reads data from the legacy cache for queries, following the `HTTPRequest`'s `cachePolicy`.
 public class LegacyCacheReadInterceptor: ApolloInterceptor {
+  public enum CacheError: Error {
+    case fetchAndCacheFailed(fetchError: Error, cacheError: Error)
+  }
     
   private let store: ApolloStore
   
@@ -27,6 +30,35 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor {
                          completion: completion)
     case .query:
       switch request.cachePolicy {
+      case .fetchReturningCacheDataOnError:
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          completion: { fetchResult in
+            // if the fetch request failed, try to read from the cache
+            switch fetchResult {
+            case let .success(fetchData):
+              chain.returnValueAsync(for: request, value: fetchData, completion: completion)
+
+            case let .failure(fetchError):
+              self.fetchFromCache(for: request, chain: chain) { cacheResult in
+                switch cacheResult {
+                case let .success(cacheData):
+                  chain.returnValueAsync(for: request, value: cacheData, completion: completion)
+
+                case let .failure(cacheError):
+                  chain.handleErrorAsync(
+                    CacheError.fetchAndCacheFailed(fetchError: fetchError, cacheError: cacheError),
+                    request: request,
+                    response: response,
+                    completion: completion
+                  )
+                }
+              }
+            }
+          }
+        )
+
       case .fetchIgnoringCacheCompletely,
            .fetchIgnoringCacheData:
         // Don't bother with the cache, just keep going

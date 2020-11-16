@@ -73,6 +73,65 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
   }
+
+  func testFetchReturningCacheDataOnErrorReturnsDataOnFetchError() throws {
+    struct TestError: Error { }
+
+    self.mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+      ]
+    ])
+    let query = HeroNameQuery()
+    let resultObserver = self.makeResultObserver(for: query)
+
+    let serverRequestExpectation = self.server.expect(HeroNameQuery.self) { _ in .failure(TestError()) }
+
+    let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received cache data") {
+      try XCTAssertSuccessResult($0) { result in
+        XCTAssertEqual(result.source, .cache)
+
+        let heroName = try XCTUnwrap(result.data?.hero?.name)
+        XCTAssertEqual(heroName, "R2-D2")
+      }
+    }
+
+    self.client.fetch(query: query, cachePolicy: .fetchReturningCacheDataOnError, resultHandler: resultObserver.handler)
+
+    self.wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: self.defaultWaitTimeout)
+  }
+
+  func testFetchReturningCacheDataOnErrorReturnsBothErrors() throws {
+    enum TestError: Error { case expectation }
+
+    let query = HeroNameQuery()
+    let resultObserver = self.makeResultObserver(for: query)
+
+    let serverRequestExpectation = self.server.expect(HeroNameQuery.self) { _ in .failure(TestError.expectation) }
+
+    let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received cache data") { result in
+      try XCTAssertFailureResult(result) {
+        let cacheError = try XCTUnwrap($0 as? LegacyCacheReadInterceptor.CacheError)
+
+        switch cacheError {
+        case let .fetchAndCacheFailed(fetchError, cacheError):
+          let fetchError = try XCTUnwrap(fetchError as? TestError)
+          let cacheError = try XCTUnwrap(cacheError as? JSONDecodingError)
+          guard case .missingValue = cacheError else {
+            XCTFail("Unexpected json decoding error: \(cacheError)")
+            return
+          }
+          XCTAssertEqual(fetchError, .expectation)
+        }
+      }
+    }
+
+    self.client.fetch(query: query, cachePolicy: .fetchReturningCacheDataOnError, resultHandler: resultObserver.handler)
+
+    self.wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: self.defaultWaitTimeout)
+  }
   
   func testReturnCacheDataAndFetchHitsCacheFirstAndNetworkAfter() throws {
     let query = HeroNameQuery()

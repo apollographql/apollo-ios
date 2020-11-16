@@ -202,7 +202,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
     
     runActivity("Fetch same query from server with different argument") { _ in
-      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameQuery.self) { request -> JSONObject in
         XCTAssertEqual(request.operation.episode, .jedi)
         
         return [
@@ -269,7 +269,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
     
     runActivity("Fetch same query from server with different argument but returning same object with changed data") { _ in
-      let serverRequestExpectation = server.expect(HeroNameWithIdQuery.self) { request in
+      let serverRequestExpectation = server.expect(HeroNameWithIdQuery.self) { request -> JSONObject in
         XCTAssertEqual(request.operation.episode, .jedi)
         return [
           "data": [
