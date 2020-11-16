@@ -1,5 +1,6 @@
 import Dispatch
 import Foundation
+import ApolloCore
 
 /// A resolver is responsible for resolving a value for a field.
 typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<JSONValue?>
@@ -98,9 +99,8 @@ final class GraphQLExecutor {
   var shouldComputeCachePath = true
 
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
-  init(resolver: @escaping GraphQLResolver) {
-    queue = DispatchQueue(label: "com.apollographql.GraphQLExecutor")
-
+  init(queue: DispatchQueue? = nil, resolver: @escaping GraphQLResolver) {
+    self.queue = queue ?? DispatchQueue(label: "com.apollographql.GraphQLExecutor")
     self.resolver = resolver
   }
 
@@ -125,20 +125,26 @@ final class GraphQLExecutor {
                                                       withKey key: CacheKey? = nil,
                                                       variables: GraphQLMap? = nil,
                                                       accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-    let info = GraphQLResolveInfo(rootKey: key, variables: variables)
-
-    return try execute(selections: selections,
-                       on: object,
-                       info: info,
-                       accumulator: accumulator).map {
-      try accumulator.finish(rootValue: $0, info: info)
-    }.asPromise()
+    ensureNotOnQueueIfPossible(queue)
+    
+    return try queue.sync {
+      let info = GraphQLResolveInfo(rootKey: key, variables: variables)
+      
+      return try execute(selections: selections,
+                         on: object,
+                         info: info,
+                         accumulator: accumulator).map {
+                          try accumulator.finish(rootValue: $0, info: info)
+                         }.asPromise()
+    }
   }
 
   private func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection],
                                                               on object: JSONObject,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.ObjectResult> {
+    ensureOnQueueIfPossible(queue)
+    
     var groupedFields = GroupedSequence<String, GraphQLField>()
     try collectFields(selections: selections,
                       forRuntimeType: runtimeType(of: object),
@@ -175,6 +181,8 @@ final class GraphQLExecutor {
                              forRuntimeType runtimeType: String?,
                              into groupedFields: inout GroupedSequence<String, GraphQLField>,
                              info: GraphQLResolveInfo) throws {
+    ensureOnQueueIfPossible(queue)
+    
     for selection in selections {
       switch selection {
       case let field as GraphQLField:
@@ -220,6 +228,8 @@ final class GraphQLExecutor {
                                                               on object: JSONObject,
                                                               info: GraphQLResolveInfo,
                                                               accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.FieldEntry> {
+    ensureOnQueueIfPossible(queue)
+    
     // GraphQL validation makes sure all fields sharing the same response key have the same arguments and are of the same type, so we only need to resolve one field.
     let firstField = fields[0]
 
@@ -263,6 +273,8 @@ final class GraphQLExecutor {
                                                                ofType returnType: GraphQLOutputType,
                                                                info: GraphQLResolveInfo,
                                                                accumulator: Accumulator) throws -> ResultOrPromise<Accumulator.PartialResult> {
+    ensureOnQueueIfPossible(queue)
+    
     if case .nonNull(let innerType) = returnType {
       if value is NSNull {
         return .result(.failure(JSONDecodingError.nullValue))

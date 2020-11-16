@@ -16,32 +16,42 @@ public final class MockURLSessionClient: URLSessionClient {
   public var data: Data?
   public var response: HTTPURLResponse?
   public var error: Error?
+  
+  private let callbackQueue: DispatchQueue
+  
+  public init(callbackQueue: DispatchQueue? = nil) {
+    self.callbackQueue = callbackQueue ?? .main
+  }
 
   public override func sendRequest(_ request: URLRequest,
                                    rawTaskCompletionHandler: URLSessionClient.RawCompletion? = nil,
                                    completion: @escaping URLSessionClient.Completion) -> URLSessionTask {
     self.lastRequest.value = request
-    rawTaskCompletionHandler?(self.data, self.response, self.error)
+        
+    // Capture data, response, and error instead of self to ensure we complete with the current state
+    // even if it is changed before the block runs.
+    callbackQueue.async { [data, response, error] in
+      rawTaskCompletionHandler?(data, response, error)
+      
+      if let error = error {
+        completion(.failure(error))
+      } else {
+        guard let data = data else {
+          completion(.failure(URLSessionClientError.dataForRequestNotFound(request: request)))
+          return
+        }
+        
+        guard let response = response else {
+          completion(.failure(URLSessionClientError.noHTTPResponse(request: request)))
+          return
+        }
+        
+        completion(.success((data, response)))
+      }
+    }
     
   
     let mockTask = URLSessionDataTaskMock()
-    
-    if let error = error {
-      completion(.failure(error))
-    } else {
-      guard let data = self.data else {
-        completion(.failure(URLSessionClientError.dataForRequestNotFound(request: request)))
-        return mockTask
-      }
-      
-      guard let response = self.response else {
-        completion(.failure(URLSessionClientError.noHTTPResponse(request: request)))
-        return mockTask
-      }
-      
-      completion(.success((data, response)))
-    }
-    
     return mockTask
   }
 }

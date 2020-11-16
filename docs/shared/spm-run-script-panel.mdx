@@ -6,6 +6,8 @@ import {
 
 <ExpansionPanel title="Swift Package Manager Run Script">
 
+> **NOTE**: If your Derived Data is in a custom location, stop, go back, and use the [Swift Scripting](./swift-scripting) method instead. This script relies on Derived Data being in the default location. Swift Scripting doesn't rely on Derived Data at all.
+
 If you're using Xcode 11 or higher, SPM will check out the appropriate build script along with the rest of the files when it checks out the repo. Add the following to your Run Script build phase: 
 
 ```sh

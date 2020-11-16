@@ -14,15 +14,22 @@ class CachePersistenceTests: XCTestCase {
 
     SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
       let store = ApolloStore(cache: cache)
-      let networkTransport = MockNetworkTransport(body: [
-        "data": [
-          "hero": [
-            "name": "Luke Skywalker",
-            "__typename": "Human"
+      
+      let server = MockGraphQLServer()
+      let networkTransport = MockNetworkTransport(server: server, store: store)
+      
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+      
+      _ = server.expect(HeroNameQuery.self) { request in
+        [
+          "data": [
+            "hero": [
+              "name": "Luke Skywalker",
+              "__typename": "Human"
+            ]
           ]
         ]
-      ], store: store)
-      let client = ApolloClient(networkTransport: networkTransport, store: store)
+      }
 
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let newCacheExpectation = self.expectation(description: "Fetch query from new cache")
@@ -70,15 +77,22 @@ class CachePersistenceTests: XCTestCase {
 
     SQLiteTestCacheProvider.withCache(fileURL: sqliteFileURL) { (cache) in
       let store = ApolloStore(cache: cache)
-      let networkTransport = MockNetworkTransport(body: [
-        "data": [
-          "hero": [
-            "name": "Luke Skywalker",
-            "__typename": "Human"
+      
+      let server = MockGraphQLServer()
+      let networkTransport = MockNetworkTransport(server: server, store: store)
+      
+      let client = ApolloClient(networkTransport: networkTransport, store: store)
+      
+      _ = server.expect(HeroNameQuery.self) { request in
+        [
+          "data": [
+            "hero": [
+              "name": "Luke Skywalker",
+              "__typename": "Human"
+            ]
           ]
         ]
-      ], store: store)
-      let client = ApolloClient(networkTransport: networkTransport, store: store)
+      }
 
       let networkExpectation = self.expectation(description: "Fetching query from network")
       let emptyCacheExpectation = self.expectation(description: "Fetch query from empty cache")

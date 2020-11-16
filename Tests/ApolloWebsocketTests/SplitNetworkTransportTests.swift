@@ -20,8 +20,7 @@ class SplitNetworkTransportTests: XCTestCase {
   private let webSocketVersion = "TestWebSocketTransportVersion"
   
   private lazy var mockTransport: MockNetworkTransport = {
-    let transport = MockNetworkTransport(body: JSONObject(),
-                                         store: ApolloStore())
+    let transport = MockNetworkTransport(server: MockGraphQLServer(), store: ApolloStore())
     
     transport.clientName = self.mockTransportName
     transport.clientVersion = self.mockTransportVersion
