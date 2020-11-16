@@ -7,37 +7,11 @@ import Foundation
 public final class RepositoryQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
-    """
-    query Repository {
-      repository(owner: "apollographql", name: "apollo-ios") {
-        __typename
-        issueOrPullRequest(number: 13) {
-          __typename
-          ... on Issue {
-            body
-            ... on UniformResourceLocatable {
-              url
-            }
-            author {
-              __typename
-              avatarUrl
-            }
-          }
-          ... on Reactable {
-            viewerCanReact
-            ... on Comment {
-              author {
-                __typename
-                login
-              }
-            }
-          }
-        }
-      }
-    }
-    """
+    "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { body ... on UniformResourceLocatable { url } author { __typename avatarUrl } } ... on Reactable { viewerCanReact ... on Comment { author { __typename login } } } } } }"
 
   public let operationName: String = "Repository"
+
+  public let operationIdentifier: String? = "63e25c339275a65f43b847e692e42caed8c06e25fbfb3dc8db6d4897b180c9ef"
 
   public init() {
   }
@@ -385,16 +359,11 @@ public final class RepositoryQuery: GraphQLQuery {
 public final class RepoUrlQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
-    """
-    query RepoURL {
-      repository(owner: "apollographql", name: "apollo-ios") {
-        __typename
-        url
-      }
-    }
-    """
+    "query RepoURL { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename url } }"
 
   public let operationName: String = "RepoURL"
+
+  public let operationIdentifier: String? = "b55f22bcbfaea0d861089b3fbe06299675a21d11ba7138ace39ecbde606a3dc1"
 
   public init() {
   }
