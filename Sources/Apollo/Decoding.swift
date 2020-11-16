@@ -6,7 +6,9 @@ func decode<SelectionSet: GraphQLSelectionSet>(selectionSet: SelectionSet.Type,
                                                from object: JSONObject,
                                                variables: GraphQLMap? = nil) throws -> SelectionSet {
   var groupedFields = GroupedFields()
+  let runtimeType = object["__typename"] as? String
   try collectFields(from: selectionSet.selections,
+                    forRuntimeType: runtimeType,
                     into: &groupedFields,
                     variables: variables)
   let resultMap = try decode(groupedFields: groupedFields,

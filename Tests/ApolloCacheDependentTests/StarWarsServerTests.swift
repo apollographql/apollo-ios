@@ -64,17 +64,35 @@ class StarWarsServerAPQsTests: StarWarsServerTests {
   }
 }
 
-class StarWarsServerTests: XCTestCase, CacheTesting {
+class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   // MARK: Queries
   var config: TestConfig!
-
+  
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
   
-  override func setUp() {
-    super.setUp()
+  var defaultWaitTimeout: TimeInterval = 5
+  
+  var cache: NormalizedCache!
+  var client: ApolloClient!
+  
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    
     config = DefaultConfig()
+    
+    cache = try makeNormalizedCache()
+    let store = ApolloStore(cache: cache)
+    
+    client = ApolloClient(networkTransport: config.network(store: store), store: store)
+  }
+  
+  override func tearDownWithError() throws {
+    cache = nil
+    client = nil
+    
+    try super.tearDownWithError()
   }
   
   func testHeroNameQuery() {
@@ -82,19 +100,19 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
       XCTAssertEqual(data.hero?.name, "R2-D2")
     }
   }
-
+  
   func testHeroNameQueryWithVariable() {
     fetch(query: HeroNameQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
     }
   }
-
+  
   func testHeroAppearsInQuery() {
     fetch(query: HeroAppearsInQuery()) { data in
       XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
     }
   }
-
+  
   func testHeroAndFriendsNamesQuery() {
     fetch(query: HeroAndFriendsNamesQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -109,7 +127,7 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
       XCTAssertEqual(friendsOfFirstFriendNames, ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"])
     }
   }
-
+  
   func testHumanQueryWithNullMass() {
     fetch(query: HumanQuery(id: "1004")) { data in
       XCTAssertEqual(data.human?.name, "Wilhuff Tarkin")
@@ -122,55 +140,55 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
       XCTAssertNil(data.human)
     }
   }
-
+  
   func testHeroDetailsQueryDroid() {
     fetch(query: HeroDetailsQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-
+      
       guard let droid = data.hero?.asDroid else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(droid.primaryFunction, "Astromech")
     }
   }
-
+  
   func testHeroDetailsQueryHuman() {
     fetch(query: HeroDetailsQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
-
+      
       guard let human = data.hero?.asHuman else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(human.height, 1.72)
     }
   }
-
+  
   func testHeroDetailsWithFragmentQueryDroid() {
     fetch(query: HeroDetailsWithFragmentQuery()) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "R2-D2")
-
+      
       guard let droid = data.hero?.fragments.heroDetails.asDroid else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(droid.primaryFunction, "Astromech")
     }
   }
-
+  
   func testHeroDetailsWithFragmentQueryHuman() {
     fetch(query: HeroDetailsWithFragmentQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "Luke Skywalker")
-
+      
       guard let human = data.hero?.fragments.heroDetails.asHuman else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(human.height, 1.72)
     }
   }
@@ -187,28 +205,28 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
       XCTAssertNil(data.hero?.fragments.droidDetails)
     }
   }
-
-
+  
+  
   func testHeroTypeDependentAliasedFieldDroid() {
     fetch(query: HeroTypeDependentAliasedFieldQuery()) { data in
       XCTAssertEqual(data.hero?.asDroid?.property, "Astromech")
       XCTAssertNil(data.hero?.asHuman?.property)
     }
   }
-
+  
   func testHeroTypeDependentAliasedFieldHuman() {
     fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.asHuman?.property, "Tatooine")
       XCTAssertNil(data.hero?.asDroid?.property)
     }
   }
-
+  
   func testHeroParentTypeDependentFieldDroid() {
     fetch(query: HeroParentTypeDependentFieldQuery()) { data in
       XCTAssertEqual(data.hero?.asDroid?.friends?.first??.asHuman?.height, 1.72)
     }
   }
-
+  
   func testHeroParentTypeDependentFieldHuman() {
     fetch(query: HeroParentTypeDependentFieldQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.asHuman?.friends?.first??.asHuman?.height, 5.905512)
@@ -323,74 +341,51 @@ class StarWarsServerTests: XCTestCase, CacheTesting {
       XCTAssertNil(data.hero?.name)
     }
   }
-
+  
   // MARK: Mutations
-
+  
   func testCreateReviewForEpisode() {
     perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 5, commentary: "This is a great movie!"))) { data in
       XCTAssertEqual(data.createReview?.stars, 5)
       XCTAssertEqual(data.createReview?.commentary, "This is a great movie!")
     }
   }
-
+  
   // MARK: - Helpers
   
-  private func fetch<Query: GraphQLQuery>(query: Query, completionHandler: @escaping (_ data: Query.Data) -> Void) {
-    withCache { (cache) in
-      
-      let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: config.network(store: store), store: store)
-
-      let expectation = self.expectation(description: "Fetching query")
-
-      client.fetch(query: query) { result in
-        defer { expectation.fulfill() }
-      
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          guard let data = graphQLResult.data else {
-            XCTFail("No query result data")
-            return
-          }
-          
-          completionHandler(data)
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
-      }
-      
-      waitForExpectations(timeout: 5, handler: nil)
-    }
-  }
-
-  private func perform<Mutation: GraphQLMutation>(mutation: Mutation, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
-    withCache { (cache) in
-      
-      let store = ApolloStore(cache: cache)
-      let client = ApolloClient(networkTransport: config.network(store: store), store: store)
-
-      let expectation = self.expectation(description: "Performing mutation")
-
-      client.perform(mutation: mutation) { result in
-        defer { expectation.fulfill() }
+  private func fetch<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Query.Data) -> Void) {
+    let resultObserver = makeResultObserver(for: query, file: file, line: line)
+    
+    let expectation = resultObserver.expectation(description: "Fetched query from server", file: file, line: line) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
+        XCTAssertNil(graphQLResult.errors, file: file, line: line)
         
-        switch result {
-        case .success(let graphQLResult):
-          XCTAssertNil(graphQLResult.errors)
-          
-          guard let data = graphQLResult.data else {
-            XCTFail("No mutation result data")
-            return
-          }
-          
-          completionHandler(data)
-        case .failure(let error):
-          XCTFail("Unexpected error: \(error)")
-        }
+        let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+        completionHandler(data)
       }
-      
-      waitForExpectations(timeout: 5, handler: nil)
     }
+    
+    client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
+    
+    wait(for: [expectation], timeout: defaultWaitTimeout)
+  }
+  
+  private func perform<Mutation: GraphQLMutation>(mutation: Mutation, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
+    let resultObserver = makeResultObserver(for: mutation, file: file, line: line)
+    
+    let expectation = resultObserver.expectation(description: "Performing mutation on server", file: file, line: line) { result in
+      try XCTAssertSuccessResult(result) { graphQLResult in
+        XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
+        XCTAssertNil(graphQLResult.errors, file: file, line: line)
+        
+        let data = try XCTUnwrap(graphQLResult.data, file: file, line: line)
+        completionHandler(data)
+      }
+    }
+    
+    client.perform(mutation: mutation, resultHandler: resultObserver.handler)
+    
+    wait(for: [expectation], timeout: defaultWaitTimeout)
   }
 }

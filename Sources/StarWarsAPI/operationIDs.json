@@ -107,6 +107,10 @@
     "name": "HeroNameWithFragmentAndID",
     "source": "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
   },
+  "f714414a2002404f9943490c8cc9c1a7b8ecac3ca229fa5a326186b43c1385ce": {
+    "name": "HeroNameAndAppearsIn",
+    "source": "query HeroNameAndAppearsIn($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    appearsIn\n  }\n}"
+  },
   "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a": {
     "name": "HeroNameAndAppearsInWithFragment",
     "source": "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}\nfragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}"
