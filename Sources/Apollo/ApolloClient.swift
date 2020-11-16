@@ -115,7 +115,7 @@ extension ApolloClient: ApolloClientProtocol {
                                                  resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(
       operation: mutation,
-      cachePolicy: publishResultToStore ? .fetchIgnoringCacheData : .fetchIgnoringCacheCompletely,
+      cachePolicy: publishResultToStore ? .default : .fetchIgnoringCacheCompletely,
       contextIdentifier: nil,
       callbackQueue: queue,
       completionHandler: { result in
