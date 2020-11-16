@@ -141,7 +141,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
     do {
       let records = try self.selectRecords(forKeys: keys)
       let recordsIndexMap = records.indices.reversed().reduce(into: [:]) { resultMap, index in
-        resultMap[records[index].key, default: index] = index
+        resultMap[records[index].key] = index
       }
 
       let recordsOrNil: [Record?] = keys.map { key in
