@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// An interceptor to check the response code returned with a request.
 public class ResponseCodeInterceptor: ApolloInterceptor {

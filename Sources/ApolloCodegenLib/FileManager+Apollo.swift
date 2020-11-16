@@ -89,44 +89,6 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter fileURL: The file to calculate the SHASUM for.
   public func shasum(at fileURL: URL) throws -> String {
-    let file = try FileHandle(forReadingFrom: fileURL)
-    defer {
-        file.closeFile()
-    }
-    
-    let buffer = 1024 * 1024 // 1GB
-    
-    var context = CC_SHA256_CTX()
-    CC_SHA256_Init(&context)
-    
-    while autoreleasepool(invoking: {
-      let data = file.readData(ofLength: buffer)
-      guard !data.isEmpty else {
-        // Nothing more to read!
-        return false
-      }
-      
-      _ = data.withUnsafeBytes { bytesFromBuffer -> Int32 in
-        guard let rawBytes = bytesFromBuffer.bindMemory(to: UInt8.self).baseAddress else {
-          return Int32(kCCMemoryFailure)
-        }
-        return CC_SHA256_Update(&context, rawBytes, numericCast(data.count))
-      }
-      
-      return true
-    }) {}
-    
-    var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
-    _ = digestData.withUnsafeMutableBytes { bytesFromDigest -> Int32 in
-      guard let rawBytes = bytesFromDigest.bindMemory(to: UInt8.self).baseAddress else {
-        return Int32(kCCMemoryFailure)
-      }
-      
-      return CC_SHA256_Final(rawBytes, &context)
-    }
-
-    return digestData
-      .map { String(format: "%02hhx", $0) }
-      .joined()
+    return try Crypt.shasum(at: fileURL)
   }
 }
