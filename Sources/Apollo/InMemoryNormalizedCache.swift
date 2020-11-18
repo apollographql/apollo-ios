@@ -2,7 +2,6 @@ import Foundation
 
 public final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
-  private let recordsLock = NSRecursiveLock()
 
   public init(records: RecordSet = RecordSet()) {
     self.records = records
@@ -11,7 +10,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   public func loadRecords(forKeys keys: [CacheKey],
                           callbackQueue: DispatchQueue?,
                           completion: @escaping (Result<[Record?], Error>) -> Void) {
-    let records = self.threadSafe { keys.map{ self.records[$0] } }
+    let records = keys.map { self.records[$0] }
     DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(records))
@@ -20,7 +19,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   public func merge(records: RecordSet,
                     callbackQueue: DispatchQueue?,
                     completion: @escaping (Result<Set<CacheKey>, Error>) -> Void) {
-    let cacheKeys = self.threadSafe { self.records.merge(records: records) }
+    let cacheKeys = self.records.merge(records: records)
     DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                    action: completion,
                                                    result: .success(cacheKeys))
@@ -38,13 +37,6 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   }
 
   public func clearImmediately(_ clearingPolicy: CacheClearingPolicy) {
-    self.threadSafe { self.records.clear(clearingPolicy) }
-  }
-
-  private func threadSafe<Result>(_ operation: () -> Result) -> Result {
-    self.recordsLock.lock()
-    let result = operation()
-    self.recordsLock.unlock()
-    return result
+    self.records.clear(clearingPolicy)
   }
 }
