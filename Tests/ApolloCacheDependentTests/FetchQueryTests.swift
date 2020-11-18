@@ -87,7 +87,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     let resultObserver = self.makeResultObserver(for: query)
 
-    let serverRequestExpectation = self.server.expect(HeroNameQuery.self) { _ in .failure(TestError()) }
+    let serverRequestExpectation = self.server.expect(HeroNameQuery.self) { _ in throw TestError() }
 
     let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received cache data") {
       try XCTAssertSuccessResult($0) { result in
@@ -109,7 +109,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     let resultObserver = self.makeResultObserver(for: query)
 
-    let serverRequestExpectation = self.server.expect(HeroNameQuery.self) { _ in .failure(TestError.expectation) }
+    let serverRequestExpectation = self.server.expect(HeroNameQuery.self) { _ in throw TestError.expectation }
 
     let fetchResultFromServerExpectation = resultObserver.expectation(description: "Received cache data") { result in
       try XCTAssertFailureResult(result) {
