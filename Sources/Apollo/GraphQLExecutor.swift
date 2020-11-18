@@ -1,6 +1,7 @@
-import Dispatch
 import Foundation
+#if !COCOAPODS
 import ApolloCore
+#endif
 
 /// A resolver is responsible for resolving a value for a field.
 typealias GraphQLResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> ResultOrPromise<JSONValue?>
