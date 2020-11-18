@@ -3,12 +3,13 @@ import ApolloTestSupport
 import StarWarsAPI
 import XCTest
 
-final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting {
+final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, StoreLoading {
   var cacheType: TestCacheProvider.Type { InMemoryTestCacheProvider.self }
 
   var defaultWaitTimeout: TimeInterval { 1 }
 
   var cache: NormalizedCache!
+  var store: ApolloStore!
   var server: MockGraphQLServer!
   var client: ApolloClient!
 
@@ -16,12 +17,11 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting {
     try super.setUpWithError()
 
     self.cache = try self.makeNormalizedCache()
-    let store = ApolloStore(cache: cache)
-
+    self.store = ApolloStore(cache: cache)
     self.server = MockGraphQLServer()
     self.client = ApolloClient(
-      networkTransport: MockNetworkTransport(server: self.server, store: store),
-      store: store
+      networkTransport: MockNetworkTransport(server: self.server, store: self.store),
+      store: self.store
     )
   }
 
@@ -52,22 +52,23 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting {
 
     self.client.perform(mutation: mutation, publishResultToStore: false, resultHandler: resultObserver.handler)
 
-    self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: self.defaultWaitTimeout)
+    self.loadFromStore(query: mutation) {
+      try XCTAssertFailureResult($0) { error in
+        switch error as? JSONDecodingError {
+        // expected case, nothing to do
+        case .missingValue:
+          break
 
-    let cacheExpectation = self.expectation(description: "Cache returns nil data for review mutation")
-    self.cache.loadRecords(
-      forKeys: ["MUTATION_ROOT.createReview(episode:NEWHOPE,[review:stars:3])"],
-      callbackQueue: .main,
-      completion: { result in
-        switch result {
-        case let .success(cacheData) where cacheData.allSatisfy({ $0 == nil }):
-          cacheExpectation.fulfill()
+        // unexpected error, rethrow
+        case .none:
+          throw error
 
-        default: XCTFail("Expected nil data, instead received result: \(result)")
+        default:
+          XCTFail("Unexpected json error: \(error)")
         }
       }
-    )
+    }
 
-    self.wait(for: [cacheExpectation], timeout: self.defaultWaitTimeout)
+    self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: self.defaultWaitTimeout)
   }
 }

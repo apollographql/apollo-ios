@@ -58,7 +58,12 @@ public protocol StoreLoading {
 }
 
 extension StoreLoading where Self: XCTestCase {
-  public func loadFromStore<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, resultHandler: @escaping AsyncResultObserver<GraphQLResult<Query.Data>, Error>.ResultHandler) {
+  public func loadFromStore<Operation: GraphQLOperation>(
+    query: Operation,
+    file: StaticString = #filePath,
+    line: UInt = #line,
+    resultHandler: @escaping AsyncResultObserver<GraphQLResult<Operation.Data>, Error>.ResultHandler
+  ) {
     let resultObserver = makeResultObserver(for: query, file: file, line: line)
         
     let expectation = resultObserver.expectation(description: "Loaded query from store", file: file, line: line, resultHandler: resultHandler)
