@@ -178,3 +178,55 @@ public enum JSONValue: Codable, Equatable {
     }
   }
 }
+
+// MARK: - Expressible by _ literal conformances
+
+extension JSONValue: ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: JSONValue...) {
+    self = .array(elements)
+  }
+}
+
+extension JSONValue: ExpressibleByDictionaryLiteral {
+  public init(dictionaryLiteral elements: (String, JSONValue)...) {
+    self = .dictionary([String: JSONValue](uniqueKeysWithValues: elements))
+  }
+}
+
+extension JSONValue: ExpressibleByIntegerLiteral {
+  public typealias IntegerLiteralType = Int
+  
+  public init(integerLiteral value: Int) {
+    self = .int(value)
+  }
+}
+
+extension JSONValue: ExpressibleByFloatLiteral {
+  public typealias FloatLiteralType = Double
+
+  public init(floatLiteral value: Double) {
+    self = .double(value)
+  }
+}
+
+extension JSONValue: ExpressibleByBooleanLiteral {
+  public typealias BooleanLiteralType = Bool
+  
+  public init(booleanLiteral value: Bool) {
+    self = .bool(value)
+  }
+}
+
+extension JSONValue: ExpressibleByNilLiteral {
+  public init(nilLiteral: ()) {
+    self = .null
+  }
+}
+
+extension JSONValue: ExpressibleByStringLiteral {
+  public typealias StringLiteralType = String
+  
+  public init(stringLiteral value: String) {
+    self = .string(value)
+  }
+}
