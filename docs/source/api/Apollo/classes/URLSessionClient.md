@@ -96,7 +96,7 @@ open func sendRequest(_ request: URLRequest,
 >   - rawTaskCompletionHandler: [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.
 >   - completion: A completion handler to call when the task has either completed successfully or failed.
 >
-> - Returns: The created URLSesssion task, already resumed, because nobody ever remembers to call `resume()`.
+> - Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
 
 #### Parameters
 
