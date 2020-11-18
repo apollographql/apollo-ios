@@ -425,28 +425,4 @@ class JSONTests: XCTestCase {
       XCTFail("String literal conversion failed")
     }
   }
-  
-  func testAddingNonJSONElementWillThrowError() {
-    // NOTE: Don't try testing this with literals or it'll just blow up in your face
-    let array: [Any?] = [
-      1,
-      2.0,
-      "string",
-      true,
-      nil,
-      XCTestCase()
-    ]
-    
-    XCTAssertThrowsError(try JSONValue(array)) { error in
-      switch error {
-      case JSONValue.JSONValueError.invalidType:
-        // This is what we want
-        break
-      default:
-        XCTFail("Incorrect error type!")
-      }
-    }
-  }
 }
-
-

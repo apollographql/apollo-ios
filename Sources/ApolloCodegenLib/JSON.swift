@@ -31,60 +31,6 @@ public enum JSONValue: Codable, Equatable {
     }
   }
   
-  public init(_ array: [Any?]) throws {
-    var jsonArray = [JSONValue]()
-    for item in array {
-      if let unwrappedValue = item {
-        if let boolValue = unwrappedValue as? Bool {
-          jsonArray.append(.bool(boolValue))
-        } else if let intValue = unwrappedValue as? Int {
-          jsonArray.append(.int(intValue))
-        } else if let stringValue = unwrappedValue as? String {
-          jsonArray.append(.string(stringValue))
-        } else if let doubleValue = unwrappedValue as? Double {
-          jsonArray.append(.double(doubleValue))
-        } else if let arrayValue = unwrappedValue as? [Any?] {
-          jsonArray.append(try JSONValue(arrayValue))
-        } else if let dictionaryValue = unwrappedValue as? [String: Any?] {
-          jsonArray.append(try JSONValue(dictionaryValue))
-        } else {
-          throw JSONValueError.invalidType
-        }
-      } else {
-        jsonArray.append(.null)
-      }
-    }
-    
-    self = .array(jsonArray)
-  }
-  
-  public init(_ dictionary: [String: Any?]) throws {
-    var jsonDictionary = [String: JSONValue]()
-    for (key, value) in dictionary {
-      if let unwrappedValue = value {
-        if let boolValue = unwrappedValue as? Bool {
-          jsonDictionary[key] = .bool(boolValue)
-        } else if let intValue = unwrappedValue as? Int {
-          jsonDictionary[key] = .int(intValue)
-        } else if let stringValue = unwrappedValue as? String {
-          jsonDictionary[key] = .string(stringValue)
-        } else if let doubleValue = unwrappedValue as? Double {
-          jsonDictionary[key] = .double(doubleValue)
-        } else if let arrayValue = unwrappedValue as? [Any?] {
-          jsonDictionary[key] = try JSONValue(arrayValue)
-        } else if let dictionaryValue = unwrappedValue as? [String: Any?] {
-          jsonDictionary[key] = try JSONValue(dictionaryValue)
-        } else {
-          throw JSONValueError.invalidType
-        }
-      } else {
-        jsonDictionary[key] = .null
-      }
-    }
-    
-    self = .dictionary(jsonDictionary)
-  }
-  
   public static func ==(lhs: JSONValue, rhs: JSONValue) -> Bool {
     switch (lhs, rhs) {
     case (.bool(let lhsValue), .bool(let rhsValue)):
@@ -236,26 +182,14 @@ public enum JSONValue: Codable, Equatable {
 // MARK: - Expressible by _ literal conformances
 
 extension JSONValue: ExpressibleByArrayLiteral {
-  public typealias ArrayLiteralElement = Any?
-
-  public init(arrayLiteral elements: Any?...) {
-    do {
-      self = try JSONValue(elements)
-    } catch {
-      fatalError("Could not instantiate JSON from elements \(elements)")
-    }
+  public init(arrayLiteral elements: JSONValue...) {
+    self = .array(elements)
   }
 }
 
 extension JSONValue: ExpressibleByDictionaryLiteral {
-  
-  public init(dictionaryLiteral elements: (String, Any?)...) {
-    let dictionary = Dictionary(uniqueKeysWithValues: elements)
-    do {
-      self = try JSONValue(dictionary)
-    } catch {
-      fatalError("Could not instantiate JSON from elements \(elements)")
-    }
+  public init(dictionaryLiteral elements: (String, JSONValue)...) {
+    self = .dictionary([String: JSONValue](uniqueKeysWithValues: elements))
   }
 }
 
