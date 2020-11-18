@@ -12,7 +12,7 @@ class ParsingPerformanceTests: XCTestCase {
     
     measure {
       whileRecordingErrors {
-        let (result, _) = try response.parseResult().await()
+        let (result, _) = try response.parseResult()
         
         let data = try XCTUnwrap(result.data)
         XCTAssertEqual(data.repository?.name, "apollo-ios")

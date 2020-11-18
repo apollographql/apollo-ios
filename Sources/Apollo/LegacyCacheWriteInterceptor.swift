@@ -46,28 +46,22 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
                              completion: completion)
         return
     }
-
-    firstly {
-      try legacyResponse.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
-    }.andThen { [weak self] (result, records) in
-      guard let self = self else {
-        return
-      }
+    
+    do {
+      let (_, records) = try legacyResponse.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+      
       guard chain.isNotCancelled else {
         return
       }
       
       if let records = records {
         self.store.publish(records: records, identifier: request.contextIdentifier)
-          .catch { error in
-            preconditionFailure(String(describing: error))
-        }
       }
       
       chain.proceedAsync(request: request,
                          response: createdResponse,
                          completion: completion)
-    }.catch { error in
+    } catch {
       chain.handleErrorAsync(error,
                              request: request,
                              response: response,

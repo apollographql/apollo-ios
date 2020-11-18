@@ -12,6 +12,14 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     self.records = records
   }
   
+  public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
+    OSAtomicIncrement32(&numberOfBatchLoads)
+
+    return keys.reduce(into: [:]) { results, key in
+      results[key] = records[key]
+    }
+  }
+  
   func loadRecords(forKeys keys: [CacheKey],
                    callbackQueue: DispatchQueue?,
                    completion: @escaping (Result<[Record?], Error>) -> Void) {
@@ -23,6 +31,10 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
                                                      action: completion,
                                                      result: .success(records))
     }
+  }
+  
+  func merge(records: RecordSet) throws -> Set<CacheKey> {
+    return self.records.merge(records: records)
   }
   
   func merge(records: RecordSet,
@@ -45,7 +57,7 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
-  func clearImmediately() {
+  func clear() throws {
     records.clear()
   }
 }
