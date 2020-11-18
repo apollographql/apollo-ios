@@ -202,6 +202,97 @@ class UploadTests: XCTestCase {
     self.wait(for: [expectation], timeout: 10)
   }
   
+  func testUploadingASingleFileInAnArray() throws {
+    let fileURL = TestFileHelper.testParentFolder()
+                .appendingPathComponent("a.txt")
+    
+    let file = try GraphQLFile(fieldName: "files",
+                                    originalName: "a.txt",
+                                    fileURL: fileURL)
+    
+    let filesArray = [file]
+    
+    let uploadMutation = UploadMultipleFilesToTheSameParameterMutation(files: filesArray.map { $0.originalName })
+    
+    let expectation = self.expectation(description: "File upload complete")
+    self.client.upload(operation: uploadMutation, files: filesArray) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .success(let graphQLResult):
+        guard let uploads = graphQLResult.data?.multipleUpload else {
+          XCTFail("NOPE")
+          return
+        }
+        
+        XCTAssertEqual(uploads.count, 1)
+        guard let uploadedFile = uploads.first else {
+          XCTFail("Could not access uploaded file!")
+          return
+        }
+        
+        XCTAssertEqual(uploadedFile.filename, "a.txt")
+        self.compareInitialFile(at: fileURL, toUploadedFileAt: uploadedFile.path)
+      case .failure(let error):
+        XCTFail("Unexpected upload error: \(error)")
+      }
+    }
+    
+    self.wait(for: [expectation], timeout: 10)
+  }
+  
+  func testUploadingSingleFileInAnArrayWithAnotherFileForAnotherField() throws {
+    let firstFileURL = TestFileHelper.testParentFolder()
+      .appendingPathComponent("a.txt")
+    
+    let firstFile = try GraphQLFile(fieldName: "singleFile",
+                                    originalName: "a.txt",
+                                    fileURL: firstFileURL)
+    
+    let secondFileURL = TestFileHelper.testParentFolder()
+      .appendingPathComponent("b.txt")
+    
+    let secondFile = try GraphQLFile(fieldName: "multipleFiles",
+                                     originalName: "b.txt",
+                                     fileURL: secondFileURL)
+    
+    // This is the array of Files for the `multipleFiles` parameter only
+    let multipleFiles = [secondFile]
+
+    let upload = UploadMultipleFilesToDifferentParametersMutation(singleFile: firstFile.originalName, multipleFiles: multipleFiles.map { $0.originalName })
+    
+    let expectation = self.expectation(description: "File upload complete")
+    
+    // This is the array of Files for all parameters
+    let allFiles = [firstFile, secondFile]
+    self.client.upload(operation: upload, files: allFiles) { result in
+      defer {
+        expectation.fulfill()
+      }
+      
+      switch result {
+      case .success(let graphQLResult):
+        guard let uploads = graphQLResult.data?.multipleParameterUpload else {
+          XCTFail("NOPE")
+          return
+        }
+        
+        XCTAssertEqual(uploads.count, 2)
+        let sortedUploads = uploads.sorted { $0.filename < $1.filename }
+        XCTAssertEqual(sortedUploads[0].filename, "a.txt")
+        XCTAssertEqual(sortedUploads[1].filename, "b.txt")
+        self.compareInitialFile(at: firstFileURL, toUploadedFileAt: sortedUploads[0].path)
+        self.compareInitialFile(at: secondFileURL, toUploadedFileAt: sortedUploads[1].path)
+      case .failure(let error):
+        XCTFail("Unexpected upload error: \(error)")
+      }
+    }
+    
+    self.wait(for: [expectation], timeout: 10)
+  }
+  
   // MARK: - UploadRequest
   
   private func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
