@@ -12,12 +12,6 @@ public struct RecordSet {
 
   public mutating func clear(_ clearingPolicy: CacheClearingPolicy = .allRecords) {
     switch clearingPolicy {
-    case let .first(count):
-      self.storage = Dictionary(self.storage.dropFirst(count))
-
-    case let .last(count):
-      self.storage = Dictionary(self.storage.dropLast(count))
-
     case let .allMatchingKeyPattern(pattern):
       self.storage = self.storage.filter { !$0.key.contains(pattern.replacingOccurrences(of: "*", with: "")) }
 

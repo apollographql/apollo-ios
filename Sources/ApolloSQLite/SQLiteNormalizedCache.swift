@@ -98,14 +98,6 @@ public final class SQLiteNormalizedCache {
 
   private func clearRecords(with policy: CacheClearingPolicy) throws {
     switch policy {
-    case let .first(count):
-      let firstKRecords = records.select(self.id).order(self.id.asc).limit(count)
-      try self.db.run(firstKRecords.delete())
-
-    case let .last(count):
-      let lastKRecords = records.select(self.id).order(self.id.desc).limit(count)
-      try self.db.run(lastKRecords.delete())
-
     case let .allMatchingKeyPattern(pattern):
       let matchingRecords = records.where(
         self.key.like(pattern.replacingOccurrences(of: "*", with: "%"))

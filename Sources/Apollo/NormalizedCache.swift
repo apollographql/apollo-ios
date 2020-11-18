@@ -8,10 +8,6 @@ public enum CacheClearingPolicy: Equatable {
   ///
   /// For example `*pollo` will match both `Apollo` and `pollo`.
   case allMatchingKeyPattern(String)
-  /// Clears the the first (oldest) records in the cache up to the given limit.
-  case first(Int)
-  /// Clears the the last (most recent) records in the cache up to the given limit.
-  case last(Int)
 }
 
 public protocol NormalizedCache {
