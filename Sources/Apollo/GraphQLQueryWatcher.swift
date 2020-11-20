@@ -8,7 +8,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   public let query: Query
   let resultHandler: GraphQLResultHandler<Query.Data>
 
-  private var contextIdentifier = UUID()
+  private let contextIdentifier = UUID()
+  private let lock = Mutex()
 
   private weak var fetching: Cancellable?
 
@@ -39,26 +40,32 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   private let callbackQueue: DispatchQueue = .main
 
   func fetch(cachePolicy: CachePolicy) {
-    // Cancel anything already in flight before starting a new fetch
-    fetching?.cancel()
-    fetching = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
-      guard let self = self else { return }
+    lock.withLock {
+      // Cancel anything already in flight before starting a new fetch
+      fetching?.cancel()
+      fetching = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
+        guard let self = self else { return }
 
-      switch result {
-      case .success(let graphQLResult):
-        self.dependentKeys = graphQLResult.dependentKeys
-      case .failure:
-        break
+        switch result {
+        case .success(let graphQLResult):
+          self.lock.withLock {
+            self.dependentKeys = graphQLResult.dependentKeys
+          }
+        case .failure:
+          break
+        }
+
+        self.resultHandler(result)
       }
-
-      self.resultHandler(result)
     }
   }
 
   /// Cancel any in progress fetching operations and unsubscribe from the store.
   public func cancel() {
-    fetching?.cancel()
-    client?.store.unsubscribe(self)
+    lock.withLock {
+      fetching?.cancel()
+      client?.store.unsubscribe(self)
+    }
   }
 
   func store(_ store: ApolloStore,
@@ -72,30 +79,34 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
         // here as well.
         return
     }
+    
+    lock.withLock {
+      guard let dependentKeys = self.dependentKeys else {
+        // This query has nil dependent keys, so nothing that changed will affect it.
+        return
+      }
 
-    guard let dependentKeys = dependentKeys else {
-      // This query has nil dependent keys, so nothing that changed will affect it.
-      return
-    }
+      if !dependentKeys.isDisjoint(with: changedKeys) {
+        // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.
+        store.load(query: self.query) { [weak self] result in
+          guard let self = self else { return }
 
-    if !dependentKeys.isDisjoint(with: changedKeys) {
-      // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.
-      store.load(query: query) { [weak self] result in
-        guard let self = self else { return }
-
-        switch result {
-        case .success(let graphQLResult):
-          self.callbackQueue.async { [weak self] in
-            guard let self = self else {
-              return
+          switch result {
+          case .success(let graphQLResult):
+            self.callbackQueue.async { [weak self] in
+              guard let self = self else {
+                return
+              }
+              
+              self.lock.withLock {
+                self.dependentKeys = graphQLResult.dependentKeys
+              }
+              self.resultHandler(result)
             }
-            
-            self.dependentKeys = graphQLResult.dependentKeys
-            self.resultHandler(result)
+          case .failure:
+            // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
+            self.fetch(cachePolicy: .fetchIgnoringCacheData)
           }
-        case .failure:
-          // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
-          self.fetch(cachePolicy: .fetchIgnoringCacheData)
         }
       }
     }
