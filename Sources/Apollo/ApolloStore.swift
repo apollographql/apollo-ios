@@ -36,10 +36,6 @@ public final class ApolloStore {
 
   private let cache: NormalizedCache
 
-  // We need a separate read/write lock for cache access because cache operations are
-  // asynchronous and we don't want to block the dispatch threads
-  private let cacheLock = ReadWriteLock()
-
   private var subscribers: [ApolloStoreSubscriber] = []
 
   /// Designated initializer
@@ -61,24 +57,20 @@ public final class ApolloStore {
   /// - Returns: A promise which fulfills when the Cache is cleared.
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
-      self.cacheLock.withWriteLock {
-        let result = Result { try self.cache.clear() }
-        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                       action: completion,
-                                                       result: result)
-      }
+      let result = Result { try self.cache.clear() }
+      DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: result)
     }
   }
 
   func publish(records: RecordSet, identifier: UUID? = nil) {
     queue.async(flags: .barrier) {
-      self.cacheLock.withWriteLock {
-        do {
-          let changedKeys = try self.cache.merge(records: records)
-          self.didChangeKeys(changedKeys, identifier: identifier)
-        } catch {
-          assertionFailure(String(describing: error))
-        }
+      do {
+        let changedKeys = try self.cache.merge(records: records)
+        self.didChangeKeys(changedKeys, identifier: identifier)
+      } catch {
+        assertionFailure(String(describing: error))
       }
     }
   }
@@ -105,19 +97,16 @@ public final class ApolloStore {
                                        callbackQueue: DispatchQueue? = nil,
                                        completion: ((Result<T, Error>) -> Void)? = nil) {
     self.queue.async {
-      self.cacheLock.withReadLock {
-        do {
-          let returnValue = try body(ReadTransaction(store: self))
-          
-          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                         action: completion,
-                                                         result: .success(returnValue))
-        } catch {
-          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                         action: completion,
-                                                         result: .failure(error))
-        }
+      do {
+        let returnValue = try body(ReadTransaction(store: self))
         
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .success(returnValue))
+      } catch {
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .failure(error))
       }
     }
   }
@@ -132,18 +121,16 @@ public final class ApolloStore {
                                             callbackQueue: DispatchQueue? = nil,
                                             completion: ((Result<T, Error>) -> Void)? = nil) {
     self.queue.async(flags: .barrier) {
-      self.cacheLock.withWriteLock {
-        do {
-          let returnValue = try body(ReadWriteTransaction(store: self))
-          
-          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                         action: completion,
-                                                         result: .success(returnValue))
-        } catch {
-          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                         action: completion,
-                                                         result: .failure(error))
-        }
+      do {
+        let returnValue = try body(ReadWriteTransaction(store: self))
+        
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .success(returnValue))
+      } catch {
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .failure(error))
       }
     }
   }
@@ -177,14 +164,12 @@ public final class ApolloStore {
   }
 
   public class ReadTransaction {
-    fileprivate let queue: DispatchQueue
     fileprivate let cache: NormalizedCache
     fileprivate let cacheKeyForObject: CacheKeyForObject?
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
 
     fileprivate init(store: ApolloStore) {
-      self.queue = DispatchQueue(label: "com.apollographql.ApolloStore.\(type(of: self))")
       self.cache = store.cache
       self.cacheKeyForObject = store.cacheKeyForObject
     }
