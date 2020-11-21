@@ -5,6 +5,11 @@ import ApolloCore
 
 /// A field resolver is responsible for resolving a value for a field.
 typealias GraphQLFieldResolver = (_ object: JSONObject, _ info: GraphQLResolveInfo) -> JSONValue?
+/// A reference resolver is responsible for resolving an object based on its key. These references are
+/// used in normalized records, and data for these objects has to be loaded from the cache for execution to continue.
+/// Because data may be loaded from a database, these loads are batched for performance reasons.
+/// By returning a `PossiblyDeferred` wrapper, we allow `ApolloStore` to use a `DataLoader` that
+/// will defer loading the next batch of records from the cache until they are needed.
 typealias ReferenceResolver = (Reference) -> PossiblyDeferred<JSONObject>
 
 struct GraphQLResolveInfo {
