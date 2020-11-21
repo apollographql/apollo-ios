@@ -247,9 +247,8 @@ final class GraphQLExecutor {
                            ofType: firstField.type,
                            info: info,
                            accumulator: accumulator)
-        .map {
-          try accumulator.accept(fieldEntry: $0, info: info)
-        }
+    }.map {
+      try accumulator.accept(fieldEntry: $0, info: info)
     }.mapError { error in
       if !(error is GraphQLResultError) {
         return GraphQLResultError(path: info.responsePath, underlying: error)
