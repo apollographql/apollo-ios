@@ -183,6 +183,7 @@
 		9BF6C97025194ED7000D5B93 /* MultipartFormDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF6C95225194EA5000D5B93 /* MultipartFormDataTests.swift */; };
 		9BF6C99C25195019000D5B93 /* String+IncludesForTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF6C99B25195019000D5B93 /* String+IncludesForTesting.swift */; };
 		9F21730E2567E6F000566121 /* DataLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */; };
+		9F21735B2568F3E200566121 /* PossiblyDeferredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E301E27534800A24949 /* NormalizeQueryResults.swift */; };
 		9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */; };
@@ -723,6 +724,7 @@
 		9BF6C91725194D7B000D5B93 /* MultipartFormData+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultipartFormData+Testing.swift"; sourceTree = "<group>"; };
 		9BF6C95225194EA5000D5B93 /* MultipartFormDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataTests.swift; sourceTree = "<group>"; };
 		9BF6C99B25195019000D5B93 /* String+IncludesForTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IncludesForTesting.swift"; sourceTree = "<group>"; };
+		9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossiblyDeferredTests.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F295E301E27534800A24949 /* NormalizeQueryResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizeQueryResults.swift; sourceTree = "<group>"; };
 		9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
@@ -1597,6 +1599,7 @@
 				C304EBD322DDC7B200748F72 /* a.txt */,
 				C35D43BE22DDD3C100BCBABE /* b.txt */,
 				C35D43BF22DDD3C100BCBABE /* c.txt */,
+				9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */,
 			);
 			path = ApolloTests;
 			sourceTree = "<group>";
@@ -2655,6 +2658,7 @@
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
 				9BF6C94325194DE2000D5B93 /* MultipartFormData+Testing.swift in Sources */,
 				9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */,
+				9F21735B2568F3E200566121 /* PossiblyDeferredTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

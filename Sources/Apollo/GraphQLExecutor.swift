@@ -160,7 +160,7 @@ final class GraphQLExecutor {
       fieldEntries.append(fieldEntry)
     }
     
-    return lazilyEvaluateAll(fieldEntries) {
+    return lazilyEvaluateAll(fieldEntries).map {
       try accumulator.accept(fieldEntries: $0, info: info)
     }
   }
@@ -300,7 +300,7 @@ final class GraphQLExecutor {
                              accumulator: accumulator)
       }
       
-      return lazilyEvaluateAll(completedArray) {
+      return lazilyEvaluateAll(completedArray).map {
         try accumulator.accept(list: $0, info: info)
       }
     case .object:
