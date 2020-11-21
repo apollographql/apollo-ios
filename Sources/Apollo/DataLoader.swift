@@ -21,7 +21,7 @@ final class DataLoader<Key: Hashable, Value> {
     return .deferred { try self.load(key) }
   }
   
-  func load(_ key: Key) throws -> Value? {
+  private func load(_ key: Key) throws -> Value? {
     if let cachedResult = cache[key] {
       return try cachedResult.get()
     }
