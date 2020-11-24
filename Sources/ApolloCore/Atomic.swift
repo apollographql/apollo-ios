@@ -12,7 +12,7 @@ public class Atomic<T> {
     _value = value
   }
 
-  /// The current value.
+  /// The current value. Read-only. To update the underlying value, use `mutate`.
   public var value: T {
     lock.lock()
     defer { lock.unlock() }
