@@ -102,7 +102,8 @@ final class GraphQLExecutor {
   var cacheKeyForObject: CacheKeyForObject?
   var shouldComputeCachePath = true
 
-  /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
+  /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver. If provided, it will also resolve references by calling
+  /// the reference resolver.
   init(resolver: @escaping GraphQLFieldResolver, resolveReference: ReferenceResolver? = nil) {
     self.fieldResolver = resolver
     self.resolveReference = resolveReference
