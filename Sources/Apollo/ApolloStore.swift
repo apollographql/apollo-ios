@@ -64,13 +64,18 @@ public final class ApolloStore {
     }
   }
 
-  func publish(records: RecordSet, identifier: UUID? = nil) {
+  func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       do {
         let changedKeys = try self.cache.merge(records: records)
         self.didChangeKeys(changedKeys, identifier: identifier)
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .success(()))
       } catch {
-        assertionFailure(String(describing: error))
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .failure(error))
       }
     }
   }
