@@ -1,4 +1,4 @@
-import Dispatch
+import Foundation
 
 final class DataLoader<Key: Hashable, Value> {
   public typealias BatchLoad = (Set<Key>) throws -> [Key: Value]
