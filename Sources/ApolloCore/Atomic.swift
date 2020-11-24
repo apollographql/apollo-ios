@@ -14,21 +14,13 @@ public class Atomic<T> {
 
   /// The current value.
   public var value: T {
-    get {
-      lock.lock()
-      defer { lock.unlock() }
-
-      return _value
-    }
-    set {
-      lock.lock()
-      defer { lock.unlock() }
-
-      _value = newValue
-    }
+    lock.lock()
+    defer { lock.unlock() }
+    
+    return _value
   }
   
-  /// Mutates the underlying value within a lock. Mostly useful for mutating the contents of `Atomic` wrappers around collections.
+  /// Mutates the underlying value within a lock.
   /// - Parameter block: The block to execute to mutate the value.
   public func mutate(block: (inout T) -> Void) {
     lock.lock()
