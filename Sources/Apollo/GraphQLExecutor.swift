@@ -319,7 +319,9 @@ final class GraphQLExecutor {
         }
       }
       
-      guard let object = value as? JSONObject else { return .immediate(.failure(JSONDecodingError.wrongType)) }
+      guard let object = value as? JSONObject else {
+        return .immediate(.failure(JSONDecodingError.wrongType))
+      }
       
       // The merged selection set is a list of fields from all sub‐selection sets of the original fields.
       let selections = mergeSelectionSets(for: info.fields)
