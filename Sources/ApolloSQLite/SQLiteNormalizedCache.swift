@@ -118,7 +118,9 @@ public final class SQLiteNormalizedCache {
 
 extension SQLiteNormalizedCache: NormalizedCache {
   public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
-    return .init(uniqueKeysWithValues: try selectRecords(forKeys: keys).map { ($0.key, $0) })
+    return [CacheKey: Record](uniqueKeysWithValues:
+                                try selectRecords(forKeys: keys)
+                                .map { record in (record.key, record) })
   }
   
   public func merge(records: RecordSet) throws -> Set<CacheKey> {
