@@ -145,27 +145,22 @@ public final class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
-    withinReadTransaction { transaction in
+  public func load<Operation: GraphQLOperation>(query: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+    withinReadTransaction({ transaction in
       let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
       
-      do {
-        let (data, dependentKeys) = try transaction.execute(selections: Operation.Data.selections,
-                                                            onObjectWithKey: rootCacheKey(for: query),
-                                                            variables: query.variables,
-                                                            accumulator: zip(mapper, dependencyTracker))
-        
-        let result = GraphQLResult(data: data,
-                                   extensions: nil,
-                                   errors: nil,
-                                   source:.cache,
-                                   dependentKeys: dependentKeys)
-        resultHandler(.success(result))
-      } catch {
-        resultHandler(.failure(error))
-      }
-    }
+      let (data, dependentKeys) = try transaction.execute(selections: Operation.Data.selections,
+                                                          onObjectWithKey: rootCacheKey(for: query),
+                                                          variables: query.variables,
+                                                          accumulator: zip(mapper, dependencyTracker))
+      
+      return GraphQLResult(data: data,
+                           extensions: nil,
+                           errors: nil,
+                           source:.cache,
+                           dependentKeys: dependentKeys)
+    }, callbackQueue: callbackQueue, completion: resultHandler)
   }
 
   public class ReadTransaction {
