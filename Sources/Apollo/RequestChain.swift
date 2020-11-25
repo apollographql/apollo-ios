@@ -111,7 +111,7 @@ public class RequestChain: Cancellable {
   
   /// Cancels the entire chain of interceptors.
   public func cancel() {
-    self.isCancelled.value = true
+    self.isCancelled.mutate { $0 = true }
     
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
