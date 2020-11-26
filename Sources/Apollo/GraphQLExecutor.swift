@@ -288,7 +288,9 @@ final class GraphQLExecutor {
     case .scalar:
       return PossiblyDeferred { try accumulator.accept(scalar: value, info: info) }
     case .list(let innerType):
-      guard let array = value as? [JSONValue] else { return .immediate(.failure(JSONDecodingError.wrongType)) }
+      guard let array = value as? [JSONValue] else {
+        return .immediate(.failure(JSONDecodingError.wrongType))
+      }
       
       let completedArray = array.enumerated().map { index, element -> PossiblyDeferred<Accumulator.PartialResult> in
         var info = info
