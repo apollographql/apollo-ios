@@ -6,7 +6,7 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
-    "gatsby": "2.27.0",
+    "gatsby": "2.27.4",
     "gatsby-theme-apollo-docs": "4.5.11",
     "react": "17.0.1",
     "react-dom": "17.0.1"
