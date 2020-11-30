@@ -26,7 +26,7 @@ public final class MockURLSessionClient: URLSessionClient {
   public override func sendRequest(_ request: URLRequest,
                                    rawTaskCompletionHandler: URLSessionClient.RawCompletion? = nil,
                                    completion: @escaping URLSessionClient.Completion) -> URLSessionTask {
-    self.lastRequest.value = request
+    self.lastRequest.mutate { $0 = request }
         
     // Capture data, response, and error instead of self to ensure we complete with the current state
     // even if it is changed before the block runs.

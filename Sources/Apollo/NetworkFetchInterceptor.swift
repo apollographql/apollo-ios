@@ -1,9 +1,12 @@
 import Foundation
+#if !COCOAPODS
+import ApolloCore
+#endif
 
 /// An interceptor which actually fetches data from the network.
 public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
   let client: URLSessionClient
-  private var currentTask: URLSessionTask?
+  private var currentTask: Atomic<URLSessionTask?> = Atomic(nil)
   
   /// Designated initializer.
   ///
@@ -29,13 +32,13 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
       return
     }
     
-    self.currentTask = self.client.sendRequest(urlRequest) { [weak self] result in
+    let task = self.client.sendRequest(urlRequest) { [weak self] result in
       guard let self = self else {
         return
       }
       
       defer {
-        self.currentTask = nil
+        self.currentTask.mutate { $0 = nil }
       }
       
       guard chain.isNotCancelled else {
@@ -57,9 +60,15 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
                            completion: completion)
       }
     }
+    
+    self.currentTask.mutate { $0 = task }
   }
   
   public func cancel() {
-    self.currentTask?.cancel()
+    guard let task = self.currentTask.value else {
+      return
+    }
+    
+    task.cancel()
   }
 }
