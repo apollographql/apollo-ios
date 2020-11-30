@@ -13,7 +13,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
   }
@@ -27,7 +27,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertThrowsError(try response.parseResult().await()) { error in
+    XCTAssertThrowsError(try response.parseResult()) { error in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["hero", "name"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -46,7 +46,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.hero?.name, "10")
   }
@@ -60,7 +60,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertThrowsError(try response.parseResult().await()) { error in
+    XCTAssertThrowsError(try response.parseResult()) { error in
       if let error = error as? GraphQLResultError, case JSONDecodingError.couldNotConvert(let value, let expectedType) = error.underlying {
         XCTAssertEqual(error.path, ["hero", "name"])
         XCTAssertEqual(value as? Double, 10.0)
@@ -80,7 +80,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.hero?.appearsIn, [.newhope, .empire, .jedi])
   }
@@ -94,7 +94,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
       ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.hero?.appearsIn, [])
   }
@@ -116,7 +116,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
     let friendsNames = result.data?.hero?.friends?.compactMap { $0?.name }
@@ -136,7 +136,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
       ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
     XCTAssertEqual(result.data?.hero?.friends?.isEmpty, true)
@@ -159,7 +159,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.hero?.name, "R2-D2")
     let friendsNames = result.data?.hero?.fragments.friendsNames.friends?.compactMap { $0?.name }
@@ -176,7 +176,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.r2?.name, "R2-D2")
     XCTAssertEqual(result.data?.luke?.name, "Luke Skywalker")
@@ -191,7 +191,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     let droid = try XCTUnwrap(result.data?.hero?.asDroid,
                               "Wrong type")
@@ -208,7 +208,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     let human = try XCTUnwrap(result.data?.hero?.asHuman,
                               "Wrong type")
@@ -225,7 +225,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertEqual(result.data?.hero?.name, "Charmander")
   }
@@ -239,7 +239,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    XCTAssertThrowsError(try response.parseResult().await()) { error in
+    XCTAssertThrowsError(try response.parseResult()) { error in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["hero", "__typename"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -258,7 +258,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     let droid = try XCTUnwrap(result.data?.hero?.fragments.heroDetails.asDroid,
                               "Wrong type")
@@ -275,7 +275,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     let human = try XCTUnwrap(result.data?.hero?.fragments.heroDetails.asHuman,
                               "Wrong type")
@@ -292,7 +292,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data?.human)
   }
@@ -304,7 +304,7 @@ class ParseQueryResponseTests: XCTestCase {
       "data": [:]
     ])
     
-    XCTAssertThrowsError(try response.parseResult().await()) { error in
+    XCTAssertThrowsError(try response.parseResult()) { error in
       if case let error as GraphQLResultError = error {
         XCTAssertEqual(error.path, ["human"])
         XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
@@ -322,7 +322,7 @@ class ParseQueryResponseTests: XCTestCase {
       "extensions": [:]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertNotNil(result.extensions)
   }
@@ -335,7 +335,7 @@ class ParseQueryResponseTests: XCTestCase {
       "extensions": ["parentKey": ["childKey": "someValue"]]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     let extensionsDictionary = result.extensions
     let childDictionary = extensionsDictionary?["parentKey"] as? JSONObject
 
@@ -351,7 +351,7 @@ class ParseQueryResponseTests: XCTestCase {
       "data": ["human": NSNull()]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertNil(result.extensions)
   }
@@ -363,7 +363,7 @@ class ParseQueryResponseTests: XCTestCase {
       "extensions": [:]
     ])
 
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
 
     XCTAssertNotNil(result.extensions)
   }
@@ -383,7 +383,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertEqual(result.data?.createReview?.stars, 5)
     XCTAssertEqual(result.data?.createReview?.commentary, "This is a great movie!")
@@ -402,7 +402,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
       ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")
@@ -423,7 +423,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")
@@ -443,7 +443,7 @@ class ParseQueryResponseTests: XCTestCase {
       ]
     ])
     
-    let (result, _) = try response.parseResult().await()
+    let (result, _) = try response.parseResult()
     
     XCTAssertNil(result.data)
     XCTAssertEqual(result.errors?.first?.message, "Some error")

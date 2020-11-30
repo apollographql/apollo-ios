@@ -90,7 +90,7 @@ public final class SQLiteNormalizedCache {
     return Set(changedFieldKeys)
   }
 
-  private func selectRecords(forKeys keys: [CacheKey]) throws -> [Record] {
+  private func selectRecords(forKeys keys: Set<CacheKey>) throws -> [Record] {
     let query = self.records.filter(keys.contains(key))
     return try self.db.prepare(query).map { try parse(row: $0) }
   }
@@ -117,62 +117,17 @@ public final class SQLiteNormalizedCache {
 // MARK: - NormalizedCache conformance
 
 extension SQLiteNormalizedCache: NormalizedCache {
-
-  public func merge(records: RecordSet,
-                    callbackQueue: DispatchQueue?,
-                    completion: @escaping (Swift.Result<Set<CacheKey>, Error>) -> Void) {
-    let result: Swift.Result<Set<CacheKey>, Error>
-    do {
-      let records = try self.mergeRecords(records: records)
-      result = .success(records)
-    } catch {
-      result = .failure(error)
-    }
-
-    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                   action: completion,
-                                                   result: result)
+  public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
+    return [CacheKey: Record](uniqueKeysWithValues:
+                                try selectRecords(forKeys: keys)
+                                .map { record in (record.key, record) })
   }
-
-  public func loadRecords(forKeys keys: [CacheKey],
-                          callbackQueue: DispatchQueue?,
-                          completion: @escaping (Swift.Result<[Record?], Error>) -> Void) {
-    let result: Swift.Result<[Record?], Error>
-    do {
-      let records = try self.selectRecords(forKeys: keys)
-      let recordsIndexMap = records.indices.reduce(into: [:]) { resultMap, index in
-        resultMap[records[index].key] = index
-      }
-
-      let recordsOrNil: [Record?] = keys.map { key in
-        recordsIndexMap[key].flatMap { records[$0] }
-      }
-
-      result = .success(recordsOrNil)
-    } catch {
-      result = .failure(error)
-    }
-
-    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                   action: completion,
-                                                   result: result)
+  
+  public func merge(records: RecordSet) throws -> Set<CacheKey> {
+    return try mergeRecords(records: records)
   }
-
-  public func clear(callbackQueue: DispatchQueue?, completion: ((Swift.Result<Void, Error>) -> Void)?) {
-    let result: Swift.Result<Void, Error>
-    do {
-      try clearImmediately()
-      result = .success(())
-    } catch {
-      result = .failure(error)
-    }
-
-    DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                   action: completion,
-                                                   result: result)
-  }
-
-  public func clearImmediately() throws {
+  
+  public func clear() throws {
     try clearRecords()
   }
 }

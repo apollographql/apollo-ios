@@ -55,13 +55,6 @@ extension CacheDependentTesting where Self: XCTestCase {
   }
   
   public func mergeRecordsIntoCache(_ records: RecordSet) {
-    let expectation = self.expectation(description: "Merged records into normalized cache")
-    
-    cache.merge(records: records, callbackQueue: nil) { result in
-      defer { expectation.fulfill() }
-      XCTAssertSuccessResult(result)
-    }
-        
-    wait(for: [expectation], timeout: defaultWaitTimeout)
+    _ = try! cache.merge(records: records)
   }
 }

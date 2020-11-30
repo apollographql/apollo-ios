@@ -28,8 +28,8 @@ public struct RecordSet {
     return storage.isEmpty
   }
 
-  public var keys: [CacheKey] {
-    return Array(storage.keys)
+  public var keys: Set<CacheKey> {
+    return Set(storage.keys)
   }
 
   @discardableResult public mutating func merge(records: RecordSet) -> Set<CacheKey> {

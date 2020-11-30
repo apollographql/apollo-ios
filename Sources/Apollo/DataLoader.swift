@@ -1,52 +1,42 @@
-import Dispatch
+import Foundation
 
 final class DataLoader<Key: Hashable, Value> {
-  public typealias BatchLoad = ([Key]) -> Promise<[Value]>
-  typealias Load = (key: Key, fulfill: (Value) -> Void, reject: (Error) -> Void)
-
+  public typealias BatchLoad = (Set<Key>) throws -> [Key: Value]
   private var batchLoad: BatchLoad
 
-  private var cache: [Key: Promise<Value>] = [:]
-  private var loads: [Load] = []
+  private var cache: [Key: Result<Value?, Error>] = [:]
+  private var pendingLoads: Set<Key> = []
 
   public init(_ batchLoad: @escaping BatchLoad) {
     self.batchLoad = batchLoad
   }
 
-  subscript(key: Key) -> Promise<Value> {
-    if let promise = cache[key] {
-      return promise
+  subscript(key: Key) -> PossiblyDeferred<Value?> {
+    if let cachedResult = cache[key] {
+      return .immediate(cachedResult)
     }
+    
+    pendingLoads.insert(key)
 
-    let promise = Promise<Value> { fulfill, reject in
-      enqueue(load: (key, fulfill, reject))
-    }
-
-    cache[key] = promise
-
-    return promise
+    return .deferred { try self.load(key) }
   }
-
-  private func enqueue(load: Load) {
-    self.loads.append(load)
-  }
-
-  func dispatch() {
-    let loads = self.loads
-
-    if loads.isEmpty { return }
-
-    self.loads = []
-
-    let keys = loads.map { $0.key }
-
-    self.batchLoad(keys).catch { error in
-      loads.forEach { $0.reject(error) }
-    }.andThen { values in
-      for (load, value) in zip(loads, values) {
-        load.fulfill(value)
-      }
+  
+  private func load(_ key: Key) throws -> Value? {
+    if let cachedResult = cache[key] {
+      return try cachedResult.get()
     }
+    
+    assert(pendingLoads.contains(key))
+    
+    let values = try batchLoad(pendingLoads)
+    
+    for key in pendingLoads {
+      cache[key] = .success(values[key])
+    }
+    
+    pendingLoads.removeAll()
+        
+    return values[key]
   }
   
   func removeAll() {

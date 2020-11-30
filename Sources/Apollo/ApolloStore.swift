@@ -36,10 +36,6 @@ public final class ApolloStore {
 
   private let cache: NormalizedCache
 
-  // We need a separate read/write lock for cache access because cache operations are
-  // asynchronous and we don't want to block the dispatch threads
-  private let cacheLock = ReadWriteLock()
-
   private var subscribers: [ApolloStoreSubscriber] = []
 
   /// Designated initializer
@@ -61,25 +57,25 @@ public final class ApolloStore {
   /// - Returns: A promise which fulfills when the Cache is cleared.
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
-      self.cacheLock.withWriteLock {
-          self.cache.clearPromise()
-        }.andThen {
-          DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
-                                                         action: completion,
-                                                         result: .success(()))
-      }
+      let result = Result { try self.cache.clear() }
+      DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                     action: completion,
+                                                     result: result)
     }
   }
 
-  func publish(records: RecordSet, identifier: UUID? = nil) -> Promise<Void> {
-    return Promise<Void> { fulfill, reject in
-      queue.async(flags: .barrier) {
-        self.cacheLock.withWriteLock {
-          self.cache.mergePromise(records: records)
-        }.andThen { changedKeys in
-          self.didChangeKeys(changedKeys, identifier: identifier)
-          fulfill(())
-        }.wait()
+  func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    queue.async(flags: .barrier) {
+      do {
+        let changedKeys = try self.cache.merge(records: records)
+        self.didChangeKeys(changedKeys, identifier: identifier)
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .success(()))
+      } catch {
+        DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
+                                                       action: completion,
+                                                       result: .failure(error))
       }
     }
   }
@@ -96,19 +92,6 @@ public final class ApolloStore {
     }
   }
 
-  func withinReadTransactionPromise<T>(_ body: @escaping (ReadTransaction) throws -> Promise<T>) -> Promise<T> {
-    return Promise<ReadTransaction> { fulfill, reject in
-      self.queue.async {
-        self.cacheLock.lockForReading()
-
-        fulfill(ReadTransaction(store: self))
-      }
-    }.flatMap(body)
-     .finally {
-      self.cacheLock.unlock()
-    }
-  }
-
   /// Performs an operation within a read transaction
   ///
   /// - Parameters:
@@ -118,33 +101,21 @@ public final class ApolloStore {
   public func withinReadTransaction<T>(_ body: @escaping (ReadTransaction) throws -> T,
                                        callbackQueue: DispatchQueue? = nil,
                                        completion: ((Result<T, Error>) -> Void)? = nil) {
-    _ = self.withinReadTransactionPromise {
-        Promise(fulfilled: try body($0))
-      }
-      .andThen { object in
+    self.queue.async {
+      do {
+        let returnValue = try body(ReadTransaction(store: self))
+        
         DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
-                                                       result: .success(object))
-      }
-      .catch { error in
+                                                       result: .success(returnValue))
+      } catch {
         DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
                                                        result: .failure(error))
-    }
-  }
-
-  func withinReadWriteTransactionPromise<T>(_ body: @escaping (ReadWriteTransaction) throws -> Promise<T>) -> Promise<T> {
-    return Promise<ReadWriteTransaction> { fulfill, reject in
-      self.queue.async(flags: .barrier) {
-        self.cacheLock.lockForWriting()
-        fulfill(ReadWriteTransaction(store: self))
       }
-    }.flatMap(body)
-     .finally {
-      self.cacheLock.unlock()
     }
   }
-
+  
   /// Performs an operation within a read-write transaction
   ///
   /// - Parameters:
@@ -154,36 +125,18 @@ public final class ApolloStore {
   public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransaction) throws -> T,
                                             callbackQueue: DispatchQueue? = nil,
                                             completion: ((Result<T, Error>) -> Void)? = nil) {
-    _ = self.withinReadWriteTransactionPromise {
-        Promise(fulfilled: try body($0))
-      }
-      .andThen { object in
+    self.queue.async(flags: .barrier) {
+      do {
+        let returnValue = try body(ReadWriteTransaction(store: self))
+        
         DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
-                                                       result: .success(object))
-      }
-      .catch { error in
+                                                       result: .success(returnValue))
+      } catch {
         DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
                                                        result: .failure(error))
       }
-  }
-
-  func load<Operation: GraphQLOperation>(query: Operation) -> Promise<GraphQLResult<Operation.Data>> {
-    return withinReadTransactionPromise { transaction in
-      let mapper = GraphQLSelectionSetMapper<Operation.Data>()
-      let dependencyTracker = GraphQLDependencyTracker()
-
-      return try transaction.execute(selections: Operation.Data.selections,
-                                     onObjectWithKey: rootCacheKey(for: query),
-                                     variables: query.variables,
-                                     accumulator: zip(mapper, dependencyTracker))
-    }.map { (data: Operation.Data, dependentKeys: Set<CacheKey>) in
-      GraphQLResult(data: data,
-                    extensions: nil,
-                    errors: nil,
-                    source:.cache,
-                    dependentKeys: dependentKeys)
     }
   }
 
@@ -192,23 +145,31 @@ public final class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
-    load(query: query).andThen { result in
-      resultHandler(.success(result))
-    }.catch { error in
-      resultHandler(.failure(error))
-    }
+  public func load<Operation: GraphQLOperation>(query: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+    withinReadTransaction({ transaction in
+      let mapper = GraphQLSelectionSetMapper<Operation.Data>()
+      let dependencyTracker = GraphQLDependencyTracker()
+      
+      let (data, dependentKeys) = try transaction.execute(selections: Operation.Data.selections,
+                                                          onObjectWithKey: rootCacheKey(for: query),
+                                                          variables: query.variables,
+                                                          accumulator: zip(mapper, dependencyTracker))
+      
+      return GraphQLResult(data: data,
+                           extensions: nil,
+                           errors: nil,
+                           source:.cache,
+                           dependentKeys: dependentKeys)
+    }, callbackQueue: callbackQueue, completion: resultHandler)
   }
 
   public class ReadTransaction {
-    fileprivate let queue: DispatchQueue
     fileprivate let cache: NormalizedCache
     fileprivate let cacheKeyForObject: CacheKeyForObject?
 
-    fileprivate lazy var loader: DataLoader<CacheKey, Record?> = DataLoader(self.cache.loadRecordsPromise)
+    fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
 
     fileprivate init(store: ApolloStore) {
-      self.queue = DispatchQueue(label: "com.apollographql.ApolloStore.\(type(of: self))")
       self.cache = store.cache
       self.cacheKeyForObject = store.cacheKeyForObject
     }
@@ -226,52 +187,31 @@ public final class ApolloStore {
       return try execute(selections: type.selections,
                          onObjectWithKey: key,
                          variables: variables,
-                         accumulator: mapper).await()
+                         accumulator: mapper)
     }
 
-    public func loadRecords(forKeys keys: [CacheKey],
-                            callbackQueue: DispatchQueue = .main,
-                            completion: @escaping (Result<[Record?], Error>) -> Void) {
-      self.cache.loadRecords(forKeys: keys,
-                             callbackQueue: callbackQueue,
-                             completion: completion)
-    }
-
-    private final func complete(value: Any?) -> ResultOrPromise<JSONValue?> {
-      if let reference = value as? Reference {
-        return .promise(loader[reference.key].map { $0?.fields })
-      } else if let array = value as? Array<Any?> {
-        let completedValues = array.map(complete)
-        return whenAll(completedValues, notifyOn: queue).map { $0 }
-      } else {
-        return .result(.success(value))
+    fileprivate func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Accumulator.FinalResult {
+      let object = try loadObject(forKey: key).get()
+      
+      let executor = GraphQLExecutor { object, info in
+        return object[info.cacheKeyForField]
+      } resolveReference: { reference in
+        self.loadObject(forKey: reference.key)
       }
+      
+      executor.cacheKeyForObject = self.cacheKeyForObject
+      
+      return try executor.execute(selections: selections,
+                                  on: object,
+                                  withKey: key,
+                                  variables: variables,
+                                  accumulator: accumulator)
     }
-
-    fileprivate func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Promise<Accumulator.FinalResult> {
-      return loadObject(forKey: key).flatMap { [queue] object in
-        let executor = GraphQLExecutor(queue: queue) { object, info in
-          let value = object[info.cacheKeyForField]
-          return self.complete(value: value)
-        }
-
-        executor.dispatchDataLoads = self.loader.dispatch
-        executor.cacheKeyForObject = self.cacheKeyForObject
-
-        return try executor.execute(selections: selections,
-                                    on: object,
-                                    withKey: key,
-                                    variables: variables,
-                                    accumulator: accumulator)
-      }
-    }
-
-    private final func loadObject(forKey key: CacheKey) -> Promise<JSONObject> {
-      defer { loader.dispatch() }
-
-      return loader[key].map { record in
-        guard let object = record?.fields else { throw JSONDecodingError.missingValue }
-        return object
+    
+    private final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
+      self.loader[key].map { record in
+        guard let record = record else { throw JSONDecodingError.missingValue }
+        return record.fields
       }
     }
   }
@@ -321,72 +261,25 @@ public final class ApolloStore {
                        withKey key: CacheKey,
                        variables: GraphQLMap?) throws {
       let normalizer = GraphQLResultNormalizer()
-      let executor = GraphQLExecutor(queue: queue) { object, info in
-        return .result(.success(object[info.responseKeyForField]))
+      let executor = GraphQLExecutor { object, info in
+        return object[info.responseKeyForField]
       }
-
+      
       executor.cacheKeyForObject = self.cacheKeyForObject
-
-      _ = try executor.execute(selections: selections,
-                               on: object,
-                               withKey: key,
-                               variables: variables,
-                               accumulator: normalizer)
-      .flatMap {
-        self.cache.mergePromise(records: $0)
-      }.andThen { changedKeys in
-        // Remove cached values from the data loader, so subsequent reads
-        // within the same transaction will reload the updated value.
-        self.loader.removeAll()
-        
-        if let didChangeKeysFunc = self.updateChangedKeysFunc {
-          didChangeKeysFunc(changedKeys, nil)
-        }
-      }.await()
-    }
-  }
-}
-
-internal extension NormalizedCache {
-  func loadRecordsPromise(forKeys keys: [CacheKey]) -> Promise<[Record?]> {
-    return Promise { fulfill, reject in
-      self.loadRecords(
-        forKeys: keys,
-        callbackQueue: nil) { result in
-          switch result {
-          case .success(let records):
-            fulfill(records)
-          case .failure(let error):
-            reject(error)
-          }
-        }
-    }
-  }
-
-  func mergePromise(records: RecordSet) -> Promise<Set<CacheKey>> {
-    return Promise { fulfill, reject in
-      self.merge(
-        records: records,
-        callbackQueue: nil) { result in
-          switch result {
-          case .success(let cacheKeys):
-            fulfill(cacheKeys)
-          case .failure(let error):
-            reject(error)
-          }
-      }
-    }
-  }
-
-  func clearPromise() -> Promise<Void> {
-    return Promise { fulfill, reject in
-      self.clear(callbackQueue: nil) { result in
-        switch result {
-        case .success(let success):
-          fulfill(success)
-        case .failure(let error):
-          reject(error)
-        }
+      
+      let records = try executor.execute(selections: selections,
+                                         on: object,
+                                         withKey: key,
+                                         variables: variables,
+                                         accumulator: normalizer)
+      let changedKeys = try self.cache.merge(records: records)
+      
+      // Remove cached records, so subsequent reads
+      // within the same transaction will reload the updated value.
+      loader.removeAll()
+      
+      if let didChangeKeysFunc = self.updateChangedKeysFunc {
+        didChangeKeysFunc(changedKeys, nil)
       }
     }
   }

@@ -13,7 +13,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
     
@@ -30,7 +30,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
@@ -47,7 +47,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
     
@@ -72,7 +72,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
@@ -102,7 +102,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).await()
+    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] })
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
     
@@ -132,7 +132,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] }).await()
+    let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] })
     
     XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
     
@@ -154,7 +154,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero"])
     XCTAssertEqual(hero["__typename"] as? String, "Droid")
@@ -171,7 +171,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero"])
     XCTAssertEqual(hero["primaryFunction"] as? String, "Astromech")
@@ -186,7 +186,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero"])
     XCTAssertEqual(hero["homePlanet"] as? String, "Tatooine")
@@ -207,7 +207,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     let luke = try XCTUnwrap(records?["QUERY_ROOT.hero.friends.0"])
     XCTAssertEqual(luke["height(unit:METER)"] as? Double, 1.72)
@@ -228,7 +228,7 @@ class NormalizeQueryResults: XCTestCase {
       ]
     ])
     
-    let (_, records) = try response.parseResult().await()
+    let (_, records) = try response.parseResult()
     
     let han = try XCTUnwrap(records?["QUERY_ROOT.hero.friends.0"])
     XCTAssertEqual(han["height(unit:FOOT)"] as? Double, 5.905512)
