@@ -59,6 +59,8 @@
 		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
 		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
 		9B47515D2575AA4A0001FB87 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9B47515C2575AA4A0001FB87 /* InflectorKit */; };
+		9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47516D2575AA690001FB87 /* Pluralizer.swift */; };
+		9B4751AD2575B5070001FB87 /* PluralizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4751AC2575B5070001FB87 /* PluralizerTests.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -554,6 +556,8 @@
 		9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalBoolean.swift; sourceTree = "<group>"; };
 		9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Apollo.swift"; sourceTree = "<group>"; };
 		9B455CEA2492FB03002255A9 /* String+SHA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SHA.swift"; sourceTree = "<group>"; };
+		9B47516D2575AA690001FB87 /* Pluralizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pluralizer.swift; sourceTree = "<group>"; };
+		9B4751AC2575B5070001FB87 /* PluralizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluralizerTests.swift; sourceTree = "<group>"; };
 		9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CodegenTests.xcconfig"; sourceTree = "<group>"; };
 		9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionClient.swift; sourceTree = "<group>"; };
 		9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPBinAPI.swift; sourceTree = "<group>"; };
@@ -1070,6 +1074,14 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		9B4751BD2575BAFB0001FB87 /* Naming */ = {
+			isa = PBXGroup;
+			children = (
+				9B47516D2575AA690001FB87 /* Pluralizer.swift */,
+			);
+			name = Naming;
+			sourceTree = "<group>";
+		};
 		9B6835472463486200337AE6 /* ApolloCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -1122,6 +1134,7 @@
 		9B7B6F50233C26E400F32205 /* ApolloCodegenLib */ = {
 			isa = PBXGroup;
 			children = (
+				9B4751BD2575BAFB0001FB87 /* Naming */,
 				9BCB585D240758B2002F766E /* Extensions */,
 				9BD681332405F6BB000874CB /* Codegen */,
 				9BD681322405F69C000874CB /* CLI */,
@@ -1251,6 +1264,7 @@
 				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9B68F0542416B33300E97318 /* LineByLineComparison.swift */,
 				9BD681352405F725000874CB /* JSONTests.swift */,
+				9B4751AC2575B5070001FB87 /* PluralizerTests.swift */,
 				9B8C3FB4248DA3E000707B13 /* URLExtensionsTests.swift */,
 				9B3D711024884E1B00D8BAF4 /* UnionEnumGenerationTests.swift */,
 				9B0E4719240AFA060093BDA7 /* VariableToSwiftTypeTests.swift */,
@@ -2391,6 +2405,7 @@
 				9B0E4718240AF6D70093BDA7 /* ASTVariableType.swift in Sources */,
 				9B0E471C240B167C0093BDA7 /* String+Apollo.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
+				9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */,
 				9B3D70FE2488388E00D8BAF4 /* UnionEnumGenerator.swift in Sources */,
 				9B518C8C235F8B5F004C426D /* ApolloFilePathHelper.swift in Sources */,
 				9B518C87235F819E004C426D /* CLIDownloader.swift in Sources */,
@@ -2505,6 +2520,7 @@
 				9B3D711524889EB000D8BAF4 /* ExpectedNoCasesSearchResultType.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,
 				9BAEEC15234C132600808306 /* CLIExtractorTests.swift in Sources */,
+				9B4751AD2575B5070001FB87 /* PluralizerTests.swift in Sources */,
 				9B5A1EFE24352AED00F066BB /* ExpectedColorInput.swift in Sources */,
 				9BD681382405F7F6000874CB /* JSONTestHelpers.swift in Sources */,
 				9BAEEC19234C297800808306 /* ApolloCodegenTests.swift in Sources */,
