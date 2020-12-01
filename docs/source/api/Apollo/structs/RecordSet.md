@@ -24,7 +24,7 @@ public var isEmpty: Bool
 ### `keys`
 
 ```swift
-public var keys: [CacheKey]
+public var keys: Set<CacheKey>
 ```
 
 ## Methods

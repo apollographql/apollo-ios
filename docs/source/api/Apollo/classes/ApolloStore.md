@@ -88,10 +88,10 @@ public func withinReadWriteTransaction<T>(_ body: @escaping (ReadWriteTransactio
 | callbackQueue | [optional] a callback queue to perform the action on. Will perform on the current queue if not provided. Defaults to nil. |
 | completion | [optional] a completion block to fire when the read-write transaction completes. Defaults to nil. |
 
-### `load(query:resultHandler:)`
+### `load(query:callbackQueue:resultHandler:)`
 
 ```swift
-public func load<Operation: GraphQLOperation>(query: Operation, resultHandler: @escaping GraphQLResultHandler<Operation.Data>)
+public func load<Operation: GraphQLOperation>(query: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>)
 ```
 
 > Loads the results for the given query from the cache.

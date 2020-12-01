@@ -15,7 +15,7 @@ public class Atomic<T>
 public var value: T
 ```
 
-> The current value.
+> The current value. Read-only. To update the underlying value, use `mutate`.
 
 ## Methods
 ### `init(_:)`
@@ -40,7 +40,7 @@ public init(_ value: T)
 public func mutate(block: (inout T) -> Void)
 ```
 
-> Mutates the underlying value within a lock. Mostly useful for mutating the contents of `Atomic` wrappers around collections.
+> Mutates the underlying value within a lock.
 > - Parameter block: The block to execute to mutate the value.
 
 #### Parameters
