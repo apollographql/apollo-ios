@@ -58,6 +58,7 @@
 		9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE32492D0A3002255A9 /* OptionalBoolean.swift */; };
 		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
 		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
+		9B47515D2575AA4A0001FB87 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9B47515C2575AA4A0001FB87 /* InflectorKit */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
 		9B4F4541244A2A9200C2CF7D /* HTTPBinAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4540244A2A9200C2CF7D /* HTTPBinAPI.swift */; };
 		9B4F4543244A2AD300C2CF7D /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
@@ -824,6 +825,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B47515D2575AA4A0001FB87 /* InflectorKit in Frameworks */,
 				9B68F04D2413239100E97318 /* Stencil in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1827,6 +1829,7 @@
 			name = ApolloCodegenLib;
 			packageProductDependencies = (
 				9B68F04C2413239100E97318 /* Stencil */,
+				9B47515C2575AA4A0001FB87 /* InflectorKit */,
 			);
 			productName = ApolloCodegenLib;
 			productReference = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */;
@@ -2183,6 +2186,7 @@
 				9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */,
 				9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 				9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */,
+				9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */,
 			);
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
@@ -3371,6 +3375,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/InflectorKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stencilproject/Stencil.git";
@@ -3398,6 +3410,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9B47515C2575AA4A0001FB87 /* InflectorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */;
+			productName = InflectorKit;
+		};
 		9B68F04C2413239100E97318 /* Stencil */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */;
