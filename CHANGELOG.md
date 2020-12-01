@@ -1,5 +1,14 @@
 # Change log
 
+## v0.38.0
+
+- **BREAKING**: We've made some significant (~4x) performance improvements to the cache and eliminated _all_ our known Thread Sanitizer issues by removing some overly agressive multithreading and our internal Promises implementation. ([#1531](https://github.com/apollographql/apollo-ios/pull/1531)) Related Changes: 
+    - **POSSIBLY BREAKING**: These improvements caused changes in our `NormalizedCache` and `ApolloClientProtocol` protocols, so if you're implementing these yourself, you'll need to update. 
+    - **BREAKING**: Removed the `loadRecords(forKeys:)` method on `ReadTransaction`. We'd recommended that you use either `read` or `readObject` with the transaction, but if you were using `loadRecords`, you will need to shift to those other methds.
+    - **NEW**: `ApolloStore`'s `load(query:resultHandler:)` method now also takes an optional callback queue. 
+- **NEW**: Added the ability to say whether the results from a mutation should be published to the store are not. This is a boolean value which defeaults to `true`, to match existing behavior. ([#1521](https://github.com/apollographql/apollo-ios/pull/1521))
+- **BREAKING**: The setter for `Atomic`'s `value` is no longer public to prevent accidental misuse. If you were using this, use the `mutate` method instead to ensure the thread lock works properly. ([#1538](https://github.com/apollographql/apollo-ios/pull/1538))
+
 ## v0.37.0
 
 - **POSSIBLY BREAKING**: Updated behavior of `URLSessionClient` when it's been invalidated to throw an error instead of crashing. If you were relying on this failing loudly before, please be aware it's going to fail a lot more quietly now. ([#1489](https://github.com/apollographql/apollo-ios/pull/1489))
