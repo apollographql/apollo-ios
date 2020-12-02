@@ -7,6 +7,23 @@ extension Bundle: ApolloCompatible {}
 
 extension ApolloExtension where Base == Bundle {
 
+  #if os(Linux)
+  func bundleValue(forKey key: String) {
+    // No implementation
+  }
+  
+  var bundleIdentifier: String? {
+    return ""
+  }
+
+  var buildNumber: String? {
+    return ""
+  }
+
+  var shortVersion: String? {
+    return ""
+  }
+  #else
   /// Type-safe getter for info dictionary key objects
   ///
   /// - Parameter key: The key to try to grab an object for
@@ -29,4 +46,5 @@ extension ApolloExtension where Base == Bundle {
   var shortVersion: String? {
     return self.bundleValue(forKey: "CFBundleShortVersionString")
   }
+  #endif
 }

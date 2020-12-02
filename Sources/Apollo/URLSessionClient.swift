@@ -157,12 +157,14 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     self.clearAllTasks()
   }
   
+  #if !os(Linux)
   @available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        didFinishCollecting metrics: URLSessionTaskMetrics) {
     // No default implementation
   }
+  #endif
   
   open func urlSession(_ session: URLSession,
                        didReceive challenge: URLAuthenticationChallenge,
@@ -268,12 +270,14 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
   }
   
+  #if !os(Linux)
   @available(iOS 9.0, OSXApplicationExtension 10.11, OSX 10.11, *)
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didBecome streamTask: URLSessionStreamTask) {
     // No default implementation
   }
+  #endif
   
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
