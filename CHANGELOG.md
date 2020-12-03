@@ -1,5 +1,9 @@
 # Change log
 
+## v0.38.2
+
+- Updates a dependency used for Experimental Swift Codegen to use a version to fix an issue with resolution failures 
+
 ## v0.38.1
 
 - Updates `apollo-tooling` version to include a bugfix there. ([#1554](https://github.com/apollographql/apollo-ios/pull/1554))
