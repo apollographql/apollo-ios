@@ -43,6 +43,7 @@
 -   [CodegenLogger.LogLevel](enums/CodegenLogger.LogLevel/)
 -   [EnumGenerator.EnumContextKey](enums/EnumGenerator.EnumContextKey/)
 -   [EnumGenerator.EnumGenerationError](enums/EnumGenerator.EnumGenerationError/)
+-   [InflectionRule](enums/InflectionRule/)
 -   [InputObjectGenerator.InputObjectEnvironmentKey](enums/InputObjectGenerator.InputObjectEnvironmentKey/)
 -   [InterfaceEnumGenerator.InterfaceEnumContextKey](enums/InterfaceEnumGenerator.InterfaceEnumContextKey/)
 -   [JSONValue](enums/JSONValue/)
