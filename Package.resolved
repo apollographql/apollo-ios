@@ -5,9 +5,9 @@
         "package": "InflectorKit",
         "repositoryURL": "https://github.com/apollographql/InflectorKit",
         "state": {
-          "branch": "master",
-          "revision": "f898cb1506b58962f76871686a55768c11e956cc",
-          "version": null
+          "branch": null,
+          "revision": "b1d0099abe36facd198113633f502889842906af",
+          "version": "0.0.2"
         }
       },
       {

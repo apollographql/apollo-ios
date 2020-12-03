@@ -38,7 +38,7 @@ let package = Package(
       .upToNextMinor(from: "0.14.0")),
     .package(
       url: "https://github.com/apollographql/InflectorKit",
-      .branch("master")),
+      .upToNextMinor(from: "0.0.2")),
     ],
     targets: [
       .target(

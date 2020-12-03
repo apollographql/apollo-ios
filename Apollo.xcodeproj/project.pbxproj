@@ -3395,8 +3395,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/InflectorKit.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.0.2;
 			};
 		};
 		9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */ = {
