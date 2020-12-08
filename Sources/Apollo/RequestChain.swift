@@ -162,8 +162,10 @@ public class RequestChain: Cancellable {
       return
     }
 
-    additionalHandler.handleErrorAsync(error: error, chain: self, request: request, response: response) { [weak self] result in
-      self?.callbackQueue.async {
+    // Capture callback queue so it doesn't get reaped when `self` is dealloced
+    let callbackQueue = self.callbackQueue
+    additionalHandler.handleErrorAsync(error: error, chain: self, request: request, response: response) { result in
+      callbackQueue.async {
         completion(result)
       }
     }
