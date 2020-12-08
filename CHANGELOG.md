@@ -1,5 +1,8 @@
 # Change log
 
+## v0.38.3
+- Fixes an issue that could cause callbacks to fail if a `retry` was performed in an `additionalErrorInterceptor`. ([#1563](https://github.com/apollographql/apollo-ios/pull/1563))
+
 ## v0.38.2
 
 - Updates a dependency used for Experimental Swift Codegen to use a version to fix an issue with resolution failures 
