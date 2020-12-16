@@ -20,6 +20,7 @@ extension ApolloExtension where Base == HTTPURLResponse {
   var textEncoding: String.Encoding? {
     guard let encodingName = base.textEncodingName else { return nil }
 
-    return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding(encodingName as CFString)))
+    guard let stringEncoding = StringEncoding.rawValue(encodingName: encodingName) else { return nil }
+    return stringEncoding
   }
 }
