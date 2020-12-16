@@ -13,10 +13,4 @@ extension ApolloExtension where Base == HTTPURLResponse {
   var statusCodeDescription: String {
     return HTTPURLResponse.localizedString(forStatusCode: base.statusCode)
   }
-
-  var textEncoding: String.Encoding? {
-    guard let encodingName = base.textEncodingName else { return nil }
-
-    return String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding(encodingName as CFString)))
-  }
 }
