@@ -20,11 +20,3 @@ public func readObject<SelectionSet: GraphQLSelectionSet>(ofType type: Selection
                                                           withKey key: CacheKey,
                                                           variables: GraphQLMap? = nil) throws -> SelectionSet
 ```
-
-### `loadRecords(forKeys:callbackQueue:completion:)`
-
-```swift
-public func loadRecords(forKeys keys: [CacheKey],
-                        callbackQueue: DispatchQueue = .main,
-                        completion: @escaping (Result<[Record?], Error>) -> Void)
-```

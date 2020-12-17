@@ -31,6 +31,12 @@ case dataForRequestNotFound(request: URLRequest?)
 case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
 ```
 
+### `sessionInvalidated`
+
+```swift
+case sessionInvalidated
+```
+
 ## Properties
 ### `errorDescription`
 

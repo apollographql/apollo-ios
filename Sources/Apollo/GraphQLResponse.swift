@@ -27,14 +27,14 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
   public func parseResultWithCompletion(cacheKeyForObject: CacheKeyForObject? = nil,
                                         completion: (Result<(GraphQLResult<Data>, RecordSet?), Error>) -> Void) {
     do {
-      let result = try parseResult(cacheKeyForObject: cacheKeyForObject).await()
+      let result = try parseResult(cacheKeyForObject: cacheKeyForObject)
       completion(.success(result))
     } catch {
       completion(.failure(error))
     }
   }
 
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> Promise<(GraphQLResult<Data>, RecordSet?)>  {
+  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {
     let errors: [GraphQLError]?
 
     if let errorsEntry = body["errors"] as? [JSONObject] {
@@ -47,40 +47,38 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
 
     if let dataEntry = body["data"] as? JSONObject {
       let executor = GraphQLExecutor { object, info in
-        return .result(.success(object[info.responseKeyForField]))
+        return object[info.responseKeyForField]
       }
-
+      
       executor.cacheKeyForObject = cacheKeyForObject
-
+      
       let mapper = GraphQLSelectionSetMapper<Data>()
       let normalizer = GraphQLResultNormalizer()
       let dependencyTracker = GraphQLDependencyTracker()
-
-      return firstly {
-        try executor.execute(selections: Data.selections,
-                             on: dataEntry,
-                             withKey: rootKey,
-                             variables: variables,
-                             accumulator: zip(mapper, normalizer, dependencyTracker))
-        }.map { (data, records, dependentKeys) in
-          (
-            GraphQLResult(data: data,
-                          extensions: extensions,
-                          errors: errors,
-                          source: .server,
-                          dependentKeys: dependentKeys),
-            records
-          )
-      }
+      
+      let (data, records, dependentKeys) = try executor.execute(selections: Data.selections,
+                                                                on: dataEntry,
+                                                                withKey: rootKey,
+                                                                variables: variables,
+                                                                accumulator: zip(mapper, normalizer, dependencyTracker))
+      
+      return (
+        GraphQLResult(data: data,
+                      extensions: extensions,
+                      errors: errors,
+                      source: .server,
+                      dependentKeys: dependentKeys),
+        records
+      )
     } else {
-      return Promise(fulfilled: (
+      return (
         GraphQLResult(data: nil,
                       extensions: extensions,
                       errors: errors,
                       source: .server,
                       dependentKeys: nil),
         nil
-      ))
+      )
     }
   }
 

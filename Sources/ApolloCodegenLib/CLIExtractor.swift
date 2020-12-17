@@ -25,7 +25,7 @@ struct CLIExtractor {
     }
   }
   
-  static let expectedSHASUM = "d8ff4cd914708479317354721dee8b156acebddb79abbdcda4348a341ab6e53d"
+  static let expectedSHASUM = "479e1c12adf631c43c093fdd9dd8e5c8eed33cb15e39de7165ce6f5e7f759904"
   
   /// Checks to see if the CLI has already been extracted and is the correct version, and extracts or re-extracts as necessary
   ///

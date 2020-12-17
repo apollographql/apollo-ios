@@ -37,14 +37,14 @@ public init(interceptors: [ApolloInterceptor],
 >
 > - Parameters:
 >   - interceptors: The array of interceptors to use.
->   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs. Defauls to `.main`.
+>   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs. Defaults to `.main`.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
 | interceptors | The array of interceptors to use. |
-| callbackQueue | The `DispatchQueue` to call back on when an error or result occurs. Defauls to `.main`. |
+| callbackQueue | The `DispatchQueue` to call back on when an error or result occurs. Defaults to `.main`. |
 
 ### `kickoff(request:completion:)`
 
@@ -107,7 +107,7 @@ public func retry<Operation: GraphQLOperation>(
   completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void)
 ```
 
-> Restarts the request starting from the first inteceptor.
+> Restarts the request starting from the first interceptor.
 >
 > - Parameters:
 >   - request: The request to retry

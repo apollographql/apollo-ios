@@ -110,6 +110,54 @@ class ApolloCodegenTests: XCTestCase {
     ])
   }
   
+  func testTryingToUseAFileURLToOutputMultipleFilesFails() {
+    let scriptFolderURL = CodegenTestHelper.cliFolderURL()
+    let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
+    let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
+    let outputFolder = CodegenTestHelper.outputFolderURL()
+    let outputFile = outputFolder.appendingPathComponent("API.swift")
+    
+    let options = ApolloCodegenOptions(outputFormat: .multipleFiles(inFolderAtURL: outputFile),
+                                       urlToSchemaFile: starWarsSchemaFileURL,
+                                       downloadTimeout: CodegenTestHelper.timeout)
+    do {
+      _ = try ApolloCodegen.run(from: starWarsFolderURL,
+                                with: scriptFolderURL,
+                                options: options)
+    } catch {
+      switch error {
+      case ApolloCodegen.CodegenError.multipleFilesButNotDirectoryURL(let url):
+        XCTAssertEqual(url, outputFile)
+      default:
+        XCTFail("Unexpected error running codegen: \(error.localizedDescription)")
+
+      }
+    }
+  }
+  
+  func testTryingToUseAFolderURLToOutputASingleFileFails() {
+    let scriptFolderURL = CodegenTestHelper.cliFolderURL()
+    let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
+    let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
+    let outputFolder = CodegenTestHelper.outputFolderURL()
+    
+    let options = ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: outputFolder),
+                                       urlToSchemaFile: starWarsSchemaFileURL,
+                                       downloadTimeout: CodegenTestHelper.timeout)
+    do {
+      _ = try ApolloCodegen.run(from: starWarsFolderURL,
+                                with: scriptFolderURL,
+                                options: options)
+    } catch {
+      switch error {
+      case ApolloCodegen.CodegenError.singleFileButNotSwiftFileURL(let url):
+        XCTAssertEqual(url, outputFolder)
+      default:
+        XCTFail("Unexpected error running codegen: \(error.localizedDescription)")
+      }
+    }
+  }
+  
   func testCodegenWithSingleFileOutputsSingleFile() throws {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()

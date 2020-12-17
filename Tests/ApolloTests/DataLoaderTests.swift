@@ -4,120 +4,82 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class DataLoaderTests: XCTestCase {
-  func testSingleLoad() {
-    let loader = DataLoader<Int, Int> { keys in
-      return Promise(fulfilled: keys)
+  func testSingleLoad() throws {
+    let loader = DataLoader<Int, String> { keys in
+      return self.wordsForNumbers(keys)
     }
     
-    let expectation = self.expectation(description: "Waiting for load")
-    
-    loader[1].andThen { value in
-      XCTAssertEqual(value, 1)
-      expectation.fulfill()
-    }
-    
-    loader.dispatch()
-    
-    waitForExpectations(timeout: 1)
+    XCTAssertEqual(try loader[1].get(), "one")
   }
   
-  func testMultipleLoads() {
+  func testMultipleLoads() throws {
     var numberOfBatchLoads = 0
     
-    let loader = DataLoader<Int, Int> { keys in
+    let loader = DataLoader<Int, String> { keys in
       numberOfBatchLoads += 1
-      return Promise(fulfilled: keys)
+      return self.wordsForNumbers(keys)
     }
+        
+    let results = [loader[1], loader[2]]
+    let values = try results.map { try $0.get() }
     
-    let expectation = self.expectation(description: "Waiting for all loads")
-    
-    let promises = [loader[1], loader[2]]
-    
-    whenAll(promises).andThen { values in
-      XCTAssertEqual(values, [1, 2])
-      XCTAssertEqual(numberOfBatchLoads, 1)
-      expectation.fulfill()
-    }
-    
-    loader.dispatch()
-    
-    waitForExpectations(timeout: 1)
+    XCTAssertEqual(values, ["one", "two"])
+    XCTAssertEqual(numberOfBatchLoads, 1)
   }
   
-  func testCoalescesIdenticalRequests() {
-    var batchLoads: [[Int]] = []
+  func testCoalescesIdenticalRequests() throws {
+    var batchLoads: [Set<Int>] = []
     
-    let loader = DataLoader<Int, Int> { keys in
+    let loader = DataLoader<Int, String> { keys in
       batchLoads.append(keys)
-      return Promise(fulfilled: keys)
+      return self.wordsForNumbers(keys)
     }
+        
+    let results = [loader[1], loader[1]]
+    let values = try results.map { try $0.get() }
     
-    let expectation = self.expectation(description: "Waiting for all loads")
-    
-    let promises = [loader[1], loader[1]]
-    
-    whenAll(promises).andThen { values in
-      XCTAssertEqual(values, [1, 1])
-      XCTAssertEqual(batchLoads.count, 1)
-      XCTAssertEqual(batchLoads[0], [1])
-      expectation.fulfill()
-    }
-    
-    loader.dispatch()
-    
-    waitForExpectations(timeout: 1)
+    XCTAssertEqual(values, ["one", "one"])
+    XCTAssertEqual(batchLoads.count, 1)
+    XCTAssertEqual(batchLoads[0], [1])
   }
   
-  func testCachesRepeatedRequests() {
-    var batchLoads: [[String]] = []
+  func testCachesRepeatedRequests() throws {
+    var batchLoads: [Set<Int>] = []
     
-    let loader = DataLoader<String, String> { keys in
+    let loader = DataLoader<Int, String> { keys in
       batchLoads.append(keys)
-      return Promise(fulfilled: keys)
+      return self.wordsForNumbers(keys)
     }
+        
+    let results1 = [loader[1], loader[2]]
+    let values1 = try results1.map { try $0.get() }
     
-    let expectation1 = self.expectation(description: "Waiting for all loads")
+    XCTAssertEqual(values1, ["one", "two"])
+    XCTAssertEqual(batchLoads.count, 1)
+    XCTAssertEqualUnordered(batchLoads[0], [1, 2])
+        
+    let results2 = [loader[1], loader[3]]
+    let values2 = try results2.map { try $0.get() }
     
-    let promises1 = [loader["A"], loader["B"]]
+    XCTAssertEqual(values2, ["one", "three"])
+    XCTAssertEqual(batchLoads.count, 2)
+    XCTAssertEqual(batchLoads[1], [3])
     
-    whenAll(promises1).andThen { values in
-      XCTAssertEqual(values, ["A", "B"])
-      XCTAssertEqual(batchLoads.count, 1)
-      XCTAssertEqual(batchLoads[0], ["A", "B"])
-      expectation1.fulfill()
+    let results3 = [loader[1], loader[2], loader[3]]
+    let values3 = try results3.map { try $0.get() }
+
+    XCTAssertEqual(values3, ["one", "two", "three"])
+    XCTAssertEqual(batchLoads.count, 2)
+  }
+  
+  // - Helpers
+  
+  private func wordsForNumbers(_ keys: Set<Int>) -> [Int: String] {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .spellOut
+    
+    return keys.reduce(into: [:]) { result, key in
+      result[key] = formatter.string(from: key as NSNumber)
     }
-    
-    loader.dispatch()
-    
-    waitForExpectations(timeout: 1)
-    
-    let expectation2 = self.expectation(description: "Waiting for all loads")
-    
-    let promises2 = [loader["A"], loader["C"]]
-    
-    whenAll(promises2).andThen { values in
-      XCTAssertEqual(values, ["A", "C"])
-      XCTAssertEqual(batchLoads.count, 2)
-      XCTAssertEqual(batchLoads[1], ["C"])
-      expectation2.fulfill()
-    }
-    
-    loader.dispatch()
-    
-    waitForExpectations(timeout: 1)
-    
-    let expectation3 = self.expectation(description: "Waiting for all loads")
-    
-    let promises3 = [loader["A"], loader["B"], loader["C"]]
-    
-    whenAll(promises3).andThen { values in
-      XCTAssertEqual(values, ["A", "B", "C"])
-      XCTAssertEqual(batchLoads.count, 2)
-      expectation3.fulfill()
-    }
-    
-    loader.dispatch()
-    
-    waitForExpectations(timeout: 1)
   }
 }

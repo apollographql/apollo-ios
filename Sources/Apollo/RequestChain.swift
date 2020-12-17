@@ -111,7 +111,7 @@ public class RequestChain: Cancellable {
   
   /// Cancels the entire chain of interceptors.
   public func cancel() {
-    self.isCancelled.value = true
+    self.isCancelled.mutate { $0 = true }
     
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
@@ -162,8 +162,10 @@ public class RequestChain: Cancellable {
       return
     }
 
-    additionalHandler.handleErrorAsync(error: error, chain: self, request: request, response: response) { [weak self] result in
-      self?.callbackQueue.async {
+    // Capture callback queue so it doesn't get reaped when `self` is dealloced
+    let callbackQueue = self.callbackQueue
+    additionalHandler.handleErrorAsync(error: error, chain: self, request: request, response: response) { result in
+      callbackQueue.async {
         completion(result)
       }
     }

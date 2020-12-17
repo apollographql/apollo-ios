@@ -24,5 +24,5 @@ case singleFile(atFileURL: URL)
 case multipleFiles(inFolderAtURL: URL)
 ```
 
-> Outputs everything into individual files in a folder at the given URL
+> Outputs everything into individual files in a folder a the given URL
 > NOTE: URL must be a folder URL

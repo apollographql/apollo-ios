@@ -119,6 +119,8 @@
 -   [InterceptorProvider](extensions/InterceptorProvider/)
 -   [JSONDecodingError](extensions/JSONDecodingError/)
 -   [JSONEncodable](extensions/JSONEncodable/)
+-   [NSDictionary](extensions/NSDictionary/)
+-   [NSNull](extensions/NSNull/)
 -   [NetworkTransport](extensions/NetworkTransport/)
 -   [Optional](extensions/Optional/)
 -   [Parseable](extensions/Parseable/)

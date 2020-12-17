@@ -4,21 +4,21 @@ import ApolloTestSupport
 import ApolloSQLite
 
 public class SQLiteTestCacheProvider: TestCacheProvider {
-  public static func withCache(initialRecords: RecordSet? = nil, execute test: (NormalizedCache) throws -> ()) rethrows {
-    return try withCache(initialRecords: initialRecords, fileURL: nil, execute: test)
-  }
-  
   /// Execute a test block rather than return a cache synchronously, since cache setup may be
   /// asynchronous at some point.
-  public static func withCache(initialRecords: RecordSet? = nil, fileURL: URL? = nil, execute test: (NormalizedCache) throws -> ()) rethrows {
+  public static func withCache(initialRecords: RecordSet? = nil, fileURL: URL? = nil, execute test: (NormalizedCache) throws -> ()) throws {
     let fileURL = fileURL ?? temporarySQLiteFileURL()
     let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
     if let initialRecords = initialRecords {
-      cache.merge(records: initialRecords, callbackQueue: nil, completion: { _ in
-        // Theoretically, this should be synchronous
-      }) // This is synchronous
+      _ = try cache.merge(records: initialRecords)
     }
     try test(cache)
+  }
+  
+  public static func makeNormalizedCache(_ completionHandler: (Result<TestDependency<NormalizedCache>, Error>) -> ()) {
+    let fileURL = temporarySQLiteFileURL()
+    let cache = try! SQLiteNormalizedCache(fileURL: fileURL)
+    completionHandler(.success((cache, nil)))
   }
 
   public static func temporarySQLiteFileURL() -> URL {

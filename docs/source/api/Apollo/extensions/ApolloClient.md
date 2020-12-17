@@ -63,10 +63,11 @@ public func watch<Query: GraphQLQuery>(query: Query,
 | cachePolicy | A cache policy that specifies when results should be fetched from the server or from the local cache. |
 | resultHandler | [optional] A closure that is called when query results are available or when an error occurs. |
 
-### `perform(mutation:queue:resultHandler:)`
+### `perform(mutation:publishResultToStore:queue:resultHandler:)`
 
 ```swift
 public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
+                                               publishResultToStore: Bool = true,
                                                queue: DispatchQueue = .main,
                                                resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable
 ```
@@ -76,6 +77,7 @@ public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
 | Name | Description |
 | ---- | ----------- |
 | mutation | The mutation to perform. |
+| publishResultToStore | If `true`, this will publish the result returned from the operation to the cache store. Default is `true`. |
 | queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
 | resultHandler | An optional closure that is called when mutation results are available or when an error occurs. |
 

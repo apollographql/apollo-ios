@@ -3,5 +3,5 @@
 # `DataLoader.BatchLoad`
 
 ```swift
-public typealias BatchLoad = ([Key]) -> Promise<[Value]>
+public typealias BatchLoad = (Set<Key>) throws -> [Key: Value]
 ```

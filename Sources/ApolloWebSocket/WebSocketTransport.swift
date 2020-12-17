@@ -239,7 +239,7 @@ public class WebSocketTransport {
   }
 
   public func closeConnection() {
-    self.reconnect.value = false
+    self.reconnect.mutate { $0 = false }
 
     let str = OperationMessage(type: .connectionTerminate).rawMessage
     processingQueue.async {
@@ -325,12 +325,12 @@ public class WebSocketTransport {
 
   private func reconnectWebSocket() {
     let oldReconnectValue = reconnect.value
-    self.reconnect.value = false
+    self.reconnect.mutate { $0 = false }
 
     self.websocket.disconnect()
     self.websocket.connect()
 
-    reconnect.value = oldReconnectValue
+    self.reconnect.mutate { $0 = oldReconnectValue }
   }
   
   /// Disconnects the websocket while setting the auto-reconnect value to false,
@@ -338,7 +338,7 @@ public class WebSocketTransport {
   /// NOTE: You will receive an error on the subscription (should be a `Starscream.WSError` with code 1000) when the socket disconnects.
   /// ALSO NOTE: To reconnect after calling this, you will need to call `resumeWebSocketConnection`.
   public func pauseWebSocketConnection() {
-    self.reconnect.value = false
+    self.reconnect.mutate { $0 = false }
     self.websocket.disconnect()
   }
   
@@ -346,7 +346,7 @@ public class WebSocketTransport {
   ///
   /// - Parameter autoReconnect: `true` if you want the websocket to automatically reconnect if the connection drops. Defaults to true.
   public func resumeWebSocketConnection(autoReconnect: Bool = true) {
-    self.reconnect.value = autoReconnect
+    self.reconnect.mutate { $0 = autoReconnect }
     self.websocket.connect()
   }
 }
@@ -360,8 +360,15 @@ extension WebSocketTransport: NetworkTransport {
     contextIdentifier: UUID? = nil,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    
+    func callCompletion(with result: Result<GraphQLResult<Operation.Data>, Error>) {
+      callbackQueue.async {
+        completionHandler(result)
+      }
+    }
+    
     if let error = self.error.value {
-      completionHandler(.failure(error))
+      callCompletion(with: .failure(error))
       return EmptyCancellable()
     }
 
@@ -371,12 +378,12 @@ extension WebSocketTransport: NetworkTransport {
         let response = GraphQLResponse(operation: operation, body: jsonBody)
         do {
           let graphQLResult = try response.parseResultFast()
-          completionHandler(.success(graphQLResult))
+          callCompletion(with: .success(graphQLResult))
         } catch {
-          completionHandler(.failure(error))
+          callCompletion(with: .failure(error))
         }
       case .failure(let error):
-        completionHandler(.failure(error))
+        callCompletion(with: .failure(error))
       }
     }
   }
@@ -387,7 +394,7 @@ extension WebSocketTransport: NetworkTransport {
 extension WebSocketTransport: WebSocketDelegate {
 
   public func websocketDidConnect(socket: WebSocketClient) {
-    self.error.value = nil
+    self.error.mutate { $0 = nil }
     initServer()
     if reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
@@ -412,10 +419,12 @@ extension WebSocketTransport: WebSocketDelegate {
   public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
     // report any error to all subscribers
     if let error = error {
-      self.error.value = WebSocketError(payload: nil, error: error, kind: .networkError)
+      self.error.mutate { $0 = WebSocketError(payload: nil,
+                                              error: error,
+                                              kind: .networkError) }
       self.notifyErrorAllHandlers(error)
     } else {
-      self.error.value = nil
+      self.error.mutate { $0 = nil }
     }
 
     self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error.value)

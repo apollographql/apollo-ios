@@ -17,7 +17,7 @@ All caches used by the `ApolloClient` must conform to the [`NormalizedCache` pro
 - **`InMemoryNormalizedCache`**: This is included with the main `Apollo` library, and is the default caching strategy for the Apollo Client. This stores normalized results in-memory, so results are not persisted across sessions of the application. 
 - **`SQLiteCache`**: This is included via the [`ApolloSQLite`](api/ApolloSQLite/README/) library. This writes out cache results to a `SQLite` file rather than holding the results in memory. Note that this in turn causes cache hits to go to disk, which may result in somewhat slower responses. However, this also reduces the chances of unbounded memory growth, since everything gets dumped to disk. 
 
-All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](api/Apollo/protocols/NormalizedCache/#clearcallbackqueuecompletion). If you need to work more directly with the cache, please see the [Direct Cache Access](#direct-cache-access) section.
+All caches can be cleared in their entirety by calling [`clear(callbackQueue:completion:)`](api/Apollo/protocols/NormalizedCache/#clear). If you need to work more directly with the cache, please see the [Direct Cache Access](#direct-cache-access) section.
 
 ## Cache Setup
 
@@ -108,6 +108,8 @@ Other cache polices which you can specify are:
 - **`.fetchIgnoringCacheCompletely`** to always fetch from the server and not store results from the cache. If you're not using the cache at all, this method is preferred to `fetchIgnoringCacheData` for performance reasons.
 - **`.returnCacheDataDontFetch`** to return data from the cache and never fetch from the server. This policy will return an error if cached data is not available.
 - **`.returnCacheDataAndFetch`** to return cached data immediately, *then* perform a fetch to see if there are any updates. This is mostly useful if you're watching queries, since those will be updated when the call to the server returns. 
+
+If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloCacheDependentTests/CacheDependentInterceptorTests.swift). 
 
 ## Watching queries
 
