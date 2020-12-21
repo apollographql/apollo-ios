@@ -177,3 +177,38 @@ store.withinReadWriteTransaction({ transaction in
   }
 })
 ```
+
+### delete
+
+Delete functionality is limited at this time. There are presently two options available on `NormalizedCache` which are supported by the included implementations of it: 
+
+1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option. 
+2. `removeRecord(for:)` Removes a single record for the given `CacheKey`. 
+
+`removeRecord(for:)` will only remove things at the level of a record - that is, it cannot remove individual fields from a record, and it cannot remove outside references **to** a record. 
+
+```swift
+// Assuming we start with records of the following format:
+// "QUERY_ROOT": ["hero": Reference(key: "hero")],
+// "hero": ["__typename": "Droid", "name": "R2-D2"]
+store.withinReadWriteTransaction({ transaction in
+  let query = HeroNameQuery()
+  let data = try transaction.read(query: query)
+      
+  print(data.hero?.__typename) // Optional("Droid")
+  print(data.hero?.name) // Optional("R2-D2")
+  
+  try transaction.removeRecord(for: "hero")
+  
+  // This will now throw an error since the `hero` record
+  // referred to in `"QUERY_ROOT"` has been removed.
+  let reread = try transaction.read(query: query)
+})
+```
+
+In this case, `QUERY_ROOT` will still have the reference to a `hero` record, but the second read will fail since the value for that record is missing. 
+
+As of right now, there is not a way to delete a single field's value. For instance, calling `try transaction.removeRecord(for: "hero.name")` will result in no action, as there would not be a record with the cache key `"hero.name"`, since `name` is a field on the `hero` record.
+
+Please note that due to how we normalize everything, many other records may have references to the same record, and this deletion mechanism does not account for that. If you are planning to remove something, be sure that you either a) Know for sure you no longer need it, or b) Are fine with triggering an additional fetch if the missing value causes a read to fail. 
+
