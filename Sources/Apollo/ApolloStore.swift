@@ -241,6 +241,10 @@ public final class ApolloStore {
       try body(&object)
       try write(object: object, withKey: key, variables: variables)
     }
+    
+    public func removeRecord(for key: CacheKey) throws {
+      try self.cache.removeRecord(for: key)
+    }
 
     public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
       try write(object: data,

@@ -101,6 +101,12 @@ public final class SQLiteNormalizedCache {
       try self.db.prepare("VACUUM;").run()
     }
   }
+  
+  private func removeSQLiteRecord(for cacheKey: CacheKey) throws {
+    let recordKey = self.recordCacheKey(forFieldCacheKey: cacheKey)
+    let query = self.records.filter(key == recordKey)
+    try self.db.run(query.delete())
+  }
 
   private func parse(row: Row) throws -> Record {
     let record = row[self.record]
@@ -125,6 +131,10 @@ extension SQLiteNormalizedCache: NormalizedCache {
   
   public func merge(records: RecordSet) throws -> Set<CacheKey> {
     return try mergeRecords(records: records)
+  }
+  
+  public func removeRecord(for key: CacheKey) throws {
+    try removeSQLiteRecord(for: key)
   }
   
   public func clear() throws {

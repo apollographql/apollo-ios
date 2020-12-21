@@ -9,6 +9,10 @@ public struct RecordSet {
   public mutating func insert(_ record: Record) {
     storage[record.key] = record
   }
+  
+  public mutating func removeRecord(for key: CacheKey) {
+    storage.removeValue(forKey: key)
+  }
 
   public mutating func clear() {
     storage.removeAll()
