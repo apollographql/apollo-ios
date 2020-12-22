@@ -47,7 +47,9 @@ let package = Package(
       .target(
         name: "ApolloCore",
         dependencies: [
-          .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux]))
+          .product(name: "Crypto",
+                   package: "swift-crypto",
+                   condition: .when(platforms: [.linux]))
         ]),
     .target(
       name: "Apollo",
@@ -58,8 +60,12 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloCore",
-        "InflectorKit",
-        .product(name: "Stencil", package: "Stencil"),
+        .product(name: "InflectorKit",
+                 package: "InflectorKit",
+                 condition: .when(platforms: [.macOS])),
+        .product(name: "Stencil",
+                 package: "Stencil",
+                 condition: .when(platforms: [.macOS])),
       ]),
     .target(
       name: "ApolloSQLite",

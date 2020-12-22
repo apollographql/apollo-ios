@@ -1,5 +1,4 @@
 import Foundation
-import CommonCrypto
 #if !COCOAPODS
 import ApolloCore
 #endif

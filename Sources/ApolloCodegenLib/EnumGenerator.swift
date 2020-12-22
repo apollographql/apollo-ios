@@ -1,4 +1,7 @@
 import Foundation
+
+// Only available on macOS
+#if os(macOS)
 import Stencil
 
 public class EnumGenerator {
@@ -117,3 +120,4 @@ public class EnumGenerator {
 """
   }
 }
+#endif

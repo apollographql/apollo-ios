@@ -1,5 +1,7 @@
 import Foundation
 
+// Only available on macOS
+#if os(macOS)
 public class CodeGenerator<Decoder: FlexibleDecoder> {
   let astOutput: ASTOutput
 
@@ -87,3 +89,4 @@ public class CodeGenerator<Decoder: FlexibleDecoder> {
                           encoding: .utf8)
   }
 }
+#endif
