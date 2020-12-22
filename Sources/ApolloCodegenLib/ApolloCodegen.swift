@@ -48,9 +48,11 @@ public class ApolloCodegen {
         throw CodegenError.multipleFilesButNotDirectoryURL(folderURL)
       }
     case .singleFile(let fileURL):
-      guard fileURL.apollo.isSwiftFileURL else {
-        throw CodegenError.singleFileButNotSwiftFileURL(fileURL)
-      }
+      if options.codegenEngine == .typescript {
+        guard fileURL.apollo.isSwiftFileURL else {
+         throw CodegenError.singleFileButNotSwiftFileURL(fileURL)
+        }
+      } // else we're fine with JSON at this point for intermediate purposes.
       
       try FileManager.default.apollo.createContainingFolderIfNeeded(for: fileURL)
     }
