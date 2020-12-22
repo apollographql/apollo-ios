@@ -215,6 +215,15 @@ jobs:
       - run: pod trunk push Apollo.podspec
       - run: pod trunk me clean-sessions --all
 
+  linux:
+    docker:
+      - image: swift:5.3-amazonlinux2
+    steps:
+      - checkout
+      - run: swift build
+      - run: swift test
+      - run: swift build -c release
+
 workflows:
   version: 2
   # This workflow builds and tests the library across various operating systems and versions
@@ -242,6 +251,8 @@ workflows:
           name: ApolloWebSocket iOS << pipeline.parameters.ios_previous_version >>
       - CodegenLibmacOS_current:
           name: Swift Code Generation
+      - linux:
+          name: Expirmental Linux Support
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk
           requires:
