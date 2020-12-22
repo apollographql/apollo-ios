@@ -77,7 +77,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let removeCompletedExpectation = expectation(description: "Remove completed")
 
     store.withinReadWriteTransaction({ transaction in
-      try transaction.removeRecord(for: "hero")
+      try transaction.removeObject(for: "hero")
     }, completion: { result in
       defer { removeCompletedExpectation.fulfill() }
       XCTAssertSuccessResult(result)
@@ -138,7 +138,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let removeCompletedExpectation = expectation(description: "Remove completed")
 
     store.withinReadWriteTransaction({ transaction in
-      try transaction.removeRecord(for: "hero.name")
+      try transaction.removeObject(for: "hero.name")
     }, completion: { result in
       defer { removeCompletedExpectation.fulfill() }
       XCTAssertSuccessResult(result)
@@ -325,7 +325,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let friendsNames = data.hero?.friends?.compactMap { $0?.name }
       XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
       
-      try transaction.removeRecord(for: "1003")
+      try transaction.removeObject(for: "1003")
     }, completion: { result in
       defer { readWriteCompletedExpectation.fulfill() }
       XCTAssertSuccessResult(result)

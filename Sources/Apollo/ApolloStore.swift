@@ -242,7 +242,13 @@ public final class ApolloStore {
       try write(object: object, withKey: key, variables: variables)
     }
     
-    public func removeRecord(for key: CacheKey) throws {
+    /// Removes the object for the specified cache key. Does not cascade
+    /// or allow removal of only certain fields. Does nothing if an object
+    /// does not exist for the given key.
+    ///
+    /// - Parameters:
+    ///   - key: The cache key to remove the object for
+    public func removeObject(for key: CacheKey) throws {
       try self.cache.removeRecord(for: key)
     }
 
