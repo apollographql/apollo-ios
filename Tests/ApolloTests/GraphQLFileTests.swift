@@ -29,8 +29,7 @@ class GraphQLFileTests: XCTestCase {
   }
   
   func testCreatingFileWithKnownGoodURLSucceedsAndCreatesAndCanRecreateInputStream() throws {
-    let knownFileURL = TestFileHelper.testParentFolder()
-                .appendingPathComponent("a.txt")
+    let knownFileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let file = try GraphQLFile(fieldName: "test",
                                originalName: "test",
