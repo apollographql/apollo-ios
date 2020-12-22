@@ -183,32 +183,25 @@ store.withinReadWriteTransaction({ transaction in
 Delete functionality is limited at this time. There are presently two deletion methods available on `ApolloStore`, which are supported by both the in memory and the `SQLite` caches:
 
 1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option. 
-2. `removeObject(for:)` Removes a single object for the given `CacheKey`. 
+2. `removeObject(for:)` on `ReadWriteTransaction`. Removes a single object for the given `CacheKey`. 
 
 `removeObject(for:)` will only remove things at the level of an object - that is, it cannot remove individual properties from an object, and it cannot remove outside references **to** an object. 
 
+You will need to have an understanding of how you are generating cache keys to be able to use this method effectively. If you're taking advantage of our `cacheKeyForObject` function, that will help significantly: You'll have a clear understanding of how cache keys are generated, so you can easily figure out how to construct a cache key to delete. 
+
+For instance, let's say your `cacheKeyForObject` function looks like this: 
+
 ```swift
-// Assuming we start with records of the following format:
-// "QUERY_ROOT": ["hero": Reference(key: "hero")],
-// "hero": ["__typename": "Droid", "name": "R2-D2"]
-store.withinReadWriteTransaction({ transaction in
-  let query = HeroNameQuery()
-  let data = try transaction.read(query: query)
-      
-  print(data.hero?.__typename) // Optional("Droid")
-  print(data.hero?.name) // Optional("R2-D2")
-  
-  try transaction.removeRecord(for: "hero")
-  
-  // This will now throw an error since the `hero` record
-  // referred to in `"QUERY_ROOT"` has been removed.
-  let reread = try transaction.read(query: query)
-})
+apollo.cacheKeyForObject = { $0["id"] }
 ```
 
-In this case, `QUERY_ROOT` will still have the reference to a `hero` record, but the second read will fail since the value for that record is missing. 
+This would indicate that for every object which has an `id` property, it will be cached with that `id` as the key. This would be ideal for an API which uses globally unique identifiers, as our Star Wars API does. 
 
-As of right now, there is not a way to delete a single field's value. For instance, calling `try transaction.removeRecord(for: "hero.name")` will result in no action, as there would not be a record with the cache key `"hero.name"`, since `name` is a field on the `hero` record.
+This means that if you have previously fetched an object with the ID `"2001"`, you can call `transaction.removeObject(for: "2001")` on a `ReadWriteTransaction` to remove any object cached with that key, along with all of its associated scalar properties and the references to other objects it stores. 
 
-Please note that due to how we normalize everything, many other records may have references to the same record, and this deletion mechanism does not account for that. If you are planning to remove something, be sure that you either a) Know for sure you no longer need it, or b) Are fine with triggering an additional fetch if the missing value causes a read to fail. 
+`removeObject` does _not_ cascade its removals - if you remove an object which has reference to another object, the reference will be removed, but that other object will not be removed and will remain in the cache. Likewise, if you delete an object, references _to_ that object will not be deleted, they will simply fail when you attempt to load the object again. 
+
+This means that if you are planning to remove something, be sure that you either a) Know for sure you no longer need it, or b) Are fine with triggering an additional fetch if the missing value causes a read to fail. 
+
+> Note: As of right now, there is not a way to delete a single property's value. For instance, calling `try transaction.removeRecord(for: "2001.name")` will result in no action, as there would not be a record with the cache key `"2001.name"`, since `name` is a scalar field on the `"2001"` record.
 
