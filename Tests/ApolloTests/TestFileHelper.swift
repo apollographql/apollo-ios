@@ -33,6 +33,7 @@ struct TestFileHelper {
   
   static func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
     return self.testParentFolder()
+        .appendingPathComponent("Resources")
         .appendingPathComponent(name)
         .appendingPathExtension(fileExtension)
   }
