@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -41,13 +41,19 @@ let package = Package(
       .upToNextMinor(from: "0.0.2")),
     ],
     targets: [
-      .target(
-        name: "ApolloCore",
-        dependencies: []),
+    .target(
+      name: "ApolloCore",
+      dependencies: [],
+      exclude: [
+        "Info.plist"
+      ]),
     .target(
       name: "Apollo",
       dependencies: [
         "ApolloCore",
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .target(
       name: "ApolloCodegenLib",
@@ -55,18 +61,27 @@ let package = Package(
         "ApolloCore",
         "InflectorKit",
         .product(name: "Stencil", package: "Stencil"),
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .target(
       name: "ApolloSQLite",
       dependencies: [
         "Apollo",
         .product(name: "SQLite", package: "SQLite.swift"),
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .target(
       name: "ApolloSQLiteTestSupport",
       dependencies: [
         "ApolloSQLite",
         "ApolloTestSupport"
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .target(
       name: "ApolloWebSocket",
@@ -74,26 +89,44 @@ let package = Package(
         "Apollo",
         "ApolloCore",
         .product(name: "Starscream", package: "Starscream"),
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .target(
       name: "ApolloTestSupport",
       dependencies: [
         "Apollo",
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .target(
       name: "GitHubAPI",
       dependencies: [
         "Apollo",
+      ],
+      exclude: [
+        "Info.plist",
+        "graphql"
       ]),
     .target(
       name: "StarWarsAPI",
       dependencies: [
         "Apollo",
+      ],
+      exclude: [
+        "Info.plist",
+        "graphql"
       ]),
     .target(
       name: "UploadAPI",
       dependencies: [
         "Apollo",
+      ],
+      exclude: [
+        "Info.plist",
+        "graphql"
       ]),
     .testTarget(
       name: "ApolloTests",
@@ -101,24 +134,40 @@ let package = Package(
         "ApolloTestSupport",
         "StarWarsAPI",
         "UploadAPI"
+      ],
+      exclude: [
+        "Info.plist"
+      ],
+      resources: [
+        .copy("Resources")
       ]),
     .testTarget(
       name: "ApolloCacheDependentTests",
       dependencies: [
         "ApolloSQLiteTestSupport",
         "StarWarsAPI",
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .testTarget(
       name: "ApolloCodegenTests",
       dependencies: [
         "ApolloTestSupport",
         "ApolloCodegenLib"
+      ],
+      exclude: [
+        "Info.plist",
+        "scripts directory"
       ]),
     .testTarget(
       name: "ApolloSQLiteTests",
       dependencies: [
         "ApolloSQLiteTestSupport",
         "StarWarsAPI"
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     .testTarget(
       name: "ApolloWebsocketTests",
@@ -126,6 +175,9 @@ let package = Package(
         "ApolloWebSocket",
         "ApolloTestSupport",
         "StarWarsAPI",
+      ],
+      exclude: [
+        "Info.plist"
       ]),
     ]
 )

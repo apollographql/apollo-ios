@@ -15,6 +15,9 @@
 		9B0E471C240B167C0093BDA7 /* String+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E471B240B167C0093BDA7 /* String+Apollo.swift */; };
 		9B0E471E240B239D0093BDA7 /* ASTEnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
+		9B20611A2591B3550020D1E0 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
+		9B20611B2591B3550020D1E0 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
+		9B20611C2591B3550020D1E0 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B21FD772422C8CC00998B5C /* TestFileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD762422C8CC00998B5C /* TestFileHelper.swift */; };
 		9B21FD782424305700998B5C /* ExpectedEnumWithDifferentCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F05F2416F80C00E97318 /* ExpectedEnumWithDifferentCases.swift */; };
@@ -252,9 +255,6 @@
 		9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */; };
 		C3279FC72345234D00224790 /* TestCustomRequestBodyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3279FC52345233000224790 /* TestCustomRequestBodyCreator.swift */; };
 		C338DF1722DD9DE9006AF33E /* RequestBodyCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */; };
-		C35D43C222DDD4AC00BCBABE /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = C35D43BE22DDD3C100BCBABE /* b.txt */; };
-		C35D43C322DDD4AF00BCBABE /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = C35D43BF22DDD3C100BCBABE /* c.txt */; };
-		C35D43C622DDE28D00BCBABE /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = C304EBD322DDC7B200748F72 /* a.txt */; };
 		C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCA822D798BD00572E03 /* GraphQLFile.swift */; };
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
@@ -511,6 +511,38 @@
 		9B0E471B240B167C0093BDA7 /* String+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Apollo.swift"; sourceTree = "<group>"; };
 		9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTEnumValue.swift; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
+		9B2061172591B3550020D1E0 /* c.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c.txt; sourceTree = "<group>"; };
+		9B2061182591B3550020D1E0 /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
+		9B2061192591B3550020D1E0 /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
+		9B20614B2591B3700020D1E0 /* UploadMultipleFiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadMultipleFiles.graphql; sourceTree = "<group>"; };
+		9B20614C2591B3700020D1E0 /* operationIDs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
+		9B20614D2591B3700020D1E0 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		9B20614E2591B3700020D1E0 /* UploadOneFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadOneFile.graphql; sourceTree = "<group>"; };
+		9B2061522591B3860020D1E0 /* Human.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Human.graphql; sourceTree = "<group>"; };
+		9B2061532591B3860020D1E0 /* HeroAndFriendsNames.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroAndFriendsNames.graphql; sourceTree = "<group>"; };
+		9B2061542591B3860020D1E0 /* API.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API.json; sourceTree = "<group>"; };
+		9B2061552591B3860020D1E0 /* HeroFriendsOfFriends.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroFriendsOfFriends.graphql; sourceTree = "<group>"; };
+		9B2061562591B3860020D1E0 /* HeroNameAndAppearsIn.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroNameAndAppearsIn.graphql; sourceTree = "<group>"; };
+		9B2061572591B3860020D1E0 /* Starship.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Starship.graphql; sourceTree = "<group>"; };
+		9B2061582591B3860020D1E0 /* HeroAppearsIn.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroAppearsIn.graphql; sourceTree = "<group>"; };
+		9B2061592591B3860020D1E0 /* HeroDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroDetails.graphql; sourceTree = "<group>"; };
+		9B20615A2591B3860020D1E0 /* SameHeroTwice.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = SameHeroTwice.graphql; sourceTree = "<group>"; };
+		9B20615B2591B3860020D1E0 /* TwoHeroes.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
+		9B20615C2591B3860020D1E0 /* HeroConditional.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroConditional.graphql; sourceTree = "<group>"; };
+		9B20615D2591B3860020D1E0 /* Search.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Search.graphql; sourceTree = "<group>"; };
+		9B20615E2591B3860020D1E0 /* HeroName.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroName.graphql; sourceTree = "<group>"; };
+		9B20615F2591B3860020D1E0 /* operationIDs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
+		9B2061602591B3860020D1E0 /* CharacterAndSubTypesFragments.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CharacterAndSubTypesFragments.graphql; sourceTree = "<group>"; };
+		9B2061612591B3860020D1E0 /* HeroTypeDependentAliasedField.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroTypeDependentAliasedField.graphql; sourceTree = "<group>"; };
+		9B2061622591B3860020D1E0 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		9B2061632591B3860020D1E0 /* SubscribeReview.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = SubscribeReview.graphql; sourceTree = "<group>"; };
+		9B2061642591B3860020D1E0 /* HeroParentTypeDependentField.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeroParentTypeDependentField.graphql; sourceTree = "<group>"; };
+		9B2061652591B3860020D1E0 /* CreateReviewForEpisode.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CreateReviewForEpisode.graphql; sourceTree = "<group>"; };
+		9B2061672591B3A50020D1E0 /* schema.docs.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.docs.graphql; sourceTree = "<group>"; };
+		9B2061692591B3A50020D1E0 /* IssuesAndCommentsForRepository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = IssuesAndCommentsForRepository.graphql; sourceTree = "<group>"; };
+		9B20616D2591B3A50020D1E0 /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
+		9B20616E2591B3A50020D1E0 /* Repository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
+		9B2061702591B3A50020D1E0 /* operationIDs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
 		9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFileTests.swift; sourceTree = "<group>"; };
 		9B21FD762422C8CC00998B5C /* TestFileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileHelper.swift; sourceTree = "<group>"; };
 		9B260BEA245A020300562176 /* ApolloInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloInterceptor.swift; sourceTree = "<group>"; };
@@ -533,10 +565,6 @@
 		9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-UploadAPI.xcconfig"; sourceTree = "<group>"; };
 		9B2DFBCA24E2016800ED3AE6 /* UploadAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UploadAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2DFBCE24E201DD00ED3AE6 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		9B2DFBD024E201F800ED3AE6 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		9B2DFBD124E201F800ED3AE6 /* UploadMultipleFiles.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadMultipleFiles.graphql; sourceTree = "<group>"; };
-		9B2DFBD224E201F800ED3AE6 /* UploadOneFile.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = UploadOneFile.graphql; sourceTree = "<group>"; };
-		9B3D70F5248832AE00D8BAF4 /* API.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API.json; sourceTree = "<group>"; };
 		9B3D70F6248833CB00D8BAF4 /* ASTInterfaceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTInterfaceType.swift; sourceTree = "<group>"; };
 		9B3D70F82488340400D8BAF4 /* ASTUnionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTUnionType.swift; sourceTree = "<group>"; };
 		9B3D70FB2488388300D8BAF4 /* InterfaceEnumGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEnumGenerator.swift; sourceTree = "<group>"; };
@@ -679,27 +707,9 @@
 		9BCF0CDD23FC9CA50031D2A2 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		9BCF0CDE23FC9CA50031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BCF0CDF23FC9CA50031D2A2 /* MockNetworkTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNetworkTransport.swift; sourceTree = "<group>"; };
-		9BCF0CEC23FC9F060031D2A2 /* Human.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Human.graphql; sourceTree = "<group>"; };
-		9BCF0CED23FC9F060031D2A2 /* HeroAndFriendsNames.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAndFriendsNames.graphql; sourceTree = "<group>"; };
-		9BCF0CEE23FC9F060031D2A2 /* HeroFriendsOfFriends.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroFriendsOfFriends.graphql; sourceTree = "<group>"; };
-		9BCF0CEF23FC9F060031D2A2 /* HeroNameAndAppearsIn.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroNameAndAppearsIn.graphql; sourceTree = "<group>"; };
-		9BCF0CF023FC9F060031D2A2 /* Starship.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Starship.graphql; sourceTree = "<group>"; };
 		9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarWarsAPI.h; sourceTree = "<group>"; };
-		9BCF0CF223FC9F060031D2A2 /* HeroAppearsIn.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroAppearsIn.graphql; sourceTree = "<group>"; };
-		9BCF0CF323FC9F060031D2A2 /* HeroDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroDetails.graphql; sourceTree = "<group>"; };
-		9BCF0CF423FC9F060031D2A2 /* SameHeroTwice.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SameHeroTwice.graphql; sourceTree = "<group>"; };
-		9BCF0CF523FC9F060031D2A2 /* TwoHeroes.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwoHeroes.graphql; sourceTree = "<group>"; };
-		9BCF0CF623FC9F060031D2A2 /* HeroConditional.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroConditional.graphql; sourceTree = "<group>"; };
-		9BCF0CF723FC9F060031D2A2 /* HeroName.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroName.graphql; sourceTree = "<group>"; };
-		9BCF0CF823FC9F060031D2A2 /* operationIDs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
-		9BCF0CF923FC9F060031D2A2 /* CharacterAndSubTypesFragments.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CharacterAndSubTypesFragments.graphql; sourceTree = "<group>"; };
-		9BCF0CFA23FC9F060031D2A2 /* HeroTypeDependentAliasedField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroTypeDependentAliasedField.graphql; sourceTree = "<group>"; };
-		9BCF0CFB23FC9F060031D2A2 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		9BCF0CFC23FC9F060031D2A2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		9BCF0CFD23FC9F060031D2A2 /* SubscribeReview.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SubscribeReview.graphql; sourceTree = "<group>"; };
-		9BCF0CFE23FC9F060031D2A2 /* HeroParentTypeDependentField.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeroParentTypeDependentField.graphql; sourceTree = "<group>"; };
 		9BCF0CFF23FC9F060031D2A2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BCF0D0023FC9F060031D2A2 /* CreateReviewForEpisode.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CreateReviewForEpisode.graphql; sourceTree = "<group>"; };
 		9BD681262405F0CB000874CB /* ASTOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTOutput.swift; sourceTree = "<group>"; };
 		9BD681282405F149000874CB /* ASTTypeUsed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTTypeUsed.swift; sourceTree = "<group>"; };
 		9BD6812A2405F410000874CB /* ASTFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTFragment.swift; sourceTree = "<group>"; };
@@ -713,13 +723,8 @@
 		9BDE43D022C6655200FD7C7F /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		9BDE43DE22C6708600FD7C7F /* GraphQLHTTPRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPRequestError.swift; sourceTree = "<group>"; };
 		9BDF200C23FDC37600153E2B /* GitHubAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitHubAPI.h; sourceTree = "<group>"; };
-		9BDF200D23FDC37600153E2B /* operationIdsPath.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operationIdsPath.json; sourceTree = "<group>"; };
-		9BDF200E23FDC37600153E2B /* operationIDs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operationIDs.json; sourceTree = "<group>"; };
 		9BDF201123FDC37600153E2B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9BDF201223FDC37600153E2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BDF2EC824C100B600AC9A1E /* schema.docs.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.docs.graphql; sourceTree = "<group>"; };
-		9BDF2ED124C100DF00AC9A1E /* RepoURL.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = RepoURL.graphql; sourceTree = "<group>"; };
-		9BDF2ED224C100DF00AC9A1E /* Repository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
 		9BE071AC2368D08700FA5952 /* Collection+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Helpers.swift"; sourceTree = "<group>"; };
 		9BE071AE2368D34D00FA5952 /* Matchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matchable.swift; sourceTree = "<group>"; };
 		9BE071B02368D3F500FA5952 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
@@ -739,7 +744,6 @@
 		9F33D6A32566475600A1543F /* PossiblyDeferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossiblyDeferred.swift; sourceTree = "<group>"; };
 		9F3910262549741400AF54A6 /* MockGraphQLServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLServer.swift; sourceTree = "<group>"; };
 		9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedLoadTests.swift; sourceTree = "<group>"; };
-		9F54C893255D6A640065AFD6 /* IssuesAndCommentsForRepository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = IssuesAndCommentsForRepository.graphql; sourceTree = "<group>"; };
 		9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloPerformanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F54C8B6255D760B0065AFD6 /* ParsingPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingPerformanceTests.swift; sourceTree = "<group>"; };
 		9F54C8B8255D760B0065AFD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -795,11 +799,8 @@
 		9FF90A6A1DDDEB420034C3B6 /* InputValueEncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputValueEncodingTests.swift; sourceTree = "<group>"; };
 		9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadFieldValueTests.swift; sourceTree = "<group>"; };
 		9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseQueryResponseTests.swift; sourceTree = "<group>"; };
-		C304EBD322DDC7B200748F72 /* a.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
 		C3279FC52345233000224790 /* TestCustomRequestBodyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCustomRequestBodyCreator.swift; sourceTree = "<group>"; };
 		C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyCreatorTests.swift; sourceTree = "<group>"; };
-		C35D43BE22DDD3C100BCBABE /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
-		C35D43BF22DDD3C100BCBABE /* c.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c.txt; sourceTree = "<group>"; };
 		C377CCA822D798BD00572E03 /* GraphQLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFile.swift; sourceTree = "<group>"; };
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
@@ -998,6 +999,114 @@
 			name = TestHelpers;
 			sourceTree = "<group>";
 		};
+		9B2061162591B3550020D1E0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9B2061172591B3550020D1E0 /* c.txt */,
+				9B2061182591B3550020D1E0 /* b.txt */,
+				9B2061192591B3550020D1E0 /* a.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9B20614A2591B3700020D1E0 /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				9B20614C2591B3700020D1E0 /* operationIDs.json */,
+				9B20614D2591B3700020D1E0 /* schema.json */,
+				9B20614B2591B3700020D1E0 /* UploadMultipleFiles.graphql */,
+				9B20614E2591B3700020D1E0 /* UploadOneFile.graphql */,
+			);
+			path = graphql;
+			sourceTree = "<group>";
+		};
+		9B20614F2591B3860020D1E0 /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				9B2061542591B3860020D1E0 /* API.json */,
+				9B2061602591B3860020D1E0 /* CharacterAndSubTypesFragments.graphql */,
+				9B2061652591B3860020D1E0 /* CreateReviewForEpisode.graphql */,
+				9B2061532591B3860020D1E0 /* HeroAndFriendsNames.graphql */,
+				9B2061582591B3860020D1E0 /* HeroAppearsIn.graphql */,
+				9B20615C2591B3860020D1E0 /* HeroConditional.graphql */,
+				9B2061592591B3860020D1E0 /* HeroDetails.graphql */,
+				9B2061552591B3860020D1E0 /* HeroFriendsOfFriends.graphql */,
+				9B20615E2591B3860020D1E0 /* HeroName.graphql */,
+				9B2061562591B3860020D1E0 /* HeroNameAndAppearsIn.graphql */,
+				9B2061642591B3860020D1E0 /* HeroParentTypeDependentField.graphql */,
+				9B2061612591B3860020D1E0 /* HeroTypeDependentAliasedField.graphql */,
+				9B20615F2591B3860020D1E0 /* operationIDs.json */,
+				9B20615A2591B3860020D1E0 /* SameHeroTwice.graphql */,
+				9B2061622591B3860020D1E0 /* schema.json */,
+				9B20615D2591B3860020D1E0 /* Search.graphql */,
+				9B2061572591B3860020D1E0 /* Starship.graphql */,
+				9B2061632591B3860020D1E0 /* SubscribeReview.graphql */,
+				9B2061502591B3860020D1E0 /* TestFolder */,
+				9B20615B2591B3860020D1E0 /* TwoHeroes.graphql */,
+			);
+			path = graphql;
+			sourceTree = "<group>";
+		};
+		9B2061502591B3860020D1E0 /* TestFolder */ = {
+			isa = PBXGroup;
+			children = (
+				9B2061512591B3860020D1E0 /* TestFolder2 */,
+			);
+			path = TestFolder;
+			sourceTree = "<group>";
+		};
+		9B2061512591B3860020D1E0 /* TestFolder2 */ = {
+			isa = PBXGroup;
+			children = (
+				9B2061522591B3860020D1E0 /* Human.graphql */,
+			);
+			path = TestFolder2;
+			sourceTree = "<group>";
+		};
+		9B2061662591B3A50020D1E0 /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				9B2061702591B3A50020D1E0 /* operationIDs.json */,
+				9B2061682591B3A50020D1E0 /* Queries */,
+				9B2061672591B3A50020D1E0 /* schema.docs.graphql */,
+			);
+			path = graphql;
+			sourceTree = "<group>";
+		};
+		9B2061682591B3A50020D1E0 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				9B2061692591B3A50020D1E0 /* IssuesAndCommentsForRepository.graphql */,
+				9B20616A2591B3A50020D1E0 /* TestFolder */,
+				9B20616E2591B3A50020D1E0 /* Repository.graphql */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		9B20616A2591B3A50020D1E0 /* TestFolder */ = {
+			isa = PBXGroup;
+			children = (
+				9B20616B2591B3A50020D1E0 /* TestFolder2 */,
+			);
+			path = TestFolder;
+			sourceTree = "<group>";
+		};
+		9B20616B2591B3A50020D1E0 /* TestFolder2 */ = {
+			isa = PBXGroup;
+			children = (
+				9B20616C2591B3A50020D1E0 /* TestFolder3 */,
+			);
+			path = TestFolder2;
+			sourceTree = "<group>";
+		};
+		9B20616C2591B3A50020D1E0 /* TestFolder3 */ = {
+			isa = PBXGroup;
+			children = (
+				9B20616D2591B3A50020D1E0 /* RepoURL.graphql */,
+			);
+			path = TestFolder3;
+			sourceTree = "<group>";
+		};
 		9B260BE9245A01B900562176 /* Interceptor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1032,9 +1141,7 @@
 			children = (
 				9B2DFBCE24E201DD00ED3AE6 /* API.swift */,
 				9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */,
-				9B2DFBD024E201F800ED3AE6 /* schema.json */,
-				9B2DFBD124E201F800ED3AE6 /* UploadMultipleFiles.graphql */,
-				9B2DFBD224E201F800ED3AE6 /* UploadOneFile.graphql */,
+				9B20614A2591B3700020D1E0 /* graphql */,
 				9B2DFBC624E1FA3E00ED3AE6 /* Info.plist */,
 			);
 			name = UploadAPI;
@@ -1086,9 +1193,9 @@
 			isa = PBXGroup;
 			children = (
 				9B6CB23D238077B60007259D /* Atomic.swift */,
+				9F30F02E255EDF8900506DE7 /* DispatchPreconditions.swift */,
 				9B68F06E241C649E00E97318 /* GraphQLOptional.swift */,
 				9B455CE82492D0A7002255A9 /* Extensions */,
-				9F30F02E255EDF8900506DE7 /* DispatchPreconditions.swift */,
 			);
 			name = ApolloCore;
 			path = Sources/ApolloCore;
@@ -1324,48 +1431,14 @@
 		9BCF0CE923FC9F060031D2A2 /* StarWarsAPI */ = {
 			isa = PBXGroup;
 			children = (
-				9B3D70F5248832AE00D8BAF4 /* API.json */,
 				9BCF0CFC23FC9F060031D2A2 /* API.swift */,
-				9BCF0CFB23FC9F060031D2A2 /* schema.json */,
-				9BCF0CEA23FC9F060031D2A2 /* TestFolder */,
-				9BCF0CED23FC9F060031D2A2 /* HeroAndFriendsNames.graphql */,
-				9BCF0CEE23FC9F060031D2A2 /* HeroFriendsOfFriends.graphql */,
-				9BCF0CEF23FC9F060031D2A2 /* HeroNameAndAppearsIn.graphql */,
-				9BCF0CF023FC9F060031D2A2 /* Starship.graphql */,
 				9BCF0CF123FC9F060031D2A2 /* StarWarsAPI.h */,
-				9BCF0CF223FC9F060031D2A2 /* HeroAppearsIn.graphql */,
-				9BCF0CF323FC9F060031D2A2 /* HeroDetails.graphql */,
-				9BCF0CF423FC9F060031D2A2 /* SameHeroTwice.graphql */,
-				9BCF0CF523FC9F060031D2A2 /* TwoHeroes.graphql */,
-				9BCF0CF623FC9F060031D2A2 /* HeroConditional.graphql */,
-				9BCF0CF723FC9F060031D2A2 /* HeroName.graphql */,
-				9BCF0CF823FC9F060031D2A2 /* operationIDs.json */,
-				9BCF0CF923FC9F060031D2A2 /* CharacterAndSubTypesFragments.graphql */,
-				9BCF0CFA23FC9F060031D2A2 /* HeroTypeDependentAliasedField.graphql */,
-				9BCF0CFD23FC9F060031D2A2 /* SubscribeReview.graphql */,
-				9BCF0CFE23FC9F060031D2A2 /* HeroParentTypeDependentField.graphql */,
+				9B20614F2591B3860020D1E0 /* graphql */,
 				9BCF0CFF23FC9F060031D2A2 /* Info.plist */,
-				9BCF0D0023FC9F060031D2A2 /* CreateReviewForEpisode.graphql */,
 			);
 			name = StarWarsAPI;
 			path = Sources/StarWarsAPI;
 			sourceTree = SOURCE_ROOT;
-		};
-		9BCF0CEA23FC9F060031D2A2 /* TestFolder */ = {
-			isa = PBXGroup;
-			children = (
-				9BCF0CEB23FC9F060031D2A2 /* TestFolder2 */,
-			);
-			path = TestFolder;
-			sourceTree = "<group>";
-		};
-		9BCF0CEB23FC9F060031D2A2 /* TestFolder2 */ = {
-			isa = PBXGroup;
-			children = (
-				9BCF0CEC23FC9F060031D2A2 /* Human.graphql */,
-			);
-			path = TestFolder2;
-			sourceTree = "<group>";
 		};
 		9BD681302405F676000874CB /* Output */ = {
 			isa = PBXGroup;
@@ -1423,50 +1496,13 @@
 			isa = PBXGroup;
 			children = (
 				9BDF200C23FDC37600153E2B /* GitHubAPI.h */,
-				9BDF2ECD24C100DF00AC9A1E /* Queries */,
-				9BDF200D23FDC37600153E2B /* operationIdsPath.json */,
-				9BDF200E23FDC37600153E2B /* operationIDs.json */,
-				9BDF2EC824C100B600AC9A1E /* schema.docs.graphql */,
 				9BDF201123FDC37600153E2B /* API.swift */,
+				9B2061662591B3A50020D1E0 /* graphql */,
 				9BDF201223FDC37600153E2B /* Info.plist */,
 			);
 			name = GitHubAPI;
 			path = Sources/GitHubAPI;
 			sourceTree = SOURCE_ROOT;
-		};
-		9BDF2ECD24C100DF00AC9A1E /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-				9BDF2ECE24C100DF00AC9A1E /* TestFolder */,
-				9BDF2ED224C100DF00AC9A1E /* Repository.graphql */,
-				9F54C893255D6A640065AFD6 /* IssuesAndCommentsForRepository.graphql */,
-			);
-			path = Queries;
-			sourceTree = "<group>";
-		};
-		9BDF2ECE24C100DF00AC9A1E /* TestFolder */ = {
-			isa = PBXGroup;
-			children = (
-				9BDF2ECF24C100DF00AC9A1E /* TestFolder2 */,
-			);
-			path = TestFolder;
-			sourceTree = "<group>";
-		};
-		9BDF2ECF24C100DF00AC9A1E /* TestFolder2 */ = {
-			isa = PBXGroup;
-			children = (
-				9BDF2ED024C100DF00AC9A1E /* TestFolder3 */,
-			);
-			path = TestFolder2;
-			sourceTree = "<group>";
-		};
-		9BDF2ED024C100DF00AC9A1E /* TestFolder3 */ = {
-			isa = PBXGroup;
-			children = (
-				9BDF2ED124C100DF00AC9A1E /* RepoURL.graphql */,
-			);
-			path = TestFolder3;
-			sourceTree = "<group>";
 		};
 		9F27D4601D40363A00715680 /* Execution */ = {
 			isa = PBXGroup;
@@ -1609,6 +1645,7 @@
 				9BF6C95225194EA5000D5B93 /* MultipartFormDataTests.swift */,
 				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
 				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
+				9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */,
 				F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */,
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
 				9B96500824BE6201003C29C0 /* RequestChainTests.swift */,
@@ -1616,10 +1653,7 @@
 				9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */,
 				9B9BBB1A24DB75E60021C30F /* UploadTests.swift */,
 				5BB2C0222380836100774170 /* VersionNumberTests.swift */,
-				C304EBD322DDC7B200748F72 /* a.txt */,
-				C35D43BE22DDD3C100BCBABE /* b.txt */,
-				C35D43BF22DDD3C100BCBABE /* c.txt */,
-				9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */,
+				9B2061162591B3550020D1E0 /* Resources */,
 			);
 			path = ApolloTests;
 			sourceTree = "<group>";
@@ -2309,9 +2343,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C35D43C622DDE28D00BCBABE /* a.txt in Resources */,
-				C35D43C322DDD4AF00BCBABE /* c.txt in Resources */,
-				C35D43C222DDD4AC00BCBABE /* b.txt in Resources */,
+				9B20611C2591B3550020D1E0 /* a.txt in Resources */,
+				9B20611A2591B3550020D1E0 /* c.txt in Resources */,
+				9B20611B2591B3550020D1E0 /* b.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
