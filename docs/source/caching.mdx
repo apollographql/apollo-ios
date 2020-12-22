@@ -180,12 +180,12 @@ store.withinReadWriteTransaction({ transaction in
 
 ### delete
 
-Delete functionality is limited at this time. There are presently two options available on `NormalizedCache` which are supported by the included implementations of it: 
+Delete functionality is limited at this time. There are presently two deletion methods available on `ApolloStore`, which are supported by both the in memory and the `SQLite` caches:
 
 1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option. 
-2. `removeRecord(for:)` Removes a single record for the given `CacheKey`. 
+2. `removeObject(for:)` Removes a single object for the given `CacheKey`. 
 
-`removeRecord(for:)` will only remove things at the level of a record - that is, it cannot remove individual fields from a record, and it cannot remove outside references **to** a record. 
+`removeObject(for:)` will only remove things at the level of an object - that is, it cannot remove individual properties from an object, and it cannot remove outside references **to** an object. 
 
 ```swift
 // Assuming we start with records of the following format:
