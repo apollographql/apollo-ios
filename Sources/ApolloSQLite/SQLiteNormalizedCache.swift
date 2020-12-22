@@ -103,8 +103,7 @@ public final class SQLiteNormalizedCache {
   }
   
   private func removeSQLiteRecord(for cacheKey: CacheKey) throws {
-    let recordKey = self.recordCacheKey(forFieldCacheKey: cacheKey)
-    let query = self.records.filter(key == recordKey)
+    let query = self.records.filter(key == cacheKey)
     try self.db.run(query.delete())
   }
 
