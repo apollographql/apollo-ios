@@ -241,6 +241,16 @@ public final class ApolloStore {
       try body(&object)
       try write(object: object, withKey: key, variables: variables)
     }
+    
+    /// Removes the object for the specified cache key. Does not cascade
+    /// or allow removal of only certain fields. Does nothing if an object
+    /// does not exist for the given key.
+    ///
+    /// - Parameters:
+    ///   - key: The cache key to remove the object for
+    public func removeObject(for key: CacheKey) throws {
+      try self.cache.removeRecord(for: key)
+    }
 
     public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
       try write(object: data,

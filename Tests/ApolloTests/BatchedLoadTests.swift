@@ -33,6 +33,10 @@ private final class MockBatchedNormalizedCache: NormalizedCache {
     }
   }
   
+  func removeRecord(for key: CacheKey) throws {
+    records.removeRecord(for: key)
+  }
+  
   func merge(records: RecordSet) throws -> Set<CacheKey> {
     return self.records.merge(records: records)
   }

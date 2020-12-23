@@ -51,6 +51,113 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
   }
   
+  func testReadHeroNameQueryAfterRemovingRecord() throws {
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+    
+    let query = HeroNameQuery()
+    
+    let readCompletedExpectation = expectation(description: "Read completed")
+    
+    store.withinReadWriteTransaction({ transaction in
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.__typename, "Droid")
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    
+    let removeCompletedExpectation = expectation(description: "Remove completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.removeObject(for: "hero")
+    }, completion: { result in
+      defer { removeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+        
+    self.wait(for: [removeCompletedExpectation], timeout: defaultWaitTimeout)
+    
+    let refetchExpectation = expectation(description: "Refetch completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      _ = try transaction.read(query: query)
+    }, completion: { result in
+      defer { refetchExpectation.fulfill() }
+      XCTAssertFailureResult(result) { refetchError in
+        guard let error = refetchError as? GraphQLResultError else {
+          XCTFail("Unexpected error trying to load a removed record: \(refetchError)")
+          return
+        }
+        
+        XCTAssertEqual(error.path, ["hero"])
+
+        switch error.underlying {
+        case JSONDecodingError.missingValue:
+          // This is correct.
+          break
+        default:
+          XCTFail("Unexpected error trying to load a removed record: \(refetchError)")
+        }
+      }
+    })
+    
+    self.wait(for: [refetchExpectation], timeout: defaultWaitTimeout)
+  }
+  
+  func testHeroNameQueryStillLoadsAfterAttemptingToDeleteFieldKey() throws {
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "hero": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+    
+    let query = HeroNameQuery()
+    
+    let readCompletedExpectation = expectation(description: "Read completed")
+    
+    store.withinReadWriteTransaction({ transaction in
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.__typename, "Droid")
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    
+    let removeCompletedExpectation = expectation(description: "Remove completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.removeObject(for: "hero.name")
+    }, completion: { result in
+      defer { removeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+        
+    self.wait(for: [removeCompletedExpectation], timeout: defaultWaitTimeout)
+    
+    let refetchExpectation = expectation(description: "Refetch completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      _ = try transaction.read(query: query)
+    }, completion: { result in
+      defer { refetchExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [refetchExpectation], timeout: defaultWaitTimeout)
+  }
+  
   func testReadHeroNameQueryWithVariable() throws {
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero(episode:JEDI)": Reference(key: "hero(episode:JEDI)")],
@@ -185,6 +292,70 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }, completion: { result in
       defer { readCompletedExpectation.fulfill() }
       XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+  }
+  
+  func testReadHeroAndFriendsNamesQueryFailsAfterRemovingFriendRecord() throws {
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "2001": [
+        "name": "R2-D2",
+        "__typename": "Droid",
+        "friends": [
+          Reference(key: "1000"),
+          Reference(key: "1002"),
+          Reference(key: "1003")
+        ]
+      ],
+      "1000": ["__typename": "Human", "name": "Luke Skywalker"],
+      "1002": ["__typename": "Human", "name": "Han Solo"],
+      "1003": ["__typename": "Human", "name": "Leia Organa"],
+    ])
+    
+    let query = HeroAndFriendsNamesQuery()
+    
+    let readWriteCompletedExpectation = expectation(description: "ReadWrite completed")
+    
+    store.withinReadWriteTransaction({ transaction in
+      let data = try transaction.read(query: query)
+      
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+      
+      try transaction.removeObject(for: "1003")
+    }, completion: { result in
+      defer { readWriteCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+    
+    self.wait(for: [readWriteCompletedExpectation], timeout: defaultWaitTimeout)
+    
+    let readCompletedExpectation = expectation(description: "Read completed")
+    
+    store.withinReadTransaction({ transaction in
+      _ = try transaction.read(query: query)
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertFailureResult(result) { readError in
+        guard let error = readError as? GraphQLResultError else {
+          XCTFail("Unexpected error for reading removed record: \(readError)")
+          return
+        }
+        
+        /// The error should occur when trying to load all the hero's friend references, since one has been deleted
+        XCTAssertEqual(error.path, ["hero", "friends"])
+        
+        switch error.underlying {
+        case JSONDecodingError.missingValue:
+          // This is what we want
+          return
+        default:
+          XCTFail("Unexpected error for reading removed record: \(error.underlying)")
+        }
+      }
     })
     
     self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
