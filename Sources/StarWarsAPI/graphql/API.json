@@ -1,7 +1,7 @@
 {
 	"operations": [
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CreateReviewForEpisode.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CreateReviewForEpisode.graphql",
 			"operationName": "CreateReviewForEpisode",
 			"operationType": "mutation",
 			"rootType": "Mutation",
@@ -148,7 +148,7 @@
 			"operationId": "9bbf5b4074d0635fb19d17c621b7b04ebfb1920d468a94266819e149841e7d5d"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CreateReviewForEpisode.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CreateReviewForEpisode.graphql",
 			"operationName": "CreateAwesomeReview",
 			"operationType": "mutation",
 			"rootType": "Mutation",
@@ -263,7 +263,7 @@
 			"operationId": "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"operationName": "HeroAndFriendsNames",
 			"operationType": "query",
 			"rootType": "Query",
@@ -417,7 +417,7 @@
 			"operationId": "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"operationName": "HeroAndFriendsNamesWithIDs",
 			"operationType": "query",
 			"rootType": "Query",
@@ -607,7 +607,7 @@
 			"operationId": "8e4ca76c63660898cfd5a3845e3709027750b5f0151c7f9be65759b869c5486d"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"operationName": "HeroAndFriendsIDs",
 			"operationType": "query",
 			"rootType": "Query",
@@ -779,7 +779,7 @@
 			"operationId": "117d0f6831d8f4abe5b61ed1dbb8071b0825e19649916c0fe0906a6f578bb088"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"operationName": "HeroAndFriendsNamesWithIDForParentOnly",
 			"operationType": "query",
 			"rootType": "Query",
@@ -951,7 +951,7 @@
 			"operationId": "f091468a629f3b757c03a1b7710c6ede8b5c8f10df7ba3238f2bbcd71c56f90f"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"operationName": "HeroAndFriendsNamesWithFragment",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1109,7 +1109,7 @@
 			"operationId": "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"operationName": "HeroAndFriendsNamesWithFragmentTwice",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1336,7 +1336,7 @@
 			"operationId": "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAppearsIn.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAppearsIn.graphql",
 			"operationName": "HeroAppearsIn",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1407,7 +1407,7 @@
 			"operationId": "22d772c0fc813281705e8f0a55fc70e71eeff6e98f3f9ef96cf67fb896914522"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAppearsIn.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAppearsIn.graphql",
 			"operationName": "HeroAppearsInWithFragment",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1511,7 +1511,7 @@
 			"operationId": "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroNameConditionalExclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1601,7 +1601,7 @@
 			"operationId": "3dd42259adf2d0598e89e0279bee2c128a7913f02b1da6aa43f3b5def6a8a1f8"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroNameConditionalInclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1691,7 +1691,7 @@
 			"operationId": "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroNameConditionalBoth",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1800,7 +1800,7 @@
 			"operationId": "66f4dc124b6374b1912b22a2a208e34a4b1997349402a372b95bcfafc7884064"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroNameConditionalBothSeparate",
 			"operationType": "query",
 			"rootType": "Query",
@@ -1909,7 +1909,7 @@
 			"operationId": "d0f9e9205cdc09320035662f528a177654d3275b0bf94cf0e259a65fde33e7e5"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroDetailsInlineConditionalInclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -2027,7 +2027,7 @@
 			"operationId": "fcd9d7acb4e7c97e3ae5ad3cbf4e83556626149de589f0c2fce2f8ede31b0d90"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroDetailsFragmentConditionalInclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -2333,7 +2333,7 @@
 			"operationId": "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroNameTypeSpecificConditionalInclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -2503,7 +2503,7 @@
 			"operationId": "4d465fbc6e3731d011025048502f16278307d73300ea9329a709d7e2b6815e40"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroFriendsDetailsConditionalInclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -2692,7 +2692,7 @@
 			"operationId": "9bdfeee789c1d22123402a9c3e3edefeb66799b3436289751be8f47905e3babd"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroConditional.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroConditional.graphql",
 			"operationName": "HeroFriendsDetailsUnconditionalAndConditionalInclusion",
 			"operationType": "query",
 			"rootType": "Query",
@@ -2926,7 +2926,7 @@
 			"operationId": "501fcb710e5ffeeab2c65b7935fbded394ffea92e7b5dd904d05d5deab6f39c6"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroDetails.graphql",
 			"operationName": "HeroDetails",
 			"operationType": "query",
 			"rootType": "Query",
@@ -3142,7 +3142,7 @@
 			"operationId": "2b67111fd3a1c6b2ac7d1ef7764e5cefa41d3f4218e1d60cb67c22feafbd43ec"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroDetails.graphql",
 			"operationName": "HeroDetailsWithFragment",
 			"operationType": "query",
 			"rootType": "Query",
@@ -3366,7 +3366,7 @@
 			"operationId": "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroDetails.graphql",
 			"operationName": "DroidDetailsWithFragment",
 			"operationType": "query",
 			"rootType": "Query",
@@ -3511,7 +3511,7 @@
 			"operationId": "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroFriendsOfFriends.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroFriendsOfFriends.graphql",
 			"operationName": "HeroFriendsOfFriendsNames",
 			"operationType": "query",
 			"rootType": "Query",
@@ -3704,7 +3704,7 @@
 			"operationId": "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroName.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroName.graphql",
 			"operationName": "HeroName",
 			"operationType": "query",
 			"rootType": "Query",
@@ -3801,7 +3801,7 @@
 			"operationId": "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroName.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroName.graphql",
 			"operationName": "HeroNameWithID",
 			"operationType": "query",
 			"rootType": "Query",
@@ -3916,7 +3916,7 @@
 			"operationId": "83c03f612c46fca72f6cb902df267c57bffc9209bc44dd87d2524fb2b34f6f18"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroName.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroName.graphql",
 			"operationName": "HeroNameWithFragment",
 			"operationType": "query",
 			"rootType": "Query",
@@ -4017,7 +4017,7 @@
 			"operationId": "b952f0054915a32ec524ac0dde0244bcda246649debe149f9e32e303e21c8266"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroName.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroName.graphql",
 			"operationName": "HeroNameWithFragmentAndID",
 			"operationType": "query",
 			"rootType": "Query",
@@ -4136,7 +4136,125 @@
 			"operationId": "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroNameAndAppearsIn.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroNameAndAppearsIn.graphql",
+			"operationName": "HeroNameAndAppearsIn",
+			"operationType": "query",
+			"rootType": "Query",
+			"variables": [
+				{
+					"name": "episode",
+					"type": "Episode",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Episode"
+						}
+					}
+				}
+			],
+			"source": "query HeroNameAndAppearsIn($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    appearsIn\n  }\n}",
+			"fields": [
+				{
+					"responseName": "hero",
+					"fieldName": "hero",
+					"type": "Character",
+					"typeNode": {
+						"kind": "NamedType",
+						"name": {
+							"kind": "Name",
+							"value": "Character"
+						}
+					},
+					"args": [
+						{
+							"name": "episode",
+							"value": {
+								"kind": "Variable",
+								"variableName": "episode"
+							},
+							"type": "Episode",
+							"typeNode": {
+								"kind": "NamedType",
+								"name": {
+									"kind": "Name",
+									"value": "Episode"
+								}
+							}
+						}
+					],
+					"isConditional": false,
+					"isDeprecated": false,
+					"fields": [
+						{
+							"responseName": "__typename",
+							"fieldName": "__typename",
+							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
+							"isConditional": false,
+							"isDeprecated": false
+						},
+						{
+							"responseName": "name",
+							"fieldName": "name",
+							"type": "String!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "NamedType",
+									"name": {
+										"kind": "Name",
+										"value": "String"
+									}
+								}
+							},
+							"isConditional": false,
+							"description": "The name of the character",
+							"isDeprecated": false
+						},
+						{
+							"responseName": "appearsIn",
+							"fieldName": "appearsIn",
+							"type": "[Episode]!",
+							"typeNode": {
+								"kind": "NonNullType",
+								"type": {
+									"kind": "ListType",
+									"type": {
+										"kind": "NamedType",
+										"name": {
+											"kind": "Name",
+											"value": "Episode"
+										}
+									}
+								}
+							},
+							"isConditional": false,
+							"description": "The movies this character appears in",
+							"isDeprecated": false
+						}
+					],
+					"fragmentSpreads": [],
+					"inlineFragments": []
+				}
+			],
+			"fragmentSpreads": [],
+			"inlineFragments": [],
+			"fragmentsReferenced": [],
+			"sourceWithFragments": "query HeroNameAndAppearsIn($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    appearsIn\n  }\n}",
+			"operationId": "f714414a2002404f9943490c8cc9c1a7b8ecac3ca229fa5a326186b43c1385ce"
+		},
+		{
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroNameAndAppearsIn.graphql",
 			"operationName": "HeroNameAndAppearsInWithFragment",
 			"operationType": "query",
 			"rootType": "Query",
@@ -4258,7 +4376,7 @@
 			"operationId": "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroParentTypeDependentField.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroParentTypeDependentField.graphql",
 			"operationName": "HeroParentTypeDependentField",
 			"operationType": "query",
 			"rootType": "Query",
@@ -4706,7 +4824,7 @@
 			"operationId": "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroTypeDependentAliasedField.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroTypeDependentAliasedField.graphql",
 			"operationName": "HeroTypeDependentAliasedField",
 			"operationType": "query",
 			"rootType": "Query",
@@ -4868,7 +4986,7 @@
 			"operationId": "b5838c22bac1c5626023dac4412ca9b86bebfe16608991fb632a37c44e12811e"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/SameHeroTwice.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/SameHeroTwice.graphql",
 			"operationName": "SameHeroTwice",
 			"operationType": "query",
 			"rootType": "Query",
@@ -4992,7 +5110,7 @@
 			"operationId": "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/Search.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/Search.graphql",
 			"operationName": "Search",
 			"operationType": "query",
 			"rootType": "Query",
@@ -5261,7 +5379,7 @@
 			"operationId": "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/Starship.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/Starship.graphql",
 			"operationName": "Starship",
 			"operationType": "query",
 			"rootType": "Query",
@@ -5372,7 +5490,7 @@
 			"operationId": "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/Starship.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/Starship.graphql",
 			"operationName": "StarshipCoordinates",
 			"operationType": "query",
 			"rootType": "Query",
@@ -5534,7 +5652,7 @@
 			"operationId": "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/SubscribeReview.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/SubscribeReview.graphql",
 			"operationName": "ReviewAdded",
 			"operationType": "subscription",
 			"rootType": "Subscription",
@@ -5661,7 +5779,7 @@
 			"operationId": "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/TestFolder/TestFolder2/Human.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/TestFolder/TestFolder2/Human.graphql",
 			"operationName": "Human",
 			"operationType": "query",
 			"rootType": "Query",
@@ -5779,7 +5897,7 @@
 			"operationId": "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e"
 		},
 		{
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/TwoHeroes.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/TwoHeroes.graphql",
 			"operationName": "TwoHeroes",
 			"operationType": "query",
 			"rootType": "Query",
@@ -5921,7 +6039,7 @@
 				"Droid"
 			],
 			"fragmentName": "DroidNameAndPrimaryFunction",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment DroidNameAndPrimaryFunction on Droid {\n  __typename\n  ...CharacterName\n  ...DroidPrimaryFunction\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -5995,7 +6113,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterNameAndDroidPrimaryFunction",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameAndDroidPrimaryFunction on Character {\n  __typename\n  ...CharacterName\n  ...DroidPrimaryFunction\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6117,7 +6235,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterNameAndDroidAppearsIn",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameAndDroidAppearsIn on Character {\n  __typename\n  name\n  ... on Droid {\n    appearsIn\n  }\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6238,7 +6356,7 @@
 				"Droid"
 			],
 			"fragmentName": "DroidName",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment DroidName on Droid {\n  __typename\n  name\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6293,7 +6411,7 @@
 				"Droid"
 			],
 			"fragmentName": "DroidPrimaryFunction",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment DroidPrimaryFunction on Droid {\n  __typename\n  primaryFunction\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6345,7 +6463,7 @@
 				"Human"
 			],
 			"fragmentName": "HumanHeightWithVariable",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment HumanHeightWithVariable on Human {\n  __typename\n  height(unit: $heightUnit)\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6415,7 +6533,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterNameAndAppearsInWithNestedFragments",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameAndAppearsInWithNestedFragments on Character {\n  __typename\n  ...CharacterNameWithNestedAppearsInFragment\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6494,7 +6612,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterNameWithNestedAppearsInFragment",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameWithNestedAppearsInFragment on Character {\n  __typename\n  name\n  ...CharacterAppearsIn\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6573,7 +6691,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterNameWithInlineFragment",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/CharacterAndSubTypesFragments.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/CharacterAndSubTypesFragments.graphql",
 			"source": "fragment CharacterNameWithInlineFragment on Character {\n  __typename\n  ... on Human {\n    friends {\n      __typename\n      appearsIn\n    }\n  }\n  ... on Droid {\n    ...CharacterName\n    ...FriendsNames\n  }\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6802,7 +6920,7 @@
 				"Droid"
 			],
 			"fragmentName": "FriendsNames",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAndFriendsNames.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAndFriendsNames.graphql",
 			"source": "fragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6897,7 +7015,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterAppearsIn",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroAppearsIn.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroAppearsIn.graphql",
 			"source": "fragment CharacterAppearsIn on Character {\n  __typename\n  appearsIn\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -6956,7 +7074,7 @@
 				"Droid"
 			],
 			"fragmentName": "HeroDetails",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroDetails.graphql",
 			"source": "fragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -7130,7 +7248,7 @@
 				"Droid"
 			],
 			"fragmentName": "DroidDetails",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroDetails.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroDetails.graphql",
 			"source": "fragment DroidDetails on Droid {\n  __typename\n  name\n  primaryFunction\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -7201,7 +7319,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterName",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroName.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroName.graphql",
 			"source": "fragment CharacterName on Character {\n  __typename\n  name\n}",
 			"typeNode": {
 				"kind": "NamedType",
@@ -7257,7 +7375,7 @@
 				"Droid"
 			],
 			"fragmentName": "CharacterNameAndAppearsIn",
-			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/HeroNameAndAppearsIn.graphql",
+			"filePath": "file:///Users/ellen/Desktop/Work/Apollo/apollo-ios/Sources/StarWarsAPI/graphql/HeroNameAndAppearsIn.graphql",
 			"source": "fragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}",
 			"typeNode": {
 				"kind": "NamedType",

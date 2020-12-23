@@ -109,6 +109,8 @@ Other cache polices which you can specify are:
 - **`.returnCacheDataDontFetch`** to return data from the cache and never fetch from the server. This policy will return an error if cached data is not available.
 - **`.returnCacheDataAndFetch`** to return cached data immediately, *then* perform a fetch to see if there are any updates. This is mostly useful if you're watching queries, since those will be updated when the call to the server returns. 
 
+If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloCacheDependentTests/CacheDependentInterceptorTests.swift). 
+
 ## Watching queries
 
 Watching a query is very similar to fetching a query. The main difference is that you don't just receive an initial result, but your result handler will be invoked whenever relevant data in the cache changes:
