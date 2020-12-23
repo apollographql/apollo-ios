@@ -84,7 +84,9 @@ struct CodegenTestHelper {
   
   static func starWarsSchemaFileURL() -> URL {
     let starWars = self.starWarsFolderURL()
-    return starWars.appendingPathComponent("schema.json")
+    return starWars
+      .appendingPathComponent("graphql")
+      .appendingPathComponent("schema.json")
   }
   
   static func outputFolderURL() -> URL {

@@ -45,28 +45,46 @@ enum Target {
         let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
         switch self {
         case .upload:
-            return ApolloCodegenOptions(targetRootURL: targetRootURL)
+            let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
+
+            let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+            let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
+            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.json")
+            return ApolloCodegenOptions(operationIDsURL: operationIDsURL,
+                                        outputFormat: .singleFile(atFileURL: outputFileURL),
+                                        urlToSchemaFile: schema)
         case .starWars:
-            return ApolloCodegenOptions(targetRootURL: targetRootURL)
+            let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
+
+            let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+            let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
+            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.json")
+            
+            return ApolloCodegenOptions(operationIDsURL: operationIDsURL,
+                                        outputFormat: .singleFile(atFileURL: outputFileURL),
+                                        urlToSchemaFile: schema)
         case .starWarsSwiftCodegen:
-            let jsonOutputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.json")
-            let operationIDsURL = try! targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
-            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.json")
+            let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+            let jsonOutputFileURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "API.json")
+            let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
+            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.json")
             
             return ApolloCodegenOptions(codegenEngine: .swiftExperimental,
                                         operationIDsURL: operationIDsURL,
                                         outputFormat: .singleFile(atFileURL: jsonOutputFileURL),
-                                        urlToSchemaFile: json)
+                                        urlToSchemaFile: schema)
         case .gitHub:
-            let json = try! targetRootURL.apollo.childFileURL(fileName: "schema.docs.graphql")
             let outputFileURL = try!  targetRootURL.apollo.childFileURL(fileName: "API.swift")
-            let operationIDsURL = try! targetRootURL.apollo.childFileURL(fileName: "operationIDs.json")
-            return ApolloCodegenOptions(includes: "Queries/**/*.graphql",
+
+            let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.docs.graphql")
+            let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
+            return ApolloCodegenOptions(includes: "graphql/Queries/**/*.graphql",
                                         mergeInFieldsFromFragmentSpreads: true,
                                         operationIDsURL: operationIDsURL,
                                         outputFormat: .singleFile(atFileURL: outputFileURL),
                                         suppressSwiftMultilineStringLiterals: true,
-                                        urlToSchemaFile: json)
+                                        urlToSchemaFile: schema)
         }
     }
 }

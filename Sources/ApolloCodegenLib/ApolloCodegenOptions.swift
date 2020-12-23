@@ -14,7 +14,7 @@ public struct ApolloCodegenOptions {
   }
   
   /// Enum to select which code generation you wish to use
-  public enum CodeGenerationEngine {
+  public enum CodeGenerationEngine: Equatable {
     /// The default, tried and true code generation engine
     case typescript
     

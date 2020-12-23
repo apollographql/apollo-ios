@@ -70,8 +70,7 @@ class UploadTests: XCTestCase {
   }
   
   func testUploadingASingleFile() throws {
-    let fileURL = TestFileHelper.testParentFolder()
-                .appendingPathComponent("a.txt")
+    let fileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let file = try GraphQLFile(fieldName: "file",
                                originalName: "a.txt",
@@ -98,21 +97,19 @@ class UploadTests: XCTestCase {
   }
   
   func testUploadingMultipleFilesWithTheSameFieldName() throws {
-    let firstFileURL = TestFileHelper.testParentFolder()
-                .appendingPathComponent("a.txt")
+    let firstFileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let firstFile = try GraphQLFile(fieldName: "files",
                                     originalName: "a.txt",
                                     fileURL: firstFileURL)
     
-    let secondFileURL = TestFileHelper.testParentFolder()
-                .appendingPathComponent("b.txt")
+    let secondFileURL = TestFileHelper.fileURLForFile(named: "b", extension: "txt")
     
     let secondFile = try GraphQLFile(fieldName: "files",
                                      originalName: "b.txt",
                                      fileURL: secondFileURL)
     
-    let files = [ firstFile, secondFile]
+    let files = [firstFile, secondFile]
     
     let upload = UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName })
     
@@ -144,22 +141,19 @@ class UploadTests: XCTestCase {
   }
   
   func testUploadingMultipleFilesWithDifferentFieldNames() throws {
-    let firstFileURL = TestFileHelper.testParentFolder()
-      .appendingPathComponent("a.txt")
+    let firstFileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let firstFile = try GraphQLFile(fieldName: "singleFile",
                                     originalName: "a.txt",
                                     fileURL: firstFileURL)
     
-    let secondFileURL = TestFileHelper.testParentFolder()
-      .appendingPathComponent("b.txt")
+    let secondFileURL = TestFileHelper.fileURLForFile(named: "b", extension: "txt")
     
     let secondFile = try GraphQLFile(fieldName: "multipleFiles",
                                      originalName: "b.txt",
                                      fileURL: secondFileURL)
     
-    let thirdFileURL = TestFileHelper.testParentFolder()
-      .appendingPathComponent("c.txt")
+    let thirdFileURL = TestFileHelper.fileURLForFile(named: "c", extension: "txt")
     
     let thirdFile = try GraphQLFile(fieldName: "multipleFiles",
                                     originalName: "c.txt",
@@ -203,8 +197,7 @@ class UploadTests: XCTestCase {
   }
   
   func testUploadingASingleFileInAnArray() throws {
-    let fileURL = TestFileHelper.testParentFolder()
-                .appendingPathComponent("a.txt")
+    let fileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let file = try GraphQLFile(fieldName: "files",
                                     originalName: "a.txt",
@@ -244,15 +237,13 @@ class UploadTests: XCTestCase {
   }
   
   func testUploadingSingleFileInAnArrayWithAnotherFileForAnotherField() throws {
-    let firstFileURL = TestFileHelper.testParentFolder()
-      .appendingPathComponent("a.txt")
+    let firstFileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let firstFile = try GraphQLFile(fieldName: "singleFile",
                                     originalName: "a.txt",
                                     fileURL: firstFileURL)
     
-    let secondFileURL = TestFileHelper.testParentFolder()
-      .appendingPathComponent("b.txt")
+    let secondFileURL = TestFileHelper.fileURLForFile(named: "b", extension: "txt")
     
     let secondFile = try GraphQLFile(fieldName: "multipleFiles",
                                      originalName: "b.txt",
@@ -294,15 +285,10 @@ class UploadTests: XCTestCase {
   }
   
   // MARK: - UploadRequest
-  
-  private func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
-    return TestFileHelper.testParentFolder()
-        .appendingPathComponent(name)
-        .appendingPathExtension(fileExtension)
-  }
+
   
   func testSingleFileWithUploadRequest() throws {
-    let alphaFileUrl = self.fileURLForFile(named: "a", extension: "txt")
+    let alphaFileUrl = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     
     let alphaFile = try GraphQLFile(fieldName: "file",
                                     originalName: "a.txt",
@@ -357,13 +343,13 @@ Alpha file content.
   }
 
   func testMultipleFilesWithUploadRequest() throws {
-    let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
+    let alphaFileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     let alphaFile = try GraphQLFile(fieldName: "files",
                                     originalName: "a.txt",
                                     mimeType: "text/plain",
                                     fileURL: alphaFileURL)
     
-    let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
+    let betaFileURL = TestFileHelper.fileURLForFile(named: "b", extension: "txt")
     let betaFile = try GraphQLFile(fieldName: "files",
                                    originalName: "b.txt",
                                    mimeType: "text/plain",
@@ -427,19 +413,19 @@ Bravo file content.
   }
 
   func testMultipleFilesWithMultipleFieldsWithUploadRequest() throws {
-    let alphaFileURL = self.fileURLForFile(named: "a", extension: "txt")
+    let alphaFileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
     let alphaFile = try GraphQLFile(fieldName: "uploads",
                                     originalName: "a.txt",
                                     mimeType: "text/plain",
                                     fileURL: alphaFileURL)
     
-    let betaFileURL = self.fileURLForFile(named: "b", extension: "txt")
+    let betaFileURL = TestFileHelper.fileURLForFile(named: "b", extension: "txt")
     let betaFile = try GraphQLFile(fieldName: "uploads",
                                    originalName: "b.txt",
                                    mimeType: "text/plain",
                                    fileURL: betaFileURL)
     
-    let charlieFileUrl = self.fileURLForFile(named: "c", extension: "txt")
+    let charlieFileUrl = TestFileHelper.fileURLForFile(named: "c", extension: "txt")
     let charlieFile = try GraphQLFile(fieldName: "secondField",
                                       originalName: "c.txt",
                                       mimeType: "text/plain",

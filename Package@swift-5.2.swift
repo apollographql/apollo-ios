@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -37,59 +37,36 @@ let package = Package(
       url: "https://github.com/stencilproject/Stencil.git",
       .upToNextMinor(from: "0.14.0")),
     .package(
-      url: "https://github.com/apple/swift-crypto.git",
-      .upToNextMinor(from: "1.1.2")),
-    .package(
       url: "https://github.com/apollographql/InflectorKit",
       .upToNextMinor(from: "0.0.2")),
     ],
     targets: [
-    .target(
-      name: "ApolloCore",
-      dependencies: [
-        .product(name: "Crypto",
-                 package: "swift-crypto",
-                 condition: .when(platforms: [.linux]))
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
+      .target(
+        name: "ApolloCore",
+        dependencies: []),
     .target(
       name: "Apollo",
       dependencies: [
         "ApolloCore",
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloCore",
-        .product(name: "InflectorKit",
-                 package: "InflectorKit",
-                 condition: .when(platforms: [.macOS])),
-        .product(name: "Stencil",
-                 package: "Stencil",
-                 condition: .when(platforms: [.macOS])),
+        "InflectorKit",
+        .product(name: "Stencil", package: "Stencil"),
       ]),
     .target(
       name: "ApolloSQLite",
       dependencies: [
         "Apollo",
         .product(name: "SQLite", package: "SQLite.swift"),
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .target(
       name: "ApolloSQLiteTestSupport",
       dependencies: [
         "ApolloSQLite",
         "ApolloTestSupport"
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .target(
       name: "ApolloWebSocket",
@@ -97,44 +74,26 @@ let package = Package(
         "Apollo",
         "ApolloCore",
         .product(name: "Starscream", package: "Starscream"),
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .target(
       name: "ApolloTestSupport",
       dependencies: [
         "Apollo",
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .target(
       name: "GitHubAPI",
       dependencies: [
         "Apollo",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
       ]),
     .target(
       name: "StarWarsAPI",
       dependencies: [
         "Apollo",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
       ]),
     .target(
       name: "UploadAPI",
       dependencies: [
         "Apollo",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
       ]),
     .testTarget(
       name: "ApolloTests",
@@ -142,40 +101,24 @@ let package = Package(
         "ApolloTestSupport",
         "StarWarsAPI",
         "UploadAPI"
-      ],
-      exclude: [
-        "Info.plist"
-      ],
-      resources: [
-        .copy("Resources")
       ]),
     .testTarget(
       name: "ApolloCacheDependentTests",
       dependencies: [
         "ApolloSQLiteTestSupport",
         "StarWarsAPI",
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .testTarget(
       name: "ApolloCodegenTests",
       dependencies: [
         "ApolloTestSupport",
         "ApolloCodegenLib"
-      ],
-      exclude: [
-        "Info.plist",
-        "scripts directory"
       ]),
     .testTarget(
       name: "ApolloSQLiteTests",
       dependencies: [
         "ApolloSQLiteTestSupport",
         "StarWarsAPI"
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     .testTarget(
       name: "ApolloWebsocketTests",
@@ -183,9 +126,6 @@ let package = Package(
         "ApolloWebSocket",
         "ApolloTestSupport",
         "StarWarsAPI",
-      ],
-      exclude: [
-        "Info.plist"
       ]),
     ]
 )
