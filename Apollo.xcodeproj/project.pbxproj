@@ -768,6 +768,7 @@
 		9F33D6A32566475600A1543F /* PossiblyDeferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossiblyDeferred.swift; sourceTree = "<group>"; };
 		9F3910262549741400AF54A6 /* MockGraphQLServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLServer.swift; sourceTree = "<group>"; };
 		9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedLoadTests.swift; sourceTree = "<group>"; };
+		9F454784259390B9001783F6 /* ApolloCodegenFrontendPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ApolloCodegenFrontendPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9F54C893255D6A640065AFD6 /* IssuesAndCommentsForRepository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = IssuesAndCommentsForRepository.graphql; sourceTree = "<group>"; };
 		9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloPerformanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F54C8B6255D760B0065AFD6 /* ParsingPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingPerformanceTests.swift; sourceTree = "<group>"; };
@@ -1762,6 +1763,7 @@
 		9FE1E54C2588C5E000AA967E /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
+				9F454784259390B9001783F6 /* ApolloCodegenFrontendPlayground.playground */,
 				9F1A9665258F34BB00A06EEB /* ApolloCodegenFrontend.swift */,
 				9F62DFCF2590710E00E6E808 /* GraphQLSource.swift */,
 				9F1A9667258F34BB00A06EEB /* GraphQLSchema.swift */,
