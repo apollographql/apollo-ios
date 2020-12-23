@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+  },
+  "files": ["./src/__testUtils__/matchers.ts"],
+}
