@@ -1,6 +1,6 @@
 import Foundation
 import ApolloCodegenLib
-import TSCUtility
+import ArgumentParser
 
 enum Target {
     case starWars
@@ -85,40 +85,6 @@ enum Target {
                                         outputFormat: .singleFile(atFileURL: outputFileURL),
                                         suppressSwiftMultilineStringLiterals: true,
                                         urlToSchemaFile: schema)
-        }
-    }
-}
-
-struct ArgumentSetup {
-    
-    enum ArgumentError: Error, LocalizedError {
-        case targetNotProvided(args: [String])
-        
-        var errorDescription: String? {
-            switch self {
-            case .targetNotProvided(let args):
-                return "No valid was provided to generate code for. Args were: \(args)"
-            }
-        }
-    }
-    
-    static func parse(arguments: [String] = Array(ProcessInfo.processInfo.arguments.dropFirst())) throws -> Target {
-        
-        let parser = ArgumentParser(usage: "Codegen <options>", overview: "This is what this tool is for")
-                
-        let target: OptionArgument<String> = parser.add(option: "--target",
-                                                        shortName: "-t",
-                                                        kind: String.self,
-                                                        usage: "The target to generate code for")
-        let parsedArguments = try parser.parse(arguments)
-        
-        
-        if
-            let targetName = parsedArguments.get(target),
-            let target = Target(name: targetName) {
-                return  target
-        } else {
-            throw ArgumentError.targetNotProvided(args: arguments)
         }
     }
 }
