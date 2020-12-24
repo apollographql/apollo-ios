@@ -11,7 +11,7 @@ let package = Package(
     dependencies: [
         .package(name: "Apollo", path: ".."),
         .package(url: "https://github.com/apple/swift-tools-support-core", from: "0.0.1"),
-        .package(url: "https://github.com/eneko/SourceDocs.git", .upToNextMinor(from: "1.1.0"))
+        .package(url: "https://github.com/eneko/SourceDocs.git", .upToNextMinor(from: "1.2.0"))
     ],
     targets: [
         .target(name: "Codegen",

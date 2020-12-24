@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "ProcessRunner",
+        "repositoryURL": "https://github.com/eneko/ProcessRunner.git",
+        "state": {
+          "branch": null,
+          "revision": "bedc55797b206bff50f652ffad8269223320fee5",
+          "version": "1.1.0"
+        }
+      },
+      {
         "package": "Quick",
         "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
@@ -69,8 +78,8 @@
         "repositoryURL": "https://github.com/eneko/SourceDocs.git",
         "state": {
           "branch": null,
-          "revision": "354e3e6310b4bab616aa9c9ec0798644f874e4d2",
-          "version": "1.1.0"
+          "revision": "6c6443434ef04328dc18ac71c73e7a2ec0d531d1",
+          "version": "1.2.1"
         }
       },
       {
@@ -170,15 +179,6 @@
           "branch": null,
           "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
           "version": "5.0.1"
-        }
-      },
-      {
-        "package": "System",
-        "repositoryURL": "https://github.com/eneko/System.git",
-        "state": {
-          "branch": null,
-          "revision": "3ffd9672edf3799077373add813ba1e10b369950",
-          "version": "1.0.0"
         }
       },
       {
