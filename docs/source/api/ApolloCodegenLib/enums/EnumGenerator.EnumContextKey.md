@@ -6,7 +6,7 @@
 public enum EnumContextKey: String
 ```
 
-> Context keys for the objects in the `context` dictionary passed to stencil.
+Context keys for the objects in the `context` dictionary passed to stencil.
 
 ## Cases
 ### `modifier`

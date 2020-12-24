@@ -12,4 +12,4 @@ extension Optional: OptionalType
 public var underlying: Wrapped?
 ```
 
-> Return the value if it exists, otherwise `nil`
+Return the value if it exists, otherwise `nil`

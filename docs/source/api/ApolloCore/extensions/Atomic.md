@@ -12,4 +12,4 @@ public extension Atomic where T == Int
 func increment() -> T
 ```
 
-> Increments in a lock-compatible fashion
+Increments in a lock-compatible fashion

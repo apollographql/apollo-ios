@@ -13,9 +13,9 @@ public class UnionEnumGenerator
 open var unionEnumTemplate: String
 ```
 
-> A stencil template to use to render interface enums.
->
-> Variable to allow custom modifications, but MODIFY AT YOUR OWN RISK.
+A stencil template to use to render interface enums.
+
+Variable to allow custom modifications, but MODIFY AT YOUR OWN RISK.
 
 ## Methods
 ### `init()`
@@ -24,4 +24,4 @@ open var unionEnumTemplate: String
 public init()
 ```
 
-> Designated initializer
+Designated initializer

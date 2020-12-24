@@ -12,9 +12,9 @@ public extension ApolloExtension where Base: Collection
 var isNotEmpty: Bool
 ```
 
-> Convenience helper to make `guard` statements more readable
->
-> - returns: `true` if the collection has contents.
+Convenience helper to make `guard` statements more readable
+
+- returns: `true` if the collection has contents.
 
 ### `isEmptyOrNil`
 
@@ -22,7 +22,7 @@ var isNotEmpty: Bool
 var isEmptyOrNil: Bool
 ```
 
-> - returns: `true` if the collection is empty or nil
+- returns: `true` if the collection is empty or nil
 
 ### `isNotEmpty`
 
@@ -30,7 +30,7 @@ var isEmptyOrNil: Bool
 var isNotEmpty: Bool
 ```
 
-> - returns: `true` if the collection is non-nil AND has contents.
+- returns: `true` if the collection is non-nil AND has contents.
 
 ### `boolValue`
 
@@ -38,7 +38,7 @@ var isNotEmpty: Bool
 var boolValue: Bool
 ```
 
-> The value of the unwrapped `Bool`, or false if optional value is `.none`
+The value of the unwrapped `Bool`, or false if optional value is `.none`
 
 ### `sha256Hash`
 
@@ -46,4 +46,4 @@ var boolValue: Bool
 public var sha256Hash: String
 ```
 
-> The SHA256 hash of the current string.
+The SHA256 hash of the current string.

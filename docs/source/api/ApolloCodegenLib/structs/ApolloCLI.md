@@ -6,7 +6,7 @@
 public struct ApolloCLI
 ```
 
-> Wrapper for calling the bundled node-based Apollo CLI.
+Wrapper for calling the bundled node-based Apollo CLI.
 
 ## Properties
 ### `binaryFolderURL`
@@ -22,11 +22,11 @@ public let binaryFolderURL: URL
 public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> ApolloCLI
 ```
 
-> Creates an instance of `ApolloCLI`, downloading and extracting if needed
->
-> - Parameters:
->   - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
->   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
+Creates an instance of `ApolloCLI`, downloading and extracting if needed
+
+- Parameters:
+  - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
+  - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
 
 #### Parameters
 
@@ -41,9 +41,9 @@ public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> Apoll
 public init(binaryFolderURL: URL)
 ```
 
-> Designated initializer
->
-> - Parameter binaryFolderURL: The folder where the extracted binary files live.
+Designated initializer
+
+- Parameter binaryFolderURL: The folder where the extracted binary files live.
 
 #### Parameters
 
@@ -58,11 +58,11 @@ public func runApollo(with arguments: [String],
                       from folder: URL? = nil) throws -> String
 ```
 
-> Runs a command with the bundled Apollo CLI
->
-> NOTE: Will always run the `--version` command first for debugging purposes.
-> - Parameter arguments: The arguments to hand to the CLI
-> - Parameter folder: The folder to run the command from.
+Runs a command with the bundled Apollo CLI
+
+NOTE: Will always run the `--version` command first for debugging purposes.
+- Parameter arguments: The arguments to hand to the CLI
+- Parameter folder: The folder to run the command from.
 
 #### Parameters
 

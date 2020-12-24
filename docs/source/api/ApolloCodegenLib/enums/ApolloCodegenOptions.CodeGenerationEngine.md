@@ -3,10 +3,10 @@
 # `ApolloCodegenOptions.CodeGenerationEngine`
 
 ```swift
-public enum CodeGenerationEngine
+public enum CodeGenerationEngine: Equatable
 ```
 
-> Enum to select which code generation you wish to use
+Enum to select which code generation you wish to use
 
 ## Cases
 ### `typescript`
@@ -15,7 +15,7 @@ public enum CodeGenerationEngine
 case typescript
 ```
 
-> The default, tried and true code generation engine
+The default, tried and true code generation engine
 
 ### `swiftExperimental`
 
@@ -23,4 +23,4 @@ case typescript
 case swiftExperimental
 ```
 
-> The VERY WORK IN PROGRESS Swift code generation engine. Use at your own risk!
+The VERY WORK IN PROGRESS Swift code generation engine. Use at your own risk!

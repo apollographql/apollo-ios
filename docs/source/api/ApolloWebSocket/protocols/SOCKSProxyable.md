@@ -13,5 +13,5 @@ public protocol SOCKSProxyable
 var enableSOCKSProxy: Bool
 ```
 
-> Determines whether a SOCKS proxy is enabled on the underlying request.
-> Mostly useful for debugging with tools like Charles Proxy.
+Determines whether a SOCKS proxy is enabled on the underlying request.
+Mostly useful for debugging with tools like Charles Proxy.

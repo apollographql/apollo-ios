@@ -6,7 +6,7 @@
 public enum SchemaFileType: String
 ```
 
-> The type of schema file to download
+The type of schema file to download
 
 ## Cases
 ### `json`

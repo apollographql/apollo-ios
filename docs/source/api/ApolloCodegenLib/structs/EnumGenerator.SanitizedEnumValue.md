@@ -19,7 +19,7 @@ public let name: String
 public let nameVariableDeclaration: String
 ```
 
-> The string declaring the name of the enum value
+The string declaring the name of the enum value
 
 ### `nameUsage`
 
@@ -27,7 +27,7 @@ public let nameVariableDeclaration: String
 public let nameUsage: String
 ```
 
-> The string to use when using the enum value
+The string to use when using the enum value
 
 ### `description`
 
@@ -35,7 +35,7 @@ public let nameUsage: String
 public let description: String
 ```
 
-> The description of the enum value
+The description of the enum value
 
 ### `isDeprecated`
 
@@ -43,4 +43,4 @@ public let description: String
 public let isDeprecated: Bool
 ```
 
-> If the enum value is deprecated.
+If the enum value is deprecated.

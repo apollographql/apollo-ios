@@ -6,7 +6,7 @@
 public struct WebSocketError: Error, LocalizedError
 ```
 
-> A structure for capturing problems and any associated errors from a `WebSocketTransport`.
+A structure for capturing problems and any associated errors from a `WebSocketTransport`.
 
 ## Properties
 ### `payload`
@@ -15,7 +15,7 @@ public struct WebSocketError: Error, LocalizedError
 public let payload: JSONObject?
 ```
 
-> The payload of the response.
+The payload of the response.
 
 ### `error`
 
@@ -23,7 +23,7 @@ public let payload: JSONObject?
 public let error: Error?
 ```
 
-> The underlying error, or nil if one was not returned
+The underlying error, or nil if one was not returned
 
 ### `kind`
 
@@ -31,7 +31,7 @@ public let error: Error?
 public let kind: ErrorKind
 ```
 
-> The kind of problem which occurred.
+The kind of problem which occurred.
 
 ### `errorDescription`
 

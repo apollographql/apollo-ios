@@ -6,7 +6,7 @@
 public class ResponseCodeInterceptor: ApolloInterceptor
 ```
 
-> An interceptor to check the response code returned with a request.
+An interceptor to check the response code returned with a request.
 
 ## Methods
 ### `init()`
@@ -15,7 +15,7 @@ public class ResponseCodeInterceptor: ApolloInterceptor
 public init()
 ```
 
-> Designated initializer
+Designated initializer
 
 ### `interceptAsync(chain:request:response:completion:)`
 

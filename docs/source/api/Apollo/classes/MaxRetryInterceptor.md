@@ -6,7 +6,7 @@
 public class MaxRetryInterceptor: ApolloInterceptor
 ```
 
-> An interceptor to enforce a maximum number of retries of any `HTTPRequest`
+An interceptor to enforce a maximum number of retries of any `HTTPRequest`
 
 ## Methods
 ### `init(maxRetriesAllowed:)`
@@ -15,9 +15,9 @@ public class MaxRetryInterceptor: ApolloInterceptor
 public init(maxRetriesAllowed: Int = 3)
 ```
 
-> Designated initializer.
->
-> - Parameter maxRetriesAllowed: How many times a query can be retried, in addition to the initial attempt before
+Designated initializer.
+
+- Parameter maxRetriesAllowed: How many times a query can be retried, in addition to the initial attempt before
 
 #### Parameters
 

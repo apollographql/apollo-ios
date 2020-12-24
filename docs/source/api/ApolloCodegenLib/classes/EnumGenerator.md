@@ -13,9 +13,9 @@ public class EnumGenerator
 open var enumTemplate: String
 ```
 
-> A stencil template to use to render enums.
->
-> Variable to allow custom modifications, but MODIFY AT YOUR OWN RISK.
+A stencil template to use to render enums.
+
+Variable to allow custom modifications, but MODIFY AT YOUR OWN RISK.
 
 ## Methods
 ### `init()`
@@ -24,4 +24,4 @@ open var enumTemplate: String
 public init()
 ```
 
-> Designated initializer
+Designated initializer

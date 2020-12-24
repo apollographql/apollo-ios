@@ -6,14 +6,14 @@
 open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate
 ```
 
-> A class to handle URL Session calls that will support background execution,
-> but still (mostly) use callbacks for its primary method of communication.
->
-> **NOTE:** Delegate methods implemented here are not documented inline because
-> Apple has their own documentation for them. Please consult Apple's
-> documentation for how the delegate methods work and what needs to be overridden
-> and handled within your app, particularly in regards to what needs to be called
-> when for background sessions.
+A class to handle URL Session calls that will support background execution,
+but still (mostly) use callbacks for its primary method of communication.
+
+**NOTE:** Delegate methods implemented here are not documented inline because
+Apple has their own documentation for them. Please consult Apple's
+documentation for how the delegate methods work and what needs to be overridden
+and handled within your app, particularly in regards to what needs to be called
+when for background sessions.
 
 ## Properties
 ### `session`
@@ -22,7 +22,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 open private(set) var session: URLSession!
 ```
 
-> The raw URLSession being used for this client
+The raw URLSession being used for this client
 
 ## Methods
 ### `init(sessionConfiguration:callbackQueue:)`
@@ -32,11 +32,11 @@ public init(sessionConfiguration: URLSessionConfiguration = .default,
             callbackQueue: OperationQueue? = .main)
 ```
 
-> Designated initializer.
->
-> - Parameters:
->   - sessionConfiguration: The `URLSessionConfiguration` to use to set up the URL session.
->   - callbackQueue: [optional] The `OperationQueue` to tell the URL session to call back to this class on, which will in turn call back to your class. Defaults to `.main`.
+Designated initializer.
+
+- Parameters:
+  - sessionConfiguration: The `URLSessionConfiguration` to use to set up the URL session.
+  - callbackQueue: [optional] The `OperationQueue` to tell the URL session to call back to this class on, which will in turn call back to your class. Defaults to `.main`.
 
 #### Parameters
 
@@ -51,9 +51,9 @@ public init(sessionConfiguration: URLSessionConfiguration = .default,
 public func invalidate()
 ```
 
-> Cleans up and invalidates everything related to this session client.
->
-> NOTE: This must be called from the `deinit` of anything holding onto this client in order to break a retain cycle with the delegate.
+Cleans up and invalidates everything related to this session client.
+
+NOTE: This must be called from the `deinit` of anything holding onto this client in order to break a retain cycle with the delegate.
 
 ### `clear(task:)`
 
@@ -61,9 +61,9 @@ public func invalidate()
 open func clear(task identifier: Int)
 ```
 
-> Clears underlying dictionaries of any data related to a particular task identifier.
->
-> - Parameter identifier: The identifier of the task to clear.
+Clears underlying dictionaries of any data related to a particular task identifier.
+
+- Parameter identifier: The identifier of the task to clear.
 
 #### Parameters
 
@@ -77,9 +77,9 @@ open func clear(task identifier: Int)
 open func clearAllTasks()
 ```
 
-> Clears underlying dictionaries of any data related to all tasks.
->
-> Mostly useful for cleanup and/or after invalidation of the `URLSession`.
+Clears underlying dictionaries of any data related to all tasks.
+
+Mostly useful for cleanup and/or after invalidation of the `URLSession`.
 
 ### `sendRequest(_:rawTaskCompletionHandler:completion:)`
 
@@ -89,14 +89,14 @@ open func sendRequest(_ request: URLRequest,
                       completion: @escaping Completion) -> URLSessionTask
 ```
 
-> The main method to perform a request.
->
-> - Parameters:
->   - request: The request to perform.
->   - rawTaskCompletionHandler: [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.
->   - completion: A completion handler to call when the task has either completed successfully or failed.
->
-> - Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
+The main method to perform a request.
+
+- Parameters:
+  - request: The request to perform.
+  - rawTaskCompletionHandler: [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.
+  - completion: A completion handler to call when the task has either completed successfully or failed.
+
+- Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
 
 #### Parameters
 
@@ -112,11 +112,11 @@ open func sendRequest(_ request: URLRequest,
 open func cancel(task: URLSessionTask)
 ```
 
-> Cancels a given task and clears out its underlying data.
->
-> NOTE: You will not receive any kind of "This was cancelled" error when this is called.
->
-> - Parameter task: The task you wish to cancel.
+Cancels a given task and clears out its underlying data.
+
+NOTE: You will not receive any kind of "This was cancelled" error when this is called.
+
+- Parameter task: The task you wish to cancel.
 
 #### Parameters
 
