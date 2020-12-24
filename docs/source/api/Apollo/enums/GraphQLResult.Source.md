@@ -6,7 +6,7 @@
 public enum Source
 ```
 
-> Represents source of data
+Represents source of data
 
 ## Cases
 ### `cache`

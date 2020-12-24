@@ -13,7 +13,7 @@ public class AutomaticPersistedQueryInterceptor: ApolloInterceptor
 public init()
 ```
 
-> Designated initializer
+Designated initializer
 
 ### `interceptAsync(chain:request:response:completion:)`
 

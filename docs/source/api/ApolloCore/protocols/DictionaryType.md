@@ -6,7 +6,7 @@
 public protocol DictionaryType: ExpressibleByDictionaryLiteral
 ```
 
-> Provides a PAT interface to `Dictionary<Key, Value>`
+Provides a PAT interface to `Dictionary<Key, Value>`
 
 ## Properties
 ### `underlying`

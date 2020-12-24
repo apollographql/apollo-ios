@@ -6,7 +6,7 @@
 public class Atomic<T>
 ```
 
-> Wrapper for a value protected by an NSLock
+Wrapper for a value protected by an NSLock
 
 ## Properties
 ### `value`
@@ -15,7 +15,7 @@ public class Atomic<T>
 public var value: T
 ```
 
-> The current value. Read-only. To update the underlying value, use `mutate`.
+The current value. Read-only. To update the underlying value, use `mutate`.
 
 ## Methods
 ### `init(_:)`
@@ -24,9 +24,9 @@ public var value: T
 public init(_ value: T)
 ```
 
-> Designated initializer
->
-> - Parameter value: The value to begin with.
+Designated initializer
+
+- Parameter value: The value to begin with.
 
 #### Parameters
 
@@ -40,8 +40,8 @@ public init(_ value: T)
 public func mutate(block: (inout T) -> Void)
 ```
 
-> Mutates the underlying value within a lock.
-> - Parameter block: The block to execute to mutate the value.
+Mutates the underlying value within a lock.
+- Parameter block: The block to execute to mutate the value.
 
 #### Parameters
 

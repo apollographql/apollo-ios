@@ -6,7 +6,7 @@
 open class CodableInterceptorProvider<FlexDecoder: FlexibleDecoder>: InterceptorProvider
 ```
 
-> The default interceptor provider for code generated with Swift Codegen™
+The default interceptor provider for code generated with Swift Codegen™
 
 ## Methods
 ### `init(client:shouldInvalidateClientOnDeinit:decoder:)`
@@ -17,12 +17,12 @@ public init(client: URLSessionClient = URLSessionClient(),
             decoder: FlexDecoder)
 ```
 
-> Designated initializer
->
-> - Parameters:
->   - client: The URLSessionClient to use. Defaults to the default setup.
->   - shouldInvalidateClientOnDeinit: If the passed-in client should be invalidated when this interceptor provider is deinitialized. If you are recreating the `URLSessionClient` every time you create a new provider, you should do this to prevent memory leaks. Defaults to true, since by default we provide a `URLSessionClient` to new instances.
->   - decoder: A `FlexibleDecoder` which can decode `Codable` objects.
+Designated initializer
+
+- Parameters:
+  - client: The URLSessionClient to use. Defaults to the default setup.
+  - shouldInvalidateClientOnDeinit: If the passed-in client should be invalidated when this interceptor provider is deinitialized. If you are recreating the `URLSessionClient` every time you create a new provider, you should do this to prevent memory leaks. Defaults to true, since by default we provide a `URLSessionClient` to new instances.
+  - decoder: A `FlexibleDecoder` which can decode `Codable` objects.
 
 #### Parameters
 

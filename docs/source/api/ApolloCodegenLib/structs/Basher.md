@@ -6,7 +6,7 @@
 public struct Basher
 ```
 
-> Bash command runner
+Bash command runner
 
 ## Methods
 ### `run(command:from:)`
@@ -15,12 +15,12 @@ public struct Basher
 public static func run(command: String, from url: URL?) throws -> String
 ```
 
-> Runs the given bash command as a string
->
-> - Parameters:
->   - command: The bash command to run
->   - url: [optional] The URL to set as the `currentDirectoryURL`.
-> - Returns: The result of the command.
+Runs the given bash command as a string
+
+- Parameters:
+  - command: The bash command to run
+  - url: [optional] The URL to set as the `currentDirectoryURL`.
+- Returns: The result of the command.
 
 #### Parameters
 

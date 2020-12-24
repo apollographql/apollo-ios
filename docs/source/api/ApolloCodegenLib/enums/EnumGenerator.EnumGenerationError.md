@@ -6,7 +6,7 @@
 public enum EnumGenerationError: Error, LocalizedError
 ```
 
-> Errors which can be encountered when generating an enum
+Errors which can be encountered when generating an enum
 
 ## Cases
 ### `kindIsNotAnEnum`

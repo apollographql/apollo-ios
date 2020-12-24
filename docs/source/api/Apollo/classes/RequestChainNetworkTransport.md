@@ -6,8 +6,8 @@
 open class RequestChainNetworkTransport: NetworkTransport
 ```
 
-> An implementation of `NetworkTransport` which creates a `RequestChain` object
-> for each item sent through it.
+An implementation of `NetworkTransport` which creates a `RequestChain` object
+for each item sent through it.
 
 ## Properties
 ### `endpointURL`
@@ -16,7 +16,7 @@ open class RequestChainNetworkTransport: NetworkTransport
 public let endpointURL: URL
 ```
 
-> The GraphQL endpoint URL to use.
+The GraphQL endpoint URL to use.
 
 ### `additionalHeaders`
 
@@ -24,7 +24,7 @@ public let endpointURL: URL
 public private(set) var additionalHeaders: [String: String]
 ```
 
-> Any additional headers that should be automatically added to every request.
+Any additional headers that should be automatically added to every request.
 
 ### `autoPersistQueries`
 
@@ -32,7 +32,7 @@ public private(set) var additionalHeaders: [String: String]
 public let autoPersistQueries: Bool
 ```
 
-> Set to `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default.
+Set to `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default.
 
 ### `useGETForQueries`
 
@@ -40,7 +40,7 @@ public let autoPersistQueries: Bool
 public let useGETForQueries: Bool
 ```
 
-> Set to  `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN.
+Set to  `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN.
 
 ### `useGETForPersistedQueryRetry`
 
@@ -48,7 +48,7 @@ public let useGETForQueries: Bool
 public let useGETForPersistedQueryRetry: Bool
 ```
 
-> Set to `true` to use `GET` instead of `POST` for a retry of a persisted query.
+Set to `true` to use `GET` instead of `POST` for a retry of a persisted query.
 
 ### `requestBodyCreator`
 
@@ -56,7 +56,7 @@ public let useGETForPersistedQueryRetry: Bool
 public var requestBodyCreator: RequestBodyCreator
 ```
 
-> The `RequestBodyCreator` object to use to build your `URLRequest`.
+The `RequestBodyCreator` object to use to build your `URLRequest`.
 
 ### `clientName`
 
@@ -83,16 +83,16 @@ public init(interceptorProvider: InterceptorProvider,
             useGETForPersistedQueryRetry: Bool = false)
 ```
 
-> Designated initializer
->
-> - Parameters:
->   - interceptorProvider: The interceptor provider to use when constructing chains for a request
->   - endpointURL: The GraphQL endpoint URL to use.
->   - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
->   - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default. Defaults to `false`.
->   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestBodyCreator` implementation.
->   - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN. Defaults to `false`.
->   - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`.
+Designated initializer
+
+- Parameters:
+  - interceptorProvider: The interceptor provider to use when constructing chains for a request
+  - endpointURL: The GraphQL endpoint URL to use.
+  - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
+  - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default. Defaults to `false`.
+  - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestBodyCreator` implementation.
+  - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN. Defaults to `false`.
+  - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`.
 
 #### Parameters
 
@@ -115,15 +115,15 @@ open func constructRequest<Operation: GraphQLOperation>(
   contextIdentifier: UUID? = nil) -> HTTPRequest<Operation>
 ```
 
-> Constructs a default (ie, non-multipart) GraphQL request.
->
-> Override this method if you need to use a custom subclass of `HTTPRequest`.
->
-> - Parameters:
->   - operation: The operation to create the request for
->   - cachePolicy: The `CachePolicy` to use when creating the request
->   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
-> - Returns: The constructed request.
+Constructs a default (ie, non-multipart) GraphQL request.
+
+Override this method if you need to use a custom subclass of `HTTPRequest`.
+
+- Parameters:
+  - operation: The operation to create the request for
+  - cachePolicy: The `CachePolicy` to use when creating the request
+  - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
+- Returns: The constructed request.
 
 #### Parameters
 

@@ -6,7 +6,7 @@
 open class HTTPRequest<Operation: GraphQLOperation>
 ```
 
-> Encapsulation of all information about a request before it hits the network
+Encapsulation of all information about a request before it hits the network
 
 ## Properties
 ### `graphQLEndpoint`
@@ -15,7 +15,7 @@ open class HTTPRequest<Operation: GraphQLOperation>
 open var graphQLEndpoint: URL
 ```
 
-> The endpoint to make a GraphQL request to
+The endpoint to make a GraphQL request to
 
 ### `operation`
 
@@ -23,7 +23,7 @@ open var graphQLEndpoint: URL
 open var operation: Operation
 ```
 
-> The GraphQL Operation to execute
+The GraphQL Operation to execute
 
 ### `additionalHeaders`
 
@@ -31,15 +31,15 @@ open var operation: Operation
 open var additionalHeaders: [String: String]
 ```
 
-> Any additional headers you wish to add by default to this request
+Any additional headers you wish to add by default to this request
 
 ### `cachePolicy`
 
 ```swift
-public let cachePolicy: CachePolicy
+open var cachePolicy: CachePolicy
 ```
 
-> The `CachePolicy` to use for this request.
+The `CachePolicy` to use for this request.
 
 ### `contextIdentifier`
 
@@ -47,7 +47,7 @@ public let cachePolicy: CachePolicy
 public let contextIdentifier: UUID?
 ```
 
-> [optional] A unique identifier for this request, to help with deduping cache hits for watchers.
+[optional] A unique identifier for this request, to help with deduping cache hits for watchers.
 
 ## Methods
 ### `init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)`
@@ -63,17 +63,17 @@ public init(graphQLEndpoint: URL,
             cachePolicy: CachePolicy = .default)
 ```
 
-> Designated Initializer
->
-> - Parameters:
->   - graphQLEndpoint: The endpoint to make a GraphQL request to
->   - operation: The GraphQL Operation to execute
->   - contextIdentifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
->   - contentType: The `Content-Type` header's value. Should usually be set for you by a subclass.
->   - clientName: The name of the client to send with the `"apollographql-client-name"` header
->   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
->   - additionalHeaders: Any additional headers you wish to add by default to this request.
->   - cachePolicy: The `CachePolicy` to use for this request. Defaults to the `.default` policy
+Designated Initializer
+
+- Parameters:
+  - graphQLEndpoint: The endpoint to make a GraphQL request to
+  - operation: The GraphQL Operation to execute
+  - contextIdentifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
+  - contentType: The `Content-Type` header's value. Should usually be set for you by a subclass.
+  - clientName: The name of the client to send with the `"apollographql-client-name"` header
+  - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
+  - additionalHeaders: Any additional headers you wish to add by default to this request.
+  - cachePolicy: The `CachePolicy` to use for this request. Defaults to the `.default` policy
 
 #### Parameters
 
@@ -106,7 +106,7 @@ open func updateContentType(to contentType: String)
 open func toURLRequest() throws -> URLRequest
 ```
 
-> Converts this object to a fully fleshed-out `URLRequest`
->
-> - Throws: Any error in creating the request
-> - Returns: The URL request, ready to send to your server.
+Converts this object to a fully fleshed-out `URLRequest`
+
+- Throws: Any error in creating the request
+- Returns: The URL request, ready to send to your server.

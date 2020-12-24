@@ -25,8 +25,8 @@ var clientVersion: String
 func addApolloClientHeaders(to request: inout URLRequest)
 ```
 
-> Adds the Apollo client headers for this instance of `NetworkTransport` to the given request
-> - Parameter request: A mutable URLRequest to add the headers to.
+Adds the Apollo client headers for this instance of `NetworkTransport` to the given request
+- Parameter request: A mutable URLRequest to add the headers to.
 
 #### Parameters
 

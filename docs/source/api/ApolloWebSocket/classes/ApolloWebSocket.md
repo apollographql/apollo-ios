@@ -6,7 +6,7 @@
 public class ApolloWebSocket: WebSocket, ApolloWebSocketClient, SOCKSProxyable
 ```
 
-> Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
+Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
 
 ## Properties
 ### `enableSOCKSProxy`
