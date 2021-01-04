@@ -6,7 +6,7 @@
 public struct Reference
 ```
 
-> A reference to a cache record.
+A reference to a cache record.
 
 ## Properties
 ### `key`

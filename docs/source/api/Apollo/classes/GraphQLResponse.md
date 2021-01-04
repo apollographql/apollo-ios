@@ -6,7 +6,7 @@
 public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable
 ```
 
-> Represents a GraphQL response received from a server.
+Represents a GraphQL response received from a server.
 
 ## Properties
 ### `body`

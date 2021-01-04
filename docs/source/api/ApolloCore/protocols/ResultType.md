@@ -6,7 +6,7 @@
 public protocol ResultType
 ```
 
-> Provides a PAT interface to `Result<Success, Failure>`
+Provides a PAT interface to `Result<Success, Failure>`
 
 ## Properties
 ### `underlying`

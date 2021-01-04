@@ -2237,7 +2237,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					9B2DFBB524E1FA0D00ED3AE6 = {

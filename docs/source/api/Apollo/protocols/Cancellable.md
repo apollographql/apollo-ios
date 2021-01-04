@@ -6,7 +6,7 @@
 public protocol Cancellable: class
 ```
 
-> An object that can be used to cancel an in progress action.
+An object that can be used to cancel an in progress action.
 
 ## Methods
 ### `cancel()`
@@ -15,4 +15,4 @@ public protocol Cancellable: class
 func cancel()
 ```
 
-> Cancel an in progress action.
+Cancel an in progress action.

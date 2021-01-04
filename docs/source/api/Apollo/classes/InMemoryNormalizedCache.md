@@ -25,6 +25,18 @@ public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record
 | ---- | ----------- |
 | key | The cache keys to load data for |
 
+### `removeRecord(for:)`
+
+```swift
+public func removeRecord(for key: CacheKey) throws
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| key | The cache key to remove the record for |
+
 ### `merge(records:)`
 
 ```swift

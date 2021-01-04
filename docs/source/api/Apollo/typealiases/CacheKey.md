@@ -6,4 +6,4 @@
 public typealias CacheKey = String
 ```
 
-> A cache key for a record.
+A cache key for a record.

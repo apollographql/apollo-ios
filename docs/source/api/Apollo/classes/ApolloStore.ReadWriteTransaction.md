@@ -22,6 +22,25 @@ public func updateObject<SelectionSet: GraphQLSelectionSet>(ofType type: Selecti
                                                             _ body: (inout SelectionSet) throws -> Void) throws
 ```
 
+### `removeObject(for:)`
+
+```swift
+public func removeObject(for key: CacheKey) throws
+```
+
+Removes the object for the specified cache key. Does not cascade
+or allow removal of only certain fields. Does nothing if an object
+does not exist for the given key.
+
+- Parameters:
+  - key: The cache key to remove the object for
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| key | The cache key to remove the object for |
+
 ### `write(data:forQuery:)`
 
 ```swift

@@ -30,6 +30,18 @@ public func merge(records: RecordSet) throws -> Set<CacheKey>
 | ---- | ----------- |
 | records | The set of records to merge. |
 
+### `removeRecord(for:)`
+
+```swift
+public func removeRecord(for key: CacheKey) throws
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| key | The cache key to remove the record for |
+
 ### `clear()`
 
 ```swift

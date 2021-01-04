@@ -6,7 +6,7 @@
 public class LegacyParsingInterceptor: ApolloInterceptor
 ```
 
-> An interceptor which parses code using the legacy parsing system.
+An interceptor which parses code using the legacy parsing system.
 
 ## Properties
 ### `cacheKeyForObject`
@@ -22,7 +22,7 @@ public var cacheKeyForObject: CacheKeyForObject?
 public init(cacheKeyForObject: CacheKeyForObject? = nil)
 ```
 
-> Designated Initializer
+Designated Initializer
 
 ### `interceptAsync(chain:request:response:completion:)`
 

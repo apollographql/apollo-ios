@@ -6,9 +6,9 @@
 public struct GraphQLError: Error
 ```
 
-> Represents an error encountered during the execution of a GraphQL operation.
->
->  - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
+Represents an error encountered during the execution of a GraphQL operation.
+
+ - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
 
 ## Properties
 ### `message`
@@ -17,7 +17,7 @@ public struct GraphQLError: Error
 public var message: String?
 ```
 
-> A description of the error.
+A description of the error.
 
 ### `locations`
 
@@ -25,7 +25,7 @@ public var message: String?
 public var locations: [Location]?
 ```
 
-> A list of locations in the requested GraphQL document associated with the error.
+A list of locations in the requested GraphQL document associated with the error.
 
 ### `extensions`
 
@@ -33,7 +33,7 @@ public var locations: [Location]?
 public var extensions: [String : Any]?
 ```
 
-> A dictionary which services can use however they see fit to provide additional information in errors to clients.
+A dictionary which services can use however they see fit to provide additional information in errors to clients.
 
 ## Methods
 ### `init(_:)`

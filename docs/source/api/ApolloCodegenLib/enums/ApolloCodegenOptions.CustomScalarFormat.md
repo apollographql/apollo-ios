@@ -6,7 +6,7 @@
 public enum CustomScalarFormat: Equatable
 ```
 
-> Enum to select how to handle properties using a custom scalar from the schema.
+Enum to select how to handle properties using a custom scalar from the schema.
 
 ## Cases
 ### `none`
@@ -15,7 +15,7 @@ public enum CustomScalarFormat: Equatable
 case none
 ```
 
-> Uses a default type instead of a custom scalar.
+Uses a default type instead of a custom scalar.
 
 ### `passthrough`
 
@@ -23,7 +23,7 @@ case none
 case passthrough
 ```
 
-> Use your own types for custom scalars.
+Use your own types for custom scalars.
 
 ### `passthroughWithPrefix(_:)`
 
@@ -31,4 +31,4 @@ case passthrough
 case passthroughWithPrefix(String)
 ```
 
-> Use your own types for custom scalars with a prefix.
+Use your own types for custom scalars with a prefix.

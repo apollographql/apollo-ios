@@ -6,7 +6,7 @@
 public struct GraphQLResultError: Error, LocalizedError
 ```
 
-> An error which has occurred in processing a GraphQLResult
+An error which has occurred in processing a GraphQLResult
 
 ## Properties
 ### `underlying`
@@ -15,7 +15,7 @@ public struct GraphQLResultError: Error, LocalizedError
 public let underlying: Error
 ```
 
-> The error that occurred during parsing.
+The error that occurred during parsing.
 
 ### `errorDescription`
 
@@ -23,4 +23,4 @@ public let underlying: Error
 public var errorDescription: String?
 ```
 
-> A description of the error which includes the path where the error occurred.
+A description of the error which includes the path where the error occurred.

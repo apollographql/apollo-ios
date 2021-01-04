@@ -6,7 +6,7 @@
 public class LegacyCacheWriteInterceptor: ApolloInterceptor
 ```
 
-> An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
+An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
 
 ## Properties
 ### `store`
@@ -22,9 +22,9 @@ public let store: ApolloStore
 public init(store: ApolloStore)
 ```
 
-> Designated initializer
->
-> - Parameter store: The store to use when writing to the cache.
+Designated initializer
+
+- Parameter store: The store to use when writing to the cache.
 
 #### Parameters
 

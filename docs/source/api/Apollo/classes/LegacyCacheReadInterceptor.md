@@ -6,7 +6,7 @@
 public class LegacyCacheReadInterceptor: ApolloInterceptor
 ```
 
-> An interceptor that reads data from the legacy cache for queries, following the `HTTPRequest`'s `cachePolicy`.
+An interceptor that reads data from the legacy cache for queries, following the `HTTPRequest`'s `cachePolicy`.
 
 ## Methods
 ### `init(store:)`
@@ -15,9 +15,9 @@ public class LegacyCacheReadInterceptor: ApolloInterceptor
 public init(store: ApolloStore)
 ```
 
-> Designated initializer
->
-> - Parameter store: The store to use when reading from the cache.
+Designated initializer
+
+- Parameter store: The store to use when reading from the cache.
 
 #### Parameters
 

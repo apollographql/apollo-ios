@@ -6,7 +6,7 @@
 public struct GraphQLFile
 ```
 
-> A file which can be uploaded to a GraphQL server
+A file which can be uploaded to a GraphQL server
 
 ## Properties
 ### `fieldName`
@@ -55,13 +55,13 @@ public init(fieldName: String,
             data: Data)
 ```
 
-> Convenience initializer for raw data
->
-> - Parameters:
->   - fieldName: The name of the field this file is being sent for
->   - originalName: The original name of the file
->   - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
->   - data: The raw data to send for the file.
+Convenience initializer for raw data
+
+- Parameters:
+  - fieldName: The name of the field this file is being sent for
+  - originalName: The original name of the file
+  - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
+  - data: The raw data to send for the file.
 
 #### Parameters
 
@@ -81,14 +81,14 @@ public init(fieldName: String,
              fileURL: URL) throws
 ```
 
-> Throwing convenience initializer for files in the filesystem
->
-> - Parameters:
->   - fieldName: The name of the field this file is being sent for
->   - originalName: The original name of the file
->   - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
->   - fileURL: The URL of the file to upload.
-> - Throws: If the file's size could not be determined
+Throwing convenience initializer for files in the filesystem
+
+- Parameters:
+  - fieldName: The name of the field this file is being sent for
+  - originalName: The original name of the file
+  - mimeType: The mime type of the file to send to the server. Defaults to `GraphQLFile.octetStreamMimeType`.
+  - fileURL: The URL of the file to upload.
+- Throws: If the file's size could not be determined
 
 #### Parameters
 
@@ -105,9 +105,9 @@ public init(fieldName: String,
 public func generateInputStream() throws -> InputStream
 ```
 
-> Uses either the data or the file URL to create an
-> `InputStream` that can be used to stream data into
-> a multipart-form.
->
-> - Returns: The created `InputStream`.
-> - Throws: If an input stream could not be created from either data or a file URL.
+Uses either the data or the file URL to create an
+`InputStream` that can be used to stream data into
+a multipart-form.
+
+- Returns: The created `InputStream`.
+- Throws: If an input stream could not be created from either data or a file URL.

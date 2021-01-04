@@ -6,7 +6,7 @@
 public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable
 ```
 
-> An interceptor which actually fetches data from the network.
+An interceptor which actually fetches data from the network.
 
 ## Methods
 ### `init(client:)`
@@ -15,9 +15,9 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable
 public init(client: URLSessionClient)
 ```
 
-> Designated initializer.
->
-> - Parameter client: The `URLSessionClient` to use to fetch data
+Designated initializer.
+
+- Parameter client: The `URLSessionClient` to use to fetch data
 
 #### Parameters
 

@@ -6,7 +6,7 @@
 public protocol ApolloWebSocketClient: WebSocketClient
 ```
 
-> Protocol allowing alternative implementations of web sockets beyond `ApolloWebSocket`. Extends `Starscream`'s `WebSocketClient` protocol.
+Protocol allowing alternative implementations of web sockets beyond `ApolloWebSocket`. Extends `Starscream`'s `WebSocketClient` protocol.
 
 ## Properties
 ### `request`
@@ -15,7 +15,7 @@ public protocol ApolloWebSocketClient: WebSocketClient
 var request: URLRequest
 ```
 
-> The URLRequest used on connection.
+The URLRequest used on connection.
 
 ### `callbackQueue`
 
@@ -23,7 +23,7 @@ var request: URLRequest
 var callbackQueue: DispatchQueue
 ```
 
-> Queue where the callbacks are executed
+Queue where the callbacks are executed
 
 ## Methods
 ### `init(request:protocols:)`
@@ -32,10 +32,10 @@ var callbackQueue: DispatchQueue
 init(request: URLRequest, protocols: [String]?)
 ```
 
-> Required initializer
->
-> - Parameter request: The URLRequest to use on connection.
-> - Parameter protocols: The supported protocols
+Required initializer
+
+- Parameter request: The URLRequest to use on connection.
+- Parameter protocols: The supported protocols
 
 #### Parameters
 
