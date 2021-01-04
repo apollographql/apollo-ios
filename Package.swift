@@ -5,6 +5,12 @@ import PackageDescription
 
 let package = Package(
     name: "Apollo",
+    platforms: [
+       .iOS(.v9),
+       .macOS(.v10_11),
+       .tvOS(.v9),
+       .watchOS(.v3)
+    ],
     products: [
     .library(
       name: "ApolloCore",
