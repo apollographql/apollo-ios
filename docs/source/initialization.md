@@ -285,7 +285,7 @@ struct NetworkInterceptorProvider: InterceptorProvider {
         return [
             MaxRetryInterceptor(),
             LegacyCacheReadInterceptor(store: self.store),
-            TokenAddingInterceptor(),
+            UserManagementInterceptor(),
             RequestLoggingInterceptor(),
             NetworkFetchInterceptor(client: self.client),
             ResponseLoggingInterceptor(),
