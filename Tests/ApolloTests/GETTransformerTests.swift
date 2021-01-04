@@ -40,51 +40,9 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    if JSONSerialization.dataCanBeSorted() {
-      // Here, we know that everything should be encoded in a stable order,
-      // and we can check the encoded URL string directly.
-          XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
-    } else {
-      // We can't guarantee order of encoding, so we need to pull the JSON back
-      // out and check that it has the correct and correctly typed properties.
-      let transformedURL = try XCTUnwrap(url,
-                                         "URL not created!")
-      
-      let urlComponents = try XCTUnwrap(URLComponents(url: transformedURL, resolvingAgainstBaseURL: false),
-                                        "Couldn't access URL components")
-      
-      let queryItems = try XCTUnwrap(urlComponents.queryItems,
-                                     "No query items!")
-      
-      guard
-        let operationNameItem = queryItems.first(where: { $0.name == "operationName" }),
-        let operationName = operationNameItem.value else {
-          XCTFail("Query items did not contain operation name!")
-          return
-      }
-      
-      XCTAssertEqual(operationName, "HeroNameTypeSpecificConditionalInclusion")
-      
-      guard
-        let variablesQueryItem = queryItems.first(where: { $0.name == "variables" }),
-        let variables = variablesQueryItem.value else {
-          XCTFail("Query items did not contain variables!")
-          return
-      }
-      
-      let data = try XCTUnwrap(variables.data(using: .utf8),
-                               "Couldn't convert data to UTF8 string!")
-      
-      guard
-        let object = try? JSONSerialization.jsonObject(with: data),
-        let dict = object as? [String: Any] else {
-          XCTFail("Couldn't get dictionary out of json!")
-          return
-      }
-      
-      XCTAssertEqual(dict["includeName"] as? Bool, true)
-      XCTAssertEqual(dict["episode"] as? String, "JEDI")
-    }
+    // Here, we know that everything should be encoded in a stable order,
+    // and we can check the encoded URL string directly.
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
   }
   
   func testEncodingQueryWith2DParameter() throws {
