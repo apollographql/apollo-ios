@@ -28,7 +28,7 @@ public struct GraphQLGETTransformer {
     do {
       _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
         if let value = arg.value as? GraphQLMap {
-          let data = try JSONSerialization.dataSortedIfPossible(withJSONObject: value.jsonValue)
+          let data = try JSONSerialization.sortedData(withJSONObject: value.jsonValue)
           if let string = String(data: data, encoding: .utf8) {
             queryItems.append(URLQueryItem(name: arg.key, value: string))
           }

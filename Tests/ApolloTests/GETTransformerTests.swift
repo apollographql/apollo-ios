@@ -109,40 +109,9 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
-      let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
-
-      XCTAssertTrue(queryString)
-    } else {
-      let query = try XCTUnwrap(url?.queryItemDictionary?["query"],
-                                "query should not be nil")
-      XCTAssertTrue(query == operation.queryDocument)
-      
-      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
-                                    "variables should not nil")
-      XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
-      
-      guard
-        let ext = url?.queryItemDictionary?["extensions"],
-        let data = ext.data(using: .utf8),
-        let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-        else {
-          XCTFail("extensions json data should not be nil")
-          return
-      }
-      
-      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
-                                                "persistedQuery is missing")
-      
-      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing")
-      
-      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
-                                  "version is missing")
-      
-      XCTAssertEqual(version, 1)
-      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
-    }
+    let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+    
+    XCTAssertTrue(queryString)
   }
   
   func testEncodingQueryWith2DWOQueryParameter() throws {
@@ -166,37 +135,8 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
-      let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
-      XCTAssertTrue(queryString)
-    } else {
-
-      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
-                                    "variables should not nil")
-
-      XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
-      
-      guard
-        let ext = url?.queryItemDictionary?["extensions"],
-        let data = ext.data(using: .utf8),
-        let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-        else {
-          XCTFail("extensions json data should not be nil")
-          return
-      }
-      
-      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
-                                                "persistedQuery is missing")
-      
-      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing")
-      
-      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
-                                  "version is missing")
-      
-      XCTAssertEqual(version, 1)
-      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
-    }
+    let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+    XCTAssertTrue(queryString)
   }
   
   func testEncodingQueryWithNullDefaultParameter() {
@@ -235,34 +175,7 @@ class GETTransformerTests: XCTestCase {
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
     let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D"
-      XCTAssertTrue(queryString)
-    } else {
-      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
-                                    "variables should not nil")
-      XCTAssertEqual(variables, "{\"episode\":null}")
-      
-      guard
-        let ext = url?.queryItemDictionary?["extensions"],
-        let data = ext.data(using: .utf8),
-        let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-        else {
-          XCTFail("extensions json data should not be nil")
-          return
-      }
-      
-      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
-                                                "persistedQuery is missing")
-      
-      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing")
-      
-      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
-                                  "version is missing")
-      
-      XCTAssertEqual(version, 1)
-      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
-    }
+    XCTAssertTrue(queryString)
   }
 }
