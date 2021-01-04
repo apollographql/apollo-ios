@@ -272,11 +272,7 @@ extension JSValue {
   // will be converted to `NSDictionary` and we lose the ability to pass references back to JavaScript.
   // That's why we manually construct an array by iterating over the indexes here.
   func toArray<Element>(_ transform: (JSValue) throws -> Element) rethrows -> [Element] {
-    if #available(macOS 10.11, *) {
-      precondition(isArray)
-    } else {
-      precondition(isObject)
-    }
+    precondition(isArray)
     
     let length = self["length"].toInt()
     
