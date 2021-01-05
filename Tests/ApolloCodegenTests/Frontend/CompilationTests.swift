@@ -32,7 +32,7 @@ class CompilationTests: XCTestCase {
     let compilationResult = try codegenFrontend.compile(schema: schema, document: document)
     
     let operation = try XCTUnwrap(compilationResult.operations.first)
-    XCTAssertEqual(operation.operationName, "HeroAndFriendsNames")
+    XCTAssertEqual(operation.name, "HeroAndFriendsNames")
     XCTAssertEqual(operation.operationType, .query)
     
     XCTAssertEqual(operation.variables[0].name, "episode")
@@ -49,22 +49,6 @@ class CompilationTests: XCTestCase {
     let friendsField = try XCTUnwrap(heroField.selectionSet?.field(for: "friends"))
     XCTAssertEqual(friendsField.name, "friends")
     XCTAssertEqual(friendsField.type.typeReference, "[Character]")
-  }
-  
-  // FIXME: This is a workaround for a really weird issue that I haven't been able to solve in any other way.
-  // It seems errors thrown during `init(from decoder: Decoder)` are somehow bridged to Objective-C in a way
-  // that makes Xcode fail to record them.
-  // Instead, it will log: "NSInvalidUnarchiveOperationException attempting to serialize associated error of issue: This decoder will only decode classes that adopt NSSecureCoding. Class '__SwiftValue' does not adopt it."
-  // What makes this weird is that throwing `DecodingError` anywhere else doesn't show this issue, so it
-  // really seems to be specific to `JSONDecoder`.
-  override func record(_ issue: XCTIssue) {
-    if issue.associatedError != nil {
-      var issue = issue
-      issue.associatedError = nil
-      super.record(issue)
-    } else {
-      super.record(issue)
-    }
   }
 }
 

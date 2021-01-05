@@ -10,8 +10,7 @@ import {
   buildASTSchema,
 } from "graphql";
 import { defaultValidationRules } from "./validationRules";
-import { compileToIR } from "./compiler";
-import serializeToJSON from "./serializeToJSON";
+import { compileToIR, CompilationResult } from "@apollo/graphql-compiler";
 import { assertValidSchema, assertValidSDL } from "./utilities/graphql";
 
 // We need to export all the classes we want to map to native objects,
@@ -75,7 +74,6 @@ export function validateDocument(
 export function compileDocument(
   schema: GraphQLSchema,
   document: DocumentNode
-): string {
-  const context = compileToIR(schema, document, {});
-  return serializeToJSON(context);
+): CompilationResult {
+  return compileToIR(schema, document);
 }

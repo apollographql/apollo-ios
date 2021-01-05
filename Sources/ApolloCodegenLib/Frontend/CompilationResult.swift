@@ -1,22 +1,27 @@
 import JavaScriptCore
 
 /// The output of the frontend compiler.
-public struct CompilationResult: Decodable {
-  var operations: [OperationDefinition]
-  var fragments: [FragmentDefinition]
-  var typesUsed: [GraphQLNamedType]
+public class CompilationResult: JavaScriptObject {
+  lazy var operations: [OperationDefinition] = self["operations"]
   
-  public struct OperationDefinition: Decodable, CustomStringConvertible {
-    var operationName: String
-    var operationType: OperationType
+  lazy var fragments: [FragmentDefinition] = self["fragments"]
+
+  lazy var typesUsed: [GraphQLNamedType] = self["typesUsed"]
+  
+  public class OperationDefinition: JavaScriptObject, CustomStringConvertible {
+    lazy var name: String = self["name"]
     
-    var variables: [VariableDefinition]
+    lazy var operationType: OperationType = self["operationType"]
     
-    var rootType: GraphQLCompositeType
-    var selectionSet: SelectionSet
+    lazy var variables: [VariableDefinition] = self["variables"]
     
-    var source: String
-    var filePath: String
+    lazy var rootType: GraphQLCompositeType = self["rootType"]
+    
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
+    
+    lazy var source: String = self["source"]
+    
+    lazy var filePath: String = self["filePath"]
     
     var operationIdentifier: String {
       // TODO: Compute this from source + referenced fragments
@@ -24,82 +29,90 @@ public struct CompilationResult: Decodable {
     }
     
     public var description: String {
-      return "<OperationDefinition: \(operationType) \(operationName)>"
+      return "<OperationDefinition: \(operationType) \(name)>"
     }
   }
   
-  public enum OperationType: String, Decodable, Equatable {
+  public enum OperationType: String, Equatable, JavaScriptValueDecodable {
     case query
     case mutation
     case subscription
-  }
-  
-  public struct VariableDefinition: Decodable {
-    var name: String
-    var type: GraphQLType
-    var defaultValue: GraphQLValue?
-  }
-  
-  public struct FragmentDefinition: Decodable {
-    var fragmentName: String
-    var type: GraphQLCompositeType
-    var selectionSet: SelectionSet
     
-    var source: String
-    var filePath: String
+    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+      self.init(rawValue: jsValue.toString())!
+    }
   }
   
-  public struct SelectionSet: Decodable {
-    var possibleTypes: [GraphQLObjectType]
-    var selections: [Selection]
+  public class VariableDefinition: JavaScriptObject {
+    lazy var name: String = self["name"]
+    
+    lazy var type: GraphQLType = self["type"]
+    
+    lazy var defaultValue: GraphQLValue? = self["defaultValue"]
   }
   
-  public enum Selection: Decodable {
+  public class FragmentDefinition: JavaScriptObject {
+    lazy var name: String = self["name"]
+    
+    lazy var type: GraphQLCompositeType = self["type"]
+    
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
+    
+    lazy var source: String = self["source"]
+    
+    lazy var filePath: String = self["filePath"]
+  }
+  
+  public class SelectionSet: JavaScriptObject {
+    lazy var possibleTypes: [GraphQLObjectType] = self["possibleTypes"]
+    
+    lazy var selections: [Selection] = self["selections"]    
+  }
+  
+  public enum Selection: JavaScriptValueDecodable {
     case field(Field)
     case fragmentSpread(FragmentSpread)
     case typeCondition(TypeCondition)
     case booleanCondition(BooleanCondition)
     
-    enum CodingKeys: CodingKey {
-      case kind
-    }
-    
-    public init(from decoder: Decoder) throws {
-      let container = try decoder.container(keyedBy: CodingKeys.self)
-      let kind = try container.decode(String.self, forKey: .kind)
-      
+    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+      precondition(jsValue.isObject)
+
+      let kind: String = jsValue["kind"].toString()
+
       switch kind {
       case "Field":
-        self = .field(try Field(from: decoder))
+        self = .field(Field(jsValue, bridge: bridge))
       case "FragmentSpread":
-        self = .fragmentSpread(try FragmentSpread(from: decoder))
+        self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
       case "TypeCondition":
-        self = .typeCondition(try TypeCondition(from: decoder))
+        self = .typeCondition(TypeCondition(jsValue, bridge: bridge))
       case "BooleanCondition":
-        self = .booleanCondition(try BooleanCondition(from: decoder))
+        self = .booleanCondition(BooleanCondition(jsValue, bridge: bridge))
       default:
-        throw DecodingError.dataCorruptedError(forKey: .kind, in: container, debugDescription: """
-          Unknown selection kind "\(kind)"
+        preconditionFailure("""
+          Unknown GraphQL value of kind "\(kind)"
           """)
       }
     }
   }
   
-  public struct Field: Decodable, CustomStringConvertible {
-    var name: String
-    var alias: String?
+  public class Field: JavaScriptObject, CustomStringConvertible {
+    lazy var name: String = self["name"]
+    
+    lazy var alias: String? = self["alias"]
     
     var responseKey: String {
       alias ?? name
     }
     
-    var arguments: [Argument]?
+    lazy var arguments: [Argument]? = self["arguments"]
     
-    var type: GraphQLType
+    lazy var type: GraphQLType = self["type"]
     
-    var selectionSet: SelectionSet?
+    lazy var selectionSet: SelectionSet? = self["selectionSet"]
     
-    var deprecationReason: String?
+    lazy var deprecationReason: String? = self["deprecationReason"]
     
     var isDeprecated: Bool {
       return deprecationReason != nil
@@ -110,75 +123,29 @@ public struct CompilationResult: Decodable {
     }
   }
   
-  public struct Argument: Decodable {
-    var name: String
-    var value: GraphQLValue
+  public class Argument: JavaScriptObject {
+    lazy var name: String = self["name"]
+    
+    lazy var value: GraphQLValue = self["value"]
   }
   
-  public struct FragmentSpread: Decodable {
-    var fragmentName: String
-    var selectionSet: SelectionSet
+  public class FragmentSpread: JavaScriptObject {
+    lazy var fragment: FragmentDefinition = self["fragment"]
+    
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
   }
   
-  public struct TypeCondition: Decodable {
-    var type: GraphQLCompositeType
-    var selectionSet: SelectionSet
+  public class TypeCondition: JavaScriptObject {
+    lazy var type: GraphQLCompositeType = self["type"]
+    
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
   }
   
-  public struct BooleanCondition: Decodable {
-    var variableName: String
-    var isInverted: Bool
-    var selectionSet: SelectionSet
+  public class BooleanCondition: JavaScriptObject {
+    lazy var variableName: String = self["variableName"]
     
-    enum CodingKeys: String, CodingKey {
-      case variableName
-      case isInverted = "inverted"
-      case selectionSet
-    }
-  }
-}
-
-// Type references
-
-enum GraphQLTypeReferenceError: Error {
-  case syntaxError(String)
-  case namedTypeNotFound(String)
-}
-
-extension CodingUserInfoKey {
-  /// Resolving type names requires access to a GraphQL schema during decoding.
-  static var graphQLSchema = CodingUserInfoKey(rawValue: "graphQLSchema")!
-}
-
-// Decoding a `GraphQLNamedType` resolves the type from the schema by name.
-
-// Unfortunately, we need a workaround for the lack of support for `self = ...` in class initializers
-// See https://forums.swift.org/t/allow-self-x-in-class-convenience-initializers/15924/32
-
-protocol GraphQLTypeNameDecodable: Decodable { }
-extension GraphQLNamedType: GraphQLTypeNameDecodable { }
-
-extension GraphQLTypeNameDecodable {
-  public init(from decoder: Decoder) throws {
-    guard let schema = decoder.userInfo[.graphQLSchema] as? GraphQLSchema else {
-      preconditionFailure("GraphQL type decoding requires a GraphQL schema to be provided")
-    }
+    lazy var isInverted: Bool = self["inverted"]
     
-    let container = try decoder.singleValueContainer()
-    let typeName = try container.decode(String.self)
-    
-    guard let graphQLType = try schema.getType(named: typeName) else {
-      throw DecodingError.dataCorruptedError(in: container, debugDescription: """
-      Could not find GraphQL type "\(typeName)" in schema
-      """)
-    }
-    
-    guard let expectedGraphQLType = graphQLType as? Self else {
-      throw DecodingError.dataCorruptedError(in: container, debugDescription: """
-      Expected "\(graphQLType)" to be \(Self.self) but found \(type(of: graphQLType))
-      """)
-    }
-    
-    self = expectedGraphQLType
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
   }
 }

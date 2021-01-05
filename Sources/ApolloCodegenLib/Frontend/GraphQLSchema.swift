@@ -28,7 +28,7 @@ public class GraphQLSchema: JavaScriptObject {
   }
     
   func isSubType(abstractType: GraphQLAbstractType, maybeSubType: GraphQLNamedType) throws -> Bool {
-    return try invokeMethod("isSubType", with: abstractType, maybeSubType).toBool()
+    return try invokeMethod("isSubType", with: abstractType, maybeSubType)
   }
 }
 

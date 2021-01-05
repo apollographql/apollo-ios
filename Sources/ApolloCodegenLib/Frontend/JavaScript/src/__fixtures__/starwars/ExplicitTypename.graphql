@@ -1,6 +1,0 @@
-query HeroName {
-  hero {
-    __typename
-    name
-  }
-}

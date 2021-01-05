@@ -84,11 +84,6 @@ public final class ApolloCodegenFrontend {
   }
   
   public func compile(schema: GraphQLSchema, document: GraphQLDocument) throws -> CompilationResult {
-    let jsValue = try library.call("compileDocument", with: schema, document)
-    
-    let decoder = JSONDecoder()
-    decoder.userInfo[.graphQLSchema] = schema
-    
-    return try decoder.decode(CompilationResult.self, from: jsValue.toString().data(using: .utf8)!)
+    return try library.call("compileDocument", with: schema, document)
   }
 }

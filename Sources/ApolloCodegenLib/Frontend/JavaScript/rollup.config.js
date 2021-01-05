@@ -3,7 +3,8 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import { terser } from "rollup-plugin-terser";
 
-export default {
+/** @type {import('rollup').RollupOptions} */
+const options = {
   input: "src/index.ts",
   output: {
     file: "dist/ApolloCodegenFrontend.bundle.js",
@@ -17,7 +18,7 @@ export default {
     }),
     nodeResolve({
       modulesOnly: true,
-      mainFields: ["module"],
+      dedupe: ["graphql"],
     }),
     replace({
       "process.env.NODE_ENV": JSON.stringify("production"),
@@ -27,3 +28,5 @@ export default {
     }),
   ],
 };
+
+export default options;
