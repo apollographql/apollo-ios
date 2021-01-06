@@ -94,9 +94,11 @@ extension JavaScriptObject: Equatable {
 class JavaScriptBridge {
   private var context: JSContext
   
-  // In JavaScript, classes are represented by constructor functions.
-  // We keep a bidirectional mapping between constructors and wrapper types so we can create wrappers
-  // for JavaScript objects and
+  // In JavaScript, classes are represented by constructor functions. We need access to these when checking
+  // the type of a received value in `wrap(_)` below.
+  // We keep a bidirectional mapping between constructors and wrapper types so we can both access the
+  // corresponding wrapper type, and perform an `instanceof` check based on the corresponding constructor
+  // for the expected wrapper type in case there isn't a direct match and we are receiving a subtype.
   private var constructorToWrapperType: [JSValue /* constructor function */: JavaScriptObject.Type] = [:]
   private var wrapperTypeToConstructor: [AnyHashable /* JavaScriptObject.Type */: JSValue] = [:]
   
