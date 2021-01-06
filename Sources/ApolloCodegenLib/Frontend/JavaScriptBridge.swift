@@ -138,7 +138,7 @@ class JavaScriptBridge {
       return checkedDowncast(wrapper)
     }
     
-    precondition(jsValue.isObject)
+    precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
     
     let wrapperType: JavaScriptObject.Type
     
@@ -272,7 +272,7 @@ extension JSValue {
   // will be converted to `NSDictionary` and we lose the ability to pass references back to JavaScript.
   // That's why we manually construct an array by iterating over the indexes here.
   func toArray<Element>(_ transform: (JSValue) throws -> Element) rethrows -> [Element] {
-    precondition(isArray)
+    precondition(isArray, "Expected JavaScript array but found: \(self)")
     
     let length = self["length"].toInt()
     
@@ -291,7 +291,7 @@ extension JSValue {
   // will be converted to `NSDictionary` and we lose the ability to pass references back to JavaScript.
   // That's why we manually construct a dictionary by iterating over the keys here.
   func toDictionary<Value>(_ transform: (JSValue) throws -> Value) rethrows -> [String: Value] {
-    precondition(isObject)
+    precondition(isObject, "Expected JavaScript object but found: \(self)")
     
     guard let keys = context.globalObject["Object"].invokeMethod("keys", withArguments: [self])?.toArray() as? [String] else {
       preconditionFailure("Couldn't get keys for object \(self)")
