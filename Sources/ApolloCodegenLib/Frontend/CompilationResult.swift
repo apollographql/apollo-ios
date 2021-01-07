@@ -6,9 +6,9 @@ public class CompilationResult: JavaScriptObject {
   
   lazy var fragments: [FragmentDefinition] = self["fragments"]
 
-  lazy var typesUsed: [GraphQLNamedType] = self["typesUsed"]
+  lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
   
-  public class OperationDefinition: JavaScriptObject, CustomStringConvertible {
+  public class OperationDefinition: JavaScriptObject {
     lazy var name: String = self["name"]
     
     lazy var operationType: OperationType = self["operationType"]
@@ -26,10 +26,6 @@ public class CompilationResult: JavaScriptObject {
     var operationIdentifier: String {
       // TODO: Compute this from source + referenced fragments
       fatalError()
-    }
-    
-    public var description: String {
-      return "<OperationDefinition: \(operationType) \(name)>"
     }
   }
   
@@ -72,16 +68,15 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class SelectionSet: JavaScriptObject {
-    lazy var possibleTypes: [GraphQLObjectType] = self["possibleTypes"]
+    lazy var parentType: [GraphQLCompositeType] = self["parentType"]
     
     lazy var selections: [Selection] = self["selections"]    
   }
   
   public enum Selection: JavaScriptValueDecodable {
     case field(Field)
+    case inlineFragment(InlineFragment)
     case fragmentSpread(FragmentSpread)
-    case typeCondition(TypeCondition)
-    case booleanCondition(BooleanCondition)
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
       precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
@@ -91,21 +86,19 @@ public class CompilationResult: JavaScriptObject {
       switch kind {
       case "Field":
         self = .field(Field(jsValue, bridge: bridge))
+      case "InlineFragment":
+        self = .inlineFragment(InlineFragment(jsValue, bridge: bridge))
       case "FragmentSpread":
         self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
-      case "TypeCondition":
-        self = .typeCondition(TypeCondition(jsValue, bridge: bridge))
-      case "BooleanCondition":
-        self = .booleanCondition(BooleanCondition(jsValue, bridge: bridge))
       default:
         preconditionFailure("""
-          Unknown GraphQL value of kind "\(kind)"
+          Unknown GraphQL selection of kind "\(kind)"
           """)
       }
     }
   }
   
-  public class Field: JavaScriptObject, CustomStringConvertible {
+  public class Field: JavaScriptObject {
     lazy var name: String = self["name"]
     
     lazy var alias: String? = self["alias"]
@@ -126,9 +119,7 @@ public class CompilationResult: JavaScriptObject {
       return deprecationReason != nil
     }
     
-    public var description: String {
-      return "\(responseKey): \(type)"
-    }
+    lazy var description: String? = self["description"]
   }
   
   public class Argument: JavaScriptObject {
@@ -137,23 +128,13 @@ public class CompilationResult: JavaScriptObject {
     lazy var value: GraphQLValue = self["value"]
   }
   
+  public class InlineFragment: JavaScriptObject {
+    lazy var typeCondition: GraphQLCompositeType? = self["typeCondition"]
+    
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
+  }
+  
   public class FragmentSpread: JavaScriptObject {
     lazy var fragment: FragmentDefinition = self["fragment"]
-    
-    lazy var selectionSet: SelectionSet = self["selectionSet"]
-  }
-  
-  public class TypeCondition: JavaScriptObject {
-    lazy var type: GraphQLCompositeType = self["type"]
-    
-    lazy var selectionSet: SelectionSet = self["selectionSet"]
-  }
-  
-  public class BooleanCondition: JavaScriptObject {
-    lazy var variableName: String = self["variableName"]
-    
-    lazy var isInverted: Bool = self["inverted"]
-    
-    lazy var selectionSet: SelectionSet = self["selectionSet"]
   }
 }

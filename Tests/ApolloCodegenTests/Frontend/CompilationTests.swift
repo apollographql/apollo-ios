@@ -34,6 +34,7 @@ class CompilationTests: XCTestCase {
     let operation = try XCTUnwrap(compilationResult.operations.first)
     XCTAssertEqual(operation.name, "HeroAndFriendsNames")
     XCTAssertEqual(operation.operationType, .query)
+    XCTAssertEqual(operation.rootType.name, "Query")
     
     XCTAssertEqual(operation.variables[0].name, "episode")
     XCTAssertEqual(operation.variables[0].type.typeReference, "Episode")
@@ -49,6 +50,8 @@ class CompilationTests: XCTestCase {
     let friendsField = try XCTUnwrap(heroField.selectionSet?.field(for: "friends"))
     XCTAssertEqual(friendsField.name, "friends")
     XCTAssertEqual(friendsField.type.typeReference, "[Character]")
+    
+    XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name), ["Episode", "Character", "String"])
   }
 }
 
