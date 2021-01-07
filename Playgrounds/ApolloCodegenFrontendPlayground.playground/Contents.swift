@@ -58,12 +58,12 @@ if validationErrors.isEmpty {
   let compilationResult = try codegenFrontend.compile(schema: schema, document: document)
   
   compilationResult.operations[0].filePath
-  compilationResult.operations[0].operationName
+  compilationResult.operations[0].name
   compilationResult.operations[0].selectionSet.selections[0]
   
   compilationResult.fragments[0].filePath
-  compilationResult.fragments[0].fragmentName
+  compilationResult.fragments[0].name
   compilationResult.fragments[0].selectionSet.selections[0]
   
-  compilationResult.typesUsed.map(\.name)
+  compilationResult.referencedTypes.map(\.name)
 }

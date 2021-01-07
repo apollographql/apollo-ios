@@ -775,7 +775,7 @@
 		9F3910262549741400AF54A6 /* MockGraphQLServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLServer.swift; sourceTree = "<group>"; };
 		9F41CBEF25A3490600C02CB7 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchedLoadTests.swift; sourceTree = "<group>"; };
-		9F454784259390B9001783F6 /* ApolloCodegenFrontendPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ApolloCodegenFrontendPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9F454784259390B9001783F6 /* ApolloCodegenFrontendPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ApolloCodegenFrontendPlayground.playground; path = ../../../Playgrounds/ApolloCodegenFrontendPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloPerformanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F54C8B6255D760B0065AFD6 /* ParsingPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingPerformanceTests.swift; sourceTree = "<group>"; };
 		9F54C8B8255D760B0065AFD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
