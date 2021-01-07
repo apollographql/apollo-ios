@@ -42,10 +42,6 @@ public func XCTAssertMatch<Pattern: Matchable>(_ valueExpression: @autoclosure (
   XCTFail(message(), file: file, line: line)
 }
 
-public func XCTAssertThrowsError<T>(_ expression: @autoclosure () throws -> T, _ message: @autoclosure () -> String = "", file: StaticString = #filePath, line: UInt = #line, _ errorHandler: (Error) throws -> Void = { _ in }) rethrows {
-  
-}
-
 // We need overloaded versions instead of relying on default arguments
 // due to https://bugs.swift.org/browse/SR-1534
 
