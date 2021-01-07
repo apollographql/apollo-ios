@@ -15,7 +15,7 @@ indirect enum GraphQLValue: Equatable {
 
 extension GraphQLValue: JavaScriptValueDecodable {
   init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-    precondition(jsValue.isObject)
+    precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
 
     let kind: String = jsValue["kind"].toString()
 
