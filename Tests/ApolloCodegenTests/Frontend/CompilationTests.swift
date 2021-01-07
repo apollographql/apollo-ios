@@ -39,7 +39,7 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(operation.variables[0].name, "episode")
     XCTAssertEqual(operation.variables[0].type.typeReference, "Episode")
 
-    let heroField = try XCTUnwrap(operation.selectionSet.field(for: "hero"))
+    let heroField = try XCTUnwrap(operation.selectionSet.firstField(for: "hero"))
     XCTAssertEqual(heroField.name, "hero")
     XCTAssertEqual(heroField.type.typeReference, "Character")
     
@@ -47,7 +47,7 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(episodeArgument.name, "episode")
     XCTAssertEqual(episodeArgument.value, .variable("episode"))
 
-    let friendsField = try XCTUnwrap(heroField.selectionSet?.field(for: "friends"))
+    let friendsField = try XCTUnwrap(heroField.selectionSet?.firstField(for: "friends"))
     XCTAssertEqual(friendsField.name, "friends")
     XCTAssertEqual(friendsField.type.typeReference, "[Character]")
     
@@ -56,7 +56,9 @@ class CompilationTests: XCTestCase {
 }
 
 fileprivate extension CompilationResult.SelectionSet {
-  func field(for responseKey: String) -> CompilationResult.Field? {
+  // This is a helper method that is really only suitable for testing because getting just the first
+  // occurrence of a field is of limited use when generating code.
+  func firstField(for responseKey: String) -> CompilationResult.Field? {
     for selection in selections {
       guard case let .field(field) = selection else {
         continue
