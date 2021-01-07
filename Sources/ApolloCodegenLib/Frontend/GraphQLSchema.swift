@@ -1,5 +1,9 @@
 import JavaScriptCore
 
+// These classes correspond directly to the ones in
+// https://github.com/graphql/graphql-js/tree/master/src/type
+// and are partially described in https://graphql.org/graphql-js/type/
+
 /// A GraphQL schema.
 public class GraphQLSchema: JavaScriptObject {  
   func getType(named typeName: String) throws -> GraphQLNamedType? {

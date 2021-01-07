@@ -17,7 +17,7 @@ public struct GraphQLSourceLocation {
   let columnNumber: Int
 }
 
-// These correspond to the AST node types defined in
+// These classes correspond to the AST node types defined in
 // https://github.com/graphql/graphql-js/blob/master/src/language/ast.js
 // But since we don't need to access these directly, we haven't defined specific wrapper types except for
 // `GraphQLDocument`.
