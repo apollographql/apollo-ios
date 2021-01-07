@@ -8,7 +8,7 @@ public class GraphQLError: JavaScriptError {
   private lazy var source: GraphQLSource = self["source"]
   
   /// The source locations associated with this error.
-  lazy var sourceLocations: [GraphQLSourceLocation] = {
+  private(set) lazy var sourceLocations: [GraphQLSourceLocation] = {
     let locations: [JavaScriptObject] = self["locations"]
     
     if let nodes: [ASTNode] = self["nodes"] {
@@ -43,5 +43,5 @@ public class GraphQLError: JavaScriptError {
 
 /// A GraphQL schema validation error. This wraps one or more underlying validation errors.
 public class GraphQLSchemaValidationError: JavaScriptError {
-  lazy var validationErrors: [GraphQLError] = self["validationErrors"]
+  private(set) lazy var validationErrors: [GraphQLError] = self["validationErrors"]
 }

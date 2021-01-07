@@ -4,9 +4,9 @@ import JavaScriptCore
 /// A representation of source input to GraphQL parsing.
 /// Corresponds to https://github.com/graphql/graphql-js/blob/master/src/language/source.js
 public class GraphQLSource: JavaScriptObject {
-  lazy var filePath: String = self["name"]
+  private(set) lazy var filePath: String = self["name"]
   
-  lazy var body: String = self["body"]
+  private(set) lazy var body: String = self["body"]
 }
 
 /// Represents a location in a GraphQL source file.
@@ -27,12 +27,12 @@ public class ASTNode: JavaScriptObject {
   lazy var kind: String = self["kind"]
       
   private lazy var source: GraphQLSource = bridge.fromJSValue(self["loc"]["source"])
-  lazy var filePath: String = source.filePath
+  private(set) lazy var filePath: String = source.filePath
 }
 
 /// A parsed GraphQL document.
 public class GraphQLDocument: ASTNode {
-  lazy var definitions: [ASTNode] = self["definitions"]
+  private(set) lazy var definitions: [ASTNode] = self["definitions"]
   
   required init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
     super.init(jsValue, bridge: bridge)
