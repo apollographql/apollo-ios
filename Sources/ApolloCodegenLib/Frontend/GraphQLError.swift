@@ -2,6 +2,8 @@ import Foundation
 import JavaScriptCore
 
 /// A GraphQL error.
+/// Corresponds to https://github.com/graphql/graphql-js/blob/master/src/error/GraphQLError.js
+/// You can get error details if you need them, or call `error.logLines` to get errors in a format that lets Xcode show inline errors.
 public class GraphQLError: JavaScriptError {
   private lazy var source: GraphQLSource = self["source"]
   
@@ -39,7 +41,7 @@ public class GraphQLError: JavaScriptError {
   }
 }
 
-/// A GraphQL schema validation error.
+/// A GraphQL schema validation error. This wraps one or more underlying validation errors.
 public class GraphQLSchemaValidationError: JavaScriptError {
   lazy var validationErrors: [GraphQLError] = self["validationErrors"]
 }

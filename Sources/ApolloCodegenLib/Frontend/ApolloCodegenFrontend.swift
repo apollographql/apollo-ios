@@ -38,6 +38,7 @@ public final class ApolloCodegenFrontend {
     bridge.register(GraphQLUnionType.self, from: library)
   }
   
+  /// Load a schema by parsing either an introspection result or SDL based on the file extension.
   public func loadSchema(from fileURL: URL) throws -> GraphQLSchema {
     precondition(fileURL.isFileURL)
     
@@ -50,20 +51,24 @@ public final class ApolloCodegenFrontend {
     }
   }
   
+  /// Load a schema by parsing  an introspection result.
   public func loadSchemaFromIntrospectionResult(_ introspectionResult: String) throws -> GraphQLSchema {
     return try library.call("loadSchemaFromIntrospectionResult", with: introspectionResult)
   }
   
+  /// Load a schema by parsing SDL.
   public func loadSchemaFromSDL(_ source: GraphQLSource) throws -> GraphQLSchema {
     return try library.call("loadSchemaFromSDL", with: source)
   }
   
   private lazy var sourceConstructor: JavaScriptObject = bridge.fromJSValue(library["Source"])
   
+  /// Create a `GraphQLSource` object from a string.
   public func makeSource(_ body: String, filePath: String) throws -> GraphQLSource {
     return try sourceConstructor.construct(with: body, filePath)
   }
   
+  /// Create a `GraphQLSource` object by reading from a file.
   public func makeSource(from fileURL: URL) throws -> GraphQLSource {
     precondition(fileURL.isFileURL)
     
@@ -71,18 +76,29 @@ public final class ApolloCodegenFrontend {
     return try makeSource(body, filePath: fileURL.path)
   }
   
+  /// Parses a GraphQL document from a source, returning a reference to the parsed AST that can be passed on to validation and compilation.
+  /// Syntax errors will result in throwing a `GraphQLError`. 
   public func parseDocument(_ source: GraphQLSource) throws -> GraphQLDocument {
     return try library.call("parseDocument", with: source)
   }
   
+  /// Parses a GraphQL document from a file, returning a reference to the parsed AST that can be passed on to validation and compilation.
+  /// Syntax errors will result in throwing a `GraphQLError`.
+  public func parseDocument(from fileURL: URL) throws -> GraphQLDocument {
+    return try library.call("parseDocument", with: makeSource(from: fileURL))
+  }
+  
+  /// Validation and compilation take a single document, but you can merge documents, and operations and fragments will remember their source.
   public func mergeDocuments(_ documents: [GraphQLDocument]) throws -> GraphQLDocument {
     return try library.call("mergeDocuments", with: documents)
   }
   
+  /// Validate a GraphQL document and return any validation errors as `GraphQLError`s.
   public func validateDocument(schema: GraphQLSchema, document: GraphQLDocument) throws -> [GraphQLError] {
     return try library.call("validateDocument", with: schema, document)
   }
   
+  /// Compiles a GraphQL document into an intermediate representation that is more suitable for analysis and code generation.
   public func compile(schema: GraphQLSchema, document: GraphQLDocument) throws -> CompilationResult {
     return try library.call("compileDocument", with: schema, document)
   }
