@@ -21,9 +21,10 @@ export function NoAnonymousQueries(context: ValidationContext) {
     OperationDefinition(node: OperationDefinitionNode) {
       if (!node.name) {
         context.reportError(
-          new GraphQLError("Apollo does not support anonymous operations", [
-            node,
-          ])
+          new GraphQLError(
+            "Apollo does not support anonymous operations because operation names are used during code generation. Please give this operation a name.",
+            node
+          )
         );
       }
       return false;
@@ -38,8 +39,8 @@ export function NoTypenameAlias(context: ValidationContext) {
       if (aliasName == "__typename") {
         context.reportError(
           new GraphQLError(
-            "Apollo needs to be able to insert __typename when needed, please do not use it as an alias",
-            [node]
+            "Apollo needs to be able to insert __typename when needed, so using it as an alias is not supported.",
+            node
           )
         );
       }
