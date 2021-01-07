@@ -245,18 +245,21 @@ extension Dictionary: JavaScriptValueDecodable where Key == String, Value: JavaS
 
 extension String: JavaScriptValueDecodable {
   init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    precondition(jsValue.isString, "Expected JavaScript string but found: \(jsValue)")
     self = jsValue.toString()
   }
 }
 
 extension Int: JavaScriptValueDecodable {
   init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    precondition(jsValue.isNumber, "Expected JavaScript number but found: \(jsValue)")
     self = jsValue.toInt()
   }
 }
 
 extension Bool: JavaScriptValueDecodable {
   init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    precondition(jsValue.isBoolean, "Expected JavaScript boolean but found: \(jsValue)")
     self = jsValue.toBool()
   }
 }
