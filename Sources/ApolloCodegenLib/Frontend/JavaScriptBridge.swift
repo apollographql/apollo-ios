@@ -89,6 +89,11 @@ extension JavaScriptObject: Equatable {
   }
 }
 
+extension JavaScriptObject: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    return "<\(type(of: self)): \(jsValue.toString()!)>"
+  }
+}
 
 /// The JavaScript bridge is responsible for converting values to and from type-safe wrapper objects. It also ensures exceptions thrown from JavaScript wrapped and rethrown.
 class JavaScriptBridge {

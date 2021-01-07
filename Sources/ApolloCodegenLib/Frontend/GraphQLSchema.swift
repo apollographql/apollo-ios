@@ -28,12 +28,6 @@ public class GraphQLNamedType: JavaScriptObject {
   private(set) lazy var name: String = self["name"]
 }
 
-extension GraphQLNamedType: CustomDebugStringConvertible {
-  public var debugDescription: String {
-    return "<\(type(of: self)): \(jsValue.toString() ?? "?")>"
-  }
-}
-
 public class GraphQLScalarType: GraphQLNamedType {
   private(set) lazy var description: String? = self["description"]
   
