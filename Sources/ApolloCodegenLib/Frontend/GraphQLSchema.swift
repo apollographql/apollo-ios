@@ -1,17 +1,9 @@
 import JavaScriptCore
 
 /// A GraphQL schema.
-public class GraphQLSchema: JavaScriptObject {
-  private var typeMap: [String: GraphQLNamedType] = [:]
-  
+public class GraphQLSchema: JavaScriptObject {  
   func getType(named typeName: String) throws -> GraphQLNamedType? {
-    if let type = typeMap[typeName] {
-      return type
-    }
-    
-    let type: GraphQLNamedType = try invokeMethod("getType", with: typeName)
-    typeMap[typeName] = type
-    return type
+    try invokeMethod("getType", with: typeName)
   }
   
   func getPossibleTypes(_ abstractType: GraphQLAbstractType) throws -> [GraphQLObjectType] {
