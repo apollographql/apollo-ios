@@ -8,6 +8,8 @@ class DocumentParsingAndValidationTests: XCTestCase {
   var schema: GraphQLSchema!
   
   override func setUpWithError() throws {
+    try super.setUpWithError()
+
     codegenFrontend = try ApolloCodegenFrontend()
     
     let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))

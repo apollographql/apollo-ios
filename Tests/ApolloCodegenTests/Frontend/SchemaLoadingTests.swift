@@ -7,6 +7,8 @@ class SchemaLoadingTests: XCTestCase {
   var codegenFrontend: ApolloCodegenFrontend!
   
   override func setUpWithError() throws {
+    try super.setUpWithError()
+
     codegenFrontend = try ApolloCodegenFrontend()
   }
   
