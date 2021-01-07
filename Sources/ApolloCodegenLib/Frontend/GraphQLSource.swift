@@ -17,16 +17,10 @@ public struct GraphQLSourceLocation {
   let columnNumber: Int
 }
 
-/// A parsed GraphQL document.
-public class GraphQLDocument: ASTNode {
-  lazy var definitions: [ASTNode] = self["definitions"]
-  
-  required init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-    super.init(jsValue, bridge: bridge)
-    
-    precondition(kind == "Document")
-  }
-}
+// These correspond to the AST node types defined in
+// https://github.com/graphql/graphql-js/blob/master/src/language/ast.js
+// But since we don't need to access these directly, we haven't defined specific wrapper types except for
+// `GraphQLDocument`.
 
 /// An AST node.
 public class ASTNode: JavaScriptObject {
@@ -34,4 +28,15 @@ public class ASTNode: JavaScriptObject {
       
   private lazy var source: GraphQLSource = bridge.fromJSValue(self["loc"]["source"])
   lazy var filePath: String = source.filePath
+}
+
+/// A parsed GraphQL document.
+public class GraphQLDocument: ASTNode {
+  lazy var definitions: [ASTNode] = self["definitions"]
+  
+  required init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    super.init(jsValue, bridge: bridge)
+    
+    precondition(kind == "Document", "Expected GraphQL DocumentNode but found: \(jsValue)")
+  }
 }
