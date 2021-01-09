@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// Data about a response received by an HTTP request.
 public class HTTPResponse<Operation: GraphQLOperation> {

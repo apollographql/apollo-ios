@@ -1,4 +1,9 @@
 @testable import Apollo
+import Dispatch
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public final class MockNetworkTransport: RequestChainNetworkTransport {
   public init(server: MockGraphQLServer, store: ApolloStore) {

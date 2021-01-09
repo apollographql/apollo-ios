@@ -37,13 +37,20 @@ let package = Package(
       url: "https://github.com/stencilproject/Stencil.git",
       .upToNextMinor(from: "0.14.0")),
     .package(
+      url: "https://github.com/apple/swift-crypto.git",
+      .upToNextMinor(from: "1.1.2")),
+    .package(
       url: "https://github.com/apollographql/InflectorKit",
       .upToNextMinor(from: "0.0.2")),
     ],
     targets: [
     .target(
       name: "ApolloCore",
-      dependencies: [],
+      dependencies: [
+        .product(name: "Crypto",
+                 package: "swift-crypto",
+                 condition: .when(platforms: [.linux]))
+      ],
       exclude: [
         "Info.plist"
       ]),
@@ -59,11 +66,12 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloCore",
-        "InflectorKit",
-        .product(name: "Stencil", package: "Stencil"),
-      ],
-      exclude: [
-        "Info.plist"
+        .product(name: "InflectorKit",
+                 package: "InflectorKit",
+                 condition: .when(platforms: [.macOS])),
+        .product(name: "Stencil",
+                 package: "Stencil",
+                 condition: .when(platforms: [.macOS])),
       ]),
     .target(
       name: "ApolloSQLite",

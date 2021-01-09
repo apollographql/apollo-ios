@@ -56,6 +56,15 @@
         }
       },
       {
+        "package": "swift-crypto",
+        "repositoryURL": "https://github.com/apple/swift-crypto.git",
+        "state": {
+          "branch": null,
+          "revision": "8f4bfa5bc1951440c15710e9e893721aa4b2765c",
+          "version": "1.1.3"
+        }
+      },
+      {
         "package": "swift-nio-zlib-support",
         "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
         "state": {

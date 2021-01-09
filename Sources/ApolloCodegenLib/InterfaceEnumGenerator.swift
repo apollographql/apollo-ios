@@ -1,4 +1,7 @@
 import Foundation
+
+// Only available on macOS
+#if os(macOS)
 import Stencil
 
 public class InterfaceEnumGenerator {
@@ -103,3 +106,4 @@ public class InterfaceEnumGenerator {
     """
   }
 }
+#endif

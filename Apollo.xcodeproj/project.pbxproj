@@ -15,6 +15,7 @@
 		9B0E471C240B167C0093BDA7 /* String+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E471B240B167C0093BDA7 /* String+Apollo.swift */; };
 		9B0E471E240B239D0093BDA7 /* ASTEnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
+		9B206032259187EF0020D1E0 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B206031259187EF0020D1E0 /* Crypt.swift */; };
 		9B20611A2591B3550020D1E0 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
 		9B20611B2591B3550020D1E0 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
 		9B20611C2591B3550020D1E0 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
@@ -511,6 +512,8 @@
 		9B0E471B240B167C0093BDA7 /* String+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Apollo.swift"; sourceTree = "<group>"; };
 		9B0E471D240B239D0093BDA7 /* ASTEnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTEnumValue.swift; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
+		9B206031259187EF0020D1E0 /* Crypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypt.swift; sourceTree = "<group>"; };
+		9B2060422591903B0020D1E0 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		9B2061172591B3550020D1E0 /* c.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c.txt; sourceTree = "<group>"; };
 		9B2061182591B3550020D1E0 /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
 		9B2061192591B3550020D1E0 /* a.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a.txt; sourceTree = "<group>"; };
@@ -1195,6 +1198,7 @@
 				9B6CB23D238077B60007259D /* Atomic.swift */,
 				9F30F02E255EDF8900506DE7 /* DispatchPreconditions.swift */,
 				9B68F06E241C649E00E97318 /* GraphQLOptional.swift */,
+				9B206031259187EF0020D1E0 /* Crypt.swift */,
 				9B455CE82492D0A7002255A9 /* Extensions */,
 			);
 			name = ApolloCore;
@@ -1707,6 +1711,7 @@
 		9FCE2CF41E6C20E000E34457 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9B2060422591903B0020D1E0 /* LinuxMain.swift */,
 				9FC750521D2A532D00458D91 /* ApolloTests */,
 				9FA6ABBD1EC0A988000017BE /* ApolloCacheDependentTests */,
 				9F54C8B5255D760B0065AFD6 /* ApolloPerformanceTests */,
@@ -2414,6 +2419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B206032259187EF0020D1E0 /* Crypt.swift in Sources */,
 				9B68354E24634A3C00337AE6 /* GraphQLOptional.swift in Sources */,
 				9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */,
 				9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */,

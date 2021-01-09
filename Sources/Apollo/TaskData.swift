@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// A wrapper for data about a particular task handled by `URLSessionClient`
 public class TaskData {

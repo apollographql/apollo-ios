@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// A request class allowing for a multipart-upload request.
 open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {

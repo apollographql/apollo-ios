@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// Encapsulation of all information about a request before it hits the network
 open class HTTPRequest<Operation: GraphQLOperation> {
