@@ -1048,7 +1048,11 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + FriendsNames.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + FriendsNames.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -1241,7 +1245,11 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterName.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterName.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -1636,7 +1644,11 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterAppearsIn.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterAppearsIn.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -2299,7 +2311,11 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + HeroDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + HeroDetails.fragmentDefinition)
+    return document
+  }
 
   public var includeDetails: Bool
 
@@ -3485,7 +3501,11 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + HeroDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + HeroDetails.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -3801,7 +3821,11 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + DroidDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + DroidDetails.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4432,7 +4456,11 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "b952f0054915a32ec524ac0dde0244bcda246649debe149f9e32e303e21c8266"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterName.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterName.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4562,7 +4590,11 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterName.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterName.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4814,7 +4846,11 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterNameAndAppearsIn.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterNameAndAppearsIn.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
