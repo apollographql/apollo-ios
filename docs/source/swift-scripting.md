@@ -170,7 +170,7 @@ Here, for example, is what this looks like in a file for one of the queries in o
 
 <img alt="Launch list file" src="screenshot/graphql_file_launchlist.png" class="screenshot"/>
 
->**Before you start**: Remember, you need to have a locally downloaded copy of your schema and at least one `.graphql` file containing an operation in your file tree. If you don't have **both** of these, code generation will fail. [Read the section above](#creating-a-graphql-file-with-an-operation) if you don't have an operation set up!
+**Note:** You do **not** need to add this file to your target in Xcode. Only the generated Swift code needs to be included in your target for it to work. 
 
 ## Running code generation from your main project
 
