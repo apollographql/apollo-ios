@@ -147,29 +147,13 @@ MyProject // SourceRoot
   | - ApolloCodegen // Contains Swift Scripting files
 ```
 
-Next, now that you have a schema, you need to create a GraphQL file with an operation in order to generate code. 
+Next, now that you have a schema, you a GraphQL file with an operation in order to generate code. 
 
-## Creating a `.graphql` file with an operation
+## Adding a `.graphql` file with an operation
 
-The easiest and most common type of operation to create is a Query. Identify where your server's [GraphiQL](https://github.com/graphql/graphiql) instance lives. 
+If you're not familiar with creating an operation in graphQL, please check out the [portion of our tutorial on executing your first query](https://www.apollographql.com/docs/ios/tutorial/tutorial-execute-query/). You can stop after the section about adding your query to Xcode.
 
-GraphiQL is a helpful web interface for interacting with and testing out a GraphQL server. This can generally be accessed by going to the same URL as your GraphQL endpoint in a web browser, but you might need to talk to your backend team if they host it in a different place.
-
-You'll see something that looks like this: 
-
-<img alt="GraphiQL empty" src="screenshot/graphiql_empty.png" class="screenshot"/>
-
-In the "Docs" tab on the right-hand side, you should be able to access a list of the various queries you can make to your server: 
-
-<img alt="Docs tab" src="screenshot/graphiql_docs_tab.png" class="screenshot"/>
-
-You can then type out a GraphQL query on the left-hand side and have it give you auto-completion for your queries and the properties you can ask for on the returned data. Clicking the play button will execute the query, so you can validate that the query works:
-
-<img alt="Completed query" src="screenshot/graphiql_query.png" class="screenshot"/>
-
-Now you can create a new empty `.graphql` file in your Xcode project, give it the same name as your query,  and paste in the query. 
-
-You'll want to add it to the project files, ideally at or above the level of the `schema.json` (Otherwise, you'll need to manually pass the URL of your GraphQL files to your code generation step):
+Make sure you've added the operation file to the project files, ideally at or above the level of the `schema.json` (Otherwise, you'll need to manually pass the URL of your GraphQL files to your code generation step):
 
 ```txt:title=Sample%20Project%20Structure
 MyProject // SourceRoot
