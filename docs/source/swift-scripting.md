@@ -8,7 +8,7 @@ Apollo Client for iOS enables you to use Swift scripting to perform certain oper
 This document guides you through setting up a Swift Package Manager executable project using our template, and then using that project to: 
 
 - Download a schema
-- Generate Swift code for your model object based on your schema and operations
+- Generate Swift code for your model objects based on your schema and operations
 
 ## Conceptual background
 
