@@ -187,7 +187,7 @@ This is best achieved with a Run Script Build Phase.
 
     ```
     cd "${SRCROOT}"/Codegen
-    xcrun -sdk macosx swift run
+    xcrun -sdk macosx swift run generate
     ```
 
     >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. It is not recommended to do this by default, because it substantially increases build time.
