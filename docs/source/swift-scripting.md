@@ -190,7 +190,7 @@ This is best achieved with a Run Script Build Phase.
     xcrun -sdk macosx swift run generate
     ```
 
-    >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. Do not this by default, because it substantially increases build time.
+    >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. Do not do this by default, because it substantially increases build time.
     
 4. Build your target.
 
