@@ -147,7 +147,7 @@ MyProject // SourceRoot
   | - ApolloCodegen // Contains Swift Scripting files
 ```
 
-Next, now that you have a schema, you a GraphQL file with an operation in order to generate code. 
+Next, now that you have a schema, you need a GraphQL file with an operation in order to generate code. 
 
 ## Adding a `.graphql` file with an operation
 
