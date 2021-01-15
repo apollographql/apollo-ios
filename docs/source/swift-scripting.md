@@ -186,8 +186,8 @@ This is best achieved with a Run Script Build Phase.
 3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run` (using `xcrun` so that you can ensure it runs with the correct SDK, no matter what type of project you're building): 
 
     ```
-    cd "${SRCROOT}"/Codegen
-    xcrun -sdk macosx swift run generate
+    cd "${SRCROOT}"/ApolloCodegen/Sources/ApolloCodegen
+    xcrun -sdk macosx swift run ApolloCodegen generate
     ```
 
     >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. Do not do this by default, because it substantially increases build time.
