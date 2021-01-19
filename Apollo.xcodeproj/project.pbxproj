@@ -199,7 +199,6 @@
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E301E27534800A24949 /* NormalizeQueryResults.swift */; };
 		9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */; };
-		9F30F02F255EDF8900506DE7 /* DispatchPreconditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F30F02E255EDF8900506DE7 /* DispatchPreconditions.swift */; };
 		9F39101725493DDC00AF54A6 /* FetchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA6ABC51EC0A9F7000017BE /* FetchQueryTests.swift */; };
 		9F3910272549741400AF54A6 /* MockGraphQLServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3910262549741400AF54A6 /* MockGraphQLServer.swift */; };
 		9F41CBF025A3490600C02CB7 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 9F41CBEF25A3490600C02CB7 /* schema.graphqls */; };
@@ -770,7 +769,6 @@
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
 		9F295E301E27534800A24949 /* NormalizeQueryResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalizeQueryResults.swift; sourceTree = "<group>"; };
 		9F295E371E277B2A00A24949 /* GraphQLResultNormalizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLResultNormalizer.swift; sourceTree = "<group>"; };
-		9F30F02E255EDF8900506DE7 /* DispatchPreconditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchPreconditions.swift; sourceTree = "<group>"; };
 		9F33D6A32566475600A1543F /* PossiblyDeferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossiblyDeferred.swift; sourceTree = "<group>"; };
 		9F3910262549741400AF54A6 /* MockGraphQLServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLServer.swift; sourceTree = "<group>"; };
 		9F41CBEF25A3490600C02CB7 /* schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
@@ -1235,7 +1233,6 @@
 			isa = PBXGroup;
 			children = (
 				9B6CB23D238077B60007259D /* Atomic.swift */,
-				9F30F02E255EDF8900506DE7 /* DispatchPreconditions.swift */,
 				9B68F06E241C649E00E97318 /* GraphQLOptional.swift */,
 				9B455CE82492D0A7002255A9 /* Extensions */,
 			);
@@ -2511,7 +2508,6 @@
 				9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */,
 				9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */,
 				9B455CE62492D0A3002255A9 /* OptionalBoolean.swift in Sources */,
-				9F30F02F255EDF8900506DE7 /* DispatchPreconditions.swift in Sources */,
 				9B455CDF2492D05E002255A9 /* Atomic.swift in Sources */,
 				9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */,
 			);

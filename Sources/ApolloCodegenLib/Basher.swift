@@ -37,17 +37,10 @@ public struct Basher {
     ]
     task.launchPath = "/bin/bash"
     
-    if #available(OSX 10.13, *) {
-      if let url = url {
-        task.currentDirectoryURL = url
-      }
-      try task.run()
-    } else {
-      if let path = url?.path {
-        task.currentDirectoryPath = path
-      }
-      task.launch()
+    if let url = url {
+      task.currentDirectoryURL = url
     }
+    try task.run()
     
     task.waitUntilExit()
     

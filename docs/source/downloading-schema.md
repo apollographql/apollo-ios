@@ -6,7 +6,7 @@ Apollo iOS requires a GraphQL schema file as input to the code generation proces
 
 > 🚧 BETA ALERT 🚧 : Instead of writing the rest of this in Bash, try using our new [Swift Scripting Library](./swift-scripting), now in Beta! It supports downloading a schema and generating code.
 
-You can use `apollo` from the [apollo-cli](https://github.com/apollographql/apollo-cli) package to download a GraphQL schema by sending an introspection query to the server.
+You can use the [Apollo CLI](https://www.apollographql.com/docs/devtools/cli/) to download a GraphQL schema by sending an introspection query to the server.
 
 If you've installed the CLI globally, you can use the following command to download your schema: 
 

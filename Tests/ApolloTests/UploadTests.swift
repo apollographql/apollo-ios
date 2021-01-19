@@ -304,8 +304,7 @@ class UploadTests: XCTestCase {
     let formData = try uploadRequest.requestMultipartFormData()
     let stringToCompare = try formData.toTestString()
     
-    if JSONSerialization.dataCanBeSorted() {
-      let expectedString = """
+    let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
@@ -322,24 +321,8 @@ Alpha file content.
 
 --TEST.BOUNDARY--
 """
-      XCTAssertEqual(stringToCompare, expectedString)
-    } else {
-      // Operation parameters may be in weird order, so let's at least check that the files and single parameter got encoded properly.
-      let expectedEndString = """
---TEST.BOUNDARY
-Content-Disposition: form-data; name="map"
-
-{"0":["variables.file"]}
---TEST.BOUNDARY
-Content-Disposition: form-data; name="0"; filename="a.txt"
-Content-Type: text/plain
-
-Alpha file content.
-
---TEST.BOUNDARY--
-"""
-      stringToCompare.apollo.checkIncludes(expectedString: expectedEndString)
-    }
+    
+    XCTAssertEqual(stringToCompare, expectedString)
   }
 
   func testMultipleFilesWithUploadRequest() throws {
@@ -366,8 +349,7 @@ Alpha file content.
     let multipartData = try uploadRequest.requestMultipartFormData()
     let stringToCompare = try multipartData.toTestString()
     
-    if JSONSerialization.dataCanBeSorted() {
-      let expectedString = """
+    let expectedString = """
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
@@ -390,26 +372,7 @@ Bravo file content.
 
 --TEST.BOUNDARY--
 """
-      XCTAssertEqual(stringToCompare, expectedString)
-    } else {
-      // Query and operation parameters may be in weird order, so let's at least check that the files got encoded properly.
-      let endString = """
---TEST.BOUNDARY
-Content-Disposition: form-data; name="0"; filename="a.txt"
-Content-Type: text/plain
-
-Alpha file content.
-
---TEST.BOUNDARY
-Content-Disposition: form-data; name="1"; filename="b.txt"
-Content-Type: text/plain
-
-Bravo file content.
-
---TEST.BOUNDARY--
-"""
-      stringToCompare.apollo.checkIncludes(expectedString: endString)
-    }
+    XCTAssertEqual(stringToCompare, expectedString)
   }
 
   func testMultipleFilesWithMultipleFieldsWithUploadRequest() throws {
@@ -441,61 +404,35 @@ Bravo file content.
     let multipartData = try uploadRequest.requestMultipartFormData()
     let stringToCompare = try multipartData.toTestString()
     
-    if JSONSerialization.dataCanBeSorted() {
-      let expectedString = """
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="operations"
+    let expectedString = """
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="operations"
 
-  {"id":"f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671","operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,\"secondField\":null,\"uploads\":null}}
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="map"
+{"id":"f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671","operationName":"HeroName","query":"query HeroName($episode: Episode) {\\n  hero(episode: $episode) {\\n    __typename\\n    name\\n  }\\n}","variables":{"episode":null,\"secondField\":null,\"uploads\":null}}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="map"
 
-  {"0":["variables.secondField"],"1":["variables.uploads.0"],"2":["variables.uploads.1"]}
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="0"; filename="c.txt"
-  Content-Type: text/plain
+{"0":["variables.secondField"],"1":["variables.uploads.0"],"2":["variables.uploads.1"]}
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="0"; filename="c.txt"
+Content-Type: text/plain
 
-  Charlie file content.
+Charlie file content.
 
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="1"; filename="a.txt"
-  Content-Type: text/plain
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="1"; filename="a.txt"
+Content-Type: text/plain
 
-  Alpha file content.
+Alpha file content.
 
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="2"; filename="b.txt"
-  Content-Type: text/plain
+--TEST.BOUNDARY
+Content-Disposition: form-data; name="2"; filename="b.txt"
+Content-Type: text/plain
 
-  Bravo file content.
+Bravo file content.
 
-  --TEST.BOUNDARY--
-  """
-      XCTAssertEqual(stringToCompare, expectedString)
-    } else {
-      // Query and operation parameters may be in weird order, so let's at least check that the files got encoded properly.
-      let endString = """
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="0"; filename="c.txt"
-  Content-Type: text/plain
-
-  Charlie file content.
-
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="1"; filename="a.txt"
-  Content-Type: text/plain
-
-  Alpha file content.
-
-  --TEST.BOUNDARY
-  Content-Disposition: form-data; name="2"; filename="b.txt"
-  Content-Type: text/plain
-
-  Bravo file content.
-
-  --TEST.BOUNDARY--
-  """
-      stringToCompare.apollo.checkIncludes(expectedString: endString)
-    }
+--TEST.BOUNDARY--
+"""
+    XCTAssertEqual(stringToCompare, expectedString)
   }
 }

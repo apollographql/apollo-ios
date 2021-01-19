@@ -15,10 +15,10 @@ Pod::Spec.new do |s|
 
   s.default_subspecs = 'Core'
 
-  s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.11'
-  s.tvos.deployment_target = '9.1'
-  s.watchos.deployment_target = '3.0'
+  s.ios.deployment_target = '12.0'
+  s.osx.deployment_target = '10.14'
+  s.tvos.deployment_target = '12.0'
+  s.watchos.deployment_target = '5.0'
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloCore/*.swift'

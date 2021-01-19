@@ -13,7 +13,11 @@ public final class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "ac49a25de6d750d9343c9ddd127a6fc77de480dcb85ad7aedfd1984eb50a4bd6"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + AuthorDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + AuthorDetails.fragmentDefinition)
+    return document
+  }
 
   public init() {
   }
