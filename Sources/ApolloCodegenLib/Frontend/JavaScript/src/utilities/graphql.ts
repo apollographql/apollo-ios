@@ -101,20 +101,19 @@ export function withTypenameFieldAddedWhereNeeded(ast: ASTNode) {
 export function getFieldDef(
   schema: GraphQLSchema,
   parentType: GraphQLCompositeType,
-  fieldAST: FieldNode
+  fieldName: string,
 ): GraphQLField<any, any> | undefined {
-  const name = fieldAST.name.value;
   if (
-    name === SchemaMetaFieldDef.name &&
+    fieldName === SchemaMetaFieldDef.name &&
     schema.getQueryType() === parentType
   ) {
     return SchemaMetaFieldDef;
   }
-  if (name === TypeMetaFieldDef.name && schema.getQueryType() === parentType) {
+  if (fieldName === TypeMetaFieldDef.name && schema.getQueryType() === parentType) {
     return TypeMetaFieldDef;
   }
   if (
-    name === TypeNameMetaFieldDef.name &&
+    fieldName === TypeNameMetaFieldDef.name &&
     (isObjectType(parentType) ||
       isInterfaceType(parentType) ||
       isUnionType(parentType))
@@ -122,7 +121,7 @@ export function getFieldDef(
     return TypeNameMetaFieldDef;
   }
   if (isObjectType(parentType) || isInterfaceType(parentType)) {
-    return parentType.getFields()[name];
+    return parentType.getFields()[fieldName];
   }
 
   return undefined;

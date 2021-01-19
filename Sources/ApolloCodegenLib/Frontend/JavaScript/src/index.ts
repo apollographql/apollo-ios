@@ -10,7 +10,7 @@ import {
   buildASTSchema,
 } from "graphql";
 import { defaultValidationRules } from "./validationRules";
-import { compileToIR, CompilationResult } from "@apollo/graphql-compiler";
+import { compileToIR, CompilationResult } from "./compiler";
 import { assertValidSchema, assertValidSDL } from "./utilities/graphql";
 
 // We need to export all the classes we want to map to native objects,
