@@ -129,10 +129,10 @@ If you don't provide a subcommand, a list of available subcommands will be print
 
 ### Downloading a schema
 
-Update the `SchemaDownload` command to have the correct URL and download path within the Swift file. Then, from the command line, run: 
+Update the `downloadSchema` command to have the correct URL and download path within the Swift file. Then, from the command line, run: 
 
 ```
-swift run ApolloCodegen schemaDownload
+swift run ApolloCodegen downloadSchema
 ```
 
 If you're using the template code and following the sample project structure, the schema should download here: 
@@ -186,8 +186,8 @@ This is best achieved with a Run Script Build Phase.
 3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run` (using `xcrun` so that you can ensure it runs with the correct SDK, no matter what type of project you're building): 
 
     ```
-    cd "${SRCROOT}"/Codegen
-    xcrun -sdk macosx swift run generate
+    cd "${SRCROOT}"/ApolloCodegen
+    xcrun -sdk macosx swift run ApolloCodegen generate
     ```
 
     >**Note**: If your package ever seems to have problems with caching, run `swift package clean` before `swift run` for a totally clean build. Do not do this by default, because it substantially increases build time.
