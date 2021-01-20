@@ -128,10 +128,6 @@ let package = Package(
       exclude: [
         "Info.plist",
         "graphql"
-      ],
-      resources: [
-        .copy("graphql/schema.json"),
-        .copy("graphql/schema.graphqls")
       ]),
     .target(
       name: "UploadAPI",
