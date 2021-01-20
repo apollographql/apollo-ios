@@ -69,7 +69,11 @@ let package = Package(
         .product(name: "Stencil", package: "Stencil"),
       ],
       exclude: [
-        "Info.plist"
+        "Info.plist",
+        "Frontend/JavaScript",
+      ],
+      resources: [
+        .copy("Frontend/JavaScript/dist/ApolloCodegenFrontend.bundle.js")
       ]),
     .target(
       name: "ApolloSQLite",
