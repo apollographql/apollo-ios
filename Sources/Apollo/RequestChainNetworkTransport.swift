@@ -69,7 +69,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
                 contextIdentifier: contextIdentifier,
                 clientName: self.clientName,
                 clientVersion: self.clientVersion,
-                additionalHeaders: additionalHeaders,
+                additionalHeaders: self.additionalHeaders,
                 cachePolicy: cachePolicy,
                 autoPersistQueries: self.autoPersistQueries,
                 useGETForQueries: self.useGETForQueries,
@@ -119,6 +119,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
                   operation: operation,
                   clientName: self.clientName,
                   clientVersion: self.clientVersion,
+                  additionalHeaders: self.additionalHeaders,
                   files: files,
                   requestBodyCreator: self.requestBodyCreator)
   }
