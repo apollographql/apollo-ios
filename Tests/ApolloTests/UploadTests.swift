@@ -12,7 +12,10 @@ class UploadTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
-                                                 endpointURL: self.uploadClientURL)
+                                                 endpointURL: self.uploadClientURL,
+                                                 additionalHeaders: ["headerKey": "headerValue"])
+    transport.clientName = "test"
+    transport.clientVersion = "test"
     
     return ApolloClient(networkTransport: transport, store: store)
   }()
@@ -295,12 +298,15 @@ class UploadTests: XCTestCase {
                                     mimeType: "text/plain",
                                     fileURL: alphaFileUrl)
     let operation = UploadOneFileMutation(file: alphaFile.originalName)
-    let uploadRequest = UploadRequest(graphQLEndpoint: TestURL.mockServer.url,
-                                      operation: operation,
-                                      clientName: "test",
-                                      clientVersion: "test",
-                                      files: [alphaFile],
-                                      manualBoundary: "TEST.BOUNDARY")
+    
+    let transport = try XCTUnwrap(self.client.networkTransport as? RequestChainNetworkTransport)
+    
+    let httpRequest = transport.constructUploadRequest(for: operation, with: [alphaFile], manualBoundary: "TEST.BOUNDARY")
+    let uploadRequest = try XCTUnwrap(httpRequest as? UploadRequest)
+    
+    let urlRequest = try uploadRequest.toURLRequest()
+    XCTAssertEqual(urlRequest.allHTTPHeaderFields?["headerKey"], "headerValue")
+    
     let formData = try uploadRequest.requestMultipartFormData()
     let stringToCompare = try formData.toTestString()
     
@@ -340,12 +346,14 @@ Alpha file content.
     
     let files = [alphaFile, betaFile]
     let operation = UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName })
-    let uploadRequest = UploadRequest(graphQLEndpoint: TestURL.mockServer.url,
-                                      operation: operation,
-                                      clientName: "test",
-                                      clientVersion: "test",
-                                      files: files,
-                                      manualBoundary: "TEST.BOUNDARY")
+    let transport = try XCTUnwrap(self.client.networkTransport as? RequestChainNetworkTransport)
+    
+    let httpRequest = transport.constructUploadRequest(for: operation, with: [alphaFile, betaFile], manualBoundary: "TEST.BOUNDARY")
+    let uploadRequest = try XCTUnwrap(httpRequest as? UploadRequest)
+    
+    let urlRequest = try uploadRequest.toURLRequest()
+    XCTAssertEqual(urlRequest.allHTTPHeaderFields?["headerKey"], "headerValue")
+    
     let multipartData = try uploadRequest.requestMultipartFormData()
     let stringToCompare = try multipartData.toTestString()
     
@@ -394,12 +402,15 @@ Bravo file content.
                                       mimeType: "text/plain",
                                       fileURL: charlieFileUrl)
     
-    let uploadRequest = UploadRequest(graphQLEndpoint: TestURL.mockServer.url,
-                                      operation:  HeroNameQuery(),
-                                      clientName: "test",
-                                      clientVersion: "test",
-                                      files: [alphaFile, betaFile, charlieFile],
-                                      manualBoundary: "TEST.BOUNDARY")
+    let transport = try XCTUnwrap(self.client.networkTransport as? RequestChainNetworkTransport)
+    
+    let httpRequest = transport.constructUploadRequest(for: HeroNameQuery(),
+                                                       with: [alphaFile, betaFile, charlieFile],
+                                                       manualBoundary: "TEST.BOUNDARY")
+    let uploadRequest = try XCTUnwrap(httpRequest as? UploadRequest)
+    
+    let urlRequest = try uploadRequest.toURLRequest()
+    XCTAssertEqual(urlRequest.allHTTPHeaderFields?["headerKey"], "headerValue")
     
     let multipartData = try uploadRequest.requestMultipartFormData()
     let stringToCompare = try multipartData.toTestString()
