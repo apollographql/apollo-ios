@@ -301,7 +301,9 @@ class UploadTests: XCTestCase {
     
     let transport = try XCTUnwrap(self.client.networkTransport as? RequestChainNetworkTransport)
     
-    let httpRequest = transport.constructUploadRequest(for: operation, with: [alphaFile], manualBoundary: "TEST.BOUNDARY")
+    let httpRequest = transport.constructUploadRequest(for: operation,
+                                                       with: [alphaFile],
+                                                       manualBoundary: "TEST.BOUNDARY")
     let uploadRequest = try XCTUnwrap(httpRequest as? UploadRequest)
     
     let urlRequest = try uploadRequest.toURLRequest()
@@ -348,7 +350,9 @@ Alpha file content.
     let operation = UploadMultipleFilesToTheSameParameterMutation(files: files.map { $0.originalName })
     let transport = try XCTUnwrap(self.client.networkTransport as? RequestChainNetworkTransport)
     
-    let httpRequest = transport.constructUploadRequest(for: operation, with: [alphaFile, betaFile], manualBoundary: "TEST.BOUNDARY")
+    let httpRequest = transport.constructUploadRequest(for: operation,
+                                                       with: [alphaFile, betaFile],
+                                                       manualBoundary: "TEST.BOUNDARY")
     let uploadRequest = try XCTUnwrap(httpRequest as? UploadRequest)
     
     let urlRequest = try uploadRequest.toURLRequest()
