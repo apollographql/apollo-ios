@@ -39,7 +39,13 @@ public class CodableParsingInterceptor<FlexDecoder: FlexibleDecoder>: ApolloInte
     }
     
     do {
-      let parsedData = try GraphQLResult<Operation.Data>(from: createdResponse.rawData, decoder: self.decoder)
+      typealias ResultType = GraphQLResult<Operation.Data>
+
+      guard let ParseableResultType = ResultType.self as? _ParseableBase.Type else {
+        throw ParseableError.unsupportedInitializer
+      }
+
+      let parsedData = try ParseableResultType._decode(from: createdResponse.rawData, decoder: decoder) as! ResultType
       createdResponse.parsedResponse = parsedData
       chain.proceedAsync(request: request,
                          response: response,

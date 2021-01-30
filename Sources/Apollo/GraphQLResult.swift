@@ -1,11 +1,7 @@
 import Foundation
 
 /// Represents the result of a GraphQL operation.
-public struct GraphQLResult<Data>: Parseable {
-  
-  public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws {
-    throw ParseableError.unsupportedInitializer
-  }
+public struct GraphQLResult<Data> {
   
   /// The typed result data, or `nil` if an error was encountered that prevented a valid response.
   public let data: Data?
@@ -37,8 +33,9 @@ public struct GraphQLResult<Data>: Parseable {
   }
 }
 
-extension GraphQLResult where Data: Decodable {
-  
+extension GraphQLResult: _ParseableBase where Data: Decodable {}
+
+extension GraphQLResult: Parseable where Data: Decodable {
   public init<T: FlexibleDecoder>(from data: Foundation.Data, decoder: T) throws {
     // SWIFT CODEGEN: fix this to handle codable better
     let data = try decoder.decode(Data.self, from: data)

@@ -278,4 +278,90 @@ class InterceptorTests: XCTestCase {
     
     self.wait(for: [expectation], timeout: 1)
   }
+
+  // MARK: - Codable Parsing Interceptor
+
+  func testCodableParsingInterceptorDecodesGraphQLResponse() {
+    class TestProvider: InterceptorProvider {
+      let mockClient: MockURLSessionClient = {
+        let client = MockURLSessionClient()
+        client.response = HTTPURLResponse(url: TestURL.mockServer.url,
+                                          statusCode: 200,
+                                          httpVersion: nil,
+                                          headerFields: nil)
+        let json = [
+          "data": [
+            "hero": [
+              "name": "Luke Skywalker",
+              "__typename": "Human"
+            ]
+          ]
+        ]
+        let data = try! JSONSerializationFormat.serialize(value: json)
+        client.data = data
+        return client
+      }()
+
+      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        [
+          NetworkFetchInterceptor(client: self.mockClient),
+          CodableParsingInterceptor(decoder: JSONDecoder()),
+        ]
+      }
+    }
+
+    struct TestData: Decodable {
+      struct Hero: Decodable {
+        var name: String
+      }
+
+      var hero: Hero
+    }
+
+    struct DecodableSelectionSet<Data: Decodable>: Decodable, GraphQLSelectionSet {
+      static var selections: [GraphQLSelection] {
+        []
+      }
+
+      var data: Data
+
+      var resultMap: ResultMap {
+        fatalError()
+      }
+
+      init(unsafeResultMap: ResultMap) {
+        fatalError()
+      }
+    }
+
+    class TestQuery: GraphQLQuery {
+      typealias Data = DecodableSelectionSet<TestData>
+
+      var operationDefinition: String {
+        HeroNameQuery().operationDefinition
+      }
+
+      var operationName: String {
+        HeroNameQuery().operationName
+      }
+    }
+
+    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+                                               endpointURL: TestURL.mockServer.url)
+
+    let expectation = self.expectation(description: "Request sent")
+
+    var result: Result<TestData?, Error>?
+
+    _ = network.send(operation: TestQuery()) {
+      result = $0.map(\.data?.data)
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    if let result = result {
+      XCTAssertEqual(try result.get()?.hero.name, "Luke Skywalker")
+    }
+  }
 }
