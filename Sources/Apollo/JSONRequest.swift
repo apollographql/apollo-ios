@@ -100,6 +100,9 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       if let urlForGet = transformer.createGetURL() {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
+        
+        // GET requests shouldn't have a content-type since they do not provide actual content. 
+        request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
       } else {
         throw GraphQLHTTPRequestError.serializedQueryParamsMessageError
       }
