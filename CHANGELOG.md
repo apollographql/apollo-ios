@@ -1,5 +1,9 @@
 # Change log
 
+## v0.41.0
+- **BREAKING**: Fixed an issue in which `UploadRequests` were not getting headers added via the `RequestChainNetworkTransport`'s `additionalHeaders`. Please note that if you've subclassed the RCNT, you'll need to update your overrides since we had to add a parameter. ([#1644](https://github.com/apollographql/apollo-ios/pull/1644))
+- Stopped `GET` requests from sending a `Content-Type` header, which could cause servers not configured to ignore that header when the body is empty to freak out. ([#1649](https://github.com/apollographql/apollo-ios/pull/1649))
+
 ## v0.40.0
 - **BREAKING**: Dropped support for iOS/tvOS < 12, watchOS < 5, and macOS < 10.14. This also involved removing a couple of public functions that were workarounds for support for lower versions. ([#1605](https://github.com/apollographql/apollo-ios/pull/1605))
 - Updated the typescript CLI to version `2.32.1`. There may be some structural changes to generated code but it should not actually break anything. Please file bugs immediately if it does. ([#1618](https://github.com/apollographql/apollo-ios/pull/1618))
