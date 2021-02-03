@@ -6,12 +6,13 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport
 ```
 
 ## Methods
-### `constructUploadRequest(for:with:)`
+### `constructUploadRequest(for:with:manualBoundary:)`
 
 ```swift
 open func constructUploadRequest<Operation: GraphQLOperation>(
   for operation: Operation,
-  with files: [GraphQLFile]) -> HTTPRequest<Operation>
+  with files: [GraphQLFile],
+  manualBoundary: String? = nil) -> HTTPRequest<Operation>
 ```
 
 Constructs an uploading (ie, multipart) GraphQL request
@@ -21,6 +22,7 @@ Override this method if you need to use a custom subclass of `HTTPRequest`.
 - Parameters:
   - operation: The operation to create a request for
   - files: The files you wish to upload
+  - manualBoundary: [optional] A manually set boundary for your upload request. Defaults to nil. 
 - Returns: The created request.
 
 #### Parameters
@@ -29,6 +31,7 @@ Override this method if you need to use a custom subclass of `HTTPRequest`.
 | ---- | ----------- |
 | operation | The operation to create a request for |
 | files | The files you wish to upload |
+| manualBoundary | [optional] A manually set boundary for your upload request. Defaults to nil. |
 
 ### `upload(operation:files:callbackQueue:completionHandler:)`
 
