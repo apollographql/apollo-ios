@@ -43,6 +43,8 @@ public struct GraphQLGETTransformer {
     }
 
     components.queryItems = queryItems
+    components.percentEncodedQuery =
+      components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
     return components.url
   }
