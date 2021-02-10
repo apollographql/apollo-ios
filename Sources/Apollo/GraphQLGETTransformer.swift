@@ -42,9 +42,17 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    components.queryItems = queryItems
-    components.percentEncodedQuery =
-      components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+    components.queryItems = queryItems.map { item in
+      guard let value = item.value else {
+        return item
+      }
+      
+      guard value.contains("+") else {
+        return item
+      }
+
+      return URLQueryItem(name: item.name, value: value.replacingOccurrences(of: "+", with: "%2B"))
+    }
 
     return components.url
   }
