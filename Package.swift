@@ -38,7 +38,7 @@ let package = Package(
       .upToNextMinor(from: "0.12.2")),
     .package(
       url: "https://github.com/daltoniam/Starscream",
-      .upToNextMinor(from: "3.1.1")),
+      .upToNextMinor(from: "4.0.4")),
     .package(
       url: "https://github.com/stencilproject/Stencil.git",
       .upToNextMinor(from: "0.14.0")),
