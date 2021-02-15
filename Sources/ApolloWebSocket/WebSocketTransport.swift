@@ -39,7 +39,8 @@ public class WebSocketTransport {
 
   private final let protocols = ["graphql-ws"]
   
-  private var isSocketConnected = Atomic<Bool>(false)
+  /// non-private for testing - you should not use this directly
+  var isSocketConnected = Atomic<Bool>(false)
 
   private var acked = false
 
