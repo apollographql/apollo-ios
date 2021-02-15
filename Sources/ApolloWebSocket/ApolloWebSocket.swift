@@ -5,7 +5,6 @@ import Foundation
 
 /// Protocol allowing alternative implementations of web sockets beyond `ApolloWebSocket`. Extends `Starscream`'s `WebSocketClient` protocol.
 public protocol ApolloWebSocketClient: WebSocketClient {
-
   
   /// Required initializer
   ///
