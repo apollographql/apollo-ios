@@ -422,8 +422,8 @@ extension WebSocketTransport: WebSocketDelegate {
   
   public func handleConnection() {
     self.error.mutate { $0 = nil }
-    initServer()
     self.isSocketConnected.mutate { $0 = true }
+    initServer()
     if self.reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
       // re-send the subscriptions whenever we are re-connected
