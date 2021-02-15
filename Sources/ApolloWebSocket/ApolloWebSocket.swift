@@ -17,30 +17,15 @@ public protocol ApolloWebSocketClient: WebSocketClient {
 
   /// Queue where the callbacks are executed
   var callbackQueue: DispatchQueue { get set }
-}
-
-public protocol SOCKSProxyable {
   
-  /// Determines whether a SOCKS proxy is enabled on the underlying request.
-  /// Mostly useful for debugging with tools like Charles Proxy.
-  var enableSOCKSProxy: Bool { get set }
 }
 
 // MARK: - WebSocket
 
 /// Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
-public class ApolloWebSocket: WebSocket, ApolloWebSocketClient, SOCKSProxyable {
+public class ApolloWebSocket: WebSocket, ApolloWebSocketClient {
   
   private var stream: FoundationStream!
-  
-  public var enableSOCKSProxy: Bool {
-    get {
-      return self.stream.enableSOCKSProxy
-    }
-    set {
-      self.stream.enableSOCKSProxy = newValue
-    }
-  }
 
   required public convenience init(request: URLRequest, protocols: [String]? = nil) {
     let stream = FoundationStream()
