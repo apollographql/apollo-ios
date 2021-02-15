@@ -6,11 +6,18 @@ import Foundation
 /// Protocol allowing alternative implementations of web sockets beyond `ApolloWebSocket`. Extends `Starscream`'s `WebSocketClient` protocol.
 public protocol ApolloWebSocketClient: WebSocketClient {
 
+  
   /// Required initializer
   ///
-  /// - Parameter request: The URLRequest to use on connection.
-  /// - Parameter protocols: The supported protocols
-  init(request: URLRequest, protocols: [String]?)
+  /// - Parameters:
+  ///   - request: The URLRequest to use on connection.
+  ///   - protocols: [optional] The supported protocols. Should default to nil.
+  ///   - certPinner: [optional] The object providing information about certificate pinning. Should default to Starscream's `FoundationSecurity`.
+  ///   - compressionHandler: [optional] The object helping with any compression handling. Should default to nil.
+  init(request: URLRequest,
+       protocols: [String]?,
+       certPinner: CertificatePinning?,
+       compressionHandler: CompressionHandler?)
 
   /// The URLRequest used on connection.
   var request: URLRequest { get set }
@@ -18,6 +25,7 @@ public protocol ApolloWebSocketClient: WebSocketClient {
   /// Queue where the callbacks are executed
   var callbackQueue: DispatchQueue { get set }
   
+  var delegate: WebSocketDelegate? { get set }
 }
 
 // MARK: - WebSocket
@@ -25,13 +33,22 @@ public protocol ApolloWebSocketClient: WebSocketClient {
 /// Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
 public class ApolloWebSocket: WebSocket, ApolloWebSocketClient {
   
-  private var stream: FoundationStream!
-
-  required public convenience init(request: URLRequest, protocols: [String]? = nil) {
-    let stream = FoundationStream()
-    self.init(request: request,
-              protocols: protocols,
-              stream: stream)
-    self.stream = stream
+  private var transport: FoundationTransport!
+  
+  required public init(request: URLRequest,
+                       protocols: [String]? = nil,
+                       certPinner: CertificatePinning? = FoundationSecurity(),
+                       compressionHandler: CompressionHandler? = nil) {
+    var updatedRequest = request
+    if let protocols = protocols,
+       protocols.apollo.isNotEmpty {
+      updatedRequest.setValue(protocols.joined(separator: ","), forHTTPHeaderField: "Sec-WebSocket-Protocol")
+    }
+    
+    let engine = WSEngine(transport: FoundationTransport(),
+                          certPinner: certPinner,
+                          compressionHandler: compressionHandler)
+    
+    super.init(request: request, engine: engine)
   }
 }
