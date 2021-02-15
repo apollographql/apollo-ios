@@ -7,29 +7,36 @@ class MockWebSocket: ApolloWebSocketClient {
   
   var callbackQueue: DispatchQueue = DispatchQueue.main
   
-  var pongDelegate: WebSocketPongDelegate?
+  // A dummy web socket since we can't just return the client
+  var webSocketForDelegate: WebSocket
   var request: URLRequest
-  
-  var sslClientCertificate: SSLClientCertificate?
-  
-  required init(request: URLRequest, protocols: [String]?) {
+    
+  required init(request: URLRequest,
+                certPinner: CertificatePinning? = FoundationSecurity(),
+                compressionHandler: CompressionHandler? = nil) {
+    self.webSocketForDelegate = WebSocket(request: request)
     self.request = request
   }
   
   public init() {
-    self.request = URLRequest(url: TestURL.starWarsServer.url)
+    let request = URLRequest(url: TestURL.starWarsServer.url)
+    self.request = request
+    self.webSocketForDelegate = WebSocket(request: request)
   }
   
   open func reportDidConnect() {
     callbackQueue.async {
-      self.delegate?.websocketDidConnect(socket: self)
+      self.delegate?.didReceive(event: .connected([:]), client: self.webSocketForDelegate)
     }
   }
   
   open func write(string: String, completion: (() -> ())?) {
     callbackQueue.async {
-      self.delegate?.websocketDidReceiveMessage(socket: self, text: string)
+      self.delegate?.didReceive(event: .text(string), client: self.webSocketForDelegate)
     }
+  }
+  
+  open func write(stringData: Data, completion: (() -> ())?) {
   }
   
   open func write(data: Data, completion: (() -> ())?) {
@@ -41,16 +48,10 @@ class MockWebSocket: ApolloWebSocketClient {
   open func write(pong: Data, completion: (() -> ())?) {
   }
   
-  func disconnect(forceTimeout: TimeInterval?, closeCode: UInt16) {
+  func disconnect(closeCode: UInt16) {
   }
-
-  public var disableSSLCertValidation = false
-  public var overrideTrustHostname = false
-  public var desiredTrustHostname: String? = nil
   
   var delegate: WebSocketDelegate? = nil
-  var security: SSLTrustValidator? = nil
-  var enabledSSLCipherSuites: [SSLCipherSuite]? = []
   var isConnected: Bool = false
   
   func connect() {

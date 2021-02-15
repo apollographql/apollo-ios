@@ -51,16 +51,16 @@ class WebSocketTransportTests: XCTestCase {
 }
 
 private final class MockWebSocketDelegate: WebSocketDelegate {
-
+  
   var didReceiveMessage: ((String) -> Void)?
 
-  func websocketDidConnect(socket: WebSocketClient) { }
-
-  func websocketDidDisconnect(socket: WebSocketClient, error: Error?) { }
-
-  func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-    didReceiveMessage?(text)
+  func didReceive(event: WebSocketEvent, client: WebSocket) {
+    switch event {
+    case .text(let message):
+      didReceiveMessage?(message)
+    default:
+      // No-op, this is a mock socket.
+      break
+    }
   }
-
-  func websocketDidReceiveData(socket: WebSocketClient, data: Data) { }
 }
