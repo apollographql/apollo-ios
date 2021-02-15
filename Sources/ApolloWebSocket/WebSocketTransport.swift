@@ -104,7 +104,9 @@ public class WebSocketTransport {
     self.allowSendingDuplicates = allowSendingDuplicates
     self.requestBodyCreator = requestBodyCreator
     self.websocket = WebSocketTransport.provider.init(request: request,
-                                                      protocols: protocols, certPinner: certPinner, compressionHandler: compressionHandler)
+                                                      certPinner: certPinner,
+                                                      compressionHandler: compressionHandler)
+    self.websocket.request.setValue(self.protocols.joined(separator: ","), forHTTPHeaderField: "Sec-WebSocket-Protocol")
     self.clientName = clientName
     self.clientVersion = clientVersion
     self.connectOnInit = connectOnInit
