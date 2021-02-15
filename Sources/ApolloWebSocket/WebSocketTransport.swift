@@ -403,6 +403,7 @@ extension WebSocketTransport: WebSocketDelegate {
       case .cancelled:
         self.isSocketConnected.mutate { $0 = false }
         self.error.mutate { $0 = nil }
+        self.handleDisconnection()
       case .error(let error):
         self.isSocketConnected.mutate { $0 = false }
         // report any error to all subscribers
