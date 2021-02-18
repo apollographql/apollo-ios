@@ -1,0 +1,34 @@
+diff --git a/node_modules/gatsby-plugin-printer/gatsby-node.js b/node_modules/gatsby-plugin-printer/gatsby-node.js
+index 030cba7..65a5965 100644
+--- a/node_modules/gatsby-plugin-printer/gatsby-node.js
++++ b/node_modules/gatsby-plugin-printer/gatsby-node.js
+@@ -19,6 +19,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
+   `);
+ };
+ exports.onPostBuild = async ({ graphql, cache }, pluginOptions) => {
++  console.log('-------gatsby-plugin-printer onPostBuild')
+   const data = await graphql(`
+     {
+       allPrinter {
+@@ -37,10 +38,11 @@ exports.onPostBuild = async ({ graphql, cache }, pluginOptions) => {
+     if (r.errors) {
+       throw new Error(r.errors.join(`, `));
+     }
+-
++    console.log('gatsby-plugin-printer r:', r)
+     return r.data;
+   });
+ 
++  console.log('gatsby-plugin-printer making dirp', path.join("./public", defaultOutputDir))
+   await fs.mkdirp(path.join("./public", defaultOutputDir));
+ 
+   debug("num printer groups", data.allPrinter.group.length);
+@@ -50,6 +52,8 @@ exports.onPostBuild = async ({ graphql, cache }, pluginOptions) => {
+       debug(`processing '${component}'`);
+       const code = await genCodeBundle({ componentPath: component });
+       debug(`running ${nodes.length} nodes with ${component}`);
++      console.log('gatsby-plugin-printer runScreenshot', node)
++
+       await runScreenshots(
+         {
+           data: nodes.map(node => ({

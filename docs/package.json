@@ -3,7 +3,8 @@
     "prestart": "gatsby clean",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "gatsby": "2.32.3",
