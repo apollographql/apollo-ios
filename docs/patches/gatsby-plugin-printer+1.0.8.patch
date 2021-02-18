@@ -1,5 +1,5 @@
 diff --git a/node_modules/gatsby-plugin-printer/gatsby-node.js b/node_modules/gatsby-plugin-printer/gatsby-node.js
-index 030cba7..65a5965 100644
+index 030cba7..b44b529 100644
 --- a/node_modules/gatsby-plugin-printer/gatsby-node.js
 +++ b/node_modules/gatsby-plugin-printer/gatsby-node.js
 @@ -19,6 +19,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
@@ -27,7 +27,7 @@ index 030cba7..65a5965 100644
        debug(`processing '${component}'`);
        const code = await genCodeBundle({ componentPath: component });
        debug(`running ${nodes.length} nodes with ${component}`);
-+      console.log('gatsby-plugin-printer runScreenshot', node)
++      console.log('gatsby-plugin-printer runScreenshot', nodes)
 +
        await runScreenshots(
          {
