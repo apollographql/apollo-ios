@@ -459,9 +459,11 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.waitForSubscriptionsToStart()
     sendReview()
     
-    self.disconnectedExpectation = self.expectation(description: "Web socket disconnected")
+    // TODO: Uncomment this expectation once https://github.com/daltoniam/Starscream/issues/869 is addressed
+    // and we're actually getting a notification that the socket has disconnected
+//    self.disconnectedExpectation = self.expectation(description: "Web socket disconnected")
     webSocketTransport.pauseWebSocketConnection()
-    self.wait(for: [self.disconnectedExpectation!], timeout: 10)
+//    self.wait(for: [self.disconnectedExpectation!], timeout: 10)
 
     // This should not go through since the socket is paused
     sendReview()
