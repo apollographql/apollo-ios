@@ -3553,7 +3553,7 @@
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 3.1.1;
+				minimumVersion = 4.0.4;
 			};
 		};
 		9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
