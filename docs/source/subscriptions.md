@@ -60,9 +60,9 @@ class Apollo {
 
 ## Example usage of a subscription
 
-Let's say you're using the [Sample Star Wars API](https://github.com/apollographql/apollo-ios/blob/master/Tests/StarWarsAPI/API.swift), and you want to use a view controller with a `UITableView` to show a list of reviews that will automatically update whenever a new review is added. 
+Let's say you're using the [Sample Star Wars API](https://github.com/apollographql/apollo-ios/blob/main/Sources/StarWarsAPI/API.swift), and you want to use a view controller with a `UITableView` to show a list of reviews that will automatically update whenever a new review is added. 
 
-You can use the [`ReviewAddedSubscription`](https://github.com/apollographql/apollo-ios/blob/25f860e04c44f1099f509120b8c256433632d131/Tests/StarWarsAPI/API.swift#L5386) to accomplish this: 
+You can use the [`ReviewAddedSubscription`](https://github.com/apollographql/apollo-ios/blob/main/Sources/StarWarsAPI/API.swift#L5386) to accomplish this: 
 
 ```swift
 class ReviewViewController: UIViewController {
