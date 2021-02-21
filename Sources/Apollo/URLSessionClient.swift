@@ -253,6 +253,11 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didReceive data: Data) {
+    guard dataTask.state != .canceling else {
+      // Task is in the process of cancelling, don't bother handling its data.
+      return
+    }
+    
     self.tasks.mutate {
       guard let taskData = $0[dataTask.taskIdentifier] else {
         assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
