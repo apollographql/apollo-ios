@@ -457,8 +457,8 @@ extension WebSocketTransport: WebSocketDelegate {
       return
     }
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) {
-      self.websocket.connect()
+    DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) { [weak self] in
+      self?.websocket.connect()
     }
   }
 }
