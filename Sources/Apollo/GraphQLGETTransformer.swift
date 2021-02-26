@@ -23,7 +23,7 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    var queryItems: [URLQueryItem] = []
+    var queryItems: [URLQueryItem] = components.queryItems ?? []
 
     do {
       _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
