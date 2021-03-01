@@ -12,15 +12,16 @@ import ApolloTestSupport
 
 class ApolloSchemaTests: XCTestCase {
     
-  func testCreatingOptionsWithDefaultParameters() throws {
+  func testCreatingIntrospectionOptionsWithDefaultParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
-    let options = ApolloSchemaOptions(endpointURL: TestURL.starWarsServer.url,
+    
+    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.starWarsServer.url),
                                       outputFolderURL: sourceRoot)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
-    XCTAssertEqual(options.endpointURL, TestURL.starWarsServer.url)
+    
+    XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.starWarsServer.url))
     XCTAssertEqual(options.outputURL, expectedOutputURL)
-    XCTAssertNil(options.apiKey)
     XCTAssertTrue(options.headers.isEmpty)
     
     XCTAssertEqual(options.arguments, [
@@ -29,22 +30,44 @@ class ApolloSchemaTests: XCTestCase {
         "'\(expectedOutputURL.path)'"
     ])
   }
-  
-  func testCreatingOptionsWithAllParameters() throws {
+
+  func testCreatingRegistryOptionsWithDefaultParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let apiKey = "Fake_API_Key"
+    let graphID = "Fake_Graph_ID"
+    
+    let options = ApolloSchemaOptions(downloadMethod: .registry(apiKey: apiKey, graphID: graphID, variant: nil),
+                                      outputFolderURL: sourceRoot)
+    
+    let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
+    
+    XCTAssertEqual(options.downloadMethod, .registry(apiKey: apiKey, graphID: graphID, variant: nil))
+    XCTAssertEqual(options.outputURL, expectedOutputURL)
+    XCTAssertTrue(options.headers.isEmpty)
+    
+    XCTAssertEqual(options.arguments, [
+        "client:download-schema",
+        "--key=\(apiKey)",
+        "--graph=\(graphID)",
+        "'\(expectedOutputURL.path)'"
+    ])
+  }
+
+  func testCreatingRegistryOptionsWithAllParameters() throws {
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
+    let apiKey = "Fake_API_Key"
+    let graphID = "Fake_Graph_ID"
+    let variant = "Fake_Variant"
     let firstHeader = "Authorization: Bearer tokenGoesHere"
     let secondHeader = "Custom-Header: Custom_Customer"
     let headers = [firstHeader, secondHeader]
     
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
                                       schemaFileType: .schemaDefinitionLanguage,
-                                      apiKey: apiKey,
-                                      endpointURL: TestURL.starWarsServer.url,
+                                      downloadMethod: .registry(apiKey: apiKey, graphID: graphID, variant: variant),
                                       headers: headers,
                                       outputFolderURL: sourceRoot)
-    XCTAssertEqual(options.apiKey, apiKey)
-    XCTAssertEqual(options.endpointURL, TestURL.starWarsServer.url)
+    XCTAssertEqual(options.downloadMethod, .registry(apiKey: apiKey, graphID: graphID, variant: variant))
     XCTAssertEqual(options.headers, headers)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
@@ -52,8 +75,9 @@ class ApolloSchemaTests: XCTestCase {
 
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
-        "--endpoint=http://localhost:8080/graphql",
         "--key=\(apiKey)",
+        "--graph=\(graphID)",
+        "--variant=\(variant)",
         "'\(expectedOutputURL.path)'",
         "--header='\(firstHeader)'",
         "--header='\(secondHeader)'"
@@ -63,7 +87,7 @@ class ApolloSchemaTests: XCTestCase {
   func testDownloadingSchemaAsJSON() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
-    let options = ApolloSchemaOptions(endpointURL: TestURL.starWarsServer.url,
+    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.starWarsServer.url),
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
@@ -97,7 +121,7 @@ class ApolloSchemaTests: XCTestCase {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloSchemaOptions(schemaFileType: .schemaDefinitionLanguage,
-                                      endpointURL: TestURL.starWarsServer.url,
+                                      downloadMethod: .introspection(endpointURL: TestURL.starWarsServer.url),
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
