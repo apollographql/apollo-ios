@@ -20,9 +20,19 @@ let output = sourceRootURL
     .appendingPathComponent("Sources")
     .appendingPathComponent("UploadAPI")
 
+// Introspection download:
 let options = ApolloSchemaOptions(schemaFileName: "schema",
-                                  endpointURL: endpoint,
+                                  downloadMethod: .introspection(endpointURL: endpoint),
                                   outputFolderURL: output)
+
+// Registry download:
+//let registrySettings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
+//                                                                           graphID: "Apollo-Fullstack-8zo5jl")
+//
+//let options = ApolloSchemaOptions(schemaFileName: "schema",
+//                                  schemaFileType: .schemaDefinitionLanguage,
+//                                  downloadMethod: .registry(registrySettings),
+//                                  outputFolderURL: output)
 
 do {
     try ApolloSchemaDownloader.run(with: cliFolderURL,

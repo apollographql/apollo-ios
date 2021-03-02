@@ -9,8 +9,48 @@ public struct ApolloSchemaOptions {
     case schemaDefinitionLanguage = "graphql"
   }
   
-  let apiKey: String?
-  let endpointURL: URL
+  /// How to attempt to download your schema
+  public enum DownloadMethod: Equatable {
+
+    case registry(_ settings: RegistrySettings)
+    ///   - endpointURL: The endpoint to hit to download your schema.
+    case introspection(endpointURL: URL)
+    
+    public struct RegistrySettings: Equatable {
+      public let apiKey: String
+      public let graphID: String
+      public let variant: String?
+      
+      /// Designated initializer
+      ///
+      /// - Parameters:
+      ///   - apiKey: The API key to use when retrieving your schema.
+      ///   - graphID: The identifier of the graph to fetch. Can be found in Apollo Studio.
+      ///   - variant: [Optional] The variant of the graph to fetch. Defaults to nil, which will return whatever is set to the current variant.
+      public init(apiKey: String,
+                  graphID: String,
+                  variant: String? = nil) {
+        self.apiKey = apiKey
+        self.graphID = graphID
+        self.variant = variant
+      }
+    }
+    
+    public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
+      switch (lhs, rhs) {
+      case (.introspection(let lhsURL), introspection(let rhsURL)):
+        return lhsURL == rhsURL
+      case (.registry(let lhsSettings),
+            .registry(let rhsSettings)):
+        return lhsSettings == rhsSettings
+      default:
+        return false
+      }
+    }
+
+  }
+
+  let downloadMethod: DownloadMethod
   let headers: [String]
   let outputURL: URL
   
@@ -21,21 +61,18 @@ public struct ApolloSchemaOptions {
   /// - Parameters:
   ///   - schemaFileName: The name, without an extension, for your schema file. Defaults to `"schema"`
   ///   - schemaFileType: The `SchemaFileType` to download the schema as. Defaults to `.json`.
-  ///   - apiKey: [optional] The API key to use when retrieving your schema. Defaults to nil.
-  ///   - endpointURL: The endpoint to hit to download your schema.
+  ///   - downloadMethod: How to download your schema.
   ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(schemaFileName: String = "schema",
               schemaFileType: SchemaFileType = .json,
-              apiKey: String? = nil,
-              endpointURL: URL,
+              downloadMethod: DownloadMethod,
               headers: [String] = [],
               outputFolderURL: URL,
               downloadTimeout: Double = 30.0) {
-    self.apiKey = apiKey
+    self.downloadMethod = downloadMethod
     self.headers = headers
-    self.endpointURL = endpointURL
     self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFileName).\(schemaFileType.rawValue)")
 
     self.downloadTimeout = downloadTimeout
@@ -44,11 +81,17 @@ public struct ApolloSchemaOptions {
   var arguments: [String] {
     var arguments = [
       "client:download-schema",
-      "--endpoint=\(self.endpointURL.absoluteString)"
     ]
     
-    if let key = self.apiKey {
-      arguments.append("--key=\(key)")
+    switch self.downloadMethod {
+    case .introspection(let endpointURL):
+      arguments.append("--endpoint=\(endpointURL.absoluteString)")
+    case .registry(let settings):
+      arguments.append("--key=\(settings.apiKey)")
+      arguments.append("--graph=\(settings.graphID)")
+      if let providedVariant = settings.variant {
+        arguments.append("--variant=\(providedVariant)")
+      }
     }
     
     arguments.append("'\(outputURL.path)'")
