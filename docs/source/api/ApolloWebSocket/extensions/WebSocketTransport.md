@@ -27,26 +27,14 @@ public func send<Operation: GraphQLOperation>(
 | callbackQueue | The queue to call back on with the results. Should default to `.main`. |
 | completionHandler | A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred. |
 
-### `websocketDidConnect(socket:)`
+### `didReceive(event:client:)`
 
 ```swift
-public func websocketDidConnect(socket: WebSocketClient)
+public func didReceive(event: WebSocketEvent, client: WebSocket)
 ```
 
-### `websocketDidDisconnect(socket:error:)`
+### `handleConnection()`
 
 ```swift
-public func websocketDidDisconnect(socket: WebSocketClient, error: Error?)
-```
-
-### `websocketDidReceiveMessage(socket:text:)`
-
-```swift
-public func websocketDidReceiveMessage(socket: WebSocketClient, text: String)
-```
-
-### `websocketDidReceiveData(socket:data:)`
-
-```swift
-public func websocketDidReceiveData(socket: WebSocketClient, data: Data)
+public func handleConnection()
 ```

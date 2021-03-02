@@ -3,23 +3,18 @@
 # `ApolloWebSocket`
 
 ```swift
-public class ApolloWebSocket: WebSocket, ApolloWebSocketClient, SOCKSProxyable
+public class ApolloWebSocket: WebSocket, ApolloWebSocketClient
 ```
 
 Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.
 
-## Properties
-### `enableSOCKSProxy`
-
-```swift
-public var enableSOCKSProxy: Bool
-```
-
 ## Methods
-### `init(request:protocols:)`
+### `init(request:certPinner:compressionHandler:)`
 
 ```swift
-required public convenience init(request: URLRequest, protocols: [String]? = nil)
+required public init(request: URLRequest,
+                     certPinner: CertificatePinning? = FoundationSecurity(),
+                     compressionHandler: CompressionHandler? = nil)
 ```
 
 #### Parameters
@@ -27,4 +22,5 @@ required public convenience init(request: URLRequest, protocols: [String]? = nil
 | Name | Description |
 | ---- | ----------- |
 | request | The URLRequest to use on connection. |
-| protocols | The supported protocols |
+| certPinner | [optional] The object providing information about certificate pinning. Should default to Starscream’s `FoundationSecurity`. |
+| compressionHandler | [optional] The object helping with any compression handling. Should default to nil. |

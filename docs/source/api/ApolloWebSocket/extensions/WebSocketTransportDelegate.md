@@ -23,3 +23,15 @@ func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
 ```swift
 func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
 ```
+
+### `webSocketTransport(_:didReceivePingData:)`
+
+```swift
+func webSocketTransport(_ webSocketTransport: WebSocketTransport, didReceivePingData: Data?)
+```
+
+### `webSocketTransport(_:didReceivePongData:)`
+
+```swift
+func webSocketTransport(_ webSocketTransport: WebSocketTransport, didReceivePongData: Data?)
+```

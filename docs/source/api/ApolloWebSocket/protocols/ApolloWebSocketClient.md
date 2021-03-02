@@ -25,21 +25,32 @@ var callbackQueue: DispatchQueue
 
 Queue where the callbacks are executed
 
-## Methods
-### `init(request:protocols:)`
+### `delegate`
 
 ```swift
-init(request: URLRequest, protocols: [String]?)
+var delegate: WebSocketDelegate?
+```
+
+## Methods
+### `init(request:certPinner:compressionHandler:)`
+
+```swift
+init(request: URLRequest,
+     certPinner: CertificatePinning?,
+     compressionHandler: CompressionHandler?)
 ```
 
 Required initializer
 
-- Parameter request: The URLRequest to use on connection.
-- Parameter protocols: The supported protocols
+- Parameters:
+  - request: The URLRequest to use on connection.
+  - certPinner: [optional] The object providing information about certificate pinning. Should default to Starscream's `FoundationSecurity`.
+  - compressionHandler: [optional] The object helping with any compression handling. Should default to nil.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
 | request | The URLRequest to use on connection. |
-| protocols | The supported protocols |
+| certPinner | [optional] The object providing information about certificate pinning. Should default to Starscream’s `FoundationSecurity`. |
+| compressionHandler | [optional] The object helping with any compression handling. Should default to nil. |

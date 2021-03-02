@@ -31,24 +31,8 @@ public var clientVersion: String
 
 NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
-### `security`
-
-```swift
-public var security: SSLTrustValidator?
-```
-
-### `enableSOCKSProxy`
-
-```swift
-public var enableSOCKSProxy: Bool
-```
-
-Determines whether a SOCKS proxy is enabled on the underlying request.
-Mostly useful for debugging with tools like Charles Proxy.
-Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
-
 ## Methods
-### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:)`
+### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:certPinner:compressionHandler:)`
 
 ```swift
 public init(request: URLRequest,
@@ -60,21 +44,26 @@ public init(request: URLRequest,
             allowSendingDuplicates: Bool = true,
             connectOnInit: Bool = true,
             connectingPayload: GraphQLMap? = [:],
-            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
+            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
+            certPinner: CertificatePinning? = FoundationSecurity(),
+            compressionHandler: CompressionHandler? = nil)
 ```
 
 Designated initializer
 
-- Parameter request: The connection URLRequest
-- Parameter clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
-- Parameter clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
-- Parameter sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
-- Parameter reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
-- Parameter reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
-- Parameter allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
-- Parameter connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
-- Parameter connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
-- Parameter requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
+- Parameters:
+  - request: The connection URLRequest
+  - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
+  - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
+  - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
+  - reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
+  - reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
+  - allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
+ - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
+  - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
+  - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
+  - certPinner: [optional] The object providing information about certificate pinning. Should default to Starscream's `FoundationSecurity`.
+  - compressionHandler: [optional] The object helping with any compression handling. Should default to nil.
 
 #### Parameters
 
@@ -87,9 +76,6 @@ Designated initializer
 | reconnect | Whether to auto reconnect when websocket looses connection. Defaults to true. |
 | reconnectionInterval | How long to wait before attempting to reconnect. Defaults to half a second. |
 | allowSendingDuplicates | Allow sending duplicate messages. Important when reconnected. Defaults to true. |
-| connectOnInit | Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true. |
-| connectingPayload | [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`. |
-| requestBodyCreator | The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`. |
 
 ### `isConnected()`
 
