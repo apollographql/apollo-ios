@@ -71,6 +71,50 @@ class GETTransformerTests: XCTestCase {
     
     XCTAssertTrue(queryString)
   }
+
+  func testEncodingQueryWithParameterWithPlusSignEncoded() throws {
+    let operation = HeroNameQuery(episode: .empire)
+
+    let extensions: GraphQLMap = [
+      "testParam": "+Test+Test"
+    ]
+
+    let body: GraphQLMap = [
+      "query": operation.queryDocument,
+      "variables": operation.variables,
+      "extensions": extensions
+    ]
+
+    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+
+    let url = transformer.createGetURL()
+
+    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22%2BTest%2BTest%22%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+
+    XCTAssertEqual(url?.absoluteString, expected)
+  }
+
+  func testEncodingQueryWithParameterWithAmpersandEncoded() throws {
+    let operation = HeroNameQuery(episode: .empire)
+
+    let extensions: GraphQLMap = [
+      "testParam": "Test&Test"
+    ]
+
+    let body: GraphQLMap = [
+      "query": operation.queryDocument,
+      "variables": operation.variables,
+      "extensions": extensions
+    ]
+
+    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+
+    let url = transformer.createGetURL()
+
+    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22Test%26Test%22%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+
+    XCTAssertEqual(url?.absoluteString, expected)
+  }
   
   func testEncodingQueryWith2DWOQueryParameter() throws {
     let operation = HeroNameQuery(episode: .empire)
