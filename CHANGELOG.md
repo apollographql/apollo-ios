@@ -1,5 +1,15 @@
 # Change log
 
+## v0.42.0
+- **BREAKING**: Finally updates our `Starscream` dependency to 4.0.x. Note that due to SOCKS proxy support being removed from `Starscream`, we've correspondeingly removed such support.([#1659](https://github.com/apollographql/apollo-ios/pull/1659))
+- **BREAKING**, but only to Swift Scripting: Updated `ApolloSchemaOptions` to more clearly handle introspection (ie, from a URL) vs registry (ie, from Apollo Studio) requests by using an enum. If you were passing in an `endpointURL` previously, you need to use the `.introspection` enum value going forward. Also changed the name of the field to match the new type. ([#1691](https://github.com/apollographql/apollo-ios/pull/1691))
+- **BREAKING**: Removed `CoadableParsingInterceptor` and related code designed for new codegen (which is still in progress) since we were wildly over-optimistic on how quickly we'd be using it. ([#1670](https://github.com/apollographql/apollo-ios/pull/1670))
+- Fixed an issue where tasks that were in the `canceling` state could trigger a `No data found for task` assertion failure. ([#1677](https://github.com/apollographql/apollo-ios/pull/1677))
+- Fixed an issue with encoding `+` in `GET` requests. ([#1653](https://github.com/apollographql/apollo-ios/pull/1653))
+- Fixed an issue where creating `GET` requests removed existing query params from the URL. ([#1687](https://github.com/apollographql/apollo-ios/pull/1687))
+- Prevented a retain cycle during web socket reconnection. ([#1674](https://github.com/apollographql/apollo-ios/pull/1674))
+- Added better handling for calling `cancel` on a `RequestChain` which has already been cancelled. ([#1679](https://github.com/apollographql/apollo-ios/pull/1679))
+
 ## v0.41.0
 - **BREAKING**: Fixed an issue in which `UploadRequests` were not getting headers added via the `RequestChainNetworkTransport`'s `additionalHeaders`. Please note that if you've subclassed the RCNT, you'll need to update your overrides since we had to add a parameter. ([#1644](https://github.com/apollographql/apollo-ios/pull/1644))
 - Stopped `GET` requests from sending a `Content-Type` header, which could cause servers not configured to ignore that header when the body is empty to freak out. ([#1649](https://github.com/apollographql/apollo-ios/pull/1649))
