@@ -11,24 +11,38 @@ public struct ApolloSchemaOptions {
   
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable {
-    ///   - apiKey: The API key to use when retrieving your schema.
-    ///   - graphID: The identifier of the graph to fetch. Can be found in Apollo Studio.
-    ///   - variant: [Optional] The variant of the graph to fetch. Defaults to nil, which will return whatever is set to the current variant.
-    case registry(apiKey: String,
-                  graphID: String,
-                  variant: String?)
+
+    case registry(_ settings: RegistrySettings)
     ///   - endpointURL: The endpoint to hit to download your schema.
     case introspection(endpointURL: URL)
+    
+    public struct RegistrySettings: Equatable {
+      public let apiKey: String
+      public let graphID: String
+      public let variant: String?
+      
+      /// Designated initializer
+      ///
+      /// - Parameters:
+      ///   - apiKey: The API key to use when retrieving your schema.
+      ///   - graphID: The identifier of the graph to fetch. Can be found in Apollo Studio.
+      ///   - variant: [Optional] The variant of the graph to fetch. Defaults to nil, which will return whatever is set to the current variant.
+      public init(apiKey: String,
+                  graphID: String,
+                  variant: String? = nil) {
+        self.apiKey = apiKey
+        self.graphID = graphID
+        self.variant = variant
+      }
+    }
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
       case (.introspection(let lhsURL), introspection(let rhsURL)):
         return lhsURL == rhsURL
-      case (.registry(let lhsKey, let lhsGraphID, let lhsVariant),
-            .registry(let rhsKey, let rhsGraphID, let rhsVariant)):
-        return lhsKey == rhsKey &&
-        lhsGraphID == rhsGraphID &&
-        lhsVariant == rhsVariant
+      case (.registry(let lhsSettings),
+            .registry(let rhsSettings)):
+        return lhsSettings == rhsSettings
       default:
         return false
       }
@@ -72,10 +86,10 @@ public struct ApolloSchemaOptions {
     switch self.downloadMethod {
     case .introspection(let endpointURL):
       arguments.append("--endpoint=\(endpointURL.absoluteString)")
-    case .registry(let apiKey, let graphID, let variant):
-      arguments.append("--key=\(apiKey)")
-      arguments.append("--graph=\(graphID)")
-      if let providedVariant = variant {
+    case .registry(let settings):
+      arguments.append("--key=\(settings.apiKey)")
+      arguments.append("--graph=\(settings.graphID)")
+      if let providedVariant = settings.variant {
         arguments.append("--variant=\(providedVariant)")
       }
     }

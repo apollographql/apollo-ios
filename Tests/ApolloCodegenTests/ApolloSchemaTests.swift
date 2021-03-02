@@ -36,12 +36,14 @@ class ApolloSchemaTests: XCTestCase {
     let apiKey = "Fake_API_Key"
     let graphID = "Fake_Graph_ID"
     
-    let options = ApolloSchemaOptions(downloadMethod: .registry(apiKey: apiKey, graphID: graphID, variant: nil),
+    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: graphID)
+    
+    let options = ApolloSchemaOptions(downloadMethod: .registry(settings),
                                       outputFolderURL: sourceRoot)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
     
-    XCTAssertEqual(options.downloadMethod, .registry(apiKey: apiKey, graphID: graphID, variant: nil))
+    XCTAssertEqual(options.downloadMethod, .registry(settings))
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertTrue(options.headers.isEmpty)
     
@@ -62,12 +64,15 @@ class ApolloSchemaTests: XCTestCase {
     let secondHeader = "Custom-Header: Custom_Customer"
     let headers = [firstHeader, secondHeader]
     
+    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey,
+                                                                       graphID: graphID, variant: variant)
+    
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
                                       schemaFileType: .schemaDefinitionLanguage,
-                                      downloadMethod: .registry(apiKey: apiKey, graphID: graphID, variant: variant),
+                                      downloadMethod: .registry(settings),
                                       headers: headers,
                                       outputFolderURL: sourceRoot)
-    XCTAssertEqual(options.downloadMethod, .registry(apiKey: apiKey, graphID: graphID, variant: variant))
+    XCTAssertEqual(options.downloadMethod, .registry(settings))
     XCTAssertEqual(options.headers, headers)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
