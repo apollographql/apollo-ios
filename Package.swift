@@ -73,7 +73,7 @@ let package = Package(
         "Frontend/JavaScript",
       ],
       resources: [
-        .copy("Frontend/JavaScript/dist/ApolloCodegenFrontend.bundle.js")
+        .copy("Frontend/dist/ApolloCodegenFrontend.bundle.js")
       ]),
     .target(
       name: "ApolloSQLite",

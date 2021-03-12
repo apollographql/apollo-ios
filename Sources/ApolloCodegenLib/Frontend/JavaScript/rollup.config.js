@@ -7,7 +7,7 @@ import { terser } from "rollup-plugin-terser";
 const options = {
   input: "src/index.ts",
   output: {
-    file: "dist/ApolloCodegenFrontend.bundle.js",
+    file: "../dist/ApolloCodegenFrontend.bundle.js",
     format: "iife",
     name: "ApolloCodegenFrontend",
     sourcemap: true,
