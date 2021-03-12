@@ -2,7 +2,11 @@ import Foundation
 import JavaScriptCore
 
 public final class ApolloCodegenFrontend {
+  #if SWIFT_PACKAGE
+  static let bundle = Bundle.module
+  #else
   static let bundle = Bundle(for: ApolloCodegenFrontend.self)
+  #endif
   private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle", withExtension: "js")!
   private static let librarySource = try! String.init(contentsOf: libraryURL)
   
