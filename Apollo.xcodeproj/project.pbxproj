@@ -135,6 +135,7 @@
 		9B9BBAF524DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BBAF424DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift */; };
 		9B9BBB1C24DB760B0021C30F /* UploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BBB1A24DB75E60021C30F /* UploadTests.swift */; };
 		9B9F16A726013DAB00FB2F31 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F16A626013DAB00FB2F31 /* SQLiteDatabase.swift */; };
+		9B9F16B82601532500FB2F31 /* SQLiteDotSwiftDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F16B72601532500FB2F31 /* SQLiteDotSwiftDatabase.swift */; };
 		9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA1244922D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift */; };
 		9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA3130D2302BEA5007B7FC5 /* DispatchQueue+Optional.swift */; };
 		9BAD16B923FE362600007BEF /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
@@ -699,6 +700,7 @@
 		9B9BBB1624DB74720021C30F /* Apollo-Target-UploadAPI.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Apollo-Target-UploadAPI.xcconfig"; sourceTree = "<group>"; };
 		9B9BBB1A24DB75E60021C30F /* UploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTests.swift; sourceTree = "<group>"; };
 		9B9F16A626013DAB00FB2F31 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
+		9B9F16B72601532500FB2F31 /* SQLiteDotSwiftDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabase.swift; sourceTree = "<group>"; };
 		9BA1244922D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONSerialization+Sorting.swift"; sourceTree = "<group>"; };
 		9BA22FD823FF306300C537FC /* Configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
 		9BA3130D2302BEA5007B7FC5 /* DispatchQueue+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Optional.swift"; sourceTree = "<group>"; };
@@ -1333,6 +1335,7 @@
 				9B7BDACD23FDEBE300ACD198 /* SQLiteSerialization.swift */,
 				9B7BDACE23FDEBE300ACD198 /* Info.plist */,
 				9B9F16A626013DAB00FB2F31 /* SQLiteDatabase.swift */,
+				9B9F16B72601532500FB2F31 /* SQLiteDotSwiftDatabase.swift */,
 			);
 			name = ApolloSQLite;
 			path = Sources/ApolloSQLite;
@@ -2594,6 +2597,7 @@
 			files = (
 				9B7BDAD023FDEBE300ACD198 /* SQLiteSerialization.swift in Sources */,
 				9B7BDAD223FDEBE300ACD198 /* SQLiteNormalizedCache.swift in Sources */,
+				9B9F16B82601532500FB2F31 /* SQLiteDotSwiftDatabase.swift in Sources */,
 				9B9F16A726013DAB00FB2F31 /* SQLiteDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
