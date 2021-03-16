@@ -125,7 +125,7 @@ If you want to use the custom scalars within your code, you must set `passthroug
 
 Once you've done that, you can either create your own type locally or use a `typealias` to declare an equivilent. This is very, very frequently used with `Date` types. Please see the [Custom Scalar Playground Page](https://github.com/apollographql/apollo-ios/blob/main/Playgrounds/ApolloMacPlayground.playground/Pages/CustomScalars.xcplaygroundpage/Contents.swift) available within the `apollo-iOS` repo for a full example using a custom date type.
 
-#### JSON Custom Scalars
+#### JSON and other Custom Scalars with multiple return types
 
 Some custom scalars are set up to potentially return multiple types at runtime. This is not ideal since you lose type safety, but if you're using an API you don't have control over, there's often not a great alternative to this.
 
