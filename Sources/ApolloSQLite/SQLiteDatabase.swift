@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if !COCOAPODS
 import Apollo
+#endif
 
 public struct DatabaseRow {
   let cacheKey: CacheKey
