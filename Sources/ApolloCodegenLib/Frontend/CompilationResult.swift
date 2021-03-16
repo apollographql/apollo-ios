@@ -68,7 +68,7 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class SelectionSet: JavaScriptObject {
-    private(set) lazy var parentType: [GraphQLCompositeType] = self["parentType"]
+    private(set) lazy var parentType: GraphQLCompositeType = self["parentType"]
     
     private(set) lazy var selections: [Selection] = self["selections"]
   }
