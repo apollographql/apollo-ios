@@ -1,11 +1,3 @@
-//
-//  SQLiteDotSwiftDatabase.swift
-//  ApolloSQLite
-//
-//  Created by Ellen Shapiro on 3/16/21.
-//  Copyright © 2021 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 #if !COCOAPODS
 import Apollo
