@@ -11,6 +11,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   public let query: Query
   let resultHandler: GraphQLResultHandler<Query.Data>
 
+  private let callbackQueue: DispatchQueue
+
   private let contextIdentifier = UUID()
 
   private var fetching: Atomic<Cancellable?> = Atomic(nil)
@@ -20,15 +22,18 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   /// Designated initializer
   ///
   /// - Parameters:
-  ///   - client: The client protocol to pass in
-  ///   - query: The query to watch
+  ///   - client: The client protocol to pass in.
+  ///   - query: The query to watch.
+  ///   - callbackQueue: The queue for the result handler. Defaults to the main queue.
   ///   - resultHandler: The result handler to call with changes.
   public init(client: ApolloClientProtocol,
               query: Query,
+              callbackQueue: DispatchQueue = .main,
               resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client
     self.query = query
     self.resultHandler = resultHandler
+    self.callbackQueue = callbackQueue
 
     client.store.subscribe(self)
   }
@@ -37,9 +42,6 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   public func refetch() {
     fetch(cachePolicy: .fetchIgnoringCacheData)
   }
-
-  // Watchers always call result handlers on the main queue.
-  private let callbackQueue: DispatchQueue = .main
 
   func fetch(cachePolicy: CachePolicy) {
     fetching.mutate {
