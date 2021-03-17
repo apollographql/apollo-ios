@@ -68,7 +68,13 @@ class CachePersistenceTests: XCTestCase {
   }
 
   func testPassInConnectionDoesNotThrow() {
-    XCTAssertNoThrow(try SQLiteNormalizedCache(db: Connection()))
+    do {
+      let database = try SQLiteDotSwiftDatabase(connection: Connection())
+      _ = try SQLiteNormalizedCache(database: database)
+
+    } catch {
+      XCTFail("Passing in connection failed with error: \(error)")
+    }
   }
 
   func testClearCache() throws {
