@@ -39,7 +39,9 @@ fragment CharacterNameWithNestedAppearsInFragment on Character {
 fragment CharacterNameWithInlineFragment on Character {
   ... on Human {
     friends {
-      appearsIn
+     ... on Character {
+        appearsIn
+      }
     }
   }
   

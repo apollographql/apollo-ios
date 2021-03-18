@@ -87,9 +87,9 @@
     "name": "DroidDetailsWithFragment",
     "source": "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}\nfragment DroidDetails on Droid {\n  __typename\n  name\n  primaryFunction\n}"
   },
-  "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01": {
+  "746bd0421dd1a079127a3a7d91fcf06e24b3185ef8fe66583efa64ee54ccfae9": {
     "name": "HeroFriendsOfFriendsNames",
-    "source": "query HeroFriendsOfFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      id\n      friends {\n        __typename\n        name\n      }\n    }\n  }\n}"
+    "source": "query HeroFriendsOfFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      id\n      ... on Character {\n        friends {\n          __typename\n          name\n        }\n      }\n    }\n  }\n}"
   },
   "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671": {
     "name": "HeroName",

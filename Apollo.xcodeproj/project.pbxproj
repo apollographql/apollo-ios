@@ -194,7 +194,6 @@
 		9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9667258F34BB00A06EEB /* GraphQLSchema.swift */; };
 		9F1A966D258F34BB00A06EEB /* CompilationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9668258F34BB00A06EEB /* CompilationResult.swift */; };
 		9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A966A258F34BB00A06EEB /* JavaScriptBridge.swift */; };
-		9F1A9680258F34E500A06EEB /* ApolloCodegenFrontend.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = 9F1A967F258F34E500A06EEB /* ApolloCodegenFrontend.bundle.js */; };
 		9F21730E2567E6F000566121 /* DataLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */; };
 		9F21735B2568F3E200566121 /* PossiblyDeferredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */; };
 		9F27D4641D40379500715680 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
@@ -276,6 +275,7 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		D90F1AFB2479E57A007A1534 /* WebSocketTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */; };
+		DEFBFBDC25FC0852006EE3A5 /* ApolloCodegenFrontend.bundle.js in Resources */ = {isa = PBXBuildFile; fileRef = DEFBFBDB25FC0852006EE3A5 /* ApolloCodegenFrontend.bundle.js */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -765,7 +765,6 @@
 		9F1A9667258F34BB00A06EEB /* GraphQLSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLSchema.swift; sourceTree = "<group>"; };
 		9F1A9668258F34BB00A06EEB /* CompilationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompilationResult.swift; sourceTree = "<group>"; };
 		9F1A966A258F34BB00A06EEB /* JavaScriptBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaScriptBridge.swift; sourceTree = "<group>"; };
-		9F1A967F258F34E500A06EEB /* ApolloCodegenFrontend.bundle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ApolloCodegenFrontend.bundle.js; path = JavaScript/dist/ApolloCodegenFrontend.bundle.js; sourceTree = "<group>"; };
 		9F1A96AF258F36B200A06EEB /* SchemaLoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaLoadingTests.swift; sourceTree = "<group>"; };
 		9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossiblyDeferredTests.swift; sourceTree = "<group>"; };
 		9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONStandardTypeConversions.swift; sourceTree = "<group>"; };
@@ -845,6 +844,7 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
+		DEFBFBDB25FC0852006EE3A5 /* ApolloCodegenFrontend.bundle.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = ApolloCodegenFrontend.bundle.js; path = dist/ApolloCodegenFrontend.bundle.js; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -1579,14 +1579,6 @@
 			path = ApolloPerformanceTests;
 			sourceTree = "<group>";
 		};
-		9F62DF8C2590458800E6E808 /* JavaScript */ = {
-			isa = PBXGroup;
-			children = (
-				9F1A967F258F34E500A06EEB /* ApolloCodegenFrontend.bundle.js */,
-			);
-			name = JavaScript;
-			sourceTree = "<group>";
-		};
 		9FA6ABBD1EC0A988000017BE /* ApolloCacheDependentTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1798,7 +1790,7 @@
 				9F62E03E2590896400E6E808 /* GraphQLError.swift */,
 				9F1A9668258F34BB00A06EEB /* CompilationResult.swift */,
 				9F1A966A258F34BB00A06EEB /* JavaScriptBridge.swift */,
-				9F62DF8C2590458800E6E808 /* JavaScript */,
+				DEFBFBDB25FC0852006EE3A5 /* ApolloCodegenFrontend.bundle.js */,
 			);
 			path = Frontend;
 			sourceTree = "<group>";
@@ -2354,7 +2346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F1A9680258F34E500A06EEB /* ApolloCodegenFrontend.bundle.js in Resources */,
+				DEFBFBDC25FC0852006EE3A5 /* ApolloCodegenFrontend.bundle.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

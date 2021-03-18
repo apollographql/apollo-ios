@@ -325,7 +325,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INTERFACE",
-                  "name": "Character",
+                  "name": "Friend",
                   "ofType": null
                 }
               },
@@ -384,6 +384,60 @@
                     "name": "Episode",
                     "ofType": null
                   }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Human",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Droid",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "INTERFACE",
+          "name": "Friend",
+          "description": "A friend TEST_FRIEND",
+          "fields": [
+            {
+              "name": "id",
+              "description": "The ID of the character",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The name of the character",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -777,7 +831,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INTERFACE",
-                  "name": "Character",
+                  "name": "Friend",
                   "ofType": null
                 }
               },
@@ -863,6 +917,11 @@
             {
               "kind": "INTERFACE",
               "name": "Character",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Friend",
               "ofType": null
             }
           ],
@@ -1042,7 +1101,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INTERFACE",
-                  "name": "Character",
+                  "name": "Friend",
                   "ofType": null
                 }
               },
@@ -1124,6 +1183,11 @@
             {
               "kind": "INTERFACE",
               "name": "Character",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Friend",
               "ofType": null
             }
           ],
