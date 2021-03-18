@@ -42,7 +42,10 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    components.queryItems = queryItems
+    if queryItems.count > 0 {
+      components.queryItems = queryItems
+    }
+
     components.percentEncodedQuery =
       components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
