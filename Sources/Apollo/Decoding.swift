@@ -59,12 +59,10 @@ private func collectFields(from selections: [GraphQLSelection],
     case let fragmentSpread as GraphQLFragmentSpread:
       let fragment = fragmentSpread.fragment
 
-      if let runtimeType = runtimeType, fragment.possibleTypes.contains(runtimeType) {
-        try collectFields(from: fragment.selections,
-                          forRuntimeType: runtimeType,
-                          into: &groupedFields,
-                          variables: variables)
-      }
+      try collectFields(from: fragment.selections,
+                        forRuntimeType: runtimeType,
+                        into: &groupedFields,
+                        variables: variables)
     case let typeCase as GraphQLTypeCase:
       let selections: [GraphQLSelection]
       if let runtimeType = runtimeType {
