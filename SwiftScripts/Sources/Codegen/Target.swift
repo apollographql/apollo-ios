@@ -60,7 +60,8 @@ enum Target {
             let operationIDsURL = try! graphQLFolderURL.apollo.childFileURL(fileName: "operationIDs.json")
             let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.json")
             
-            return ApolloCodegenOptions(operationIDsURL: operationIDsURL,
+            return ApolloCodegenOptions(mergeInFieldsFromFragmentSpreads: false,
+                                        operationIDsURL: operationIDsURL,
                                         outputFormat: .singleFile(atFileURL: outputFileURL),
                                         urlToSchemaFile: schema)
         case .starWarsSwiftCodegen:

@@ -1099,8 +1099,7 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("friends", type: .list(.object(Friend.selections))),
+          GraphQLFragmentSpread(FriendsNames.self),
         ]
       }
 
@@ -1108,14 +1107,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 
       public init(unsafeResultMap: ResultMap) {
         self.resultMap = unsafeResultMap
-      }
-
-      public static func makeHuman(name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(unsafeResultMap: ["__typename": "Human", "name": name, "friends": friends.flatMap { (value: [Friend?]) -> [ResultMap?] in value.map { (value: Friend?) -> ResultMap? in value.flatMap { (value: Friend) -> ResultMap in value.resultMap } } }])
-      }
-
-      public static func makeDroid(name: String, friends: [Friend?]? = nil) -> Hero {
-        return Hero(unsafeResultMap: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [Friend?]) -> [ResultMap?] in value.map { (value: Friend?) -> ResultMap? in value.flatMap { (value: Friend) -> ResultMap in value.resultMap } } }])
       }
 
       public var __typename: String {
@@ -1134,16 +1125,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "name")
-        }
-      }
-
-      /// The friends of the character, or an empty list if they have none
-      public var friends: [Friend?]? {
-        get {
-          return (resultMap["friends"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Friend?] in value.map { (value: ResultMap?) -> Friend? in value.flatMap { (value: ResultMap) -> Friend in Friend(unsafeResultMap: value) } } }
-        }
-        set {
-          resultMap.updateValue(newValue.flatMap { (value: [Friend?]) -> [ResultMap?] in value.map { (value: Friend?) -> ResultMap? in value.flatMap { (value: Friend) -> ResultMap in value.resultMap } } }, forKey: "friends")
         }
       }
 
@@ -1169,50 +1150,6 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
           }
           set {
             resultMap += newValue.resultMap
-          }
-        }
-      }
-
-      public struct Friend: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Human", "Droid"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          ]
-        }
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public static func makeHuman(name: String) -> Friend {
-          return Friend(unsafeResultMap: ["__typename": "Human", "name": name])
-        }
-
-        public static func makeDroid(name: String) -> Friend {
-          return Friend(unsafeResultMap: ["__typename": "Droid", "name": name])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// The name of the character
-        public var name: String {
-          get {
-            return resultMap["name"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
           }
         }
       }
@@ -1343,8 +1280,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLFragmentSpread(CharacterName.self),
           ]
         }
 
@@ -1368,16 +1304,6 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// The name of the character
-        public var name: String {
-          get {
-            return resultMap["name"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
           }
         }
 
@@ -1465,8 +1391,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           public static var selections: [GraphQLSelection] {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
+              GraphQLFragmentSpread(CharacterName.self),
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             ]
           }
@@ -1491,16 +1416,6 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          /// The name of the character
-          public var name: String {
-            get {
-              return resultMap["name"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "name")
             }
           }
 
@@ -1694,8 +1609,7 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+          GraphQLFragmentSpread(CharacterAppearsIn.self),
         ]
       }
 
@@ -1719,16 +1633,6 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The movies this character appears in
-      public var appearsIn: [Episode?] {
-        get {
-          return resultMap["appearsIn"]! as! [Episode?]
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "appearsIn")
         }
       }
 
@@ -2360,16 +2264,10 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 
       public static var selections: [GraphQLSelection] {
         return [
-          GraphQLTypeCase(
-            variants: ["Human": AsHuman.selections, "Droid": AsDroid.selections],
-            default: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
-                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-                GraphQLField("name", type: .nonNull(.scalar(String.self))),
-              ]),
-            ]
-          )
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
+            GraphQLFragmentSpread(HeroDetails.self),
+          ]),
         ]
       }
 
@@ -2396,16 +2294,6 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
         }
       }
 
-      /// The name of the character
-      public var name: String? {
-        get {
-          return resultMap["name"] as? String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
-        }
-      }
-
       public var fragments: Fragments {
         get {
           return Fragments(unsafeResultMap: resultMap)
@@ -2428,200 +2316,6 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
           }
           set {
             resultMap += newValue.resultMap
-          }
-        }
-      }
-
-      public var asHuman: AsHuman? {
-        get {
-          if !AsHuman.possibleTypes.contains(__typename) { return nil }
-          return AsHuman(unsafeResultMap: resultMap)
-        }
-        set {
-          guard let newValue = newValue else { return }
-          resultMap = newValue.resultMap
-        }
-      }
-
-      public struct AsHuman: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Human"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            ]),
-            GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-              GraphQLField("height", type: .scalar(Double.self)),
-            ]),
-          ]
-        }
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(name: String? = nil, height: Double? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Human", "name": name, "height": height])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// What this human calls themselves
-        public var name: String? {
-          get {
-            return resultMap["name"] as? String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
-          }
-        }
-
-        /// Height in the preferred unit, default is meters
-        public var height: Double? {
-          get {
-            return resultMap["height"] as? Double
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "height")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(unsafeResultMap: resultMap)
-          }
-          set {
-            resultMap += newValue.resultMap
-          }
-        }
-
-        public struct Fragments {
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public var heroDetails: HeroDetails {
-            get {
-              return HeroDetails(unsafeResultMap: resultMap)
-            }
-            set {
-              resultMap += newValue.resultMap
-            }
-          }
-        }
-      }
-
-      public var asDroid: AsDroid? {
-        get {
-          if !AsDroid.possibleTypes.contains(__typename) { return nil }
-          return AsDroid(unsafeResultMap: resultMap)
-        }
-        set {
-          guard let newValue = newValue else { return }
-          resultMap = newValue.resultMap
-        }
-      }
-
-      public struct AsDroid: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Droid"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            ]),
-            GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-              GraphQLField("primaryFunction", type: .scalar(String.self)),
-            ]),
-          ]
-        }
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(name: String? = nil, primaryFunction: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Droid", "name": name, "primaryFunction": primaryFunction])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// What others call this droid
-        public var name: String? {
-          get {
-            return resultMap["name"] as? String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
-          }
-        }
-
-        /// This droid's primary function
-        public var primaryFunction: String? {
-          get {
-            return resultMap["primaryFunction"] as? String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "primaryFunction")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(unsafeResultMap: resultMap)
-          }
-          set {
-            resultMap += newValue.resultMap
-          }
-        }
-
-        public struct Fragments {
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public var heroDetails: HeroDetails {
-            get {
-              return HeroDetails(unsafeResultMap: resultMap)
-            }
-            set {
-              resultMap += newValue.resultMap
-            }
           }
         }
       }
@@ -3550,14 +3244,8 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
 
       public static var selections: [GraphQLSelection] {
         return [
-          GraphQLTypeCase(
-            variants: ["Human": AsHuman.selections, "Droid": AsDroid.selections],
-            default: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            ]
-          )
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLFragmentSpread(HeroDetails.self),
         ]
       }
 
@@ -3584,16 +3272,6 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
         }
       }
 
-      /// The name of the character
-      public var name: String {
-        get {
-          return resultMap["name"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
-        }
-      }
-
       public var fragments: Fragments {
         get {
           return Fragments(unsafeResultMap: resultMap)
@@ -3616,188 +3294,6 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
           }
           set {
             resultMap += newValue.resultMap
-          }
-        }
-      }
-
-      public var asHuman: AsHuman? {
-        get {
-          if !AsHuman.possibleTypes.contains(__typename) { return nil }
-          return AsHuman(unsafeResultMap: resultMap)
-        }
-        set {
-          guard let newValue = newValue else { return }
-          resultMap = newValue.resultMap
-        }
-      }
-
-      public struct AsHuman: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Human"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            GraphQLField("height", type: .scalar(Double.self)),
-          ]
-        }
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(name: String, height: Double? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Human", "name": name, "height": height])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// What this human calls themselves
-        public var name: String {
-          get {
-            return resultMap["name"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
-          }
-        }
-
-        /// Height in the preferred unit, default is meters
-        public var height: Double? {
-          get {
-            return resultMap["height"] as? Double
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "height")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(unsafeResultMap: resultMap)
-          }
-          set {
-            resultMap += newValue.resultMap
-          }
-        }
-
-        public struct Fragments {
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public var heroDetails: HeroDetails {
-            get {
-              return HeroDetails(unsafeResultMap: resultMap)
-            }
-            set {
-              resultMap += newValue.resultMap
-            }
-          }
-        }
-      }
-
-      public var asDroid: AsDroid? {
-        get {
-          if !AsDroid.possibleTypes.contains(__typename) { return nil }
-          return AsDroid(unsafeResultMap: resultMap)
-        }
-        set {
-          guard let newValue = newValue else { return }
-          resultMap = newValue.resultMap
-        }
-      }
-
-      public struct AsDroid: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Droid"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            GraphQLField("primaryFunction", type: .scalar(String.self)),
-          ]
-        }
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(name: String, primaryFunction: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Droid", "name": name, "primaryFunction": primaryFunction])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// What others call this droid
-        public var name: String {
-          get {
-            return resultMap["name"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
-          }
-        }
-
-        /// This droid's primary function
-        public var primaryFunction: String? {
-          get {
-            return resultMap["primaryFunction"] as? String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "primaryFunction")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(unsafeResultMap: resultMap)
-          }
-          set {
-            resultMap += newValue.resultMap
-          }
-        }
-
-        public struct Fragments {
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public var heroDetails: HeroDetails {
-            get {
-              return HeroDetails(unsafeResultMap: resultMap)
-            }
-            set {
-              resultMap += newValue.resultMap
-            }
           }
         }
       }
@@ -3870,12 +3366,8 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
 
       public static var selections: [GraphQLSelection] {
         return [
-          GraphQLTypeCase(
-            variants: ["Droid": AsDroid.selections],
-            default: [
-              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            ]
-          )
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLFragmentSpread(DroidDetails.self),
         ]
       }
 
@@ -3926,95 +3418,6 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
           set {
             guard let newValue = newValue else { return }
             resultMap += newValue.resultMap
-          }
-        }
-      }
-
-      public var asDroid: AsDroid? {
-        get {
-          if !AsDroid.possibleTypes.contains(__typename) { return nil }
-          return AsDroid(unsafeResultMap: resultMap)
-        }
-        set {
-          guard let newValue = newValue else { return }
-          resultMap = newValue.resultMap
-        }
-      }
-
-      public struct AsDroid: GraphQLSelectionSet {
-        public static let possibleTypes: [String] = ["Droid"]
-
-        public static var selections: [GraphQLSelection] {
-          return [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            GraphQLField("primaryFunction", type: .scalar(String.self)),
-          ]
-        }
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(name: String, primaryFunction: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Droid", "name": name, "primaryFunction": primaryFunction])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// What others call this droid
-        public var name: String {
-          get {
-            return resultMap["name"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "name")
-          }
-        }
-
-        /// This droid's primary function
-        public var primaryFunction: String? {
-          get {
-            return resultMap["primaryFunction"] as? String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "primaryFunction")
-          }
-        }
-
-        public var fragments: Fragments {
-          get {
-            return Fragments(unsafeResultMap: resultMap)
-          }
-          set {
-            resultMap += newValue.resultMap
-          }
-        }
-
-        public struct Fragments {
-          public private(set) var resultMap: ResultMap
-
-          public init(unsafeResultMap: ResultMap) {
-            self.resultMap = unsafeResultMap
-          }
-
-          public var droidDetails: DroidDetails {
-            get {
-              return DroidDetails(unsafeResultMap: resultMap)
-            }
-            set {
-              resultMap += newValue.resultMap
-            }
           }
         }
       }
@@ -4506,8 +3909,7 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLFragmentSpread(CharacterName.self),
         ]
       }
 
@@ -4531,16 +3933,6 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The name of the character
-      public var name: String {
-        get {
-          return resultMap["name"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -4641,8 +4033,7 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLFragmentSpread(CharacterName.self),
         ]
       }
 
@@ -4676,16 +4067,6 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "id")
-        }
-      }
-
-      /// The name of the character
-      public var name: String {
-        get {
-          return resultMap["name"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
         }
       }
 
@@ -4896,9 +4277,7 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
-          GraphQLField("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+          GraphQLFragmentSpread(CharacterNameAndAppearsIn.self),
         ]
       }
 
@@ -4922,26 +4301,6 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The name of the character
-      public var name: String {
-        get {
-          return resultMap["name"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
-        }
-      }
-
-      /// The movies this character appears in
-      public var appearsIn: [Episode?] {
-        get {
-          return resultMap["appearsIn"]! as! [Episode?]
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "appearsIn")
         }
       }
 
@@ -6704,10 +6063,8 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
   public static var selections: [GraphQLSelection] {
     return [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("name", type: .nonNull(.scalar(String.self))),
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("primaryFunction", type: .scalar(String.self)),
+      GraphQLFragmentSpread(CharacterName.self),
+      GraphQLFragmentSpread(DroidPrimaryFunction.self),
     ]
   }
 
@@ -6727,26 +6084,6 @@ public struct DroidNameAndPrimaryFunction: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "__typename")
-    }
-  }
-
-  /// What others call this droid
-  public var name: String {
-    get {
-      return resultMap["name"]! as! String
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "name")
-    }
-  }
-
-  /// This droid's primary function
-  public var primaryFunction: String? {
-    get {
-      return resultMap["primaryFunction"] as? String
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "primaryFunction")
     }
   }
 
@@ -6801,14 +6138,9 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
 
   public static var selections: [GraphQLSelection] {
     return [
-      GraphQLTypeCase(
-        variants: ["Droid": AsDroid.selections],
-        default: [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        ]
-      )
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLFragmentSpread(CharacterName.self),
+      GraphQLFragmentSpread(DroidPrimaryFunction.self),
     ]
   }
 
@@ -6832,16 +6164,6 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "__typename")
-    }
-  }
-
-  /// The name of the character
-  public var name: String {
-    get {
-      return resultMap["name"]! as! String
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "name")
     }
   }
 
@@ -6878,105 +6200,6 @@ public struct CharacterNameAndDroidPrimaryFunction: GraphQLFragment {
       set {
         guard let newValue = newValue else { return }
         resultMap += newValue.resultMap
-      }
-    }
-  }
-
-  public var asDroid: AsDroid? {
-    get {
-      if !AsDroid.possibleTypes.contains(__typename) { return nil }
-      return AsDroid(unsafeResultMap: resultMap)
-    }
-    set {
-      guard let newValue = newValue else { return }
-      resultMap = newValue.resultMap
-    }
-  }
-
-  public struct AsDroid: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Droid"]
-
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("primaryFunction", type: .scalar(String.self)),
-      ]
-    }
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(name: String, primaryFunction: String? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Droid", "name": name, "primaryFunction": primaryFunction])
-    }
-
-    public var __typename: String {
-      get {
-        return resultMap["__typename"]! as! String
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "__typename")
-      }
-    }
-
-    /// What others call this droid
-    public var name: String {
-      get {
-        return resultMap["name"]! as! String
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "name")
-      }
-    }
-
-    /// This droid's primary function
-    public var primaryFunction: String? {
-      get {
-        return resultMap["primaryFunction"] as? String
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "primaryFunction")
-      }
-    }
-
-    public var fragments: Fragments {
-      get {
-        return Fragments(unsafeResultMap: resultMap)
-      }
-      set {
-        resultMap += newValue.resultMap
-      }
-    }
-
-    public struct Fragments {
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public var characterName: CharacterName {
-        get {
-          return CharacterName(unsafeResultMap: resultMap)
-        }
-        set {
-          resultMap += newValue.resultMap
-        }
-      }
-
-      public var droidPrimaryFunction: DroidPrimaryFunction {
-        get {
-          return DroidPrimaryFunction(unsafeResultMap: resultMap)
-        }
-        set {
-          resultMap += newValue.resultMap
-        }
       }
     }
   }
@@ -7267,10 +6490,7 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
   public static var selections: [GraphQLSelection] {
     return [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("name", type: .nonNull(.scalar(String.self))),
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+      GraphQLFragmentSpread(CharacterNameWithNestedAppearsInFragment.self),
     ]
   }
 
@@ -7294,26 +6514,6 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "__typename")
-    }
-  }
-
-  /// The name of the character
-  public var name: String {
-    get {
-      return resultMap["name"]! as! String
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "name")
-    }
-  }
-
-  /// The movies this character appears in
-  public var appearsIn: [Episode?] {
-    get {
-      return resultMap["appearsIn"]! as! [Episode?]
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "appearsIn")
     }
   }
 
@@ -7341,15 +6541,6 @@ public struct CharacterNameAndAppearsInWithNestedFragments: GraphQLFragment {
         resultMap += newValue.resultMap
       }
     }
-
-    public var characterAppearsIn: CharacterAppearsIn {
-      get {
-        return CharacterAppearsIn(unsafeResultMap: resultMap)
-      }
-      set {
-        resultMap += newValue.resultMap
-      }
-    }
   }
 }
 
@@ -7370,8 +6561,7 @@ public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
     return [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
       GraphQLField("name", type: .nonNull(.scalar(String.self))),
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
+      GraphQLFragmentSpread(CharacterAppearsIn.self),
     ]
   }
 
@@ -7405,16 +6595,6 @@ public struct CharacterNameWithNestedAppearsInFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "name")
-    }
-  }
-
-  /// The movies this character appears in
-  public var appearsIn: [Episode?] {
-    get {
-      return resultMap["appearsIn"]! as! [Episode?]
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "appearsIn")
     }
   }
 
@@ -7485,10 +6665,6 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
 
   public static func makeHuman(friends: [AsHuman.Friend?]? = nil) -> CharacterNameWithInlineFragment {
     return CharacterNameWithInlineFragment(unsafeResultMap: ["__typename": "Human", "friends": friends.flatMap { (value: [AsHuman.Friend?]) -> [ResultMap?] in value.map { (value: AsHuman.Friend?) -> ResultMap? in value.flatMap { (value: AsHuman.Friend) -> ResultMap in value.resultMap } } }])
-  }
-
-  public static func makeDroid(name: String, friends: [AsDroid.Friend?]? = nil) -> CharacterNameWithInlineFragment {
-    return CharacterNameWithInlineFragment(unsafeResultMap: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [AsDroid.Friend?]) -> [ResultMap?] in value.map { (value: AsDroid.Friend?) -> ResultMap? in value.flatMap { (value: AsDroid.Friend) -> ResultMap in value.resultMap } } }])
   }
 
   public var __typename: String {
@@ -7612,10 +6788,8 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
     public static var selections: [GraphQLSelection] {
       return [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("friends", type: .list(.object(Friend.selections))),
+        GraphQLFragmentSpread(CharacterName.self),
+        GraphQLFragmentSpread(FriendsNames.self),
       ]
     }
 
@@ -7625,36 +6799,12 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
       self.resultMap = unsafeResultMap
     }
 
-    public init(name: String, friends: [Friend?]? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Droid", "name": name, "friends": friends.flatMap { (value: [Friend?]) -> [ResultMap?] in value.map { (value: Friend?) -> ResultMap? in value.flatMap { (value: Friend) -> ResultMap in value.resultMap } } }])
-    }
-
     public var __typename: String {
       get {
         return resultMap["__typename"]! as! String
       }
       set {
         resultMap.updateValue(newValue, forKey: "__typename")
-      }
-    }
-
-    /// What others call this droid
-    public var name: String {
-      get {
-        return resultMap["name"]! as! String
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "name")
-      }
-    }
-
-    /// This droid's friends, or an empty list if they have none
-    public var friends: [Friend?]? {
-      get {
-        return (resultMap["friends"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Friend?] in value.map { (value: ResultMap?) -> Friend? in value.flatMap { (value: ResultMap) -> Friend in Friend(unsafeResultMap: value) } } }
-      }
-      set {
-        resultMap.updateValue(newValue.flatMap { (value: [Friend?]) -> [ResultMap?] in value.map { (value: Friend?) -> ResultMap? in value.flatMap { (value: Friend) -> ResultMap in value.resultMap } } }, forKey: "friends")
       }
     }
 
@@ -7689,50 +6839,6 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
         }
         set {
           resultMap += newValue.resultMap
-        }
-      }
-    }
-
-    public struct Friend: GraphQLSelectionSet {
-      public static let possibleTypes: [String] = ["Human", "Droid"]
-
-      public static var selections: [GraphQLSelection] {
-        return [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("name", type: .nonNull(.scalar(String.self))),
-        ]
-      }
-
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public static func makeHuman(name: String) -> Friend {
-        return Friend(unsafeResultMap: ["__typename": "Human", "name": name])
-      }
-
-      public static func makeDroid(name: String) -> Friend {
-        return Friend(unsafeResultMap: ["__typename": "Droid", "name": name])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The name of the character
-      public var name: String {
-        get {
-          return resultMap["name"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "name")
         }
       }
     }
