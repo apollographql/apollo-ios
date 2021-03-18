@@ -42,7 +42,7 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    if queryItems.count > 0 {
+    if queryItems.apollo.isNotEmpty {
       components.queryItems = queryItems
     }
 
