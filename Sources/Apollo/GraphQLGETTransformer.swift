@@ -42,7 +42,10 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    components.queryItems = queryItems
+    if queryItems.apollo.isNotEmpty {
+      components.queryItems = queryItems
+    }
+
     components.percentEncodedQuery =
       components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 

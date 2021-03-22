@@ -197,4 +197,12 @@ class GETTransformerTests: XCTestCase {
 
     XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?foo=bar&operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
   }
+
+	func testEncodingWithEmptyQueryParameter() throws {
+		let body: GraphQLMap = ["variables": nil]
+		let transformer = GraphQLGETTransformer(body: body, url: self.url)
+		let url = transformer.createGetURL()
+
+		XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql")
+	}
 }
