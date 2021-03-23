@@ -276,16 +276,16 @@
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		D90F1AFB2479E57A007A1534 /* WebSocketTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
-		DE3C7A53260A6BE500D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; };
 		DE3C7A94260A6C1000D2F4FF /* ApolloCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloCore.framework */; };
 		DE3C7A95260A6C1000D2F4FF /* ApolloCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DE3C7ABF260A6D3E00D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
 		DE3C7B16260A6FCA00D2F4FF /* SelectionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */; };
 		DE3C7B17260A6FCA00D2F4FF /* ResponseDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */; };
 		DE3C7B18260A6FCA00D2F4FF /* FragmentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */; };
 		DE3C7B19260A6FCA00D2F4FF /* GraphQLSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B13260A6FCA00D2F4FF /* GraphQLSchema.swift */; };
 		DE3C7B1A260A6FCA00D2F4FF /* GraphQLEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */; };
 		DE3C7B1B260A6FCA00D2F4FF /* ScalarTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */; };
+		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -1866,7 +1866,8 @@
 				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
 				DE3C7AB7260A6D3E00D2F4FF /* graphql */,
 			);
-			path = AnimalKingdomAPI;
+			name = AnimalKingdomAPI;
+			path = Sources/AnimalKingdomAPI;
 			sourceTree = "<group>";
 		};
 		DE3C7AB7260A6D3E00D2F4FF /* graphql */ = {
@@ -1978,7 +1979,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE3C7A53260A6BE500D2F4FF /* AnimalKingdomAPI.h in Headers */,
+				DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2550,7 +2551,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE3C7ABF260A6D3E00D2F4FF /* schema.graphqls in Resources */,
+				DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
