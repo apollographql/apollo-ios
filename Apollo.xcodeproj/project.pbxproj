@@ -276,6 +276,10 @@
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		D90F1AFB2479E57A007A1534 /* WebSocketTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
+		DE3C7A53260A6BE500D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; };
+		DE3C7A94260A6C1000D2F4FF /* ApolloCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloCore.framework */; };
+		DE3C7A95260A6C1000D2F4FF /* ApolloCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DE3C7ABF260A6D3E00D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -499,6 +503,13 @@
 			remoteGlobalIDString = 9FCE2CF91E6C213D00E34457;
 			remoteInfo = StarWarsAPI;
 		};
+		DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B68353D2463481A00337AE6;
+			remoteInfo = ApolloCore;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -509,6 +520,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9B2DFBC024E1FA1A00ED3AE6 /* Apollo.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE3C7A98260A6C1000D2F4FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DE3C7A95260A6C1000D2F4FF /* ApolloCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -845,6 +867,15 @@
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
+		DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
+		DE3C79AA260A6ACD00D2F4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE3C7AB8260A6D3E00D2F4FF /* PetDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PetDetails.graphql; sourceTree = "<group>"; };
+		DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		DE3C7ABA260A6D3E00D2F4FF /* WarmBloodedDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WarmBloodedDetails.graphql; sourceTree = "<group>"; };
+		DE3C7ABB260A6D3E00D2F4FF /* HeightInMeters.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeightInMeters.graphql; sourceTree = "<group>"; };
+		DE3C7ABC260A6D3E00D2F4FF /* AllAnimals.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AllAnimals.graphql; sourceTree = "<group>"; };
+		DE3C7ABD260A6D3E00D2F4FF /* ClassroomPets.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ClassroomPets.graphql; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -984,6 +1015,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F438D071E6C2FD9007BDC1A /* Apollo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE3C7A06260A6B9800D2F4FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE3C7A94260A6C1000D2F4FF /* ApolloCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1617,6 +1656,7 @@
 				9B7BDACC23FDEBE300ACD198 /* ApolloSQLite */,
 				9B7BDA9323FDE94C00ACD198 /* ApolloWebSocket */,
 				9FCE2CF41E6C20E000E34457 /* Tests */,
+				DE3C79A8260A6ACD00D2F4FF /* AnimalKingdomAPI */,
 				9B7BDAF923FDEE8A00ACD198 /* Frameworks */,
 				90690D04224333DA00FC2E54 /* Configuration */,
 				9FC750451D2A532C00458D91 /* Products */,
@@ -1646,6 +1686,7 @@
 				9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */,
 				9B2DFBCA24E2016800ED3AE6 /* UploadAPI.framework */,
 				9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */,
+				DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1805,6 +1846,29 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DE3C79A8260A6ACD00D2F4FF /* AnimalKingdomAPI */ = {
+			isa = PBXGroup;
+			children = (
+				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
+				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
+				DE3C7AB7260A6D3E00D2F4FF /* graphql */,
+			);
+			path = AnimalKingdomAPI;
+			sourceTree = "<group>";
+		};
+		DE3C7AB7260A6D3E00D2F4FF /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				DE3C7AB8260A6D3E00D2F4FF /* PetDetails.graphql */,
+				DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */,
+				DE3C7ABA260A6D3E00D2F4FF /* WarmBloodedDetails.graphql */,
+				DE3C7ABB260A6D3E00D2F4FF /* HeightInMeters.graphql */,
+				DE3C7ABC260A6D3E00D2F4FF /* AllAnimals.graphql */,
+				DE3C7ABD260A6D3E00D2F4FF /* ClassroomPets.graphql */,
+			);
+			path = graphql;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1881,6 +1945,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BCF0D0123FC9F060031D2A2 /* StarWarsAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE3C7A08260A6B9800D2F4FF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE3C7A53260A6BE500D2F4FF /* AnimalKingdomAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2214,13 +2286,34 @@
 			productReference = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE3C7A0D260A6B9800D2F4FF /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */;
+			buildPhases = (
+				DE3C7A03260A6B9800D2F4FF /* Generate Apollo Client API */,
+				DE3C7A04260A6B9800D2F4FF /* Sources */,
+				DE3C7A06260A6B9800D2F4FF /* Frameworks */,
+				DE3C7A08260A6B9800D2F4FF /* Headers */,
+				DE3C7A0A260A6B9800D2F4FF /* Resources */,
+				DE3C7A98260A6C1000D2F4FF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */,
+			);
+			name = AnimalKingdomAPI;
+			productName = StarWarsAPI;
+			productReference = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9FC7503B1D2A532C00458D91 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1210;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
@@ -2312,6 +2405,7 @@
 				9FC7504D1D2A532D00458D91 /* ApolloTests */,
 				9FA6ABBB1EC0A988000017BE /* ApolloCacheDependentTests */,
 				9F54C8B3255D760B0065AFD6 /* ApolloPerformanceTests */,
+				DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */,
 				9FCE2CF91E6C213D00E34457 /* StarWarsAPI */,
 				9FACA9B71F42E67200AE2DBD /* GitHubAPI */,
 				9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */,
@@ -2426,6 +2520,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DE3C7A0A260A6B9800D2F4FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE3C7ABF260A6D3E00D2F4FF /* schema.graphqls in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -2474,6 +2576,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"StarWars\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE3C7A03260A6B9800D2F4FF /* Generate Apollo Client API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo Client API";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"AnimalKingdom\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2818,6 +2935,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DE3C7A04260A6B9800D2F4FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2983,6 +3107,11 @@
 			isa = PBXTargetDependency;
 			target = 9FCE2CF91E6C213D00E34457 /* StarWarsAPI */;
 			targetProxy = 9FDE0741258F3B6100DC0CA5 /* PBXContainerItemProxy */;
+		};
+		DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B68353D2463481A00337AE6 /* ApolloCore */;
+			targetProxy = DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3344,6 +3473,39 @@
 			};
 			name = PerformanceTesting;
 		};
+		DE3C7A0E260A6B9800D2F4FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = AnimalKingdomAPI/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DE3C7A0F260A6B9800D2F4FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = AnimalKingdomAPI/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DE3C7A10260A6B9800D2F4FF /* PerformanceTesting */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = AnimalKingdomAPI/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = PerformanceTesting;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3513,6 +3675,16 @@
 				9FCE2D041E6C213D00E34457 /* Debug */,
 				9FCE2D051E6C213D00E34457 /* Release */,
 				9FEFCFD61E6C65CE0061834C /* PerformanceTesting */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE3C7A0D260A6B9800D2F4FF /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE3C7A0E260A6B9800D2F4FF /* Debug */,
+				DE3C7A0F260A6B9800D2F4FF /* Release */,
+				DE3C7A10260A6B9800D2F4FF /* PerformanceTesting */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
