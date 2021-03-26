@@ -7,6 +7,7 @@ enum Target {
     case starWarsSwiftCodegen
     case gitHub
     case upload
+    case animalKingdom
     
     init?(name: String) {
         switch name {
@@ -18,6 +19,8 @@ enum Target {
             self = .gitHub
         case "Upload":
             self = .upload
+        case "AnimalKingdom":
+            self = .animalKingdom
         default:
             return nil
         }
@@ -38,6 +41,10 @@ enum Target {
             return sourceRootURL
             .apollo.childFolderURL(folderName: "Sources")
             .apollo.childFolderURL(folderName: "UploadAPI")
+        case .animalKingdom:
+            return sourceRootURL
+            .apollo.childFolderURL(folderName: "Sources")
+            .apollo.childFolderURL(folderName: "AnimalKingdomAPI")
         }
     }
     
@@ -84,6 +91,14 @@ enum Target {
                                         operationIDsURL: operationIDsURL,
                                         outputFormat: .singleFile(atFileURL: outputFileURL),
                                         suppressSwiftMultilineStringLiterals: true,
+                                        urlToSchemaFile: schema)
+        case .animalKingdom:
+            let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+            let outputFolderURL = graphQLFolderURL.apollo.childFolderURL(folderName: "Generated")
+            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.graphqls")
+
+            return ApolloCodegenOptions(codegenEngine: .swiftExperimental,
+                                        outputFormat: .multipleFiles(inFolderAtURL: outputFolderURL),
                                         urlToSchemaFile: schema)
         }
     }

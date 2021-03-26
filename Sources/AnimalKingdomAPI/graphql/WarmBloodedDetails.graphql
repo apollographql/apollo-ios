@@ -1,0 +1,7 @@
+fragment WarmBloodedDetails on WarmBlooded {
+  bodyTemperature
+  height {
+    meters # TODO: Use HeightInMeters fragment?
+    yards
+  }
+}
