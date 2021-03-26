@@ -286,6 +286,7 @@
 		DE3C7B1B260A6FCA00D2F4FF /* ScalarTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */; };
 		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
+		DE3C7B6C260A824900D2F4FF /* V2_CodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B6B260A824900D2F4FF /* V2_CodeGenerator.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -888,6 +889,7 @@
 		DE3C7B13260A6FCA00D2F4FF /* GraphQLSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLSchema.swift; sourceTree = "<group>"; };
 		DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLEnum.swift; sourceTree = "<group>"; };
 		DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalarTypes.swift; sourceTree = "<group>"; };
+		DE3C7B6B260A824900D2F4FF /* V2_CodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2_CodeGenerator.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -1333,6 +1335,7 @@
 		9B7B6F50233C26E400F32205 /* ApolloCodegenLib */ = {
 			isa = PBXGroup;
 			children = (
+				DE3C7B6A260A822700D2F4FF /* V2 */,
 				9FE1E54C2588C5E000AA967E /* Frontend */,
 				9B4751BD2575BAFB0001FB87 /* Naming */,
 				9BCB585D240758B2002F766E /* Extensions */,
@@ -1896,6 +1899,14 @@
 			path = CodegenCore;
 			sourceTree = "<group>";
 		};
+		DE3C7B6A260A822700D2F4FF /* V2 */ = {
+			isa = PBXGroup;
+			children = (
+				DE3C7B6B260A824900D2F4FF /* V2_CodeGenerator.swift */,
+			);
+			path = V2;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2317,7 +2328,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE3C7A0D260A6B9800D2F4FF /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */;
 			buildPhases = (
-				DE3C7A03260A6B9800D2F4FF /* Generate Apollo Client API */,
 				DE3C7A04260A6B9800D2F4FF /* Sources */,
 				DE3C7A06260A6B9800D2F4FF /* Frameworks */,
 				DE3C7A08260A6B9800D2F4FF /* Headers */,
@@ -2605,21 +2615,6 @@
 			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"StarWars\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE3C7A03260A6B9800D2F4FF /* Generate Apollo Client API */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Apollo Client API";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"AnimalKingdom\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2660,6 +2655,7 @@
 				9BC2D9D3233C6EF0007BD083 /* Basher.swift in Sources */,
 				9B8C3FB3248DA2FE00707B13 /* URL+Apollo.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
+				DE3C7B6C260A824900D2F4FF /* V2_CodeGenerator.swift in Sources */,
 				9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
 				9F62DFD02590710E00E6E808 /* GraphQLSource.swift in Sources */,
@@ -3511,7 +3507,7 @@
 			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = AnimalKingdomAPI/Info.plist;
+				INFOPLIST_FILE = Sources/AnimalKingdomAPI/Info.plist;
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3522,7 +3518,7 @@
 			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = AnimalKingdomAPI/Info.plist;
+				INFOPLIST_FILE = Sources/AnimalKingdomAPI/Info.plist;
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -3533,7 +3529,7 @@
 			baseConfigurationReference = 90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */;
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = AnimalKingdomAPI/Info.plist;
+				INFOPLIST_FILE = Sources/AnimalKingdomAPI/Info.plist;
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
