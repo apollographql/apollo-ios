@@ -7,7 +7,7 @@ import Foundation
 
 // MARK: - Transport Delegate
 
-public protocol WebSocketTransportDelegate: class {
+public protocol WebSocketTransportDelegate: AnyObject {
   func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
   func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
   func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
