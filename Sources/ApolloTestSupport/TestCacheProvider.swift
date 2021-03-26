@@ -4,7 +4,7 @@ import XCTest
 public typealias TearDownHandler = () throws -> ()
 public typealias TestDependency<Resource> = (Resource, TearDownHandler?)
 
-public protocol TestCacheProvider: class {
+public protocol TestCacheProvider: AnyObject {
   static func makeNormalizedCache(_ completionHandler: (Result<TestDependency<NormalizedCache>, Error>) -> ())
 }
 

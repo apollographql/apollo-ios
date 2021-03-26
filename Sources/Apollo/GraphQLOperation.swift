@@ -4,7 +4,7 @@ public enum GraphQLOperationType {
   case subscription
 }
 
-public protocol GraphQLOperation: class {
+public protocol GraphQLOperation: AnyObject {
   var operationType: GraphQLOperationType { get }
 
   var operationDefinition: String { get }
