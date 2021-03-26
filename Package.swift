@@ -113,6 +113,15 @@ let package = Package(
         "Info.plist"
       ]),
     .target(
+      name: "AnimalKingdomAPI",
+      dependencies: [
+        "Apollo",
+      ],
+      exclude: [
+        "Info.plist",
+        "graphql"
+      ]),
+    .target(
       name: "GitHubAPI",
       dependencies: [
         "Apollo",
