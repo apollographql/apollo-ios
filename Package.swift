@@ -115,7 +115,7 @@ let package = Package(
     .target(
       name: "AnimalKingdomAPI",
       dependencies: [
-        "Apollo",
+        "ApolloCore",
       ],
       exclude: [
         "Info.plist",
