@@ -2,8 +2,16 @@ import Foundation
 import JavaScriptCore
 
 public final class ApolloCodegenFrontend {
-  static let bundle = Bundle(for: ApolloCodegenFrontend.self)
-  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle", withExtension: "js")!
+  #if SWIFT_PACKAGE
+  private static let bundle = Bundle.module
+  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle",
+                                             withExtension: "js")!
+  #else
+  private static let bundle = Bundle(for: ApolloCodegenFrontend.self)
+  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle",
+                                             withExtension: "js",
+                                             subdirectory: "dist")!
+  #endif
   private static let librarySource = try! String.init(contentsOf: libraryURL)
   
   private let virtualMachine = JSVirtualMachine()
