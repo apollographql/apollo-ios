@@ -3,11 +3,15 @@ import JavaScriptCore
 
 public final class ApolloCodegenFrontend {
   #if SWIFT_PACKAGE
-  static let bundle = Bundle.module
+  private static let bundle = Bundle.module
+  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle",
+                                             withExtension: "js")!
   #else
-  static let bundle = Bundle(for: ApolloCodegenFrontend.self)
+  private static let bundle = Bundle(for: ApolloCodegenFrontend.self)
+  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle",
+                                             withExtension: "js",
+                                             subdirectory: "dist")!
   #endif
-  private static let libraryURL = bundle.url(forResource: "ApolloCodegenFrontend.bundle", withExtension: "js")!
   private static let librarySource = try! String.init(contentsOf: libraryURL)
   
   private let virtualMachine = JSVirtualMachine()
