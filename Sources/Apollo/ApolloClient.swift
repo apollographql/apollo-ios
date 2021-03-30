@@ -86,7 +86,7 @@ extension ApolloClient: ApolloClientProtocol {
   }
   
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
-                                                            cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                                            cachePolicy: CachePolicy = .default,
                                                             contextIdentifier: UUID? = nil,
                                                             queue: DispatchQueue = .main,
                                                             resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
@@ -99,7 +99,7 @@ extension ApolloClient: ApolloClientProtocol {
   }
 
   public func watch<Query: GraphQLQuery>(query: Query,
-                                         cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                         cachePolicy: CachePolicy = .default,
                                          callbackQueue: DispatchQueue = .main,
                                          resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query> {
     let watcher = GraphQLQueryWatcher(client: self,
