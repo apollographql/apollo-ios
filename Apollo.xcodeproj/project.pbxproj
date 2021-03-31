@@ -287,6 +287,9 @@
 		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
 		DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B154A261505450068D642 /* GraphQLMap.swift */; };
+		DE6B15AF26152BE10068D642 /* ApolloServerIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* ApolloServerIntegrationTests.swift */; };
+		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
+		DED45C182615308E0086EF63 /* TestServerURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C172615308E0086EF63 /* TestServerURLs.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -516,6 +519,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9B68353D2463481A00337AE6;
 			remoteInfo = ApolloCore;
+		};
+		DE6B15B226152BE10068D642 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC750431D2A532C00458D91;
+			remoteInfo = Apollo;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -889,7 +899,33 @@
 		DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLEnum.swift; sourceTree = "<group>"; };
 		DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalarTypes.swift; sourceTree = "<group>"; };
 		DE6B154A261505450068D642 /* GraphQLMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLMap.swift; sourceTree = "<group>"; };
+		DE6B15892615294F0068D642 /* UnitTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = UnitTestPlan.xctestplan; path = ApolloCacheDependentTests/UnitTestPlan.xctestplan; sourceTree = "<group>"; };
+		DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloServerIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE6B15AE26152BE10068D642 /* ApolloServerIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloServerIntegrationTests.swift; sourceTree = "<group>"; };
+		DE6B15B026152BE10068D642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ServerIntegrationTests.xcconfig"; sourceTree = "<group>"; };
+		DE6B15FA26152D210068D642 /* Workspace-Target-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Application.xcconfig"; sourceTree = "<group>"; };
+		DE6B15FB26152D210068D642 /* Workspace-Deployment-Targets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Deployment-Targets.xcconfig"; sourceTree = "<group>"; };
+		DE6B15FC26152D210068D642 /* Workspace-Analysis.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Analysis.xcconfig"; sourceTree = "<group>"; };
+		DE6B15FD26152D210068D642 /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
+		DE6B15FE26152D210068D642 /* Workspace-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Debug.xcconfig"; sourceTree = "<group>"; };
+		DE6B15FF26152D210068D642 /* Workspace-Universal-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Universal-Test.xcconfig"; sourceTree = "<group>"; };
+		DE6B160026152D210068D642 /* Workspace-Universal-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Universal-Framework.xcconfig"; sourceTree = "<group>"; };
+		DE6B160126152D210068D642 /* Workspace-Target-Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Test.xcconfig"; sourceTree = "<group>"; };
+		DE6B160226152D210068D642 /* Workspace-Code-Generation.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Code-Generation.xcconfig"; sourceTree = "<group>"; };
+		DE6B160326152D210068D642 /* Workspace-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Release.xcconfig"; sourceTree = "<group>"; };
+		DE6B160426152D210068D642 /* Project-Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Version.xcconfig"; sourceTree = "<group>"; };
+		DE6B160526152D210068D642 /* Workspace-Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Warnings.xcconfig"; sourceTree = "<group>"; };
+		DE6B160626152D210068D642 /* Workspace-Target-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Framework.xcconfig"; sourceTree = "<group>"; };
+		DE6B160726152D210068D642 /* Workspace-Search-Paths.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Search-Paths.xcconfig"; sourceTree = "<group>"; };
+		DE6B160826152D210068D642 /* Workspace-Universal-Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Universal-Target.xcconfig"; sourceTree = "<group>"; };
+		DE6B160926152D210068D642 /* Workspace-Linking.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Linking.xcconfig"; sourceTree = "<group>"; };
+		DE6B160A26152D210068D642 /* Workspace-Language.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Language.xcconfig"; sourceTree = "<group>"; };
+		DE6B160B26152D210068D642 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
+		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
+		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
+		DED45C172615308E0086EF63 /* TestServerURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerURLs.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -1040,12 +1076,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DE6B15A926152BE10068D642 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		90690D04224333DA00FC2E54 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				DE6B15F926152D210068D642 /* Shared */,
 				90690D05224333DA00FC2E54 /* Apollo-Project-Debug.xcconfig */,
 				90690D08224333DA00FC2E54 /* Apollo-Project-Performance-Testing.xcconfig */,
 				90690D07224333DA00FC2E54 /* Apollo-Project-Release.xcconfig */,
@@ -1061,6 +1106,7 @@
 				90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */,
 				90690D142243363D00FC2E54 /* Apollo-Target-TestHost-iOS.xcconfig */,
 				90690D0B2243345500FC2E54 /* Apollo-Target-Tests.xcconfig */,
+				DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */,
 				90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */,
 				9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */,
 				9B7BDAD923FDECB400ACD198 /* ApolloSQLite-Project-Debug.xcconfig */,
@@ -1706,6 +1752,7 @@
 				9B2DFBCA24E2016800ED3AE6 /* UploadAPI.framework */,
 				9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */,
 				DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */,
+				DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1815,10 +1862,12 @@
 		9FCE2CF41E6C20E000E34457 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				DE6B15892615294F0068D642 /* UnitTestPlan.xctestplan */,
 				9FC750521D2A532D00458D91 /* ApolloTests */,
 				9FA6ABBD1EC0A988000017BE /* ApolloCacheDependentTests */,
 				9F54C8B5255D760B0065AFD6 /* ApolloPerformanceTests */,
 				9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */,
+				DE6B15AD26152BE10068D642 /* ApolloServerIntegrationTests */,
 				9B7BDAD323FDEC9B00ACD198 /* ApolloSQLiteTests */,
 				9B7BDAEB23FDED9700ACD198 /* ApolloSQLiteTestSupport */,
 				9BCF0CD823FC9CA50031D2A2 /* ApolloTestSupport */,
@@ -1898,6 +1947,44 @@
 			);
 			path = CodegenCore;
 			sourceTree = "<group>";
+		};
+		DE6B15AD26152BE10068D642 /* ApolloServerIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE6B15AE26152BE10068D642 /* ApolloServerIntegrationTests.swift */,
+				DED45C172615308E0086EF63 /* TestServerURLs.swift */,
+				DE6B15B026152BE10068D642 /* Info.plist */,
+			);
+			path = ApolloServerIntegrationTests;
+			sourceTree = "<group>";
+		};
+		DE6B15F926152D210068D642 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				DE6B15FA26152D210068D642 /* Workspace-Target-Application.xcconfig */,
+				DE6B15FB26152D210068D642 /* Workspace-Deployment-Targets.xcconfig */,
+				DE6B15FC26152D210068D642 /* Workspace-Analysis.xcconfig */,
+				DE6B15FD26152D210068D642 /* Project-Release.xcconfig */,
+				DE6B15FE26152D210068D642 /* Workspace-Debug.xcconfig */,
+				DE6B15FF26152D210068D642 /* Workspace-Universal-Test.xcconfig */,
+				DE6B160026152D210068D642 /* Workspace-Universal-Framework.xcconfig */,
+				DE6B160126152D210068D642 /* Workspace-Target-Test.xcconfig */,
+				DE6B160226152D210068D642 /* Workspace-Code-Generation.xcconfig */,
+				DE6B160326152D210068D642 /* Workspace-Release.xcconfig */,
+				DE6B160426152D210068D642 /* Project-Version.xcconfig */,
+				DE6B160526152D210068D642 /* Workspace-Warnings.xcconfig */,
+				DE6B160626152D210068D642 /* Workspace-Target-Framework.xcconfig */,
+				DE6B160726152D210068D642 /* Workspace-Search-Paths.xcconfig */,
+				DE6B160826152D210068D642 /* Workspace-Universal-Target.xcconfig */,
+				DE6B160926152D210068D642 /* Workspace-Linking.xcconfig */,
+				DE6B160A26152D210068D642 /* Workspace-Language.xcconfig */,
+				DE6B160B26152D210068D642 /* Project-Debug.xcconfig */,
+				DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */,
+				DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */,
+			);
+			name = Shared;
+			path = Configuration/Shared;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -2336,6 +2423,24 @@
 			productReference = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE6B15B726152BE10068D642 /* Build configuration list for PBXNativeTarget "ApolloServerIntegrationTests" */;
+			buildPhases = (
+				DE6B15A826152BE10068D642 /* Sources */,
+				DE6B15A926152BE10068D642 /* Frameworks */,
+				DE6B15AA26152BE10068D642 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE6B15B326152BE10068D642 /* PBXTargetDependency */,
+			);
+			name = ApolloServerIntegrationTests;
+			productName = ApolloServerIntegrationTests;
+			productReference = DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2408,6 +2513,9 @@
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
+					DE6B15AB26152BE10068D642 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 				};
 			};
 			buildConfigurationList = 9FC7503E1D2A532C00458D91 /* Build configuration list for PBXProject "Apollo" */;
@@ -2446,6 +2554,7 @@
 				9B7BDAB023FDEBA800ACD198 /* ApolloSQLiteTests */,
 				9B7BDA7C23FDE90400ACD198 /* ApolloWebSocket */,
 				9B7BDA6E23FDE8F200ACD198 /* ApolloWebSocketTests */,
+				DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2554,6 +2663,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE6B15AA26152BE10068D642 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2866,6 +2982,7 @@
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
 				9FC9A9C51E2D6CE70023C4D5 /* GraphQLSelectionSet.swift in Sources */,
 				DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */,
+				DED45C182615308E0086EF63 /* TestServerURLs.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9B9BBAF524DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
@@ -2960,6 +3077,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE6B15A826152BE10068D642 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE6B15AF26152BE10068D642 /* ApolloServerIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3133,6 +3258,11 @@
 			isa = PBXTargetDependency;
 			target = 9B68353D2463481A00337AE6 /* ApolloCore */;
 			targetProxy = DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */;
+		};
+		DE6B15B326152BE10068D642 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FC750431D2A532C00458D91 /* Apollo */;
+			targetProxy = DE6B15B226152BE10068D642 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3515,6 +3645,27 @@
 			};
 			name = PerformanceTesting;
 		};
+		DE6B15B426152BE10068D642 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		DE6B15B526152BE10068D642 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		DE6B15B626152BE10068D642 /* PerformanceTesting */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
+			buildSettings = {
+			};
+			name = PerformanceTesting;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3694,6 +3845,16 @@
 				DE3C7A0E260A6B9800D2F4FF /* Debug */,
 				DE3C7A0F260A6B9800D2F4FF /* Release */,
 				DE3C7A10260A6B9800D2F4FF /* PerformanceTesting */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE6B15B726152BE10068D642 /* Build configuration list for PBXNativeTarget "ApolloServerIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE6B15B426152BE10068D642 /* Debug */,
+				DE6B15B526152BE10068D642 /* Release */,
+				DE6B15B626152BE10068D642 /* PerformanceTesting */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
