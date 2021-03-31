@@ -2,6 +2,8 @@ import Foundation
 import ApolloTestSupport
 import ApolloSQLiteTestSupport
 
+// These test cases inherit all tests from their superclasses.
+
 class SQLiteFetchQueryTests: FetchQueryTests {
   override var cacheType: TestCacheProvider.Type {
     SQLiteTestCacheProvider.self
