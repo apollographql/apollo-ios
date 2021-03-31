@@ -347,6 +347,107 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
   }
 }
 
+public final class CreateReviewWithNullFieldMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation CreateReviewWithNullField {
+      createReview(episode: JEDI, review: {stars: 10, commentary: null}) {
+        __typename
+        stars
+        commentary
+      }
+    }
+    """
+
+  public let operationName: String = "CreateReviewWithNullField"
+
+  public let operationIdentifier: String? = "a9600d176cd7e4671b8689f1d01fe79ea896932bfafb8a925af673f0e4111828"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("createReview", arguments: ["episode": "JEDI", "review": ["stars": 10, "commentary": nil]], type: .object(CreateReview.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(createReview: CreateReview? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "createReview": createReview.flatMap { (value: CreateReview) -> ResultMap in value.resultMap }])
+    }
+
+    public var createReview: CreateReview? {
+      get {
+        return (resultMap["createReview"] as? ResultMap).flatMap { CreateReview(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "createReview")
+      }
+    }
+
+    public struct CreateReview: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Review"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("stars", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("commentary", type: .scalar(String.self)),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(stars: Int, commentary: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Review", "stars": stars, "commentary": commentary])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The number of stars this review gave, 1-5
+      public var stars: Int {
+        get {
+          return resultMap["stars"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "stars")
+        }
+      }
+
+      /// Comment about the movie
+      public var commentary: String? {
+        get {
+          return resultMap["commentary"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "commentary")
+        }
+      }
+    }
+  }
+}
+
 public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
