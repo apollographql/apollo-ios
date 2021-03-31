@@ -86,15 +86,6 @@ let package = Package(
         "Info.plist"
       ]),
     .target(
-      name: "ApolloSQLiteTestSupport",
-      dependencies: [
-        "ApolloSQLite",
-        "ApolloTestSupport"
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
-    .target(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo",
@@ -103,101 +94,6 @@ let package = Package(
       ],
       exclude: [
         "Info.plist"
-      ]),
-    .target(
-      name: "ApolloTestSupport",
-      dependencies: [
-        "Apollo",
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
-    .target(
-      name: "AnimalKingdomAPI",
-      dependencies: [
-        "ApolloCore",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
-      ]),
-    .target(
-      name: "GitHubAPI",
-      dependencies: [
-        "Apollo",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
-      ]),
-    .target(
-      name: "StarWarsAPI",
-      dependencies: [
-        "Apollo",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
-      ]),
-    .target(
-      name: "UploadAPI",
-      dependencies: [
-        "Apollo",
-      ],
-      exclude: [
-        "Info.plist",
-        "graphql"
-      ]),
-    .testTarget(
-      name: "ApolloTests",
-      dependencies: [
-        "ApolloTestSupport",
-        "StarWarsAPI",
-        "UploadAPI"
-      ],
-      exclude: [
-        "Info.plist"
-      ],
-      resources: [
-        .copy("Resources")
-      ]),
-    .testTarget(
-      name: "ApolloCacheDependentTests",
-      dependencies: [
-        "ApolloSQLiteTestSupport",
-        "StarWarsAPI",
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
-    .testTarget(
-      name: "ApolloCodegenTests",
-      dependencies: [
-        "ApolloTestSupport",
-        "ApolloCodegenLib"
-      ],
-      exclude: [
-        "Info.plist",
-        "scripts directory"
-      ]),
-    .testTarget(
-      name: "ApolloSQLiteTests",
-      dependencies: [
-        "ApolloSQLiteTestSupport",
-        "StarWarsAPI"
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
-    .testTarget(
-      name: "ApolloWebsocketTests",
-      dependencies: [
-        "ApolloWebSocket",
-        "ApolloTestSupport",
-        "StarWarsAPI",
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
+      ])
     ]
 )
