@@ -59,18 +59,18 @@ public enum JSONValue: Codable, Equatable {
     
     switch self {
     case .dictionary(let dictionary):
-        guard let directValue = dictionary[currentKey] else {
-            throw JSONValueError.noValueForKey(currentKey)
-        }
-        
-        let remainingKeys = Array(keyPath.dropFirst())
-        guard !remainingKeys.isEmpty else {
-            return directValue
-        }
-        
-        return try directValue.valueForKeyPath(remainingKeys)
+      guard let directValue = dictionary[currentKey] else {
+        throw JSONValueError.noValueForKey(currentKey)
+      }
+
+      let remainingKeys = Array(keyPath.dropFirst())
+      guard !remainingKeys.isEmpty else {
+        return directValue
+      }
+
+      return try directValue.valueForKeyPath(remainingKeys)
     default:
-        throw JSONValueError.notADictionary
+      throw JSONValueError.notADictionary
     }
   }
   

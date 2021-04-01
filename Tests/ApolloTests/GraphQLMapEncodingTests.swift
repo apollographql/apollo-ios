@@ -3,9 +3,13 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
-class InputValueEncodingTests: XCTestCase {
+class GraphQLMapEncodingTests: XCTestCase {
+  private struct MockGraphQLMapConvertible: GraphQLMapConvertible {
+    let graphQLMap: GraphQLMap
+  }
   private func serializeAndDeserialize(_ map: GraphQLMap) -> NSDictionary {
-    let data = try! JSONSerializationFormat.serialize(value: map.withNilValuesRemoved)
+    let input = MockGraphQLMapConvertible(graphQLMap: map)
+    let data = try! JSONSerializationFormat.serialize(value: input.jsonValue as! [String: JSONEncodable?])
     return try! JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
   }
   

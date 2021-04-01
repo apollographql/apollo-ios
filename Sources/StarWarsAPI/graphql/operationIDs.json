@@ -7,6 +7,10 @@
     "name": "CreateAwesomeReview",
     "source": "mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome!\"}) {\n    __typename\n    stars\n    commentary\n  }\n}"
   },
+  "a9600d176cd7e4671b8689f1d01fe79ea896932bfafb8a925af673f0e4111828": {
+    "name": "CreateReviewWithNullField",
+    "source": "mutation CreateReviewWithNullField {\n  createReview(episode: JEDI, review: {stars: 10, commentary: null}) {\n    __typename\n    stars\n    commentary\n  }\n}"
+  },
   "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556": {
     "name": "HeroAndFriendsNames",
     "source": "query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"

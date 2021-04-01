@@ -8,7 +8,7 @@ public protocol JSONDecodable {
   init(jsonValue value: JSONValue) throws
 }
 
-public protocol JSONEncodable: GraphQLInputValue {
+public protocol JSONEncodable {
   var jsonValue: JSONValue { get }
 }
 

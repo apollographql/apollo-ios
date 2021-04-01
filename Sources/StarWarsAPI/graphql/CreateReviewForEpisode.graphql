@@ -11,3 +11,10 @@ mutation CreateAwesomeReview {
     commentary
   }
 }
+
+mutation CreateReviewWithNullField {
+  createReview(episode: JEDI, review: { stars: 10, commentary: null }) {
+    stars
+    commentary
+  }
+}
