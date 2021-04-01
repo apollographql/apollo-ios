@@ -228,7 +228,7 @@ public class WebSocketTransport {
       self.acked = false
 
       if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
-        write(str, force:true)
+        self.write(str, force:true)
       }
     }
   }
