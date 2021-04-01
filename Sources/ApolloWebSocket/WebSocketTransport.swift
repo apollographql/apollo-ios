@@ -224,12 +224,13 @@ public class WebSocketTransport {
   }
 
   public func initServer() {
-    self.acked = false
+    processingQueue.async {
+      self.acked = false
 
-    if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
-      write(str, force:true)
+      if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
+        write(str, force:true)
+      }
     }
-
   }
 
   public func closeConnection() {
