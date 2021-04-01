@@ -16,30 +16,6 @@ class SQLiteLoadQueryFromStoreTests: LoadQueryFromStoreTests {
   }
 }
 
-class SQLiteStarWarsServerCachingRoundtripTests: StarWarsServerCachingRoundtripTests {
-  override var cacheType: TestCacheProvider.Type {
-    SQLiteTestCacheProvider.self
-  }
-}
-
-class SQLiteStarWarsServerAPQsGetMethodTests: StarWarsServerAPQsGetMethodTests {
-  override var cacheType: TestCacheProvider.Type {
-    SQLiteTestCacheProvider.self
-  }
-}
-
-class SQLiteStarWarsServerAPQsTests: StarWarsServerAPQsTests {
-  override var cacheType: TestCacheProvider.Type {
-    SQLiteTestCacheProvider.self
-  }
-}
-
-class SQLiteStarWarsServerTests: StarWarsServerTests {
-  override var cacheType: TestCacheProvider.Type {
-    SQLiteTestCacheProvider.self
-  }
-}
-
 class SQLiteReadWriteFromStoreTests: ReadWriteFromStoreTests {
   override var cacheType: TestCacheProvider.Type {
     SQLiteTestCacheProvider.self

@@ -1,7 +1,14 @@
 import XCTest
 @testable import Apollo
 import ApolloTestSupport
+import ApolloSQLiteTestSupport
 import StarWarsAPI
+
+class SQLiteStarWarsServerCachingRoundtripTests: StarWarsServerCachingRoundtripTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
 
 class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   var cacheType: TestCacheProvider.Type {

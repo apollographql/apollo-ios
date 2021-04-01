@@ -1,54 +1,8 @@
 import XCTest
 @testable import Apollo
 import ApolloTestSupport
+import ApolloSQLiteTestSupport
 import StarWarsAPI
-
-
-protocol TestConfig {
-  func network(store: ApolloStore) -> NetworkTransport
-}
-
-class DefaultConfig: TestConfig {
-  
-  func transport(with store: ApolloStore) -> NetworkTransport {
-    let provider = LegacyInterceptorProvider(store: store)
-    return RequestChainNetworkTransport(interceptorProvider: provider,
-                                        endpointURL: TestURL.starWarsServer.url)
-  }
-  
-  func network(store: ApolloStore) -> NetworkTransport {
-    return transport(with: store)
-  }
-}
-
-class APQsConfig: TestConfig {
-  
-  func transport(with store: ApolloStore) -> NetworkTransport {
-    let provider = LegacyInterceptorProvider(store: store)
-    return RequestChainNetworkTransport(interceptorProvider: provider,
-                                        endpointURL: TestURL.starWarsServer.url,
-                                        autoPersistQueries: true)
-  }
-  
-  func network(store: ApolloStore) -> NetworkTransport {
-    return transport(with: store)
-  }
-}
-
-class APQsWithGetMethodConfig: TestConfig {
-  
-  func transport(with store: ApolloStore) -> NetworkTransport {
-    let provider = LegacyInterceptorProvider(store: store)
-    return RequestChainNetworkTransport(interceptorProvider: provider,
-                                        endpointURL: TestURL.starWarsServer.url,
-                                        autoPersistQueries: true,
-                                        useGETForPersistedQueryRetry: true)
-  }
-  
-  func network(store: ApolloStore) -> NetworkTransport {
-    return transport(with: store)
-  }
-}
 
 class StarWarsServerAPQsGetMethodTests: StarWarsServerTests {
   override func setUp() {
@@ -64,8 +18,25 @@ class StarWarsServerAPQsTests: StarWarsServerTests {
   }
 }
 
+class SQLiteStarWarsServerAPQsGetMethodTests: StarWarsServerAPQsGetMethodTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
+class SQLiteStarWarsServerAPQsTests: StarWarsServerAPQsTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
+class SQLiteStarWarsServerTests: StarWarsServerTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
 class StarWarsServerTests: XCTestCase, CacheDependentTesting {
-  // MARK: Queries
   var config: TestConfig!
   
   var cacheType: TestCacheProvider.Type {
@@ -94,6 +65,8 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
     
     try super.tearDownWithError()
   }
+
+  // MARK: Queries
   
   func testHeroNameQuery() {
     fetch(query: HeroNameQuery()) { data in
