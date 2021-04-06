@@ -6,7 +6,7 @@ import StarWarsAPI
 
 class UploadTests: XCTestCase {
 
-  let uploadClientURL = TestURL.uploadServer.url
+  let uploadClientURL = TestServerURL.uploadServer.url
 
   lazy var client: ApolloClient = {
     let store = ApolloStore()

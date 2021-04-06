@@ -1,5 +1,6 @@
 import Apollo
 import XCTest
+import StarWarsAPI
 
 /// Tests that the `LegacyInterceptorProvider` configures an `ApolloClient` that successfully
 /// communicates with an external Apollo Server.

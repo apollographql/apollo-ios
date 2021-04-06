@@ -21,7 +21,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     self.connectionStartedExpectation = self.expectation(description: "Web socket connected")
     
     WebSocketTransport.provider = ApolloWebSocket.self
-    webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
+    webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
     webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
 
@@ -392,7 +392,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   
   func testConcurrentConnectAndCloseConnection() {
     WebSocketTransport.provider = MockWebSocket.self
-    let webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
+    let webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
     let expectation = self.expectation(description: "Connection closed")
     expectation.expectedFulfillmentCount = 2
     
@@ -419,7 +419,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     let store = ApolloStore()
     let interceptorProvider = LegacyInterceptorProvider(store: store)
     let alternateTransport = RequestChainNetworkTransport(interceptorProvider: interceptorProvider,
-                                                          endpointURL: TestURL.starWarsServer.url)
+                                                          endpointURL: TestServerURL.starWarsServer.url)
     let alternateClient = ApolloClient(networkTransport: alternateTransport, store: store)
     
     func sendReview() {

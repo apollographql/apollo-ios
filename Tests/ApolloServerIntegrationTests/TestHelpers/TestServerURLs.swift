@@ -1,4 +1,6 @@
 /// Local URLs for servers used in integration testing
+import Foundation
+
 public enum TestServerURL: String {
   case mockServer = "http://localhost/dummy_url"
   case starWarsServer = "http://localhost:8080/graphql"

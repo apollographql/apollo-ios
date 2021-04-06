@@ -1,7 +1,6 @@
 import XCTest
 @testable import Apollo
 import ApolloTestSupport
-import ApolloSQLiteTestSupport
 import StarWarsAPI
 
 class SQLiteStarWarsServerCachingRoundtripTests: StarWarsServerCachingRoundtripTests {
@@ -28,7 +27,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     store = ApolloStore(cache: cache)
     let provider = LegacyInterceptorProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: TestURL.starWarsServer.url)
+                                               endpointURL: TestServerURL.starWarsServer.url)
     
     client = ApolloClient(networkTransport: network, store: store)
   }

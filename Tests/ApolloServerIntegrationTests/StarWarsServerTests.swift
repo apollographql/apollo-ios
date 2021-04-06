@@ -1,7 +1,6 @@
 import XCTest
 @testable import Apollo
 import ApolloTestSupport
-import ApolloSQLiteTestSupport
 import StarWarsAPI
 
 class StarWarsServerAPQsGetMethodTests: StarWarsServerTests {

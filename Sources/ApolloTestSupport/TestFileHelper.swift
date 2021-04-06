@@ -9,9 +9,9 @@
 import Foundation
 import Apollo
 
-struct TestFileHelper {
+public struct TestFileHelper {
   
-  static func testParentFolder(for file: StaticString = #file) -> URL {
+  public static func testParentFolder(for file: StaticString = #file) -> URL {
     let fileAsString = file.withUTF8Buffer {
         String(decoding: $0, as: UTF8.self)
     }
@@ -19,19 +19,19 @@ struct TestFileHelper {
     return url.deletingLastPathComponent()
   }
   
-  static func uploadServerFolder(from file: StaticString = #file) -> URL {
+  public static func uploadServerFolder(from file: StaticString = #file) -> URL {
     self.testParentFolder(for: file)
       .deletingLastPathComponent() // test root
       .deletingLastPathComponent() // source root
       .appendingPathComponent("SimpleUploadServer")
   }
   
-  static func uploadsFolder(from file: StaticString = #file) -> URL {
+  public static func uploadsFolder(from file: StaticString = #file) -> URL {
     self.uploadServerFolder(from: file)
       .appendingPathComponent("uploads")
   }
   
-  static func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
+  public static func fileURLForFile(named name: String, extension fileExtension: String) -> URL {
     return self.testParentFolder()
         .appendingPathComponent("Resources")
         .appendingPathComponent(name)

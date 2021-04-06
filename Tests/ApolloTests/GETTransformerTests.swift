@@ -13,7 +13,7 @@ import StarWarsAPI
 
 class GETTransformerTests: XCTestCase {
   private let requestBodyCreator = ApolloRequestBodyCreator()
-  private lazy var url = TestURL.starWarsServer.url
+  private lazy var url = TestURL.mockPort8080.url
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)
