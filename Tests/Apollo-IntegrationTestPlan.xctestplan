@@ -1,10 +1,12 @@
 {
   "configurations" : [
     {
-      "id" : "9CB34656-EFF8-410B-8F79-EF3152F0BDC6",
+      "id" : "8F157DCD-D977-4EAA-80AD-D947EF785D9D",
       "name" : "Configuration 1",
       "options" : {
+        "environmentVariableEntries" : [
 
+        ]
       }
     }
   ],
@@ -15,8 +17,8 @@
     {
       "target" : {
         "containerPath" : "container:Apollo.xcodeproj",
-        "identifier" : "9FC7504D1D2A532D00458D91",
-        "name" : "ApolloTests"
+        "identifier" : "DE6B15AB26152BE10068D642",
+        "name" : "ApolloServerIntegrationTests"
       }
     }
   ],

@@ -1,6 +1,5 @@
 import Foundation
 import ApolloTestSupport
-import ApolloSQLiteTestSupport
 
 // These test cases inherit all tests from their superclasses.
 

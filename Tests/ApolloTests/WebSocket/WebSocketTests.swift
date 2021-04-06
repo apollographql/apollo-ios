@@ -13,7 +13,7 @@ extension WebSocketTransport {
   }
 }
 
-class MockWebSocketTests: XCTestCase {
+class WebSocketTests: XCTestCase {
   var networkTransport: WebSocketTransport!
   var client: ApolloClient!
   

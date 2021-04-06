@@ -2,7 +2,6 @@ import XCTest
 @testable import Apollo
 @testable import ApolloSQLite
 import ApolloTestSupport
-import ApolloSQLiteTestSupport
 import StarWarsAPI
 import SQLite
 
