@@ -1051,9 +1051,9 @@
 		9B2061162591B3550020D1E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9B2061172591B3550020D1E0 /* c.txt */,
-				9B2061182591B3550020D1E0 /* b.txt */,
 				9B2061192591B3550020D1E0 /* a.txt */,
+				9B2061182591B3550020D1E0 /* b.txt */,
+				9B2061172591B3550020D1E0 /* c.txt */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2505,7 +2505,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"GitHub\"\n";
+			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run --build-path \"./.build-GitHub\" Codegen -t \"GitHub\"\n";
 		};
 		9FCE2D061E6C251100E34457 /* Generate Apollo Client API */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2519,7 +2519,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run Codegen -t \"StarWars\"\n";
+			shellScript = "cd \"${SRCROOT}/SwiftScripts\"\nxcrun -sdk macosx swift run --build-path \"./.build-StarWars\" Codegen -t \"StarWars\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
