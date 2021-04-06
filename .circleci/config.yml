@@ -182,12 +182,6 @@ workflows:
             - Apollo iOS << pipeline.parameters.ios_current_version >>
             - Apollo iOS << pipeline.parameters.ios_previous_version >>
             - Apollo tvOS << pipeline.parameters.tvos_version >>
-            - ApolloSQLite macOS << pipeline.parameters.macos_version >>
-            - ApolloSQLite iOS << pipeline.parameters.ios_current_version >>
-            - ApolloSQLite iOS << pipeline.parameters.ios_previous_version >>
-            - ApolloWebSocket macOS << pipeline.parameters.macos_version >>
-            - ApolloWebSocket iOS << pipeline.parameters.ios_current_version >>
-            - ApolloWebSocket iOS << pipeline.parameters.ios_previous_version >>
             - Swift Code Generation
           filters:
             # Only build semver tags
