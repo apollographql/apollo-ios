@@ -520,7 +520,6 @@
 		90690D142243363D00FC2E54 /* Apollo-Target-TestHost-iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestHost-iOS.xcconfig"; sourceTree = "<group>"; };
 		90690D2122433C1900FC2E54 /* Apollo-Target-StarWarsAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-StarWarsAPI.xcconfig"; sourceTree = "<group>"; };
 		90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-GitHubAPI.xcconfig"; sourceTree = "<group>"; };
-		90690D2322433C5900FC2E54 /* Apollo-Target-CacheDependentTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-CacheDependentTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		9B0E4717240AF6D70093BDA7 /* ASTVariableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTVariableType.swift; sourceTree = "<group>"; };
@@ -660,7 +659,6 @@
 		9B7BDA9823FDE94C00ACD198 /* ApolloWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloWebSocket.swift; sourceTree = "<group>"; };
 		9B7BDA9923FDE94C00ACD198 /* WebSocketTransport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketTransport.swift; sourceTree = "<group>"; };
 		9B7BDA9A23FDE94C00ACD198 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B7BDAA223FDE98B00ACD198 /* ApolloWebSocket-Target-Tests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Target-Tests.xcconfig"; sourceTree = "<group>"; };
 		9B7BDAA323FDE98C00ACD198 /* ApolloWebSocket-Project-Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Project-Release.xcconfig"; sourceTree = "<group>"; };
 		9B7BDAA423FDE98C00ACD198 /* ApolloWebSocket-Target-Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Target-Framework.xcconfig"; sourceTree = "<group>"; };
 		9B7BDAA523FDE98C00ACD198 /* ApolloWebSocket-Project-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "ApolloWebSocket-Project-Debug.xcconfig"; sourceTree = "<group>"; };
@@ -671,8 +669,6 @@
 		9B7BDAD423FDEC9B00ACD198 /* CachePersistenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachePersistenceTests.swift; sourceTree = "<group>"; };
 		9B7BDAD823FDECB300ACD198 /* ApolloSQLite-Target-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloSQLite-Target-Framework.xcconfig"; sourceTree = "<group>"; };
 		9B7BDAD923FDECB400ACD198 /* ApolloSQLite-Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloSQLite-Project-Debug.xcconfig"; sourceTree = "<group>"; };
-		9B7BDADA23FDECB400ACD198 /* ApolloSQLite-Target-Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloSQLite-Target-Tests.xcconfig"; sourceTree = "<group>"; };
-		9B7BDADB23FDECB400ACD198 /* ApolloSQLite-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloSQLite-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		9B7BDADC23FDECB400ACD198 /* ApolloSQLite-Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "ApolloSQLite-Project-Release.xcconfig"; sourceTree = "<group>"; };
 		9B7BDAEC23FDED9700ACD198 /* SQLiteTestCacheProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteTestCacheProvider.swift; sourceTree = "<group>"; };
 		9B8110A723A1995D00688AC4 /* .keep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .keep; sourceTree = "<group>"; };
@@ -1016,7 +1012,6 @@
 				9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */,
 				9B68354A2463498D00337AE6 /* Apollo-Target-ApolloCore.xcconfig */,
 				DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */,
-				90690D2322433C5900FC2E54 /* Apollo-Target-CacheDependentTests.xcconfig */,
 				9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */,
 				90690D06224333DA00FC2E54 /* Apollo-Target-Framework.xcconfig */,
 				90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */,
@@ -1030,13 +1025,10 @@
 				9B7BDAD923FDECB400ACD198 /* ApolloSQLite-Project-Debug.xcconfig */,
 				9B7BDADC23FDECB400ACD198 /* ApolloSQLite-Project-Release.xcconfig */,
 				9B7BDAD823FDECB300ACD198 /* ApolloSQLite-Target-Framework.xcconfig */,
-				9B7BDADA23FDECB400ACD198 /* ApolloSQLite-Target-Tests.xcconfig */,
 				9B9BBB1624DB74720021C30F /* Apollo-Target-UploadAPI.xcconfig */,
-				9B7BDADB23FDECB400ACD198 /* ApolloSQLite-Target-TestSupport.xcconfig */,
 				9B7BDAA523FDE98C00ACD198 /* ApolloWebSocket-Project-Debug.xcconfig */,
 				9B7BDAA323FDE98C00ACD198 /* ApolloWebSocket-Project-Release.xcconfig */,
 				9B7BDAA423FDE98C00ACD198 /* ApolloWebSocket-Target-Framework.xcconfig */,
-				9B7BDAA223FDE98B00ACD198 /* ApolloWebSocket-Target-Tests.xcconfig */,
 			);
 			name = Configuration;
 			path = Configuration/Apollo;

@@ -49,14 +49,24 @@ public final class MockURLSessionClient: URLSessionClient {
         completion(.success((data, response)))
       }
     }
-    
-  
-    let mockTask = URLSessionDataTaskMock()
+
+    let mockTaskType: URLSessionDataTaskMockProtocol.Type = URLSessionDataTaskMock.self
+    let mockTask = mockTaskType.init() as! URLSessionDataTaskMock
     return mockTask
   }
 }
 
-private final class URLSessionDataTaskMock: URLSessionDataTask {
+protocol URLSessionDataTaskMockProtocol {
+  init()
+}
+
+private final class URLSessionDataTaskMock: URLSessionDataTask, URLSessionDataTaskMockProtocol{
+
+  @available(macOS, deprecated: 10.15)
+  override init() {
+    super.init()
+  }
+
   override func resume() {
     // No-op
   }
