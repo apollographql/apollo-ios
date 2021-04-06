@@ -66,6 +66,9 @@
          <TestPlanReference
             reference = "container:Tests/Apollo-PerformanceTestPlan.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:Tests/Apollo-CITestPlan.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
@@ -77,42 +80,6 @@
                BlueprintName = "ApolloTests"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FA6ABBB1EC0A988000017BE"
-               BuildableName = "ApolloCacheDependentTests.xctest"
-               BlueprintName = "ApolloCacheDependentTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "SQLiteFetchQueryTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteLoadQueryFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteReadWriteFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerAPQsGetMethodTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerAPQsTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerCachingRoundtripTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteWatchQueryTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

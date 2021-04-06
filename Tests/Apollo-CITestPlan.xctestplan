@@ -15,8 +15,8 @@
     {
       "target" : {
         "containerPath" : "container:Apollo.xcodeproj",
-        "identifier" : "9BAEEBFB234BB8FD00808306",
-        "name" : "ApolloCodegenTests"
+        "identifier" : "9FC7504D1D2A532D00458D91",
+        "name" : "ApolloTests"
       }
     },
     {
@@ -31,13 +31,6 @@
         "containerPath" : "container:Apollo.xcodeproj",
         "identifier" : "DE6B15AB26152BE10068D642",
         "name" : "ApolloServerIntegrationTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Apollo.xcodeproj",
-        "identifier" : "9FC7504D1D2A532D00458D91",
-        "name" : "ApolloTests"
       }
     }
   ],
