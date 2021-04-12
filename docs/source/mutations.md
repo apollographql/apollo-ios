@@ -127,7 +127,7 @@ If you wanted to use this to upload a file called `a.txt`, it would look somethi
 guard
   let fileURL = Bundle.main.url(forResource: "a", 
                                 withExtension: "txt"),
-  let file = GraphQLFile(fieldName: "file",   
+  let file = GraphQLFile(fieldName: "file", // Must be the name of the field the file is being uploaded to
                          originalName: "a.txt", 
                          mimeType: "text/plain", // <-defaults to "application/octet-stream"
                          fileURL: fileURL) else {
