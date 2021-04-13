@@ -18,7 +18,7 @@ parameters:
     default: "10.15"
   macos_sdk: # The full SDK string to use for macOS builds
     type: string
-    default: "macosx"
+    default: "macosx11.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
     default: "14.0"
@@ -60,10 +60,10 @@ commands:
           command: sudo chmod -R +rwx SimpleUploadServer
           name: Adjust permissions for simple upload server folder
       - run:
-          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}"
           name: Clean and build for testing
       - run:
-          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
+          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}"
           name: Run tests
       - save-xcodebuild-artifacts
       - save_cache:
