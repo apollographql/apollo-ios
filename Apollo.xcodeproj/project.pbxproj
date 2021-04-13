@@ -250,6 +250,7 @@
 		DE3C7B1B260A6FCA00D2F4FF /* ScalarTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */; };
 		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
+		DE4B66EA26264F6C00AE90A9 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		DE674D9D261CEEE4000E8FC8 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
 		DE674D9E261CEEE4000E8FC8 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
 		DE674D9F261CEEE4000E8FC8 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
@@ -313,13 +314,6 @@
 			remoteGlobalIDString = 9B68353D2463481A00337AE6;
 			remoteInfo = ApolloCore;
 		};
-		9B68354C24634A2000337AE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B68353D2463481A00337AE6;
-			remoteInfo = ApolloCore;
-		};
 		9B7BDAF723FDEE8400ACD198 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -347,13 +341,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9B7B6F46233C26D100F32205;
 			remoteInfo = ApolloCodegenLib;
-		};
-		9BEEDC2C24EB6419001D1294 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9F8A95771EC0FC1200304A2D;
-			remoteInfo = ApolloTestSupport;
 		};
 		9F54C8BA255D760B0065AFD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -431,6 +418,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9B68353D2463481A00337AE6;
 			remoteInfo = ApolloCore;
+		};
+		DE4B66E826264F6900AE90A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F8A95771EC0FC1200304A2D;
+			remoteInfo = ApolloTestSupport;
 		};
 		DE6B15B226152BE10068D642 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -926,6 +920,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE4B66EA26264F6C00AE90A9 /* ApolloTestSupport.framework in Frameworks */,
 				9FDE0752258F3BC200DC0CA5 /* StarWarsAPI.framework in Frameworks */,
 				9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */,
 			);
@@ -2101,9 +2096,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				DE4B66E926264F6900AE90A9 /* PBXTargetDependency */,
 				9FDE0742258F3B6100DC0CA5 /* PBXTargetDependency */,
-				9BEEDC2D24EB6419001D1294 /* PBXTargetDependency */,
-				9B68354D24634A2000337AE6 /* PBXTargetDependency */,
 				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
 			);
 			name = ApolloCodegenTests;
@@ -2888,11 +2882,6 @@
 			target = 9B68353D2463481A00337AE6 /* ApolloCore */;
 			targetProxy = 9B683548246348CB00337AE6 /* PBXContainerItemProxy */;
 		};
-		9B68354D24634A2000337AE6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B68353D2463481A00337AE6 /* ApolloCore */;
-			targetProxy = 9B68354C24634A2000337AE6 /* PBXContainerItemProxy */;
-		};
 		9B7BDAF823FDEE8400ACD198 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9FC750431D2A532C00458D91 /* Apollo */;
@@ -2920,11 +2909,6 @@
 			isa = PBXTargetDependency;
 			target = 9B7B6F46233C26D100F32205 /* ApolloCodegenLib */;
 			targetProxy = 9BAEEC02234BB8FD00808306 /* PBXContainerItemProxy */;
-		};
-		9BEEDC2D24EB6419001D1294 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9F8A95771EC0FC1200304A2D /* ApolloTestSupport */;
-			targetProxy = 9BEEDC2C24EB6419001D1294 /* PBXContainerItemProxy */;
 		};
 		9F54C8BB255D760B0065AFD6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2980,6 +2964,11 @@
 			isa = PBXTargetDependency;
 			target = 9B68353D2463481A00337AE6 /* ApolloCore */;
 			targetProxy = DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */;
+		};
+		DE4B66E926264F6900AE90A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9F8A95771EC0FC1200304A2D /* ApolloTestSupport */;
+			targetProxy = DE4B66E826264F6900AE90A9 /* PBXContainerItemProxy */;
 		};
 		DE6B15B326152BE10068D642 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
