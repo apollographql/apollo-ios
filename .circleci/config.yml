@@ -21,7 +21,7 @@ parameters:
     default: "macosx11.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "14.0"
+    default: "14.3"
   tvos_sdk:
     type: string
     default: "appletvsimulator14.3"
