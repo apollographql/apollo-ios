@@ -48,22 +48,10 @@
       </CodeCoverageTargets>
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/Apollo-UnitTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7BDA6E23FDE8F200ACD198"
-               BuildableName = "ApolloWebSocketTests.xctest"
-               BlueprintName = "ApolloWebSocketTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

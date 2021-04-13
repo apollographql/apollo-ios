@@ -84,58 +84,10 @@
       </CodeCoverageTargets>
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/Apollo-UnitTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FC7504D1D2A532D00458D91"
-               BuildableName = "ApolloTests.xctest"
-               BlueprintName = "ApolloTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FA6ABBB1EC0A988000017BE"
-               BuildableName = "ApolloCacheDependentTests.xctest"
-               BlueprintName = "ApolloCacheDependentTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "SQLiteFetchQueryTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteLoadQueryFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteReadWriteFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerAPQsGetMethodTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerAPQsTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerCachingRoundtripTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteStarWarsServerTests">
-               </Test>
-               <Test
-                  Identifier = "SQLiteWatchQueryTests">
-               </Test>
-            </SkippedTests>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

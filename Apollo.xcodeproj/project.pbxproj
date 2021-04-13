@@ -1720,11 +1720,7 @@
 		9FCE2CF41E6C20E000E34457 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DED45DC7261682260086EF63 /* Apollo-UnitTestPlan.xctestplan */,
-				DED45C3B26165DD70086EF63 /* Apollo-IntegrationTestPlan.xctestplan */,
-				DED45FB1261CDE7D0086EF63 /* Apollo-PerformanceTestPlan.xctestplan */,
-				DED45FB2261CDE980086EF63 /* Apollo-CITestPlan.xctestplan */,
-				DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */,
+				DE4B66B726260EBE00AE90A9 /* TestPlans */,
 				9FC750521D2A532D00458D91 /* ApolloTests */,
 				9F54C8B5255D760B0065AFD6 /* ApolloPerformanceTests */,
 				9BAEEC0A234BB95B00808306 /* ApolloCodegenTests */,
@@ -1804,6 +1800,18 @@
 				DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */,
 			);
 			path = CodegenCore;
+			sourceTree = "<group>";
+		};
+		DE4B66B726260EBE00AE90A9 /* TestPlans */ = {
+			isa = PBXGroup;
+			children = (
+				DED45DC7261682260086EF63 /* Apollo-UnitTestPlan.xctestplan */,
+				DED45C3B26165DD70086EF63 /* Apollo-IntegrationTestPlan.xctestplan */,
+				DED45FB1261CDE7D0086EF63 /* Apollo-PerformanceTestPlan.xctestplan */,
+				DED45FB2261CDE980086EF63 /* Apollo-CITestPlan.xctestplan */,
+				DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */,
+			);
+			path = TestPlans;
 			sourceTree = "<group>";
 		};
 		DE6B15AD26152BE10068D642 /* ApolloServerIntegrationTests */ = {

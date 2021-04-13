@@ -29,14 +29,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/Apollo-UnitTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Apollo-IntegrationTestPlan.xctestplan">
+            reference = "container:Tests/TestPlans/Apollo-IntegrationTestPlan.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Apollo-PerformanceTestPlan.xctestplan">
+            reference = "container:Tests/TestPlans/Apollo-PerformanceTestPlan.xctestplan">
          </TestPlanReference>
       </TestPlans>
    </TestAction>

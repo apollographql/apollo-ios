@@ -57,31 +57,19 @@
       </CodeCoverageTargets>
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/Apollo-UnitTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Apollo-IntegrationTestPlan.xctestplan">
+            reference = "container:Tests/TestPlans/Apollo-IntegrationTestPlan.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Apollo-PerformanceTestPlan.xctestplan">
+            reference = "container:Tests/TestPlans/Apollo-PerformanceTestPlan.xctestplan">
          </TestPlanReference>
          <TestPlanReference
-            reference = "container:Tests/Apollo-CITestPlan.xctestplan">
+            reference = "container:Tests/TestPlans/Apollo-CITestPlan.xctestplan">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FC7504D1D2A532D00458D91"
-               BuildableName = "ApolloTests.xctest"
-               BlueprintName = "ApolloTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

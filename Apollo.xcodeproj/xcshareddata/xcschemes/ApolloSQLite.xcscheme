@@ -48,58 +48,10 @@
       </CodeCoverageTargets>
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/Apollo-UnitTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B7BDAB023FDEBA800ACD198"
-               BuildableName = "ApolloSQLiteTests.xctest"
-               BlueprintName = "ApolloSQLiteTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FA6ABBB1EC0A988000017BE"
-               BuildableName = "ApolloCacheDependentTests.xctest"
-               BlueprintName = "ApolloCacheDependentTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "FetchQueryTests">
-               </Test>
-               <Test
-                  Identifier = "LoadQueryFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "ReadWriteFromStoreTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerAPQsGetMethodTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerAPQsTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerCachingRoundtripTests">
-               </Test>
-               <Test
-                  Identifier = "StarWarsServerTests">
-               </Test>
-               <Test
-                  Identifier = "WatchQueryTests">
-               </Test>
-            </SkippedTests>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
