@@ -15,10 +15,10 @@ parameters:
     default: "iphonesimulator14.4"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "10.15.5"
+    default: "10.15"
   macos_sdk: # The full SDK string to use for macOS builds
     type: string
-    default: "macosx10.15"
+    default: "macosx10.15.5"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
     default: "14.0"
