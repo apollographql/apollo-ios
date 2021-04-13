@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "12.1.0"
+    default: "12.4.0"
   ios_current_version:
     type: string
     default: "14.1"
