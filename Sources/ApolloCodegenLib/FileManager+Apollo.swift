@@ -89,6 +89,8 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter fileURL: The file to calculate the SHASUM for.
   public func shasum(at fileURL: URL) throws -> String {
+    CodegenLogger.log("Checking SHASUM for file at URL: \(fileURL)")
+    
     let file = try FileHandle(forReadingFrom: fileURL)
     defer {
         file.closeFile()
