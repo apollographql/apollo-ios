@@ -118,9 +118,11 @@ struct CLIExtractor {
     
     CodegenLogger.log("Extracting CLI from zip file. This may take a second...")
     _ = try Basher.run(command: "tar xzf '\(zipFileURL.path)' -C '\(cliFolderURL.path)'", from: nil)
-    
+
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
+
+    _ = try Basher.run(command: "chmod -R 777 ./", from: apolloFolderURL)
     
     guard FileManager.default.apollo.folderExists(at: binaryFolderURL) else {
       throw CLIExtractorError.noBinaryFolderAfterUnzipping(atURL: binaryFolderURL)
