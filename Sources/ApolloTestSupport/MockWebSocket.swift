@@ -1,25 +1,23 @@
 import Starscream
 import Foundation
-import ApolloTestSupport
 @testable import ApolloWebSocket
 
-class MockWebSocket: ApolloWebSocketClient {
+public class MockWebSocket: ApolloWebSocketClient {
   
-  var callbackQueue: DispatchQueue = DispatchQueue.main
+  public var callbackQueue: DispatchQueue = DispatchQueue.main
   
   // A dummy web socket since we can't just return the client
   var webSocketForDelegate: WebSocket
-  var request: URLRequest
+  public var request: URLRequest
     
-  required init(request: URLRequest,
+  public required init(request: URLRequest,
                 certPinner: CertificatePinning? = FoundationSecurity(),
                 compressionHandler: CompressionHandler? = nil) {
     self.webSocketForDelegate = WebSocket(request: request)
     self.request = request
   }
   
-  public init() {
-    let request = URLRequest(url: TestURL.starWarsServer.url)
+  public init(request: URLRequest) {  
     self.request = request
     self.webSocketForDelegate = WebSocket(request: request)
   }
@@ -48,12 +46,12 @@ class MockWebSocket: ApolloWebSocketClient {
   open func write(pong: Data, completion: (() -> ())?) {
   }
   
-  func disconnect(closeCode: UInt16) {
+  public func disconnect(closeCode: UInt16) {
   }
   
-  var delegate: WebSocketDelegate? = nil
-  var isConnected: Bool = false
+  public var delegate: WebSocketDelegate? = nil
+  public var isConnected: Bool = false
   
-  func connect() {
+  public func connect() {
   }
 }

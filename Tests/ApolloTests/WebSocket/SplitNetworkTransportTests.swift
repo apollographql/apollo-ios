@@ -28,7 +28,7 @@ class SplitNetworkTransportTests: XCTestCase {
   }()
 
   private lazy var webSocketTransport: WebSocketTransport = {
-    let request = URLRequest(url: TestURL.starWarsWebSocket.url)
+    let request = URLRequest(url: TestURL.mockServer.url)
     return WebSocketTransport(request: request,
                               clientName: self.webSocketName,
                               clientVersion: self.webSocketVersion)

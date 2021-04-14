@@ -1,11 +1,43 @@
 import XCTest
-import Apollo
+@testable import Apollo
 import ApolloTestSupport
-@testable import ApolloWebSocket
 import StarWarsAPI
 
-class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
-    
+class StarWarsServerAPQsGetMethodTests: StarWarsServerTests {
+  override func setUp() {
+    super.setUp()
+    config = APQsWithGetMethodConfig()
+  }
+}
+
+class StarWarsServerAPQsTests: StarWarsServerTests {
+  override func setUp() {
+    super.setUp()
+    config = APQsConfig()
+  }
+}
+
+class SQLiteStarWarsServerAPQsGetMethodTests: StarWarsServerAPQsGetMethodTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
+class SQLiteStarWarsServerAPQsTests: StarWarsServerAPQsTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
+class SQLiteStarWarsServerTests: StarWarsServerTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
+class StarWarsServerTests: XCTestCase, CacheDependentTesting {
+  var config: TestConfig!
+  
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
@@ -17,13 +49,13 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   
   override func setUpWithError() throws {
     try super.setUpWithError()
-        
+    
+    config = DefaultConfig()
+    
     cache = try makeNormalizedCache()
     let store = ApolloStore(cache: cache)
     
-    let networkTransport = WebSocketTransport(request: URLRequest(url: TestURL.starWarsWebSocket.url))
-    
-    client = ApolloClient(networkTransport: networkTransport, store: store)
+    client = ApolloClient(networkTransport: config.network(store: store), store: store)
   }
   
   override func tearDownWithError() throws {
@@ -34,25 +66,25 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   }
 
   // MARK: Queries
-
+  
   func testHeroNameQuery() {
     fetch(query: HeroNameQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
     }
   }
-
+  
   func testHeroNameQueryWithVariable() {
     fetch(query: HeroNameQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
     }
   }
-
+  
   func testHeroAppearsInQuery() {
     fetch(query: HeroAppearsInQuery()) { data in
-        XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
+      XCTAssertEqual(data.hero?.appearsIn, [.newhope, .empire, .jedi])
     }
   }
-
+  
   func testHeroAndFriendsNamesQuery() {
     fetch(query: HeroAndFriendsNamesQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
@@ -67,7 +99,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
       XCTAssertEqual(friendsOfFirstFriendNames, ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"])
     }
   }
-
+  
   func testHumanQueryWithNullMass() {
     fetch(query: HumanQuery(id: "1004")) { data in
       XCTAssertEqual(data.human?.name, "Wilhuff Tarkin")
@@ -80,55 +112,55 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
       XCTAssertNil(data.human)
     }
   }
-
+  
   func testHeroDetailsQueryDroid() {
     fetch(query: HeroDetailsQuery()) { data in
       XCTAssertEqual(data.hero?.name, "R2-D2")
-
+      
       guard let droid = data.hero?.asDroid else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(droid.primaryFunction, "Astromech")
     }
   }
-
+  
   func testHeroDetailsQueryHuman() {
     fetch(query: HeroDetailsQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.name, "Luke Skywalker")
-
+      
       guard let human = data.hero?.asHuman else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(human.height, 1.72)
     }
   }
-
+  
   func testHeroDetailsWithFragmentQueryDroid() {
     fetch(query: HeroDetailsWithFragmentQuery()) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "R2-D2")
-
+      
       guard let droid = data.hero?.fragments.heroDetails.asDroid else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(droid.primaryFunction, "Astromech")
     }
   }
-
+  
   func testHeroDetailsWithFragmentQueryHuman() {
     fetch(query: HeroDetailsWithFragmentQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.fragments.heroDetails.name, "Luke Skywalker")
-
+      
       guard let human = data.hero?.fragments.heroDetails.asHuman else {
         XCTFail("Wrong type")
         return
       }
-
+      
       XCTAssertEqual(human.height, 1.72)
     }
   }
@@ -145,28 +177,28 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
       XCTAssertNil(data.hero?.fragments.droidDetails)
     }
   }
-
-
+  
+  
   func testHeroTypeDependentAliasedFieldDroid() {
     fetch(query: HeroTypeDependentAliasedFieldQuery()) { data in
       XCTAssertEqual(data.hero?.asDroid?.property, "Astromech")
       XCTAssertNil(data.hero?.asHuman?.property)
     }
   }
-
+  
   func testHeroTypeDependentAliasedFieldHuman() {
     fetch(query: HeroTypeDependentAliasedFieldQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.asHuman?.property, "Tatooine")
       XCTAssertNil(data.hero?.asDroid?.property)
     }
   }
-
+  
   func testHeroParentTypeDependentFieldDroid() {
     fetch(query: HeroParentTypeDependentFieldQuery()) { data in
       XCTAssertEqual(data.hero?.asDroid?.friends?.first??.asHuman?.height, 1.72)
     }
   }
-
+  
   func testHeroParentTypeDependentFieldHuman() {
     fetch(query: HeroParentTypeDependentFieldQuery(episode: .empire)) { data in
       XCTAssertEqual(data.hero?.asHuman?.friends?.first??.asHuman?.height, 5.905512)
@@ -281,21 +313,21 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
       XCTAssertNil(data.hero?.name)
     }
   }
-
+  
   // MARK: Mutations
-
+  
   func testCreateReviewForEpisode() {
     perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 5, commentary: "This is a great movie!"))) { data in
       XCTAssertEqual(data.createReview?.stars, 5)
       XCTAssertEqual(data.createReview?.commentary, "This is a great movie!")
     }
   }
-
+  
   // MARK: - Helpers
   
   private func fetch<Query: GraphQLQuery>(query: Query, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Query.Data) -> Void) {
     let resultObserver = makeResultObserver(for: query, file: file, line: line)
-        
+    
     let expectation = resultObserver.expectation(description: "Fetched query from server", file: file, line: line) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)
@@ -313,7 +345,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
   
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
     let resultObserver = makeResultObserver(for: mutation, file: file, line: line)
-        
+    
     let expectation = resultObserver.expectation(description: "Performing mutation on server", file: file, line: line) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
         XCTAssertEqual(graphQLResult.source, .server, file: file, line: line)

@@ -3,28 +3,28 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "12.1.0"
+    default: "12.4.0"
   ios_current_version:
     type: string
-    default: "14.1"
+    default: "14.4"
   ios_previous_version:
     type: string
-    default: "13.5"
+    default: "13.7"
   ios_sdk:
     type: string
-    default: "iphonesimulator14.1"
+    default: "iphonesimulator14.4"
   macos_version: # The user-facing version string for macOS builds
     type: string
     default: "10.15"
   macos_sdk: # The full SDK string to use for macOS builds
     type: string
-    default: "macosx10.15"
+    default: "macosx11.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "14.0"
+    default: "14.3"
   tvos_sdk:
     type: string
-    default: "appletvsimulator14.0"
+    default: "appletvsimulator14.3"
 
 commands:
   common_test_steps:
@@ -63,7 +63,7 @@ commands:
           command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
           name: Clean and build for testing
       - run:
-          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
+          command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
           name: Run tests
       - save-xcodebuild-artifacts
       - save_cache:
@@ -100,6 +100,7 @@ jobs:
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
       CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_steps
@@ -110,6 +111,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
@@ -120,6 +122,7 @@ jobs:
     environment:
       DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
       CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
       CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
@@ -130,67 +133,8 @@ jobs:
     environment:
       DESTINATION: platform=tvOS Simulator,OS=<< pipeline.parameters.tvos_version >>,name=Apple TV
       CIRCLE_XCODE_SCHEME: Apollo
+      CIRCLE_XCODE_TEST_PLAN: Apollo-CITestPlan
       CIRCLE_XCODE_SDK: << pipeline.parameters.tvos_sdk >>
-    steps:
-      - common_test_steps
-
-  SQLitemacOS_current:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=macOS,arch=x86_64
-      CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
-    steps:
-      - common_test_steps
-
-  SQLiteiOS_current:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 11
-      CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
-    steps:
-      - common_test_steps
-
-  SQLiteiOS_previous:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
-      CIRCLE_XCODE_SCHEME: ApolloSQLite
-      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
-    steps:
-      - common_test_steps
-
-  WebSocketmacOS_current:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=macOS,arch=x86_64
-      CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
-    steps:
-      - common_test_steps
-
-  WebSocketiOS_current:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_current_version >>,name=iPhone 11
-      CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
-    steps:
-      - common_test_steps
-
-  WebSocketiOS_previous:
-    macos:
-      xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=iOS Simulator,OS=<< pipeline.parameters.ios_previous_version >>,name=iPhone 11
-      CIRCLE_XCODE_SCHEME: ApolloWebSocket
-      CIRCLE_XCODE_SDK: << pipeline.parameters.ios_sdk >>
     steps:
       - common_test_steps
 
@@ -200,6 +144,7 @@ jobs:
     environment:
       DESTINATION: platform=macOS,arch=x86_64
       CIRCLE_XCODE_SCHEME: ApolloCodegenLib
+      CIRCLE_XCODE_TEST_PLAN: Apollo-CodegenTestPlan
       CIRCLE_XCODE_SDK: << pipeline.parameters.macos_sdk >>
     steps:
       - common_test_steps
@@ -228,18 +173,6 @@ workflows:
           name: Apollo iOS << pipeline.parameters.ios_previous_version >>
       - tvOS_current:
           name: Apollo tvOS << pipeline.parameters.tvos_version >>
-      - SQLitemacOS_current:
-          name: ApolloSQLite macOS << pipeline.parameters.macos_version >>
-      - SQLiteiOS_current:
-          name: ApolloSQLite iOS << pipeline.parameters.ios_current_version >>
-      - SQLiteiOS_previous:
-          name: ApolloSQLite iOS << pipeline.parameters.ios_previous_version >>
-      - WebSocketmacOS_current:
-          name: ApolloWebSocket macOS << pipeline.parameters.macos_version >>
-      - WebSocketiOS_current:
-          name: ApolloWebSocket iOS << pipeline.parameters.ios_current_version >>
-      - WebSocketiOS_previous:
-          name: ApolloWebSocket iOS << pipeline.parameters.ios_previous_version >>
       - CodegenLibmacOS_current:
           name: Swift Code Generation
       - CocoaPodsTrunk:
@@ -249,12 +182,6 @@ workflows:
             - Apollo iOS << pipeline.parameters.ios_current_version >>
             - Apollo iOS << pipeline.parameters.ios_previous_version >>
             - Apollo tvOS << pipeline.parameters.tvos_version >>
-            - ApolloSQLite macOS << pipeline.parameters.macos_version >>
-            - ApolloSQLite iOS << pipeline.parameters.ios_current_version >>
-            - ApolloSQLite iOS << pipeline.parameters.ios_previous_version >>
-            - ApolloWebSocket macOS << pipeline.parameters.macos_version >>
-            - ApolloWebSocket iOS << pipeline.parameters.ios_current_version >>
-            - ApolloWebSocket iOS << pipeline.parameters.ios_previous_version >>
             - Swift Code Generation
           filters:
             # Only build semver tags

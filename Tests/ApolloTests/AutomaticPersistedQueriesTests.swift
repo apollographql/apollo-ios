@@ -5,7 +5,7 @@ import StarWarsAPI
 
 class AutomaticPersistedQueriesTests: XCTestCase {
 
-  private final let endpoint = TestURL.starWarsServer.url
+  private final let endpoint = TestURL.mockServer.url
   
   // MARK: - Helper Methods
   

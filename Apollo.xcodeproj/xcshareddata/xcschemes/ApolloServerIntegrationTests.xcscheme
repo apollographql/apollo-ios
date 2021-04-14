@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1230"
+   LastUpgradeVersion = "1240"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B68353D2463481A00337AE6"
-               BuildableName = "ApolloCore.framework"
-               BlueprintName = "ApolloCore"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -29,16 +13,22 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
+            reference = "container:Tests/TestPlans/Apollo-IntegrationTestPlan.xctestplan"
             default = "YES">
          </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-IntegrationTestPlan.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-PerformanceTestPlan.xctestplan">
-         </TestPlanReference>
       </TestPlans>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DE6B15AB26152BE10068D642"
+               BuildableName = "ApolloServerIntegrationTests.xctest"
+               BlueprintName = "ApolloServerIntegrationTests"
+               ReferencedContainer = "container:Apollo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -57,15 +47,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B68353D2463481A00337AE6"
-            BuildableName = "ApolloCore.framework"
-            BlueprintName = "ApolloCore"
-            ReferencedContainer = "container:Apollo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

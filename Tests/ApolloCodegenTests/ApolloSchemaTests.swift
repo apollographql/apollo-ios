@@ -15,12 +15,12 @@ class ApolloSchemaTests: XCTestCase {
   func testCreatingIntrospectionOptionsWithDefaultParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.starWarsServer.url),
+    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
                                       outputFolderURL: sourceRoot)
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
     
-    XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.starWarsServer.url))
+    XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertTrue(options.headers.isEmpty)
     
@@ -92,7 +92,7 @@ class ApolloSchemaTests: XCTestCase {
   func testDownloadingSchemaAsJSON() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.starWarsServer.url),
+    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL
@@ -126,7 +126,7 @@ class ApolloSchemaTests: XCTestCase {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
     
     let options = ApolloSchemaOptions(schemaFileType: .schemaDefinitionLanguage,
-                                      downloadMethod: .introspection(endpointURL: TestURL.starWarsServer.url),
+                                      downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
                                       outputFolderURL: testOutputFolderURL)
     
     // Delete anything existing at the output URL

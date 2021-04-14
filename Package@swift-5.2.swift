@@ -63,69 +63,11 @@ let package = Package(
         .product(name: "SQLite", package: "SQLite.swift"),
       ]),
     .target(
-      name: "ApolloSQLiteTestSupport",
-      dependencies: [
-        "ApolloSQLite",
-        "ApolloTestSupport"
-      ]),
-    .target(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo",
         "ApolloCore",
         .product(name: "Starscream", package: "Starscream"),
-      ]),
-    .target(
-      name: "ApolloTestSupport",
-      dependencies: [
-        "Apollo",
-      ]),
-    .target(
-      name: "GitHubAPI",
-      dependencies: [
-        "Apollo",
-      ]),
-    .target(
-      name: "StarWarsAPI",
-      dependencies: [
-        "Apollo",
-      ]),
-    .target(
-      name: "UploadAPI",
-      dependencies: [
-        "Apollo",
-      ]),
-    .testTarget(
-      name: "ApolloTests",
-      dependencies: [
-        "ApolloTestSupport",
-        "StarWarsAPI",
-        "UploadAPI"
-      ]),
-    .testTarget(
-      name: "ApolloCacheDependentTests",
-      dependencies: [
-        "ApolloSQLiteTestSupport",
-        "StarWarsAPI",
-      ]),
-    .testTarget(
-      name: "ApolloCodegenTests",
-      dependencies: [
-        "ApolloTestSupport",
-        "ApolloCodegenLib"
-      ]),
-    .testTarget(
-      name: "ApolloSQLiteTests",
-      dependencies: [
-        "ApolloSQLiteTestSupport",
-        "StarWarsAPI"
-      ]),
-    .testTarget(
-      name: "ApolloWebsocketTests",
-      dependencies: [
-        "ApolloWebSocket",
-        "ApolloTestSupport",
-        "StarWarsAPI",
-      ]),
+      ])    
     ]
 )

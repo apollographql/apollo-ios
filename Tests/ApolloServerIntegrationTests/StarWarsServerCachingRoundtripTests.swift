@@ -3,6 +3,12 @@ import XCTest
 import ApolloTestSupport
 import StarWarsAPI
 
+class SQLiteStarWarsServerCachingRoundtripTests: StarWarsServerCachingRoundtripTests {
+  override var cacheType: TestCacheProvider.Type {
+    SQLiteTestCacheProvider.self
+  }
+}
+
 class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
@@ -21,7 +27,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     store = ApolloStore(cache: cache)
     let provider = LegacyInterceptorProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: TestURL.starWarsServer.url)
+                                               endpointURL: TestServerURL.starWarsServer.url)
     
     client = ApolloClient(networkTransport: network, store: store)
   }
