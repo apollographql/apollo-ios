@@ -35,7 +35,7 @@ public struct ApolloCLI {
       throw ApolloCLIError.lockInitializationFailed(cliFolderURL)
     }
 
-    let maxPollCount = Int(timeout/2)
+    let maxPollCount = Int(timeout*2)
     var pollCount = 0
 
     repeat {
@@ -47,11 +47,13 @@ public struct ApolloCLI {
 
         if pollCount <= maxPollCount {
           usleep(500_000) // sleep 0.5 seconds
+        } else {
+          throw ApolloCLIError.lockInitializationFailed(cliFolderURL)
         }
       }
     } while pollCount <= maxPollCount
 
-    lock.break() // After timeout, we force the lock. If another process failed and did not
+//    lock.break() // After timeout, we force the lock. If another process failed and did not
                  // relinquish the lock, we should break the lock.
     return lock
   }
