@@ -8,6 +8,7 @@ public struct ApolloCLI {
 
   enum ApolloCLIError: Error {
     case lockInitializationFailed(URL)
+    case timedOutWaitingOnLock(URL)
   }
   
   /// Creates an instance of `ApolloCLI`, downloading and extracting if needed
@@ -48,13 +49,11 @@ public struct ApolloCLI {
         if pollCount <= maxPollCount {
           usleep(500_000) // sleep 0.5 seconds
         } else {
-          throw ApolloCLIError.lockInitializationFailed(cliFolderURL)
+          throw ApolloCLIError.timedOutWaitingOnLock(cliFolderURL)
         }
       }
     } while pollCount <= maxPollCount
 
-//    lock.break() // After timeout, we force the lock. If another process failed and did not
-                 // relinquish the lock, we should break the lock.
     return lock
   }
 

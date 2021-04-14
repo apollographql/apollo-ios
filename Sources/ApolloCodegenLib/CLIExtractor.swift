@@ -71,8 +71,6 @@ struct CLIExtractor {
     
     let contents = try String(contentsOf: shasumFileURL, encoding: .utf8)
 
-    CodegenLogger.log("Extracted zip SHASHUM: \(contents)")
-
     guard contents == expected else {
       return contents.hasPrefix(expected)
     }
@@ -121,8 +119,6 @@ struct CLIExtractor {
 
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
-
-    _ = try Basher.run(command: "chmod -R 777 ./", from: apolloFolderURL)
     
     guard FileManager.default.apollo.folderExists(at: binaryFolderURL) else {
       throw CLIExtractorError.noBinaryFolderAfterUnzipping(atURL: binaryFolderURL)
