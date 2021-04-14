@@ -5,6 +5,10 @@ import Foundation
 
 /// Wrapper for calling the bundled node-based Apollo CLI.
 public struct ApolloCLI {
+
+  enum ApolloCLIError: Error {
+    case lockInitializationFailed(URL)
+  }
   
   /// Creates an instance of `ApolloCLI`, downloading and extracting if needed
   ///
@@ -12,6 +16,9 @@ public struct ApolloCLI {
   ///   - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> ApolloCLI {
+    let lock = try waitForCLIFolderLock(cliFolderURL: cliFolderURL, timeout: timeout)
+    defer { lock.unlock() }
+
     try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
     
     if !(try CLIExtractor.validateSHASUMOfDownloadedFile(in: cliFolderURL)) {
@@ -22,7 +29,33 @@ public struct ApolloCLI {
     let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     return ApolloCLI(binaryFolderURL: binaryFolderURL)
   }
-  
+
+  private static func waitForCLIFolderLock(cliFolderURL: URL, timeout: Double) throws -> NSDistributedLock {
+    guard let lock = NSDistributedLock(path: cliFolderURL.path) else {
+      throw ApolloCLIError.lockInitializationFailed(cliFolderURL)
+    }
+
+    let maxPollCount = Int(timeout/2)
+    var pollCount = 0
+
+    repeat {
+      if lock.try() {
+        return lock
+
+      } else {
+        pollCount += 1
+
+        if pollCount <= maxPollCount {
+          usleep(500_000) // sleep 0.5 seconds
+        }
+      }
+    } while pollCount <= maxPollCount
+
+    lock.break() // After timeout, we force the lock. If another process failed and did not
+                 // relinquish the lock, we should break the lock.
+    return lock
+  }
+
   public let binaryFolderURL: URL
   
   /// Designated initializer
