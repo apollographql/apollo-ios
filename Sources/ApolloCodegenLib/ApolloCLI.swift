@@ -31,7 +31,7 @@ public struct ApolloCLI {
   }
 
   private static func waitForCLIFolderLock(cliFolderURL: URL, timeout: Double) throws -> NSDistributedLock {
-    guard let lock = NSDistributedLock(path: cliFolderURL.path) else {
+    guard let lock = NSDistributedLock(path: cliFolderURL.path + ".lock") else {
       throw ApolloCLIError.lockInitializationFailed(cliFolderURL)
     }
 
