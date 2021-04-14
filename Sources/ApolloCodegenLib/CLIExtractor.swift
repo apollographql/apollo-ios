@@ -70,12 +70,13 @@ struct CLIExtractor {
     }
     
     let contents = try String(contentsOf: shasumFileURL, encoding: .utf8)
-    
+
+    CodegenLogger.log("Extracted zip SHASHUM: \(contents)")
+
     guard contents == expected else {
       return contents.hasPrefix(expected)
     }
 
-    CodegenLogger.log("Extracted zip SHASHUM: \(contents)")
     return true
   }
   
