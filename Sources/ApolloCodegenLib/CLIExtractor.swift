@@ -74,7 +74,8 @@ struct CLIExtractor {
     guard contents == expected else {
       return contents.hasPrefix(expected)
     }
-    
+
+    CodegenLogger.log("Extracted zip SHASHUM: \(contents)")
     return true
   }
   
@@ -100,7 +101,7 @@ struct CLIExtractor {
   static func writeSHASUMToFile(apolloFolderURL: URL) throws {
     let shasumFileURL = ApolloFilePathHelper.shasumFileURL(fromApollo: apolloFolderURL)
     try CLIExtractor.expectedSHASUM.write(to: shasumFileURL,
-                                          atomically: false,
+                                          atomically: true,
                                           encoding: .utf8)
   }
   
