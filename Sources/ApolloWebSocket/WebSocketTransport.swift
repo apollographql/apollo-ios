@@ -310,17 +310,22 @@ public class WebSocketTransport {
     }
   }
 
-  public func updateHeaderValues(_ values: [String: String?]) {
+  public func updateHeaderValues(_ values: [String: String?], reconnectIfConnected: Bool = true) {
     for (key, value) in values {
       self.websocket.request.setValue(value, forHTTPHeaderField: key)
     }
 
-    self.reconnectWebSocket()
+	if reconnectIfConnected && isConnected() {
+      self.reconnectWebSocket()
+	}
   }
 
-  public func updateConnectingPayload(_ payload: GraphQLMap) {
+  public func updateConnectingPayload(_ payload: GraphQLMap, reconnectIfConnected: Bool = true) {
     self.connectingPayload = payload
-    self.reconnectWebSocket()
+
+	if reconnectIfConnected && isConnected() {
+      self.reconnectWebSocket()
+	}
   }
 
   private func reconnectWebSocket() {
