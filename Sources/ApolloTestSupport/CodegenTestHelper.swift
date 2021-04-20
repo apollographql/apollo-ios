@@ -7,6 +7,7 @@
 //
 
 import XCTest
+#if os(macOS)
 @testable import ApolloCodegenLib
 
 public struct CodegenTestHelper {
@@ -142,3 +143,4 @@ public struct CodegenTestHelper {
                                    contents: shasum.data(using: .utf8))
   }
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Apollo GraphQL. All rights reserved.
 //
 
+#if os(macOS)
 import XCTest
 import ApolloTestSupport
 @testable import ApolloCodegenLib
@@ -77,3 +78,4 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
   }
 
 }
+#endif
