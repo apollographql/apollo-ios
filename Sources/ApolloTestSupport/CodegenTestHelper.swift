@@ -9,7 +9,7 @@
 import XCTest
 @testable import ApolloCodegenLib
 
-struct CodegenTestHelper {
+public struct CodegenTestHelper {
   
   static func dummyOptions() -> ApolloCodegenOptions {    
     let unusedURL = CodegenTestHelper.apolloFolderURL()
@@ -53,7 +53,7 @@ struct CodegenTestHelper {
         .deletingLastPathComponent() // apollo-ios
   }
   
-  static func cliFolderURL() -> URL {
+  public static func cliFolderURL() -> URL {
     self.sourceRootURL()
       .appendingPathComponent("Tests")
       .appendingPathComponent("ApolloCodegenTests")
@@ -89,7 +89,7 @@ struct CodegenTestHelper {
       .appendingPathComponent("schema.json")
   }
   
-  static func outputFolderURL() -> URL {
+  public static func outputFolderURL() -> URL {
     let sourceRoot = self.sourceRootURL()
     return sourceRoot
       .appendingPathComponent("Tests")
