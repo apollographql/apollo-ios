@@ -451,7 +451,7 @@
 			remoteGlobalIDString = 9B2DFBB524E1FA0D00ED3AE6;
 			remoteInfo = UploadAPI;
 		};
-		DECD475C262F671A00924527 /* PBXContainerItemProxy */ = {
+		DECD4783262F6D7A00924527 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
 			proxyType = 1;
@@ -1863,6 +1863,7 @@
 				DE6B15FC26152D210068D642 /* Workspace-Analysis.xcconfig */,
 				DE6B15FD26152D210068D642 /* Project-Release.xcconfig */,
 				DE6B15FE26152D210068D642 /* Workspace-Debug.xcconfig */,
+				DE6B160826152D210068D642 /* Workspace-Universal-Target.xcconfig */,
 				DE6B15FF26152D210068D642 /* Workspace-Universal-Test.xcconfig */,
 				DE6B160026152D210068D642 /* Workspace-Universal-Framework.xcconfig */,
 				DE6B160126152D210068D642 /* Workspace-Target-Test.xcconfig */,
@@ -1872,7 +1873,6 @@
 				DE6B160526152D210068D642 /* Workspace-Warnings.xcconfig */,
 				DE6B160626152D210068D642 /* Workspace-Target-Framework.xcconfig */,
 				DE6B160726152D210068D642 /* Workspace-Search-Paths.xcconfig */,
-				DE6B160826152D210068D642 /* Workspace-Universal-Target.xcconfig */,
 				DE6B160926152D210068D642 /* Workspace-Linking.xcconfig */,
 				DE6B160A26152D210068D642 /* Workspace-Language.xcconfig */,
 				DE6B160B26152D210068D642 /* Project-Debug.xcconfig */,
@@ -2169,7 +2169,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DECD475D262F671A00924527 /* PBXTargetDependency */,
+				DECD4784262F6D7A00924527 /* PBXTargetDependency */,
 				9F65B1201EC106E80090B25F /* PBXTargetDependency */,
 				DED45E98261B9EFA0086EF63 /* PBXTargetDependency */,
 				DED45E9A261B9F000086EF63 /* PBXTargetDependency */,
@@ -3029,11 +3029,11 @@
 			target = 9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */;
 			targetProxy = DECD4734262F668200924527 /* PBXContainerItemProxy */;
 		};
-		DECD475D262F671A00924527 /* PBXTargetDependency */ = {
+		DECD4784262F6D7A00924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = maccatalyst;
 			target = 9B7B6F46233C26D100F32205 /* ApolloCodegenLib */;
-			targetProxy = DECD475C262F671A00924527 /* PBXContainerItemProxy */;
+			targetProxy = DECD4783262F6D7A00924527 /* PBXContainerItemProxy */;
 		};
 		DED45E96261B9EE30086EF63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
