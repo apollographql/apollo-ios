@@ -1,5 +1,3 @@
-#include "../Shared/Workspace-Target-Application.xcconfig"
-
 SDKROOT = macosx
 SUPPORTED_PLATFORMS = macosx
 

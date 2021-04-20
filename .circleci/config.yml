@@ -162,7 +162,7 @@ jobs:
       - common_test_setup
       - build_and_run_tests
 
-  CodegenLibmacOS_current:
+  CodegenLib_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -200,7 +200,7 @@ workflows:
           name: Apollo iOS << pipeline.parameters.ios_previous_version >>
       - tvOS_current:
           name: Apollo tvOS << pipeline.parameters.tvos_version >>
-      - CodegenLibmacOS_current:
+      - CodegenLib_macOS_current:
           name: Swift Code Generation
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk

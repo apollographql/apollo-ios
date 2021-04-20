@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 
 class FileManagerExtensionsTests: XCTestCase {

@@ -65,7 +65,7 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloCore",
-        "InflectorKit",
+        .product(name: "InflectorKit", package: "InflectorKit"),
         .product(name: "Stencil", package: "Stencil"),
       ],
       exclude: [

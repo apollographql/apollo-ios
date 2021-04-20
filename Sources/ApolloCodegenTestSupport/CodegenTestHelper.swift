@@ -7,25 +7,24 @@
 //
 
 import XCTest
-#if os(macOS)
 @testable import ApolloCodegenLib
 
 public struct CodegenTestHelper {
   
-  static func dummyOptions() -> ApolloCodegenOptions {    
+  public static func dummyOptions() -> ApolloCodegenOptions {
     let unusedURL = CodegenTestHelper.apolloFolderURL()
     return ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: unusedURL),
                                 urlToSchemaFile: unusedURL)
   }
   
-  static func dummyOptionsNoModifier() -> ApolloCodegenOptions {
+  public static func dummyOptionsNoModifier() -> ApolloCodegenOptions {
     let unusedURL = CodegenTestHelper.apolloFolderURL()
     return ApolloCodegenOptions(modifier: .none,
                                 outputFormat: .singleFile(atFileURL: unusedURL),
                                 urlToSchemaFile: unusedURL)
   }
   
-  static func handleFileLoadError(_ error: Error,
+  public static func handleFileLoadError(_ error: Error,
                                   file: StaticString = #filePath,
                                   line: UInt = #line) {
     let nsError = error as NSError
@@ -46,9 +45,9 @@ public struct CodegenTestHelper {
   }
   
   // Centralized timeout for adjustment when working on terrible wifi
-  static var timeout: Double = 90.0
+  public static var timeout: Double = 90.0
   
-  static func sourceRootURL() -> URL {
+  public static func sourceRootURL() -> URL {
     FileFinder.findParentFolder()
         .deletingLastPathComponent() // Tests
         .deletingLastPathComponent() // apollo-ios
@@ -61,29 +60,29 @@ public struct CodegenTestHelper {
       .appendingPathComponent("scripts directory")
   }
   
-  static func apolloFolderURL() -> URL {
+  public static func apolloFolderURL() -> URL {
     let scripts = self.cliFolderURL()
     return ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: scripts)
   }
   
-  static func binaryFolderURL() -> URL {
+  public static func binaryFolderURL() -> URL {
     let apollo = self.apolloFolderURL()
     return ApolloFilePathHelper.binaryFolderURL(fromApollo: apollo)
   }
   
-  static func shasumFileURL() -> URL {
+  public static func shasumFileURL() -> URL {
     let apollo = self.apolloFolderURL()
     return ApolloFilePathHelper.shasumFileURL(fromApollo: apollo)
   }
   
-  static func starWarsFolderURL() -> URL {
+  public static func starWarsFolderURL() -> URL {
     let source = self.sourceRootURL()
     return source
       .appendingPathComponent("Sources")
       .appendingPathComponent("StarWarsAPI")
   }
   
-  static func starWarsSchemaFileURL() -> URL {
+  public static func starWarsSchemaFileURL() -> URL {
     let starWars = self.starWarsFolderURL()
     return starWars
       .appendingPathComponent("graphql")
@@ -98,7 +97,7 @@ public struct CodegenTestHelper {
       .appendingPathComponent("Output")
   }
   
-  static func deleteExistingOutputFolder(file: StaticString = #filePath,
+  public static func deleteExistingOutputFolder(file: StaticString = #filePath,
                                          line: UInt = #line) {
     do {
       let outputFolderURL = self.outputFolderURL()
@@ -110,7 +109,7 @@ public struct CodegenTestHelper {
     }
   }
   
-  static func downloadCLIIfNeeded(file: StaticString = #filePath,
+  public static func downloadCLIIfNeeded(file: StaticString = #filePath,
                                   line: UInt = #line) {
     do {
       let cliFolderURL = self.cliFolderURL()
@@ -122,7 +121,7 @@ public struct CodegenTestHelper {
     }
   }
   
-  static func deleteExistingApolloFolder(file: StaticString = #filePath,
+  public static func deleteExistingApolloFolder(file: StaticString = #filePath,
                                          line: UInt = #line) {
     do {
       let apolloFolderURL = self.apolloFolderURL()
@@ -134,7 +133,7 @@ public struct CodegenTestHelper {
     }
   }
   
-  static func writeSHASUMOnly(_ shasum: String) throws {
+  public static func writeSHASUMOnly(_ shasum: String) throws {
     let shasumFileURL = self.shasumFileURL()
     let shasumParent = shasumFileURL.deletingLastPathComponent()
     try FileManager.default.createDirectory(at: shasumParent,
@@ -143,4 +142,3 @@ public struct CodegenTestHelper {
                                    contents: shasum.data(using: .utf8))
   }
 }
-#endif
