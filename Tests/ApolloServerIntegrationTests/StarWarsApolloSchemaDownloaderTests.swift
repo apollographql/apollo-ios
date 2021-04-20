@@ -9,6 +9,7 @@
 #if os(macOS)
 import XCTest
 import ApolloTestSupport
+import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 
 class StarWarsApolloSchemaDownloaderTests: XCTestCase {
