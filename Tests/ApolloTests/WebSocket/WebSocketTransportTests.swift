@@ -28,7 +28,7 @@ class WebSocketTransportTests: XCTestCase {
     let mockWebSocketDelegate = MockWebSocketDelegate()
 
     let mockWebSocket = self.webSocketTransport.websocket as? MockWebSocket
-    self.webSocketTransport.isSocketConnected.mutate { $0 = true }
+    self.webSocketTransport.socketConnectionState.mutate { $0 = .connected }
     mockWebSocket?.delegate = mockWebSocketDelegate
 
     let exp = expectation(description: "Waiting for reconnect")
