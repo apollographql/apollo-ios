@@ -90,7 +90,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameter identifier: The identifier of the task to clear.
   open func clear(task identifier: Int) {
-    self.tasks.mutate { $0.removeValue(forKey: identifier) }
+    self.tasks.mutate { _ = $0.removeValue(forKey: identifier) }
   }
   
   /// Clears underlying dictionaries of any data related to all tasks.
