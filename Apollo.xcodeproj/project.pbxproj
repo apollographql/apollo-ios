@@ -2471,18 +2471,18 @@
 			targets = (
 				9FC750431D2A532C00458D91 /* Apollo */,
 				9B68353D2463481A00337AE6 /* ApolloCore */,
+				9B7BDABE23FDEBB600ACD198 /* ApolloSQLite */,
+				9B7BDA7C23FDE90400ACD198 /* ApolloWebSocket */,
 				9FC7504D1D2A532D00458D91 /* ApolloTests */,
 				9F54C8B3255D760B0065AFD6 /* ApolloPerformanceTests */,
+				DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */,
+				9F8A95771EC0FC1200304A2D /* ApolloTestSupport */,
 				DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */,
 				9FCE2CF91E6C213D00E34457 /* StarWarsAPI */,
 				9FACA9B71F42E67200AE2DBD /* GitHubAPI */,
 				9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */,
-				9F8A95771EC0FC1200304A2D /* ApolloTestSupport */,
 				9B7B6F46233C26D100F32205 /* ApolloCodegenLib */,
 				9BAEEBFB234BB8FD00808306 /* ApolloCodegenTests */,
-				9B7BDABE23FDEBB600ACD198 /* ApolloSQLite */,
-				9B7BDA7C23FDE90400ACD198 /* ApolloWebSocket */,
-				DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */,
 				DECD490A262F81BF00924527 /* ApolloCodegenTestSupport */,
 			);
 		};
