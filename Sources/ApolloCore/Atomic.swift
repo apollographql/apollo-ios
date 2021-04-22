@@ -22,6 +22,7 @@ public class Atomic<T> {
   
   /// Mutates the underlying value within a lock.
   /// - Parameter block: The block to execute to mutate the value.
+  /// - Returns: The value returned by the block.
   public func mutate<U>(block: (inout T) -> U) -> U {
     lock.lock()
     let result = block(&_value)
