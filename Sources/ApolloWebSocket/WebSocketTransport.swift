@@ -40,7 +40,16 @@ public class WebSocketTransport {
   private final let protocols = ["graphql-ws"]
   
   /// non-private for testing - you should not use this directly
-  var isSocketConnected = Atomic<Bool>(false)
+  enum SocketConnectionState {
+    case disconnected
+    case connected
+    case failed
+    
+    var isConnected: Bool {
+      self == .connected
+    }
+  }
+  var socketConnectionState = Atomic<SocketConnectionState>(.disconnected)
 
   private var acked = false
 
@@ -121,7 +130,7 @@ public class WebSocketTransport {
   }
 
   public func isConnected() -> Bool {
-    return self.isSocketConnected.value
+    return self.socketConnectionState.value.isConnected
   }
 
   public func ping(data: Data, completionHandler: (() -> Void)? = nil) {
@@ -240,7 +249,7 @@ public class WebSocketTransport {
   private func write(_ str: String,
                      force forced: Bool = false,
                      id: Int? = nil) {
-    if self.isSocketConnected.value && (acked || forced) {
+    if self.socketConnectionState.value.isConnected && (acked || forced) {
       websocket.write(string: str)
     } else {
       // using sequence number to make sure that the queue is processed correctly
@@ -383,7 +392,7 @@ extension WebSocketTransport: WebSocketDelegate {
       case .connected:
         self.handleConnection()
       case .disconnected(let reason, let code):
-        self.isSocketConnected.mutate { $0 = false }
+        self.socketConnectionState.mutate { $0 = .disconnected }
         self.error.mutate { $0 = nil }
         debugPrint("websocket is disconnected: \(reason) with code: \(code)")
         self.handleDisconnection()
@@ -402,11 +411,16 @@ extension WebSocketTransport: WebSocketDelegate {
           self.attemptReconnectionIfDesired()
         }
       case .cancelled:
-        self.isSocketConnected.mutate { $0 = false }
+        self.socketConnectionState.mutate { $0 = .disconnected }
         self.error.mutate { $0 = nil }
         self.handleDisconnection()
       case .error(let error):
-        self.isSocketConnected.mutate { $0 = false }
+        // Set state to `.failed`, and grab its previous value.
+        let previousState: SocketConnectionState = self.socketConnectionState.mutate { socketConnectionState in
+          let previousState = socketConnectionState
+          socketConnectionState = .failed
+          return previousState
+        }
         // report any error to all subscribers
         if let error = error {
           self.error.mutate { $0 = WebSocketError(payload: nil,
@@ -417,13 +431,22 @@ extension WebSocketTransport: WebSocketDelegate {
           self.error.mutate { $0 = nil }
         }
         
-        self.handleDisconnection()
+        switch previousState {
+        case .connected, .disconnected:
+          self.handleDisconnection()
+        case .failed:
+          // Don't attempt at reconnecting if already failed.
+          // Websockets will sometimes notify several errors in a row, and
+          // we don't want to perform disconnection handling multiple times.
+          // This avoids https://github.com/apollographql/apollo-ios/issues/1753
+          break
+        }
       }
   }
   
   public func handleConnection() {
     self.error.mutate { $0 = nil }
-    self.isSocketConnected.mutate { $0 = true }
+    self.socketConnectionState.mutate { $0 = .connected }
     initServer()
     if self.reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
@@ -458,7 +481,19 @@ extension WebSocketTransport: WebSocketDelegate {
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) { [weak self] in
-      self?.websocket.connect()
+      guard let self = self else { return }
+      self.socketConnectionState.mutate { socketConnectionState in
+        switch socketConnectionState {
+        case .disconnected, .connected:
+          break
+        case .failed:
+          // Reset state to `.disconnected`, so that we can perform
+          // disconnection handling if this reconnection triggers an error.
+          // (See how errors are handled in didReceive(event:client:).
+          socketConnectionState = .disconnected
+        }
+      }
+      self.websocket.connect()
     }
   }
 }
