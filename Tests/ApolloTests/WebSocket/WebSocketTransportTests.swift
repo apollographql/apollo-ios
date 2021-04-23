@@ -48,6 +48,23 @@ class WebSocketTransportTests: XCTestCase {
 
     waitForExpectations(timeout: 3, handler: nil)
   }
+
+  func testCloseConnectionAndInit() {
+    WebSocketTransport.provider = MockWebSocket.self
+
+    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
+                                                 connectingPayload: ["Authorization": "OldToken"])
+    self.webSocketTransport.closeConnection()
+    self.webSocketTransport.updateConnectingPayload(["Authorization": "UpdatedToken"])
+    self.webSocketTransport.initServer()
+
+    let exp = expectation(description: "Wait")
+    let result = XCTWaiter.wait(for: [exp], timeout: 1.0)
+    if result == XCTWaiter.Result.timedOut {
+    } else {
+      XCTFail("Delay interrupted")
+    }
+  }
 }
 
 private final class MockWebSocketDelegate: WebSocketDelegate {
