@@ -71,11 +71,8 @@ commands:
   build_and_run_tests:
     steps:
       - run:
-          command: xcodebuild clean && rm -rf ~/Library/Developer/Xcode/DerivedData/*
-          name: Clean
-      - run:
-          command: xcodebuild build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" | xcpretty
-          name: Build for testing
+          command: xcodebuild clean build build-for-testing -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
+          name: Clean and build for testing
       - run:
           command: xcodebuild test-without-building -resultBundlePath ~/TestResults/ResultBundle.xcresult -project "Apollo.xcodeproj" -scheme "${CIRCLE_XCODE_SCHEME}" -sdk "${CIRCLE_XCODE_SDK}" -destination "${DESTINATION}" -testPlan "${CIRCLE_XCODE_TEST_PLAN}" | xcpretty
           name: Run tests
