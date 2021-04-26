@@ -25,13 +25,6 @@
         "identifier" : "9F54C8B3255D760B0065AFD6",
         "name" : "ApolloPerformanceTests"
       }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Apollo.xcodeproj",
-        "identifier" : "DE6B15AB26152BE10068D642",
-        "name" : "ApolloServerIntegrationTests"
-      }
     }
   ],
   "version" : 1

@@ -7,6 +7,7 @@
 //
 
 @testable import ApolloCodegenLib
+import ApolloCodegenTestSupport
 import XCTest
 
 class CLIDownloaderTests: XCTestCase {
