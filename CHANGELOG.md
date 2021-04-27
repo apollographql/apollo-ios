@@ -1,5 +1,15 @@
 # Change log
 
+## v0.43.0
+- **BREAKING** (or hopefully, fixing): We removed our test libraries from our `Package.swift` file since we're not using it to run tests directly at this time. This prevents SPM from trying to resolve test dependencies that are not actually used in the library, which should reduce any version conflicts. However, if you were using any of our test libs in an unsupported fashion, these will no longer be directly available. ([#1745](https://github.com/apollographql/apollo-ios/pull/1745))
+- Fixed an issue where when `Starscream` returned multiple errors in close succession, an exponential number of web socket reconnections could be created. ([#1762](https://github.com/apollographql/apollo-ios/pull/1762))
+- Updated `class` constraints to `AnyObject` constraints, which should silence a few warnings in 12.5 and be more forward compatible. ([#1733](https://github.com/apollographql/apollo-ios/pull/1733))
+- Added the ability to specify a callback queue for the result handler of `GraphQLWatcher`. ([#1723](https://github.com/apollographql/apollo-ios/pull/1723))
+- Fixed a crash when closing a web socket connection and re-opening it immediately. ([#1740](https://github.com/apollographql/apollo-ios/pull/1740))
+- You can now skip auto-reconnection for updating the header values and connecting payload in `ApolloWebSocket`. ([#1759](https://github.com/apollographql/apollo-ios/pull/1759))
+- Now avoids the `?` when generating a `GET` URL if `queryItems` is empty. ([#1729](https://github.com/apollographql/apollo-ios/pull/1729))
+- Updated use of the `default` fetch policy to include fetch and watch. Note that under the hood, this does not change what fetch policy was pointed to at this time, it just centralizes the logic. ([#1737](https://github.com/apollographql/apollo-ios/pull/1737))
+
 ## v0.42.0
 - **BREAKING**: Finally updates our `Starscream` dependency to 4.0.x. Note that due to SOCKS proxy support being removed from `Starscream`, we've correspondeingly removed such support.([#1659](https://github.com/apollographql/apollo-ios/pull/1659))
 - **BREAKING**, but only to Swift Scripting: Updated `ApolloSchemaOptions` to more clearly handle introspection (ie, from a URL) vs registry (ie, from Apollo Studio) requests by using an enum. If you were passing in an `endpointURL` previously, you need to use the `.introspection` enum value going forward. Also changed the name of the field to match the new type. ([#1691](https://github.com/apollographql/apollo-ios/pull/1691))
