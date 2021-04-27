@@ -3,7 +3,7 @@
 # `WebSocketTransportDelegate`
 
 ```swift
-public protocol WebSocketTransportDelegate: class
+public protocol WebSocketTransportDelegate: AnyObject
 ```
 
 ## Methods

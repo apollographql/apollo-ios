@@ -3,7 +3,7 @@
 # `NetworkTransport`
 
 ```swift
-public protocol NetworkTransport: class
+public protocol NetworkTransport: AnyObject
 ```
 
 A network transport is responsible for sending GraphQL operations to a server.

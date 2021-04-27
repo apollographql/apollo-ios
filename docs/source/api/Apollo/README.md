@@ -8,7 +8,6 @@
 -   [Cancellable](protocols/Cancellable/)
 -   [FlexibleDecoder](protocols/FlexibleDecoder/)
 -   [GraphQLFragment](protocols/GraphQLFragment/)
--   [GraphQLInputValue](protocols/GraphQLInputValue/)
 -   [GraphQLMapConvertible](protocols/GraphQLMapConvertible/)
 -   [GraphQLMutation](protocols/GraphQLMutation/)
 -   [GraphQLOperation](protocols/GraphQLOperation/)
@@ -29,6 +28,7 @@
 ## Structs
 
 -   [ApolloRequestBodyCreator](structs/ApolloRequestBodyCreator/)
+-   [FieldArguments](structs/FieldArguments/)
 -   [GraphQLBooleanCondition](structs/GraphQLBooleanCondition/)
 -   [GraphQLError](structs/GraphQLError/)
 -   [GraphQLError.Location](structs/GraphQLError.Location/)
@@ -40,7 +40,6 @@
 -   [GraphQLResultError](structs/GraphQLResultError/)
 -   [GraphQLTypeCase](structs/GraphQLTypeCase/)
 -   [GraphQLTypeCondition](structs/GraphQLTypeCondition/)
--   [GraphQLVariable](structs/GraphQLVariable/)
 -   [Record](structs/Record/)
 -   [RecordSet](structs/RecordSet/)
 -   [Reference](structs/Reference/)
@@ -84,6 +83,7 @@
 -   [GraphQLOperationType](enums/GraphQLOperationType/)
 -   [GraphQLOutputType](enums/GraphQLOutputType/)
 -   [GraphQLResult.Source](enums/GraphQLResult.Source/)
+-   [InputValue](enums/InputValue/)
 -   [JSONDecodingError](enums/JSONDecodingError/)
 -   [LegacyCacheWriteInterceptor.LegacyCacheWriteError](enums/LegacyCacheWriteInterceptor.LegacyCacheWriteError/)
 -   [LegacyParsingInterceptor.LegacyParsingError](enums/LegacyParsingInterceptor.LegacyParsingError/)
@@ -110,12 +110,11 @@
 -   [GraphQLResult](extensions/GraphQLResult/)
 -   [GraphQLSelectionSet](extensions/GraphQLSelectionSet/)
 -   [GraphQLSubscription](extensions/GraphQLSubscription/)
--   [GraphQLVariable](extensions/GraphQLVariable/)
 -   [HTTPRequest](extensions/HTTPRequest/)
+-   [InputValue](extensions/InputValue/)
 -   [Int](extensions/Int/)
 -   [InterceptorProvider](extensions/InterceptorProvider/)
 -   [JSONDecodingError](extensions/JSONDecodingError/)
--   [JSONEncodable](extensions/JSONEncodable/)
 -   [NSDictionary](extensions/NSDictionary/)
 -   [NSNull](extensions/NSNull/)
 -   [NetworkTransport](extensions/NetworkTransport/)
@@ -152,6 +151,7 @@
 
 ## Methods
 
+-   [GraphQLVariable(__)](methods/GraphQLVariable(__)/)
 -   [unzip(__)](methods/unzip(__)/)
 -   [unzip(__)](methods/unzip(__)/)
 

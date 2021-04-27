@@ -3,7 +3,7 @@
 # `GraphQLOperation`
 
 ```swift
-public protocol GraphQLOperation: class
+public protocol GraphQLOperation: AnyObject
 ```
 
 ## Properties

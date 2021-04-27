@@ -18,27 +18,30 @@ public let query: Query
 ```
 
 ## Methods
-### `init(client:query:resultHandler:)`
+### `init(client:query:callbackQueue:resultHandler:)`
 
 ```swift
 public init(client: ApolloClientProtocol,
             query: Query,
+            callbackQueue: DispatchQueue = .main,
             resultHandler: @escaping GraphQLResultHandler<Query.Data>)
 ```
 
 Designated initializer
 
 - Parameters:
-  - client: The client protocol to pass in
-  - query: The query to watch
+  - client: The client protocol to pass in.
+  - query: The query to watch.
+  - callbackQueue: The queue for the result handler. Defaults to the main queue.
   - resultHandler: The result handler to call with changes.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| client | The client protocol to pass in |
-| query | The query to watch |
+| client | The client protocol to pass in. |
+| query | The query to watch. |
+| callbackQueue | The queue for the result handler. Defaults to the main queue. |
 | resultHandler | The result handler to call with changes. |
 
 ### `refetch()`

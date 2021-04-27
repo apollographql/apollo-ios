@@ -3,7 +3,7 @@
 # `ApolloClientProtocol`
 
 ```swift
-public protocol ApolloClientProtocol: class
+public protocol ApolloClientProtocol: AnyObject
 ```
 
 The `ApolloClientProtocol` provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
@@ -61,7 +61,7 @@ Fetches a query from the server or from the local cache, depending on the curren
 - Parameters:
   - query: The query to fetch.
   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
-  - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
 - Returns: An object that can be used to cancel an in progress fetch.
@@ -72,15 +72,16 @@ Fetches a query from the server or from the local cache, depending on the curren
 | ---- | ----------- |
 | query | The query to fetch. |
 | cachePolicy | A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache. |
-| queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
+| queue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | contextIdentifier | [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`. |
 | resultHandler | [optional] A closure that is called when query results are available or when an error occurs. |
 
-### `watch(query:cachePolicy:resultHandler:)`
+### `watch(query:cachePolicy:callbackQueue:resultHandler:)`
 
 ```swift
 func watch<Query: GraphQLQuery>(query: Query,
                                 cachePolicy: CachePolicy,
+                                callbackQueue: DispatchQueue,
                                 resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 ```
 
@@ -89,6 +90,7 @@ Watches a query by first fetching an initial result from the server or from the 
 - Parameters:
   - query: The query to fetch.
   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the local cache.
+  - callbackQueue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
 - Returns: A query watcher object that can be used to control the watching behavior.
 
@@ -98,6 +100,7 @@ Watches a query by first fetching an initial result from the server or from the 
 | ---- | ----------- |
 | query | The query to fetch. |
 | cachePolicy | A cache policy that specifies when results should be fetched from the server or from the local cache. |
+| callbackQueue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | resultHandler | [optional] A closure that is called when query results are available or when an error occurs. |
 
 ### `perform(mutation:publishResultToStore:queue:resultHandler:)`
@@ -114,7 +117,7 @@ Performs a mutation by sending it to the server.
 - Parameters:
   - mutation: The mutation to perform.
   - publishResultToStore: If `true`, this will publish the result returned from the operation to the cache store. Default is `true`.
-  - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
 - Returns: An object that can be used to cancel an in progress mutation.
 
@@ -124,7 +127,7 @@ Performs a mutation by sending it to the server.
 | ---- | ----------- |
 | mutation | The mutation to perform. |
 | publishResultToStore | If `true`, this will publish the result returned from the operation to the cache store. Default is `true`. |
-| queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
+| queue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | resultHandler | An optional closure that is called when mutation results are available or when an error occurs. |
 
 ### `upload(operation:files:queue:resultHandler:)`
@@ -167,7 +170,7 @@ Subscribe to a subscription
 - Parameters:
   - subscription: The subscription to subscribe to.
   - fetchHTTPMethod: The HTTP Method to be used.
-  - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
 - Returns: An object that can be used to cancel an in progress subscription.
 
@@ -177,5 +180,5 @@ Subscribe to a subscription
 | ---- | ----------- |
 | subscription | The subscription to subscribe to. |
 | fetchHTTPMethod | The HTTP Method to be used. |
-| queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
+| queue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | resultHandler | An optional closure that is called when mutation results are available or when an error occurs. |

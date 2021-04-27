@@ -3,7 +3,7 @@
 # `Cancellable`
 
 ```swift
-public protocol Cancellable: class
+public protocol Cancellable: AnyObject
 ```
 
 An object that can be used to cancel an in progress action.

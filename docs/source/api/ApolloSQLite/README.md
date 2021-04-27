@@ -1,7 +1,16 @@
 # Reference Documentation
 
+## Protocols
+
+-   [SQLiteDatabase](protocols/SQLiteDatabase/)
+
+## Structs
+
+-   [DatabaseRow](structs/DatabaseRow/)
+
 ## Classes
 
+-   [SQLiteDotSwiftDatabase](classes/SQLiteDotSwiftDatabase/)
 -   [SQLiteNormalizedCache](classes/SQLiteNormalizedCache/)
 
 ## Enums

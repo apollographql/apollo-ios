@@ -3,7 +3,7 @@
 # `ApolloInterceptor`
 
 ```swift
-public protocol ApolloInterceptor: class
+public protocol ApolloInterceptor: AnyObject
 ```
 
 A protocol to set up a chainable unit of networking work.

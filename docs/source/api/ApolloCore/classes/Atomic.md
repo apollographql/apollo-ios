@@ -37,11 +37,12 @@ Designated initializer
 ### `mutate(block:)`
 
 ```swift
-public func mutate(block: (inout T) -> Void)
+public func mutate<U>(block: (inout T) -> U) -> U
 ```
 
 Mutates the underlying value within a lock.
 - Parameter block: The block to execute to mutate the value.
+- Returns: The value returned by the block.
 
 #### Parameters
 
