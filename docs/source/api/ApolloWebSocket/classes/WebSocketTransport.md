@@ -113,16 +113,16 @@ deinit
 public func unsubscribe(_ subscriptionId: String)
 ```
 
-### `updateHeaderValues(_:)`
+### `updateHeaderValues(_:reconnectIfConnected:)`
 
 ```swift
-public func updateHeaderValues(_ values: [String: String?])
+public func updateHeaderValues(_ values: [String: String?], reconnectIfConnected: Bool = true)
 ```
 
-### `updateConnectingPayload(_:)`
+### `updateConnectingPayload(_:reconnectIfConnected:)`
 
 ```swift
-public func updateConnectingPayload(_ payload: GraphQLMap)
+public func updateConnectingPayload(_ payload: GraphQLMap, reconnectIfConnected: Bool = true)
 ```
 
 ### `pauseWebSocketConnection()`
