@@ -15,7 +15,7 @@ class PluralizerTests: XCTestCase {
   func testSimpleSingularization() {
     let pluralizer = Pluralizer()
     let pluralized = "Cats"
-    let singular = pluralizer.singluarize(pluralized)
+    let singular = pluralizer.singularize(pluralized)
     XCTAssertEqual(singular, "Cat")
   }
   
@@ -29,7 +29,7 @@ class PluralizerTests: XCTestCase {
   func testAddingASingularizationRuleWorks() {
     let defaultPluralizer = Pluralizer()
     let pluralized = "Atlases"
-    let beforeRule = defaultPluralizer.singluarize(pluralized)
+    let beforeRule = defaultPluralizer.singularize(pluralized)
     
     // This should be wrong becuase we haven't applied the rule yet.
     XCTAssertEqual(beforeRule, "Atlase")
@@ -38,7 +38,7 @@ class PluralizerTests: XCTestCase {
       .singularization(pluralRegex: "(atlas)(es)?$", replacementRegex: "$1")
     ])
     
-    let afterRule = pluralizerWithRule.singluarize(pluralized)
+    let afterRule = pluralizerWithRule.singularize(pluralized)
     
     // Now that we've applied the rule, this should be correct
     XCTAssertEqual(afterRule, "Atlas")
@@ -75,11 +75,11 @@ class PluralizerTests: XCTestCase {
   func testSingularlizerWorksRegardlessOfCapitalization() {
     let pluralizer = Pluralizer()
     let pluralizedAllCaps = "CTAS"
-    let singularizedAllCaps = pluralizer.singluarize(pluralizedAllCaps)
+    let singularizedAllCaps = pluralizer.singularize(pluralizedAllCaps)
     XCTAssertEqual(singularizedAllCaps, "CTA")
 
     let pluralizedWithOneLowercase = "CTAs"
-    let singularizedWithOneLowercase = pluralizer.singluarize(pluralizedWithOneLowercase)
+    let singularizedWithOneLowercase = pluralizer.singularize(pluralizedWithOneLowercase)
     XCTAssertEqual(singularizedWithOneLowercase, "CTA")
   }
   

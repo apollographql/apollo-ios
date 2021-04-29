@@ -54,7 +54,7 @@ struct Pluralizer {
     self.inflector = inflector
   }
   
-  func singluarize(_ string: String) -> String {
+  func singularize(_ string: String) -> String {
     self.inflector.singularize(string)
   }
   
