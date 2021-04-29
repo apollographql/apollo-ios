@@ -1,7 +1,5 @@
 import Foundation
-#if COCOAPODS
-import Apollo
-#else
+#if !COCOAPODS
 import ApolloCore
 #endif
 
