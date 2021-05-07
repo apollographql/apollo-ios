@@ -10,7 +10,7 @@ Welcome! This tutorial demonstrates adding the Apollo iOS SDK to an app to commu
 
 The tutorial assumes that you're using a Mac with Xcode installed. It also assumes some prior experience with iOS development.
 
-> If you encounter any issues during the tutorial, feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues) or [stopping by our Github Discussions for help](https://github.com/apollographql/apollo-ios/discussions).
+> If you encounter any issues during the tutorial, feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues) or [stopping by our community forums for help](https://community.apollographql.com).
 
 ## What are you building?
 
