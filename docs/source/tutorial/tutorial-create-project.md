@@ -44,6 +44,8 @@ Next, you'll add a dependency on the `apollo-ios` repo and Apollo libraries usin
 
     <img src="images/select_libs.png" class="screenshot" alt="Select the first and third targets"/>
 
+    _Note: Do **not** select the `Apollo-Dynamic` target, this is only for use for projects linking to our library dynamically. Most projects, including this one, will not need to do this._
+    
 6. Click **Finish**. SPM fetches your dependencies. When it completes, you can see them in the project navigator:
 
     <img src="images/installed_dependencies.png" class="screenshot" alt="Screenshot of installed dependencies"/>
