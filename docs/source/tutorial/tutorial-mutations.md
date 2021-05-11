@@ -361,7 +361,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
         
   let cachePolicy: CachePolicy
   if forceReload {
-    cachePolicy = .fetchIgnoringCacheCompletely
+    cachePolicy = .fetchIgnoringCacheData
   } else {
     cachePolicy = .returnCacheDataElseFetch
   } 
