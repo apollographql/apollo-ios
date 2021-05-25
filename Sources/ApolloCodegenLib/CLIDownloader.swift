@@ -6,29 +6,7 @@ import Foundation
 /// Helper for downloading the CLI Zip file so we don't have to include it in the repo.
 struct CLIDownloader {
   
-  enum CLIDownloaderError: Error, LocalizedError {
-    case badResponse(code: Int, response: String?)
-    case emptyDataReceived
-    case noDataReceived
-    case downloadTimedOut(after: Double)
-    case responseNotHTTPResponse
-    
-    var errorDescription: String? {
-      switch self {
-      case .badResponse(let code, let response):
-        return "Received bad response from server (code \(code)): \(String(describing: response))"
-      case .emptyDataReceived:
-        return "Empty data was received from the server."
-      case .noDataReceived:
-        return "No data was received from the server."
-      case .downloadTimedOut(let seconds):
-        return "Download timed out after \(seconds) seconds."
-      case .responseNotHTTPResponse:
-        return "The response was not an HTTP Response, something's gone very wonky."
-      }
-    }
-  }
-  
+
   /// The URL string for getting the current version of the CLI
   static let downloadURLString = "https://install.apollographql.com/legacy-cli/darwin/2.33.6"
   
@@ -68,60 +46,13 @@ struct CLIDownloader {
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   private static func download(to zipFileURL: URL, timeout: Double) throws {
     try FileManager.default.apollo.createContainingFolderIfNeeded(for: zipFileURL)
-    
+
     CodegenLogger.log("Downloading zip file with the CLI...")
-    let semaphore = DispatchSemaphore(value: 0)
-    var errorToThrow: Error? = CLIDownloaderError.downloadTimedOut(after: timeout)
-    URLSession.shared.dataTask(with: URL(string: CLIDownloader.downloadURLString)!) { data, response, error in      
-      func finished(with finalError: Error?) {
-        errorToThrow = finalError
-        semaphore.signal()
-      }
-        
-      if let error = error {
-        finished(with: error)
-        return
-      }
-      
-      guard let httpResponse = response as? HTTPURLResponse else {
-        finished(with: CLIDownloaderError.responseNotHTTPResponse)
-        return
-      }
-      
-      guard httpResponse.statusCode == 200 else {
-        let dataAsString = String(bytes: data ?? Data(), encoding: .utf8)
-        finished(with: CLIDownloaderError.badResponse(code: httpResponse.statusCode, response: dataAsString))
-        return
-      }
-      
-      guard let data = data else {
-        finished(with: CLIDownloaderError.noDataReceived)
-        return
-      }
-      
-      guard !data.isEmpty else {
-        finished(with: CLIDownloaderError.emptyDataReceived)
-        return
-      }
-      
-      do {
-        try data.write(to: zipFileURL)
-      } catch (let writeError) {
-        finished(with: writeError)
-        return
-      }
-      
-      // If we got here, it all worked and it's good to go!
-      finished(with: nil)
-    }.resume()
+
+    try URLDownloader().downloadSynchronously(from: URL(string: CLIDownloader.downloadURLString)!,
+                                          to: zipFileURL, timeout: timeout)
     
-    _ = semaphore.wait(timeout: .now() + timeout)
-    
-    if let throwMe = errorToThrow {
-      throw throwMe
-    } else {
-      CodegenLogger.log("CLI zip file successfully downloaded!")
-    }
+    CodegenLogger.log("CLI zip file successfully downloaded!")
   }
 }
 
