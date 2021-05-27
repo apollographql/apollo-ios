@@ -49,8 +49,11 @@ struct CLIDownloader {
 
     CodegenLogger.log("Downloading zip file with the CLI...")
 
-    try URLDownloader().downloadSynchronously(from: URL(string: CLIDownloader.downloadURLString)!,
-                                          to: zipFileURL, timeout: timeout)
+    let urlRequest = URLRequest(url: URL(string: CLIDownloader.downloadURLString)!)
+    
+    try URLDownloader().downloadSynchronously(with: urlRequest,
+                                              to: zipFileURL,
+                                              timeout: timeout)
     
     CodegenLogger.log("CLI zip file successfully downloaded!")
   }

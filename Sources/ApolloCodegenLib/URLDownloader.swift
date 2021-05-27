@@ -32,12 +32,12 @@ class URLDownloader {
   ///   - outputURL: The file URL tou download to
   ///   - timeout: The timeout to use while downloading
   /// - Throws: Any error which occurs during the download
-  func downloadSynchronously(from url: URL,
+  func downloadSynchronously(with urlRequest: URLRequest,
                              to outputURL: URL,
                              timeout: Double) throws {
     let semaphore = DispatchSemaphore(value: 0)
     var errorToThrow: Error? = DownloaderError.downloadTimedOut(after: timeout)
-    URLSession.shared.dataTask(with: url) { data, response, error in
+    URLSession.shared.dataTask(with: urlRequest) { data, response, error in
       func finished(with finalError: Error?) {
         errorToThrow = finalError
         semaphore.signal()
