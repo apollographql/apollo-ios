@@ -49,9 +49,14 @@ public struct ApolloSchemaOptions {
     }
 
   }
+  
+  public struct HTTPHeader: Equatable {
+    let key: String
+    let value: String
+  }
 
   let downloadMethod: DownloadMethod
-  let headers: [String]
+  let headers: [HTTPHeader]
   let outputURL: URL
   
   let downloadTimeout: Double
@@ -68,7 +73,7 @@ public struct ApolloSchemaOptions {
   public init(schemaFileName: String = "schema",
               schemaFileType: SchemaFileType = .json,
               downloadMethod: DownloadMethod,
-              headers: [String] = [],
+              headers: [HTTPHeader] = [],
               outputFolderURL: URL,
               downloadTimeout: Double = 30.0) {
     self.downloadMethod = downloadMethod
@@ -99,7 +104,7 @@ public struct ApolloSchemaOptions {
     // Header argument must be last in the CLI command due to an underlying issue in the Oclif framework.
     // See: https://github.com/apollographql/apollo-tooling/issues/844#issuecomment-547143805
     for header in headers {
-        arguments.append("--header='\(header)'")
+      arguments.append("--header='\(header.key): \(header.value)'")
     }
     
     return arguments
