@@ -61,8 +61,8 @@ class ApolloSchemaTests: XCTestCase {
     let apiKey = "Fake_API_Key"
     let graphID = "Fake_Graph_ID"
     let variant = "Fake_Variant"
-    let firstHeader = "Authorization: Bearer tokenGoesHere"
-    let secondHeader = "Custom-Header: Custom_Customer"
+    let firstHeader = ApolloSchemaOptions.HTTPHeader(key: "Authorization", value: "Bearer tokenGoesHere")
+    let secondHeader = ApolloSchemaOptions.HTTPHeader(key: "Custom-Header",  value: "Custom_Customer")
     let headers = [firstHeader, secondHeader]
     
     let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey,
@@ -85,8 +85,8 @@ class ApolloSchemaTests: XCTestCase {
         "--graph=\(graphID)",
         "--variant=\(variant)",
         "'\(expectedOutputURL.path)'",
-        "--header='\(firstHeader)'",
-        "--header='\(secondHeader)'"
+        "--header='Authorization: Bearer tokenGoesHere'",
+        "--header='Custom-Header: Custom_Customer'"
     ])
   }
 }
