@@ -56,9 +56,9 @@ public struct ApolloSchemaDownloader {
       variables["variant"] = variant
     }
     
-    let body = ApolloRequestBodyCreator().__requestBody(for: self.RegistryDownloadQuery,
-                                                        variables: variables,
-                                                        operationName: "DownloadSchema")
+    let body = UntypedGraphQLRequestBodyCreator.requestBody(for: self.RegistryDownloadQuery,
+                                                            variables: variables,
+                                                            operationName: "DownloadSchema")
     
     var urlRequest = URLRequest(url: self.RegistryEndpoint)
     for header in options.headers {
@@ -175,8 +175,8 @@ public struct ApolloSchemaDownloader {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
     }
     
-    let body = ApolloRequestBodyCreator().__requestBody(for: self.IntrospectionQuery, variables: nil,
-                                                        operationName: "IntrospectionQuery")
+    let body = UntypedGraphQLRequestBodyCreator.requestBody(for: self.IntrospectionQuery, variables: nil,
+                                                            operationName: "IntrospectionQuery")
     urlRequest.httpMethod = "POST"
     urlRequest.httpBody = try JSONSerializationFormat.serialize(value: body)
     
