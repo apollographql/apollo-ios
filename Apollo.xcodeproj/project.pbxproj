@@ -1859,20 +1859,11 @@
 			isa = PBXGroup;
 			children = (
 				9FC9A9C11E2D3CAF0023C4D5 /* InputValue.swift */,
-				9B68F06E241C649E00E97318 /* GraphQLOptional.swift */,
 				DE3C7B0F260A6F7F00D2F4FF /* CodegenV1 */,
-				DE05862626697AB600265760 /* JSON */,
 				DE05862426697A8C00265760 /* Info.plist */,
 			);
 			name = ApolloModels;
 			path = Sources/ApolloModels;
-			sourceTree = "<group>";
-		};
-		DE05862626697AB600265760 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		DE3C79A8260A6ACD00D2F4FF /* AnimalKingdomAPI */ = {
@@ -1902,6 +1893,7 @@
 		DE3C7B0F260A6F7F00D2F4FF /* CodegenV1 */ = {
 			isa = PBXGroup;
 			children = (
+				9B68F06E241C649E00E97318 /* GraphQLOptional.swift */,
 				DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */,
 				DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */,
 				DE3C7B13260A6FCA00D2F4FF /* GraphQLSchema.swift */,
