@@ -1,6 +1,6 @@
 #if !COCOAPODS
 import Apollo
-import ApolloCore
+import ApolloUtils
 #endif
 import Starscream
 import Foundation

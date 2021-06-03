@@ -1,4 +1,4 @@
-import ApolloCore
+import ApolloUtils
 
 /// The input object sent when passing in a color
 public struct ColorInput: Codable, Equatable, Hashable {

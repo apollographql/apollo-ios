@@ -1,4 +1,4 @@
-import ApolloCore
+import ApolloUtils
 
 /// The input object sent when passing in a color
 struct ColorInputNoModifier: Codable, Equatable, Hashable {

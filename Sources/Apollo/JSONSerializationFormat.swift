@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloModels
+#endif
 
 public final class JSONSerializationFormat {
   public class func serialize(value: JSONEncodable) throws -> Data {

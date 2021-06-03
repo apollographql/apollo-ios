@@ -1,3 +1,7 @@
+#if !COCOAPODS
+import ApolloModels
+#endif
+
 public typealias GraphQLMap = [String: JSONEncodable?]
 
 fileprivate extension Dictionary where Key == String, Value == JSONEncodable? {

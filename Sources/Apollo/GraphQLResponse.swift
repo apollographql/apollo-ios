@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloModels
+#endif
 
 /// Represents a GraphQL response received from a server.
 public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {

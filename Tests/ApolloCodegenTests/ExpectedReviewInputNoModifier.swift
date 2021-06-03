@@ -1,4 +1,4 @@
-import ApolloCore
+import ApolloUtils
 
 /// The input object sent when someone is creating a new review
 struct ReviewInputNoModifier: Codable, Equatable, Hashable {

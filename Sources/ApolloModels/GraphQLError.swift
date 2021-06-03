@@ -10,7 +10,7 @@ public struct GraphQLError: Error {
     self.object = object
   }
 
-  init(_ message: String) {
+  public init(_ message: String) {
     self.init(["message": message])
   }
 

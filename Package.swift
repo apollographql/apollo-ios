@@ -65,7 +65,8 @@ let package = Package(
                 "ApolloUtils"
             ],
             exclude: [
-                "Info.plist"
+                "Info.plist",
+                "CodegenV1"
             ]),
         .target(
             name: "ApolloUtils",
@@ -76,7 +77,7 @@ let package = Package(
         .target(
             name: "ApolloCodegenLib",
             dependencies: [
-                "ApolloCore",
+                "ApolloUtils",
                 .product(name: "InflectorKit", package: "InflectorKit"),
                 .product(name: "Stencil", package: "Stencil"),
             ],
@@ -101,7 +102,7 @@ let package = Package(
             name: "ApolloWebSocket",
             dependencies: [
                 "Apollo",
-                "ApolloCore",
+                "ApolloUtils",
                 .product(name: "Starscream", package: "Starscream"),
             ],
             exclude: [

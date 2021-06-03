@@ -7,7 +7,7 @@
 
 import Foundation
 import Apollo
-import ApolloCore
+import ApolloUtils
 
 public final class MockURLSessionClient: URLSessionClient {
 

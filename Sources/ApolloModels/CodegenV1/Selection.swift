@@ -32,7 +32,7 @@ public enum Selection {
       let arguments: InputValue
 
       public init(dictionaryLiteral elements: (String, InputValue)...) {
-        arguments = .object(Dictionary(elements))
+        arguments = .object(Dictionary(elements, uniquingKeysWith: { $1 }))
       }
     }
 

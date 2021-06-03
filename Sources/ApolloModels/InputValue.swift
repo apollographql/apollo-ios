@@ -1,11 +1,5 @@
 import Foundation
 
-/// For backwards compatibility with legacy codegen.
-/// The `GraphQLVariable` class has been replaced by `InputValue.variable`
-public func GraphQLVariable(_ name: String) -> InputValue {
-  return .variable(name)
-}
-
 /// Represents an input value to an argument on a `GraphQLField`'s `FieldArguments`.
 ///
 /// - See: [GraphQLSpec - Input Values](http://spec.graphql.org/June2018/#sec-Input-Values)
@@ -29,7 +23,7 @@ public indirect enum InputValue {
   /// - See: [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/June2018/#sec-Null-Value)
   case none
 
-  func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
     switch self {
     case .scalar(let scalar):
       return scalar.jsonValue
@@ -98,7 +92,7 @@ extension InputValue: ExpressibleByArrayLiteral {
 
 extension InputValue: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (String, InputValue)...) {
-    self = .object(Dictionary(elements))
+    self = .object(Dictionary(elements, uniquingKeysWith: { $1 }))
   }
 
   private func evaluate(values: [String: InputValue], with variables: [String: JSONEncodable]?) throws -> JSONValue {

@@ -1,5 +1,5 @@
 import XCTest
-import ApolloCore
+import ApolloUtils
 
 extension ApolloExtension where Base: XCTestExpectation {
   /// Private API for accessing the number of times an expectation has been fulfilled.
