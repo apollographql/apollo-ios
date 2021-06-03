@@ -15,7 +15,7 @@ class NormalizeQueryResults: XCTestCase {
     
     let (_, records) = try response.parseResult()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? CacheReference, CacheReference(key: "QUERY_ROOT.hero"))
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero"])
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
@@ -32,7 +32,7 @@ class NormalizeQueryResults: XCTestCase {
     
     let (_, records) = try response.parseResult()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? CacheReference, CacheReference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero(episode:JEDI)"])
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
@@ -49,7 +49,7 @@ class NormalizeQueryResults: XCTestCase {
     
     let (_, records) = try response.parseResult()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? Reference, Reference(key: "QUERY_ROOT.hero"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero"] as? CacheReference, CacheReference(key: "QUERY_ROOT.hero"))
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero"])
     XCTAssertEqual(hero["appearsIn"] as? [String], ["NEWHOPE", "EMPIRE", "JEDI"])
@@ -74,11 +74,11 @@ class NormalizeQueryResults: XCTestCase {
     
     let (_, records) = try response.parseResult()
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "QUERY_ROOT.hero(episode:JEDI)"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? CacheReference, CacheReference(key: "QUERY_ROOT.hero(episode:JEDI)"))
     
     let hero = try XCTUnwrap(records?["QUERY_ROOT.hero(episode:JEDI)"])
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
-    XCTAssertEqual(hero["friends"] as? [Reference], [Reference(key: "QUERY_ROOT.hero(episode:JEDI).friends.0"), Reference(key: "QUERY_ROOT.hero(episode:JEDI).friends.1"), Reference(key: "QUERY_ROOT.hero(episode:JEDI).friends.2")])
+    XCTAssertEqual(hero["friends"] as? [CacheReference], [CacheReference(key: "QUERY_ROOT.hero(episode:JEDI).friends.0"), CacheReference(key: "QUERY_ROOT.hero(episode:JEDI).friends.1"), CacheReference(key: "QUERY_ROOT.hero(episode:JEDI).friends.2")])
     
     let luke = try XCTUnwrap(records?["QUERY_ROOT.hero(episode:JEDI).friends.0"])
     XCTAssertEqual(luke["name"] as? String, "Luke Skywalker")
@@ -104,11 +104,11 @@ class NormalizeQueryResults: XCTestCase {
     
     let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] })
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? CacheReference, CacheReference(key: "2001"))
     
     let hero = try XCTUnwrap(records?["2001"])
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
-    XCTAssertEqual(hero["friends"] as? [Reference], [Reference(key: "1000"), Reference(key: "1002"), Reference(key: "1003")])
+    XCTAssertEqual(hero["friends"] as? [CacheReference], [CacheReference(key: "1000"), CacheReference(key: "1002"), CacheReference(key: "1003")])
     
     let luke = try XCTUnwrap(records?["1000"])
     XCTAssertEqual(luke["name"] as? String, "Luke Skywalker")
@@ -134,11 +134,11 @@ class NormalizeQueryResults: XCTestCase {
     
     let (_, records) = try response.parseResult(cacheKeyForObject: { $0["id"] })
     
-    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? Reference, Reference(key: "2001"))
+    XCTAssertEqual(records?["QUERY_ROOT"]?["hero(episode:JEDI)"] as? CacheReference, CacheReference(key: "2001"))
     
     let hero = try XCTUnwrap(records?["2001"])
     XCTAssertEqual(hero["name"] as? String, "R2-D2")
-    XCTAssertEqual(hero["friends"] as? [Reference], [Reference(key: "2001.friends.0"), Reference(key: "2001.friends.1"), Reference(key: "2001.friends.2")])
+    XCTAssertEqual(hero["friends"] as? [CacheReference], [CacheReference(key: "2001.friends.0"), CacheReference(key: "2001.friends.1"), CacheReference(key: "2001.friends.2")])
     
     let luke = try XCTUnwrap(records?["2001.friends.0"])
     XCTAssertEqual(luke["name"] as? String, "Luke Skywalker")

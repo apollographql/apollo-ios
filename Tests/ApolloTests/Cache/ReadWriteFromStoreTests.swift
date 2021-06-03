@@ -30,7 +30,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadHeroNameQuery() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -53,7 +53,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadHeroNameQueryAfterRemovingRecord() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -114,7 +114,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testHeroNameQueryStillLoadsAfterAttemptingToDeleteFieldKey() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -160,7 +160,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadHeroNameQueryWithVariable() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero(episode:JEDI)": Reference(key: "hero(episode:JEDI)")],
+      "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference(key: "hero(episode:JEDI)")],
       "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -183,7 +183,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadHeroNameQueryWithMissingName() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid"]
     ])
     
@@ -210,7 +210,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testUpdateHeroNameQuery() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "QUERY_ROOT.hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "QUERY_ROOT.hero")],
       "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -264,14 +264,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadHeroAndFriendsNamesQuery() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -299,14 +299,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadHeroAndFriendsNamesQueryFailsAfterRemovingFriendRecord() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -363,14 +363,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testUpdateHeroAndFriendsNamesQuery() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -408,14 +408,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testUpdateHeroAndFriendsNamesQueryWithVariable() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero(episode:NEWHOPE)": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero(episode:NEWHOPE)": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -453,14 +453,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadAfterUpdateWithinSameTransaction() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -537,14 +537,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testReadFriendsNamesFragment() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -569,14 +569,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testUpdateFriendsNamesFragment() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],

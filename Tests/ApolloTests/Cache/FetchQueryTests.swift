@@ -39,7 +39,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid",
@@ -78,7 +78,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid",
@@ -127,7 +127,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "QUERY_ROOT.hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "QUERY_ROOT.hero")],
       "QUERY_ROOT.hero": [
         "name": "R2-D2",
         "__typename": "Droid",
@@ -155,7 +155,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameAndAppearsInQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid"
@@ -196,7 +196,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid",
@@ -224,7 +224,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameAndAppearsInQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid"
@@ -247,7 +247,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     let query = HeroNameQuery()
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid",

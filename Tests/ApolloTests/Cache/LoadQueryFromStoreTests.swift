@@ -32,7 +32,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroNameQuery() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -51,7 +51,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroNameQueryWithVariable() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero(episode:JEDI)": Reference(key: "hero(episode:JEDI)")],
+      "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference(key: "hero(episode:JEDI)")],
       "hero(episode:JEDI)": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -70,7 +70,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroNameQueryWithMissingName() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid"]
     ])
     
@@ -90,7 +90,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroNameQueryWithNullName() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": NSNull()]
     ])
     
@@ -110,14 +110,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroAndFriendsNamesQueryWithoutIDs() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero(episode:JEDI)": Reference(key: "hero(episode:JEDI)")],
+      "QUERY_ROOT": ["hero(episode:JEDI)": CacheReference(key: "hero(episode:JEDI)")],
       "hero(episode:JEDI)": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "hero(episode:JEDI).friends.0"),
-          Reference(key: "hero(episode:JEDI).friends.1"),
-          Reference(key: "hero(episode:JEDI).friends.2")
+          CacheReference(key: "hero(episode:JEDI).friends.0"),
+          CacheReference(key: "hero(episode:JEDI).friends.1"),
+          CacheReference(key: "hero(episode:JEDI).friends.2")
         ]
       ],
       "hero(episode:JEDI).friends.0": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -142,14 +142,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroAndFriendsNamesQueryWithIDs() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003"),
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003"),
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -174,7 +174,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroAndFriendsNamesQueryWithNullFriends() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": [
         "name": "R2-D2",
         "__typename": "Droid",
@@ -198,7 +198,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingHeroAndFriendsNamesQueryWithMissingFriends() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     
@@ -218,14 +218,14 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   
   func testLoadingWithBadCacheSerialization() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": ["dictionary": "badValues", "nested bad val": ["subdictionary": "some value"] ]
@@ -254,7 +254,7 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let coordinates = [[38.857150, -94.798464]]
     
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["starshipCoordinates(coordinates:\(coordinates))": Reference(key: "starshipCoordinates(coordinates:\(coordinates))")],
+      "QUERY_ROOT": ["starshipCoordinates(coordinates:\(coordinates))": CacheReference(key: "starshipCoordinates(coordinates:\(coordinates))")],
       "starshipCoordinates(coordinates:\(coordinates))": ["__typename": "Starship",
                                                           "name": "Millennium Falcon",
                                                           "length": starshipLength,
