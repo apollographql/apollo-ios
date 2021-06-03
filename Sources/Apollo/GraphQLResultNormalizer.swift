@@ -1,8 +1,3 @@
-import Foundation
-#if !COCOAPODS
-import ApolloModels
-#endif
-
 final class GraphQLResultNormalizer: GraphQLResultAccumulator {
   private var records: RecordSet = [:]
 

@@ -49,7 +49,7 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     
     do {
       let deserialized = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData)
-      let json = deserialized as? [String: Any]
+      let json = deserialized as? JSONObject
       guard let body = json else {
         throw LegacyParsingError.couldNotParseToLegacyJSON(data: createdResponse.rawData)
       }

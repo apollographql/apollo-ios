@@ -1,7 +1,3 @@
-#if !COCOAPODS
-import ApolloModels
-#endif
-
 final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQLResultAccumulator {
   func accept(scalar: JSONValue, info: GraphQLResolveInfo) throws -> Any? {
     guard case .scalar(let decodable) = info.fields[0].type.namedType else { preconditionFailure() }

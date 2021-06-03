@@ -1,7 +1,3 @@
-#if !COCOAPODS
-import ApolloModels
-#endif
-
 final class GraphQLDependencyTracker: GraphQLResultAccumulator {
   private var dependentKeys: Set<CacheKey> = Set()
 

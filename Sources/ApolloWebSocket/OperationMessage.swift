@@ -73,14 +73,14 @@ final class OperationMessage {
 
     var type : String?
     var id : String?
-    var payload : [String: Any]?
+    var payload : JSONObject?
 
     do {
-      let json = try JSONSerializationFormat.deserialize(data: data ) as? [String: Any]
+      let json = try JSONSerializationFormat.deserialize(data: data ) as? JSONObject
 
       id = json?["id"] as? String
       type = json?["type"] as? String
-      payload = json?["payload"] as? [String: Any]
+      payload = json?["payload"] as? JSONObject
 
       handler(ParseHandler(type,
                            id,
@@ -102,12 +102,12 @@ struct ParseHandler {
 
   let type: String?
   let id: String?
-  let payload: [String: Any]?
+  let payload: JSONObject?
   let error: Error?
 
   init(_ type: String?,
        _ id: String?,
-       _ payload: [String: Any]?,
+       _ payload: JSONObject?,
        _ error: Error?) {
     self.type = type
     self.id = id

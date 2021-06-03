@@ -1,7 +1,4 @@
 import Foundation
-#if !COCOAPODS
-import ApolloModels
-#endif
 
 private typealias GroupedFields = GroupedSequence<String, GraphQLField>
 

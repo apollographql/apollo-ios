@@ -1,9 +1,3 @@
-import Foundation
-#if !COCOAPODS
-import ApolloModels
-import ApolloUtils
-#endif
-
 final class GraphQLResponseGenerator: GraphQLResultAccumulator {
   func accept(scalar: JSONValue, info: GraphQLResolveInfo) -> JSONValue {
     return scalar

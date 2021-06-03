@@ -1,7 +1,4 @@
 import Foundation
-#if !COCOAPODS
-import ApolloModels
-#endif
 
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResult<Data>: Parseable {

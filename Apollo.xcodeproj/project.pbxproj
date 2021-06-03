@@ -246,6 +246,7 @@
 		DE0586352669956D00265760 /* JSONStandardTypeConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27D4631D40379500715680 /* JSONStandardTypeConversions.swift */; };
 		DE0586362669957800265760 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED92666DF150054DB4F /* CacheReference.swift */; };
 		DE0586372669958F00265760 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
+		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE3C7A94260A6C1000D2F4FF /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
 		DE3C7A95260A6C1000D2F4FF /* ApolloUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -878,6 +879,7 @@
 		DE0586222669793200265760 /* Apollo-Target-ApolloModels.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloModels.xcconfig"; sourceTree = "<group>"; };
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
+		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
 		DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
 		DE3C79AA260A6ACD00D2F4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1800,6 +1802,7 @@
 				9FEC15B31E681DAD00D461B4 /* GroupedSequence.swift */,
 				9F578D8F1D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift */,
 				9F33D6A32566475600A1543F /* PossiblyDeferred.swift */,
+				DE0586382669985000265760 /* Dictionary+Helpers.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -2922,6 +2925,7 @@
 				9B260C0A245A532500562176 /* LegacyParsingInterceptor.swift in Sources */,
 				9B96500C24BE7239003C29C0 /* LegacyCacheReadInterceptor.swift in Sources */,
 				9F8F334C229044A200C0E83B /* Decoding.swift in Sources */,
+				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
