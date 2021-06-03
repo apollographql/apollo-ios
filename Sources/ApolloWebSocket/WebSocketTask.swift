@@ -16,7 +16,7 @@ final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
   /// - Parameter completionHandler: A completion handler to fire when the operation has a result.
   init(_ ws: WebSocketTransport,
        _ operation: Operation,
-       _ completionHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) {
+       _ completionHandler: @escaping (_ result: Result<[String: Any], Error>) -> Void) {
     sequenceNumber = ws.sendHelper(operation: operation, resultHandler: completionHandler)
     transport = ws
   }

@@ -19,7 +19,7 @@ final class OperationMessage {
   }
 
   let serializationFormat = JSONSerializationFormat.self
-  var message: GraphQLMap = [:]
+  let message: GraphQLMap
   var serialized: String?
 
   var rawMessage : String? {
@@ -34,16 +34,19 @@ final class OperationMessage {
   init(payload: GraphQLMap? = nil,
        id: String? = nil,
        type: Types = .start) {
+    var message: GraphQLMap = [:]
     if let payload = payload {
-      message += ["payload": payload]
+      message["payload"] = payload
     }
     if let id = id {
-      message += ["id": id]
+      message["id"] = id
     }
-    message += ["type": type.rawValue]
+    message["type"] = type.rawValue
+    self.message = message
   }
 
   init(serialized: String) {
+    self.message = [:]
     self.serialized = serialized
   }
 
@@ -70,14 +73,14 @@ final class OperationMessage {
 
     var type : String?
     var id : String?
-    var payload : JSONObject?
+    var payload : [String: Any]?
 
     do {
-      let json = try JSONSerializationFormat.deserialize(data: data ) as? JSONObject
+      let json = try JSONSerializationFormat.deserialize(data: data ) as? [String: Any]
 
       id = json?["id"] as? String
       type = json?["type"] as? String
-      payload = json?["payload"] as? JSONObject
+      payload = json?["payload"] as? [String: Any]
 
       handler(ParseHandler(type,
                            id,
@@ -99,12 +102,12 @@ struct ParseHandler {
 
   let type: String?
   let id: String?
-  let payload: JSONObject?
+  let payload: [String: Any]?
   let error: Error?
 
   init(_ type: String?,
        _ id: String?,
-       _ payload: JSONObject?,
+       _ payload: [String: Any]?,
        _ error: Error?) {
     self.type = type
     self.id = id

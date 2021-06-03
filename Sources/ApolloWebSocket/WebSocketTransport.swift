@@ -56,7 +56,7 @@ public class WebSocketTransport {
   private var queue: [Int: String] = [:]
   private var connectingPayload: GraphQLMap?
 
-  private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
+  private var subscribers = [String: (Result<[String: Any], Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
   private let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
 
@@ -270,7 +270,7 @@ public class WebSocketTransport {
     self.websocket.delegate = nil
   }
 
-  func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
+  func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<[String: Any], Error>) -> Void) -> String? {
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: self.sendOperationIdentifiers,
                                               sendQueryDocument: true,
