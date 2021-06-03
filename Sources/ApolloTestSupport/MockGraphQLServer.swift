@@ -1,4 +1,5 @@
 @testable import Apollo
+import ApolloModels
 import XCTest
 
 /// A `MockGraphQLServer` can be used during tests to check whether expected GraphQL requests are received, and to respond with appropriate test data for a particular request.
