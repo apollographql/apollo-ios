@@ -51,11 +51,11 @@ extension JSONDecodingError: Matchable {
 // MARK: Helpers
 
 func equals(_ lhs: Any, _ rhs: Any) -> Bool {
-  if let lhs = lhs as? Reference, let rhs = rhs as? Reference {
+  if let lhs = lhs as? CacheReference, let rhs = rhs as? CacheReference {
     return lhs == rhs
   }
 
-  if let lhs = lhs as? Array<Reference>, let rhs = rhs as? Array<Reference> {
+  if let lhs = lhs as? Array<CacheReference>, let rhs = rhs as? Array<CacheReference> {
     return lhs == rhs
   }
 

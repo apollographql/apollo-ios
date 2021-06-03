@@ -4,6 +4,10 @@ public enum SelectionSetType<S: GraphQLSchema> {
   case Union(S.Union)
 }
 
+public protocol AnySelectionSet: ResponseObject {
+  static var selections: [Selection] { get }
+}
+
 public protocol SelectionSet: ResponseObject, Equatable {
 
   associatedtype Schema: GraphQLSchema
