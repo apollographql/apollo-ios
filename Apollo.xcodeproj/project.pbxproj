@@ -430,13 +430,6 @@
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloModels;
 		};
-		DE05862926697B4E00265760 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B68353D2463481A00337AE6;
-			remoteInfo = ApolloUtils;
-		};
 		DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -663,7 +656,7 @@
 		9B518C88235F8AD4004C426D /* CLIDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIDownloaderTests.swift; sourceTree = "<group>"; };
 		9B518C8A235F8B05004C426D /* ApolloFilePathHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloFilePathHelper.swift; sourceTree = "<group>"; };
 		9B554CC3247DC29A002F452A /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
-		9B5A1EE3243284F300F066BB /* Package.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; tabWidth = 4; };
+		9B5A1EE3243284F300F066BB /* Package.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; tabWidth = 2; };
 		9B5A1EFB243528AA00F066BB /* InputObjectGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectGenerationTests.swift; sourceTree = "<group>"; };
 		9B5A1EFF2435356400F066BB /* ExpectedColorInputNoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpectedColorInputNoModifier.swift; sourceTree = "<group>"; };
 		9B60204E23FDFA9F00D0C8E0 /* SQLiteCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteCacheTests.swift; sourceTree = "<group>"; };
@@ -2383,7 +2376,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DE05862A26697B4E00265760 /* PBXTargetDependency */,
 			);
 			name = ApolloModels;
 			productName = ApolloCore;
@@ -3183,11 +3175,6 @@
 			isa = PBXTargetDependency;
 			target = DE058606266978A100265760 /* ApolloModels */;
 			targetProxy = DE05862726697B1D00265760 /* PBXContainerItemProxy */;
-		};
-		DE05862A26697B4E00265760 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B68353D2463481A00337AE6 /* ApolloUtils */;
-			targetProxy = DE05862926697B4E00265760 /* PBXContainerItemProxy */;
 		};
 		DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

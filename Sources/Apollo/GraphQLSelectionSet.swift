@@ -77,7 +77,7 @@ public struct FieldArguments: ExpressibleByDictionaryLiteral {
   let arguments: InputValue
 
   public init(dictionaryLiteral elements: (String, InputValue)...) {
-    arguments = .object(Dictionary(elements, uniquingKeysWith: { $1 }))
+    arguments = .object(Dictionary(elements, uniquingKeysWith: { (_, last) in last }))
   }
 
   public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {

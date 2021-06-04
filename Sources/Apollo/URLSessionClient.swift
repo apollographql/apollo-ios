@@ -97,7 +97,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// Mostly useful for cleanup and/or after invalidation of the `URLSession`.
   open func clearAllTasks() {
-    guard self.tasks.value.apollo.isNotEmpty else {            
+    guard self.tasks.value.apollo.isNotEmpty else {
       // Nothing to clear
       return
     }

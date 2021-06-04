@@ -62,6 +62,6 @@ extension InputValue: ExpressibleByArrayLiteral {
 
 extension InputValue: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (String, InputValue)...) {
-    self = .object(Dictionary(elements, uniquingKeysWith: { $1 }))
+    self = .object(Dictionary(elements, uniquingKeysWith: { (_, last) in last }))
   }
 }

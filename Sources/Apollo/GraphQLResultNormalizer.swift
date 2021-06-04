@@ -20,7 +20,7 @@ final class GraphQLResultNormalizer: GraphQLResultAccumulator {
   func accept(fieldEntries: [(key: String, value: JSONValue)], info: GraphQLResolveInfo) throws -> JSONValue {
     let cachePath = info.cachePath.joined
 
-    let object = JSONObject(fieldEntries, uniquingKeysWith: { $1 })
+    let object = JSONObject(fieldEntries, uniquingKeysWith: { (_, last) in last })
     records.merge(record: Record(key: cachePath, object))
     
     return CacheReference(key: cachePath)
