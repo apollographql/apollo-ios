@@ -175,7 +175,7 @@ public struct ApolloSchemaDownloader {
     let body = UntypedGraphQLRequestBodyCreator.requestBody(for: self.IntrospectionQuery, variables: nil,
                                                             operationName: "IntrospectionQuery")
     urlRequest.httpMethod = "POST"
-    urlRequest.httpBody = try JSONSerializationFormat.serialize(value: body)
+    urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
     
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: options.outputURL,
