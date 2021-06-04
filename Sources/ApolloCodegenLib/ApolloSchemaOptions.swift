@@ -3,12 +3,6 @@ import Foundation
 /// Options for running the Apollo Schema Downloader.
 public struct ApolloSchemaOptions {
   
-  /// The type of schema file to download
-  public enum SchemaFileType: String {
-    case json
-    case schemaDefinitionLanguage = "graphql"
-  }
-  
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable {
 
@@ -64,21 +58,19 @@ public struct ApolloSchemaOptions {
   /// Designated Initializer
   ///
   /// - Parameters:
-  ///   - schemaFileName: The name, without an extension, for your schema file. Defaults to `"schema"`
-  ///   - schemaFileType: The `SchemaFileType` to download the schema as. Defaults to `.json`.
+  ///   - schemaFileName: The name, without an extension, for your schema file. Defaults to `"schema"
   ///   - downloadMethod: How to download your schema.
   ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(schemaFileName: String = "schema",
-              schemaFileType: SchemaFileType = .json,
               downloadMethod: DownloadMethod,
               headers: [HTTPHeader] = [],
               outputFolderURL: URL,
               downloadTimeout: Double = 30.0) {
     self.downloadMethod = downloadMethod
     self.headers = headers
-    self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFileName).\(schemaFileType.rawValue)")
+    self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFileName).graphqls")
 
     self.downloadTimeout = downloadTimeout
   }
