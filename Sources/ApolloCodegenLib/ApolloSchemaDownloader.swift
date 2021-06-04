@@ -57,12 +57,13 @@ public struct ApolloSchemaDownloader {
                                                             operationName: "DownloadSchema")
     
     var urlRequest = URLRequest(url: self.RegistryEndpoint)
+    urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    urlRequest.addValue(settings.apiKey, forHTTPHeaderField: "x-api-key")
     for header in options.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
     }
-    urlRequest.addValue(settings.apiKey, forHTTPHeaderField: "x-api-key")
     urlRequest.httpMethod = "POST"
-    urlRequest.httpBody = try JSONSerializationFormat.serialize(value: body)
+    urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
         
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: options.outputURL, timeout: options.downloadTimeout)
@@ -166,7 +167,8 @@ public struct ApolloSchemaDownloader {
     CodegenLogger.log("Downloading schema via introspection from \(endpointURL)", logLevel: .debug)
     
     var urlRequest = URLRequest(url: endpointURL)
-    
+    urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
     for header in options.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
     }
