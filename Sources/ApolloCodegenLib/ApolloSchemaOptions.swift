@@ -20,10 +20,10 @@ public struct ApolloSchemaOptions {
       /// - Parameters:
       ///   - apiKey: The API key to use when retrieving your schema.
       ///   - graphID: The identifier of the graph to fetch. Can be found in Apollo Studio.
-      ///   - variant: [Optional] The variant of the graph to fetch. Defaults to nil, which will return whatever is set to the current variant.
+      ///   - variant: The variant of the graph to fetch. Defaults to "current", which will return whatever is set to the current variant.
       public init(apiKey: String,
                   graphID: String,
-                  variant: String? = nil) {
+                  variant: String = "current") {
         self.apiKey = apiKey
         self.graphID = graphID
         self.variant = variant
