@@ -97,6 +97,14 @@ public struct CodegenTestHelper {
       .appendingPathComponent("Output")
   }
   
+  public static func schemaFolderURL() -> URL {
+    let sourceRoot = self.sourceRootURL()
+    return sourceRoot
+      .appendingPathComponent("Tests")
+      .appendingPathComponent("ApolloCodegenTests")
+      .appendingPathComponent("Schema")
+  }
+  
   public static func deleteExistingOutputFolder(file: StaticString = #filePath,
                                          line: UInt = #line) {
     do {

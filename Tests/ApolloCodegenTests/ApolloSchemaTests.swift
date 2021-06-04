@@ -12,23 +12,28 @@ import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 
 class ApolloSchemaTests: XCTestCase {
+  
+  override func tearDownWithError() throws {
+    try FileManager.default.apollo.deleteFile(at: self.defaultOutputURL)
+    try super.tearDownWithError()
+  }
+  
+  private var defaultOutputURL: URL {
+    return CodegenTestHelper.schemaFolderURL()
+      .appendingPathComponent("schema.json")
+  }
     
   func testCreatingIntrospectionOptionsWithDefaultParameters() throws {
-    let sourceRoot = CodegenTestHelper.sourceRootURL()
-    
     let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                      outputFolderURL: sourceRoot)
-    
-    let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
-    
+                                      outputFolderURL: CodegenTestHelper.schemaFolderURL())
     XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
-    XCTAssertEqual(options.outputURL, expectedOutputURL)
+    XCTAssertEqual(options.outputURL, self.defaultOutputURL)
     XCTAssertTrue(options.headers.isEmpty)
     
     XCTAssertEqual(options.arguments, [
         "client:download-schema",
         "--endpoint=http://localhost:8080/graphql",
-        "'\(expectedOutputURL.path)'"
+      "'\(self.defaultOutputURL.path)'"
     ])
   }
 
@@ -89,4 +94,25 @@ class ApolloSchemaTests: XCTestCase {
         "--header='Custom-Header: Custom_Customer'"
     ])
   }
+  
+  func testDownloadingViaIntrospection() throws {
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
+    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                      
+                                      outputFolderURL: CodegenTestHelper.schemaFolderURL(),
+                                      downloadTimeout: 60)
+    try ApolloSchemaDownloader.run(options: options)
+    
+    // Has the file been downloaded?
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
+    
+    // Can that file be decoded as JSON?
+    let contents = try Data(contentsOf: self.defaultOutputURL)
+    let json = try JSONSerialization.jsonObject(with: contents)
+    let jsonDict = try XCTUnwrap(json as? [String: Any])
+    
+    // Is there actually anything _in_ the JSON?
+    XCTAssertTrue(jsonDict.apollo.isNotEmpty)
+  }
 }
+
