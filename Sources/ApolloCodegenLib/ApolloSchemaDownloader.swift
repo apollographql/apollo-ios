@@ -1,5 +1,4 @@
 import Foundation
-import Apollo
 
 // Only available on macOS
 #if os(macOS)
