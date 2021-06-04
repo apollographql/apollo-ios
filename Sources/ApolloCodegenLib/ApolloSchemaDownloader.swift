@@ -15,9 +15,8 @@ public struct ApolloSchemaDownloader {
   ///   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
   ///   - options: The `ApolloSchemaOptions` object to use to download the schema.
   /// - Returns: Output from a successful run
-  @discardableResult
   public static func run(with cliFolderURL: URL,
-                         options: ApolloSchemaOptions) throws -> String {
+                         options: ApolloSchemaOptions) throws {
     try FileManager.default.apollo.createContainingFolderIfNeeded(for: options.outputURL)
     
     switch options.downloadMethod {
@@ -26,9 +25,6 @@ public struct ApolloSchemaDownloader {
     case .registry(let settings):
       try self.downloadFromRegistry(with: settings, options: options)
     }
-    
-    let cli = try ApolloCLI.createCLI(cliFolderURL: cliFolderURL, timeout: options.downloadTimeout)
-    return try cli.runApollo(with: options.arguments)
   }
   
   private static let RegistryDownloadQuery = """
