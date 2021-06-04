@@ -15,12 +15,17 @@ class ApolloSchemaTests: XCTestCase {
   
   override func tearDownWithError() throws {
     try FileManager.default.apollo.deleteFile(at: self.defaultOutputURL)
+    try FileManager.default.apollo.deleteFile(at: self.intermediateOutputURL)
     try super.tearDownWithError()
   }
   
   private var defaultOutputURL: URL {
     return CodegenTestHelper.schemaFolderURL()
-      .appendingPathComponent("schema.json")
+      .appendingPathComponent("schema.graphqls")
+  }
+  
+  private var intermediateOutputURL: URL {
+    return CodegenTestHelper.schemaFolderURL().appendingPathComponent("registry_response.json")
   }
     
   func testCreatingIntrospectionOptionsWithDefaultParameters() throws {
@@ -74,7 +79,6 @@ class ApolloSchemaTests: XCTestCase {
                                                                        graphID: graphID, variant: variant)
     
     let options = ApolloSchemaOptions(schemaFileName: "different_name",
-                                      schemaFileType: .schemaDefinitionLanguage,
                                       downloadMethod: .registry(settings),
                                       headers: headers,
                                       outputFolderURL: sourceRoot)
@@ -113,6 +117,27 @@ class ApolloSchemaTests: XCTestCase {
     
     // Is there actually anything _in_ the JSON?
     XCTAssertTrue(jsonDict.apollo.isNotEmpty)
+  }
+  
+  func testDownloadingFromSchemaRegistry() throws {
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
+
+    guard let apiKey = ProcessInfo.processInfo.environment["REGISTRY_API_KEY"] else {
+      _ = XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
+      return
+    }
+    
+      let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
+      
+    let options = ApolloSchemaOptions(downloadMethod: .registry(settings),
+                                      outputFolderURL: CodegenTestHelper.schemaFolderURL(),
+                                      downloadTimeout: 60)
+    
+    try ApolloSchemaDownloader.run(options: options)
+
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
+
+    
   }
 }
 

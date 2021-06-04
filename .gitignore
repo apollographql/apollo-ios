@@ -58,6 +58,7 @@ scripts/apollo.tar.gz
 SwiftScripts/ApolloCLI
 Tests/ApolloCodegenTests/scripts
 Tests/ApolloCodegenTests/scripts directory
+Tests/ApolloCodegenTests/Schema
 SwiftScripts/.build-**
 
 # Local Netlify folder

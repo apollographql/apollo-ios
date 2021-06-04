@@ -1,14 +1,36 @@
 import Foundation
-
 // Only available on macOS
 #if os(macOS)
 
 /// A wrapper to facilitate downloading a schema with the Apollo node CLI
 public struct ApolloSchemaDownloader {
   
+  public enum SchemaDownloadError: Error, LocalizedError {
+    case downloadedRegistryJSONFileNotFound(underlying: Error)
+    case couldNotParseRegistryJSON(underlying: Error)
+    case unexpectedRegistryJSONType
+    case couldNotExtractSDLFromRegistryJSON
+    case couldNotCreateSDLDataToWrite(schema: String)
+
+    public var errorDescription: String? {
+      switch self {
+      case .downloadedRegistryJSONFileNotFound(let underlying):
+        return "Could not load the JSON file downloaded from the registry. Underlying error: \(underlying)"
+      case .couldNotParseRegistryJSON(let underlying):
+        return "Could not parse JSON returned by the registry. Underlying error: \(underlying)"
+      case .unexpectedRegistryJSONType:
+        return "Root type in the registry JSON was not a dictionary."
+      case .couldNotExtractSDLFromRegistryJSON:
+        return "Could not extract the SDL schema from JSON sent by the registry."
+      case .couldNotCreateSDLDataToWrite(let schema):
+        return "Could not convert SDL schema into data to write to the filesystem. Schema: \(schema)"
+      }
+    }
+  }
+  
   static let RegistryEndpoint = URL(string: "https://graphql.api.apollographql.com/api/graphql")!
   
-  /// Runs code generation from the given folder with the passed-in options
+  /// Downloads your schema using the passed-in options
   ///
   /// - Parameters:
   ///   - options: The `ApolloSchemaOptions` object to use to download the schema.
@@ -61,9 +83,12 @@ public struct ApolloSchemaDownloader {
     }
     urlRequest.httpMethod = "POST"
     urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
+    let jsonOutputURL = options.outputURL.apollo.parentFolderURL().appendingPathComponent("registry_response.json")
         
     try URLDownloader().downloadSynchronously(with: urlRequest,
-                                              to: options.outputURL, timeout: options.downloadTimeout)
+                                              to: jsonOutputURL, timeout: options.downloadTimeout)
+    
+    try self.convertFromDownloadedJSONToSDLFile(jsonFileURL: jsonOutputURL, options: options)
     
     CodegenLogger.log("Successfully downloaded schema from registry", logLevel: .debug)
   }
@@ -178,8 +203,44 @@ public struct ApolloSchemaDownloader {
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: options.outputURL,
                                               timeout: options.downloadTimeout)
-    
     CodegenLogger.log("Successfully downloaded schema via introspection", logLevel: .debug)
+  }
+  
+  static func convertFromDownloadedJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
+    let jsonData: Data
+    
+    do {
+      jsonData = try Data(contentsOf: jsonFileURL)
+    } catch {
+      throw SchemaDownloadError.downloadedRegistryJSONFileNotFound(underlying: error)
+    }
+    
+    let json: Any
+    do {
+      json = try JSONSerialization.jsonObject(with: jsonData)
+    } catch {
+      throw SchemaDownloadError.couldNotParseRegistryJSON(underlying: error)
+    }
+    
+    guard let dict = json as? [String: Any] else {
+      throw SchemaDownloadError.unexpectedRegistryJSONType
+    }
+    
+    guard
+      let data = dict["data"] as? [String: Any],
+      let service = data["service"] as? [String: Any],
+      let variant = service["variant"] as? [String: Any],
+      let asp = variant["activeSchemaPublish"] as? [String: Any],
+      let schemaDict = asp["schema"] as? [String: Any],
+      let sdlSchema = schemaDict["document"] as? String else {
+      throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
+    }
+
+    guard let sdlData = sdlSchema.data(using: .utf8) else {
+      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: sdlSchema)
+    }
+    
+    try sdlData.write(to: options.outputURL)
   }
 }
 #endif
