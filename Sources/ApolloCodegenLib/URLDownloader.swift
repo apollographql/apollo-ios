@@ -70,6 +70,7 @@ class URLDownloader {
       }
       
       do {
+        try FileManager.default.apollo.createContainingFolderIfNeeded(for: outputURL)
         try data.write(to: outputURL)
       } catch (let writeError) {
         finished(with: writeError)
