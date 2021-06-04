@@ -1,4 +1,4 @@
-import ApolloUtils
+import ApolloModels
 
 /// The input object sent when someone is creating a new review
 public struct ReviewInput: Codable, Equatable, Hashable {
