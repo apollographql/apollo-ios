@@ -85,7 +85,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertEqual(options.downloadMethod, .registry(settings))
     XCTAssertEqual(options.headers, headers)
     
-    let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
+    let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphqls")
     XCTAssertEqual(options.outputURL, expectedOutputURL)
 
     XCTAssertEqual(options.arguments, [
