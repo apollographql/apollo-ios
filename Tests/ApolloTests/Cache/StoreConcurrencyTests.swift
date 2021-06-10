@@ -30,14 +30,14 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   
   func testConcurrentReadsInitiatedFromMainThread() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -70,14 +70,14 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   
   func testConcurrentReadsInitiatedFromBackgroundThreads() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
         "friends": [
-          Reference(key: "1000"),
-          Reference(key: "1002"),
-          Reference(key: "1003")
+          CacheReference(key: "1000"),
+          CacheReference(key: "1002"),
+          CacheReference(key: "1003")
         ]
       ],
       "1000": ["__typename": "Human", "name": "Luke Skywalker"],
@@ -110,7 +110,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   
   func testConcurrentUpdatesInitiatedFromMainThread() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",
@@ -164,7 +164,7 @@ class StoreConcurrencyTests: XCTestCase, CacheDependentTesting {
   
   func testConcurrentUpdatesInitiatedFromBackgroundThreads() throws {
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "2001")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "2001")],
       "2001": [
         "name": "R2-D2",
         "__typename": "Droid",

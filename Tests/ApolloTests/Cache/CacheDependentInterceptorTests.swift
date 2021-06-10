@@ -32,7 +32,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
   func testChangingCachePolicyInErrorInterceptorWorks() {
     // Set up initial cache state
     mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": Reference(key: "hero")],
+      "QUERY_ROOT": ["hero": CacheReference(key: "hero")],
       "hero": ["__typename": "Droid", "name": "R2-D2"]
     ])
     

@@ -19,7 +19,7 @@ final class OperationMessage {
   }
 
   let serializationFormat = JSONSerializationFormat.self
-  var message: GraphQLMap = [:]
+  let message: GraphQLMap
   var serialized: String?
 
   var rawMessage : String? {
@@ -34,16 +34,19 @@ final class OperationMessage {
   init(payload: GraphQLMap? = nil,
        id: String? = nil,
        type: Types = .start) {
+    var message: GraphQLMap = [:]
     if let payload = payload {
-      message += ["payload": payload]
+      message["payload"] = payload
     }
     if let id = id {
-      message += ["id": id]
+      message["id"] = id
     }
-    message += ["type": type.rawValue]
+    message["type"] = type.rawValue
+    self.message = message
   }
 
   init(serialized: String) {
+    self.message = [:]
     self.serialized = serialized
   }
 

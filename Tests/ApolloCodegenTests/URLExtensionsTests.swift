@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
-import ApolloCore
+import ApolloUtils
 
 class URLExtensionsTests: XCTestCase {
  
