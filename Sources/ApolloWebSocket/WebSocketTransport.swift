@@ -63,7 +63,6 @@ public class WebSocketTransport {
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
   private let allowSendingDuplicates: Bool
-  fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
   /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
@@ -151,9 +150,7 @@ public class WebSocketTransport {
       switch messageType {
       case .data,
            .error:
-        if
-          let id = parseHandler.id,
-          let responseHandler = subscribers[id] {
+        if let id = parseHandler.id, let responseHandler = subscribers[id] {
           if let payload = parseHandler.payload {
             responseHandler(.success(payload))
           } else if let error = parseHandler.error {
@@ -185,6 +182,9 @@ public class WebSocketTransport {
       case .connectionAck:
         acked = true
         writeQueue()
+
+      case .startAck:
+        break
 
       case .connectionKeepAlive:
         writeQueue()
@@ -275,22 +275,21 @@ public class WebSocketTransport {
                                               sendOperationIdentifiers: self.sendOperationIdentifiers,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
-    let sequenceNumber = "\(sequenceNumberCounter.increment())"
-
-    guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
+    let identifier = UUID().uuidString
+    guard let message = OperationMessage(payload: body, id: identifier).rawMessage else {
       return nil
     }
 
     processingQueue.async {
       self.write(message)
 
-      self.subscribers[sequenceNumber] = resultHandler
+      self.subscribers[identifier] = resultHandler
       if operation.operationType == .subscription {
-        self.subscriptions[sequenceNumber] = message
+        self.subscriptions[identifier] = message
       }
     }
 
-    return sequenceNumber
+    return identifier
   }
 
   public func unsubscribe(_ subscriptionId: String) {

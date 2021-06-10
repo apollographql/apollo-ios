@@ -12,6 +12,7 @@ final class OperationMessage {
 
     case connectionAck = "connection_ack"              // Server -> Client
     case connectionError = "connection_error"          // Server -> Client
+    case startAck = "start_ack"                        // Server -> Client
     case connectionKeepAlive = "ka"                    // Server -> Client
     case data = "data"                                 // Server -> Client
     case error = "error"                               // Server -> Client
@@ -38,7 +39,7 @@ final class OperationMessage {
       message += ["payload": payload]
     }
     if let id = id {
-      message += ["id": id]
+        message += ["id": id]
     }
     message += ["type": type.rawValue]
   }
