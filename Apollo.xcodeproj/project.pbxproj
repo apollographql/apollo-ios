@@ -868,8 +868,8 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
-		DE058621266978A100265760 /* ApolloModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE0586222669793200265760 /* Apollo-Target-ApolloModels.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloModels.xcconfig"; sourceTree = "<group>"; };
+		DE058621266978A100265760 /* ApolloAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloAPI.xcconfig"; sourceTree = "<group>"; };
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
 		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
@@ -1090,7 +1090,7 @@
 				90690D07224333DA00FC2E54 /* Apollo-Project-Release.xcconfig */,
 				9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */,
 				9B68354A2463498D00337AE6 /* Apollo-Target-ApolloUtils.xcconfig */,
-				DE0586222669793200265760 /* Apollo-Target-ApolloModels.xcconfig */,
+				DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */,
 				DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */,
 				9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */,
 				90690D06224333DA00FC2E54 /* Apollo-Target-Framework.xcconfig */,
@@ -1653,7 +1653,7 @@
 			isa = PBXGroup;
 			children = (
 				9B5A1EE3243284F300F066BB /* Package.swift */,
-				DE05862326697A8C00265760 /* ApolloModels */,
+				DE05862326697A8C00265760 /* ApolloAPI */,
 				9B6835472463486200337AE6 /* ApolloUtils */,
 				9FC750461D2A532C00458D91 /* Apollo */,
 				9B7B6F50233C26E400F32205 /* ApolloCodegenLib */,
@@ -1692,7 +1692,7 @@
 				DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */,
 				DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */,
 				DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */,
-				DE058621266978A100265760 /* ApolloModels.framework */,
+				DE058621266978A100265760 /* ApolloAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1848,15 +1848,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DE05862326697A8C00265760 /* ApolloModels */ = {
+		DE05862326697A8C00265760 /* ApolloAPI */ = {
 			isa = PBXGroup;
 			children = (
 				9FC9A9C11E2D3CAF0023C4D5 /* InputValue.swift */,
 				DE3C7B0F260A6F7F00D2F4FF /* CodegenV1 */,
 				DE05862426697A8C00265760 /* Info.plist */,
 			);
-			name = ApolloModels;
-			path = Sources/ApolloModels;
+			name = ApolloAPI;
+			path = Sources/ApolloAPI;
 			sourceTree = "<group>";
 		};
 		DE3C79A8260A6ACD00D2F4FF /* AnimalKingdomAPI */ = {
@@ -2364,9 +2364,9 @@
 			productReference = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DE058606266978A100265760 /* ApolloModels */ = {
+		DE058606266978A100265760 /* ApolloAPI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DE05861D266978A100265760 /* Build configuration list for PBXNativeTarget "ApolloModels" */;
+			buildConfigurationList = DE05861D266978A100265760 /* Build configuration list for PBXNativeTarget "ApolloAPI" */;
 			buildPhases = (
 				DE058607266978A100265760 /* Headers */,
 				DE058608266978A100265760 /* Sources */,
@@ -2377,9 +2377,9 @@
 			);
 			dependencies = (
 			);
-			name = ApolloModels;
+			name = ApolloAPI;
 			productName = ApolloCore;
-			productReference = DE058621266978A100265760 /* ApolloModels.framework */;
+			productReference = DE058621266978A100265760 /* ApolloAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */ = {
@@ -2534,7 +2534,7 @@
 			projectRoot = "";
 			targets = (
 				9FC750431D2A532C00458D91 /* Apollo */,
-				DE058606266978A100265760 /* ApolloModels */,
+				DE058606266978A100265760 /* ApolloAPI */,
 				9B68353D2463481A00337AE6 /* ApolloUtils */,
 				9B7BDABE23FDEBB600ACD198 /* ApolloSQLite */,
 				9B7BDA7C23FDE90400ACD198 /* ApolloWebSocket */,
@@ -3173,7 +3173,7 @@
 		};
 		DE05862826697B1D00265760 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DE058606266978A100265760 /* ApolloModels */;
+			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE05862726697B1D00265760 /* PBXContainerItemProxy */;
 		};
 		DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */ = {
@@ -3536,21 +3536,21 @@
 		};
 		DE05861E266978A100265760 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloModels.xcconfig */;
+			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		DE05861F266978A100265760 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloModels.xcconfig */;
+			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		DE058620266978A100265760 /* PerformanceTesting */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloModels.xcconfig */;
+			baseConfigurationReference = DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */;
 			buildSettings = {
 			};
 			name = PerformanceTesting;
@@ -3751,7 +3751,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DE05861D266978A100265760 /* Build configuration list for PBXNativeTarget "ApolloModels" */ = {
+		DE05861D266978A100265760 /* Build configuration list for PBXNativeTarget "ApolloAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DE05861E266978A100265760 /* Debug */,

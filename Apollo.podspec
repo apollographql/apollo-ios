@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '5.0'
 
   s.subspec 'Core' do |ss|
-    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloUtils/*.swift','Sources/ApolloModels/*.swift'
-    ss.exclude_files = 'Sources/ApolloModels/CodegenV1/*.swift'
+    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloUtils/*.swift','Sources/ApolloAPI/*.swift'
+    ss.exclude_files = 'Sources/ApolloAPI/CodegenV1/*.swift'
     ss.preserve_paths = [
       'scripts/run-bundled-codegen.sh',
     ]

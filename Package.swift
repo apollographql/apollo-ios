@@ -16,8 +16,8 @@ let package = Package(
       name: "Apollo",
       targets: ["Apollo"]),
     .library(
-      name: "ApolloModels",
-      targets: ["ApolloModels"]),
+      name: "ApolloAPI",
+      targets: ["ApolloAPI"]),
     .library(
       name: "ApolloUtils",
       targets: ["ApolloUtils"]),
@@ -53,14 +53,14 @@ let package = Package(
     .target(
       name: "Apollo",
       dependencies: [
-        "ApolloModels",
+        "ApolloAPI",
         "ApolloUtils"
       ],
       exclude: [
         "Info.plist"
       ]),
     .target(
-      name: "ApolloModels",
+      name: "ApolloAPI",
       dependencies: [],
       exclude: [
         "Info.plist",

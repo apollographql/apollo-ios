@@ -1,5 +1,5 @@
 #if !COCOAPODS
-import ApolloModels
+import ApolloAPI
 #endif
 
 extension InputValue {
