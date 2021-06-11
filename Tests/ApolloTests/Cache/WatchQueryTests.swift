@@ -1010,4 +1010,74 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
     }
   }
+
+  func testQueryWatcherDoesNotHaveARetainCycle() {
+    client.store.cacheKeyForObject = { $0["id"] }
+
+    let watchedQuery = HeroAndFriendsNamesWithIDsQuery()
+
+    let resultObserver = makeResultObserver(for: watchedQuery)
+
+    var watcher: GraphQLQueryWatcher<HeroAndFriendsNamesWithIDsQuery>? = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    weak var weakWatcher: GraphQLQueryWatcher<HeroAndFriendsNamesWithIDsQuery>? = watcher
+
+    runActivity("Initial fetch from server") { _ in
+      let serverRequestExpectation = server.expect(HeroAndFriendsNamesWithIDsQuery.self) { request in
+        [
+          "data": [
+            "hero": [
+              "id": "2001",
+              "name": "R2-D2",
+              "__typename": "Droid",
+              "friends": [
+                ["__typename": "Human", "id": "1000", "name": "Luke Skywalker"],
+              ]
+            ]
+          ]
+        ]
+      }
+
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received initial result from server") { result in
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .server)
+          XCTAssertNil(graphQLResult.errors)
+
+          let data = try XCTUnwrap(graphQLResult.data)
+
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker"])
+
+          let expectedDependentKeys: Set = [
+            "2001.__typename",
+            "2001.friends",
+            "2001.id",
+            "2001.name",
+            "1000.__typename",
+            "1000.id",
+            "1000.name",
+            "QUERY_ROOT.hero",
+          ]
+          let actualDependentKeys = try XCTUnwrap(graphQLResult.dependentKeys)
+          XCTAssertEqual(actualDependentKeys, expectedDependentKeys)
+        }
+      }
+
+      watcher?.fetch(cachePolicy: .fetchIgnoringCacheData)
+
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+    }
+
+    runActivity("make sure it gets released") { _ in
+      watcher = nil
+      cache = nil
+      server = nil
+      client = nil
+
+      // Need to allow for autorelease pools to do their job
+      RunLoop.current.run(until: .init(timeIntervalSinceNow: 0.01))
+      XCTAssertNil(weakWatcher)
+    }
+  }
 }
