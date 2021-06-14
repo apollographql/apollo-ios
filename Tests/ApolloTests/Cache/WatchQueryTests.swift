@@ -1075,9 +1075,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       server = nil
       client = nil
 
-      // Need to allow for autorelease pools to do their job
-      RunLoop.current.run(until: .init(timeIntervalSinceNow: 0.01))
-      XCTAssertNil(weakWatcher)
+      XCTAssertTrueEventually(weakWatcher == nil, message: "Watcher was not released.")
     }
   }
 }
