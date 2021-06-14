@@ -9,7 +9,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     InMemoryTestCacheProvider.self
   }
   
-  static var defaultWaitTimeout: TimeInterval = 5.0
+  static let defaultWaitTimeout: TimeInterval = 5.0
   
   var cache: NormalizedCache!
   var store: ApolloStore!
