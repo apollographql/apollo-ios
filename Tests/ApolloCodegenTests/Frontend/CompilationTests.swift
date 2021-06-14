@@ -17,6 +17,13 @@ class CompilationTests: XCTestCase {
         
     schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
   }
+
+  override func tearDown() {
+    codegenFrontend = nil
+    schema = nil
+
+    super.tearDown()
+  }
   
   func testCompileSingleQuery() throws {
     let source = try codegenFrontend.makeSource("""

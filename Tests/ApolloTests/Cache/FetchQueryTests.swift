@@ -9,7 +9,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 1
+  static let defaultWaitTimeout: TimeInterval = 1
   
   var cache: NormalizedCache!
   var server: MockGraphQLServer!
@@ -71,7 +71,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
     
-    wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
+    wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReturnCacheDataAndFetchHitsCacheFirstAndNetworkAfter() throws {
@@ -120,7 +120,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [fetchResultFromCacheExpectation, serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
+    wait(for: [fetchResultFromCacheExpectation, serverRequestExpectation, fetchResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReturnCacheDataElseFetchWhenDataIsCachedDoesntHitNetwork() throws {
@@ -148,7 +148,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .returnCacheDataElseFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [fetchResultFromCacheExpectation], timeout: defaultWaitTimeout)
+    wait(for: [fetchResultFromCacheExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReturnCacheDataElseFetchWhenNotAllDataIsCachedHitsNetwork() throws {
@@ -189,7 +189,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .returnCacheDataAndFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: defaultWaitTimeout)
+    wait(for: [serverRequestExpectation, fetchResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReturnCacheDataDontFetchWhenDataIsCachedDoesntHitNetwork() throws {
@@ -217,7 +217,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [fetchResultFromCacheExpectation], timeout: defaultWaitTimeout)
+    wait(for: [fetchResultFromCacheExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReturnCacheDataDontFetchWhenNotAllDataIsCachedReturnsError() throws {
@@ -240,7 +240,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [cacheMissResultExpectation], timeout: defaultWaitTimeout)
+    wait(for: [cacheMissResultExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testClearCache() throws {
@@ -268,7 +268,7 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [fetchResultFromCacheExpectation], timeout: defaultWaitTimeout)
+    wait(for: [fetchResultFromCacheExpectation], timeout: Self.defaultWaitTimeout)
     
     let cacheMissResultExpectation = resultObserver.expectation(description: "Received cache miss error") { result in
       // TODO: We should check for a specific error type once we've defined a cache miss error.
@@ -281,11 +281,11 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
       cacheClearedExpectation.fulfill()
     }
     
-    wait(for: [cacheClearedExpectation], timeout: defaultWaitTimeout)
+    wait(for: [cacheClearedExpectation], timeout: Self.defaultWaitTimeout)
     
     client.fetch(query: query, cachePolicy: .returnCacheDataDontFetch, resultHandler: resultObserver.handler)
     
-    wait(for: [cacheMissResultExpectation], timeout: defaultWaitTimeout)
+    wait(for: [cacheMissResultExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testCompletionHandlerIsCalledOnTheSpecifiedQueue() {
@@ -315,6 +315,6 @@ class FetchQueryTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, queue: queue, resultHandler: resultObserver.handler)
     
-    wait(for: [serverRequestExpectation, fetchResultExpectation], timeout: defaultWaitTimeout)
+    wait(for: [serverRequestExpectation, fetchResultExpectation], timeout: Self.defaultWaitTimeout)
   }
 }

@@ -16,6 +16,13 @@ class SchemaIntrospectionTests: XCTestCase {
     let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
     schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
   }
+
+  override func tearDown() {
+    codegenFrontend = nil
+    schema = nil
+
+    super.tearDown()
+  }
   
   func testGetFieldsForObjectType() throws {
     let droidType = try XCTDowncast(XCTUnwrap(schema.getType(named: "Droid")), to: GraphQLObjectType.self)

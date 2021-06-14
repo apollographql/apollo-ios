@@ -24,6 +24,8 @@ class LegacyInterceptorProviderIntegrationTests: XCTestCase {
 
   override func tearDown() {
     legacyClient = nil
+    
+    super.tearDown()
   }
 
   func testLoading() {

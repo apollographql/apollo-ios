@@ -10,9 +10,9 @@ class LoadQueryFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
-  
-  var defaultWaitTimeout: TimeInterval = 5
-  
+
+  static var defaultWaitTimeout: TimeInterval = 5.0
+
   var cache: NormalizedCache!
   var store: ApolloStore!
   

@@ -13,15 +13,20 @@ private struct MockSelectionSet: GraphQLSelectionSet {
   }
 }
 
-func readFieldValue(_ field: GraphQLField, from object: JSONObject) throws -> Any? {
-  let executor = GraphQLExecutor { object, info in
-    return object[info.responseKeyForField]
-  }
-  
-  return try executor.execute(selections: [field], on: object, withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).resultMap[field.responseKey]!
-}
-
 class ReadFieldValueTests: XCTestCase {
+
+  // MARK: - Helpers
+
+  private func readFieldValue(_ field: GraphQLField, from object: JSONObject) throws -> Any? {
+    let executor = GraphQLExecutor { object, info in
+      return object[info.responseKeyForField]
+    }
+
+    return try executor.execute(selections: [field], on: object, withKey: "", variables: [:], accumulator: GraphQLSelectionSetMapper<MockSelectionSet>()).resultMap[field.responseKey]!
+  }
+
+  // MARK: - Tests
+
   func testGetScalar() throws {
     let object: JSONObject = ["name": "Luke Skywalker"]
     let field = GraphQLField("name", type: .nonNull(.scalar(String.self)))

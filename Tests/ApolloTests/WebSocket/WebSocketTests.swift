@@ -26,9 +26,11 @@ class WebSocketTests: XCTestCase {
   }
     
   override func tearDown() {
-    super.tearDown()
-    
+    networkTransport = nil
+    client = nil
     WebSocketTransport.provider = ApolloWebSocket.self
+    
+    super.tearDown()
   }
     
   func testLocalSingleSubscription() throws {

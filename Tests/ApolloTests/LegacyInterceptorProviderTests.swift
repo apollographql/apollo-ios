@@ -26,6 +26,9 @@ class LegacyInterceptorProviderTests: XCTestCase {
 
   override func tearDown() {
     client = nil
+    mockServer = nil
+    
+    super.tearDown()
   }
 
   func testLoading() {

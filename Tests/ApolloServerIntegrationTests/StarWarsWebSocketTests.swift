@@ -10,7 +10,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 5
+  static let defaultWaitTimeout: TimeInterval = 5
   
   var cache: NormalizedCache!
   var client: ApolloClient!
@@ -308,7 +308,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
     
-    wait(for: [expectation], timeout: defaultWaitTimeout)
+    wait(for: [expectation], timeout: Self.defaultWaitTimeout)
   }
   
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
@@ -326,6 +326,6 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     
     client.perform(mutation: mutation, resultHandler: resultObserver.handler)
     
-    wait(for: [expectation], timeout: defaultWaitTimeout)
+    wait(for: [expectation], timeout: Self.defaultWaitTimeout)
   }
 }

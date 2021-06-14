@@ -9,7 +9,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 1
+  static var defaultWaitTimeout: TimeInterval = 1
   
   var cache: NormalizedCache!
   var server: MockGraphQLServer!
@@ -67,7 +67,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Refetch from server") { _ in
@@ -94,7 +94,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.refetch()
       
-      wait(for: [serverRequestExpectation, refetchedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, refetchedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -130,7 +130,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch same query from server returning changed data") { _ in
@@ -162,7 +162,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -198,7 +198,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch same query from server with different argument") { _ in
@@ -225,7 +225,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, noUpdatedResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, noUpdatedResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -265,7 +265,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch same query from server with different argument but returning same object with changed data") { _ in
@@ -299,7 +299,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -342,7 +342,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch overlapping query from server") { _ in
@@ -376,7 +376,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -422,7 +422,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch other query with list of updated keys from server") { _ in
@@ -461,7 +461,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -507,7 +507,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch other query with list of updated keys from server") { _ in
@@ -564,7 +564,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, refetchServerRequestExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, refetchServerRequestExpectation, updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -607,7 +607,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Update object directly in store") { _ in
@@ -630,7 +630,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       })
       
-      wait(for: [updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -666,7 +666,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     let numberOfFetches = 1000
@@ -746,7 +746,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     let numberOfFetches = 1000
@@ -851,7 +851,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Update same query directly in store") { _ in
@@ -891,7 +891,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       })
       
-      wait(for: [updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
   
@@ -950,7 +950,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       
       watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
       
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
     runActivity("Fetch other query from server") { _ in
@@ -1007,7 +1007,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         XCTAssertSuccessResult(result)
       }
       
-      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, otherFetchCompletedExpectation, updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
 
@@ -1066,7 +1066,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
       watcher?.fetch(cachePolicy: .fetchIgnoringCacheData)
 
-      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: defaultWaitTimeout)
+      wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
 
     runActivity("make sure it gets released") { _ in
