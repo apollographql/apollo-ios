@@ -12,7 +12,7 @@ import ApolloCodegenTestSupport
 
 class ASTParsingTests: XCTestCase {
   
-  lazy var starWarsJSONURL: URL = {
+  static let starWarsJSONURL: URL = {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let starWarsJSONURL = sourceRoot
       .appendingPathComponent("Sources")
@@ -23,7 +23,6 @@ class ASTParsingTests: XCTestCase {
     return starWarsJSONURL
   }()
 
-  
   private func loadAST(from url: URL,
                        file: StaticString = #file,
                        line: UInt = #line) throws -> ASTOutput {
@@ -32,7 +31,7 @@ class ASTParsingTests: XCTestCase {
   
   func testLoadingStarWarsJSON() throws {
     do {
-      let output = try loadAST(from: starWarsJSONURL)
+      let output = try loadAST(from: Self.starWarsJSONURL)
       XCTAssertEqual(output.operations.count, 38)
       XCTAssertEqual(output.fragments.count, 15)
       XCTAssertEqual(output.typesUsed.count, 3)
@@ -46,7 +45,7 @@ class ASTParsingTests: XCTestCase {
   func testParsingASTUnionTypes() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -68,7 +67,7 @@ class ASTParsingTests: XCTestCase {
   func testParsingASTInterfaceTypes() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -89,7 +88,7 @@ class ASTParsingTests: XCTestCase {
   func testParsingASTInputTypes() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -189,7 +188,7 @@ class ASTParsingTests: XCTestCase {
   func testParsingOperationWithMutation() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -291,7 +290,7 @@ mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10
   func testParsingOperationWithQueryAndInputAndNestedTypes() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -454,7 +453,7 @@ query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n   
   func testParsingOperationWithQueryAndFragment() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -631,7 +630,7 @@ query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $epi
   func testParsingQueryWithInlineFragments() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -801,7 +800,7 @@ query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typen
   func testParsingQueryWithAliasesAndPassedInRawValue() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -969,7 +968,7 @@ query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(epi
   func testParsingQueryWithConditionalInclusion() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -1061,7 +1060,7 @@ query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __ty
   func testParsingQueryWithConditionalExclusion() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return
@@ -1152,7 +1151,7 @@ query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typen
   func testParsingQueryWithConditionalFragmentInclusion() throws {
     let output: ASTOutput
     do {
-      output = try loadAST(from: starWarsJSONURL)
+      output = try loadAST(from: Self.starWarsJSONURL)
     } catch {
       CodegenTestHelper.handleFileLoadError(error)
       return

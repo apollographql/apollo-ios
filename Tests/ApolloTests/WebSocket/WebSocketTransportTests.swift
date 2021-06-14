@@ -8,6 +8,12 @@ class WebSocketTransportTests: XCTestCase {
 
   private var webSocketTransport: WebSocketTransport!
 
+  override func tearDown() {
+    webSocketTransport = nil
+    
+    super.tearDown()
+  }
+
   func testUpdateHeaderValues() {
     var request = URLRequest(url: TestURL.mockServer.url)
     request.addValue("OldToken", forHTTPHeaderField: "Authorization")

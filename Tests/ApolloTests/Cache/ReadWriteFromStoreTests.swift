@@ -9,7 +9,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 5
+  static let defaultWaitTimeout: TimeInterval = 5.0
   
   var cache: NormalizedCache!
   var store: ApolloStore!
@@ -48,7 +48,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroNameQueryAfterRemovingRecord() throws {
@@ -72,7 +72,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     let removeCompletedExpectation = expectation(description: "Remove completed")
 
@@ -83,7 +83,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
         
-    self.wait(for: [removeCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [removeCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     let refetchExpectation = expectation(description: "Refetch completed")
 
@@ -109,7 +109,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     })
     
-    self.wait(for: [refetchExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [refetchExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testHeroNameQueryStillLoadsAfterAttemptingToDeleteFieldKey() throws {
@@ -133,7 +133,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     let removeCompletedExpectation = expectation(description: "Remove completed")
 
@@ -144,7 +144,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
         
-    self.wait(for: [removeCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [removeCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     let refetchExpectation = expectation(description: "Refetch completed")
 
@@ -155,7 +155,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [refetchExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [refetchExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroNameQueryWithVariable() throws {
@@ -178,7 +178,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroNameQueryWithMissingName() throws {
@@ -205,7 +205,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testUpdateHeroNameQuery() throws {
@@ -227,7 +227,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     loadFromStore(query: query) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
@@ -259,7 +259,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     })
     
-    self.wait(for: [writeCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroAndFriendsNamesQuery() throws {
@@ -294,7 +294,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroAndFriendsNamesQueryFailsAfterRemovingFriendRecord() throws {
@@ -331,7 +331,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readWriteCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readWriteCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     let readCompletedExpectation = expectation(description: "Read completed")
     
@@ -358,7 +358,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testUpdateHeroAndFriendsNamesQuery() throws {
@@ -391,7 +391,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     loadFromStore(query: query) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
@@ -436,7 +436,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     loadFromStore(query: query) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in
@@ -488,7 +488,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readAfterUpdateCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readAfterUpdateCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroDetailsFragmentWithTypeSpecificProperty() throws {
@@ -508,7 +508,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadHeroDetailsFragmentWithMissingTypeSpecificProperty() throws {
@@ -532,7 +532,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testReadFriendsNamesFragment() throws {
@@ -564,7 +564,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [readCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
   
   func testUpdateFriendsNamesFragment() throws {
@@ -595,7 +595,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       XCTAssertSuccessResult(result)
     })
     
-    self.wait(for: [updateCompletedExpectation], timeout: defaultWaitTimeout)
+    self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
     
     loadFromStore(query: HeroAndFriendsNamesQuery()) { result in
       try XCTAssertSuccessResult(result) { graphQLResult in

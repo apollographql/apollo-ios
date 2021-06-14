@@ -17,6 +17,13 @@ class DocumentParsingAndValidationTests: XCTestCase {
         
     schema = try codegenFrontend.loadSchemaFromIntrospectionResult(introspectionResult)
   }
+
+  override func tearDown() {
+    codegenFrontend = nil
+    schema = nil
+
+    super.tearDown()
+  }
   
   func testParseDocument() throws {
     let source = try codegenFrontend.makeSource("""

@@ -18,7 +18,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   override func setUp() {
     super.setUp()
     
-    self.connectionStartedExpectation = self.expectation(description: "Web socket connected")
+    connectionStartedExpectation = self.expectation(description: "Web socket connected")
     
     WebSocketTransport.provider = ApolloWebSocket.self
     webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
@@ -26,6 +26,16 @@ class StarWarsSubscriptionTests: XCTestCase {
     client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
 
     self.wait(for: [self.connectionStartedExpectation!], timeout: 5)
+  }
+
+  override func tearDownWithError() throws {
+    client = nil
+    webSocketTransport = nil
+    connectionStartedExpectation = nil
+    disconnectedExpectation = nil
+    reconnectedExpectation = nil
+
+    try super.tearDownWithError()
   }
   
   private func waitForSubscriptionsToStart(for delay: TimeInterval = 0.1, on queue: DispatchQueue = .main) {

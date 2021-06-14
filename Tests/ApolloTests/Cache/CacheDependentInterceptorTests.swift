@@ -15,18 +15,22 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
   var cacheType: TestCacheProvider.Type {
     InMemoryTestCacheProvider.self
   }
-  var defaultWaitTimeout: TimeInterval = 5
-  
   
   var cache: NormalizedCache!
   var store: ApolloStore!
-  var client: ApolloClient!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
     
     cache = try makeNormalizedCache()
     store = ApolloStore(cache: cache)
+  }
+
+  override func tearDown() {
+    cache = nil
+    store = nil
+    
+    super.tearDown()
   }
   
   func testChangingCachePolicyInErrorInterceptorWorks() {
@@ -121,7 +125,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
       }
     }
     
-    self.wait(for: [expectation], timeout: self.defaultWaitTimeout)
+    self.wait(for: [expectation], timeout: 5.0)
   }
 }
 

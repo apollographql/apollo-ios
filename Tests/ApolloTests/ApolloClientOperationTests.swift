@@ -6,8 +6,6 @@ import XCTest
 final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, StoreLoading {
   var cacheType: TestCacheProvider.Type { InMemoryTestCacheProvider.self }
 
-  var defaultWaitTimeout: TimeInterval { 1 }
-
   var cache: NormalizedCache!
   var store: ApolloStore!
   var server: MockGraphQLServer!
@@ -27,6 +25,7 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
 
   override func tearDownWithError() throws {
     self.cache = nil
+    self.store = nil
     self.server = nil
     self.client = nil
 
@@ -69,6 +68,6 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
       }
     }
 
-    self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: self.defaultWaitTimeout)
+    self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
 }

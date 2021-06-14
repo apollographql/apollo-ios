@@ -5,7 +5,7 @@ import StarWarsAPI
 
 class AutomaticPersistedQueriesTests: XCTestCase {
 
-  private final let endpoint = TestURL.mockServer.url
+  private static let endpoint = TestURL.mockServer.url
   
   // MARK: - Helper Methods
   
@@ -234,7 +234,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint)
+                                               endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery()
@@ -260,7 +260,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint)
+                                               endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery(episode: .jedi)
@@ -286,7 +286,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
@@ -313,7 +313,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Mutation sent")
@@ -340,7 +340,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
                                                useGETForPersistedQueryRetry: true)
 
@@ -366,7 +366,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
                                                useGETForPersistedQueryRetry: true)
     
@@ -394,7 +394,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                additionalHeaders: ["Authorization": "Bearer 1234"],
                                                useGETForQueries: true)
     
@@ -423,7 +423,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint)
+                                               endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
     let query = HeroNameQuery()
@@ -449,7 +449,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
@@ -476,7 +476,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
                                                useGETForQueries: true)
     
@@ -504,7 +504,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let store = ApolloStore()
     let provider = LegacyInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
-                                               endpointURL: self.endpoint,
+                                               endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
                                                useGETForPersistedQueryRetry: true)
     
