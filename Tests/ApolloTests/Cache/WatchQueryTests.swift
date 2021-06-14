@@ -9,7 +9,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  static var defaultWaitTimeout: TimeInterval = 1
+  static let defaultWaitTimeout: TimeInterval = 1
   
   var cache: NormalizedCache!
   var server: MockGraphQLServer!

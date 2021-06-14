@@ -42,7 +42,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  static var defaultWaitTimeout: TimeInterval = 5
+  static let defaultWaitTimeout: TimeInterval = 5
   
   var cache: NormalizedCache!
   var client: ApolloClient!
