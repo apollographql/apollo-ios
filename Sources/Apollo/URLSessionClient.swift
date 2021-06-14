@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 /// A class to handle URL Session calls that will support background execution,

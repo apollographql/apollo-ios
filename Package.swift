@@ -4,35 +4,38 @@
 import PackageDescription
 
 let package = Package(
-    name: "Apollo",
-    platforms: [
-      .iOS(.v12),
-      .macOS(.v10_14),
-      .tvOS(.v12),
-      .watchOS(.v5)
-    ],
-    products: [
-    .library(
-      name: "ApolloCore",
-      targets: ["ApolloCore"]),
+  name: "Apollo",
+  platforms: [
+    .iOS(.v12),
+    .macOS(.v10_14),
+    .tvOS(.v12),
+    .watchOS(.v5)
+  ],
+  products: [
     .library(
       name: "Apollo",
       targets: ["Apollo"]),
     .library(
-        name: "Apollo-Dynamic",
-        type: .dynamic,
-        targets: ["Apollo"]),
+      name: "ApolloAPI",
+      targets: ["ApolloAPI"]),
+    .library(
+      name: "ApolloUtils",
+      targets: ["ApolloUtils"]),
+    .library(
+      name: "Apollo-Dynamic",
+      type: .dynamic,
+      targets: ["Apollo"]),
     .library(
       name: "ApolloCodegenLib",
       targets: ["ApolloCodegenLib"]),
     .library(
-        name: "ApolloSQLite",
-        targets: ["ApolloSQLite"]),
+      name: "ApolloSQLite",
+      targets: ["ApolloSQLite"]),
     .library(
-        name: "ApolloWebSocket",
-        targets: ["ApolloWebSocket"]),
-    ],
-    dependencies: [
+      name: "ApolloWebSocket",
+      targets: ["ApolloWebSocket"]),
+  ],
+  dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
       .upToNextMinor(from: "0.12.2")),
@@ -45,26 +48,34 @@ let package = Package(
     .package(
       url: "https://github.com/apollographql/InflectorKit",
       .upToNextMinor(from: "0.0.2")),
-    ],
-    targets: [
+  ],
+  targets: [
     .target(
-      name: "ApolloCore",
-      dependencies: [],
+      name: "Apollo",
+      dependencies: [
+        "ApolloAPI",
+        "ApolloUtils"
+      ],
       exclude: [
         "Info.plist"
       ]),
     .target(
-      name: "Apollo",
-      dependencies: [
-        "ApolloCore",
-      ],
+      name: "ApolloAPI",
+      dependencies: [],
+      exclude: [
+        "Info.plist",
+        "CodegenV1"
+      ]),
+    .target(
+      name: "ApolloUtils",
+      dependencies: [],
       exclude: [
         "Info.plist"
       ]),
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
-        "ApolloCore",
+        "ApolloUtils",
         .product(name: "InflectorKit", package: "InflectorKit"),
         .product(name: "Stencil", package: "Stencil"),
       ],
@@ -89,11 +100,11 @@ let package = Package(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo",
-        "ApolloCore",
+        "ApolloUtils",
         .product(name: "Starscream", package: "Starscream"),
       ],
       exclude: [
         "Info.plist"
       ])
-    ]
+  ]
 )

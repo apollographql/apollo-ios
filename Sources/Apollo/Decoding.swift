@@ -34,7 +34,7 @@ private func decode(groupedFields: GroupedFields,
     fieldEntries.append((responseName, fieldEntry))
   }
 
-  return ResultMap(fieldEntries)
+  return ResultMap(fieldEntries, uniquingKeysWith: { (_, last) in last })
 }
 
 /// Before execution, the selection set is converted to a grouped field set. Each entry in the grouped field set is a list of fields that share a response key. This ensures all fields with the same response key (alias or field name) included via referenced fragments are executed at the same time.

@@ -1,5 +1,5 @@
 #if !COCOAPODS
-import ApolloCore
+import ApolloAPI
 #endif
 
 public typealias ResultMap = [String: Any?]
@@ -27,6 +27,12 @@ extension GraphQLSelectionSet {
   public init(_ selectionSet: GraphQLSelectionSet) throws {
     try self.init(jsonObject: selectionSet.jsonObject)
   }
+}
+
+/// For backwards compatibility with legacy codegen.
+/// The `GraphQLVariable` class has been replaced by `InputValue.variable`
+public func GraphQLVariable(_ name: String) -> InputValue {
+  return .variable(name)
 }
 
 public protocol GraphQLSelection {
@@ -71,7 +77,7 @@ public struct FieldArguments: ExpressibleByDictionaryLiteral {
   let arguments: InputValue
 
   public init(dictionaryLiteral elements: (String, InputValue)...) {
-    arguments = .object(Dictionary(elements))
+    arguments = .object(Dictionary(elements, uniquingKeysWith: { (_, last) in last }))
   }
 
   public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {

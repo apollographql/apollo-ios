@@ -51,7 +51,7 @@ public struct RecordSet {
       var changedKeys: Set<CacheKey> = Set()
 
       for (key, value) in record.fields {
-        if let oldValue = oldRecord.fields[key], equals(oldValue, value) {
+        if let oldValue = oldRecord.fields[key], JSONValueMatcher.equals(oldValue, value) {
           continue
         }
         oldRecord[key] = value

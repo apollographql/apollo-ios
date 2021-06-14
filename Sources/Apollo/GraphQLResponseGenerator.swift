@@ -1,5 +1,3 @@
-import Foundation
-
 final class GraphQLResponseGenerator: GraphQLResultAccumulator {
   func accept(scalar: JSONValue, info: GraphQLResolveInfo) -> JSONValue {
     return scalar
@@ -18,7 +16,7 @@ final class GraphQLResponseGenerator: GraphQLResultAccumulator {
   }
 
   func accept(fieldEntries: [(key: String, value: JSONValue)], info: GraphQLResolveInfo) -> JSONValue {
-    return JSONObject(fieldEntries)
+    return JSONObject(fieldEntries, uniquingKeysWith: { (_, last) in last })
   }
   
   func finish(rootValue: JSONValue, info: GraphQLResolveInfo) throws -> JSONObject {
