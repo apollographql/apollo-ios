@@ -18,7 +18,7 @@ class StarWarsSubscriptionTests: XCTestCase {
   override func setUp() {
     super.setUp()
     
-    let connectionStartedExpectation = self.expectation(description: "Web socket connected")
+    connectionStartedExpectation = self.expectation(description: "Web socket connected")
     
     WebSocketTransport.provider = ApolloWebSocket.self
     webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
