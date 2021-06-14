@@ -1852,6 +1852,7 @@
 			isa = PBXGroup;
 			children = (
 				9FC9A9C11E2D3CAF0023C4D5 /* InputValue.swift */,
+				DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */,
 				DE3C7B0F260A6F7F00D2F4FF /* CodegenV1 */,
 				DE05862426697A8C00265760 /* Info.plist */,
 			);
@@ -1891,7 +1892,6 @@
 				DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */,
 				DE3C7B13260A6FCA00D2F4FF /* GraphQLSchema.swift */,
 				DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */,
-				DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */,
 				DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
 			);
