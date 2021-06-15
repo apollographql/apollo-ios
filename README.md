@@ -31,6 +31,11 @@ Some of the tests run against [a simple GraphQL server serving the Star Wars exa
 
 If you'd like to contribute, please refer to the [Apollo Contributor Guide](https://github.com/apollographql/apollo-ios/blob/main/CONTRIBUTING.md).
 
+## Maintainers
+
+- [@AnthonyMDev](https://github.com/AnthonyMDev) (Apollo)
+- [@calvincestari](https://github.com/calvincestari) (Apollo)
+- [@designatednerd](https://github.com/designatednerd) (Apollo)
 
 ## Who is Apollo?
 
