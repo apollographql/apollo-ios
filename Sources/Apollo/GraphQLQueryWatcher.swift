@@ -43,7 +43,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     fetch(cachePolicy: .fetchIgnoringCacheData)
   }
 
-  public func fetch(cachePolicy: CachePolicy) {
+  func fetch(cachePolicy: CachePolicy) {
     fetching.mutate {
       // Cancel anything already in flight before starting a new fetch
       $0?.cancel()
