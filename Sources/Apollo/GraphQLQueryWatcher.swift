@@ -45,8 +45,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   /// Refetch a query from the server.
-  public func refetch() {
-    fetch(cachePolicy: .fetchIgnoringCacheData)
+  public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
+    fetch(cachePolicy: cachePolicy)
   }
 
   func fetch(cachePolicy: CachePolicy) {
