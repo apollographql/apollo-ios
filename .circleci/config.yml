@@ -105,8 +105,10 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     steps:
+      - common_test_setup
       - run:
-        - command: swift build
+          command: swift build
+
   IntegrationTests_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
