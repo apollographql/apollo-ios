@@ -1,8 +1,8 @@
 **EXTENSION**
 
-# `Reference`
+# `CacheReference`
 ```swift
-extension Reference: Equatable
+extension CacheReference: Equatable
 ```
 
 ## Properties
@@ -16,7 +16,7 @@ public var description: String
 ### `==(_:_:)`
 
 ```swift
-public static func ==(lhs: Reference, rhs: Reference) -> Bool
+public static func ==(lhs: CacheReference, rhs: CacheReference) -> Bool
 ```
 
 #### Parameters

@@ -1,9 +1,9 @@
 **STRUCT**
 
-# `Reference`
+# `CacheReference`
 
 ```swift
-public struct Reference
+public struct CacheReference
 ```
 
 A reference to a cache record.
@@ -12,12 +12,12 @@ A reference to a cache record.
 ### `key`
 
 ```swift
-public let key: CacheKey
+public let key: String
 ```
 
 ## Methods
 ### `init(key:)`
 
 ```swift
-public init(key: CacheKey)
+public init(key: String)
 ```

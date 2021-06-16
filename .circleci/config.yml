@@ -101,6 +101,14 @@ commands:
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
 jobs:
+  Swift_Build:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    steps:
+      - common_test_setup
+      - run:
+          command: swift build
+
   IntegrationTests_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
@@ -190,6 +198,8 @@ workflows:
   # This workflow builds and tests the library across various operating systems and versions
   build-and-test:
     jobs:
+      - Swift_Build:
+          name: Build with SPM
       - IntegrationTests_macOS_current:
           name: Apollo Integration Tests macOS << pipeline.parameters.macos_version >>
       - macOS_current:

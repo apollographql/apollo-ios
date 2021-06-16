@@ -4,7 +4,8 @@ description: ''
 ---
 
 * [Apollo.framework](../api/Apollo/README/)
-* [ApolloCore.framework](../api/ApolloCore/README/)
+* [ApolloAPI.framework](../api/ApolloAPI/README/)
+* [ApolloUtils.framework](../api/ApolloUtils/README/)
 * [ApolloCodegenLib.framework](../api/ApolloCodegenLib/README/)
 * [ApolloSQLite.framework](../api/ApolloSQLite/README/)
 * [ApolloWebSocket.framework](../api/ApolloWebSocket/README/)

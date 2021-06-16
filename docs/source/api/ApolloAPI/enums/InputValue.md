@@ -14,7 +14,7 @@ Represents an input value to an argument on a `GraphQLField`'s `FieldArguments`.
 ### `scalar(_:)`
 
 ```swift
-case scalar(JSONEncodable)
+case scalar(ScalarType)
 ```
 
 A direct input value, valid types are `String`, `Int` `Float` and `Bool`.
