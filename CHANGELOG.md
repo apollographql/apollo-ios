@@ -1,3 +1,31 @@
+# Version: 0.44.0
+
+* [#1816](https://github.com/apollographql/apollo-ios/pull/1816): fix(deps): update dependency gatsby-theme-apollo-docs to v4.7.9
+* [#1790](https://github.com/apollographql/apollo-ios/pull/1790): Document improvement for README about replace .xcworkspace to .xcodeproj
+* [#1817](https://github.com/apollographql/apollo-ios/pull/1817): Foundational Work For Codegen Rewrite
+* [#1766](https://github.com/apollographql/apollo-ios/pull/1766): Add a "Who is Apollo" section to the main README
+* [#1767](https://github.com/apollographql/apollo-ios/pull/1767): chore: fixed a typo
+* [#1769](https://github.com/apollographql/apollo-ios/pull/1769): Fix swift warning when using cocoapods
+* [#1778](https://github.com/apollographql/apollo-ios/pull/1778): Bump lodash from 4.17.19 to 4.17.21 in /SimpleUploadServer
+* [#1775](https://github.com/apollographql/apollo-ios/pull/1775): chore(deps): update dependency xmlhttprequest-ssl to 1.6.2 [security]
+* [#1777](https://github.com/apollographql/apollo-ios/pull/1777): Bump lodash from 4.17.19 to 4.17.21 in /docs
+* [#1781](https://github.com/apollographql/apollo-ios/pull/1781): Update docs regarding not installing `Apollo-Dynamic` by default
+* [#1770](https://github.com/apollographql/apollo-ios/pull/1770): Slight tweaks to the "Who is Apollo?" README section
+* [#1772](https://github.com/apollographql/apollo-ios/pull/1772): fix(deps): update dependency gatsby-theme-apollo-docs to v4.7.3
+* [#1773](https://github.com/apollographql/apollo-ios/pull/1773): Update CLI version to point to 2.32.13
+* [#1785](https://github.com/apollographql/apollo-ios/pull/1785): Update mutation tutorial code snippet to use correct cache policy
+* [#1780](https://github.com/apollographql/apollo-ios/pull/1780): fix(deps): update dependency gatsby to v2.32.13
+* [#1787](https://github.com/apollographql/apollo-ios/pull/1787): fix(deps): update dependency gatsby-theme-apollo-docs to v4.7.4
+* [#1812](https://github.com/apollographql/apollo-ios/pull/1812): fix(deps): update dependency gatsby-theme-apollo-docs to v4.7.6
+* [#1810](https://github.com/apollographql/apollo-ios/pull/1810): Bump dns-packet from 1.3.1 to 1.3.4 in /docs
+* [#1830](https://github.com/apollographql/apollo-ios/pull/1830): Fix memory leaks due to xctest
+* [#1834](https://github.com/apollographql/apollo-ios/pull/1834): Doc: Fix link of CacheDependentInterceptorTests
+* [#1802](https://github.com/apollographql/apollo-ios/pull/1802): Allow different types of fetches on a watcher
+* [#1826](https://github.com/apollographql/apollo-ios/pull/1826): Fix retain cycle
+* [#1835](https://github.com/apollographql/apollo-ios/pull/1835): Add list of current maintainers to the README
+* [#1831](https://github.com/apollographql/apollo-ios/pull/1831): Fix issues with imports and foldering
+
+
 # Change log
 
 ## v0.43.0
