@@ -2,14 +2,11 @@
 
 ## Protocols
 
--   [ApolloCompatible](protocols/ApolloCompatible/)
--   [DictionaryType](protocols/DictionaryType/)
+-   [AnySelectionSet](protocols/AnySelectionSet/)
 -   [Fragment](protocols/Fragment/)
 -   [GraphQLSchema](protocols/GraphQLSchema/)
 -   [HasFragments](protocols/HasFragments/)
--   [OptionalType](protocols/OptionalType/)
 -   [ResponseObject](protocols/ResponseObject/)
--   [ResultType](protocols/ResultType/)
 -   [ScalarType](protocols/ScalarType/)
 -   [SchemaObjectType](protocols/SchemaObjectType/)
 -   [SchemaTypeEnum](protocols/SchemaTypeEnum/)
@@ -18,31 +15,29 @@
 
 ## Structs
 
--   [ApolloExtension](structs/ApolloExtension/)
+-   [Field.Arguments](structs/Field.Arguments/)
 -   [ResponseDict](structs/ResponseDict/)
-
-## Classes
-
--   [Atomic](classes/Atomic/)
+-   [Selection.BooleanCondition](structs/Selection.BooleanCondition/)
+-   [Selection.Field](structs/Selection.Field/)
+-   [Selection.FragmentSpread](structs/Selection.FragmentSpread/)
+-   [Selection.TypeCase](structs/Selection.TypeCase/)
 
 ## Enums
 
+-   [Field.OutputType](enums/Field.OutputType/)
 -   [GraphQLEnum](enums/GraphQLEnum/)
 -   [GraphQLOptional](enums/GraphQLOptional/)
+-   [InputValue](enums/InputValue/)
+-   [Selection](enums/Selection/)
 -   [SelectionSetType](enums/SelectionSetType/)
 
 ## Extensions
 
--   [ApolloCompatible](extensions/ApolloCompatible/)
--   [ApolloExtension](extensions/ApolloExtension/)
--   [Atomic](extensions/Atomic/)
--   [Dictionary](extensions/Dictionary/)
 -   [GraphQLEnum](extensions/GraphQLEnum/)
 -   [GraphQLOptional](extensions/GraphQLOptional/)
+-   [InputValue](extensions/InputValue/)
 -   [KeyedDecodingContainer](extensions/KeyedDecodingContainer/)
 -   [KeyedEncodingContainer](extensions/KeyedEncodingContainer/)
--   [Optional](extensions/Optional/)
--   [Result](extensions/Result/)
 
 ## Typealiases
 
