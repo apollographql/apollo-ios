@@ -669,7 +669,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
-    let numberOfFetches = 1000
+    let numberOfFetches = 10
     
     runActivity("Fetch same query concurrently \(numberOfFetches) times") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -708,7 +708,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       }
       
-      wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 10)
+      wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 3)
       
       XCTAssertEqual(updatedWatcherResultExpectation.apollo.numberOfFulfillments, 1)
     }
@@ -749,7 +749,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       wait(for: [serverRequestExpectation, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
     
-    let numberOfFetches = 1000
+    let numberOfFetches = 10
     
     runActivity("Fetch same query concurrently \(numberOfFetches) times") { _ in
       let serverRequestExpectation = server.expect(HeroNameQuery.self) { request in
@@ -790,7 +790,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
       }
       
-      wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 10)
+      wait(for: [serverRequestExpectation, otherFetchesCompletedExpectation, updatedWatcherResultExpectation], timeout: 3)
       
       XCTAssertEqual(updatedWatcherResultExpectation.apollo.numberOfFulfillments, numberOfFetches)
     }
