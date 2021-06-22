@@ -7,6 +7,17 @@ import Starscream
 class WebSocketTransportTests: XCTestCase {
 
   private var webSocketTransport: WebSocketTransport!
+  static var webSocketProvider: ApolloWebSocketClient.Type = MockWebSocket.self
+
+  override class func setUp() {
+    super.setUp()
+    swap(&webSocketProvider, &WebSocketTransport.provider)
+  }
+
+  override class func tearDown() {
+    super.tearDown()
+    swap(&webSocketProvider, &WebSocketTransport.provider)
+  }
 
   override func tearDown() {
     webSocketTransport = nil
@@ -26,8 +37,6 @@ class WebSocketTransportTests: XCTestCase {
   }
 
   func testUpdateConnectingPayload() {
-    WebSocketTransport.provider = MockWebSocket.self
-
     self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
                                                  connectingPayload: ["Authorization": "OldToken"])
 
@@ -56,8 +65,6 @@ class WebSocketTransportTests: XCTestCase {
   }
 
   func testCloseConnectionAndInit() {
-    WebSocketTransport.provider = MockWebSocket.self
-
     self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
                                                  connectingPayload: ["Authorization": "OldToken"])
     self.webSocketTransport.closeConnection()
