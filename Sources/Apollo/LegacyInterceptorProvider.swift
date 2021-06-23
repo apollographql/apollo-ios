@@ -1,7 +1,7 @@
 import Foundation
 
 /// The default interceptor provider for typescript-generated code
-open class LegacyInterceptorProvider: InterceptorProvider {
+open class DefaultInterceptorProvider: InterceptorProvider {
 
   private let client: URLSessionClient
   private let store: ApolloStore

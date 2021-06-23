@@ -59,7 +59,7 @@ public class ApolloClient {
   /// - Parameter url: The URL of a GraphQL server to connect to.
   public convenience init(url: URL) {
     let store = ApolloStore(cache: InMemoryNormalizedCache())
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: url)
     

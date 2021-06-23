@@ -232,7 +232,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testRequestBody() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint)
     
@@ -258,7 +258,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testRequestBodyWithVariable() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint)
     
@@ -284,7 +284,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testRequestBodyForAPQsWithVariable() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true)
@@ -311,7 +311,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testMutationRequestBodyForAPQs() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true)
@@ -338,7 +338,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testQueryStringForAPQsUseGetMethod() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
@@ -364,7 +364,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testQueryStringForAPQsUseGetMethodWithVariable() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
@@ -392,7 +392,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testUseGETForQueriesRequest() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                additionalHeaders: ["Authorization": "Bearer 1234"],
@@ -421,7 +421,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testNotUseGETForQueriesRequest() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint)
     
@@ -447,7 +447,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testNotUseGETForQueriesAPQsRequest() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true)
@@ -474,7 +474,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testUseGETForQueriesAPQsRequest() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
@@ -502,7 +502,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func testNotUseGETForQueriesAPQsGETRequest() throws {
     let mockClient = MockURLSessionClient()
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(client: mockClient, store: store)
+    let provider = DefaultInterceptorProvider(client: mockClient, store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: Self.endpoint,
                                                autoPersistQueries: true,
