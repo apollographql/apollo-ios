@@ -29,7 +29,20 @@ public protocol NormalizedCache {
   /// - Parameters:
   ///   - key: The cache key to remove the record for
   func removeRecord(for key: CacheKey) throws
-  
+
+  /// Removes records matching the specified pattern. This method will only remove
+  /// whole records, not individual fields.
+  ///
+  /// If you attempt to pass a cache key for a  single field, this method will do nothing
+  /// since it won't be able to locate a record to remove based on that key.
+  ///
+  /// This method does not support cascading delete - it will only remove the record
+  /// for the specified key, and not any references to it or from it.
+  ///
+  /// - Parameters:
+  ///   - pattern: The pattern that will be applied to find matching keys.
+  func removeRecords(matching pattern: CacheKey) throws
+
   /// Clears all records.
   func clear() throws
 }

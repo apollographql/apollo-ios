@@ -14,6 +14,14 @@ public struct RecordSet {
     storage.removeValue(forKey: key)
   }
 
+  public mutating func removeRecords(matching pattern: CacheKey) {
+    for (key, _) in storage {
+      if key.contains(pattern) {
+        storage.removeValue(forKey: key)
+      }
+    }
+  }
+
   public mutating func clear() {
     storage.removeAll()
   }

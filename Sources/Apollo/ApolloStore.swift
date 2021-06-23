@@ -252,6 +252,16 @@ public final class ApolloStore {
       try self.cache.removeRecord(for: key)
     }
 
+    /// Removes all objects with a key that fully or partially matches the
+    /// supplied pattern. Does not cascade or allow removal of only certain
+    /// fields. Does nothing if an object does not exist for the given key.
+    ///
+    /// - Parameters:
+    ///   - pattern: The pattern that will be used to find matching cache keys
+    public func removeObjects(matching pattern: CacheKey) throws {
+      try self.cache.removeRecords(matching: pattern)
+    }
+
     public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {
       try write(object: data,
                 withKey: rootCacheKey(for: query),

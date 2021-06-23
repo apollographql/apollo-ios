@@ -52,6 +52,13 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
     let query = self.records.filter(keyColumn == cacheKey)
     try self.db.run(query.delete())
   }
+
+  public func deleteRecords(matching pattern: CacheKey) throws {
+    let wildcardPattern = "%\(pattern)%"
+    let query = self.records.filter(keyColumn.like(wildcardPattern))
+
+    try self.db.run(query.delete())
+  }
   
   public func clearDatabase(shouldVacuumOnClear: Bool) throws {
     try self.db.run(records.delete())
