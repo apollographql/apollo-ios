@@ -30,12 +30,12 @@ open class LegacyInterceptorProvider: InterceptorProvider {
   open func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
       return [
         MaxRetryInterceptor(),
-        LegacyCacheReadInterceptor(store: self.store),
+        CacheReadInterceptor(store: self.store),
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
         LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
         AutomaticPersistedQueryInterceptor(),
-        LegacyCacheWriteInterceptor(store: self.store),
+        CacheWriteInterceptor(store: self.store),
     ]
   }
 

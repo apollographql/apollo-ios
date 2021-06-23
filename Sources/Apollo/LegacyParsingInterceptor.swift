@@ -1,7 +1,7 @@
 import Foundation
 
-/// An interceptor which parses code using the legacy parsing system.
-public class LegacyParsingInterceptor: ApolloInterceptor {
+/// An interceptor which parses JSON data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
+public struct LegacyParsingInterceptor: ApolloInterceptor {
   
   public enum LegacyParsingError: Error, LocalizedError {
     case noResponseToParse
@@ -26,7 +26,7 @@ public class LegacyParsingInterceptor: ApolloInterceptor {
     }
   }
   
-  public var cacheKeyForObject: CacheKeyForObject?
+  public let cacheKeyForObject: CacheKeyForObject?
 
   /// Designated Initializer
   public init(cacheKeyForObject: CacheKeyForObject? = nil) {

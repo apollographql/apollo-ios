@@ -1,7 +1,7 @@
 import Foundation
 
-/// An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
-public class LegacyCacheWriteInterceptor: ApolloInterceptor {
+/// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
+public struct CacheWriteInterceptor: ApolloInterceptor {
   
   public enum LegacyCacheWriteError: Error, LocalizedError {
     case noResponseToParse

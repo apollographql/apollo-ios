@@ -21,12 +21,12 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
     func interceptors<Operation>(for operation: Operation) -> [ApolloInterceptor] where Operation: GraphQLOperation {
       return [
         MaxRetryInterceptor(),
-        LegacyCacheReadInterceptor(store: self.store),
+        CacheReadInterceptor(store: self.store),
         MockGraphQLServerInterceptor(server: server),
         ResponseCodeInterceptor(),
         LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
         AutomaticPersistedQueryInterceptor(),
-        LegacyCacheWriteInterceptor(store: self.store),
+        CacheWriteInterceptor(store: self.store),
       ]
     }
   }
