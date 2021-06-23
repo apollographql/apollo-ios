@@ -20,10 +20,11 @@ class StarWarsSubscriptionTests: XCTestCase {
     concurrentQueue = DispatchQueue(label: "com.apollographql.test.\(self.name)", attributes: .concurrent)
 
     connectionStartedExpectation = self.expectation(description: "Web socket connected")
-    
-    WebSocketTransport.provider = ApolloWebSocket.self
+
     webSocketTransport = WebSocketTransport(
-      request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      websocket: ApolloWebSocket(
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      )
     )
     webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
@@ -407,8 +408,12 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testConcurrentConnectAndCloseConnection() {
-    WebSocketTransport.provider = MockWebSocket.self
-    let webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
+    let webSocketTransport = WebSocketTransport(
+      websocket: MockWebSocket(
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      )
+    )
+
     let expectation = self.expectation(description: "Connection closed")
     expectation.expectedFulfillmentCount = 2
     
@@ -433,7 +438,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
     let store = ApolloStore()
-    let interceptorProvider = LegacyInterceptorProvider(store: store)
+    let interceptorProvider = DefaultInterceptorProvider(store: store)
     let alternateTransport = RequestChainNetworkTransport(interceptorProvider: interceptorProvider,
                                                           endpointURL: TestServerURL.starWarsServer.url)
     let alternateClient = ApolloClient(networkTransport: alternateTransport, store: store)

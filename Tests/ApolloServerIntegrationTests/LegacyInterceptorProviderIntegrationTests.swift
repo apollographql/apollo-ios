@@ -15,7 +15,7 @@ class LegacyInterceptorProviderIntegrationTests: XCTestCase {
   override func setUp() {
     let url = TestServerURL.starWarsServer.url
     let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: url)
 
