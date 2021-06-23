@@ -27,7 +27,7 @@
 		9B260BFF245A054700562176 /* JSONRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BFE245A054700562176 /* JSONRequest.swift */; };
 		9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */; };
 		9B260C08245A437400562176 /* InterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C07245A437400562176 /* InterceptorProvider.swift */; };
-		9B260C0A245A532500562176 /* LegacyParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C09245A532500562176 /* LegacyParsingInterceptor.swift */; };
+		9B260C0A245A532500562176 /* JSONResponseParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */; };
 		9B2B66F42513FAFE00B53ABF /* CancellationHandlingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2B66F32513FAFE00B53ABF /* CancellationHandlingInterceptor.swift */; };
 		9B2DFBBF24E1FA1A00ED3AE6 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
 		9B2DFBC024E1FA1A00ED3AE6 /* Apollo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -615,7 +615,7 @@
 		9B260BFE245A054700562176 /* JSONRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRequest.swift; sourceTree = "<group>"; };
 		9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChainNetworkTransport.swift; sourceTree = "<group>"; };
 		9B260C07245A437400562176 /* InterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorProvider.swift; sourceTree = "<group>"; };
-		9B260C09245A532500562176 /* LegacyParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyParsingInterceptor.swift; sourceTree = "<group>"; };
+		9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseParsingInterceptor.swift; sourceTree = "<group>"; };
 		9B2B66F32513FAFE00B53ABF /* CancellationHandlingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellationHandlingInterceptor.swift; sourceTree = "<group>"; };
 		9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UploadAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2DFBC524E1FA3E00ED3AE6 /* UploadAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadAPI.h; sourceTree = "<group>"; };
@@ -1241,10 +1241,6 @@
 				9B260BEA245A020300562176 /* ApolloInterceptor.swift */,
 				9BC742AB24CFB2FF0029282C /* ApolloErrorInterceptor.swift */,
 				9B260C07245A437400562176 /* InterceptorProvider.swift */,
-				9B9BBAF424DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift */,
-				9BEEDC2724E351E5001D1294 /* MaxRetryInterceptor.swift */,
-				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
-				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
 			);
 			name = Interceptor;
 			sourceTree = "<group>";
@@ -1475,10 +1471,14 @@
 		9BC742AF24D09F880029282C /* DefaultInterceptors */ = {
 			isa = PBXGroup;
 			children = (
-				9B96500B24BE7239003C29C0 /* CacheReadInterceptor.swift */,
-				9BC742AD24CFB6450029282C /* CacheWriteInterceptor.swift */,
-				9B260C09245A532500562176 /* LegacyParsingInterceptor.swift */,
 				DE56DC222683B2020090D6E4 /* LegacyInterceptorProvider.swift */,
+				9BEEDC2724E351E5001D1294 /* MaxRetryInterceptor.swift */,
+				9B96500B24BE7239003C29C0 /* CacheReadInterceptor.swift */,
+				9B260BFA245A031900562176 /* NetworkFetchInterceptor.swift */,
+				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
+				9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */,
+				9B9BBAF424DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift */,
+				9BC742AD24CFB6450029282C /* CacheWriteInterceptor.swift */,
 			);
 			name = DefaultInterceptors;
 			sourceTree = "<group>";
@@ -2899,7 +2899,7 @@
 				9B260C08245A437400562176 /* InterceptorProvider.swift in Sources */,
 				9B9BBAF324DB39D70021C30F /* UploadRequest.swift in Sources */,
 				9FCE2CEE1E6BE2D900E34457 /* NormalizedCache.swift in Sources */,
-				9B260C0A245A532500562176 /* LegacyParsingInterceptor.swift in Sources */,
+				9B260C0A245A532500562176 /* JSONResponseParsingInterceptor.swift in Sources */,
 				9B96500C24BE7239003C29C0 /* CacheReadInterceptor.swift in Sources */,
 				9F8F334C229044A200C0E83B /* Decoding.swift in Sources */,
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,

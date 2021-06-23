@@ -24,7 +24,7 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
         CacheReadInterceptor(store: self.store),
         MockGraphQLServerInterceptor(server: server),
         ResponseCodeInterceptor(),
-        LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+        JSONResponseParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
         AutomaticPersistedQueryInterceptor(),
         CacheWriteInterceptor(store: self.store),
       ]

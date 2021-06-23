@@ -33,7 +33,7 @@ open class LegacyInterceptorProvider: InterceptorProvider {
         CacheReadInterceptor(store: self.store),
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
-        LegacyParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+        JSONResponseParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
         AutomaticPersistedQueryInterceptor(),
         CacheWriteInterceptor(store: self.store),
     ]
