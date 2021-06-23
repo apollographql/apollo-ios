@@ -3,7 +3,7 @@ import Foundation
 /// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
 public struct CacheWriteInterceptor: ApolloInterceptor {
   
-  public enum LegacyCacheWriteError: Error, LocalizedError {
+  public enum CacheWriteError: Error, LocalizedError {
     case noResponseToParse
     
     public var errorDescription: String? {
@@ -40,7 +40,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     guard
       let createdResponse = response,
       let legacyResponse = createdResponse.legacyResponse else {
-        chain.handleErrorAsync(LegacyCacheWriteError.noResponseToParse,
+        chain.handleErrorAsync(CacheWriteError.noResponseToParse,
                              request: request,
                              response: response,
                              completion: completion)
