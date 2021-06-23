@@ -27,12 +27,11 @@ public extension WebSocketTransportDelegate {
 
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
 public class WebSocketTransport {
-  public static var provider: ApolloWebSocketClient.Type = ApolloWebSocket.self
   public weak var delegate: WebSocketTransportDelegate?
 
   let connectOnInit: Bool
   let reconnect: Atomic<Bool>
-  var websocket: ApolloWebSocketClient
+  let websocket: ApolloWebSocketClient
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestBodyCreator: RequestBodyCreator
@@ -66,14 +65,14 @@ public class WebSocketTransport {
   fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
-  /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
+  /// - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientName: String {
     didSet {
       self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
 
-  /// NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
+  /// - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientVersion: String {
     didSet {
       self.addApolloClientHeaders(to: &self.websocket.request)
@@ -83,7 +82,7 @@ public class WebSocketTransport {
   /// Designated initializer
   ///
   /// - Parameters:
-  ///   - request: The connection URLRequest
+  ///   - websocket: The websocket client to use for creating a websocket connection.
   ///   - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   ///   - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   ///   - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
@@ -93,9 +92,7 @@ public class WebSocketTransport {
   ///  - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
   ///   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   ///   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
-  ///   - certPinner: [optional] The object providing information about certificate pinning. Should default to Starscream's `FoundationSecurity`.
-  ///   - compressionHandler: [optional] The object helping with any compression handling. Should default to nil.
-  public init(request: URLRequest,
+  public init(websocket: ApolloWebSocketClient,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
               sendOperationIdentifiers: Bool = false,
@@ -104,18 +101,14 @@ public class WebSocketTransport {
               allowSendingDuplicates: Bool = true,
               connectOnInit: Bool = true,
               connectingPayload: GraphQLMap? = [:],
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
-              certPinner: CertificatePinning? = FoundationSecurity(),
-              compressionHandler: CompressionHandler? = nil) {
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+    self.websocket = websocket
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.reconnect = Atomic(reconnect)
     self.reconnectionInterval = reconnectionInterval
     self.allowSendingDuplicates = allowSendingDuplicates
     self.requestBodyCreator = requestBodyCreator
-    self.websocket = WebSocketTransport.provider.init(request: request,
-                                                      certPinner: certPinner,
-                                                      compressionHandler: compressionHandler)
     self.websocket.request.setValue(self.protocols.joined(separator: ","), forHTTPHeaderField: "Sec-WebSocket-Protocol")
     self.clientName = clientName
     self.clientVersion = clientVersion

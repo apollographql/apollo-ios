@@ -7,17 +7,6 @@ import Starscream
 class WebSocketTransportTests: XCTestCase {
 
   private var webSocketTransport: WebSocketTransport!
-  static var webSocketProvider: ApolloWebSocketClient.Type = MockWebSocket.self
-
-  override class func setUp() {
-    super.setUp()
-    swap(&webSocketProvider, &WebSocketTransport.provider)
-  }
-
-  override class func tearDown() {
-    super.tearDown()
-    swap(&webSocketProvider, &WebSocketTransport.provider)
-  }
 
   override func tearDown() {
     webSocketTransport = nil
@@ -29,7 +18,7 @@ class WebSocketTransportTests: XCTestCase {
     var request = URLRequest(url: TestURL.mockServer.url)
     request.addValue("OldToken", forHTTPHeaderField: "Authorization")
 
-    self.webSocketTransport = WebSocketTransport(request: request)
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request))
 
     self.webSocketTransport.updateHeaderValues(["Authorization": "UpdatedToken"])
 
@@ -37,7 +26,9 @@ class WebSocketTransportTests: XCTestCase {
   }
 
   func testUpdateConnectingPayload() {
-    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
+    let request = URLRequest(url: TestURL.mockServer.url)
+
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
                                                  connectingPayload: ["Authorization": "OldToken"])
 
     let mockWebSocketDelegate = MockWebSocketDelegate()
@@ -65,7 +56,9 @@ class WebSocketTransportTests: XCTestCase {
   }
 
   func testCloseConnectionAndInit() {
-    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
+    let request = URLRequest(url: TestURL.mockServer.url)
+
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
                                                  connectingPayload: ["Authorization": "OldToken"])
     self.webSocketTransport.closeConnection()
     self.webSocketTransport.updateConnectingPayload(["Authorization": "UpdatedToken"])
