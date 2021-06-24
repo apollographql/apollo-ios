@@ -609,4 +609,155 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     }
   }
+
+  func testRemoveObjectsByPattern() throws {
+
+    //
+    // 1. Merge all required records into the cache
+    //
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": [
+        "hero(episode:NEWHOPE)": CacheReference(key: "1002"),
+        "hero(episode:JEDI)": CacheReference(key: "1101"),
+        "hero(episode:EMPIRE)": CacheReference(key: "2001")
+      ],
+      "2001": [
+        "id": "2001",
+        "name": "R2-D2",
+        "__typename": "Droid",
+        "friends": [
+          CacheReference(key: "1101"),
+          CacheReference(key: "1003")
+        ]
+      ],
+      "1101": ["__typename": "Human", "name": "Luke Skywalker", "id": "1101", "friends": []],
+      "1002": ["__typename": "Human", "name": "Han Solo", "id": "1002", "friends": []],
+      "1003": ["__typename": "Human", "name": "Leia Organa", "id": "1003", "friends": []],
+    ])
+
+    //
+    // 2. Attempt to successfully read out the three queries
+    //
+
+    let readCompletedExpectation = expectation(description: "All hero objects read from cache")
+
+    store.withinReadTransaction({ transaction in
+      let query = HeroAndFriendsNamesWithIDsQuery(episode: .newhope)
+      let data = try transaction.read(query: query)
+
+      XCTAssertEqual(data.hero?.__typename, "Human")
+      XCTAssertEqual(data.hero?.name, "Han Solo")
+
+      let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+      XCTAssertEqual(friendsNames, [])
+
+    }, completion: { newHopeResult in
+      XCTAssertSuccessResult(newHopeResult)
+
+      self.store.withinReadTransaction({ transaction in
+        let query = HeroAndFriendsNamesWithIDsQuery(episode: .jedi)
+        let data = try transaction.read(query: query)
+
+        XCTAssertEqual(data.hero?.__typename, "Human")
+        XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+
+        let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+        XCTAssertEqual(friendsNames, [])
+
+      }, completion: { jediResult in
+        XCTAssertSuccessResult(jediResult)
+
+        self.store.withinReadTransaction({ transaction in
+          let query = HeroAndFriendsNamesWithIDsQuery(episode: .empire)
+          let data = try transaction.read(query: query)
+
+          XCTAssertEqual(data.hero?.__typename, "Droid")
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Leia Organa"])
+
+        }, completion: { empireResult in
+          defer { readCompletedExpectation.fulfill() }
+
+          XCTAssertSuccessResult(empireResult)
+        })
+      })
+    })
+
+    self.waitForExpectations(timeout: Self.defaultWaitTimeout)
+
+    //
+    // 3. Remove all objects matching the pattern `100`
+    // - This will remove `1002` (Han Solo, hero for the .newhope episode)
+    // - This will remove `1003` (Leia Organa, friend of the hero in .empire episode)
+    //
+
+    let removeCompletedExpectation = expectation(description: "Hero objects removed from cache by pattern")
+
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.removeObjects(matching: "100")
+    }, completion: { result in
+      defer { removeCompletedExpectation.fulfill() }
+
+      XCTAssertSuccessResult(result)
+    })
+
+    self.waitForExpectations(timeout: Self.defaultWaitTimeout)
+
+    //
+    // 4. Attempt to read records after pattern removal
+    // - .newhope episode query expected to FAIL on the `hero` path
+    // - .jedi episdoe query expected to SUCCEED
+    // - .empire episode query expected to FAIL on the `hero.friends` path
+    //
+
+    let readAfterRemoveCompletedExpectation = expectation(description: "Read removed objects completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = HeroAndFriendsNamesWithIDsQuery(episode: .newhope)
+      _ = try transaction.read(query: query)
+
+    }, completion: { newHopeResult in
+      XCTAssertFailureResult(newHopeResult) { error in
+        if let error = error as? GraphQLResultError {
+          XCTAssertEqual(error.path, ["hero"])
+          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+        } else {
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+
+      self.store.withinReadTransaction({ transaction in
+        let query = HeroAndFriendsNamesWithIDsQuery(episode: .jedi)
+        let data = try transaction.read(query: query)
+
+        XCTAssertEqual(data.hero?.__typename, "Human")
+        XCTAssertEqual(data.hero?.name, "Luke Skywalker")
+
+      }, completion: { jediResult in
+        XCTAssertSuccessResult(jediResult)
+
+        self.store.withinReadTransaction({ transaction in
+          let query = HeroAndFriendsNamesWithIDsQuery(episode: .empire)
+          _ = try transaction.read(query: query)
+
+        }, completion: { empireResult in
+          defer { readAfterRemoveCompletedExpectation.fulfill() }
+
+          XCTAssertFailureResult(empireResult) { error in
+            if let error = error as? GraphQLResultError {
+              XCTAssertEqual(error.path, ["hero.friends"])
+              XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+            } else {
+              XCTFail("Unexpected error: \(error)")
+            }
+          }
+        })
+      })
+    })
+
+    waitForExpectations(timeout: Self.defaultWaitTimeout)
+  }
 }
