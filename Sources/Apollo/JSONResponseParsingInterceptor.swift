@@ -50,7 +50,7 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
     do {
       guard let body = try? JSONSerializationFormat
               .deserialize(data: createdResponse.rawData) as? JSONObject else {
-        throw JSONResponseParsingError.couldNotParseToLegacyJSON(data: createdResponse.rawData)
+        throw JSONResponseParsingError.couldNotParseToJSON(data: createdResponse.rawData)
       }
 
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
