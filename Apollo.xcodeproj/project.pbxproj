@@ -254,7 +254,7 @@
 		DE674D9E261CEEE4000E8FC8 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
 		DE674D9F261CEEE4000E8FC8 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
 		DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B154A261505450068D642 /* GraphQLMap.swift */; };
-		DE6B15AF26152BE10068D642 /* LegacyInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* LegacyInterceptorProviderIntegrationTests.swift */; };
+		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
@@ -266,7 +266,7 @@
 		DECD4992262F841600924527 /* ApolloCodegenTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */; };
 		DECD49C9262F88FE00924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD49DB262F8AAA00924527 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
-		DED45C2A2615319E0086EF63 /* LegacyInterceptorProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C292615319E0086EF63 /* LegacyInterceptorProviderTests.swift */; };
+		DED45C2A2615319E0086EF63 /* DefaultInterceptorProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */; };
 		DED45D73261675890086EF63 /* StarWarsServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA6ABC91EC0A9F7000017BE /* StarWarsServerTests.swift */; };
 		DED45D852616759C0086EF63 /* TestConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45D842616759C0086EF63 /* TestConfigs.swift */; };
 		DED45D9626167F020086EF63 /* StarWarsServerCachingRoundtripTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA6ABC81EC0A9F7000017BE /* StarWarsServerCachingRoundtripTests.swift */; };
@@ -889,7 +889,7 @@
 		DE664ED92666DF150054DB4F /* CacheReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheReference.swift; sourceTree = "<group>"; };
 		DE6B154A261505450068D642 /* GraphQLMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLMap.swift; sourceTree = "<group>"; };
 		DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloServerIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE6B15AE26152BE10068D642 /* LegacyInterceptorProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyInterceptorProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		DE6B15B026152BE10068D642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ServerIntegrationTests.xcconfig"; sourceTree = "<group>"; };
 		DE6B15FA26152D210068D642 /* Workspace-Target-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Application.xcconfig"; sourceTree = "<group>"; };
@@ -921,7 +921,7 @@
 		DECD4930262F824B00924527 /* Workspace-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		DECD493E262F82D600924527 /* Workspace-Target-Codegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Codegen.xcconfig"; sourceTree = "<group>"; };
 		DED45C172615308E0086EF63 /* TestServerURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerURLs.swift; sourceTree = "<group>"; };
-		DED45C292615319E0086EF63 /* LegacyInterceptorProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyInterceptorProviderTests.swift; sourceTree = "<group>"; };
+		DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProviderTests.swift; sourceTree = "<group>"; };
 		DED45C3B26165DD70086EF63 /* Apollo-IntegrationTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-IntegrationTestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45D842616759C0086EF63 /* TestConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConfigs.swift; sourceTree = "<group>"; };
 		DED45DC7261682260086EF63 /* Apollo-UnitTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-UnitTestPlan.xctestplan"; sourceTree = "<group>"; };
@@ -1740,7 +1740,7 @@
 				F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */,
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
 				9B96500824BE6201003C29C0 /* RequestChainTests.swift */,
-				DED45C292615319E0086EF63 /* LegacyInterceptorProviderTests.swift */,
+				DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */,
 				C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */,
 				9B9BBB1A24DB75E60021C30F /* UploadRequestTests.swift */,
 				5BB2C0222380836100774170 /* VersionNumberTests.swift */,
@@ -1908,7 +1908,7 @@
 			isa = PBXGroup;
 			children = (
 				DED45D62261675620086EF63 /* TestHelpers */,
-				DE6B15AE26152BE10068D642 /* LegacyInterceptorProviderIntegrationTests.swift */,
+				DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */,
 				9FA6ABC91EC0A9F7000017BE /* StarWarsServerTests.swift */,
 				9FA6ABC81EC0A9F7000017BE /* StarWarsServerCachingRoundtripTests.swift */,
 				9B7BDA8823FDE92900ACD198 /* StarWarsSubscriptionTests.swift */,
@@ -2994,7 +2994,7 @@
 				9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */,
 				E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */,
 				9F8622FA1EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift in Sources */,
-				DED45C2A2615319E0086EF63 /* LegacyInterceptorProviderTests.swift in Sources */,
+				DED45C2A2615319E0086EF63 /* DefaultInterceptorProviderTests.swift in Sources */,
 				9F21730E2567E6F000566121 /* DataLoaderTests.swift in Sources */,
 				DED45DEC261B96B70086EF63 /* CacheDependentInterceptorTests.swift in Sources */,
 				DED45DEB261B96B70086EF63 /* SQLiteCacheTests.swift in Sources */,
@@ -3050,7 +3050,7 @@
 				DED45D852616759C0086EF63 /* TestConfigs.swift in Sources */,
 				DED45D9626167F020086EF63 /* StarWarsServerCachingRoundtripTests.swift in Sources */,
 				DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */,
-				DE6B15AF26152BE10068D642 /* LegacyInterceptorProviderIntegrationTests.swift in Sources */,
+				DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */,
 				DED46000261CE9080086EF63 /* HTTPBinAPI.swift in Sources */,
 				DED45F4A261CDBFC0086EF63 /* UploadTests.swift in Sources */,
 				DED45F17261CDA360086EF63 /* StarWarsWebSocketTests.swift in Sources */,

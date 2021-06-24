@@ -117,9 +117,9 @@ class InterceptorTests: XCTestCase {
     self.wait(for: [expectation], timeout: 1)
   }
   
-  // MARK: - Legacy Parsing Interceptor
+  // MARK: - JSON Response Parsing Interceptor
   
-  func testLegacyParsingInterceptorFailsWithEmptyData() {
+  func testJSONResponseParsingInterceptorFailsWithEmptyData() {
     class TestProvider: InterceptorProvider {
       let mockClient: MockURLSessionClient = {
         let client = MockURLSessionClient()
@@ -154,7 +154,7 @@ class InterceptorTests: XCTestCase {
         XCTFail("This should not have succeeded")
       case .failure(let error):
         switch error {
-        case JSONResponseParsingInterceptor.JSONResponseParsingError.couldNotParseToLegacyJSON(let data):
+        case JSONResponseParsingInterceptor.JSONResponseParsingError.couldNotParseToJSON(let data):
           XCTAssertTrue(data.isEmpty)
         default:
           XCTFail("Unexpected error type: \(error.localizedDescription)")
@@ -203,7 +203,7 @@ class InterceptorTests: XCTestCase {
         XCTFail("This should not have succeeded")
       case .failure(let error):
         switch error {
-        case JSONResponseParsingInterceptor.JSONResponseParsingError.couldNotParseToLegacyJSON(let data):
+        case JSONResponseParsingInterceptor.JSONResponseParsingError.couldNotParseToJSON(let data):
           XCTAssertTrue(data.isEmpty)
         default:
           XCTFail("Unexpected error type: \(error.localizedDescription)")

@@ -12,8 +12,8 @@ public class HTTPResponse<Operation: GraphQLOperation> {
   /// [optional] The data as parsed into a `GraphQLResult`, which can eventually be returned to the UI. Will be nil if not yet parsed.
   public var parsedResponse: GraphQLResult<Operation.Data>?
   
-  /// [optional] The data as parsed into a `GraphQLResponse` for legacy caching purposes. If you're not using the `LegacyParsingInterceptor`, you probably shouldn't be using this property.
-  /// **NOTE:** This property will be removed when the transition to a Codable-based Codegen is complete.
+  /// [optional] The data as parsed into a `GraphQLResponse` for legacy caching purposes. If you're not using the `JSONResponseParsingInterceptor`, you probably shouldn't be using this property.
+  /// **NOTE:** This property will be removed when the transition to the Swift Codegen is complete.
   public var legacyResponse: GraphQLResponse<Operation.Data>? = nil
   
   /// Designated initializer

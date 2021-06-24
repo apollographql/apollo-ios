@@ -24,7 +24,7 @@ let store = ApolloStore(cache: sqliteCache)
 
 //: Next, you'll need to set up a network transport, since you will also need that to set up the client:
 let serverURL = URL(string: "http://localhost:8080/graphql")!
-let networkTransport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(store: store), endpointURL: serverURL)
+let networkTransport = RequestChainNetworkTransport(interceptorProvider: DefaultInterceptorProvider(store: store), endpointURL: serverURL)
 
 //: Finally, pass that into your `ApolloClient` initializer, and you're now set up to use the SQLite cache for persistent storage:
 let apolloClient = ApolloClient(networkTransport: networkTransport, store: store)

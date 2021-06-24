@@ -145,7 +145,7 @@ class RequestChainTests: XCTestCase {
     }
   }
   
-  func testErrorInterceptorGetsCalledInLegacyInterceptorProviderSubclass() {
+  func testErrorInterceptorGetsCalledInDefaultInterceptorProviderSubclass() {
     class ErrorInterceptor: ApolloErrorInterceptor {
       var error: Error? = nil
       

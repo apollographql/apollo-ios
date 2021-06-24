@@ -9,7 +9,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
-        return "The Legacy Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
+        return "The Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
       }
     }
   }

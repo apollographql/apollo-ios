@@ -3,7 +3,7 @@ import Apollo
 import ApolloTestSupport
 import StarWarsAPI
 
-class LegacyInterceptorProviderTests: XCTestCase {
+class DefaultInterceptorProviderTests: XCTestCase {
 
   var client: ApolloClient!
   var mockServer: MockGraphQLServer!
@@ -33,7 +33,7 @@ class LegacyInterceptorProviderTests: XCTestCase {
 
   func testLoading() {
     let expectation = mockServer.expect(HeroNameQuery.self) { _ in
-      LegacyInterceptorProviderTests.mockData
+      DefaultInterceptorProviderTests.mockData
     }
 
     client.fetch(query: HeroNameQuery()) { result in
@@ -51,7 +51,7 @@ class LegacyInterceptorProviderTests: XCTestCase {
 
   func testInitialLoadFromNetworkAndSecondaryLoadFromCache() {
     let initialLoadExpectation = mockServer.expect(HeroNameQuery.self) { _ in
-      LegacyInterceptorProviderTests.mockData
+      DefaultInterceptorProviderTests.mockData
     }
     initialLoadExpectation.assertForOverFulfill = false
 
@@ -67,7 +67,7 @@ class LegacyInterceptorProviderTests: XCTestCase {
 
     self.wait(for: [initialLoadExpectation], timeout: 10)
 
-    let secondLoadExpectation = self.expectation(description: "loaded With legacy client")
+    let secondLoadExpectation = self.expectation(description: "loaded with default client")
 
     client.fetch(query: HeroNameQuery()) { result in
       switch result {

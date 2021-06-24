@@ -5,15 +5,15 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
   
   public enum JSONResponseParsingError: Error, LocalizedError {
     case noResponseToParse
-    case couldNotParseToLegacyJSON(data: Data)
+    case couldNotParseToJSON(data: Data)
     
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
         return "The Codable Parsing Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
-      case .couldNotParseToLegacyJSON(let data):
+      case .couldNotParseToJSON(let data):
         var errorStrings = [String]()
-        errorStrings.append("Could not parse data to legacy JSON format.")
+        errorStrings.append("Could not parse data to JSON format.")
         if let dataString = String(bytes: data, encoding: .utf8) {
           errorStrings.append("Data received as a String was:")
           errorStrings.append(dataString)
