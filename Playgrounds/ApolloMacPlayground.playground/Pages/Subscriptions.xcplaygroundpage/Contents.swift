@@ -26,7 +26,7 @@ In this instance, we'll use a `SplitNetworkTransport` since we want to demonstra
 
 let url = URL(string: "http://localhost:8080/graphql")!
 let store = ApolloStore()
-let normalTransport = RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(store: store), endpointURL: url)
+let normalTransport = RequestChainNetworkTransport(interceptorProvider: DefaultInterceptorProvider(store: store), endpointURL: url)
 
 //: Next, set up the `WebSocketTransport` to talk to the websocket endpoint. Note that this may take a different URL, sometimes with a `ws` prefix, than your normal http endpoint:
 

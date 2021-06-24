@@ -1,15 +1,15 @@
 import Foundation
 
-/// An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
-public class LegacyCacheWriteInterceptor: ApolloInterceptor {
+/// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
+public struct CacheWriteInterceptor: ApolloInterceptor {
   
-  public enum LegacyCacheWriteError: Error, LocalizedError {
+  public enum CacheWriteError: Error, LocalizedError {
     case noResponseToParse
     
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
-        return "The Legacy Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
+        return "The Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
       }
     }
   }
@@ -40,7 +40,7 @@ public class LegacyCacheWriteInterceptor: ApolloInterceptor {
     guard
       let createdResponse = response,
       let legacyResponse = createdResponse.legacyResponse else {
-        chain.handleErrorAsync(LegacyCacheWriteError.noResponseToParse,
+        chain.handleErrorAsync(CacheWriteError.noResponseToParse,
                              request: request,
                              response: response,
                              completion: completion)

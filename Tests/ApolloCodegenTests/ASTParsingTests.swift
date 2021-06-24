@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Foundation
 import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 
@@ -26,7 +27,8 @@ class ASTParsingTests: XCTestCase {
   private func loadAST(from url: URL,
                        file: StaticString = #file,
                        line: UInt = #line) throws -> ASTOutput {
-    try ASTOutput.load(from: url, decoder: JSONDecoder())
+    let data = try Data(contentsOf: url)
+    return try JSONDecoder().decode(ASTOutput.self, from: data)
   }
   
   func testLoadingStarWarsJSON() throws {

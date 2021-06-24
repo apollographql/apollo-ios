@@ -1,7 +1,7 @@
 import Foundation
 
 /// An interceptor to check the response code returned with a request.
-public class ResponseCodeInterceptor: ApolloInterceptor {
+public struct ResponseCodeInterceptor: ApolloInterceptor {
   
   public enum ResponseCodeError: Error, LocalizedError {
     case invalidResponseCode(response: HTTPURLResponse?, rawData: Data?)

@@ -1,13 +1,8 @@
 import Foundation
 
 /// Represents a GraphQL response received from a server.
-public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
-  
-  public init<T>(from data: Foundation.Data, decoder: T) throws where T : FlexibleDecoder {
-    // Giant hack to make all this conform to Parseable.
-    throw ParseableError.unsupportedInitializer
-  }
-  
+public final class GraphQLResponse<Data: GraphQLSelectionSet> {
+
   public let body: JSONObject
 
   private var rootKey: String
@@ -22,16 +17,6 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
   func setupOperation<Operation: GraphQLOperation> (_ operation: Operation) {
     self.rootKey = rootCacheKey(for: operation)
     self.variables = operation.variables
-  }
-  
-  public func parseResultWithCompletion(cacheKeyForObject: CacheKeyForObject? = nil,
-                                        completion: (Result<(GraphQLResult<Data>, RecordSet?), Error>) -> Void) {
-    do {
-      let result = try parseResult(cacheKeyForObject: cacheKeyForObject)
-      completion(.success(result))
-    } catch {
-      completion(.failure(error))
-    }
   }
 
   func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {

@@ -25,6 +25,14 @@ public protocol ApolloWebSocketClient: WebSocketClient {
   var delegate: WebSocketDelegate? { get set }
 }
 
+extension ApolloWebSocketClient {
+  init(request: URLRequest) {
+    self.init(request: request,
+              certPinner: FoundationSecurity(),
+              compressionHandler: nil)
+  }
+}
+
 // MARK: - WebSocket
 
 /// Included implementation of an `ApolloWebSocketClient`, based on `Starscream`'s `WebSocket`.

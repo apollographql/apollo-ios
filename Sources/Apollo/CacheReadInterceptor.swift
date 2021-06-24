@@ -1,7 +1,7 @@
 import Foundation
 
-/// An interceptor that reads data from the legacy cache for queries, following the `HTTPRequest`'s `cachePolicy`.
-public class LegacyCacheReadInterceptor: ApolloInterceptor {
+/// An interceptor that reads data from the cache for queries, following the `HTTPRequest`'s `cachePolicy`.
+public struct CacheReadInterceptor: ApolloInterceptor {
     
   private let store: ApolloStore
   

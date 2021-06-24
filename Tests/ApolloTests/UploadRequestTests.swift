@@ -13,7 +13,7 @@ class UploadRequestTests: XCTestCase {
 
     client = {
       let store = ApolloStore()
-      let provider = LegacyInterceptorProvider(store: store)
+      let provider = DefaultInterceptorProvider(store: store)
       let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                    endpointURL: URL(string: "http://www.test.com")!,
                                                    additionalHeaders: ["headerKey": "headerValue"])

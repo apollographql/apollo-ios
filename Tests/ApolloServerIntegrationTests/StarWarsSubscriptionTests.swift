@@ -6,8 +6,7 @@ import StarWarsAPI
 import Starscream
 
 class StarWarsSubscriptionTests: XCTestCase {
-  let concurrentQueue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
-  
+  var concurrentQueue: DispatchQueue!
   var client: ApolloClient!
   var webSocketTransport: WebSocketTransport!
   
@@ -17,11 +16,16 @@ class StarWarsSubscriptionTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    
+
+    concurrentQueue = DispatchQueue(label: "com.apollographql.test.\(self.name)", attributes: .concurrent)
+
     connectionStartedExpectation = self.expectation(description: "Web socket connected")
-    
-    WebSocketTransport.provider = ApolloWebSocket.self
-    webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
+
+    webSocketTransport = WebSocketTransport(
+      websocket: ApolloWebSocket(
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      )
+    )
     webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
 
@@ -34,6 +38,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     connectionStartedExpectation = nil
     disconnectedExpectation = nil
     reconnectedExpectation = nil
+    concurrentQueue = nil
 
     try super.tearDownWithError()
   }
@@ -77,7 +82,9 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     self.waitForSubscriptionsToStart()
         
-    client.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
+    client.perform(mutation: CreateReviewForEpisodeMutation(
+                    episode: .jedi,
+                    review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
     
     waitForExpectations(timeout: 10, handler: nil)
     sub.cancel()
@@ -401,8 +408,12 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testConcurrentConnectAndCloseConnection() {
-    WebSocketTransport.provider = MockWebSocket.self
-    let webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
+    let webSocketTransport = WebSocketTransport(
+      websocket: MockWebSocket(
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      )
+    )
+
     let expectation = self.expectation(description: "Connection closed")
     expectation.expectedFulfillmentCount = 2
     
@@ -427,7 +438,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
     let store = ApolloStore()
-    let interceptorProvider = LegacyInterceptorProvider(store: store)
+    let interceptorProvider = DefaultInterceptorProvider(store: store)
     let alternateTransport = RequestChainNetworkTransport(interceptorProvider: interceptorProvider,
                                                           endpointURL: TestServerURL.starWarsServer.url)
     let alternateClient = ApolloClient(networkTransport: alternateTransport, store: store)

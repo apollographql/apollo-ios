@@ -1,18 +1,13 @@
 import Foundation
 
-public class CodeGenerator<Decoder: FlexibleDecoder> {
+public class CodeGenerator {
   let astOutput: ASTOutput
 
-  public class func jsonGenerator(with decoder: JSONDecoder = JSONDecoder(),  astOutputURL url: URL) throws -> CodeGenerator<JSONDecoder> {
-    /// Type needs to be specified here due to https://bugs.swift.org/browse/SR-12325
-    try CodeGenerator<JSONDecoder>(flexible: decoder, astOutputURL: url)
-  }
-  
   private var singleFileOutputs = [String]()
   
-  public init(flexible: Decoder,
-              astOutputURL url: URL) throws {
-    self.astOutput = try ASTOutput.load(from: url, decoder: flexible)
+  public init(astOutputURL url: URL) throws {
+    let data = try Data(contentsOf: url)
+    self.astOutput = try JSONDecoder().decode(ASTOutput.self, from: data)    
   }
   
   public func run(with options: ApolloCodegenOptions) throws {

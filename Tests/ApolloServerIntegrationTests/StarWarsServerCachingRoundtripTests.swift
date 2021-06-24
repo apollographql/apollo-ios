@@ -25,7 +25,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     
     cache = try makeNormalizedCache()
     store = ApolloStore(cache: cache)
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: TestServerURL.starWarsServer.url)
     

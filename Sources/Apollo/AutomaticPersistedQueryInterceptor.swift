@@ -1,6 +1,6 @@
 import Foundation
 
-public class AutomaticPersistedQueryInterceptor: ApolloInterceptor {
+public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
   
   public enum APQError: LocalizedError {
     case noParsedResponse
