@@ -16,7 +16,7 @@ public struct RecordSet {
 
   public mutating func removeRecords(matching pattern: CacheKey) {
     for (key, _) in storage {
-      if key.contains(pattern) {
+      if key.range(of: pattern, options: .caseInsensitive) != nil {
         storage.removeValue(forKey: key)
       }
     }

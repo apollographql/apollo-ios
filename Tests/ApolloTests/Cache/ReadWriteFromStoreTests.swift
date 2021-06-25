@@ -610,6 +610,64 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
+  func testRemoveObjectByPatternCaseInsensitive() throws {
+    let heroKey = "hero"
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["\(heroKey.lowercased())": CacheReference(key: "QUERY_ROOT.\(heroKey.lowercased())")],
+      "QUERY_ROOT.\(heroKey.lowercased())": ["__typename": "Droid", "name": "R2-D2"]
+    ])
+
+    let query = HeroNameQuery()
+    let readCompletedExpectation = expectation(description: "Read hero object from cache")
+
+    store.withinReadTransaction({ transaction in
+      let data = try transaction.read(query: query)
+
+      XCTAssertEqual(data.hero?.name, "R2-D2")
+      XCTAssertEqual(data.hero?.__typename, "Droid")
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+
+      XCTAssertSuccessResult(result)
+    })
+
+    self.waitForExpectations(timeout: Self.defaultWaitTimeout)
+
+    let removeRecordsCompletedExpectation = expectation(description: "Remove cache record by key pattern")
+
+    store.withinReadWriteTransaction({ transaction in
+      try transaction.removeObjects(matching: "\(heroKey.uppercased())")
+    }, completion: { result in
+      defer { removeRecordsCompletedExpectation.fulfill() }
+
+      XCTAssertSuccessResult(result)
+    })
+
+    self.waitForExpectations(timeout: Self.defaultWaitTimeout)
+
+    let readAfterRemoveCompletedExpectation = self.expectation(description: "Read from cache after removal by pattern")
+
+    store.withinReadTransaction({ transaction in
+      _ = try transaction.read(query: query)
+
+    }, completion: { result in
+      defer { readAfterRemoveCompletedExpectation.fulfill() }
+
+      XCTAssertFailureResult(result) { error in
+        if let error = error as? GraphQLResultError {
+          XCTAssertEqual(error.path, ["hero"])
+          XCTAssertMatch(error.underlying, JSONDecodingError.missingValue)
+        } else {
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+    })
+
+    self.waitForExpectations(timeout: Self.defaultWaitTimeout)
+  }
+
   func testRemoveObjectsByPattern() throws {
 
     //
