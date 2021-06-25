@@ -252,12 +252,19 @@ public final class ApolloStore {
       try self.cache.removeRecord(for: key)
     }
 
-    /// Removes all objects with a key that fully or partially matches the
-    /// supplied pattern. Does not cascade or allow removal of only certain
-    /// fields. Does nothing if an object does not exist for the given key.
+    /// Removes records with keys that match the specified pattern. This method will only
+    /// remove whole records, it does not perform cascading deletes. This means only the
+    /// records with matched keys will be removed, and not any references to them. Key
+    /// matching is case-insensitive.
+    ///
+    /// If you attempt to pass a cache key for a single field, this method will do nothing
+    /// since it won't be able to locate a record to remove based on that key.
+    ///
+    /// This method can be very slow depending on the number of records in the cache.
+    /// It is recommended that this method be called in a background queue.
     ///
     /// - Parameters:
-    ///   - pattern: The pattern that will be used to find matching cache keys
+    ///   - pattern: The pattern that will be applied to find matching keys.
     public func removeObjects(matching pattern: CacheKey) throws {
       try self.cache.removeRecords(matching: pattern)
     }
