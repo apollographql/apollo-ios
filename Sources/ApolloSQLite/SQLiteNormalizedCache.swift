@@ -108,6 +108,10 @@ extension SQLiteNormalizedCache: NormalizedCache {
   public func removeRecord(for key: CacheKey) throws {
     try self.database.deleteRecord(for: key)
   }
+
+  public func removeRecords(matching pattern: CacheKey) throws {
+    try self.database.deleteRecords(matching: pattern)
+  }
   
   public func clear() throws {
     try self.database.clearDatabase(shouldVacuumOnClear: self.shouldVacuumOnClear)
