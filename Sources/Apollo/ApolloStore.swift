@@ -257,8 +257,8 @@ public final class ApolloStore {
     /// records with matched keys will be removed, and not any references to them. Key
     /// matching is case-insensitive.
     ///
-    /// If you attempt to pass a cache key for a single field, this method will do nothing
-    /// since it won't be able to locate a record to remove based on that key.
+    /// If you attempt to pass a cache path for a single field, this method will do nothing
+    /// since it won't be able to locate a record to remove based on that path.
     ///
     /// - Note: This method can be very slow depending on the number of records in the cache.
     /// It is recommended that this method be called in a background queue.
