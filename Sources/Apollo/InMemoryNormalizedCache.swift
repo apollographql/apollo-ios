@@ -22,7 +22,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   }
 
   public func removeRecords(matching pattern: CacheKey) throws {
-    return records.removeRecords(matching: pattern)
+    records.removeRecords(matching: pattern)
   }
 
   public func clear() {
