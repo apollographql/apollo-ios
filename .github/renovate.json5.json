@@ -3,4 +3,5 @@
   "extends": [
     "apollo-docs"
   ]
+  "labels": ["dependency-management"],  
 }
