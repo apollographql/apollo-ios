@@ -184,7 +184,7 @@ Delete functionality is limited at this time. There are presently three deletion
 
 1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option. 
 2. `removeObject(for:)` on `ReadWriteTransaction`. Removes a single object for the given `CacheKey`. 
-3. `removeObjects(matching:)` on `ReadWriteTransaction`. Removes all objects with a `CacheKey` that matches the given pattern. Pattern matching is **not** case sensitive. For an in memory cache it is the equivalent of checking whether the cache key _contains_ the pattern and `SQLite` caches will perform a `LIKE` query to remove the objects.
+3. `removeObjects(matching:)` on `ReadWriteTransaction`. Removes all objects with a `CacheKey` that matches the given pattern. Pattern matching is **not** case sensitive. For an in memory cache it is the equivalent of checking whether the cache key _contains_ the pattern and `SQLite` caches will perform a `LIKE` query to remove the objects. This method can be very slow depending on the number of records in the cache, it is recommended that this method be called in a background queue.
 
 `removeObject(for:)` and `removeObjects(matching:)` will only remove things at the level of an object - that is, they cannot remove individual properties from an object, and cannot remove outside references **to** an object. 
 
