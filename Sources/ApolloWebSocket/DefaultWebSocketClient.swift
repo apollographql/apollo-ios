@@ -2,7 +2,7 @@ import Starscream
 import Foundation
 
 /// Included default implementation of a `WebSocketClient`, based on `Starscream`'s `WebSocket`.
-public class DefaultWebSocket: WebSocketClient {
+public class DefaultWebSocket: WebSocketClient, Starscream.WebSocketDelegate  {
 
   /// The websocket protocols supported by this websocket client implementation.
   static private let wsProtocols = ["graphql-ws"]
@@ -51,22 +51,20 @@ public class DefaultWebSocket: WebSocketClient {
   public func write(string: String) {
     self.underlyingWebsocket.write(string: string)
   }
-}
 
-extension DefaultWebSocket: Starscream.WebSocketDelegate {
   public func websocketDidConnect(socket: Starscream.WebSocketClient) {
-    delegate?.websocketDidConnect(socket: self)
+    self.delegate?.websocketDidConnect(socket: self)
   }
 
   public func websocketDidDisconnect(socket: Starscream.WebSocketClient, error: Error?) {
-    delegate?.websocketDidDisconnect(socket: self, error: error)
+    self.delegate?.websocketDidDisconnect(socket: self, error: error)
   }
 
   public func websocketDidReceiveMessage(socket: Starscream.WebSocketClient, text: String) {
-    delegate?.websocketDidReceiveMessage(socket: self, text: text)
+    self.delegate?.websocketDidReceiveMessage(socket: self, text: text)
   }
 
   public func websocketDidReceiveData(socket: Starscream.WebSocketClient, data: Data) {
-    delegate?.websocketDidReceiveData(socket: self, data: data)
+    self.delegate?.websocketDidReceiveData(socket: self, data: data)
   }
 }

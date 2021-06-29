@@ -243,6 +243,7 @@
 		DE0586362669957800265760 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED92666DF150054DB4F /* CacheReference.swift */; };
 		DE0586372669958F00265760 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
 		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
+		DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = DE3A2815268BCE6700A1BDC8 /* Starscream */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE3C7A94260A6C1000D2F4FF /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
 		DE3C7A95260A6C1000D2F4FF /* ApolloUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -966,6 +967,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B7BDAFD23FDEE9300ACD198 /* Apollo.framework in Frameworks */,
+				DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2183,6 +2185,7 @@
 			);
 			name = ApolloWebSocket;
 			packageProductDependencies = (
+				DE3A2815268BCE6700A1BDC8 /* Starscream */,
 			);
 			productName = ApolloWebSocket;
 			productReference = 9B7BDA7D23FDE90400ACD198 /* ApolloWebSocket.framework */;
@@ -3824,8 +3827,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/Starscream.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 3.1.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -3855,6 +3858,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
+		};
+		DE3A2815268BCE6700A1BDC8 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
 		};
 		DE8C84F3268BBF8000C54D02 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -41,9 +41,9 @@
         "package": "Starscream",
         "repositoryURL": "https://github.com/apollographql/Starscream.git",
         "state": {
-          "branch": "main",
+          "branch": null,
           "revision": "4c985380c92920be5f75c14577e5c2e3615f2337",
-          "version": null
+          "version": "3.1.2"
         }
       },
       {
