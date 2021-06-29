@@ -29,7 +29,10 @@ public class DefaultWebSocket: WebSocketClient {
   ///   - certPinner: [optional] The object providing information about certificate pinning. Should default to Starscream's `FoundationSecurity`.
   ///   - compressionHandler: [optional] The object helping with any compression handling. Should default to nil.
   required public init(request: URLRequest) {
-    self.underlyingWebsocket = WebSocket(request: request, protocols: Self.wsProtocols, stream: FoundationStream())
+    self.underlyingWebsocket = Starscream.WebSocket(
+      request: request,
+      protocols: Self.wsProtocols,
+      stream: FoundationStream())
     self.underlyingWebsocket.delegate = self
   }
 

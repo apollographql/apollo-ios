@@ -2,7 +2,6 @@
 import Apollo
 import ApolloUtils
 #endif
-import Starscream
 import Foundation
 
 // MARK: - Transport Delegate
@@ -33,8 +32,6 @@ public class WebSocketTransport {
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestBodyCreator: RequestBodyCreator
-
-  private final let protocols = ["graphql-ws"]
   
   /// non-private for testing - you should not use this directly
   enum SocketConnectionState {
@@ -107,7 +104,6 @@ public class WebSocketTransport {
     self.reconnectionInterval = reconnectionInterval
     self.allowSendingDuplicates = allowSendingDuplicates
     self.requestBodyCreator = requestBodyCreator
-    self.websocket.request.setValue(self.protocols.joined(separator: ","), forHTTPHeaderField: "Sec-WebSocket-Protocol")
     self.clientName = clientName
     self.clientVersion = clientVersion
     self.connectOnInit = connectOnInit
