@@ -11,8 +11,6 @@ public protocol WebSocketTransportDelegate: AnyObject {
   func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
   func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
   func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
-  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didReceivePingData: Data?)
-  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didReceivePongData: Data?)
 }
 
 public extension WebSocketTransportDelegate {
@@ -31,7 +29,7 @@ public class WebSocketTransport {
 
   let connectOnInit: Bool
   let reconnect: Atomic<Bool>
-  let websocket: ApolloWebSocketClient
+  let websocket: WebSocketClient
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestBodyCreator: RequestBodyCreator
@@ -92,7 +90,7 @@ public class WebSocketTransport {
   ///  - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
   ///   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   ///   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
-  public init(websocket: ApolloWebSocketClient,
+  public init(websocket: WebSocketClient,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
               sendOperationIdentifiers: Bool = false,
@@ -384,65 +382,12 @@ extension WebSocketTransport: NetworkTransport {
 
 // MARK: - WebSocketDelegate implementation
 
-extension WebSocketTransport: WebSocketDelegate {
-  
-  public func didReceive(event: WebSocketEvent, client: WebSocket) {
-      switch event {
-      case .connected:
-        self.handleConnection()
-      case .disconnected(let reason, let code):
-        self.socketConnectionState.mutate { $0 = .disconnected }
-        self.error.mutate { $0 = nil }
-        debugPrint("websocket is disconnected: \(reason) with code: \(code)")
-        self.handleDisconnection()
-      case .text(let text):
-        self.processMessage(text: text)
-      case .binary(let data):
-        self.processMessage(data: data)
-      case .ping(let pingData):
-        self.delegate?.webSocketTransport(self, didReceivePingData: pingData)
-      case .pong(let pongData):
-        self.delegate?.webSocketTransport(self, didReceivePongData: pongData)
-      case .viabilityChanged(_):
-        break
-      case .reconnectSuggested(let shouldReconnect):
-        if shouldReconnect {
-          self.attemptReconnectionIfDesired()
-        }
-      case .cancelled:
-        self.socketConnectionState.mutate { $0 = .disconnected }
-        self.error.mutate { $0 = nil }
-        self.handleDisconnection()
-      case .error(let error):
-        // Set state to `.failed`, and grab its previous value.
-        let previousState: SocketConnectionState = self.socketConnectionState.mutate { socketConnectionState in
-          let previousState = socketConnectionState
-          socketConnectionState = .failed
-          return previousState
-        }
-        // report any error to all subscribers
-        if let error = error {
-          self.error.mutate { $0 = WebSocketError(payload: nil,
-                                                  error: error,
-                                                  kind: .networkError) }
-          self.notifyErrorAllHandlers(error)
-        } else {
-          self.error.mutate { $0 = nil }
-        }
-        
-        switch previousState {
-        case .connected, .disconnected:
-          self.handleDisconnection()
-        case .failed:
-          // Don't attempt at reconnecting if already failed.
-          // Websockets will sometimes notify several errors in a row, and
-          // we don't want to perform disconnection handling multiple times.
-          // This avoids https://github.com/apollographql/apollo-ios/issues/1753
-          break
-        }
-      }
+extension WebSocketTransport: WebSocketClientDelegate {
+
+  public func websocketDidConnect(socket: WebSocketClient) {
+    self.handleConnection()
   }
-  
+
   public func handleConnection() {
     self.error.mutate { $0 = nil }
     self.socketConnectionState.mutate { $0 = .connected }
@@ -467,18 +412,55 @@ extension WebSocketTransport: WebSocketDelegate {
     self.reconnected = true
   }
 
+  public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+    self.socketConnectionState.mutate { $0 = .disconnected }
+    if let error = error {
+      debugPrint("websocket is disconnected: \(error)")
+      handleDisconnection(with: error)
+    } else {
+      self.error.mutate { $0 = nil }
+      debugPrint("websocket is disconnected")
+      self.handleDisconnection()
+    }
+  }
+
+  private func handleDisconnection(with error: Error) {
+    // Set state to `.failed`, and grab its previous value.
+    let previousState: SocketConnectionState = self.socketConnectionState.mutate { socketConnectionState in
+      let previousState = socketConnectionState
+      socketConnectionState = .failed
+      return previousState
+    }
+    // report any error to all subscribers
+    self.error.mutate { $0 = WebSocketError(payload: nil,
+                                            error: error,
+                                            kind: .networkError) }
+    self.notifyErrorAllHandlers(error)
+
+    switch previousState {
+    case .connected, .disconnected:
+      self.handleDisconnection()
+    case .failed:
+      // Don't attempt at reconnecting if already failed.
+      // Websockets will sometimes notify several errors in a row, and
+      // we don't want to perform disconnection handling multiple times.
+      // This avoids https://github.com/apollographql/apollo-ios/issues/1753
+      break
+    }
+  }
+
   private func handleDisconnection()  {
     self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error.value)
     self.acked = false // need new connect and ack before sending
 
     self.attemptReconnectionIfDesired()
   }
-  
+
   private func attemptReconnectionIfDesired() {
     guard self.reconnect.value else {
       return
     }
-    
+
     DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) { [weak self] in
       guard let self = self else { return }
       self.socketConnectionState.mutate { socketConnectionState in
@@ -495,4 +477,13 @@ extension WebSocketTransport: WebSocketDelegate {
       self.websocket.connect()
     }
   }
+
+  public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+    self.processMessage(text: text)
+  }
+
+  public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+    self.processMessage(data: data)
+  }
+  
 }

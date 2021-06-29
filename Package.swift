@@ -40,8 +40,8 @@ let package = Package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
       .upToNextMinor(from: "0.12.2")),
     .package(
-      url: "https://github.com/daltoniam/Starscream",
-      .upToNextMinor(from: "4.0.4")),
+      url: "https://github.com/apollographql/Starscream",
+      .upToNextMinor(from: "3.1.2")),
     .package(
       url: "https://github.com/stencilproject/Stencil.git",
       .upToNextMinor(from: "0.14.0")),
