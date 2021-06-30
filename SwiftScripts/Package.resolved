@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/apollographql/Starscream",
+        "state": {
+          "branch": null,
+          "revision": "4c985380c92920be5f75c14577e5c2e3615f2337",
+          "version": "3.1.2"
+        }
+      },
+      {
         "package": "Stencil",
         "repositoryURL": "https://github.com/stencilproject/Stencil.git",
         "state": {

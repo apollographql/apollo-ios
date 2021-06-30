@@ -1,56 +1,34 @@
-import Starscream
 import Foundation
 @testable import ApolloWebSocket
 
-public class MockWebSocket: ApolloWebSocketClient {
+public class MockWebSocket: WebSocketClient {
   
-  public var callbackQueue: DispatchQueue = DispatchQueue.main
-  
-  // A dummy web socket since we can't just return the client
-  var webSocketForDelegate: WebSocket
   public var request: URLRequest
+  public var callbackQueue: DispatchQueue = DispatchQueue.main
+  public var delegate: WebSocketClientDelegate? = nil
+  public var isConnected: Bool = false
     
-  public required init(request: URLRequest,
-                certPinner: CertificatePinning? = FoundationSecurity(),
-                compressionHandler: CompressionHandler? = nil) {
-    self.webSocketForDelegate = WebSocket(request: request)
+  public required init(request: URLRequest) {
     self.request = request
-  }
-  
-  public init(request: URLRequest) {  
-    self.request = request
-    self.webSocketForDelegate = WebSocket(request: request)
   }
   
   open func reportDidConnect() {
     callbackQueue.async {
-      self.delegate?.didReceive(event: .connected([:]), client: self.webSocketForDelegate)
+      self.delegate?.websocketDidConnect(socket: self)
     }
   }
   
-  open func write(string: String, completion: (() -> ())?) {
+  open func write(string: String) {
     callbackQueue.async {
-      self.delegate?.didReceive(event: .text(string), client: self.webSocketForDelegate)
+      self.delegate?.websocketDidReceiveMessage(socket: self, text: string)
     }
-  }
-  
-  open func write(stringData: Data, completion: (() -> ())?) {
-  }
-  
-  open func write(data: Data, completion: (() -> ())?) {
   }
   
   open func write(ping: Data, completion: (() -> ())?) {
   }
-  
-  open func write(pong: Data, completion: (() -> ())?) {
+
+  public func disconnect() {
   }
-  
-  public func disconnect(closeCode: UInt16) {
-  }
-  
-  public var delegate: WebSocketDelegate? = nil
-  public var isConnected: Bool = false
   
   public func connect() {
   }
