@@ -87,13 +87,12 @@ class ApolloSchemaTests: XCTestCase {
     // Has the file been downloaded?
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
     
-    // Can that file be decoded as JSON?
-    let contents = try Data(contentsOf: self.defaultOutputURL)
-    let json = try JSONSerialization.jsonObject(with: contents)
-    let jsonDict = try XCTUnwrap(json as? [String: Any])
-    
-    // Is there actually anything _in_ the JSON?
-    XCTAssertTrue(jsonDict.apollo.isNotEmpty)
+    // Can it be turned into the expected schema?
+    let frontend = try ApolloCodegenFrontend()
+    let stringOutput = try String(contentsOf: self.defaultOutputURL, encoding: .utf8)
+    let schema = try frontend.loadSchemaFromIntrospectionResult(stringOutput)
+    let episodeType = try schema.getType(named: "Episode")
+    XCTAssertEqual(episodeType?.name, "Episode")
   }
   
   func testDownloadingFromSchemaRegistry() throws {
