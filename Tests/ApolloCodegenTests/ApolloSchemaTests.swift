@@ -100,8 +100,7 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
 
     guard let apiKey = ProcessInfo.processInfo.environment["REGISTRY_API_KEY"] else {
-      _ = XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
-      return
+     throw XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
     }
     
       let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
