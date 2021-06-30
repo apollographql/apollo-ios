@@ -34,12 +34,6 @@ class ApolloSchemaTests: XCTestCase {
     XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
     XCTAssertEqual(options.outputURL, self.defaultOutputURL)
     XCTAssertTrue(options.headers.isEmpty)
-    
-    XCTAssertEqual(options.arguments, [
-        "client:download-schema",
-        "--endpoint=http://localhost:8080/graphql",
-      "'\(self.defaultOutputURL.path)'"
-    ])
   }
 
   func testCreatingRegistryOptionsWithDefaultParameters() throws {
@@ -52,18 +46,11 @@ class ApolloSchemaTests: XCTestCase {
     let options = ApolloSchemaOptions(downloadMethod: .registry(settings),
                                       outputFolderURL: sourceRoot)
     
-    let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
+    let expectedOutputURL = sourceRoot.appendingPathComponent("schema.graphqls")
     
     XCTAssertEqual(options.downloadMethod, .registry(settings))
     XCTAssertEqual(options.outputURL, expectedOutputURL)
     XCTAssertTrue(options.headers.isEmpty)
-    
-    XCTAssertEqual(options.arguments, [
-        "client:download-schema",
-        "--key=\(apiKey)",
-        "--graph=\(graphID)",
-        "'\(expectedOutputURL.path)'"
-    ])
   }
 
   func testCreatingRegistryOptionsWithAllParameters() throws {
@@ -87,16 +74,6 @@ class ApolloSchemaTests: XCTestCase {
     
     let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphqls")
     XCTAssertEqual(options.outputURL, expectedOutputURL)
-
-    XCTAssertEqual(options.arguments, [
-        "client:download-schema",
-        "--key=\(apiKey)",
-        "--graph=\(graphID)",
-        "--variant=\(variant)",
-        "'\(expectedOutputURL.path)'",
-        "--header='Authorization: Bearer tokenGoesHere'",
-        "--header='Custom-Header: Custom_Customer'"
-    ])
   }
   
   func testDownloadingViaIntrospection() throws {

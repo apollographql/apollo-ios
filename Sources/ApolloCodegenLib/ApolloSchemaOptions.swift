@@ -44,9 +44,13 @@ public struct ApolloSchemaOptions {
 
   }
   
-  public struct HTTPHeader: Equatable {
+  public struct HTTPHeader: Equatable, CustomDebugStringConvertible {
     let key: String
     let value: String
+    
+    public var debugDescription: String {
+      "\(key): \(value)"
+    }
   }
 
   let downloadMethod: DownloadMethod
@@ -74,37 +78,15 @@ public struct ApolloSchemaOptions {
 
     self.downloadTimeout = downloadTimeout
   }
-  
-  var arguments: [String] {
-    var arguments = [
-      "client:download-schema",
-    ]
-    
-    switch self.downloadMethod {
-    case .introspection(let endpointURL):
-      arguments.append("--endpoint=\(endpointURL.absoluteString)")
-    case .registry(let settings):
-      arguments.append("--key=\(settings.apiKey)")
-      arguments.append("--graph=\(settings.graphID)")
-      if let providedVariant = settings.variant {
-        arguments.append("--variant=\(providedVariant)")
-      }
-    }
-    
-    arguments.append("'\(outputURL.path)'")
-    
-    // Header argument must be last in the CLI command due to an underlying issue in the Oclif framework.
-    // See: https://github.com/apollographql/apollo-tooling/issues/844#issuecomment-547143805
-    for header in headers {
-      arguments.append("--header='\(header.key): \(header.value)'")
-    }
-    
-    return arguments
-  }
 }
 
 extension ApolloSchemaOptions: CustomDebugStringConvertible {
   public var debugDescription: String {
-    self.arguments.joined(separator: "\n")
+    return """
+      downloadMethod: \(self.downloadMethod)
+      headers: \(self.headers)
+      outputURL: \(self.outputURL)
+      downloadTimeut: \(self.downloadTimeout)
+      """
   }
 }
