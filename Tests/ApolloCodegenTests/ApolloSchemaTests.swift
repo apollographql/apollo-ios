@@ -112,7 +112,12 @@ class ApolloSchemaTests: XCTestCase {
 
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
 
-    
+    // Can it be turned into the expected schema?
+    let frontend = try ApolloCodegenFrontend()
+    let source = try frontend.makeSource(from: self.defaultOutputURL)
+    let schema = try frontend.loadSchemaFromSDL(source)
+    let rocketType = try schema.getType(named: "Rocket")
+    XCTAssertEqual(rocketType?.name, "Rocket")
   }
 }
 
