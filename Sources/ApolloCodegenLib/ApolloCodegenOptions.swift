@@ -156,8 +156,8 @@ public struct ApolloCodegenOptions {
     self.init(codegenEngine: codegenEngine,
               operationIDsURL: operationIDsURL,
               outputFormat: .singleFile(atFileURL: outputFileURL),
-              urlToSchemaFile: schema,
               customScalarFormat: customScalarFormat,
+              urlToSchemaFile: schema,
               downloadTimeout: downloadTimeout)
   }
   
