@@ -135,9 +135,11 @@ public struct ApolloCodegenOptions {
   /// - Parameters:
   ///  - folder: The root of the target.
   ///  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
+  ///  - customScalarFormat: How to handle properties using a custom scalar from the schema.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds
   public init(targetRootURL folder: URL,
               codegenEngine: CodeGenerationEngine = .default,
+              customScalarFormat: CustomScalarFormat = .none,
               downloadTimeout: Double = 30.0) {
     let schema = folder.appendingPathComponent("schema.json")
     
@@ -155,6 +157,7 @@ public struct ApolloCodegenOptions {
               operationIDsURL: operationIDsURL,
               outputFormat: .singleFile(atFileURL: outputFileURL),
               urlToSchemaFile: schema,
+              customScalarFormat: customScalarFormat,
               downloadTimeout: downloadTimeout)
   }
   
