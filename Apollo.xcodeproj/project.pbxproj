@@ -256,7 +256,7 @@
 		DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B154A261505450068D642 /* GraphQLMap.swift */; };
 		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
-		DE8C84F5268BC42100C54D02 /* DefaultWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C84F4268BC42100C54D02 /* DefaultWebSocketClient.swift */; };
+		DE8C84F5268BC42100C54D02 /* DefaultWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
@@ -913,7 +913,7 @@
 		DE6B160B26152D210068D642 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
-		DE8C84F4268BC42100C54D02 /* DefaultWebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWebSocketClient.swift; sourceTree = "<group>"; };
+		DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWebSocket.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1385,7 +1385,7 @@
 			isa = PBXGroup;
 			children = (
 				9B7BDA9823FDE94C00ACD198 /* WebSocketClient.swift */,
-				DE8C84F4268BC42100C54D02 /* DefaultWebSocketClient.swift */,
+				DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */,
 				9B7BDA9723FDE94C00ACD198 /* OperationMessage.swift */,
 				9B7BDA9623FDE94C00ACD198 /* SplitNetworkTransport.swift */,
 				9B7BDA9423FDE94C00ACD198 /* WebSocketError.swift */,
@@ -2793,7 +2793,7 @@
 				9B7BDA9F23FDE94C00ACD198 /* WebSocketClient.swift in Sources */,
 				9B7BDAA023FDE94C00ACD198 /* WebSocketTransport.swift in Sources */,
 				9B7BDA9C23FDE94C00ACD198 /* WebSocketTask.swift in Sources */,
-				DE8C84F5268BC42100C54D02 /* DefaultWebSocketClient.swift in Sources */,
+				DE8C84F5268BC42100C54D02 /* DefaultWebSocket.swift in Sources */,
 				9B7BDA9B23FDE94C00ACD198 /* WebSocketError.swift in Sources */,
 				9B7BDA9D23FDE94C00ACD198 /* SplitNetworkTransport.swift in Sources */,
 				9B7BDA9E23FDE94C00ACD198 /* OperationMessage.swift in Sources */,
