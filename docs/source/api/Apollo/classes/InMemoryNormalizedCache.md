@@ -49,6 +49,18 @@ public func merge(records newRecords: RecordSet) throws -> Set<CacheKey>
 | ---- | ----------- |
 | records | The set of records to merge. |
 
+### `removeRecords(matching:)`
+
+```swift
+public func removeRecords(matching pattern: CacheKey) throws
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| pattern | The pattern that will be applied to find matching keys. |
+
 ### `clear()`
 
 ```swift

@@ -6,7 +6,7 @@
 public class WebSocketTransport
 ```
 
-A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
+A network transport that uses web sockets requests to send GraphQL subscription operations to a server.
 
 ## Properties
 ### `delegate`
@@ -21,7 +21,7 @@ public weak var delegate: WebSocketTransportDelegate?
 public var clientName: String
 ```
 
-NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
+- NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
 ### `clientVersion`
 
@@ -29,13 +29,13 @@ NOTE: Setting this won't override immediately if the socket is still connected, 
 public var clientVersion: String
 ```
 
-NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
+- NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
 ## Methods
-### `init(request:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:certPinner:compressionHandler:)`
+### `init(websocket:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:)`
 
 ```swift
-public init(request: URLRequest,
+public init(websocket: WebSocketClient,
             clientName: String = WebSocketTransport.defaultClientName,
             clientVersion: String = WebSocketTransport.defaultClientVersion,
             sendOperationIdentifiers: Bool = false,
@@ -44,15 +44,13 @@ public init(request: URLRequest,
             allowSendingDuplicates: Bool = true,
             connectOnInit: Bool = true,
             connectingPayload: GraphQLMap? = [:],
-            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
-            certPinner: CertificatePinning? = FoundationSecurity(),
-            compressionHandler: CompressionHandler? = nil)
+            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
 ```
 
 Designated initializer
 
 - Parameters:
-  - request: The connection URLRequest
+  - websocket: The websocket client to use for creating a websocket connection.
   - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
@@ -62,14 +60,12 @@ Designated initializer
  - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
-  - certPinner: [optional] The object providing information about certificate pinning. Should default to Starscream's `FoundationSecurity`.
-  - compressionHandler: [optional] The object helping with any compression handling. Should default to nil.
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| request | The connection URLRequest |
+| websocket | The websocket client to use for creating a websocket connection. |
 | clientName | The client name to use for this client. Defaults to `Self.defaultClientName` |
 | clientVersion | The client version to use for this client. Defaults to `Self.defaultClientVersion`. |
 | sendOperationIdentifiers | Whether or not to send operation identifiers with operations. Defaults to false. |

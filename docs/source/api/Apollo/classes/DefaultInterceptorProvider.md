@@ -1,9 +1,9 @@
 **CLASS**
 
-# `LegacyInterceptorProvider`
+# `DefaultInterceptorProvider`
 
 ```swift
-open class LegacyInterceptorProvider: InterceptorProvider
+open class DefaultInterceptorProvider: InterceptorProvider
 ```
 
 The default interceptor provider for typescript-generated code

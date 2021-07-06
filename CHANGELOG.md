@@ -1,5 +1,20 @@
 # Change log
 
+## v0.45.0
+- **Breaking - Downgraded from Starscream v4 to v3!** After upgrading to Starscream 4.0, a lot of our users started to experience crashes while using web sockets. We've decided to revert to the more stable Starscream version 3. In order to fix a few known bugs in Starscream 3, we have made a fork of Starscream that Apollo will depend on going forward. In preparation for moving to Apple WebSockets in the future, we have also fully inverted the dependency on Starscream. Between these two changes, a lot of breaking changes to our Web Socket API have been made:
+  - The `ApolloWebSocketClient` protocol was removed and replaced with `WebSocketClient`.
+  - `WebSocketClient` does not rely directly on Starscream anymore and has been streamlined for easier conformance.
+  - `ApolloWebSocket`, the default implementation of the `WebSocketClient` has been replaced with `DefaultWebSocket`. This implementation uses Starscream, but implementations using other websocket libraries can now be created and used with no need for Starscream.
+  - `WebSocketClientDelegate` replaces direct dependency on `Starscream.WebSocketDelegate` for delegates.
+- **Breaking:** Renamed some of the request chain interceptors object:
+  - `LegacyInterceptorProvider` -> `DefaultInterceptorProvider`
+  - `LegacyCacheReadInterceptor` -> `CacheReadInterceptor`
+  - `LegacyCacheWriteInterceptor` -> `CacheWriteInterceptor`
+  - `LegacyParsingInterceptor` -> `JSONResponseParsingInterceptor`
+- **Breaking:** `WebSocketTransport` is now initialized with an `ApolloWebSocket` (or other object conforming to the `ApolloWebSocketClient` protocol.) Previously, the initializer took in the necessary parameters to create the web socket internally. This provides better dependency injection capabilities and makes testing easier.
+- Removed class constraint on `ApolloInterceptor` and converted to structs for all interceptors that could be structs instead of classes.
+- Added `removeRecords(matching pattern: CacheKey)` function to the normalized cache.
+
 
 ## v0.44.0
 

@@ -1,12 +1,12 @@
-**CLASS**
+**STRUCT**
 
-# `LegacyCacheWriteInterceptor`
+# `CacheWriteInterceptor`
 
 ```swift
-public class LegacyCacheWriteInterceptor: ApolloInterceptor
+public struct CacheWriteInterceptor: ApolloInterceptor
 ```
 
-An interceptor which writes data to the legacy cache, following the `HTTPRequest`'s `cachePolicy`.
+An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
 
 ## Properties
 ### `store`

@@ -1,28 +1,19 @@
-**CLASS**
+**STRUCT**
 
-# `LegacyParsingInterceptor`
-
-```swift
-public class LegacyParsingInterceptor: ApolloInterceptor
-```
-
-An interceptor which parses code using the legacy parsing system.
-
-## Properties
-### `cacheKeyForObject`
+# `AutomaticPersistedQueryInterceptor`
 
 ```swift
-public var cacheKeyForObject: CacheKeyForObject?
+public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor
 ```
 
 ## Methods
-### `init(cacheKeyForObject:)`
+### `init()`
 
 ```swift
-public init(cacheKeyForObject: CacheKeyForObject? = nil)
+public init()
 ```
 
-Designated Initializer
+Designated initializer
 
 ### `interceptAsync(chain:request:response:completion:)`
 

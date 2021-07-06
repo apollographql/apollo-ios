@@ -3,21 +3,14 @@
 # `CodeGenerator`
 
 ```swift
-public class CodeGenerator<Decoder: FlexibleDecoder>
+public class CodeGenerator
 ```
 
 ## Methods
-### `jsonGenerator(with:astOutputURL:)`
+### `init(astOutputURL:)`
 
 ```swift
-public class func jsonGenerator(with decoder: JSONDecoder = JSONDecoder(),  astOutputURL url: URL) throws -> CodeGenerator<JSONDecoder>
-```
-
-### `init(flexible:astOutputURL:)`
-
-```swift
-public init(flexible: Decoder,
-            astOutputURL url: URL) throws
+public init(astOutputURL url: URL) throws
 ```
 
 ### `run(with:)`

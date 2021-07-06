@@ -1,19 +1,28 @@
-**CLASS**
+**STRUCT**
 
-# `AutomaticPersistedQueryInterceptor`
+# `JSONResponseParsingInterceptor`
 
 ```swift
-public class AutomaticPersistedQueryInterceptor: ApolloInterceptor
+public struct JSONResponseParsingInterceptor: ApolloInterceptor
+```
+
+An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
+
+## Properties
+### `cacheKeyForObject`
+
+```swift
+public let cacheKeyForObject: CacheKeyForObject?
 ```
 
 ## Methods
-### `init()`
+### `init(cacheKeyForObject:)`
 
 ```swift
-public init()
+public init(cacheKeyForObject: CacheKeyForObject? = nil)
 ```
 
-Designated initializer
+Designated Initializer
 
 ### `interceptAsync(chain:request:response:completion:)`
 
@@ -22,7 +31,8 @@ public func interceptAsync<Operation: GraphQLOperation>(
   chain: RequestChain,
   request: HTTPRequest<Operation>,
   response: HTTPResponse<Operation>?,
-  completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void)
+  completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+)
 ```
 
 #### Parameters

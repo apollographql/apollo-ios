@@ -46,6 +46,12 @@ public mutating func insert(_ record: Record)
 public mutating func removeRecord(for key: CacheKey)
 ```
 
+### `removeRecords(matching:)`
+
+```swift
+public mutating func removeRecords(matching pattern: CacheKey)
+```
+
 ### `clear()`
 
 ```swift
