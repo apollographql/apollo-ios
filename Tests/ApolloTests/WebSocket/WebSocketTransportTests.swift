@@ -1,7 +1,6 @@
 import XCTest
 import Apollo
 import ApolloTestSupport
-import Starscream
 @testable import ApolloWebSocket
 
 class WebSocketTransportTests: XCTestCase {
@@ -73,17 +72,18 @@ class WebSocketTransportTests: XCTestCase {
   }
 }
 
-private final class MockWebSocketDelegate: WebSocketDelegate {
+private final class MockWebSocketDelegate: WebSocketClientDelegate {
   
   var didReceiveMessage: ((String) -> Void)?
 
-  func didReceive(event: WebSocketEvent, client: WebSocket) {
-    switch event {
-    case .text(let message):
-      didReceiveMessage?(message)
-    default:
-      // No-op, this is a mock socket.
-      break
-    }
+  func websocketDidConnect(socket: WebSocketClient) {}
+
+  func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {}
+
+  func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+    didReceiveMessage?(text)
   }
+
+  func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
+
 }

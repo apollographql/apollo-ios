@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   s.subspec 'WebSocket' do |ss|
     ss.source_files = 'Sources/ApolloWebSocket/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'Starscream', '~>4.0.4'
+    ss.dependency 'Apollo-Starscream', '~>3.1.2'
   end
 
 end
