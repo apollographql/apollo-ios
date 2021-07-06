@@ -22,7 +22,7 @@ public extension WebSocketTransportDelegate {
 
 // MARK: - WebSocketTransport
 
-/// A network transport that uses web sockets requests to send GraphQL subscription operations to a server, and that uses the Starscream implementation of web sockets.
+/// A network transport that uses web sockets requests to send GraphQL subscription operations to a server.
 public class WebSocketTransport {
   public weak var delegate: WebSocketTransportDelegate?
 
