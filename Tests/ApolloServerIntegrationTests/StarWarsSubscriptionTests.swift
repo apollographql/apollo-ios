@@ -22,7 +22,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     connectionStartedExpectation = self.expectation(description: "Web socket connected")
 
     webSocketTransport = WebSocketTransport(
-      websocket: ApolloWebSocket(
+      websocket: DefaultWebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
       )
     )
