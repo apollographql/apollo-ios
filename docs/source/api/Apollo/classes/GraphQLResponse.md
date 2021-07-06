@@ -3,7 +3,7 @@
 # `GraphQLResponse`
 
 ```swift
-public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable
+public final class GraphQLResponse<Data: GraphQLSelectionSet>
 ```
 
 Represents a GraphQL response received from a server.
@@ -16,30 +16,10 @@ public let body: JSONObject
 ```
 
 ## Methods
-### `init(from:decoder:)`
-
-```swift
-public init<T>(from data: Foundation.Data, decoder: T) throws where T : FlexibleDecoder
-```
-
-#### Parameters
-
-| Name | Description |
-| ---- | ----------- |
-| data | The data to decode |
-| decoder | The decoder to use to decode it |
-
 ### `init(operation:body:)`
 
 ```swift
 public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data
-```
-
-### `parseResultWithCompletion(cacheKeyForObject:completion:)`
-
-```swift
-public func parseResultWithCompletion(cacheKeyForObject: CacheKeyForObject? = nil,
-                                      completion: (Result<(GraphQLResult<Data>, RecordSet?), Error>) -> Void)
 ```
 
 ### `parseErrorsOnlyFast()`

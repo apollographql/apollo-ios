@@ -1,9 +1,9 @@
-**CLASS**
+**STRUCT**
 
 # `ResponseCodeInterceptor`
 
 ```swift
-public class ResponseCodeInterceptor: ApolloInterceptor
+public struct ResponseCodeInterceptor: ApolloInterceptor
 ```
 
 An interceptor to check the response code returned with a request.

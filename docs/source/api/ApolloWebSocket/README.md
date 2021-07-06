@@ -2,7 +2,8 @@
 
 ## Protocols
 
--   [ApolloWebSocketClient](protocols/ApolloWebSocketClient/)
+-   [WebSocketClient](protocols/WebSocketClient/)
+-   [WebSocketClientDelegate](protocols/WebSocketClientDelegate/)
 -   [WebSocketTransportDelegate](protocols/WebSocketTransportDelegate/)
 
 ## Structs
@@ -11,7 +12,7 @@
 
 ## Classes
 
--   [ApolloWebSocket](classes/ApolloWebSocket/)
+-   [DefaultWebSocket](classes/DefaultWebSocket/)
 -   [SplitNetworkTransport](classes/SplitNetworkTransport/)
 -   [WebSocketTransport](classes/WebSocketTransport/)
 

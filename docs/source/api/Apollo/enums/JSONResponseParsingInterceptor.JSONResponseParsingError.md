@@ -1,9 +1,9 @@
 **ENUM**
 
-# `LegacyParsingInterceptor.LegacyParsingError`
+# `JSONResponseParsingInterceptor.JSONResponseParsingError`
 
 ```swift
-public enum LegacyParsingError: Error, LocalizedError
+public enum JSONResponseParsingError: Error, LocalizedError
 ```
 
 ## Cases
@@ -13,10 +13,10 @@ public enum LegacyParsingError: Error, LocalizedError
 case noResponseToParse
 ```
 
-### `couldNotParseToLegacyJSON(data:)`
+### `couldNotParseToJSON(data:)`
 
 ```swift
-case couldNotParseToLegacyJSON(data: Data)
+case couldNotParseToJSON(data: Data)
 ```
 
 ## Properties

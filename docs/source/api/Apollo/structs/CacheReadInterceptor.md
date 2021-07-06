@@ -1,12 +1,12 @@
-**CLASS**
+**STRUCT**
 
-# `LegacyCacheReadInterceptor`
+# `CacheReadInterceptor`
 
 ```swift
-public class LegacyCacheReadInterceptor: ApolloInterceptor
+public struct CacheReadInterceptor: ApolloInterceptor
 ```
 
-An interceptor that reads data from the legacy cache for queries, following the `HTTPRequest`'s `cachePolicy`.
+An interceptor that reads data from the cache for queries, following the `HTTPRequest`'s `cachePolicy`.
 
 ## Methods
 ### `init(store:)`

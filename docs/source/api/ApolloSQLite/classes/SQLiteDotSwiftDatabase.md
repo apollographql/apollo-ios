@@ -43,6 +43,12 @@ public func addOrUpdateRecordString(_ recordString: String, for cacheKey: CacheK
 public func deleteRecord(for cacheKey: CacheKey) throws
 ```
 
+### `deleteRecords(matching:)`
+
+```swift
+public func deleteRecords(matching pattern: CacheKey) throws
+```
+
 ### `clearDatabase(shouldVacuumOnClear:)`
 
 ```swift

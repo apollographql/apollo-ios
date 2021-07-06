@@ -53,15 +53,15 @@ chain.proceedAsync(request: request,
                    completion: completion)
 ```
 
-Next, since you're only adding one interceptor that can run at the very beginning of other interceptors, you can subclass the existing `LegacyInterceptorProvider` (which is the default interceptor provider). 
+Next, since you're only adding one interceptor that can run at the very beginning of other interceptors, you can subclass the existing `DefaultInterceptorProvider`.
 
-Go to **File > New > File...** and create a new **Swift File**. Name it **NetworkInterceptorProvider.swift**. Add an initial Add code which inserts your `TokenAddingInterceptor` before the other interceptors provided by the `LegacyInterceptorProvider`: 
+Go to **File > New > File...** and create a new **Swift File**. Name it **NetworkInterceptorProvider.swift**. Add an initial Add code which inserts your `TokenAddingInterceptor` before the other interceptors provided by the `DefaultInterceptorProvider`: 
 
 ```swift:title=NetworkInterceptorProvider.swift
 import Foundation
 import Apollo
 
-class NetworkInterceptorProvider: LegacyInterceptorProvider {
+class NetworkInterceptorProvider: DefaultInterceptorProvider {
     override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
         var interceptors = super.interceptors(for: operation)
         interceptors.insert(TokenAddingInterceptor(), at: 0)
@@ -70,7 +70,7 @@ class NetworkInterceptorProvider: LegacyInterceptorProvider {
 }
 ```
 
-> Another way to do this would be to copy the interceptors provided by the `LegacyInterceptorProvider` (which are all public), and then place your interceptors in the points in the array where you want them. However, since in this case we can run this interceptor first, it's just as simple to subclass. 
+> Another way to do this would be to copy the interceptors provided by the `DefaultInterceptorProvider` (which are all public), and then place your interceptors in the points in the array where you want them. However, since in this case we can run this interceptor first, it's just as simple to subclass. 
 
 Next, go back to your `Network` class. Replace the `ApolloClient` with an updated `lazy var` which creates the `RequestChainNetworkTransport` manually, using your custom interceptor provider: 
 

@@ -1,9 +1,9 @@
 **ENUM**
 
-# `LegacyCacheWriteInterceptor.LegacyCacheWriteError`
+# `CacheWriteInterceptor.CacheWriteError`
 
 ```swift
-public enum LegacyCacheWriteError: Error, LocalizedError
+public enum CacheWriteError: Error, LocalizedError
 ```
 
 ## Cases
