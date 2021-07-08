@@ -215,15 +215,14 @@ public struct ApolloSchemaDownloader {
   }
   
   static func convertFromIntrospectionJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
-    let jsonData: Data
-    
     do {
-      jsonData = try Data(contentsOf: jsonFileURL)
+      let frontend = try ApolloCodegenFrontend()
+      let schema = try frontend.loadSchema(from: jsonFileURL)
+      let sdlSchema = try frontend.printSchemaAsSDL(schema: schema)
+      print(sdlSchema)
     } catch {
       throw SchemaDownloadError.downloadedIntrospectionJSONFileNotFound(underlying: error)
     }
-    
-    #warning("This bit still needs to be implemented")
   }
   
   static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {

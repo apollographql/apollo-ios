@@ -56,6 +56,10 @@ export function loadSchemaFromSDL(source: Source): GraphQLSchema {
   return schema;
 }
 
+export function printSchema(schema: GraphQLSchema): String {
+  return printSchema(schema)
+}
+
 export function parseDocument(source: Source): DocumentNode {
   return parse(source);
 }

@@ -69,6 +69,11 @@ public final class ApolloCodegenFrontend {
     return try library.call("loadSchemaFromSDL", with: source)
   }
   
+  /// Take a loaded GQL schema and print it as SDL.
+  public func printSchemaAsSDL(schema: GraphQLSchema) throws -> String {
+      return try library.call("printSchema", with: schema)
+    }
+  
   private lazy var sourceConstructor: JavaScriptObject = bridge.fromJSValue(library["Source"])
   
   /// Create a `GraphQLSource` object from a string.
