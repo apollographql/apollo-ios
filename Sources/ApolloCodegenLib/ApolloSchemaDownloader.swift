@@ -7,6 +7,7 @@ public struct ApolloSchemaDownloader {
   
   public enum SchemaDownloadError: Error, LocalizedError {
     case downloadedRegistryJSONFileNotFound(underlying: Error)
+    case downloadedIntrospectionJSONFileNotFound(underlying: Error)
     case couldNotParseRegistryJSON(underlying: Error)
     case unexpectedRegistryJSONType
     case couldNotExtractSDLFromRegistryJSON
@@ -16,6 +17,8 @@ public struct ApolloSchemaDownloader {
       switch self {
       case .downloadedRegistryJSONFileNotFound(let underlying):
         return "Could not load the JSON file downloaded from the registry. Underlying error: \(underlying)"
+      case .downloadedIntrospectionJSONFileNotFound(let underlying):
+        return "Could not load the JSON file downloaded from your server via introspection. Underlying error: \(underlying)"
       case .couldNotParseRegistryJSON(let underlying):
         return "Could not parse JSON returned by the registry. Underlying error: \(underlying)"
       case .unexpectedRegistryJSONType:
@@ -88,7 +91,7 @@ public struct ApolloSchemaDownloader {
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: jsonOutputURL, timeout: options.downloadTimeout)
     
-    try self.convertFromDownloadedJSONToSDLFile(jsonFileURL: jsonOutputURL, options: options)
+    try self.convertFromRegistryJSONToSDLFile(jsonFileURL: jsonOutputURL, options: options)
     
     CodegenLogger.log("Successfully downloaded schema from registry", logLevel: .debug)
   }
@@ -199,14 +202,31 @@ public struct ApolloSchemaDownloader {
                                                             operationName: "IntrospectionQuery")
     urlRequest.httpMethod = "POST"
     urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
+    let jsonOutputURL = options.outputURL.apollo.parentFolderURL().appendingPathComponent("introspection_response.json")
     
     try URLDownloader().downloadSynchronously(with: urlRequest,
-                                              to: options.outputURL,
+                                              to: jsonOutputURL,
                                               timeout: options.downloadTimeout)
+    
+
+    try convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonOutputURL, options: options)
+    
     CodegenLogger.log("Successfully downloaded schema via introspection", logLevel: .debug)
   }
   
-  static func convertFromDownloadedJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
+  static func convertFromIntrospectionJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
+    let jsonData: Data
+    
+    do {
+      jsonData = try Data(contentsOf: jsonFileURL)
+    } catch {
+      throw SchemaDownloadError.downloadedIntrospectionJSONFileNotFound(underlying: error)
+    }
+    
+    #warning("This bit still needs to be implemented")
+  }
+  
+  static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
     let jsonData: Data
     
     do {
