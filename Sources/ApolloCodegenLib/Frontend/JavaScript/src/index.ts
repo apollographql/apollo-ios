@@ -8,6 +8,7 @@ import {
   GraphQLError,
   validate,
   buildASTSchema,
+  printSchema,
 } from "graphql";
 import { defaultValidationRules } from "./validationRules";
 import { compileToIR, CompilationResult } from "./compiler";
@@ -56,7 +57,7 @@ export function loadSchemaFromSDL(source: Source): GraphQLSchema {
   return schema;
 }
 
-export function printSchema(schema: GraphQLSchema): String {
+export function printSchemaToSDL(schema: GraphQLSchema): string {
   return printSchema(schema)
 }
 

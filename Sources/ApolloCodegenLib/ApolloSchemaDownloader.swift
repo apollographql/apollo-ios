@@ -11,6 +11,7 @@ public struct ApolloSchemaDownloader {
     case couldNotParseRegistryJSON(underlying: Error)
     case unexpectedRegistryJSONType
     case couldNotExtractSDLFromRegistryJSON
+    case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
     case couldNotCreateSDLDataToWrite(schema: String)
 
     public var errorDescription: String? {
@@ -27,6 +28,8 @@ public struct ApolloSchemaDownloader {
         return "Could not extract the SDL schema from JSON sent by the registry."
       case .couldNotCreateSDLDataToWrite(let schema):
         return "Could not convert SDL schema into data to write to the filesystem. Schema: \(schema)"
+      case .couldNotConvertIntrospectionJSONToSDL(let underlying):
+          return "Could not convert downloaded introspection JSON into SDL format. Underlying error: \(underlying)"
       }
     }
   }
@@ -215,14 +218,24 @@ public struct ApolloSchemaDownloader {
   }
   
   static func convertFromIntrospectionJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
-    do {
       let frontend = try ApolloCodegenFrontend()
-      let schema = try frontend.loadSchema(from: jsonFileURL)
-      let sdlSchema = try frontend.printSchemaAsSDL(schema: schema)
-      print(sdlSchema)
+    let schema: GraphQLSchema
+    do {
+      schema = try frontend.loadSchema(from: jsonFileURL)
     } catch {
       throw SchemaDownloadError.downloadedIntrospectionJSONFileNotFound(underlying: error)
     }
+    
+    let sdlSchema: String
+    do {
+      sdlSchema = try frontend.printSchemaAsSDL(schema: schema)
+    } catch {
+      throw SchemaDownloadError.couldNotConvertIntrospectionJSONToSDL(underlying: error)
+    }
+    
+    try sdlSchema.write(to: options.outputURL,
+                        atomically: true,
+                        encoding: .utf8)
   }
   
   static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
