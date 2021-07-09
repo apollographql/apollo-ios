@@ -21,7 +21,7 @@ These are the major initiatives planned for 1.0.
     - Once we're ready to begin implementation those details and development phases will be shared here.
 
 - **Networking Stack Improvements**: The goal is to simplify and stabilise the networking stack.
-    - The [updated network stack](https://github.com/apollographql/apollo-ios/issues/1340) solved a number of long standing issues with the old barebones NetworkTransport but still has limitations. Switching to a composable request chain would enable building a pipeline out of reusable and customizable parts, giving users full control over the steps that are invoked to satisfy requests. This pattern has proven really useful for the JavaScript client (Apollo Link), and has been used succesfully in a number of other projects (like [OkHttp](https://square.github.io/okhttp/)).
+    - The [updated network stack](https://github.com/apollographql/apollo-ios/issues/1340) solved a number of long standing issues with the old barebones NetworkTransport but still has limitations and is complicated to use. Adopting patterns that have proven useful for the web client, such as Apollo Link, will provide more flexibility and give developers full control over the steps that are invoked to satisfy requests.
 
 - **Improved Documentation and Tutorials**:
     - Using [DocC](https://developer.apple.com/documentation/docc) would enable a richer, more integrated documentation experience.
