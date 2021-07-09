@@ -12,7 +12,7 @@ This version is being used in many Production codebases, and we're committed to 
 
 These are the three guiding principles we're aiming for in a 1.0 release.
 - **Stability**: Achieve a stable foundation that can be trusted for years to come, maintaining backwards compatibility within major version releases.
-- **Completeness**: The three main parts to the SDK must be feature complete: code generation, network fetching/parsing, and caching.
+- **Completeness**: There are three main parts to the SDK: code generation, network fetching/parsing, and caching. These must provide enough functionality to be a good foundation for incremental improvements in future releases without requiring breaking changes.
 - **Clarity**: Everything must be clearly documented with as many working samples as possible.
 
 These are the major initiatives planned for 1.0.
@@ -23,8 +23,7 @@ These are the major initiatives planned for 1.0.
 - **Networking Stack Improvements**: The goal is to simplify and stabilise the networking stack.
     - The [updated network stack](https://github.com/apollographql/apollo-ios/issues/1340) solved a number of long standing issues with the old barebones NetworkTransport but still has limitations and is complicated to use. Adopting patterns that have proven useful for the web client, such as Apollo Link, will provide more flexibility and give developers full control over the steps that are invoked to satisfy requests.
 
-- **Improved Documentation and Tutorials**:
-    - Using [DocC](https://developer.apple.com/documentation/docc) would enable a richer, more integrated documentation experience.
+- **Improved Documentation and Tutorials**: We want developers to be able to self-serve as much as possible and having comprehensive, guiding documentation is essential to that experience.
 
 ## 1.x/2.0 - _Future_
 
