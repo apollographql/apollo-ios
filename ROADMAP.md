@@ -33,7 +33,7 @@ These are subject to change and anything that dramatically changes APIs or break
 - **Cache Improvements**: Here we are looking at bringing across some features inspired by Apollo Client 3 and Apollo Android 
     - **Better pagination support**. Better support for caching and updating paginated lists of objects. 
     - **Reducing over-normalization**. Only separating out results into individual records when something that can identify them is present
-    - **Real cache eviction & dangling reference collection**. There's presently a way to manually remove objects for a given key or pattern, but Apollo Client 3 hass given us a roadmap for how to handle some of this stuff much more thoroughly and safely. 
+    - **Real cache eviction & dangling reference collection**. There's presently a way to manually remove objects for a given key or pattern, but Apollo Client 3 has given us a roadmap for how to handle some of this stuff much more thoroughly and safely. 
     - **Cache metadata**. Ability to add per-field metadata if needed, to allow for TTL and time-based invalidation, etc.
 
 - **Dependency Manager test suite**. We've seen a few issues around things that work well for at least one of the three major iOS dependency managers, but causes problems in others. We plan to make a repo that we can use to automatically test for common issues against new versions of the library on CocoaPods, Carthage, and Swift Package Manager *before* they're released.
