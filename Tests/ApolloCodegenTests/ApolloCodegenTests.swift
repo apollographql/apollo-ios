@@ -58,6 +58,59 @@ class ApolloCodegenTests: XCTestCase {
     ])
   }
   
+  func testCreatingOptionsWithAllParameters() throws {
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
+    let output = sourceRoot.appendingPathComponent("API")
+    let schema = sourceRoot.appendingPathComponent("schema.json")
+    let only = sourceRoot.appendingPathComponent("only.graphql")
+    let operationIDsURL = sourceRoot.appendingPathComponent("operationIDs.json")
+    let namespace = "ANameSpace"
+    let prefix = "MyPrefix"
+    
+    let options = ApolloCodegenOptions(codegenEngine: .typescript,
+                                       includes: "*.graphql",
+                                       mergeInFieldsFromFragmentSpreads: false,
+                                       modifier: .internal,
+                                       namespace: namespace,
+                                       omitDeprecatedEnumCases: true,
+                                       only: only,
+                                       operationIDsURL: operationIDsURL,
+                                       outputFormat: .multipleFiles(inFolderAtURL: output),
+                                       customScalarFormat: .passthroughWithPrefix(prefix),
+                                       urlToSchemaFile: schema)
+    XCTAssertEqual(options.includes, "*.graphql")
+    XCTAssertFalse(options.mergeInFieldsFromFragmentSpreads)
+    XCTAssertEqual(options.namespace, namespace)
+    XCTAssertEqual(options.only, only)
+    XCTAssertEqual(options.operationIDsURL, operationIDsURL)
+    switch options.outputFormat {
+    case .singleFile:
+      XCTFail("This should be multiple files!")
+    case .multipleFiles(let folderURL):
+      XCTAssertEqual(folderURL, output)
+    }
+    XCTAssertEqual(options.customScalarFormat, .passthroughWithPrefix(prefix))
+    XCTAssertEqual(options.urlToSchemaFile, schema)
+    XCTAssertTrue(options.omitDeprecatedEnumCases)
+    XCTAssertEqual(options.modifier, .internal)
+    
+    
+    XCTAssertEqual(options.arguments, [
+      "codegen:generate",
+      "--target=swift",
+      "--addTypename",
+      "--includes='*.graphql'",
+      "--localSchemaFile='\(schema.path)'",
+      "--namespace=\(namespace)",
+      "--only='\(only.path)'",
+      "--operationIdsPath='\(operationIDsURL.path)'",
+      "--omitDeprecatedEnumCases",
+      "--passthroughCustomScalars",
+      "--customScalarsPrefix='\(prefix)'",
+      "'\(output.path)'",
+    ])
+  }
+  
   func testTryingToUseAFileURLToOutputMultipleFilesFails() {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
