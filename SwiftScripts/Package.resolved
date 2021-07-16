@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "InflectorKit",
-        "repositoryURL": "https://github.com/apollographql/InflectorKit",
-        "state": {
-          "branch": null,
-          "revision": "b1d0099abe36facd198113633f502889842906af",
-          "version": "0.0.2"
-        }
-      },
-      {
         "package": "MarkdownGenerator",
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {

@@ -58,7 +58,6 @@ public struct ApolloCodegenOptions {
   }
   
   let codegenEngine: CodeGenerationEngine
-  let additionalInflectionRules: [InflectionRule]
   let includes: String
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
@@ -89,9 +88,7 @@ public struct ApolloCodegenOptions {
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  ///  - additionalInflectionRules: [EXPERIMENTAL SWIFT CODEGEN ONLY] - Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array.
   public init(codegenEngine: CodeGenerationEngine = .default,
-              additionalInflectionRules: [InflectionRule] = [],
               includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               modifier: AccessModifier = .public,
@@ -105,7 +102,6 @@ public struct ApolloCodegenOptions {
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
     self.codegenEngine = codegenEngine
-    self.additionalInflectionRules = additionalInflectionRules
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.modifier = modifier
