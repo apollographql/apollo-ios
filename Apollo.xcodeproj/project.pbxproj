@@ -200,10 +200,6 @@
 		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
 		DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = DE3A2815268BCE6700A1BDC8 /* Starscream */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
-		DE3C7A94260A6C1000D2F4FF /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
-		DE3C7A95260A6C1000D2F4FF /* ApolloUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
 		DE674D9D261CEEE4000E8FC8 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
 		DE674D9E261CEEE4000E8FC8 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
@@ -384,13 +380,6 @@
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloModels;
 		};
-		DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B68353D2463481A00337AE6;
-			remoteInfo = ApolloCore;
-		};
 		DE6B15B226152BE10068D642 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -492,17 +481,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9B2DFBC024E1FA1A00ED3AE6 /* Apollo.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DE3C7A98260A6C1000D2F4FF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DE3C7A95260A6C1000D2F4FF /* ApolloUtils.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -780,15 +758,6 @@
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
 		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
-		DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
-		DE3C79AA260A6ACD00D2F4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE3C7AB8260A6D3E00D2F4FF /* PetDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PetDetails.graphql; sourceTree = "<group>"; };
-		DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
-		DE3C7ABA260A6D3E00D2F4FF /* WarmBloodedDetails.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WarmBloodedDetails.graphql; sourceTree = "<group>"; };
-		DE3C7ABB260A6D3E00D2F4FF /* HeightInMeters.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HeightInMeters.graphql; sourceTree = "<group>"; };
-		DE3C7ABC260A6D3E00D2F4FF /* AllAnimals.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AllAnimals.graphql; sourceTree = "<group>"; };
-		DE3C7ABD260A6D3E00D2F4FF /* ClassroomPets.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ClassroomPets.graphql; sourceTree = "<group>"; };
 		DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSet.swift; sourceTree = "<group>"; };
 		DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDict.swift; sourceTree = "<group>"; };
 		DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentProtocols.swift; sourceTree = "<group>"; };
@@ -824,7 +793,6 @@
 		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
 		DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWebSocket.swift; sourceTree = "<group>"; };
-		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECD490D262F81BF00924527 /* ApolloCodegenTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloCodegenTestSupport.h; sourceTree = "<group>"; };
@@ -955,14 +923,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE3C7A06260A6B9800D2F4FF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE3C7A94260A6C1000D2F4FF /* ApolloUtils.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DE6B15A926152BE10068D642 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -999,7 +959,6 @@
 				9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */,
 				9B68354A2463498D00337AE6 /* Apollo-Target-ApolloUtils.xcconfig */,
 				DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */,
-				DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */,
 				9B4AA8AD239EFDC9003E1300 /* Apollo-Target-CodegenTests.xcconfig */,
 				90690D06224333DA00FC2E54 /* Apollo-Target-Framework.xcconfig */,
 				90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */,
@@ -1469,7 +1428,6 @@
 				9BDF200723FDC37600153E2B /* GitHubAPI */,
 				9BCF0CE923FC9F060031D2A2 /* StarWarsAPI */,
 				9B2DFBC424E1FA3E00ED3AE6 /* UploadAPI */,
-				DE3C79A8260A6ACD00D2F4FF /* AnimalKingdomAPI */,
 				DECD490C262F81BF00924527 /* ApolloCodegenTestSupport */,
 				9B7BDAF923FDEE8A00ACD198 /* Frameworks */,
 				90690D04224333DA00FC2E54 /* Configuration */,
@@ -1495,7 +1453,6 @@
 				9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */,
 				9B2DFBCA24E2016800ED3AE6 /* UploadAPI.framework */,
 				9F54C8B4255D760B0065AFD6 /* ApolloPerformanceTests.xctest */,
-				DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */,
 				DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */,
 				DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */,
 				DE058621266978A100265760 /* ApolloAPI.framework */,
@@ -1664,30 +1621,6 @@
 			);
 			name = ApolloAPI;
 			path = Sources/ApolloAPI;
-			sourceTree = "<group>";
-		};
-		DE3C79A8260A6ACD00D2F4FF /* AnimalKingdomAPI */ = {
-			isa = PBXGroup;
-			children = (
-				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
-				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
-				DE3C7AB7260A6D3E00D2F4FF /* graphql */,
-			);
-			name = AnimalKingdomAPI;
-			path = Sources/AnimalKingdomAPI;
-			sourceTree = "<group>";
-		};
-		DE3C7AB7260A6D3E00D2F4FF /* graphql */ = {
-			isa = PBXGroup;
-			children = (
-				DE3C7AB8260A6D3E00D2F4FF /* PetDetails.graphql */,
-				DE3C7AB9260A6D3E00D2F4FF /* schema.graphqls */,
-				DE3C7ABA260A6D3E00D2F4FF /* WarmBloodedDetails.graphql */,
-				DE3C7ABB260A6D3E00D2F4FF /* HeightInMeters.graphql */,
-				DE3C7ABC260A6D3E00D2F4FF /* AllAnimals.graphql */,
-				DE3C7ABD260A6D3E00D2F4FF /* ClassroomPets.graphql */,
-			);
-			path = graphql;
 			sourceTree = "<group>";
 		};
 		DE3C7B0F260A6F7F00D2F4FF /* CodegenV1 */ = {
@@ -1892,14 +1825,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DE3C7A08260A6B9800D2F4FF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE3C7B4A260A73D800D2F4FF /* AnimalKingdomAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2189,26 +2114,6 @@
 			productReference = DE058621266978A100265760 /* ApolloAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DE3C7A0D260A6B9800D2F4FF /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */;
-			buildPhases = (
-				DE3C7A04260A6B9800D2F4FF /* Sources */,
-				DE3C7A06260A6B9800D2F4FF /* Frameworks */,
-				DE3C7A08260A6B9800D2F4FF /* Headers */,
-				DE3C7A0A260A6B9800D2F4FF /* Resources */,
-				DE3C7A98260A6C1000D2F4FF /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */,
-			);
-			name = AnimalKingdomAPI;
-			productName = StarWarsAPI;
-			productReference = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE6B15B726152BE10068D642 /* Build configuration list for PBXNativeTarget "ApolloServerIntegrationTests" */;
@@ -2349,7 +2254,6 @@
 				9F54C8B3255D760B0065AFD6 /* ApolloPerformanceTests */,
 				DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */,
 				9F8A95771EC0FC1200304A2D /* ApolloTestSupport */,
-				DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */,
 				9FCE2CF91E6C213D00E34457 /* StarWarsAPI */,
 				9FACA9B71F42E67200AE2DBD /* GitHubAPI */,
 				9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */,
@@ -2439,14 +2343,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DE3C7A0A260A6B9800D2F4FF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE3C7B4B260A73F900D2F4FF /* schema.graphqls in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2803,13 +2699,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE3C7A04260A6B9800D2F4FF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DE6B15A826152BE10068D642 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2936,11 +2825,6 @@
 			isa = PBXTargetDependency;
 			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE05862726697B1D00265760 /* PBXContainerItemProxy */;
-		};
-		DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9B68353D2463481A00337AE6 /* ApolloUtils */;
-			targetProxy = DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */;
 		};
 		DE6B15B326152BE10068D642 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3316,27 +3200,6 @@
 			};
 			name = PerformanceTesting;
 		};
-		DE3C7A0E260A6B9800D2F4FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		DE3C7A0F260A6B9800D2F4FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		DE3C7A10260A6B9800D2F4FF /* PerformanceTesting */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
-			buildSettings = {
-			};
-			name = PerformanceTesting;
-		};
 		DE6B15B426152BE10068D642 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DE6B15E826152CD80068D642 /* Apollo-Target-ServerIntegrationTests.xcconfig */;
@@ -3518,16 +3381,6 @@
 				DE05861E266978A100265760 /* Debug */,
 				DE05861F266978A100265760 /* Release */,
 				DE058620266978A100265760 /* PerformanceTesting */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DE3C7A0D260A6B9800D2F4FF /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DE3C7A0E260A6B9800D2F4FF /* Debug */,
-				DE3C7A0F260A6B9800D2F4FF /* Release */,
-				DE3C7A10260A6B9800D2F4FF /* PerformanceTesting */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
