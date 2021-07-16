@@ -18,9 +18,6 @@ public struct ApolloCodegenOptions {
     /// The default, tried and true code generation engine
     case typescript
     
-    /// The VERY WORK IN PROGRESS Swift code generation engine. Use at your own risk!
-    case swiftExperimental
-    
     /// The current default for the code generation engine.
     public static var `default`: CodeGenerationEngine {
       .typescript
@@ -30,8 +27,6 @@ public struct ApolloCodegenOptions {
       switch self {
       case .typescript:
         return "swift"
-      case .swiftExperimental:
-        return "json-modern"
       }
     }
   }
@@ -145,8 +140,6 @@ public struct ApolloCodegenOptions {
     switch codegenEngine {
     case .typescript:
       outputFileURL = folder.appendingPathComponent("API.swift")
-    case .swiftExperimental:
-      outputFileURL = folder.appendingPathComponent("API.json")
     }
     
     let operationIDsURL = folder.appendingPathComponent("operationIDs.json")
