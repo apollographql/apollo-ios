@@ -33,9 +33,6 @@ let package = Package(
     .package(
       url: "https://github.com/daltoniam/Starscream",
       .upToNextMinor(from: "3.1.1")),
-    .package(
-      url: "https://github.com/stencilproject/Stencil.git",
-      .upToNextMinor(from: "0.14.0")),
     ],
     targets: [
       .target(
@@ -50,7 +47,6 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloCore",
-        .product(name: "Stencil", package: "Stencil"),
       ]),
     .target(
       name: "ApolloSQLite",

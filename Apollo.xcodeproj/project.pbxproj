@@ -41,7 +41,6 @@
 		9B554CC4247DC29A002F452A /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B554CC3247DC29A002F452A /* TaskData.swift */; };
 		9B64F6762354D219002D1BB5 /* URL+QueryDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */; };
 		9B68F03B240D8D1800E97318 /* CodegenExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F03A240D8D1800E97318 /* CodegenExtensionTests.swift */; };
-		9B68F04D2413239100E97318 /* Stencil in Frameworks */ = {isa = PBXBuildFile; productRef = 9B68F04C2413239100E97318 /* Stencil */; };
 		9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F0542416B33300E97318 /* LineByLineComparison.swift */; };
 		9B68F068241ADA9D00E97318 /* Dictionary+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68F066241AD98C00E97318 /* Dictionary+Apollo.swift */; };
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
@@ -830,7 +829,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECD47C3262F779800924527 /* ApolloUtils.framework in Frameworks */,
-				9B68F04D2413239100E97318 /* Stencil in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1873,12 +1871,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				DECD4873262F7A7100924527 /* PBXTargetDependency */,
 				9B683549246348CB00337AE6 /* PBXTargetDependency */,
 			);
 			name = ApolloCodegenLib;
 			packageProductDependencies = (
-				9B68F04C2413239100E97318 /* Stencil */,
 			);
 			productName = ApolloCodegenLib;
 			productReference = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */;
@@ -2219,7 +2215,6 @@
 			mainGroup = 9FC7503A1D2A532C00458D91;
 			packageReferences = (
 				9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
-				9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */,
 				DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
@@ -2820,10 +2815,6 @@
 			target = 9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */;
 			targetProxy = DECD4734262F668200924527 /* PBXContainerItemProxy */;
 		};
-		DECD4873262F7A7100924527 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = DECD4872262F7A7100924527 /* Stencil */;
-		};
 		DECD498E262F840100924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DECD490A262F81BF00924527 /* ApolloCodegenTestSupport */;
@@ -3383,14 +3374,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stencilproject/Stencil.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.14.0;
-			};
-		};
 		9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
@@ -3418,11 +3401,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9B68F04C2413239100E97318 /* Stencil */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */;
-			productName = Stencil;
-		};
 		9B7BDAF523FDEE2600ACD198 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
@@ -3447,11 +3425,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
-		};
-		DECD4872262F7A7100924527 /* Stencil */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B68F04B2413239100E97318 /* XCRemoteSwiftPackageReference "Stencil" */;
-			productName = Stencil;
 		};
 		DED45E95261B9EE30086EF63 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
