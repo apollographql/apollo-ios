@@ -42,6 +42,9 @@ let package = Package(
     .package(
       url: "https://github.com/apollographql/Starscream",
       .upToNextMinor(from: "3.1.2")),
+    .package(
+      url: "https://github.com/apollographql/InflectorKit",
+      .upToNextMinor(from: "0.0.2")),
   ],
   targets: [
     .target(
@@ -70,6 +73,7 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloUtils",
+        .product(name: "InflectorKit", package: "InflectorKit"),
       ],
       exclude: [
         "Info.plist",
