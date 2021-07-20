@@ -2,8 +2,7 @@
 //  ApolloCodegenTests.swift
 //  ApolloCodegenTests
 //
-//  Created by Ellen Shapiro on 10/7/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
+//  Copyright © 2021 Apollo GraphQL. All rights reserved.
 //
 
 import XCTest
@@ -22,14 +21,13 @@ class ApolloCodegenTests: XCTestCase {
     super.tearDown()
   }
   
-  func testCreatingOptionsWithDefaultParameters() throws {
+  func testDesignatedInitializer_givenRequiredParameters_shouldBuildDefaultArguments() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API.swift")
     let schema = sourceRoot.appendingPathComponent("schema.json")
     
     let options = ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: output),
                                        urlToSchemaFile: schema)
-
     
     XCTAssertEqual(options.includes, "./**/*.graphql")
     XCTAssertTrue(options.mergeInFieldsFromFragmentSpreads)
@@ -75,7 +73,7 @@ class ApolloCodegenTests: XCTestCase {
     ])
   }
   
-  func testCreatingOptionsWithAllParameters() throws {
+  func testDesignatedInitializer_givenAllParameters_shouldBuildCorrectArguments() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API")
     let schema = sourceRoot.appendingPathComponent("schema.json")
@@ -128,7 +126,7 @@ class ApolloCodegenTests: XCTestCase {
     ])
   }
   
-  func testTryingToUseAFileURLToOutputMultipleFilesFails() {
+  func testMultipleFilesOutputFormat_givenAFileURL_shouldFail() {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
@@ -153,7 +151,7 @@ class ApolloCodegenTests: XCTestCase {
     }
   }
   
-  func testTryingToUseAFolderURLToOutputASingleFileFails() {
+  func testSingleFileOutputFormat_givenAFolderURL_shouldFail() {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
@@ -176,7 +174,7 @@ class ApolloCodegenTests: XCTestCase {
     }
   }
   
-  func testCodegenWithSingleFileOutputsSingleFile() throws {
+  func testSingleFileOutputFormat_givenAFileURL_shouldSucceed() throws {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
@@ -202,7 +200,7 @@ class ApolloCodegenTests: XCTestCase {
     XCTAssertEqual(contents.count, 1)
   }
   
-  func testCodegenWithMultipleFilesOutputsMultipleFiles() throws {
+  func testMultipleFilesOutputFormat_givenAFolderURL_shouldSucceed() throws {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
