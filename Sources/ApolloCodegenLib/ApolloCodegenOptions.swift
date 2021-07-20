@@ -15,8 +15,11 @@ public struct ApolloCodegenOptions {
   
   /// Enum to select which code generation you wish to use
   public enum CodeGenerationEngine: Equatable {
-    /// The default, tried and true code generation engine
+    /// Code code generation engine built with Typescript - this is the default.
     case typescript
+    
+    /// Code generation engine built with Swift
+    case swift
     
     /// The current default for the code generation engine.
     public static var `default`: CodeGenerationEngine {
@@ -27,6 +30,8 @@ public struct ApolloCodegenOptions {
       switch self {
       case .typescript:
         return "swift"
+      case .swift:
+        return "json-modern"
       }
     }
   }
@@ -136,6 +141,8 @@ public struct ApolloCodegenOptions {
     switch codegenEngine {
     case .typescript:
       outputFileURL = folder.appendingPathComponent("API.swift")
+    case .swift:
+      outputFileURL = folder.appendingPathComponent("API.json")
     }
     
     let operationIDsURL = folder.appendingPathComponent("operationIDs.json")
