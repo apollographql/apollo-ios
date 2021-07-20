@@ -57,6 +57,23 @@ class ApolloCodegenTests: XCTestCase {
       "'\(output.path)'",
     ])
   }
+
+  func testConvenienceInitializer_givenAllParameters_shouldBuildCorrectArguments() throws {
+    let targetURL = URL(string: "file://could/be/anything/not/important")!
+    let options = ApolloCodegenOptions(targetRootURL: targetURL, codegenEngine: .swift, downloadTimeout: 42.0)
+
+    XCTAssertEqual(options.downloadTimeout, 42.0)
+    XCTAssertEqual(options.arguments, [
+      "codegen:generate",
+      "--target=json-modern",
+      "--addTypename",
+      "--includes=\'./**/*.graphql\'",
+      "--localSchemaFile=\'/be/anything/not/important/schema.json\'",
+      "--operationIdsPath=\'/be/anything/not/important/operationIDs.json\'",
+      "--mergeInFieldsFromFragmentSpreads",
+      "\'/be/anything/not/important/API.json\'"
+    ])
+  }
   
   func testCreatingOptionsWithAllParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
