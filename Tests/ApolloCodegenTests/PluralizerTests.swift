@@ -4,26 +4,26 @@ import XCTest
 
 class PluralizerTests: XCTestCase {
   
-  func testSimpleSingularization() {
+  func testSingularization_givenSimpleWord_shouldSingularize() {
     let pluralizer = Pluralizer()
     let pluralized = "Cats"
     let singular = pluralizer.singularize(pluralized)
     XCTAssertEqual(singular, "Cat")
   }
   
-  func testSimplePluralization() {
+  func testPluralization_givenSimpleWord_shouldPluralize() {
     let pluralizer = Pluralizer()
     let singular = "Cat"
     let pluralized = pluralizer.pluralize(singular)
     XCTAssertEqual(pluralized, "Cats")
   }
   
-  func testAddingASingularizationRuleWorks() {
+  func testSingularization_addingSingularizationRule_shouldSingularize() {
     let defaultPluralizer = Pluralizer()
     let pluralized = "Atlases"
     let beforeRule = defaultPluralizer.singularize(pluralized)
     
-    // This should be wrong becuase we haven't applied the rule yet.
+    // This should be wrong because we haven't applied the rule yet.
     XCTAssertEqual(beforeRule, "Atlase")
     
     let pluralizerWithRule = Pluralizer(rules: [
@@ -36,12 +36,12 @@ class PluralizerTests: XCTestCase {
     XCTAssertEqual(afterRule, "Atlas")
   }
   
-  func testAddingAPluralizationRuleWorks() {
+  func testPluralization_addingPluralizationRule_shouldPluralize() {
     let defaultPluralizer = Pluralizer()
     let singular = "Atlas"
     let beforeRule = defaultPluralizer.pluralize(singular)
     
-    // This should be wrong becuase we haven't applied the rule yet.
+    // This should be wrong because we haven't applied the rule yet.
     XCTAssertEqual(beforeRule, "Atlas")
     
     let pluralizerWithRule = Pluralizer(rules: [
@@ -53,7 +53,7 @@ class PluralizerTests: XCTestCase {
     XCTAssertEqual(singularized, "Atlases")
   }
  
-  func testPluralizerDoesntMessWithExistingCapitalization() {
+  func testPluralization_givenSpecificCasing_shouldNotChangeCasing() {
     let pluralizer = Pluralizer()
     let singular = "CAT"
     let pluralized = pluralizer.pluralize(singular)
@@ -64,7 +64,7 @@ class PluralizerTests: XCTestCase {
     XCTAssertEqual(pluralizedWithLowercase, "CaTs")
   }
   
-  func testSingularlizerWorksRegardlessOfCapitalization() {
+  func testSingularization_givenCasedSuffix_shouldSingularize() {
     let pluralizer = Pluralizer()
     let pluralizedAllCaps = "CTAS"
     let singularizedAllCaps = pluralizer.singularize(pluralizedAllCaps)
