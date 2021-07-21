@@ -59,3 +59,6 @@ SwiftScripts/ApolloCLI
 Tests/ApolloCodegenTests/scripts
 Tests/ApolloCodegenTests/scripts directory
 SwiftScripts/.build-**
+
+# Local Netlify folder
+.netlify
