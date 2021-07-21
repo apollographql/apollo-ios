@@ -34,18 +34,18 @@ public enum InflectionRule {
 
 struct Pluralizer {
   
-  private let inflector: TTTStringInflector
+  private let inflector: StringInflector
   
   init(rules: [InflectionRule] = []) {
-    let inflector = TTTStringInflector.default()
+    let inflector = StringInflector.default
     for rule in rules {
       switch rule {
       case .pluralization(let pluralRegex, let replacementRegex):
-        inflector.addPluralRule(pluralRegex, withReplacement: replacementRegex)
+        inflector.addPluralRule(pluralRegex, replacement: replacementRegex)
       case .singularization(let singularRegex, let replacementRegex):
-        inflector.addSingularRule(singularRegex, withReplacement: replacementRegex)
+        inflector.addSingularRule(singularRegex, replacement: replacementRegex)
       case .irregular(let singular, let plural):
-        inflector.addIrregular(withSingular: singular, plural: plural)
+        inflector.addIrregular(singular: singular, plural: plural)
       case .uncountable(let word):
         inflector.addUncountable(word)
       }
