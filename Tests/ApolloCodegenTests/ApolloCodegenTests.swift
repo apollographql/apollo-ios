@@ -1,10 +1,3 @@
-//
-//  ApolloCodegenTests.swift
-//  ApolloCodegenTests
-//
-//  Copyright © 2021 Apollo GraphQL. All rights reserved.
-//
-
 import XCTest
 import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
