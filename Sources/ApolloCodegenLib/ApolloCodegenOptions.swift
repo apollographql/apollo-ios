@@ -82,6 +82,7 @@ public struct ApolloCodegenOptions {
   ///
   /// - Parameters:
   ///  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
+  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array. Only used by the Swift code generation engine.
   ///  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
   ///  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
   ///  - modifier: The access modifier to use on everything created by this tool. Defaults to `.public`. Only used by the Swift code generation engine.
@@ -94,7 +95,6 @@ public struct ApolloCodegenOptions {
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array. Only used by the Swift code generation engine.
   public init(codegenEngine: CodeGenerationEngine = .default,
               additionalInflectionRules: [InflectionRule] = [],
               includes: String = "./**/*.graphql",
