@@ -1,11 +1,3 @@
-//
-//  Pluralizer.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 11/30/20.
-//  Copyright © 2020 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 import InflectorKit
 
