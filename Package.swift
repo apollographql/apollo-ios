@@ -38,7 +38,10 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMinor(from: "0.12.2"))    
+      .upToNextMinor(from: "0.12.2")),
+    .package(
+      url: "https://github.com/mattt/InflectorKit",
+      .upToNextMinor(from: "1.0.0")),
   ],
   targets: [
     .target(
@@ -67,6 +70,7 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         "ApolloUtils",
+        .product(name: "InflectorKit", package: "InflectorKit"),
       ],
       exclude: [
         "Info.plist",

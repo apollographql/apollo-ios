@@ -63,6 +63,7 @@ public struct ApolloCodegenOptions {
   }
   
   let codegenEngine: CodeGenerationEngine
+  let additionalInflectionRules: [InflectionRule]
   let includes: String
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
@@ -81,9 +82,10 @@ public struct ApolloCodegenOptions {
   ///
   /// - Parameters:
   ///  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
+  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array. Only used by the Swift code generation engine.
   ///  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
   ///  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
-  ///  - modifier: [EXPERIMENTAL SWIFT CODEGEN ONLY] - The access modifier to use on everything created by this tool. Defaults to `.public`.
+  ///  - modifier: The access modifier to use on everything created by this tool. Defaults to `.public`. Only used by the Swift code generation engine.
   ///  - namespace: [optional] The namespace to emit generated code into. Defaults to nil.
   ///  - omitDeprecatedEnumCases: Whether deprecated enum cases should be omitted from generated code. Defaults to false.
   ///  - only: [optional] Parse all input files, but only output generated code for the file at this URL if non-nil. Defaults to nil.
@@ -94,6 +96,7 @@ public struct ApolloCodegenOptions {
   ///  - urlToSchemaFile: The URL to your schema file.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(codegenEngine: CodeGenerationEngine = .default,
+              additionalInflectionRules: [InflectionRule] = [],
               includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               modifier: AccessModifier = .public,
@@ -107,6 +110,7 @@ public struct ApolloCodegenOptions {
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
     self.codegenEngine = codegenEngine
+    self.additionalInflectionRules = additionalInflectionRules
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.modifier = modifier
