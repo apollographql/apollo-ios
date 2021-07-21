@@ -1,11 +1,3 @@
-//
-//  ApolloCodegenTests.swift
-//  ApolloCodegenTests
-//
-//  Created by Ellen Shapiro on 10/7/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import XCTest
 import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
@@ -22,14 +14,13 @@ class ApolloCodegenTests: XCTestCase {
     super.tearDown()
   }
   
-  func testCreatingOptionsWithDefaultParameters() throws {
+  func testDesignatedInitializer_givenRequiredParameters_shouldBuildDefaultArguments() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API.swift")
     let schema = sourceRoot.appendingPathComponent("schema.json")
     
     let options = ApolloCodegenOptions(outputFormat: .singleFile(atFileURL: output),
                                        urlToSchemaFile: schema)
-
     
     XCTAssertEqual(options.includes, "./**/*.graphql")
     XCTAssertTrue(options.mergeInFieldsFromFragmentSpreads)
@@ -57,8 +48,25 @@ class ApolloCodegenTests: XCTestCase {
       "'\(output.path)'",
     ])
   }
+
+  func testConvenienceInitializer_givenAllParameters_shouldBuildCorrectArguments() throws {
+    let targetURL = URL(string: "file://could/be/anything/not/important")!
+    let options = ApolloCodegenOptions(targetRootURL: targetURL, codegenEngine: .swift, downloadTimeout: 42.0)
+
+    XCTAssertEqual(options.downloadTimeout, 42.0)
+    XCTAssertEqual(options.arguments, [
+      "codegen:generate",
+      "--target=json-modern",
+      "--addTypename",
+      "--includes=\'./**/*.graphql\'",
+      "--localSchemaFile=\'/be/anything/not/important/schema.json\'",
+      "--operationIdsPath=\'/be/anything/not/important/operationIDs.json\'",
+      "--mergeInFieldsFromFragmentSpreads",
+      "\'/be/anything/not/important/API.json\'"
+    ])
+  }
   
-  func testCreatingOptionsWithAllParameters() throws {
+  func testDesignatedInitializer_givenAllParameters_shouldBuildCorrectArguments() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let output = sourceRoot.appendingPathComponent("API")
     let schema = sourceRoot.appendingPathComponent("schema.json")
@@ -111,7 +119,7 @@ class ApolloCodegenTests: XCTestCase {
     ])
   }
   
-  func testTryingToUseAFileURLToOutputMultipleFilesFails() {
+  func testMultipleFilesOutputFormat_givenAFileURL_shouldFail() {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
@@ -136,7 +144,7 @@ class ApolloCodegenTests: XCTestCase {
     }
   }
   
-  func testTryingToUseAFolderURLToOutputASingleFileFails() {
+  func testSingleFileOutputFormat_givenAFolderURL_shouldFail() {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
@@ -159,7 +167,7 @@ class ApolloCodegenTests: XCTestCase {
     }
   }
   
-  func testCodegenWithSingleFileOutputsSingleFile() throws {
+  func testSingleFileOutputFormat_givenAFileURL_shouldSucceed() throws {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
@@ -185,7 +193,7 @@ class ApolloCodegenTests: XCTestCase {
     XCTAssertEqual(contents.count, 1)
   }
   
-  func testCodegenWithMultipleFilesOutputsMultipleFiles() throws {
+  func testMultipleFilesOutputFormat_givenAFolderURL_shouldSucceed() throws {
     let scriptFolderURL = CodegenTestHelper.cliFolderURL()
     let starWarsFolderURL = CodegenTestHelper.starWarsFolderURL()
     let starWarsSchemaFileURL = CodegenTestHelper.starWarsSchemaFileURL()
