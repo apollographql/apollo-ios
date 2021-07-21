@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "InflectorKit",
-        "repositoryURL": "https://github.com/apollographql/InflectorKit.git",
+        "repositoryURL": "https://github.com/mattt/InflectorKit.git",
         "state": {
           "branch": null,
-          "revision": "b1d0099abe36facd198113633f502889842906af",
-          "version": "0.0.2"
+          "revision": "d8cbcc04972690aaa5fc760a2b9ddb3e9f0decd7",
+          "version": "1.0.0"
         }
       },
       {

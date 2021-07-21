@@ -43,8 +43,8 @@ let package = Package(
       url: "https://github.com/apollographql/Starscream",
       .upToNextMinor(from: "3.1.2")),
     .package(
-      url: "https://github.com/apollographql/InflectorKit",
-      .upToNextMinor(from: "0.0.2")),
+      url: "https://github.com/mattt/InflectorKit",
+      .upToNextMinor(from: "1.0.0")),
   ],
   targets: [
     .target(

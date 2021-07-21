@@ -32,7 +32,6 @@
 		9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE22492D0A3002255A9 /* ApolloExtension.swift */; };
 		9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */; };
 		9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455CEA2492FB03002255A9 /* String+SHA.swift */; };
-		9B47515D2575AA4A0001FB87 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9B47515C2575AA4A0001FB87 /* InflectorKit */; };
 		9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B47516D2575AA690001FB87 /* Pluralizer.swift */; };
 		9B4751AD2575B5070001FB87 /* PluralizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4751AC2575B5070001FB87 /* PluralizerTests.swift */; };
 		9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */; };
@@ -243,6 +242,7 @@
 		DED46035261CEA660086EF63 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		DED46042261CEA8A0086EF63 /* TestServerURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C172615308E0086EF63 /* TestServerURLs.swift */; };
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
+		E6E4209226A7DF4200B82624 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -825,8 +825,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6E4209226A7DF4200B82624 /* InflectorKit in Frameworks */,
 				DECD47C3262F779800924527 /* ApolloUtils.framework in Frameworks */,
-				9B47515D2575AA4A0001FB87 /* InflectorKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1875,12 +1875,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				DECD4871262F7A6E00924527 /* PBXTargetDependency */,
+				E6E4209426A7DF5800B82624 /* PBXTargetDependency */,
 				9B683549246348CB00337AE6 /* PBXTargetDependency */,
 			);
 			name = ApolloCodegenLib;
 			packageProductDependencies = (
-				9B47515C2575AA4A0001FB87 /* InflectorKit */,
+				E6E4209126A7DF4200B82624 /* InflectorKit */,
 			);
 			productName = ApolloCodegenLib;
 			productReference = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */;
@@ -2221,8 +2221,8 @@
 			mainGroup = 9FC7503A1D2A532C00458D91;
 			packageReferences = (
 				9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
-				9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */,
 				DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */,
+				E6E4209026A7DF4200B82624 /* XCRemoteSwiftPackageReference "InflectorKit" */,
 			);
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
@@ -2820,10 +2820,6 @@
 			target = 9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */;
 			targetProxy = DECD4734262F668200924527 /* PBXContainerItemProxy */;
 		};
-		DECD4871262F7A6E00924527 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = DECD4870262F7A6E00924527 /* InflectorKit */;
-		};
 		DECD498E262F840100924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DECD490A262F81BF00924527 /* ApolloCodegenTestSupport */;
@@ -2877,6 +2873,10 @@
 			isa = PBXTargetDependency;
 			target = 9FCE2CF91E6C213D00E34457 /* StarWarsAPI */;
 			targetProxy = DED4606A261CEDD10086EF63 /* PBXContainerItemProxy */;
+		};
+		E6E4209426A7DF5800B82624 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E6E4209326A7DF5800B82624 /* InflectorKit */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3383,14 +3383,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/InflectorKit.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.0.2;
-			};
-		};
 		9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
@@ -3415,14 +3407,17 @@
 				minimumVersion = 3.1.2;
 			};
 		};
+		E6E4209026A7DF4200B82624 /* XCRemoteSwiftPackageReference "InflectorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mattt/InflectorKit.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9B47515C2575AA4A0001FB87 /* InflectorKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */;
-			productName = InflectorKit;
-		};
 		9B7BDAF523FDEE2600ACD198 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
@@ -3448,15 +3443,20 @@
 			package = DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
 		};
-		DECD4870262F7A6E00924527 /* InflectorKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B47515B2575AA4A0001FB87 /* XCRemoteSwiftPackageReference "InflectorKit" */;
-			productName = InflectorKit;
-		};
 		DED45E95261B9EE30086EF63 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
+		};
+		E6E4209126A7DF4200B82624 /* InflectorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6E4209026A7DF4200B82624 /* XCRemoteSwiftPackageReference "InflectorKit" */;
+			productName = InflectorKit;
+		};
+		E6E4209326A7DF5800B82624 /* InflectorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6E4209026A7DF4200B82624 /* XCRemoteSwiftPackageReference "InflectorKit" */;
+			productName = InflectorKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
