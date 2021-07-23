@@ -1,4 +1,0 @@
-[dev]
-  command = "npm run build"
-[context.dev.environment]
-  SKIP_INDEXING = "false"
