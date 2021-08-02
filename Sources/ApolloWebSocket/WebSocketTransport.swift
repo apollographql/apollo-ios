@@ -29,6 +29,7 @@ public class WebSocketTransport {
   let connectOnInit: Bool
   let reconnect: Atomic<Bool>
   let websocket: WebSocketClient
+  let store: ApolloStore
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestBodyCreator: RequestBodyCreator
@@ -88,6 +89,7 @@ public class WebSocketTransport {
   ///   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   ///   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
   public init(websocket: WebSocketClient,
+              store: ApolloStore,
               clientName: String = WebSocketTransport.defaultClientName,
               clientVersion: String = WebSocketTransport.defaultClientVersion,
               sendOperationIdentifiers: Bool = false,
@@ -98,6 +100,7 @@ public class WebSocketTransport {
               connectingPayload: GraphQLMap? = [:],
               requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
     self.websocket = websocket
+    self.store = store
     self.connectingPayload = connectingPayload
     self.sendOperationIdentifiers = sendOperationIdentifiers
     self.reconnect = Atomic(reconnect)
@@ -363,6 +366,16 @@ extension WebSocketTransport: NetworkTransport {
       switch result {
       case .success(let jsonBody):
         let response = GraphQLResponse(operation: operation, body: jsonBody)
+        do {
+          let (_, records) = try response.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+          
+          if let records = records {
+            self.store.publish(records: records, identifier: request.contextIdentifier)
+          }
+        } catch {
+          callCompletion(with: .failure(error))
+        }
+        
         do {
           let graphQLResult = try response.parseResultFast()
           callCompletion(with: .success(graphQLResult))
