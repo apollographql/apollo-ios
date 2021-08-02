@@ -21,9 +21,10 @@ class WebSocketTests: XCTestCase {
   override func setUp() {
     super.setUp()
 
+    let store = ApolloStore()
     let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
-    networkTransport = WebSocketTransport(websocket: websocket)
-    client = ApolloClient(networkTransport: networkTransport!, store: ApolloStore())
+    networkTransport = WebSocketTransport(websocket: websocket, store: store)
+    client = ApolloClient(networkTransport: networkTransport!, store: store)
   }
     
   override func tearDown() {
