@@ -368,9 +368,8 @@ extension WebSocketTransport: NetworkTransport {
         let response = GraphQLResponse(operation: operation, body: jsonBody)
         do {
           let (_, records) = try response.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
-          
           if let records = records {
-            self.store.publish(records: records, identifier: request.contextIdentifier)
+            self.store.publish(records: records, identifier: nil)
           }
         } catch {
           callCompletion(with: .failure(error))
