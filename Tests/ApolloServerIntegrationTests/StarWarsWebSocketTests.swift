@@ -24,7 +24,8 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     let networkTransport = WebSocketTransport(
       websocket: DefaultWebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
-      )
+      ),
+      store: store
     )
     
     client = ApolloClient(networkTransport: networkTransport, store: store)

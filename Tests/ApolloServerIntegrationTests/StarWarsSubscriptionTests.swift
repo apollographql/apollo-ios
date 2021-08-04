@@ -24,7 +24,8 @@ class StarWarsSubscriptionTests: XCTestCase {
     webSocketTransport = WebSocketTransport(
       websocket: DefaultWebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
-      )
+      ),
+      store: ApolloStore()
     )
     webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
@@ -411,7 +412,8 @@ class StarWarsSubscriptionTests: XCTestCase {
     let webSocketTransport = WebSocketTransport(
       websocket: MockWebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
-      )
+      ),
+      store: ApolloStore()
     )
 
     let expectation = self.expectation(description: "Connection closed")

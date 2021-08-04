@@ -19,7 +19,7 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
     self.variables = operation.variables
   }
 
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {
+  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {
     let errors: [GraphQLError]?
 
     if let errorsEntry = body["errors"] as? [JSONObject] {

@@ -17,7 +17,8 @@ class WebSocketTransportTests: XCTestCase {
     var request = URLRequest(url: TestURL.mockServer.url)
     request.addValue("OldToken", forHTTPHeaderField: "Authorization")
 
-    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request))
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
+                                                 store: ApolloStore())
 
     self.webSocketTransport.updateHeaderValues(["Authorization": "UpdatedToken"])
 
@@ -28,6 +29,7 @@ class WebSocketTransportTests: XCTestCase {
     let request = URLRequest(url: TestURL.mockServer.url)
 
     self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
+                                                 store: ApolloStore(),
                                                  connectingPayload: ["Authorization": "OldToken"])
 
     let mockWebSocketDelegate = MockWebSocketDelegate()
@@ -58,6 +60,7 @@ class WebSocketTransportTests: XCTestCase {
     let request = URLRequest(url: TestURL.mockServer.url)
 
     self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
+                                                 store: ApolloStore(),
                                                  connectingPayload: ["Authorization": "OldToken"])
     self.webSocketTransport.closeConnection()
     self.webSocketTransport.updateConnectingPayload(["Authorization": "UpdatedToken"])
