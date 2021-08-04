@@ -19,6 +19,11 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet> {
     self.variables = operation.variables
   }
 
+  /// Parses a response into a `GraphQLResult` and a `RecordSet`.
+  /// The result can be sent to a completion block for a request.
+  /// The `RecordSet` can be merged into a local cache.
+  /// - Parameter cacheKeyForObject: See `CacheKeyForObject`
+  /// - Returns: A `GraphQLResult` and a `RecordSet`.
   public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {
     let errors: [GraphQLError]?
 
