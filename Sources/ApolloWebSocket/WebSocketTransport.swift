@@ -366,18 +366,13 @@ extension WebSocketTransport: NetworkTransport {
     return WebSocketTask(self, operation) { [weak store, contextIdentifier, callbackQueue] result in
       switch result {
       case .success(let jsonBody):
-        let response = GraphQLResponse(operation: operation, body: jsonBody)
-
-        func parseResultsWithoutCache(result: GraphQLResult<Operation.Data>? = nil) throws {
-          let graphQLResult = try result ?? response.parseResultFast()
-          callCompletion(with: .success(graphQLResult))
-        }
-
         do {
+          let response = GraphQLResponse(operation: operation, body: jsonBody)
+
           if let store = store {
-            let (graphQLResult, records) = try response.parseResult(cacheKeyForObject: store.cacheKeyForObject)
-            guard let records = records else {
-              try parseResultsWithoutCache(result: graphQLResult)
+            let (graphQLResult, parsedRecords) = try response.parseResult(cacheKeyForObject: store.cacheKeyForObject)
+            guard let records = parsedRecords else {
+              callCompletion(with: .success(graphQLResult))
               return
             }
 
@@ -394,7 +389,8 @@ extension WebSocketTransport: NetworkTransport {
             }
 
           } else {
-            try parseResultsWithoutCache()
+            let graphQLResult = try response.parseResultFast()
+            callCompletion(with: .success(graphQLResult))
           }
 
         } catch {
