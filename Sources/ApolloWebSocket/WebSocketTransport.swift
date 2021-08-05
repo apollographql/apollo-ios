@@ -79,6 +79,7 @@ public class WebSocketTransport {
   ///
   /// - Parameters:
   ///   - websocket: The websocket client to use for creating a websocket connection.
+  ///   - store: [optional] The `ApolloStore` used as a local cache. Defaults to `nil`.
   ///   - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   ///   - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   ///   - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
@@ -362,24 +363,36 @@ extension WebSocketTransport: NetworkTransport {
       return EmptyCancellable()
     }
 
-    return WebSocketTask(self, operation) { [store] result in
+    return WebSocketTask(self, operation) { [weak store, contextIdentifier, callbackQueue] result in
       switch result {
       case .success(let jsonBody):
-        let response = GraphQLResponse(operation: operation, body: jsonBody)
-        if let store = store {
-          do {
-            let (_, records) = try response.parseResult(cacheKeyForObject: store.cacheKeyForObject)
-            if let records = records {
-              store.publish(records: records, identifier: nil)
-            }
-          } catch {
-            callCompletion(with: .failure(error))
-          }
-        }
-        
         do {
-          let graphQLResult = try response.parseResultFast()
-          callCompletion(with: .success(graphQLResult))
+          let response = GraphQLResponse(operation: operation, body: jsonBody)
+
+          if let store = store {
+            let (graphQLResult, parsedRecords) = try response.parseResult(cacheKeyForObject: store.cacheKeyForObject)
+            guard let records = parsedRecords else {
+              callCompletion(with: .success(graphQLResult))
+              return
+            }
+
+            store.publish(records: records,
+                          identifier: contextIdentifier,
+                          callbackQueue: callbackQueue) { result in
+              switch result {
+              case .success:
+                completionHandler(.success(graphQLResult))
+
+              case let .failure(error):
+                callCompletion(with: .failure(error))
+              }
+            }
+
+          } else {
+            let graphQLResult = try response.parseResultFast()
+            callCompletion(with: .success(graphQLResult))
+          }
+
         } catch {
           callCompletion(with: .failure(error))
         }

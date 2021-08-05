@@ -64,6 +64,13 @@ public final class ApolloStore {
     }
   }
 
+  /// Merges a `RecordSet` into the normalized cache.
+  /// - Parameters:
+  ///   - records: The records to be merged into the cache.
+  ///   - identifier: [optional] A unique identifier for the request that kicked off this change,
+  ///                 to assist in de-duping cache hits for watchers.
+  ///   - callbackQueue: The queue to call the completion block on. Defaults to `DispatchQueue.main`.
+  ///   - completion: [optional] A completion block to be called after records are merged into the cache.
   public func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       do {
