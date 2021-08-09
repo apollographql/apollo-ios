@@ -32,10 +32,11 @@ public var clientVersion: String
 - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
 ## Methods
-### `init(websocket:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:)`
+### `init(websocket:store:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:)`
 
 ```swift
 public init(websocket: WebSocketClient,
+            store: ApolloStore? = nil,
             clientName: String = WebSocketTransport.defaultClientName,
             clientVersion: String = WebSocketTransport.defaultClientVersion,
             sendOperationIdentifiers: Bool = false,
@@ -51,6 +52,7 @@ Designated initializer
 
 - Parameters:
   - websocket: The websocket client to use for creating a websocket connection.
+  - store: [optional] The `ApolloStore` used as a local cache. Defaults to `nil`.
   - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
   - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
   - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
@@ -66,6 +68,7 @@ Designated initializer
 | Name | Description |
 | ---- | ----------- |
 | websocket | The websocket client to use for creating a websocket connection. |
+| store | [optional] The `ApolloStore` used as a local cache. Defaults to `nil`. |
 | clientName | The client name to use for this client. Defaults to `Self.defaultClientName` |
 | clientVersion | The client version to use for this client. Defaults to `Self.defaultClientVersion`. |
 | sendOperationIdentifiers | Whether or not to send operation identifiers with operations. Defaults to false. |

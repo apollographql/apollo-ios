@@ -1,5 +1,9 @@
 # Change log
 
+## v0.46.0
+- **Removed - Swift experimental codegen:** The [experimental Swift code generation](https://github.com/apollographql/apollo-ios/blob/0.45.0/Sources/ApolloCodegenLib/ApolloCodegenOptions.swift#L21) has been removed from `main` and will instead become available in the [`release/1.0-alpha-incubating` branch](https://github.com/apollographql/apollo-ios/tree/release/1.0-alpha-incubating) until a 1.0 release. [#1873](https://github.com/apollographql/apollo-ios/pull/1873)
+- **Fixed - [Query watcher not being called when the cache is updated on an element by another query/subscrition/mutation](https://github.com/apollographql/apollo-ios/issues/1422):** The long-term solution is to integrate web sockets into the request chain but this is an interim fix that allows `WebSocketTransport` to be configured with a store to update the cache when receiving data. This should not break any workarounds others have already implemented. [#1889](https://github.com/apollographql/apollo-ios/pull/1889), [#1892](https://github.com/apollographql/apollo-ios/pull/1892) - _Thank you to [tgyhlsb](https://github.com/tgyhlsb) for the contribution!_
+
 ## v0.45.0
 - **Breaking - Downgraded from Starscream v4 to v3!** After upgrading to Starscream 4.0, a lot of our users started to experience crashes while using web sockets. We've decided to revert to the more stable Starscream version 3. In order to fix a few known bugs in Starscream 3, we have made a fork of Starscream that Apollo will depend on going forward. In preparation for moving to Apple WebSockets in the future, we have also fully inverted the dependency on Starscream. Between these two changes, a lot of breaking changes to our Web Socket API have been made:
   - The `ApolloWebSocketClient` protocol was removed and replaced with `WebSocketClient`.
@@ -14,7 +18,6 @@
 - **Breaking:** `WebSocketTransport` is now initialized with an `ApolloWebSocket` (or other object conforming to the `ApolloWebSocketClient` protocol.) Previously, the initializer took in the necessary parameters to create the web socket internally. This provides better dependency injection capabilities and makes testing easier.
 - Removed class constraint on `ApolloInterceptor` and converted to structs for all interceptors that could be structs instead of classes.
 - Added `removeRecords(matching pattern: CacheKey)` function to the normalized cache.
-
 
 ## v0.44.0
 
