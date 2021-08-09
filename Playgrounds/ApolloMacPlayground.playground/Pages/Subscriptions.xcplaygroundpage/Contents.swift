@@ -31,10 +31,8 @@ let normalTransport = RequestChainNetworkTransport(interceptorProvider: DefaultI
 //: Next, set up the `WebSocketTransport` to talk to the websocket endpoint. Note that this may take a different URL, sometimes with a `ws` prefix, than your normal http endpoint:
 
 let webSocketURL = URL(string: "ws://localhost:8080/websocket")!
-let webSocketTransport = WebSocketTransport(
-    request: URLRequest(url: webSocketURL),
-    store: store
-)
+let webSocketClient = DefaultWebSocket(request: URLRequest(url: webSocketURL))
+let webSocketTransport = WebSocketTransport(websocket: webSocketClient, store: store)
 
 //: Then, set up the split transport with the two transports you've just created:
 
