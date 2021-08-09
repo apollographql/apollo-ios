@@ -32,14 +32,6 @@ var isNotEmpty: Bool
 
 - returns: `true` if the collection is non-nil AND has contents.
 
-### `boolValue`
-
-```swift
-var boolValue: Bool
-```
-
-The value of the unwrapped `Bool`, or false if optional value is `.none`
-
 ### `sha256Hash`
 
 ```swift

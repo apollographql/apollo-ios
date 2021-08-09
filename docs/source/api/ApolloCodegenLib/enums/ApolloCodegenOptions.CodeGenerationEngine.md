@@ -16,11 +16,3 @@ case typescript
 ```
 
 The default, tried and true code generation engine
-
-### `swiftExperimental`
-
-```swift
-case swiftExperimental
-```
-
-The VERY WORK IN PROGRESS Swift code generation engine. Use at your own risk!
