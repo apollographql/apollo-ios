@@ -240,6 +240,7 @@
 		DED46035261CEA660086EF63 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		DED46042261CEA8A0086EF63 /* TestServerURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C172615308E0086EF63 /* TestServerURLs.swift */; };
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
+		E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616B6D026C3335600DB049E /* ExecutionTests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -795,6 +796,7 @@
 		DED45FB1261CDE7D0086EF63 /* Apollo-PerformanceTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-PerformanceTestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45FB2261CDE980086EF63 /* Apollo-CITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CITestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CodegenTestPlan.xctestplan"; sourceTree = "<group>"; };
+		E616B6D026C3335600DB049E /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -1455,32 +1457,33 @@
 		9FC750521D2A532D00458D91 /* ApolloTests */ = {
 			isa = PBXGroup;
 			children = (
-				DED45E9B261BA0CA0086EF63 /* WebSocket */,
 				DED45DE8261B969F0086EF63 /* Cache */,
 				9B0417812390320A00C9EC4E /* TestHelpers */,
-				9FC750551D2A532D00458D91 /* Info.plist */,
+				DED45E9B261BA0CA0086EF63 /* WebSocket */,
 				D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */,
 				F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */,
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
 				9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
+				DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */,
 				9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */,
+				E616B6D026C3335600DB049E /* ExecutionTests.swift */,
 				9F8622F91EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift */,
 				9B95EDBF22CAA0AF00702BB2 /* GETTransformerTests.swift */,
 				9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */,
-				9BC139A224EDCA4400876D29 /* InterceptorTests.swift */,
 				9FF90A6A1DDDEB420034C3B6 /* GraphQLMapEncodingTests.swift */,
+				9FC750551D2A532D00458D91 /* Info.plist */,
+				9BC139A224EDCA4400876D29 /* InterceptorTests.swift */,
 				E86D8E03214B32DA0028EFE1 /* JSONTests.swift */,
-				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
 				9BF6C95225194EA5000D5B93 /* MultipartFormDataTests.swift */,
+				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
 				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
 				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
 				9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */,
 				F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */,
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
-				9B96500824BE6201003C29C0 /* RequestChainTests.swift */,
-				DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */,
 				C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */,
+				9B96500824BE6201003C29C0 /* RequestChainTests.swift */,
 				9B9BBB1A24DB75E60021C30F /* UploadRequestTests.swift */,
 				5BB2C0222380836100774170 /* VersionNumberTests.swift */,
 			);
@@ -2596,6 +2599,7 @@
 				9BF6C99C25195019000D5B93 /* String+IncludesForTesting.swift in Sources */,
 				DED45DEF261B96B70086EF63 /* ReadWriteFromStoreTests.swift in Sources */,
 				9F91CF8F1F6C0DB2008DD0BE /* MutatingResultsTests.swift in Sources */,
+				E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */,
 				9B9BBB1C24DB760B0021C30F /* UploadRequestTests.swift in Sources */,
 				9BC139A424EDCA6C00876D29 /* InterceptorTests.swift in Sources */,
 				F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */,
