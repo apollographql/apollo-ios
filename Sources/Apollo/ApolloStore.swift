@@ -54,7 +54,9 @@ public final class ApolloStore {
 
   /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
   ///
-  /// - Returns: A promise which fulfills when the Cache is cleared.
+  /// - Parameters:
+  ///   - callbackQueue: The queue to call the completion block on. Defaults to `DispatchQueue.main`.
+  ///   - completion: [optional] A completion block to be called after records are merged into the cache.
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       let result = Result { try self.cache.clear() }
