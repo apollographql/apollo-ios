@@ -16,33 +16,33 @@ import XCTest
 
 class CompressionTests: XCTestCase {
 
-    func testBasic() {
-        let compressor = Compressor(windowBits: 15)!
-        let decompressor = Decompressor(windowBits: 15)!
+  func testBasic() {
+    let compressor = Compressor(windowBits: 15)!
+    let decompressor = Decompressor(windowBits: 15)!
 
-        let rawData = "Hello, World! Hello, World! Hello, World! Hello, World! Hello, World!".data(using: .utf8)!
+    let rawData = "Hello, World! Hello, World! Hello, World! Hello, World! Hello, World!".data(using: .utf8)!
 
-        let compressed = try! compressor.compress(rawData)
-        let uncompressed = try! decompressor.decompress(compressed, finish: true)
+    let compressed = try! compressor.compress(rawData)
+    let uncompressed = try! decompressor.decompress(compressed, finish: true)
 
-        XCTAssert(rawData == uncompressed)
+    XCTAssertEqual(rawData, uncompressed)
+  }
+
+  func testHugeData() {
+    let compressor = Compressor(windowBits: 15)!
+    let decompressor = Decompressor(windowBits: 15)!
+
+    // 2 Gigs!
+    var rawData = Data(repeating: 0, count: 0x80000)
+    let rawDataLen = rawData.count
+    rawData.withUnsafeMutableBytes { ptr -> Void in
+      arc4random_buf(ptr.baseAddress, rawDataLen)
     }
 
-    func testHugeData() {
-        let compressor = Compressor(windowBits: 15)!
-        let decompressor = Decompressor(windowBits: 15)!
+    let compressed = try! compressor.compress(rawData)
+    let uncompressed = try! decompressor.decompress(compressed, finish: true)
 
-        // 2 Gigs!
-        var rawData = Data(repeating: 0, count: 0x80000)
-        let rawDataLen = rawData.count
-        rawData.withUnsafeMutableBytes { ptr -> Void in
-          arc4random_buf(ptr.baseAddress, rawDataLen)
-        }
-
-        let compressed = try! compressor.compress(rawData)
-        let uncompressed = try! decompressor.decompress(compressed, finish: true)
-
-        XCTAssert(rawData == uncompressed)
-    }
+    XCTAssertEqual(rawData, uncompressed)
+  }
 
 }

@@ -196,7 +196,6 @@
 		DE181A3226C5C401000C0B9C /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3126C5C401000C0B9C /* Compression.swift */; };
 		DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */; };
 		DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
-		DE181A3726C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
 		DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = DE3A2815268BCE6700A1BDC8 /* Starscream */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
@@ -2648,7 +2647,6 @@
 				C338DF1722DD9DE9006AF33E /* RequestBodyCreatorTests.swift in Sources */,
 				F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */,
 				9BF6C97025194ED7000D5B93 /* MultipartFormDataTests.swift in Sources */,
-				DE181A3726C5DE4F000C0B9C /* WebSocketStream.swift in Sources */,
 				9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
