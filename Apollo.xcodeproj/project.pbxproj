@@ -190,6 +190,10 @@
 		DE0586362669957800265760 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED92666DF150054DB4F /* CacheReference.swift */; };
 		DE0586372669958F00265760 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
 		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
+		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
+		DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */; };
+		DE181A3026C5C38E000C0B9C /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */; };
+		DE181A3226C5C401000C0B9C /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3126C5C401000C0B9C /* Compression.swift */; };
 		DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = DE3A2815268BCE6700A1BDC8 /* Starscream */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
@@ -199,7 +203,6 @@
 		DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B154A261505450068D642 /* GraphQLMap.swift */; };
 		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
-		DE8C84F5268BC42100C54D02 /* DefaultWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
@@ -744,6 +747,10 @@
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
 		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
+		DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
+		DE181A3126C5C401000C0B9C /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
 		DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSet.swift; sourceTree = "<group>"; };
 		DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDict.swift; sourceTree = "<group>"; };
@@ -779,7 +786,6 @@
 		DE6B160B26152D210068D642 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
-		DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWebSocket.swift; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECD490D262F81BF00924527 /* ApolloCodegenTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloCodegenTestSupport.h; sourceTree = "<group>"; };
@@ -1168,13 +1174,16 @@
 			isa = PBXGroup;
 			children = (
 				9B7BDA9823FDE94C00ACD198 /* WebSocketClient.swift */,
-				DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */,
+				DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */,
 				9B7BDA9723FDE94C00ACD198 /* OperationMessage.swift */,
 				9B7BDA9623FDE94C00ACD198 /* SplitNetworkTransport.swift */,
 				9B7BDA9423FDE94C00ACD198 /* WebSocketError.swift */,
 				9B7BDA9523FDE94C00ACD198 /* WebSocketTask.swift */,
 				9B7BDA9923FDE94C00ACD198 /* WebSocketTransport.swift */,
 				9B7BDA9A23FDE94C00ACD198 /* Info.plist */,
+				DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */,
+				DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */,
+				DE181A3126C5C401000C0B9C /* Compression.swift */,
 			);
 			name = ApolloWebSocket;
 			path = Sources/ApolloWebSocket;
@@ -2443,12 +2452,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B7BDA9F23FDE94C00ACD198 /* WebSocketClient.swift in Sources */,
+				DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */,
+				DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */,
 				9B7BDAA023FDE94C00ACD198 /* WebSocketTransport.swift in Sources */,
 				9B7BDA9C23FDE94C00ACD198 /* WebSocketTask.swift in Sources */,
-				DE8C84F5268BC42100C54D02 /* DefaultWebSocket.swift in Sources */,
+				DE181A3026C5C38E000C0B9C /* SSLSecurity.swift in Sources */,
 				9B7BDA9B23FDE94C00ACD198 /* WebSocketError.swift in Sources */,
 				9B7BDA9D23FDE94C00ACD198 /* SplitNetworkTransport.swift in Sources */,
 				9B7BDA9E23FDE94C00ACD198 /* OperationMessage.swift in Sources */,
+				DE181A3226C5C401000C0B9C /* Compression.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
