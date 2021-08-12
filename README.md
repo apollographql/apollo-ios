@@ -41,7 +41,11 @@ This combination of models with value semantics, one way data flow, and automati
 
 ## Getting started
 
-If you are new to GraphQL, start with the [tutorial](https://www.apollographql.com/docs/ios/tutorial/tutorial-introduction/) that will guide you through building an iOS app using Swift and Apollo iOS. There is also [comprehensive documentation](https://www.apollographql.com/docs/ios/) of the SDK, including an [API reference](https://www.apollographql.com/docs/ios/api-reference/).
+If you are new to Apollo iOS there are two ways to get started:
+1. The [tutorial](https://www.apollographql.com/docs/ios/tutorial/tutorial-introduction/) which will guide you through building an iOS app using Swift and Apollo iOS.
+2. A [Playground](https://github.com/apollographql/apollo-client-swift-playground) covering the concepts of queries, mutations, subscriptions, SQLite caching and custom scalars.
+
+There is also [comprehensive documentation](https://www.apollographql.com/docs/ios/) including an [API reference](https://www.apollographql.com/docs/ios/api-reference/).
 
 ## Releases and changelog
 
