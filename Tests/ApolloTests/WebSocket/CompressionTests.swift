@@ -4,10 +4,10 @@
 //
 //  This is a derived work derived from
 //  Starscream(https://github.com/daltoniam/Starscream)
-
+//
 //  Original Work License: http://www.apache.org/licenses/LICENSE-2.0
 //  Derived Work License: https://github.com/apollographql/apollo-ios/blob/main/LICENSE
-
+//
 //  Compression implementation is implemented in conformance with RFC 7692 Compression Extensions
 //  for WebSocket: https://tools.ietf.org/html/rfc7692
 
