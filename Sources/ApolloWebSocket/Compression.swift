@@ -14,10 +14,6 @@
 import Foundation
 import zlib
 
-enum CompressionError: Swift.Error {
-  case dataBufferEmpty
-}
-
 class Decompressor {
   private var strm = z_stream()
   private var buffer = [UInt8](repeating: 0, count: 0x2000)
@@ -47,7 +43,7 @@ class Decompressor {
   func decompress(_ data: Data, finish: Bool) throws -> Data {
     return try data.withUnsafeBytes { pointer -> Data in
       guard let bytes = pointer.baseAddress?.assumingMemoryBound(to: UInt8.self) else {
-        throw CompressionError.dataBufferEmpty
+        return data
       }
       return try decompress(bytes: bytes, count: data.count, finish: finish)
     }
@@ -72,13 +68,16 @@ class Decompressor {
     strm.avail_in = CUnsignedInt(count)
 
     repeat {
-      strm.next_out = UnsafeMutablePointer<UInt8>(&buffer)
-      strm.avail_out = CUnsignedInt(buffer.count)
+      buffer.withUnsafeMutableBytes { buffer in
+        let bytePtr = buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+        strm.next_out = UnsafeMutablePointer<UInt8>(bytePtr)
+        strm.avail_out = CUnsignedInt(buffer.count)
 
-      res = inflate(&strm, 0)
+        res = inflate(&strm, 0)
 
-      let byteCount = buffer.count - Int(strm.avail_out)
-      out.append(buffer, count: byteCount)
+        let byteCount = buffer.count - Int(strm.avail_out)
+        out.append(bytePtr, count: byteCount)
+      }
     } while res == Z_OK && strm.avail_out == 0
 
     guard (res == Z_OK && strm.avail_out > 0)
@@ -129,22 +128,23 @@ class Compressor {
   func compress(_ data: Data) throws -> Data {
     var compressed = Data()
     var res:CInt = 0
-    try data.withUnsafeBytes { pointer -> Void in
+    data.withUnsafeBytes { pointer -> Void in
       guard let bytes = pointer.baseAddress?.assumingMemoryBound(to: UInt8.self) else {
-        throw CompressionError.dataBufferEmpty
+        return
       }
 
       strm.next_in = UnsafeMutablePointer<UInt8>(mutating: bytes)
       strm.avail_in = CUnsignedInt(data.count)
 
       repeat {
-        strm.next_out = UnsafeMutablePointer<UInt8>(&buffer)
-        strm.avail_out = CUnsignedInt(buffer.count)
-
-        res = deflate(&strm, Z_SYNC_FLUSH)
-
-        let byteCount = buffer.count - Int(strm.avail_out)
-        compressed.append(buffer, count: byteCount)
+        buffer.withUnsafeMutableBytes { buffer in
+          let bytePtr = buffer.baseAddress!.assumingMemoryBound(to: UInt8.self)
+          strm.next_out = bytePtr
+          strm.avail_out = CUnsignedInt(buffer.count)
+          res = deflate(&strm, Z_SYNC_FLUSH)
+          let byteCount = buffer.count - Int(strm.avail_out)
+          compressed.append(bytePtr, count: byteCount)
+        }
       }
       while res == Z_OK && strm.avail_out == 0
 
