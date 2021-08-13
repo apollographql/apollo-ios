@@ -15,6 +15,11 @@ import Foundation
 import zlib
 
 class Decompressor {
+  enum Error: Swift.Error {
+    case resetFailed
+    case decompressionFailed
+  }
+
   private var strm = z_stream()
   private var buffer = [UInt8](repeating: 0, count: 0x2000)
   private var inflateInitialized = false
@@ -37,7 +42,7 @@ class Decompressor {
 
   func reset() throws {
     teardownInflate()
-    guard initInflate() else { throw WSError(type: .compressionError, message: "Error for decompressor on reset", code: 0) }
+    guard initInflate() else { throw Error.resetFailed }
   }
 
   func decompress(_ data: Data, finish: Bool) throws -> Data {
@@ -83,7 +88,7 @@ class Decompressor {
     guard (res == Z_OK && strm.avail_out > 0)
             || (res == Z_BUF_ERROR && Int(strm.avail_out) == buffer.count)
     else {
-      throw WSError(type: .compressionError, message: "Error on decompressing", code: 0)
+      throw Error.decompressionFailed
     }
   }
 
@@ -99,6 +104,11 @@ class Decompressor {
 }
 
 class Compressor {
+  enum Error: Swift.Error {
+    case resetFailed
+    case compressionFailed
+  }
+
   private var strm = z_stream()
   private var buffer = [UInt8](repeating: 0, count: 0x2000)
   private var deflateInitialized = false
@@ -122,7 +132,7 @@ class Compressor {
 
   func reset() throws {
     teardownDeflate()
-    guard initDeflate() else { throw WSError(type: .compressionError, message: "Error for compressor on reset", code: 0) }
+    guard initDeflate() else { throw Error.resetFailed }
   }
 
   func compress(_ data: Data) throws -> Data {
@@ -153,7 +163,7 @@ class Compressor {
     guard res == Z_OK && strm.avail_out > 0
             || (res == Z_BUF_ERROR && Int(strm.avail_out) == buffer.count)
     else {
-      throw WSError(type: .compressionError, message: "Error on compressing", code: 0)
+      throw Error.compressionFailed
     }
 
     compressed.removeLast(4)

@@ -101,10 +101,16 @@ class FoundationStream : NSObject, WebSocketStream, StreamDelegate  {
           let resIn = SSLSetEnabledCiphers(sslContextIn, cipherSuites, cipherSuites.count)
           let resOut = SSLSetEnabledCiphers(sslContextOut, cipherSuites, cipherSuites.count)
           if resIn != errSecSuccess {
-            completion(WSError(type: .invalidSSLError, message: "Error setting ingoing cypher suites", code: Int(resIn)))
+            completion(WebSocket.WSError(
+                        type: .invalidSSLError,
+                        message: "Error setting ingoing cypher suites",
+                        code: Int(resIn)))
           }
           if resOut != errSecSuccess {
-            completion(WSError(type: .invalidSSLError, message: "Error setting outgoing cypher suites", code: Int(resOut)))
+            completion(WebSocket.WSError(
+                        type: .invalidSSLError,
+                        message: "Error setting outgoing cypher suites",
+                        code: Int(resOut)))
           }
         }
         #endif
@@ -123,13 +129,22 @@ class FoundationStream : NSObject, WebSocketStream, StreamDelegate  {
         usleep(100) // wait until the socket is ready
         out -= 100
         if out < 0 {
-          completion(WSError(type: .writeTimeoutError, message: "Timed out waiting for the socket to be ready for a write", code: 0))
+          completion(
+            WebSocket.WSError(
+              type: .writeTimeoutError,
+              message: "Timed out waiting for the socket to be ready for a write",
+              code: 0))
           return
+
         } else if let error = outStream.streamError {
           completion(error)
           return // disconnectStream will be called.
+
         } else if self == nil {
-          completion(WSError(type: .closeError, message: "socket object has been dereferenced", code: 0))
+          completion(WebSocket.WSError(
+                      type: .closeError,
+                      message: "socket object has been dereferenced",
+                      code: 0))
           return
         }
       }

@@ -25,22 +25,6 @@ enum CloseCode : UInt16 {
   case messageTooBig          = 1009
 }
 
-public struct WSError: Error {
-  public enum ErrorType {
-    case outputStreamWriteError //output stream error during write
-    case compressionError // Error with compressing or decompressing data
-    case invalidSSLError //Invalid SSL certificate
-    case writeTimeoutError //The socket timed out waiting to be ready to write
-    case protocolError //There was an error parsing the WebSocket frames
-    case upgradeError //There was an error during the HTTP upgrade
-    case closeError //There was an error during the close (socket probably has been dereferenced)
-  }
-
-  public let type: ErrorType
-  public let message: String
-  public let code: Int
-}
-
 //SSL settings for the stream
 public struct SSLSettings {
   public let useSSL: Bool
@@ -67,6 +51,21 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     case ping = 0x9
     case pong = 0xA
     // B-F reserved.
+  }
+
+  public struct WSError: Swift.Error {
+    public enum ErrorType {
+      case outputStreamWriteError //output stream error during write
+      case invalidSSLError //Invalid SSL certificate
+      case writeTimeoutError //The socket timed out waiting to be ready to write
+      case protocolError //There was an error parsing the WebSocket frames
+      case upgradeError //There was an error during the HTTP upgrade
+      case closeError //There was an error during the close (socket probably has been dereferenced)
+    }
+
+    public let type: ErrorType
+    public let message: String
+    public let code: Int
   }
 
   private struct Constants {
