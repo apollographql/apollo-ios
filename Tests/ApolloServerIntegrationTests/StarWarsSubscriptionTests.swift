@@ -3,7 +3,6 @@ import Apollo
 import ApolloTestSupport
 @testable import ApolloWebSocket
 import StarWarsAPI
-import Starscream
 
 class StarWarsSubscriptionTests: XCTestCase {
   var concurrentQueue: DispatchQueue!
@@ -22,7 +21,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     connectionStartedExpectation = self.expectation(description: "Web socket connected")
 
     webSocketTransport = WebSocketTransport(
-      websocket: DefaultWebSocket(
+      websocket: WebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
       ),
       store: ApolloStore()
@@ -469,7 +468,7 @@ class StarWarsSubscriptionTests: XCTestCase {
         XCTAssertEqual(graphQLResult.data?.reviewAdded?.episode, .jedi)
         subscriptionExpectation.fulfill()
       case .failure(let error):
-        if let wsError = error as? Starscream.WSError {
+        if let wsError = error as? WebSocket.WSError {
           // This is an expected error on disconnection, ignore it.
           XCTAssertEqual(wsError.code, 1000)
         } else {

@@ -75,6 +75,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     static let headerWSConnectionName  = "Connection"
     static let headerWSConnectionValue = "Upgrade"
     static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
+    static let headerWSProtocolValue   = "graphql-ws"
     static let headerWSVersionName     = "Sec-WebSocket-Version"
     static let headerWSVersionValue    = "13"
     static let headerWSExtensionName   = "Sec-WebSocket-Extensions"
@@ -183,7 +184,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   }
 
   /// Used for setting protocols.
-  public init(request: URLRequest, protocols: [String]? = nil) {
+  public init(request: URLRequest) {
     self.request = request
     self.stream = FoundationStream()
     if request.value(forHTTPHeaderField: Constants.headerOriginName) == nil {
@@ -195,22 +196,21 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
       }
       self.request.setValue(origin, forHTTPHeaderField: Constants.headerOriginName)
     }
-    if let protocols = protocols, !protocols.isEmpty {
-      self.request.setValue(protocols.joined(separator: ","),
-                            forHTTPHeaderField: Constants.headerWSProtocolName)
-    }
+
+    self.request.setValue(Constants.headerWSProtocolValue,
+                          forHTTPHeaderField: Constants.headerWSProtocolName)
     writeQueue.maxConcurrentOperationCount = 1
   }
 
-  public convenience init(url: URL, protocols: [String]? = nil) {
+  public convenience init(url: URL) {
     var request = URLRequest(url: url)
     request.timeoutInterval = 5
-    self.init(request: request, protocols: protocols)
+    self.init(request: request)
   }
 
   // Used for specifically setting the QOS for the write queue.
-  public convenience init(url: URL, writeQueueQOS: QualityOfService, protocols: [String]? = nil) {
-    self.init(url: url, protocols: protocols)
+  public convenience init(url: URL, writeQueueQOS: QualityOfService) {
+    self.init(url: url)
     writeQueue.qualityOfService = writeQueueQOS
   }
 

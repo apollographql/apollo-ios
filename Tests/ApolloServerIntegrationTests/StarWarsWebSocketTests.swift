@@ -22,7 +22,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     let store = ApolloStore(cache: cache)
     
     let networkTransport = WebSocketTransport(
-      websocket: DefaultWebSocket(
+      websocket: WebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
       ),
       store: store
