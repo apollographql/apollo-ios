@@ -12,7 +12,7 @@ import Foundation
 import CommonCrypto
 
 //Standard WebSocket close codes
-public enum CloseCode : UInt16 {
+enum CloseCode : UInt16 {
   case normal                 = 1000
   case goingAway              = 1001
   case protocolError          = 1002
@@ -56,7 +56,7 @@ public struct SSLSettings {
 
 //WebSocket implementation
 
-open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate {
+public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate {
 
   public enum OpCode : UInt8 {
     case continueFrame = 0x0
@@ -218,7 +218,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
   /**
    Connect to the WebSocket server on a background thread.
    */
-  open func connect() {
+  public func connect() {
     guard !isConnecting else { return }
     didDisconnect = false
     isConnecting = true
@@ -235,7 +235,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
    - Parameter forceTimeout: Maximum time to wait for the server to close the socket.
    - Parameter closeCode: The code to send on disconnect. The default is the normal close code for cleanly disconnecting a webSocket.
    */
-  open func disconnect(
+  func disconnect(
     forceTimeout: TimeInterval? = nil,
     closeCode: UInt16 = CloseCode.normal.rawValue
   ) {
@@ -267,7 +267,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
    - parameter string:        The string to write.
    - parameter completion: The (optional) completion handler.
    */
-  open func write(string: String, completion: (() -> ())? = nil) {
+  func write(string: String, completion: (() -> ())? = nil) {
     guard isConnected else { return }
     dequeueWrite(string.data(using: String.Encoding.utf8)!, code: .textFrame, writeCompletion: completion)
   }
@@ -284,7 +284,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
    - parameter data:       The data to write.
    - parameter completion: The (optional) completion handler.
    */
-  open func write(data: Data, completion: (() -> ())? = nil) {
+  func write(data: Data, completion: (() -> ())? = nil) {
     guard isConnected else { return }
     dequeueWrite(data, code: .binaryFrame, writeCompletion: completion)
   }
@@ -292,7 +292,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
   /**
    Write a ping to the websocket. This sends it as a control frame.
    */
-  open func write(ping: Data, completion: (() -> ())? = nil) {
+  public func write(ping: Data, completion: (() -> ())? = nil) {
     guard isConnected else { return }
     dequeueWrite(ping, code: .ping, writeCompletion: completion)
   }
@@ -300,7 +300,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
   /**
    Write a pong to the websocket. This sends it as a control frame.
    */
-  open func write(pong: Data, completion: (() -> ())? = nil) {
+  func write(pong: Data, completion: (() -> ())? = nil) {
     guard isConnected else { return }
     dequeueWrite(pong, code: .pong, writeCompletion: completion)
   }
