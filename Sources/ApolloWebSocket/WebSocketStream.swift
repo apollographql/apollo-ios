@@ -37,7 +37,7 @@ protocol WebSocketStream {
 }
 
 class FoundationStream : NSObject, WebSocketStream, StreamDelegate  {
-  private let workQueue = DispatchQueue(label: "com.vluxe.starscream.websocket", attributes: [])
+  private let workQueue = DispatchQueue(label: "com.apollographql.websocket", attributes: [])
   private var inputStream: InputStream?
   private var outputStream: OutputStream?
   weak var delegate: WebSocketStreamDelegate?

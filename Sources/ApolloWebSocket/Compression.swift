@@ -59,7 +59,7 @@ class Decompressor {
     try decompress(bytes: bytes, count: count, out: &decompressed)
 
     if finish {
-      let tail:[UInt8] = [0x00, 0x00, 0xFF, 0xFF]
+      let tail: [UInt8] = [0x00, 0x00, 0xFF, 0xFF]
       try decompress(bytes: tail, count: tail.count, out: &decompressed)
     }
 

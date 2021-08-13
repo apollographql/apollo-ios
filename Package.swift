@@ -38,10 +38,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMinor(from: "0.12.2")),
-    .package(
-      url: "https://github.com/apollographql/Starscream",
-      .upToNextMinor(from: "3.1.2")),
+      .upToNextMinor(from: "0.12.2"))    
   ],
   targets: [
     .target(
@@ -92,8 +89,7 @@ let package = Package(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo",
-        "ApolloUtils",
-        .product(name: "Starscream", package: "Starscream"),
+        "ApolloUtils"
       ],
       exclude: [
         "Info.plist"

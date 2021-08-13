@@ -73,17 +73,17 @@ public class SSLClientCertificate {
             let importStatus = SecPKCS12Import(pkcs12CFData, importOptions, &rawIdentitiesAndCertificates)
 
             guard importStatus == errSecSuccess else {
-                throw SSLClientCertificateError(errorDescription: "(Starscream) Error during 'SecPKCS12Import', see 'SecBase.h' - OSStatus: \(importStatus)")
+                throw SSLClientCertificateError(errorDescription: "Error during 'SecPKCS12Import', see 'SecBase.h' - OSStatus: \(importStatus)")
             }
             guard let identitiyAndCertificate = (rawIdentitiesAndCertificates as? Array<Dictionary<String, Any>>)?.first else {
-                throw SSLClientCertificateError(errorDescription: "(Starscream) Error - PKCS12 file is empty")
+                throw SSLClientCertificateError(errorDescription: "Error - PKCS12 file is empty")
             }
 
             let identity = identitiyAndCertificate[kSecImportItemIdentity as String] as! SecIdentity
             var identityCertificate: SecCertificate?
             let copyStatus = SecIdentityCopyCertificate(identity, &identityCertificate)
             guard copyStatus == errSecSuccess else {
-                throw SSLClientCertificateError(errorDescription: "(Starscream) Error during 'SecIdentityCopyCertificate', see 'SecBase.h' - OSStatus: \(copyStatus)")
+                throw SSLClientCertificateError(errorDescription: "Error during 'SecIdentityCopyCertificate', see 'SecBase.h' - OSStatus: \(copyStatus)")
             }
             self.streamSSLCertificates = NSArray(objects: identity, identityCertificate!)
         } catch {

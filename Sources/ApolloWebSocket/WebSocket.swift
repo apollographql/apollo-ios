@@ -99,7 +99,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     }
   }
 
-  public class WSResponse {
+  class WSResponse {
     var isFin = false
     public var code: OpCode = .continueFrame
     var bytesLeft = 0
