@@ -46,7 +46,7 @@ public class WebSocketTransport {
   }
   var socketConnectionState = Atomic<SocketConnectionState>(.disconnected)
 
-  /// Indicates if the websocket connection has been acknowledge by the server.
+  /// Indicates if the websocket connection has been acknowledged by the server.
   private var acked = false
 
   private var queue: [Int: String] = [:]

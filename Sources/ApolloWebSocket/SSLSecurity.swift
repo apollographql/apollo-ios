@@ -3,7 +3,7 @@
 //  Modified by Anthony Miller & Apollo GraphQL on 8/12/21
 //
 //  This is a derived work derived from
-//  Starscream(https://github.com/daltoniam/Starscream)
+//  Starscream (https://github.com/daltoniam/Starscream)
 //
 //  Original Work License: http://www.apache.org/licenses/LICENSE-2.0
 //  Derived Work License: https://github.com/apollographql/apollo-ios/blob/main/LICENSE
