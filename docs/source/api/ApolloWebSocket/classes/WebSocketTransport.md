@@ -132,7 +132,7 @@ public func pauseWebSocketConnection()
 
 Disconnects the websocket while setting the auto-reconnect value to false,
 allowing purposeful disconnects that do not dump existing subscriptions.
-NOTE: You will receive an error on the subscription (should be a `Starscream.WSError` with code 1000) when the socket disconnects.
+NOTE: You will receive an error on the subscription (should be a `WebSocket.WSError` with code 1000) when the socket disconnects.
 ALSO NOTE: To reconnect after calling this, you will need to call `resumeWebSocketConnection`.
 
 ### `resumeWebSocketConnection(autoReconnect:)`

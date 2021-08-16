@@ -25,6 +25,9 @@ var delegate: WebSocketClientDelegate?
 
 The delegate that will receive networking event updates for this websocket client.
 
+- Note: The `WebSocketTransport` will set itself as the delgate for the client. Consumers
+should set themselves as the delegate for the `WebSocketTransport` to observe events.
+
 ### `callbackQueue`
 
 ```swift
