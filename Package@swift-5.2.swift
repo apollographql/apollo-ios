@@ -30,9 +30,6 @@ let package = Package(
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
       .upToNextMinor(from: "0.12.2")),
-    .package(
-      url: "https://github.com/daltoniam/Starscream",
-      .upToNextMinor(from: "3.1.1")),
     ],
     targets: [
       .target(
@@ -59,7 +56,6 @@ let package = Package(
       dependencies: [
         "Apollo",
         "ApolloCore",
-        .product(name: "Starscream", package: "Starscream"),
       ])    
     ]
 )
