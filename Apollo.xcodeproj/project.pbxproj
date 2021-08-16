@@ -190,7 +190,12 @@
 		DE0586362669957800265760 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED92666DF150054DB4F /* CacheReference.swift */; };
 		DE0586372669958F00265760 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
 		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
-		DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = DE3A2815268BCE6700A1BDC8 /* Starscream */; };
+		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
+		DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */; };
+		DE181A3026C5C38E000C0B9C /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */; };
+		DE181A3226C5C401000C0B9C /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3126C5C401000C0B9C /* Compression.swift */; };
+		DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */; };
+		DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
 		DE674D9D261CEEE4000E8FC8 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
@@ -199,7 +204,6 @@
 		DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B154A261505450068D642 /* GraphQLMap.swift */; };
 		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
-		DE8C84F5268BC42100C54D02 /* DefaultWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */; };
 		DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */; };
 		DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2DFBB624E1FA0D00ED3AE6 /* UploadAPI.framework */; };
@@ -742,6 +746,12 @@
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
 		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
+		DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
+		DE181A3126C5C401000C0B9C /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
+		DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressionTests.swift; sourceTree = "<group>"; };
+		DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStream.swift; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
 		DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSet.swift; sourceTree = "<group>"; };
 		DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDict.swift; sourceTree = "<group>"; };
@@ -777,7 +787,6 @@
 		DE6B160B26152D210068D642 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
-		DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWebSocket.swift; sourceTree = "<group>"; };
 		DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloCodegenTestSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECD490D262F81BF00924527 /* ApolloCodegenTestSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloCodegenTestSupport.h; sourceTree = "<group>"; };
@@ -829,7 +838,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B7BDAFD23FDEE9300ACD198 /* Apollo.framework in Frameworks */,
-				DE3A2816268BCE6700A1BDC8 /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,8 +1173,8 @@
 		9B7BDA9323FDE94C00ACD198 /* ApolloWebSocket */ = {
 			isa = PBXGroup;
 			children = (
+				E676C11F26CB05F90091215A /* DefaultImplementation */,
 				9B7BDA9823FDE94C00ACD198 /* WebSocketClient.swift */,
-				DE8C84F4268BC42100C54D02 /* DefaultWebSocket.swift */,
 				9B7BDA9723FDE94C00ACD198 /* OperationMessage.swift */,
 				9B7BDA9623FDE94C00ACD198 /* SplitNetworkTransport.swift */,
 				9B7BDA9423FDE94C00ACD198 /* WebSocketError.swift */,
@@ -1715,8 +1723,21 @@
 				9B7BDA8923FDE92900ACD198 /* WebSocketTests.swift */,
 				9B7BDA8A23FDE92900ACD198 /* SplitNetworkTransportTests.swift */,
 				D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */,
+				DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */,
 			);
 			path = WebSocket;
+			sourceTree = "<group>";
+		};
+		E676C11F26CB05F90091215A /* DefaultImplementation */ = {
+			isa = PBXGroup;
+			children = (
+				DE181A3126C5C401000C0B9C /* Compression.swift */,
+				DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */,
+				DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */,
+				DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */,
+				DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */,
+			);
+			path = DefaultImplementation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1879,12 +1900,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				9B7BDAFF23FDEF9E00ACD198 /* PBXTargetDependency */,
 				9B7BDAFC23FDEE9000ACD198 /* PBXTargetDependency */,
 			);
 			name = ApolloWebSocket;
 			packageProductDependencies = (
-				DE3A2815268BCE6700A1BDC8 /* Starscream */,
 			);
 			productName = ApolloWebSocket;
 			productReference = 9B7BDA7D23FDE90400ACD198 /* ApolloWebSocket.framework */;
@@ -2014,7 +2033,6 @@
 			);
 			name = Apollo;
 			packageProductDependencies = (
-				DE8C84F3268BBF8000C54D02 /* Starscream */,
 			);
 			productName = Apollo;
 			productReference = 9FC750441D2A532C00458D91 /* Apollo.framework */;
@@ -2202,7 +2220,6 @@
 			mainGroup = 9FC7503A1D2A532C00458D91;
 			packageReferences = (
 				9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
-				DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
@@ -2439,12 +2456,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B7BDA9F23FDE94C00ACD198 /* WebSocketClient.swift in Sources */,
+				DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */,
+				DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */,
 				9B7BDAA023FDE94C00ACD198 /* WebSocketTransport.swift in Sources */,
 				9B7BDA9C23FDE94C00ACD198 /* WebSocketTask.swift in Sources */,
-				DE8C84F5268BC42100C54D02 /* DefaultWebSocket.swift in Sources */,
+				DE181A3026C5C38E000C0B9C /* SSLSecurity.swift in Sources */,
 				9B7BDA9B23FDE94C00ACD198 /* WebSocketError.swift in Sources */,
 				9B7BDA9D23FDE94C00ACD198 /* SplitNetworkTransport.swift in Sources */,
 				9B7BDA9E23FDE94C00ACD198 /* OperationMessage.swift in Sources */,
+				DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */,
+				DE181A3226C5C401000C0B9C /* Compression.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2629,6 +2650,7 @@
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
 				DED45DE9261B96B70086EF63 /* LoadQueryFromStoreTests.swift in Sources */,
 				9BF6C94325194DE2000D5B93 /* MultipartFormData+Testing.swift in Sources */,
+				DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */,
 				9F21735B2568F3E200566121 /* PossiblyDeferredTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2710,10 +2732,6 @@
 			isa = PBXTargetDependency;
 			target = 9FC750431D2A532C00458D91 /* Apollo */;
 			targetProxy = 9B7BDAFB23FDEE9000ACD198 /* PBXContainerItemProxy */;
-		};
-		9B7BDAFF23FDEF9E00ACD198 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 9B7BDAFE23FDEF9E00ACD198 /* Starscream */;
 		};
 		9B7BDB1723FDF10300ACD198 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3358,28 +3376,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daltoniam/Starscream.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 3.1.1;
-			};
-		};
 		9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 0.12.2;
-			};
-		};
-		DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/Starscream.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 3.1.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -3390,25 +3392,10 @@
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
 		};
-		9B7BDAFE23FDEF9E00ACD198 /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9B7BDAAA23FDEA7B00ACD198 /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
-		};
 		9B7BDB1623FDF10300ACD198 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
-		};
-		DE3A2815268BCE6700A1BDC8 /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
-		};
-		DE8C84F3268BBF8000C54D02 /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE8C84F2268BBF8000C54D02 /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
 		};
 		DED45E95261B9EE30086EF63 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;

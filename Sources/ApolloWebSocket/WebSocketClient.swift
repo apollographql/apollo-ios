@@ -9,6 +9,9 @@ public protocol WebSocketClient: AnyObject {
   var request: URLRequest { get set }
 
   /// The delegate that will receive networking event updates for this websocket client.
+  ///
+  /// - Note: The `WebSocketTransport` will set itself as the delgate for the client. Consumers
+  /// should set themselves as the delegate for the `WebSocketTransport` to observe events.  
   var delegate: WebSocketClientDelegate? { get set }
 
   /// `DispatchQueue` where the websocket client should call all delegate callbacks.

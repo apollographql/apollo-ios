@@ -46,6 +46,7 @@ public class WebSocketTransport {
   }
   var socketConnectionState = Atomic<SocketConnectionState>(.disconnected)
 
+  /// Indicates if the websocket connection has been acknowledged by the server.
   private var acked = false
 
   private var queue: [Int: String] = [:]
@@ -326,7 +327,7 @@ public class WebSocketTransport {
   
   /// Disconnects the websocket while setting the auto-reconnect value to false,
   /// allowing purposeful disconnects that do not dump existing subscriptions.
-  /// NOTE: You will receive an error on the subscription (should be a `Starscream.WSError` with code 1000) when the socket disconnects.
+  /// NOTE: You will receive an error on the subscription (should be a `WebSocket.WSError` with code 1000) when the socket disconnects.
   /// ALSO NOTE: To reconnect after calling this, you will need to call `resumeWebSocketConnection`.
   public func pauseWebSocketConnection() {
     self.reconnect.mutate { $0 = false }

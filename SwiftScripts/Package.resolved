@@ -83,15 +83,6 @@
         }
       },
       {
-        "package": "Starscream",
-        "repositoryURL": "https://github.com/apollographql/Starscream",
-        "state": {
-          "branch": null,
-          "revision": "8cf77babe5901693396436f4f418a6db0f328b78",
-          "version": "3.1.2"
-        }
-      },
-      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {

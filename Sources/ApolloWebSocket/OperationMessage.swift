@@ -76,7 +76,7 @@ final class OperationMessage {
     var payload : JSONObject?
 
     do {
-      let json = try JSONSerializationFormat.deserialize(data: data ) as? JSONObject
+      let json = try serializationFormat.deserialize(data: data) as? JSONObject
 
       id = json?["id"] as? String
       type = json?["type"] as? String
@@ -99,7 +99,6 @@ final class OperationMessage {
 }
 
 struct ParseHandler {
-
   let type: String?
   let id: String?
   let payload: JSONObject?
