@@ -1175,7 +1175,7 @@
 		9B7BDA9323FDE94C00ACD198 /* ApolloWebSocket */ = {
 			isa = PBXGroup;
 			children = (
-				E676C11F26CB05F90091215A /* Starscream */,
+				E676C11F26CB05F90091215A /* DefaultImplementation */,
 				9B7BDA9823FDE94C00ACD198 /* WebSocketClient.swift */,
 				9B7BDA9723FDE94C00ACD198 /* OperationMessage.swift */,
 				9B7BDA9623FDE94C00ACD198 /* SplitNetworkTransport.swift */,
@@ -1732,7 +1732,7 @@
 			path = WebSocket;
 			sourceTree = "<group>";
 		};
-		E676C11F26CB05F90091215A /* Starscream */ = {
+		E676C11F26CB05F90091215A /* DefaultImplementation */ = {
 			isa = PBXGroup;
 			children = (
 				DE181A3126C5C401000C0B9C /* Compression.swift */,
@@ -1741,7 +1741,7 @@
 				DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */,
 				DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */,
 			);
-			path = Starscream;
+			path = DefaultImplementation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
