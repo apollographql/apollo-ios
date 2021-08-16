@@ -123,7 +123,7 @@ Custom scalars are types defined by your schema that are based on other GraphQL 
 
 If you want to use the custom scalars within your code, you must set `passthroughCustomScalars` to true either at the command line or using Swift Scripting. 
 
-Once you've done that, you can either create your own type locally or use a `typealias` to declare an equivilent. This is very, very frequently used with `Date` types. Please see the [Custom Scalar Playground Page](https://github.com/apollographql/apollo-ios/blob/main/Playgrounds/ApolloMacPlayground.playground/Pages/CustomScalars.xcplaygroundpage/Contents.swift) available within the `apollo-iOS` repo for a full example using a custom date type.
+Once you've done that, you can either create your own type locally or use a `typealias` to declare an equivilent. This is very, very frequently used with `Date` types. Please see the [Custom Scalar Playground Page](https://github.com/apollographql/apollo-client-swift-playground/blob/main/Apollo.playground/Pages/CustomScalars.xcplaygroundpage/Contents.swift) for a full example using a custom date type.
 
 #### JSON and other Custom Scalars with multiple return types
 
