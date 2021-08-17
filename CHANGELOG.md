@@ -1,5 +1,8 @@
 # Change log
 
+## v0.47.1
+- **Fixed - Websocket default implementation not included in `ApolloWebSocket` via Cocoapods:** _Thank you to [ketenshi](https://github.com/ketenshi) for the contribution!_
+
 ## v0.47.0
 - **Breaking - Removed Starscream dependency:** Due to dependency management conflicts it has become easier for us to maintain our WebSockets as part of the `ApolloWebSockets` target instead of an external dependency on a forked version of Starscream. [#1906](https://github.com/apollographql/apollo-ios/pull/1906)
   - Removed Starscream as an external dependency in Cocoapods and Swift Package Manager.
