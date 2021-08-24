@@ -1,5 +1,41 @@
 # Change log
 
+## v0.47.1
+- **Fixed - Websocket default implementation not included in `ApolloWebSocket` via Cocoapods:** _Thank you to [ketenshi](https://github.com/ketenshi) for the contribution!_
+
+## v0.47.0
+- **Breaking - Removed Starscream dependency:** Due to dependency management conflicts it has become easier for us to maintain our WebSockets as part of the `ApolloWebSockets` target instead of an external dependency on a forked version of Starscream. [#1906](https://github.com/apollographql/apollo-ios/pull/1906)
+  - Removed Starscream as an external dependency in Cocoapods and Swift Package Manager.
+  - The `DefaultWebSocket` implementation has been replaced with `WebSocket`.
+- **Fixed - `clearCache` not using the provided callback queue:** `ApolloClient` was not passing the provided callback queue to `ApolloStore` and therefore the completion block for `clearCache` was being called on the main queue. [#1904](https://github.com/apollographql/apollo-ios/pull/1904), [#1901](https://github.com/apollographql/apollo-ios/pull/1901) - _Thank you to [Isaac Ressler](https://github.com/isaacressler) for the contribution!_
+- **Removed - Swift playground:** The playground has been moved to a [separate repository](https://github.com/apollographql/apollo-client-swift-playground). [#1905](https://github.com/apollographql/apollo-ios/pull/1905)
+
+## v0.46.0
+- **Removed - Swift experimental codegen:** The [experimental Swift code generation](https://github.com/apollographql/apollo-ios/blob/0.45.0/Sources/ApolloCodegenLib/ApolloCodegenOptions.swift#L21) has been removed from `main` and will instead become available in the [`release/1.0-alpha-incubating` branch](https://github.com/apollographql/apollo-ios/tree/release/1.0-alpha-incubating) until a 1.0 release. [#1873](https://github.com/apollographql/apollo-ios/pull/1873)
+- **Fixed - [Query watcher not being called when the cache is updated on an element by another query/subscrition/mutation](https://github.com/apollographql/apollo-ios/issues/1422):** The long-term solution is to integrate web sockets into the request chain but this is an interim fix that allows `WebSocketTransport` to be configured with a store to update the cache when receiving data. This should not break any workarounds others have already implemented. [#1889](https://github.com/apollographql/apollo-ios/pull/1889), [#1892](https://github.com/apollographql/apollo-ios/pull/1892) - _Thank you to [tgyhlsb](https://github.com/tgyhlsb) for the contribution!_
+
+## v0.45.0
+- **Breaking - Downgraded from Starscream v4 to v3!** After upgrading to Starscream 4.0, a lot of our users started to experience crashes while using web sockets. We've decided to revert to the more stable Starscream version 3. In order to fix a few known bugs in Starscream 3, we have made a fork of Starscream that Apollo will depend on going forward. In preparation for moving to Apple WebSockets in the future, we have also fully inverted the dependency on Starscream. Between these two changes, a lot of breaking changes to our Web Socket API have been made:
+  - The `ApolloWebSocketClient` protocol was removed and replaced with `WebSocketClient`.
+  - `WebSocketClient` does not rely directly on Starscream anymore and has been streamlined for easier conformance.
+  - `ApolloWebSocket`, the default implementation of the `WebSocketClient` has been replaced with `DefaultWebSocket`. This implementation uses Starscream, but implementations using other websocket libraries can now be created and used with no need for Starscream.
+  - `WebSocketClientDelegate` replaces direct dependency on `Starscream.WebSocketDelegate` for delegates.
+- **Breaking:** Renamed some of the request chain interceptors object:
+  - `LegacyInterceptorProvider` -> `DefaultInterceptorProvider`
+  - `LegacyCacheReadInterceptor` -> `CacheReadInterceptor`
+  - `LegacyCacheWriteInterceptor` -> `CacheWriteInterceptor`
+  - `LegacyParsingInterceptor` -> `JSONResponseParsingInterceptor`
+- **Breaking:** `WebSocketTransport` is now initialized with an `ApolloWebSocket` (or other object conforming to the `ApolloWebSocketClient` protocol.) Previously, the initializer took in the necessary parameters to create the web socket internally. This provides better dependency injection capabilities and makes testing easier.
+- Removed class constraint on `ApolloInterceptor` and converted to structs for all interceptors that could be structs instead of classes.
+- Added `removeRecords(matching pattern: CacheKey)` function to the normalized cache.
+
+## v0.44.0
+
+- **BREAKING**: Split `ApolloCore` into two more granular libraries, `ApolloAPI` (which will contain the parts necessary to compile generated code) and `ApolloUtils` (which will contain code shared between `Apollo` and `ApolloCodegenLib`). If you were previously importing `ApolloCore`, in most places you will need to import `ApolloUtils`. If you're using Carthage, you will need to remove the old `ApolloCore` xcframework and replace it with the two `ApolloAPI` and `ApolloUtils` frameworks. ([#1817](https://github.com/apollographql/apollo-ios/pull/1817))
+- Fixed a stray CocoaPods warning. ([#1769](https://github.com/apollographql/apollo-ios/pull/1769))
+- Updated the Typescript CLI to version 2.32.13. ([#1773](https://github.com/apollographql/apollo-ios/pull/1773)) 
+- Added the ability to specify a `cachePolicy` when calling `refresh` on a `GraphQLWatcher`. ([#1802](https://github.com/apollographql/apollo-ios/pull/1802))
+
 ## v0.43.0
 - **BREAKING** (or hopefully, fixing): We removed our test libraries from our `Package.swift` file since we're not using it to run tests directly at this time. This prevents SPM from trying to resolve test dependencies that are not actually used in the library, which should reduce any version conflicts. However, if you were using any of our test libs in an unsupported fashion, these will no longer be directly available. ([#1745](https://github.com/apollographql/apollo-ios/pull/1745))
 - Fixed an issue where when `Starscream` returned multiple errors in close succession, an exponential number of web socket reconnections could be created. ([#1762](https://github.com/apollographql/apollo-ios/pull/1762))

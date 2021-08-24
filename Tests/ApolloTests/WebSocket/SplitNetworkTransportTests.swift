@@ -13,44 +13,57 @@ import ApolloTestSupport
 
 class SplitNetworkTransportTests: XCTestCase {
   
-  private let mockTransportName = "TestMockNetworkTransport"
-  private let mockTransportVersion = "TestMockNetworkTransportVersion"
+  private static let mockTransportName = "TestMockNetworkTransport"
+  private static let mockTransportVersion = "TestMockNetworkTransportVersion"
+  private static let webSocketName = "TestWebSocketTransport"
+  private static let webSocketVersion = "TestWebSocketTransportVersion"
   
-  private let webSocketName = "TestWebSocketTransport"
-  private let webSocketVersion = "TestWebSocketTransportVersion"
-  
-  private lazy var mockTransport: MockNetworkTransport = {
-    let transport = MockNetworkTransport(server: MockGraphQLServer(), store: ApolloStore())
-    
-    transport.clientName = self.mockTransportName
-    transport.clientVersion = self.mockTransportVersion
-    return transport
-  }()
+  private var mockTransport: MockNetworkTransport!
+  private var webSocketTransport: MockWebSocketTransport!
+  private var splitTransport: SplitNetworkTransport!
 
-  private lazy var webSocketTransport: WebSocketTransport = {
-    let request = URLRequest(url: TestURL.mockServer.url)
-    return WebSocketTransport(request: request,
-                              clientName: self.webSocketName,
-                              clientVersion: self.webSocketVersion)
-  }()
-  
-  private lazy var splitTransport = SplitNetworkTransport(
-    uploadingNetworkTransport: self.mockTransport,
-    webSocketNetworkTransport: self.webSocketTransport
-  )
+  override func setUp() {
+    super.setUp()
+
+    mockTransport = {
+      let transport = MockNetworkTransport(server: MockGraphQLServer(), store: ApolloStore())
+
+      transport.clientName = Self.mockTransportName
+      transport.clientVersion = Self.mockTransportVersion
+      return transport
+    }()
+
+    webSocketTransport = MockWebSocketTransport(
+      clientName: Self.webSocketName,
+      clientVersion: Self.webSocketVersion
+    )
+
+    splitTransport = SplitNetworkTransport(
+      uploadingNetworkTransport: mockTransport,
+      webSocketNetworkTransport: webSocketTransport
+    )
+  }
+
+  override func tearDown() {
+    mockTransport = nil
+    webSocketTransport = nil
+    splitTransport = nil
+
+    super.tearDown()
+  }
   
   func testGettingSplitClientNameWithDifferentNames() {
     let splitName = self.splitTransport.clientName
     XCTAssertTrue(splitName.hasPrefix("SPLIT_"))
-    XCTAssertTrue(splitName.contains(self.mockTransportName))
-    XCTAssertTrue(splitName.contains(self.webSocketName))
+    XCTAssertTrue(splitName.contains(Self.mockTransportName))
+    XCTAssertTrue(splitName.contains(Self.webSocketName))
   }
   
   func testGettingSplitClientVersionWithDifferentVersions() {
     let splitVersion = self.splitTransport.clientVersion
     XCTAssertTrue(splitVersion.hasPrefix("SPLIT_"))
-    XCTAssertTrue(splitVersion.contains(self.mockTransportVersion))
-    XCTAssertTrue(splitVersion.contains(self.webSocketVersion))
+    XCTAssertTrue(splitVersion.contains(Self.mockTransportVersion))
+    XCTAssertTrue(splitVersion.contains(Self.webSocketVersion))
   }
 
   func testGettingSplitClientNameWithTheSameNames() {

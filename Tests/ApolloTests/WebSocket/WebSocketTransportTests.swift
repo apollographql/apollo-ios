@@ -1,18 +1,24 @@
 import XCTest
 import Apollo
 import ApolloTestSupport
-import Starscream
 @testable import ApolloWebSocket
 
 class WebSocketTransportTests: XCTestCase {
 
   private var webSocketTransport: WebSocketTransport!
 
+  override func tearDown() {
+    webSocketTransport = nil
+    
+    super.tearDown()
+  }
+
   func testUpdateHeaderValues() {
     var request = URLRequest(url: TestURL.mockServer.url)
     request.addValue("OldToken", forHTTPHeaderField: "Authorization")
 
-    self.webSocketTransport = WebSocketTransport(request: request)
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
+                                                 store: ApolloStore())
 
     self.webSocketTransport.updateHeaderValues(["Authorization": "UpdatedToken"])
 
@@ -20,9 +26,10 @@ class WebSocketTransportTests: XCTestCase {
   }
 
   func testUpdateConnectingPayload() {
-    WebSocketTransport.provider = MockWebSocket.self
+    let request = URLRequest(url: TestURL.mockServer.url)
 
-    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
+                                                 store: ApolloStore(),
                                                  connectingPayload: ["Authorization": "OldToken"])
 
     let mockWebSocketDelegate = MockWebSocketDelegate()
@@ -50,9 +57,10 @@ class WebSocketTransportTests: XCTestCase {
   }
 
   func testCloseConnectionAndInit() {
-    WebSocketTransport.provider = MockWebSocket.self
+    let request = URLRequest(url: TestURL.mockServer.url)
 
-    self.webSocketTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url),
+    self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
+                                                 store: ApolloStore(),
                                                  connectingPayload: ["Authorization": "OldToken"])
     self.webSocketTransport.closeConnection()
     self.webSocketTransport.updateConnectingPayload(["Authorization": "UpdatedToken"])
@@ -67,17 +75,18 @@ class WebSocketTransportTests: XCTestCase {
   }
 }
 
-private final class MockWebSocketDelegate: WebSocketDelegate {
+private final class MockWebSocketDelegate: WebSocketClientDelegate {
   
   var didReceiveMessage: ((String) -> Void)?
 
-  func didReceive(event: WebSocketEvent, client: WebSocket) {
-    switch event {
-    case .text(let message):
-      didReceiveMessage?(message)
-    default:
-      // No-op, this is a mock socket.
-      break
-    }
+  func websocketDidConnect(socket: WebSocketClient) {}
+
+  func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {}
+
+  func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+    didReceiveMessage?(text)
   }
+
+  func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
+
 }

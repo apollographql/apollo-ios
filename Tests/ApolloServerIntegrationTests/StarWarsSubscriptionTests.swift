@@ -3,11 +3,9 @@ import Apollo
 import ApolloTestSupport
 @testable import ApolloWebSocket
 import StarWarsAPI
-import Starscream
 
 class StarWarsSubscriptionTests: XCTestCase {
-  let concurrentQueue = DispatchQueue(label: "com.apollographql.testing", attributes: .concurrent)
-  
+  var concurrentQueue: DispatchQueue!
   var client: ApolloClient!
   var webSocketTransport: WebSocketTransport!
   
@@ -17,15 +15,32 @@ class StarWarsSubscriptionTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    
-    self.connectionStartedExpectation = self.expectation(description: "Web socket connected")
-    
-    WebSocketTransport.provider = ApolloWebSocket.self
-    webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
+
+    concurrentQueue = DispatchQueue(label: "com.apollographql.test.\(self.name)", attributes: .concurrent)
+
+    connectionStartedExpectation = self.expectation(description: "Web socket connected")
+
+    webSocketTransport = WebSocketTransport(
+      websocket: WebSocket(
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      ),
+      store: ApolloStore()
+    )
     webSocketTransport.delegate = self
     client = ApolloClient(networkTransport: webSocketTransport, store: ApolloStore())
 
     self.wait(for: [self.connectionStartedExpectation!], timeout: 5)
+  }
+
+  override func tearDownWithError() throws {
+    client = nil
+    webSocketTransport = nil
+    connectionStartedExpectation = nil
+    disconnectedExpectation = nil
+    reconnectedExpectation = nil
+    concurrentQueue = nil
+
+    try super.tearDownWithError()
   }
   
   private func waitForSubscriptionsToStart(for delay: TimeInterval = 0.1, on queue: DispatchQueue = .main) {
@@ -67,7 +82,9 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     self.waitForSubscriptionsToStart()
         
-    client.perform(mutation: CreateReviewForEpisodeMutation(episode: .jedi, review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
+    client.perform(mutation: CreateReviewForEpisodeMutation(
+                    episode: .jedi,
+                    review: ReviewInput(stars: 6, commentary: "This is the greatest movie!")))
     
     waitForExpectations(timeout: 10, handler: nil)
     sub.cancel()
@@ -391,8 +408,13 @@ class StarWarsSubscriptionTests: XCTestCase {
   }
   
   func testConcurrentConnectAndCloseConnection() {
-    WebSocketTransport.provider = MockWebSocket.self
-    let webSocketTransport = WebSocketTransport(request: URLRequest(url: TestServerURL.starWarsWebSocket.url))
+    let webSocketTransport = WebSocketTransport(
+      websocket: MockWebSocket(
+        request: URLRequest(url: TestServerURL.starWarsWebSocket.url)
+      ),
+      store: ApolloStore()
+    )
+
     let expectation = self.expectation(description: "Connection closed")
     expectation.expectedFulfillmentCount = 2
     
@@ -417,7 +439,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     // Send the mutations via a separate transport so they can still be sent when the websocket is disconnected
     let store = ApolloStore()
-    let interceptorProvider = LegacyInterceptorProvider(store: store)
+    let interceptorProvider = DefaultInterceptorProvider(store: store)
     let alternateTransport = RequestChainNetworkTransport(interceptorProvider: interceptorProvider,
                                                           endpointURL: TestServerURL.starWarsServer.url)
     let alternateClient = ApolloClient(networkTransport: alternateTransport, store: store)
@@ -446,7 +468,7 @@ class StarWarsSubscriptionTests: XCTestCase {
         XCTAssertEqual(graphQLResult.data?.reviewAdded?.episode, .jedi)
         subscriptionExpectation.fulfill()
       case .failure(let error):
-        if let wsError = error as? Starscream.WSError {
+        if let wsError = error as? WebSocket.WSError {
           // This is an expected error on disconnection, ignore it.
           XCTAssertEqual(wsError.code, 1000)
         } else {
@@ -458,12 +480,10 @@ class StarWarsSubscriptionTests: XCTestCase {
     
     self.waitForSubscriptionsToStart()
     sendReview()
-    
-    // TODO: Uncomment this expectation once https://github.com/daltoniam/Starscream/issues/869 is addressed
-    // and we're actually getting a notification that the socket has disconnected
-//    self.disconnectedExpectation = self.expectation(description: "Web socket disconnected")
+
+    self.disconnectedExpectation = self.expectation(description: "Web socket disconnected")
     webSocketTransport.pauseWebSocketConnection()
-//    self.wait(for: [self.disconnectedExpectation!], timeout: 10)
+    self.wait(for: [self.disconnectedExpectation!], timeout: 10)
 
     // This should not go through since the socket is paused
     sendReview()

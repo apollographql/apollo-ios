@@ -37,13 +37,14 @@ class Apollo {
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
     let request = URLRequest(url: url)
-    return WebSocketTransport(request: request)
+    let webSocketClient = DefaultWebSocket(request: request)
+    return WebSocketTransport(websocket: webSocketClient)
   }()
   
   /// An HTTP transport to use for queries and mutations
   private lazy var normalTransport: RequestChainNetworkTransport = {
     let url = URL(string: "http://localhost:8080/graphql")!
-    return RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
+    return RequestChainNetworkTransport(interceptorProvider: DefaultInterceptorProvider(store: self.store), endpointURL: url)
   }()
 
   /// A split network transport to allow the use of both of the above
@@ -54,7 +55,10 @@ class Apollo {
   )
 
   /// Create a client using the `SplitNetworkTransport`.
-  private(set) lazy var client = ApolloClient(networkTransport: self.splitNetworkTransport)
+  private(set) lazy var client = ApolloClient(networkTransport: self.splitNetworkTransport, store: self.store)
+
+  /// A common store to use for `normalTransport` and `client`.
+  private lazy var store = ApolloStore()
 }
 ```
 
@@ -158,14 +162,15 @@ class Apollo {
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
     let request = URLRequest(url: url)
+    let webSocketClient = DefaultWebSocket(request: request)
     let authPayload = ["authToken": magicToken]
-    return WebSocketTransport(request: request, connectingPayload: authPayload)
+    return WebSocketTransport(websocket: webSocketClient, connectingPayload: authPayload)
   }()
   
   /// An HTTP transport to use for queries and mutations.
   private lazy var normalTransport: RequestChainNetworkTransport = {
     let url = URL(string: "http://localhost:8080/graphql")!
-    return RequestChainNetworkTransport(interceptorProvider: LegacyInterceptorProvider(), endpointURL: url)
+    return RequestChainNetworkTransport(interceptorProvider: DefaultInterceptorProvider(store: self.store), endpointURL: url)
   }()
 
   /// A split network transport to allow the use of both of the above
@@ -176,7 +181,10 @@ class Apollo {
   )
 
   /// Create a client using the `SplitNetworkTransport`.
-  private(set) lazy var client = ApolloClient(networkTransport: self.splitNetworkTransport)
+  private(set) lazy var client = ApolloClient(networkTransport: self.splitNetworkTransport, store: self.store)
+
+  /// A common store to use for `normalTransport` and `client`.
+  private lazy var store = ApolloStore()
 }
 ```
 

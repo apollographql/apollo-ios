@@ -15,7 +15,6 @@ Things to do before cutting a release:
 - [ ] Validate that `main` builds with a test Swift Package Manager project
 - [ ] Validate that `main` builds with a test CocoaPods project
 - [ ] Validate that `main` builds with a test Carthage project (make sure to use `--use-xcframeworks`)
-- [ ] Make sure all playground pages merged into `main` run
 
 ## Flight Plan
 
@@ -33,5 +32,6 @@ Things to do as part of releasing:
 Things to do after release has been made:
 
 - [ ] Update version of library in sample applications (Currently: [`RocketReserver`](https://github.com/apollographql/iOSTutorial), and for changes to the `ApolloCodegenLib`, [`iOSCodegenTemplate`](https://github.com/apollographql/iOSCodegenTemplate))
+- [ ] Make sure all [playground pages](https://github.com/apollographql/apollo-client-swift-playground) still run
 - [ ] Close out milestone in GitHub and all related issues
 - [ ] Create new "Next Release" milestone in GitHub

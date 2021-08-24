@@ -4,7 +4,19 @@ import ApolloUtils
 
 class URLSessionClientLiveTests: XCTestCase {
   
-  let client = URLSessionClient()
+  var client: URLSessionClient!
+
+  override func setUp() {
+    super.setUp()
+
+    client = URLSessionClient()
+  }
+
+  override func tearDown() {
+    client = nil
+
+    super.tearDown()
+  }
   
   private func request(for endpoint: HTTPBinAPI.Endpoint) -> URLRequest {
     URLRequest(url: endpoint.toURL,

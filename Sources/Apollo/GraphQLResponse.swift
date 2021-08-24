@@ -1,13 +1,8 @@
 import Foundation
 
 /// Represents a GraphQL response received from a server.
-public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
-  
-  public init<T>(from data: Foundation.Data, decoder: T) throws where T : FlexibleDecoder {
-    // Giant hack to make all this conform to Parseable.
-    throw ParseableError.unsupportedInitializer
-  }
-  
+public final class GraphQLResponse<Data: GraphQLSelectionSet> {
+
   public let body: JSONObject
 
   private var rootKey: String
@@ -23,18 +18,13 @@ public final class GraphQLResponse<Data: GraphQLSelectionSet>: Parseable {
     self.rootKey = rootCacheKey(for: operation)
     self.variables = operation.variables
   }
-  
-  public func parseResultWithCompletion(cacheKeyForObject: CacheKeyForObject? = nil,
-                                        completion: (Result<(GraphQLResult<Data>, RecordSet?), Error>) -> Void) {
-    do {
-      let result = try parseResult(cacheKeyForObject: cacheKeyForObject)
-      completion(.success(result))
-    } catch {
-      completion(.failure(error))
-    }
-  }
 
-  func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {
+  /// Parses a response into a `GraphQLResult` and a `RecordSet`.
+  /// The result can be sent to a completion block for a request.
+  /// The `RecordSet` can be merged into a local cache.
+  /// - Parameter cacheKeyForObject: See `CacheKeyForObject`
+  /// - Returns: A `GraphQLResult` and a `RecordSet`.
+  public func parseResult(cacheKeyForObject: CacheKeyForObject? = nil) throws -> (GraphQLResult<Data>, RecordSet?) {
     let errors: [GraphQLError]?
 
     if let errorsEntry = body["errors"] as? [JSONObject] {

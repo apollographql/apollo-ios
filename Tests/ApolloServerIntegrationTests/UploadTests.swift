@@ -6,21 +6,33 @@ import StarWarsAPI
 
 class UploadTests: XCTestCase {
 
-  let uploadClientURL = TestServerURL.uploadServer.url
+  static let uploadClientURL = TestServerURL.uploadServer.url
 
-  lazy var client: ApolloClient = {
-    let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(store: store)
-    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
-                                                 endpointURL: self.uploadClientURL,
-                                                 additionalHeaders: ["headerKey": "headerValue"])
-    transport.clientName = "test"
-    transport.clientVersion = "test"
+  var client: ApolloClient!
 
-    return ApolloClient(networkTransport: transport, store: store)
-  }()
+  override func setUp() {
+    super.setUp()
 
-  override static func tearDown() {
+    client = {
+      let store = ApolloStore()
+      let provider = DefaultInterceptorProvider(store: store)
+      let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                   endpointURL: Self.uploadClientURL,
+                                                   additionalHeaders: ["headerKey": "headerValue"])
+      transport.clientName = "test"
+      transport.clientVersion = "test"
+
+      return ApolloClient(networkTransport: transport, store: store)
+    }()
+  }
+
+  override func tearDown() {
+    client = nil
+    
+    super.tearDown()
+  }
+
+  override class func tearDown() {
     // Recreate the uploads folder at the end of all tests in this suite to avoid having one billion files in there
     recreateUploadsFolder()
     super.tearDown()

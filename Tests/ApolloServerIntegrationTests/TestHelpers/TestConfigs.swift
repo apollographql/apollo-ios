@@ -7,7 +7,7 @@ protocol TestConfig {
 class DefaultConfig: TestConfig {
 
   func transport(with store: ApolloStore) -> NetworkTransport {
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     return RequestChainNetworkTransport(interceptorProvider: provider,
                                         endpointURL: TestServerURL.starWarsServer.url)
   }
@@ -20,7 +20,7 @@ class DefaultConfig: TestConfig {
 class APQsConfig: TestConfig {
 
   func transport(with store: ApolloStore) -> NetworkTransport {
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     return RequestChainNetworkTransport(interceptorProvider: provider,
                                         endpointURL: TestServerURL.starWarsServer.url,
                                         autoPersistQueries: true)
@@ -34,7 +34,7 @@ class APQsConfig: TestConfig {
 class APQsWithGetMethodConfig: TestConfig {
 
   func transport(with store: ApolloStore) -> NetworkTransport {
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     return RequestChainNetworkTransport(interceptorProvider: provider,
                                         endpointURL: TestServerURL.starWarsServer.url,
                                         autoPersistQueries: true,

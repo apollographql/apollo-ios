@@ -16,19 +16,23 @@ extension WebSocketTransport {
 class WebSocketTests: XCTestCase {
   var networkTransport: WebSocketTransport!
   var client: ApolloClient!
+  var websocket: MockWebSocket!
   
   override func setUp() {
     super.setUp()
-  
-    WebSocketTransport.provider = MockWebSocket.self
-    networkTransport = WebSocketTransport(request: URLRequest(url: TestURL.mockServer.url))
-    client = ApolloClient(networkTransport: networkTransport!, store: ApolloStore())
+
+    let store = ApolloStore()
+    let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
+    networkTransport = WebSocketTransport(websocket: websocket, store: store)
+    client = ApolloClient(networkTransport: networkTransport!, store: store)
   }
     
   override func tearDown() {
-    super.tearDown()
+    networkTransport = nil
+    client = nil
+    websocket = nil
     
-    WebSocketTransport.provider = ApolloWebSocket.self
+    super.tearDown()
   }
     
   func testLocalSingleSubscription() throws {

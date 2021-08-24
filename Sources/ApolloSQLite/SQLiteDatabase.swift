@@ -19,6 +19,8 @@ public protocol SQLiteDatabase {
   func addOrUpdateRecordString(_ recordString: String, for cacheKey: CacheKey) throws
   
   func deleteRecord(for cacheKey: CacheKey) throws
+
+  func deleteRecords(matching pattern: CacheKey) throws
   
   func clearDatabase(shouldVacuumOnClear: Bool) throws
   

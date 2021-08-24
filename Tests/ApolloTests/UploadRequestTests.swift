@@ -6,17 +6,29 @@ import StarWarsAPI
 
 class UploadRequestTests: XCTestCase {
 
-  lazy var client: ApolloClient = {
-    let store = ApolloStore()
-    let provider = LegacyInterceptorProvider(store: store)
-    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
-                                                 endpointURL: URL(string: "http://www.test.com")!,
-                                                 additionalHeaders: ["headerKey": "headerValue"])
-    transport.clientName = "test"
-    transport.clientVersion = "test"
+  var client: ApolloClient!
 
-    return ApolloClient(networkTransport: transport, store: store)
-  }()
+  override func setUp() {
+    super.setUp()
+
+    client = {
+      let store = ApolloStore()
+      let provider = DefaultInterceptorProvider(store: store)
+      let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                   endpointURL: URL(string: "http://www.test.com")!,
+                                                   additionalHeaders: ["headerKey": "headerValue"])
+      transport.clientName = "test"
+      transport.clientVersion = "test"
+
+      return ApolloClient(networkTransport: transport, store: store)
+    }()
+  }
+
+  override func tearDown() {
+    client = nil
+    
+    super.tearDown()
+  }
 
   func testSingleFileWithUploadRequest() throws {
     let alphaFileUrl = TestFileHelper.fileURLForFile(named: "a", extension: "txt")

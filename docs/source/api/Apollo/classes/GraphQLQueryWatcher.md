@@ -44,10 +44,10 @@ Designated initializer
 | callbackQueue | The queue for the result handler. Defaults to the main queue. |
 | resultHandler | The result handler to call with changes. |
 
-### `refetch()`
+### `refetch(cachePolicy:)`
 
 ```swift
-public func refetch()
+public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData)
 ```
 
 Refetch a query from the server.

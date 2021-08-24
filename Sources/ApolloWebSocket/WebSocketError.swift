@@ -11,6 +11,7 @@ public struct WebSocketError: Error, LocalizedError {
     case unprocessedMessage(String)
     case serializedMessageError
     case neitherErrorNorPayloadReceived
+    case upgradeError(code: Int)
 
     var description: String {
       switch self {
@@ -24,6 +25,8 @@ public struct WebSocketError: Error, LocalizedError {
         return "Websocket error: Serialized message not found"
       case .neitherErrorNorPayloadReceived:
         return "Websocket error: Did not receive an error or a payload."
+      case .upgradeError:
+        return "Websocket error: Invalid HTTP upgrade."
       }
     }
   }

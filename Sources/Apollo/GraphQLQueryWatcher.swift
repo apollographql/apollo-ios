@@ -15,7 +15,13 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   private let contextIdentifier = UUID()
 
-  private var fetching: Atomic<Cancellable?> = Atomic(nil)
+  private class WeakCancellableContainer {
+    weak var cancellable: Cancellable?
+    fileprivate init(_ cancellable: Cancellable?) {
+      self.cancellable = cancellable
+    }
+  }
+  private var fetching: Atomic<WeakCancellableContainer> = Atomic(.init(nil))
 
   private var dependentKeys: Atomic<Set<CacheKey>?> = Atomic(nil)
 
@@ -39,15 +45,15 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   /// Refetch a query from the server.
-  public func refetch() {
-    fetch(cachePolicy: .fetchIgnoringCacheData)
+  public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
+    fetch(cachePolicy: cachePolicy)
   }
 
   func fetch(cachePolicy: CachePolicy) {
     fetching.mutate {
       // Cancel anything already in flight before starting a new fetch
-      $0?.cancel()
-      $0 = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
+      $0.cancellable?.cancel()
+      $0.cancellable = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
         guard let self = self else { return }
 
         switch result {
@@ -66,7 +72,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   /// Cancel any in progress fetching operations and unsubscribe from the store.
   public func cancel() {
-    fetching.value?.cancel()
+    fetching.value.cancellable?.cancel()
     client?.store.unsubscribe(self)
   }
 

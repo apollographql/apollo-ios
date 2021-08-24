@@ -14,7 +14,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 5
+  static let defaultWaitTimeout: TimeInterval = 5
   
   var cache: NormalizedCache!
   var store: ApolloStore!
@@ -25,7 +25,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     
     cache = try makeNormalizedCache()
     store = ApolloStore(cache: cache)
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: TestServerURL.starWarsServer.url)
     
@@ -82,7 +82,7 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
       XCTAssertSuccessResult(result, file: file, line: line)
     }
     
-    wait(for: [fetchedFromServerExpectation], timeout: defaultWaitTimeout)
+    wait(for: [fetchedFromServerExpectation], timeout: Self.defaultWaitTimeout)
     
     let resultObserver = makeResultObserver(for: query, file: file, line: line)
     
@@ -98,6 +98,6 @@ class StarWarsServerCachingRoundtripTests: XCTestCase, CacheDependentTesting {
     
     store.load(query: query, resultHandler: resultObserver.handler)
     
-    wait(for: [loadedFromStoreExpectation], timeout: defaultWaitTimeout)
+    wait(for: [loadedFromStoreExpectation], timeout: Self.defaultWaitTimeout)
   }
 }

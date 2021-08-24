@@ -12,8 +12,20 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class GETTransformerTests: XCTestCase {
-  private let requestBodyCreator = ApolloRequestBodyCreator()
-  private lazy var url = TestURL.mockPort8080.url
+  private var requestBodyCreator: ApolloRequestBodyCreator!
+  private static let url = TestURL.mockPort8080.url
+
+  override func setUp() {
+    super.setUp()
+
+    requestBodyCreator = ApolloRequestBodyCreator()
+  }
+
+  override func tearDown() {
+    requestBodyCreator = nil
+
+    super.tearDown()
+  }
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)
@@ -22,7 +34,7 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -36,7 +48,7 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -63,7 +75,7 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -85,7 +97,7 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
 
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
 
     let url = transformer.createGetURL()
 
@@ -107,7 +119,7 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
 
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
 
     let url = transformer.createGetURL()
 
@@ -133,7 +145,7 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -148,7 +160,7 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -173,7 +185,7 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -188,7 +200,7 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
 
-    var components = URLComponents(string: url.absoluteString)!
+    var components = URLComponents(string: Self.url.absoluteString)!
     components.queryItems = [URLQueryItem(name: "foo", value: "bar")]
 
     let transformer = GraphQLGETTransformer(body: body, url: components.url!)
@@ -200,7 +212,7 @@ class GETTransformerTests: XCTestCase {
 
 	func testEncodingWithEmptyQueryParameter() throws {
 		let body: GraphQLMap = ["variables": nil]
-		let transformer = GraphQLGETTransformer(body: body, url: self.url)
+		let transformer = GraphQLGETTransformer(body: body, url: Self.url)
 		let url = transformer.createGetURL()
 
 		XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql")

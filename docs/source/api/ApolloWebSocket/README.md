@@ -2,21 +2,31 @@
 
 ## Protocols
 
--   [ApolloWebSocketClient](protocols/ApolloWebSocketClient/)
+-   [SSLTrustValidator](protocols/SSLTrustValidator/)
+-   [WebSocketClient](protocols/WebSocketClient/)
+-   [WebSocketClientDelegate](protocols/WebSocketClientDelegate/)
 -   [WebSocketTransportDelegate](protocols/WebSocketTransportDelegate/)
 
 ## Structs
 
+-   [SSLClientCertificateError](structs/SSLClientCertificateError/)
+-   [SSLSettings](structs/SSLSettings/)
+-   [WebSocket.WSError](structs/WebSocket.WSError/)
 -   [WebSocketError](structs/WebSocketError/)
 
 ## Classes
 
--   [ApolloWebSocket](classes/ApolloWebSocket/)
+-   [SSLCert](classes/SSLCert/)
+-   [SSLClientCertificate](classes/SSLClientCertificate/)
+-   [SSLSecurity](classes/SSLSecurity/)
 -   [SplitNetworkTransport](classes/SplitNetworkTransport/)
+-   [WebSocket](classes/WebSocket/)
 -   [WebSocketTransport](classes/WebSocketTransport/)
 
 ## Enums
 
+-   [WSError.ErrorType](enums/WSError.ErrorType/)
+-   [WebSocket.OpCode](enums/WebSocket.OpCode/)
 -   [WebSocketError.ErrorKind](enums/WebSocketError.ErrorKind/)
 
 ## Extensions

@@ -17,8 +17,7 @@ public class InMemoryTestCacheProvider: TestCacheProvider {
 
 public protocol CacheDependentTesting {
   var cacheType: TestCacheProvider.Type { get }
-  var cache: NormalizedCache! { get }
-  var defaultWaitTimeout: TimeInterval { get }
+  var cache: NormalizedCache! { get }  
 }
 
 extension CacheDependentTesting where Self: XCTestCase {

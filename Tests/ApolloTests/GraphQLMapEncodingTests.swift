@@ -7,6 +7,7 @@ class GraphQLMapEncodingTests: XCTestCase {
   private struct MockGraphQLMapConvertible: GraphQLMapConvertible {
     let graphQLMap: GraphQLMap
   }
+  
   private func serializeAndDeserialize(_ map: GraphQLMap) -> NSDictionary {
     let input = MockGraphQLMapConvertible(graphQLMap: map)
     let data = try! JSONSerializationFormat.serialize(value: input.jsonValue as! [String: JSONEncodable?])

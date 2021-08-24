@@ -42,7 +42,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
     InMemoryTestCacheProvider.self
   }
   
-  var defaultWaitTimeout: TimeInterval = 5
+  static let defaultWaitTimeout: TimeInterval = 5
   
   var cache: NormalizedCache!
   var client: ApolloClient!
@@ -61,6 +61,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
   override func tearDownWithError() throws {
     cache = nil
     client = nil
+    config = nil
     
     try super.tearDownWithError()
   }
@@ -340,7 +341,7 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
     
     client.fetch(query: query, cachePolicy: .fetchIgnoringCacheData, resultHandler: resultObserver.handler)
     
-    wait(for: [expectation], timeout: defaultWaitTimeout)
+    wait(for: [expectation], timeout: Self.defaultWaitTimeout)
   }
   
   private func perform<Mutation: GraphQLMutation>(mutation: Mutation, file: StaticString = #filePath, line: UInt = #line, completionHandler: @escaping (_ data: Mutation.Data) -> Void) {
@@ -358,6 +359,6 @@ class StarWarsServerTests: XCTestCase, CacheDependentTesting {
     
     client.perform(mutation: mutation, resultHandler: resultObserver.handler)
     
-    wait(for: [expectation], timeout: defaultWaitTimeout)
+    wait(for: [expectation], timeout: Self.defaultWaitTimeout)
   }
 }

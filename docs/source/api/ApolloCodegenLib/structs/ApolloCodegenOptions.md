@@ -9,11 +9,10 @@ public struct ApolloCodegenOptions
 An object to hold all the various options for running codegen
 
 ## Methods
-### `init(codegenEngine:additionalInflectionRules:includes:mergeInFieldsFromFragmentSpreads:modifier:namespace:omitDeprecatedEnumCases:only:operationIDsURL:outputFormat:customScalarFormat:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
+### `init(codegenEngine:includes:mergeInFieldsFromFragmentSpreads:modifier:namespace:omitDeprecatedEnumCases:only:operationIDsURL:outputFormat:customScalarFormat:suppressSwiftMultilineStringLiterals:urlToSchemaFile:downloadTimeout:)`
 
 ```swift
 public init(codegenEngine: CodeGenerationEngine = .default,
-            additionalInflectionRules: [InflectionRule] = [],
             includes: String = "./**/*.graphql",
             mergeInFieldsFromFragmentSpreads: Bool = true,
             modifier: AccessModifier = .public,
@@ -44,7 +43,6 @@ Designated initializer.
  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
  - urlToSchemaFile: The URL to your schema file.
  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
- - additionalInflectionRules: [EXPERIMENTAL SWIFT CODEGEN ONLY] - Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array.
 
 ### `init(targetRootURL:codegenEngine:downloadTimeout:)`
 

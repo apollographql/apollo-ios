@@ -145,7 +145,7 @@ class RequestChainTests: XCTestCase {
     }
   }
   
-  func testErrorInterceptorGetsCalledInLegacyInterceptorProviderSubclass() {
+  func testErrorInterceptorGetsCalledInDefaultInterceptorProviderSubclass() {
     class ErrorInterceptor: ApolloErrorInterceptor {
       var error: Error? = nil
       
@@ -161,7 +161,7 @@ class RequestChainTests: XCTestCase {
       }
     }
     
-    class TestProvider: LegacyInterceptorProvider {
+    class TestProvider: DefaultInterceptorProvider {
       let errorInterceptor = ErrorInterceptor()
       
       override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {

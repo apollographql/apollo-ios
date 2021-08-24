@@ -12,6 +12,12 @@ class SchemaLoadingTests: XCTestCase {
 
     codegenFrontend = try ApolloCodegenFrontend()
   }
+
+  override func tearDown() {
+    codegenFrontend = nil
+
+    super.tearDown()
+  }
   
   func testParseSchemaFromIntrospectionResult() throws {
     let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
