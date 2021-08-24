@@ -33,7 +33,8 @@ public class WebSocketTransport {
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestBodyCreator: RequestBodyCreator
-  
+  private let operationMessageIdCreator: OperationMessageIdCreator
+
   /// non-private for testing - you should not use this directly
   enum SocketConnectionState {
     case disconnected
@@ -99,7 +100,8 @@ public class WebSocketTransport {
               allowSendingDuplicates: Bool = true,
               connectOnInit: Bool = true,
               connectingPayload: GraphQLMap? = [:],
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
+              operationMessageIdCreator: OperationMessageIdCreator = ApolloOperationMessageIdCreator()) {
     self.websocket = websocket
     self.store = store
     self.connectingPayload = connectingPayload
@@ -108,6 +110,7 @@ public class WebSocketTransport {
     self.reconnectionInterval = reconnectionInterval
     self.allowSendingDuplicates = allowSendingDuplicates
     self.requestBodyCreator = requestBodyCreator
+    self.operationMessageIdCreator = operationMessageIdCreator
     self.clientName = clientName
     self.clientVersion = clientVersion
     self.connectOnInit = connectOnInit
@@ -267,7 +270,7 @@ public class WebSocketTransport {
                                               sendOperationIdentifiers: self.sendOperationIdentifiers,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
-    let identifier = UUID().uuidString
+    let identifier = operationMessageIdCreator.requestId()
     guard let message = OperationMessage(payload: body, id: identifier).rawMessage else {
       return nil
     }
