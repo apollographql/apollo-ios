@@ -986,6 +986,7 @@
 				9BC139A524EDCAD900876D29 /* BlindRetryingTestInterceptor.swift */,
 				9B2B66F32513FAFE00B53ABF /* CancellationHandlingInterceptor.swift */,
 				9BF6C91725194D7B000D5B93 /* MultipartFormData+Testing.swift */,
+				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
 				9BC139A724EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift */,
 				9BF6C99B25195019000D5B93 /* String+IncludesForTesting.swift */,
 				19E9F6AD26D58AEC003AB80E /* TestCustomOperationMessageIdCreator.swift */,
@@ -1490,7 +1491,6 @@
 				9BF6C95225194EA5000D5B93 /* MultipartFormDataTests.swift */,
 				9F91CF8E1F6C0DB2008DD0BE /* MutatingResultsTests.swift */,
 				9F295E301E27534800A24949 /* NormalizeQueryResults.swift */,
-				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
 				9FF90A6C1DDDEB420034C3B6 /* ParseQueryResponseTests.swift */,
 				9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */,
 				F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */,
@@ -1528,10 +1528,10 @@
 				9FF90A5B1DDDEB100034C3B6 /* GraphQLResponse.swift */,
 				C377CCAA22D7992E00572E03 /* MultipartFormData.swift */,
 				9F69FFA81D42855900E000B1 /* NetworkTransport.swift */,
+				19E9F6A826D5867E003AB80E /* OperationMessageIdCreator.swift */,
 				9BEDC79D22E5D2CF00549BF6 /* RequestBodyCreator.swift */,
 				9B4F453E244A27B900C2CF7D /* URLSessionClient.swift */,
 				9B554CC3247DC29A002F452A /* TaskData.swift */,
-				19E9F6A826D5867E003AB80E /* OperationMessageIdCreator.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
