@@ -9,14 +9,18 @@ public protocol OperationMessageIdCreator {
 
 // MARK: - Default Implementation
 
-// Helper struct to create ids independently of HTTP operations.
-public struct ApolloOperationMessageIdCreator: OperationMessageIdCreator {
-  fileprivate let sequenceNumberCounter = Atomic<Int>(0)
+public struct ApolloSequencedOperationMessageIdCreator: OperationMessageIdCreator {
+  private var sequenceNumberCounter = Atomic<Int>(0)
   
   // Internal init methods cannot be used in public methods
-  public init() { }
+  public init(startAt sequenceNumber: Int = 1) {
+    sequenceNumberCounter = Atomic<Int>(sequenceNumber)
+  }
   
   public func requestId() -> String {
-    return "\(sequenceNumberCounter.increment())"
+    let id = sequenceNumberCounter.value
+    _ = sequenceNumberCounter.increment()
+
+    return "\(id)"
   }
 }

@@ -101,7 +101,7 @@ public class WebSocketTransport {
               connectOnInit: Bool = true,
               connectingPayload: GraphQLMap? = [:],
               requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
-              operationMessageIdCreator: OperationMessageIdCreator = ApolloOperationMessageIdCreator()) {
+              operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()) {
     self.websocket = websocket
     self.store = store
     self.connectingPayload = connectingPayload

@@ -18,6 +18,12 @@ class WebSocketTests: XCTestCase {
   var client: ApolloClient!
   var websocket: MockWebSocket!
   
+  struct CustomOperationMessageIdCreator: OperationMessageIdCreator {
+    func requestId() -> String {
+      return "12345678"
+    }
+  }
+  
   override func setUp() {
     super.setUp()
 
@@ -128,7 +134,7 @@ class WebSocketTests: XCTestCase {
     
     let store = ApolloStore()
     let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
-    networkTransport = WebSocketTransport(websocket: websocket, store: store, operationMessageIdCreator: TestCustomOperationMessageIdCreator())
+    networkTransport = WebSocketTransport(websocket: websocket, store: store, operationMessageIdCreator: CustomOperationMessageIdCreator())
     client = ApolloClient(networkTransport: networkTransport!, store: store)
     
     client.subscribe(subscription: ReviewAddedSubscription()) { result in
