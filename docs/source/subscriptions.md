@@ -37,7 +37,7 @@ class Apollo {
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
     let request = URLRequest(url: url)
-    let webSocketClient = DefaultWebSocket(request: request)
+    let webSocketClient = WebSocket(request: request)
     return WebSocketTransport(websocket: webSocketClient)
   }()
   
@@ -162,7 +162,7 @@ class Apollo {
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
     let request = URLRequest(url: url)
-    let webSocketClient = DefaultWebSocket(request: request)
+    let webSocketClient = WebSocket(request: request)
     let authPayload = ["authToken": magicToken]
     return WebSocketTransport(websocket: webSocketClient, connectingPayload: authPayload)
   }()
