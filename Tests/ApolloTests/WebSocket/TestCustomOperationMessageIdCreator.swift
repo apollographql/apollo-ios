@@ -1,4 +1,4 @@
-import Apollo
+@testable import ApolloWebSocket
 
 struct TestCustomOperationMessageIdCreator: OperationMessageIdCreator {
   func requestId() -> String {

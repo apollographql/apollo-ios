@@ -988,7 +988,6 @@
 				9BF6C91725194D7B000D5B93 /* MultipartFormData+Testing.swift */,
 				9BC139A724EDCE4F00876D29 /* RetryToCountThenSucceedInterceptor.swift */,
 				9BF6C99B25195019000D5B93 /* String+IncludesForTesting.swift */,
-				19E9F6AD26D58AEC003AB80E /* TestCustomOperationMessageIdCreator.swift */,
 				C3279FC52345233000224790 /* TestCustomRequestBodyCreator.swift */,
 				9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */,
 			);
@@ -1495,7 +1494,6 @@
 				9F21735A2568F3E200566121 /* PossiblyDeferredTests.swift */,
 				F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */,
 				9FF90A6B1DDDEB420034C3B6 /* ReadFieldValueTests.swift */,
-				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
 				C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */,
 				9B96500824BE6201003C29C0 /* RequestChainTests.swift */,
 				9B9BBB1A24DB75E60021C30F /* UploadRequestTests.swift */,
@@ -1733,6 +1731,8 @@
 				9B7BDA8A23FDE92900ACD198 /* SplitNetworkTransportTests.swift */,
 				D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */,
 				DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */,
+				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
+				19E9F6AD26D58AEC003AB80E /* TestCustomOperationMessageIdCreator.swift */,
 			);
 			path = WebSocket;
 			sourceTree = "<group>";
