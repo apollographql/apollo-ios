@@ -116,10 +116,10 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   @discardableResult
   open func sendRequest(_ request: URLRequest,
                         rawTaskCompletionHandler: RawCompletion? = nil,
-                        completion: @escaping Completion) -> URLSessionTask {
+                        completion: @escaping Completion) -> URLSessionTask? {
     guard self.hasNotBeenInvalidated else {
       completion(.failure(URLSessionClientError.sessionInvalidated))
-      return URLSessionTask()
+      return nil
     }
     
     let task = self.session.dataTask(with: request)
