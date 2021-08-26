@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Codegen",
     platforms: [
-        .macOS(.v10_14)
+        .macOS(.v10_15)
     ],
     dependencies: [
         .package(name: "Apollo", path: ".."),
