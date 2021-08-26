@@ -18,6 +18,12 @@ class WebSocketTests: XCTestCase {
   var client: ApolloClient!
   var websocket: MockWebSocket!
   
+  struct CustomOperationMessageIdCreator: OperationMessageIdCreator {
+    func requestId() -> String {
+      return "12345678"
+    }
+  }
+  
   override func setUp() {
     super.setUp()
 
@@ -106,6 +112,44 @@ class WebSocketTests: XCTestCase {
     let message : GraphQLMap = [
       "type": "data",
       "id": "2",            // subscribing on id = 1, i.e. expecting error when receiving id = 2
+      "payload": [
+        "data": [
+          "reviewAdded": [
+            "__typename": "ReviewAdded",
+            "episode": "JEDI",
+            "stars": 5,
+            "commentary": "A great movie"
+          ]
+        ]
+      ]
+    ]
+    
+    networkTransport.write(message: message)
+    
+    waitForExpectations(timeout: 2, handler: nil)
+  }
+  
+  func testSingleSubscriptionWithCustomOperationMessageIdCreator() throws {
+    let expectation = self.expectation(description: "Single Subscription with Custom Operation Message Id Creator")
+    
+    let store = ApolloStore()
+    let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
+    networkTransport = WebSocketTransport(websocket: websocket, store: store, operationMessageIdCreator: CustomOperationMessageIdCreator())
+    client = ApolloClient(networkTransport: networkTransport!, store: store)
+    
+    client.subscribe(subscription: ReviewAddedSubscription()) { result in
+      defer { expectation.fulfill() }
+      switch result {
+      case .success(let graphQLResult):
+        XCTAssertEqual(graphQLResult.data?.reviewAdded?.stars, 5)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
+    
+    let message : GraphQLMap = [
+      "type": "data",
+      "id": "12345678", // subscribing on id = 12345678 from custom operation id
       "payload": [
         "data": [
           "reviewAdded": [

@@ -33,7 +33,8 @@ public class WebSocketTransport {
   let error: Atomic<Error?> = Atomic(nil)
   let serializationFormat = JSONSerializationFormat.self
   private let requestBodyCreator: RequestBodyCreator
-  
+  private let operationMessageIdCreator: OperationMessageIdCreator
+
   /// non-private for testing - you should not use this directly
   enum SocketConnectionState {
     case disconnected
@@ -59,7 +60,6 @@ public class WebSocketTransport {
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
   private let allowSendingDuplicates: Bool
-  fileprivate let sequenceNumberCounter = Atomic<Int>(0)
   fileprivate var reconnected = false
 
   /// - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
@@ -100,7 +100,8 @@ public class WebSocketTransport {
               allowSendingDuplicates: Bool = true,
               connectOnInit: Bool = true,
               connectingPayload: GraphQLMap? = [:],
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
+              operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()) {
     self.websocket = websocket
     self.store = store
     self.connectingPayload = connectingPayload
@@ -109,6 +110,7 @@ public class WebSocketTransport {
     self.reconnectionInterval = reconnectionInterval
     self.allowSendingDuplicates = allowSendingDuplicates
     self.requestBodyCreator = requestBodyCreator
+    self.operationMessageIdCreator = operationMessageIdCreator
     self.clientName = clientName
     self.clientVersion = clientVersion
     self.connectOnInit = connectOnInit
@@ -143,9 +145,7 @@ public class WebSocketTransport {
       switch messageType {
       case .data,
            .error:
-        if
-          let id = parseHandler.id,
-          let responseHandler = subscribers[id] {
+        if let id = parseHandler.id, let responseHandler = subscribers[id] {
           if let payload = parseHandler.payload {
             responseHandler(.success(payload))
           } else if let error = parseHandler.error {
@@ -178,7 +178,8 @@ public class WebSocketTransport {
         acked = true
         writeQueue()
 
-      case .connectionKeepAlive:
+      case .connectionKeepAlive,
+           .startAck:
         writeQueue()
 
       case .connectionInit,
@@ -267,22 +268,21 @@ public class WebSocketTransport {
                                               sendOperationIdentifiers: self.sendOperationIdentifiers,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
-    let sequenceNumber = "\(sequenceNumberCounter.increment())"
-
-    guard let message = OperationMessage(payload: body, id: sequenceNumber).rawMessage else {
+    let identifier = operationMessageIdCreator.requestId()
+    guard let message = OperationMessage(payload: body, id: identifier).rawMessage else {
       return nil
     }
 
     processingQueue.async {
       self.write(message)
 
-      self.subscribers[sequenceNumber] = resultHandler
+      self.subscribers[identifier] = resultHandler
       if operation.operationType == .subscription {
-        self.subscriptions[sequenceNumber] = message
+        self.subscriptions[identifier] = message
       }
     }
 
-    return sequenceNumber
+    return identifier
   }
 
   public func unsubscribe(_ subscriptionId: String) {
