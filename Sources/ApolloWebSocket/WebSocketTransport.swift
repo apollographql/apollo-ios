@@ -178,10 +178,8 @@ public class WebSocketTransport {
         acked = true
         writeQueue()
 
-      case .startAck:
-        break
-
-      case .connectionKeepAlive:
+      case .connectionKeepAlive,
+           .startAck:
         writeQueue()
 
       case .connectionInit,
