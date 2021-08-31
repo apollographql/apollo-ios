@@ -2,6 +2,7 @@
 
 ## Protocols
 
+-   [OperationMessageIdCreator](protocols/OperationMessageIdCreator/)
 -   [SSLTrustValidator](protocols/SSLTrustValidator/)
 -   [WebSocketClient](protocols/WebSocketClient/)
 -   [WebSocketClientDelegate](protocols/WebSocketClientDelegate/)
@@ -9,6 +10,7 @@
 
 ## Structs
 
+-   [ApolloSequencedOperationMessageIdCreator](structs/ApolloSequencedOperationMessageIdCreator/)
 -   [SSLClientCertificateError](structs/SSLClientCertificateError/)
 -   [SSLSettings](structs/SSLSettings/)
 -   [WebSocket.WSError](structs/WebSocket.WSError/)
