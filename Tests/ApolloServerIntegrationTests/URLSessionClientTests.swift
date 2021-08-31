@@ -133,7 +133,7 @@ class URLSessionClientLiveTests: XCTestCase {
     let request = self.request(for: .bytes(count: 102400)) // 102400 is max from HTTPBin
     
     let expectation = self.expectation(description: "Cancelled task completed")
-    let task = self.client.sendRequest(request) { result in
+    let task = try XCTUnwrap(self.client.sendRequest(request) { result in
       defer {
         expectation.fulfill()
       }
@@ -153,7 +153,7 @@ class URLSessionClientLiveTests: XCTestCase {
       case .success:
         XCTFail("Task succeeded when it should have been cancelled!")
       }
-    }
+    })
     
     task.cancel()
     
@@ -165,10 +165,10 @@ class URLSessionClientLiveTests: XCTestCase {
     
     let expectation = self.expectation(description: "Cancelled task completed")
     expectation.isInverted = true
-    let task = self.client.sendRequest(request) { result in
+    let task = try XCTUnwrap(self.client.sendRequest(request) { result in
       // This shouldn't get hit since we cancel the task immediately
       expectation.fulfill()
-    }
+    })
     
     self.client.cancel(task: task)
     
@@ -214,7 +214,7 @@ class URLSessionClientLiveTests: XCTestCase {
         }
       }
       
-      taskIDs.mutate { $0.append(task.taskIdentifier) }
+      taskIDs.mutate { $0.append(task!.taskIdentifier) }
     })
     
     self.wait(for: [expectation], timeout: 30)
