@@ -79,7 +79,6 @@ class ApolloSchemaTests: XCTestCase {
   func testDownloadingViaIntrospection() throws {
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
     let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                      
                                       outputFolderURL: CodegenTestHelper.schemaFolderURL(),
                                       downloadTimeout: 60)
     try ApolloSchemaDownloader.run(options: options)

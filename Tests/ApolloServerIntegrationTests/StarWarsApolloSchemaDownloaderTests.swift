@@ -24,10 +24,7 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
     try FileManager.default.apollo.deleteFile(at: options.outputURL)
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
 
-    let cliFolderURL = CodegenTestHelper.cliFolderURL()
-
-    _ = try ApolloSchemaDownloader.run(with: cliFolderURL,
-                                       options: options)
+    _ = try ApolloSchemaDownloader.run(options: options)
 
     // Does the file now exist?
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
@@ -50,18 +47,14 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
 
-    let options = ApolloSchemaOptions(schemaFileType: .schemaDefinitionLanguage,
-                                      downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
+    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
                                       outputFolderURL: testOutputFolderURL)
 
     // Delete anything existing at the output URL
     try FileManager.default.apollo.deleteFile(at: options.outputURL)
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
 
-    let cliFolderURL = CodegenTestHelper.cliFolderURL()
-
-    print(try ApolloSchemaDownloader.run(with: cliFolderURL,
-                                         options: options))
+    print(try ApolloSchemaDownloader.run(options: options))
 
     // Does the file now exist?
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
