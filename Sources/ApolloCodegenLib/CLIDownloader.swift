@@ -30,7 +30,7 @@ struct CLIDownloader {
   }
   
   /// The URL string for getting the current version of the CLI
-  static let downloadURLString = "https://install.apollographql.com/legacy-cli/darwin/2.32.13"
+  static let downloadURLString = "https://install.apollographql.com/legacy-cli/darwin/2.33.6"
   
   /// Downloads the appropriate Apollo CLI in a zip file.
   ///
