@@ -87,9 +87,10 @@ public class WebSocketTransport {
   ///   - reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
   ///   - reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
   ///   - allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
-  ///  - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
+  ///   - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
   ///   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   ///   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
+  ///   - operationMessageIdCreator: The `OperationMessageIdCreator` used to generate a unique message identifier per request. Defaults to `ApolloSequencedOperationMessageIdCreator`.
   public init(websocket: WebSocketClient,
               store: ApolloStore? = nil,
               clientName: String = WebSocketTransport.defaultClientName,

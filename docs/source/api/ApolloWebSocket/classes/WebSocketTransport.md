@@ -32,7 +32,7 @@ public var clientVersion: String
 - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
 
 ## Methods
-### `init(websocket:store:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:)`
+### `init(websocket:store:clientName:clientVersion:sendOperationIdentifiers:reconnect:reconnectionInterval:allowSendingDuplicates:connectOnInit:connectingPayload:requestBodyCreator:operationMessageIdCreator:)`
 
 ```swift
 public init(websocket: WebSocketClient,
@@ -45,7 +45,8 @@ public init(websocket: WebSocketClient,
             allowSendingDuplicates: Bool = true,
             connectOnInit: Bool = true,
             connectingPayload: GraphQLMap? = [:],
-            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
+            requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
+            operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator())
 ```
 
 Designated initializer
@@ -59,9 +60,10 @@ Designated initializer
   - reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
   - reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
   - allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
- - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
+  - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
+  - operationMessageIdCreator: The `OperationMessageIdCreator` used to generate a unique message identifier per request. Defaults to `ApolloSequencedOperationMessageIdCreator`.
 
 #### Parameters
 
@@ -75,6 +77,10 @@ Designated initializer
 | reconnect | Whether to auto reconnect when websocket looses connection. Defaults to true. |
 | reconnectionInterval | How long to wait before attempting to reconnect. Defaults to half a second. |
 | allowSendingDuplicates | Allow sending duplicate messages. Important when reconnected. Defaults to true. |
+| connectOnInit | Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true. |
+| connectingPayload | [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`. |
+| requestBodyCreator | The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`. |
+| operationMessageIdCreator | The `OperationMessageIdCreator` used to generate a unique message identifier per request. Defaults to `ApolloSequencedOperationMessageIdCreator`. |
 
 ### `isConnected()`
 
