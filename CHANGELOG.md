@@ -4,6 +4,7 @@
 - **Customizable subscription message identifiers:** The `WebSocketTransport` initializer can be configured with a subclass of `OperationMessageIdCreator` to provide a unique identifier per request. The default implementation is `ApolloSequencedOperationMessageIdCreator` and retains the current behavior of sequential message numbering. [#1919](https://github.com/apollographql/apollo-ios/pull/1919) - _Thank you to [Clark McNally](https://github.com/cmcnally-beachbody) for the contribution!_
 - **AWS AppSync Compatibility:** Apollo-ios will now correctly handle the `start_ack` message that AWS AppSync servers respond with when a subscription is requested. [#1919](https://github.com/apollographql/apollo-ios/pull/1919) - _Thank you to [Clark McNally](https://github.com/cmcnally-beachbody) for the contribution!_
 - **Updated to version 2.33.6 of the Apollo CLI:** Applies some new vulnerability patches to the CLI, but should not change any output. [#1929](https://github.com/apollographql/apollo-ios/pull/1929)
+- **Improved documentation:** Clarification of cache normalization concepts. [#1710](https://github.com/apollographql/apollo-ios/pull/1710) - _Thank you to [Daniel Morgan](https://github.com/morgz) for the contribution!_
 
 ## v0.47.1
 - **Fixed - Websocket default implementation not included in `ApolloWebSocket` via Cocoapods:** _Thank you to [ketenshi](https://github.com/ketenshi) for the contribution!_
