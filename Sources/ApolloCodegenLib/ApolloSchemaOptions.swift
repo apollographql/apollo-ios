@@ -86,7 +86,7 @@ extension ApolloSchemaOptions: CustomDebugStringConvertible {
       downloadMethod: \(self.downloadMethod)
       headers: \(self.headers)
       outputURL: \(self.outputURL)
-      downloadTimeut: \(self.downloadTimeout)
+      downloadTimeout: \(self.downloadTimeout)
       """
   }
 }
