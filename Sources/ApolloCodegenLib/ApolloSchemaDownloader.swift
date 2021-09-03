@@ -11,8 +11,8 @@ public struct ApolloSchemaDownloader {
     case couldNotParseRegistryJSON(underlying: Error)
     case unexpectedRegistryJSONType
     case couldNotExtractSDLFromRegistryJSON
-    case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
     case couldNotCreateSDLDataToWrite(schema: String)
+    case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
 
     public var errorDescription: String? {
       switch self {
@@ -34,8 +34,6 @@ public struct ApolloSchemaDownloader {
     }
   }
   
-  static let RegistryEndpoint = URL(string: "https://graphql.api.apollographql.com/api/graphql")!
-  
   /// Downloads your schema using the passed-in options
   ///
   /// - Parameters:
@@ -51,7 +49,11 @@ public struct ApolloSchemaDownloader {
       try self.downloadFromRegistry(with: settings, options: options)
     }
   }
-  
+
+  // MARK: - Schema Registry
+
+  static let RegistryEndpoint = URL(string: "https://graphql.api.apollographql.com/api/graphql")!
+
   private static let RegistryDownloadQuery = """
       query DownloadSchema($graphID: ID!, $variant: String!) {
             service(id: $graphID) {
@@ -98,6 +100,45 @@ public struct ApolloSchemaDownloader {
     
     CodegenLogger.log("Successfully downloaded schema from registry", logLevel: .debug)
   }
+
+  static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
+    let jsonData: Data
+
+    do {
+      jsonData = try Data(contentsOf: jsonFileURL)
+    } catch {
+      throw SchemaDownloadError.downloadedRegistryJSONFileNotFound(underlying: error)
+    }
+
+    let json: Any
+    do {
+      json = try JSONSerialization.jsonObject(with: jsonData)
+    } catch {
+      throw SchemaDownloadError.couldNotParseRegistryJSON(underlying: error)
+    }
+
+    guard let dict = json as? [String: Any] else {
+      throw SchemaDownloadError.unexpectedRegistryJSONType
+    }
+
+    guard
+      let data = dict["data"] as? [String: Any],
+      let service = data["service"] as? [String: Any],
+      let variant = service["variant"] as? [String: Any],
+      let asp = variant["activeSchemaPublish"] as? [String: Any],
+      let schemaDict = asp["schema"] as? [String: Any],
+      let sdlSchema = schemaDict["document"] as? String else {
+      throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
+    }
+
+    guard let sdlData = sdlSchema.data(using: .utf8) else {
+      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: sdlSchema)
+    }
+
+    try sdlData.write(to: options.outputURL)
+  }
+
+  // MARK: - Schema Introspection
   
   private static let IntrospectionQuery = """
     query IntrospectionQuery {
@@ -236,43 +277,6 @@ public struct ApolloSchemaDownloader {
     try sdlSchema.write(to: options.outputURL,
                         atomically: true,
                         encoding: .utf8)
-  }
-  
-  static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
-    let jsonData: Data
-    
-    do {
-      jsonData = try Data(contentsOf: jsonFileURL)
-    } catch {
-      throw SchemaDownloadError.downloadedRegistryJSONFileNotFound(underlying: error)
-    }
-    
-    let json: Any
-    do {
-      json = try JSONSerialization.jsonObject(with: jsonData)
-    } catch {
-      throw SchemaDownloadError.couldNotParseRegistryJSON(underlying: error)
-    }
-    
-    guard let dict = json as? [String: Any] else {
-      throw SchemaDownloadError.unexpectedRegistryJSONType
-    }
-    
-    guard
-      let data = dict["data"] as? [String: Any],
-      let service = data["service"] as? [String: Any],
-      let variant = service["variant"] as? [String: Any],
-      let asp = variant["activeSchemaPublish"] as? [String: Any],
-      let schemaDict = asp["schema"] as? [String: Any],
-      let sdlSchema = schemaDict["document"] as? String else {
-      throw SchemaDownloadError.couldNotExtractSDLFromRegistryJSON
-    }
-
-    guard let sdlData = sdlSchema.data(using: .utf8) else {
-      throw SchemaDownloadError.couldNotCreateSDLDataToWrite(schema: sdlSchema)
-    }
-    
-    try sdlData.write(to: options.outputURL)
   }
 }
 #endif
