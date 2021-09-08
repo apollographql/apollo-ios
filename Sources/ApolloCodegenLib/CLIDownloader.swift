@@ -15,7 +15,7 @@ struct CLIDownloader {
   /// - Parameters:
   ///   - cliFolderURL: The folder URL to download the zip file to.
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
-  static func downloadIfNeeded(cliFolderURL: URL, timeout: Double) throws {
+  static func downloadIfNeeded(to cliFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     guard !FileManager.default.apollo.fileExists(at: zipFileURL) else {
       CodegenLogger.log("Zip file with the CLI is already downloaded!")
@@ -30,7 +30,7 @@ struct CLIDownloader {
   /// - Parameters:
   ///   - cliFolderURL: The folder where the zip file lives.
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
-  static func forceRedownload(cliFolderURL: URL, timeout: Double) throws {
+  static func forceRedownload(to cliFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
     try FileManager.default.apollo.deleteFile(at: zipFileURL)
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)

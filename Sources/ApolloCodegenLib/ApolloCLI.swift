@@ -20,11 +20,11 @@ public struct ApolloCLI {
     let lock = try waitForCLIFolderLock(cliFolderURL: cliFolderURL, timeout: timeout)
     defer { lock.unlock() }
 
-    try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
+    try CLIDownloader.downloadIfNeeded(to: cliFolderURL, timeout: timeout)
     
     if !(try CLIExtractor.validateSHASUMOfDownloadedFile(in: cliFolderURL)) {
       CodegenLogger.log("Downloaded zip file has incorrect SHASUM, forcing redownload")
-      try CLIDownloader.forceRedownload(cliFolderURL: cliFolderURL, timeout: timeout)
+      try CLIDownloader.forceRedownload(to: cliFolderURL, timeout: timeout)
     }
     
     let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
