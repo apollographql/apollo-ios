@@ -32,8 +32,8 @@ class CLIDownloaderTests: XCTestCase {
       try CLIDownloader.forceRedownload(to: scriptsURL, timeout: 0.5)
     } catch {
       guard
-        let downloaderError = error as? URLDownloader.DownloaderError,
-        case .downloadTimedOut(let seconds) = downloaderError
+        let DownloadError = error as? URLDownloader.DownloadError,
+        case .downloadTimedOut(let seconds) = DownloadError
       else {
         XCTFail("Wrong type of error")
         return
