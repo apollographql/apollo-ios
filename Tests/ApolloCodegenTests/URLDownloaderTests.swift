@@ -3,15 +3,23 @@ import ApolloTestSupport
 import ApolloCodegenTestSupport
 import XCTest
 
+fileprivate class FailingNetworkSession: NetworkSession {
+  func loadData(with urlRequest: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask? {
+    XCTFail("You must call setRequestHandler before using downloader!")
+
+    return nil
+  }
+}
+
 class URLDownloaderTests: XCTestCase {
   let urlRequest = URLRequest(url: TestURL.mockServer.url)
   let downloadURL = URL(string: "file://anywhere/nowhere/somewhere")!
   let defaultTimeout = 0.5
   var downloader: URLDownloader!
-  var session: MockNetworkSession!
+  var session: NetworkSession!
 
   override func setUp() {
-    downloader = URLDownloader()
+    downloader = URLDownloader(session: FailingNetworkSession())
     session = nil
   }
 
