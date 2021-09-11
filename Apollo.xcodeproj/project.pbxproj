@@ -250,6 +250,7 @@
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
 		E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616B6D026C3335600DB049E /* ExecutionTests.swift */; };
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
+		E69C255026EC2A9D00E9495D /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
 		E6D79ABA26EC05290094434A /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
@@ -879,6 +880,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E69C255026EC2A9D00E9495D /* ApolloCodegenLib.framework in Frameworks */,
 				9F54C90F255D79C80065AFD6 /* ApolloTestSupport.framework in Frameworks */,
 				9F54C910255D79C80065AFD6 /* GitHubAPI.framework in Frameworks */,
 				9F54C8B9255D760B0065AFD6 /* Apollo.framework in Frameworks */,
