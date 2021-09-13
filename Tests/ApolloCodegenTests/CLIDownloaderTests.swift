@@ -3,7 +3,6 @@ import ApolloCodegenTestSupport
 import XCTest
 
 class CLIDownloaderTests: XCTestCase {
-  
   func testForceRedownloading_withExistingFile_shouldOverwriteWithExpectedChecksum() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: scriptsURL)

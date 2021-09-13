@@ -5,8 +5,6 @@ import Foundation
 
 /// Helper for downloading the CLI Zip file so we don't have to include it in the repo.
 struct CLIDownloader {
-  
-
   /// The URL string for getting the current version of the CLI
   static let downloadURLString = "https://install.apollographql.com/legacy-cli/darwin/2.33.6"
   
@@ -17,6 +15,7 @@ struct CLIDownloader {
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   static func downloadIfNeeded(to cliFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
+
     guard !FileManager.default.apollo.fileExists(at: zipFileURL) else {
       CodegenLogger.log("Zip file with the CLI is already downloaded!")
       return
@@ -50,11 +49,10 @@ struct CLIDownloader {
     CodegenLogger.log("Downloading zip file with the CLI...")
 
     let urlRequest = URLRequest(url: URL(string: CLIDownloader.downloadURLString)!)
-    
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: zipFileURL,
                                               timeout: timeout)
-    
+
     CodegenLogger.log("CLI zip file successfully downloaded!")
   }
 }

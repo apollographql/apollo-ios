@@ -17,20 +17,20 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
   func testDownloadingSchemaAsJSON() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
 
-    let options = ApolloSchemaDownloadConfiguration(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
-                                      outputFolderURL: testOutputFolderURL)
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestServerURL.starWarsServer.url),
+                                                          outputFolderURL: testOutputFolderURL)
 
     // Delete anything existing at the output URL
-    try FileManager.default.apollo.deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
 
-    _ = try ApolloSchemaDownloader.run(options: options)
+    _ = try ApolloSchemaDownloader.fetch(with: configuration)
 
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: configuration.outputURL))
 
     // Is it non-empty?
-    let data = try Data(contentsOf: options.outputURL)
+    let data = try Data(contentsOf: configuration.outputURL)
     XCTAssertFalse(data.isEmpty)
 
     // Is it JSON?
@@ -40,35 +40,35 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
     _ = try XCTUnwrap(json["__schema"])
 
     // OK delete it now
-    try FileManager.default.apollo.deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
   }
 
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
 
-    let options = ApolloSchemaDownloadConfiguration(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
-                                      outputFolderURL: testOutputFolderURL)
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestServerURL.starWarsServer.url),
+                                                          outputFolderURL: testOutputFolderURL)
 
     // Delete anything existing at the output URL
-    try FileManager.default.apollo.deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
 
-    print(try ApolloSchemaDownloader.run(options: options))
+    print(try ApolloSchemaDownloader.fetch(with: configuration))
 
     // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: options.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: configuration.outputURL))
 
     // Is it non-empty?
-    let data = try Data(contentsOf: options.outputURL)
+    let data = try Data(contentsOf: configuration.outputURL)
     XCTAssertFalse(data.isEmpty)
 
     // It should not be JSON
     XCTAssertNil(try? JSONSerialization.jsonObject(with: data, options: []) as? [AnyHashable:Any])
 
     // OK delete it now
-    try FileManager.default.apollo.deleteFile(at: options.outputURL)
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: options.outputURL))
+    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
   }
 
 }

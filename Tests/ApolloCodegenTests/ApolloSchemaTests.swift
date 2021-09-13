@@ -76,7 +76,7 @@ class ApolloSchemaTests: XCTestCase {
     let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
                                                           timeout: 60,
                                                           outputFolderURL: CodegenTestHelper.schemaFolderURL())
-    try ApolloSchemaDownloader.run(configuration: configuration)
+    try ApolloSchemaDownloader.fetch(with: configuration)
     
     // Has the file been downloaded?
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
@@ -102,7 +102,7 @@ class ApolloSchemaTests: XCTestCase {
                                                           timeout: 60,
                                                           outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
-    try ApolloSchemaDownloader.run(configuration: configuration)
+    try ApolloSchemaDownloader.fetch(with: configuration)
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
 
     // Can it be turned into the expected schema?
