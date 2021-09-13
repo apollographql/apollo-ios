@@ -14,39 +14,8 @@ import ApolloCodegenTestSupport
 
 class StarWarsApolloSchemaDownloaderTests: XCTestCase {
 
-  func testDownloadingSchemaAsJSON() throws {
-    let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
-
-    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestServerURL.starWarsServer.url),
-                                                          outputFolderURL: testOutputFolderURL)
-
-    // Delete anything existing at the output URL
-    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
-
-    _ = try ApolloSchemaDownloader.fetch(with: configuration)
-
-    // Does the file now exist?
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: configuration.outputURL))
-
-    // Is it non-empty?
-    let data = try Data(contentsOf: configuration.outputURL)
-    XCTAssertFalse(data.isEmpty)
-
-    // Is it JSON?
-    let json = try XCTUnwrap(JSONSerialization.jsonObject(with: data, options: []) as? [AnyHashable:Any])
-
-    // Is it schema json?
-    _ = try XCTUnwrap(json["__schema"])
-
-    // OK delete it now
-    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
-  }
-
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
-
     let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestServerURL.starWarsServer.url),
                                                           outputFolderURL: testOutputFolderURL)
 
