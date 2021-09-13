@@ -34,19 +34,19 @@ public struct ApolloSchemaDownloader {
     }
   }
   
-  /// Downloads your schema using the passed-in options
+  /// Downloads your schema using the specified configuration object.
   ///
   /// - Parameters:
-  ///   - options: The `ApolloSchemaOptions` object to use to download the schema.
+  ///   - configuration: The `ApolloSchemaDownloadConfiguration` object to use to download the schema.
   /// - Returns: Output from a successful run
-  public static func run(options: ApolloSchemaOptions) throws {
-    try FileManager.default.apollo.createContainingFolderIfNeeded(for: options.outputURL)
-    
-    switch options.downloadMethod {
+  public static func run(configuration: ApolloSchemaDownloadConfiguration) throws {
+    try FileManager.default.apollo.createContainingFolderIfNeeded(for: configuration.outputURL)
+
+    switch configuration.downloadMethod {
     case .introspection(let endpointURL):
-      try self.downloadViaIntrospection(from: endpointURL, options: options)
+      try self.downloadViaIntrospection(from: endpointURL, options: configuration)
     case .registry(let settings):
-      try self.downloadFromRegistry(with: settings, options: options)
+      try self.downloadFromRegistry(with: settings, options: configuration)
     }
   }
 
@@ -69,7 +69,7 @@ public struct ApolloSchemaDownloader {
       """
     
   
-  static func downloadFromRegistry(with settings: ApolloSchemaOptions.DownloadMethod.RegistrySettings, options: ApolloSchemaOptions) throws {
+  static func downloadFromRegistry(with settings: ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings, options: ApolloSchemaDownloadConfiguration) throws {
     CodegenLogger.log("Downloading schema from registry", logLevel: .debug)
 
     var variables = [String: String]()
@@ -101,7 +101,7 @@ public struct ApolloSchemaDownloader {
     CodegenLogger.log("Successfully downloaded schema from registry", logLevel: .debug)
   }
 
-  static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
+  static func convertFromRegistryJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaDownloadConfiguration) throws {
     let jsonData: Data
 
     do {
@@ -232,7 +232,7 @@ public struct ApolloSchemaDownloader {
     """
   
   
-  static func downloadViaIntrospection(from endpointURL: URL, options: ApolloSchemaOptions) throws {
+  static func downloadViaIntrospection(from endpointURL: URL, options: ApolloSchemaDownloadConfiguration) throws {
     CodegenLogger.log("Downloading schema via introspection from \(endpointURL)", logLevel: .debug)
     
     var urlRequest = URLRequest(url: endpointURL)
@@ -258,7 +258,7 @@ public struct ApolloSchemaDownloader {
     CodegenLogger.log("Successfully downloaded schema via introspection", logLevel: .debug)
   }
   
-  static func convertFromIntrospectionJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaOptions) throws {
+  static func convertFromIntrospectionJSONToSDLFile(jsonFileURL: URL, options: ApolloSchemaDownloadConfiguration) throws {
       let frontend = try ApolloCodegenFrontend()
     let schema: GraphQLSchema
     do {

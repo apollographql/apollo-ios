@@ -29,8 +29,8 @@ class ApolloSchemaTests: XCTestCase {
   }
     
   func testCreatingSchemaOptions_forIntrospectionDownload_usingDefaultParameters() throws {
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                      outputFolderURL: CodegenTestHelper.schemaFolderURL())
+    let options = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                    outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
     XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
     XCTAssertEqual(options.outputURL, self.defaultOutputURL)
@@ -38,9 +38,9 @@ class ApolloSchemaTests: XCTestCase {
   }
 
   func testCreatingSchemaOptions_forRegistryDownload_usingDefaultParameters() throws {
-    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key", graphID: "Fake_Graph_ID")
-    let options = ApolloSchemaOptions(downloadMethod: .registry(settings),
-                                      outputFolderURL: CodegenTestHelper.schemaFolderURL())
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key", graphID: "Fake_Graph_ID")
+    let options = ApolloSchemaDownloadConfiguration(using: .registry(settings),
+                                                    outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
     XCTAssertEqual(options.downloadMethod, .registry(settings))
     XCTAssertEqual(options.outputURL, self.defaultOutputURL)
@@ -49,19 +49,19 @@ class ApolloSchemaTests: XCTestCase {
 
   func testCreatingSchemaOptions_forRegistryDownload_usingAllParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
-    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key",
-                                                                       graphID: "Fake_Graph_ID",
-                                                                       variant: "Fake_Variant")
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key",
+                                                                                     graphID: "Fake_Graph_ID",
+                                                                                     variant: "Fake_Variant")
     let headers = [
-      ApolloSchemaOptions.HTTPHeader(key: "Authorization", value: "Bearer tokenGoesHere"),
-      ApolloSchemaOptions.HTTPHeader(key: "Custom-Header",  value: "Custom_Customer")
+      ApolloSchemaDownloadConfiguration.HTTPHeader(key: "Authorization", value: "Bearer tokenGoesHere"),
+      ApolloSchemaDownloadConfiguration.HTTPHeader(key: "Custom-Header",  value: "Custom_Customer")
     ]
 
     let schemaFileName = "different_name"
-    let options = ApolloSchemaOptions(schemaFileName: schemaFileName,
-                                      downloadMethod: .registry(settings),
-                                      headers: headers,
-                                      outputFolderURL: sourceRoot)
+    let options = ApolloSchemaDownloadConfiguration(using: .registry(settings),
+                                                    headers: headers,
+                                                    outputFolderURL: sourceRoot,
+                                                    schemaFilename: schemaFileName)
 
     XCTAssertEqual(options.downloadMethod, .registry(settings))
     XCTAssertEqual(options.headers, headers)
@@ -73,10 +73,10 @@ class ApolloSchemaTests: XCTestCase {
   func testDownloading_usingIntrospection_shouldOutputSchema() throws {
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
 
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                      outputFolderURL: CodegenTestHelper.schemaFolderURL(),
-                                      downloadTimeout: 60)
-    try ApolloSchemaDownloader.run(options: options)
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                          timeout: 60,
+                                                          outputFolderURL: CodegenTestHelper.schemaFolderURL())
+    try ApolloSchemaDownloader.run(configuration: configuration)
     
     // Has the file been downloaded?
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
@@ -97,12 +97,12 @@ class ApolloSchemaTests: XCTestCase {
      throw XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
     }
     
-    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
-    let options = ApolloSchemaOptions(downloadMethod: .registry(settings),
-                                      outputFolderURL: CodegenTestHelper.schemaFolderURL(),
-                                      downloadTimeout: 60)
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
+    let configuration = ApolloSchemaDownloadConfiguration(using: .registry(settings),
+                                                          timeout: 60,
+                                                          outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
-    try ApolloSchemaDownloader.run(options: options)
+    try ApolloSchemaDownloader.run(configuration: configuration)
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
 
     // Can it be turned into the expected schema?

@@ -1,7 +1,7 @@
 import Foundation
 
-/// Options for running the Apollo Schema Downloader.
-public struct ApolloSchemaOptions {
+/// A configuration object that defines behavior for schema download.
+public struct ApolloSchemaDownloadConfiguration {
   
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable {
@@ -54,39 +54,37 @@ public struct ApolloSchemaOptions {
   }
 
   let downloadMethod: DownloadMethod
+  let downloadTimeout: Double
   let headers: [HTTPHeader]
   let outputURL: URL
-  
-  let downloadTimeout: Double
 
   /// Designated Initializer
   ///
   /// - Parameters:
-  ///   - schemaFileName: The name, without an extension, for your schema file. Defaults to `"schema"
   ///   - downloadMethod: How to download your schema.
+  ///   - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
-  ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  public init(schemaFileName: String = "schema",
-              downloadMethod: DownloadMethod,
+  ///   - schemaFilename: The name, without an extension, for your schema file. Defaults to `"schema"
+  public init(using downloadMethod: DownloadMethod,
+              timeout downloadTimeout: Double = 30.0,
               headers: [HTTPHeader] = [],
               outputFolderURL: URL,
-              downloadTimeout: Double = 30.0) {
+              schemaFilename: String = "schema") {
     self.downloadMethod = downloadMethod
-    self.headers = headers
-    self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFileName).graphqls")
-
     self.downloadTimeout = downloadTimeout
+    self.headers = headers
+    self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
   }
 }
 
-extension ApolloSchemaOptions: CustomDebugStringConvertible {
+extension ApolloSchemaDownloadConfiguration: CustomDebugStringConvertible {
   public var debugDescription: String {
     return """
       downloadMethod: \(self.downloadMethod)
+      downloadTimeout: \(self.downloadTimeout)
       headers: \(self.headers)
       outputURL: \(self.outputURL)
-      downloadTimeout: \(self.downloadTimeout)
       """
   }
 }

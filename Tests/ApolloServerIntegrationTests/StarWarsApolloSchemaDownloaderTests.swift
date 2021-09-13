@@ -17,7 +17,7 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
   func testDownloadingSchemaAsJSON() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
 
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
+    let options = ApolloSchemaDownloadConfiguration(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
                                       outputFolderURL: testOutputFolderURL)
 
     // Delete anything existing at the output URL
@@ -47,7 +47,7 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
   func testDownloadingSchemaInSchemaDefinitionLanguage() throws {
     let testOutputFolderURL = CodegenTestHelper.outputFolderURL()
 
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
+    let options = ApolloSchemaDownloadConfiguration(downloadMethod: .introspection(endpointURL: TestServerURL.starWarsServer.url),
                                       outputFolderURL: testOutputFolderURL)
 
     // Delete anything existing at the output URL
