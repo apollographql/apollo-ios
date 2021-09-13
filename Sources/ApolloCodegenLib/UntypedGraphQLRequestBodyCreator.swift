@@ -4,7 +4,6 @@ class UntypedGraphQLRequestBodyCreator {
   
   /// A non-type-safe request creator to facilitate sending requests not using code generation.
   ///
-  /// Note: This is only public for use in `ApolloCodegenLib`, we do **not** recommend or support direct use of this in client applications.
   /// - Parameters:
   ///   - operationDocument: The query/mutation/subscription document, as a string
   ///   - variables: [optional] Any variables to send with the operation
