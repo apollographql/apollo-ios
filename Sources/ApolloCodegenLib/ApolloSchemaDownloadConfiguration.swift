@@ -5,12 +5,11 @@ public struct ApolloSchemaDownloadConfiguration {
   
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable {
-
-    case registry(_ settings: RegistrySettings)
+    case apolloRegistry(_ settings: ApolloRegistrySettings)
     ///   - endpointURL: The endpoint to hit to download your schema.
     case introspection(endpointURL: URL)
     
-    public struct RegistrySettings: Equatable {
+    public struct ApolloRegistrySettings: Equatable {
       public let apiKey: String
       public let graphID: String
       public let variant: String?
@@ -34,8 +33,7 @@ public struct ApolloSchemaDownloadConfiguration {
       switch (lhs, rhs) {
       case (.introspection(let lhsURL), introspection(let rhsURL)):
         return lhsURL == rhsURL
-      case (.registry(let lhsSettings),
-            .registry(let rhsSettings)):
+      case (.apolloRegistry(let lhsSettings), .apolloRegistry(let rhsSettings)):
         return lhsSettings == rhsSettings
       default:
         return false

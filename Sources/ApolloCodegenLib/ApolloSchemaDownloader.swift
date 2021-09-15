@@ -45,7 +45,7 @@ public struct ApolloSchemaDownloader {
     switch configuration.downloadMethod {
     case .introspection(let endpointURL):
       try self.downloadViaIntrospection(from: endpointURL, configuration: configuration)
-    case .registry(let settings):
+    case .apolloRegistry(let settings):
       try self.downloadFromRegistry(with: settings, configuration: configuration)
     }
   }
@@ -69,7 +69,7 @@ public struct ApolloSchemaDownloader {
       """
     
   
-  static func downloadFromRegistry(with settings: ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings,
+  static func downloadFromRegistry(with settings: ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings,
                                    configuration: ApolloSchemaDownloadConfiguration) throws {
 
     CodegenLogger.log("Downloading schema from registry", logLevel: .debug)
