@@ -5,13 +5,18 @@ public struct ApolloSchemaDownloadConfiguration {
   
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable {
+
+    /// The Apollo Schema Registry, which serves as a central hub for managing your data graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
-    ///   - endpointURL: The endpoint to hit to download your schema.
+    /// GraphQL Introspection connecting to the specified URL.
     case introspection(endpointURL: URL)
-    
+
     public struct ApolloRegistrySettings: Equatable {
+      /// The API key to use when retrieving your schema from the Apollo Registry.
       public let apiKey: String
+      /// The identifier of the graph to fetch. Can be found in Apollo Studio.
       public let graphID: String
+      /// The variant of the graph in the registry.
       public let variant: String?
       
       /// Designated initializer
@@ -51,9 +56,13 @@ public struct ApolloSchemaDownloadConfiguration {
     }
   }
 
+  /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
   let downloadMethod: DownloadMethod
+  /// The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   let downloadTimeout: Double
+  /// Any additional headers to include when retrieving your schema. Defaults to nil.
   let headers: [HTTPHeader]
+  /// The URL of the folder in which the downloaded schema should be written.
   let outputURL: URL
 
   /// Designated Initializer
