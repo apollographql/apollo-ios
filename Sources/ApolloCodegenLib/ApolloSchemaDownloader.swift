@@ -255,7 +255,6 @@ public struct ApolloSchemaDownloader {
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: jsonOutputURL,
                                               timeout: configuration.downloadTimeout)
-    
 
     try convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonOutputURL, configuration: configuration)
     

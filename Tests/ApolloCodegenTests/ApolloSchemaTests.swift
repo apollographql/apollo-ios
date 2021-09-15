@@ -1,53 +1,35 @@
-//
-//  ApolloSchemaTests.swift
-//  ApolloCodegenTests
-//
-//  Created by Ellen Shapiro on 10/7/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import XCTest
 import ApolloTestSupport
 import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 
 class ApolloSchemaTests: XCTestCase {
-  
-  override func tearDownWithError() throws {
-    try FileManager.default.apollo.deleteFile(at: self.defaultOutputURL)
-    try FileManager.default.apollo.deleteFile(at: self.intermediateOutputURL)
-    try super.tearDownWithError()
-  }
-  
   private var defaultOutputURL: URL {
-    return CodegenTestHelper.schemaFolderURL()
+    return CodegenTestHelper.outputFolderURL()
       .appendingPathComponent("schema.graphqls")
   }
-  
-  private var intermediateOutputURL: URL {
-    return CodegenTestHelper.schemaFolderURL().appendingPathComponent("registry_response.json")
-  }
-    
-  func testCreatingSchemaOptions_forIntrospectionDownload_usingDefaultParameters() throws {
-    let options = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                                    outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
-    XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
-    XCTAssertEqual(options.outputURL, self.defaultOutputURL)
-    XCTAssertTrue(options.headers.isEmpty)
+  func testCreatingSchemaDownloadConfiguration_forIntrospectionDownload_usingDefaultParameters() throws {
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
+
+    XCTAssertEqual(configuration.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
+    XCTAssertEqual(configuration.outputURL, self.defaultOutputURL)
+    XCTAssertTrue(configuration.headers.isEmpty)
   }
 
-  func testCreatingSchemaOptions_forRegistryDownload_usingDefaultParameters() throws {
-    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key", graphID: "Fake_Graph_ID")
-    let options = ApolloSchemaDownloadConfiguration(using: .registry(settings),
-                                                    outputFolderURL: CodegenTestHelper.schemaFolderURL())
+  func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingDefaultParameters() throws {
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key",
+                                                                                     graphID: "Fake_Graph_ID")
+    let configuration = ApolloSchemaDownloadConfiguration(using: .registry(settings),
+                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
 
-    XCTAssertEqual(options.downloadMethod, .registry(settings))
-    XCTAssertEqual(options.outputURL, self.defaultOutputURL)
-    XCTAssertTrue(options.headers.isEmpty)
+    XCTAssertEqual(configuration.downloadMethod, .registry(settings))
+    XCTAssertEqual(configuration.outputURL, self.defaultOutputURL)
+    XCTAssertTrue(configuration.headers.isEmpty)
   }
 
-  func testCreatingSchemaOptions_forRegistryDownload_usingAllParameters() throws {
+  func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingAllParameters() throws {
     let sourceRoot = CodegenTestHelper.sourceRootURL()
     let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: "Fake_API_Key",
                                                                                      graphID: "Fake_Graph_ID",
@@ -58,59 +40,40 @@ class ApolloSchemaTests: XCTestCase {
     ]
 
     let schemaFileName = "different_name"
-    let options = ApolloSchemaDownloadConfiguration(using: .registry(settings),
-                                                    headers: headers,
-                                                    outputFolderURL: sourceRoot,
-                                                    schemaFilename: schemaFileName)
+    let configuration = ApolloSchemaDownloadConfiguration(using: .registry(settings),
+                                                          headers: headers,
+                                                          outputFolderURL: sourceRoot,
+                                                          schemaFilename: schemaFileName)
 
-    XCTAssertEqual(options.downloadMethod, .registry(settings))
-    XCTAssertEqual(options.headers, headers)
+    XCTAssertEqual(configuration.downloadMethod, .registry(settings))
+    XCTAssertEqual(configuration.headers, headers)
 
     let expectedOutputURL = sourceRoot.appendingPathComponent("\(schemaFileName).graphqls")
-    XCTAssertEqual(options.outputURL, expectedOutputURL)
+    XCTAssertEqual(configuration.outputURL, expectedOutputURL)
   }
-  
-  func testDownloading_usingIntrospection_shouldOutputSchema() throws {
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
 
-    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                                          timeout: 60,
-                                                          outputFolderURL: CodegenTestHelper.schemaFolderURL())
-    try ApolloSchemaDownloader.fetch(with: configuration)
-    
-    // Has the file been downloaded?
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
-    
-    // Can it be turned into the expected schema?
-    let frontend = try ApolloCodegenFrontend()
-    let stringOutput = try String(contentsOf: self.defaultOutputURL, encoding: .utf8)
-    let schema = try frontend.loadSchemaFromIntrospectionResult(stringOutput)
-    let episodeType = try schema.getType(named: "Episode")
-
-    XCTAssertEqual(episodeType?.name, "Episode")
-  }
-  
-  func testDownloading_fromSchemaRegistry_shouldOutputSchema() throws {
-    XCTAssertFalse(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
-
-    guard let apiKey = ProcessInfo.processInfo.environment["REGISTRY_API_KEY"] else {
-     throw XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
+  func testFormatConversion_givenIntrospectionJSON_shouldOutputValidSDL() throws {
+    let bundle = Bundle(for: type(of: self))
+    guard let jsonURL = bundle.url(forResource: "introspection_response", withExtension: "json") else {
+      throw XCTFailure("Missing resource file!", file: #file, line: #line)
     }
-    
-    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
-    let configuration = ApolloSchemaDownloadConfiguration(using: .registry(settings),
-                                                          timeout: 60,
-                                                          outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
-    try ApolloSchemaDownloader.fetch(with: configuration)
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: self.defaultOutputURL))
+    try FileManager.default.apollo.createFolderIfNeeded(at: CodegenTestHelper.outputFolderURL())
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
 
-    // Can it be turned into the expected schema?
+    try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: configuration.outputURL))
+
     let frontend = try ApolloCodegenFrontend()
-    let source = try frontend.makeSource(from: self.defaultOutputURL)
+    let source = try frontend.makeSource(from: configuration.outputURL)
     let schema = try frontend.loadSchemaFromSDL(source)
-    let rocketType = try schema.getType(named: "Rocket")
-    XCTAssertEqual(rocketType?.name, "Rocket")
+
+    let authorType = try schema.getType(named: "Author")
+    XCTAssertEqual(authorType?.name, "Author")
+
+    let postType = try schema.getType(named: "Post")
+    XCTAssertEqual(postType?.name, "Post")
   }
 }
 
