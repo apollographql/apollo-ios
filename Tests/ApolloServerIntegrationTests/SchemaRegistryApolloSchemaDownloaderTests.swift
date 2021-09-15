@@ -13,8 +13,8 @@ class SchemaRegistryApolloSchemaDownloaderTests: XCTestCase {
      throw XCTSkip("No API key could be fetched from the environment to test downloading from the schema registry")
     }
 
-    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
-    let configuration = ApolloSchemaDownloadConfiguration(using: .registry(settings),
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(apiKey: apiKey, graphID: "Apollo-Fullstack-8zo5jl")
+    let configuration = ApolloSchemaDownloadConfiguration(using: .apolloRegistry(settings),
                                                           outputFolderURL: CodegenTestHelper.schemaFolderURL())
 
     try ApolloSchemaDownloader.fetch(with: configuration)
