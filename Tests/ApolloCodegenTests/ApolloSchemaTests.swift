@@ -1,92 +1,79 @@
-//
-//  ApolloSchemaTests.swift
-//  ApolloCodegenTests
-//
-//  Created by Ellen Shapiro on 10/7/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 import XCTest
 import ApolloTestSupport
 import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 
 class ApolloSchemaTests: XCTestCase {
-    
-  func testCreatingIntrospectionOptionsWithDefaultParameters() throws {
-    let sourceRoot = CodegenTestHelper.sourceRootURL()
-    
-    let options = ApolloSchemaOptions(downloadMethod: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                      outputFolderURL: sourceRoot)
-    
-    let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
-    
-    XCTAssertEqual(options.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
-    XCTAssertEqual(options.outputURL, expectedOutputURL)
-    XCTAssertTrue(options.headers.isEmpty)
-    
-    XCTAssertEqual(options.arguments, [
-        "client:download-schema",
-        "--endpoint=http://localhost:8080/graphql",
-        "'\(expectedOutputURL.path)'"
-    ])
+  private var defaultOutputURL: URL {
+    return CodegenTestHelper.outputFolderURL()
+      .appendingPathComponent("schema.graphqls")
   }
 
-  func testCreatingRegistryOptionsWithDefaultParameters() throws {
-    let sourceRoot = CodegenTestHelper.sourceRootURL()
-    let apiKey = "Fake_API_Key"
-    let graphID = "Fake_Graph_ID"
-    
-    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey, graphID: graphID)
-    
-    let options = ApolloSchemaOptions(downloadMethod: .registry(settings),
-                                      outputFolderURL: sourceRoot)
-    
-    let expectedOutputURL = sourceRoot.appendingPathComponent("schema.json")
-    
-    XCTAssertEqual(options.downloadMethod, .registry(settings))
-    XCTAssertEqual(options.outputURL, expectedOutputURL)
-    XCTAssertTrue(options.headers.isEmpty)
-    
-    XCTAssertEqual(options.arguments, [
-        "client:download-schema",
-        "--key=\(apiKey)",
-        "--graph=\(graphID)",
-        "'\(expectedOutputURL.path)'"
-    ])
+  func testCreatingSchemaDownloadConfiguration_forIntrospectionDownload_usingDefaultParameters() throws {
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
+
+    XCTAssertEqual(configuration.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
+    XCTAssertEqual(configuration.outputURL, self.defaultOutputURL)
+    XCTAssertTrue(configuration.headers.isEmpty)
   }
 
-  func testCreatingRegistryOptionsWithAllParameters() throws {
-    let sourceRoot = CodegenTestHelper.sourceRootURL()
-    let apiKey = "Fake_API_Key"
-    let graphID = "Fake_Graph_ID"
-    let variant = "Fake_Variant"
-    let firstHeader = "Authorization: Bearer tokenGoesHere"
-    let secondHeader = "Custom-Header: Custom_Customer"
-    let headers = [firstHeader, secondHeader]
-    
-    let settings = ApolloSchemaOptions.DownloadMethod.RegistrySettings(apiKey: apiKey,
-                                                                       graphID: graphID, variant: variant)
-    
-    let options = ApolloSchemaOptions(schemaFileName: "different_name",
-                                      schemaFileType: .schemaDefinitionLanguage,
-                                      downloadMethod: .registry(settings),
-                                      headers: headers,
-                                      outputFolderURL: sourceRoot)
-    XCTAssertEqual(options.downloadMethod, .registry(settings))
-    XCTAssertEqual(options.headers, headers)
-    
-    let expectedOutputURL = sourceRoot.appendingPathComponent("different_name.graphql")
-    XCTAssertEqual(options.outputURL, expectedOutputURL)
+  func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingDefaultParameters() throws {
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(apiKey: "Fake_API_Key",
+                                                                                           graphID: "Fake_Graph_ID")
+    let configuration = ApolloSchemaDownloadConfiguration(using: .apolloRegistry(settings),
+                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
 
-    XCTAssertEqual(options.arguments, [
-        "client:download-schema",
-        "--key=\(apiKey)",
-        "--graph=\(graphID)",
-        "--variant=\(variant)",
-        "'\(expectedOutputURL.path)'",
-        "--header='\(firstHeader)'",
-        "--header='\(secondHeader)'"
-    ])
+    XCTAssertEqual(configuration.downloadMethod, .apolloRegistry(settings))
+    XCTAssertEqual(configuration.outputURL, self.defaultOutputURL)
+    XCTAssertTrue(configuration.headers.isEmpty)
+  }
+
+  func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingAllParameters() throws {
+    let sourceRoot = CodegenTestHelper.sourceRootURL()
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(apiKey: "Fake_API_Key",
+                                                                                           graphID: "Fake_Graph_ID",
+                                                                                           variant: "Fake_Variant")
+    let headers = [
+      ApolloSchemaDownloadConfiguration.HTTPHeader(key: "Authorization", value: "Bearer tokenGoesHere"),
+      ApolloSchemaDownloadConfiguration.HTTPHeader(key: "Custom-Header",  value: "Custom_Customer")
+    ]
+
+    let schemaFileName = "different_name"
+    let configuration = ApolloSchemaDownloadConfiguration(using: .apolloRegistry(settings),
+                                                          headers: headers,
+                                                          outputFolderURL: sourceRoot,
+                                                          schemaFilename: schemaFileName)
+
+    XCTAssertEqual(configuration.downloadMethod, .apolloRegistry(settings))
+    XCTAssertEqual(configuration.headers, headers)
+
+    let expectedOutputURL = sourceRoot.appendingPathComponent("\(schemaFileName).graphqls")
+    XCTAssertEqual(configuration.outputURL, expectedOutputURL)
+  }
+
+  func testFormatConversion_givenIntrospectionJSON_shouldOutputValidSDL() throws {
+    let bundle = Bundle(for: type(of: self))
+    guard let jsonURL = bundle.url(forResource: "introspection_response", withExtension: "json") else {
+      throw XCTFailure("Missing resource file!", file: #file, line: #line)
+    }
+
+    try FileManager.default.apollo.createFolderIfNeeded(at: CodegenTestHelper.outputFolderURL())
+    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
+
+    try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: configuration.outputURL))
+
+    let frontend = try ApolloCodegenFrontend()
+    let source = try frontend.makeSource(from: configuration.outputURL)
+    let schema = try frontend.loadSchemaFromSDL(source)
+
+    let authorType = try schema.getType(named: "Author")
+    XCTAssertEqual(authorType?.name, "Author")
+
+    let postType = try schema.getType(named: "Post")
+    XCTAssertEqual(postType?.name, "Post")
   }
 }
+
