@@ -1,7 +1,3 @@
----
-name: Release
-about: Use this template for submitting a release pull request.
----
 #### Diff
 Example: [0.48.0...main](https://github.com/apollographql/apollo-ios/compare/0.48.0...main).
 
