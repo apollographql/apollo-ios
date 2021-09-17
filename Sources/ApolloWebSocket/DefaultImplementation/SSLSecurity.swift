@@ -157,9 +157,7 @@ open class SSLSecurity : SSLTrustValidator {
                 collect.append(SecCertificateCreateWithData(nil,cert as CFData)!)
             }
             SecTrustSetAnchorCertificates(trust,collect as NSArray)
-            var result: SecTrustResultType = .unspecified
-            SecTrustEvaluate(trust,&result)
-            if result == .unspecified || result == .proceed {
+            if SecTrustEvaluateWithError(trust,nil) {
                 if !validateEntireChain {
                     return true
                 }
@@ -205,8 +203,8 @@ open class SSLSecurity : SSLTrustValidator {
         SecTrustCreateWithCertificates(cert, policy, &possibleTrust)
 
         guard let trust = possibleTrust else { return nil }
-        var result: SecTrustResultType = .unspecified
-        SecTrustEvaluate(trust, &result)
+        _ = SecTrustEvaluateWithError(trust, nil)
+
         return SecTrustCopyPublicKey(trust)
     }
 
