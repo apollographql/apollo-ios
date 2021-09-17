@@ -1,6 +1,6 @@
 **ENUM**
 
-# `ApolloSchemaOptions.DownloadMethod`
+# `ApolloSchemaDownloadConfiguration.DownloadMethod`
 
 ```swift
 public enum DownloadMethod: Equatable
@@ -9,11 +9,13 @@ public enum DownloadMethod: Equatable
 How to attempt to download your schema
 
 ## Cases
-### `registry(_:)`
+### `apolloRegistry(_:)`
 
 ```swift
-case registry(_ settings: RegistrySettings)
+case apolloRegistry(_ settings: ApolloRegistrySettings)
 ```
+
+The Apollo Schema Registry, which serves as a central hub for managing your data graph.
 
 ### `introspection(endpointURL:)`
 
@@ -21,7 +23,7 @@ case registry(_ settings: RegistrySettings)
 case introspection(endpointURL: URL)
 ```
 
-- endpointURL: The endpoint to hit to download your schema.
+GraphQL Introspection connecting to the specified URL.
 
 ## Methods
 ### `==(_:_:)`

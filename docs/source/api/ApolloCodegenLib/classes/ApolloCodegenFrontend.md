@@ -37,6 +37,14 @@ public func loadSchemaFromSDL(_ source: GraphQLSource) throws -> GraphQLSchema
 
 Load a schema by parsing SDL.
 
+### `printSchemaAsSDL(schema:)`
+
+```swift
+public func printSchemaAsSDL(schema: GraphQLSchema) throws -> String
+```
+
+Take a loaded GQL schema and print it as SDL.
+
 ### `makeSource(_:filePath:)`
 
 ```swift
