@@ -1,7 +1,7 @@
 # Change log
 
 ## v0.49.0
-- **Breaking - Schema download is now Swift-based:** The dependency on the Apollo CLI (Typescript-based) for schema downloading has been removed. Schema downloads are now Swift-based and maintainable/extensible within apollo-ios. This is a breaking change because Some of the API signatures have changed. [#1935](https://github.com/apollographql/apollo-ios/pull/1935)
+- **Breaking - Schema download is now Swift-based:** The dependency on the Apollo CLI (Typescript-based) for schema downloading has been removed. Schema downloading is now Swift-based, outputs GraphQL SDL (Schema Definition Language) by default, and is maintainable/extensible within apollo-ios with full [API documentation](https://www.apollographql.com/docs/ios/api/ApolloCodegenLib/structs/ApolloSchemaDownloader/). This is a breaking change because some of the API signatures have changed. [Swift scripting](https://www.apollographql.com/docs/ios/swift-scripting/) offers a convenient way to perform certain operations that would otherwise require the command line - it's worth a look if you haven't tried it yet. [#1935](https://github.com/apollographql/apollo-ios/pull/1935)
 
 ## v0.48.0
 - **Customizable subscription message identifiers:** The `WebSocketTransport` initializer can be configured with a subclass of `OperationMessageIdCreator` to provide a unique identifier per request. The default implementation is `ApolloSequencedOperationMessageIdCreator` and retains the current behavior of sequential message numbering. [#1919](https://github.com/apollographql/apollo-ios/pull/1919) - _Thank you to [Clark McNally](https://github.com/cmcnally-beachbody) for the contribution!_
