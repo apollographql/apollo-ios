@@ -1,13 +1,14 @@
 const themeOptions = require('gatsby-theme-apollo-docs/theme-options');
 
 module.exports = {
-  pathPrefix: '/docs/ios',
   plugins: [
     {
       resolve: 'gatsby-theme-apollo-docs',
       options: {
         ...themeOptions,
         root: __dirname,
+        pathPrefix: '/docs/ios',
+        algoliaIndexName: 'ios',
         subtitle: 'Client (iOS)',
         description: 'A guide to using Apollo with iOS',
         githubRepo: 'apollographql/apollo-ios',

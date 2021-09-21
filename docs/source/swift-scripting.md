@@ -107,7 +107,7 @@ This command will download a GraphQL schema. There are two pieces you definitely
 - The place you want to download your schema from. This is usually via introspection of your GraphQL endpoint, so the default is set to use this, you just need to replace the `localhost` URL with the URL of your GraphQL endpoint. If you've got it set up, you can also download your schema from the Apollo Schema Registry. You'll need to add your API Key and Graph ID for this, which you can get from Apollo Studio. 
 - The name of the folder where you want the schema downloaded. If you've followed the template above, you'll want to place the schema in the folder where your target's code lives. 
 
-You can also use [options provided by the `ApolloSchemaOptions` object](https://www.apollographql.com/docs/ios/api/ApolloCodegenLib/structs/ApolloSchemaOptions/) to further configure how and where you want to download your schema. 
+You can also use [options provided by the `ApolloSchemaDownloadConfiguration` object](https://www.apollographql.com/docs/ios/api/ApolloCodegenLib/structs/ApolloSchemaDownloadConfiguration/) to further configure how and where you want to download your schema. 
 
 #### GenerateCode
 

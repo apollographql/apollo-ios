@@ -13,7 +13,8 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "graphql": "file:./vendor/graphql-16.0.0-pre+modern-js.tgz"
+    "graphql": "file:./vendor/graphql-16.0.0-pre+modern-js.tgz",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^11.0.1",
