@@ -41,14 +41,14 @@ class CacheKeyForFieldTests: XCTestCase {
     XCTAssertEqual(field.test_cacheKey, "hero(episode:1.99)")
   }
 
-  func testFieldWithNilArgument() {
-    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": nil])
+  func testFieldWithNullArgument() {
+    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .null])
     XCTAssertEqual(field.test_cacheKey, "hero")
   }
 
   func testFieldWithListArgument() {
     let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episodes": [1, 1, 2]])
-    XCTAssertEqual(field.test_cacheKey, "hero(episodes:[1, 1, 2])")
+    XCTAssertEqual(field.test_cacheKey, "hero(episodes:[1,1,2])")
   }
   
   func testFieldWithDictionaryArgument() throws {
@@ -84,5 +84,11 @@ class CacheKeyForFieldTests: XCTestCase {
     let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .variable("episode")])
     let variables: [String: InputValue] = ["episode": nil]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero")
+  }
+
+  func testFieldWithVariableArgumentWithNull() throws {
+    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .variable("episode")])
+    let variables: [String: InputValue] = ["episode": .null]
+    XCTAssertEqual(try field.cacheKey(with: variables), "hero(episode:null)")
   }
 }

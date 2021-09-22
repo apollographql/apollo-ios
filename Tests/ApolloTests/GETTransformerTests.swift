@@ -219,7 +219,7 @@ query MockQuery($param: String) {
   }
 }
 """
-    operation.variables = ["param": .none]
+    operation.variables = ["param": .null]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: false,

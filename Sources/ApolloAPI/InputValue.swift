@@ -1,7 +1,7 @@
 import Foundation
 
 #warning("TODO: It might be more performant to just use the raw values like before commit: e7a9b2c27f9d01764943f1aa7ff9d759d8762bff - We should run performance tests and try reverting and see what performance is like.")
-/// Represents an input value to an argument on a `GraphQLField`'s `FieldArguments`.
+/// Represents an input value to an argument on a `Selection.Field`'s `Arguments`.
 ///
 /// - See: [GraphQLSpec - Input Values](http://spec.graphql.org/June2018/#sec-Input-Values)
 public indirect enum InputValue {
@@ -24,8 +24,10 @@ public indirect enum InputValue {
   case object([String: InputValue])
 
   /// A null input value.
+  ///
+  /// A null input value indicates an intentional inclusion of a value for a field argument as null.
   /// - See: [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/June2018/#sec-Null-Value)
-  case none
+  case null
 }
 
 // MARK: - JSONEncodable
@@ -37,7 +39,7 @@ extension InputValue: JSONEncodable {
     case let .variable(variableName): return "$\(variableName)"
     case let .list(values): return values.map { $0.jsonValue }
     case let .object(valueObject): return valueObject.mapValues { $0.jsonValue }
-    case .none: return NSNull()
+    case .null: return NSNull()
     }
   }
 }
@@ -68,21 +70,7 @@ extension InputValueConvertible where Self: RawRepresentable, RawValue == String
   @inlinable public var asInputValue: InputValue { .scalar(rawValue) }
 }
 
-extension Optional: InputValueConvertible where Wrapped: InputValueConvertible {
-  @inlinable public var asInputValue: InputValue {
-    switch self {
-    case .none: return .none
-    case let .some(value): return value.asInputValue
-    }
-  }
-}
-
 // MARK: - Expressible as literals
-extension InputValue: ExpressibleByNilLiteral {
-  @inlinable public init(nilLiteral: ()) {
-    self = .none
-  }
-}
 
 extension InputValue: ExpressibleByStringLiteral {
   @inlinable public init(stringLiteral value: StringLiteralType) {
@@ -149,7 +137,7 @@ extension InputValue: Equatable {
       return lhsValue.elementsEqual(rhsValue)
     case let (.object(lhsValue), .object(rhsValue)):
       return lhsValue.elementsEqual(rhsValue, by: { $0.key == $1.key && $0.value == $1.value })
-    case (.none, .none):
+    case (.null, .null):
       return true
     default: return false
     }

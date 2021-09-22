@@ -9,8 +9,7 @@ public enum Selection {
   public struct Field {
     public let name: String
     public let alias: String?
-    #warning("TODO: can we just change this to [String: InputValue] and kill Arguments?")
-    public let arguments: Arguments?
+    public let arguments: [String: InputValue]?
     public let type: OutputType
 
     public var responseKey: String {
@@ -21,7 +20,7 @@ public enum Selection {
       _ name: String,
       alias: String? = nil,
       type: OutputType,
-      arguments: Arguments? = nil
+      arguments: [String: InputValue]? = nil
     ) {
       self.name = name
       self.alias = alias
@@ -29,14 +28,6 @@ public enum Selection {
       self.arguments = arguments
 
       self.type = type
-    }
-
-    public struct Arguments: ExpressibleByDictionaryLiteral {
-      public let arguments: InputValue
-
-      @inlinable public init(dictionaryLiteral elements: (String, InputValue)...) {
-        arguments = .object(Dictionary(elements, uniquingKeysWith: { (_, last) in last }))
-      }
     }
 
     public indirect enum OutputType {
@@ -82,7 +73,7 @@ public enum Selection {
     _ name: String,
     alias: String? = nil,
     _ type: OutputTypeConvertible.Type,
-    arguments: Field.Arguments? = nil
+    arguments: [String: InputValue]? = nil
   ) -> Selection {
     .field(.init(name, alias: alias, type: type.asOutputType, arguments: arguments))
   }  

@@ -5,11 +5,11 @@ import Foundation
 
 extension Selection.Field {
   func cacheKey(with variables: [String: InputValue]?) throws -> String {
-    if
-      let argumentValues = try arguments?.evaluate(with: variables),
-      argumentValues.apollo.isNotEmpty {
-        let argumentsKey = orderIndependentKey(for: argumentValues)
-        return "\(name)(\(argumentsKey))"
+    if let arguments = arguments,
+       case let argumentValues = try InputValue.evaluate(arguments, with: variables),
+       argumentValues.apollo.isNotEmpty {
+      let argumentsKey = orderIndependentKey(for: argumentValues)
+      return "\(name)(\(argumentsKey))"
     } else {
       return name
     }
@@ -25,15 +25,6 @@ extension Selection.Field {
         return "\($0.key):\($0.value)"
       }
     }.joined(separator: ",")
-  }
-}
-
-extension Selection.Field.Arguments {
-
-  func evaluate(with variables: [String: InputValue]?) throws -> JSONObject {
-    /// `Selection.Field.Arguments` can only ever hold arguments of `.object` type. Which will
-    /// always resolve to an `.object` value. So force casting to `JSONObject` is safe.
-    return try arguments.evaluate(with: variables) as! JSONObject
   }
 }
 
@@ -56,21 +47,27 @@ extension InputValue {
       }
 
     case let .list(array):
-      return try evaluate(values: array, with: variables)
+      return try InputValue.evaluate(array, with: variables)
 
     case let .object(dictionary):
-      return try evaluate(values: dictionary, with: variables)
+      return try InputValue.evaluate(dictionary, with: variables)
 
-    case .none:
+    case .null:
       return NSNull()
     }
   }
 
-  private func evaluate(values: [InputValue], with variables: [String: InputValue]?) throws -> [JSONValue] {
+  fileprivate static func evaluate(
+    _ values: [InputValue],
+    with variables: [String: InputValue]?
+  ) throws -> [JSONValue] {
     try values.map { try $0.evaluate(with: variables) }
   }
 
-  private func evaluate(values: [String: InputValue], with variables: [String: InputValue]?) throws -> JSONObject {
+  fileprivate static func evaluate(
+    _ values: [String: InputValue],
+    with variables: [String: InputValue]?
+  ) throws -> JSONObject {
     var jsonObject = JSONObject(minimumCapacity: values.count)
     for (key, value) in values {
       let evaluatedValue = try value.evaluate(with: variables)
