@@ -1,3 +1,8 @@
+#if !COCOAPODS
+import ApolloAPI
+#endif
+
+#warning("TODO: Delete?")
 public typealias GraphQLMap = [String: JSONEncodable?]
 
 fileprivate extension Dictionary where Key == String, Value == JSONEncodable? {
@@ -15,5 +20,3 @@ public extension GraphQLMapConvertible {
     return graphQLMap.withNilValuesRemoved.jsonValue
   }
 }
-
-public typealias GraphQLID = String

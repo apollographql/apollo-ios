@@ -1,5 +1,6 @@
 import Foundation
 
+#warning("TODO: It might be more performant to just use the raw values like before commit: e7a9b2c27f9d01764943f1aa7ff9d759d8762bff - We should run performance tests and try reverting and see what performance is like.")
 /// Represents an input value to an argument on a `GraphQLField`'s `FieldArguments`.
 ///
 /// - See: [GraphQLSpec - Input Values](http://spec.graphql.org/June2018/#sec-Input-Values)
@@ -9,6 +10,9 @@ public indirect enum InputValue {
   case scalar(ScalarType)
 
   /// A variable input value to be evaluated using the operation's `variables` dictionary at runtime.
+  ///
+  /// `.variable` should only be used as the value for an argument in a `Selection.Field`.
+  /// A `.variable` value should not be included in an operation's `variables` dictionary.
   case variable(String)
 
   /// A GraphQL "List" input value.
@@ -24,6 +28,56 @@ public indirect enum InputValue {
   case none
 }
 
+// MARK: - JSONEncodable
+
+extension InputValue: JSONEncodable {
+  public var jsonValue: JSONValue {
+    switch self {
+    case let .scalar(value): return value
+    case let .variable(variableName): return "$\(variableName)"
+    case let .list(values): return values.map { $0.jsonValue }
+    case let .object(valueObject): return valueObject.mapValues { $0.jsonValue }
+    case .none: return NSNull()
+    }
+  }
+}
+
+// MARK: - InputValueConvertible
+
+extension InputValue: InputValueConvertible {
+  public init(_ value: InputValueConvertible) {
+    self = value.asInputValue
+  }
+
+  @inlinable public var asInputValue: InputValue { self }
+}
+
+public protocol InputValueConvertible {
+  @inlinable var asInputValue: InputValue { get }
+}
+
+extension Array: InputValueConvertible where Element: InputValueConvertible {
+  @inlinable public var asInputValue: InputValue { .list(self.map{ $0.asInputValue })}
+}
+
+extension Dictionary: InputValueConvertible where Key == String, Value: InputValueConvertible {
+  @inlinable public var asInputValue: InputValue { .object(self.mapValues { $0.asInputValue })}
+}
+
+extension InputValueConvertible where Self: RawRepresentable, RawValue == String {
+  @inlinable public var asInputValue: InputValue { .scalar(rawValue) }
+}
+
+extension Optional: InputValueConvertible where Wrapped: InputValueConvertible {
+  @inlinable public var asInputValue: InputValue {
+    switch self {
+    case .none: return .none
+    case let .some(value): return value.asInputValue
+    }
+  }
+}
+
+// MARK: - Expressible as literals
 extension InputValue: ExpressibleByNilLiteral {
   @inlinable public init(nilLiteral: ()) {
     self = .none
@@ -55,13 +109,49 @@ extension InputValue: ExpressibleByBooleanLiteral {
 }
 
 extension InputValue: ExpressibleByArrayLiteral {
-  @inlinable public init(arrayLiteral elements: InputValue...) {
-    self = .list(Array(elements))
+  @inlinable public init(arrayLiteral elements: InputValueConvertible...) {
+    self = .list(Array(elements.map { $0.asInputValue }))
   }
 }
 
 extension InputValue: ExpressibleByDictionaryLiteral {
-  public init(dictionaryLiteral elements: (String, InputValue)...) {
-    self = .object(Dictionary(elements, uniquingKeysWith: { (_, last) in last }))
+  @inlinable public init(dictionaryLiteral elements: (String, InputValueConvertible)...) {
+    self = .object(Dictionary(elements.map{ ($0.0, $0.1.asInputValue) },
+                              uniquingKeysWith: { (_, last) in last }))
+  }
+}
+
+// MARK = Variable Dictionary Conversion
+
+extension Dictionary where Key == String, Value == InputValueConvertible {
+  @inlinable public func toInputVariables() -> [String: InputValue] {
+    mapValues { $0.asInputValue }
+  }
+}
+
+// MARK: Equatable Conformance
+
+extension InputValue: Equatable {
+  public static func == (lhs: InputValue, rhs: InputValue) -> Bool {
+    switch (lhs, rhs) {
+    case let (.variable(lhsValue), .variable(rhsValue)),
+         let (.scalar(lhsValue as String), .scalar(rhsValue as String)):
+      return lhsValue == rhsValue
+    case let (.scalar(lhsValue as Bool), .scalar(rhsValue as Bool)):
+      return lhsValue == rhsValue
+    case let (.scalar(lhsValue as Int), .scalar(rhsValue as Int)):
+      return lhsValue == rhsValue
+    case let (.scalar(lhsValue as Float), .scalar(rhsValue as Float)):
+      return lhsValue == rhsValue
+    case let (.scalar(lhsValue as Double), .scalar(rhsValue as Double)):
+      return lhsValue == rhsValue
+    case let (.list(lhsValue), .list(rhsValue)):
+      return lhsValue.elementsEqual(rhsValue)
+    case let (.object(lhsValue), .object(rhsValue)):
+      return lhsValue.elementsEqual(rhsValue, by: { $0.key == $1.key && $0.value == $1.value })
+    case (.none, .none):
+      return true
+    default: return false
+    }
   }
 }

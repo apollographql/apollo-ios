@@ -18,7 +18,7 @@ class WebSocketTransportTests: XCTestCase {
     request.addValue("OldToken", forHTTPHeaderField: "Authorization")
 
     self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
-                                                 store: ApolloStore())
+                                                 store: ApolloStore.mock())
 
     self.webSocketTransport.updateHeaderValues(["Authorization": "UpdatedToken"])
 
@@ -29,8 +29,10 @@ class WebSocketTransportTests: XCTestCase {
     let request = URLRequest(url: TestURL.mockServer.url)
 
     self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
-                                                 store: ApolloStore(),
-                                                 connectingPayload: ["Authorization": "OldToken"])
+                                                 store: ApolloStore.mock(),
+                                                 config: .init(
+                                                  connectingPayload: ["Authorization": "OldToken"]
+                                                 ))
 
     let mockWebSocketDelegate = MockWebSocketDelegate()
 
@@ -60,8 +62,10 @@ class WebSocketTransportTests: XCTestCase {
     let request = URLRequest(url: TestURL.mockServer.url)
 
     self.webSocketTransport = WebSocketTransport(websocket: MockWebSocket(request: request),
-                                                 store: ApolloStore(),
-                                                 connectingPayload: ["Authorization": "OldToken"])
+                                                 store: ApolloStore.mock(),
+                                                 config: .init(
+                                                  connectingPayload: ["Authorization": "OldToken"]
+                                                 ))
     self.webSocketTransport.closeConnection()
     self.webSocketTransport.updateConnectingPayload(["Authorization": "UpdatedToken"])
     self.webSocketTransport.initServer()

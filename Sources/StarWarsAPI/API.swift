@@ -1,6 +1,6 @@
 // @generated
 //  This file was automatically generated and should not be edited.
-
+#warning("TODO: Delete this file!")
 import Apollo
 import Foundation
 

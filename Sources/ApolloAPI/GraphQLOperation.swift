@@ -13,9 +13,10 @@ public protocol GraphQLOperation: AnyObject {
 
   var queryDocument: String { get }
 
-  var variables: GraphQLMap? { get }
+#warning("TODO: We need to support setting a null value AND a nil value. Considering just going back to using GraphQLMap, or else this should be [String: GraphQLOptional<InputValue>].")
+  var variables: [String: InputValue]? { get }
 
-  associatedtype Data: GraphQLSelectionSet
+  associatedtype Data: RootSelectionSet
 }
 
 public extension GraphQLOperation {
@@ -27,7 +28,7 @@ public extension GraphQLOperation {
     return nil
   }
 
-  var variables: GraphQLMap? {
+  var variables: [String: InputValue]? {
     return nil
   }
 }
@@ -45,9 +46,4 @@ public extension GraphQLMutation {
 public protocol GraphQLSubscription: GraphQLOperation {}
 public extension GraphQLSubscription {
   var operationType: GraphQLOperationType { return .subscription }
-}
-
-public protocol GraphQLFragment: GraphQLSelectionSet {
-  static var fragmentDefinition: String { get }
-  static var possibleTypes: [String] { get }
 }

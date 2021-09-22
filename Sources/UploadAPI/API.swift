@@ -1,8 +1,39 @@
 // @generated
 //  This file was automatically generated and should not be edited.
 
-import Apollo
+import ApolloAPI
 import Foundation
+
+public typealias ID = String
+public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
+where Schema == UploadAPISchema {}
+
+public enum UploadAPISchema: SchemaConfiguration {
+  public static func objectType(forTypename __typename: String) -> Object.Type? {
+    switch __typename {
+    case "File": return File.self
+    case "Mutation": return Mutation.self
+    case "Query": return Query.self
+    default: return nil
+    }
+  }
+}
+
+// MARK: - Schema Objects
+
+public class Mutation: Object {
+  override public class var __typename: String { "Mutation" }
+}
+
+public final class Query: Object {
+  override public class var __typename: String { "Query" }
+}
+
+public final class File: Object {
+  override public class var __typename: String { "File" }
+}
+
+// MARK: - Mutations
 
 public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
@@ -29,105 +60,41 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
     self.files = files
   }
 
-  public var variables: GraphQLMap? {
-    return ["files": files]
+  public var variables: [String: InputValue]? {
+    ["files": files].toInputVariables()
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Mutation"]
+  public struct Data: SelectionSet {
+    public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
 
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("multipleUpload", arguments: ["files": GraphQLVariable("files")], type: .nonNull(.list(.nonNull(.object(MultipleUpload.selections))))),
-      ]
-    }
+    public static var __parentType: ParentType { .Object(Mutation.self) }
+    public static var selections: [Selection] { [
+      .field("multipleUpload", [MultipleUpload].self, arguments: ["files": .variable("files")]),
+    ] }
 
-    public private(set) var resultMap: ResultMap
+    public var multipleUpload: [MultipleUpload] { data["multipleUpload"] }
 
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
+    public struct MultipleUpload: SelectionSet {
+      public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
 
-    public init(multipleUpload: [MultipleUpload]) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "multipleUpload": multipleUpload.map { (value: MultipleUpload) -> ResultMap in value.resultMap }])
-    }
+      public static var __parentType: ParentType { .Object(File.self) }
+      public static var selections: [Selection] { [
+        .field("__typename", String.self),
+        .field("id", ID.self),
+        .field("path", String.self),
+        .field("filename", String.self),
+        .field("mimetype", String.self),
+      ] }
 
-    public var multipleUpload: [MultipleUpload] {
-      get {
-        return (resultMap["multipleUpload"] as! [ResultMap]).map { (value: ResultMap) -> MultipleUpload in MultipleUpload(unsafeResultMap: value) }
-      }
-      set {
-        resultMap.updateValue(newValue.map { (value: MultipleUpload) -> ResultMap in value.resultMap }, forKey: "multipleUpload")
-      }
-    }
-
-    public struct MultipleUpload: GraphQLSelectionSet {
-      public static let possibleTypes: [String] = ["File"]
-
-      public static var selections: [GraphQLSelection] {
-        return [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("path", type: .nonNull(.scalar(String.self))),
-          GraphQLField("filename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("mimetype", type: .nonNull(.scalar(String.self))),
-        ]
+      public init(id: ID, path: String, filename: String, mimetype: String) {
+        self.init(json: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
       }
 
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public init(id: GraphQLID, path: String, filename: String, mimetype: String) {
-        self.init(unsafeResultMap: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      public var id: GraphQLID {
-        get {
-          return resultMap["id"]! as! GraphQLID
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "id")
-        }
-      }
-
-      public var path: String {
-        get {
-          return resultMap["path"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "path")
-        }
-      }
-
-      public var filename: String {
-        get {
-          return resultMap["filename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "filename")
-        }
-      }
-
-      public var mimetype: String {
-        get {
-          return resultMap["mimetype"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "mimetype")
-        }
-      }
+      public var __typename: String { data["__typename"] }
+      public var id: ID { data["id"] }
+      public var path: String { data["path"] }
+      public var filename: String { data["filename"] }
+      public var mimetype: String { data["mimetype"] }
     }
   }
 }
@@ -159,105 +126,51 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
     self.multipleFiles = multipleFiles
   }
 
-  public var variables: GraphQLMap? {
-    return ["singleFile": singleFile, "multipleFiles": multipleFiles]
+  public var variables: [String: InputValue]? {
+    ["singleFile": singleFile, "multipleFiles": multipleFiles].toInputVariables()
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Mutation"]
+  public struct Data: SelectionSet {
+    public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
 
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("multipleParameterUpload", arguments: ["singleFile": GraphQLVariable("singleFile"), "multipleFiles": GraphQLVariable("multipleFiles")], type: .nonNull(.list(.nonNull(.object(MultipleParameterUpload.selections))))),
-      ]
-    }
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
+    public static var __parentType: ParentType { .Object(Mutation.self) }
+    public static var selections: [Selection] { [
+      .field("multipleParameterUpload", [MultipleParameterUpload].self,
+             arguments: [
+              "singleFile": .variable("singleFile"),
+              "multipleFiles": .variable("multipleFiles")])
+    ] }
 
     public init(multipleParameterUpload: [MultipleParameterUpload]) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "multipleParameterUpload": multipleParameterUpload.map { (value: MultipleParameterUpload) -> ResultMap in value.resultMap }])
+      self.init(
+        json: ["__typename": "Mutation",
+               "multipleParameterUpload": multipleParameterUpload.map { $0._toJSONObject() }])
     }
 
-    public var multipleParameterUpload: [MultipleParameterUpload] {
-      get {
-        return (resultMap["multipleParameterUpload"] as! [ResultMap]).map { (value: ResultMap) -> MultipleParameterUpload in MultipleParameterUpload(unsafeResultMap: value) }
-      }
-      set {
-        resultMap.updateValue(newValue.map { (value: MultipleParameterUpload) -> ResultMap in value.resultMap }, forKey: "multipleParameterUpload")
-      }
-    }
+    public var multipleParameterUpload: [MultipleParameterUpload] { data["multipleParameterUpload"] }
 
-    public struct MultipleParameterUpload: GraphQLSelectionSet {
-      public static let possibleTypes: [String] = ["File"]
+    public struct MultipleParameterUpload: SelectionSet {
+      public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
 
-      public static var selections: [GraphQLSelection] {
-        return [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("path", type: .nonNull(.scalar(String.self))),
-          GraphQLField("filename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("mimetype", type: .nonNull(.scalar(String.self))),
+      public static var __parentType: ParentType { .Object(File.self) }
+      public static var selections: [Selection] { [
+        .field("__typename", String.self),
+        .field("id", ID.self),
+        .field("path", String.self),
+        .field("filename", String.self),
+        .field("mimetype", String.self),
         ]
       }
 
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
+      public init(id: ID, path: String, filename: String, mimetype: String) {
+        self.init(json: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
       }
 
-      public init(id: GraphQLID, path: String, filename: String, mimetype: String) {
-        self.init(unsafeResultMap: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      public var id: GraphQLID {
-        get {
-          return resultMap["id"]! as! GraphQLID
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "id")
-        }
-      }
-
-      public var path: String {
-        get {
-          return resultMap["path"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "path")
-        }
-      }
-
-      public var filename: String {
-        get {
-          return resultMap["filename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "filename")
-        }
-      }
-
-      public var mimetype: String {
-        get {
-          return resultMap["mimetype"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "mimetype")
-        }
-      }
+      public var __typename: String { data["__typename"] }
+      public var id: ID { data["id"] }
+      public var path: String { data["path"] }
+      public var filename: String { data["filename"] }
+      public var mimetype: String { data["mimetype"] }
     }
   }
 }
@@ -287,105 +200,47 @@ public final class UploadOneFileMutation: GraphQLMutation {
     self.file = file
   }
 
-  public var variables: GraphQLMap? {
-    return ["file": file]
+  public var variables: [String: InputValue]? {
+    ["file": file].toInputVariables()
   }
 
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Mutation"]
+  public struct Data: SelectionSet {
+    public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
 
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("singleUpload", arguments: ["file": GraphQLVariable("file")], type: .nonNull(.object(SingleUpload.selections))),
-      ]
-    }
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
+    public static var __parentType: ParentType { .Object(Mutation.self) }
+    public static var selections: [Selection] { [
+      .field("singleUpload", SingleUpload.self, arguments: ["file": .variable("file")])
+    ] }
 
     public init(singleUpload: SingleUpload) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "singleUpload": singleUpload.resultMap])
+      self.init(json: ["__typename": "Mutation", "singleUpload": singleUpload._toJSONObject()])
     }
 
-    public var singleUpload: SingleUpload {
-      get {
-        return SingleUpload(unsafeResultMap: resultMap["singleUpload"]! as! ResultMap)
-      }
-      set {
-        resultMap.updateValue(newValue.resultMap, forKey: "singleUpload")
-      }
-    }
+    public var singleUpload: SingleUpload { data["singleUpload"] }
 
-    public struct SingleUpload: GraphQLSelectionSet {
-      public static let possibleTypes: [String] = ["File"]
+    public struct SingleUpload: SelectionSet {
+      public let data: ResponseDict; public init(data: ResponseDict) { self.data = data }
+      public static var __parentType: ParentType { .Object(File.self) }
 
-      public static var selections: [GraphQLSelection] {
+      public static var selections: [Selection] {
         return [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("path", type: .nonNull(.scalar(String.self))),
-          GraphQLField("filename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("mimetype", type: .nonNull(.scalar(String.self))),
+          .field("__typename", String.self),
+          .field("id", ID.self),
+          .field("path", String.self),
+          .field("filename", String.self),
+          .field("mimetype", String.self),
         ]
       }
 
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
+      public init(id: ID, path: String, filename: String, mimetype: String) {
+        self.init(json: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
       }
 
-      public init(id: GraphQLID, path: String, filename: String, mimetype: String) {
-        self.init(unsafeResultMap: ["__typename": "File", "id": id, "path": path, "filename": filename, "mimetype": mimetype])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      public var id: GraphQLID {
-        get {
-          return resultMap["id"]! as! GraphQLID
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "id")
-        }
-      }
-
-      public var path: String {
-        get {
-          return resultMap["path"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "path")
-        }
-      }
-
-      public var filename: String {
-        get {
-          return resultMap["filename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "filename")
-        }
-      }
-
-      public var mimetype: String {
-        get {
-          return resultMap["mimetype"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "mimetype")
-        }
-      }
+      public var __typename: String { data["__typename"] }
+      public var id: ID { data["id"] }
+      public var path: String { data["path"] }
+      public var filename: String { data["filename"] }
+      public var mimetype: String { data["mimetype"] }
     }
   }
 }

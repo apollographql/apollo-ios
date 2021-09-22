@@ -11,7 +11,7 @@ class ExecutionTests: XCTestCase {
   var client: ApolloClient!
 
   override func setUp() {
-    store = ApolloStore()
+    store = ApolloStore.mock()
     server = MockGraphQLServer()
     transport = MockNetworkTransport(server: server, store: store)
     client = ApolloClient(networkTransport: transport, store: store)

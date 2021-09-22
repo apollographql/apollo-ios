@@ -1,3 +1,7 @@
+#if !COCOAPODS
+import struct ApolloAPI.JSONValueMatcher
+#endif
+
 /// A set of cache records.
 public struct RecordSet {
   public private(set) var storage: [CacheKey: Record] = [:]

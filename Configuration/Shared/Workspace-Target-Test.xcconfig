@@ -8,4 +8,4 @@ ENABLE_BITCODE = NO
 WARNING_CFLAGS = $(inherited) -Wno-documentation-unknown-command -Wno-incomplete-module -Wno-disabled-macro-expansion -Wno-shadow
 
 /// Test Target Deployment Target
-MACOSX_DEPLOYMENT_TARGET = 10.15
+MACOSX_DEPLOYMENT_TARGET = 11.0

@@ -13,7 +13,15 @@ public final class MockURLSessionClient: URLSessionClient {
 
   public private (set) var lastRequest: Atomic<URLRequest?> = Atomic(nil)
 
+  public var jsonData: JSONObject?
   public var data: Data?
+  var responseData: Data? {
+    if let data = data { return data }
+    if let jsonData = jsonData {
+      return try! JSONSerializationFormat.serialize(value: jsonData)
+    }
+    return nil
+  }
   public var response: HTTPURLResponse?
   public var error: Error?
   
@@ -30,13 +38,13 @@ public final class MockURLSessionClient: URLSessionClient {
         
     // Capture data, response, and error instead of self to ensure we complete with the current state
     // even if it is changed before the block runs.
-    callbackQueue.async { [data, response, error] in
-      rawTaskCompletionHandler?(data, response, error)
+    callbackQueue.async { [responseData, response, error] in
+      rawTaskCompletionHandler?(responseData, response, error)
       
       if let error = error {
         completion(.failure(error))
       } else {
-        guard let data = data else {
+        guard let data = responseData else {
           completion(.failure(URLSessionClientError.dataForRequestNotFound(request: request)))
           return
         }

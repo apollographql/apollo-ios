@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// A request class allowing for a multipart-upload request.
 open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {

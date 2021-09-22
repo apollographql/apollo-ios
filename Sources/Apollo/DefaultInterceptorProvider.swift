@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// The default interceptor provider for typescript-generated code
 open class DefaultInterceptorProvider: InterceptorProvider {
@@ -33,7 +35,7 @@ open class DefaultInterceptorProvider: InterceptorProvider {
         CacheReadInterceptor(store: self.store),
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
-        JSONResponseParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+        JSONResponseParsingInterceptor(),
         AutomaticPersistedQueryInterceptor(),
         CacheWriteInterceptor(store: self.store),
     ]

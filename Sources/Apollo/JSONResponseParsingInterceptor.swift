@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
 public struct JSONResponseParsingInterceptor: ApolloInterceptor {
@@ -25,14 +27,9 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
       }
     }
   }
-  
-  public let cacheKeyForObject: CacheKeyForObject?
 
-  /// Designated Initializer
-  public init(cacheKeyForObject: CacheKeyForObject? = nil) {
-    self.cacheKeyForObject = cacheKeyForObject
-  }
-  
+  public init() { }
+
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
@@ -80,7 +77,7 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
       // There is no cache, so we don't need to get any info on dependencies. Use fast parsing.
       return try response.parseResultFast()
     default:
-      let (parsedResult, _) = try response.parseResult(cacheKeyForObject: self.cacheKeyForObject)
+      let (parsedResult, _) = try response.parseResult()
       return parsedResult
     }
   }

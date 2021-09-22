@@ -10,6 +10,16 @@ func lazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value>]) -> Possibly
   }
 }
 
+/// Lazily evaluates an array of possibly deferred optional values, filtering out any nil values.
+/// - Parameters:
+///   - elements: An array of possibly deferred values
+/// - Returns: A deferred array with the result of evaluating each element.
+func compactLazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value?>]) -> PossiblyDeferred<[Value]> {
+  return .deferred {
+    try elements.compactMap { try $0.get() }
+  }
+}
+
 /// A possibly deferred value that represents either an immediate success or failure value, or a deferred
 /// value that is evaluated lazily when needed by invoking a throwing closure.
 enum PossiblyDeferred<Value> {

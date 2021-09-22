@@ -57,8 +57,7 @@ let package = Package(
       name: "ApolloAPI",
       dependencies: [],
       exclude: [
-        "Info.plist",
-        "CodegenV1"
+        "Info.plist"
       ]),
     .target(
       name: "ApolloUtils",

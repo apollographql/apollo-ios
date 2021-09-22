@@ -7,16 +7,15 @@
 //
 
 import XCTest
+import Nimble
+import ApolloTestSupport
 @testable import Apollo
-import StarWarsAPI
-import UploadAPI
+@testable import ApolloAPI
 
 class RequestBodyCreatorTests: XCTestCase {
-  private let customRequestBodyCreator = TestCustomRequestBodyCreator()
-  private let apolloRequestBodyCreator = ApolloRequestBodyCreator()
-  
-  func create<Operation: GraphQLOperation>(with creator: RequestBodyCreator, for query: Operation) -> GraphQLMap {
-    creator.requestBody(for: query,
+
+  func create<Operation: GraphQLOperation>(with creator: RequestBodyCreator, for operation: Operation) -> GraphQLMap {
+    creator.requestBody(for: operation,
                         sendOperationIdentifiers: false,
                         sendQueryDocument: true,
                         autoPersistQuery: false)
@@ -25,16 +24,35 @@ class RequestBodyCreatorTests: XCTestCase {
   // MARK: - Tests
   
   func testRequestBodyWithApolloRequestBodyCreator() {
-    let query = HeroNameQuery()
-    let req = self.create(with: apolloRequestBodyCreator, for: query)
+    // given
+    let operation = MockOperation.mock()
+    operation.operationName = "Test Operation Name"
+    operation.variables = ["TestVar": 123]
+    operation.stubbedQueryDocument = "Test Query Document"
 
-    XCTAssertEqual(query.queryDocument, req["query"] as? String)
+    let creator = ApolloRequestBodyCreator()
+
+    // when
+    let actual = self.create(with: creator, for: operation)
+
+    // then
+    expect(actual["operationName"]).to(equalJSONValue("Test Operation Name"))
+    expect(actual["variables"]).to(equalJSONValue(["TestVar": 123]))
+    expect(actual["query"]).to(equalJSONValue("Test Query Document"))
   }
 
   func testRequestBodyWithCustomRequestBodyCreator() {
-    let query = HeroNameQuery()
-    let req = self.create(with: customRequestBodyCreator, for: query)
+    // given
+    let creator = TestCustomRequestBodyCreator()
+    let expected = creator.stubbedRequestBody
 
-    XCTAssertEqual(query.queryDocument, req["test_query"] as? String)
+    // when
+    let actual = self.create(with: creator, for: MockOperation.mock())
+
+    // then
+    expect(actual).to(equalJSONValue(expected))
   }
+
+  #warning("TODO: Test generated input objects converted to variables correctly.")
 }
+

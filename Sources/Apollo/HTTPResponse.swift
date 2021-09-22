@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// Data about a response received by an HTTP request.
 public class HTTPResponse<Operation: GraphQLOperation> {

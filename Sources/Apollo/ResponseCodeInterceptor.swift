@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An interceptor to check the response code returned with a request.
 public struct ResponseCodeInterceptor: ApolloInterceptor {

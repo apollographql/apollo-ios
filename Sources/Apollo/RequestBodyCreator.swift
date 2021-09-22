@@ -1,5 +1,6 @@
 import Foundation
 #if !COCOAPODS
+import ApolloAPI
 import ApolloUtils
 #endif
 
@@ -27,7 +28,7 @@ extension RequestBodyCreator {
                                                        sendQueryDocument: Bool,
                                                        autoPersistQuery: Bool) -> GraphQLMap {
     var body: GraphQLMap = [
-      "variables": operation.variables,
+      "variables": operation.variables?.jsonObject,
       "operationName": operation.operationName,
     ]
 

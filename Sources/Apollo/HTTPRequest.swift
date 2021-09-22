@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// Encapsulation of all information about a request before it hits the network
 open class HTTPRequest<Operation: GraphQLOperation> {

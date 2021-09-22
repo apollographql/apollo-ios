@@ -36,10 +36,14 @@ struct ResponsePath: ExpressibleByArrayLiteral {
     head = Node(previous: head, key: key)
   }
 
+  func appending(_ key: Key) -> ResponsePath {
+    var copy = self
+    copy.append(key)
+    return copy
+  }
+
   static func + (lhs: ResponsePath, rhs: Key) -> ResponsePath {
-    var lhs = lhs
-    lhs.append(rhs)
-    return lhs
+    lhs.appending(rhs)
   }
 }
 

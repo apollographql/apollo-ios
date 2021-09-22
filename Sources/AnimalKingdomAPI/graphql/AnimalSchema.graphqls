@@ -17,6 +17,19 @@ interface Pet {
   owner: Human
 }
 
+interface HousePet implements Animal & Pet {
+  species: String!
+  height: Height!
+  predators: [Animal!]!
+  skinCovering: SkinCovering
+  humanName: String
+  favoriteToy: String!
+  owner: Human
+  bestFriend: Pet
+  rival: Pet
+  livesWith: ClassroomPet
+}
+
 interface WarmBlooded implements Animal {
   species: String!
   height: Height!
@@ -56,6 +69,21 @@ type Cat implements Animal & Pet & WarmBlooded {
   bodyTemperature: Int!
   laysEggs: Boolean!
   isJellicle: Boolean!
+}
+
+type Dog implements Animal & Pet & HousePet & WarmBlooded {
+  species: String!
+  height: Height!
+  predators: [Animal!]!
+  skinCovering: SkinCovering
+  humanName: String
+  favoriteToy: String!
+  owner: Human
+  bodyTemperature: Int!
+  laysEggs: Boolean!
+  bestFriend: HousePet
+  rival: Cat
+  livesWith: Bird
 }
 
 type Bird implements Animal & Pet & WarmBlooded {

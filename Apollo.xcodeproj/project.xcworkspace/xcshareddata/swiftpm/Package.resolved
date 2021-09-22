@@ -2,12 +2,39 @@
   "object": {
     "pins": [
       {
+        "package": "CwlCatchException",
+        "repositoryURL": "https://github.com/mattgallagher/CwlCatchException.git",
+        "state": {
+          "branch": null,
+          "revision": "682841464136f8c66e04afe5dbd01ab51a3a56f2",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "CwlPreconditionTesting",
+        "repositoryURL": "https://github.com/mattgallagher/CwlPreconditionTesting.git",
+        "state": {
+          "branch": null,
+          "revision": "0630439888c94657a235ffcd5977d6047ef3c87b",
+          "version": "2.0.1"
+        }
+      },
+      {
         "package": "InflectorKit",
         "repositoryURL": "https://github.com/mattt/InflectorKit.git",
         "state": {
           "branch": null,
           "revision": "d8cbcc04972690aaa5fc760a2b9ddb3e9f0decd7",
           "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Nimble",
+        "repositoryURL": "https://github.com/Quick/Nimble.git",
+        "state": {
+          "branch": null,
+          "revision": "c93f16c25af5770f0d3e6af27c9634640946b068",
+          "version": "9.2.1"
         }
       },
       {

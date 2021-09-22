@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An interceptor that reads data from the cache for queries, following the `HTTPRequest`'s `cachePolicy`.
 public struct CacheReadInterceptor: ApolloInterceptor {

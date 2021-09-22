@@ -29,15 +29,15 @@ where T: RawRepresentable & CaseIterable, T.RawValue == String {
   /// The underlying enum case. If the value is `__unknown`, this will be `nil`.
   public var value: T? {
     switch self {
-    case .case(let value): return value
+    case let .case(value): return value
     default: return nil
     }
   }
 
   public var rawValue: String {
     switch self {
-    case .case(let value): return value.rawValue
-    case .__unknown(let value): return value
+    case let .case(value): return value.rawValue
+    case let .__unknown(value): return value
     }
   }
 
@@ -48,7 +48,19 @@ where T: RawRepresentable & CaseIterable, T.RawValue == String {
   }
 }
 
-/// Equatable
+// MARK: CustomScalarType
+extension GraphQLEnum: CustomScalarType {
+  public init(jsonValue: JSONValue) throws {
+    guard let stringData = jsonValue as? String else {
+      throw JSONDecodingError.couldNotConvert(value: jsonValue, to: String.self)      
+    }
+    self.init(rawValue: stringData)
+  }
+
+  public var jsonValue: Any { rawValue }
+}
+
+// MARK: Equatable
 extension GraphQLEnum {
   public static func ==(lhs: GraphQLEnum<T>, rhs: GraphQLEnum<T>) -> Bool {
     return lhs.rawValue == rhs.rawValue
@@ -63,6 +75,8 @@ extension GraphQLEnum {
   }
 }
 
+// MARK: Optional<GraphQLEnum<T>> Equatable
+
 public func ==<T: RawRepresentable & CaseIterable>(lhs: GraphQLEnum<T>?, rhs: T) -> Bool
 where T.RawValue == String {
   return lhs?.rawValue == rhs.rawValue
@@ -73,10 +87,13 @@ where T.RawValue == String {
   return lhs?.rawValue != rhs.rawValue
 }
 
-public func ~=<T>(lhs: T, rhs: GraphQLEnum<T>) -> Bool {
-  switch rhs {
-  case let .case(rhs) where rhs == lhs: return true
-  case let .__unknown(rhsRawValue) where rhsRawValue == lhs.rawValue: return true
-  default: return false
+// MARK: Pattern Matching
+extension GraphQLEnum {
+  public static func ~=(lhs: T, rhs: GraphQLEnum<T>) -> Bool {
+    switch rhs {
+    case let .case(rhs) where rhs == lhs: return true
+    case let .__unknown(rhsRawValue) where rhsRawValue == lhs.rawValue: return true
+    default: return false
+    }
   }
 }

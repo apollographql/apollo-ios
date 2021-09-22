@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
 public struct CacheWriteInterceptor: ApolloInterceptor {
@@ -48,7 +50,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     }
     
     do {
-      let (_, records) = try legacyResponse.parseResult(cacheKeyForObject: self.store.cacheKeyForObject)
+      let (_, records) = try legacyResponse.parseResult()
       
       guard chain.isNotCancelled else {
         return

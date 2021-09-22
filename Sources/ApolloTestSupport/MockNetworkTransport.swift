@@ -1,10 +1,11 @@
 import Foundation
 @testable import Apollo
+@testable import ApolloAPI
 
 public final class MockNetworkTransport: RequestChainNetworkTransport {
   public init(
     server: MockGraphQLServer = MockGraphQLServer(),
-    store: ApolloStore = ApolloStore(),
+    store: ApolloStore,
     clientName: String = "MockNetworkTransport_ClientName",
     clientVersion: String = "MockNetworkTransport_ClientVersion"
   ) {
@@ -12,7 +13,7 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
                endpointURL: TestURL.mockServer.url)
     self.clientName = clientName
     self.clientVersion = clientVersion
-  }
+  }  
   
   struct TestInterceptorProvider: InterceptorProvider {
     let store: ApolloStore
@@ -24,7 +25,7 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
         CacheReadInterceptor(store: self.store),
         MockGraphQLServerInterceptor(server: server),
         ResponseCodeInterceptor(),
-        JSONResponseParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+        JSONResponseParsingInterceptor(),
         AutomaticPersistedQueryInterceptor(),
         CacheWriteInterceptor(store: self.store),
       ]

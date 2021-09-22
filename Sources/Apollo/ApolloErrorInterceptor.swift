@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 
 /// An error interceptor called to allow further examination of error data when an error occurs in the chain.
 public protocol ApolloErrorInterceptor {

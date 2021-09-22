@@ -1,8 +1,9 @@
 import XCTest
+import Nimble
 import Apollo
+import ApolloAPI
 import ApolloTestSupport
 @testable import ApolloWebSocket
-import StarWarsAPI
 
 extension WebSocketTransport {
   func write(message: GraphQLMap) {
@@ -23,11 +24,25 @@ class WebSocketTests: XCTestCase {
       return "12345678"
     }
   }
+
+  class ReviewAddedData: MockSelectionSet {
+    override class var selections: [Selection] { [
+      .field("reviewAdded", ReviewAdded.self),
+    ]}
+
+    class ReviewAdded: MockSelectionSet {
+      override class var selections: [Selection] { [
+        .field("__typename", String.self),
+        .field("stars", Int.self),
+        .field("commentary", String?.self),
+      ] }
+    }
+  }
   
   override func setUp() {
     super.setUp()
 
-    let store = ApolloStore()
+    let store = ApolloStore.mock()
     let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
     networkTransport = WebSocketTransport(websocket: websocket, store: store)
     client = ApolloClient(networkTransport: networkTransport!, store: store)
@@ -44,11 +59,14 @@ class WebSocketTests: XCTestCase {
   func testLocalSingleSubscription() throws {
     let expectation = self.expectation(description: "Single subscription")
     
-    client.subscribe(subscription: ReviewAddedSubscription()) { result in
+    client.subscribe(
+      subscription: MockSubscription<ReviewAddedData>()
+    ) { result in
       defer { expectation.fulfill() }
       switch result {
       case .success(let graphQLResult):
-        XCTAssertEqual(graphQLResult.data?.reviewAdded?.stars, 5)
+        expect(graphQLResult.data?.reviewAdded?.stars).to(equal(5))
+
       case .failure(let error):
         XCTFail("Unexpected error: \(error)")
       }
@@ -78,7 +96,7 @@ class WebSocketTests: XCTestCase {
     let expectation = self.expectation(description: "Missing subscription")
     expectation.isInverted = true
 
-    client.subscribe(subscription: ReviewAddedSubscription()) { _ in
+    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { _ in
       expectation.fulfill()
     }
     
@@ -88,7 +106,7 @@ class WebSocketTests: XCTestCase {
   func testLocalErrorUnknownId() throws {
     let expectation = self.expectation(description: "Unknown id for subscription")
     
-    client.subscribe(subscription: ReviewAddedSubscription()) { result in
+    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
       defer { expectation.fulfill() }
       
       switch result {
@@ -132,12 +150,17 @@ class WebSocketTests: XCTestCase {
   func testSingleSubscriptionWithCustomOperationMessageIdCreator() throws {
     let expectation = self.expectation(description: "Single Subscription with Custom Operation Message Id Creator")
     
-    let store = ApolloStore()
+    let store = ApolloStore.mock()
     let websocket = MockWebSocket(request:URLRequest(url: TestURL.mockServer.url))
-    networkTransport = WebSocketTransport(websocket: websocket, store: store, operationMessageIdCreator: CustomOperationMessageIdCreator())
+    networkTransport = WebSocketTransport(
+      websocket: websocket,
+      store: store,
+      config: .init(
+        operationMessageIdCreator: CustomOperationMessageIdCreator()
+      ))
     client = ApolloClient(networkTransport: networkTransport!, store: store)
     
-    client.subscribe(subscription: ReviewAddedSubscription()) { result in
+    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
       defer { expectation.fulfill() }
       switch result {
       case .success(let graphQLResult):

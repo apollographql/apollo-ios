@@ -1,4 +1,6 @@
-import Foundation
+#if !COCOAPODS
+import ApolloAPI
+#endif
 import Dispatch
 
 /// A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
@@ -31,7 +33,7 @@ public class ApolloClient {
 
   let networkTransport: NetworkTransport
 
-  public let store: ApolloStore // <- conformance to ApolloClientProtocol
+  public let store: ApolloStore
 
   public enum ApolloClientError: Error, LocalizedError {
     case noUploadTransport
@@ -70,15 +72,6 @@ public class ApolloClient {
 // MARK: - ApolloClientProtocol conformance
 
 extension ApolloClient: ApolloClientProtocol {
-
-  public var cacheKeyForObject: CacheKeyForObject? {
-    get {
-      return self.store.cacheKeyForObject
-    }
-    set {
-      self.store.cacheKeyForObject = newValue
-    }
-  }
 
   public func clearCache(callbackQueue: DispatchQueue = .main,
                          completion: ((Result<Void, Error>) -> Void)? = nil) {
