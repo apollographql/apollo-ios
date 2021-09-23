@@ -30,7 +30,7 @@ class RequestBodyCreatorTests: XCTestCase {
     let operation = MockOperation.mock()
     operation.operationName = "Test Operation Name"
     operation.variables = ["TestVar": 123]
-    operation.stubbedQueryDocument = "Test Query Document"
+    operation.document = .notPersisted(definition: .init("Test Query Document"))
 
     let creator = ApolloRequestBodyCreator()
 

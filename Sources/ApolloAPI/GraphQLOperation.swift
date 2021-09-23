@@ -6,16 +6,67 @@ public enum GraphQLOperationType {
   case subscription
 }
 
+/// The means of providing the operation document that includes the definition of the operation
+/// over network transport.
+///
+/// This data represents the `Document` as defined in the GraphQL Spec.
+/// - See: [GraphQLSpec - Document](https://spec.graphql.org/draft/#Document)
+///
+/// The Apollo Code Generation Engine will generate the `DocumentType` on each generated
+/// `GraphQLOperation`. You can change the type of `DocumentType` generated in your
+/// [code generation configuration](// TODO: ADD URL TO DOCUMENTATION HERE).
+public enum DocumentType {
+  /// The traditional way of providing the operation `Document`.
+  /// The `Document` is sent with every operation request.
+  case notPersisted(definition: OperationDefinition)
+
+  /// Automatically persists your operations using Apollo Server's
+  /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+  ///
+  /// This allow the operation definition to be persisted using an `operationIdentifier` instead of
+  /// being sent with every operation request. If the server does not recognize the
+  /// `operationIdentifier`, the network transport can send the provided definition to
+  /// "automatically persist" the operation definition.
+  case automaticallyPersisted(operationIdentifier: String, definition: OperationDefinition)
+
+  /// Provides only the `operationIdentifier` for operations that have been previously persisted
+  /// to an Apollo Server using
+  /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+  ///
+  /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
+  /// method should only be used if you are manually persisting your queries to an Apollo Server.  
+  case persistedOperationsOnly(operationIdentifier: String)
+}
+
+/// The definition of an operation to be provided over network transport.
+///
+/// This data represents the `Definition` for a `Document` as defined in the GraphQL Spec.
+/// In the case of the Apollo client, the definition will always be an `ExecutableDefinition`.
+/// - See: [GraphQLSpec - Document](https://spec.graphql.org/draft/#Document)
+public struct OperationDefinition {
+  let operationDefinition: String
+  let fragments: [Fragment]?
+
+  public init(_ definition: String, fragments: [Fragment]? = nil) {
+    self.operationDefinition = definition
+    self.fragments = fragments
+  }
+
+  public var queryDocument: String {
+    var document = operationDefinition
+    fragments?.forEach {
+      document.append("\n" + $0.fragmentDefinition)
+    }
+    return document
+  }
+}
+
 public protocol GraphQLOperation: AnyObject {
   typealias Variables = [String: GraphQLOperationVariableValue]
 
-  var operationType: GraphQLOperationType { get }
-
-  var operationDefinition: String { get }
-  var operationIdentifier: String? { get }
   var operationName: String { get }
-
-  var queryDocument: String { get }
+  var operationType: GraphQLOperationType { get }
+  var document: DocumentType { get }
 
   var variables: Variables? { get }
 
@@ -23,16 +74,24 @@ public protocol GraphQLOperation: AnyObject {
 }
 
 public extension GraphQLOperation {
-  var queryDocument: String {
-    return operationDefinition
+  var variables: Variables? {
+    return nil
+  }
+
+  var definition: OperationDefinition? {
+    switch self.document {
+    case let .automaticallyPersisted(_, definition), let .notPersisted(definition):
+      return definition
+    default: return nil
+    }
   }
 
   var operationIdentifier: String? {
-    return nil
-  }
-
-  var variables: Variables? {
-    return nil
+    switch self.document {
+    case let .automaticallyPersisted(identifier, _), let .persistedOperationsOnly(identifier):
+      return identifier
+    default: return nil
+    }
   }
 }
 

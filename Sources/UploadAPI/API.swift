@@ -36,8 +36,10 @@ public final class File: Object {
 // MARK: - Mutations
 
 public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation.
-  public let operationDefinition: String =
+  public let operationName: String = "UploadMultipleFilesToTheSameParameter"
+  public let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7",
+    definition: .init(
     """
     mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {
       multipleUpload(files: $files) {
@@ -48,11 +50,7 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
         mimetype
       }
     }
-    """
-
-  public let operationName: String = "UploadMultipleFilesToTheSameParameter"
-
-  public let operationIdentifier: String? = "88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7"
+    """))
 
   public var files: [String]
 
@@ -100,8 +98,10 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
 }
 
 public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation.
-  public let operationDefinition: String =
+  public let operationName: String = "UploadMultipleFilesToDifferentParameters"
+  public let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5",
+    definition: .init(
     """
     mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {
       multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) {
@@ -112,11 +112,7 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
         mimetype
       }
     }
-    """
-
-  public let operationName: String = "UploadMultipleFilesToDifferentParameters"
-
-  public let operationIdentifier: String? = "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
+    """))
 
   public var singleFile: String
   public var multipleFiles: [String]
@@ -176,8 +172,10 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
 }
 
 public final class UploadOneFileMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation.
-  public let operationDefinition: String =
+  public let operationName: String = "UploadOneFile"
+  public let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533",
+    definition: .init(
     """
     mutation UploadOneFile($file: Upload!) {
       singleUpload(file: $file) {
@@ -188,11 +186,7 @@ public final class UploadOneFileMutation: GraphQLMutation {
         mimetype
       }
     }
-    """
-
-  public let operationName: String = "UploadOneFile"
-
-  public let operationIdentifier: String? = "c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533"
+    """))
 
   public var file: String
 

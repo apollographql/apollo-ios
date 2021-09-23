@@ -5,13 +5,13 @@ import ApolloUtils
 #endif
 
 public protocol RequestBodyCreator {
-  /// Creates a `GraphQLMap` out of the passed-in operation
+  /// Creates a `JSONEncodableDictionary` out of the passed-in operation
   ///
   /// - Parameters:
   ///   - operation: The operation to use
   ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
-  /// - Returns: The created `GraphQLMap`
+  /// - Returns: The created `JSONEncodableDictionary`
   func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
     sendQueryDocument: Bool,
@@ -37,7 +37,10 @@ extension RequestBodyCreator {
     }
 
     if sendQueryDocument {
-      body["query"] = operation.queryDocument
+      guard let document = operation.definition?.queryDocument else {
+        preconditionFailure("To send query documents, Apollo types must be generated with `OperationDefinition`s.")
+      }
+      body["query"] = document
     }
 
     if autoPersistQuery {

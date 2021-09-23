@@ -1,5 +1,12 @@
 import Foundation
 
+/// Indicates the presence of a value, supporting both `nil` and `null` values.
+///
+/// In GraphQL, explicitly providing a `null` value for an input value to a field argument is
+/// semantically different from not providing a value at all (`nil`). This enum allows you to
+/// distinguish your input values between `null` and `nil`.
+///
+/// - See: [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/June2018/#sec-Null-Value)
 @dynamicMemberLookup
 public enum GraphQLNullable<Wrapped>: ExpressibleByNilLiteral {
 

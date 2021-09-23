@@ -94,7 +94,7 @@ public class WebSocketTransport {
     ///  If false, remember to call `resumeWebSocketConnection()` to connect.
     ///  Defaults to true.
     public let connectOnInit: Bool
-    /// [optional]The payload to send on connection. Defaults to an empty `GraphQLMap`.
+    /// [optional]The payload to send on connection. Defaults to an empty `JSONEncodableDictionary`.
     public fileprivate(set) var connectingPayload: JSONEncodableDictionary?
     /// The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
     public let requestBodyCreator: RequestBodyCreator
