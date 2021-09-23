@@ -18,8 +18,7 @@ class RequestBodyCreatorTests: XCTestCase {
     with creator: RequestBodyCreator,
     for operation: Operation
   ) -> JSONEncodableDictionary {
-    creator.requestBody(for: operation,
-                        sendOperationIdentifiers: false,
+    creator.requestBody(for: operation,                        
                         sendQueryDocument: true,
                         autoPersistQuery: false)
   }
@@ -31,7 +30,7 @@ class RequestBodyCreatorTests: XCTestCase {
     let operation = MockOperation.mock()
     operation.operationName = "Test Operation Name"
     operation.variables = ["TestVar": 123]
-    operation.stubbedQueryDocument = "Test Query Document"
+    operation.document = .notPersisted(definition: .init("Test Query Document"))
 
     let creator = ApolloRequestBodyCreator()
 

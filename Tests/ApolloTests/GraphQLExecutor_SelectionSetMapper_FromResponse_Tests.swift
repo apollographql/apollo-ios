@@ -761,7 +761,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       override class var __typename: String { "MockChildObject" }
     }
 
-    class MockFragment: MockSelectionSet, Fragment {
+    class GivenFragment: MockFragment {
       override class var __parentType: ParentType { .Object(MockChildObject.self) }
       override class var selections: [Selection] {[
         .field("child", Child.self)
@@ -777,12 +777,12 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet, HasFragments {
       override class var __parentType: ParentType { .Object(MockChildObject.self) }
       override class var selections: [Selection] {[
-        .fragment(MockFragment.self)
+        .fragment(GivenFragment.self)
       ]}
 
       struct Fragments: ResponseObject {
         let data: ResponseDict
-        var childFragment: MockFragment { _toFragment() }
+        var childFragment: GivenFragment { _toFragment() }
       }
     }
 
@@ -903,7 +903,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   func test__booleanCondition_include_fragment__givenVariableIsTrue_getsValuesForFragmentFields() throws {
     // given
-    class MockFragment: MockSelectionSet, Fragment {
+    class GivenFragment: MockFragment {
       override class var selections: [Selection] {[
         .field("name", String.self),
       ]}
@@ -912,7 +912,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
         .field("id", String.self),
-        .include(if: "variable", .fragment(MockFragment.self))
+        .include(if: "variable", .fragment(GivenFragment.self))
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -928,7 +928,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   func test__booleanCondition_include_fragment__givenVariableIsFalse_doesNotGetValuesForFragmentFields() throws {
     // given
-    class MockFragment: MockSelectionSet, Fragment {
+    class GivenFragment: MockFragment {
       override class var selections: [Selection] {[
         .field("name", String.self),
       ]}
@@ -937,7 +937,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
         .field("id", String.self),
-        .include(if: "variable", .fragment(MockFragment.self))
+        .include(if: "variable", .fragment(GivenFragment.self))
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
@@ -1109,7 +1109,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   func test__booleanCondition_include_typeCaseOnNamedFragment__givenVariableIsTrue_typeCaseMatchesParentType_getsValuesForTypeCaseFields() throws {
     // given
     class Person: Object {}
-    class MockFragment: MockSelectionSet, Fragment {
+    class GivenFragment: MockFragment {
       override class var selections: [Selection] {[
         .field("name", String.self),
       ]}
@@ -1124,7 +1124,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       class AsPerson: MockTypeCase {
         override class var __parentType: ParentType { .Object(Person.self)}
         override class var selections: [Selection] {[
-          .fragment(MockFragment.self),
+          .fragment(GivenFragment.self),
         ]}
       }
     }
@@ -1221,7 +1221,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   func test__booleanCondition_skip_singleField__givenVariableIsTrue_givenFieldIdSelectedByAnotherSelection_getsValueForField() throws {
     // given
-    class MockFragment: MockSelectionSet, Fragment {
+    class GivenFragment: MockFragment {
       override class var selections: [Selection] {[
         .field("name", String.self),
       ]}
@@ -1230,7 +1230,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     class GivenSelectionSet: MockSelectionSet {
       override class var selections: [Selection] {[
         .skip(if: "variable", .field("name", String.self)),
-        .fragment(MockFragment.self)
+        .fragment(GivenFragment.self)
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]

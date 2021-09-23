@@ -43,16 +43,18 @@ class AutomaticPersistedQueriesTests: XCTestCase {
       self.episode = episode
       super.init()
       self.variables = ["episode": episode]
-      self.operationIdentifier = "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671"
-      self.operationDefinition = "MockHeroNameQuery - Operation Definition"
+      self.document = .automaticallyPersisted(
+        operationIdentifier: "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671",
+        definition: .init("MockHeroNameQuery - Operation Definition"))
     }
   }
 
   fileprivate class APQMockMutation: MockMutation<MockSelectionSet> {
     override init() {
       super.init()
-      self.operationIdentifier = "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374"
-      self.operationDefinition = "APQMockMutation - Operation Definition"
+      self.document = .automaticallyPersisted(
+        operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
+        definition: .init("APQMockMutation - Operation Definition"))
     }
   }
 
@@ -77,7 +79,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let queryString = jsonBody["query"] as? String
     if queryDocument {
       XCTAssertEqual(queryString,
-                     operation.queryDocument,
+                     operation.definition?.queryDocument,
                      file: file,
                      line: line)
     }
@@ -146,7 +148,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     let queryString = url.queryItemDictionary?["query"]
     if queryDocument {
       XCTAssertEqual(queryString,
-                     query.queryDocument,
+                     query.definition?.queryDocument,
                      file: file,
                      line: line)
     } else {

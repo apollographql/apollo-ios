@@ -6,7 +6,9 @@
 /// any `Fragment` included in it's `Fragments` object via its `fragments` property.
 ///
 /// - SeeAlso: `HasFragments`, `ToFragments`
-public protocol Fragment: AnySelectionSet { }
+public protocol Fragment: AnySelectionSet {
+  var fragmentDefinition: String { get }
+}
 
 // MARK: - HasFragments
 

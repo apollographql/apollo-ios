@@ -5,12 +5,8 @@ open class MockOperation<SelectionSet: RootSelectionSet>: GraphQLOperation {
 
   public let operationType: GraphQLOperationType
 
-  public var operationDefinition: String = "None"
-  public var operationIdentifier: String?
   public var operationName: String = "MockOperationName"
-
-  public var stubbedQueryDocument: String?
-  public final var queryDocument: String { stubbedQueryDocument ?? operationDefinition }
+  public var document: DocumentType = .notPersisted(definition: .init("Mock Operation Definition"))
 
   open var variables: Variables?
 
@@ -96,5 +92,9 @@ open class AbstractMockSelectionSet: AnySelectionSet {
 }
 
 open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet { }
+
+open class MockFragment: AbstractMockSelectionSet, RootSelectionSet, Fragment {
+  public var fragmentDefinition: String = ""
+}
 
 open class MockTypeCase: AbstractMockSelectionSet, TypeCase { }

@@ -15,7 +15,6 @@ struct TestCustomRequestBodyCreator: RequestBodyCreator {
 
   func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
-    sendOperationIdentifiers: Bool,
     sendQueryDocument: Bool, autoPersistQuery: Bool
   ) -> JSONEncodableDictionary {
     stubbedRequestBody

@@ -29,18 +29,19 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__queryWithSingleParameterAndVariable_encodesURL() {
     let operation = MockOperation.mock()
     operation.operationName = "TestOpName"
-    operation.stubbedQueryDocument = """
-query MockQuery($param: String) {
-  testField(param: $param) {
-    __typename
-    name
-  }
-}
-"""
+    operation.document = .notPersisted(definition: .init(
+    """
+    query MockQuery($param: String) {
+      testField(param: $param) {
+        __typename
+        name
+      }
+    }
+    """))
+
     operation.variables = ["param": "TestParamValue"]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
@@ -56,18 +57,18 @@ query MockQuery($param: String) {
   func test__createGetURL__query_withEnumParameterAndVariable_encodesURL() {
     let operation = MockOperation.mock()
     operation.operationName = "TestOpName"
-    operation.stubbedQueryDocument = """
-query MockQuery($param: MockEnum) {
-  testField(param: $param) {
-    __typename
-    name
-  }
-}
-"""
+    operation.document = .notPersisted(definition: .init(
+    """
+    query MockQuery($param: MockEnum) {
+      testField(param: $param) {
+        __typename
+        name
+      }
+    }
+    """))
     operation.variables = ["param": MockEnum.LARGE]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
 
@@ -83,18 +84,19 @@ query MockQuery($param: MockEnum) {
   func test__createGetURL__queryWithMoreThanOneParameter_withIncludeDirective_encodesURL() throws {
     let operation = MockOperation.mock()
     operation.operationName = "TestOpName"
-    operation.stubbedQueryDocument = """
-query MockQuery($a: String, $b: Boolean!) {
-  testField(param: $a) {
-    __typename
-    nestedField @include(if: $b)
-  }
-}
-"""
+    operation.document = .notPersisted(definition: .init(
+    """
+    query MockQuery($a: String, $b: Boolean!) {
+      testField(param: $a) {
+        __typename
+        nestedField @include(if: $b)
+      }
+    }
+    """))
+
     operation.variables = ["a": "TestParamValue", "b": true]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
@@ -110,8 +112,9 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWith2DParameter_encodesURL_withBodyComponentsInAlphabeticalOrder() throws {
     let operation = MockOperation.mock()
     operation.operationName = "TestOpName"
-    operation.stubbedQueryDocument = "query MockQuery {}"
-    operation.operationIdentifier = "4d465fbc6e3731d01102504850"
+    operation.document = .automaticallyPersisted(
+      operationIdentifier: "4d465fbc6e3731d01102504850",
+      definition: .init("query MockQuery {}"))
     
     let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
@@ -123,7 +126,7 @@ query MockQuery($a: String, $b: Boolean!) {
     ]
     
     let body: JSONEncodableDictionary = [
-      "query": operation.queryDocument,
+      "query": operation.definition?.queryDocument,
       "extensions": extensions
     ]
     
@@ -144,7 +147,7 @@ query MockQuery($a: String, $b: Boolean!) {
     ]
 
     let body: JSONEncodableDictionary = [
-      "query": operation.queryDocument,
+      "query": operation.definition?.queryDocument,
       "extensions": extensions
     ]
 
@@ -165,7 +168,7 @@ query MockQuery($a: String, $b: Boolean!) {
     ]
 
     let body: JSONEncodableDictionary = [
-      "query": operation.queryDocument,
+      "query": operation.definition?.queryDocument,
       "extensions": extensions
     ]
 
@@ -180,7 +183,7 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWithPersistedQueryID_withoutQueryParameter_encodesURL() throws {
     let operation = MockOperation.mock()
     operation.operationName = "TestOpName"
-    operation.operationIdentifier = "4d465fbc6e3731d01102504850"
+    operation.document = .persistedOperationsOnly(operationIdentifier: "4d465fbc6e3731d01102504850")
     
     let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
@@ -207,18 +210,18 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWithNullValueForVariable_encodesVariableWithNull() {
     let operation = MockOperation.mock()
     operation.operationName = "TestOpName"
-    operation.stubbedQueryDocument = """
-query MockQuery($param: String) {
-  testField(param: $param) {
-    __typename
-    name
-  }
-}
-"""
+    operation.document = .notPersisted(definition: .init(
+    """
+    query MockQuery($param: String) {
+      testField(param: $param) {
+        __typename
+        name
+      }
+    }
+    """))
     operation.variables = ["param": GraphQLNullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
 
@@ -239,7 +242,7 @@ query MockQuery($param: String) {
     ]
 
     let body: JSONEncodableDictionary = [
-      "query": operation.queryDocument,
+      "query": operation.definition?.queryDocument,
       "extensions": extensions
     ]
 
