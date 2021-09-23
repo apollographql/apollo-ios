@@ -20,7 +20,7 @@ class GETTransformerTests: XCTestCase {
     super.tearDown()
   }
 
-  private enum MockEnum: String, CaseIterable, InputValueConvertible {
+  private enum MockEnum: String, EnumType {
     case LARGE
     case AVERAGE
     case SMALL
@@ -64,7 +64,7 @@ query MockQuery($param: MockEnum) {
   }
 }
 """
-    operation.variables = ["param": MockEnum.LARGE.asInputValue]
+    operation.variables = ["param": MockEnum.LARGE]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: false,
@@ -115,7 +115,7 @@ query MockQuery($a: String, $b: Boolean!) {
     
     let persistedQuery: GraphQLMap = [
       "version": 1,
-      "sha256Hash": operation.operationIdentifier
+      "sha256Hash": operation.operationIdentifier!
     ]
     
     let extensions: GraphQLMap = [
@@ -124,7 +124,6 @@ query MockQuery($a: String, $b: Boolean!) {
     
     let body: GraphQLMap = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
     
@@ -146,7 +145,6 @@ query MockQuery($a: String, $b: Boolean!) {
 
     let body: GraphQLMap = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
 
@@ -168,7 +166,6 @@ query MockQuery($a: String, $b: Boolean!) {
 
     let body: GraphQLMap = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
 
@@ -187,7 +184,7 @@ query MockQuery($a: String, $b: Boolean!) {
     
     let persistedQuery: GraphQLMap = [
       "version": 1,
-      "sha256Hash": operation.operationIdentifier
+      "sha256Hash": operation.operationIdentifier!
     ]
     
     let extensions: GraphQLMap = [
@@ -195,7 +192,6 @@ query MockQuery($a: String, $b: Boolean!) {
     ]
     
     let body: GraphQLMap = [
-      "variables": operation.variables,
       "extensions": extensions
     ]
     
@@ -219,7 +215,7 @@ query MockQuery($param: String) {
   }
 }
 """
-    operation.variables = ["param": .null]
+    operation.variables = ["param": Nullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: false,
@@ -244,7 +240,6 @@ query MockQuery($param: String) {
 
     let body: GraphQLMap = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
 

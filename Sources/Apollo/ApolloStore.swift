@@ -184,7 +184,7 @@ public class ApolloStore {
     public func readObject<SelectionSet: RootSelectionSet>(
       ofType type: SelectionSet.Type,
       withKey key: CacheKey,
-      variables: [String: InputValue]? = nil
+      variables: GraphQLOperation.Variables? = nil
     ) throws -> SelectionSet {
       return try self.readObject(ofType: type,
                                  withKey: key,
@@ -195,7 +195,7 @@ public class ApolloStore {
     func readObject<SelectionSet: RootSelectionSet, Accumulator: GraphQLResultAccumulator>(
       ofType type: SelectionSet.Type,
       withKey key: CacheKey,
-      variables: [String: InputValue]? = nil,
+      variables: GraphQLOperation.Variables? = nil,
       accumulator: Accumulator
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()

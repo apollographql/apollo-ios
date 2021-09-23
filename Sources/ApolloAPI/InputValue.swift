@@ -30,20 +30,6 @@ public indirect enum InputValue {
   case null
 }
 
-// MARK: - JSONEncodable
-
-extension InputValue: JSONEncodable {
-  public var jsonValue: JSONValue {
-    switch self {
-    case let .scalar(value): return value
-    case let .variable(variableName): return "$\(variableName)"
-    case let .list(values): return values.map { $0.jsonValue }
-    case let .object(valueObject): return valueObject.mapValues { $0.jsonValue }
-    case .null: return NSNull()
-    }
-  }
-}
-
 // MARK: - InputValueConvertible
 
 extension InputValue: InputValueConvertible {
@@ -106,14 +92,6 @@ extension InputValue: ExpressibleByDictionaryLiteral {
   @inlinable public init(dictionaryLiteral elements: (String, InputValueConvertible)...) {
     self = .object(Dictionary(elements.map{ ($0.0, $0.1.asInputValue) },
                               uniquingKeysWith: { (_, last) in last }))
-  }
-}
-
-// MARK = Variable Dictionary Conversion
-
-extension Dictionary where Key == String, Value == InputValueConvertible {
-  @inlinable public func toInputVariables() -> [String: InputValue] {
-    mapValues { $0.asInputValue }
   }
 }
 

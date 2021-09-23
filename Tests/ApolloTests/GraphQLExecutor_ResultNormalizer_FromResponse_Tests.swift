@@ -19,7 +19,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   private func normalizeRecords(
     _ selectionSet: RootSelectionSet.Type,
-    with variables: [String: InputValue]? = nil,
+    with variables: GraphQLOperation.Variables? = nil,
     from object: JSONObject
   ) throws -> RecordSet {
     return try GraphQLExecutor_ResultNormalizer_FromResponse_Tests.executor.execute(
@@ -76,7 +76,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       }
     }
     
-    let variables: [String: InputValue] = ["episode": "JEDI"]
+    let variables = ["episode": "JEDI"]
 
     let object: JSONObject = [
       "hero": ["__typename": "Droid", "name": "R2-D2"]
@@ -95,7 +95,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
 
   func test__execute__givenObjectWithNoCacheKey_forFieldWithEnumArgument_normalizesRecordToPathFromQueryRootIncludingArgument() throws {
     // given
-    enum MockEnum: String, CaseIterable, InputValueConvertible {
+    enum MockEnum: String, EnumType {
       case NEWHOPE
       case EMPIRE
       case JEDI
@@ -113,7 +113,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
       }
     }
 
-    let variables: [String: InputValue] = ["episode": MockEnum.EMPIRE].toInputVariables()
+    let variables = ["episode": MockEnum.EMPIRE]
 
     let object: JSONObject = [
       "hero": ["__typename": "Droid", "name": "R2-D2"]

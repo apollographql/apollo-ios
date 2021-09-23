@@ -69,6 +69,11 @@ extension Bool: JSONDecodable, JSONEncodable {
   }
 }
 
+extension EnumType {
+  public var jsonValue: JSONValue { rawValue }
+}
+
+#warning("might be able to remove these since we are using EnumType")
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)
@@ -96,6 +101,18 @@ extension Optional where Wrapped: JSONDecodable {
   }
 }
 
+//extension Nullable: JSONEncodable where Wrapped: JSONEncodable {
+//  public var jsonValue: JSONValue {
+//    switch self {
+//    case .none:
+//      return NSNull()
+//    case .some(let wrapped as JSONEncodable):
+//      return wrapped.jsonValue
+//    }
+//  }
+//}
+
+
 // Once [conditional conformances](https://github.com/apple/swift-evolution/blob/master/proposals/0143-conditional-conformances.md) have been implemented, we should be able to replace these runtime type checks with proper static typing
 
 extension Optional: JSONEncodable {
@@ -119,7 +136,7 @@ extension NSNull: JSONEncodable {
   public var jsonValue: JSONValue { self }
 }
 
-extension Dictionary: JSONEncodable {
+extension Dictionary: JSONEncodable where Key == String, Value == JSONEncodable {
   public var jsonValue: JSONValue {
     return jsonObject
   }

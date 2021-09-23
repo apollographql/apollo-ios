@@ -6,9 +6,9 @@ import StarWarsAPI
 
 #warning("TODO: Do we refactor these for [String: InputValue] or delete them?")
 class GraphQLMapEncodingTests: XCTestCase {
-  private struct MockGraphQLMapConvertible: GraphQLMapConvertible {
-    let graphQLMap: GraphQLMap
-  }
+//  private struct MockGraphQLMapConvertible: GraphQLMapConvertible {
+//    let graphQLMap: GraphQLMap
+//  }
   
 //  private func serializeAndDeserialize(_ map: GraphQLMap) -> NSDictionary {
 //    let input = MockGraphQLMapConvertible(graphQLMap: map)

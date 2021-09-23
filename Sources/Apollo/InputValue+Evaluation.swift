@@ -4,7 +4,7 @@ import ApolloAPI
 import Foundation
 
 extension Selection.Field {
-  func cacheKey(with variables: [String: InputValue]?) throws -> String {
+  func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
     if let arguments = arguments,
        case let argumentValues = try InputValue.evaluate(arguments, with: variables),
        argumentValues.apollo.isNotEmpty {
@@ -29,22 +29,16 @@ extension Selection.Field {
 }
 
 extension InputValue {
-  func evaluate(with variables: [String: InputValue]?) throws -> JSONValue {
+  private func evaluate(with variables: GraphQLOperation.Variables?) throws -> JSONValue? {
     switch self {
-    case let .scalar(value):
-      return value
-
     case let .variable(name):
       guard let value = variables?[name] else {
         throw GraphQLError("Variable \"\(name)\" was not provided.")
       }
+      return value.jsonEncodableValue?.jsonValue
 
-      switch value {
-      case let .variable(nestedName) where name == nestedName:
-        throw GraphQLError("Variable \"\(name)\" is infinitely recursive.")
-      default:
-        return try value.evaluate(with: variables)
-      }
+    case let .scalar(value):
+      return value
 
     case let .list(array):
       return try InputValue.evaluate(array, with: variables)
@@ -59,14 +53,14 @@ extension InputValue {
 
   fileprivate static func evaluate(
     _ values: [InputValue],
-    with variables: [String: InputValue]?
+    with variables: GraphQLOperation.Variables?
   ) throws -> [JSONValue] {
-    try values.map { try $0.evaluate(with: variables) }
+    try values.compactMap { try $0.evaluate(with: variables) }
   }
 
   fileprivate static func evaluate(
     _ values: [String: InputValue],
-    with variables: [String: InputValue]?
+    with variables: GraphQLOperation.Variables?
   ) throws -> JSONObject {
     var jsonObject = JSONObject(minimumCapacity: values.count)
     for (key, value) in values {

@@ -1,10 +1,18 @@
+/// A protocol that a generated enum from a GraphQL schema conforms to.
+/// This allows it to be wrapped in a `GraphQLEnum` and be used as an input value for operations.
+public protocol EnumType:
+  RawRepresentable,
+  CaseIterable,
+  JSONEncodable,
+  GraphQLOperationVariableValue
+where RawValue == String {}
+
 /// A generic enum that wraps a generated enum from a GraphQL Schema.
 ///
 /// `GraphQLEnum` provides an `__unknown` case that is used when the response returns a value that
 /// is not recognized as a valid enum case. This is usually caused by future cases added to the enum
 /// on the schema after code generation.
-public enum GraphQLEnum<T>: CaseIterable, Equatable, RawRepresentable
-where T: RawRepresentable & CaseIterable, T.RawValue == String {
+public enum GraphQLEnum<T: EnumType>: CaseIterable, Equatable, RawRepresentable {
   public typealias RawValue = String
 
   /// A recognized case of the wrapped enum.

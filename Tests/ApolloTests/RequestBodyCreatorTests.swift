@@ -53,6 +53,10 @@ class RequestBodyCreatorTests: XCTestCase {
     expect(actual).to(equalJSONValue(expected))
   }
 
-  #warning("TODO: Test generated input objects converted to variables correctly.")
+  #warning("""
+TODO: Test generated input objects converted to variables correctly.
+- nil variable value
+- null variable value
+""")
 }
 

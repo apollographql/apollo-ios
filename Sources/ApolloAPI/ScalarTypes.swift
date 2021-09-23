@@ -5,7 +5,8 @@ public protocol ScalarType:
   JSONDecodable,
   JSONEncodable,
   Cacheable,
-  InputValueConvertible {}
+  InputValueConvertible,
+  GraphQLOperationVariableValue {}
 
 extension String: ScalarType {}
 extension Int: ScalarType {}

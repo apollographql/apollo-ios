@@ -20,7 +20,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   private func readValues<T: RootSelectionSet>(
     _ selectionSet: T.Type,
     from object: JSONObject,
-    variables: [String: InputValue]? = nil
+    variables: GraphQLOperation.Variables? = nil
   ) throws -> T {
     return try GraphQLExecutor_SelectionSetMapper_FromResponse_Tests.executor.execute(
       selectionSet: selectionSet,
@@ -205,7 +205,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   // MARK: Nonnull Enum Value
 
-  private enum MockEnum: String, CaseIterable, InputValueConvertible {
+  private enum MockEnum: String, EnumType {
     case SMALL
     case MEDIUM
     case LARGE
@@ -814,7 +814,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -831,7 +831,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -849,7 +849,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -870,7 +870,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -891,7 +891,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -916,7 +916,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -941,7 +941,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -972,7 +972,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1003,7 +1003,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1034,7 +1034,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1065,7 +1065,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1096,7 +1096,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1132,7 +1132,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     let object: JSONObject = ["__typename": "Person",
                               "name": "Luke Skywalker",
                               "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1151,7 +1151,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1168,7 +1168,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1188,7 +1188,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": false].toInputVariables()
+    let variables = ["variable": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1209,7 +1209,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1234,7 +1234,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       ]}
     }
     let object: JSONObject = ["name": "Luke Skywalker"]
-    let variables = ["variable": true].toInputVariables()
+    let variables = ["variable": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1259,7 +1259,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": true,
-                     "include": true].toInputVariables()
+                     "include": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1282,7 +1282,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": true,
-                     "include": false].toInputVariables()
+                     "include": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1305,7 +1305,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": false,
-                     "include": false].toInputVariables()
+                     "include": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1328,7 +1328,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": false,
-                     "include": true].toInputVariables()
+                     "include": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1348,7 +1348,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": true,
-                     "include": true].toInputVariables()
+                     "include": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1367,7 +1367,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": false,
-                     "include": false].toInputVariables()
+                     "include": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1386,7 +1386,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": false,
-                     "include": true].toInputVariables()
+                     "include": true]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)
@@ -1405,7 +1405,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
     }
     let object: JSONObject = ["name": "Luke Skywalker", "id": "1234"]
     let variables = ["skip": true,
-                     "include": false].toInputVariables()
+                     "include": false]
 
     // when
     let data = try readValues(GivenSelectionSet.self, from: object, variables: variables)

@@ -60,8 +60,8 @@ public final class UploadMultipleFilesToTheSameParameterMutation: GraphQLMutatio
     self.files = files
   }
 
-  public var variables: [String: InputValue]? {
-    ["files": files].toInputVariables()
+  public var variables: Variables? {
+    ["files": files]
   }
 
   public struct Data: SelectionSet {
@@ -126,8 +126,8 @@ public final class UploadMultipleFilesToDifferentParametersMutation: GraphQLMuta
     self.multipleFiles = multipleFiles
   }
 
-  public var variables: [String: InputValue]? {
-    ["singleFile": singleFile, "multipleFiles": multipleFiles].toInputVariables()
+  public var variables: Variables? {
+    ["singleFile": singleFile, "multipleFiles": multipleFiles]
   }
 
   public struct Data: SelectionSet {
@@ -200,8 +200,8 @@ public final class UploadOneFileMutation: GraphQLMutation {
     self.file = file
   }
 
-  public var variables: [String: InputValue]? {
-    ["file": file].toInputVariables()
+  public var variables: Variables? {
+    ["file": file]
   }
 
   public struct Data: SelectionSet {
