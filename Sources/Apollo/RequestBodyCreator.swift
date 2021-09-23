@@ -13,24 +13,31 @@ public protocol RequestBodyCreator {
   ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
   /// - Returns: The created `GraphQLMap`
-  func requestBody<Operation: GraphQLOperation>(for operation: Operation,
-                                                sendOperationIdentifiers: Bool,
-                                                sendQueryDocument: Bool,
-                                                autoPersistQuery: Bool) -> GraphQLMap
+  func requestBody<Operation: GraphQLOperation>(
+    for operation: Operation,
+    sendOperationIdentifiers: Bool,
+    sendQueryDocument: Bool,
+    autoPersistQuery: Bool
+  ) -> JSONEncodableDictionary
 }
 
 // MARK: - Default Implementation
 
 extension RequestBodyCreator {
   
-  public func requestBody<Operation: GraphQLOperation>(for operation: Operation,
-                                                       sendOperationIdentifiers: Bool,
-                                                       sendQueryDocument: Bool,
-                                                       autoPersistQuery: Bool) -> GraphQLMap {
-    var body: GraphQLMap = [
-      "variables": operation.variables?.jsonObject,
+  public func requestBody<Operation: GraphQLOperation>(
+    for operation: Operation,
+    sendOperationIdentifiers: Bool,
+    sendQueryDocument: Bool,
+    autoPersistQuery: Bool
+  ) -> JSONEncodableDictionary {
+    var body: JSONEncodableDictionary = [
       "operationName": operation.operationName,
     ]
+
+    if let variables = operation.variables {
+      body["variables"] = variables.jsonEncodableObject
+    }
 
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {

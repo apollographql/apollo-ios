@@ -15,13 +15,13 @@ typealias GraphQLFieldResolver = (_ object: JSONObject, _ info: FieldExecutionIn
 typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<JSONObject>
 
 struct ObjectExecutionInfo {
-  let variables: [String: InputValue]?
+  let variables: GraphQLOperation.Variables?
   let schema: SchemaConfiguration.Type
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
 
   fileprivate init(
-    variables: [String: InputValue]?,
+    variables: GraphQLOperation.Variables?,
     schema: SchemaConfiguration.Type,
     responsePath: ResponsePath,
     cachePath: ResponsePath
@@ -33,7 +33,7 @@ struct ObjectExecutionInfo {
   }
 
   fileprivate init(
-    variables: [String: InputValue]?,
+    variables: GraphQLOperation.Variables?,
     schema: SchemaConfiguration.Type,
     withRootCacheReference root: CacheReference? = nil
   ) {
@@ -173,7 +173,7 @@ final class GraphQLExecutor {
     selectionSet: RootSelectionSet.Type,
     on data: JSONObject,
     withRootCacheReference root: CacheReference? = nil,
-    variables: [String: InputValue]? = nil,
+    variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
   ) throws -> Accumulator.FinalResult {
     let info = ObjectExecutionInfo(variables: variables,
@@ -247,8 +247,7 @@ final class GraphQLExecutor {
         groupedFields.append(field: field, withInfo: info)
 
       case let .booleanCondition(booleanCondition):
-        guard case let .scalar(boolValue as Bool) =
-                info.variables?[booleanCondition.variableName] else {
+        guard let boolValue = info.variables?[booleanCondition.variableName] as? Bool else {
           throw GraphQLError("Variable \"\(booleanCondition.variableName)\" was not provided.")
         }
         if boolValue == !booleanCondition.inverted {

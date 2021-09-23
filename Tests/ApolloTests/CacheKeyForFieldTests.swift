@@ -41,8 +41,20 @@ class CacheKeyForFieldTests: XCTestCase {
     XCTAssertEqual(field.test_cacheKey, "hero(episode:1.99)")
   }
 
-  func testFieldWithNilArgument() {
-    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": nil])
+  func testFieldWithNullArgument() {
+    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .null])
+    XCTAssertEqual(field.test_cacheKey, "hero(episode:null)")
+  }
+
+  func testFieldWithNestedNullArgument() throws {
+    let field = Selection.Field("hero",
+                                type: .scalar(String.self),
+                                arguments: ["nested": ["foo": 1, "bar": InputValue.null]])
+    XCTAssertEqual(field.test_cacheKey, "hero([nested:bar:null,foo:1])")
+  }
+
+  func testFieldWithArgumentOmitted() {
+    let field = Selection.Field("hero", type: .scalar(String.self), arguments: [:])
     XCTAssertEqual(field.test_cacheKey, "hero")
   }
 
@@ -58,7 +70,7 @@ class CacheKeyForFieldTests: XCTestCase {
   
   func testFieldWithDictionaryArgumentWithVariables() throws {
     let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["nested": ["foo": InputValue.variable("a"), "bar": InputValue.variable("b")]])
-    let variables: [String: InputValue] = ["a": 1, "b": 2]
+    let variables = ["a": 1, "b": 2]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero([nested:bar:2,foo:1])")
   }
   
@@ -76,13 +88,25 @@ class CacheKeyForFieldTests: XCTestCase {
   
   func testFieldWithVariableArgument() throws {
     let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .variable("episode")])
-    let variables: [String: InputValue] = ["episode": "JEDI"]
+    let variables = ["episode": "JEDI"]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero(episode:JEDI)")
   }
   
   func testFieldWithVariableArgumentWithNil() throws {
     let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .variable("episode")])
-    let variables: [String: InputValue] = ["episode": nil]
+    let variables: GraphQLOperation.Variables = ["episode": GraphQLNullable<String>.none]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero")
+  }
+
+  func testFieldWithVariableArgumentWithNull() throws {
+    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["episode": .variable("episode")])
+    let variables = ["episode": GraphQLNullable<String>.null]
+    XCTAssertEqual(try field.cacheKey(with: variables), "hero(episode:null)")
+  }
+
+  func testFieldWithVariableArgumentWithNestedNull() throws {
+    let field = Selection.Field("hero", type: .scalar(String.self), arguments: ["nested": ["foo": InputValue.variable("a"), "bar": InputValue.variable("b")]])
+    let variables: GraphQLOperation.Variables = ["a": 1, "b": GraphQLNullable<String>.null]
+    XCTAssertEqual(try field.cacheKey(with: variables), "hero([nested:bar:null,foo:1])")
   }
 }

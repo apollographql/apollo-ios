@@ -1,3 +1,5 @@
+import Foundation
+
 public enum GraphQLOperationType {
   case query
   case mutation
@@ -5,6 +7,8 @@ public enum GraphQLOperationType {
 }
 
 public protocol GraphQLOperation: AnyObject {
+  typealias Variables = [String: GraphQLOperationVariableValue]
+
   var operationType: GraphQLOperationType { get }
 
   var operationDefinition: String { get }
@@ -13,8 +17,7 @@ public protocol GraphQLOperation: AnyObject {
 
   var queryDocument: String { get }
 
-#warning("TODO: We need to support setting a null value AND a nil value. Considering just going back to using GraphQLMap, or else this should be [String: GraphQLOptional<InputValue>].")
-  var variables: [String: InputValue]? { get }
+  var variables: Variables? { get }
 
   associatedtype Data: RootSelectionSet
 }
@@ -28,7 +31,7 @@ public extension GraphQLOperation {
     return nil
   }
 
-  var variables: [String: InputValue]? {
+  var variables: Variables? {
     return nil
   }
 }
@@ -46,4 +49,33 @@ public extension GraphQLMutation {
 public protocol GraphQLSubscription: GraphQLOperation {}
 public extension GraphQLSubscription {
   var operationType: GraphQLOperationType { return .subscription }
+}
+
+// MARK: - GraphQLOperationVariableValue
+
+public protocol GraphQLOperationVariableValue {
+  var jsonEncodableValue: JSONEncodable? { get }
+}
+
+extension Array: GraphQLOperationVariableValue where Element: GraphQLOperationVariableValue {}
+
+extension Dictionary: GraphQLOperationVariableValue where Key == String, Value == GraphQLOperationVariableValue {
+  public var jsonEncodableValue: JSONEncodable? { jsonEncodableObject }
+  public var jsonEncodableObject: JSONEncodableDictionary {
+    compactMapValues { $0.jsonEncodableValue }
+  }
+}
+
+extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: JSONEncodable {
+  public var jsonEncodableValue: JSONEncodable? {
+    switch self {
+    case .none: return nil
+    case .null: return NSNull()
+    case let .some(value): return value
+    }
+  }
+}
+
+extension JSONEncodable where Self: GraphQLOperationVariableValue {
+  public var jsonEncodableValue: JSONEncodable? { self }
 }

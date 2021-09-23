@@ -1,4 +1,5 @@
 import XCTest
+import Nimble
 @testable import Apollo
 import ApolloAPI
 import ApolloTestSupport
@@ -25,23 +26,23 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     }
   }
 
-  fileprivate enum MockEnum: String, CaseIterable, InputValueConvertible {
+  fileprivate enum MockEnum: String, EnumType {
     case NEWHOPE
     case JEDI
     case EMPIRE
   }
 
   fileprivate class MockHeroNameQuery: MockQuery<HeroNameSelectionSet> {
-    var episode: MockEnum? {
+    var episode: GraphQLNullable<MockEnum> {
       didSet {
-        self.variables = ["episode": episode].toInputVariables()
+        self.variables = ["episode": episode]
       }
     }
 
-    init(episode: MockEnum? = nil) {
+    init(episode: GraphQLNullable<MockEnum> = .none) {
       self.episode = episode
       super.init()
-      self.variables = ["episode": episode].toInputVariables()
+      self.variables = ["episode": episode]
       self.operationIdentifier = "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671"
       self.operationDefinition = "MockHeroNameQuery - Operation Definition"
     }
@@ -84,7 +85,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     if let query = operation as? MockHeroNameQuery{
       if let variables = jsonBody["variables"] as? JSONObject {
         XCTAssertEqual(variables["episode"] as? String,
-                       query.episode?.rawValue,
+                       query.episode.rawValue,
                        file: file,
                        line: line)
       } else {
@@ -156,16 +157,17 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     }
     
     if let variables = url.queryItemDictionary?["variables"] {
-      if let episode = query.episode {
-        XCTAssertEqual(variables,
-                       "{\"episode\":\"\(episode.rawValue)\"}",
-                       file: file,
-                       line: line)
-      } else {
-        XCTAssertEqual(variables,
-                       "{\"episode\":null}",
-                       file: file,
-                       line: line)
+      let expectation = expect(file: file, line: line, variables)
+      switch query.episode {
+      case let .some(episode):
+        expectation.to(equal("{\"episode\":\"\(episode.rawValue)\"}"))
+
+      case .none:
+        #warning("TODO: write test to test this case actually happens")
+        expectation.to(equal("{}"))
+
+      case .null:
+        expectation.to(equal("{\"episode\":null}"))
       }
     } else {
       XCTFail("variables should not be nil",
@@ -252,7 +254,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                endpointURL: Self.endpoint)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = MockHeroNameQuery(episode: .JEDI)
+    let query = MockHeroNameQuery(episode: .some(.JEDI))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
       lastRequest = mockClient.lastRequest.value
@@ -279,7 +281,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = MockHeroNameQuery(episode: .EMPIRE)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
       lastRequest = mockClient.lastRequest.value
@@ -360,7 +362,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForPersistedQueryRetry: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = MockHeroNameQuery(episode: .EMPIRE)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
       lastRequest = mockClient.lastRequest.value
@@ -442,7 +444,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                autoPersistQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = MockHeroNameQuery(episode: .EMPIRE)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
       lastRequest = mockClient.lastRequest.value
@@ -470,7 +472,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForQueries: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = MockHeroNameQuery(episode: .EMPIRE)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
       lastRequest = mockClient.lastRequest.value
@@ -498,7 +500,7 @@ class AutomaticPersistedQueriesTests: XCTestCase {
                                                useGETForPersistedQueryRetry: true)
     
     let expectation = self.expectation(description: "Query sent")
-    let query = MockHeroNameQuery(episode: .EMPIRE)
+    let query = MockHeroNameQuery(episode: .some(.EMPIRE))
     var lastRequest: URLRequest?
     let _ = network.send(operation: query) { _ in
       lastRequest = mockClient.lastRequest.value

@@ -8,7 +8,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   public let body: JSONObject
 
   private let rootKey: CacheReference
-  private let variables: [String: InputValue]?
+  private let variables: GraphQLOperation.Variables?
 
   public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data {
     self.body = body

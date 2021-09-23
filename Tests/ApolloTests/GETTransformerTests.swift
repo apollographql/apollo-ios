@@ -20,7 +20,7 @@ class GETTransformerTests: XCTestCase {
     super.tearDown()
   }
 
-  private enum MockEnum: String, CaseIterable, InputValueConvertible {
+  private enum MockEnum: String, EnumType {
     case LARGE
     case AVERAGE
     case SMALL
@@ -64,7 +64,7 @@ query MockQuery($param: MockEnum) {
   }
 }
 """
-    operation.variables = ["param": MockEnum.LARGE.asInputValue]
+    operation.variables = ["param": MockEnum.LARGE]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: false,
@@ -113,18 +113,17 @@ query MockQuery($a: String, $b: Boolean!) {
     operation.stubbedQueryDocument = "query MockQuery {}"
     operation.operationIdentifier = "4d465fbc6e3731d01102504850"
     
-    let persistedQuery: GraphQLMap = [
+    let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
-      "sha256Hash": operation.operationIdentifier
+      "sha256Hash": operation.operationIdentifier!
     ]
     
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "persistedQuery": persistedQuery
     ]
     
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
     
@@ -140,13 +139,12 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWithParameter_withPlusSign_encodesPlusSign() throws {
     let operation = MockOperation.mock()
 
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "testParam": "+Test+Test"
     ]
 
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
 
@@ -162,13 +160,12 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWithParameter_withAmpersand_encodesAmpersand() throws {
     let operation = MockOperation.mock()
 
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "testParam": "Test&Test"
     ]
 
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
 
@@ -185,17 +182,16 @@ query MockQuery($a: String, $b: Boolean!) {
     operation.operationName = "TestOpName"
     operation.operationIdentifier = "4d465fbc6e3731d01102504850"
     
-    let persistedQuery: GraphQLMap = [
+    let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
-      "sha256Hash": operation.operationIdentifier
+      "sha256Hash": operation.operationIdentifier!
     ]
     
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "persistedQuery": persistedQuery
     ]
     
-    let body: GraphQLMap = [
-      "variables": operation.variables,
+    let body: JSONEncodableDictionary = [
       "extensions": extensions
     ]
     
@@ -219,7 +215,7 @@ query MockQuery($param: String) {
   }
 }
 """
-    operation.variables = ["param": .none]
+    operation.variables = ["param": GraphQLNullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: false,
@@ -238,13 +234,12 @@ query MockQuery($param: String) {
   func test__createGetURL__urlHasExistingParameters_encodesURLIncludingExistingParameters_atStartOfQueryParameters() throws {
     let operation = MockOperation.mock()
 
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "testParam": "Test&Test"
     ]
 
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
-      "variables": operation.variables,
       "extensions": extensions
     ]
 
@@ -260,7 +255,7 @@ query MockQuery($param: String) {
   }
 
 	func test__createGetURL__withEmptyQueryParameter_returnsURL() throws {
-		let body: GraphQLMap = [:]
+		let body: JSONEncodableDictionary = [:]
 		let transformer = GraphQLGETTransformer(body: body, url: Self.url)
 		let url = transformer.createGetURL()
 

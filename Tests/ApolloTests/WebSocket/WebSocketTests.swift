@@ -6,7 +6,7 @@ import ApolloTestSupport
 @testable import ApolloWebSocket
 
 extension WebSocketTransport {
-  func write(message: GraphQLMap) {
+  func write(message: JSONEncodableDictionary) {
     let serialized = try! JSONSerializationFormat.serialize(value: message)
     if let str = String(data: serialized, encoding: .utf8) {
       self.websocket.write(string: str)
@@ -72,7 +72,7 @@ class WebSocketTests: XCTestCase {
       }
     }
         
-    let message : GraphQLMap = [
+    let message : JSONEncodableDictionary = [
       "type": "data",
       "id": "1",
       "payload": [
@@ -127,7 +127,7 @@ class WebSocketTests: XCTestCase {
       }
     }
     
-    let message : GraphQLMap = [
+    let message : JSONEncodableDictionary = [
       "type": "data",
       "id": "2",            // subscribing on id = 1, i.e. expecting error when receiving id = 2
       "payload": [
@@ -170,7 +170,7 @@ class WebSocketTests: XCTestCase {
       }
     }
     
-    let message : GraphQLMap = [
+    let message : JSONEncodableDictionary = [
       "type": "data",
       "id": "12345678", // subscribing on id = 12345678 from custom operation id
       "payload": [

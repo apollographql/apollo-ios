@@ -1,5 +1,6 @@
 #if !COCOAPODS
 import Apollo
+import ApolloAPI
 #endif
 import Foundation
 
@@ -20,7 +21,7 @@ final class OperationMessage {
   }
 
   let serializationFormat = JSONSerializationFormat.self
-  let message: GraphQLMap
+  let message: JSONEncodableDictionary
   var serialized: String?
 
   var rawMessage : String? {
@@ -32,10 +33,10 @@ final class OperationMessage {
     }
   }
 
-  init(payload: GraphQLMap? = nil,
+  init(payload: JSONEncodableDictionary? = nil,
        id: String? = nil,
        type: Types = .start) {
-    var message: GraphQLMap = [:]
+    var message: JSONEncodableDictionary = [:]
     if let payload = payload {
       message["payload"] = payload
     }

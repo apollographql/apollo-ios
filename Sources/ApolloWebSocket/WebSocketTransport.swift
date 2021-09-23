@@ -97,7 +97,7 @@ public class WebSocketTransport {
     ///  Defaults to true.
     public let connectOnInit: Bool
     /// [optional]The payload to send on connection. Defaults to an empty `GraphQLMap`.
-    public fileprivate(set) var connectingPayload: GraphQLMap?
+    public fileprivate(set) var connectingPayload: JSONEncodableDictionary?
     /// The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
     public let requestBodyCreator: RequestBodyCreator
     /// The `OperationMessageIdCreator` used to generate a unique message identifier per request.
@@ -113,7 +113,7 @@ public class WebSocketTransport {
       reconnectionInterval: TimeInterval = 0.5,
       allowSendingDuplicates: Bool = true,
       connectOnInit: Bool = true,
-      connectingPayload: GraphQLMap? = [:],
+      connectingPayload: JSONEncodableDictionary? = [:],
       requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
       operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()
     ) {
@@ -341,7 +341,7 @@ public class WebSocketTransport {
     }
   }
 
-  public func updateConnectingPayload(_ payload: GraphQLMap, reconnectIfConnected: Bool = true) {
+  public func updateConnectingPayload(_ payload: JSONEncodableDictionary, reconnectIfConnected: Bool = true) {
     self.config.connectingPayload = payload
 
     if reconnectIfConnected && isConnected() {

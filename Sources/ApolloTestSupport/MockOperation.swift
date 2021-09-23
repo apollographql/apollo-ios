@@ -12,7 +12,7 @@ open class MockOperation<SelectionSet: RootSelectionSet>: GraphQLOperation {
   public var stubbedQueryDocument: String?
   public final var queryDocument: String { stubbedQueryDocument ?? operationDefinition }
 
-  open var variables: [String: InputValue]?
+  open var variables: Variables?
 
   public init(type: GraphQLOperationType = .query) {
     self.operationType = type

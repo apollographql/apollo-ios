@@ -69,6 +69,11 @@ extension Bool: JSONDecodable, JSONEncodable {
   }
 }
 
+extension EnumType {
+  public var jsonValue: JSONValue { rawValue }
+}
+
+#warning("might be able to remove these since we are using EnumType")
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)
@@ -119,21 +124,13 @@ extension NSNull: JSONEncodable {
   public var jsonValue: JSONValue { self }
 }
 
-extension Dictionary: JSONEncodable {
+extension JSONEncodableDictionary: JSONEncodable {
   public var jsonValue: JSONValue {
     return jsonObject
   }
 
   public var jsonObject: JSONObject {
-    var jsonObject = JSONObject(minimumCapacity: count)
-    for (key, value) in self {
-      if case let (key as String, value as JSONEncodable) = (key, value) {
-        jsonObject[key] = value.jsonValue
-      } else {
-        fatalError("Dictionary is only JSONEncodable if Value is (and if Key is String)")
-      }
-    }
-    return jsonObject
+    mapValues(\.jsonValue)
   }
 }
 
