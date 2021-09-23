@@ -54,6 +54,11 @@ public struct ApolloSchemaDownloadConfiguration {
     public var debugDescription: String {
       "\(key): \(value)"
     }
+
+    public init(key: String, value: String) {
+      self.key = key
+      self.value = value
+    }
   }
 
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
