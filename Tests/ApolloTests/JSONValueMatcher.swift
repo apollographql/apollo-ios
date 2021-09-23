@@ -36,7 +36,7 @@ public func equalJSONValue(_ expectedValue: JSONEncodable?) -> Predicate<JSONEnc
   }
 }
 
-public func equal(_ expectedValue: GraphQLMap?) -> Predicate<GraphQLMap> {
+public func equal(_ expectedValue: JSONEncodableDictionary?) -> Predicate<JSONEncodableDictionary> {
   return Predicate { actual in
     let msg = ExpectationMessage.expectedActualValueTo("equal <\(stringify(expectedValue))>")
     if let actualValue = try actual.evaluate(), let expectedValue = expectedValue {

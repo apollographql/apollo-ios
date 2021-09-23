@@ -14,7 +14,10 @@ import ApolloTestSupport
 
 class RequestBodyCreatorTests: XCTestCase {
 
-  func create<Operation: GraphQLOperation>(with creator: RequestBodyCreator, for operation: Operation) -> GraphQLMap {
+  func create<Operation: GraphQLOperation>(
+    with creator: RequestBodyCreator,
+    for operation: Operation
+  ) -> JSONEncodableDictionary {
     creator.requestBody(for: operation,
                         sendOperationIdentifiers: false,
                         sendQueryDocument: true,

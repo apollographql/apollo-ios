@@ -75,7 +75,7 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
                                                      sendOperationIdentifiers: shouldSendOperationID,
                                                      sendQueryDocument: true,
                                                      autoPersistQuery: false)
-    var variables = fields["variables"] as? GraphQLMap ?? GraphQLMap()
+    var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()
     for fieldName in fieldsForFiles {
       if
         let value = variables[fieldName],

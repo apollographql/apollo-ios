@@ -18,7 +18,7 @@ public protocol RequestBodyCreator {
     sendOperationIdentifiers: Bool,
     sendQueryDocument: Bool,
     autoPersistQuery: Bool
-  ) -> GraphQLMap
+  ) -> JSONEncodableDictionary
 }
 
 // MARK: - Default Implementation
@@ -30,13 +30,13 @@ extension RequestBodyCreator {
     sendOperationIdentifiers: Bool,
     sendQueryDocument: Bool,
     autoPersistQuery: Bool
-  ) -> GraphQLMap {
-    var body: GraphQLMap = [
+  ) -> JSONEncodableDictionary {
+    var body: JSONEncodableDictionary = [
       "operationName": operation.operationName,
     ]
 
     if let variables = operation.variables {
-      body["variables"] = variables.jsonObject
+      body["variables"] = variables.jsonEncodableObject
     }
 
     if sendOperationIdentifiers {

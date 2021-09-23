@@ -113,16 +113,16 @@ query MockQuery($a: String, $b: Boolean!) {
     operation.stubbedQueryDocument = "query MockQuery {}"
     operation.operationIdentifier = "4d465fbc6e3731d01102504850"
     
-    let persistedQuery: GraphQLMap = [
+    let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
       "sha256Hash": operation.operationIdentifier!
     ]
     
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "persistedQuery": persistedQuery
     ]
     
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
       "extensions": extensions
     ]
@@ -139,11 +139,11 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWithParameter_withPlusSign_encodesPlusSign() throws {
     let operation = MockOperation.mock()
 
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "testParam": "+Test+Test"
     ]
 
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
       "extensions": extensions
     ]
@@ -160,11 +160,11 @@ query MockQuery($a: String, $b: Boolean!) {
   func test__createGetURL__queryWithParameter_withAmpersand_encodesAmpersand() throws {
     let operation = MockOperation.mock()
 
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "testParam": "Test&Test"
     ]
 
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
       "extensions": extensions
     ]
@@ -182,16 +182,16 @@ query MockQuery($a: String, $b: Boolean!) {
     operation.operationName = "TestOpName"
     operation.operationIdentifier = "4d465fbc6e3731d01102504850"
     
-    let persistedQuery: GraphQLMap = [
+    let persistedQuery: JSONEncodableDictionary = [
       "version": 1,
       "sha256Hash": operation.operationIdentifier!
     ]
     
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "persistedQuery": persistedQuery
     ]
     
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "extensions": extensions
     ]
     
@@ -234,11 +234,11 @@ query MockQuery($param: String) {
   func test__createGetURL__urlHasExistingParameters_encodesURLIncludingExistingParameters_atStartOfQueryParameters() throws {
     let operation = MockOperation.mock()
 
-    let extensions: GraphQLMap = [
+    let extensions: JSONEncodableDictionary = [
       "testParam": "Test&Test"
     ]
 
-    let body: GraphQLMap = [
+    let body: JSONEncodableDictionary = [
       "query": operation.queryDocument,
       "extensions": extensions
     ]
@@ -255,7 +255,7 @@ query MockQuery($param: String) {
   }
 
 	func test__createGetURL__withEmptyQueryParameter_returnsURL() throws {
-		let body: GraphQLMap = [:]
+		let body: JSONEncodableDictionary = [:]
 		let transformer = GraphQLGETTransformer(body: body, url: Self.url)
 		let url = transformer.createGetURL()
 

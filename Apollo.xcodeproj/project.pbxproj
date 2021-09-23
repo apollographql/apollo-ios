@@ -226,7 +226,6 @@
 		DE674D9D261CEEE4000E8FC8 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
 		DE674D9E261CEEE4000E8FC8 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
 		DE674D9F261CEEE4000E8FC8 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
-		DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B154A261505450068D642 /* GraphQLMap.swift */; };
 		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
@@ -853,7 +852,6 @@
 		DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueMatcher.swift; sourceTree = "<group>"; };
 		DE5EB9CA26EFE5510004176A /* MockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOperation.swift; sourceTree = "<group>"; };
 		DE664ED326602AF60054DB4F /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
-		DE6B154A261505450068D642 /* GraphQLMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLMap.swift; sourceTree = "<group>"; };
 		DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloServerIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		DE6B15B026152BE10068D642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1492,7 +1490,6 @@
 			children = (
 				DE9C04AB26EA763E00EC35E7 /* Accumulators */,
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
-				DE6B154A261505450068D642 /* GraphQLMap.swift */,
 				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				9F7BA89822927A3700999B3B /* ResponsePath.swift */,
 				DE0586322669948500265760 /* InputValue+Evaluation.swift */,
@@ -2828,7 +2825,6 @@
 				9FEB050D1DB5732300DA3B44 /* JSONSerializationFormat.swift in Sources */,
 				9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */,
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
-				DE6B156A261505660068D642 /* GraphQLMap.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9B9BBAF524DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,

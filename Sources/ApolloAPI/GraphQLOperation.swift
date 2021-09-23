@@ -60,8 +60,10 @@ public protocol GraphQLOperationVariableValue {
 extension Array: GraphQLOperationVariableValue where Element: GraphQLOperationVariableValue {}
 
 extension Dictionary: GraphQLOperationVariableValue where Key == String, Value == GraphQLOperationVariableValue {
-  public var jsonEncodableValue: JSONEncodable? { jsonObject }
-  public var jsonObject: [String: JSONEncodable] { compactMapValues { $0.jsonEncodableValue } }
+  public var jsonEncodableValue: JSONEncodable? { jsonEncodableObject }
+  public var jsonEncodableObject: JSONEncodableDictionary {
+    compactMapValues { $0.jsonEncodableValue }
+  }
 }
 
 extension Nullable: GraphQLOperationVariableValue where Wrapped: JSONEncodable {
