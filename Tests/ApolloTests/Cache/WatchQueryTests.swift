@@ -1,4 +1,5 @@
 import XCTest
+import Nimble
 @testable import Apollo
 import ApolloAPI
 import ApolloTestSupport
@@ -263,7 +264,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     runActivity("Fetch same query from server with different argument") { _ in
       let serverRequestExpectation =
         server.expect(MockQuery<GivenMockSelectionSet>.self) { request in
-          XCTAssertEqual(request.operation.variables?["episode"], .scalar("JEDI"))
+          expect(request.operation.variables?["episode"] as? String).to(equal("JEDI"))
 
           return [
             "data": [
@@ -323,7 +324,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     runActivity("Initial fetch from server") { _ in
       let serverRequestExpectation = server.expect(MockQuery<GivenSelectionSet>.self) { request in
-        XCTAssertEqual(request.operation.variables?["episode"], "EMPIRE")
+        expect(request.operation.variables?["episode"] as? String).to(equal("EMPIRE"))
         return [
           "data": [
             "hero": [
@@ -353,7 +354,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     runActivity("Fetch same query from server with different argument but returning same object with changed data") { _ in
       let serverRequestExpectation = server.expect(MockQuery<GivenSelectionSet>.self) { request in
-        XCTAssertEqual(request.operation.variables?["episode"], "JEDI")
+        expect(request.operation.variables?["episode"] as? String).to(equal("JEDI"))        
         return [
           "data": [
             "hero": [

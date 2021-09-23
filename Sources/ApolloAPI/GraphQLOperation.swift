@@ -31,7 +31,7 @@ public extension GraphQLOperation {
     return nil
   }
 
-  var variables: [String: InputValue]? {
+  var variables: Variables? {
     return nil
   }
 }
