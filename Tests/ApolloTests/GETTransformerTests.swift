@@ -40,7 +40,6 @@ query MockQuery($param: String) {
     operation.variables = ["param": "TestParamValue"]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
@@ -67,7 +66,6 @@ query MockQuery($param: MockEnum) {
     operation.variables = ["param": MockEnum.LARGE]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
 
@@ -94,7 +92,6 @@ query MockQuery($a: String, $b: Boolean!) {
     operation.variables = ["a": "TestParamValue", "b": true]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
@@ -218,7 +215,6 @@ query MockQuery($param: String) {
     operation.variables = ["param": GraphQLNullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: false,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
 

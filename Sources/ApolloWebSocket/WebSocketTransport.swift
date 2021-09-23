@@ -84,8 +84,6 @@ public class WebSocketTransport {
     public fileprivate(set) var clientName: String
     /// The client version to use for this client. Defaults to `Self.defaultClientVersion`.
     public fileprivate(set) var clientVersion: String
-    /// Whether or not to send operation identifiers with operations. Defaults to false.
-    public let sendOperationIdentifiers: Bool
     /// Whether to auto reconnect when websocket looses connection. Defaults to true.
     public let reconnect: Atomic<Bool>
     /// How long to wait before attempting to reconnect. Defaults to half a second.
@@ -108,7 +106,6 @@ public class WebSocketTransport {
     public init(
       clientName: String = WebSocketTransport.defaultClientName,
       clientVersion: String = WebSocketTransport.defaultClientVersion,
-      sendOperationIdentifiers: Bool = false,
       reconnect: Bool = true,
       reconnectionInterval: TimeInterval = 0.5,
       allowSendingDuplicates: Bool = true,
@@ -119,7 +116,6 @@ public class WebSocketTransport {
     ) {
       self.clientName = clientName
       self.clientVersion = clientVersion
-      self.sendOperationIdentifiers = sendOperationIdentifiers
       self.reconnect = Atomic(reconnect)
       self.reconnectionInterval = reconnectionInterval
       self.allowSendingDuplicates = allowSendingDuplicates
@@ -299,7 +295,6 @@ public class WebSocketTransport {
   func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
     let body = config.requestBodyCreator
       .requestBody(for: operation,
-                   sendOperationIdentifiers: self.config.sendOperationIdentifiers,
                    sendQueryDocument: true,
                    autoPersistQuery: false)
     let identifier = config.operationMessageIdCreator.requestId()

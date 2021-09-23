@@ -58,8 +58,6 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   /// - Throws: Any error arising from creating the form data
   /// - Returns: The created form data
   open func requestMultipartFormData() throws -> MultipartFormData {
-    let shouldSendOperationID = (self.operation.operationIdentifier != nil)
-
     let formData: MultipartFormData
 
     if let boundary = manualBoundary {
@@ -72,7 +70,6 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     // for the files in the rest of the form data
     let fieldsForFiles = Set(files.map { $0.fieldName }).sorted()
     var fields = self.requestBodyCreator.requestBody(for: operation,
-                                                     sendOperationIdentifiers: shouldSendOperationID,
                                                      sendQueryDocument: true,
                                                      autoPersistQuery: false)
     var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()

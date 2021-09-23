@@ -18,8 +18,7 @@ class RequestBodyCreatorTests: XCTestCase {
     with creator: RequestBodyCreator,
     for operation: Operation
   ) -> JSONEncodableDictionary {
-    creator.requestBody(for: operation,
-                        sendOperationIdentifiers: false,
+    creator.requestBody(for: operation,                        
                         sendQueryDocument: true,
                         autoPersistQuery: false)
   }

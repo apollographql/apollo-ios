@@ -56,7 +56,7 @@ class UploadRequestTests: XCTestCase {
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"id":"c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533","operationName":"UploadOneFile","query":"mutation UploadOneFile($file: Upload!) {\\n  singleUpload(file: $file) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"file":null}}
+{"operationName":"UploadOneFile","query":"mutation UploadOneFile($file: Upload!) {\\n  singleUpload(file: $file) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"file":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
@@ -104,7 +104,7 @@ Alpha file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"id":"88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7","operationName":"UploadMultipleFilesToTheSameParameter","query":"mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\\n  multipleUpload(files: $files) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"files":[null,null]}}
+{"operationName":"UploadMultipleFilesToTheSameParameter","query":"mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\\n  multipleUpload(files: $files) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"files":[null,null]}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 
@@ -166,7 +166,7 @@ Bravo file content.
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="operations"
 
-{"id":"1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5","operationName":"UploadMultipleFilesToDifferentParameters","query":"mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {\\n  multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"multipleFiles":["b.txt","c.txt"],\"secondField\":null,"singleFile":"a.txt","uploads\":null}}
+{"operationName":"UploadMultipleFilesToDifferentParameters","query":"mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {\\n  multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) {\\n    __typename\\n    id\\n    path\\n    filename\\n    mimetype\\n  }\\n}","variables":{"multipleFiles":["b.txt","c.txt"],\"secondField\":null,"singleFile":"a.txt","uploads\":null}}
 --TEST.BOUNDARY
 Content-Disposition: form-data; name="map"
 

@@ -54,10 +54,6 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
                cachePolicy: cachePolicy)
   }
   
-  open var sendOperationIdentifier: Bool {
-    self.operation.operationIdentifier != nil
-  }
-  
   open override func toURLRequest() throws -> URLRequest {
     var request = try super.toURLRequest()
         
@@ -91,9 +87,8 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     }
     
     let body = self.requestBodyCreator.requestBody(for: operation,
-                                               sendOperationIdentifiers: self.sendOperationIdentifier,
-                                               sendQueryDocument: sendQueryDocument,
-                                               autoPersistQuery: autoPersistQueries)
+                                                   sendQueryDocument: sendQueryDocument,
+                                                   autoPersistQuery: autoPersistQueries)
     
     let httpMethod: GraphQLHTTPMethod = useGetMethod ? .GET : .POST
     switch httpMethod {
