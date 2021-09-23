@@ -1,7 +1,7 @@
 import Foundation
 
 @dynamicMemberLookup
-public enum Nullable<Wrapped>: ExpressibleByNilLiteral {
+public enum GraphQLNullable<Wrapped>: ExpressibleByNilLiteral {
 
   /// The absence of a value.
   /// Functionally equivalent to `nil`.

@@ -66,7 +66,7 @@ extension Dictionary: GraphQLOperationVariableValue where Key == String, Value =
   }
 }
 
-extension Nullable: GraphQLOperationVariableValue where Wrapped: JSONEncodable {
+extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: JSONEncodable {
   public var jsonEncodableValue: JSONEncodable? {
     switch self {
     case .none: return nil

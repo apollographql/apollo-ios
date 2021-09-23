@@ -33,13 +33,13 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   }
 
   fileprivate class MockHeroNameQuery: MockQuery<HeroNameSelectionSet> {
-    var episode: Nullable<MockEnum> {
+    var episode: GraphQLNullable<MockEnum> {
       didSet {
         self.variables = ["episode": episode]
       }
     }
 
-    init(episode: Nullable<MockEnum> = .none) {
+    init(episode: GraphQLNullable<MockEnum> = .none) {
       self.episode = episode
       super.init()
       self.variables = ["episode": episode]

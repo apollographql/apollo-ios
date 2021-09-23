@@ -215,7 +215,7 @@ query MockQuery($param: String) {
   }
 }
 """
-    operation.variables = ["param": Nullable<String>.null]
+    operation.variables = ["param": GraphQLNullable<String>.null]
 
     let body = requestBodyCreator.requestBody(for: operation,
                                               sendOperationIdentifiers: false,
