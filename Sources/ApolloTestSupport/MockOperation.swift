@@ -6,7 +6,7 @@ open class MockOperation<SelectionSet: RootSelectionSet>: GraphQLOperation {
   public let operationType: GraphQLOperationType
 
   public var operationName: String = "MockOperationName"
-  public var document: DocumentType = .notPersisted(definition: .init("None"))
+  public var document: DocumentType = .notPersisted(definition: .init("Mock Operation Definition"))
 
   open var variables: Variables?
 

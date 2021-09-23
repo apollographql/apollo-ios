@@ -80,15 +80,17 @@ public extension GraphQLOperation {
 
   var definition: OperationDefinition? {
     switch self.document {
-    case let .automaticallyPersisted(_, definition), let .notPersisted(definition):
+    case let .automaticallyPersisted(_, definition),
+      let .notPersisted(definition):
       return definition
     default: return nil
     }
   }
-
+  
   var operationIdentifier: String? {
     switch self.document {
-    case let .automaticallyPersisted(identifier, _), let .persistedOperationsOnly(identifier):
+    case let .automaticallyPersisted(identifier, _),
+      let .persistedOperationsOnly(identifier):
       return identifier
     default: return nil
     }
