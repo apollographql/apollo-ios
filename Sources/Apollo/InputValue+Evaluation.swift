@@ -17,11 +17,14 @@ extension Selection.Field {
 
   private func orderIndependentKey(for object: JSONObject) -> String {
     return object.sorted { $0.key < $1.key }.map {
-      if let object = $0.value as? JSONObject {
+      switch $0.value {
+      case let object as JSONObject:
         return "[\($0.key):\(orderIndependentKey(for: object))]"
-      } else if let array = $0.value as? [JSONObject] {
+      case let array as [JSONObject]:
         return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
-      } else {
+      case is NSNull:
+        return "\($0.key):null"
+      default:
         return "\($0.key):\($0.value)"
       }
     }.joined(separator: ",")
@@ -62,13 +65,6 @@ extension InputValue {
     _ values: [String: InputValue],
     with variables: GraphQLOperation.Variables?
   ) throws -> JSONObject {
-    var jsonObject = JSONObject(minimumCapacity: values.count)
-    for (key, value) in values {
-      let evaluatedValue = try value.evaluate(with: variables)
-      if !(evaluatedValue is NSNull) {
-        jsonObject[key] = evaluatedValue
-      }
-    }
-    return jsonObject
+    try values.compactMapValues { try $0.evaluate(with: variables) }
   }
 }
