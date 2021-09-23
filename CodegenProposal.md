@@ -203,12 +203,13 @@ enum SkinCovering {
 }
 ```
 
-# Proposal
+# Core Concepts
 
 In order to fulfill all of the stated goals of this project, the following approach is proposed for the structure of the Codegen:
 
 
-# `SelectionSet` - A “View” of an Entity
+## `SelectionSet` - A “View” of an Entity
+---
 
 We will refer to each individual object fetched in a GraphQL response as an “entity”. An entity defines a single type (object, interface, or union) that has fields on it that can be fetched. 
 
@@ -231,7 +232,8 @@ Each animal in the list of `allAnimals` is a single entity. Each of those entiti
 
 Each generated data object conforms to a `SelectionSet` protocol, which defines some universal behaviors. Type cases, fragments, and root types all conform to this protocol. For reference see [SelectionSet.swift](Sources/ApolloAPI/SelectionSet.swift).
 
-## `SelectionSet` Data is Represented as Structs With Dictionary Storage
+### `SelectionSet` Data is Represented as Structs With Dictionary Storage
+---
 
 The generated data objects are structs that have a single stored property. The stored property is to another struct named `ResponseDict`, which has a single stored constant property of type `[String: Any]`.
 
@@ -239,7 +241,8 @@ Often times the same data can be represented by different generated types. For e
 
 This allows us to store all the fetched data for an entity one time, rather than duplicating data in memory. The structs allow for hyper-performant conversions, as they are stack allocated at compile time and just increment a pointer to the single storage dictionary reference.
 
-## Field Accessors
+### Field Accessors
+---
 
 Accessors to the fields that a generated object has are implemented as computed properties that access the dictionary storage. 
 
@@ -277,7 +280,8 @@ struct Animal: SelectionSet, HasFragments {
 
 In this simple example, the `Animal` object has a nested `Height` object. Each conforms to `SelectionSet` and each has a single stored property let data: `ResponseDict`. The `ResponseDict` is a struct that wraps the dictionary storage, and provides custom subscript accessors for casting/transforming the underlying data to the correct types. For more information and implementation details, see: [ResponseDict.swift](Sources/ApolloAPI/ResponseDict.swift)
 
-# GraphQL Execution
+## GraphQL Execution
+---
 
 GraphQL execution is the process in which the Apollo iOS client converts raw data — either from a network response or the local cache — into a `SelectionSet`. The execution process determines which fields should be “selected”; maps the data for those fields; decodes raw data to the correct types for the fields; validates that all fields have valid data; and returns `SelectionSet` objects that are guaranteed to be valid. 
 
@@ -285,9 +289,24 @@ A field that is “selected” is mapped from the raw data onto the `SelectionSe
 
 Because `SelectionSet` field access uses unsafe force casting under the hood, it is necessary that a `SelectionSet` is only ever created via the execution process. A `SelectionSet` that is initialized manually cannot be guaranteed to contain all the expected data for its field accessors, and as such, could cause crashes at run time. `SelectionSet`s returned from GraphQL execution are guaranteed to be safe.
 
+## Nullable Arguments - `GraphQLNullable`
+---
+
+By default, `GraphQLOperation` field variables; fields on `InputObject`s; and field arguments are nullable. For a nullable argument, the value can be provided as a value, a `null` value, or omitted entirely. In `GraphQL`, omitting an argument and passing a `null` value have semantically different meanings. While often, they may be identical, it is up to the implementation of the server to interpret these values. For example, a `null` value for an argument on a mutation may indicate that a field on the object should be set to `null`, while omitting the argument indicates that the field should retain it's current value -- or be set to a default value.
+
+Because of the semantic difference between `null` and ommitted arguments, we have introduced `GraphQLNullable`. `GraphQLNullable` is a generic enum that acts very similarly to `Optional`, but it differentiates between a `nil` value (the `.none` case), and a `null` value (the `.null` case). Values are still wrapped using the `.some(value)` case as in `Optional`.
+
+The previous Apollo versions used double optionals (`??`) to represent `null` vs ` nil`. This was unclear to most users and make reading and reasoning about your code difficult in many situations. `GraphQLNullable` makes your intentions clear and explicit when dealing with nullable input values.
+
+For more information and implementation details, see: [GraphQLNullable.swift](Sources/ApolloAPI/GraphQLNullable.swift)
+
+# Generated Objects
+
+An overview of the format of all generated object types.
+
 # Schema Type Generation
 
-In addition to generating `SelectionSet`s for your GraphQL operations, types will be generated for each type (object, interface, or union) that is used in any operations across your entire application. These types will include all the fields that may be fetched by any operation used and can include other type metadata. 
+In addition to generating `SelectionSet`s for your `GraphQLOperation`s, types will be generated for each type (object, interface, or union) that is used in any operations across your entire application. These types will include all the fields that may be fetched by any operation used and can include other type metadata. 
 
 The schema types have a number of functions. 
 
@@ -318,6 +337,114 @@ For each union type declared in your schema and referenced by any generated oper
 A `SchemaConfiguration` object will also be generated for your schema. This object will have a function that maps the `Object` types in your schema to their `__typename` string. This allows the execution to convert data (from a network response from the cache) to the correct `Object` type at runtime.
 
 For an example of generated schema metadata see [AnimalSchema.swift](Sources/ApolloAPI/AnimalSchema.swift).
+
+# `InputObject` Generation
+
+TODO
+
+# `EnumType` Generation
+
+TODO
+
+# `GraphQLOperation` Generation
+
+A `GraphQLOperation` is generated for each operation defined in your application. `GraphQLOperation`s can be queries (`GraphQLQuery`), mutations (`GraphQLMutation`), or subscriptions (`GraphQLSubscription`).
+
+Each generated operation will conform to the `GraphQLOperation` protocol defined in [GraphQLOperation.swift](Sources/ApolloAPI/GraphQLOperation.swift). 
+
+**Simple Operation - Example:**
+
+```swift
+class AnimalQuery: GraphQLQuery {
+  let operationName: String = "AnimalQuery"
+  let document: DocumentType = .notPersisted(definition: .init(
+    """
+    query AnimalQuery {
+      allAnimals {
+        species
+      }
+    }
+    """)
+
+  init() {}
+
+  struct Data: SelectionSet {
+    // ...
+  }
+}
+```
+
+## Operation Arguments
+
+For an operation that takes input arguments, the initializer will be generated with parameters for each argument. Arguments can be scalar types, `GraphQLEnum`s, or `InputObject`s. During execution, these arguments will be used as the operation's `variables`, which are then used as the values for arguments on `SelectionSet` fields matching the variables name.
+
+**Operation With Scalar Argument - Example:**
+
+```swift
+class AnimalQuery: GraphQLQuery {
+  let operationName: String = "AnimalQuery"
+  let document: DocumentType = .notPersisted(definition: .init(
+    """
+    query AnimalQuery($count: Int!) {
+      allAnimals {
+        predators(first: $count) {
+          species
+        }
+      }
+    }
+    """)
+
+  var count: Int
+
+  init(count: Int) {
+    self.count = count
+  }
+
+  var variables: Variables? { ["count": count] }
+
+  struct Data: SelectionSet {
+    // ...
+    struct Animal: SelectionSet {
+      static var selections: [Selection] {[
+        .field("predators", [Predator.self], arguments: ["first": .variable("count")])
+      ]}
+    }
+  }
+}
+```
+In this example, the value of the `count` property is passed into the `variables` for the variable with the key `"count"`. The `Selection` for the field `"predators"`, the argument `"first"` has a value of `.variable("count")`. During execution, the `predators` field will be evaluated with the argument from the operation's `"count"` variable.
+
+### Nullable Operation Arguments
+
+For nullable arguments, the code generator will wrap the argument value in a `GraphQLNullable`. The executor will evaluate the `GraphQLNullable` to format the operation variables correctly. See [GraphQLNullable](#nullable-arguments-graphqlnullable) for more information.
+
+**Operation With Nullable Scalar Argument - Example:**
+
+```swift
+class AnimalQuery: GraphQLQuery {
+  let operationName: String = "AnimalQuery"
+  let document: DocumentType = .notPersisted(definition: .init(
+    """
+    query AnimalQuery($count: Int) {
+      allAnimals {
+        predators(first: $count) {
+          species
+        }
+      }
+    }
+    """)
+
+  var count: GraphQLNullable<Int>
+
+  init(count: GraphQLNullable<Int>) {
+    self.count = count
+  }
+
+  var variables: Variables? { ["count": count] }
+
+  // ...
+}
+```
 
 # `SelectionSet` Generation
 
@@ -602,7 +729,7 @@ query($count: Int) {
 ```
 
 ```swift
-struct Query: GraphQLQuery {
+class Query: GraphQLQuery {
   var count: Int
   init(count: Int) { ... }
 
@@ -629,7 +756,7 @@ query($skipSpecies: Boolean) {
 ```
 
 ```swift
-struct Query: GraphQLQuery {
+class Query: GraphQLQuery {
   var skipSpecies: Bool
   init(skipSpecies: Bool) { ... }
 
@@ -658,7 +785,7 @@ query($includeDetails: Boolean) {
 ```
 
 ```swift
-struct Query: GraphQLQuery {
+class Query: GraphQLQuery {
   var includeDetails: Bool
   init(includeDetails: Bool) { ... }
 
@@ -715,7 +842,7 @@ fragment AnimalDetails: RootSelectionSet, Fragment {
     }
 }
 
-struct Query: GraphQLQuery {
+class Query: GraphQLQuery {
   struct Data: RootSelectionSet {
     static var selections: [Selection] {[
       .field("allAnimals", [Animal].self),
@@ -821,10 +948,6 @@ While a `TypeCase` only provides the additional selections that should be select
 For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `ResponseDict` for the `SelectionSet`'s data.
 
 # Field Accessor Generation
-
-TODO
-
-# `GraphQLEnum`
 
 TODO
 
