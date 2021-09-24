@@ -103,7 +103,7 @@ There are 2 primary ways you will want to manually update the cache. Either you'
 
 Manual Scenario A
 
-1. You use the id of the object (after setting up the afore mentioned ```swift apollo.cacheKeyForObject = { $0["id"] } ```) to fetch and change the object. This will update any query where this object is referenced. This works well for updating queries which reference this object, but in the case of a create mutation, your queries won't contain this object to update. Which leads us into Scenario B.
+1. You use the id of the object (after setting up the afore mentioned `apollo.cacheKeyForObject = { $0["id"] }`) to fetch and change the object. This will update any query where this object is referenced. This works well for updating queries which reference this object, but in the case of a create mutation, your queries won't contain this object to update. Which leads us into Scenario B.
 
 Manual Scenario B
 

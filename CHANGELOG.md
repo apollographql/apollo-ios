@@ -1,5 +1,10 @@
 # Change log
 
+## v0.49.1
+- **`ApolloSchemaDownloadConfiguration.HTTPHeader` initializer was not public**: The struct initializer that Swift automatically generates is marked with the `internal` access level, which meant that custom HTTP headers could not be added to an instance of `ApolloSchemaDownloadConfiguration`. [#1962](https://github.com/apollographql/apollo-ios/pull/1962) - _Thank you to [Nikolai Sivertsen](https://github.com/nsivertsen) for the contribution!_
+- **Documentation update**: Fixed an inline code block that had specified language where such specification is not supported. [#1954](https://github.com/apollographql/apollo-ios/pull/1954) - _Thank you to [Kim Røen](https://github.com/kimroen) for the contribution!_
+- **Fix - ApolloCodegenOptions could not find schema input file**: - If you created `ApolloSchemaDownloadConfiguration` and `ApolloCodegenOptions` objects using only output folders the default output filename for the schema download was different from the default schema input filename for codegen. [#1968](https://github.com/apollographql/apollo-ios/pull/1968) - _Thank you to [Arnaud Coomans](https://github.com/acoomans) for finding this issue!_
+
 ## v0.49.0
 - **Breaking - Schema download is now Swift-based:** The dependency on the Apollo CLI (Typescript-based) for schema downloading has been removed. Schema downloading is now Swift-based, outputs GraphQL SDL (Schema Definition Language) by default, and is maintainable/extensible within apollo-ios with full [API documentation](https://www.apollographql.com/docs/ios/api/ApolloCodegenLib/structs/ApolloSchemaDownloader/). This is a breaking change because some of the API signatures have changed. [Swift scripting](https://www.apollographql.com/docs/ios/swift-scripting/) offers a convenient way to perform certain operations that would otherwise require the command line - it's worth a look if you haven't tried it yet. [#1935](https://github.com/apollographql/apollo-ios/pull/1935)
 
