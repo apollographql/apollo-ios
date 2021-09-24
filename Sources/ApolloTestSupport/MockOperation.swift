@@ -94,7 +94,7 @@ open class AbstractMockSelectionSet: AnySelectionSet {
 open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet { }
 
 open class MockFragment: AbstractMockSelectionSet, RootSelectionSet, Fragment {
-  public var fragmentDefinition: String = ""
+  open class var fragmentDefinition: String { "" }
 }
 
 open class MockTypeCase: AbstractMockSelectionSet, TypeCase { }

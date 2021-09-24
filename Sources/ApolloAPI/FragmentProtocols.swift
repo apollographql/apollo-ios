@@ -7,7 +7,7 @@
 ///
 /// - SeeAlso: `HasFragments`, `ToFragments`
 public protocol Fragment: AnySelectionSet {
-  var fragmentDefinition: String { get }
+  static var fragmentDefinition: String { get }
 }
 
 // MARK: - HasFragments

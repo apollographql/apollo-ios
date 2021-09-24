@@ -155,7 +155,7 @@ class GETTransformerTests: XCTestCase {
 
     let url = transformer.createGetURL()
 
-    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22%2BTest%2BTest%22%7D&query=None"
+    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22%2BTest%2BTest%22%7D&query=Mock%20Operation%20Definition"
 
     expect(url?.absoluteString).to(equal(expected))
   }
@@ -176,7 +176,7 @@ class GETTransformerTests: XCTestCase {
 
     let url = transformer.createGetURL()
 
-    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22Test%26Test%22%7D&query=None"
+    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22Test%26Test%22%7D&query=Mock%20Operation%20Definition"
     expect(url?.absoluteString).to(equal(expected))
   }
   
@@ -252,7 +252,7 @@ class GETTransformerTests: XCTestCase {
 
     let url = transformer.createGetURL()
 
-    let expected = "http://localhost:8080/graphql?zalgo=bar&extensions=%7B%22testParam%22:%22Test%26Test%22%7D&query=None"
+    let expected = "http://localhost:8080/graphql?zalgo=bar&extensions=%7B%22testParam%22:%22Test%26Test%22%7D&query=Mock%20Operation%20Definition"
 
     expect(url?.absoluteString).to(equal(expected))
   }
