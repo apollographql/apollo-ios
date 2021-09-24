@@ -54,7 +54,7 @@ class ApolloSchemaTests: XCTestCase {
 
   func testFormatConversion_givenIntrospectionJSON_shouldOutputValidSDL() throws {
     let bundle = Bundle(for: type(of: self))
-    guard let jsonURL = bundle.url(forResource: "introspection_response", withExtension: "json") else {
+    guard let jsonURL = bundle.url(forResource: "schema", withExtension: "json") else {
       throw XCTFailure("Missing resource file!", file: #file, line: #line)
     }
 

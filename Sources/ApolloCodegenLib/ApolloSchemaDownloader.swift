@@ -250,7 +250,7 @@ public struct ApolloSchemaDownloader {
                                                             operationName: "IntrospectionQuery")
     urlRequest.httpMethod = "POST"
     urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
-    let jsonOutputURL = configuration.outputURL.apollo.parentFolderURL().appendingPathComponent("introspection_response.json")
+    let jsonOutputURL = configuration.outputURL.apollo.parentFolderURL().appendingPathComponent("schema.json")
     
     try URLDownloader().downloadSynchronously(with: urlRequest,
                                               to: jsonOutputURL,
