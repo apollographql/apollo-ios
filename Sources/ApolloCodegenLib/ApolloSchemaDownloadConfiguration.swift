@@ -54,16 +54,21 @@ public struct ApolloSchemaDownloadConfiguration {
     public var debugDescription: String {
       "\(key): \(value)"
     }
+
+    public init(key: String, value: String) {
+      self.key = key
+      self.value = value
+    }
   }
 
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
-  let downloadMethod: DownloadMethod
+  public let downloadMethod: DownloadMethod
   /// The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  let downloadTimeout: Double
+  public let downloadTimeout: Double
   /// Any additional headers to include when retrieving your schema. Defaults to nil.
-  let headers: [HTTPHeader]
+  public let headers: [HTTPHeader]
   /// The URL of the folder in which the downloaded schema should be written.
-  let outputURL: URL
+  public let outputURL: URL
 
   /// Designated Initializer
   ///
