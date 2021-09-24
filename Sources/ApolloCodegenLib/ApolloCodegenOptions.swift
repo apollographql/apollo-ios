@@ -130,7 +130,7 @@ public struct ApolloCodegenOptions {
   public init(targetRootURL folder: URL,
               codegenEngine: CodeGenerationEngine = .default,
               downloadTimeout: Double = 30.0) {
-    let schema = folder.appendingPathComponent("schema.json")
+    let schema = folder.appendingPathComponent("schema.graphqls")
     
     let outputFileURL: URL
     switch codegenEngine {
