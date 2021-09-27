@@ -1090,7 +1090,65 @@ For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor
 
 # Cache Key Resolution
 
-TODO
+For normalization of cache data, a mechanism for providing unique cache keys for entities is necessary. In the previous version of Apollo, this was configured via a single `cacheKeyForObject` closure that could be set on the `ApolloClient`. In version 1.0, this configuration will move to extensions on the Schema Types.
+
+Each generated object can provide a function for computing it's cache key by conforming to the `CacheKeyProvider` protocol. Extensions can be created manually to provide conformance to this protocol on object types.
+
+```swift
+extension Cat: CacheKeyProvider {
+  static func cacheKey(for data: JSONObject) -> String? {
+    guard let humanName = data["humanName"] as? String,
+     let species = data["species"] as? String else { 
+      return nil 
+    }
+    return humanName + "_" + species
+  }
+}
+```
+This function will be called whenever a cache key needs to be computed for a JSON response with a `__typename` matching the typename for a `Cat` object. (This mapping uses the generated mapper function on the `SchemaConfiguration`.)
+
+If `nil` is returned, the object will be treated as if it does not have a unique cache key and will cached without normalization.
+
+> When reading/writing data to the cache, the `__typename` will always be prepended to the returned cache key. It does not need to be included in the value returned by your `CacheKeyProvider`. This means that cache keys only need to be guaranteed to be unique across objects of the same type.
+
+## Composable Cache Key Providers
+
+Multiple types that compute their cache keys in the same way can share their cache key provider function via protocol composition.
+
+```swift
+protocol PetCacheKeyProvider: CacheKeyProvider { }
+extension PetCacheKeyProvider {
+  static func cacheKey(for data: JSONObject) -> String? {
+    guard let humanName = data["humanName"] as? String,
+     let species = data["species"] as? String else { 
+      return nil 
+    }
+    return humanName + "_" + species
+  }
+}
+
+extension Cat: PetCacheKeyProvider {}
+extension Dog: PetCacheKeyProvider {}
+extension Fish: PetCacheKeyProvider {}
+```
+
+> In the future, we hope to provide mechanisms to have `CacheKeyProvider` implementations automatically generated based on client-side directives that can be added as extensions to your graphql schema directly.
+
+## Unknown Type Cache Key Providers
+
+If you would like to automatically provide cache key computation for unknown types (types that are added to your schema after code generation), you can extend your generated `SchemaConfiguration` to conform to the `SchemaUnknownTypeCacheKeyProvider` protocol.
+
+```swift
+extension AnimalKindgomAPI: SchemaUnknownTypeCacheKeyProvider {
+  static func cacheKeyForUnknownType(withTypename typename: String, data: JSONObject) -> String? {    
+    guard let id = data["id"] as? String else { 
+      return nil 
+    }
+
+    return id
+  }
+}
+```
 
 # Handling Unknown Types
 

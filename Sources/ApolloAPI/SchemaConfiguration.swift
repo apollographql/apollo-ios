@@ -20,7 +20,7 @@ extension SchemaConfiguration {
       return resolver.cacheKey(for: data)
     }
 
-    if let unknownTypeMapper = self as? SchemaUnknownTypeMapper.Type {
+    if let unknownTypeMapper = self as? SchemaUnknownTypeCacheKeyProvider.Type {
       return unknownTypeMapper.cacheKeyForUnknownType(withTypename: __typename, data: data)
     }
 
@@ -32,7 +32,7 @@ public protocol CacheKeyProvider: Object {
   static func cacheKey(for data: JSONObject) -> String?
 }
 
-public protocol SchemaUnknownTypeMapper {
+public protocol SchemaUnknownTypeCacheKeyProvider {
   static func cacheKeyForUnknownType(withTypename: String, data: JSONObject) -> String?
 }
 

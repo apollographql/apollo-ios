@@ -1,7 +1,7 @@
 @testable import Apollo
 @testable import ApolloAPI
 
-public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeMapper {
+public class MockSchemaConfiguration: SchemaConfiguration, SchemaUnknownTypeCacheKeyProvider {
 
   private static let testObserver = TestObserver() { _ in
     stub_objectTypeForTypeName = nil
