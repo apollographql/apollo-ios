@@ -2,31 +2,35 @@ import JavaScriptCore
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
-  private(set) lazy var operations: [OperationDefinition] = self["operations"]
+  lazy var operations: [OperationDefinition] = self["operations"]
   
-  private(set) lazy var fragments: [FragmentDefinition] = self["fragments"]
+  lazy var fragments: [FragmentDefinition] = self["fragments"]
 
-  private(set) lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
+  lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
   
   public class OperationDefinition: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+    lazy var name: String = self["name"]
     
-    private(set) lazy var operationType: OperationType = self["operationType"]
+    lazy var operationType: OperationType = self["operationType"]
     
-    private(set) lazy var variables: [VariableDefinition] = self["variables"]
+    lazy var variables: [VariableDefinition] = self["variables"]
     
-    private(set) lazy var rootType: GraphQLCompositeType = self["rootType"]
+    lazy var rootType: GraphQLCompositeType = self["rootType"]
     
-    private(set) lazy var selectionSet: SelectionSet = self["selectionSet"]
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
     
-    private(set) lazy var source: String = self["source"]
+    lazy var source: String = self["source"]
     
-    private(set) lazy var filePath: String = self["filePath"]
+    lazy var filePath: String = self["filePath"]
     
-    var operationIdentifier: String {
+    lazy var operationIdentifier: String = {
       // TODO: Compute this from source + referenced fragments
       fatalError()
-    }
+    }()
+
+    /// Computes the fragments that the operation uses by all selections on the operation.
+    #warning("TODO: Implement this and unit test. Probably want to implement fragments used for each SelectionSet and agregate them here.")
+//    public internal(set) lazy var fragmentsUsed: Set<FragmentDefinition> = []
   }
   
   public enum OperationType: String, Equatable, JavaScriptValueDecodable {
@@ -48,29 +52,29 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class VariableDefinition: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+    lazy var name: String = self["name"]
     
-    private(set) lazy var type: GraphQLType = self["type"]
+    lazy var type: GraphQLType = self["type"]
     
-    private(set) lazy var defaultValue: GraphQLValue? = self["defaultValue"]
+    lazy var defaultValue: GraphQLValue? = self["defaultValue"]
   }
   
   public class FragmentDefinition: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+    lazy var name: String = self["name"]
     
-    private(set) lazy var type: GraphQLCompositeType = self["type"]
+    lazy var type: GraphQLCompositeType = self["type"]
     
-    private(set) lazy var selectionSet: SelectionSet = self["selectionSet"]
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
     
-    private(set) lazy var source: String = self["source"]
+    lazy var source: String = self["source"]
     
-    private(set) lazy var filePath: String = self["filePath"]
+    lazy var filePath: String = self["filePath"]
   }
   
   public class SelectionSet: JavaScriptObject {
-    private(set) lazy var parentType: GraphQLCompositeType = self["parentType"]
+    lazy var parentType: GraphQLCompositeType = self["parentType"]
     
-    private(set) lazy var selections: [Selection] = self["selections"]
+    lazy var selections: [Selection] = self["selections"]
   }
   
   public enum Selection: JavaScriptValueDecodable {
@@ -99,42 +103,42 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class Field: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+    lazy var name: String = self["name"]
     
-    private(set) lazy var alias: String? = self["alias"]
+    lazy var alias: String? = self["alias"]
     
     var responseKey: String {
       alias ?? name
     }
     
-    private(set) lazy var arguments: [Argument]? = self["arguments"]
+    lazy var arguments: [Argument]? = self["arguments"]
     
-    private(set) lazy var type: GraphQLType = self["type"]
+    lazy var type: GraphQLType = self["type"]
     
-    private(set) lazy var selectionSet: SelectionSet? = self["selectionSet"]
+    lazy var selectionSet: SelectionSet? = self["selectionSet"]
     
-    private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+    lazy var deprecationReason: String? = self["deprecationReason"]
     
     var isDeprecated: Bool {
       return deprecationReason != nil
     }
     
-    private(set) lazy var description: String? = self["description"]
+    lazy var description: String? = self["description"]
   }
   
   public class Argument: JavaScriptObject {
-    private(set) lazy var name: String = self["name"]
+    lazy var name: String = self["name"]
     
-    private(set) lazy var value: GraphQLValue = self["value"]
+    lazy var value: GraphQLValue = self["value"]
   }
   
   public class InlineFragment: JavaScriptObject {
-    private(set) lazy var typeCondition: GraphQLCompositeType? = self["typeCondition"]
+    lazy var typeCondition: GraphQLCompositeType? = self["typeCondition"]
     
-    private(set) lazy var selectionSet: SelectionSet = self["selectionSet"]
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
   }
   
   public class FragmentSpread: JavaScriptObject {
-    private(set) lazy var fragment: FragmentDefinition = self["fragment"]
+    lazy var fragment: FragmentDefinition = self["fragment"]
   }
 }

@@ -5,4 +5,3 @@ subscription ReviewAdded($episode: Episode) {
     commentary
   }
 }
-
