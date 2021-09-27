@@ -403,7 +403,7 @@ Input objects will be generated for each `input` type in the schema that is used
 
 Nullable fields on input objects are represented using `GraphQLNullable` to allow for both `null` and `nil` values. 
 
-Following the [Input Coercion rules](https://spec.graphql.org/draft/#sec-Input-Objects.Input-Coercion) from the GraphQL spec, the server defined default value for a field will be used when passing `nil`. For non-nullable fields, if the schema provides a default value, the field will be represented as an optional to allow for this. Nullable fields on input objects are represented using `GraphQLNullable` to allow for both `null` and `nil` values.
+Following the [Input Coercion rules](https://spec.graphql.org/draft/#sec-Input-Objects.Input-Coercion) from the GraphQL spec, the server defined default value for a field will be used when passing `nil`.  Nullable fields on input objects are represented using `GraphQLNullable` to allow for both `null` and `nil` values.  For non-nullable fields, if the schema provides a default value, the field will be represented as an optional to allow for `nil` to be passed. 
 
 **Examples:**
 
@@ -474,6 +474,8 @@ struct MyInput: InputObject {
   var size: RelativeSize? { ... }
 }
 ```
+> Note that we are not generating these fields with the provided default values. This is to account for default values that may change on the schema in the future. See [Generate Default Parameter Values for `InputObject` Default Values](#generate-default-parameter-values-for-inputobject-default-values) for more discussion.
+
 
 # `GraphQLOperation` Generation
 
@@ -1249,6 +1251,40 @@ public struct AllAnimals: RootSelectionSet: HasFragments {
 ```
 
 # Alternatives & Suggestions
+
+## Generate Default Parameter Values for InputObject Default Values
+
+For fields with default values provided by the schema, we have decided to generate the fields as optional, but not include the default values in the generated code.
+
+```graphql
+input MyInput {
+  size: RelativeSize = SMALL
+}
+```
+```swift
+struct MyInput: InputObject {
+  public private(set) var dict: InputDict
+
+  init(size: GraphQLNullable<RelativeSize>) { ... }
+  
+  /// If `nil`, defaults to server-provided default value (.SMALL)
+  var size: GraphQLNullable<RelativeSize> { ... }
+}
+```
+An alternative approach is to provide the default value as a generated default argument.
+```swift
+struct MyInput: InputObject {
+  public private(set) var dict: InputDict
+
+  init(size: GraphQLNullable<RelativeSize> = .some(.SMALL)) { ... }
+  
+  /// If `nil`, defaults to server-provided default value (.SMALL)
+  var size: GraphQLNullable<RelativeSize> { ... }
+}
+```
+This however does not account for the fact that future changes to the default value of a field on an input type in a schema are considered to be backwards compatible. By generating the default value, we create a client that explicitly sends the value that *was* the default value when the type was generated – not necessarily the current default value of the server. In this case, the user could still explicitly pass `nil` to the initializer to indicate the intention to use the current default value as resolved by the server. However this is unclear at the call site and does not fall inline with the intentions of input coercion in the GraphQL Spec.
+
+For this reason, we have opted to not generate default values.
 
 ## Concrete Subtypes as Enums
 
