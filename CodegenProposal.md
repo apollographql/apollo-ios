@@ -663,7 +663,7 @@ query AllAnimalSpecies {
 
 ```swift
 struct AnimalDetails: SelectionSet, Fragment {
-  static var __parentType: ParentType { .Interface(.Animal) }
+  static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
   let data: ResponseDict
 
   var species: String { data["species"] }
@@ -674,7 +674,7 @@ struct AnimalDetails: SelectionSet, Fragment {
 
 ```swift
 struct Animal: SelectionSet, HasFragments {
-    static var __parentType: ParentType { .Interface(.Animal) }
+    static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
     let data: ResponseDict
     
     var species: String { data["species"] }
@@ -730,7 +730,7 @@ query {
 
 ```swift
 struct Animal: RootSelectionSet {
-    static var __parentType: ParentType { .Interface(.Animal) }
+    static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
     let data: ResponseDict
     
     var asPet: AsPet? { _asType() }
@@ -738,7 +738,7 @@ struct Animal: RootSelectionSet {
     var species: String { data["species"] }
       
     struct AsPet: TypeCase {
-      static var __parentType: ParentType { .Interface(.Pet) }
+      static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
       let data: ResponseDict
       
       var species: String { data["species"] }
@@ -777,7 +777,7 @@ query {
 
 ```swift
 struct Animal: RootSelectionSet {
-    static var __parentType: ParentType { .Interface(.Animal) }
+    static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
     let data: ResponseDict    
     
     var species: String { data["species"] }
@@ -786,7 +786,7 @@ struct Animal: RootSelectionSet {
     var asCat: AsCat? { _asType() }
       
     struct AsPet: TypeCase {
-      static var __parentType: ParentType { .Interface(.Pet) }
+      static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
       let data: ResponseDict
       
       var species: String { data["species"] }
@@ -794,7 +794,7 @@ struct Animal: RootSelectionSet {
     }
     
     struct AsCat: TypeCase {
-      static var __parentType: ParentType { .Object(.Cat) }
+      static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
       let data: ResponseDict
       
       var species: String { data["species"] }
@@ -805,6 +805,45 @@ struct Animal: RootSelectionSet {
 ```
 
 The `AsCat` `TypeCase` is on the `__parentType` “`Cat`" and the "`Cat`" object type implements the “`Pet`" `Interface`. Given this information the code generation engine can deduce that, any `AsCat` will also have the `humanName` field selected by the `AsPet` `TypeCase`. This field gets merged in and the `AsCat` has a field accessor for it.
+
+# Union Generation
+
+Union types are generated just like any other `SelectionSet`. Because a union has no knowledge of the underlying type or the selections available, a union `SelectionSet` will not generally include any field accessors itself. Rather, a union will only provide access to its child `TypeCases`s.
+
+**Example:**
+```graphql
+query {
+  classroomPets {
+    ... on Pet {
+      humanName
+    }
+    ... on Bird {
+      wingspan
+    }
+  }
+}
+```
+```swift
+struct ClassroomPet: RootSelectionSet {
+  static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
+  
+  var asPet: AsPet? { _asType() }
+  var asBird: AsBird? { _asType() }
+
+  struct AsPet: TypeCase {
+    static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
+
+    var humanName: String { data["humanName"] }
+  }
+
+  struct AsBird: TypeCase {
+    static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
+
+    var humanName: String { data["humanName"] }
+    var wingspan: Int { data["wingspan"] }
+  }
+}
+```
 
 # `Selection` Generation
 
@@ -1150,10 +1189,6 @@ extension AnimalKindgomAPI: SchemaUnknownTypeCacheKeyProvider {
 }
 ```
 
-# Handling Unknown Types
-
-TODO: - Union<UnionType>
-
 # Appendices
 
 ## Appendix A: Why Fragment Protocols Don’t Work
@@ -1426,9 +1461,9 @@ Possible Options:
 * Implement logic so that if your query has _**one or more**_ fragments on a concrete type, then we generate the subtypes (generate the enum with only 1 case + `_other`)
 * Implement logic so that if your query has _**more than one**_ fragment on a concrete type, then we generate the subtypes
 
-
-
 # Possible Future Additions
+
+## Client-Side Directives For Automatic `CacheKeyProvider` Generation
 
 ## Custom Field Validation
 
@@ -1436,4 +1471,4 @@ Possible Options:
 
 In order to cast new concrete types to type conditions, we would need to know the metadata about what interfaces the types implement. We could possibly use a schema introspection query to fetch additional types added to the schema after code generation.
 
-
+## Generation of Enums Providing All Possible Types for Unions
