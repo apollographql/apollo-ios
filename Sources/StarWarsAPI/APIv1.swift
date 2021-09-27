@@ -6,12 +6,12 @@ import ApolloAPI
 import Foundation
 
 public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
-where Schema == StarWarsAPITypeFactory {}
+where Schema == StarWarsAPISchema {}
 
 public protocol TypeCase: ApolloAPI.TypeCase
-where Schema == StarWarsAPITypeFactory {}
+where Schema == StarWarsAPISchema {}
 
-public enum StarWarsAPITypeFactory: SchemaConfiguration {
+public enum StarWarsAPISchema: SchemaConfiguration {
   public static func objectType(forTypename __typename: String) -> Object.Type? {
     switch __typename {
     case "Droid": return Droid.self
@@ -104,7 +104,7 @@ public enum SearchResult: UnionType, Equatable {
 }
 
 /// The episodes in the Star Wars trilogy
-public enum Episode: String, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+public enum Episode: String EnumType {
   /// Star Wars Episode IV: A New Hope, released in 1977.
   case NEWHOPE
   /// Star Wars Episode V: The Empire Strikes Back, released in 1980.
@@ -114,7 +114,7 @@ public enum Episode: String, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEnco
 }
 
 /// Units of height
-public enum LengthUnit: String, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+public enum LengthUnit: String, EnumType {
   /// The standard unit around the world
   case METER
   /// Primarily used in the United States
@@ -122,85 +122,60 @@ public enum LengthUnit: String, CaseIterable, Apollo.JSONDecodable, Apollo.JSONE
 }
 
 /// The input object sent when someone is creating a new review
-public struct ReviewInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+public struct ReviewInput: InputObject {
+  public private(set) var dict: InputDict
 
   /// - Parameters:
   ///   - stars: 0-5 stars
   ///   - commentary: Comment about the movie, optional
   ///   - favoriteColor: Favorite color, optional
-  public init(stars: Int, commentary: Swift.Optional<String?> = nil, favoriteColor: Swift.Optional<ColorInput?> = nil) {
-    graphQLMap = ["stars": stars, "commentary": commentary, "favorite_color": favoriteColor]
+  public init(stars: Int, commentary: GraphQLNullable<String> = .none, favoriteColor: GraphQLNullable<ColorInput> = .none) {
+    dict = InputDict(["stars": stars, "commentary": commentary, "favorite_color": favoriteColor])
   }
 
   /// 0-5 stars
   public var stars: Int {
-    get {
-      return graphQLMap["stars"] as! Int
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "stars")
-    }
+    get { dict["stars"] }
+    set { dict["stars"] = newValue }
   }
 
   /// Comment about the movie, optional
-  public var commentary: Swift.Optional<String?> {
-    get {
-      return graphQLMap["commentary"] as? Swift.Optional<String?> ?? Swift.Optional<String?>.none
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "commentary")
-    }
+  public var commentary: GraphQLNullable<String> {
+    get { dict["commentary"] }
+    set { dict["commentary"] = newValue }
   }
-
   /// Favorite color, optional
-  public var favoriteColor: Swift.Optional<ColorInput?> {
-    get {
-      return graphQLMap["favorite_color"] as? Swift.Optional<ColorInput?> ?? Swift.Optional<ColorInput?>.none
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "favorite_color")
-    }
+  public var favoriteColor: GraphQLNullable<ColorInput> {
+    get { dict["favoriteColor"] }
+    set { dict["favoriteColor"] = newValue }
   }
 }
 
 /// The input object sent when passing in a color
-public struct ColorInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
+public struct ColorInput: InputObject {
+  public private(set) var dict: InputDict
 
   /// - Parameters:
   ///   - red
   ///   - green
   ///   - blue
   public init(red: Int, green: Int, blue: Int) {
-    graphQLMap = ["red": red, "green": green, "blue": blue]
+    dict = InputDict(["red": red, "green": green, "blue": blue])
   }
 
   public var red: Int {
-    get {
-      return graphQLMap["red"] as! Int
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "red")
-    }
+    get { dict["red"] }
+    set { dict["red"] = newValue }
   }
 
   public var green: Int {
-    get {
-      return graphQLMap["green"] as! Int
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "green")
-    }
+    get { dict["green"] }
+    set { dict["green"] = newValue }
   }
 
   public var blue: Int {
-    get {
-      return graphQLMap["blue"] as! Int
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "blue")
-    }
+    get { dict["blue"] }
+    set { dict["blue"] = newValue }
   }
 }
 
