@@ -338,13 +338,142 @@ A `SchemaConfiguration` object will also be generated for your schema. This obje
 
 For an example of generated schema metadata see [AnimalSchema.swift](Sources/ApolloAPI/AnimalSchema.swift).
 
-# `InputObject` Generation
-
-TODO
-
 # `EnumType` Generation
 
-TODO
+Enums will be generated for each `enum` type in the schema that is used in any of the operations defined in your application. These enums will conform to a simple `EnumType` protocol. When used as the type for a field on a `SelectionSet`, these enums will be wrapped in the generic `GraphQLEnum`.
+
+```swift
+enum RelativeSize: String, EnumType {
+  case LARGE
+  case AVERAGE
+  case SMALL
+}
+```
+```swift
+struct Animal: SelectionSet {
+  // ...
+  var size: GraphQLEnum<RelativeSize> { data["size"] }
+}
+```
+`GraphQLEnum` wraps your generated `EnumType`s and provides the `__unknown` case with an associated value of a raw string. This is necessary for clients to provide forward-compatibility with new enum cases added to a schema in the future. `GraphQLEnum` has pattern matching and `Equatable` conformance implemented that allows you to consume it as if it were your underlying `EnumType` in most cases. 
+
+**Examples:**
+```swift
+let size: GraphQLEnum<RelativeSize> = .init(.SMALL)
+
+size == .SMALL // true
+```
+When using switch, you must provide a case for the unknown value. 
+```swift
+switch size {
+case .SMALL: break
+case .AVERAGE: break
+case .LARGE: break
+case .__unknown(_): break
+default: break
+}
+```
+Because pattern matching is being used to match against the underling `EnumType` cases, you must also provide a default case.
+
+To ensure exhaustive switch cases without a default case your generated cases can be wrapped in `.case()`.
+```swift
+switch size {
+case .case(.SMALL): break
+case .case(.AVERAGE): break
+case .case(.LARGE): break
+case .__unknown(_): break
+}
+```
+If you want to ignore the unknown case, you can access the `.value` field, which returns an optional value of the wrapped type. If the type is an unknown case `.value` will be `nil`.
+```swift
+switch size.value {
+case .SMALL: break
+case .AVERAGE: break
+case .LARGE: break
+default: break 
+// or
+case .none: break
+}
+```
+See [GraphQLEnum.swift](Sources/ApolloAPI/GraphQLEnum.swift) for implementation details.
+
+# `InputObject` Generation
+
+Input objects will be generated for each `input` type in the schema that is used in an argument for any of the operations defined in your application. Input objects are structs that are backed by a `InputDict` struct that stores the values for the fields on the input object in a dictionary. This allows for `InputObject`s to be treated as values types but use copy-on-write semantics under the hood.
+
+Nullable fields on input objects are represented using `GraphQLNullable` to allow for both `null` and `nil` values. 
+
+Following the [Input Coercion rules](https://spec.graphql.org/draft/#sec-Input-Objects.Input-Coercion) from the GraphQL spec, the server defined default value for a field will be used when passing `nil`. For non-nullable fields, if the schema provides a default value, the field will be represented as an optional to allow for this. Nullable fields on input objects are represented using `GraphQLNullable` to allow for both `null` and `nil` values.
+
+**Examples:**
+
+Nullable field with no default value:
+```
+input MyInput {
+  size: RelativeSize
+}
+```
+```swift
+struct MyInput: InputObject {
+  public private(set) var dict: InputDict
+
+  init(size: GraphQLNullable<RelativeSize> = nil) {
+    dict = InputDict(["size": size])
+  }
+
+  var size: GraphQLNullable<RelativeSize> {
+    get { dict["size"] }
+    set { dict["size"] = newValue }
+  }
+}
+```
+Nullable field with a default value:
+```
+input MyInput {
+  size: RelativeSize = SMALL
+}
+```
+```swift
+struct MyInput: InputObject {
+  public private(set) var dict: InputDict
+
+  init(size: GraphQLNullable<RelativeSize>) { ... }
+
+  /// If `.none`, defaults to server-provided default value (.SMALL)
+  var size: GraphQLNullable<RelativeSize> { ... }
+}
+```
+Non-nullable field with no default value:
+```
+input MyInput {
+  size: RelativeSize!
+}
+```
+```swift
+struct MyInput: InputObject {
+  public private(set) var dict: InputDict
+
+  init(size: RelativeSize) { ... }
+  
+  var size: RelativeSize { ... }
+}
+```
+Non-nullable field with a default value:
+```
+input MyInput {
+  size: RelativeSize! = SMALL
+}
+```
+```swift
+struct MyInput: InputObject {
+  public private(set) var dict: InputDict
+
+  init(size: RelativeSize?) { ... }
+  
+  /// If `nil`, defaults to server-provided default value (.SMALL)
+  var size: RelativeSize? { ... }
+}
+```
 
 # `GraphQLOperation` Generation
 

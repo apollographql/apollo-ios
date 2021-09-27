@@ -104,7 +104,7 @@ public enum SearchResult: UnionType, Equatable {
 }
 
 /// The episodes in the Star Wars trilogy
-public enum Episode: String EnumType {
+public enum Episode: String, EnumType {
   /// Star Wars Episode IV: A New Hope, released in 1977.
   case NEWHOPE
   /// Star Wars Episode V: The Empire Strikes Back, released in 1980.
