@@ -79,7 +79,7 @@ The generated code, as well as the implementation of the code generation tooling
 
 For all examples in this document, we will use the following schema:
 
-```
+```graphql
 type Query {
   allAnimals: [Animal!]!
   allPets: [Pet!]!
@@ -217,7 +217,7 @@ A `SelectionSet` defines a set of fields that have been selected to be visible f
 
 Given the query:
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -250,7 +250,7 @@ Let’s start with a simple example to illustrate what the `Fields` object looks
 
 **Query Input:**
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -336,7 +336,7 @@ For each union type declared in your schema and referenced by any generated oper
 
 A `SchemaConfiguration` object will also be generated for your schema. This object will have a function that maps the `Object` types in your schema to their `__typename` string. This allows the execution to convert data (from a network response from the cache) to the correct `Object` type at runtime.
 
-For an example of generated schema metadata see [AnimalSchema.swift](Sources/ApolloAPI/AnimalSchema.swift).
+For an example of generated schema metadata see [AnimalKindgomAPI/Schema.swift](Tests/ApolloCodegenTests/AnimalKingdomAPI/ExpectedGeneratedOutput/Schema.swift).
 
 # `EnumType` Generation
 
@@ -408,7 +408,7 @@ Following the [Input Coercion rules](https://spec.graphql.org/draft/#sec-Input-O
 **Examples:**
 
 Nullable field with no default value:
-```
+```graphql
 input MyInput {
   size: RelativeSize
 }
@@ -428,7 +428,7 @@ struct MyInput: InputObject {
 }
 ```
 Nullable field with a default value:
-```
+```graphql
 input MyInput {
   size: RelativeSize = SMALL
 }
@@ -444,7 +444,7 @@ struct MyInput: InputObject {
 }
 ```
 Non-nullable field with no default value:
-```
+```graphql
 input MyInput {
   size: RelativeSize!
 }
@@ -459,7 +459,7 @@ struct MyInput: InputObject {
 }
 ```
 Non-nullable field with a default value:
-```
+```graphql
 input MyInput {
   size: RelativeSize! = SMALL
 }
@@ -601,7 +601,7 @@ Indicates the fields that should be “selected” during GraphQL execution. See
 
 To illustrate the difference between these properties, we will use an example. Given the query:
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -614,6 +614,16 @@ The `allAnimals` field has a type of `Animal`, which is an interface.  Each conc
 The `__typename` field, provided by the server would provide the actual concrete type for each entity as a `String`. 
 The `__objectType` property would convert this into a strongly typed `Object` from the generated schema types. This property will have different values for each concrete `Animal` object.
 The `__parentType` for all of these entities would still be the same — the `Animal` interface. 
+
+# Field Accessor Generation
+
+Each field selected in a `SelectionSet`'s `selections` can be accessed via a generated field accessor. Generated field accessors provide type-safe access to the values for fields that are selected on the `SelectionSet`. These field accessors access the data on the underlying `ResponseDict`, which holds the data for the `SelectionSet`. The data is then cast to the correct type and any transformations needed are applied under the hood. Because the GraphQL execution validates response data before mapping it onto generated `SelectionSet`s, the data is guarunteed to exist and be the correct type.
+
+When the `species` field on an `Animal` is selected, the following field accessor is generated:
+```swift
+var species: String { data["species"] }
+```
+The `ResponseDict` accesses the field's value and force casts it to a `String`, which will always be safe.
 
 # `Fragment` Generation
 
@@ -630,7 +640,7 @@ Instead of protocols, fragments are generated as concrete `SelectionSet` structs
 
 **Fragment Definition:**
 
-```
+```graphql
 fragment AnimalDetails on Animal {
   species
 }
@@ -638,7 +648,7 @@ fragment AnimalDetails on Animal {
 
 **Query Input:**
 
-```
+```graphql
 query AllAnimalSpecies {
   allAnimals {
     ...AnimalDetails
@@ -654,7 +664,7 @@ struct AnimalDetails: SelectionSet, Fragment {
   static var __parentType: ParentType { .Interface(.Animal) }
   let data: ResponseDict
 
-  var species: String? { data["species"] }
+  var species: String { data["species"] }
 }
 ```
 
@@ -665,7 +675,7 @@ struct Animal: SelectionSet, HasFragments {
     static var __parentType: ParentType { .Interface(.Animal) }
     let data: ResponseDict
     
-    var species: String? { data["species"] }
+    var species: String { data["species"] }
       
     struct Fragments: ResponseObject {
       let data: ResponseDict
@@ -703,7 +713,7 @@ Let’s take a look at an example of this:
 
 **Query Input:**
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -739,7 +749,7 @@ The computed property for `asPet` uses an internal function `_asType()`, which i
 
 ## Merging `TypeCase` Fields Into Children and Siblings
 
-Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. 
+Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. Since the field will already be selected and will exist in the underlying `ResponseDict`, the child `SelectionSet` does not need to duplicate the `Selection` for the field. Only a duplicated field accessor needs to be generated.
 
 Additionally, since any fields from other `TypeCases` defined on the parent `SelectionSet` that match the type of a `TypeCase` are guaranteed to exist, they are also merged in. This makes it much easier to consume the data on a generated `TypeCase`.
 
@@ -747,7 +757,7 @@ Expanding on the above example, we can see how sibling `TypeCase` selections can
 
 **Query Input:**
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -809,7 +819,7 @@ The `Selection.field(Field)` case represents a specific field that should be sel
 
 **Example:**
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -831,7 +841,7 @@ If a field takes arguments, the arguments will be generated on the field’s `Se
 
 **Scalar Value Argument Example:**
 
-```
+```graphql
 query {
   allAnimals {
     predators(first: 3)
@@ -876,7 +886,7 @@ One or more `Selection`s may be conditionally included based on a `@skip` or `@i
 
 **Single Field Example:**
 
-```
+```graphql
 query($skipSpecies: Boolean) {
   allAnimals {
     species @skip(if: $skipSpecies)
@@ -899,7 +909,7 @@ class Query: GraphQLQuery {
 
 **Multiple Fields Example:**
 
-```
+```graphql
 query($includeDetails: Boolean) {
   allAnimals {
     species 
@@ -942,7 +952,7 @@ Fragments included by a `SelectionSet` reference the `Fragment` `SelectionSet` a
 
 **Example:**
 
-```
+```graphql
 query {
   allAnimals {
     ...AnimalDetails
@@ -1001,7 +1011,7 @@ The `selections` for a `TypeCase` are included if:
 
 **Inline TypeCase Example:**
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -1031,7 +1041,7 @@ struct Animal: RootSelectionSet {
 
 **Named Fragment TypeCase Example:**
 
-```
+```graphql
 query {
   allAnimals {
     species
@@ -1076,10 +1086,6 @@ While a `TypeCase` only provides the additional selections that should be select
 
 For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `ResponseDict` for the `SelectionSet`'s data.
 
-# Field Accessor Generation
-
-TODO
-
 # Cache Key Resolution
 
 TODO
@@ -1094,7 +1100,7 @@ TODO: - Union<UnionType>
 
 Consider the following fragment and queries.
 
-```
+```graphql
 fragment HeightInMeters on Animal {
   height {
      meters

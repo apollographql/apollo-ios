@@ -809,6 +809,7 @@
 		DE09F9BF270269E800795949 /* MockOperationDefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockOperationDefinition.swift; sourceTree = "<group>"; };
 		DE09F9C0270269E800795949 /* MockJavaScriptObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJavaScriptObject.swift; sourceTree = "<group>"; };
 		DE09F9C5270269F800795949 /* Generate_OperationDefinition_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generate_OperationDefinition_Tests.swift; sourceTree = "<group>"; };
+		DE09F9C727026E0B00795949 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
 		DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
@@ -1349,7 +1350,7 @@
 			isa = PBXGroup;
 			children = (
 				DE09F9C4270269F800795949 /* CodeGeneration */,
-				DE2FCF3326E809A30057EA67 /* AnimalsAPI */,
+				DE2FCF3326E809A30057EA67 /* AnimalKingdomAPI */,
 				9F1A96AE258F367100A06EEB /* Frontend */,
 				9B8110A623A1994000688AC4 /* SourcePackages */,
 				E6BE04ED26F11B3500CF858D /* Resources */,
@@ -1763,6 +1764,13 @@
 			path = CodeGeneration;
 			sourceTree = "<group>";
 		};
+		DE09F9C827026EFD00795949 /* SchemaTypes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SchemaTypes;
+			sourceTree = "<group>";
+		};
 		DE2FCF2226E8082A0057EA67 /* SchemaTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1775,19 +1783,21 @@
 			path = SchemaTypes;
 			sourceTree = "<group>";
 		};
-		DE2FCF3326E809A30057EA67 /* AnimalsAPI */ = {
+		DE2FCF3326E809A30057EA67 /* AnimalKingdomAPI */ = {
 			isa = PBXGroup;
 			children = (
 				DE2FCF3426E809BB0057EA67 /* ExpectedGeneratedOutput */,
 			);
-			path = AnimalsAPI;
+			path = AnimalKingdomAPI;
 			sourceTree = "<group>";
 		};
 		DE2FCF3426E809BB0057EA67 /* ExpectedGeneratedOutput */ = {
 			isa = PBXGroup;
 			children = (
+				DE09F9C827026EFD00795949 /* SchemaTypes */,
 				DE2FCF3526E809BB0057EA67 /* Fragments */,
 				DE2FCF3A26E809BB0057EA67 /* Queries */,
+				DE09F9C727026E0B00795949 /* Schema.swift */,
 			);
 			path = ExpectedGeneratedOutput;
 			sourceTree = "<group>";

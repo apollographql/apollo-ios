@@ -1,7 +1,6 @@
-@testable import CodegenProposalFramework
-import AnimalSchema
-@_exported import enum AnimalSchema.SkinCovering
-@_exported import enum AnimalSchema.RelativeSize
+import ApolloAPI
+@_exported import enum AnimalKindgomAPI.SkinCovering
+@_exported import enum AnimalKindgomAPI.RelativeSize
 
 // TODO: Fragment with nested type condition
 // TODO: Figure out access control on everything
@@ -10,22 +9,22 @@ import AnimalSchema
 struct AllAnimalsQuery {
   let data: ResponseData
 
-  struct ResponseData: AnimalSchema.SelectionSet {
+  struct ResponseData: AnimalKindgomAPI.SelectionSet {
 
-    static var __parentType: ParentType { .Object(AnimalSchema.Query.self) }
+    static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
     let data: ResponseDict
 
     var allAnimals: [Animal] { data["allAnimals"] }
 
     /// `Animal`
-    struct Animal: AnimalSchema.SelectionSet, HasFragments {
-      static var __parentType: ParentType { .Interface(AnimalSchema.Animal.self) }
+    struct Animal: AnimalKindgomAPI.SelectionSet, HasFragments {
+      static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
       let data: ResponseDict
 
       static var selections: [Selection] { [
         .field("species", type: String.self),
         .field("height", type: .object(Height.self)),
-        .typeCase(ifType: AnimalSchema.Cat.self, select: AsCat.selections))
+        .typeCase(ifType: AnimalKindgomAPI.Cat.self, select: AsCat.selections))
       ] }
 
       var species: String { data["species"] }
@@ -45,8 +44,8 @@ struct AllAnimalsQuery {
       }
 
       /// `Animal.Height`
-      struct Height: AnimalSchema.SelectionSet {
-        static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+      struct Height: AnimalKindgomAPI.SelectionSet {
+        static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
         let data: ResponseDict
 
         var feet: Int { data["feet"] }
@@ -58,8 +57,8 @@ struct AllAnimalsQuery {
       }
 
       /// `Animal.Predators`
-      struct Predators: AnimalSchema.SelectionSet {
-        static var __parentType: ParentType { .Interface(AnimalSchema.Animal.self) }
+      struct Predators: AnimalKindgomAPI.SelectionSet {
+        static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
         let data: ResponseDict
 
         var species: String { data["species"] }
@@ -67,8 +66,8 @@ struct AllAnimalsQuery {
         var asWarmBlooded: AsWarmBlooded? { _asType() }
 
         /// `AllAnimals.Predators.AsWarmBlooded`
-        struct AsWarmBlooded: AnimalSchema.SelectionSet, HasFragments {
-          static var __parentType: ParentType { .Interface(AnimalSchema.WarmBlooded.self) }
+        struct AsWarmBlooded: AnimalKindgomAPI.SelectionSet, HasFragments {
+          static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
           let data: ResponseDict
 
           var bodyTemperature: Int { data["bodyTemperature"] }
@@ -85,8 +84,8 @@ struct AllAnimalsQuery {
             var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           }
 
-          struct Height: AnimalSchema.SelectionSet {
-            static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+          struct Height: AnimalKindgomAPI.SelectionSet {
+            static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
             let data: ResponseDict
 
             var meters: Int { data["meters"] }
@@ -96,8 +95,8 @@ struct AllAnimalsQuery {
       }
 
       /// `Animal.AsCat`
-      struct AsCat: AnimalSchema.TypeCase {
-        static var __parentType: ParentType { .Object(AnimalSchema.Cat.self) }
+      struct AsCat: AnimalKindgomAPI.TypeCase {
+        static var __parentType: ParentType { .Object(AnimalKindgomAPI.Cat.self) }
         let data: ResponseDict
 
         static var selections: [Selection] { [
@@ -116,8 +115,8 @@ struct AllAnimalsQuery {
         var bodyTemperature: Int { data["bodyTemperature"] }
         var isJellicle: Bool { data["isJellicle"] }
 
-        struct Height: AnimalSchema.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+        struct Height: AnimalKindgomAPI.SelectionSet {
+          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
           let data: ResponseDict
 
           var feet: Int { data["feet"] }
@@ -139,8 +138,8 @@ struct AllAnimalsQuery {
       // we would use a custom `TypeCondition` with the fragment type condition nested inside.
       // See `Predators.AsWarmBlooded` for an example of this.
       /// `Animal.AsWarmBlooded`
-      struct AsWarmBlooded: AnimalSchema.SelectionSet, HasFragments {
-        static var __parentType: ParentType { .Interface(AnimalSchema.WarmBlooded.self) }
+      struct AsWarmBlooded: AnimalKindgomAPI.SelectionSet, HasFragments {
+        static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
 
         let data: ResponseDict
 
@@ -157,8 +156,8 @@ struct AllAnimalsQuery {
           var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
         }
 
-        struct Height: AnimalSchema.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+        struct Height: AnimalKindgomAPI.SelectionSet {
+          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
           let data: ResponseDict
 
           var feet: Int { data["feet"] }
@@ -169,8 +168,8 @@ struct AllAnimalsQuery {
       }
 
       /// `Animal.AsPet`
-      struct AsPet: AnimalSchema.SelectionSet, HasFragments {
-        static var __parentType: ParentType { .Interface(AnimalSchema.Pet.self) }
+      struct AsPet: AnimalKindgomAPI.SelectionSet, HasFragments {
+        static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
         let data: ResponseDict
 
         var species: String { data["species"] }
@@ -192,8 +191,8 @@ struct AllAnimalsQuery {
           var petDetails: PetDetails  { _toFragment() }
         }
 
-        struct Height: AnimalSchema.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+        struct Height: AnimalKindgomAPI.SelectionSet {
+          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
           let data: ResponseDict
 
           var feet: Int { data["feet"] }
@@ -208,8 +207,8 @@ struct AllAnimalsQuery {
         }
 
         /// `Animal.AsPet.AsWarmBlooded`
-        struct AsWarmBlooded: AnimalSchema.SelectionSet, HasFragments {
-          static var __parentType: ParentType { .Interface(AnimalSchema.WarmBlooded.self) }
+        struct AsWarmBlooded: AnimalKindgomAPI.SelectionSet, HasFragments {
+          static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
           let data: ResponseDict
 
           var species: String { data["species"] }
@@ -231,8 +230,8 @@ struct AllAnimalsQuery {
             var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
           }
 
-          struct Height: AnimalSchema.SelectionSet {
-            static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+          struct Height: AnimalKindgomAPI.SelectionSet {
+            static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
             let data: ResponseDict
 
             var feet: Int { data["feet"] }
@@ -246,8 +245,8 @@ struct AllAnimalsQuery {
       }
 
       /// `Animal.AsClassroomPet`
-      struct AsClassroomPet: AnimalSchema.SelectionSet {
-        static var __parentType: ParentType { .Union(AnimalSchema.ClassroomPet.self) }
+      struct AsClassroomPet: AnimalKindgomAPI.SelectionSet {
+        static var __parentType: ParentType { .Union(AnimalKindgomAPI.ClassroomPet.self) }
         let data: ResponseDict
 
         var species: String { data["species"] }
@@ -258,8 +257,8 @@ struct AllAnimalsQuery {
         var asBird: AsBird? { _asType() }
 
         /// `Animal.AsClassroomPet.AsBird`
-        struct AsBird: AnimalSchema.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalSchema.Bird.self) }
+        struct AsBird: AnimalKindgomAPI.SelectionSet {
+          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Bird.self) }
           let data: ResponseDict
 
           var species: String { data["species"] }
@@ -274,8 +273,8 @@ struct AllAnimalsQuery {
           var bodyTemperature: Int { data["bodyTemperature"] }
           var wingspan: Int { data["wingspan"] }
 
-          struct Height: AnimalSchema.SelectionSet {
-            static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
+          struct Height: AnimalKindgomAPI.SelectionSet {
+            static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
             let data: ResponseDict
 
             var feet: Int { data["feet"] }
