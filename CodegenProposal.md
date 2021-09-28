@@ -4,10 +4,54 @@
 
 This document provides explanation, context, and examples for a proposal for the new code generation for iOS.
 
+> **Example code in this document is used only to illustrate the concepts being discussed, as is not comprehensive. Actual generated objects may have additional properties, functions, or nested types to support all functionality.**
 
-> **Example code in this document is used only to illustrate the concepts being discussed, as is not comprehensive. Actual generated objects may have additional properties, functions, or nested types to support all functionality. For complete examples of generated code, see the code repository for this proposal..**
+## Key Changes in 1.0
 
-# Objectives
+While the generated models in version 1.0 look much different than the current generated code, under the hood, they function relatively similarly. Though there are a few important functional differences, they are still structs backed by a dictionary of keys and values. Consuming your response data looks very similar to the previous version. Fragments and Type Cases are still accessed as nested objects. **The most noticeable difference is that the generated code will be a fraction of its previous size and should be much easier to read and understand!**
+
+The most important functional differences are:
+
+### Immutable Response Objects
+
+The generated response objects are now immutable. This allows for the generated code to be much more compact. Previously, fields on the generated models could be mutated, however this was not used for mutating objects server-side. Response objects could be mutated and then saved to the local cache to make manual cache mutations.
+
+The ability to mutate the local cache will implemented by using mutable fields on generated schema types in a follow-up to this RFC. This will be implemented prior to the 1.0 release.
+
+Local cache mutations using response objects had a number of limitations:
+- Cache data could only be mutated in the scope of a defined operation. 
+- Validation of mutated data was weak.
+  - In certain edge cases, data that would be invalid according to the schema could be inserted in the local cache. This could cause failures when reading cached data. In the worst case scenario, this could result in runtime crashes.
+- Data that had not yet been fetched from the server was difficult to insert in the local cache.   
+  - This was especially problematic when wanting to add values for Non-null fields on partially fetched objects.
+
+### Generated Schema Types
+
+In addition to generating the immutable operation response data models, the new codegen generates "Schema Types". Schema Types represent the backing types defined on the GraphQL schema itself. These objects provide metadata that is used by the Apollo Client under the hood to understand the relationships between the types in your generated operation response models. These generated Schema Types will also be expanded prior to the 1.0 release to include fields that allow for local cache mutations. For more information, see [Schema Type Generation](#schema-type-generation).
+
+### Fragment Fields Are Always Merged In
+
+In previous versions of the Code Generation tool, this functionality was exposed via the `mergeInFieldsFromFragmentSpreads` option, which defaulted to `false`. Merging in fragment fields provides for easier consumption of generated models, but it also increases the size of the generated code. Because the size of the generated code is being dramatically reduced with the new Code Generation tooling, we have opted to always merge in fragment fields. If generated code size becomes a concern with the new Code Generation, adding an option to disable fragment merging may be considered in the future. For an example of this see [Merging Fragment Fields Into Parent `SelectionSet`](#merging-fragment-fields-into-parent-selectionset)
+
+### CacheKeyProvider
+
+For normalization of cache data, a mechanism for providing unique cache keys for entities is necessary. In the previous version of Apollo, this was configured via a single `cacheKeyForObject` closure that could be set on the `ApolloClient`. In version 1.0, this configuration will move to extensions on the Schema Types. For more information, see [Cache Key Resolution](#cache-key-resolution)
+
+### GraphQLNullable
+
+The previous Apollo versions used double optionals (`??`) to represent `null` vs `nil` input values. This was unclear to most users and make reading and reasoning about your code difficult in many situations. The new version provides a custom enum for this cases named `GraphQLNullable`. For more information, see [Nullable Arguments - GraphQLNullable](#nullable-arguments---graphqlnullable)
+
+### Type Case Execution
+
+The logic for generating, validating, and executing selections for Type Cases has changed significantly. While this change is entirely under the hood – it should rarely, if ever, affect the consumer – because the generated code and the way the executor parses Type Cases functionally deviates from it's previous behavior, it is included here.
+
+Type Cases previously included all of the selections that would be selected if the underlying `__typename` of the returned object matched the Type Case. For interfaces, the same TypeCase could be used for multiple different `__typename` values.
+
+In the new generated models, type cases are generated to only select the additional fields that should be selected if the underlying `__typename` matches that type. The executor can now handling selecting multiple different Type Cases for the same object, if it matches multiple Type Cases (ie. A concrete type and an interface). This simplifies the execution logic; reduces the amount of generated code necessary; and makes the generated objects easier to understand.
+
+For more information see [TypeCase Selections](#typecase-selections).
+
+## Objectives
 
 There are a number of reasons to build a new Codegen tool. There are limitations of the current Codegen, as well as improvements and features that can be added with a new Codegen tool that are difficult to address with the current tooling.
 
@@ -75,7 +119,7 @@ While we do not expect the generated data objects to be appropriate for every us
 
 The generated code, as well as the implementation of the code generation tooling, should be architected in a flexible manner that allows for additional features additions to be implemented as easily as possible.
 
-# Example Schema
+## Example Schema
 
 For all examples in this document, we will use the following schema:
 
@@ -207,9 +251,7 @@ enum SkinCovering {
 
 In order to fulfill all of the stated goals of this project, the following approach is proposed for the structure of the Codegen:
 
-
 ## `SelectionSet` - A “View” of an Entity
----
 
 We will refer to each individual object fetched in a GraphQL response as an “entity”. An entity defines a single type (object, interface, or union) that has fields on it that can be fetched. 
 
@@ -281,7 +323,6 @@ struct Animal: SelectionSet, HasFragments {
 In this simple example, the `Animal` object has a nested `Height` object. Each conforms to `SelectionSet` and each has a single stored property let data: `ResponseDict`. The `ResponseDict` is a struct that wraps the dictionary storage, and provides custom subscript accessors for casting/transforming the underlying data to the correct types. For more information and implementation details, see: [ResponseDict.swift](Sources/ApolloAPI/ResponseDict.swift)
 
 ## GraphQL Execution
----
 
 GraphQL execution is the process in which the Apollo iOS client converts raw data — either from a network response or the local cache — into a `SelectionSet`. The execution process determines which fields should be “selected”; maps the data for those fields; decodes raw data to the correct types for the fields; validates that all fields have valid data; and returns `SelectionSet` objects that are guaranteed to be valid. 
 
@@ -290,7 +331,6 @@ A field that is “selected” is mapped from the raw data onto the `SelectionSe
 Because `SelectionSet` field access uses unsafe force casting under the hood, it is necessary that a `SelectionSet` is only ever created via the execution process. A `SelectionSet` that is initialized manually cannot be guaranteed to contain all the expected data for its field accessors, and as such, could cause crashes at run time. `SelectionSet`s returned from GraphQL execution are guaranteed to be safe.
 
 ## Nullable Arguments - `GraphQLNullable`
----
 
 By default, `GraphQLOperation` field variables; fields on `InputObject`s; and field arguments are nullable. For a nullable argument, the value can be provided as a value, a `null` value, or omitted entirely. In `GraphQL`, omitting an argument and passing a `null` value have semantically different meanings. While often, they may be identical, it is up to the implementation of the server to interpret these values. For example, a `null` value for an argument on a mutation may indicate that a field on the object should be set to `null`, while omitting the argument indicates that the field should retain it's current value -- or be set to a default value.
 
@@ -322,15 +362,59 @@ Schema types are implemented as `class` objects, not `struct`s. They will use re
 
 ## `Object` Types
 
-For each concrete type declared in your schema and referenced by any generated operation, an `Object` subclass is generated.
+For each concrete type declared in your schema and referenced by any generated operation, an `Object` subclass is generated. Each `Object` type contains a `static var __metadata` containing a struct that provides a list of the interfaces implemented by the concrete type.
+
+```swift
+public final class Dog: Object {
+  override public class var __typename: String { "Dog" }
+
+  // MARK: - Metadata
+  override public class var __metadata: Metadata { _metadata }
+  private static let _metadata: Metadata = Metadata(
+    implements: [Animal.self, Pet.self, WarmBlooded.self, HousePet.self]
+  )
+}
+```
 
 ## `Interface` Types
 
 For each interface type declared in your schema and referenced by any generated operation, an `Interface` subclass is generated. Interfaces wrap an underlying `Object` type and ensure that only objects of types that they are only initialized with a wrapped object of a type that implements the interface.
 
+```swift
+public final class Pet: Interface {}
+```
+
 ## `Union` Types
 
-For each union type declared in your schema and referenced by any generated operation, a `UnionType` enum is generated. `UnionType` enums have cases representing each possible type in the union. Each case has an associated value of the `Object` type represented by that case. `UnionType` enums are referenced as fields by being wrapped in a `Union<UnionType>` enum that provides access to the underlying `UnionType` and unknown cases. See [Handling Unknown Types](#handling-unknown-types) for more information.
+For each union type declared in your schema and referenced by any generated operation, a `UnionType` enum is generated. `UnionType` enums have cases representing each possible type in the union. Each case has an associated value of the `Object` type represented by that case. `UnionType` enums are referenced as fields by being wrapped in a `Union<UnionType>` enum that provides access to the underlying `UnionType` and unknown cases. See [Handling Unknown Types](#handling-unknown-types) for more information. `UnionType` enums contain a `static let possibleTypes` property that provides a list of the concrete `Object` types contained in the union.
+```swift
+public enum ClassroomPet: UnionType, Equatable {
+  case Cat(Cat)
+  case Bird(Bird)
+  case Rat(Rat)
+  case PetRock(PetRock)
+
+  public init?(_ object: Object) {
+    switch object {
+    case let ent as Cat: self = .Cat(ent)
+    case let ent as Bird: self = .Bird(ent)
+    case let ent as Rat: self = .Rat(ent)
+    case let ent as PetRock: self = .PetRock(ent)
+    default: return nil
+    }
+  }
+
+  public var object: Object {
+    switch self {
+    case let .Cat(object as Object), let .Bird(object as Object), let .Rat(object as Object), let .PetRock(object as Object):
+      return object
+    }
+  }
+
+  static public let possibleTypes: [Object.Type] =
+    [AnimalKingdomAPI.Cat.self, AnimalKingdomAPI.Bird.self, AnimalKingdomAPI.Rat.self, AnimalKingdomAPI.PetRock.self]
+}
+```
 
 ## `Schema` Metadata
 
@@ -340,7 +424,7 @@ For an example of generated schema metadata see [AnimalKindgomAPI/Schema.swift](
 
 # `EnumType` Generation
 
-Enums will be generated for each `enum` type in the schema that is used in any of the operations defined in your application. These enums will conform to a simple `EnumType` protocol. When used as the type for a field on a `SelectionSet`, these enums will be wrapped in the generic `GraphQLEnum`.
+Enums will be generated for each `enum` type in the schema that is used in any of the operations defined in your application. These enums will conform to a simple `EnumType` protocol. When used as the type for a field on a `SelectionSet`, these enums will be wrapped in the generic `GraphQLEnum`. Unlike the previous code generation engine, the new code generation will respect the capitalization of the enum cases from the schema.
 
 ```swift
 enum RelativeSize: String, EnumType {
@@ -693,8 +777,6 @@ The query’s `Animal` struct conforms to `HasFragments`, which is a protocol th
 
 In the above example you may note that the `species` field is accessible directly on the `Animal` object without having to access the `AnimalDetails` fragment first. This is because fields from fragments that have the same `__parentType` as the enclosing `SelectionSet` are automatically merged into the enclosing `SelectionSet`. 
 
-In previous versions of the Code Generation tool, this functionality was exposed via the mergeInFieldsFromFragmentSpreads option, which defaulted to `false`. Merging in fragment fields provides for easier consumption of generated models, but it also increases the size of the generated code. Because the size of the generated code is being dramatically reduced with the new Code Generation tooling, we have opted to always merge in fragment fields. If generated code size becomes a concern with the new Code Generation, adding an option to disable fragment merging may be considered in the future.
-
 ## Inline Fragments
 
 Inline fragments are fragments that are unnamed and defined within an individual operation. These fragments cannot be shared, and as such, individual fragment `SelectionSet`s are not generated. Inline fragments are used strictly for handling “Type Cases“.
@@ -751,7 +833,7 @@ The computed property for `asPet` uses an internal function `_asType()`, which i
 
 ## Merging `TypeCase` Fields Into Children and Siblings
 
-Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. Since the field will already be selected and will exist in the underlying `ResponseDict`, the child `SelectionSet` does not need to duplicate the `Selection` for the field. Only a duplicated field accessor needs to be generated.
+Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. Since the field will already be selected and will exist in the underlying `ResponseDict`, the child `SelectionSet` does not need to duplicate the `Selection` for the field. Only a duplicated field accessor needs to be generated. For more explanation of how the `Selection`s for `TypeCase`s work, see [`TypeCase` Selections](#typecase-selections).
 
 Additionally, since any fields from other `TypeCases` defined on the parent `SelectionSet` that match the type of a `TypeCase` are guaranteed to exist, they are also merged in. This makes it much easier to consume the data on a generated `TypeCase`.
 
@@ -1039,7 +1121,7 @@ class Query: GraphQLQuery {
 
 ## `TypeCase` Selections
 
-When a `SelectionSet` has a nested type case, the type case’s selections are only included if the `__typename` of the object matches a type that is compatible with the `TypeCase`’s `__parentType`. This is determined at runtime by the `GraphQLExecutor` during the process of executing the `selections` on each `SelectionSet`.
+When a `SelectionSet` has a nested type case, the type case’s selections are only included if the `__typename` of the object matches a type that is compatible with the `TypeCase`’s `__parentType`. This is determined at runtime by the `GraphQLExecutor` during the process of executing the `selections` on each `SelectionSet`. While the selections for each `TypeCase` are not duplicated, field accessors for fields merged from the parent and other `TypeCase`s will be generated on each `TypeCase` struct. This is described in [Merging `TypeCase` Fields Into Children and Siblings](#merging-typecase-fields-into-children-and-siblings).
 
 The `selections` for a `TypeCase` are included if:
 
@@ -1059,6 +1141,9 @@ query {
     ... on Pet {
       humanName
     }
+    ... on Bird {
+      wingpsan
+    }
   }
 }
 ```
@@ -1069,19 +1154,38 @@ struct Animal: RootSelectionSet {
   static var selections: [Selection] {[
     .field("species", String.self),
     .typeCase(AsPet.self),
+    .typeCase(AsBird.self),
   ]}
   
+  var species: String { data["species" ]}
+
+  var asPet: AsPet? { _asType() }
+  var asBird: AsBird? { _asType() }
+
   struct AsPet: TypeCase {
     static var __parentType: ParentType { .Interface(.Pet) }
     static var selections: [Selection] {[
       .field("humanName", String.self),
     ]}
+
+    var species: String { data["species" ]}
+    var humanName: String { data["humanName" ]}
+  }
+
+  struct AsBird: TypeCase {
+    static var __parentType: ParentType { .Interface(.Pet) }
+    static var selections: [Selection] {[
+      .field("wingspan", Int.self),
+    ]}
+
+    var species: String { data["species" ]}
+    var humanName: String { data["humanName" ]}
+    var wingspan: Int { data["wingspan" ]}
   }
 }
 ```
 
-**Named Fragment TypeCase Example:**
-
+**Named Fragment TypeCase Example:** *Field and type case accessors omitted for brevity.*
 ```graphql
 query {
   allAnimals {
@@ -1128,8 +1232,6 @@ While a `TypeCase` only provides the additional selections that should be select
 For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `ResponseDict` for the `SelectionSet`'s data.
 
 # Cache Key Resolution
-
-For normalization of cache data, a mechanism for providing unique cache keys for entities is necessary. In the previous version of Apollo, this was configured via a single `cacheKeyForObject` closure that could be set on the `ApolloClient`. In version 1.0, this configuration will move to extensions on the Schema Types.
 
 Each generated object can provide a function for computing it's cache key by conforming to the `CacheKeyProvider` protocol. Extensions can be created manually to provide conformance to this protocol on object types.
 
@@ -1383,7 +1485,7 @@ For this reason, we have opted to not generate default values.
 
 [@designatedNerd’s initial proposal includes enums with associated values for subtypes.](https://github.com/apollographql/StarWarsiOSMk2/blob/master/StarWarsMark2/Queries/HeroTypeDependentAliasedFieldQueryMk2.swift#L43)
 
-These `SubType` enums thing works for concrete types, not interfaces (because a type could conform to multiple interfaces). We don't plan on generating all the Concrete types as data structures unless they are specifically enumerated (`... on Droid`)
+These `SubType` enums work for concrete types but not interfaces (because a type could conform to multiple interfaces). We don't plan on generating all the Concrete types as data structures unless they are specifically enumerated (`... on Droid`)
 
 It is undecided if we should implement these or not. They are only valuable in the specific scenario where you have inline fragments for multiple concrete types. 
 
@@ -1471,4 +1573,4 @@ Possible Options:
 
 In order to cast new concrete types to type conditions, we would need to know the metadata about what interfaces the types implement. We could possibly use a schema introspection query to fetch additional types added to the schema after code generation.
 
-## Generation of Enums Providing All Possible Types for Unions
+## Generation of Enums Providing All Known Possible Types for Unions
