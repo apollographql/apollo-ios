@@ -1,164 +1,216 @@
 import ApolloAPI
-@_exported import enum AnimalKindgomAPI.SkinCovering
-@_exported import enum AnimalKindgomAPI.RelativeSize
+import AnimalKingdomAPI
 
-// TODO: Fragment with nested type condition
-// TODO: Figure out access control on everything
-// TODO: inline fragment on union type `... on ClassroomPet { ... }`
+public struct AllAnimalsQuery: GraphQLQuery {
+  public let operationName: String = "AllAnimalsQuery"
+  public let document: DocumentType = .automaticallyPersisted(
+    operationIdentifier: "88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7",
+    definition: .init(
+    """
+    query AllAnimalsQuery {
+      allAnimals {
+        height {
+          feet
+          inches
+        }
+        ...HeightInMeters
+        ...WarmBloodedDetails
+        species
+        skinCovering
+        ... on Pet {
+          ...PetDetails
+          ...WarmBloodedDetails
+          ... on Animal {
+            height {
+              relativeSize
+              centimeters
+            }
+          }
+        }
+        ... on Cat {
+          isJellicle
+        }
+        ... on ClassroomPet {
+          ... on Bird {
+            wingspan
+          }
+        }
+        predators {
+          species
+          ... on WarmBlooded {
+            ...WarmBloodedDetails
+            laysEggs
+          }
+        }
+      }
+    }
 
-struct AllAnimalsQuery {
-  let data: ResponseData
+    """))
 
-  struct ResponseData: AnimalKindgomAPI.SelectionSet {
+  public init() {}
 
-    static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
-    let data: ResponseDict
+  public struct ResponseData: AnimalKindgomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var allAnimals: [Animal] { data["allAnimals"] }
+    public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
+
+    public var allAnimals: [Animal] { data["allAnimals"] }
 
     /// `Animal`
-    struct Animal: AnimalKindgomAPI.SelectionSet, HasFragments {
-      static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
-      let data: ResponseDict
+    public struct Animal: AnimalKindgomAPI.SelectionSet, HasFragments {
+      public let data: ResponseDict
+      public init(data: ResponseDict) { self.data = data }
 
-      static var selections: [Selection] { [
-        .field("species", type: String.self),
-        .field("height", type: .object(Height.self)),
-        .typeCase(ifType: AnimalKindgomAPI.Cat.self, select: AsCat.selections))
+      public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
+      public static var selections: [Selection] { [
+        .field("height", Height.self),
+        .fragment(HeightInMeters.self),
+        .typeCase(AsWarmBlooded.self),
+        .field("species", String.self),
+        .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
+        .typeCase(AsPet.self),
+        .typeCase(AsCat.self),
+        .typeCase(AsClassroomPet.self),
+        .field("predators", [Predators].self),
       ] }
 
-      var species: String { data["species"] }
-      var height: Height { data["height"] }
-      var predators: [Predators] { data["predators"] }
-      var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+      public var height: Height { data["height"] }
+      public var species: String { data["species"] }
+      public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+      public var predators: [Predators] { data["predators"] }
 
-      var asCat: AsCat? { _asType() }
-      var asWarmBlooded: AsWarmBlooded? { _asType() }
-      var asPet: AsPet? { _asType() }
-      var asClassroomPet: AsClassroomPet? { _asType() }
+      public var asCat: AsCat? { _asType() }
+      public var asWarmBlooded: AsWarmBlooded? { _asType() }
+      public var asPet: AsPet? { _asType() }
+      public var asClassroomPet: AsClassroomPet? { _asType() }
 
-      struct Fragments: ResponseObject {
-        let data: ResponseDict
+      public struct Fragments: ResponseObject {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        var heightInMeters: HeightInMeters { _toFragment() }
+        public var heightInMeters: HeightInMeters { _toFragment() }
       }
 
       /// `Animal.Height`
-      struct Height: AnimalKindgomAPI.SelectionSet {
-        static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-        let data: ResponseDict
+      public struct Height: AnimalKindgomAPI.SelectionSet {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        var feet: Int { data["feet"] }
-        var inches: Int { data["inches"] }
-        var meters: Int { data["meters"] } // - NOTE:
-        // This field is merged in from `HeightInMeters` fragment.
-        // Because the fragment type identically matches the type it is queried on, we do
-        // not need an optional `TypeCondition` and can merge the field up.
+        public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
+        public static var selections: [Selection] { [
+          .field("feet", Int.self),
+          .field("inches", Int.self),
+        ] }
+
+        public var feet: Int { data["feet"] }
+        public var inches: Int { data["inches"] }
+        public var meters: Int { data["meters"] }
       }
 
       /// `Animal.Predators`
-      struct Predators: AnimalKindgomAPI.SelectionSet {
-        static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
-        let data: ResponseDict
+      public struct Predators: AnimalKindgomAPI.SelectionSet {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        var species: String { data["species"] }
+        public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
+        public static var selections: [Selection] { [
+          .field("species", String.self),
+          .typeCase(AsWarmBlooded.self),
+        ] }
 
-        var asWarmBlooded: AsWarmBlooded? { _asType() }
+        public var species: String { data["species"] }
+
+        public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
         /// `AllAnimals.Predators.AsWarmBlooded`
-        struct AsWarmBlooded: AnimalKindgomAPI.SelectionSet, HasFragments {
-          static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
-          let data: ResponseDict
+        public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
 
-          var bodyTemperature: Int { data["bodyTemperature"] }
-          var height: Height { data["height"] }
-          var laysEggs: Bool { data["laysEggs"] }
-          // - NOTE:
-          // These 2 fields are merged in from `WarmBloodedDetails` fragment.
-          // Because the fragment type identically matches the type it is queried on, we do
-          // not need an optional `TypeCondition` and can merge the fields up.
+          public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
+          public static var selections: [Selection] { [
+            .fragment(WarmBloodedDetails.self),
+            .field("laysEggs", Bool.self),
+          ] }
 
-          struct Fragments: ResponseObject {
-            let data: ResponseDict
+          public var bodyTemperature: Int { data["bodyTemperature"] }
+          public var height: WarmBloodedDetails.Height { data["height"] }
+          public var laysEggs: Bool { data["laysEggs"] }
 
-            var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
-          }
+          public struct Fragments: ResponseObject {
+            public let data: ResponseDict
+            public init(data: ResponseDict) { self.data = data }
 
-          struct Height: AnimalKindgomAPI.SelectionSet {
-            static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-            let data: ResponseDict
-
-            var meters: Int { data["meters"] }
-            var yards: Int { data["yards"] }
+            public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           }
         }
       }
 
       /// `Animal.AsCat`
-      struct AsCat: AnimalKindgomAPI.TypeCase {
-        static var __parentType: ParentType { .Object(AnimalKindgomAPI.Cat.self) }
-        let data: ResponseDict
+      public struct AsCat: AnimalKindgomAPI.TypeCase {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        static var selections: [Selection] { [
-          .field("isJellicle", type: Bool.self),
+        public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Cat.self) }
+        public static var selections: [Selection] { [
+          .field("isJellicle", Bool.self),
         ] }
 
-        var species: String { data["species"] }
-        var height: Height { data["height"] }
-        var predators: [Predators] { data["predators"] }
-        var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        var humanName: String? { data["humanName"] }
-        var favoriteToy: String { data["favoriteToy"] }
-        var owner: PetDetails.Human? { data["owner"] } // - NOTE:
-        // Because we don't fetch any additional fields on `owner` other than the fields fetched
-        // by the fragment, we can just use the fragments `Human` type here.
-        var bodyTemperature: Int { data["bodyTemperature"] }
-        var isJellicle: Bool { data["isJellicle"] }
+        public var isJellicle: Bool { data["isJellicle"] }
+        public var height: Height { data["height"] }
+        public var species: String { data["species"] }
+        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var predators: [Predators] { data["predators"] }
+        public var humanName: String? { data["humanName"] }
+        public var favoriteToy: String { data["favoriteToy"] }
+        public var owner: PetDetails.Human? { data["owner"] }
+        public var bodyTemperature: Int { data["bodyTemperature"] }
 
-        struct Height: AnimalKindgomAPI.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-          let data: ResponseDict
+        public struct Height: AnimalKindgomAPI.SelectionSet {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
 
-          var feet: Int { data["feet"] }
-          var inches: Int { data["inches"] }
-          var meters: Int { data["meters"] }
-          var centimeters: Int { data["centimeters"] }
-          var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
-          // - NOTE :
-          // Because we know that the `Cat` is an `Animal` at this point, we can just merge the
-          // centimeters and relativeSize fields. We don't need to create a `var asAnimal: Animal.AsCat.AsAnimal`.
+          public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
+
+          public var feet: Int { data["feet"] }
+          public var inches: Int { data["inches"] }
+          public var meters: Int { data["meters"] }
+          public var yards: Int { data["yards"] }
+          public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+          public var centimeters: Int { data["centimeters"] }
         }
       }
 
-      // - NOTE:
-      // Because the type condition for `WarmBlooded` only includes the fragment,
-      // we can just inherit the fragment type condition.
-      //
-      // For a type condition that fetches a fragment in addition to other fields,
-      // we would use a custom `TypeCondition` with the fragment type condition nested inside.
-      // See `Predators.AsWarmBlooded` for an example of this.
       /// `Animal.AsWarmBlooded`
-      struct AsWarmBlooded: AnimalKindgomAPI.SelectionSet, HasFragments {
-        static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
+      public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        let data: ResponseDict
+        public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
+        public static var selections: [Selection] { [
+          .fragment(WarmBloodedDetails.self),
+        ] }
 
-        var species: String { data["species"] }
-        var height: Height  { data["height"] }
-        var predators: [Predators]  { data["predators"] }
-        var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        var bodyTemperature: Int { data["bodyTemperature"] }
+        public var bodyTemperature: Int { data["bodyTemperature"] }
+        public var height: Height { data["height"] }
+        public var species: String { data["species"] }
+        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var predators: [Predators] { data["predators"] }
 
-        struct Fragments: ResponseObject {
-          let data: ResponseDict
+        public struct Fragments: ResponseObject {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
 
-          var heightInMeters: HeightInMeters { _toFragment() }
-          var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
+          public var heightInMeters: HeightInMeters { _toFragment() }
+          public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
         }
 
-        struct Height: AnimalKindgomAPI.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-          let data: ResponseDict
+        public struct Height: AnimalKindgomAPI.SelectionSet {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
+
+          public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
 
           var feet: Int { data["feet"] }
           var inches: Int { data["inches"] }
@@ -168,120 +220,125 @@ struct AllAnimalsQuery {
       }
 
       /// `Animal.AsPet`
-      struct AsPet: AnimalKindgomAPI.SelectionSet, HasFragments {
-        static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
-        let data: ResponseDict
+      public struct AsPet: AnimalKindgomAPI.TypeCase, HasFragments {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        var species: String { data["species"] }
-        var height: Height  { data["height"] }
-        var predators: [Predators]  { data["predators"] }
-        var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        var humanName: String? { data["humanName"] }
-        var favoriteToy: String { data["favoriteToy"] }
-        var owner: PetDetails.Human? { data["owner"] } // - NOTE:
-        // Because we don't fetch any additional fields on `owner` other than the fields fetched
-        // by the fragment, we can just use the fragments `Human` type here.
+        public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
+        public static var selections: [Selection] { [
+          .fragment(PetDetails.self),
+          .typeCase(AsWarmBlooded.self),
+        ] }
 
-        var asWarmBlooded: AsWarmBlooded? { _asType() }
+        public var height: Height { data["height"] }
+        public var species: String { data["species"] }
+        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var predators: [Predators] { data["predators"] }
+        public var humanName: String? { data["humanName"] }
+        public var favoriteToy: String { data["favoriteToy"] }
+        public var owner: PetDetails.Human? { data["owner"] }
 
-        struct Fragments: ResponseObject {
-          let data: ResponseDict
+        public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
-          var heightInMeters: HeightInMeters { _toFragment() }
-          var petDetails: PetDetails  { _toFragment() }
+        public struct Fragments: ResponseObject {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
+
+          public var heightInMeters: HeightInMeters { _toFragment() }
+          public var petDetails: PetDetails  { _toFragment() }
         }
 
-        struct Height: AnimalKindgomAPI.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-          let data: ResponseDict
+        public struct Height: AnimalKindgomAPI.SelectionSet {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
 
-          var feet: Int { data["feet"] }
-          var inches: Int { data["inches"] }
-          var meters: Int { data["meters"] }
-          var centimeters: Int { data["centimeters"] }
-          var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
-          // - NOTE :
-          // Because we know that the `AsPet` is an `Animal` at this point, we can just merge the
-          // `centimeters` and `relativeSize` fields.
-          // We don't need to create a `var asAnimal: Animal.AsPet.AsAnimal`.
+          public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
+          public static var selections: [Selection] { [
+            .field("relativeSize", GraphQLEnum<RelativeSize>.self),
+            .field("centimeters", Int.self),
+          ] }
+
+          public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+          public var centimeters: Int { data["centimeters"] }
+          public var feet: Int { data["feet"] }
+          public var inches: Int { data["inches"] }
+          public var meters: Int { data["meters"] }
+          public var yards: Int { data["yards"] }
         }
 
         /// `Animal.AsPet.AsWarmBlooded`
-        struct AsWarmBlooded: AnimalKindgomAPI.SelectionSet, HasFragments {
-          static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
-          let data: ResponseDict
+        public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
 
-          var species: String { data["species"] }
-          var height: Height  { data["height"] }
-          var predators: [Predators]  { data["predators"] }
-          var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-          var humanName: String? { data["humanName"] }
-          var favoriteToy: String { data["favoriteToy"] }
-          var owner: PetDetails.Human? { data["owner"] } // - NOTE:
-          // Because we don't fetch any additional fields on `owner` other than the fields fetched
-          // by the fragment, we can just use the fragments `Human` type here.
-          var bodyTemperature: Int { data["bodyTemperature"] }
+          public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
 
-          struct Fragments: ResponseObject {
-            let data: ResponseDict
+          public var height: Height { data["height"] }
+          public var species: String { data["species"] }
+          public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+          public var predators: [Predators] { data["predators"] }
+          public var humanName: String? { data["humanName"] }
+          public var favoriteToy: String { data["favoriteToy"] }
+          public var owner: PetDetails.Human? { data["owner"] }
+          public var bodyTemperature: Int { data["bodyTemperature"] }
 
-            var heightInMeters: HeightInMeters { _toFragment() }
-            var petDetails: PetDetails  { _toFragment() }
-            var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
-          }
+          public struct Fragments: ResponseObject {
+            public let data: ResponseDict
+            public init(data: ResponseDict) { self.data = data }
 
-          struct Height: AnimalKindgomAPI.SelectionSet {
-            static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-            let data: ResponseDict
-
-            var feet: Int { data["feet"] }
-            var inches: Int { data["inches"] }
-            var meters: Int { data["meters"] }
-            var centimeters: Int { data["centimeters"] }
-            var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
-            var yards: Int { data["yards"] }
+            public var heightInMeters: HeightInMeters { _toFragment() }
+            public var petDetails: PetDetails  { _toFragment() }
+            public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
           }
         }
       }
 
       /// `Animal.AsClassroomPet`
-      struct AsClassroomPet: AnimalKindgomAPI.SelectionSet {
-        static var __parentType: ParentType { .Union(AnimalKindgomAPI.ClassroomPet.self) }
-        let data: ResponseDict
+      public struct AsClassroomPet: AnimalKindgomAPI.TypeCase {
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
 
-        var species: String { data["species"] }
-        var height: Height { data["height"] }
-        var predators: [Predators] { data["predators"] }
-        var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public static var __parentType: ParentType { .Union(AnimalKindgomAPI.ClassroomPet.self) }
+        public static var selections: [Selection] { [
+          .typeCase(AsBird.self),
+        ] }
 
-        var asBird: AsBird? { _asType() }
+        public var height: Height { data["height"] }
+        public var species: String { data["species"] }
+        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var predators: [Predators] { data["predators"] }
+
+        public var asBird: AsBird? { _asType() }
 
         /// `Animal.AsClassroomPet.AsBird`
-        struct AsBird: AnimalKindgomAPI.SelectionSet {
-          static var __parentType: ParentType { .Object(AnimalKindgomAPI.Bird.self) }
-          let data: ResponseDict
+        public struct AsBird: AnimalKindgomAPI.SelectionSet {
+          public let data: ResponseDict
+          public init(data: ResponseDict) { self.data = data }
 
-          var species: String { data["species"] }
-          var height: Height { data["height"] }
-          var predators: [Predators] { data["predators"] }
-          var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-          var humanName: String? { data["humanName"] }
-          var favoriteToy: String { data["favoriteToy"] }
-          var owner: PetDetails.Human? { data["owner"] } // - NOTE:
-          // Because we don't fetch any additional fields on `owner` other than the fields fetched
-          // by the fragment, we can just use the fragments `Human` type here.
-          var bodyTemperature: Int { data["bodyTemperature"] }
-          var wingspan: Int { data["wingspan"] }
+          public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Bird.self) }
 
-          struct Height: AnimalKindgomAPI.SelectionSet {
-            static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-            let data: ResponseDict
+          public var height: Height { data["height"] }
+          public var species: String { data["species"] }
+          public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+          public var predators: [Predators] { data["predators"] }
+          public var humanName: String? { data["humanName"] }
+          public var favoriteToy: String { data["favoriteToy"] }
+          public var owner: PetDetails.Human? { data["owner"] }
+          public var bodyTemperature: Int { data["bodyTemperature"] }
+          public var wingspan: Int { data["wingspan"] }
 
-            var feet: Int { data["feet"] }
-            var inches: Int { data["inches"] }
-            var meters: Int { data["meters"] }
-            var centimeters: Int { data["centimeters"] }
-            var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+          public struct Height: AnimalKindgomAPI.SelectionSet {
+            public let data: ResponseDict
+            public init(data: ResponseDict) { self.data = data }
+
+            public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
+
+            public var feet: Int { data["feet"] }
+            public var inches: Int { data["inches"] }
+            public var meters: Int { data["meters"] }
+            public var yards: Int { data["yards"] }
+            public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+            public var centimeters: Int { data["centimeters"] }
           }
         }
       }

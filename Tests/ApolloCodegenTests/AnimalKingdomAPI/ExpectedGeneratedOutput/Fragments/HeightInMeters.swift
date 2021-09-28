@@ -1,5 +1,5 @@
-@testable import CodegenProposalFramework
-import AnimalSchema
+import ApolloAPI
+import AnimalKingdomAPI
 
 /// A response data object for a `HeightInMeters` fragment
 ///
@@ -10,16 +10,26 @@ import AnimalSchema
 ///   }
 /// }
 /// ```
-struct HeightInMeters: AnimalSchema.SelectionSet, Fragment {
-  static var __parentType: ParentType { .Interface(AnimalSchema.Animal.self) }
-  let data: ResponseDict
+public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
+  public let data: ResponseDict
+  public init(data: ResponseDict) { self.data = data }
 
-  var height: Height  { data["height"] }
+  public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
+  public static var selections: [Selection] { [
+    .field("height", Height.self),
+  ] }
 
-  struct Height: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
-    let data: ResponseDict
+  public var height: Height  { data["height"] }
 
-    var meters: Int { data["meters"] }
+  public struct Height: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
+
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+    public static var selections: [Selection] { [
+      .field("meters", type: Int.self),
+    ] }
+
+    public var meters: Int { data["meters"] }
   }
 }

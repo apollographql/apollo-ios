@@ -1,4 +1,4 @@
-query AllAnimals {
+query AllAnimalsQuery {
   allAnimals {
     height {
       feet

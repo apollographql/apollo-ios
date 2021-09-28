@@ -4,12 +4,6 @@ query ClassroomPets {
   }
 }
 
-query ClassroomPetsWithSubtypes {
-  classroomPets @generateSubtypeEnum {
-    ...ClassroomPetDetails
-  }
-}
-
 fragment ClassroomPetDetails on ClassroomPet {
     ... on Animal {
       species

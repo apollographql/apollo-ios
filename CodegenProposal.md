@@ -4,7 +4,7 @@
 
 This document provides explanation, context, and examples for a proposal for the new code generation for iOS.
 
-> **Example code in this document is used only to illustrate the concepts being discussed, as is not comprehensive. Actual generated objects may have additional properties, functions, or nested types to support all functionality.**
+> **Example code in this document is used only to illustrate the concepts being discussed, as is not comprehensive. Actual generated objects may have additional properties, functions, or nested types to support all functionality. For an examples of an entire generated operation, see the [Example Generated Output](Tests/ApolloCodegenTests/AnimalKingdomAPI/ExpectedGeneratedOutput/Queries/AllAnimalsQuery.swift) in the repository.**
 
 ## Key Changes in 1.0
 
@@ -41,6 +41,25 @@ For normalization of cache data, a mechanism for providing unique cache keys for
 
 The previous Apollo versions used double optionals (`??`) to represent `null` vs `nil` input values. This was unclear to most users and make reading and reasoning about your code difficult in many situations. The new version provides a custom enum for this cases named `GraphQLNullable`. For more information, see [Nullable Arguments - GraphQLNullable](#nullable-arguments---graphqlnullable)
 
+### Multiple Module Support
+
+We are excited to say that the 1.0 release of Apollo iOS will support code generation for projects that use multiple modules! There will be multiple options for generating your model objects:
+
+- Single Target
+  -  Single Location
+     - All files will be generated into a folder that is included in your application target.
+  - Co-located Models
+    - Generated operation objects will be located relative to the defining `.graphql` file.
+    - Schema types will be generated in a single folder.
+- Modular (Built-in support for SPM & Cocoapods)
+  - Single Location
+    - All files will be generated into a folder that can be included as it's own module.
+  - Co-located Models
+    - Generated operation objects will be located relative to the defining `.graphql` file.
+    - Schema types and shared fragments will be generated into a folder that can be included as it's own module.
+    
+The primary limitation with multi-module support is that code generation must be run on your entire project at one time. You will not be able to run code generation for modules individually at this time. More information about how to generate models for multi-module projects will be coming prior to the 1.0 release.
+
 ### Type Case Execution
 
 The logic for generating, validating, and executing selections for Type Cases has changed significantly. While this change is entirely under the hood – it should rarely, if ever, affect the consumer – because the generated code and the way the executor parses Type Cases functionally deviates from it's previous behavior, it is included here.
@@ -65,9 +84,9 @@ The current Codegen tooling CLI runs as a node package. This requires iOS develo
 
 ### Runtime Performance
 
-This Codegen proposal uses a dictionary of values that are passed around and accessed each time a property is accessed, this has some run time implications as they must be computed and transformed each time they are accessed. This is similar to the way the current Codegen works.
+This Codegen proposal uses a dictionary of values that are passed around and accessed each time a property is accessed, this has some run time implications as they must be retrieved from the dictionary each time they are accessed. This is similar to the way the current Codegen works.
 
-An alternative approach may improve runtime performance by computing field data once and only once during parsing, which is typically done on a background thread. However, this approach has trade-offs that cause for us to sacrifice on some of our other objectives — complexity, memory allocation, and generated code size. This approach also is slower at runtime when accessing subtypes (fragments or type cases), while using a single data dictionary per object allows for transformations between types to be nearly free.
+An alternative approach may map field data onto stored properties on the response object once and only once during parsing, which is typically done on a background thread. However, this approach would require a lot of data duplication and would increase the complexity and size of the generated code considerably.
 
 ### Generated Code Size
 
@@ -79,7 +98,7 @@ The current Codegen generates objects that are often difficult to parse and unde
 
 ### Compiled Binary Size
 
-The size of the compiled binary when using our generated data objects must also be considered. AirBnB has used classes for their fields rather than structs to reduce the size of the compiled binary. While classes can reduce binary size, it incurs an additional runtime cost when consumed.
+The size of the compiled binary when using our generated data objects must also be considered. Alternatives have been proposed that use classes for models rather than structs to reduce the size of the compiled binary. While classes can reduce binary size, they incurs an additional runtime cost when consumed.
 
 This proposal opts for using lightweight structs that only store a single property in memory — a pointer to their data dictionary. By restricting the size of our structs to a single pointer, we are able to achieve the benefits of structs without incurring the majority of the overhead they create. See [Memory Management and Performance of Value Types](https://swiftrocks.com/memory-management-and-performance-of-value-types) for more information. 
 
@@ -852,7 +871,7 @@ struct Animal: RootSelectionSet {
       let data: ResponseDict
       
       var species: String { data["species"] }
-      var humanName: String{ data["humanName"] }      
+      var humanName: String? { data["humanName"] }      
     }
 }
 ```
@@ -900,7 +919,7 @@ struct Animal: RootSelectionSet {
       let data: ResponseDict
       
       var species: String { data["species"] }
-      var humanName: String { data["humanName"] }      
+      var humanName: String? { data["humanName"] }      
     }
     
     struct AsCat: TypeCase {
@@ -908,7 +927,7 @@ struct Animal: RootSelectionSet {
       let data: ResponseDict
       
       var species: String { data["species"] }
-      var humanName: String { data["humanName"] }      
+      var humanName: String? { data["humanName"] }      
       var isJellicle: Bool { data["isJellicle"] }      
     }
 }
@@ -943,13 +962,13 @@ struct ClassroomPet: RootSelectionSet {
   struct AsPet: TypeCase {
     static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
 
-    var humanName: String { data["humanName"] }
+    var humanName: String? { data["humanName"] }
   }
 
   struct AsBird: TypeCase {
     static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
 
-    var humanName: String { data["humanName"] }
+    var humanName: String? { data["humanName"] }
     var wingspan: Int { data["wingspan"] }
   }
 }
@@ -1119,7 +1138,7 @@ fragment AnimalDetails on Animal {
 ```
 
 ```swift
-fragment AnimalDetails: RootSelectionSet, Fragment {
+struct AnimalDetails: RootSelectionSet, Fragment {
     static var selections: [Selection] {[
       .field("height", Height.self)
       .field("skinCovering", GraphQLEnum<SkinCovering>.self),
@@ -1193,11 +1212,11 @@ struct Animal: RootSelectionSet {
   struct AsPet: TypeCase {
     static var __parentType: ParentType { .Interface(.Pet) }
     static var selections: [Selection] {[
-      .field("humanName", String.self),
+      .field("humanName", String?.self),
     ]}
 
     var species: String { data["species" ]}
-    var humanName: String { data["humanName" ]}
+    var humanName: String? { data["humanName" ]}
   }
 
   struct AsBird: TypeCase {
@@ -1207,7 +1226,7 @@ struct Animal: RootSelectionSet {
     ]}
 
     var species: String { data["species" ]}
-    var humanName: String { data["humanName" ]}
+    var humanName: String? { data["humanName" ]}
     var wingspan: Int { data["wingspan" ]}
   }
 }
@@ -1231,7 +1250,7 @@ fragment PetDetails on Pet {
 struct PetDetails: RootSelectionSet, Fragment {
     static var __parentType: ParentType { .Interface(.Pet) }
     static var selections: [Selection] {[
-      .field("humanName", String.self),
+      .field("humanName", String?.self),
     ]}
 }
 
@@ -1258,6 +1277,10 @@ A `SelectionSet` that represents the root selections on its `__parentType` is a 
 While a `TypeCase` only provides the additional selections that should be selected for its specific type, a `RootSelectionSet` guarantees that all fields for itself and its nested type cases are selected. When considering a specific `TypeCase`, all fields will be selected either by the root selection set, a fragment spread, the type case itself, or another compatible `TypeCase` on the root selection set. 
 
 For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `ResponseDict` for the `SelectionSet`'s data.
+
+# Handling Unknown Types
+
+Types that are added to your schema server side after the code generation has run could be returned in a response from the server, but will not have a generated `Object` type object that recognizes them. These types are unknown to the client-side type system. Because all data about these types is not known, certain functionality will be limited on unknown types. The `RootSelectionSet` fields will be selected properly for unknown types, but any child `TypeCase` will not be present on unknown types, as we are unable to know if the unknown type matches a `TypeCase` or not.
 
 # Cache Key Resolution
 
@@ -1402,7 +1425,7 @@ This gets even more complicated (and broken) when you nest fragments inside of e
 
 ## Appendix B: Nested Fragments for Composition of Multiple Types
 
-Here we want to generate the `Pet` & `WarmBlooded` types, but we also want to generate an additional composed type that is both a `Pet & Warmblooded`. We do that by explicitly copying the referenced fragment into a nested field on the `Pet` `TypeCase`. 
+Here we want to generate the `Pet` & `WarmBlooded` types, but we also want to generate an additional composed type that is both a `Pet & Warmblooded`. We do that by explicitly copying the referenced fragment into a nested field on the `Pet` `TypeCase`. The idea here is that you are able to configure your response objects to provide data in the shape you want. Even if certain selections – or entire type cases – are redundant, you can provide them to ensure that your generated models provide fields in the way you want to consume them in your application.
 
 **Query Input:**
 ```graphql
@@ -1431,16 +1454,16 @@ fragment WarmBloodedDetails on WarmBlooded {
 
 **Output:**
 ```swift
-public struct AllAnimals: RootSelectionSet: HasFragments {  
+public struct Animal: RootSelectionSet: HasFragments {  
   var species: String { data["species"] }
 
   var asPet: AsPet? { _asType() }
   var asWarmBlooded: AsWarmBlooded? { _asType() }
   
-  /// AllAnimals.AsPet 
+  /// Animal.AsPet 
   struct AsPet: TypeCase, HasFragments {
     var species: String { data["species"] }
-    var humanName: String { data["humanName"] }
+    var humanName: String? { data["humanName"] }
     var favoriteToy: String { data["favoriteToy"] }
 
     var asWarmBlooded: AsWarmBlooded? { _asType() }
@@ -1448,10 +1471,11 @@ public struct AllAnimals: RootSelectionSet: HasFragments {
     struct Fragments: ResponseObject {
         var PetDetails: PetDetails { _toFragment() }
     }
-    /// AllAnimals.AsPet.AsWarmBlooded    
+
+    /// Animal.AsPet.AsWarmBlooded    
     struct AsWarmBlooded: TypeCase, HasFragments {
       var species: String { data["species"] }
-      var humanName: String { data["humanName"] }
+      var humanName: String? { data["humanName"] }
       var favoriteToy: String { data["favoriteToy"] }
       var bodyTemperature: Int { data["bodyTemperature"] }
 
@@ -1461,7 +1485,7 @@ public struct AllAnimals: RootSelectionSet: HasFragments {
     }
   }
 
-  /// AllAnimals.AsWarmBlooded  
+  /// Animal.AsWarmBlooded  
   struct AsWarmBlooded: TypeCase, HasFragments {
     var species: String { data["species"] }
     var bodyTemperature: Int { data["bodyTemperature"] }
@@ -1474,6 +1498,16 @@ public struct AllAnimals: RootSelectionSet: HasFragments {
 ```
 
 # Alternatives & Suggestions
+
+## `Codable` Support For Generated Objects
+
+Previous proposals for iOS code generation have implemented `Codable` on generated model object. This functionality has been discussed by the community frequently. However, this proposal does not include `Codable` conformance. While `Codable` has become a commonly used standard in iOS development, we do not believe it adds value to our generated objects.
+
+Under the hood, all the JSON from a response must be parsed and validated through the `GraphQLExecutor` before being mapped onto the generated `SelectionSet` models. It cannot be automatically decoded onto `Codable` objects using the `JSONDecoder`. We could explore creating a custom decoder that uses the `GraphQLExecutor`, but adding this additional layer of abstraction would only add more complexity to the internal execution process and likely negatively impact performance without providing any new user-facing functionality.
+
+We also see little value in `Codable` conformance for encoding the objects after the data has been executed and mapped onto them. The ideal way to persist GraphQL data is in the `NormalizedCache` that provided by the Apollo Client. The `NormalizedCache` relies on the `GraphQLExecutor` for reading and writing cache data, so `Codable` doesn't provide us any value internally. 
+
+Storing GraphQL data outside of the `NormalizedCache` is generally discouraged. While we won't prevent users from doing so, it is not officially supported by the Apollo iOS Client. We are looking into features to make the `NormalizedCache` more feature rich and performant in future versions. Investing in `Codable` support provides no value to users that are using the `NormalizedCache`, and as such is outside the scope of this project at the current time.
 
 ## Generate Default Parameter Values for InputObject Default Values
 
@@ -1513,62 +1547,60 @@ For this reason, we have opted to not generate default values.
 
 [@designatedNerd’s initial proposal includes enums with associated values for subtypes.](https://github.com/apollographql/StarWarsiOSMk2/blob/master/StarWarsMark2/Queries/HeroTypeDependentAliasedFieldQueryMk2.swift#L43)
 
-These `SubType` enums work for concrete types but not interfaces (because a type could conform to multiple interfaces). We don't plan on generating all the Concrete types as data structures unless they are specifically enumerated (`... on Droid`)
+These `SubType` enums work for concrete types but not interfaces (because a type could conform to multiple interfaces). We don't plan on generating all the concrete types as data structures unless they are specifically enumerated (`... on Pet`)
 
 It is undecided if we should implement these or not. They are only valuable in the specific scenario where you have inline fragments for multiple concrete types. 
-
-We could easily generate the `asDroid: Droid?` and `asHuman: Human?`  properties on the object.
 
 Given this query:
 
 ```graphql
 query {
-    hero {
-         ... on Human {
-            name
-        }
-        ... on Droid {
-            primaryFunction
-        }
+  allAnimals {
+    ... on Bird {
+      wingspan
     }
+    ... on Cat {
+      bodyTemperature
+    }
+  }
 }
 ```
 
 Without the `Subtypes` enum:
 
 ```swift
-struct Hero: RootSelectionSet {
-  var asHuman: AsHuman? { asType() }
-  var asDroid: AsDroid? { asType() }
+struct Animal: RootSelectionSet {
+  var asBird: AsBird? { _asType() }
+  var asCat: Cat? { _asType() }
   
-  struct AsHuman { ... }
-  struct AsDroid { ... }
+  struct AsBird: TypeCase { ... }
+  struct AsCat: TypeCase { ... }
 }
 ```
 
 With the `Subtypes` enum:
 
 ```swift
-struct Hero: RootSelectionSet {
-  var asHuman: AsHuman? { asType() }
-  var asDroid: AsDroid? { asType() }
+struct Animal: RootSelectionSet {
+  var asBird: AsBird? { _asType() }
+  var asCat: Cat? { _asType() }
   
   enum Subtype {
-    case human(AsHuman)
-    case droid(AsDroid)
-    case _other(Hero)
+    case bird(AsBird)
+    case cat(AsCat)
+    case _other(Animal)
   }
 
   var subtype: Subtype {
     switch __objectType {
-    case is Human.Type: return .human(AsHuman(data: data))
-    case is Droid.Type: return .droid(AsDroid(data: data))    
+    case is Bird.self: return .bird(AsBird(data: data))
+    case is Cat.Type: return .cat(AsCat(data: data))    
     default: return ._other(self)
     }
   }
 
-  struct Human { ... }
-  struct Droid { ... }
+  struct AsBird: TypeCase { ... }
+  struct AsCat: TypeCase { ... }
 }
 ```
 
@@ -1578,14 +1610,14 @@ Possible Options:
 * Use a directive `@generateSubTypeEnum` (or some other name) to inform us that the subtypes enum should be generated (if the directive is not present default is option #1.)    
     ```graphql
     query {
-      hero @generateSubTypeEnum {
-        ... on Human {
-          name
-        }
-        ... on Droid {
-          primaryFunction
-        }
+    allAnimals @generateSubTypeEnum {
+      ... on Bird {
+        wingspan
       }
+      ... on Cat {
+        bodyTemperature
+      }
+    }
     }
     ```
 * Implement logic so that if your query has _**one or more**_ fragments on a concrete type, then we generate the subtypes (generate the enum with only 1 case + `_other`)
@@ -1601,8 +1633,8 @@ Under this proposal, computation of cache keys must be implemented manually usin
 
 ## Better Support For Types Added To Schema After Code Generation 
 
-In order to cast new concrete types to type conditions, we would need to know the metadata about what interfaces the types implement. We could possibly use a schema introspection query to fetch additional types added to the schema after code generation.
+In order to cast new concrete types to type conditions, we would need to know the metadata about what interfaces the types implement. We could possibly use a schema introspection query to fetch additional types added to the schema after code generation. Some information about these types may also be able to be assumed based on the response data returned from the server, indicating if a specific unknown type matches with some certain type cases. 
 
 ## Generation of Enums Providing All Known Possible Types for Unions
 
- Similar to the [proposal for subtype enums for Type Cases](#concrete-subtypes-as-enums), subtypes enum could be generated for the possible types in a union to provide easier access.
+ Similar to the [proposal for subtype enums for Type Cases](#concrete-subtypes-as-enums), subtypes enum could be genera

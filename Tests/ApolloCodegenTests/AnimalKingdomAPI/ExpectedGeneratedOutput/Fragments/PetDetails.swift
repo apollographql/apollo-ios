@@ -1,5 +1,5 @@
-@testable import CodegenProposalFramework
-import AnimalSchema
+import ApolloAPI
+import AnimalKingdomAPI
 
 /// A response data object for a `PetDetails` fragment
 ///
@@ -12,18 +12,27 @@ import AnimalSchema
 ///  }
 /// }
 /// ```
-struct PetDetails: AnimalSchema.SelectionSet, Fragment {
-  static var __parentType: ParentType { .Interface(AnimalSchema.Pet.self) }
-  let data: ResponseDict
+public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
+  public let data: ResponseDict
+  public init(data: ResponseDict) { self.data = data }
 
-  var humanName: String? { data["humanName"] }
-  var favoriteToy: String { data["favoriteToy"] }
-  var owner: Human? { data["owner"] }
+  public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
+  public static var selections: [Selection] { [
+    .field("humanName", String.self),
+    .field("favoriteToy", String.self),
+    .field("owner", Human.self),
+  ] }
 
-  struct Human: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Object(AnimalSchema.Human.self) }
-    let data: ResponseDict
+  public var humanName: String? { data["humanName"] }
+  public var favoriteToy: String { data["favoriteToy"] }
+  public var owner: Human? { data["owner"] }
 
-    var firstName: String { data["firstName"] }
+  public struct Human: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
+
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Human.self) }
+
+    public var firstName: String { data["firstName"] }
   }
 }

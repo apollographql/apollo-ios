@@ -11,6 +11,10 @@ public protocol AnySelectionSet: ResponseObject {
   static var __parentType: ParentType { get }
 }
 
+public extension AnySelectionSet {
+  static var selections: [Selection] { [] }
+}
+
 /// A selection set that represents the root selections on its `__parentType`. Nested selection
 /// sets for type cases are not `RootSelectionSet`s.
 ///

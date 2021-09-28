@@ -1,5 +1,5 @@
-@testable import CodegenProposalFramework
-import AnimalSchema
+import ApolloAPI
+import AnimalKingdomAPI
 
 /// A response data object for a `WarmBloodedDetails` fragment
 ///
@@ -12,19 +12,30 @@ import AnimalSchema
 ///   }
 /// }
 /// ```
-struct WarmBloodedDetails: AnimalSchema.SelectionSet, Fragment {
-  static var __parentType: ParentType { .Interface(AnimalSchema.WarmBlooded.self) }
+public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
+  public let data: ResponseDict
+  public init(data: ResponseDict) { self.data = data }
 
-  let data: ResponseDict
+  public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
+  public static var selections: [Selection] { [
+    .field("bodyTemperature", Int.self),
+    .field("height", Height.self),
+  ] }
 
-  var bodyTemperature: Int { data["bodyTemperature"] }
-  var height: Height  { data["height"] }
+  public var bodyTemperature: Int { data["bodyTemperature"] }
+  public var height: Height  { data["height"] }
 
-  struct Height: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Object(AnimalSchema.Height.self) }
-    let data: ResponseDict
+  public struct Height: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var meters: Int { data["meters"] }
-    var yards: Int { data["yards"] }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+    public static var selections: [Selection] { [
+      .field("meters", Int.self),
+      .field("yards", Int.self),
+    ] }
+
+    public var meters: Int { data["meters"] }
+    public var yards: Int { data["yards"] }
   }  
 }

@@ -1,74 +1,131 @@
-@testable import CodegenProposalFramework
-import AnimalSchema
+import ApolloAPI
+import AnimalKingdomAPI
 
 /// A response data object for a `ClassroomPetDetails` fragment
-struct ClassroomPetDetails: AnimalSchema.SelectionSet, Fragment {
-  static var __parentType: ParentType { .Union(AnimalSchema.ClassroomPet.self) }
-  let data: ResponseDict
+///
+/// ```
+/// fragment ClassroomPetDetails on ClassroomPet {
+///   ... on Animal {
+///    species
+///   }
+///   ... on Pet {
+///     humanName
+///   }
+///   ... on WarmBlooded {
+///     laysEggs
+///   }
+///   ... on Cat {
+///     bodyTemperature
+///     isJellicle
+///   }
+///   ... on Bird {
+///     wingspan
+///   }
+///   ... on PetRock {
+///     favoriteToy
+///   }
+/// }
+/// ```
+public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
+  public let data: ResponseDict
+  public init(data: ResponseDict) { self.data = data }
 
-  var asAnimal: AsAnimal? { _asType() }
-  var asPet: AsPet? { _asType() }
-  var asWarmBlooded: AsWarmBlooded? { _asType() }
+  public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
 
-  var asCat: AsCat? { _asType() }
-  var asBird: AsBird? { _asType() }
-  var asPetRock: AsPetRock? { _asType() }
+  public var asAnimal: AsAnimal? { _asType() }
+  public var asPet: AsPet? { _asType() }
+  public var asWarmBlooded: AsWarmBlooded? { _asType() }
+
+  public var asCat: AsCat? { _asType() }
+  public var asBird: AsBird? { _asType() }
+  public var asPetRock: AsPetRock? { _asType() }
 
   /// `ClassroomPet.AsAnimal`
-  struct AsAnimal: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Interface(AnimalSchema.Animal.self) }
-    let data: ResponseDict
+  public struct AsAnimal: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var species: String { data["species"] }
+    public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
+    public static var selections: [Selection] { [
+      .field("species", String.self),
+    ] }
+
+    public var species: String { data["species"] }
   }
 
   /// `ClassroomPet.AsPet`
-  struct AsPet: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Interface(AnimalSchema.Pet.self) }
-    let data: ResponseDict
+  public struct AsPet: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var species: String { data["species"] }
-    var humanName: String? { data["humanName"] }
+    public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
+    public static var selections: [Selection] { [
+      .field("humanName", String.self),
+    ] }
+
+    public var species: String { data["species"] }
+    public var humanName: String? { data["humanName"] }
   }
 
   /// `ClassroomPet.AsWarmBlooded`
-  struct AsWarmBlooded: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Interface(AnimalSchema.Animal.self) }
-    let data: ResponseDict
+  public struct AsWarmBlooded: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var species: String { data["species"] }
-    var laysEggs: Bool { data["laysEggs"] }
+    public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
+    public static var selections: [Selection] { [
+      .field("laysEggs", Bool.self),
+    ] }
+
+    public var species: String { data["species"] }
+    public var laysEggs: Bool { data["laysEggs"] }
   }
 
   /// `ClassroomPet.AsCat`
-  struct AsCat: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Object(AnimalSchema.Cat.self) }
-    let data: ResponseDict
+  public struct AsCat: AnimalSchema.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var species: String { data["species"] }
-    var humanName: String? { data["humanName"] }
-    var laysEggs: Bool { data["laysEggs"] }
-    var bodyTemperature: Int { data["bodyTemperature"] }
-    var isJellicle: Bool { data["isJellicle"] }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
+    public static var selections: [Selection] { [
+      .field("bodyTemperature", Int.self),
+      .field("isJellicle", Bool.self),
+    ] }
+
+    public var species: String { data["species"] }
+    public var humanName: String? { data["humanName"] }
+    public var laysEggs: Bool { data["laysEggs"] }
+    public var bodyTemperature: Int { data["bodyTemperature"] }
+    public var isJellicle: Bool { data["isJellicle"] }
   }
 
   /// `ClassroomPet.AsBird`
-  struct AsBird: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Object(AnimalSchema.Bird.self) }
-    let data: ResponseDict
+  public struct AsBird: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var species: String { data["species"] }
-    var humanName: String? { data["humanName"] }
-    var laysEggs: Bool { data["laysEggs"] }
-    var wingspan: Int { data["wingspan"] }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
+    public static var selections: [Selection] { [
+      .field("wingspan", Int.self),
+    ] }
+
+    public var species: String { data["species"] }
+    public var humanName: String? { data["humanName"] }
+    public var laysEggs: Bool { data["laysEggs"] }
+    public var wingspan: Int { data["wingspan"] }
   }
 
   /// `ClassroomPet.AsPetRock`
-  struct AsPetRock: AnimalSchema.SelectionSet {
-    static var __parentType: ParentType { .Object(AnimalSchema.PetRock.self) }
-    let data: ResponseDict
+  public struct AsPetRock: AnimalKingdomAPI.SelectionSet {
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
 
-    var humanName: String? { data["humanName"] }
-    var favoriteToy: String { data["favoriteToy"] }
+    public static var __parentType: ParentType { .Object(AnimalKingdomAPI.PetRock.self) }
+    public static var selections: [Selection] { [
+      .field("favoriteToy", String.self),
+    ] }
+
+    public var humanName: String? { data["humanName"] }
+    public var favoriteToy: String { data["favoriteToy"] }
   }
 }
