@@ -8,27 +8,27 @@ When using a cursor-based pagination system, it's important to remember that the
 
 You're going to use a second section in the TableView to allow your user to load more launches as long as they exist. But how will you know if they exist? First, you need to hang on to the most recently received `LaunchConnection` object.
 
-Add a variable to hold on to this object at the top of the `MasterViewController.swift` file near your `launches` variable:
+Add a variable to hold on to this object at the top of the `LaunchesViewController.swift` file near your `launches` variable:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private var lastConnection: LaunchListQuery.Data.Launch?
 ```
 
 Next, you're going to take advantage of a type from the Apollo library. Add the following to the top of the file:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 import Apollo
 ```
 
 Then, below `lastConnection`, add a variable to hang on to the most recent request: 
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private var activeRequest: Cancellable?
 ```
 
 Next, add a second case to your `ListSection` enum:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 enum ListSection: Int, CaseIterable {
   case launches
   case loading
@@ -39,7 +39,7 @@ This allows loading state to be displayed and selected in a separate section, ke
 
 Next, in `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case, which returns `0` if there are no more launches to load: 
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 case .loading:
   if self.lastConnection?.hasMore == false {
     return 0
@@ -52,7 +52,7 @@ Remember here that if `lastConnection` is nil, there *are* more launches to load
 
 Next, add handling for the `.loading` case to `tableView(_, cellForRowAt:)`, showing a different message based on whether there's an active request or not:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 case .loading:
   if self.activeRequest == nil {
     cell.textLabel?.text = "Tap to load more"
@@ -74,9 +74,9 @@ query LaunchList($cursor:String) {
 
 Build the application so the code generation picks up on this new parameter. You'll see an error for a non-exhaustive switch, but this is something we'll fix shortly.
 
-Next, go back to `MasterViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
+Next, go back to `LaunchesViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private func loadMoreLaunches(from cursor: String?) {
   self.activeRequest = Network.shared.apollo.fetch(query: LaunchListQuery(cursor: cursor)) { [weak self] result in
     guard let self = self else {
@@ -112,7 +112,7 @@ private func loadMoreLaunches(from cursor: String?) {
 
 Then, add a new method to figure out if new launches need to be loaded:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private func loadMoreLaunchesIfTheyExist() {
   guard let connection = self.lastConnection else {
     // We don't have stored launch details, load from scratch
@@ -131,7 +131,7 @@ private func loadMoreLaunchesIfTheyExist() {
 
 Update `viewDidLoad` to use this new method rather than calling `loadMoreLaunches(from:)` directly:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 override func viewDidLoad() {
   super.viewDidLoad()
   self.loadMoreLaunchesIfTheyExist()
@@ -145,7 +145,7 @@ Luckily, you can override the `shouldPerformSegue(withIdentifier:sender:)` metho
 Override this method, and add code that performs the segue for anything in the `.launches` section and _doesn't_ perform it (instead loading more launches if needed) for the `.loading` section:
 
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
   guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
     return false
@@ -180,7 +180,7 @@ However, your code should theoretically never reach this point, so it's a good p
 
 Add the following to the `switch` statement in `prepare(for segue:)`
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 case .loading:
   assertionFailure("Shouldn't have gotten here!")
 ```
