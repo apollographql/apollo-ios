@@ -133,7 +133,7 @@ type Query {
 interface Animal {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
 }
 
@@ -143,10 +143,23 @@ interface Pet {
   owner: Human
 }
 
+interface HousePet implements Animal & Pet {
+  species: String!
+  height: Height!
+  predators: [Animal!]!
+  skinCovering: SkinCovering
+  humanName: String
+  favoriteToy: String!
+  owner: Human
+  bestFriend: Pet
+  rival: Pet
+  livesWith: ClassroomPet
+}
+
 interface WarmBlooded implements Animal {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   bodyTemperature: Int!
   laysEggs: Boolean!
@@ -165,7 +178,7 @@ type Human implements Animal & WarmBlooded {
   firstName: String!
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   bodyTemperature: Int!
   laysEggs: Boolean!
@@ -174,7 +187,7 @@ type Human implements Animal & WarmBlooded {
 type Cat implements Animal & Pet & WarmBlooded {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   humanName: String
   favoriteToy: String!
@@ -184,10 +197,25 @@ type Cat implements Animal & Pet & WarmBlooded {
   isJellicle: Boolean!
 }
 
+type Dog implements Animal & Pet & HousePet & WarmBlooded {
+  species: String!
+  height: Height!
+  predators: [Animal!]!
+  skinCovering: SkinCovering
+  humanName: String
+  favoriteToy: String!
+  owner: Human
+  bodyTemperature: Int!
+  laysEggs: Boolean!
+  bestFriend: HousePet
+  rival: Cat
+  livesWith: Bird
+}
+
 type Bird implements Animal & Pet & WarmBlooded {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   humanName: String
   favoriteToy: String!
@@ -200,7 +228,7 @@ type Bird implements Animal & Pet & WarmBlooded {
 type Fish implements Animal & Pet {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   humanName: String
   favoriteToy: String!
@@ -210,7 +238,7 @@ type Fish implements Animal & Pet {
 type Rat implements Animal & Pet {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   humanName: String
   favoriteToy: String!
@@ -220,7 +248,7 @@ type Rat implements Animal & Pet {
 type Crocodile implements Animal {
   species: String!
   height: Height!
-  predators(first: Int = 5): [Animal!]!
+  predators: [Animal!]!
   skinCovering: SkinCovering
   age: Int!
 }
@@ -1565,12 +1593,16 @@ Possible Options:
 
 # Possible Future Additions
 
+Looking towards the future, the 1.0 implementation of the code generation engine opens the door to many possible future improvements to Apollo iOS. Here are some of the most highly considered additions that may come in future versions.
+
 ## Client-Side Directives For Automatic `CacheKeyProvider` Generation
 
-## Custom Field Validation
+Under this proposal, computation of cache keys must be implemented manually using the process described in [Cache Key Resolution](#cache-key-resolution). In the future, we hope to add a `keyFields` client-side directive that can be added to your project as extensions to the types on your GraphQL schema. This would allow us to generate the `CacheKeyProviders` for you.
 
 ## Better Support For Types Added To Schema After Code Generation 
 
 In order to cast new concrete types to type conditions, we would need to know the metadata about what interfaces the types implement. We could possibly use a schema introspection query to fetch additional types added to the schema after code generation.
 
 ## Generation of Enums Providing All Known Possible Types for Unions
+
+ Similar to the [proposal for subtype enums for Type Cases](#concrete-subtypes-as-enums), subtypes enum could be generated for the possible types in a union to provide easier access.
