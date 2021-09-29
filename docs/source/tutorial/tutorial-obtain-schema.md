@@ -62,7 +62,7 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 
     When Xcode offers to add the schema file, make sure **all targets are unchecked** to reduce the size of your application bundle: 
 
-    <img src="images/dont_add_to_target.png" alt="All targets unchecked in dialog" class="screenshot"></img>
+    <img src="images/dont_add_to_target.png" alt="All targets unchecked in dialog" class="screenshot"/>
 
     You don't need to add the schema to any targets, because it is only used to generate code which _is_ added to targets.
 
