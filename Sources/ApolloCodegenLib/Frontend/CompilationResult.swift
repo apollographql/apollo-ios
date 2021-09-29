@@ -71,10 +71,7 @@ public class CompilationResult: JavaScriptObject {
     lazy var filePath: String = self["filePath"]
 
     public override var debugDescription: String {
-      """
-      \(name) on \(type.debugDescription) {
-      }
-      """
+      "\(name) on \(type.debugDescription)"
     }
   }
   
@@ -173,9 +170,13 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class InlineFragment: JavaScriptObject {
-    lazy var typeCondition: GraphQLCompositeType? = self["typeCondition"]
+    lazy var type: GraphQLCompositeType? = self.selectionSet.parentType
     
     lazy var selectionSet: SelectionSet = self["selectionSet"]
+
+    public override var debugDescription: String {
+      "... on \(type?.debugDescription ?? "NONE")"
+    }
   }
   
   public class FragmentSpread: JavaScriptObject {
