@@ -1,3 +1,4 @@
+import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif

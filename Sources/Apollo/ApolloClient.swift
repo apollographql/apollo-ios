@@ -1,7 +1,8 @@
+import Foundation
+import Dispatch
 #if !COCOAPODS
 import ApolloAPI
 #endif
-import Dispatch
 
 /// A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
 public enum CachePolicy {

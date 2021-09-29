@@ -20,7 +20,7 @@ public indirect enum GraphQLType: Equatable {
 
 extension GraphQLType: CustomDebugStringConvertible {
   public var debugDescription: String {
-    return "<GraphQLType: \(typeReference)>"
+    return "\(typeReference)"
   }
 }
 

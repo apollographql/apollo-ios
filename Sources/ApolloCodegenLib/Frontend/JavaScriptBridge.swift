@@ -90,7 +90,7 @@ extension JavaScriptObject: Equatable {
 }
 
 extension JavaScriptObject: CustomDebugStringConvertible {
-  public var debugDescription: String {
+  @objc public var debugDescription: String {
     return "<\(type(of: self)): \(jsValue.toString()!)>"
   }
 }

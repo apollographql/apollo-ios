@@ -62,22 +62,38 @@ public class CompilationResult: JavaScriptObject {
   public class FragmentDefinition: JavaScriptObject {
     lazy var name: String = self["name"]
     
-    lazy var type: GraphQLCompositeType = self["type"]
+    lazy var type: GraphQLCompositeType = self["typeCondition"]
     
     lazy var selectionSet: SelectionSet = self["selectionSet"]
     
     lazy var source: String = self["source"]
     
     lazy var filePath: String = self["filePath"]
+
+    public override var debugDescription: String {
+      """
+      \(name) on \(type.debugDescription) {
+      }
+      """
+    }
   }
   
   public class SelectionSet: JavaScriptObject {
     lazy var parentType: GraphQLCompositeType = self["parentType"]
     
     lazy var selections: [Selection] = self["selections"]
+
+    public override var debugDescription: String {
+      let selectionDescriptions = selections.map(\.debugDescription).joined(separator: "\n")
+      return """
+      SelectionSet on \(parentType) {
+      \(selectionDescriptions)
+      }
+      """
+    }
   }
   
-  public enum Selection: JavaScriptValueDecodable {
+  public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible {
     case field(Field)
     case inlineFragment(InlineFragment)
     case fragmentSpread(FragmentSpread)
@@ -98,6 +114,26 @@ public class CompilationResult: JavaScriptObject {
         preconditionFailure("""
           Unknown GraphQL selection of kind "\(kind)"
           """)
+      }
+    }
+
+    var value: JavaScriptObject {
+      switch self {
+      case let .field(obj as JavaScriptObject),
+          let .inlineFragment(obj as JavaScriptObject),
+          let .fragmentSpread(obj as JavaScriptObject):
+        return obj
+      }
+    }
+
+    public var debugDescription: String {
+      switch self {
+      case let .field(field):
+        return "field - " + field.debugDescription
+      case let .inlineFragment(fragment):
+        return "inline fragment - " + fragment.debugDescription
+      case let .fragmentSpread(fragment):
+        return "fragment spread - " + fragment.debugDescription
       }
     }
   }
@@ -124,6 +160,10 @@ public class CompilationResult: JavaScriptObject {
     }
     
     lazy var description: String? = self["description"]
+
+    public override var debugDescription: String {
+      "\(name): \(type)"
+    }
   }
   
   public class Argument: JavaScriptObject {
@@ -140,5 +180,9 @@ public class CompilationResult: JavaScriptObject {
   
   public class FragmentSpread: JavaScriptObject {
     lazy var fragment: FragmentDefinition = self["fragment"]
+
+    public override var debugDescription: String {
+      fragment.debugDescription
+    }
   }
 }
