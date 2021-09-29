@@ -55,6 +55,9 @@ public struct AllAnimalsQuery: GraphQLQuery {
     public init(data: ResponseDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
+    public static var selections: [Selection] { [
+      .field("allAnimals", [Animal].self),
+    ] }
 
     public var allAnimals: [Animal] { data["allAnimals"] }
 

@@ -128,9 +128,9 @@ public class CompilationResult: JavaScriptObject {
       case let .field(field):
         return "field - " + field.debugDescription
       case let .inlineFragment(fragment):
-        return "inline fragment - " + fragment.debugDescription
+        return "fragment " + fragment.debugDescription
       case let .fragmentSpread(fragment):
-        return "fragment spread - " + fragment.debugDescription
+        return "fragment " + fragment.debugDescription
       }
     }
   }
@@ -170,12 +170,12 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class InlineFragment: JavaScriptObject {
-    lazy var type: GraphQLCompositeType? = self.selectionSet.parentType
+    lazy var type: GraphQLCompositeType = self.selectionSet.parentType
     
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     public override var debugDescription: String {
-      "... on \(type?.debugDescription ?? "NONE")"
+      "... on \(type.debugDescription)"
     }
   }
   
