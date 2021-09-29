@@ -4,25 +4,15 @@ title: "1. Create your project"
 
 In this step, you'll add the Apollo iOS SDK to a new project. 
 
-## Create a new Xcode project
+## Open the Xcode project
 
-1. Open Xcode and go to **File > New > Project**. The template chooser appears.
+In the files you've downloaded or checked out from [the tutorial repo](https://github.com/apollographql/iOSTutorial), there are `starter` and `final` folders. Open the `RocketReserver.xcodeproj` file located in the `starter` folder: 
 
-2. Under the set of iOS templates, choose **Master-Detail App**:
+<img alt="Folder structure for opening project" class="screenshot" src="images/open_starter_project.png" width="300">
 
-    <img src="images/master_detail_app.png" class="screenshot" alt="Select single view app template"/>
+When the project opens, Swift Package Manager (SPM) will resolve two dependencies that you'll be using later in the project that are already set up. 
 
-4. Click **Next**. An options dialog for your app appears.
-
-5. Name the project **RocketReserver**. Make sure the language is **Swift** and the User Interface is **Storyboard**:
-
-    <img src="images/options_for_project.png" class="screenshot" alt="Options for creating a new project"/>
-    
-6. Click **Next**. Select a location to save your new project and click **Finish**.
-
-Xcode creates and opens your new project, which has the following structure:
-
-<img alt="Initial project structure" class="screenshot" src="images/initial_file_setup.png" width="300">
+Next, it's time to add Apollo as a dependency.
 
 ## Add the Apollo iOS SDK to your project
 
