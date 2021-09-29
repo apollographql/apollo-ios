@@ -836,7 +836,6 @@
 		DE2FCF3926E809BB0057EA67 /* WarmBloodedDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.swift; sourceTree = "<group>"; };
 		DE2FCF3B26E809BB0057EA67 /* ClassroomPetsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.swift; sourceTree = "<group>"; };
 		DE2FCF3C26E809BB0057EA67 /* AllAnimalsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.swift; sourceTree = "<group>"; };
-		DE2FCF3D26E809BB0057EA67 /* ClassroomPetsWithSubtypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsWithSubtypes.swift; sourceTree = "<group>"; };
 		DE2FCF4626E92EAB0057EA67 /* APIv1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIv1.swift; sourceTree = "<group>"; };
 		DE2FCF4826E94D150057EA67 /* SelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTests.swift; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
@@ -1818,7 +1817,6 @@
 			children = (
 				DE2FCF3B26E809BB0057EA67 /* ClassroomPetsQuery.swift */,
 				DE2FCF3C26E809BB0057EA67 /* AllAnimalsQuery.swift */,
-				DE2FCF3D26E809BB0057EA67 /* ClassroomPetsWithSubtypes.swift */,
 			);
 			path = Queries;
 			sourceTree = "<group>";

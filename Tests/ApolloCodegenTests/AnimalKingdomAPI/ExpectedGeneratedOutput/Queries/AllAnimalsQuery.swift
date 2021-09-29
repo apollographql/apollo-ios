@@ -45,7 +45,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
       }
     }
 
-    """))
+    """,
+    fragments: [HeightInMeters.self, WarmBloodedDetails.self, PetDetails.self]))
 
   public init() {}
 
