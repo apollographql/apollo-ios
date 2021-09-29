@@ -26,7 +26,7 @@ This tutorial takes you through building an app to "book a seat" on any of the r
 
 A pre-built GraphQL server is provided for your app to execute operations against. 
 
-A repository with the resulting app will be kept up to date with  new chapters to the tutorial at [https://github.com/apollographql/iOSTutorial](https://github.com/apollographql/iOSTutorial).
+Before you start, you should either check out or download the contents of the iOS tutorial repository at [https://github.com/apollographql/iOSTutorial](https://github.com/apollographql/iOSTutorial). There's a "starter" folder where you'll begin and a "final" folder that shows what the app will wind up looking like when it's complete. 
 
 ## Ready to start?
 
