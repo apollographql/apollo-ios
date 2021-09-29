@@ -30,4 +30,4 @@ Before you start, you should either check out or download the contents of the iO
 
 ## Ready to start?
 
-[🚀 Let's go! 🚀](./tutorial-create-project)
+[🚀 Let's go! 🚀](./tutorial-add-sdk)

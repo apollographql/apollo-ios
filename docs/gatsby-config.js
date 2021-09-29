@@ -28,7 +28,7 @@ module.exports = {
           ],
           Tutorial: [
             'tutorial/tutorial-introduction',
-            'tutorial/tutorial-create-project',
+            'tutorial/tutorial-add-sdk',
             'tutorial/tutorial-obtain-schema',
             'tutorial/tutorial-execute-query',
             'tutorial/tutorial-query-ui',
