@@ -2,15 +2,21 @@
 title: "2. Obtain your GraphQL schema"
 ---
 
-This tutorial uses a modified version of the GraphQL server you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [`https://apollo-fullstack-tutorial.herokuapp.com/`](https://apollo-fullstack-tutorial.herokuapp.com/) to start it up and open the GraphiQL tool to explore its schema:
+This tutorial uses a modified version of the GraphQL server you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [that server's Apollo Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) to explore its schema:
 
-<img src="images/graphiql.png" alt="The GraphiQL query explorer" class="screenshot">
-</img>
+<img src="images/sandbox_landing.png" alt="The Apollo Sandbox query explorer" class="screenshot"/>
 
-The schema defines which GraphQL operations your server can execute. Click **Schema** on the right-hand side to view a list of types you can query (and the types of fields on those types) along with any possible mutations or subscriptions:
+You'll know that this sandbox instance is pointed at our server because its URL, `https://apollo-fullstack-tutorial.herokuapp.com`, is in the box at the top left of the page. If sandbox is propely connected, you'll see a green dot: 
 
-<img src="images/graphiql_show_schema.png" alt="GraphiQL showing the schema" class="screenshot">
-</img>
+<img src="images/sandbox_green_dot.png" alt="A closeup of the URL box with a dot indicating it's connected" class="screenshot"/>
+
+The schema defines which GraphQL operations your server can execute. At the top left, click the schema icon to get an overview of your schema: 
+
+<img src="images/schema_icon.png" alt="The schema icon to click" class="screenshot"/>
+
+In the **Reference** tab, you can now see a list of all of the things available to you as a consumer of this API, along with available fields on all objects:
+
+<img src="images/sandbox_schema_reference.png" alt="Apollo sandbox showing the schema reference" class="screenshot"/>
 
 ## Download your server's schema
 
