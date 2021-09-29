@@ -34,31 +34,13 @@ public class ApolloCodegen {
   @discardableResult
   public static func run(from folder: URL,
                          with cliFolderURL: URL,
-                         options: ApolloCodegenOptions) throws -> String {
+                         options: ApolloCodegenConfiguration) throws -> String {
     guard FileManager.default.apollo.folderExists(at: folder) else {
       throw CodegenError.folderDoesNotExist(folder)
     }
-    
-    switch options.outputFormat {
-    case .multipleFiles(let folderURL):
-      /// We have to try to create the folder first because the stuff
-      /// underlying `isDirectoryURL` only works on actual directories
-      try FileManager.default.apollo.createFolderIfNeeded(at: folderURL)
-      guard folderURL.apollo.isDirectoryURL else {
-        throw CodegenError.multipleFilesButNotDirectoryURL(folderURL)
-      }
-    case .singleFile(let fileURL):
-      if options.codegenEngine == .typescript {
-        guard fileURL.apollo.isSwiftFileURL else {
-         throw CodegenError.singleFileButNotSwiftFileURL(fileURL)
-        }
-      } // else we're fine with JSON at this point for intermediate purposes.
-      
-      try FileManager.default.apollo.createContainingFolderIfNeeded(for: fileURL)
-    }
 
-    let cli = try ApolloCLI.createCLI(cliFolderURL: cliFolderURL, timeout: options.downloadTimeout)
-    return try cli.runApollo(with: options.arguments, from: folder)
+    #warning("TODO: Build folder structure from configuration")
+    return "Not implemented!"
   }
 }
 

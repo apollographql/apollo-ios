@@ -46,7 +46,7 @@
 		9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */; };
 		9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */; };
 		9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B6F57233C287100F32205 /* ApolloCodegen.swift */; };
-		9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B6F58233C287100F32205 /* ApolloCodegenOptions.swift */; };
+		9B7B6F5A233C287200F32205 /* ApolloCodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B6F58233C287100F32205 /* ApolloCodegenConfiguration.swift */; };
 		9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */; };
 		9B7BDA9B23FDE94C00ACD198 /* WebSocketError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7BDA9423FDE94C00ACD198 /* WebSocketError.swift */; };
 		9B7BDA9C23FDE94C00ACD198 /* WebSocketTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7BDA9523FDE94C00ACD198 /* WebSocketTask.swift */; };
@@ -281,6 +281,7 @@
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
 		E6C4267B26F16CB400904AD2 /* introspection_response.json in Resources */ = {isa = PBXBuildFile; fileRef = E6C4267A26F16CB400904AD2 /* introspection_response.json */; };
+		E6D21E1B2705016000110BBD /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6D21E1A2705016000110BBD /* Nimble */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
@@ -635,7 +636,7 @@
 		9B7B6F51233C26E400F32205 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B7B6F55233C27A000F32205 /* Apollo-Target-ApolloCodegenLib.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloCodegenLib.xcconfig"; sourceTree = "<group>"; };
 		9B7B6F57233C287100F32205 /* ApolloCodegen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloCodegen.swift; sourceTree = "<group>"; };
-		9B7B6F58233C287100F32205 /* ApolloCodegenOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloCodegenOptions.swift; sourceTree = "<group>"; };
+		9B7B6F58233C287100F32205 /* ApolloCodegenConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloCodegenConfiguration.swift; sourceTree = "<group>"; };
 		9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Apollo.swift"; sourceTree = "<group>"; };
 		9B7BDA7D23FDE90400ACD198 /* ApolloWebSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloWebSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7BDA8723FDE92900ACD198 /* MockWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebSocket.swift; sourceTree = "<group>"; };
@@ -963,6 +964,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6D21E1B2705016000110BBD /* Nimble in Frameworks */,
 				DECD49DB262F8AAA00924527 /* ApolloTestSupport.framework in Frameworks */,
 				DECD4992262F841600924527 /* ApolloCodegenTestSupport.framework in Frameworks */,
 				9FDE0752258F3BC200DC0CA5 /* StarWarsAPI.framework in Frameworks */,
@@ -1449,7 +1451,7 @@
 			isa = PBXGroup;
 			children = (
 				9B7B6F57233C287100F32205 /* ApolloCodegen.swift */,
-				9B7B6F58233C287100F32205 /* ApolloCodegenOptions.swift */,
+				9B7B6F58233C287100F32205 /* ApolloCodegenConfiguration.swift */,
 			);
 			name = Codegen;
 			sourceTree = "<group>";
@@ -2227,6 +2229,9 @@
 				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
 			);
 			name = ApolloCodegenTests;
+			packageProductDependencies = (
+				E6D21E1A2705016000110BBD /* Nimble */,
+			);
 			productName = ApolloCodegenTests;
 			productReference = 9BAEEBFC234BB8FD00808306 /* ApolloCodegenTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -2729,7 +2734,7 @@
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
 				9F62E03F2590896400E6E808 /* GraphQLError.swift in Sources */,
-				9B7B6F5A233C287200F32205 /* ApolloCodegenOptions.swift in Sources */,
+				9B7B6F5A233C287200F32205 /* ApolloCodegenConfiguration.swift in Sources */,
 				9F1A966B258F34BB00A06EEB /* ApolloCodegenFrontend.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
 			);
@@ -3781,6 +3786,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
+		};
+		E6D21E1A2705016000110BBD /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DE5EB9C326EFD4D10004176A /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
 		};
 		E6E4209126A7DF4200B82624 /* InflectorKit */ = {
 			isa = XCSwiftPackageProductDependency;
