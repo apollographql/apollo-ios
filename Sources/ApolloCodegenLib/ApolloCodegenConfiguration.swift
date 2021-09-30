@@ -24,14 +24,17 @@ public struct ApolloCodegenConfiguration {
   /// Defines the location structure for the schema types files.
   public struct SchemaTypesFileOutput {
     /// Compatible dependency manager automation.
-    public enum DependencyManagerAutomation {
-      /// No automation. The generated schema types files must be manually added to the main application target.
-      case includedInTarget
-      /// Generate a podspec file.
+    public enum ModuleType {
+      /// No module will be created for the generated schema types.
+      /// Generated files must be manually added to the main application target.
+      ///
+      /// Because no module is created, the generated files will be namespaced to prevent naming conflicts.
+      case manuallyLinked
+      /// Generates a module with a podspec file that is suitable for linking to your project using CocoaPods.
       case cocoaPods
-      /// Generate a cartfile.
+      /// Generates a module with a cartfile that is suitable for linking to your project using Carthage.
       case carthage
-      /// Generate a package.swift file.
+      /// Generates a module with a package.swift file that is suitable for linking to your project using Swift Package Manager
       case swiftPackageManager
     }
 
@@ -40,7 +43,7 @@ public struct ApolloCodegenConfiguration {
     /// An absolute location where the schema types files should be generated.
     public let url: URL
     /// Automation to ease the integration of the generated schema types file with compatible dependency managers.
-    public let dependencyAutomation: DependencyManagerAutomation
+    public let dependencyAutomation: ModuleType
   }
 
   /// Defines the location structure for the operation object files.
@@ -133,7 +136,9 @@ public struct ApolloCodegenConfiguration {
     let schemaURL = inputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
     let input = FileInput(schema: schemaURL, glob: "./**/*.graphql")
 
-    let schemaTypesOutput = SchemaTypesFileOutput(name: applicationTarget, url: outputFolderURL, dependencyAutomation: .includedInTarget)
+    let schemaTypesOutput = SchemaTypesFileOutput(name: applicationTarget,
+                                                  url: outputFolderURL,
+                                                  dependencyAutomation: .manuallyLinked)
     let output = FileOutput(schemaTypes: schemaTypesOutput,
                             operations: .absolute(url: outputFolderURL),
                             operationIDs: nil)
