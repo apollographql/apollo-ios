@@ -93,9 +93,11 @@ public struct ApolloCodegenConfiguration {
   public let graphqlQueryStringLiteralFormat: GraphQLQueryStringLiteralFormat
   /// How to handle properties using a custom scalar from the schema. Defaults to `.defaultAsString`.
   public let customScalarFormat: CustomScalarFormat
-  /// How deprecated enum cases should be handled in generated code. Defaults to `.include`.
+  /// How deprecated enum cases from the schema should be handled. The default of `.include` will cause the generated
+  /// code to include the deprecated enum cases.
   public let deprecatedEnumCases: CompositionOption
-  /// Specifies whether schema documentation is copied into the generated file. Defaults to `.include`.
+  /// Whether schema documentation is added to the generated files. The default of `.include` will cause the schema documentation
+  /// comments to be copied over into the generated schema types files.
   public let schemaDocumentation: CompositionOption
 
   /// Designated initializer.
