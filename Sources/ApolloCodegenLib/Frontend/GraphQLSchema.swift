@@ -28,8 +28,16 @@ public class GraphQLSchema: JavaScriptObject {
   }
 }
 
-public class GraphQLNamedType: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+public class GraphQLNamedType: JavaScriptObject, Hashable {
+  lazy var name: String = self["name"]
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+  }
+
+  public static func ==(lhs: GraphQLNamedType, rhs: GraphQLNamedType) -> Bool {
+    return lhs.name == rhs.name
+  }
 }
 
 public class GraphQLScalarType: GraphQLNamedType {
@@ -74,36 +82,36 @@ public class GraphQLCompositeType: GraphQLNamedType {
 }
 
 public class GraphQLObjectType: GraphQLCompositeType {
-  private(set) lazy var description: String? = self["description"]
+  lazy var description: String? = self["description"]
   
-  private(set) lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
+  lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
-  private(set) lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+  lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
 }
 
 public class GraphQLAbstractType: GraphQLCompositeType {
 }
 
 public class GraphQLInterfaceType: GraphQLAbstractType {
-  private(set) lazy var description: String? = self["description"]
+  lazy var description: String? = self["description"]
   
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
   
-  private(set) lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
+  lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
-  private(set) lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+  lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
 }
 
 public class GraphQLUnionType: GraphQLAbstractType {
-  private(set) lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
+  lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
 }
 
 public class GraphQLField: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+  lazy var name: String = self["name"]
   
-  private(set) lazy var type: GraphQLType = self["type"]
+  lazy var type: GraphQLType = self["type"]
   
-  private(set) lazy var description: String? = self["description"]
+  lazy var description: String? = self["description"]
   
-  private(set) lazy var deprecationReason: String? = self["deprecationReason"]
+  lazy var deprecationReason: String? = self["deprecationReason"]
 }

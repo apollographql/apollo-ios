@@ -3,7 +3,7 @@
 
 extension JavaScriptObject {
 
-  public static func mock() -> Self {
+  @objc public class func emptyMockObject() -> Self {
     let context = JSContext()!
     let object = JSValue(newObjectIn: context)!
     return Self.init(object, bridge: JavaScriptBridge(context: context))

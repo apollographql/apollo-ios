@@ -1,7 +1,7 @@
 import Foundation
 import JavaScriptCore
 
-indirect enum GraphQLValue: Equatable {
+indirect enum GraphQLValue: Hashable {
   case variable(String)
   case int(Int)
   case float(Double)
