@@ -38,7 +38,7 @@ public struct ApolloCodegenConfiguration {
     public let name: String
     /// An absolute location where the schema types files should be generated.
     public let url: URL
-    /// Automation to ease the integration of the generated schem types file with compatible dependency managers.
+    /// Automation to ease the integration of the generated schema types file with compatible dependency managers.
     public let dependencyAutomation: DependencyManagerAutomation
   }
 
