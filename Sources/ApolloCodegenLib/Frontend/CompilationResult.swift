@@ -212,22 +212,20 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class InlineFragment: JavaScriptObject, Hashable {
-    lazy var type: GraphQLCompositeType = self.selectionSet.parentType
+    var parentType: GraphQLCompositeType { self.selectionSet.parentType }
     
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     public override var debugDescription: String {
-      "... on \(type.debugDescription)"
+      "... on \(parentType.debugDescription)"
     }
 
     public func hash(into hasher: inout Hasher) {
-      hasher.combine(type)
       hasher.combine(selectionSet)
     }
 
     public static func ==(lhs: InlineFragment, rhs: InlineFragment) -> Bool {
-      return lhs.type == rhs.type &&
-      lhs.selectionSet == rhs.selectionSet
+      return lhs.selectionSet == rhs.selectionSet
     }
   }
   

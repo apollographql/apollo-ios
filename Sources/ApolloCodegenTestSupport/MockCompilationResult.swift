@@ -41,6 +41,17 @@ public extension CompilationResult.Field {
   }
 }
 
+public extension CompilationResult.InlineFragment {
+
+  class func mock(
+    selectionSet: CompilationResult.SelectionSet = .mock()
+  ) -> Self {
+    let mock = Self.emptyMockObject()    
+    mock.selectionSet = selectionSet
+    return mock
+  }
+}
+
 public extension CompilationResult.FragmentDefinition {
   private class func mockDefinition(name: String) -> String {
     return """

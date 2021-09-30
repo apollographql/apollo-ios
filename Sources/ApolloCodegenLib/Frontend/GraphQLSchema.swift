@@ -87,6 +87,10 @@ public class GraphQLObjectType: GraphQLCompositeType {
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+
+  public override var debugDescription: String {
+    "Object - \(name)"
+  }
 }
 
 public class GraphQLAbstractType: GraphQLCompositeType {

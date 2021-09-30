@@ -6,7 +6,7 @@ class SelectionSetScope {
 
   weak var parent: SelectionSetScope?
 
-  let children: [SelectionSetScope]?
+  private(set) var children: [SelectionSetScope]? = nil
 
   let type: GraphQLCompositeType
 
@@ -16,7 +16,16 @@ class SelectionSetScope {
     self.parent = parent
     self.type = selectionSet.parentType
     self.selections = OrderedSet(selectionSet.selections)
-    self.children = []
+
+    self.children = selectionSet.selections.compactMap {
+      switch $0 {
+      case let .inlineFragment(fragment):
+        return SelectionSetScope(selectionSet: fragment.selectionSet, parent: self)
+      default:
+        return nil
+      }
+    }
+
 //    self.children = all type case selections in selections array
   }
 
@@ -30,8 +39,11 @@ class SelectionSetScope {
 
       if let siblings = parent.children {
         for sibling in siblings {
-          if sibling === self { continue }
-
+          if sibling !== self,
+             let siblingSelections = sibling.selections,
+             shouldMergeSelections(of: sibling.type) {
+            selections.append(contentsOf: siblingSelections)
+          }
         }
       }
     }
