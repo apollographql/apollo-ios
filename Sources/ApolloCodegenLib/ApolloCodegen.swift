@@ -40,7 +40,7 @@ public class ApolloCodegen {
     }
 
     #warning("TODO: Build folder structure from configuration")
-    return "Not implemented!"
+    fatalError("Not implemented!")
   }
 }
 
