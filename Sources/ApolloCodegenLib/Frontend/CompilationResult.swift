@@ -59,7 +59,7 @@ public class CompilationResult: JavaScriptObject {
     lazy var defaultValue: GraphQLValue? = self["defaultValue"]
   }
   
-  public class FragmentDefinition: JavaScriptObject {
+  public class FragmentDefinition: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
     
     lazy var type: GraphQLCompositeType = self["typeCondition"]
@@ -73,9 +73,17 @@ public class CompilationResult: JavaScriptObject {
     public override var debugDescription: String {
       "\(name) on \(type.debugDescription)"
     }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+    }
+
+    public static func ==(lhs: FragmentDefinition, rhs: FragmentDefinition) -> Bool {
+      return lhs.name == rhs.name
+    }
   }
   
-  public class SelectionSet: JavaScriptObject {
+  public class SelectionSet: JavaScriptObject, Hashable {
     lazy var parentType: GraphQLCompositeType = self["parentType"]
     
     lazy var selections: [Selection] = self["selections"]
@@ -88,9 +96,17 @@ public class CompilationResult: JavaScriptObject {
       }
       """
     }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(ObjectIdentifier(self))
+    }
+
+    public static func ==(lhs: SelectionSet, rhs: SelectionSet) -> Bool {
+      return lhs === rhs
+    }
   }
   
-  public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible {
+  public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
     case inlineFragment(InlineFragment)
     case fragmentSpread(FragmentSpread)
@@ -135,7 +151,7 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class Field: JavaScriptObject {
+  public class Field: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
     
     lazy var alias: String? = self["alias"]
@@ -161,29 +177,71 @@ public class CompilationResult: JavaScriptObject {
     public override var debugDescription: String {
       "\(name): \(type)"
     }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+      hasher.combine(alias)
+      hasher.combine(arguments)
+      hasher.combine(type)
+      hasher.combine(selectionSet)
+    }
+
+    public static func ==(lhs: Field, rhs: Field) -> Bool {
+      return lhs.name == rhs.name &&
+      lhs.alias == rhs.alias &&
+      lhs.arguments == rhs.arguments &&
+      lhs.type == rhs.type &&
+      lhs.selectionSet == rhs.selectionSet
+    }
   }
   
-  public class Argument: JavaScriptObject {
+  public class Argument: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
     
     lazy var value: GraphQLValue = self["value"]
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+      hasher.combine(value)
+    }
+
+    public static func ==(lhs: Argument, rhs: Argument) -> Bool {
+      return lhs.name == rhs.name &&
+      lhs.value == rhs.value
+    }
   }
   
-  public class InlineFragment: JavaScriptObject {
-    lazy var type: GraphQLCompositeType = self.selectionSet.parentType
+  public class InlineFragment: JavaScriptObject, Hashable {
+    var parentType: GraphQLCompositeType { self.selectionSet.parentType }
     
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     public override var debugDescription: String {
-      "... on \(type.debugDescription)"
+      "... on \(parentType.debugDescription)"
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(selectionSet)
+    }
+
+    public static func ==(lhs: InlineFragment, rhs: InlineFragment) -> Bool {
+      return lhs.selectionSet == rhs.selectionSet
     }
   }
   
-  public class FragmentSpread: JavaScriptObject {
+  public class FragmentSpread: JavaScriptObject, Hashable {
     lazy var fragment: FragmentDefinition = self["fragment"]
 
     public override var debugDescription: String {
       fragment.debugDescription
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(fragment)
+    }
+
+    public static func ==(lhs: FragmentSpread, rhs: FragmentSpread) -> Bool {
+      return lhs.fragment == rhs.fragment
     }
   }
 }

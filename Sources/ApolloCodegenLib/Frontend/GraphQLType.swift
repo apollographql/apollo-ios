@@ -1,7 +1,7 @@
 import JavaScriptCore
 
 /// A GraphQL type.
-public indirect enum GraphQLType: Equatable {
+public indirect enum GraphQLType: Hashable {
   case named(GraphQLNamedType)
   case nonNull(GraphQLType)
   case list(GraphQLType)

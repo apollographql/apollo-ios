@@ -7,7 +7,7 @@ class Generate_OperationDefinition_Tests: XCTestCase {
 
   func test__generate__generatesWithOperationDefinition() {
     // given
-    let definition = MockOperationDefinition.mock()
+    let definition = CompilationResult.OperationDefinition.mock()
     definition.source =
     """
     query NameQuery {
@@ -35,7 +35,7 @@ class Generate_OperationDefinition_Tests: XCTestCase {
 
   func test__generate__givenIncludesFragment_generatesWithOperationDefinitionAndFragment() {
     // given
-    let fragment = MockFragmentDefinition.mock()
+    let fragment = CompilationResult.FragmentDefinition.mock()
     fragment.source =
     """
     fragment NameFragment on Person {
@@ -43,7 +43,7 @@ class Generate_OperationDefinition_Tests: XCTestCase {
     }
     """
     
-    let definition = MockOperationDefinition.mock()
+    let definition = CompilationResult.OperationDefinition.mock()
     definition.source =
     """
     query NameQuery {
@@ -74,14 +74,14 @@ class Generate_OperationDefinition_Tests: XCTestCase {
   func test__generate__givenIncludesManyFragments_generatesWithOperationDefinitionAndFragment() {
     // given
     let fragments = [
-      MockFragmentDefinition.mock("Fragment1"),
-      MockFragmentDefinition.mock("Fragment2"),
-      MockFragmentDefinition.mock("Fragment3"),
-      MockFragmentDefinition.mock("Fragment4"),
-      MockFragmentDefinition.mock("FragmentWithLongName1234123412341234123412341234"),
+      CompilationResult.FragmentDefinition.mock("Fragment1"),
+      CompilationResult.FragmentDefinition.mock("Fragment2"),
+      CompilationResult.FragmentDefinition.mock("Fragment3"),
+      CompilationResult.FragmentDefinition.mock("Fragment4"),
+      CompilationResult.FragmentDefinition.mock("FragmentWithLongName1234123412341234123412341234"),
     ]
 
-    let definition = MockOperationDefinition.mock(usingFragments: fragments)
+    let definition = CompilationResult.OperationDefinition.mock(usingFragments: fragments)
     definition.source =
     """
     query NameQuery {
@@ -115,7 +115,7 @@ class Generate_OperationDefinition_Tests: XCTestCase {
 
   func test__generate__givenAPQ_automaticallyPersist_generatesWithOperationDefinitionAndIdentifier() {
     // given
-    let definition = MockOperationDefinition.mock()
+    let definition = CompilationResult.OperationDefinition.mock()
     definition.operationIdentifier = "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
     definition.source =
     """
@@ -146,7 +146,7 @@ class Generate_OperationDefinition_Tests: XCTestCase {
 
   func test__generate__givenAPQ_persistedOperationsOnly_generatesWithOperationDefinitionAndIdentifier() {
     // given
-    let definition = MockOperationDefinition.mock()
+    let definition = CompilationResult.OperationDefinition.mock()
     definition.operationIdentifier = "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
     definition.source =
     """

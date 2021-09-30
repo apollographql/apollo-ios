@@ -42,6 +42,10 @@ let package = Package(
     .package(
       url: "https://github.com/mattt/InflectorKit",
       .upToNextMinor(from: "1.0.0")),
+    .package(
+      url: "https://github.com/apple/swift-collections",
+      .upToNextMajor(from: "1.0.0")
+    )
   ],
   targets: [
     .target(
@@ -70,6 +74,7 @@ let package = Package(
       dependencies: [
         "ApolloUtils",
         .product(name: "InflectorKit", package: "InflectorKit"),
+        .product(name: "OrderedCollections", package: "swift-collections"),
       ],
       exclude: [
         "Info.plist",
