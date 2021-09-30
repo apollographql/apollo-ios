@@ -6,7 +6,8 @@ public struct ApolloCodegenConfiguration {
   public struct FileInput {
     /// Path to the GraphQL schema file. Can be in JSON or SDL format.
     public let schema: URL
-    /// Glob of files to search for GraphQL operations. This should be used to find queries and any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
+    /// Glob of files to search for GraphQL operations. This should be used to find queries and any client schema extensions. Defaults
+    /// to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
     public let glob: String
   }
 
@@ -38,7 +39,8 @@ public struct ApolloCodegenConfiguration {
       case swiftPackageManager
     }
 
-    /// The namespace to use for generated operation objects. When combined with `.includedInTarget` this should be the main target name. When used with any other dependency manager this should be the name of the new shared module that will be created.
+    /// The namespace to use for generated operation objects. When used with a dependency manager this should be the desired name
+    /// for the new shared module that will be created.
     public let name: String
     /// An absolute location where the schema types files should be generated.
     public let url: URL
@@ -50,7 +52,9 @@ public struct ApolloCodegenConfiguration {
   public enum OperationsFileOutput {
     /// All operation object files will be located in the module with the schema types.
     case inSchemaModule
-    /// Operation object files will be co-located relative to the defining `.graphql` file.
+    /// Operation object files will be co-located relative to the defining operation `.graphql` file. If `subpath` is specified a subfolder
+    /// will be created relative to the `.graphql` file and the operation object files will be generated there. If no `subpath` is
+    /// defined then all operation object files will be generated alongside the `.graphql` file.
     case relative(subpath: String?)
     /// All operation object files will be located in the specified path.
     case absolute(url: URL)
@@ -62,8 +66,6 @@ public struct ApolloCodegenConfiguration {
     case singleLine
     /// The query string will be copied with original formatting into the operation object.
     case multiline
-    /// The query string will not be copied into the operation object. You must be using preregisterd queries with this configuration.
-    case exclude
   }
 
   public enum CompositionOption {
@@ -75,7 +77,7 @@ public struct ApolloCodegenConfiguration {
   public enum CustomScalarFormat: Equatable {
     /// Uses the default type of String.
     case defaultAsString
-    /// Use your own types for custom scalars.
+    /// Use your own types for custom scalars. These will be taken from the associated schema.
     case passthrough
     /// Use your own types for custom scalars with a prefix.
     case passthroughWithPrefix(String)
@@ -101,8 +103,10 @@ public struct ApolloCodegenConfiguration {
   /// - Parameters:
   ///  - input: Specify the input files required for code generation.
   ///  - output: Define the folder structure of the output files.
-  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array.
-  ///  - graphqlQueryStringLiterals: Formatting of the GraphQL query string literal that is included in each generated operation object. Defaults to `.multiline`.
+  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to
+  ///  an empty array.
+  ///  - graphqlQueryStringLiterals: Formatting of the GraphQL query string literal that is included in each generated operation
+  ///  object. Defaults to `.multiline`.
   ///  - customScalarFormat: How to handle properties using a custom scalar from the schema. Defaults to `.defaultAsString`.
   ///  - deprecatedEnumCases: How deprecated enum cases should be handled in generated code. Defaults to `.include`.
   ///  - schemaDocumentation: Specifies whether schema documentation is copied into the generated file. Defaults to `.include`.
@@ -126,7 +130,8 @@ public struct ApolloCodegenConfiguration {
   ///
   /// - Parameters:
   ///  - inputFolderURL: A folder containing the GraphQL schema file.
-  ///  - schemaFilename: The filename of the GraphQL schema file without extension. Defaults to "schema" which is the default output filename of `ApolloSchemaDownloadConfiguration`.
+  ///  - schemaFilename: The filename of the GraphQL schema file without extension. Defaults to "schema" which is the default
+  ///  output filename of `ApolloSchemaDownloadConfiguration`.
   ///  - outputFolderURL: A folder for all generated files. This will include schema types and operation objects.
   ///  - applicationTarget: The name of your application target. This will be used to namespace the generated objects.
   public init(inputFolderURL: URL,
