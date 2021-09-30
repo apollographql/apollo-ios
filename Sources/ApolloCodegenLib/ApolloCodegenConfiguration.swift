@@ -8,8 +8,6 @@ public struct ApolloCodegenConfiguration {
     public let schema: URL
     /// Glob of files to search for GraphQL operations. This should be used to find queries and any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
     public let glob: String
-    /// [optional] Path to an operation id JSON map file. If specified, also stores the operation IDs (hashes) as properties on operation types. Defaults to `nil`.
-    public let operationIDs: URL?
   }
 
   /// Configure the folder structure of the generated files.
@@ -18,6 +16,9 @@ public struct ApolloCodegenConfiguration {
     public let schemaTypes: SchemaTypesFileOutput
     /// The location structure for the operation object files.
     public let operations: OperationsFileOutput
+    /// [optional] Path to an operation id JSON map file. If specified, also stores the operation IDs (hashes) as properties on operation
+    /// types. Defaults to `nil`.
+    public let operationIDs: URL?
   }
 
   /// Defines the location structure for the schema types files.
@@ -130,10 +131,12 @@ public struct ApolloCodegenConfiguration {
               outputFolderURL: URL,
               applicationTarget: String) {
     let schemaURL = inputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
-    let input = FileInput(schema: schemaURL, glob: "./**/*.graphql", operationIDs: nil)
+    let input = FileInput(schema: schemaURL, glob: "./**/*.graphql")
 
     let schemaTypesOutput = SchemaTypesFileOutput(name: applicationTarget, url: outputFolderURL, dependencyAutomation: .includedInTarget)
-    let output = FileOutput(schemaTypes: schemaTypesOutput, operations: .absolute(url: outputFolderURL))
+    let output = FileOutput(schemaTypes: schemaTypesOutput,
+                            operations: .absolute(url: outputFolderURL),
+                            operationIDs: nil)
 
     self.init(input: input, output: output)
   }

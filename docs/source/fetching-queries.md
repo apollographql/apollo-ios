@@ -194,7 +194,7 @@ Each query or mutation is identified by the SHA256 hash of its contents. If the 
 
 To use APQs with the iOS SDK: 
 
-- When generating your code, pass a file URL to the `operationIDs` parameter on `ApolloCodegenConfiguration.FileInput`).  
+- When generating your code, pass a local file URL to the `operationIDs` parameter on `ApolloCodegenConfiguration.FileOutput`).  
 
     This will generate a document with all your operations, but more importantly it will cause operation identifiers to be generated with your code. 
 - When creating your `ApolloClient`, make sure to manually instantiate your `RequestChainNetworkTransport` and set `autoPersistQueries`.
