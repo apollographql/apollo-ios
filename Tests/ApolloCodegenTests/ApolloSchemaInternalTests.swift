@@ -27,13 +27,5 @@ class ApolloSchemaInternalTests: XCTestCase {
     let postType = try schema.getType(named: "Post")
     XCTAssertEqual(postType?.name, "Post")
   }
-
-  func testConfiguration_usingOnlyOutputFolders_shouldGenerateCompatibleFilenames() {
-    let downloadConfiguration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                                                  outputFolderURL: CodegenTestHelper.outputFolderURL())
-    let codegenOptions = ApolloCodegenOptions(targetRootURL: CodegenTestHelper.outputFolderURL())
-
-    XCTAssertEqual(downloadConfiguration.outputURL, codegenOptions.urlToSchemaFile)
-  }
 }
 

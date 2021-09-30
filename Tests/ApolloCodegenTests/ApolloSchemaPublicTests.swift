@@ -1,7 +1,7 @@
 import XCTest
 import ApolloTestSupport
 import ApolloCodegenTestSupport
-import ApolloCodegenLib
+import ApolloCodegenLib // Do not use @testable with this import! Plain `import` ensures the correct access modifiers are used.
 
 class ApolloSchemaPublicTests: XCTestCase {
   private var defaultOutputURL: URL {
@@ -50,6 +50,15 @@ class ApolloSchemaPublicTests: XCTestCase {
 
     let expectedOutputURL = sourceRoot.appendingPathComponent("\(schemaFileName).graphqls")
     XCTAssertEqual(configuration.outputURL, expectedOutputURL)
+  }
+
+  func testConfiguration_usingOnlyInputOutputFolders_shouldGenerateCompatibleFilenames() {
+    let folderURL = CodegenTestHelper.outputFolderURL()
+    let downloadConfiguration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
+                                                                  outputFolderURL: folderURL)
+    let codegenConfiguration = ApolloCodegenConfiguration(inputFolderURL: folderURL, outputFolderURL: folderURL, applicationTarget: "Target")
+
+    XCTAssertEqual(downloadConfiguration.outputURL, codegenConfiguration.input.schema)
   }
 }
 
