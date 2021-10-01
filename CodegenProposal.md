@@ -1423,6 +1423,8 @@ class AnimalMetersLabelView {
 
 This gets even more complicated (and broken) when you nest fragments inside of each other.
 
+While [SE-309](https://github.com/apple/swift-evolution/blob/main/proposals/0309-unlock-existential-types-for-all-protocols.md) aims to make working with existential types easier, it does not solve this problem. The error will only be moved from when you reference the `HeightInMeters` protocol, to when you attempt access its `height` field.
+
 ## Appendix B: Nested Fragments for Composition of Multiple Types
 
 Here we want to generate the `Pet` & `WarmBlooded` types, but we also want to generate an additional composed type that is both a `Pet & Warmblooded`. We do that by explicitly copying the referenced fragment into a nested field on the `Pet` `TypeCase`. The idea here is that you are able to configure your response objects to provide data in the shape you want. Even if certain selections – or entire type cases – are redundant, you can provide them to ensure that your generated models provide fields in the way you want to consume them in your application.
