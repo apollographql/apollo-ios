@@ -2,49 +2,71 @@
 title: "3. Execute your first query"
 ---
 
-The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the GraphiQL query explorer](https://apollo-fullstack-tutorial.herokuapp.com) for your server, you can see available queries in the Schema tab you opened earlier. 
+The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the Apollo Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com)  for your server, you can see available queries in the Schema Reference tab you opened earlier. 
 
-Click on the `launches` query at the top for details about it:
+Scroll down to the `launches` query to get details about it:
 
 <img src="images/launches_detail.png" class="screenshot" alt="Detail about launches query"/>
 
-In the right panel, you see both the query itself and information about what the query returns. You can use this information to write a query you'll eventually add to your app. 
+Here, you see both the query term itself, the return type, and information about parameters that can be passed to the query.  You can use this information to write a query you'll eventually add to your app. 
 
-In the left-hand text area, add the following lines to start creating a query that will fetch a list of all available launches: 
+To start working with this query in the Explorer Sandbox, select the "play" button to the right side of the information: 
 
-```graphql:title=(GraphiQL)
-query LaunchList {
-}
-```
+<img src="images/open_in_explorer_launches.png" class="screenshot" alt="Open in Explorer"/>
 
-The Apollo iOS SDK requires every query to have a name (even though this isn't required by the GraphQL spec). The query above has the name `LaunchList`.
+This brings you back into explorer with the sidebar on the left hand side showing documentation for the query you've selected:
 
-Next, between the query's curly braces, start typing `la`. An autocomplete box pops up and shows you options based on what's in the schema:
+<img src="images/explorer_sandbox_open.png" class="screenshot" alt="Docs open in the left sidebar"/>
 
-<img src="images/grapqhiql_autocomplete.png" class="screenshot" alt="Example of autocomplete"/>
+Notice the small button next to the `launches` icon. Click this button to add the query to the middle "operations" panel: 
 
-GraphiQL is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes.
+<img src="images/explorer_add_launches_query.png" class="screenshot" alt="Click the button to add this query"/>
 
-As the schema indicates, the `launches` query returns a `LaunchConnection` object. This object includes a list of launches, along with fields related to pagination (`cursor` and `hasMore`). The query you write indicates exactly which fields of this `LaunchConnection` object you want to be returned, like so:
+When the query is added, it will look like this: 
 
-```graphql:title=(GraphiQL)
-query LaunchList {
-  launches {
-    cursor
-    hasMore
-  }  
-}
-```
+<img src="explorer_initial_added_query.png" class="screenshot" alt="The query once it's been added to the Operations section"/>
 
-If you run this query by pressing the play button in GraphiQL, the query returns results as a JSON object on the right-hand side of the page: 
+Let's break down what you're seeing here: 
 
-<img src="images/completed_basic_query.png" class="screenshot" alt="Query JSON in GraphiQL"/>
+- The type of the operation, `query`, followed by the name of the operation, currently `Query` (we'll make that more specific in a second), is the outermost set of brackets.
+- The actual query being called is the next set of brackets in. Since the `arguments` for this query both have default values, they are not automatically added to the query for you.
+- An error in the empty space where between the brackets, which is where you'll put the list of information you want back from each launch. 
 
-This query executes successfully, but it doesn't include any information about the `launches`! That's because we didn't include the necessary field in our query.
+The Apollo iOS SDK requires every query to have a name (even though this isn't required by the GraphQL spec). Since you're going to be creating more than one query, it's also a good idea to give this operation a specific name than `Query`. Change the name of the operation to `LaunchList`: 
 
-Update your query to fetch the `id` and `site` properties for each launch, like so:
+<img src="explorer_launch_list_rename.png" class="screenshot" alt="Renaming the query"/>
 
-```graphql:title=(GraphiQL)
+Next, on the left hand side, you can select what fields you want back in the returned object. Start by clicking the button next to the `cursor` field. It will mark that field as selected, then insert it into your operations: 
+
+<img src="explorer_check_cursor.png" class="screenshot" alt="After adding the cursor field."/>
+
+This is probably the easiest way to add fields to your object, since it knows how everything is spelled and what type everything is. 
+
+However, you can also use auto-complete to help you with this. Add a newline below `cursor` in the Operations panel and start typing `ha`. An autocomplete box pops up and shows you options based on what's in the schema:
+
+<img src="images/explorer_autocomplete.png" class="screenshot" alt="Example of autocomplete"/>
+
+Apollo Studio Sandbox is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes.
+
+As the schema indicates, the `launches` query returns a `LaunchConnection` object. This object includes a list of launches, along with fields related to pagination (`cursor` and `hasMore`). The query you've written so far indicates exactly which fields of this `LaunchConnection` object you want to be returned.
+
+Run this query by pressing the "Submit Operation" button, which should now have the name of your query, `LaunchList`: 
+
+<img src="images/explorer_submit_operation.png" class="screenshot" alt="Submit the operation"/>
+
+You'll quickly see the query returns results as a JSON object on the right-hand side of the page: 
+
+<img src="images/explorer_launch_list_initial_response.png" class="screenshot" alt="Query JSON in Explorer Sandbox"/>
+
+This query executes successfully, but it doesn't include any information about the `launches`! That's because we didn't include the necessary field in the query.
+
+Click the button next to the `launches` field at the bottom of the left column. It will add a set of braces for `launches` to the operations section, and then move the documentation to show information for the `Launch` type: 
+
+<img src="images/explorer_launches_drill_in.png" class="screenshot" alt="Status after adding launches field"/>
+
+The fields you add in this set of brackets will be fetched for every launch in the list. Click the buttons next to `id` and `site` properties to add those two fields. When you're done, your operation should look like this: 
+
+```graphql:title=(Explorer%20Sandbox)
 query LaunchList {
   launches {
     cursor
@@ -57,9 +79,9 @@ query LaunchList {
 }
 ```
 
-Run the query again, and you'll now see that in addition to the information you got back before, you're also getting a list of launches with their ID and site information: 
+Run the operation again, and you'll now see that in addition to the information you got back before, you're also getting a list of launches with their ID and site information: 
 
-<img src="images/completed_id_query.png" class="screenshot" alt="Updated query JSON in GraphiQL"/>
+<img src="images/completed_id_query.png" class="screenshot" alt="Updated query JSON in Explorer Sandbox"/>
 
 ## Adding your query to Xcode
 
