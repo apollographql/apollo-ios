@@ -93,7 +93,11 @@ Now that your query is fetching the right data, head back to Xcode.
 
 2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As previously, don't add it to any target.
 
-3. Copy your final query from GraphiQL and paste it into `LaunchList.graphql`. 
+3. Copy your final operation from explorer sandbox by selecting the three dot (aka "meatball") menu to the right of your operation name and selecting "Copy Operation": 
+
+<img src="images/explorer_meatball_copy.png" class="screenshot" alt="Copy operation from Explorer Sandbox"/>
+
+4. Paste the copied operation into `LaunchList.graphql`
 
 You're now ready to generate code from the combination of your saved query and schema.
 
