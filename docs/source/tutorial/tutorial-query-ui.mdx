@@ -4,18 +4,7 @@ title: "4. Connect your queries to your UI"
 
 Now that your app can execute queries against a GraphQL server, you can reflect the results of those queries in your UI.
 
-## Remove boilerplate code
-
-In `LaunchesViewController.swift`, delete the following pieces of boilerplate code that the app doesn't need: 
-
-- The `objects` property
-- Everything in `viewDidLoad` except the `super.viewDidLoad()` call
-- The entire `insertNewObject()` method
-- The contents of `prepare(for segue:)` (but not the method itself)
-- The entire `tableView(_, canEditRowAt:)` method
-- The entire `tableView(_, commit:, forRowAt:)` method
-
-## Add query fields
+## Display the list of launches
 
 Now let's add properties to display the results of the `LaunchListQuery` you built in the previous tutorial step. 
 
