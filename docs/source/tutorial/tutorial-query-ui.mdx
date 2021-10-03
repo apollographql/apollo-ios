@@ -77,19 +77,7 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 
 Your table view has all the information it needs to populate itself when the `launches` array has contents. Now it's time to actually get those contents from the server. 
 
-First, add a method for showing errors at the end of your file: 
-
-```swift:title=LaunchesViewController.swift
-private func showErrorAlert(title: String, message: String) {
-  let alert = UIAlertController(title: title,
-                                message: message,
-                                preferredStyle: .alert) 
-  alert.addAction(UIAlertAction(title: "OK", style: .default))
-  self.present(alert, animated: true)
-}
-```
-
-Next, add a method to load the launches. You'll use a setup similar to the one you used to set this up in the `AppDelegate` earlier. 
+First, add a method to load the launches. You'll use a setup similar to the one you used to set this up in the `AppDelegate` earlier. 
 
 However, you need to make sure that a call doesn't try to call back and use elements that are no longer there, so you'll check to make sure that the `LaunchesViewController` hasn't been deallocated out from under you by passing in `[weak self]` and unwrapping `self` before proceeding with updating the UI:
 
@@ -110,6 +98,7 @@ private func loadLaunches() {
       case .success(let graphQLResult):
         // TODO
       case .failure(let error):
+        // From `UIViewController+Alert.swift`
         self.showErrorAlert(title: "Network Error",
                             message: error.localizedDescription)
       }
