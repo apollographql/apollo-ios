@@ -113,11 +113,11 @@ You're now ready to generate code from the combination of your saved query and s
 
 ### The `API.swift` file
 
-Open the `API.swift` file. It defines a root class, `LaunchListQuery`, with many nested structs below it. If you compare the structs to the JSON data returned in GraphiQL, you see that the structure matches. These structs include properties only for the fields that your query requests. 
+Open the `API.swift` file. It defines a root class, `LaunchListQuery`, with many nested structs below it. If you compare the structs to the JSON data returned in Explorer Sandbox, you see that the structure matches. These structs include properties only for the fields that your query requests. 
 
-Try commenting out the `id` property in `LaunchList.graphql`, saving, then building again. When the build completes, the innermost `Launch` now only includes the built-in `__typename` and the requested `site` property. 
+Try commenting out the `id` property in `LaunchList.graphql` using a `#`, saving, then building again. When the build completes, the innermost `Launch` now only includes the built-in `__typename` and the requested `site` property. 
 
-Uncomment `id` and rebuild to restore the property.
+Uncomment `id` in `LaunchList.graphql` and rebuild to restore the property.
 
 Now that you've generated code and had a chance to see what's in there, it's time to get everything working end to end!
 
