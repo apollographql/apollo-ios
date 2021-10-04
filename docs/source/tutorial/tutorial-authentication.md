@@ -58,36 +58,38 @@ Open Xcode, create a new empty file named `Login.graphql`, and paste the operati
 
 ## Define login logic
 
-Now it's time to hook everything up. Below your `IBAction` methods, add a new function to enable the submit button and change its title based on whether it's enabled:
+Now it's time to actually log the user in. You'll notice in the `IBAction` for `submitTapped`, we're doing some very basic validation that the user has actually entered an email address before submitting it. 
+
+Still in `submitTapped`, replace the `TODO` with a call to perform the login mutation:
 
 ```swift:title=LoginViewController.swift
-private func enableSubmitButton(_ isEnabled: Bool) {
-  self.submitButton.isEnabled = isEnabled
-  if isEnabled {
-    self.submitButton.setTitle("Submit", for: .normal)
-  } else {
-    self.submitButton.setTitle("Submitting...", for: .normal)
+ Network.shared.apollo.perform(mutation: LoginMutation(loginEmail: email)) { [weak self] result in
+  defer {
+    // Re-enable the submit button when this scope exits
+    self?.enableSubmitButton(true)
+  }
+
+  switch result {
+  case .failure(let error):
+    self?.showAlert(title: "Network Error",
+                    message: error.localizedDescription)
+  case .success(let graphQLResult):
+  
+    if let token = graphQLResult.data?.login {
+      // TODO: Store the token securely
+    }
+
+    if let errors = graphQLResult.errors {
+      let message = errors
+                     .map { $0.localizedDescription }
+                     .joined(separator: "\n")
+      self?.showAlert(title: "GraphQL Error(s)",
+                      message: message)
+    }
   }
 }
 ```
 
-Next, add basic email validation to help make sure that the String you'll be passing through to the server might be an email address (a production app would of course validate more thoroughly):
-
-```swift:title=LoginViewController.swift
-private func validate(email: String) -> Bool {
-  return email.contains("@")
-}
-```
-
-Now add a `viewDidLoad` override that clears the text in the error label and enables the submit button:
-
-```swift:title=LoginViewController.swift
-override func viewDidLoad() {
-  super.viewDidLoad()
-  self.errorLabel.text = nil
-  self.enableSubmitButton(true)
-}
-```
 
 Next, you need to store the login credential that's returned by the server. Login credentials should always be stored in the Keychain, but interacting with it directly is challenging, so you'll be using the `KeychainSwift` library which has already been added as a Swift Package to this project.
 
@@ -97,59 +99,17 @@ At the top of `LoginViewController.swift`, import the library you just added:
 import KeychainSwift
 ```
 
-Next, add a `static let` that will give you a value you can use to query the keychain for a login token: 
+Next, note that there's a `static let` at the top of the view controller that will give you a value you can use to query the keychain for a login token. Because this is a `static let`, you can use it outside instances of `LoginViewController` (which you will do in a second). 
+
+Replace the `TODO` after unwrapping the token with the following: 
 
 ```swift:title=LoginViewController.swift
-static let loginKeychainKey = "login"
+let keychain = KeychainSwift()
+keychain.set(token, forKey: LoginViewController.loginKeychainKey)
+self?.dismiss(animated: true)
 ```
 
-Because this is a `static let`, you can use it outside instances of `LoginViewController`. 
-
-Now add some validation to the `submitTapped` button to make sure the String you're going to send as an email is non-null and passes your local validation:
-
-```swift:title=LoginViewController.swift
-self.errorLabel.text = nil
-self.enableSubmitButton(false)
-
-guard let email = self.emailTextField.text else {
-  self.errorLabel.text = "Please enter an email address."
-  self.enableSubmitButton(true)
-  return
-}
-
-guard self.validate(email: email) else {
-  self.errorLabel.text = "Please enter a valid email."
-  self.enableSubmitButton(true)
-  return
-}
-```
-
-Now that you have a non-null and valid `email` variable, you can use it to log in. Still in `submitTapped`, add a call to perform the login mutation:
-
-```swift:title=LoginViewController.swift
- Network.shared.apollo.perform(mutation: LoginMutation(email: email)) { [weak self] result in
-  defer {
-    self?.enableSubmitButton(true)
-  }
-
-  switch result {
-  case .success(let graphQLResult):
-    if let token = graphQLResult.data?.login {
-      let keychain = KeychainSwift()
-      keychain.set(token, forKey: LoginViewController.loginKeychainKey)
-      self?.dismiss(animated: true)
-    }
-
-    if let errors = graphQLResult.errors {
-      print("Errors from server: \(errors)")
-    }
-  case .failure(let error):
-    print("Error: \(error)")
-  }
-}
-```
-
-With this code, once you log in successfully, the `LoginViewController` will automatically dismiss. This will send you back to the `DetailViewController`. 
+With this code, once you log in successfully, the token will be stored in the keychain, and then the `LoginViewController` will automatically dismiss (if it still exists). This will send you back to the `DetailViewController`. 
 
 ## Display the login screen
 
@@ -161,7 +121,7 @@ At the top of `DetailViewController.swift`, import the `KeychainSwift` library:
 import KeychainSwift
 ```
 
-Then, add a new method to determine whether the user is currently logged in: 
+Then, find the `isLoggedIn` method and replace its contents with the following: 
 
 ```swift:title=DetailViewController.swift
 private func isLoggedIn() -> Bool {
@@ -170,8 +130,9 @@ private func isLoggedIn() -> Bool {
 }
 ```
 
-Then, add a new method to determine what to do when the "Book now!" button is tapped:
+This code checks if there is any value stored in the keychain under the login keychain key. If there isn't, it determines the user isn't logged in. If there is, the user is logged in. 
 
+Find the `bookOrCancelTapped` method and start by determining what to do if the user is logged in or not: 
 
 ```swift:title=DetailViewController.swift
 @IBAction private func bookOrCancelTapped() {
@@ -179,24 +140,28 @@ Then, add a new method to determine what to do when the "Book now!" button is ta
     self.performSegue(withIdentifier: "showLogin", sender: self)
     return
   }
-    
-  guard let launch = self.launch else {
-    // We don't have enough information yet to know
-    // if we're booking or cancelling, bail.
-    return
-  }
-    
-  if launch.isBooked {
-    print("Cancel trip!")
-  } else {
-    print("Book trip!")
-  }
+  
+  // TODO: Book or cancel the trip
 }
 ```
 
-In your storyboard, hook this method up to the `bookOrCancel` button you set up earlier. 
+Then, replace the `TODO` in the above code with logic to figure out whether a trip on the current launched needs to be booked or cancelled: 
 
-Build and run the application. Now when you tap the "Book now!" button, the `LoginViewController` will appear. Use it to log yourself in.
+```swift:title=DetailViewController.swift
+guard let launch = self.launch else {
+  // We don't have enough information yet to know
+  // if we're booking or cancelling, bail.
+  return
+}
+    
+if launch.isBooked {
+  print("Cancel trip!")
+} else {
+  print("Book trip!")
+}
+```
+
+Build and run the application, and select a launch from the list to view its detail screen. Now when you tap the "Book now!" button, the `LoginViewController` will appear. Use it to log yourself in.
 
 When the `DetailViewController` reappears, if you tap the "Book now!" button again, you'll see the print statement you added logging happily to the console:
 
