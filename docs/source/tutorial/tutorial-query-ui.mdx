@@ -16,7 +16,7 @@ var launches = [LaunchListQuery.Data.Launch.Launch]()
 
 Why the long name? Each query returns its own nested object structure to ensure that when you use the result of a particular query, you can't ask for a property that isn't present. Because this screen will be populated by the results of the `LaunchListQuery`, you need to display subtypes of that particular query.
 
-Next, add an enum that helps handle dealing with sections (we'll add items to the enum later): 
+Next, add an enum that helps handle dealing with sections (we'll add more items to the enum later): 
 
 ```swift:title=LaunchesViewController.swift
 enum ListSection: Int, CaseIterable {
@@ -79,29 +79,31 @@ Your table view has all the information it needs to populate itself when the `la
 
 First, add a method to load the launches. You'll use a setup similar to the one you used to set this up in the `AppDelegate` earlier. 
 
-However, you need to make sure that a call doesn't try to call back and use elements that are no longer there, so you'll check to make sure that the `LaunchesViewController` hasn't been deallocated out from under you by passing in `[weak self]` and unwrapping `self` before proceeding with updating the UI:
+However, you need to make sure that a call doesn't try to call back and use elements that are no longer there, so you'll check to make sure that the `LaunchesViewController` hasn't been deallocated out from under you by passing in `[weak self]` and unwrapping `self` before proceeding with updating the UI. 
+
+Replace the `TODO` in `loadLaunches` with the following: 
 
 ```swift:title=LaunchesViewController.swift
 private func loadLaunches() {
   Network.shared.apollo
     .fetch(query: LaunchListQuery()) { [weak self] result in
     
-      guard let self = self else {
-        return
-      }
+    guard let self = self else {
+      return
+    }
 
-      defer {
-        self.tableView.reloadData()
-      }
+    defer {
+      self.tableView.reloadData()
+    }
             
-      switch result {
-      case .success(let graphQLResult):
-        // TODO
-      case .failure(let error):
-        // From `UIViewController+Alert.swift`
-        self.showErrorAlert(title: "Network Error",
-                            message: error.localizedDescription)
-      }
+    switch result {
+    case .success(let graphQLResult):
+      // TODO
+    case .failure(let error):
+      // From `UIViewController+Alert.swift`
+      self.showAlert(title: "Network Error",
+                     message: error.localizedDescription)
+    }
   }
 }
 ```
@@ -109,7 +111,7 @@ private func loadLaunches() {
 
 `GraphQLResult` has both a `data` property and an `errors` property. This is because GraphQL allows partial data to be returned if it's non-null. 
 
-In the example we're working with now, we could theoretically obtain a list of launches, and then an error stating that a launch with a particular ID could not be constructed. 
+In the example we're working with now, we could theoretically obtain a list of launches, and then an error stating that a launch with a particular ID could not be retrieved. 
 
 This is why when you get a `GraphQLResult`, you generally want to check both the `data` property (to display any results you got from the server) _and_ the `errors` property (to try to handle any errors you received from the server). 
 
@@ -124,12 +126,12 @@ if let errors = graphQLResult.errors {
   let message = errors
         .map { $0.localizedDescription }
         .joined(separator: "\n")
-  self.showErrorAlert(title: "GraphQL Error(s)",
-                      message: message)    
+  self.showAlert(title: "GraphQL Error(s)",
+                 message: message)    
 }
 ```
 
-Finally, you need to actually call the method you just added to kick off the call to the network when the view is first loaded. Update your `viewDidLoad` to also call `loadLaunches`: 
+Finally, you'd normally need to actually call the method you just added to kick off the call to the network when the view is first loaded. Take a look at your `viewDidLoad` and note that it's already set up to call `loadLaunches`: 
 
 ```swift:title=LaunchesViewController.swift
 override func viewDidLoad() {
@@ -140,16 +142,12 @@ override func viewDidLoad() {
 
 Build and run the application. After the query completes, a list of launch sites appears: 
 
-
-<img src="images/list_sites_success.png" alt="List of launch sites" class="screenshot" width="300">
-</img>
-
+<img src="images/list_sites_success.png" alt="List of launch sites" class="screenshot" width="300"/>
 
 However, if you attempt to tap one of the rows, the app displays the detail with the the placeholder text you can see in the storyboard, instead of any actual information about the launch:
 
 
-<img src="images/stock_detail_view.png" alt="Placeholder detail content" class="screenshot" width="300">
-</img>
+<img src="images/stock_detail_view.png" alt="Placeholder detail content" class="screenshot" width="300"/>
 
 
 To send that information through, you need to build out the `LaunchesViewController`'s `prepareForSegue` method, and have a way for that method to pass the `DetailViewController` information about the launch.
@@ -226,11 +224,11 @@ The app is working! However, it doesn't provide much useful information. Let's f
 
 Go back to `LaunchList.graphql`. Your query is already fetching most of the information you want to display, but it would be nice to display both the name of the mission and an image of the patch. 
 
-Looking at the schema in GraphiQL, you can see that `Launch` has a property of `mission`, which allows you to get details of the mission. A mission has both a name and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
+Looking at the schema in Explorer , you can see that `Launch` has a property of `mission`, which allows you to get details of the mission. A mission has both a `name` and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
 
 Because loading a table view with large images can impact performance, ask for the name and a `SMALL` mission patch. Update your query to look like the following:
 
-```graphql:title=(GraphiQL)
+```graphql:title=LaunchList.graphql
 query LaunchList {
   launches {
     hasMore
@@ -295,9 +293,7 @@ case .launches:
 Build and run the application, and you will see all the information for current launches populate: 
 
 
-<img src="images/launch_list_final.png" alt="Final launch list" class="screenshot" width="300">
-</img>
-
+<img src="images/launch_list_final.png" alt="Final launch list" class="screenshot" width="300"/>
 
 If you scroll down, you'll see the list includes only about 20 launches. This is because the list of launches is **paginated**, and you've only fetched the first page. 
 
