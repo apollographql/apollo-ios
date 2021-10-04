@@ -158,95 +158,71 @@ To send that information through, you need to build out the `LaunchesViewControl
 
 Let's update the `DetailViewController` to be able to handle information about a launch. 
 
-Open `DetailViewController.swift` and delete the `detailItem` property at the bottom of the class (you won't need it).
-
-Next, because you're going to add a property that uses a type defined in the Apollo SDK, you need to add an `import` statement to the top of the file:
-
-```swift:title=DetailViewController.swift
-import Apollo
-```
-
-Next, add a new property at the top of the class:  
+Open `DetailViewController.swift` and note that there's a  property below the list of `IBOutlet`s:  
 
 ```swift:title=DetailViewController.swift
 var launchID: GraphQLID? {
   didSet {
-    self.configureView()
+    self.loadLaunchDetails()
   }
 }
 ```
 
 This settable property allows the `LaunchesViewController` to pass along the identifier for the selected launch. The identifier will be used later to load more details about the launch. 
 
-For now, update the `configureView()` method to use this new property (if it's there) instead of the `detailItem` property you just deleted: 
+For now, update the `configureView()` method to use this property (if it's there) to show the launch's identifier: 
 
 ```swift:title=DetailViewController.swift
 func configureView() {
   // Update the user interface for the detail item.
   guard
-    let label = self.detailDescriptionLabel,
+    let label = self.missionNameLabel,
     let id = self.launchID else {
       return
   }
 
   label.text = "Launch \(id)"
+  // TODO: Adjust UI based on whether a trip is booked or not
 }
 ```
 
-> **Note**: You're also unwrapping the `detailDescriptionLabel` because even though it's an Implicitly Unwrapped Optional, it won't be present if `configureView` is called before `viewDidLoad`.
+> **Note**: You're also unwrapping the `missionNameLabel` because even though it's an Implicitly Unwrapped Optional, it won't be present if `configureView` is called before `viewDidLoad`.
 
-Next, back in `LaunchesViewController.swift`, update the `prepareForSegue` method to obtain the most recently selected row and pass its corresponding launch details to the detail view controller: 
+Next, back in `LaunchesViewController.swift`, update the `prepareForSegue` method to obtain the most recently selected row and pass its corresponding launch details to the detail view controller. Replace the `TODO` and below with the following: 
 
 ```swift:title=LaunchesViewController.swift
-override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-  guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
-    // Nothing is selected, nothing to do
-    return
-  }
-    
-  guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
-    assertionFailure("Invalid section")
-    return
-  }
-    
-  switch listSection {
-  case .launches:
-    guard
-      let destination = segue.destination as? UINavigationController,
-      let detail = destination.topViewController as? DetailViewController else {
-        assertionFailure("Wrong kind of destination")
-        return
-    }
-    
-    let launch = self.launches[selectedIndexPath.row]
-    detail.launchID = launch.id
-    self.detailViewController = detail
-  }
+guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
+  // Nothing is selected, nothing to do
+  return
 }
-```
+    
+guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
+  assertionFailure("Invalid section")
+  return
+}
+    
+switch listSection {
+case .launches:
+  guard
+    let destination = segue.destination as? UINavigationController,
+    let detail = destination.topViewController as? DetailViewController else {
+      assertionFailure("Wrong kind of destination")
+      return
+  }
 
-One slightly unrelated detail: In `SceneDelegate.swift`, one line relies on the `detailItem` property you deleted earlier, which now produces an error. Replace the erroring line with:
-
-```swift:title=SceneDelegate.swift
-if topAsDetailController.launchID == nil {
+  let launch = self.launches[selectedIndexPath.row]
+  detail.launchID = launch.id
+  self.detailViewController = detail
+}
 ```
 
 Build and run, and tap on any of the launches. You'll now see the launch ID for the selected launch when you land on the page:
 
-
-<img src="images/detail_view_launch_id.png" alt="Empty screen with launch ID" class="screenshot" width="300">
-</img>
+<img src="images/detail_view_launch_id.png" alt="Empty screen with launch ID" class="screenshot" width="300"/>
 
 The app is working! However, it doesn't provide much useful information. Let's fix that.
 
 ## Add more info to the list view
-
-Let's take advantage of one of the built-in styles for `UITableViewCell` to display more information without having to do much work. Go to `Main.storyboard` and select the **Launches Scene**, which includes the `TableView` and the default cell. 
-
-Expand the dropdowns in the left sidebar of Interface Builder until you get to **Cell**. Select that element, then go to the **Attributes Inspector** in the right sidebar of Xcode. At the top, there's a dropdown that allows you to select a style for your table view cell. Select **Subtitle**:
-
-<img src="images/use_subtitle_style.png" alt="Select subtitle style" class="screenshot">
-</img>
 
 Go back to `LaunchList.graphql`. Your query is already fetching most of the information you want to display, but it would be nice to display both the name of the mission and an image of the patch. 
 
@@ -273,11 +249,7 @@ query LaunchList {
 
 When you recompile, if you look in `API.swift`, you'll see a new nested type, `Mission`, with the two properties you requested.
 
-Because `missionPatch` returns a URL string to an image that can be displayed, you want to make it straightforward to display an image from its URL.
-
-To save time, go to **File > Swift Packages > Add Package Dependency...** and add a dependency on [SDWebImage](https://github.com/SDWebImage/SDWebImage). Paste in the URL to its git repo, `https://github.com/SDWebImage/SDWebImage.git`, and then select the main `SDWebImage` from the list of package products Xcode offers you once it resolves the repo.
-
-When SDWebImage finishes installing, go back to `LaunchesViewController.swift` and add the following import to the top of the file:
+Go back to `LaunchesViewController.swift` and add the following import of one of the libraries that was already in your project to the top of the file:
 
 ```swift:title=LaunchesViewController.swift
 import SDWebImage
@@ -285,11 +257,7 @@ import SDWebImage
 
 You'll use this shortly to load an image based on a URL.
 
-Next, download this image:
-
-![apollo logo](images/placeholder_logo.png)
-
-Drag it into your Asset Catalog, `Assets.xcassets`. Name it `placeholder`:
+Next, open up your Asset your Asset Catalog, `Assets.xcassets`. You'll see an image named "Placeholder": 
 
 <img alt="image in asset catalog" class="screenshot" src="images/placeholder_in_asset_catalog.png"/>
 
