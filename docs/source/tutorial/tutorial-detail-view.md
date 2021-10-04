@@ -169,7 +169,8 @@ if launch.isBooked {
   self.bookCancelButton.tintColor = .red
 } else {
   self.bookCancelButton.title = "Book now!"
-  self.bookCancelButton.tintColor = self.view.tintColor
+  // Get the color from the main window rather than the view to prevent alerts from draining color
+  self.bookCancelButton.tintColor = UIApplication.shared.windows.first?.tintColor
 }
 ```
 
