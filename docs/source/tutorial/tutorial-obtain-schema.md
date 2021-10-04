@@ -2,11 +2,11 @@
 title: "2. Obtain your GraphQL schema"
 ---
 
-This tutorial uses a modified version of the GraphQL server you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [that server's Apollo Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) to explore its schema:
+This tutorial uses a modified version of the GraphQL server you build as part of [the Apollo full-stack tutorial](https://www.apollographql.com/docs/tutorial/introduction/). You can visit [that server's Apollo Studio Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) to explore its schema without needing to be logged in:
 
-<img src="images/sandbox_landing.png" alt="The Apollo Sandbox query explorer" class="screenshot"/>
+<img src="images/sandbox_landing.png" alt="The Sandbox query explorer" class="screenshot"/>
 
-You'll know that this sandbox instance is pointed at our server because its URL, `https://apollo-fullstack-tutorial.herokuapp.com`, is in the box at the top left of the page. If sandbox is propely connected, you'll see a green dot: 
+You'll know that this Sandbox instance is pointed at our server because its URL, `https://apollo-fullstack-tutorial.herokuapp.com`, is in the box at the top left of the page. If Sandbox is properly connected, you'll see a green dot: 
 
 <img src="images/sandbox_green_dot.png" alt="A closeup of the URL box with a dot indicating it's connected" class="screenshot"/>
 
