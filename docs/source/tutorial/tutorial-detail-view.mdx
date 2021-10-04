@@ -111,8 +111,7 @@ Now that you know what you're planning to ask for, it's time to set up the UI fo
 private var launch: LaunchDetailsQuery.Data.Launch?
 ```
 
-
-Now it's time to hook everything up! Head back to `DetailViewController.swift` and update the `viewDidLoad` function to clear out anything from the storyboard before attempting to configure the view:
+Next, update the `viewDidLoad` function to clear out anything from the storyboard before attempting to configure the view:
 
 ```swift:title=DetailViewController.swift
 override func viewDidLoad() {
@@ -174,7 +173,7 @@ if launch.isBooked {
 }
 ```
 
-Then, add a method to load the details using the `LaunchDetailsQuery` you created earlier:
+Then, find the `loadLaunchDetails()`  method. Replace the `TODO` with the following, which loads the details using the `LaunchDetailsQuery` you created earlier:
 
 ```swift:title=DetailViewController.swift
 private func loadLaunchDetails() {
@@ -185,21 +184,26 @@ private func loadLaunchDetails() {
       return
   }
     
-  Network.shared.apollo.fetch(query: LaunchDetailsQuery(id: launchID)) { [weak self] result in
+  Network.shared.apollo.fetch(query: LaunchDetailsQuery(launchId: launchID)) { [weak self] result in
     guard let self = self else {
       return
     }
     
     switch result {
     case .failure(let error):
-      print("NETWORK ERROR: \(error)")
+      self.showAlert(title: "Network Error",
+                     message: error.localizedDescription)
     case .success(let graphQLResult):
       if let launch = graphQLResult.data?.launch {
         self.launch = launch
       }
     
       if let errors = graphQLResult.errors {
-        print("GRAPHQL ERRORS: \(errors)")
+        let message = errors
+                        .map { $0.localizedDescription }
+                        .joined(separator: "\n")
+        self.showAlert(title: "GraphQL Error(s)",
+                       message: message)
       }
     }
   }
@@ -230,7 +234,7 @@ Build and run the application. When you tap into the detail screen, you should n
 
 <img src="images/detail_loaded.png" alt="Final display of the detail screen" class="screenshot" width="300"/>
 
-You'll notice that many of the more recent launches have a rocket type of `FT`. If you load more launches a couple times, you'll get to some rockets that have different rocket types: 
+You'll notice that many of the more recent launches have a rocket type of `FT`. If you load more launches until you get to the end of the list, you'll get to some rockets that have different rocket types: 
 
 <img src="images/detail_loaded_merlin_c.png" alt="Final display with different rocket type" class="screenshot" width="300"/>
 
