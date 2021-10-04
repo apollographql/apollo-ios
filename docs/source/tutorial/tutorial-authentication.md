@@ -6,49 +6,55 @@ In this section, you'll add the ability to log in to the example server and obta
 
 > **Note**: The way you log in to this particular server might differ from the way you log in with your own server. Login is often handled by _middleware_, or a layer totally separate from GraphQL.
 > 
-> Regardless of how you obtain the token from your server, you'll send it back to the server the same way in the next part of this tutorial.
+> Regardless of how you obtain the token from your server, you'll usually send it back to the server the same way as demonstrated in the next part of this tutorial.
 
 ## Create a login mutation
 
 A **mutation** is an operation that changes state on your server. In this case, the mutation changes back-end state by creating a session tied to a particular user of your client.
 
-Open [GraphiQL](https://apollo-fullstack-tutorial.herokuapp.com/) and delete anything that's already in the left-hand panel. Open the Docs tab and select the `login` mutation:
+Open [your Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) and click on the plus symbol to add a new tab. Next, click on the Schema icon to get back to looking at your schema, and select "Mutation" to look at your list of mutations: 
+
+<img alt="The list of available mutations" class="screenshot" src="images/sandbox_schema_mutations.png"/>
+
+Scroll down to take a look at the `login` mutation: 
 
 <img alt="The definition of login in the schema" class="screenshot" src="images/schema_login_definition.png"/>
 
-This mutation takes a single argument, the `email` address of the person being logged in. Unlike many GraphQL operations that return objects which need to have fields selected, the `login` mutation returns only a single string.
+Click the play button to the right to open that mutation in the Explorer tab. When it opens, click the plus sign to add the operation: 
 
-In the left-hand panel, add the following mutation definition:
+<img alt="The login mutation after initially being added" class="screenshot" src="images/explorer_added_login_mutation.png"/>
 
-```graphql:title=(GraphiQL)
-mutation Login($email: String) {
-  login(email: $email)
-}
-```
+Explorer tries to be helpful by adding the word `Mutation` after the word `Login`, but the iOS SDK also does that for you - so you'd wind up with a `LoginMutationMutation`. Rename the operation `Login` instead: 
 
-One thing to watch out for: the type of the `$email` argument is a `String` instead of a `String!`. This means it's legal to pass a `null` value (but if you do, you won't get very far).
+<img alt="The renamed operation" class="screenshot" src="images/explorer_login_mutation_rename.png"/>
 
-In the Query Variables section at the bottom, add the following:
+Notice that there are no brackets after the call to the `login` mutation - this is because the type returned by this mutation is `String`, which is known as a **scalar type**. This means it won't have properties the way an object would, so you don't need to specify what properties you want returned to you. 
 
-```json:title=(GraphiQL)
-{ "email": null }
-```
+You'll also notice that `email` wasn't automatically added as an argument even though it doesn't seem to have a default value: That's because `email` is of type `String` - which remember, in GraphQL, means that it's **not** required (although obviously you won't get too far without it).  
 
-And press the big Play button to run your mutation. You'll see that you get back `null` for the login: 
+Click the plus sign next to the `email` argument to have that argument added: 
+
+<img alt="The operation with the email argument" class="screenshot" src="images/explorer_login_email_added.png"/>
+
+You'll also notice that Explorer has added a variable to your "Variables" section to match the login email. 
+
+Click the Submit Operation button your mutation. You'll see that  since you sent `null` for the email address, you get back `null` for the login: 
 
 <img alt="Results of passing a null email" class="screenshot" src="images/login_mutation_null.png"/>
 
 Now, replace `null` in the Query Variables section with an actual email address:
 
-```json:title=(GraphiQL)
-{ "email": "me@example.com" }
+```json:title=(Sandbox%20Explorer)
+{ "loginEmail": "me@example.com" }
 ```
 
-Press the Play button, and you'll get an actual response:
+Press the Submit Operation button, and this time you'll get an actual response:
 
 <img alt="Results of passing an actual email" class="screenshot" src="images/login_mutation_email.png"/>
 
-Next, copy the query. Create a new empty file named `Login.graphql`, and paste the query into it. Build your project to make sure the codegen adds the mutation to your `API.swift` file.
+Next, copy the operation, either manually or using the meatball menu's "Copy operation" option. 
+
+Open Xcode, create a new empty file named `Login.graphql`, and paste the operation into it. Build your project to make sure the codegen adds the mutation to your `API.swift` file.
 
 ## Define login logic
 
