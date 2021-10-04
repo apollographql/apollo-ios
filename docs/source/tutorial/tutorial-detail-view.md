@@ -13,9 +13,9 @@ However, remember that one of the advantages of GraphQL is that you can query fo
 
 This is especially true when you have a *much* larger query for your detail view than for your list view. Passing the identifier and then fetching based on that is considered a best practice. Even though the amount of data in this case doesn't differ greatly, you'll build out a query to help fetch details based on the ID so you'll know how to do it in the future. 
 
-Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'll add the details you want to display in the detail view. First, you'll want to go back to [your Explorer Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) and make sure that your query works!
+Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'll add the details you want to display in the detail view. First, you'll want to go back to [your Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) and make sure that your query works!
 
-Start by clicking the "New Tab" button in the middle operations section: 
+In the Explorer tab, start by clicking the "New Tab" button in the middle operations section: 
 
 <img alt="the new tab button" class="screenshot" src="images/explorer_new_tab.png"/>
 
@@ -27,7 +27,7 @@ In the left-hand column, click the word "Query" under "Documentation" to be brou
 
 <img alt="The list of possible queries" class="screenshot" src="images/explorer_query_list.png"/>
 
-Select the `launch` query by clicking the button next to it. The Explorer Sandbox will automatically set up the query for you to use: 
+Select the `launch` query by clicking the button next to it. Sandbox Explorer will automatically set up the query for you to use: 
 
 <img alt="What the launch query will look like immediately after adding it" class="screenshot" src="images/explorer_launch_query_start.png"/>
 
@@ -37,7 +37,7 @@ First, change the name of the operation from "Query" to "Launch Details" - that 
 
 Let's go through what's been added here: 
 
-- Again, we've added an operation, but this time it's got a parameter coming into it. This was added automatically by Explorer Sandbox because there is not a default value provided for the non-null `launchId` argument. 
+- Again, we've added an operation, but this time it's got a parameter coming into it. This was added automatically by Sandbox Explorer because there is not a default value provided for the non-null `launchId` argument. 
 - The parameter is prefixed with a `$` for its name, and the type is indicated immediately after. Note that the `ID` type here has an exclamation point, meaning it can't be null. 
 - Within that operation, we make a call to the `launch` query. The `id` is the argument the query is expecting, and the `$launchId` is the name of the parameter we just passed in the line above. 
 - Again, there's blank space for you to add the fields you want to get details for on the returned object, which in this case is a `Launch`. 
@@ -50,9 +50,9 @@ Let's go through what's been added here:
 >
 > Keep this difference in mind when you switch between editing Swift and GraphQL files.
 
-Now, switch back to Explorer Sandbox. Start by using the checkboxes or typing to add the properties you're already requesting in the `LaunchList` query. One difference: Use `LARGE` for the mission patch size since the patch will be displayed in a much larger `ImageView`:
+Now, switch back to Sandbox Explorer. Start by using the checkboxes or typing to add the properties you're already requesting in the `LaunchList` query. One difference: Use `LARGE` for the mission patch size since the patch will be displayed in a much larger `ImageView`:
 
-```graphql:title=(Explorer%20Sandbox)
+```graphql:title=(Sandbox%20Explorer)
 query LaunchDetails($id:ID!) {
   launch(id: $id) {
     id
@@ -75,7 +75,7 @@ Click the buttons to check off `name` and `type`. Next, go back to `Launch` by c
 
 Finally, check off the `isBooked` property on the `Launch`. Your final query should look like this: 
 
-```graphql:title=(Explorer%20Sandbox)
+```graphql:title=(Sandbox%20Explorer)
 query LaunchDetails($launchId: ID!) {
   launch(id: $launchId) {
     id
@@ -95,11 +95,11 @@ query LaunchDetails($launchId: ID!) {
 
 At the bottom of the Operations section, update the Variables section to pass in an ID for a launch. In this case, it needs to be a string that contains a number:
 
-```json:title=(Explorer%20Sandbox)
+```json:title=(Sandbox%20Explorer)
 { "id": "25" }
 ```
 
-This tells the Explorer Sandbox to fill in the value of the `$launchId` variable with the value `"25"` when it runs the query. Press the big play button, and you should get some results back for the launch with ID 25: 
+This tells Sandbox Explorer to fill in the value of the `$launchId` variable with the value `"25"` when it runs the query. Press the big play button, and you should get some results back for the launch with ID 25: 
 
 <img src="images/explorer_launch_detail_result.png" alt="Detail request returning JSON" class="screenshot"/>
 

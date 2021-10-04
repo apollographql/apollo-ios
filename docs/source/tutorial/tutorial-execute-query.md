@@ -2,7 +2,7 @@
 title: "3. Execute your first query"
 ---
 
-The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the Apollo Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com)  for your server, you can see available queries in the Schema Reference tab you opened earlier. 
+The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com)  for your server, you can see available queries in the Schema Reference tab you opened earlier. 
 
 Scroll down to the `launches` query to get details about it:
 
@@ -10,11 +10,11 @@ Scroll down to the `launches` query to get details about it:
 
 Here, you see both the query term itself, the return type, and information about parameters that can be passed to the query.  You can use this information to write a query you'll eventually add to your app. 
 
-To start working with this query in the Explorer Sandbox, select the "play" button to the right side of the information: 
+To start working with this query in the Sandbox Explorer, select the "play" button to the right side of the information: 
 
 <img src="images/open_in_explorer_launches.png" class="screenshot" alt="Open in Explorer"/>
 
-This brings you back into explorer with the sidebar on the left hand side showing documentation for the query you've selected:
+This brings you back into Sandbox's Explorer tab with the sidebar on the left showing documentation for the query you've selected:
 
 <img src="images/explorer_sandbox_open.png" class="screenshot" alt="Docs open in the left sidebar"/>
 
@@ -46,7 +46,7 @@ However, you can also use auto-complete to help you with this. Add a newline bel
 
 <img src="images/explorer_autocomplete.png" class="screenshot" alt="Example of autocomplete"/>
 
-Apollo Studio Sandbox is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes.
+The Sandbox Explorer is a great tool for building and verifying queries so you don't have to repeatedly rebuild your project in Xcode to try out changes.
 
 As the schema indicates, the `launches` query returns a `LaunchConnection` object. This object includes a list of launches, along with fields related to pagination (`cursor` and `hasMore`). The query you've written so far indicates exactly which fields of this `LaunchConnection` object you want to be returned.
 
@@ -56,7 +56,7 @@ Run this query by pressing the "Submit Operation" button, which should now have 
 
 You'll quickly see the query returns results as a JSON object on the right-hand side of the page: 
 
-<img src="images/explorer_launch_list_initial_response.png" class="screenshot" alt="Query JSON in Explorer Sandbox"/>
+<img src="images/explorer_launch_list_initial_response.png" class="screenshot" alt="Query JSON in Sandbox Explorer"/>
 
 This query executes successfully, but it doesn't include any information about the `launches`! That's because we didn't include the necessary field in the query.
 
@@ -66,7 +66,7 @@ Click the button next to the `launches` field at the bottom of the left column. 
 
 The fields you add in this set of brackets will be fetched for every launch in the list. Click the buttons next to `id` and `site` properties to add those two fields. When you're done, your operation should look like this: 
 
-```graphql:title=(Explorer%20Sandbox)
+```graphql:title=(Sandbox%20Explorer)
 query LaunchList {
   launches {
     cursor
@@ -81,7 +81,7 @@ query LaunchList {
 
 Run the operation again, and you'll now see that in addition to the information you got back before, you're also getting a list of launches with their ID and site information: 
 
-<img src="images/completed_id_query.png" class="screenshot" alt="Updated query JSON in Explorer Sandbox"/>
+<img src="images/completed_id_query.png" class="screenshot" alt="Updated query JSON in Sandbox Explorer"/>
 
 ## Adding your query to Xcode
 
@@ -93,7 +93,7 @@ Now that your query is fetching the right data, head back to Xcode.
 
 2. Click **Next** and name the file `LaunchList.graphql`. Make sure it's saved at the same level as your `schema.json` file. As previously, don't add it to any target.
 
-3. Copy your final operation from explorer sandbox by selecting the three dot (aka "meatball") menu to the right of your operation name and selecting "Copy Operation": 
+3. Copy your final operation from Sandbox Explorer by selecting the three dot (aka "meatball") menu to the right of your operation name and selecting "Copy Operation": 
 
 <img src="images/explorer_meatball_copy.png" class="screenshot" alt="Copy operation from Explorer Sandbox"/>
 
@@ -113,7 +113,7 @@ You're now ready to generate code from the combination of your saved query and s
 
 ### The `API.swift` file
 
-Open the `API.swift` file. It defines a root class, `LaunchListQuery`, with many nested structs below it. If you compare the structs to the JSON data returned in Explorer Sandbox, you see that the structure matches. These structs include properties only for the fields that your query requests. 
+Open the `API.swift` file. It defines a root class, `LaunchListQuery`, with many nested structs below it. If you compare the structs to the JSON data returned in Sandbox Explorer, you see that the structure matches. These structs include properties only for the fields that your query requests. 
 
 Try commenting out the `id` property in `LaunchList.graphql` using a `#`, saving, then building again. When the build completes, the innermost `Launch` now only includes the built-in `__typename` and the requested `site` property. 
 
@@ -142,7 +142,7 @@ To use the generated operations in `API.swift`, you first create an instance of 
     }
     ```
 
-Build and run your application. CodeSandbox might take a few seconds to spin up your GraphQL server if nobody's been using it recently, but once it's up, you should see a response that resembles the following: 
+Build and run your application. The web host might take a few seconds to spin up your GraphQL server if nobody's been using it recently, but once it's up, you should see a response that resembles the following: 
 
 <img alt="Success log output" class="screenshot" src="images/success_log_barf.png"/>
 

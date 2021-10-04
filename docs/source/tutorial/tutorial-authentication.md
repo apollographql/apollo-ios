@@ -24,7 +24,7 @@ Click the play button to the right to open that mutation in the Explorer tab. Wh
 
 <img alt="The login mutation after initially being added" class="screenshot" src="images/explorer_added_login_mutation.png"/>
 
-Explorer tries to be helpful by adding the word `Mutation` after the word `Login`, but the iOS SDK also does that for you - so you'd wind up with a `LoginMutationMutation`. Rename the operation `Login` instead: 
+Sandbox Explorer tries to be helpful by adding the word `Mutation` after the word `Login`, but the iOS SDK also does that for you - so you'd wind up with a `LoginMutationMutation`. Rename the operation `Login` instead: 
 
 <img alt="The renamed operation" class="screenshot" src="images/explorer_login_mutation_rename.png"/>
 
@@ -36,7 +36,7 @@ Click the plus sign next to the `email` argument to have that argument added:
 
 <img alt="The operation with the email argument" class="screenshot" src="images/explorer_login_email_added.png"/>
 
-You'll also notice that Explorer has added a variable to your "Variables" section to match the login email. 
+You'll also notice that Sandbox Explorer has added a variable to your "Variables" section to match the login email. 
 
 Click the Submit Operation button your mutation. You'll see that  since you sent `null` for the email address, you get back `null` for the login: 
 

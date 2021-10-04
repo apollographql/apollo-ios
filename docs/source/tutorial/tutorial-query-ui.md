@@ -224,7 +224,7 @@ The app is working! However, it doesn't provide much useful information. Let's f
 
 Go back to `LaunchList.graphql`. Your query is already fetching most of the information you want to display, but it would be nice to display both the name of the mission and an image of the patch. 
 
-Looking at the schema in Explorer , you can see that `Launch` has a property of `mission`, which allows you to get details of the mission. A mission has both a `name` and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
+Looking at the schema in Sandbox Explorer , you can see that `Launch` has a property of `mission`, which allows you to get details of the mission. A mission has both a `name` and a `missionPatch` property, and the `missionPatch` can optionally take a parameter about what size something needs to be.
 
 Because loading a table view with large images can impact performance, ask for the name and a `SMALL` mission patch. Update your query to look like the following:
 
