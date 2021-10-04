@@ -223,40 +223,44 @@ You've now got the code to book a trip. Before you run it, let's add the code to
 
 ## Add the `CancelTrip` mutation
 
-The process for the `CancelTrip` mutation is similar to the one for `BookTrip`. Go back to GraphiQL and look at the `cancelTrip` mutation's documentation:
+The process for the `CancelTrip` mutation is similar to the one for `BookTrip`. Go back to the Sandbox's Schema tab, select Mutations,e and look at the `cancelTrip` mutation's documentation:
 
-<img alt="Documentation for the cancel trip mutation" class="screenshot" src="images/graphiql_cancel_trip_mutation.png"/>
+<img alt="Documentation for the cancel trip mutation" class="screenshot" src="images/explorer_cancel_trip_mutation.png"/>
 
-One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time (only one `ID!` is accepted as a parameter).
+Click the play button to the right to open this operation in Explorer, add a new tab to Explorer for this new operation, then click the plus button to create your operation: 
 
-In GraphiQL, add a new mutation that allows you to cancel a booked trip and find out whether the cancellation succeeded: 
+<img alt="Documentation for the cancel trip mutation" class="screenshot" src="images/explorer_cancel_trip_mutation.png"/>
 
-```graphql:title=(GraphiQL)
-mutation CancelTrip($id:ID!) {
-  cancelTrip(launchId:$id) {
+Check off `success` and `message` again to add those properties to the list of ones you want to get back with your cancellation information. 
+
+Again, Explorer's gotten a little verbose here, so update your operation's name and variables to be a little shorter: 
+
+```graphql:title=(Sandbox%20Explorer)
+mutation CancelTrip($id: ID!) {
+  cancelTrip(launchId: $id) {
     success
     message
   }
 }
 ```
 
-In the `Query Variables` section of GraphiQL, you can use the exact same JSON that you used for `BookTrip` (because it also used a single identifier): 
+One key difference from `bookTrips` is that you're only allowed to cancel one trip at a time because only one `ID!` is accepted as a parameter.
+
+In the Variables section of Sandbox Explorer, you can use the exact same JSON that you used for `BookTrip` (because it also used a single identifier called "id"): 
 
 ```json:title=(GraphiQL)
 {"id": "25"}
 ```
 
-Make sure that in the `HTTP Headers` section of GraphiQL, your authorization token is still set up:
+Make sure that in the Headers section, you add your authorization token again (the token added to the tab with `BookTrip` won't carry over to this new tab):
 
-```json:title=(GraphiQL)
-{"Authorization": "YOUR_TOKEN"}
-```
+<img alt="The headers section" class="screenshot" src="images/explorer_add_auth_header.png"/>
 
-Click the play button to cancel the trip, and you should see a successful request: 
+Click the Submit Operation button to cancel the trip, and you should see a successful request: 
 
-<img alt="Successful cancel trip request" class="screenshot" src="images/graphiql_cancel_trip.png"/>
+<img alt="Successful cancel trip request" class="screenshot" src="images/explorer_trip_cancelled.png"/>
 
-It works! Once again, go to **File > New > File... > Empty**, and name this file `CancelTrip.graphql`. Paste in the final query from GraphiQL. Build the application without running it to cause the code generation to see this new mutation and generate code for it.
+It works! Once again, go back to Xcode and create a new empty file, and name it `CancelTrip.graphql`. Paste in the final query from Sandbox Explorer. Build the application without running it to cause the code generation to see this new mutation and generate code for it.
 
 Next, go to the `cancelTrip(with id:)` method in `DetailViewController.swift`. Replace the `print` statement with code that makes the call to cancel the trip: 
 
@@ -274,6 +278,7 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
     }
 
     if let errors = graphQLResult.errors {
+      // From UIViewController+Alert.swift
       self.showAlertForErrors(errors)
     }
   case .failure(let error):
@@ -296,9 +301,9 @@ if cancelResult.success {
 }
 ```
 
-Build and run the application. Select any launch and try to book it. You'll get a success message, but you'll notice that the UI doesn't update. 
+Build and run the application. Select any launch and try to book it. You'll get a success message, but you'll notice that the UI doesn't update, even if you go out of the detail view and back into it again. 
 
-Why is that? Because the trip you've got stored locally still has the old value for `isBooked`. 
+Why is that? Because the trip you've got stored locally in your cache still has the old value for `isBooked`. 
 
 There are a number of ways to change this, a couple of which you'll learn in the next section. For now we'll focus on the one that requires the fewest changes to your code: re-fetching the booking info from the network.
 
@@ -330,13 +335,13 @@ private func loadLaunchDetails(forceReload: Bool = false) {
     cachePolicy = .returnCacheDataElseFetch
   } 
         
-  Network.shared.apollo.fetch(query: LaunchDetailsQuery(id: launchID), cachePolicy: cachePolicy) { [weak self] result in
+  Network.shared.apollo.fetch(query: LaunchDetailsQuery(launchId: launchID), cachePolicy: cachePolicy) { [weak self] result in
     // (Rest of this remains the same)
   }
 }
 ```
 
-Next, add the following line to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods:
+Next, add the following line to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods before showing the alerts:
 
 ```swift:title=DetailViewController.swift
 self.loadLaunchDetails(forceReload: true)
