@@ -31,7 +31,7 @@ Select the `launch` query by clicking the button next to it. Sandbox Explorer wi
 
 <img alt="What the launch query will look like immediately after adding it" class="screenshot" src="images/explorer_launch_query_start.png"/>
 
-First, change the name of the operation from "Query" to "Launch Details" - that will then reflect in the tab name and make it easier to tell which query you're working with:  
+First, change the name of the operation from "Query" to "LaunchDetails" - that will then reflect in the tab name and make it easier to tell which query you're working with:  
 
 <img alt="The renamed query" class="screenshot" src="images/explorer_details_renamed.png"/>
 
