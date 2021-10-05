@@ -336,7 +336,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
   } 
         
   Network.shared.apollo.fetch(query: LaunchDetailsQuery(launchId: launchID), cachePolicy: cachePolicy) { [weak self] result in
-    // (Rest of this remains the same)
+    // (Handling of the network call's completion remains the same)
   }
 }
 ```
