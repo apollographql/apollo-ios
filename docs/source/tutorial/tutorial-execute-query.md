@@ -24,7 +24,7 @@ Notice the small button next to the `launches` icon. Click this button to add th
 
 When the query is added, it will look like this: 
 
-<img src="explorer_initial_added_query.png" class="screenshot" alt="The query once it's been added to the Operations section"/>
+<img src="images/explorer_initial_added_query.png" class="screenshot" alt="The query once it's been added to the Operations section"/>
 
 Let's break down what you're seeing here: 
 
@@ -34,11 +34,11 @@ Let's break down what you're seeing here:
 
 The Apollo iOS SDK requires every query to have a name (even though this isn't required by the GraphQL spec). Since you're going to be creating more than one query, it's also a good idea to give this operation a specific name other than `Query`. Change the name of the operation to `LaunchList`: 
 
-<img src="explorer_launch_list_rename.png" class="screenshot" alt="Renaming the query"/>
+<img src="images/explorer_launch_list_rename.png" class="screenshot" alt="Renaming the query"/>
 
 Next, on the left hand side, you can select what fields you want back in the returned object. Start by clicking the button next to the `cursor` field. It will mark that field as selected, then insert it into your operations: 
 
-<img src="explorer_check_cursor.png" class="screenshot" alt="After adding the cursor field."/>
+<img src="images/explorer_check_cursor.png" class="screenshot" alt="After adding the cursor field."/>
 
 This is probably the easiest way to add fields to your object, since it knows how everything is spelled and what type everything is. 
 
