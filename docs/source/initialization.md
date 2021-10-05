@@ -311,6 +311,7 @@ struct NetworkInterceptorProvider: InterceptorProvider {
 This is the equivalent of what you'd set up in the [Basic Client Creation](#basic-client-creation) section, and what you'd call into from your application.
 
 ```swift
+import Foundation
 import Apollo 
 
 class Network {
