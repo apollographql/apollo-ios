@@ -142,12 +142,17 @@ override func viewDidLoad() {
 
 Next, you need to add some handling when the cell is tapped. Normally that's handled by `prepare(for segue:)`, but because you're going to be reloading things in the current view controller, you won't want the segue to perform at all. 
 
-Luckily, you can override the `shouldPerformSegue(withIdentifier:sender:)` method to say, "In this case, don't perform this segue, and take these other actions instead."
+Luckily, you can use `UIViewController`'s  `shouldPerformSegue(withIdentifier:sender:)` method to say, "In this case, don't perform this segue, and take these other actions instead."
 
-Update the code in this method to perform the segue for anything in the `.launches` section and _not_ perform it (instead loading more launches if needed) for the `.loading` section. Replace the `TODO` and everything below it with: 
+This method was already overridden in the starter project. Update the code within it to perform the segue for anything in the `.launches` section and _not_ perform it (instead loading more launches if needed) for the `.loading` section. Replace the `TODO` and everything below it with: 
 
 
 ```swift:title=LaunchesViewController.swift     
+ guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
+  assertionFailure("Invalid section")
+  return false
+}
+
 switch listSection {
   case .launches:
     return true
