@@ -30,7 +30,7 @@ Let's break down what you're seeing here:
 
 - The type of the operation, `query`, followed by the name of the operation, currently `Query` (we'll make that more specific in a second), is the outermost set of brackets.
 - The actual query being called is the next set of brackets in. Since the `arguments` for this query both have default values, they are not automatically added to the query for you.
-- An error in the empty space where between the brackets, which is where you'll put the list of information you want back from each launch. 
+- An error in the empty space between the brackets, which is where you'll put the list of information you want back from each launch. 
 
 The Apollo iOS SDK requires every query to have a name (even though this isn't required by the GraphQL spec). Since you're going to be creating more than one query, it's also a good idea to give this operation a specific name than `Query`. Change the name of the operation to `LaunchList`: 
 
