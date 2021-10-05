@@ -93,7 +93,7 @@ Still in `submitTapped`, replace the `TODO` with a call to perform the login mut
 
 Next, you need to store the login credential that's returned by the server. Login credentials should always be stored in the Keychain, but interacting with it directly is challenging, so you'll be using the `KeychainSwift` library which has already been added as a Swift Package to this project.
 
-At the top of `LoginViewController.swift`, import the library you just added:
+At the top of `LoginViewController.swift`, import the `KeychainSwift` library:
 
 ```swift:title=LoginViewController.swift
 import KeychainSwift
