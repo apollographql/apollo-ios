@@ -239,4 +239,4 @@ You'll notice that many of the more recent launches have a rocket type of `FT`. 
 
 <img src="images/detail_loaded_merlin_c.png" alt="Final display with different rocket type" class="screenshot" width="300"/>
 
-You may have noticed that the detail view includes a `Book Now!` button, but there's no way to book a seat yet. To fix that, let's [learn how to make changes to objects in your graph with mutations](./tutorial-mutations).
+You may have noticed that the detail view includes a `Book Now!` button, but there's no way to book a seat yet. To fix that, let's [learn how to make changes to objects in your graph with mutations, including authentication](./tutorial-authentication).
