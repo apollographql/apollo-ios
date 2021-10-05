@@ -7,6 +7,9 @@ title: Creating a client
 In most cases, you'll want to create a single shared instance of `ApolloClient` and point it at your GraphQL server. The easiest way to do this is to create a singleton:
 
 ```swift
+import Foundation
+import Apollo
+
 class Network {
   static let shared = Network() 
     
@@ -119,6 +122,8 @@ Here's a sample how to use an advanced client with some custom interceptors. Thi
 An interceptor which checks if the user is logged in and then renews the user's token if it is expired asynchronously before continuing the chain, using the above-mentioned `UserManager` class: 
 
 ```swift
+import Apollo
+
 class UserManagementInterceptor: ApolloInterceptor {
     
     enum UserError: Error {
@@ -198,6 +203,8 @@ class UserManagementInterceptor: ApolloInterceptor {
 An interceptor which logs the outgoing request using the above-mentioned `Logger` class, then moves on:
 
 ```swift
+import Apollo 
+
 class RequestLoggingInterceptor: ApolloInterceptor {
     
     func interceptAsync<Operation: GraphQLOperation>(
@@ -221,6 +228,8 @@ An interceptor using the above-mentioned `Logger` which logs the incoming respon
 Note that this is an example of an interceptor which can both proceed **and** throw an error - we don't necessarily want to stop processing if this was set up in the wrong place, but we do want to know about it. 
 
 ```swift
+import Apollo 
+
 class ResponseLoggingInterceptor: ApolloInterceptor {
     
     enum ResponseLoggingError: Error {
@@ -264,6 +273,9 @@ class ResponseLoggingInterceptor: ApolloInterceptor {
 This `InterceptorProvider` uses all of the interceptors that (as of this writing) are in the `DefaultInterceptorProvider`, interspersed at the appropriate points with the sample interceptors created above: 
 
 ```swift
+import Foundation
+import Apollo 
+
 struct NetworkInterceptorProvider: InterceptorProvider {
     
     // These properties will remain the same throughout the life of the `InterceptorProvider`, even though they
@@ -299,6 +311,9 @@ struct NetworkInterceptorProvider: InterceptorProvider {
 This is the equivalent of what you'd set up in the [Basic Client Creation](#basic-client-creation) section, and what you'd call into from your application.
 
 ```swift
+import Foundation
+import Apollo 
+
 class Network {
   static let shared = Network()
   
