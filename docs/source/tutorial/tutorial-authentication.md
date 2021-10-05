@@ -58,7 +58,7 @@ Open Xcode, create a new empty file named `Login.graphql`, and paste the operati
 
 ## Define login logic
 
-Now it's time to actually log the user in. You'll notice in the `IBAction` for `submitTapped`, we're doing some very basic validation that the user has actually entered an email address before submitting it. 
+Now it's time to actually log the user in, using `LoginViewController.swift`. You'll notice in the `IBAction` for `submitTapped`, we're doing some very basic validation that the user has actually entered an email address before submitting it. 
 
 Still in `submitTapped`, replace the `TODO` with a call to perform the login mutation:
 
