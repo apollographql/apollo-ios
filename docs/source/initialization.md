@@ -7,6 +7,7 @@ title: Creating a client
 In most cases, you'll want to create a single shared instance of `ApolloClient` and point it at your GraphQL server. The easiest way to do this is to create a singleton:
 
 ```swift
+import Foundation
 import Apollo
 
 class Network {
@@ -272,6 +273,7 @@ class ResponseLoggingInterceptor: ApolloInterceptor {
 This `InterceptorProvider` uses all of the interceptors that (as of this writing) are in the `DefaultInterceptorProvider`, interspersed at the appropriate points with the sample interceptors created above: 
 
 ```swift
+import Foundation
 import Apollo 
 
 struct NetworkInterceptorProvider: InterceptorProvider {
