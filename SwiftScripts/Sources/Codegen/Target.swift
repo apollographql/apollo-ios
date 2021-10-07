@@ -2,6 +2,8 @@ import Foundation
 import ApolloCodegenLib
 import ArgumentParser
 
+#warning("TODO: Ensure this script keeps up with the changes to codegen!")
+
 enum Target {
     case starWars
     case gitHub
@@ -43,7 +45,7 @@ enum Target {
             .apollo.childFolderURL(folderName: "AnimalKingdomAPI")
         }
     }
-    
+
     func options(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenOptions {
         let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
         switch self {
