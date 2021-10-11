@@ -20,14 +20,14 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var selections: [Selection] { [
     .field("humanName", String.self),
     .field("favoriteToy", String.self),
-    .field("owner", Human.self),
+    .field("owner", Owner.self),
   ] }
 
   public var humanName: String? { data["humanName"] }
   public var favoriteToy: String { data["favoriteToy"] }
-  public var owner: Human? { data["owner"] }
+  public var owner: Owner? { data["owner"] }
 
-  public struct Human: AnimalKingdomAPI.SelectionSet {
+  public struct Owner: AnimalKingdomAPI.SelectionSet {
     public let data: ResponseDict
     public init(data: ResponseDict) { self.data = data }
 

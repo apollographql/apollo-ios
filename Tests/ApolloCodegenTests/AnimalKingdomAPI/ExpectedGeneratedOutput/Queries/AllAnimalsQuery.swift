@@ -56,13 +56,13 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
     public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
     public static var selections: [Selection] { [
-      .field("allAnimals", [Animal].self),
+      .field("allAnimals", [AllAnimal].self),
     ] }
 
-    public var allAnimals: [Animal] { data["allAnimals"] }
+    public var allAnimals: [AllAnimal] { data["allAnimals"] }
 
-    /// `Animal`
-    public struct Animal: AnimalKindgomAPI.SelectionSet, HasFragments {
+    /// `AllAnimal`
+    public struct AllAnimal: AnimalKindgomAPI.SelectionSet, HasFragments {
       public let data: ResponseDict
       public init(data: ResponseDict) { self.data = data }
 
@@ -76,7 +76,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         .typeCase(AsPet.self),
         .typeCase(AsCat.self),
         .typeCase(AsClassroomPet.self),
-        .field("predators", [Predators].self),
+        .field("predators", [Predator].self),
       ] }
 
       public var height: Height { data["height"] }
@@ -96,7 +96,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var heightInMeters: HeightInMeters { _toFragment() }
       }
 
-      /// `Animal.Height`
+      /// `AllAnimal.Height`
       public struct Height: AnimalKindgomAPI.SelectionSet {
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
@@ -112,8 +112,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var meters: Int { data["meters"] }
       }
 
-      /// `Animal.Predators`
-      public struct Predators: AnimalKindgomAPI.SelectionSet {
+      /// `AllAnimal.Predator`
+      public struct Predator: AnimalKindgomAPI.SelectionSet {
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
 
@@ -127,7 +127,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
-        /// `AllAnimals.Predators.AsWarmBlooded`
+        /// `AllAnimal.Predator.AsWarmBlooded`
         public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
           public let data: ResponseDict
           public init(data: ResponseDict) { self.data = data }
@@ -151,7 +151,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         }
       }
 
-      /// `Animal.AsCat`
+      /// `AllAnimal.AsCat`
       public struct AsCat: AnimalKindgomAPI.TypeCase {
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
@@ -165,10 +165,10 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        public var predators: [Predators] { data["predators"] }
+        public var predators: [Predator] { data["predators"] }
         public var humanName: String? { data["humanName"] }
         public var favoriteToy: String { data["favoriteToy"] }
-        public var owner: PetDetails.Human? { data["owner"] }
+        public var owner: PetDetails.Owner? { data["owner"] }
         public var bodyTemperature: Int { data["bodyTemperature"] }
 
         public struct Height: AnimalKindgomAPI.SelectionSet {
@@ -186,7 +186,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         }
       }
 
-      /// `Animal.AsWarmBlooded`
+      /// `AllAnimal.AsWarmBlooded`
       public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
@@ -200,7 +200,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        public var predators: [Predators] { data["predators"] }
+        public var predators: [Predator] { data["predators"] }
 
         public struct Fragments: ResponseObject {
           public let data: ResponseDict
@@ -223,7 +223,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         }
       }
 
-      /// `Animal.AsPet`
+      /// `AllAnimal.AsPet`
       public struct AsPet: AnimalKindgomAPI.TypeCase, HasFragments {
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
@@ -237,10 +237,10 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        public var predators: [Predators] { data["predators"] }
+        public var predators: [Predator] { data["predators"] }
         public var humanName: String? { data["humanName"] }
         public var favoriteToy: String { data["favoriteToy"] }
-        public var owner: PetDetails.Human? { data["owner"] }
+        public var owner: PetDetails.Owner? { data["owner"] }
 
         public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
@@ -270,7 +270,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var yards: Int { data["yards"] }
         }
 
-        /// `Animal.AsPet.AsWarmBlooded`
+        /// `AllAnimal.AsPet.AsWarmBlooded`
         public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
           public let data: ResponseDict
           public init(data: ResponseDict) { self.data = data }
@@ -280,10 +280,10 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var height: Height { data["height"] }
           public var species: String { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-          public var predators: [Predators] { data["predators"] }
+          public var predators: [Predator] { data["predators"] }
           public var humanName: String? { data["humanName"] }
           public var favoriteToy: String { data["favoriteToy"] }
-          public var owner: PetDetails.Human? { data["owner"] }
+          public var owner: PetDetails.Owner? { data["owner"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
 
           public struct Fragments: ResponseObject {
@@ -297,7 +297,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         }
       }
 
-      /// `Animal.AsClassroomPet`
+      /// `AllAnimal.AsClassroomPet`
       public struct AsClassroomPet: AnimalKindgomAPI.TypeCase {
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
@@ -310,7 +310,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        public var predators: [Predators] { data["predators"] }
+        public var predators: [Predator] { data["predators"] }
 
         public var asBird: AsBird? { _asType() }
 
@@ -324,10 +324,10 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var height: Height { data["height"] }
           public var species: String { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-          public var predators: [Predators] { data["predators"] }
+          public var predators: [Predator] { data["predators"] }
           public var humanName: String? { data["humanName"] }
           public var favoriteToy: String { data["favoriteToy"] }
-          public var owner: PetDetails.Human? { data["owner"] }
+          public var owner: PetDetails.Owner? { data["owner"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
           public var wingspan: Int { data["wingspan"] }
 
