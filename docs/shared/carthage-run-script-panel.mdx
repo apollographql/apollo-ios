@@ -13,6 +13,9 @@ The scripts and binaries which you need to generate code will be included in the
 Once everyone's on the same page about that, you should be able to use this build script:
 
 ```sh
+# Don't run this during index builds
+if [ $ACTION = "indexbuild" ]; then exit 0; fi
+
 SCRIPT_PATH="${SRCROOT}/Carthage/Checkouts/apollo-ios/scripts"
 cd "${SRCROOT}/${TARGET_NAME}"
 "${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
