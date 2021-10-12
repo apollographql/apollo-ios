@@ -27,3 +27,15 @@ public extension GraphQLInterfaceType {
     return mock
   }
 }
+
+public extension GraphQLUnionType {
+  class func mock(
+    name: String = "",
+    types: [GraphQLObjectType] = []
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.types = types
+    return mock
+  }
+}

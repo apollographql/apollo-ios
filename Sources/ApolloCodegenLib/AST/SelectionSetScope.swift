@@ -7,7 +7,7 @@ class SelectionSetScope {
 
   weak var parent: SelectionSetScope?
 
-  private(set) var children: [SelectionSetScope]? = nil
+  private(set) var children: [SelectionSetScope] = []
 
   let type: GraphQLCompositeType
 
@@ -44,46 +44,59 @@ class SelectionSetScope {
   lazy var mergedSelections: OrderedSet<Selection>? = {
     var selections = selections
 
-    if let parent = parent {
-      selections.append(contentsOf: parent.fieldSelections)
-
-      if let siblings = parent.children {
-        for sibling in siblings {
-          if let siblingSelections = selectionsToMerge(from: sibling) {
-            selections.append(contentsOf: siblingSelections)
-          }
-        }
-      }
+    if let parentMergedSelections = selectionsToMerge(fromParent: parent) {
+      selections.append(contentsOf: parentMergedSelections)
     }
 
-    if let children = children {
-
-    }
     return selections.isEmpty ? nil : selections
   }()
 
-  private func selectionsToMerge(from other: SelectionSetScope) -> OrderedSet<Selection>? {
-    guard other !== self else { return nil }
+  private func selectionsToMerge(fromParent parent: SelectionSetScope?) -> [Selection]? {
+    guard let parent = parent else { return nil }
+    var selections: [Selection] = parent.fieldSelections
+
+    if let recursiveParentSelections = selectionsToMerge(fromParent: parent.parent) {
+      selections = recursiveParentSelections + selections
+    }
+
+    for sibling in parent.children {
+      selections.append(contentsOf: selectionsToMerge(fromSibling: sibling))
+    }
+
+    return selections
+  }
+
+  private func selectionsToMerge(fromSibling other: SelectionSetScope) -> [Selection] {
+    guard other !== self else { return [] }
     
     switch (self.type, other.type) {
     case let (selfType as GraphQLObjectType, otherType as GraphQLObjectType)
       where selfType.name == otherType.name:
-      return other.selections
+      return other.fieldSelections + other.children.flatMap { self.selectionsToMerge(fromSibling: $0) }
 
     case let (selfType as GraphQLObjectType, otherType as GraphQLInterfaceType)
       where selfType.interfaces.contains { $0.name == otherType.name }:
-      return other.selections
-//
-//    case let (selfType as GraphQLObjectType, otherType as GraphQLUnionType):
-//      return otherType.types.contains { $0.name == selfType.name }
+      return other.fieldSelections
+
+    case (is GraphQLObjectType, is GraphQLUnionType):
+      return other.children.flatMap { self.selectionsToMerge(fromSibling: $0) }
 //
 //
 //    case let (selfType as GraphQLInterfaceType, otherType as GraphQLObjectType):
 //      return otherType.interfaces.contains { $0.name == selfType.name }
 //
-//    case let (selfType as GraphQLInterfaceType, otherType as GraphQLInterfaceType):
-//      return false
-    default: return nil
+    case let (selfType as GraphQLInterfaceType, otherType as GraphQLInterfaceType)
+      where selfType.interfaces.contains { $0.name == otherType.name }:
+      return other.fieldSelections
+
+//    case let (selfType as GraphQLUnionType, otherType as GraphQLObjectType):
+//      return other.children.flatMap { self.selectionsToMerge(from: $0) }
+
+    default: return []
     }
   }
 }
+
+//fileprivate protocol SelectionMergeable: GraphQLCompositeType {
+//  var shouldMergeFieldsOfType
+//}
