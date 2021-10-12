@@ -183,7 +183,7 @@ class SelectionSetScopeTests: XCTestCase {
   ///   }
   /// }
   /// Expected:
-  /// Both selection sets should have mergedSelections [wingspan, species]
+  /// Bird and Cat selections sets should not merge eachother's selections
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsDifferentObjectType_doesNotMergesSiblingSelections() {
     // given
     let parent = SelectionSetScope(selectionSet: .mock(
@@ -197,6 +197,117 @@ class SelectionSetScopeTests: XCTestCase {
         .inlineFragment(.mock(
           selectionSet: .mock(
             parentType: GraphQLObjectType.mock(name: "Cat"),
+            selections: [.field(.mock(name: "species"))]
+          ))),
+      ]
+    ), parent: nil)
+
+    let sibling1 = parent.children![0]
+    let sibling2 = parent.children![1]
+
+    let sibling1Expected: OrderedSet = OrderedSet(
+      sibling1.selections.elements
+    )
+
+    let sibling2Expected: OrderedSet = OrderedSet(
+      sibling2.selections.elements
+    )
+
+    // when
+    let sibling1Actual = sibling1.mergedSelections
+    let sibling2Actual = sibling2.mergedSelections
+
+    // then
+    expect(sibling1Actual).to(equal(sibling1Expected))
+    expect(sibling2Actual).to(equal(sibling2Expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on Bird {
+  ///      wingspan
+  ///    }
+  ///    ... on Pet { // Bird Implements Pet
+  ///      species
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan, species]
+  /// Pet mergedSelections: [species]
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() {
+    // given
+    let Pet = GraphQLInterfaceType.mock(name: "Pet")
+    let Bird = GraphQLObjectType.mock(name: "Bird", interfaces: [Pet])
+
+    let parent = SelectionSetScope(selectionSet: .mock(
+      parentType: GraphQLInterfaceType.mock(name: "Animal"),
+      selections: [
+        .inlineFragment(.mock(
+          selectionSet: .mock(
+            parentType: Bird,
+            selections: [.field(.mock(name: "wingspan"))]
+          ))),
+        .inlineFragment(.mock(
+          selectionSet: .mock(
+            parentType: Pet,
+            selections: [.field(.mock(name: "species"))]
+          ))),
+      ]
+    ), parent: nil)
+
+    let sibling1 = parent.children![0]
+    let sibling2 = parent.children![1]
+
+    let sibling1Expected: OrderedSet = OrderedSet(
+      sibling1.selections.elements +
+      sibling2.selections.elements
+    )
+
+    let sibling2Expected: OrderedSet = OrderedSet(
+      sibling2.selections.elements
+    )
+
+    // when
+    let sibling1Actual = sibling1.mergedSelections
+    let sibling2Actual = sibling2.mergedSelections
+
+    // then
+    expect(sibling1Actual).to(equal(sibling1Expected))
+    expect(sibling2Actual).to(equal(sibling2Expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on Bird {
+  ///      wingspan
+  ///    }
+  ///    ... on Pet { // Bird does not implement Pet
+  ///      species
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan]
+  /// Pet mergedSelections: [species]
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() {
+    // given
+    let Pet = GraphQLInterfaceType.mock(name: "Pet")
+    let Bird = GraphQLObjectType.mock(name: "Bird")
+
+    let parent = SelectionSetScope(selectionSet: .mock(
+      parentType: GraphQLInterfaceType.mock(name: "Animal"),
+      selections: [
+        .inlineFragment(.mock(
+          selectionSet: .mock(
+            parentType: Bird,
+            selections: [.field(.mock(name: "wingspan"))]
+          ))),
+        .inlineFragment(.mock(
+          selectionSet: .mock(
+            parentType: Pet,
             selections: [.field(.mock(name: "species"))]
           ))),
       ]

@@ -70,8 +70,9 @@ class SelectionSetScope {
       where selfType.name == otherType.name:
       return other.selections
 
-//    case let (selfType as GraphQLObjectType, otherType as GraphQLInterfaceType):
-//      return selfType.interfaces.contains { $0.name == otherType.name }
+    case let (selfType as GraphQLObjectType, otherType as GraphQLInterfaceType)
+      where selfType.interfaces.contains { $0.name == otherType.name }:
+      return other.selections
 //
 //    case let (selfType as GraphQLObjectType, otherType as GraphQLUnionType):
 //      return otherType.types.contains { $0.name == selfType.name }
