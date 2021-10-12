@@ -36,7 +36,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children?[0]
     expect(child?.parent).to(beIdenticalTo(subject))
     expect(child?.type.name).to(equal("Bird"))
-    expect(child?.selections?.elements).to(equal(childSelections))
+    expect(child?.selections.elements).to(equal(childSelections))
   }
 
   /// Example:
@@ -67,7 +67,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children?[0]
     expect(child?.parent).to(beIdenticalTo(subject))
     expect(child?.type.name).to(equal("Animal"))
-    expect(child?.selections?.elements).to(equal(childSelections))
+    expect(child?.selections.elements).to(equal(childSelections))
   }
 
   // MARK: - Merged Selections
@@ -99,7 +99,7 @@ class SelectionSetScopeTests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test__mergedSelections__givenSelectionSetWithSelectionsAndParentSelections_returnsSelfAndParentSelections() {
+  func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() {
     // given
     let parent = SelectionSetScope(selectionSet: .mock(
       selections: [.field(.mock(name: "A"))]
@@ -109,7 +109,7 @@ class SelectionSetScopeTests: XCTestCase {
       selections: [.field(.mock(name: "B"))]
     ), parent: parent)
 
-    let expected: OrderedSet = OrderedSet(subject.selections!.elements + parent.selections!.elements)
+    let expected: OrderedSet = OrderedSet(subject.selections.elements + parent.selections.elements)
 
     // when
     let actual = subject.mergedSelections
@@ -153,13 +153,64 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2 = parent.children![1]
 
     let sibling1Expected: OrderedSet = OrderedSet(
-      sibling1.selections!.elements +
-      sibling2.selections!.elements
+      sibling1.selections.elements +
+      sibling2.selections.elements
     )
 
     let sibling2Expected: OrderedSet = OrderedSet(
-      sibling2.selections!.elements +
-      sibling1.selections!.elements
+      sibling2.selections.elements +
+      sibling1.selections.elements
+    )
+
+    // when
+    let sibling1Actual = sibling1.mergedSelections
+    let sibling2Actual = sibling2.mergedSelections
+
+    // then
+    expect(sibling1Actual).to(equal(sibling1Expected))
+    expect(sibling2Actual).to(equal(sibling2Expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on Bird {
+  ///      wingspan
+  ///    }
+  ///    ... on Cat {
+  ///      species
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// Both selection sets should have mergedSelections [wingspan, species]
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsDifferentObjectType_doesNotMergesSiblingSelections() {
+    // given
+    let parent = SelectionSetScope(selectionSet: .mock(
+      parentType: GraphQLInterfaceType.mock(name: "Animal"),
+      selections: [
+        .inlineFragment(.mock(
+          selectionSet: .mock(
+            parentType: GraphQLObjectType.mock(name: "Bird"),
+            selections: [.field(.mock(name: "wingspan"))]
+          ))),
+        .inlineFragment(.mock(
+          selectionSet: .mock(
+            parentType: GraphQLObjectType.mock(name: "Cat"),
+            selections: [.field(.mock(name: "species"))]
+          ))),
+      ]
+    ), parent: nil)
+
+    let sibling1 = parent.children![0]
+    let sibling2 = parent.children![1]
+
+    let sibling1Expected: OrderedSet = OrderedSet(
+      sibling1.selections.elements
+    )
+
+    let sibling2Expected: OrderedSet = OrderedSet(
+      sibling2.selections.elements
     )
 
     // when

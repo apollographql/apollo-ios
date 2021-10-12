@@ -314,7 +314,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         public var asBird: AsBird? { _asType() }
 
-        /// `Animal.AsClassroomPet.AsBird`
+        /// `AllAnimal.AsClassroomPet.AsBird`
         public struct AsBird: AnimalKindgomAPI.SelectionSet {
           public let data: ResponseDict
           public init(data: ResponseDict) { self.data = data }

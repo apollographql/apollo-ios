@@ -3,6 +3,7 @@ import OrderedCollections
 
 class SelectionSetScope {
   typealias Selection = CompilationResult.Selection
+  typealias Field = CompilationResult.Field
 
   weak var parent: SelectionSetScope?
 
@@ -10,11 +11,12 @@ class SelectionSetScope {
 
   let type: GraphQLCompositeType
 
-  let selections: OrderedSet<Selection>?
+  let selections: OrderedSet<Selection>
 
   init(selectionSet: CompilationResult.SelectionSet, parent: SelectionSetScope?) {
     self.parent = parent
     self.type = selectionSet.parentType
+
     self.selections = OrderedSet(selectionSet.selections)
 
     self.children = selectionSet.selections.compactMap {
@@ -29,19 +31,25 @@ class SelectionSetScope {
 //    self.children = all type case selections in selections array
   }
 
-  lazy var mergedSelections: OrderedSet<Selection>? = { // lazy var?
-    var selections: OrderedSet<Selection> = selections ?? []
+  /// All of the selections on the selection set that are fields. Does not traverse children.
+  lazy var fieldSelections: [Selection] = {
+    selections.compactMap {
+      switch $0.self {
+      case .field: return $0
+      default: return nil
+      }
+    }
+  }()
+
+  lazy var mergedSelections: OrderedSet<Selection>? = {
+    var selections = selections
 
     if let parent = parent {
-      if let parentSelections = parent.selections {
-        selections.append(contentsOf: parentSelections)
-      }
+      selections.append(contentsOf: parent.fieldSelections)
 
       if let siblings = parent.children {
         for sibling in siblings {
-          if sibling !== self,
-             let siblingSelections = sibling.selections,
-             shouldMergeSelections(of: sibling.type) {
+          if let siblingSelections = selectionsToMerge(from: sibling) {
             selections.append(contentsOf: siblingSelections)
           }
         }
@@ -54,24 +62,27 @@ class SelectionSetScope {
     return selections.isEmpty ? nil : selections
   }()
 
-  private func shouldMergeSelections(of otherType: GraphQLCompositeType) -> Bool {
-    switch (self.type, otherType) {
-    case let (selfType as GraphQLObjectType, otherType as GraphQLObjectType):
-      return selfType.name == otherType.name
+  private func selectionsToMerge(from other: SelectionSetScope) -> OrderedSet<Selection>? {
+    guard other !== self else { return nil }
+    
+    switch (self.type, other.type) {
+    case let (selfType as GraphQLObjectType, otherType as GraphQLObjectType)
+      where selfType.name == otherType.name:
+      return other.selections
 
-    case let (selfType as GraphQLObjectType, otherType as GraphQLInterfaceType):
-      return selfType.interfaces.contains { $0.name == otherType.name }
-
-    case let (selfType as GraphQLObjectType, otherType as GraphQLUnionType):
-      return otherType.types.contains { $0.name == selfType.name }
-
-
-    case let (selfType as GraphQLInterfaceType, otherType as GraphQLObjectType):
-      return otherType.interfaces.contains { $0.name == selfType.name }
-
-    case let (selfType as GraphQLInterfaceType, otherType as GraphQLInterfaceType):
-      return false
-    default: return false
+//    case let (selfType as GraphQLObjectType, otherType as GraphQLInterfaceType):
+//      return selfType.interfaces.contains { $0.name == otherType.name }
+//
+//    case let (selfType as GraphQLObjectType, otherType as GraphQLUnionType):
+//      return otherType.types.contains { $0.name == selfType.name }
+//
+//
+//    case let (selfType as GraphQLInterfaceType, otherType as GraphQLObjectType):
+//      return otherType.interfaces.contains { $0.name == selfType.name }
+//
+//    case let (selfType as GraphQLInterfaceType, otherType as GraphQLInterfaceType):
+//      return false
+    default: return nil
     }
   }
 }
