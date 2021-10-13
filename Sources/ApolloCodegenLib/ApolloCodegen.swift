@@ -1,4 +1,5 @@
 import Foundation
+import PathKit
 
 // Only available on macOS
 #if os(macOS)
@@ -7,40 +8,75 @@ import Foundation
 public class ApolloCodegen {
   
   /// Errors which can happen with code generation
-  public enum CodegenError: Error, LocalizedError {
-    case folderDoesNotExist(_ url: URL)
-    case multipleFilesButNotDirectoryURL(_ url: URL)
-    case singleFileButNotSwiftFileURL(_ url: URL)
-    
+  public enum Error: Swift.Error, LocalizedError {
+    case pathNotFound(_ path: String)
+    case pathNotAFile(_ path: String)
+    case pathNotADirectory(_ path: String)
+    case cannotCreatePath(_ path: String)
+
     public var errorDescription: String? {
       switch self {
-      case .folderDoesNotExist(let url):
-        return "Can't run codegen trying to run the command from \(url) because there is no folder there! This should be the folder which, at some depth, contains all your `.graphql` files."
-      case .multipleFilesButNotDirectoryURL(let url):
-        return "Codegen is requesting multiple file generation, but the URL passed in (\(url)) is not a directory URL. Please check your URL and try again."
-      case .singleFileButNotSwiftFileURL(let url):
-        return "Codegen is requesting single file generation, but the URL passed in (\(url)) is a not a Swift file URL. Please check your URL and try again."
+      case .pathNotFound(let path):
+        return "\(path) cannot be found."
+      case .pathNotAFile(let path):
+        return "\(path) is not a file."
+      case .pathNotADirectory(let path):
+        return "\(path) is not a directory."
+      case .cannotCreatePath(let path):
+        return "Cannot create path at \(path)"
       }
     }
   }
   
-  /// Runs code generation from the given folder with the passed-in options
+  /// Executes the code generation engine with a specified configuration.
   ///
   /// - Parameters:
-  ///   - folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
-  ///   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
-  ///   - options: The options object to use to run the code generation.
-  /// - Returns: Output from a successful run
-  @discardableResult
-  public static func run(from folder: URL,
-                         with cliFolderURL: URL,
-                         options: ApolloCodegenConfiguration) throws -> String {
-    guard FileManager.default.apollo.folderExists(at: folder) else {
-      throw CodegenError.folderDoesNotExist(folder)
+  ///   - configuration: The configuration to use to build the code generation.
+  public static func build(with configuration: ApolloCodegenConfiguration) throws {
+    try validate(configuration)
+  }
+
+  /// This is a preflight check to ensure that the specified configuration is valid before attempting to build the code generation output.
+  private static func validate(_ config: ApolloCodegenConfiguration) throws {
+
+    // File inputs
+
+    let schemaInputPath = Path(config.input.schemaPath)
+
+    guard schemaInputPath.exists else {
+      throw Error.pathNotFound(schemaInputPath.string)
     }
 
-    #warning("TODO: Build folder structure from configuration")
-    fatalError("Not implemented!")
+    guard schemaInputPath.isFile else {
+      throw Error.pathNotAFile(schemaInputPath.string)
+    }
+
+    // File outputs - schema types
+
+    let schemaOutputPath = Path(config.output.schemaTypes.path)
+    try validateDirectory(path: schemaOutputPath)
+
+    // File outputs - operations
+
+    if case .absolute(let path) = config.output.operations {
+      let operationsOutputPath = Path(path)
+      try validateDirectory(path: operationsOutputPath)
+    }
+  }
+
+  private static func validateDirectory(path: Path) throws {
+    switch (path.exists, path.isFile) {
+    case (true, true):
+      throw Error.pathNotADirectory(path.string)
+    case (false, _):
+      do {
+        try path.mkpath()
+      } catch {
+        throw Error.cannotCreatePath(path.string)
+      }
+    default:
+      break
+    }
   }
 }
 

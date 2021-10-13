@@ -7,7 +7,9 @@ import ApolloUtils
 extension FileManager: ApolloCompatible {}
 
 extension ApolloExtension where Base == FileManager {
-  
+
+  // MARK: Presence
+
   /// Checks if a file exists (and is not a folder) at the given path
   ///
   /// - Parameter path: The path to check
@@ -43,7 +45,9 @@ extension ApolloExtension where Base == FileManager {
   public func folderExists(at url: URL) -> Bool {
     return folderExists(at: url.path)
   }
-  
+
+  // MARK: Manipulation
+
   /// Checks if a folder exists then attempts to delete it if it's there.
   ///
   /// - Parameter url: The URL to delete the folder for
@@ -65,6 +69,28 @@ extension ApolloExtension where Base == FileManager {
     }
     try base.removeItem(at: url)
   }
+
+  /// Creates a file at the specified path and writes any given data to it. If a file already exists at `path`, this method overwrites the
+  /// contents of that file if the current process has the appropriate privileges to do so.
+  ///
+  /// - Parameters:
+  ///   - path: Path to the new file.
+  ///   - data: [optional] Data to write to the new file.
+  public func createFile(at path: String, data: Data? = nil) throws {
+    try createContainingFolderIfNeeded(for: .init(fileURLWithPath: path))
+
+    base.createFile(atPath: path, contents: data, attributes: nil)
+  }
+
+  /// Creates a file at the specified URL and writes any given data to it. If a file already exists at `url`, this method overwrites the
+  /// contents of that file if the current process has the appropriate privileges to do so.
+  ///
+  /// - Parameters:
+  ///   - url: URL to the ne file.
+  ///   - data: [optional] Data to write to the new file.
+  public func createFile(at url: URL, data: Data? = nil) throws {
+    try createFile(at: url.path, data: data)
+  }
   
   /// Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
   ///
@@ -84,7 +110,9 @@ extension ApolloExtension where Base == FileManager {
     }
     try base.createDirectory(atPath: url.path, withIntermediateDirectories: true)
   }
-  
+
+  // MARK: Content
+
   /// Calculates the SHASUM (ie, SHA256 hash) of the given file
   ///
   /// - Parameter fileURL: The file to calculate the SHASUM for.
