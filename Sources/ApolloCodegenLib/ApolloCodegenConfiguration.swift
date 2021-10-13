@@ -1,55 +1,101 @@
 import Foundation
+import PathKit
 
 /// A configuration object that defines behavior for code generation.
 public struct ApolloCodegenConfiguration {
-  /// Specify the input files required for code generation.
+  /// The input paths and files required for code generation.
   public struct FileInput {
-    /// Path to the GraphQL schema file. Can be in JSON or SDL format.
-    public let schema: URL
-    /// Glob of files to search for GraphQL operations. This should be used to find queries and any client schema extensions. Defaults
-    /// to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
+    /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
+    public let schemaPath: String
+    /// Glob of files to search for GraphQL operations. This should be used to find queries and any client schema extensions.
     public let glob: String
+
+    /// Designated initializer.
+    ///
+    /// - Parameters:
+    ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
+    ///  - glob: Glob of files to search for GraphQL operations. This should be used to find queries and any client
+    ///  schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of
+    ///  the folder where the script is run.
+    public init(schemaPath: String, glob: String = "./**/*.graphql") {
+      self.schemaPath = schemaPath
+      self.glob = glob
+    }
   }
 
-  /// Configure the folder structure of the generated files.
+  /// The paths and files output by code generation.
   public struct FileOutput {
-    /// The location structure for the schema types files.
+    /// The local path structure for the generated schema types files.
     public let schemaTypes: SchemaTypesFileOutput
-    /// The location structure for the operation object files.
+    /// The local path structure for the generated operation object files.
     public let operations: OperationsFileOutput
-    /// [optional] Path to an operation id JSON map file. If specified, also stores the operation IDs (hashes) as properties on operation
-    /// types. Defaults to `nil`.
-    public let operationIDs: URL?
+    /// An absolute location to an operation id JSON map file. If specified, also stores the operation IDs (hashes) as properties on
+    /// operation types.
+    public let operationIdentifiersPath: String?
+
+    /// Designated initializer.
+    ///
+    /// - Parameters:
+    ///  - schemaTypes: The local path structure for the generated schema types files.
+    ///  - operations: The local path structure for the generated operation object files. Defaults to `.relative` with a
+    ///  `subpath` of `nil`.
+    ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file. If specified, also stores the
+    ///  operation IDs (hashes) as properties on operation types. Defaults to `nil`.
+    public init(schemaTypes: SchemaTypesFileOutput,
+                operations: OperationsFileOutput = .relative(subpath: nil),
+                operationIdentifiersPath: String? = nil) {
+      self.schemaTypes = schemaTypes
+      self.operations = operations
+      self.operationIdentifiersPath = operationIdentifiersPath
+    }
   }
 
-  /// Defines the location structure for the schema types files.
+  /// The local path structure for the generated schema types files.
   public struct SchemaTypesFileOutput {
     /// Compatible dependency manager automation.
     public enum ModuleType {
-      /// No module will be created for the generated schema types.
-      /// Generated files must be manually added to the main application target.
+      /// No module will be created for the generated schema types. Generated files must be manually added to the main application
+      /// target. The generated files will be namespaced to prevent naming conflicts.
       ///
-      /// Because no module is created, the generated files will be namespaced to prevent naming conflicts.
-      case manuallyLinked
+      /// - Parameters:
+      ///  - namespace: The namespace to use for generated operation objects.
+      case manuallyLinked(namespace: String)
       /// Generates a module with a podspec file that is suitable for linking to your project using CocoaPods.
-      case cocoaPods
+      ///
+      /// - Parameters:
+      ///  - moduleName: The name for the new shared module that will be created.
+      case cocoaPods(moduleName: String)
       /// Generates a module with a cartfile that is suitable for linking to your project using Carthage.
-      case carthage
+      ///
+      /// - Parameters:
+      ///  - moduleName: The name for the new shared module that will be created.
+      case carthage(moduleName: String)
       /// Generates a module with a package.swift file that is suitable for linking to your project using Swift Package Manager
-      case swiftPackageManager
+      ///
+      /// - Parameters:
+      ///  - moduleName: The name for the new shared module that will be created.
+      case swiftPackageManager(moduleName: String)
     }
 
-    /// The namespace to use for generated operation objects. When used with a dependency manager this should be the desired name
-    /// for the new shared module that will be created.
-    public let name: String
-    /// An absolute location where the schema types files should be generated.
-    public let url: URL
+    /// Local path where the generated schema types files should be stored.
+    public let path: String
     /// Automation to ease the integration of the generated schema types file with compatible dependency managers.
     public let dependencyAutomation: ModuleType
+
+    /// Designated initializer.
+    ///
+    /// - Parameters:
+    ///  - path: Local path where the generated schema types files should be stored.
+    ///  - dependencyAutomation: Automation to ease the integration of the generated schema types file with compatible
+    ///  dependency managers. Defaults to `.manuallyLinked` with a `namespace` of `"API"`.
+    public init(path: String, dependencyAutomation: ModuleType = .manuallyLinked(namespace: "API")) {
+      self.path = path
+      self.dependencyAutomation = dependencyAutomation
+    }
   }
 
-  /// Defines the location structure for the operation object files.
-  public enum OperationsFileOutput {
+  /// The local path structure for the generated operation object files.
+  public enum OperationsFileOutput: Equatable {
     /// All operation object files will be located in the module with the schema types.
     case inSchemaModule
     /// Operation object files will be co-located relative to the defining operation `.graphql` file. If `subpath` is specified a subfolder
@@ -57,18 +103,18 @@ public struct ApolloCodegenConfiguration {
     /// defined then all operation object files will be generated alongside the `.graphql` file.
     case relative(subpath: String?)
     /// All operation object files will be located in the specified path.
-    case absolute(url: URL)
+    case absolute(path: String)
   }
 
   /// Specify the formatting of the GraphQL query string literal.
-  public enum GraphQLQueryStringLiteralFormat {
+  public enum QueryStringLiteralFormat {
     /// The query string will be copied into the operation object with all line break formatting removed.
     case singleLine
     /// The query string will be copied with original formatting into the operation object.
     case multiline
   }
 
-  public enum CompositionOption {
+  public enum Composition {
     case include
     case exclude
   }
@@ -83,73 +129,59 @@ public struct ApolloCodegenConfiguration {
     case passthroughWithPrefix(String)
   }
 
-  /// Specify the input files required for code generation.
+  /// The input files required for code generation.
   public let input: FileInput
-  /// Define the folder structure of the output files.
+  /// The paths and files output by code generation.
   public let output: FileOutput
-  /// Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array.
+  /// Any non-default rules for pluralization or singularization you wish to include.
   public let additionalInflectionRules: [InflectionRule]
-  /// Formatting of the GraphQL query string literal that is included in each generated operation object. Defaults to `.multiline`.
-  public let graphqlQueryStringLiteralFormat: GraphQLQueryStringLiteralFormat
-  /// How to handle properties using a custom scalar from the schema. Defaults to `.defaultAsString`.
+  /// Formatting of the GraphQL query string literal that is included in each generated operation object.
+  public let queryStringLiteralFormat: QueryStringLiteralFormat
+  /// How to handle properties using a custom scalar from the schema.
   public let customScalarFormat: CustomScalarFormat
-  /// How deprecated enum cases from the schema should be handled. The default of `.include` will cause the generated
-  /// code to include the deprecated enum cases.
-  public let deprecatedEnumCases: CompositionOption
-  /// Whether schema documentation is added to the generated files. The default of `.include` will cause the schema documentation
-  /// comments to be copied over into the generated schema types files.
-  public let schemaDocumentation: CompositionOption
+  /// How deprecated enum cases from the schema should be handled.
+  public let deprecatedEnumCases: Composition
+  /// Whether schema documentation is added to the generated files.
+  public let schemaDocumentation: Composition
 
   /// Designated initializer.
   ///
   /// - Parameters:
-  ///  - input: Specify the input files required for code generation.
-  ///  - output: Define the folder structure of the output files.
+  ///  - input: The input files required for code generation.
+  ///  - output: The paths and files output by code generation.
   ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to
   ///  an empty array.
-  ///  - graphqlQueryStringLiterals: Formatting of the GraphQL query string literal that is included in each generated operation
+  ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is included in each generated operation
   ///  object. Defaults to `.multiline`.
   ///  - customScalarFormat: How to handle properties using a custom scalar from the schema. Defaults to `.defaultAsString`.
-  ///  - deprecatedEnumCases: How deprecated enum cases should be handled in generated code. Defaults to `.include`.
-  ///  - schemaDocumentation: Specifies whether schema documentation is copied into the generated file. Defaults to `.include`.
+  ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled. The default of `.include`
+  ///  will cause the generated code to include the deprecated enum cases.
+  ///  - schemaDocumentation: Whether schema documentation is added to the generated files. The default of `.include` will
+  ///  cause the schema documentation comments to be copied over into the generated schema types files.
   public init(input: FileInput,
               output: FileOutput,
               additionalInflectionRules: [InflectionRule] = [],
-              graphqlQueryStringLiteralFormat: GraphQLQueryStringLiteralFormat = .multiline,
+              queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
               customScalarFormat: CustomScalarFormat = .defaultAsString,
-              deprecatedEnumCases: CompositionOption = .include,
-              schemaDocumentation: CompositionOption = .include) {
+              deprecatedEnumCases: Composition = .include,
+              schemaDocumentation: Composition = .include) {
     self.input = input
     self.output = output
     self.additionalInflectionRules = additionalInflectionRules
-    self.graphqlQueryStringLiteralFormat = graphqlQueryStringLiteralFormat
+    self.queryStringLiteralFormat = queryStringLiteralFormat
     self.customScalarFormat = customScalarFormat
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
   }
 
-  /// Convenience initializer with default values designed to work with a default `ApolloSchemaDownloadConfiguration` instance.
+  /// Convenience initializer with all paths extended from a supplied base path.
   ///
   /// - Parameters:
-  ///  - inputFolderURL: A folder containing the GraphQL schema file.
-  ///  - schemaFilename: The filename of the GraphQL schema file without extension. Defaults to "schema" which is the default
-  ///  output filename of `ApolloSchemaDownloadConfiguration`.
-  ///  - outputFolderURL: A folder for all generated files. This will include schema types and operation objects.
-  ///  - applicationTarget: The name of your application target. This will be used to namespace the generated objects.
-  public init(inputFolderURL: URL,
-              schemaFilename: String = "schema",
-              outputFolderURL: URL,
-              applicationTarget: String) {
-    let schemaURL = inputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
-    let input = FileInput(schema: schemaURL, glob: "./**/*.graphql")
+  ///  - basePath:
+  public init(basePath: String, schemaFilename: String = "schema.graphqls") {
+    let schemaPath = Path(basePath) + schemaFilename
 
-    let schemaTypesOutput = SchemaTypesFileOutput(name: applicationTarget,
-                                                  url: outputFolderURL,
-                                                  dependencyAutomation: .manuallyLinked)
-    let output = FileOutput(schemaTypes: schemaTypesOutput,
-                            operations: .absolute(url: outputFolderURL),
-                            operationIDs: nil)
-
-    self.init(input: input, output: output)
+    self.init(input: .init(schemaPath: schemaPath.string),
+              output: .init(schemaTypes: .init(path: basePath)))
   }
 }
