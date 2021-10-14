@@ -1,6 +1,6 @@
 import XCTest
 import ApolloCodegenTestSupport
-import ApolloCodegenLib
+@testable import ApolloCodegenLib
 import Nimble
 
 class ApolloCodegenConfigurationTests: XCTestCase {
@@ -34,7 +34,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.build(with: config) }.to(
-      throwError(ApolloCodegen.Error.pathNotFound(config.input.schemaPath))
+      throwError(ApolloCodegen.Error.invalidSchemaPath)
     )
   }
 
@@ -46,7 +46,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.build(with: config) }.to(
-      throwError(ApolloCodegen.Error.pathNotFound(config.input.schemaPath))
+      throwError(ApolloCodegen.Error.invalidSchemaPath)
     )
   }
 
@@ -57,7 +57,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.build(with: config) }.to(
-      throwError(ApolloCodegen.Error.pathNotAFile(config.input.schemaPath))
+      throwError(ApolloCodegen.Error.invalidSchemaPath)
     )
   }
 
