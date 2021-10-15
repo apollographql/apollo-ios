@@ -33,7 +33,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     let config = ApolloCodegenConfiguration(basePath: directoryURL.path, schemaFilename: filename)
 
     // then
-    expect { try ApolloCodegen.build(with: config) }.to(
+    expect { try ApolloCodegen.validate(config) }.to(
       throwError(ApolloCodegen.Error.invalidSchemaPath)
     )
   }
@@ -45,7 +45,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
-    expect { try ApolloCodegen.build(with: config) }.to(
+    expect { try ApolloCodegen.validate(config) }.to(
       throwError(ApolloCodegen.Error.invalidSchemaPath)
     )
   }
@@ -56,12 +56,96 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
-    expect { try ApolloCodegen.build(with: config) }.to(
+    expect { try ApolloCodegen.validate(config) }.to(
       throwError(ApolloCodegen.Error.invalidSchemaPath)
     )
   }
 
-  func test_validation_givenSchemaFilename_doesExist_shouldNotThrow() throws {
+  func test_validation_givenSchemaTypesPath_isFile_shouldThrow() throws {
+    // given
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+                                            output: .init(schemaTypes: .init(path: fileURL.path)))
+
+    // when
+    try FileManager.default.apollo.createFile(at: fileURL)
+
+    // then
+    expect { try ApolloCodegen.validate(config) }.to(
+      throwError(ApolloCodegen.Error.invalidSchemaTypesPath)
+    )
+  }
+
+  func test_validation_givenSchemaTypesPath_isInvalidPath_shouldThrow() throws {
+    // given
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let invalidURL = fileURL.appendingPathComponent("nested")
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+                                            output: .init(schemaTypes: .init(path: invalidURL.path)))
+
+    // when
+    try FileManager.default.apollo.createFile(at: fileURL)
+
+    // then
+    expect { try ApolloCodegen.validate(config) }.to(
+      throwError(ApolloCodegen.Error.invalidSchemaTypesPath)
+    )
+  }
+
+  func test_validation_givenOperations_absolutePath_isFile_shouldThrow() throws {
+    // given
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+                                            output: .init(schemaTypes: .init(path: directoryURL.path),
+                                                          operations: .absolute(path: fileURL.path),
+                                                          operationIdentifiersPath: nil))
+
+    // when
+    try FileManager.default.apollo.createFile(at: fileURL)
+
+    // then
+    expect { try ApolloCodegen.validate(config) }.to(
+      throwError(ApolloCodegen.Error.invalidOperationsPath)
+    )
+  }
+
+  func test_validation_givenOperations_absolutePath_isInvalidPath_shouldThrow() throws {
+    // given
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let invalidURL = fileURL.appendingPathComponent("nested")
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+                                            output: .init(schemaTypes: .init(path: directoryURL.path),
+                                                          operations: .absolute(path: invalidURL.path),
+                                                          operationIdentifiersPath: nil))
+
+    // when
+    try FileManager.default.apollo.createFile(at: fileURL)
+
+    // then
+    expect { try ApolloCodegen.validate(config) }.to(
+      throwError(ApolloCodegen.Error.invalidOperationsPath)
+    )
+  }
+
+  // failing - operations identifier output path as directory
+  func test_validation_givenOperationIdentifiersPath_isDirectory_shouldThrow() throws {
+    // given
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+                                            output: .init(schemaTypes: .init(path: directoryURL.path),
+                                                          operations: .relative(subpath: nil),
+                                                          operationIdentifiersPath: directoryURL.path))
+
+    // when
+    try FileManager.default.apollo.createFile(at: fileURL)
+
+    // then
+    expect { try ApolloCodegen.validate(config) }.to(
+      throwError(ApolloCodegen.Error.invalidOperationIdentifiersPath)
+    )
+  }
+
+  func test_validation_givenValidConfiguration_convenienceInitializer_shouldNotThrow() throws {
     // given
     let filename = UUID().uuidString
     let config = ApolloCodegenConfiguration(basePath: directoryURL.path, schemaFilename: filename)
@@ -71,19 +155,21 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(at: expectedSchemaURL)
 
     // then
-    expect { try ApolloCodegen.build(with:config) }.notTo(throwError())
+    expect { try ApolloCodegen.validate(config) }.notTo(throwError())
   }
 
-  func test_validation_givenSchemaPath_doesExist_shouldNotThrow() throws {
+  func test_validation_givenValidConfiguration_designatedInitializer_shouldNotThrow() throws {
     // given
-    let schemaURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: schemaURL.path),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path)))
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+                                            output: .init(schemaTypes: .init(path: directoryURL.path),
+                                                          operations: .absolute(path: directoryURL.path),
+                                                          operationIdentifiersPath: fileURL.path))
 
     // when
-    try FileManager.default.apollo.createFile(at: schemaURL)
+    try FileManager.default.apollo.createFile(at: fileURL)
 
     // then
-    expect { try ApolloCodegen.build(with:config) }.notTo(throwError())
+    expect { try ApolloCodegen.validate(config) }.notTo(throwError())
   }
 }
