@@ -73,8 +73,10 @@ Double-click `Package.swift` in the `ApolloCodegen` folder to open the executabl
 ```swift:title=Package.swift
 .package(name: "Apollo",
          url: "https://github.com/apollographql/apollo-ios.git", 
-         .upToNextMinor(from: "0.40.0"))
+         .upToNextMinor(from: "0.49.0"))
 ```
+
+Note that these instructions are updated along with newer versions of the library - if you're seeing something that doesn't compile, please check that you're on the most recent version of the SDK both in your app and in your Codegen project. 
 
 ## A Tour Of The Template Project
 
@@ -186,6 +188,9 @@ This is best achieved with a Run Script Build Phase.
 3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run` (using `xcrun` so that you can ensure it runs with the correct SDK, no matter what type of project you're building): 
 
     ```
+    # Don't run this during index builds
+    if [ $ACTION = "indexbuild" ]; then exit 0; fi
+
     cd "${SRCROOT}"/ApolloCodegen
     xcrun -sdk macosx swift run ApolloCodegen generate
     ```
