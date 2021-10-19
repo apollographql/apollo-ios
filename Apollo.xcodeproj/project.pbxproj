@@ -196,6 +196,14 @@
 		DE181A3226C5C401000C0B9C /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3126C5C401000C0B9C /* Compression.swift */; };
 		DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */; };
 		DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
+		DE223C1C271F3288004A0148 /* AnimalKingdomASTCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */; };
+		DE223C1D271F332D004A0148 /* AllAnimals.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2E26E8092B0057EA67 /* AllAnimals.graphql */; };
+		DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */; };
+		DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
+		DE223C20271F332D004A0148 /* HeightInMeters.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */; };
+		DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */; };
+		DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
+		DE223C24271F335D004A0148 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C23271F335D004A0148 /* Resources.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */; };
 		DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2026E807EF0057EA67 /* Cacheable.swift */; };
@@ -285,7 +293,6 @@
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
 		E6C4267B26F16CB400904AD2 /* introspection_response.json in Resources */ = {isa = PBXBuildFile; fileRef = E6C4267A26F16CB400904AD2 /* introspection_response.json */; };
-		E6D21E1B2705016000110BBD /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6D21E1A2705016000110BBD /* Nimble */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
@@ -418,6 +425,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloModels;
+		};
+		DE223C25271F337E004A0148 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE3C7A00260A6B9800D2F4FF;
+			remoteInfo = AnimalKingdomAPI;
 		};
 		DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -819,6 +833,8 @@
 		DE181A3126C5C401000C0B9C /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
 		DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressionTests.swift; sourceTree = "<group>"; };
 		DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStream.swift; sourceTree = "<group>"; };
+		DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKingdomASTCreationTests.swift; sourceTree = "<group>"; };
+		DE223C23271F335D004A0148 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTransaction.swift; sourceTree = "<group>"; };
 		DE2FCF2026E807EF0057EA67 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
@@ -1797,6 +1813,7 @@
 			isa = PBXGroup;
 			children = (
 				DE2FCF3426E809BB0057EA67 /* ExpectedGeneratedOutput */,
+				DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */,
 			);
 			path = AnimalKingdomAPI;
 			sourceTree = "<group>";
@@ -1838,6 +1855,7 @@
 				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
 				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
 				DE3C7AB7260A6D3E00D2F4FF /* graphql */,
+				DE223C23271F335D004A0148 /* Resources.swift */,
 			);
 			name = AnimalKingdomAPI;
 			path = Sources/AnimalKingdomAPI;
@@ -2180,6 +2198,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DE223C26271F337E004A0148 /* PBXTargetDependency */,
 				E6E4209426A7DF5800B82624 /* PBXTargetDependency */,
 				9B683549246348CB00337AE6 /* PBXTargetDependency */,
 			);
@@ -2530,6 +2549,9 @@
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
+					DE3C7A00260A6B9800D2F4FF = {
+						LastSwiftMigration = 1300;
+					};
 					DE6B15AB26152BE10068D642 = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -2664,6 +2686,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE223C1D271F332D004A0148 /* AllAnimals.graphql in Resources */,
+				DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */,
+				DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */,
+				DE223C20271F332D004A0148 /* HeightInMeters.graphql in Resources */,
+				DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */,
+				DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2802,6 +2830,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
+				DE223C1C271F3288004A0148 /* AnimalKingdomASTCreationTests.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaPublicTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
 				9F62E0102590728000E6E808 /* CompilationTests.swift in Sources */,
@@ -3023,6 +3052,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE223C24271F335D004A0148 /* Resources.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3153,6 +3183,11 @@
 			isa = PBXTargetDependency;
 			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE05862726697B1D00265760 /* PBXContainerItemProxy */;
+		};
+		DE223C26271F337E004A0148 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */;
+			targetProxy = DE223C25271F337E004A0148 /* PBXContainerItemProxy */;
 		};
 		DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3837,11 +3872,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
-		};
-		E6D21E1A2705016000110BBD /* Nimble */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE5EB9C326EFD4D10004176A /* XCRemoteSwiftPackageReference "Nimble" */;
-			productName = Nimble;
 		};
 		E6E4209126A7DF4200B82624 /* InflectorKit */ = {
 			isa = XCSwiftPackageProductDependency;

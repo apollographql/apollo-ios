@@ -4,6 +4,14 @@ import OrderedCollections
 class SelectionSetScope {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
+  typealias TypeCase = CompilationResult.InlineFragment
+  typealias Fragment = CompilationResult.FragmentDefinition
+
+  struct MergedSelections {
+    let fields: OrderedSet<Field>
+    let typeCases: OrderedSet<TypeCase>
+    let fragments: OrderedSet<Fragment>
+  }
 
   weak var parent: SelectionSetScope?
 
@@ -41,6 +49,7 @@ class SelectionSetScope {
     }
   }()
 
+  #warning("TODO: Make this return sorted MergedSelections struct")
   lazy var mergedSelections: OrderedSet<Selection>? = {
     var selections = selections
 
@@ -100,3 +109,5 @@ class SelectionSetScope {
 //fileprivate protocol SelectionMergeable: GraphQLCompositeType {
 //  var shouldMergeFieldsOfType
 //}
+
+
