@@ -85,7 +85,7 @@ public struct ApolloCodegenConfiguration {
     /// Designated initializer.
     ///
     /// - Parameters:
-    ///  - path: Local path where the generated schema types files should be stored.
+    ///  - path: Local path where the generated schema type files should be stored.
     ///  - dependencyAutomation: Automation to ease the integration of the generated schema types file with compatible
     ///  dependency managers. Defaults to `.manuallyLinked` with a `namespace` of `"API"`.
     public init(path: String, dependencyAutomation: ModuleType = .manuallyLinked(namespace: "API")) {
