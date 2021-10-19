@@ -181,7 +181,7 @@ public struct ApolloCodegenConfiguration {
   public init(basePath: String, schemaFilename: String = "schema.graphqls") {
     let schemaPath = Path(basePath) + schemaFilename
 
-    self.init(input: .init(schemaPath: schemaPath.string),
-              output: .init(schemaTypes: .init(path: basePath)))
+    self.init(input: FileInput(schemaPath: schemaPath.string),
+              output: FileOutput(schemaTypes: SchemaTypesFileOutput(path: basePath)))
   }
 }
