@@ -38,12 +38,14 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let rootSelectionSet = SelectionSetScope(selectionSet: operation!.selectionSet, parent: nil)
 
     // when
-    let actual = rootSelectionSet.mergedSelections!
+    let actual = rootSelectionSet.mergedSelections
 
     // then
-    expect(actual.count).to(equal(1))
+    expect(actual.fields.count).to(equal(1))
+    expect(actual.typeCases.count).to(equal(0))
+    expect(actual.fragments.count).to(equal(0))
 
-    guard case let .field(allAnimals) = actual[0] else { fail(); return }
+    let allAnimals = actual.fields[0]
     expect(allAnimals.name).to(equal("allAnimals"))
     expect(allAnimals.type.typeReference).to(equal("[Animal!]!"))
   }
@@ -55,43 +57,44 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let scope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
 
     // when
-    let actual = scope.mergedSelections!
+    let actual = scope.mergedSelections
 
     // then
-    expect(scope.fieldSelections.count).to(equal(4))
-    expect(actual.count).to(equal(9))
+    expect(actual.fields.count).to(equal(4))
+    expect(actual.typeCases.count).to(equal(4))
+    expect(actual.fragments.count).to(equal(1))
 
-    guard case let .field(height) = actual[0] else { fail(); return }
+    let height = actual.fields[0]
     expect(height.name).to(equal("height"))
     expect(height.type.typeReference).to(equal("Height!"))
 
-    guard case let .fragmentSpread(heightInMeters) = actual[1] else { fail(); return }
-    expect(heightInMeters.fragment.name).to(equal("HeightInMeters"))
-    expect(heightInMeters.fragment.type.name).to(equal("Animal"))
-
-    guard case let .inlineFragment(asWarmBlooded) = actual[2] else { fail(); return }
-    expect(asWarmBlooded.parentType.name).to(equal("WarmBlooded"))
-
-    guard case let .field(species) = actual[3] else { fail(); return }
+    let species = actual.fields[1]
     expect(species.name).to(equal("species"))
     expect(species.type.typeReference).to(equal("String!"))
 
-    guard case let .field(skinCovering) = actual[4] else { fail(); return }
+    let skinCovering = actual.fields[2]
     expect(skinCovering.name).to(equal("skinCovering"))
     expect(skinCovering.type.typeReference).to(equal("SkinCovering"))
 
-    guard case let .inlineFragment(asPet) = actual[5] else { fail(); return }
-    expect(asPet.parentType.name).to(equal("Pet"))
-
-    guard case let .inlineFragment(asCat) = actual[6] else { fail(); return }
-    expect(asCat.parentType.name).to(equal("Cat"))
-
-    guard case let .inlineFragment(asClassroomPet) = actual[7] else { fail(); return }
-    expect(asClassroomPet.parentType.name).to(equal("Cat"))
-
-    guard case let .field(predators) = actual[8] else { fail(); return }
+    let predators = actual.fields[3]
     expect(predators.name).to(equal("predators"))
     expect(predators.type.typeReference).to(equal("[Predators!]!"))
+
+    let asWarmBlooded = actual.typeCases[0]
+    expect(asWarmBlooded.parentType.name).to(equal("WarmBlooded"))
+
+    let asPet = actual.typeCases[1]
+    expect(asPet.parentType.name).to(equal("Pet"))
+
+    let asCat = actual.typeCases[2]
+    expect(asCat.parentType.name).to(equal("Cat"))
+
+    let asClassroomPet = actual.typeCases[3]
+    expect(asClassroomPet.parentType.name).to(equal("Cat"))
+
+    let heightInMeters = actual.fragments[1]
+    expect(heightInMeters.name).to(equal("HeightInMeters"))
+    expect(heightInMeters.type.name).to(equal("Animal"))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AsWarmBlooded__isCorrect() {
@@ -103,40 +106,40 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let scope = allAnimalsScope.children[1]
 
     // when
-    let actual = scope.mergedSelections!
+    let actual = scope.mergedSelections
 
     // then
-    expect(scope.fieldSelections.count).to(equal(0))
-    expect(actual.count).to(equal(7))
+    expect(actual.fields.count).to(equal(5))
+    expect(actual.typeCases.count).to(equal(0))
+    expect(actual.fragments.count).to(equal(2))
 
-    guard case let .fragmentSpread(warmBloodedDetails) = actual[0] else { fail(); return }
-    expect(warmBloodedDetails.fragment.name).to(equal("WarmBloodedDetails"))
-    expect(warmBloodedDetails.fragment.type.name).to(equal("WarmBlooded"))
-
-    guard case let .field(bodyTemperature) = actual[1] else { fail(); return }
+    let bodyTemperature = actual.fields[1]
     expect(bodyTemperature.name).to(equal("bodyTemperature"))
     expect(bodyTemperature.type.typeReference).to(equal("Int!"))
 
-    guard case let .field(height) = actual[2] else { fail(); return }
+    let height = actual.fields[2]
     expect(height.name).to(equal("height"))
     expect(height.type.typeReference).to(equal("Height!"))
 
-    guard case let .fragmentSpread(heightInMeters) = actual[3] else { fail(); return }
-    expect(heightInMeters.fragment.name).to(equal("HeightInMeters"))
-    expect(heightInMeters.fragment.type.name).to(equal("Animal"))
-
-
-    guard case let .field(species) = actual[4] else { fail(); return }
+    let species = actual.fields[4]
     expect(species.name).to(equal("species"))
     expect(species.type.typeReference).to(equal("String!"))
 
-    guard case let .field(skinCovering) = actual[5] else { fail(); return }
+    let skinCovering = actual.fields[5]
     expect(skinCovering.name).to(equal("skinCovering"))
     expect(skinCovering.type.typeReference).to(equal("SkinCovering"))
 
-    guard case let .field(predators) = actual[6] else { fail(); return }
+    let predators = actual.fields[6]
     expect(predators.name).to(equal("predators"))
     expect(predators.type.typeReference).to(equal("[Predators!]!"))
+
+    let warmBloodedDetails = actual.fragments[0]
+    expect(warmBloodedDetails.name).to(equal("WarmBloodedDetails"))
+    expect(warmBloodedDetails.type.name).to(equal("WarmBlooded"))
+
+    let heightInMeters = actual.fragments[3]
+    expect(heightInMeters.name).to(equal("HeightInMeters"))
+    expect(heightInMeters.type.name).to(equal("Animal"))
   }
 
 }

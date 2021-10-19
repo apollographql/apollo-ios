@@ -4,14 +4,6 @@ import OrderedCollections
 class SelectionSetScope {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
-  typealias TypeCase = CompilationResult.InlineFragment
-  typealias Fragment = CompilationResult.FragmentDefinition
-
-  struct MergedSelections {
-    let fields: OrderedSet<Field>
-    let typeCases: OrderedSet<TypeCase>
-    let fragments: OrderedSet<Fragment>
-  }
 
   weak var parent: SelectionSetScope?
 
@@ -50,14 +42,14 @@ class SelectionSetScope {
   }()
 
   #warning("TODO: Make this return sorted MergedSelections struct")
-  lazy var mergedSelections: OrderedSet<Selection>? = {
-    var selections = selections
+  lazy var mergedSelections: MergedSelections = {
+    var selections = MergedSelections(selections)
 
     if let parentMergedSelections = selectionsToMerge(fromParent: parent) {
-      selections.append(contentsOf: parentMergedSelections)
+      selections.mergeIn(parentMergedSelections)
     }
 
-    return selections.isEmpty ? nil : selections
+    return selections
   }()
 
   private func selectionsToMerge(fromParent parent: SelectionSetScope?) -> [Selection]? {
@@ -110,4 +102,46 @@ class SelectionSetScope {
 //  var shouldMergeFieldsOfType
 //}
 
+struct MergedSelections: Equatable {
+  typealias Selection = CompilationResult.Selection
+  typealias Field = CompilationResult.Field
+  typealias TypeCase = CompilationResult.InlineFragment
+  typealias Fragment = CompilationResult.FragmentDefinition
 
+  fileprivate(set) var fields: OrderedSet<Field> = []
+  fileprivate(set) var typeCases: OrderedSet<TypeCase> = []
+  fileprivate(set) var fragments: OrderedSet<Fragment> = []
+
+  mutating func mergeIn(_ selections: [Selection]) {
+    for selection in selections {
+      switch selection {
+      case let .field(field):
+        fields.append(field)
+      case let .inlineFragment(fragment):
+        typeCases.append(fragment)
+      case let .fragmentSpread(fragment):
+        fragments.append(fragment.fragment)
+      }
+    }
+  }
+
+  init() {}
+
+  init(_ selections: [CompilationResult.Selection]) {
+    mergeIn(selections)
+  }
+
+  init(_ selections: OrderedSet<CompilationResult.Selection>) {
+    mergeIn(selections.elements)
+  }
+
+  var isEmpty: Bool {
+    fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+  }
+
+  static func ==(lhs: MergedSelections, rhs: MergedSelections) -> Bool {
+    lhs.fields == rhs.fields &&
+    lhs.typeCases == rhs.typeCases &&
+    lhs.fragments == rhs.fragments
+  }
+}

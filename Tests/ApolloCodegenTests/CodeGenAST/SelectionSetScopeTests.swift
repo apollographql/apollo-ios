@@ -130,22 +130,22 @@ class SelectionSetScopeTests: XCTestCase {
       .mergedSelections
 
     // then
-    expect(actual).to(beNil())
+    expect(actual.isEmpty).to(beTrue())
   }
 
   func test__mergedSelections__givenSelectionSetWithSelections_returnsSelections() {
     // given
-    let expected: OrderedSet = [CompilationResult.Selection.field(.mock())]
+    let expected = [CompilationResult.Selection.field(.mock())]
 
     let selectionSet = CompilationResult.SelectionSet.mock()
-    selectionSet.selections = expected.elements
+    selectionSet.selections = expected
 
     // when
     let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
       .mergedSelections
 
     // then
-    expect(actual).to(equal(expected))
+    expect(actual).to(equal(MergedSelections(expected)))
   }
 
   func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() {
@@ -164,7 +164,7 @@ class SelectionSetScopeTests: XCTestCase {
     let actual = subject.mergedSelections
 
     // then
-    expect(actual).to(equal(expected))
+    expect(actual).to(equal(MergedSelections(expected)))
   }
 
   // MARK: Merged Selections - Siblings
@@ -205,12 +205,12 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected: OrderedSet = OrderedSet(
+    let sibling1Expected = OrderedSet(
       sibling1.selections.elements +
       sibling2.selections.elements
     )
 
-    let sibling2Expected: OrderedSet = OrderedSet(
+    let sibling2Expected = OrderedSet(
       sibling2.selections.elements +
       sibling1.selections.elements
     )
@@ -220,8 +220,9 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(sibling1Expected))
-    expect(sibling2Actual).to(equal(sibling2Expected))
+
+    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
   /// Example:
@@ -271,8 +272,8 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(sibling1Expected))
-    expect(sibling2Actual).to(equal(sibling2Expected))
+    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
   // MARK: Merged Selections - Siblings - Object Type -> Interface Type
@@ -329,8 +330,8 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(sibling1Expected))
-    expect(sibling2Actual).to(equal(sibling2Expected))
+    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
   /// Example:
@@ -384,8 +385,8 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(sibling1Expected))
-    expect(sibling2Actual).to(equal(sibling2Expected))
+    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
   // MARK: Merged Selections - Siblings - Object Type <-> Object in Union Type
@@ -453,8 +454,8 @@ class SelectionSetScopeTests: XCTestCase {
     let onClassroomPet_onBirdActual = onClassroomPet_onBird.mergedSelections
 
     // then
-    expect(onBirdActual).to(equal(onBirdExpected))
-    expect(onClassroomPet_onBirdActual).to(equal(onClassroomPet_onBirdExpected))
+    expect(onBirdActual).to(equal(MergedSelections(onBirdExpected)))
+    expect(onClassroomPet_onBirdActual).to(equal(MergedSelections(onClassroomPet_onBirdExpected)))
   }
 
   /// Example:
@@ -521,8 +522,8 @@ class SelectionSetScopeTests: XCTestCase {
     let onClassroomPet_onCatActual = onClassroomPet_onCat.mergedSelections
 
     // then
-    expect(onBirdActual).to(equal(onBirdExpected))
-    expect(onClassroomPet_onCatActual).to(equal(onClassroomPet_onCatExpected))
+    expect(onBirdActual).to(equal(MergedSelections(onBirdExpected)))
+    expect(onClassroomPet_onCatActual).to(equal(MergedSelections(onClassroomPet_onCatExpected)))
   }
 
   // MARK: Merged Selections - Siblings - Interface Type -> Interface Type
@@ -579,8 +580,8 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(sibling1Expected))
-    expect(sibling2Actual).to(equal(sibling2Expected))
+    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
   /// Example:
@@ -634,8 +635,8 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(sibling1Expected))
-    expect(sibling2Actual).to(equal(sibling2Expected))
+    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
 }
