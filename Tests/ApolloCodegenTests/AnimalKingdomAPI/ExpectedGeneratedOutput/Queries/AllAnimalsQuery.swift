@@ -206,8 +206,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public let data: ResponseDict
           public init(data: ResponseDict) { self.data = data }
 
-          public var heightInMeters: HeightInMeters { _toFragment() }
           public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
+          public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
         public struct Height: AnimalKindgomAPI.SelectionSet {

@@ -49,11 +49,11 @@ public class GraphQLScalarType: GraphQLNamedType {
 public class GraphQLEnumType: GraphQLNamedType {
   private(set) lazy var description: String? = self["description"]
   
-  private(set) lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
+  lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
 }
 
 public class GraphQLEnumValue: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+  lazy var name: String = self["name"]
   
   private(set) lazy var description: String? = self["description"]
     
@@ -104,10 +104,18 @@ public class GraphQLInterfaceType: GraphQLAbstractType {
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+
+  public override var debugDescription: String {
+    "Interface - \(name)"
+  }
 }
 
 public class GraphQLUnionType: GraphQLAbstractType {
   lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
+
+  public override var debugDescription: String {
+    "Union - \(name)"
+  }
 }
 
 public class GraphQLField: JavaScriptObject {

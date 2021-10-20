@@ -127,6 +127,16 @@ struct MergedSelections: Equatable {
 
   init() {}
 
+  init(
+    fields: OrderedSet<Field> = [],
+    typeCases: OrderedSet<TypeCase> = [],
+    fragments: OrderedSet<Fragment> = []
+  ) {
+    self.fields = fields
+    self.typeCases = typeCases
+    self.fragments = fragments
+  }
+
   init(_ selections: [CompilationResult.Selection]) {
     mergeIn(selections)
   }

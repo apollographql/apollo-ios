@@ -25,7 +25,7 @@ public extension CompilationResult.SelectionSet {
 public extension CompilationResult.Field {
 
   class func mock(
-    name: String = "",
+    _ name: String = "",
     alias: String? = nil,
     arguments: [CompilationResult.Argument]? = nil,
     type: GraphQLType = .named(GraphQLObjectType.mock()),
@@ -50,6 +50,14 @@ public extension CompilationResult.InlineFragment {
     mock.selectionSet = selectionSet
     return mock
   }
+
+  class func mock(
+    parentType: GraphQLCompositeType
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.selectionSet = .mock(parentType: parentType)
+    return mock
+  }
 }
 
 public extension CompilationResult.FragmentDefinition {
@@ -61,8 +69,13 @@ public extension CompilationResult.FragmentDefinition {
     """
   }
 
-  class func mock(_ name: String = "NameFragment") -> Self {
+  class func mock(
+    _ name: String = "NameFragment",
+    type: GraphQLCompositeType = .emptyMockObject()
+  ) -> Self {
     let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.type = type
     mock.source = Self.mockDefinition(name: name)
     return mock
   }
