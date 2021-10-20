@@ -210,7 +210,8 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let height = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let height = allAnimalsScope
       .children[0]
       .mergedSelections
       .fields[1]
@@ -244,8 +245,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
-                                            parent: nil)
+    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
     let scope = allAnimalsScope.children[1]
 
     let expected = MergedSelections(
@@ -286,7 +286,8 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let height = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let height = allAnimalsScope
       .children[1]
       .mergedSelections
       .fields[0]
@@ -413,10 +414,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let height = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let height = allAnimalsScope
       .children[2]
       .mergedSelections
-      .fields[0]
+      .fields[1]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 
@@ -532,11 +534,12 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let height = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let height = allAnimalsScope
       .children[3]
       .children[0]
       .mergedSelections
-      .fields[0]
+      .fields[1]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 
@@ -577,7 +580,7 @@ fileprivate func matchAST(_ expectedValue: MergedSelections) -> Predicate<Merged
       if expectedValue.fields.count != actualValue.fields.count {
         return PredicateResult(
           status: .fail,
-          message: .expectedCustomValueTo("have fields equal to" + expectedValue.fields.debugDescription,
+          message: .expectedCustomValueTo("have fields equal to " + expectedValue.fields.debugDescription,
                                           actual: actualValue.fields.debugDescription)
         )
       }
@@ -585,7 +588,7 @@ fileprivate func matchAST(_ expectedValue: MergedSelections) -> Predicate<Merged
       if expectedValue.typeCases.count != actualValue.typeCases.count {
         return PredicateResult(
           status: .fail,
-          message: .expectedCustomValueTo("have typeCases equal to" + expectedValue.typeCases.debugDescription,
+          message: .expectedCustomValueTo("have typeCases equal to " + expectedValue.typeCases.debugDescription,
                                           actual: actualValue.typeCases.debugDescription)
         )
       }
@@ -593,7 +596,7 @@ fileprivate func matchAST(_ expectedValue: MergedSelections) -> Predicate<Merged
       if expectedValue.fragments.count != actualValue.fragments.count {
         return PredicateResult(
           status: .fail,
-          message: .expectedCustomValueTo("have fragments equal to" + expectedValue.fragments.debugDescription,
+          message: .expectedCustomValueTo("have fragments equal to " + expectedValue.fragments.debugDescription,
                                           actual: actualValue.fragments.debugDescription)
         )
       }

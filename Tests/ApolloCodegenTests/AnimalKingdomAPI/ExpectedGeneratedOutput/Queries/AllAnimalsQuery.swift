@@ -340,7 +340,11 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public init(data: ResponseDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Bird.self) }
+          public static var selections: [Selection] { [
+            .field("wingspan", Int.self),
+          ] }
 
+          public var wingspan: Int { data["wingspan"] }
           public var height: Height { data["height"] }
           public var species: String { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
@@ -349,7 +353,6 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var favoriteToy: String { data["favoriteToy"] }
           public var owner: PetDetails.Owner? { data["owner"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
-          public var wingspan: Int { data["wingspan"] }
 
           public struct Fragments: ResponseObject {
             public let data: ResponseDict

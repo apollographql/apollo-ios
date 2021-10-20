@@ -82,7 +82,17 @@ public class GraphQLInputField: JavaScriptObject {
 public class GraphQLCompositeType: GraphQLNamedType {
 }
 
-public class GraphQLObjectType: GraphQLCompositeType {
+protocol GraphQLInterfaceImplementingType: GraphQLCompositeType {
+  var interfaces: [GraphQLInterfaceType] { get }
+}
+
+extension GraphQLInterfaceImplementingType {
+  func implements(_ interface: GraphQLInterfaceType) -> Bool {
+    interfaces.contains(interface)
+  }
+}
+
+public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementingType {
   lazy var description: String? = self["description"]
   
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
@@ -97,7 +107,7 @@ public class GraphQLObjectType: GraphQLCompositeType {
 public class GraphQLAbstractType: GraphQLCompositeType {
 }
 
-public class GraphQLInterfaceType: GraphQLAbstractType {
+public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {
   lazy var description: String? = self["description"]
   
   lazy var deprecationReason: String? = self["deprecationReason"]

@@ -1,7 +1,8 @@
 import Foundation
+import ApolloUtils
 import OrderedCollections
 
-class SelectionSetScope {
+class SelectionSetScope: CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
 
@@ -13,22 +14,44 @@ class SelectionSetScope {
 
   let selections: OrderedSet<Selection>
 
-  init(selectionSet: CompilationResult.SelectionSet, parent: SelectionSetScope?) {
+  convenience init(selectionSet: CompilationResult.SelectionSet, parent: SelectionSetScope?) {
+    self.init(selections: selectionSet.selections,
+              type: selectionSet.parentType,
+              parent: parent)
+  }
+
+  init(selections: [Selection], type: GraphQLCompositeType, parent: SelectionSetScope?) {
     self.parent = parent
-    self.type = selectionSet.parentType
+    self.type = type
+    self.selections = OrderedSet(selections)
+    computeChildren()
+  }
 
-    self.selections = OrderedSet(selectionSet.selections)
-
-    self.children = selectionSet.selections.compactMap {
+  private func computeChildren() {
+    self.children = selections.compactMap {
       switch $0 {
       case let .inlineFragment(fragment):
         return SelectionSetScope(selectionSet: fragment.selectionSet, parent: self)
+
+      case let .fragmentSpread(fragment):
+        if fragment.fragment.type == self.type { return nil }
+
+        if let implementingType = self.type as? GraphQLInterfaceImplementingType,
+           let fragmentInterface = fragment.fragment.type as? GraphQLInterfaceType,
+           implementingType.implements(fragmentInterface) {
+          return nil
+        }
+
+        #warning("TODO: selections should replace the fragmentSpread w/type case? (Or just check type again when generating selections?)")
+        return SelectionSetScope(
+          selections: [.fragmentSpread(fragment)],
+          type: fragment.fragment.type,
+          parent: self)
+
       default:
         return nil
       }
     }
-
-//    self.children = all type case selections in selections array
   }
 
   /// All of the selections on the selection set that are fields. Does not traverse children.
@@ -94,6 +117,18 @@ class SelectionSetScope {
 
     default: return []
     }
+  }
+
+  var debugDescription: String {
+    var desc = type.debugDescription
+    if !children.isEmpty {
+      desc += " {"
+      children.forEach { child in
+        desc += "\n  \(indented: child.debugDescription)"
+      }
+      desc += "\n\(indented: "}")"
+    }
+    return desc
   }
 }
 

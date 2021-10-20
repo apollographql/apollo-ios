@@ -18,14 +18,17 @@ class SelectionSetScopeTests: XCTestCase {
   /// }
   func test__children__initWithInlineFragmentWithDifferentParentType_hasChildrenForTypeCases() {
     // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Bird = GraphQLObjectType.mock("Bird")
+
     let childSelections: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
 
     let subject = SelectionSetScope(selectionSet: .mock(
-      parentType: GraphQLInterfaceType.mock("Animal"),
+      parentType: Interface_Animal,
       selections: [
         .inlineFragment(.mock(
           selectionSet: .mock(
-            parentType: GraphQLObjectType.mock("Bird"),
+            parentType: Object_Bird,
             selections: childSelections
           ))),
       ]
@@ -49,14 +52,16 @@ class SelectionSetScopeTests: XCTestCase {
   /// }
   func test__children__initWithInlineFragmentWithSameParentType_hasChildrenForTypeCase() {
     // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+
     let childSelections: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     let subject = SelectionSetScope(selectionSet: .mock(
-      parentType: GraphQLInterfaceType.mock("Animal"),
+      parentType: Interface_Animal,
       selections: [
         .inlineFragment(.mock(
           selectionSet: .mock(
-            parentType: GraphQLInterfaceType.mock("Animal"),
+            parentType: Interface_Animal,
             selections: childSelections
           ))),
       ]
@@ -66,8 +71,157 @@ class SelectionSetScopeTests: XCTestCase {
     expect(subject.children.count).to(equal(1))
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
-    expect(child.type.name).to(equal("Animal"))
+    expect(child.type).to(equal(Interface_Animal))
     expect(child.selections.elements).to(equal(childSelections))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// Birds.children should not include a type case for asAnimal
+  func test__children__initWithNamedFragmentOnTheSameType_hasNoChildTypeCase() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+
+    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Interface_Animal,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    // then
+    expect(subject.children).to(beEmpty())
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ...BirdDetails
+  /// }
+  ///
+  /// fragment BirdDetails on Bird {
+  ///   species
+  /// }
+  /// Expected:
+  /// AllAnimals.children: [AsBird]
+  func test__children__initWithNamedFragmentOnMoreSpecificType_hasChildTypeCase() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Bird = GraphQLObjectType.mock("Bird")
+    
+    let birdDetails = CompilationResult.FragmentDefinition.mock("BirdDetails", type: Object_Bird)
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Interface_Animal,
+      selections: [
+        .fragmentSpread(.mock(birdDetails)),
+      ]
+    ), parent: nil)
+
+    // then
+    expect(subject.children.count).to(equal(1))
+    let child = subject.children[0]
+    expect(child.parent).to(beIdenticalTo(subject))
+    expect(child.type).to(equal(Object_Bird))
+    expect(child.selections.elements).to(equal([.fragmentSpread(.mock(birdDetails))]))
+  }
+
+  /// Example:
+  /// query {
+  ///  birds {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// Children should not include a type case for asAnimal
+  func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
+    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Object_Bird,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    // then
+    expect(subject.children).to(beEmpty())
+  }
+
+  /// Example:
+  /// query {
+  ///  flyingAnimals {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// Children should not include a type case for asAnimal
+  func test__children__isInterfaceType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
+    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Interface_FlyingAnimal,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    // then
+    expect(subject.children).to(beEmpty())
+  }
+
+  /// Example:
+  /// query {
+  ///  rocks {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// Children should not include a type case for asAnimal
+  func test__children__initWithNamedFragmentOnUnrelatedType_hasChildTypeCase() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Rock = GraphQLObjectType.mock("Rock")
+    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Object_Rock,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    // then
+    expect(subject.children.count).to(equal(1))
+    let child = subject.children[0]
+    expect(child.parent).to(beIdenticalTo(subject))
+    expect(child.type).to(equal(Interface_Animal))
+    expect(child.selections.elements).to(equal([.fragmentSpread(.mock(animalDetails))]))
   }
 
   // MARK: Children Computation - Union Type
@@ -639,4 +793,80 @@ class SelectionSetScopeTests: XCTestCase {
     expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
+  // MARK: Merged Selections - Child Fragment
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// AllAnimal.mergedSelections: [species]
+  func test__mergedSelections__givenChildIsNamedFragmentOnSameType_mergesFragmentFields() {
+    #warning("TODO")
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ...BirdDetails
+  /// }
+  ///
+  /// fragment BirdDetails on Bird {
+  ///   species
+  /// }
+  /// Expected:
+  /// AllAnimal.mergedSelections: [typeCase_AsBird]
+  func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
+    #warning("TODO")
+  }
+
+  /// Example:
+  /// query {
+  ///  birds {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// AllAnimal.mergedSelections: [species]
+  func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() {
+    #warning("TODO")
+  }
+
+  /// Example:
+  /// query {
+  ///  flyingAnimals {
+  ///    ...AnimalDetails
+  /// }
+  ///
+  /// fragment AnimalDetails on Animal {
+  ///   species
+  /// }
+  /// Expected:
+  /// FlyingAnimal.mergedSelections: [species]
+  func test__mergedSelections__givenIsInterfaceType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() {
+#warning("TODO")
+  }
+
+  /// Example:
+  /// query {
+  ///  rocks {
+  ///    ...BirdDetails
+  /// }
+  ///
+  /// fragment BirdDetails on Bird {
+  ///   species
+  /// }
+  /// Expected:
+  /// AllAnimal.mergedSelections: [typeCase_AsBird]
+  func test__mergedSelections__givenChildIsNamedFragmentOnUnrelatedType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
+    #warning("TODO")
+  }
 }

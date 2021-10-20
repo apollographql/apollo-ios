@@ -60,6 +60,14 @@ public extension CompilationResult.InlineFragment {
   }
 }
 
+public extension CompilationResult.FragmentSpread {
+  class func mock(_ fragment: CompilationResult.FragmentDefinition) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.fragment = fragment
+    return mock
+  }
+}
+
 public extension CompilationResult.FragmentDefinition {
   private class func mockDefinition(name: String) -> String {
     return """
