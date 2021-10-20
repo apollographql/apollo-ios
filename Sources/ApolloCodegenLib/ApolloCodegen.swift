@@ -5,42 +5,115 @@ import Foundation
 
 /// A class to facilitate running code generation
 public class ApolloCodegen {
-  
-  /// Errors which can happen with code generation
-  public enum CodegenError: Error, LocalizedError {
-    case folderDoesNotExist(_ url: URL)
-    case multipleFilesButNotDirectoryURL(_ url: URL)
-    case singleFileButNotSwiftFileURL(_ url: URL)
-    
-    public var errorDescription: String? {
+  static private let fileManager = FileManager.default.apollo
+
+  public enum PathType {
+    case schema
+    case schemaTypes
+    case operations
+    case operationIdentifiers
+
+    public var errorRecoverySuggestion: String {
       switch self {
-      case .folderDoesNotExist(let url):
-        return "Can't run codegen trying to run the command from \(url) because there is no folder there! This should be the folder which, at some depth, contains all your `.graphql` files."
-      case .multipleFilesButNotDirectoryURL(let url):
-        return "Codegen is requesting multiple file generation, but the URL passed in (\(url)) is not a directory URL. Please check your URL and try again."
-      case .singleFileButNotSwiftFileURL(let url):
-        return "Codegen is requesting single file generation, but the URL passed in (\(url)) is a not a Swift file URL. Please check your URL and try again."
+      case .schema:
+        return "Check that the schema input path is an existing schema file containing SDL or JSON."
+      case .schemaTypes:
+        return "Check that the schema types output path exists and is a directory, or can be created."
+      case .operations:
+        return "Check that the operations output path exists and is a directory, or can be created."
+      case .operationIdentifiers:
+        return "Check that the operations identifiers path is an existing file or can be created."
       }
     }
   }
-  
-  /// Runs code generation from the given folder with the passed-in options
-  ///
-  /// - Parameters:
-  ///   - folder: The folder to run the script from. Should be the folder that at some depth, contains all `.graphql` files.
-  ///   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
-  ///   - options: The options object to use to run the code generation.
-  /// - Returns: Output from a successful run
-  @discardableResult
-  public static func run(from folder: URL,
-                         with cliFolderURL: URL,
-                         options: ApolloCodegenConfiguration) throws -> String {
-    guard FileManager.default.apollo.folderExists(at: folder) else {
-      throw CodegenError.folderDoesNotExist(folder)
+
+  /// Errors which can happen with code generation
+  public enum PathError: Swift.Error, LocalizedError, Equatable {
+    case notAFile(PathType)
+    case notADirectory(PathType)
+    case folderCreationFailed(PathType, underlyingError: Error)
+
+    public var errorDescription: String {
+      switch self {
+      case let .notAFile(pathType):
+        return "\(pathType) path must be a file!"
+      case let .notADirectory(pathType):
+        return "\(pathType) path must be a folder!"
+      case let .folderCreationFailed(pathType, underlyingError):
+        return "\(pathType) folder cannot be created! Error: \(underlyingError)"
+      }
     }
 
-    #warning("TODO: Build folder structure from configuration")
-    fatalError("Not implemented!")
+    public var recoverySuggestion: String {
+      switch self {
+      case let .notAFile(pathType),
+        let .notADirectory(pathType),
+        let .folderCreationFailed(pathType, _):
+        return pathType.errorRecoverySuggestion
+      }
+    }
+
+    public func logging(withPath path: String) -> PathError {
+      CodegenLogger.log(self.logMessage(forPath: path), logLevel: .error)
+      CodegenLogger.log(self.recoverySuggestion, logLevel: .debug)
+      return self
+    }
+
+    private func logMessage(forPath path: String) -> String {
+      self.errorDescription + "Path: \(path)"
+    }
+
+    public static func ==(lhs: PathError, rhs: PathError) -> Bool {
+      lhs.errorDescription == rhs.errorDescription
+    }
+
+  }
+  
+  /// Executes the code generation engine with a specified configuration.
+  ///
+  /// - Parameters:
+  ///   - configuration: The configuration to use to build the code generation.
+  public static func build(with configuration: ApolloCodegenConfiguration) throws {
+    try validate(configuration)
+  }
+
+  /// This is a preflight check to ensure that the specified configuration is valid before attempting to build the code generation output.
+  static func validate(_ config: ApolloCodegenConfiguration) throws {
+    CodegenLogger.log(String(describing: config), logLevel: .debug)
+
+    // File inputs
+    guard fileManager.fileExists(at: config.input.schemaPath) else {
+      throw PathError.notAFile(.schema).logging(withPath: config.input.schemaPath)
+    }
+
+    // File outputs - schema types
+    try requireDirectory(atPath: config.output.schemaTypes.path, ofType: .schemaTypes)
+
+    // File outputs - operations
+    if case .absolute(let operationsOutputPath) = config.output.operations {
+      try requireDirectory(atPath: operationsOutputPath, ofType: .operations)
+    }
+
+    // File outputs - operation identifiers
+    if let operationIdentifiersPath = config.output.operationIdentifiersPath {
+      if fileManager.folderExists(at: operationIdentifiersPath) {
+        throw PathError.notAFile(.operationIdentifiers).logging(withPath: operationIdentifiersPath)
+      }
+    }
+  }
+
+  /// Validates that if the given path exists it is a directory. If it does not exist it attempts to create it.
+  private static func requireDirectory(atPath path: String, ofType pathType: PathType) throws {
+    if fileManager.fileExists(at: path) {
+      throw PathError.notADirectory(pathType).logging(withPath: path)
+    }
+
+    do {
+      try fileManager.createFolderIfNeeded(at: path)
+    } catch (let underlyingError) {
+      throw PathError.folderCreationFailed(pathType, underlyingError: underlyingError)
+        .logging(withPath: path)
+    }
   }
 }
 

@@ -6,7 +6,7 @@ public struct ApolloSchemaDownloadConfiguration {
   /// How to attempt to download your schema
   public enum DownloadMethod: Equatable {
 
-    /// The Apollo Schema Registry, which serves as a central hub for managing your data graph.
+    /// The Apollo Schema Registry, which serves as a central hub for managing your graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
     /// GraphQL Introspection connecting to the specified URL.
     case introspection(endpointURL: URL)

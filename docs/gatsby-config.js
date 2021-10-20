@@ -9,6 +9,7 @@ module.exports = {
         root: __dirname,
         pathPrefix: '/docs/ios',
         algoliaIndexName: 'ios',
+        algoliaFilters: ['docset:ios'],
         subtitle: 'Client (iOS)',
         description: 'A guide to using Apollo with iOS',
         githubRepo: 'apollographql/apollo-ios',
@@ -27,7 +28,7 @@ module.exports = {
           ],
           Tutorial: [
             'tutorial/tutorial-introduction',
-            'tutorial/tutorial-create-project',
+            'tutorial/tutorial-add-sdk',
             'tutorial/tutorial-obtain-schema',
             'tutorial/tutorial-execute-query',
             'tutorial/tutorial-query-ui',
