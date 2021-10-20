@@ -1,5 +1,4 @@
 import Foundation
-import PathKit
 
 /// A configuration object that defines behavior for code generation.
 public struct ApolloCodegenConfiguration {
@@ -179,9 +178,9 @@ public struct ApolloCodegenConfiguration {
   /// - Parameters:
   ///  - basePath:
   public init(basePath: String, schemaFilename: String = "schema.graphqls") {
-    let schemaPath = Path(basePath) + schemaFilename
+    let schemaURL = URL(fileURLWithPath: basePath).appendingPathComponent(schemaFilename)
 
-    self.init(input: FileInput(schemaPath: schemaPath.string),
+    self.init(input: FileInput(schemaPath: schemaURL.path),
               output: FileOutput(schemaTypes: SchemaTypesFileOutput(path: basePath)))
   }
 }

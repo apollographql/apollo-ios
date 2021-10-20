@@ -1,12 +1,12 @@
 import Foundation
-import PathKit
 
 // Only available on macOS
 #if os(macOS)
 
 /// A class to facilitate running code generation
 public class ApolloCodegen {
-  
+  static private let fileManager = FileManager.default.apollo
+
   /// Errors which can happen with code generation
   public enum Error: Swift.Error, LocalizedError {
     case invalidSchemaPath
@@ -56,62 +56,54 @@ public class ApolloCodegen {
 
     // File inputs
 
-    let schemaInputPath = Path(config.input.schemaPath)
-    try testFile(path: schemaInputPath, throwing: .invalidSchemaPath, required: true)
+    try testFile(at: config.input.schemaPath, throwing: .invalidSchemaPath, required: true)
 
     // File outputs - schema types
 
-    let schemaTypesOutputPath = Path(config.output.schemaTypes.path)
-    try requireDirectory(path: schemaTypesOutputPath, throwing: .invalidSchemaTypesPath)
+    try requireDirectory(at: config.output.schemaTypes.path, throwing: .invalidSchemaTypesPath)
 
     // File outputs - operations
 
-    if case .absolute(let path) = config.output.operations {
-      let operationsOutputPath = Path(path)
-      try requireDirectory(path: operationsOutputPath, throwing: .invalidOperationsPath)
+    if case .absolute(let operationsOutputPath) = config.output.operations {
+      try requireDirectory(at: operationsOutputPath, throwing: .invalidOperationsPath)
     }
 
     // File outputs - operation identifiers
 
-    if let path = config.output.operationIdentifiersPath {
-      let operationIdentifiersPath = Path(path)
-      try testFile(path: operationIdentifiersPath, throwing: .invalidOperationIdentifiersPath)
+    if let operationIdentifiersPath = config.output.operationIdentifiersPath {
+      try testFile(at: operationIdentifiersPath, throwing: .invalidOperationIdentifiersPath)
     }
   }
 
   /// Tests that the given path exists and is a file, if required. If not then only if the path exists must be a file too.
-  private static func testFile(path: Path, throwing error: Error, required: Bool = false) throws {
+  private static func testFile(at path: String, throwing error: Error, required: Bool = false) throws {
     let throwBlock = {
-      CodegenLogger.log("\(path.string) must be a file!", logLevel: .error)
+      CodegenLogger.log("\(path) must be a file!", logLevel: .error)
       CodegenLogger.log(error.recoverySuggestion, logLevel: .debug)
 
       throw error
     }
 
     if required {
-      guard path.exists && path.isFile else { return try throwBlock() }
+      guard fileManager.fileExists(at: path) else { return try throwBlock() }
     } else {
-      if path.exists && !path.isFile { return try throwBlock() }
+      if fileManager.folderExists(at: path) { return try throwBlock() }
     }
   }
 
   /// Validates that if the given path exists it is a directory. If it does not exist it attempts to create it.
-  private static func requireDirectory(path: Path, throwing error: Error) throws {
-    let exists = path.exists
-
-    if exists && !path.isDirectory {
-      CodegenLogger.log("\(path.string) must be a directory!", logLevel: .error)
+  private static func requireDirectory(at path: String, throwing error: Error) throws {
+    if fileManager.fileExists(at: path) {
+      CodegenLogger.log("\(path) must be a directory!", logLevel: .error)
       CodegenLogger.log(error.recoverySuggestion, logLevel: .debug)
 
       throw error
     }
 
-    guard !exists else { return }
-
     do {
-      try path.mkpath()
+      try fileManager.createFolderIfNeeded(at: path)
     } catch (let catchError) {
-      CodegenLogger.log("\(path.string) cannot be created! \(catchError)", logLevel: .error)
+      CodegenLogger.log("\(path) cannot be created! \(catchError)", logLevel: .error)
       CodegenLogger.log(error.recoverySuggestion, logLevel: .debug)
 
       throw error

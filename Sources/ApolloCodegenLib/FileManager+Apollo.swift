@@ -104,11 +104,18 @@ extension ApolloExtension where Base == FileManager {
   ///
   /// - Parameter url: The URL of the folder to create if necessary.
   public func createFolderIfNeeded(at url: URL) throws {
-    guard !folderExists(at: url) else {
+    try createFolderIfNeeded(at: url.path)
+  }
+
+  /// Creates the folder (including all intermediate directories) for the given URL if necessary.
+  ///
+  /// - Parameter path: The path of the folder to create if necessary.
+  public func createFolderIfNeeded(at path: String) throws {
+    guard !folderExists(at: path) else {
       // Folder already exists, nothing more to do here.
       return
     }
-    try base.createDirectory(atPath: url.path, withIntermediateDirectories: true)
+    try base.createDirectory(atPath: path, withIntermediateDirectories: true)
   }
 
   // MARK: Content
