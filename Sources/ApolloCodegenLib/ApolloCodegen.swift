@@ -7,38 +7,66 @@ import Foundation
 public class ApolloCodegen {
   static private let fileManager = FileManager.default.apollo
 
+  public enum PathType {
+    case schema
+    case schemaTypes
+    case operations
+    case operationIdentifiers
+
+    public var errorRecoverySuggestion: String {
+      switch self {
+      case .schema:
+        return "Check that the schema input path is an existing schema file containing SDL or JSON."
+      case .schemaTypes:
+        return "Check that the schema types output path exists and is a directory, or can be created."
+      case .operations:
+        return "Check that the operations output path exists and is a directory, or can be created."
+      case .operationIdentifiers:
+        return "Check that the operations identifiers path is an existing file or can be created."
+      }
+    }
+  }
+
   /// Errors which can happen with code generation
-  public enum Error: Swift.Error, LocalizedError {
-    case invalidSchemaPath
-    case invalidSchemaTypesPath
-    case invalidOperationsPath
-    case invalidOperationIdentifiersPath
+  public enum PathError: Swift.Error, LocalizedError, Equatable {
+    case notAFile(PathType)
+    case notADirectory(PathType)
+    case folderCreationFailed(PathType, underlyingError: Error)
 
     public var errorDescription: String {
       switch self {
-      case .invalidSchemaPath:
-        return "There was a problem evaluating the schema input path."
-      case .invalidSchemaTypesPath:
-        return "There was a problem evaluating the schema types output path."
-      case .invalidOperationsPath:
-        return "There was a problem evaluating the operations output path."
-      case .invalidOperationIdentifiersPath:
-        return "There was a problem evaluating the operation identifiers output path."
+      case let .notAFile(pathType):
+        return "\(pathType) path must be a file!"
+      case let .notADirectory(pathType):
+        return "\(pathType) path must be a folder!"
+      case let .folderCreationFailed(pathType, underlyingError):
+        return "\(pathType) folder cannot be created! Error: \(underlyingError)"
       }
     }
 
     public var recoverySuggestion: String {
       switch self {
-      case .invalidSchemaPath:
-        return "Check that the schema input path is an existing schema file containing SDL or JSON."
-      case .invalidSchemaTypesPath:
-        return "Check that the schema types output path exists and is a directory, or can be created."
-      case .invalidOperationsPath:
-        return "Check that the operations output path exists and is a directory, or can be created."
-      case .invalidOperationIdentifiersPath:
-        return "Check that the operations identifiers path is an existing file or can be created."
+      case let .notAFile(pathType),
+        let .notADirectory(pathType),
+        let .folderCreationFailed(pathType, _):
+        return pathType.errorRecoverySuggestion
       }
     }
+
+    public func logging(withPath path: String) -> PathError {
+      CodegenLogger.log(self.logMessage(forPath: path), logLevel: .error)
+      CodegenLogger.log(self.recoverySuggestion, logLevel: .debug)
+      return self
+    }
+
+    private func logMessage(forPath path: String) -> String {
+      self.errorDescription + "Path: \(path)"
+    }
+
+    public static func ==(lhs: PathError, rhs: PathError) -> Bool {
+      lhs.errorDescription == rhs.errorDescription
+    }
+
   }
   
   /// Executes the code generation engine with a specified configuration.
@@ -51,62 +79,40 @@ public class ApolloCodegen {
 
   /// This is a preflight check to ensure that the specified configuration is valid before attempting to build the code generation output.
   static func validate(_ config: ApolloCodegenConfiguration) throws {
-
     CodegenLogger.log(String(describing: config), logLevel: .debug)
 
     // File inputs
-
-    try testFile(at: config.input.schemaPath, throwing: .invalidSchemaPath, required: true)
+    guard fileManager.fileExists(at: config.input.schemaPath) else {
+      throw PathError.notAFile(.schema).logging(withPath: config.input.schemaPath)
+    }
 
     // File outputs - schema types
-
-    try requireDirectory(at: config.output.schemaTypes.path, throwing: .invalidSchemaTypesPath)
+    try requireDirectory(atPath: config.output.schemaTypes.path, ofType: .schemaTypes)
 
     // File outputs - operations
-
     if case .absolute(let operationsOutputPath) = config.output.operations {
-      try requireDirectory(at: operationsOutputPath, throwing: .invalidOperationsPath)
+      try requireDirectory(atPath: operationsOutputPath, ofType: .operations)
     }
 
     // File outputs - operation identifiers
-
     if let operationIdentifiersPath = config.output.operationIdentifiersPath {
-      try testFile(at: operationIdentifiersPath, throwing: .invalidOperationIdentifiersPath)
-    }
-  }
-
-  /// Tests that the given path exists and is a file, if required. If not then only if the path exists must be a file too.
-  private static func testFile(at path: String, throwing error: Error, required: Bool = false) throws {
-    let throwBlock = {
-      CodegenLogger.log("\(path) must be a file!", logLevel: .error)
-      CodegenLogger.log(error.recoverySuggestion, logLevel: .debug)
-
-      throw error
-    }
-
-    if required {
-      guard fileManager.fileExists(at: path) else { return try throwBlock() }
-    } else {
-      if fileManager.folderExists(at: path) { return try throwBlock() }
+      if fileManager.folderExists(at: operationIdentifiersPath) {
+        throw PathError.notAFile(.operationIdentifiers).logging(withPath: operationIdentifiersPath)
+      }
     }
   }
 
   /// Validates that if the given path exists it is a directory. If it does not exist it attempts to create it.
-  private static func requireDirectory(at path: String, throwing error: Error) throws {
+  private static func requireDirectory(atPath path: String, ofType pathType: PathType) throws {
     if fileManager.fileExists(at: path) {
-      CodegenLogger.log("\(path) must be a directory!", logLevel: .error)
-      CodegenLogger.log(error.recoverySuggestion, logLevel: .debug)
-
-      throw error
+      throw PathError.notADirectory(pathType).logging(withPath: path)
     }
 
     do {
       try fileManager.createFolderIfNeeded(at: path)
-    } catch (let catchError) {
-      CodegenLogger.log("\(path) cannot be created! \(catchError)", logLevel: .error)
-      CodegenLogger.log(error.recoverySuggestion, logLevel: .debug)
-
-      throw error
+    } catch (let underlyingError) {
+      throw PathError.folderCreationFailed(pathType, underlyingError: underlyingError)
+        .logging(withPath: path)
     }
   }
 }

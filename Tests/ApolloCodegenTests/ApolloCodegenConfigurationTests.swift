@@ -34,7 +34,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidSchemaPath)
+      throwError(ApolloCodegen.PathError.notAFile(.schema))
     )
   }
 
@@ -46,7 +46,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidSchemaPath)
+      throwError(ApolloCodegen.PathError.notAFile(.schema))
     )
   }
 
@@ -57,7 +57,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidSchemaPath)
+      throwError(ApolloCodegen.PathError.notAFile(.schema))
     )
   }
 
@@ -72,7 +72,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidSchemaTypesPath)
+      throwError(ApolloCodegen.PathError.notADirectory(.schemaTypes))
     )
   }
 
@@ -88,7 +88,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidSchemaTypesPath)
+      throwError { error in
+        guard case let ApolloCodegen.PathError
+                .folderCreationFailed(pathType, _) = error else {
+                  fail()
+                  return
+                }
+        expect(pathType).to(equal(.schemaTypes))
+      }
     )
   }
 
@@ -105,7 +112,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidOperationsPath)
+      throwError(ApolloCodegen.PathError.notADirectory(.operations))
     )
   }
 
@@ -123,7 +130,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidOperationsPath)
+      throwError { error in        
+        guard case let ApolloCodegen.PathError
+                .folderCreationFailed(pathType, _) = error else {
+                  fail()
+                  return
+                }
+        expect(pathType).to(equal(.operations))
+      }
     )
   }
 
@@ -141,7 +155,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.Error.invalidOperationIdentifiersPath)
+      throwError(ApolloCodegen.PathError.notAFile(.operationIdentifiers))
     )
   }
 
