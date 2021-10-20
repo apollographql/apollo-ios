@@ -43,6 +43,7 @@ public extension GraphQLUnionType {
 public extension GraphQLScalarType {
   class func string() -> Self { mock(name: "String") }
   class func integer() -> Self { mock(name: "Int") }
+  class func boolean() -> Self { mock(name: "Boolean") }
 
   class func mock(name: String) -> Self {
     let mock = Self.emptyMockObject()
@@ -54,6 +55,10 @@ public extension GraphQLScalarType {
 public extension GraphQLEnumType {
   class func skinCovering() -> Self {
     mock(name: "SkinCovering", values: ["FUR", "HAIR", "FEATHERS", "SCALES"])
+  }
+
+  class func relativeSize() -> Self {
+    mock(name: "RelativeSize", values: ["LARGE", "AVERAGE", "SMALL"])
   }
 
   class func mock(

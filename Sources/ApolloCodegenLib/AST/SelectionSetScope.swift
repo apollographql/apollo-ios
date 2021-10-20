@@ -41,7 +41,6 @@ class SelectionSetScope {
     }
   }()
 
-  #warning("TODO: Make this return sorted MergedSelections struct")
   lazy var mergedSelections: MergedSelections = {
     var selections = MergedSelections(selections)
 
