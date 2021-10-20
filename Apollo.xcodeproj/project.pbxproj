@@ -204,6 +204,7 @@
 		DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */; };
 		DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
 		DE223C24271F335D004A0148 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C23271F335D004A0148 /* Resources.swift */; };
+		DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */; };
 		DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2026E807EF0057EA67 /* Cacheable.swift */; };
@@ -835,6 +836,7 @@
 		DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStream.swift; sourceTree = "<group>"; };
 		DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKingdomASTCreationTests.swift; sourceTree = "<group>"; };
 		DE223C23271F335D004A0148 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringInterpolation+NestedIndentation.swift"; sourceTree = "<group>"; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTransaction.swift; sourceTree = "<group>"; };
 		DE2FCF2026E807EF0057EA67 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
@@ -1282,6 +1284,7 @@
 				9B455CE22492D0A3002255A9 /* ApolloExtension.swift */,
 				9B455CE42492D0A3002255A9 /* Collection+Apollo.swift */,
 				9B455CEA2492FB03002255A9 /* String+SHA.swift */,
+				DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2756,6 +2759,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */,
+				DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */,
 				9B455CEB2492FB03002255A9 /* String+SHA.swift in Sources */,
 				9B455CDF2492D05E002255A9 /* Atomic.swift in Sources */,
 				9B455CE72492D0A3002255A9 /* Collection+Apollo.swift in Sources */,
