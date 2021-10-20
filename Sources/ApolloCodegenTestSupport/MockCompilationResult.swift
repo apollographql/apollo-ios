@@ -28,7 +28,7 @@ public extension CompilationResult.Field {
     _ name: String = "",
     alias: String? = nil,
     arguments: [CompilationResult.Argument]? = nil,
-    type: GraphQLType = .named(GraphQLObjectType.mock()),
+    type: GraphQLType = .named(GraphQLObjectType.mock("MOCK")),
     selectionSet: CompilationResult.SelectionSet = .mock()
   ) -> Self {
     let mock = Self.emptyMockObject()
@@ -79,11 +79,13 @@ public extension CompilationResult.FragmentDefinition {
 
   class func mock(
     _ name: String = "NameFragment",
-    type: GraphQLCompositeType = .emptyMockObject()
+    type: GraphQLCompositeType = .emptyMockObject(),
+    selections: [CompilationResult.Selection] = []
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
+    mock.selectionSet = .mock(parentType: type, selections: selections)
     mock.source = Self.mockDefinition(name: name)
     return mock
   }

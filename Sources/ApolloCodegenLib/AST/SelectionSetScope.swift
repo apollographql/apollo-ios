@@ -2,17 +2,28 @@ import Foundation
 import ApolloUtils
 import OrderedCollections
 
+//enum ASTSelection {
+//  case field(CompilationResult.Field)
+//  case typeCase(ASTTypeCase)
+//  case namedFragment(CompilationResult.FragmentDefinition)
+//}
+//
+//class ASTTypeCase {
+//  let parentType: GraphQLCompositeType
+//  let selectionSet:
+//}
+
 class SelectionSetScope: CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
 
-  weak var parent: SelectionSetScope?
+  weak private(set) var parent: SelectionSetScope?
 
   private(set) var children: [SelectionSetScope] = []
 
   let type: GraphQLCompositeType
 
-  let selections: OrderedSet<Selection>
+  private(set) var selections: OrderedSet<Selection> = []
 
   convenience init(selectionSet: CompilationResult.SelectionSet, parent: SelectionSetScope?) {
     self.init(selections: selectionSet.selections,
@@ -23,35 +34,49 @@ class SelectionSetScope: CustomDebugStringConvertible {
   init(selections: [Selection], type: GraphQLCompositeType, parent: SelectionSetScope?) {
     self.parent = parent
     self.type = type
-    self.selections = OrderedSet(selections)
-    computeChildren()
-  }
 
-  private func computeChildren() {
-    self.children = selections.compactMap {
-      switch $0 {
+    var computedSelections: OrderedSet<Selection> = []
+    var computedChildren: [SelectionSetScope] = []
+
+    for selection in selections {
+      switch selection {
       case let .inlineFragment(fragment):
-        return SelectionSetScope(selectionSet: fragment.selectionSet, parent: self)
+        computedSelections.append(selection)
+        computedChildren.append(SelectionSetScope(selectionSet: fragment.selectionSet, parent: self))
 
       case let .fragmentSpread(fragment):
-        if fragment.fragment.type == self.type { return nil }
+        func shouldMergeFragmentDirectly() -> Bool {
+          if fragment.fragment.type == type { return true }
 
-        if let implementingType = self.type as? GraphQLInterfaceImplementingType,
-           let fragmentInterface = fragment.fragment.type as? GraphQLInterfaceType,
-           implementingType.implements(fragmentInterface) {
-          return nil
+          if let implementingType = type as? GraphQLInterfaceImplementingType,
+             let fragmentInterface = fragment.fragment.type as? GraphQLInterfaceType,
+             implementingType.implements(fragmentInterface) {
+            return true
+          }
+
+          return false
         }
 
-        #warning("TODO: selections should replace the fragmentSpread w/type case? (Or just check type again when generating selections?)")
-        return SelectionSetScope(
-          selections: [.fragmentSpread(fragment)],
-          type: fragment.fragment.type,
-          parent: self)
+        if shouldMergeFragmentDirectly() {
+          computedSelections.append(selection)
 
-      default:
-        return nil
+        } else {
+          // TODO
+//          computedSelections.append(.inlineFragment()
+          computedChildren.append(
+            SelectionSetScope(
+            selections: [.fragmentSpread(fragment)],
+            type: fragment.fragment.type,
+            parent: self))
+        }
+
+      case .field:
+        computedSelections.append(selection)
       }
     }
+
+    self.selections = computedSelections
+    self.children = computedChildren
   }
 
   /// All of the selections on the selection set that are fields. Does not traverse children.

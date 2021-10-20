@@ -807,7 +807,31 @@ class SelectionSetScopeTests: XCTestCase {
   /// Expected:
   /// AllAnimal.mergedSelections: [species]
   func test__mergedSelections__givenChildIsNamedFragmentOnSameType_mergesFragmentFields() {
-    #warning("TODO")
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+
+    let animalDetails = CompilationResult.FragmentDefinition.mock(
+      "AnimalDetails",
+      type: Interface_Animal,
+      selections: [
+        .field(.mock("species"))
+      ]
+    )
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Interface_Animal,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    let expected = MergedSelections(fields: [.mock("species")])
+
+    // when
+    let actual = subject.mergedSelections
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   /// Example:
@@ -869,4 +893,6 @@ class SelectionSetScopeTests: XCTestCase {
   func test__mergedSelections__givenChildIsNamedFragmentOnUnrelatedType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
     #warning("TODO")
   }
+
+  #warning("Write test that inline (not named!) fragment on same type merges into scope.")
 }
