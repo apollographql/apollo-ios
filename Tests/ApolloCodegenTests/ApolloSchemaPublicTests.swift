@@ -56,9 +56,9 @@ class ApolloSchemaPublicTests: XCTestCase {
     let folderURL = CodegenTestHelper.outputFolderURL()
     let downloadConfiguration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
                                                                   outputFolderURL: folderURL)
-    let codegenConfiguration = ApolloCodegenConfiguration(inputFolderURL: folderURL, outputFolderURL: folderURL, applicationTarget: "Target")
+    let codegenConfiguration = ApolloCodegenConfiguration(basePath: folderURL.path)
 
-    XCTAssertEqual(downloadConfiguration.outputURL, codegenConfiguration.input.schema)
+    XCTAssertEqual(downloadConfiguration.outputURL.path, codegenConfiguration.input.schemaPath)
   }
 }
 
