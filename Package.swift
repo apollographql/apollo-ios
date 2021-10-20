@@ -44,10 +44,7 @@ let package = Package(
       .upToNextMinor(from: "1.0.0")),
     .package(
       url: "https://github.com/apple/swift-collections",
-      .upToNextMajor(from: "1.0.0")),
-    .package(
-      url: "https://github.com/kylef/PathKit.git",
-      .upToNextMinor(from: "1.0.1"))
+      .upToNextMajor(from: "1.0.0"))
   ],
   targets: [
     .target(
@@ -76,8 +73,7 @@ let package = Package(
       dependencies: [
         "ApolloUtils",
         .product(name: "InflectorKit", package: "InflectorKit"),
-        .product(name: "OrderedCollections", package: "swift-collections"),
-        .product(name: "PathKit", package: "PathKit")
+        .product(name: "OrderedCollections", package: "swift-collections")
       ],
       exclude: [
         "Info.plist",
