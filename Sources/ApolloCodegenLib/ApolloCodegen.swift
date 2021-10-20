@@ -29,7 +29,6 @@ public class ApolloCodegen {
 
   /// Errors which can happen with code generation
   public enum PathError: Swift.Error, LocalizedError, Equatable {
-
     case notAFile(PathType)
     case notADirectory(PathType)
     case folderCreationFailed(PathType, underlyingError: Error)
@@ -37,9 +36,9 @@ public class ApolloCodegen {
     public var errorDescription: String {
       switch self {
       case let .notAFile(pathType):
-        return "\(pathType) path must be to a file!"
+        return "\(pathType) path must be a file!"
       case let .notADirectory(pathType):
-        return "\(pathType) path must be to a folder!"
+        return "\(pathType) path must be a folder!"
       case let .folderCreationFailed(pathType, underlyingError):
         return "\(pathType) folder cannot be created! Error: \(underlyingError)"
       }
@@ -81,7 +80,6 @@ public class ApolloCodegen {
   /// This is a preflight check to ensure that the specified configuration is valid before attempting to build the code generation output.
   static func validate(_ config: ApolloCodegenConfiguration) throws {
     CodegenLogger.log(String(describing: config), logLevel: .debug)
-
 
     // File inputs
     guard fileManager.fileExists(at: config.input.schemaPath) else {

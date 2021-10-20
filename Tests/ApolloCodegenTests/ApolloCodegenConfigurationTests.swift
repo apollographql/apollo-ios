@@ -130,7 +130,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
-      throwError { error in
+      throwError { error in        
         guard case let ApolloCodegen.PathError
                 .folderCreationFailed(pathType, _) = error else {
                   fail()
