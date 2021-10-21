@@ -96,7 +96,7 @@ public class ApolloCodegen {
 
     // File outputs - operation identifiers
     if let operationIdentifiersPath = config.output.operationIdentifiersPath {
-      if fileManager.folderExists(at: operationIdentifiersPath) {
+      if fileManager.directoryExists(at: operationIdentifiersPath) {
         throw PathError.notAFile(.operationIdentifiers).logging(withPath: operationIdentifiersPath)
       }
     }
@@ -109,7 +109,7 @@ public class ApolloCodegen {
     }
 
     do {
-      try fileManager.createFolderIfNeeded(at: path)
+      try fileManager.createDirectoryIfNeeded(at: path)
     } catch (let underlyingError) {
       throw PathError.folderCreationFailed(pathType, underlyingError: underlyingError)
         .logging(withPath: path)

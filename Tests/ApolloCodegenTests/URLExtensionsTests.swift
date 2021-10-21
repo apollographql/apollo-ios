@@ -72,7 +72,7 @@ class URLExtensionsTests: XCTestCase {
   
   func testIsDirectoryForExistingDirectory() {
     let parentDirectory = FileFinder.findParentFolder()
-    XCTAssertTrue(FileManager.default.apollo.folderExists(at: parentDirectory))
+    XCTAssertTrue(FileManager.default.apollo.directoryExists(at: parentDirectory))
     XCTAssertTrue(parentDirectory.apollo.isDirectoryURL)
   }
   

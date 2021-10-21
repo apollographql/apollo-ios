@@ -35,14 +35,14 @@ struct CLIExtractor {
   static func extractCLIIfNeeded(from cliFolderURL: URL, expectedSHASUM: String = CLIExtractor.expectedSHASUM) throws -> URL {
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     
-    guard FileManager.default.apollo.folderExists(at: apolloFolderURL) else {
+    guard FileManager.default.apollo.directoryExists(at: apolloFolderURL) else {
       CodegenLogger.log("Apollo folder doesn't exist, extracting CLI from zip file.")
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL)
     }
     
     guard try self.validateSHASUMInExtractedFile(apolloFolderURL: apolloFolderURL, expected: expectedSHASUM) else {
       CodegenLogger.log("SHASUM of extracted zip does not match expected, deleting existing folder and re-extracting.")
-      try FileManager.default.apollo.deleteFolder(at: apolloFolderURL)
+      try FileManager.default.apollo.deleteDirectory(at: apolloFolderURL)
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL)
     }
     
@@ -50,7 +50,7 @@ struct CLIExtractor {
     let binaryURL = ApolloFilePathHelper.binaryURL(fromBinaryFolder: binaryFolderURL)
     guard FileManager.default.apollo.fileExists(at: binaryURL) else {
       CodegenLogger.log("There was a valid `.shasum` file, but no binary at the expected path. Deleting existing apollo folder and re-extracting.", logLevel: .warning)
-      try FileManager.default.apollo.deleteFolder(at: apolloFolderURL)
+      try FileManager.default.apollo.deleteDirectory(at: apolloFolderURL)
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL, expectedSHASUM: expectedSHASUM)
     }
     
@@ -120,7 +120,7 @@ struct CLIExtractor {
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
     
-    guard FileManager.default.apollo.folderExists(at: binaryFolderURL) else {
+    guard FileManager.default.apollo.directoryExists(at: binaryFolderURL) else {
       throw CLIExtractorError.noBinaryFolderAfterUnzipping(atURL: binaryFolderURL)
     }
     

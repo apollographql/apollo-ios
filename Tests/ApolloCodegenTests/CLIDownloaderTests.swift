@@ -17,11 +17,11 @@ class CLIDownloaderTests: XCTestCase {
   
   func testDownloading_toFolderThatDoesNotExist_shouldCreateFolder() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
-    try FileManager.default.apollo.deleteFolder(at: scriptsURL)
-    XCTAssertFalse(FileManager.default.apollo.folderExists(at: scriptsURL))
+    try FileManager.default.apollo.deleteDirectory(at: scriptsURL)
+    XCTAssertFalse(FileManager.default.apollo.directoryExists(at: scriptsURL))
 
     try CLIDownloader.downloadIfNeeded(to: scriptsURL, timeout: 90.0)
-    XCTAssertTrue(FileManager.default.apollo.folderExists(at: scriptsURL))
+    XCTAssertTrue(FileManager.default.apollo.directoryExists(at: scriptsURL))
   }
   
   func testTimeout_shouldThrowCorrectError() throws {

@@ -7,11 +7,11 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Configuration")
 
   override func setUpWithError() throws {
-    try FileManager.default.apollo.createFolderIfNeeded(at: directoryURL)
+    try FileManager.default.apollo.createDirectoryIfNeeded(at: directoryURL)
   }
 
   override func tearDownWithError() throws {
-    try FileManager.default.apollo.deleteFolder(at: directoryURL)
+    try FileManager.default.apollo.deleteDirectory(at: directoryURL)
   }
 
   func test_init_givenBasePathAndSchemaFilename_shouldBuildDefaultPaths() {

@@ -57,7 +57,7 @@ class CLIExtractorTests: XCTestCase {
   func validateCLIIsExtractedWithRealSHASUM(file: StaticString = #filePath,
                                             line: UInt = #line) {
     let binaryFolderURL = CodegenTestHelper.binaryFolderURL()
-    XCTAssertTrue(FileManager.default.apollo.folderExists(at: binaryFolderURL),
+    XCTAssertTrue(FileManager.default.apollo.directoryExists(at: binaryFolderURL),
                   "Binary folder doesn't exist at \(binaryFolderURL)",
                   file: file,
                   line: line)
@@ -101,7 +101,7 @@ class CLIExtractorTests: XCTestCase {
     // Check that the binary hasn't already been extracted
     // (it should be getting deleted in `setUp`)
     let binaryFolderURL = CodegenTestHelper.binaryFolderURL()
-    XCTAssertFalse(FileManager.default.apollo.folderExists(at: binaryFolderURL))
+    XCTAssertFalse(FileManager.default.apollo.directoryExists(at: binaryFolderURL))
     
     // Actually extract the CLI
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
@@ -146,7 +146,7 @@ class CLIExtractorTests: XCTestCase {
   func testFolderExistsButMissingSHASUMFileReExtractionWorks() throws {
     // Make sure there is an apollo folder but no `.shasum` file
     let apolloFolder = CodegenTestHelper.apolloFolderURL()
-    try FileManager.default.apollo.createFolderIfNeeded(at: apolloFolder)
+    try FileManager.default.apollo.createDirectoryIfNeeded(at: apolloFolder)
     
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
     
@@ -161,7 +161,7 @@ class CLIExtractorTests: XCTestCase {
     
     // Make sure the binary folder's not there
     let binaryFolderURL = CodegenTestHelper.binaryFolderURL()
-    XCTAssertFalse(FileManager.default.apollo.folderExists(at: binaryFolderURL))
+    XCTAssertFalse(FileManager.default.apollo.directoryExists(at: binaryFolderURL))
     
     // Re-extract and now everything should be there
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
@@ -183,7 +183,7 @@ class CLIExtractorTests: XCTestCase {
     let binaryURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     
     /// Was the binary extracted?
-    XCTAssertTrue(FileManager.default.apollo.folderExists(at: binaryURL))
+    XCTAssertTrue(FileManager.default.apollo.directoryExists(at: binaryURL))
     
     /// Did the SHASUM file get created?
     XCTAssertTrue(FileManager.default.apollo.fileExists(at: shasumFileURL))

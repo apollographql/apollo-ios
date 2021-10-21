@@ -28,12 +28,12 @@ class FileManagerExtensionsTests: XCTestCase {
   func testFolderDoesNotExistForZipFileURL() throws {
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
-    XCTAssertFalse(FileManager.default.apollo.folderExists(at: zipFileURL))
+    XCTAssertFalse(FileManager.default.apollo.directoryExists(at: zipFileURL))
   }
   
   func testFolderExistsForCLIFolderURL() throws {
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
-    XCTAssertTrue(FileManager.default.apollo.folderExists(at: cliFolderURL))
+    XCTAssertTrue(FileManager.default.apollo.directoryExists(at: cliFolderURL))
   }
   
   func testFileDoesNotExistForCLIFolderURL() throws {

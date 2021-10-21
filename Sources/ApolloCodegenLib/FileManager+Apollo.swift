@@ -10,49 +10,49 @@ extension ApolloExtension where Base == FileManager {
 
   // MARK: Presence
 
-  /// Checks if a file exists (and is not a folder) at the given path
+  /// Checks if a file exists (and is not a directory) at the given path
   ///
   /// - Parameter path: The path to check
-  /// - Returns: `true` if there is something at the path and it is a file, not a folder.
+  /// - Returns: `true` if there is something at the path and it is a file, not a directory.
   public func fileExists(at path: String) -> Bool {
-    var isFolder = ObjCBool(false)
-    let exists = base.fileExists(atPath: path, isDirectory: &isFolder)
-    return exists && !isFolder.boolValue
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+    return exists && !isDirectory.boolValue
   }
   
-  /// Checks if a file exists (and is not a folder) at the given URL
+  /// Checks if a file exists (and is not a directory) at the given URL
   ///
   /// - Parameter url: The URL to check
-  /// - Returns: `true` if there is something at the URL and it is a file, not a folder.
+  /// - Returns: `true` if there is something at the URL and it is a file, not a directory.
   public func fileExists(at url: URL) -> Bool {
     return fileExists(at: url.path)
   }
   
-  /// Checks if a folder exists (and is not a file) at the given path.
+  /// Checks if a directory exists (and is not a file) at the given path.
   ///
   /// - Parameter path: The path to check
-  /// - Returns: `true` if there is something at the path and it is a folder, not a file.
-  public func folderExists(at path: String) -> Bool {
-    var isFolder = ObjCBool(false)
-    let exists = base.fileExists(atPath: path, isDirectory: &isFolder)
-    return exists && isFolder.boolValue
+  /// - Returns: `true` if there is something at the path and it is a directory, not a file.
+  public func directoryExists(at path: String) -> Bool {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+    return exists && isDirectory.boolValue
   }
   
-  /// Checks if a folder exists (and is not a file) at the given URL.
+  /// Checks if a directory exists (and is not a file) at the given URL.
   ///
   /// - Parameter url: The URL to check
-  /// - Returns: `true` if there is something at the URL and it is a folder, not a file.
-  public func folderExists(at url: URL) -> Bool {
-    return folderExists(at: url.path)
+  /// - Returns: `true` if there is something at the URL and it is a directory, not a file.
+  public func directoryExists(at url: URL) -> Bool {
+    return directoryExists(at: url.path)
   }
 
   // MARK: Manipulation
 
-  /// Checks if a folder exists then attempts to delete it if it's there.
+  /// Checks if a directory exists then attempts to delete it if it's there.
   ///
-  /// - Parameter url: The URL to delete the folder for
-  public func deleteFolder(at url: URL) throws {
-    guard folderExists(at: url) else {
+  /// - Parameter url: The URL to delete the directory for
+  public func deleteDirectory(at url: URL) throws {
+    guard directoryExists(at: url) else {
       // Nothing to delete!
       return
     }
@@ -77,7 +77,7 @@ extension ApolloExtension where Base == FileManager {
   ///   - path: Path to the new file.
   ///   - data: [optional] Data to write to the new file.
   public func createFile(at path: String, data: Data? = nil) throws {
-    try createContainingFolderIfNeeded(for: .init(fileURLWithPath: path))
+    try createContainingDirectoryIfNeeded(for: .init(fileURLWithPath: path))
 
     base.createFile(atPath: path, contents: data, attributes: nil)
   }
@@ -92,27 +92,27 @@ extension ApolloExtension where Base == FileManager {
     try createFile(at: url.path, data: data)
   }
   
-  /// Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
+  /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary.
   ///
-  /// - Parameter fileURL: The URL of the file to create a containing folder for if necessary.
-  public func createContainingFolderIfNeeded(for fileURL: URL) throws {
+  /// - Parameter fileURL: The URL of the file to create a containing directory for if necessary.
+  public func createContainingDirectoryIfNeeded(for fileURL: URL) throws {
     let parent = fileURL.deletingLastPathComponent()
-    try createFolderIfNeeded(at: parent)
+    try createDirectoryIfNeeded(at: parent)
   }
   
-  /// Creates the folder (including all intermediate directories) for the given URL if necessary.
+  /// Creates the directory (including all intermediate directories) for the given URL if necessary.
   ///
-  /// - Parameter url: The URL of the folder to create if necessary.
-  public func createFolderIfNeeded(at url: URL) throws {
-    try createFolderIfNeeded(at: url.path)
+  /// - Parameter url: The URL of the directory to create if necessary.
+  public func createDirectoryIfNeeded(at url: URL) throws {
+    try createDirectoryIfNeeded(at: url.path)
   }
 
-  /// Creates the folder (including all intermediate directories) for the given URL if necessary.
+  /// Creates the directory (including all intermediate directories) for the given URL if necessary.
   ///
-  /// - Parameter path: The path of the folder to create if necessary.
-  public func createFolderIfNeeded(at path: String) throws {
-    guard !folderExists(at: path) else {
-      // Folder already exists, nothing more to do here.
+  /// - Parameter path: The path of the directory to create if necessary.
+  public func createDirectoryIfNeeded(at path: String) throws {
+    guard !directoryExists(at: path) else {
+      // Directory already exists, nothing more to do here.
       return
     }
     try base.createDirectory(atPath: path, withIntermediateDirectories: true)
