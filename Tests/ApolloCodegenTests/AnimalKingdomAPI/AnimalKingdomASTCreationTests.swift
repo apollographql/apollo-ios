@@ -49,6 +49,8 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal__isCorrect() {
     // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let scope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
@@ -62,7 +64,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
         .mock("skinCovering",
               type: .named(GraphQLEnumType.skinCovering())),
         .mock("predators",
-              type: .nonNull(.list(.nonNull(.named(GraphQLInterfaceType.mock("Animal")))))),
+              type: .nonNull(.list(.nonNull(.named(Interface_Animal))))),
       ],
       typeCases: [
         .mock(parentType: GraphQLInterfaceType.mock("WarmBlooded")),
@@ -71,7 +73,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
         .mock(parentType: GraphQLUnionType.mock("ClassroomPet")),
       ],
       fragments: [
-        .mock("HeightInMeters", type: GraphQLInterfaceType.mock("Animal"))
+        .mock("HeightInMeters", type: Interface_Animal)
       ]
     )
 
@@ -79,7 +81,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let actual = scope.mergedSelections
 
     // then
-    expect(scope.type).to(equal(GraphQLObjectType.mock("Animal")))
+    expect(scope.type).to(equal(Interface_Animal))
     expect(actual).to(matchAST(expected))
   }
 

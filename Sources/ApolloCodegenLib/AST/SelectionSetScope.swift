@@ -147,10 +147,6 @@ class SelectionSetScope: CustomDebugStringConvertible {
   }
 }
 
-//fileprivate protocol SelectionMergeable: GraphQLCompositeType {
-//  var shouldMergeFieldsOfType
-//}
-
 struct MergedSelections: Equatable {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
