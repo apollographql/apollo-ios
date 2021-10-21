@@ -48,25 +48,17 @@ extension ApolloExtension where Base == FileManager {
 
   // MARK: Manipulation
 
-  /// Checks if a directory exists then attempts to delete it if it's there.
+  /// Removes the file or directory at the specified path.
   ///
-  /// - Parameter url: The URL to delete the directory for
-  public func deleteDirectory(at url: URL) throws {
-    guard directoryExists(at: url) else {
-      // Nothing to delete!
-      return
-    }
-    try base.removeItem(at: url)
+  /// - Parameter path: The path of the file or directory to delete.
+  public func delete(at path: String) throws {
+    try base.removeItem(atPath: path)
   }
-  
-  /// Checks if a file exists then attempts to delete it if it's there.
+
+  /// Removes the file or directory at the specified URL.
   ///
-  /// - Parameter url: The URL to delete the file for
-  public func deleteFile(at url: URL) throws {
-    guard fileExists(at: url) else {
-      // Nothing to delete!
-      return
-    }
+  /// - Parameter path: The URL of the file or directory to delete.
+  public func delete(at url: URL) throws {
     try base.removeItem(at: url)
   }
 
