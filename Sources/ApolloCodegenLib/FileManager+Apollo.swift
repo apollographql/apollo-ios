@@ -10,42 +10,28 @@ extension ApolloExtension where Base == FileManager {
 
   // MARK: Presence
 
-  /// Checks if a file exists (and is not a directory) at the given path
+  /// Checks if the path exists and is a file, not a directory.
   ///
-  /// - Parameter path: The path to check
+  /// - Parameter path: The path to check.
   /// - Returns: `true` if there is something at the path and it is a file, not a directory.
-  public func fileExists(at path: String) -> Bool {
+  public func existsAsFile(atPath path: String) -> Bool {
     var isDirectory = ObjCBool(false)
     let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
     return exists && !isDirectory.boolValue
   }
-  
-  /// Checks if a file exists (and is not a directory) at the given URL
+
+  /// Checks if the path exists and is a directory, not a file.
   ///
-  /// - Parameter url: The URL to check
-  /// - Returns: `true` if there is something at the URL and it is a file, not a directory.
-  public func fileExists(at url: URL) -> Bool {
-    return fileExists(at: url.path)
-  }
-  
-  /// Checks if a directory exists (and is not a file) at the given path.
-  ///
-  /// - Parameter path: The path to check
+  /// - Parameter path: The path to check.
   /// - Returns: `true` if there is something at the path and it is a directory, not a file.
-  public func directoryExists(at path: String) -> Bool {
+  public func existsAsDirectory(atPath path: String) -> Bool {
     var isDirectory = ObjCBool(false)
     let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
     return exists && isDirectory.boolValue
   }
   
-  /// Checks if a directory exists (and is not a file) at the given URL.
-  ///
-  /// - Parameter url: The URL to check
-  /// - Returns: `true` if there is something at the URL and it is a directory, not a file.
-  public func directoryExists(at url: URL) -> Bool {
-    return directoryExists(at: url.path)
-  }
-
   // MARK: Manipulation
 
   /// Removes the file or directory at the specified path.

@@ -35,7 +35,7 @@ struct CLIExtractor {
   static func extractCLIIfNeeded(from cliFolderURL: URL, expectedSHASUM: String = CLIExtractor.expectedSHASUM) throws -> URL {
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     
-    guard FileManager.default.apollo.directoryExists(at: apolloFolderURL) else {
+    guard FileManager.default.apollo.existsAsDirectory(atPath: apolloFolderURL.path) else {
       CodegenLogger.log("Apollo folder doesn't exist, extracting CLI from zip file.")
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL)
     }
@@ -48,7 +48,7 @@ struct CLIExtractor {
     
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
     let binaryURL = ApolloFilePathHelper.binaryURL(fromBinaryFolder: binaryFolderURL)
-    guard FileManager.default.apollo.fileExists(at: binaryURL) else {
+    guard FileManager.default.apollo.existsAsFile(atPath: binaryURL.path) else {
       CodegenLogger.log("There was a valid `.shasum` file, but no binary at the expected path. Deleting existing apollo folder and re-extracting.", logLevel: .warning)
       try FileManager.default.apollo.delete(at: apolloFolderURL)
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL, expectedSHASUM: expectedSHASUM)
@@ -65,7 +65,7 @@ struct CLIExtractor {
   /// - Returns: true if the shasums match, false if not.
   static func validateSHASUMInExtractedFile(apolloFolderURL: URL, expected: String = CLIExtractor.expectedSHASUM) throws -> Bool {
     let shasumFileURL = ApolloFilePathHelper.shasumFileURL(fromApollo: apolloFolderURL)
-    guard FileManager.default.apollo.fileExists(at: shasumFileURL) else {
+    guard FileManager.default.apollo.existsAsFile(atPath: shasumFileURL.path) else {
       return false
     }
     
@@ -120,7 +120,7 @@ struct CLIExtractor {
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
     let binaryFolderURL = ApolloFilePathHelper.binaryFolderURL(fromApollo: apolloFolderURL)
     
-    guard FileManager.default.apollo.directoryExists(at: binaryFolderURL) else {
+    guard FileManager.default.apollo.existsAsDirectory(atPath: binaryFolderURL.path) else {
       throw CLIExtractorError.noBinaryFolderAfterUnzipping(atURL: binaryFolderURL)
     }
     

@@ -16,7 +16,7 @@ struct CLIDownloader {
   static func downloadIfNeeded(to cliFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
 
-    guard !FileManager.default.apollo.fileExists(at: zipFileURL) else {
+    guard !FileManager.default.apollo.existsAsFile(atPath: zipFileURL.path) else {
       CodegenLogger.log("Zip file with the CLI is already downloaded!")
       return
     }
