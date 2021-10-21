@@ -290,7 +290,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let height = allAnimalsScope
       .children[1]
       .mergedSelections
-      .fields[0]
+      .fields[3]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 

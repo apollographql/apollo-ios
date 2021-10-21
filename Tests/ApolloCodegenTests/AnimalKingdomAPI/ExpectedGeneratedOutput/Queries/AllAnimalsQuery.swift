@@ -201,13 +201,13 @@ public struct AllAnimalsQuery: GraphQLQuery {
           .typeCase(AsWarmBlooded.self),
         ] }
 
+        public var humanName: String? { data["humanName"] }
+        public var favoriteToy: String { data["favoriteToy"] }
+        public var owner: PetDetails.Owner? { data["owner"] }
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
-        public var humanName: String? { data["humanName"] }
-        public var favoriteToy: String { data["favoriteToy"] }
-        public var owner: PetDetails.Owner? { data["owner"] }
 
         public var asWarmBlooded: AsWarmBlooded? { _asType() }
 

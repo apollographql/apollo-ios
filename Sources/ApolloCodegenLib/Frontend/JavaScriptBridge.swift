@@ -99,12 +99,6 @@ public class JavaScriptObject: JavaScriptValueDecodable {
   }
 }
 
-extension JavaScriptObject: Equatable {
-  public static func ==(lhs: JavaScriptObject, rhs: JavaScriptObject) -> Bool {
-    return lhs.jsValue == rhs.jsValue
-  }
-}
-
 extension JavaScriptObject: CustomDebugStringConvertible {
   @objc public var debugDescription: String {
     return "<\(type(of: self)): \(jsValue.toString()!)>"
