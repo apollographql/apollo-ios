@@ -15,9 +15,7 @@ public enum CachePolicy {
   case returnCacheDataAndFetch
   
   /// The current default cache policy.
-  public static var `default`: CachePolicy {
-    .returnCacheDataElseFetch
-  }
+  public static var `default`: CachePolicy = .returnCacheDataElseFetch
 }
 
 /// A handler for operation results.
