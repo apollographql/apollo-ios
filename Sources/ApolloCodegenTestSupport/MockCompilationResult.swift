@@ -15,7 +15,7 @@ public extension CompilationResult.SelectionSet {
     parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
     selections: [CompilationResult.Selection] = []
   ) -> Self {
-    let mock = Self.emptyMockObject()
+    let mock = Self(nil)
     mock.parentType = parentType
     mock.selections = selections
     return mock
@@ -31,7 +31,7 @@ public extension CompilationResult.Field {
     type: GraphQLType = .named(GraphQLObjectType.mock("MOCK")),
     selectionSet: CompilationResult.SelectionSet = .mock()
   ) -> Self {
-    let mock = Self.emptyMockObject()
+    let mock = Self(nil)
     mock.name = name
     mock.alias = alias
     mock.arguments = arguments
@@ -48,6 +48,7 @@ public extension CompilationResult.InlineFragment {
   ) -> Self {
     Self.init(selectionSet: .mock(parentType: parentType))
   }
+  
 }
 
 public extension CompilationResult.FragmentSpread {

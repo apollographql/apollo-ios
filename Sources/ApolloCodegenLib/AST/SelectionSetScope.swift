@@ -23,14 +23,30 @@ class SelectionSetScope: CustomDebugStringConvertible {
   init(selections: [Selection], type: GraphQLCompositeType, parent: SelectionSetScope?) {
     self.parent = parent
     self.type = type
+    (self.selections, self.children) = computeSelectionsAndChildren(from: selections)
+  }
 
+  private func computeSelectionsAndChildren(
+    from selections: [Selection]
+  ) -> (OrderedDictionary<AnyHashable, Selection>, [SelectionSetScope]) {
     var computedSelections: OrderedDictionary<AnyHashable, Selection> = [:]
     var computedChildren: [SelectionSetScope] = []
 
     for selection in selections {
+      let keyInScope = selection.hashForSelectionSetScope
       switch selection {
       case let .inlineFragment(fragment):
-        computedSelections[selection.hashForSelectionSetScope] = selection
+        // Merge nested selection sets
+//        computedSelections.updateValue(
+//          forKey: keyInScope,
+//          default: selection) { valueInPlace in
+//            guard case let .inlineFragment(existingFragment) = valueInPlace else {
+//              valueInPlace = selection
+//              return
+//            }
+//            valueInPlace = .inlineFragment(existingFragment.)
+//          }
+        computedSelections[keyInScope] = selection
         computedChildren.append(SelectionSetScope(selectionSet: fragment.selectionSet, parent: self))
 
       case let .fragmentSpread(fragment):
@@ -47,13 +63,13 @@ class SelectionSetScope: CustomDebugStringConvertible {
         }
 
         if shouldMergeFragmentDirectly() {
-          computedSelections[selection.hashForSelectionSetScope] = selection
+          computedSelections[keyInScope] = selection
 
         } else {
           let typeCaseForFragment = Selection.inlineFragment(
             .init(selectionSet: fragment.fragment.selectionSet)
           )
-          computedSelections[typeCaseForFragment.hashForSelectionSetScope] = typeCaseForFragment
+          computedSelections[keyInScope] = typeCaseForFragment
 
           computedChildren.append(
             SelectionSetScope(
@@ -62,13 +78,24 @@ class SelectionSetScope: CustomDebugStringConvertible {
             parent: self))
         }
 
+      case let .field(field) where field.type.namedType is GraphQLCompositeType:
+        // Merge nested selection sets
+        computedSelections.updateValue(
+          forKey: keyInScope,
+          default: selection) { valueInPlace in
+            guard let selectionSetToMerge = field.selectionSet else { return }
+            guard case let .field(existingField) = valueInPlace else {
+              valueInPlace = selection
+              return
+            }
+            valueInPlace = .field(existingField.merging(selectionSetToMerge))
+          }
+
       case .field:
-        computedSelections[selection.hashForSelectionSetScope] = selection
+        computedSelections[keyInScope] = selection
       }
     }
-
-    self.selections = computedSelections
-    self.children = computedChildren
+    return (computedSelections, computedChildren)
   }
 
   /// All of the selections on the selection set that are fields. Does not traverse children.

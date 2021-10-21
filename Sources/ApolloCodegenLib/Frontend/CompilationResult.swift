@@ -83,16 +83,39 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class SelectionSet: JavaScriptObject, Hashable {
-    lazy var parentType: GraphQLCompositeType = self["parentType"]
+  public class SelectionSet: JavaScriptWrapper, Hashable {
+    lazy var parentType: GraphQLCompositeType = self["parentType"]!
     
-    lazy var selections: [Selection] = self["selections"]
+    lazy var selections: [Selection] = self["selections"]!
 
-    public override var debugDescription: String {
+    convenience init(parentType: GraphQLCompositeType, selections: [Selection]) {
+      self.init(nil)
+      self.parentType = parentType
+      self.selections = selections
+    }
+
+    /// Returns a `SelectionSet` with the `newSelections` merged in, removing duplicates.
+    ///
+    /// - Note: If no changes were made the same `SelectionSet` is returned.
+    func merging(_ newSelections: [Selection]) -> SelectionSet {
+      let selectionsToMerge = newSelections.filter { !selections.contains($0) }
+
+      guard !selectionsToMerge.isEmpty else { return self }
+
+      let copy = self.copy()
+      copy.selections += selectionsToMerge
+      return copy
+    }
+
+    private func copy() -> SelectionSet {
+      return SelectionSet(parentType: self.parentType, selections: self.selections)
+    }
+
+    public var debugDescription: String {
       let selectionDescriptions = selections.map(\.debugDescription).joined(separator: "\n")
       return """
       SelectionSet on \(parentType) {
-      \(selectionDescriptions)
+        \(indented: selectionDescriptions)
       }
       """
     }
@@ -120,7 +143,7 @@ public class CompilationResult: JavaScriptObject {
 
       switch kind {
       case "Field":
-        self = .field(Field(jsValue, bridge: bridge))
+        self = .field(Field(JavaScriptObject(jsValue, bridge: bridge)))
       case "InlineFragment":
         let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
         self = .inlineFragment(InlineFragment(selectionSet: selectionSet))
@@ -145,8 +168,8 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class Field: JavaScriptObject, Hashable {
-    lazy var name: String = self["name"]
+  public class Field: JavaScriptWrapper, Hashable {
+    lazy var name: String = self["name"]!
     
     lazy var alias: String? = self["alias"]
     
@@ -156,7 +179,7 @@ public class CompilationResult: JavaScriptObject {
     
     lazy var arguments: [Argument]? = self["arguments"]
     
-    lazy var type: GraphQLType = self["type"]
+    lazy var type: GraphQLType = self["type"]!
     
     lazy var selectionSet: SelectionSet? = self["selectionSet"]
     
@@ -168,7 +191,56 @@ public class CompilationResult: JavaScriptObject {
     
     lazy var description: String? = self["description"]
 
-    public override var debugDescription: String {
+    convenience init(
+      name: String,
+      alias: String? = nil,
+      arguments: [Argument]? = nil,
+      type: GraphQLType,
+      selectionSet: SelectionSet? = nil,
+      deprecationReason: String? = nil,
+      description: String? = nil
+    ) {
+      self.init(nil)
+      self.name = name
+      self.alias = alias
+      self.arguments = arguments
+      self.type = type
+      self.selectionSet = selectionSet
+      self.deprecationReason = deprecationReason
+      self.description = description
+    }
+
+    /// Returns a `Field` with the selections of the `newSelectionSet` merged in,
+    /// removing duplicates.
+    ///
+    /// - Note: If no changes were made the same `Field` is returned.
+    func merging(_ newSelectionSet: SelectionSet) -> Field {
+      guard let existingSelectionSet = selectionSet else {
+        let copy = self.copy()
+        copy.selectionSet = newSelectionSet
+        return copy
+      }
+
+      let mergedSelectionSet = existingSelectionSet.merging(newSelectionSet.selections)
+      guard mergedSelectionSet !== existingSelectionSet else { return self }
+
+      let copy = self.copy()
+      copy.selectionSet = mergedSelectionSet
+      return copy
+    }
+
+    private func copy() -> Field {
+      return Field(
+        name: self.name,
+        alias: self.alias,
+        arguments: self.arguments,
+        type: self.type,
+        selectionSet: self.selectionSet,
+        deprecationReason: self.deprecationReason,
+        description: self.description)
+    }
+
+    public var debugDescription: String {
       "\(name): \(type)"
     }
 

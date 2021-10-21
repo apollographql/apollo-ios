@@ -277,7 +277,7 @@ class SelectionSetScopeTests: XCTestCase {
 
   // MARK: Selections - Group Duplicate Fields
 
-  func test__selections__givenTwoSelectionsWithSameFieldName__scalarType_deduplicatesSelection() {
+  func test__selections__givenFieldSelectionsWithSameName_scalarType_deduplicatesSelection() {
     // given
     let selectionSet = CompilationResult.SelectionSet.mock(
       selections: [
@@ -288,6 +288,291 @@ class SelectionSetScopeTests: XCTestCase {
 
     let expected: [CompilationResult.Selection] = [
       .field(.mock("A", type: .named(GraphQLScalarType.integer())))
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenFieldSelectionsWithSameNameDifferentAlias_scalarType_doesNotDeduplicateSelection() {
+    // given
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .field(.mock("A", alias: "B", type: .named(GraphQLScalarType.integer()))),
+        .field(.mock("A", alias: "C", type: .named(GraphQLScalarType.integer())))
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("A", alias: "B", type: .named(GraphQLScalarType.integer()))),
+      .field(.mock("A", alias: "C", type: .named(GraphQLScalarType.integer())))
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithDifferentChildSelections_mergesChildSelectionsIntoOneField() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .field(.mock(
+          "A",
+          type: .named(Object_A),
+          selectionSet: .mock(
+            parentType: Object_A,
+            selections: [
+              .field(.mock("B", type: .named(GraphQLScalarType.integer())))
+            ]
+          ))),
+        .field(.mock(
+          "A",
+          type: .named(Object_A),
+          selectionSet: .mock(
+            parentType: Object_A,
+            selections: [
+              .field(.mock("C", type: .named(GraphQLScalarType.integer())))
+            ]
+          )))
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock(
+        "A",
+        type: .named(Object_A),
+        selectionSet: .mock(
+          parentType: Object_A,
+          selections: [
+            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("C", type: .named(GraphQLScalarType.integer())))
+          ]
+        )))
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  /// Example:
+  /// query {
+  ///   A {
+  ///     B
+  ///     C
+  ///   }
+  ///   A {
+  ///     B
+  ///     D
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Selections: {
+  ///   A {
+  ///     B
+  ///     C
+  ///     D
+  ///   }
+  /// }
+  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithSameAndDifferentChildSelections_mergesChildSelectionsAndDoesNotDuplicateFields() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .field(.mock(
+          "A",
+          type: .named(Object_A),
+          selectionSet: .mock(
+            parentType: Object_A,
+            selections: [
+              .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+              .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+            ]
+          ))),
+        .field(.mock(
+          "A",
+          type: .named(Object_A),
+          selectionSet: .mock(
+            parentType: Object_A,
+            selections: [
+              .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+              .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+            ]
+          )))
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock(
+        "A",
+        type: .named(Object_A),
+        selectionSet: .mock(
+          parentType: Object_A,
+          selections: [
+            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+          ]
+        )))
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  // MARK: Selections - Group Duplicate Type Cases
+
+  func test__selections__givenInlineFragmentsWithSameInterfaceType_deduplicatesSelection() {
+    // given
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
+        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA")))
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenInlineFragmentsWithSameObjectType_deduplicatesSelection() {
+    // given
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
+        .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenInlineFragmentsWithSameUnionType_deduplicatesSelection() {
+    // given
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
+        .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenInlineFragmentsWithDifferentType_doesNotDeduplicateSelection() {
+    // given
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
+        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceB"))),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
+      .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceB"))),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  /// Example:
+  /// query {
+  ///   ... on A {
+  ///     B
+  ///     C
+  ///   }
+  ///   ... on A {
+  ///     B
+  ///     D
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// A.Selections: {
+  ///   inlineFragment on A {
+  ///     B
+  ///     C
+  ///     D
+  ///   }
+  /// }
+  func test__selections__givenInlineFragmentsWithSameType_withSameAndDifferentChildSelections_mergesChildSelectionsIntoOneTypeCaseAndDeduplicatesChildSelections() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .inlineFragment(.init(
+          selectionSet: .mock(
+            parentType: Object_A,
+            selections: [
+              .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+              .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+            ]
+          ))),
+        .inlineFragment(.init(
+          selectionSet: .mock(
+            parentType: Object_A,
+            selections: [
+              .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+              .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+            ]
+          )))
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.init(
+        selectionSet: .mock(
+          parentType: Object_A,
+          selections: [
+            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+          ]
+        )))
     ]
 
     // when
@@ -788,7 +1073,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     let sibling1Expected = sibling1.selections.values.elements
 
-    let sibling2Expected = sibling2.selections.values.elements    
+    let sibling2Expected = sibling2.selections.values.elements
 
     // when
     let sibling1Actual = sibling1.mergedSelections

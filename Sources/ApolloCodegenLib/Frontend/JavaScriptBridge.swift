@@ -20,20 +20,29 @@ extension JavaScriptError: CustomStringConvertible {
   }
 }
 
-public class JavaScriptWrapper {
+public class JavaScriptWrapper: JavaScriptValueDecodable {
   let _underlyingObject: JavaScriptObject?
 
-  init(_ underlyingObject: JavaScriptObject? = nil) {
+  required init(_ underlyingObject: JavaScriptObject? = nil) {
     self._underlyingObject = underlyingObject
   }
 
-  subscript(property: Any) -> JSValue {
-    return _underlyingObject![property]
+  required convenience init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    self.init(JavaScriptObject(jsValue, bridge: bridge))
   }
 
-  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable {
-    return _underlyingObject![property]
+  static func fromJSValue(_ jsValue: JSValue, bridge: JavaScriptBridge) -> Self {
+    return Self.init(JavaScriptObject.fromJSValue(jsValue, bridge: bridge))
   }
+
+  subscript(property: Any) -> JSValue? {
+    return _underlyingObject?[property]
+  }  
+
+  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable? {
+    return _underlyingObject?[property]
+  }
+
 }
 
 /// A type that references an underlying JavaScript object.
