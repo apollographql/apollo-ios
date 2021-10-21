@@ -39,7 +39,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type.name).to(equal("Bird"))
-    expect(child.selections.elements).to(equal(childSelections))
+    expect(child.selections.values.elements).to(equal(childSelections))
   }
 
   /// Example:
@@ -72,7 +72,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections.elements).to(equal(childSelections))
+    expect(child.selections.values.elements).to(equal(childSelections))
   }
 
   /// Example:
@@ -133,7 +133,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Object_Bird))
-    expect(child.selections.elements).to(equal([.fragmentSpread(.mock(birdDetails))]))
+    expect(child.selections.values.elements).to(equal([.fragmentSpread(.mock(birdDetails))]))
   }
 
   /// Example:
@@ -221,7 +221,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections.elements).to(equal([.fragmentSpread(.mock(animalDetails))]))
+    expect(child.selections.values.elements).to(equal([.fragmentSpread(.mock(animalDetails))]))
   }
 
   // MARK: Children Computation - Union Type
@@ -270,7 +270,31 @@ class SelectionSetScopeTests: XCTestCase {
 
     expect(onClassroomPet_onBird.parent).to(beIdenticalTo(onClassroomPet))
     expect(onClassroomPet_onBird.type).to(beIdenticalTo(Object_Bird))
-    expect(onClassroomPet_onBird.selections.elements).to(equal([Field_Species]))
+    expect(onClassroomPet_onBird.selections.values.elements).to(equal([Field_Species]))
+  }
+
+  // MARK: Selections
+
+  // MARK: Selections - Group Duplicate Fields
+
+  func test__selections__givenTwoSelectionsWithSameFieldName__scalarType_deduplicatesSelection() {
+    // given
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      selections: [
+        .field(.mock("A", type: .named(GraphQLScalarType.integer()))),
+        .field(.mock("A", type: .named(GraphQLScalarType.integer())))
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("A", type: .named(GraphQLScalarType.integer())))
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
   }
 
   // MARK: - Merged Selections
@@ -312,7 +336,7 @@ class SelectionSetScopeTests: XCTestCase {
       selections: [.field(.mock("B"))]
     ), parent: parent)
 
-    let expected: OrderedSet = OrderedSet(subject.selections.elements + parent.selections.elements)
+    let expected = subject.selections.values.elements + parent.selections.values.elements
 
     // when
     let actual = subject.mergedSelections
@@ -361,15 +385,13 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected = OrderedSet(
-      sibling1.selections.elements +
-      sibling2.selections.elements
-    )
+    let sibling1Expected =
+      sibling1.selections.values.elements +
+      sibling2.selections.values.elements
 
-    let sibling2Expected = OrderedSet(
-      sibling2.selections.elements +
-      sibling1.selections.elements
-    )
+    let sibling2Expected =
+      sibling2.selections.values.elements +
+      sibling1.selections.values.elements
 
     // when
     let sibling1Actual = sibling1.mergedSelections
@@ -415,13 +437,9 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected: OrderedSet = OrderedSet(
-      sibling1.selections.elements
-    )
+    let sibling1Expected = sibling1.selections.values.elements
 
-    let sibling2Expected: OrderedSet = OrderedSet(
-      sibling2.selections.elements
-    )
+    let sibling2Expected = sibling2.selections.values.elements
 
     // when
     let sibling1Actual = sibling1.mergedSelections
@@ -472,14 +490,11 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected: OrderedSet = OrderedSet(
-      sibling1.selections.elements +
-      sibling2.selections.elements
-    )
+    let sibling1Expected =
+      sibling1.selections.values.elements +
+      sibling2.selections.values.elements
 
-    let sibling2Expected: OrderedSet = OrderedSet(
-      sibling2.selections.elements
-    )
+    let sibling2Expected = sibling2.selections.values.elements
 
     // when
     let sibling1Actual = sibling1.mergedSelections
@@ -528,13 +543,9 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected: OrderedSet = OrderedSet(
-      sibling1.selections.elements
-    )
+    let sibling1Expected = sibling1.selections.values.elements
 
-    let sibling2Expected: OrderedSet = OrderedSet(
-      sibling2.selections.elements
-    )
+    let sibling2Expected = sibling2.selections.values.elements
 
     // when
     let sibling1Actual = sibling1.mergedSelections
@@ -595,15 +606,15 @@ class SelectionSetScopeTests: XCTestCase {
     let onClassroomPet = parent.children[1]
     let onClassroomPet_onBird = onClassroomPet.children[0]
 
-    let onBirdExpected: OrderedSet = OrderedSet([
+    let onBirdExpected = [
       Field_Wingspan,
       Field_Species
-    ])
+    ]
 
-    let onClassroomPet_onBirdExpected: OrderedSet = OrderedSet([
+    let onClassroomPet_onBirdExpected = [
       Field_Species,
       Field_Wingspan
-    ])
+    ]
 
     // when
     let onBirdActual = onBird.mergedSelections
@@ -665,13 +676,13 @@ class SelectionSetScopeTests: XCTestCase {
     let onClassroomPet = parent.children[1]
     let onClassroomPet_onCat = onClassroomPet.children[0]
 
-    let onBirdExpected: OrderedSet = OrderedSet([
+    let onBirdExpected = [
       Field_Wingspan
-    ])
+    ]
 
-    let onClassroomPet_onCatExpected: OrderedSet = OrderedSet([
+    let onClassroomPet_onCatExpected = [
       Field_Species
-    ])
+    ]
 
     // when
     let onBirdActual = onBird.mergedSelections
@@ -722,14 +733,11 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected: OrderedSet = OrderedSet(
-      sibling1.selections.elements +
-      sibling2.selections.elements
-    )
+    let sibling1Expected =
+      sibling1.selections.values.elements +
+      sibling2.selections.values.elements
 
-    let sibling2Expected: OrderedSet = OrderedSet(
-      sibling2.selections.elements
-    )
+    let sibling2Expected = sibling2.selections.values.elements
 
     // when
     let sibling1Actual = sibling1.mergedSelections
@@ -778,13 +786,9 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children[0]
     let sibling2 = parent.children[1]
 
-    let sibling1Expected: OrderedSet = OrderedSet(
-      sibling1.selections.elements
-    )
+    let sibling1Expected = sibling1.selections.values.elements
 
-    let sibling2Expected: OrderedSet = OrderedSet(
-      sibling2.selections.elements
-    )
+    let sibling2Expected = sibling2.selections.values.elements    
 
     // when
     let sibling1Actual = sibling1.mergedSelections

@@ -6,13 +6,13 @@ class SelectionSetScope: CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
 
+  let type: GraphQLCompositeType
+
   weak private(set) var parent: SelectionSetScope?
 
   private(set) var children: [SelectionSetScope] = []
 
-  let type: GraphQLCompositeType
-
-  private(set) var selections: OrderedSet<Selection> = []
+  private(set) var selections: OrderedDictionary<AnyHashable, Selection> = [:]
 
   convenience init(selectionSet: CompilationResult.SelectionSet, parent: SelectionSetScope?) {
     self.init(selections: selectionSet.selections,
@@ -24,13 +24,13 @@ class SelectionSetScope: CustomDebugStringConvertible {
     self.parent = parent
     self.type = type
 
-    var computedSelections: OrderedSet<Selection> = []
+    var computedSelections: OrderedDictionary<AnyHashable, Selection> = [:]
     var computedChildren: [SelectionSetScope] = []
 
     for selection in selections {
       switch selection {
       case let .inlineFragment(fragment):
-        computedSelections.append(selection)
+        computedSelections[selection.hashForSelectionSetScope] = selection
         computedChildren.append(SelectionSetScope(selectionSet: fragment.selectionSet, parent: self))
 
       case let .fragmentSpread(fragment):
@@ -47,12 +47,14 @@ class SelectionSetScope: CustomDebugStringConvertible {
         }
 
         if shouldMergeFragmentDirectly() {
-          computedSelections.append(selection)
+          computedSelections[selection.hashForSelectionSetScope] = selection
 
         } else {
-          computedSelections.append(
-            .inlineFragment(.init(selectionSet: fragment.fragment.selectionSet))
+          let typeCaseForFragment = Selection.inlineFragment(
+            .init(selectionSet: fragment.fragment.selectionSet)
           )
+          computedSelections[typeCaseForFragment.hashForSelectionSetScope] = typeCaseForFragment
+
           computedChildren.append(
             SelectionSetScope(
             selections: [.fragmentSpread(fragment)],
@@ -61,7 +63,7 @@ class SelectionSetScope: CustomDebugStringConvertible {
         }
 
       case .field:
-        computedSelections.append(selection)
+        computedSelections[selection.hashForSelectionSetScope] = selection
       }
     }
 
@@ -72,8 +74,8 @@ class SelectionSetScope: CustomDebugStringConvertible {
   /// All of the selections on the selection set that are fields. Does not traverse children.
   lazy var fieldSelections: [Selection] = {
     selections.compactMap {
-      switch $0.self {
-      case .field: return $0
+      switch $0.value.self {
+      case .field: return $0.value
       default: return nil
       }
     }
@@ -153,48 +155,83 @@ struct MergedSelections: Equatable {
   typealias TypeCase = CompilationResult.InlineFragment
   typealias Fragment = CompilationResult.FragmentDefinition
 
-  fileprivate(set) var fields: OrderedSet<Field> = []
-  fileprivate(set) var typeCases: OrderedSet<TypeCase> = []
-  fileprivate(set) var fragments: OrderedSet<Fragment> = []
-
-  mutating func mergeIn(_ selections: [Selection]) {
-    for selection in selections {
-      switch selection {
-      case let .field(field):
-        fields.append(field)
-
-      case let .inlineFragment(fragment):
-        typeCases.append(fragment)
-
-      case let .fragmentSpread(fragment):
-        fragments.append(fragment.fragment)
-        mergeIn(fragment.fragment.selectionSet.selections)
-      }
-    }
-  }
+  fileprivate(set) var fields: OrderedDictionary<AnyHashable, Field> = [:]
+  fileprivate(set) var typeCases: OrderedDictionary<AnyHashable, TypeCase> = [:]
+  fileprivate(set) var fragments: OrderedDictionary<AnyHashable, Fragment> = [:]
 
   init() {}
 
   init(
-    fields: OrderedSet<Field> = [],
-    typeCases: OrderedSet<TypeCase> = [],
-    fragments: OrderedSet<Fragment> = []
+    fields: OrderedDictionary<AnyHashable, Field> = [:],
+    typeCases: OrderedDictionary<AnyHashable, TypeCase> = [:],
+    fragments: OrderedDictionary<AnyHashable, Fragment> = [:]
   ) {
     self.fields = fields
     self.typeCases = typeCases
     self.fragments = fragments
   }
 
+  init(
+    fields: [Field] = [],
+    typeCases: [TypeCase] = [],
+    fragments: [Fragment] = []
+  ) {
+    mergeIn(fields)
+    mergeIn(typeCases)
+    mergeIn(fragments)
+  }
+
   init(_ selections: [CompilationResult.Selection]) {
     mergeIn(selections)
   }
 
-  init(_ selections: OrderedSet<CompilationResult.Selection>) {
-    mergeIn(selections.elements)
+  init(_ selections: OrderedDictionary<AnyHashable, Selection>) {
+    mergeIn(selections.values.elements)
   }
 
   var isEmpty: Bool {
     fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+  }
+
+  // MARK: Selection Merging
+
+  mutating func mergeIn(_ selections: [Selection]) {
+    for selection in selections {
+      switch selection {
+      case let .field(field): mergeIn(field)
+
+      case let .inlineFragment(fragment):
+        typeCases[fragment.hashForSelectionSetScope] = fragment
+
+      case let .fragmentSpread(fragment):
+        fragments[fragment.hashForSelectionSetScope] = fragment.fragment
+        mergeIn(fragment.fragment.selectionSet.selections)
+      }
+    }
+  }
+
+  mutating func mergeIn(_ field: Field) {
+    fields[field.hashForSelectionSetScope] = field
+  }
+
+  mutating func mergeIn(_ fields: [Field]) {
+    fields.forEach { mergeIn($0) }
+  }
+
+  mutating func mergeIn(_ typeCase: TypeCase) {
+    typeCases[typeCase.hashForSelectionSetScope] = typeCase
+  }
+
+  mutating func mergeIn(_ typeCases: [TypeCase]) {
+    typeCases.forEach { mergeIn($0) }
+  }
+
+  mutating func mergeIn(_ fragment: Fragment) {
+    fragments[fragment.hashForSelectionSetScope] = fragment
+  }
+
+  mutating func mergeIn(_ fragments: [Fragment]) {
+    fragments.forEach { mergeIn($0) }
   }
 
   static func ==(lhs: MergedSelections, rhs: MergedSelections) -> Bool {

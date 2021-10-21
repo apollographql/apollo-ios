@@ -44,7 +44,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let actual = rootSelectionSet.mergedSelections
 
     // then
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal__isCorrect() {
@@ -82,7 +82,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(Interface_Animal))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_Height__isCorrect() {
@@ -110,7 +110,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_Predator__isCorrect() {
@@ -136,7 +136,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLInterfaceType.mock("Animal")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_Predator_AsWarmBlooded__isCorrect() {
@@ -169,7 +169,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLInterfaceType.mock("WarmBlooded")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsWarmBlooded__isCorrect() {
@@ -205,7 +205,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLInterfaceType.mock("WarmBlooded")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsWarmBlooded_Height__isCorrect() {
@@ -216,7 +216,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let height = allAnimalsScope
       .children[0]
       .mergedSelections
-      .fields[1]
+      .fields.values[1]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 
@@ -240,7 +240,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet__isCorrect() {
@@ -281,7 +281,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLInterfaceType.mock("Pet")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet_Height__isCorrect() {
@@ -292,7 +292,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let height = allAnimalsScope
       .children[1]
       .mergedSelections
-      .fields[3]
+      .fields.values[3]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 
@@ -320,7 +320,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AsPet_AsWarmBlooded__isCorrect() {
@@ -363,7 +363,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLInterfaceType.mock("WarmBlooded")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AsCat__isCorrect() {
@@ -408,7 +408,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Cat")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
 #warning("TODO: This is the same as AllAnimal.AsPet.Height. Should we inherit that object instead?")
@@ -420,7 +420,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let height = allAnimalsScope
       .children[2]
       .mergedSelections
-      .fields[1]
+      .fields.values[1]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 
@@ -448,7 +448,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AsClassroomPet__isCorrect() {
@@ -483,7 +483,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLUnionType.mock("ClassroomPet")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections_AllAnimalsQuery_AsClassroomPet_AsBird__isCorrect() {
@@ -528,7 +528,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Bird")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
 #warning("TODO: This is the same as AllAnimal.AsPet.Height. Should we inherit that object instead?")
@@ -541,7 +541,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
       .children[3]
       .children[0]
       .mergedSelections
-      .fields[1]
+      .fields.values[1]
 
     let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
 
@@ -569,93 +569,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     // then
     expect(scope.type).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(matchAST(expected))
+    expect(actual).to(shallowlyMatch(expected))
   }
 
-}
-
-// MARK - Custom Matchers
-
-fileprivate func matchAST(_ expectedValue: MergedSelections) -> Predicate<MergedSelections> {
-  return Predicate { actual in
-    if let actualValue = try actual.evaluate() {
-      if expectedValue.fields.count != actualValue.fields.count {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have fields equal to " + expectedValue.fields.debugDescription,
-                                          actual: actualValue.fields.debugDescription)
-        )
-      }
-
-      if expectedValue.typeCases.count != actualValue.typeCases.count {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have typeCases equal to " + expectedValue.typeCases.debugDescription,
-                                          actual: actualValue.typeCases.debugDescription)
-        )
-      }
-
-      if expectedValue.fragments.count != actualValue.fragments.count {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have fragments equal to " + expectedValue.fragments.debugDescription,
-                                          actual: actualValue.fragments.debugDescription)
-        )
-      }
-
-      for (index, field) in zip(expectedValue.fields, actualValue.fields).enumerated() {
-        guard matchAST(expected: field.0, actual: field.1) else {
-          return PredicateResult(
-            status: .fail,
-            message: .fail("Expected field[\(index)] to equal \(field.0), got \(field.1).")
-          )
-        }
-      }
-
-      for (index, typeCase) in zip(expectedValue.typeCases, actualValue.typeCases).enumerated() {
-        guard matchAST(expected: typeCase.0, actual: typeCase.1) else {
-          return PredicateResult(
-            status: .fail,
-            message: .fail("Expected typeCase[\(index)] to equal \(typeCase.0), got \(typeCase.1).")
-          )
-        }
-      }
-
-      for (index, fragment) in zip(expectedValue.fragments, actualValue.fragments).enumerated() {
-        guard matchAST(expected: fragment.0, actual: fragment.1) else {
-          return PredicateResult(
-            status: .fail,
-            message: .fail("Expected fragment[\(index)] to equal \(fragment.0), got \(fragment.1).")
-          )
-        }
-      }
-
-      return PredicateResult(
-        status: .matches,
-        message: .expectedActualValueTo("equal <\(expectedValue)>")
-      )
-
-    } else {
-      return PredicateResult(
-        status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>").appendedBeNilHint()
-      )
-    }
-  }
-}
-
-fileprivate func matchAST(expected: CompilationResult.Field, actual: CompilationResult.Field) -> Bool {
-  return expected.name == actual.name &&
-  expected.alias == actual.alias &&
-  expected.arguments == actual.arguments &&
-  expected.type == actual.type
-}
-
-fileprivate func matchAST(expected: CompilationResult.InlineFragment, actual: CompilationResult.InlineFragment) -> Bool {
-  return expected.parentType == actual.parentType
-}
-
-fileprivate func matchAST(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
-  return expected.name == actual.name &&
-  expected.type == actual.type
 }

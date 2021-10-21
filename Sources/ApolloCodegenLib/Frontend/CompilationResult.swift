@@ -98,11 +98,13 @@ public class CompilationResult: JavaScriptObject {
     }
 
     public func hash(into hasher: inout Hasher) {
-      hasher.combine(ObjectIdentifier(self))
+      hasher.combine(parentType)
+      hasher.combine(selections)
     }
 
     public static func ==(lhs: SelectionSet, rhs: SelectionSet) -> Bool {
-      return lhs === rhs
+      return lhs.parentType == rhs.parentType &&
+      lhs.selections == rhs.selections
     }
   }
   
