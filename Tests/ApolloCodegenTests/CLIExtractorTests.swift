@@ -101,7 +101,6 @@ class CLIExtractorTests: XCTestCase {
     // Check that the binary hasn't already been extracted
     // (it should be getting deleted in `setUp`)
     let binaryFolderURL = CodegenTestHelper.binaryFolderURL()
-    XCTAssertFalse(FileManager.default.apollo.directoryExists(at: binaryFolderURL))
     XCTAssertFalse(FileManager.default.apollo.existsAsDirectory(atPath: binaryFolderURL.path))
     
     // Actually extract the CLI
@@ -147,7 +146,7 @@ class CLIExtractorTests: XCTestCase {
   func testFolderExistsButMissingSHASUMFileReExtractionWorks() throws {
     // Make sure there is an apollo folder but no `.shasum` file
     let apolloFolder = CodegenTestHelper.apolloFolderURL()
-    try FileManager.default.apollo.createDirectoryIfNeeded(at: apolloFolder)
+    try FileManager.default.apollo.createDirectory(atPath: apolloFolder.path)
     
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
     
@@ -172,7 +171,7 @@ class CLIExtractorTests: XCTestCase {
   
   func testMissingSHASUMFileButCorrectZipFileCreatesSHASUMFile() throws {
     let shasumFileURL = CodegenTestHelper.shasumFileURL()
-    try FileManager.default.apollo.delete(at: shasumFileURL)
+    try FileManager.default.apollo.delete(atPath: shasumFileURL.path)
     
     XCTAssertFalse(FileManager.default.apollo.existsAsFile(atPath: shasumFileURL.path))
     

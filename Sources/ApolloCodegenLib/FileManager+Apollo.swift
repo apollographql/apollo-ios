@@ -37,62 +37,33 @@ extension ApolloExtension where Base == FileManager {
   /// Removes the file or directory at the specified path.
   ///
   /// - Parameter path: The path of the file or directory to delete.
-  public func delete(at path: String) throws {
+  public func delete(atPath path: String) throws {
     try base.removeItem(atPath: path)
-  }
-
-  /// Removes the file or directory at the specified URL.
-  ///
-  /// - Parameter path: The URL of the file or directory to delete.
-  public func delete(at url: URL) throws {
-    try base.removeItem(at: url)
   }
 
   /// Creates a file at the specified path and writes any given data to it. If a file already exists at `path`, this method overwrites the
   /// contents of that file if the current process has the appropriate privileges to do so.
   ///
   /// - Parameters:
-  ///   - path: Path to the new file.
-  ///   - data: [optional] Data to write to the new file.
-  public func createFile(at path: String, data: Data? = nil) throws {
-    try createContainingDirectoryIfNeeded(for: .init(fileURLWithPath: path))
-
+  ///   - path: Path to the file.
+  ///   - data: [optional] Data to write to the file path.
+  public func createFile(atPath path: String, data: Data? = nil) throws {
+    try createContainingDirectory(forPath: path)
     base.createFile(atPath: path, contents: data, attributes: nil)
   }
 
-  /// Creates a file at the specified URL and writes any given data to it. If a file already exists at `url`, this method overwrites the
-  /// contents of that file if the current process has the appropriate privileges to do so.
-  ///
-  /// - Parameters:
-  ///   - url: URL to the ne file.
-  ///   - data: [optional] Data to write to the new file.
-  public func createFile(at url: URL, data: Data? = nil) throws {
-    try createFile(at: url.path, data: data)
-  }
-  
   /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary.
   ///
   /// - Parameter fileURL: The URL of the file to create a containing directory for if necessary.
-  public func createContainingDirectoryIfNeeded(for fileURL: URL) throws {
-    let parent = fileURL.deletingLastPathComponent()
-    try createDirectoryIfNeeded(at: parent)
-  }
-  
-  /// Creates the directory (including all intermediate directories) for the given URL if necessary.
-  ///
-  /// - Parameter url: The URL of the directory to create if necessary.
-  public func createDirectoryIfNeeded(at url: URL) throws {
-    try createDirectoryIfNeeded(at: url.path)
+  public func createContainingDirectory(forPath path: String) throws {
+    let parent = URL(fileURLWithPath: path).deletingLastPathComponent()
+    try base.createDirectory(atPath: parent.path, withIntermediateDirectories: true)
   }
 
   /// Creates the directory (including all intermediate directories) for the given URL if necessary.
   ///
   /// - Parameter path: The path of the directory to create if necessary.
-  public func createDirectoryIfNeeded(at path: String) throws {
-    guard !directoryExists(at: path) else {
-      // Directory already exists, nothing more to do here.
-      return
-    }
+  public func createDirectory(atPath path: String) throws {
     try base.createDirectory(atPath: path, withIntermediateDirectories: true)
   }
 

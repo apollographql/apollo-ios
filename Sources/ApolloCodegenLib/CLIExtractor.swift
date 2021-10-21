@@ -42,7 +42,7 @@ struct CLIExtractor {
     
     guard try self.validateSHASUMInExtractedFile(apolloFolderURL: apolloFolderURL, expected: expectedSHASUM) else {
       CodegenLogger.log("SHASUM of extracted zip does not match expected, deleting existing folder and re-extracting.")
-      try FileManager.default.apollo.delete(at: apolloFolderURL)
+      try FileManager.default.apollo.delete(atPath: apolloFolderURL.path)
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL)
     }
     
@@ -50,7 +50,7 @@ struct CLIExtractor {
     let binaryURL = ApolloFilePathHelper.binaryURL(fromBinaryFolder: binaryFolderURL)
     guard FileManager.default.apollo.existsAsFile(atPath: binaryURL.path) else {
       CodegenLogger.log("There was a valid `.shasum` file, but no binary at the expected path. Deleting existing apollo folder and re-extracting.", logLevel: .warning)
-      try FileManager.default.apollo.delete(at: apolloFolderURL)
+      try FileManager.default.apollo.delete(atPath: apolloFolderURL.path)
       return try self.extractCLIFromZip(cliFolderURL: cliFolderURL, expectedSHASUM: expectedSHASUM)
     }
     

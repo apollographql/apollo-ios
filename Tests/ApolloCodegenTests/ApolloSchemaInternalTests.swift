@@ -10,7 +10,7 @@ class ApolloSchemaInternalTests: XCTestCase {
       throw XCTFailure("Missing resource file!", file: #file, line: #line)
     }
 
-    try FileManager.default.apollo.createDirectoryIfNeeded(at: CodegenTestHelper.outputFolderURL())
+    try FileManager.default.apollo.createDirectory(atPath: CodegenTestHelper.outputFolderURL().path)
     let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
                                                           outputFolderURL: CodegenTestHelper.outputFolderURL())
 
