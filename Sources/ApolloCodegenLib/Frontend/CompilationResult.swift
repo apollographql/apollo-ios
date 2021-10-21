@@ -120,22 +120,14 @@ public class CompilationResult: JavaScriptObject {
       case "Field":
         self = .field(Field(jsValue, bridge: bridge))
       case "InlineFragment":
-        self = .inlineFragment(InlineFragment(jsValue, bridge: bridge))
+        let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
+        self = .inlineFragment(InlineFragment(selectionSet: selectionSet))
       case "FragmentSpread":
         self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
       default:
         preconditionFailure("""
           Unknown GraphQL selection of kind "\(kind)"
           """)
-      }
-    }
-
-    var value: JavaScriptObject {
-      switch self {
-      case let .field(obj as JavaScriptObject),
-          let .inlineFragment(obj as JavaScriptObject),
-          let .fragmentSpread(obj as JavaScriptObject):
-        return obj
       }
     }
 
@@ -211,12 +203,16 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class InlineFragment: JavaScriptObject, Hashable {
+  public class InlineFragment: Hashable, CustomDebugStringConvertible {
     var parentType: GraphQLCompositeType { self.selectionSet.parentType }
     
-    lazy var selectionSet: SelectionSet = self["selectionSet"]
+    let selectionSet: SelectionSet
 
-    public override var debugDescription: String {
+    required init(selectionSet: SelectionSet) {      
+      self.selectionSet = selectionSet
+    }
+
+    public var debugDescription: String {
       "... on \(parentType.debugDescription)"
     }
 

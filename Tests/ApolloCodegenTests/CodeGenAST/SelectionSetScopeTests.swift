@@ -26,7 +26,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Object_Bird,
             selections: childSelections
@@ -59,7 +59,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Interface_Animal,
             selections: childSelections
@@ -246,11 +246,11 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Union_ClassroomPet,
             selections: [
-              .inlineFragment(.mock(
+              .inlineFragment(.init(
                 selectionSet: .mock(
                   parentType: Object_Bird,
                   selections: [Field_Species]
@@ -321,6 +321,8 @@ class SelectionSetScopeTests: XCTestCase {
     expect(actual).to(equal(MergedSelections(expected)))
   }
 
+#warning("Write test that inline (not named!) fragment on same type merges into scope.")
+
   // MARK: Merged Selections - Siblings
 
   // MARK: Merged Selections - Siblings - Object Type <-> Object Type
@@ -343,12 +345,12 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: GraphQLObjectType.mock("Bird"),
             selections: [.field(.mock("wingspan"))]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: GraphQLObjectType.mock("Bird"),
             selections: [.field(.mock("species"))]
@@ -397,12 +399,12 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: GraphQLObjectType.mock("Bird"),
             selections: [.field(.mock("wingspan"))]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: GraphQLObjectType.mock("Cat"),
             selections: [.field(.mock("species"))]
@@ -454,12 +456,12 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Bird,
             selections: [.field(.mock("wingspan"))]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Pet,
             selections: [.field(.mock("species"))]
@@ -510,12 +512,12 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Bird,
             selections: [.field(.mock("wingspan"))]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Pet,
             selections: [.field(.mock("species"))]
@@ -571,16 +573,16 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Object_Bird,
             selections: [Field_Wingspan]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Union_ClassroomPet,
             selections: [
-              .inlineFragment(.mock(
+              .inlineFragment(.init(
                 selectionSet: .mock(
                   parentType: Object_Bird,
                   selections: [Field_Species]
@@ -641,16 +643,16 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Object_Bird,
             selections: [Field_Wingspan]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Union_ClassroomPet,
             selections: [
-              .inlineFragment(.mock(
+              .inlineFragment(.init(
                 selectionSet: .mock(
                   parentType: Object_Cat,
                   selections: [Field_Species]
@@ -704,12 +706,12 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: HousePet,
             selections: [.field(.mock("humanName"))]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Pet,
             selections: [.field(.mock("species"))]
@@ -760,12 +762,12 @@ class SelectionSetScopeTests: XCTestCase {
     let parent = SelectionSetScope(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: HousePet,
             selections: [.field(.mock("humanName"))]
           ))),
-        .inlineFragment(.mock(
+        .inlineFragment(.init(
           selectionSet: .mock(
             parentType: Pet,
             selections: [.field(.mock("species"))]
@@ -805,16 +807,17 @@ class SelectionSetScopeTests: XCTestCase {
   ///   species
   /// }
   /// Expected:
-  /// AllAnimal.mergedSelections: [species]
+  /// AllAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
   func test__mergedSelections__givenChildIsNamedFragmentOnSameType_mergesFragmentFields() {
     // given
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Field_Species = CompilationResult.Field.mock("species")
 
     let animalDetails = CompilationResult.FragmentDefinition.mock(
       "AnimalDetails",
       type: Interface_Animal,
       selections: [
-        .field(.mock("species"))
+        .field(Field_Species)
       ]
     )
 
@@ -825,7 +828,11 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let expected = MergedSelections(fields: [.mock("species")])
+    let expected = MergedSelections(
+      fields: [Field_Species],
+      typeCases: [],
+      fragments: [animalDetails]
+    )
 
     // when
     let actual = subject.mergedSelections
@@ -846,7 +853,37 @@ class SelectionSetScopeTests: XCTestCase {
   /// Expected:
   /// AllAnimal.mergedSelections: [typeCase_AsBird]
   func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
-    #warning("TODO")
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
+    let Field_Species = CompilationResult.Field.mock("species")
+
+    let birdDetails = CompilationResult.FragmentDefinition.mock(
+      "BirdDetails",
+      type: Object_Bird,
+      selections: [
+        .field(Field_Species)
+      ]
+    )
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Interface_Animal,
+      selections: [
+        .fragmentSpread(.mock(birdDetails)),
+      ]
+    ), parent: nil)
+
+    let expected = MergedSelections(
+      fields: [],
+      typeCases: [.init(selectionSet: birdDetails.selectionSet)],
+      fragments: []
+    )
+
+    // when
+    let actual = subject.mergedSelections
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   /// Example:
@@ -859,9 +896,39 @@ class SelectionSetScopeTests: XCTestCase {
   ///   species
   /// }
   /// Expected:
-  /// AllAnimal.mergedSelections: [species]
+  /// AllAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
   func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() {
-    #warning("TODO")
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
+    let Field_Species = CompilationResult.Field.mock("species")
+
+    let animalDetails = CompilationResult.FragmentDefinition.mock(
+      "AnimalDetails",
+      type: Interface_Animal,
+      selections: [
+        .field(Field_Species)
+      ]
+    )
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Object_Bird,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    let expected = MergedSelections(
+      fields: [Field_Species],
+      typeCases: [],
+      fragments: [animalDetails]
+    )
+
+    // when
+    let actual = subject.mergedSelections
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   /// Example:
@@ -874,9 +941,39 @@ class SelectionSetScopeTests: XCTestCase {
   ///   species
   /// }
   /// Expected:
-  /// FlyingAnimal.mergedSelections: [species]
+  /// FlyingAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
   func test__mergedSelections__givenIsInterfaceType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() {
-#warning("TODO")
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
+    let Field_Species = CompilationResult.Field.mock("species")
+
+    let animalDetails = CompilationResult.FragmentDefinition.mock(
+      "AnimalDetails",
+      type: Interface_Animal,
+      selections: [
+        .field(Field_Species)
+      ]
+    )
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Interface_FlyingAnimal,
+      selections: [
+        .fragmentSpread(.mock(animalDetails)),
+      ]
+    ), parent: nil)
+
+    let expected = MergedSelections(
+      fields: [Field_Species],
+      typeCases: [],
+      fragments: [animalDetails]
+    )
+
+    // when
+    let actual = subject.mergedSelections
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   /// Example:
@@ -889,10 +986,40 @@ class SelectionSetScopeTests: XCTestCase {
   ///   species
   /// }
   /// Expected:
-  /// AllAnimal.mergedSelections: [typeCase_AsBird]
+  /// Rocks.mergedSelections: [typeCase_AsBird]
   func test__mergedSelections__givenChildIsNamedFragmentOnUnrelatedType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
-    #warning("TODO")
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
+    let Object_Rock = GraphQLObjectType.mock("Rock")
+    let Field_Species = CompilationResult.Field.mock("species")
+
+    let birdDetails = CompilationResult.FragmentDefinition.mock(
+      "BirdDetails",
+      type: Object_Bird,
+      selections: [
+        .field(Field_Species)
+      ]
+    )
+
+    let subject = SelectionSetScope(selectionSet: .mock(
+      parentType: Object_Rock,
+      selections: [
+        .fragmentSpread(.mock(birdDetails)),
+      ]
+    ), parent: nil)
+
+    let expected = MergedSelections(
+      fields: [],
+      typeCases: [.init(selectionSet: birdDetails.selectionSet)],
+      fragments: []
+    )
+
+    // when
+    let actual = subject.mergedSelections
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
-  #warning("Write test that inline (not named!) fragment on same type merges into scope.")
 }

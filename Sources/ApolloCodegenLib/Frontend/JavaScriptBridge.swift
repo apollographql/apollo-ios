@@ -20,6 +20,22 @@ extension JavaScriptError: CustomStringConvertible {
   }
 }
 
+public class JavaScriptWrapper {
+  let _underlyingObject: JavaScriptObject?
+
+  init(_ underlyingObject: JavaScriptObject? = nil) {
+    self._underlyingObject = underlyingObject
+  }
+
+  subscript(property: Any) -> JSValue {
+    return _underlyingObject![property]
+  }
+
+  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable {
+    return _underlyingObject![property]
+  }
+}
+
 /// A type that references an underlying JavaScript object.
 public class JavaScriptObject: JavaScriptValueDecodable {
   let jsValue: JSValue

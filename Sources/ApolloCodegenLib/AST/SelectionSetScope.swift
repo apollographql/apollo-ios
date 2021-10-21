@@ -2,17 +2,6 @@ import Foundation
 import ApolloUtils
 import OrderedCollections
 
-//enum ASTSelection {
-//  case field(CompilationResult.Field)
-//  case typeCase(ASTTypeCase)
-//  case namedFragment(CompilationResult.FragmentDefinition)
-//}
-//
-//class ASTTypeCase {
-//  let parentType: GraphQLCompositeType
-//  let selectionSet:
-//}
-
 class SelectionSetScope: CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
@@ -61,8 +50,9 @@ class SelectionSetScope: CustomDebugStringConvertible {
           computedSelections.append(selection)
 
         } else {
-          // TODO
-//          computedSelections.append(.inlineFragment()
+          computedSelections.append(
+            .inlineFragment(.init(selectionSet: fragment.fragment.selectionSet))
+          )
           computedChildren.append(
             SelectionSetScope(
             selections: [.fragmentSpread(fragment)],
@@ -176,10 +166,13 @@ struct MergedSelections: Equatable {
       switch selection {
       case let .field(field):
         fields.append(field)
+
       case let .inlineFragment(fragment):
         typeCases.append(fragment)
+
       case let .fragmentSpread(fragment):
         fragments.append(fragment.fragment)
+        mergeIn(fragment.fragment.selectionSet.selections)
       }
     }
   }
