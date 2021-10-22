@@ -216,13 +216,8 @@ struct MergedSelections: Equatable {
     for selection in selections {
       switch selection {
       case let .field(field): mergeIn(field)
-
-      case let .inlineFragment(fragment):
-        typeCases[fragment.hashForSelectionSetScope] = fragment
-
-      case let .fragmentSpread(fragment):
-        fragments[fragment.hashForSelectionSetScope] = fragment
-        mergeIn(fragment.selectionSet.selections)
+      case let .inlineFragment(fragment): mergeIn(fragment)
+      case let .fragmentSpread(fragment): mergeIn(fragment)
       }
     }
   }
@@ -245,6 +240,7 @@ struct MergedSelections: Equatable {
 
   mutating func mergeIn(_ fragment: Fragment) {
     fragments[fragment.hashForSelectionSetScope] = fragment
+    mergeIn(fragment.selectionSet.selections)
   }
 
   mutating func mergeIn(_ fragments: [Fragment]) {
