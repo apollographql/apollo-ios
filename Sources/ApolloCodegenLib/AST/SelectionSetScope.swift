@@ -35,19 +35,18 @@ class SelectionSetScope: CustomDebugStringConvertible {
     for selection in selections {
       let keyInScope = selection.hashForSelectionSetScope
       switch selection {
-      case let .inlineFragment(fragment):
+      case let .inlineFragment(selectionSet):
         // Merge nested selection sets
-//        computedSelections.updateValue(
-//          forKey: keyInScope,
-//          default: selection) { valueInPlace in
-//            guard case let .inlineFragment(existingFragment) = valueInPlace else {
-//              valueInPlace = selection
-//              return
-//            }
-//            valueInPlace = .inlineFragment(existingFragment.)
-//          }
-        computedSelections[keyInScope] = selection
-        computedChildren.append(SelectionSetScope(selectionSet: fragment.selectionSet, parent: self))
+        computedSelections.updateValue(
+          forKey: keyInScope,
+          default: selection) { valueInPlace in
+            guard case let .inlineFragment(existingSelectionSet) = valueInPlace else {
+              valueInPlace = selection
+              return
+            }
+            valueInPlace = .inlineFragment(existingSelectionSet.merging(selectionSet.selections))
+          }
+        computedChildren.append(SelectionSetScope(selectionSet: selectionSet, parent: self))
 
       case let .fragmentSpread(fragment):
         func shouldMergeFragmentDirectly() -> Bool {
@@ -66,9 +65,7 @@ class SelectionSetScope: CustomDebugStringConvertible {
           computedSelections[keyInScope] = selection
 
         } else {
-          let typeCaseForFragment = Selection.inlineFragment(
-            .init(selectionSet: fragment.fragment.selectionSet)
-          )
+          let typeCaseForFragment = Selection.inlineFragment(fragment.fragment.selectionSet)
           computedSelections[keyInScope] = typeCaseForFragment
 
           computedChildren.append(
@@ -179,7 +176,7 @@ class SelectionSetScope: CustomDebugStringConvertible {
 struct MergedSelections: Equatable {
   typealias Selection = CompilationResult.Selection
   typealias Field = CompilationResult.Field
-  typealias TypeCase = CompilationResult.InlineFragment
+  typealias TypeCase = CompilationResult.SelectionSet
   typealias Fragment = CompilationResult.FragmentDefinition
 
   fileprivate(set) var fields: OrderedDictionary<AnyHashable, Field> = [:]

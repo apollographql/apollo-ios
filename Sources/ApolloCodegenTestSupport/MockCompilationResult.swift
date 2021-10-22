@@ -41,16 +41,6 @@ public extension CompilationResult.Field {
   }
 }
 
-public extension CompilationResult.InlineFragment {
-
-  class func mock(
-    parentType: GraphQLCompositeType
-  ) -> Self {
-    Self.init(selectionSet: .mock(parentType: parentType))
-  }
-  
-}
-
 public extension CompilationResult.FragmentSpread {
   class func mock(_ fragment: CompilationResult.FragmentDefinition) -> Self {
     let mock = Self.emptyMockObject()

@@ -28,7 +28,7 @@ extension CompilationResult.Field: SelectionSetScopeHashable {
   }
 }
 
-extension CompilationResult.InlineFragment: SelectionSetScopeHashable {
+extension CompilationResult.SelectionSet: SelectionSetScopeHashable {
   var hashForSelectionSetScope: AnyHashable {
     return parentType.name
   }

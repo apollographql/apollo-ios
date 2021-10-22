@@ -43,7 +43,7 @@ public func shallowlyMatch(_ expectedValue: MergedSelections) -> Predicate<Merge
           )
         }
 
-        guard matchAST(expected: field.0.value, actual: field.1.value) else {
+        guard shallowlyMatch(expected: field.0.value, actual: field.1.value) else {
           return PredicateResult(
             status: .fail,
             message: .fail("Expected fields[\(field.0.key)] to equal \(field.0.value), got \(field.1.value).")
@@ -60,7 +60,7 @@ public func shallowlyMatch(_ expectedValue: MergedSelections) -> Predicate<Merge
           )
         }
 
-        guard matchAST(expected: typeCase.0.value, actual: typeCase.1.value) else {
+        guard shallowlyMatch(expected: typeCase.0.value, actual: typeCase.1.value) else {
           return PredicateResult(
             status: .fail,
             message: .fail("Expected typeCases[\(typeCase.0.key)] to equal \(typeCase.0.value), got \(typeCase.1.value).")
@@ -77,7 +77,7 @@ public func shallowlyMatch(_ expectedValue: MergedSelections) -> Predicate<Merge
           )
         }
 
-        guard matchAST(expected: fragment.0.value, actual: fragment.1.value) else {
+        guard shallowlyMatch(expected: fragment.0.value, actual: fragment.1.value) else {
           return PredicateResult(
             status: .fail,
             message: .fail("Expected fragments[\(fragment.0.key)] to equal \(fragment.0.value), got \(fragment.1.value).")
@@ -99,18 +99,18 @@ public func shallowlyMatch(_ expectedValue: MergedSelections) -> Predicate<Merge
   }
 }
 
-fileprivate func matchAST(expected: CompilationResult.Field, actual: CompilationResult.Field) -> Bool {
+fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: CompilationResult.Field) -> Bool {
   return expected.name == actual.name &&
   expected.alias == actual.alias &&
   expected.arguments == actual.arguments &&
   expected.type == actual.type
 }
 
-fileprivate func matchAST(expected: CompilationResult.InlineFragment, actual: CompilationResult.InlineFragment) -> Bool {
+fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: CompilationResult.SelectionSet) -> Bool {
   return expected.parentType == actual.parentType
 }
 
-fileprivate func matchAST(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
+fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
   return expected.name == actual.name &&
   expected.type == actual.type
 }

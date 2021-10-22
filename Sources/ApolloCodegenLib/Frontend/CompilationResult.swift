@@ -114,7 +114,7 @@ public class CompilationResult: JavaScriptObject {
     public var debugDescription: String {
       let selectionDescriptions = selections.map(\.debugDescription).joined(separator: "\n")
       return """
-      SelectionSet on \(parentType) {
+      ... on \(parentType) {
         \(indented: selectionDescriptions)
       }
       """
@@ -133,7 +133,7 @@ public class CompilationResult: JavaScriptObject {
   
   public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
-    case inlineFragment(InlineFragment)
+    case inlineFragment(SelectionSet)
     case fragmentSpread(FragmentSpread)
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
@@ -146,7 +146,7 @@ public class CompilationResult: JavaScriptObject {
         self = .field(Field(JavaScriptObject(jsValue, bridge: bridge)))
       case "InlineFragment":
         let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
-        self = .inlineFragment(InlineFragment(selectionSet: selectionSet))
+        self = .inlineFragment(selectionSet)
       case "FragmentSpread":
         self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
       default:
@@ -276,29 +276,7 @@ public class CompilationResult: JavaScriptObject {
       lhs.value == rhs.value
     }
   }
-  
-  public class InlineFragment: Hashable, CustomDebugStringConvertible {
-    var parentType: GraphQLCompositeType { self.selectionSet.parentType }
-    
-    let selectionSet: SelectionSet
 
-    required init(selectionSet: SelectionSet) {      
-      self.selectionSet = selectionSet
-    }
-
-    public var debugDescription: String {
-      "... on \(parentType.debugDescription)"
-    }
-
-    public func hash(into hasher: inout Hasher) {
-      hasher.combine(selectionSet)
-    }
-
-    public static func ==(lhs: InlineFragment, rhs: InlineFragment) -> Bool {
-      return lhs.selectionSet == rhs.selectionSet
-    }
-  }
-  
   public class FragmentSpread: JavaScriptObject, Hashable {
     lazy var fragment: FragmentDefinition = self["fragment"]
 
