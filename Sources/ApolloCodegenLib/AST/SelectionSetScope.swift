@@ -52,10 +52,10 @@ class SelectionSetScope: CustomDebugStringConvertible {
 
       case let .fragmentSpread(fragment):
         func shouldMergeFragmentDirectly() -> Bool {
-          if fragment.fragment.type == type { return true }
+          if fragment.type == type { return true }
 
           if let implementingType = type as? GraphQLInterfaceImplementingType,
-             let fragmentInterface = fragment.fragment.type as? GraphQLInterfaceType,
+             let fragmentInterface = fragment.type as? GraphQLInterfaceType,
              implementingType.implements(fragmentInterface) {
             return true
           }
@@ -67,13 +67,13 @@ class SelectionSetScope: CustomDebugStringConvertible {
           computedSelections[selection.hashForSelectionSetScope] = selection
 
         } else {
-          let typeCaseForFragment = Selection.inlineFragment(fragment.fragment.selectionSet)
+          let typeCaseForFragment = Selection.inlineFragment(fragment.selectionSet)
           computedSelections[selection.hashForSelectionSetScope] = typeCaseForFragment
 
           computedChildren.append(
             SelectionSetScope(
             selections: [.fragmentSpread(fragment)],
-            type: fragment.fragment.type,
+            type: fragment.type,
             parent: self))
         }
 
@@ -217,8 +217,8 @@ struct MergedSelections: Equatable {
         typeCases[fragment.hashForSelectionSetScope] = fragment
 
       case let .fragmentSpread(fragment):
-        fragments[fragment.hashForSelectionSetScope] = fragment.fragment
-        mergeIn(fragment.fragment.selectionSet.selections)
+        fragments[fragment.hashForSelectionSetScope] = fragment
+        mergeIn(fragment.selectionSet.selections)
       }
     }
   }

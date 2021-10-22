@@ -34,12 +34,6 @@ extension CompilationResult.SelectionSet: SelectionSetScopeHashable {
   }
 }
 
-extension CompilationResult.FragmentSpread: SelectionSetScopeHashable {
-  var hashForSelectionSetScope: AnyHashable {
-    return fragment.hashForSelectionSetScope
-  }
-}
-
 extension CompilationResult.FragmentDefinition: SelectionSetScopeHashable {
   var hashForSelectionSetScope: AnyHashable {
     return name

@@ -93,7 +93,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -122,7 +122,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
-        .fragmentSpread(.mock(birdDetails)),
+        .fragmentSpread(birdDetails),
       ]
     ), parent: nil)
 
@@ -131,7 +131,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Object_Bird))
-    expect(child.selections.values.elements).to(equal([.fragmentSpread(.mock(birdDetails))]))
+    expect(child.selections.values.elements).to(equal([.fragmentSpread(birdDetails)]))
   }
 
   /// Example:
@@ -154,7 +154,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Object_Bird,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -182,7 +182,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_FlyingAnimal,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -210,7 +210,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Object_Rock,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -219,7 +219,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children[0]
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections.values.elements).to(equal([.fragmentSpread(.mock(animalDetails))]))
+    expect(child.selections.values.elements).to(equal([.fragmentSpread(animalDetails)]))
   }
 
   // MARK: Children Computation - Union Type
@@ -574,6 +574,9 @@ class SelectionSetScopeTests: XCTestCase {
     // then
     expect(actual.selections.values.elements).to(equal(expected))
   }
+
+  // MARK: Selections - Group Duplicate Fragments
+
 
   // MARK: - Merged Selections
 
@@ -1088,7 +1091,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -1133,7 +1136,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
-        .fragmentSpread(.mock(birdDetails)),
+        .fragmentSpread(birdDetails),
       ]
     ), parent: nil)
 
@@ -1178,7 +1181,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Object_Bird,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -1223,7 +1226,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Interface_FlyingAnimal,
       selections: [
-        .fragmentSpread(.mock(animalDetails)),
+        .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
@@ -1269,7 +1272,7 @@ class SelectionSetScopeTests: XCTestCase {
     let subject = SelectionSetScope(selectionSet: .mock(
       parentType: Object_Rock,
       selections: [
-        .fragmentSpread(.mock(birdDetails)),
+        .fragmentSpread(birdDetails),
       ]
     ), parent: nil)
 

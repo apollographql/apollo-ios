@@ -117,7 +117,7 @@ public class CompilationResult: JavaScriptObject {
   public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
     case inlineFragment(SelectionSet)
-    case fragmentSpread(FragmentSpread)
+    case fragmentSpread(FragmentDefinition)
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
       precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
@@ -131,7 +131,7 @@ public class CompilationResult: JavaScriptObject {
         let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
         self = .inlineFragment(selectionSet)
       case "FragmentSpread":
-        self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
+        self = .fragmentSpread(bridge.fromJSValue(jsValue["fragment"]))
       default:
         preconditionFailure("""
           Unknown GraphQL selection of kind "\(kind)"
@@ -143,7 +143,7 @@ public class CompilationResult: JavaScriptObject {
       switch self {
       case let .field(field): return field.selectionSet
       case let .inlineFragment(selectionSet): return selectionSet
-      case let .fragmentSpread(fragment): return fragment.fragment.selectionSet
+      case let .fragmentSpread(fragment): return fragment.selectionSet
       }
     }
 
@@ -238,19 +238,4 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
-  public class FragmentSpread: JavaScriptObject, Hashable {
-    lazy var fragment: FragmentDefinition = self["fragment"]
-
-    public override var debugDescription: String {
-      fragment.debugDescription
-    }
-
-    public func hash(into hasher: inout Hasher) {
-      hasher.combine(fragment)
-    }
-
-    public static func ==(lhs: FragmentSpread, rhs: FragmentSpread) -> Bool {
-      return lhs.fragment == rhs.fragment
-    }
-  }
 }
