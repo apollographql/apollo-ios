@@ -577,6 +577,167 @@ class SelectionSetScopeTests: XCTestCase {
 
   // MARK: Selections - Group Duplicate Fragments
 
+  func test__selections__givenNamedFragmentsWithSameName_onMatchingParentType_deduplicatesSelection() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .fragmentSpread(.mock("FragmentA", type: Object_A)),
+        .fragmentSpread(.mock("FragmentA", type: Object_A)),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .fragmentSpread(.mock("FragmentA", type: Object_A)),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenNamedFragmentsWithDifferentNames_onMatchingParentType_doesNotDeduplicateSelection() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .fragmentSpread(.mock("FragmentA", type: Object_A)),
+        .fragmentSpread(.mock("FragmentB", type: Object_A)),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .fragmentSpread(.mock("FragmentA", type: Object_A)),
+      .fragmentSpread(.mock("FragmentB", type: Object_A)),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenNamedFragmentsWithSameName_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCase() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+    let Interface_B = GraphQLInterfaceType.mock("B")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .fragmentSpread(.mock("FragmentA", type: Interface_B)),
+        .fragmentSpread(.mock("FragmentA", type: Interface_B)),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(
+        parentType: Interface_B,
+        selections: [
+          .fragmentSpread(.mock("FragmentA", type: Interface_B))
+        ])),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenNamedFragmentsWithDifferentNamesAndSameParentType_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCaseWithBothFragments() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+    let Interface_B = GraphQLInterfaceType.mock("B")
+    let Fragment_A = CompilationResult.FragmentDefinition.mock(
+      "FragmentA",
+      type: Interface_B,
+      selections: [
+        .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+      ])
+    let Fragment_B = CompilationResult.FragmentDefinition.mock(
+      "FragmentB",
+      type: Interface_B,
+      selections: [
+        .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+      ])
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .fragmentSpread(Fragment_A),
+        .fragmentSpread(Fragment_B),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(
+        parentType: Interface_B,
+        selections: [
+          .fragmentSpread(Fragment_A),
+          .fragmentSpread(Fragment_B),
+        ])),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
+
+  func test__selections__givenNamedFragmentsWithDifferentNamesAndDifferentParentType_onNonMatchingParentType_doesNotDeduplicate_hasTypeCaseForEachFragment() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+    let Interface_B = GraphQLInterfaceType.mock("B")
+    let Interface_C = GraphQLInterfaceType.mock("C")
+    let Fragment_B = CompilationResult.FragmentDefinition.mock(
+      "FragmentB",
+      type: Interface_B,
+      selections: [
+        .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+      ])
+    let Fragment_C = CompilationResult.FragmentDefinition.mock(
+      "FragmentC",
+      type: Interface_C,
+      selections: [
+        .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+      ])
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .fragmentSpread(Fragment_B),
+        .fragmentSpread(Fragment_C),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(
+        parentType: Interface_B,
+        selections: [
+          .fragmentSpread(Fragment_B),
+        ])),
+      .inlineFragment(.mock(
+        parentType: Interface_C,
+        selections: [
+          .fragmentSpread(Fragment_C),
+        ])),
+    ]
+
+    // when
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    // then
+    expect(actual.selections.values.elements).to(equal(expected))
+  }
 
   // MARK: - Merged Selections
 
@@ -1142,7 +1303,9 @@ class SelectionSetScopeTests: XCTestCase {
 
     let expected = MergedSelections(
       fields: [],
-      typeCases: [birdDetails.selectionSet],
+      typeCases: [
+        .init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)])
+      ],
       fragments: []
     )
 
@@ -1278,7 +1441,9 @@ class SelectionSetScopeTests: XCTestCase {
 
     let expected = MergedSelections(
       fields: [],
-      typeCases: [birdDetails.selectionSet],
+      typeCases: [
+        .init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)])
+      ],
       fragments: []
     )
 

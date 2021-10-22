@@ -83,7 +83,7 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class SelectionSet: JavaScriptWrapper, Hashable {
+  public class SelectionSet: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
     lazy var parentType: GraphQLCompositeType = self["parentType"]!
     
     lazy var selections: [Selection] = self["selections"]!
@@ -159,7 +159,7 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class Field: JavaScriptWrapper, Hashable {
+  public class Field: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
     lazy var name: String = self["name"]!
     
     lazy var alias: String? = self["alias"]

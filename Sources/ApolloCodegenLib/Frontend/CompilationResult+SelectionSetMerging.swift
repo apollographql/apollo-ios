@@ -68,9 +68,8 @@ extension CompilationResult.Selection {
     case let .inlineFragment(selectionSet):
       return .inlineFragment(selectionSet.merging(newSelectionSet.selections))
 
-    case let .fragmentSpread(fragment):
-#warning("TODO: Fragment Spread merging")
-      return .fragmentSpread(fragment)
+    case .fragmentSpread:
+      fatalError("Selections sets should never be merged into named fragments.")
     }
   }
 
