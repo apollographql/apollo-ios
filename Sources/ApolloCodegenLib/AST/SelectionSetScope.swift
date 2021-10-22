@@ -32,20 +32,22 @@ class SelectionSetScope: CustomDebugStringConvertible {
     var computedSelections: OrderedDictionary<AnyHashable, Selection> = [:]
     var computedChildren: [SelectionSetScope] = []
 
-    for selection in selections {
+    func appendOrMergeIntoSelections(_ selection: Selection) {
       let keyInScope = selection.hashForSelectionSetScope
+
+      if let existingValue = computedSelections[keyInScope],
+         let selectionSetToMerge = selection.selectionSet {
+        computedSelections[keyInScope] = existingValue.merging(selectionSetToMerge)
+
+      } else {
+        computedSelections[keyInScope] = selection
+      }
+    }
+
+    for selection in selections {
       switch selection {
       case let .inlineFragment(selectionSet):
-        // Merge nested selection sets
-        computedSelections.updateValue(
-          forKey: keyInScope,
-          default: selection) { valueInPlace in
-            guard case let .inlineFragment(existingSelectionSet) = valueInPlace else {
-              valueInPlace = selection
-              return
-            }
-            valueInPlace = .inlineFragment(existingSelectionSet.merging(selectionSet.selections))
-          }
+        appendOrMergeIntoSelections(selection)
         computedChildren.append(SelectionSetScope(selectionSet: selectionSet, parent: self))
 
       case let .fragmentSpread(fragment):
@@ -62,11 +64,11 @@ class SelectionSetScope: CustomDebugStringConvertible {
         }
 
         if shouldMergeFragmentDirectly() {
-          computedSelections[keyInScope] = selection
+          computedSelections[selection.hashForSelectionSetScope] = selection
 
         } else {
           let typeCaseForFragment = Selection.inlineFragment(fragment.fragment.selectionSet)
-          computedSelections[keyInScope] = typeCaseForFragment
+          computedSelections[selection.hashForSelectionSetScope] = typeCaseForFragment
 
           computedChildren.append(
             SelectionSetScope(
@@ -75,21 +77,8 @@ class SelectionSetScope: CustomDebugStringConvertible {
             parent: self))
         }
 
-      case let .field(field) where field.type.namedType is GraphQLCompositeType:
-        // Merge nested selection sets
-        computedSelections.updateValue(
-          forKey: keyInScope,
-          default: selection) { valueInPlace in
-            guard let selectionSetToMerge = field.selectionSet else { return }
-            guard case let .field(existingField) = valueInPlace else {
-              valueInPlace = selection
-              return
-            }
-            valueInPlace = .field(existingField.merging(selectionSetToMerge))
-          }
-
       case .field:
-        computedSelections[keyInScope] = selection
+        appendOrMergeIntoSelections(selection)
       }
     }
     return (computedSelections, computedChildren)

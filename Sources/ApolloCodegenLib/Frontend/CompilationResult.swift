@@ -94,23 +94,6 @@ public class CompilationResult: JavaScriptObject {
       self.selections = selections
     }
 
-    /// Returns a `SelectionSet` with the `newSelections` merged in, removing duplicates.
-    ///
-    /// - Note: If no changes were made the same `SelectionSet` is returned.
-    func merging(_ newSelections: [Selection]) -> SelectionSet {
-      let selectionsToMerge = newSelections.filter { !selections.contains($0) }
-
-      guard !selectionsToMerge.isEmpty else { return self }
-
-      let copy = self.copy()
-      copy.selections += selectionsToMerge
-      return copy
-    }
-
-    private func copy() -> SelectionSet {
-      return SelectionSet(parentType: self.parentType, selections: self.selections)
-    }
-
     public var debugDescription: String {
       let selectionDescriptions = selections.map(\.debugDescription).joined(separator: "\n")
       return """
@@ -156,14 +139,22 @@ public class CompilationResult: JavaScriptObject {
       }
     }
 
+    var selectionSet: SelectionSet? {
+      switch self {
+      case let .field(field): return field.selectionSet
+      case let .inlineFragment(selectionSet): return selectionSet
+      case let .fragmentSpread(fragment): return fragment.fragment.selectionSet
+      }
+    }
+
     public var debugDescription: String {
       switch self {
       case let .field(field):
         return "field - " + field.debugDescription
       case let .inlineFragment(fragment):
-        return "fragment " + fragment.debugDescription
+        return "fragment - " + fragment.debugDescription
       case let .fragmentSpread(fragment):
-        return "fragment " + fragment.debugDescription
+        return "fragment - " + fragment.debugDescription
       }
     }
   }
@@ -208,36 +199,6 @@ public class CompilationResult: JavaScriptObject {
       self.selectionSet = selectionSet
       self.deprecationReason = deprecationReason
       self.description = description
-    }
-
-    /// Returns a `Field` with the selections of the `newSelectionSet` merged in,
-    /// removing duplicates.
-    ///
-    /// - Note: If no changes were made the same `Field` is returned.
-    func merging(_ newSelectionSet: SelectionSet) -> Field {
-      guard let existingSelectionSet = selectionSet else {
-        let copy = self.copy()
-        copy.selectionSet = newSelectionSet
-        return copy
-      }
-
-      let mergedSelectionSet = existingSelectionSet.merging(newSelectionSet.selections)
-      guard mergedSelectionSet !== existingSelectionSet else { return self }
-
-      let copy = self.copy()
-      copy.selectionSet = mergedSelectionSet
-      return copy
-    }
-
-    private func copy() -> Field {
-      return Field(
-        name: self.name,
-        alias: self.alias,
-        arguments: self.arguments,
-        type: self.type,
-        selectionSet: self.selectionSet,
-        deprecationReason: self.deprecationReason,
-        description: self.description)
     }
 
     public var debugDescription: String {
