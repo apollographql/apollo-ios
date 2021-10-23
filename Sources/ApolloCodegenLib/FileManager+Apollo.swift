@@ -4,9 +4,23 @@ import CommonCrypto
 import ApolloUtils
 #endif
 
+/// A protocol to decouple `ApolloExtension` from `FileManager`. Use it to build objects that can support
+/// `ApolloExtension` behavior.
+public protocol FileManagerProvider {
+  func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool
+  func removeItem(atPath path: String) throws
+  @discardableResult func createFile(atPath path: String, contents data: Data?, attributes attr: [FileAttributeKey : Any]?) -> Bool
+  func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]?) throws
+}
+
+/// Enables the `.apollo` etension namespace.
 extension FileManager: ApolloCompatible {}
 
-extension ApolloExtension where Base == FileManager {
+/// `FileManager` conforms to the `FileManagerProvider` protocol. If it's method signatures change both the protocol and
+/// extension will need to be updated.
+extension FileManager: FileManagerProvider {}
+
+extension ApolloExtension where Base: FileManagerProvider {
 
   // MARK: Presence
 
@@ -47,9 +61,9 @@ extension ApolloExtension where Base == FileManager {
   /// - Parameters:
   ///   - path: Path to the file.
   ///   - data: [optional] Data to write to the file path.
-  public func createFile(atPath path: String, data: Data? = nil) throws {
+  public func createFile(atPath path: String, data: Data? = nil) throws -> Bool {
     try createContainingDirectory(forPath: path)
-    base.createFile(atPath: path, contents: data, attributes: nil)
+    return base.createFile(atPath: path, contents: data, attributes: nil)
   }
 
   /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary.
@@ -57,14 +71,14 @@ extension ApolloExtension where Base == FileManager {
   /// - Parameter fileURL: The URL of the file to create a containing directory for if necessary.
   public func createContainingDirectory(forPath path: String) throws {
     let parent = URL(fileURLWithPath: path).deletingLastPathComponent()
-    try base.createDirectory(atPath: parent.path, withIntermediateDirectories: true)
+    try base.createDirectory(atPath: parent.path, withIntermediateDirectories: true, attributes: nil)
   }
 
   /// Creates the directory (including all intermediate directories) for the given URL if necessary.
   ///
   /// - Parameter path: The path of the directory to create if necessary.
   public func createDirectory(atPath path: String) throws {
-    try base.createDirectory(atPath: path, withIntermediateDirectories: true)
+    try base.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
   }
 
   // MARK: Content
