@@ -38,4 +38,18 @@ Next, it's time to add Apollo as a dependency.
 
 > **Note:** Because SPM has not yet implemented [Target-Based Dependency Resolution](https://github.com/apple/swift-evolution/blob/master/proposals/0226-package-manager-target-based-dep-resolution.md), you'll see the `SQLite` dependency even though you didn't select `ApolloSQLite`, the target which depends on it.
 
-Next, before you can use the SDK, you need to [obtain a local copy of your GraphQL schema](./tutorial-obtain-schema).
+## Learn what you need to generate code
+
+Now that you've got the SDK set up, there are two more pieces you need to actually generate code. 
+
+The first is the **GraphQL Schema**, which you can generally get from your server or from Apollo Studio Sandbox. This is a list of all of the possible queries and data types that are available to you from your server. The schema can be thought of as a contract of what it's *possible* to ask for. 
+
+The second is at least one operation, so that we know what you're *actually* asking for. Apollo generates code by taking your operations, validating that they are actually possible by comparing them to the schema, and then using data from the schema to generate all of the data strucutres necessary to create operations type-safely, and parse the responses from those operations type-safely. 
+
+The most basic way to think about this is the following equation: 
+
+**Schema + Operations = Code**
+
+If you don't have any operations, our code generator won't know what information you want to ask for, so it can't generate the code to send a request or parse a result. If you don't have a schema, our code generator won't know if what you want to ask for is possible, so it can't guarantee type safety. If you have both, the appropriate checks can be made and type-safe code can be generated. 
+
+Now that you know what you need and why you need it, the next step is to [obtain a local copy of your GraphQL schema](./tutorial-obtain-schema).
