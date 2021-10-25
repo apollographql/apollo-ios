@@ -61,15 +61,6 @@ class URLExtensionsTests: XCTestCase {
     }
   }
   
-  func testGettingHiddenChildFileURL() throws {
-    let url = CodegenTestHelper.apolloFolderURL()
-    
-    let expectedFile = CodegenTestHelper.shasumFileURL()
-    let child = try url.apollo.childFileURL(fileName: ".shasum")
-    
-    XCTAssertEqual(child, expectedFile)
-  }
-  
   func testIsDirectoryForExistingDirectory() {
     let parentDirectory = FileFinder.findParentFolder()
     XCTAssertTrue(FileManager.default.apollo.doesDirectoryExist(atPath: parentDirectory.path))
