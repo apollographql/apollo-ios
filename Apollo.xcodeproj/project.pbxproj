@@ -1287,8 +1287,6 @@
 				9BAEEBF22346DDAD00808306 /* CodegenLogger.swift */,
 				9BE74D3C23FB4A8E006D354F /* FileFinder.swift */,
 				9B7B6F51233C26E400F32205 /* Info.plist */,
-				9BFE8DA8265D5D8F000BBF81 /* URLDownloader.swift */,
-				9BCA8C0826618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift */,
 			);
 			name = ApolloCodegenLib;
 			path = Sources/ApolloCodegenLib;
@@ -1441,6 +1439,8 @@
 			children = (
 				9BAEEBEB234663F200808306 /* ApolloSchemaDownloader.swift */,
 				9BAEEBED2346644600808306 /* ApolloSchemaDownloadConfiguration.swift */,
+				9BCA8C0826618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift */,
+				9BFE8DA8265D5D8F000BBF81 /* URLDownloader.swift */,
 			);
 			name = SchemaDownload;
 			sourceTree = "<group>";
