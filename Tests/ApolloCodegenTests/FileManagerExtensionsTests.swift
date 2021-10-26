@@ -243,7 +243,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.removeItem]))
   }
 
-  func test_createFile_givenFalse_shouldReturnFalse() throws {
+  func test_createFile_givenFalseFromCreateFile_shouldReturnFalse() throws {
     // given
     let mocked = MockFileManager(createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -264,7 +264,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory, .createFile]))
   }
 
-  func test_createFile_givenTrue_shouldReturnTrue() throws {
+  func test_createFile_givenTrueFromCreateFile_shouldReturnTrue() throws {
     // given
     let mocked = MockFileManager(createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
