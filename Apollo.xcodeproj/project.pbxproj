@@ -187,6 +187,7 @@
 		DE0586332669948500265760 /* InputValue+Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586322669948500265760 /* InputValue+Evaluation.swift */; };
 		DE0586372669958F00265760 /* GraphQLError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */; };
 		DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0586382669985000265760 /* Dictionary+Helpers.swift */; };
+		DE09114E27288B1F000648E5 /* MergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09114D27288B1F000648E5 /* MergedSelections.swift */; };
 		DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9BC27024FEA00795949 /* InputObject.swift */; };
 		DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C0270269E800795949 /* MockJavaScriptObject.swift */; };
 		DE09F9C6270269F800795949 /* Generate_OperationDefinition_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C5270269F800795949 /* Generate_OperationDefinition_Tests.swift */; };
@@ -827,6 +828,7 @@
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE0586322669948500265760 /* InputValue+Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InputValue+Evaluation.swift"; sourceTree = "<group>"; };
 		DE0586382669985000265760 /* Dictionary+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Helpers.swift"; sourceTree = "<group>"; };
+		DE09114D27288B1F000648E5 /* MergedSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedSelections.swift; sourceTree = "<group>"; };
 		DE09F9BC27024FEA00795949 /* InputObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObject.swift; sourceTree = "<group>"; };
 		DE09F9C0270269E800795949 /* MockJavaScriptObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockJavaScriptObject.swift; sourceTree = "<group>"; };
 		DE09F9C5270269F800795949 /* Generate_OperationDefinition_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generate_OperationDefinition_Tests.swift; sourceTree = "<group>"; };
@@ -1987,6 +1989,7 @@
 			children = (
 				DEAFB7782705274B00BE02F3 /* SelectionSetScope.swift */,
 				DE223C2C2721FCE8004A0148 /* SelectionSetScopeHashable.swift */,
+				DE09114D27288B1F000648E5 /* MergedSelections.swift */,
 			);
 			path = AST;
 			sourceTree = "<group>";
@@ -2817,6 +2820,7 @@
 				9B7B6F5A233C287200F32205 /* ApolloCodegenConfiguration.swift in Sources */,
 				9F1A966B258F34BB00A06EEB /* ApolloCodegenFrontend.swift in Sources */,
 				9BAEEBF52346E90700808306 /* CLIExtractor.swift in Sources */,
+				DE09114E27288B1F000648E5 /* MergedSelections.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
