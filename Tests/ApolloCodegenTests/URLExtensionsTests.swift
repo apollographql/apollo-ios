@@ -60,6 +60,16 @@ class URLExtensionsTests: XCTestCase {
       }
     }
   }
+
+  func testGettingHiddenChildFileURL() throws {
+    let parentURL = FileFinder.findParentFolder()
+    let filename = ".hiddenFile"
+
+    let expectedURL = parentURL.appendingPathComponent(filename, isDirectory: false)
+    let childURL = try parentURL.apollo.childFileURL(fileName: filename)
+
+    XCTAssertEqual(childURL, expectedURL)
+  }
   
   func testIsDirectoryForExistingDirectory() {
     let parentDirectory = FileFinder.findParentFolder()
