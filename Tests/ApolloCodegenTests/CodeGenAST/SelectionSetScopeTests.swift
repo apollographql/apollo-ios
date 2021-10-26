@@ -787,9 +787,7 @@ class SelectionSetScopeTests: XCTestCase {
     expect(actual).to(equal(MergedSelections(expected)))
   }
 
-#warning("Write test that inline (not named!) fragment on same type merges into scope.")
-
-  // MARK: Merged Selections - Siblings
+  // MARK: - Merged Selections - Siblings
 
   // MARK: Merged Selections - Siblings - Object Type <-> Object Type
 
@@ -1223,7 +1221,7 @@ class SelectionSetScopeTests: XCTestCase {
     expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
   }
 
-  // MARK: Merged Selections - Child Fragment
+  // MARK: - Merged Selections - Child Fragment
 
   /// Example:
   /// query {

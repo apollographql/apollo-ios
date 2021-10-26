@@ -46,6 +46,9 @@ class SelectionSetScope: CustomDebugStringConvertible {
 
     for selection in selections {
       switch selection {
+      case .field:
+        appendOrMergeIntoSelections(selection)
+        
       case let .inlineFragment(selectionSet):
         appendOrMergeIntoSelections(selection)
         computedChildren.append(SelectionSetScope(selectionSet: selectionSet, parent: self))
@@ -80,9 +83,6 @@ class SelectionSetScope: CustomDebugStringConvertible {
             type: fragment.type,
             parent: self))
         }
-
-      case .field:
-        appendOrMergeIntoSelections(selection)
       }
     }
     return (computedSelections, computedChildren)

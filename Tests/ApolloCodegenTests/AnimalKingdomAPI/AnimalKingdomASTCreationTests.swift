@@ -68,7 +68,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
       ],
       typeCases: [
         .mock(parentType: GraphQLInterfaceType.mock("WarmBlooded")),
-        .mock(parentType: GraphQLObjectType.mock("Pet")),
+        .mock(parentType: GraphQLInterfaceType.mock("Pet")),
         .mock(parentType: GraphQLObjectType.mock("Cat")),
         .mock(parentType: GraphQLUnionType.mock("ClassroomPet")),
       ],
