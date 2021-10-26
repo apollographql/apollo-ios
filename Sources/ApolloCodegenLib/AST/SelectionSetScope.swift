@@ -2,9 +2,13 @@ import Foundation
 import ApolloUtils
 import OrderedCollections
 
-class SelectionSetScope: CustomDebugStringConvertible {
+struct TypeScope {
+  let type: Set<GraphQLCompositeType>
+}
+
+class SelectionSetScope: CustomDebugStringConvertible, Equatable {
   typealias Selection = CompilationResult.Selection
-  typealias Field = CompilationResult.Field
+  typealias SelectionSet = CompilationResult.SelectionSet
 
   let type: GraphQLCompositeType
 
@@ -44,11 +48,10 @@ class SelectionSetScope: CustomDebugStringConvertible {
     from selections: [Selection]
   ) -> (OrderedDictionary<AnyHashable, Selection>, [SelectionSetScope]) {
     var computedSelections: OrderedDictionary<AnyHashable, Selection> = [:]
-    var computedChildren: [SelectionSetScope] = []
+    var computedChildSelectionSets: OrderedDictionary<AnyHashable, SelectionSet> = [:]
 
     func appendOrMergeIntoSelections(_ selection: Selection) {
       let keyInScope = selection.hashForSelectionSetScope
-
       if let existingValue = computedSelections[keyInScope],
          let selectionSetToMerge = selection.selectionSet {
         computedSelections[keyInScope] = existingValue.merging(selectionSetToMerge)
@@ -58,14 +61,24 @@ class SelectionSetScope: CustomDebugStringConvertible {
       }
     }
 
+    func appendOrMergeIntoChildren(_ selectionSet: SelectionSet) {
+      let keyInScope = selectionSet.hashForSelectionSetScope
+      if let existingValue = computedChildSelectionSets[keyInScope] {
+        computedChildSelectionSets[keyInScope] = existingValue.merging(selectionSet.selections)
+
+      } else {
+        computedChildSelectionSets[keyInScope] = selectionSet
+      }
+    }
+
     for selection in selections {
       switch selection {
       case .field:
         appendOrMergeIntoSelections(selection)
         
-      case let .inlineFragment(selectionSet):
+      case let .inlineFragment(typeCaseSelectionSet):
         appendOrMergeIntoSelections(selection)
-        computedChildren.append(SelectionSetScope(selectionSet: selectionSet, parent: self))
+        appendOrMergeIntoChildren(typeCaseSelectionSet)
 
       case let .fragmentSpread(fragment):
         func shouldMergeFragmentDirectly() -> Bool {
@@ -89,17 +102,30 @@ class SelectionSetScope: CustomDebugStringConvertible {
               parentType: fragment.type,
               selections: [selection]
             ))
-          appendOrMergeIntoSelections(typeCaseForFragment)          
+          appendOrMergeIntoSelections(typeCaseForFragment)
 
-          computedChildren.append(
-            SelectionSetScope(
-            selections: [.fragmentSpread(fragment)],
-            type: fragment.type,
-            parent: self))
+          computedChildSelectionSets[selection.hashForSelectionSetScope] = SelectionSet(
+            parentType: fragment.type,
+            selections: [selection]
+          )
+//          appendOrMergeIntoChildren(SelectionSet(
+//            parentType: fragment.type,
+//            selections: [.fragmentSpread(fragment)]
+//          ))
         }
       }
     }
+
+    let computedChildren = computedChildSelectionSets.map {
+      SelectionSetScope(selections: $0.value.selections, type: $0.value.parentType, parent: self)
+    }
     return (computedSelections, computedChildren)
+  }
+
+  static func == (lhs: SelectionSetScope, rhs: SelectionSetScope) -> Bool {
+    return lhs.parent == rhs.parent &&
+    lhs.type == rhs.type &&
+    lhs.selections == rhs.selections
   }
 
   var debugDescription: String {
