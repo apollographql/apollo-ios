@@ -435,6 +435,70 @@ class SelectionSetScopeTests: XCTestCase {
     expect(actual.children).to(equal(expectedChildren))
   }
 
+  /// Example:
+  /// fragment FragmentB1 on B {
+  ///   B
+  /// }
+  ///
+  /// fragment FragmentB2 on B {
+  ///   C
+  /// }
+  ///
+  /// query { // on A
+  ///   ... FragmentB1
+  ///   ... FragmentB2
+  /// }
+  ///
+  /// Expected:
+  /// Query.Children: {
+  ///   ... on B {
+  ///     selections: [FragmentB1, FragmentB2]
+  ///   }
+  /// }
+  func test__children__givenTwoNamedFragments_onSameNonMatchingParentType_hasDeduplicatedTypeCaseWithBothChildFragments() {
+    // given
+    let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
+    let InterfaceB = GraphQLInterfaceType.mock("InterfaceB")
+    let FragmentB1 = CompilationResult.FragmentDefinition.mock(
+      "FragmentB1",
+      type: InterfaceB,
+      selections: [
+        .field(.mock("B"))
+      ]
+    )
+    let FragmentB2 = CompilationResult.FragmentDefinition.mock(
+      "FragmentB2",
+      type: InterfaceB,
+      selections: [
+        .field(.mock("C"))
+      ]
+    )
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: InterfaceA,
+      selections: [
+        .fragmentSpread(FragmentB1),
+        .fragmentSpread(FragmentB2),
+      ]
+    )
+
+    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+
+    let expectedChildren: [SelectionSetScope] = [
+      .init(
+        selectionSet: .init(
+          parentType: InterfaceB,
+          selections: [
+            .fragmentSpread(FragmentB1),
+            .fragmentSpread(FragmentB2),
+          ]),
+        parent: actual)
+    ]
+
+    // then
+    expect(actual.children).to(equal(expectedChildren))
+  }
+
   // MARK: - Selections
 
   // MARK: Selections - Group Duplicate Fields

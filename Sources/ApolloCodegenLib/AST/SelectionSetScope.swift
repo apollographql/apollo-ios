@@ -97,21 +97,14 @@ class SelectionSetScope: CustomDebugStringConvertible, Equatable {
           computedSelections[selection.hashForSelectionSetScope] = selection
 
         } else {
-          let typeCaseForFragment = Selection.inlineFragment(
-            CompilationResult.SelectionSet(
-              parentType: fragment.type,
-              selections: [selection]
-            ))
-          appendOrMergeIntoSelections(typeCaseForFragment)
-
-          computedChildSelectionSets[selection.hashForSelectionSetScope] = SelectionSet(
+          let selectionSetEnclosingFragment = SelectionSet(
             parentType: fragment.type,
             selections: [selection]
           )
-//          appendOrMergeIntoChildren(SelectionSet(
-//            parentType: fragment.type,
-//            selections: [.fragmentSpread(fragment)]
-//          ))
+          let typeCaseForFragment = Selection.inlineFragment(selectionSetEnclosingFragment)
+
+          appendOrMergeIntoSelections(typeCaseForFragment)
+          appendOrMergeIntoChildren(selectionSetEnclosingFragment)
         }
       }
     }
