@@ -28,7 +28,7 @@ extension ApolloExtension where Base: FileManagerProvider {
   ///
   /// - Parameter path: The path to check.
   /// - Returns: `true` if there is something at the path and it is a file, not a directory.
-  public func existsAsFile(atPath path: String) -> Bool {
+  public func doesFileExist(atPath path: String) -> Bool {
     var isDirectory = ObjCBool(false)
     let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
 
@@ -39,7 +39,7 @@ extension ApolloExtension where Base: FileManagerProvider {
   ///
   /// - Parameter path: The path to check.
   /// - Returns: `true` if there is something at the path and it is a directory, not a file.
-  public func existsAsDirectory(atPath path: String) -> Bool {
+  public func doesDirectoryExist(atPath path: String) -> Bool {
     var isDirectory = ObjCBool(false)
     let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
 

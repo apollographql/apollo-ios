@@ -8,20 +8,20 @@ class CLIDownloaderTests: XCTestCase {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: scriptsURL)
 
     try "Dummy file".data(using: .utf8)?.write(to: zipFileURL)
-    XCTAssertTrue(FileManager.default.apollo.existsAsFile(atPath: zipFileURL.path), "Created dummy file to be overwritten")
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: zipFileURL.path), "Created dummy file to be overwritten")
 
     try CLIDownloader.forceRedownload(to: scriptsURL, timeout: CodegenTestHelper.timeout)
-    XCTAssertTrue(FileManager.default.apollo.existsAsFile(atPath: zipFileURL.path), "Downloaded Apollo CLI")
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: zipFileURL.path), "Downloaded Apollo CLI")
     XCTAssertEqual(try FileManager.default.apollo.shasum(at: zipFileURL), CLIExtractor.expectedSHASUM)
   }
   
   func testDownloading_toFolderThatDoesNotExist_shouldCreateFolder() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
     try FileManager.default.apollo.delete(atPath: scriptsURL.path)
-    XCTAssertFalse(FileManager.default.apollo.existsAsDirectory(atPath: scriptsURL.path))
+    XCTAssertFalse(FileManager.default.apollo.doesDirectoryExist(atPath: scriptsURL.path))
 
     try CLIDownloader.downloadIfNeeded(to: scriptsURL, timeout: 90.0)
-    XCTAssertTrue(FileManager.default.apollo.existsAsDirectory(atPath: scriptsURL.path))
+    XCTAssertTrue(FileManager.default.apollo.doesDirectoryExist(atPath: scriptsURL.path))
   }
   
   func testTimeout_shouldThrowCorrectError() throws {

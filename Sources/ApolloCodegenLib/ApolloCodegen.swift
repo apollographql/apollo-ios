@@ -82,7 +82,7 @@ public class ApolloCodegen {
     CodegenLogger.log(String(describing: config), logLevel: .debug)
 
     // File inputs
-    guard fileManager.existsAsFile(atPath: config.input.schemaPath) else {
+    guard fileManager.doesFileExist(atPath: config.input.schemaPath) else {
       throw PathError.notAFile(.schema).logging(withPath: config.input.schemaPath)
     }
 
@@ -96,7 +96,7 @@ public class ApolloCodegen {
 
     // File outputs - operation identifiers
     if let operationIdentifiersPath = config.output.operationIdentifiersPath {
-      if fileManager.existsAsDirectory(atPath: operationIdentifiersPath) {
+      if fileManager.doesDirectoryExist(atPath: operationIdentifiersPath) {
         throw PathError.notAFile(.operationIdentifiers).logging(withPath: operationIdentifiersPath)
       }
     }
@@ -104,7 +104,7 @@ public class ApolloCodegen {
 
   /// Validates that if the given path exists it is a directory. If it does not exist it attempts to create it.
   private static func requireDirectory(atPath path: String, ofType pathType: PathType) throws {
-    if fileManager.existsAsFile(atPath: path) {
+    if fileManager.doesFileExist(atPath: path) {
       throw PathError.notADirectory(pathType).logging(withPath: path)
     }
 

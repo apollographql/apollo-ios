@@ -72,19 +72,19 @@ class URLExtensionsTests: XCTestCase {
   
   func testIsDirectoryForExistingDirectory() {
     let parentDirectory = FileFinder.findParentFolder()
-    XCTAssertTrue(FileManager.default.apollo.existsAsDirectory(atPath: parentDirectory.path))
+    XCTAssertTrue(FileManager.default.apollo.doesDirectoryExist(atPath: parentDirectory.path))
     XCTAssertTrue(parentDirectory.apollo.isDirectoryURL)
   }
   
   func testIsDirectoryForExistingFile() {
     let currentFileURL = FileFinder.fileURL()
-    XCTAssertTrue(FileManager.default.apollo.existsAsFile(atPath: currentFileURL.path))
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: currentFileURL.path))
     XCTAssertFalse(currentFileURL.apollo.isDirectoryURL)
   }
   
   func testIsSwiftFileForExistingFile() {
     let currentFileURL = FileFinder.fileURL()
-    XCTAssertTrue(FileManager.default.apollo.existsAsFile(atPath: currentFileURL.path))
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: currentFileURL.path))
     XCTAssertTrue(currentFileURL.apollo.isSwiftFileURL)
   }
   
@@ -92,7 +92,7 @@ class URLExtensionsTests: XCTestCase {
     let currentDirectory = FileFinder.findParentFolder()
     let doesntExist = currentDirectory.appendingPathComponent("test.swift")
     
-    XCTAssertFalse(FileManager.default.apollo.existsAsFile(atPath: doesntExist.path))
+    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: doesntExist.path))
     XCTAssertTrue(doesntExist.apollo.isSwiftFileURL)
   }
   
@@ -100,7 +100,7 @@ class URLExtensionsTests: XCTestCase {
     let currentDirectory = FileFinder.findParentFolder()
     let doesntExist = currentDirectory.appendingPathComponent("test.graphql.swift")
     
-    XCTAssertFalse(FileManager.default.apollo.existsAsFile(atPath: doesntExist.path))
+    XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: doesntExist.path))
     XCTAssertTrue(doesntExist.apollo.isSwiftFileURL)
   }
   

@@ -15,7 +15,7 @@ class ApolloSchemaInternalTests: XCTestCase {
                                                           outputFolderURL: CodegenTestHelper.outputFolderURL())
 
     try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
-    XCTAssertTrue(FileManager.default.apollo.existsAsFile(atPath: configuration.outputURL.path))
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputURL.path))
 
     let frontend = try ApolloCodegenFrontend()
     let source = try frontend.makeSource(from: configuration.outputURL)

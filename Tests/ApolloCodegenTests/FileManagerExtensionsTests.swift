@@ -99,7 +99,7 @@ class FileManagerExtensionTests: XCTestCase {
 
   // MARK: Presence
 
-  func test_existsAsFile_givenExistsTrueAndIsDirectoryFalse_shouldReturnTrue() {
+  func test_doesFileExist_givenExistsTrueAndIsDirectoryFalse_shouldReturnTrue() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -110,11 +110,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsFile(atPath: self.uniquePath)).to(beTrue())
+    expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beTrue())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsFile_givenExistsTrueAndIsDirectoryTrue_shouldReturnFalse() {
+  func test_doesFileExist_givenExistsTrueAndIsDirectoryTrue_shouldReturnFalse() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -125,11 +125,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsFile(atPath: self.uniquePath)).to(beFalse())
+    expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsFile_givenExistsFalseAndIsDirectoryFalse_shouldReturnFalse() {
+  func test_doesFileExist_givenExistsFalseAndIsDirectoryFalse_shouldReturnFalse() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -140,11 +140,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsFile(atPath: self.uniquePath)).to(beFalse())
+    expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsFile_givenExistsFalseAndIsDirectoryTrue_shouldReturnFalse() {
+  func test_doesFileExist_givenExistsFalseAndIsDirectoryTrue_shouldReturnFalse() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -155,11 +155,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsFile(atPath: self.uniquePath)).to(beFalse())
+    expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsDirectory_givenExistsTrueAndIsDirectoryTrue_shouldReturnTrue() {
+  func test_doesDirectoryExist_givenExistsTrueAndIsDirectoryTrue_shouldReturnTrue() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -170,11 +170,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsDirectory(atPath: self.uniquePath)).to(beTrue())
+    expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beTrue())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsDirectory_givenExistsTrueAndIsDirectoryFalse_shouldReturnFalse() {
+  func test_doesDirectoryExist_givenExistsTrueAndIsDirectoryFalse_shouldReturnFalse() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -185,11 +185,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsDirectory(atPath: self.uniquePath)).to(beFalse())
+    expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsDirectory_givenExistsFalseAndIsDirectoryTrue_shouldReturnFalse() {
+  func test_doesDirectoryExist_givenExistsFalseAndIsDirectoryTrue_shouldReturnFalse() {
     // given
     let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -200,11 +200,11 @@ class FileManagerExtensionTests: XCTestCase {
     }
 
     // then
-    expect(mocked.apollo.existsAsDirectory(atPath: self.uniquePath)).to(beFalse())
+    expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_existsAsDirectory_givenExistsFalseAndIsDirectoryFalse_shouldReturnTrue() {
+  func test_doesDirectoryExist_givenExistsFalseAndIsDirectoryFalse_shouldReturnTrue() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -215,7 +215,7 @@ class FileManagerExtensionTests: XCTestCase {
     })
 
     // then
-    expect(mocked.apollo.existsAsDirectory(atPath: self.uniquePath)).to(beFalse())
+    expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
