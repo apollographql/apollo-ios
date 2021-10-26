@@ -2,21 +2,19 @@ import Foundation
 import ApolloUtils
 import OrderedCollections
 
-struct TypeScope {
-  let type: Set<GraphQLCompositeType>
-}
-
 class SelectionSetScope: CustomDebugStringConvertible, Equatable {
   typealias Selection = CompilationResult.Selection
   typealias SelectionSet = CompilationResult.SelectionSet
+  typealias SelectionDictionary = OrderedDictionary<String, Selection>
+  typealias ChildTypeCaseDictionary = OrderedDictionary<String, SelectionSetScope>
 
   let type: GraphQLCompositeType
 
   weak private(set) var parent: SelectionSetScope?
 
-  private(set) var children: [SelectionSetScope] = []
+  private(set) var selections: SelectionDictionary = [:]
 
-  private(set) var selections: OrderedDictionary<AnyHashable, Selection> = [:]
+  private(set) var children: ChildTypeCaseDictionary = [:]
 
   lazy var mergedSelections: MergedSelections = MergedSelections.compute(forScope: self)
 
@@ -46,9 +44,9 @@ class SelectionSetScope: CustomDebugStringConvertible, Equatable {
 
   private func computeSelectionsAndChildren(
     from selections: [Selection]
-  ) -> (OrderedDictionary<AnyHashable, Selection>, [SelectionSetScope]) {
-    var computedSelections: OrderedDictionary<AnyHashable, Selection> = [:]
-    var computedChildSelectionSets: OrderedDictionary<AnyHashable, SelectionSet> = [:]
+  ) -> (SelectionDictionary, ChildTypeCaseDictionary) {
+    var computedSelections: SelectionDictionary = [:]
+    var computedChildSelectionSets: OrderedDictionary<String, SelectionSet> = [:]
 
     func appendOrMergeIntoSelections(_ selection: Selection) {
       let keyInScope = selection.hashForSelectionSetScope
@@ -109,8 +107,8 @@ class SelectionSetScope: CustomDebugStringConvertible, Equatable {
       }
     }
 
-    let computedChildren = computedChildSelectionSets.map {
-      SelectionSetScope(selections: $0.value.selections, type: $0.value.parentType, parent: self)
+    let computedChildren = computedChildSelectionSets.mapValues {
+      SelectionSetScope(selections: $0.selections, type: $0.parentType, parent: self)
     }
     return (computedSelections, computedChildren)
   }
@@ -125,7 +123,7 @@ class SelectionSetScope: CustomDebugStringConvertible, Equatable {
     var desc = type.debugDescription
     if !children.isEmpty {
       desc += " {"
-      children.forEach { child in
+      children.values.forEach { child in
         desc += "\n  \(indented: child.debugDescription)"
       }
       desc += "\n\(indented: "}")"

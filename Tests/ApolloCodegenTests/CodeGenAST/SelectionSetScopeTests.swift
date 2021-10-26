@@ -35,7 +35,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     // then
     expect(subject.children.count).to(equal(1))
-    let child = subject.children[0]
+    let child = subject.children["Bird"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type.name).to(equal("Bird"))
     expect(child.selections.values.elements).to(equal(childSelections))
@@ -67,7 +67,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     // then
     expect(subject.children.count).to(equal(1))
-    let child = subject.children[0]
+    let child = subject.children["Animal"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
     expect(child.selections.values.elements).to(equal(childSelections))
@@ -128,7 +128,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     // then
     expect(subject.children.count).to(equal(1))
-    let child = subject.children[0]
+    let child = subject.children["Bird"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Object_Bird))
     expect(child.selections.values.elements).to(equal([.fragmentSpread(birdDetails)]))
@@ -216,7 +216,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     // then
     expect(subject.children.count).to(equal(1))
-    let child = subject.children[0]
+    let child = subject.children["Animal"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
     expect(child.selections.values.elements).to(equal([.fragmentSpread(animalDetails)]))
@@ -256,8 +256,8 @@ class SelectionSetScopeTests: XCTestCase {
     ), parent: nil)
 
     // when
-    let onClassroomPet = parent.children[0]
-    let onClassroomPet_onBird = onClassroomPet.children[0]
+    let onClassroomPet = parent.children["ClassroomPet"]!
+    let onClassroomPet_onBird = onClassroomPet.children["Bird"]!
 
     // then
     expect(onClassroomPet.parent).to(beIdenticalTo(parent))
@@ -319,7 +319,7 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // then
-    expect(actual.children).to(equal(expectedChildren))
+    expect(actual.children.values.elements).to(equal(expectedChildren))
   }
 
   /// Example:
@@ -378,7 +378,7 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // then
-    expect(actual.children).to(equal(expectedChildren))
+    expect(actual.children.values.elements).to(equal(expectedChildren))
   }
 
   // MARK: Children - Group Duplicate Fragments
@@ -432,7 +432,7 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // then
-    expect(actual.children).to(equal(expectedChildren))
+    expect(actual.children.values.elements).to(equal(expectedChildren))
   }
 
   /// Example:
@@ -496,7 +496,7 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // then
-    expect(actual.children).to(equal(expectedChildren))
+    expect(actual.children.values.elements).to(equal(expectedChildren))
   }
 
   // MARK: - Selections
@@ -1118,7 +1118,7 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = parent.children[0].mergedSelections
+    let actual = parent.children["Bird"]?.mergedSelections
 
     // then
     expect(parent.children.count).to(equal(1))
@@ -1154,8 +1154,8 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let sibling1 = parent.children[0]
-    let sibling2 = parent.children[1]
+    let sibling1 = parent.children["Bird"]!
+    let sibling2 = parent.children["Cat"]!
 
     let sibling1Expected = sibling1.selections.values.elements
 
@@ -1205,8 +1205,8 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let sibling1 = parent.children[0]
-    let sibling2 = parent.children[1]
+    let sibling1 = parent.children["Bird"]!
+    let sibling2 = parent.children["Pet"]!
 
     let sibling1Expected =
     sibling1.selections.values.elements +
@@ -1256,8 +1256,8 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let sibling1 = parent.children[0]
-    let sibling2 = parent.children[1]
+    let sibling1 = parent.children["Bird"]!
+    let sibling2 = parent.children["Pet"]!
 
     let sibling1Expected = sibling1.selections.values.elements
 
@@ -1315,9 +1315,9 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let onBird = parent.children[0]
-    let onClassroomPet = parent.children[1]
-    let onClassroomPet_onBird = onClassroomPet.children[0]
+    let onBird = parent.children["Bird"]!
+    let onClassroomPet = parent.children["ClassroomPet"]!
+    let onClassroomPet_onBird = onClassroomPet.children["Bird"]!
 
     let onBirdExpected = [
       Field_Wingspan,
@@ -1382,9 +1382,9 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let onBird = parent.children[0]
-    let onClassroomPet = parent.children[1]
-    let onClassroomPet_onCat = onClassroomPet.children[0]
+    let onBird = parent.children["Bird"]!
+    let onClassroomPet = parent.children["ClassroomPet"]!
+    let onClassroomPet_onCat = onClassroomPet.children["Cat"]!
 
     let onBirdExpected = [
       Field_Wingspan
@@ -1438,8 +1438,8 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let sibling1 = parent.children[0]
-    let sibling2 = parent.children[1]
+    let sibling1 = parent.children["HousePet"]!
+    let sibling2 = parent.children["Pet"]!
 
     let sibling1Expected =
     sibling1.selections.values.elements +
@@ -1489,8 +1489,8 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     ), parent: nil)
 
-    let sibling1 = parent.children[0]
-    let sibling2 = parent.children[1]
+    let sibling1 = parent.children["HousePet"]!
+    let sibling2 = parent.children["Pet"]!
 
     let sibling1Expected = sibling1.selections.values.elements
 

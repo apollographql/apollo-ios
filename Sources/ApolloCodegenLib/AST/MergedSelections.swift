@@ -33,11 +33,11 @@ struct MergedSelections: Equatable {
     mergeIn(fragments)
   }
 
-  init(_ selections: [CompilationResult.Selection]) {
+  init(_ selections: [Selection]) {
     mergeIn(selections)
   }
 
-  init(_ selections: OrderedDictionary<AnyHashable, Selection>) {
+  init(_ selections: OrderedDictionary<String, Selection>) {
     mergeIn(selections.values.elements)
   }
 
@@ -106,7 +106,7 @@ struct MergedSelections: Equatable {
       selections = recursiveParentSelections + selections
     }
 
-    for sibling in parent.children {
+    for sibling in parent.children.values {
       selections.append(contentsOf: selectionsToMerge(intoScope: scope, fromSibling: sibling))
     }
 
@@ -122,7 +122,7 @@ struct MergedSelections: Equatable {
     switch (scope.type, other.type) {
     case let (scopeType as GraphQLObjectType, otherType as GraphQLObjectType)
       where scopeType.name == otherType.name:
-      return other.fieldSelections + other.children.flatMap {
+      return other.fieldSelections + other.children.values.flatMap {
         self.selectionsToMerge(intoScope: scope, fromSibling: $0)
       }
 
@@ -131,7 +131,7 @@ struct MergedSelections: Equatable {
       return other.fieldSelections
 
     case (is GraphQLObjectType, is GraphQLUnionType):
-      return other.children.flatMap {
+      return other.children.values.flatMap {
         self.selectionsToMerge(intoScope: scope, fromSibling: $0)
       }
 //

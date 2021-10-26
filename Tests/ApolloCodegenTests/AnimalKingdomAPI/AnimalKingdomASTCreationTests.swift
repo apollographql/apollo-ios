@@ -145,7 +145,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0],
           case let .field(predator) = allAnimals.selectionSet?.selections[8] else { fail(); return }
     let scope = SelectionSetScope(selectionSet: predator.selectionSet!, parent: nil)
-      .children[0]
+      .children.values[0]
 
     let expected = MergedSelections(
       fields: [
@@ -178,7 +178,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
-    let scope = allAnimalsScope.children[0]
+    let scope = allAnimalsScope.children.values[0]
 
     let expected = MergedSelections(
       fields: [
@@ -214,7 +214,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
-      .children[0]
+      .children.values[0]
       .mergedSelections
       .fields.values[1]
 
@@ -248,7 +248,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
-    let scope = allAnimalsScope.children[1]
+    let scope = allAnimalsScope.children.values[1]
 
     let expected = MergedSelections(
       fields: [
@@ -290,7 +290,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
-      .children[1]
+      .children.values[1]
       .mergedSelections
       .fields.values[3]
 
@@ -329,7 +329,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
-    let scope = allAnimalsScope.children[1].children[0]
+    let scope = allAnimalsScope.children.values[1].children.values[0]
 
     let expected = MergedSelections(
       fields: [
@@ -372,7 +372,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
-    let scope = allAnimalsScope.children[2]
+    let scope = allAnimalsScope.children.values[2]
 
     let expected = MergedSelections(
       fields: [
@@ -418,7 +418,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
-      .children[2]
+      .children.values[2]
       .mergedSelections
       .fields.values[1]
 
@@ -457,7 +457,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
-    let scope = allAnimalsScope.children[3]
+    let scope = allAnimalsScope.children.values[3]
 
     let expected = MergedSelections(
       fields: [
@@ -492,7 +492,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
-    let scope = allAnimalsScope.children[3].children[0]
+    let scope = allAnimalsScope.children.values[3].children.values[0]
 
     let expected = MergedSelections(
       fields: [
@@ -538,8 +538,8 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
     let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
-      .children[3]
-      .children[0]
+      .children.values[3]
+      .children.values[0]
       .mergedSelections
       .fields.values[1]
 
