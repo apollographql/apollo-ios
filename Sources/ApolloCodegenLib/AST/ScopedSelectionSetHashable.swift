@@ -1,6 +1,6 @@
 import Foundation
 
-protocol SelectionSetScopeHashable {
+protocol ScopedSelectionSetHashable {
 
   /// A hash value that will be the same for any selections that should be merged in a given scope.
   /// This is not the same as equivalence.
@@ -11,30 +11,31 @@ protocol SelectionSetScopeHashable {
   var hashForSelectionSetScope: String { get }
 }
 
-extension CompilationResult.Selection: SelectionSetScopeHashable {
+extension CompilationResult.Selection: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     switch self {
-    case let .field(selection as SelectionSetScopeHashable),
-      let .inlineFragment(selection as SelectionSetScopeHashable),
-      let .fragmentSpread(selection as SelectionSetScopeHashable):
+    case let .field(selection as ScopedSelectionSetHashable),
+      let .inlineFragment(selection as ScopedSelectionSetHashable),
+      let .fragmentSpread(selection as ScopedSelectionSetHashable):
       return selection.hashForSelectionSetScope
     }
   }
 }
 
-extension CompilationResult.Field: SelectionSetScopeHashable {
+extension CompilationResult.Field: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     return responseKey
   }
 }
 
-extension CompilationResult.SelectionSet: SelectionSetScopeHashable {
+extension CompilationResult.SelectionSet: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
+#warning("What if there is a field with the same name as a type? Do we get a conflict? Write a test for this.")
     return parentType.name
   }
 }
 
-extension CompilationResult.FragmentDefinition: SelectionSetScopeHashable {
+extension CompilationResult.FragmentDefinition: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     return name
   }

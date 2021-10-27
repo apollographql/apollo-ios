@@ -31,9 +31,9 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_RootQuery__isCorrect() {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let rootSelectionSet = SelectionSetScope(selectionSet: operation!.selectionSet, parent: nil)
+    let rootSelectionSet = ASTSelectionSet(selectionSet: operation!.selectionSet, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("allAnimals",
               type: .nonNull(.list(.nonNull(.named(GraphQLInterfaceType.mock("Animal"))))))
@@ -53,9 +53,9 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let scope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("height",
               type: .nonNull(.named(GraphQLObjectType.mock("Height")))),
@@ -90,9 +90,9 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0],
           case let .field(height) = allAnimals.selectionSet?.selections[0] else { fail(); return }
-    let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: height.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("feet",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
@@ -118,9 +118,9 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0],
           case let .field(predator) = allAnimals.selectionSet?.selections[8] else { fail(); return }
-    let scope = SelectionSetScope(selectionSet: predator.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: predator.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("species",
               type: .nonNull(.named(GraphQLScalarType.string()))),
@@ -144,10 +144,10 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0],
           case let .field(predator) = allAnimals.selectionSet?.selections[8] else { fail(); return }
-    let scope = SelectionSetScope(selectionSet: predator.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: predator.selectionSet!, parent: nil)
       .children.values[0]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("laysEggs",
               type: .nonNull(.named(GraphQLScalarType.boolean()))),
@@ -176,11 +176,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
     let scope = allAnimalsScope.children.values[0]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("bodyTemperature",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
@@ -212,15 +212,15 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
       .children.values[0]
       .mergedSelections
       .fields.values[1]
 
-    let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: height.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("feet",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
@@ -247,10 +247,10 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!, parent: nil)
     let scope = allAnimalsScope.children.values[1]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("height",
               type: .nonNull(.named(GraphQLObjectType.mock("Height")))),
@@ -288,15 +288,15 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
       .children.values[1]
       .mergedSelections
       .fields.values[3]
 
-    let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: height.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("relativeSize",
               type: .nonNull(.named(GraphQLEnumType.relativeSize()))),
@@ -327,11 +327,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
     let scope = allAnimalsScope.children.values[1].children.values[0]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("height",
               type: .nonNull(.named(GraphQLObjectType.mock("Height")))),
@@ -370,11 +370,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
     let scope = allAnimalsScope.children.values[2]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("isJellicle",
               type: .nonNull(.named(GraphQLScalarType.boolean()))),
@@ -416,15 +416,15 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
       .children.values[2]
       .mergedSelections
       .fields.values[1]
 
-    let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: height.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("feet",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
@@ -455,11 +455,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
     let scope = allAnimalsScope.children.values[3]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("height",
               type: .nonNull(.named(GraphQLObjectType.mock("Height")))),
@@ -490,11 +490,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!,
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!,
                                             parent: nil)
     let scope = allAnimalsScope.children.values[3].children.values[0]
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("height",
               type: .nonNull(.named(GraphQLObjectType.mock("Height")))),
@@ -536,16 +536,16 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
     guard case let .field(allAnimals) = operation!.selectionSet.selections[0] else { fail(); return }
-    let allAnimalsScope = SelectionSetScope(selectionSet: allAnimals.selectionSet!, parent: nil)
+    let allAnimalsScope = ASTSelectionSet(selectionSet: allAnimals.selectionSet!, parent: nil)
     let height = allAnimalsScope
       .children.values[3]
       .children.values[0]
       .mergedSelections
       .fields.values[1]
 
-    let scope = SelectionSetScope(selectionSet: height.selectionSet!, parent: nil)
+    let scope = ASTSelectionSet(selectionSet: height.selectionSet!, parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [
         .mock("feet",
               type: .nonNull(.named(GraphQLScalarType.integer()))),

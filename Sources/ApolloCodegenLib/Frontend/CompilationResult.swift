@@ -88,7 +88,7 @@ public class CompilationResult: JavaScriptObject {
     
     lazy var selections: [Selection] = self["selections"]!
 
-    convenience init(parentType: GraphQLCompositeType, selections: [Selection]) {
+    required convenience init(parentType: GraphQLCompositeType, selections: [Selection]) {
       self.init(nil)
       self.parentType = parentType
       self.selections = selections
@@ -182,7 +182,7 @@ public class CompilationResult: JavaScriptObject {
     
     lazy var description: String? = self["description"]
 
-    convenience init(
+    required convenience init(
       name: String,
       alias: String? = nil,
       arguments: [Argument]? = nil,

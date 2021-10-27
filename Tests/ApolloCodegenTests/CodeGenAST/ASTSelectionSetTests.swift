@@ -4,7 +4,7 @@ import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 
-class SelectionSetScopeTests: XCTestCase {
+class ASTSelectionSetTests: XCTestCase {
 
   // MARK: - Children Computation
 
@@ -23,7 +23,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     let childSelections: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
         .inlineFragment(.mock(
@@ -38,7 +38,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children["Bird"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type.name).to(equal("Bird"))
-    expect(child.selections.values.elements).to(equal(childSelections))
+    expect(child.selections).to(equal(childSelections))
   }
 
   /// Example:
@@ -55,7 +55,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     let childSelections: [CompilationResult.Selection] = [.field(.mock("species"))]
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
         .inlineFragment(.mock(
@@ -70,7 +70,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children["Animal"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections.values.elements).to(equal(childSelections))
+    expect(child.selections).to(equal(childSelections))
   }
 
   /// Example:
@@ -90,7 +90,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
         .fragmentSpread(animalDetails),
@@ -119,7 +119,7 @@ class SelectionSetScopeTests: XCTestCase {
     
     let birdDetails = CompilationResult.FragmentDefinition.mock("BirdDetails", type: Object_Bird)
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
         .fragmentSpread(birdDetails),
@@ -131,7 +131,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children["Bird"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Object_Bird))
-    expect(child.selections.values.elements).to(equal([.fragmentSpread(birdDetails)]))
+    expect(child.selections).to(equal([.fragmentSpread(birdDetails)]))
   }
 
   /// Example:
@@ -151,7 +151,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Object_Bird,
       selections: [
         .fragmentSpread(animalDetails),
@@ -179,7 +179,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_FlyingAnimal,
       selections: [
         .fragmentSpread(animalDetails),
@@ -207,7 +207,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Object_Rock = GraphQLObjectType.mock("Rock")
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Object_Rock,
       selections: [
         .fragmentSpread(animalDetails),
@@ -219,7 +219,7 @@ class SelectionSetScopeTests: XCTestCase {
     let child = subject.children["Animal"]!
     expect(child.parent).to(beIdenticalTo(subject))
     expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections.values.elements).to(equal([.fragmentSpread(animalDetails)]))
+    expect(child.selections).to(equal([.fragmentSpread(animalDetails)]))
   }
 
   // MARK: Children Computation - Union Type
@@ -241,7 +241,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     let Field_Species: CompilationResult.Selection = .field(.mock("species"))
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -266,7 +266,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     expect(onClassroomPet_onBird.parent).to(beIdenticalTo(onClassroomPet))
     expect(onClassroomPet_onBird.type).to(beIdenticalTo(Object_Bird))
-    expect(onClassroomPet_onBird.selections.values.elements).to(equal([Field_Species]))
+    expect(onClassroomPet_onBird.selections).to(equal([Field_Species]))
   }
 
   // MARK: Children - Group Duplicate Type Cases
@@ -305,9 +305,9 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
-    let expectedChildren: [SelectionSetScope] = [
+    let expectedChildren: [ASTSelectionSet] = [
       .init(
         selectionSet: .init(
           parentType: GraphQLInterfaceType.mock("InterfaceA"),
@@ -358,9 +358,9 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
-    let expectedChildren: [SelectionSetScope] = [
+    let expectedChildren: [ASTSelectionSet] = [
       .init(
         selectionSet: .init(
           parentType: GraphQLInterfaceType.mock("InterfaceA"),
@@ -419,9 +419,9 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
-    let expectedChildren: [SelectionSetScope] = [
+    let expectedChildren: [ASTSelectionSet] = [
       .init(
         selectionSet: .init(
           parentType: InterfaceB,
@@ -482,9 +482,9 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
-    let expectedChildren: [SelectionSetScope] = [
+    let expectedChildren: [ASTSelectionSet] = [
       .init(
         selectionSet: .init(
           parentType: InterfaceB,
@@ -517,10 +517,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   func test__selections__givenFieldSelectionsWithSameNameDifferentAlias_scalarType_doesNotDeduplicateSelection() {
@@ -538,10 +538,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithDifferentChildSelections_mergesChildSelectionsIntoOneField() {
@@ -585,10 +585,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   /// Example:
@@ -655,10 +655,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   // MARK: Selections - Group Duplicate Type Cases
@@ -687,10 +687,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   /// Example:
@@ -717,10 +717,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   /// Example:
@@ -747,10 +747,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   /// Example:
@@ -779,10 +779,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   /// Example:
@@ -840,10 +840,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   // MARK: Selections - Group Duplicate Fragments
@@ -865,10 +865,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   func test__selections__givenNamedFragmentsWithDifferentNames_onMatchingParentType_doesNotDeduplicateSelection() {
@@ -889,10 +889,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   func test__selections__givenNamedFragmentsWithSameName_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCase() {
@@ -917,10 +917,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   /// Example:
@@ -979,10 +979,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   func test__selections__givenNamedFragmentsWithDifferentNamesAndDifferentParentType_onNonMatchingParentType_doesNotDeduplicate_hasTypeCaseForEachFragment() {
@@ -1025,10 +1025,10 @@ class SelectionSetScopeTests: XCTestCase {
     ]
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
 
     // then
-    expect(actual.selections.values.elements).to(equal(expected))
+    expect(actual.selections).to(equal(expected))
   }
 
   // MARK: - Merged Selections
@@ -1038,7 +1038,7 @@ class SelectionSetScopeTests: XCTestCase {
     let selectionSet = CompilationResult.SelectionSet.mock()
     
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
       .mergedSelections
 
     // then
@@ -1053,16 +1053,16 @@ class SelectionSetScopeTests: XCTestCase {
     selectionSet.selections = expected
 
     // when
-    let actual = SelectionSetScope(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
       .mergedSelections
 
     // then
-    expect(actual).to(equal(MergedSelections(expected)))
+    expect(actual).to(equal(expected))
   }
 
   func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() {
     // given
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLObjectType.mock("A"),
       selections: [
         .field(.mock("A")),
@@ -1084,7 +1084,7 @@ class SelectionSetScopeTests: XCTestCase {
     let actual = subject.mergedSelections
 
     // then
-    expect(actual).to(equal(MergedSelections(expected)))
+    expect(actual).to(equal(expected))
   }
 
   // MARK: - Merged Selections - Siblings
@@ -1106,7 +1106,7 @@ class SelectionSetScopeTests: XCTestCase {
   /// Both selection sets should have mergedSelections [wingspan, species]
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsTheSameObjectType_mergesSiblingSelections() {
     // given
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1130,7 +1130,7 @@ class SelectionSetScopeTests: XCTestCase {
 
     // then
     expect(parent.children.count).to(equal(1))
-    expect(actual).to(equal(MergedSelections(expected)))
+    expect(actual).to(equal(expected))
   }
 
   /// Example:
@@ -1148,7 +1148,7 @@ class SelectionSetScopeTests: XCTestCase {
   /// Bird and Cat selections sets should not merge each other's selections
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsDifferentObjectType_doesNotMergesSiblingSelections() {
     // given
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1165,17 +1165,17 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children["Bird"]!
     let sibling2 = parent.children["Cat"]!
 
-    let sibling1Expected = sibling1.selections.values.elements
+    let sibling1Expected: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
 
-    let sibling2Expected = sibling2.selections.values.elements
+    let sibling2Expected: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     // when
     let sibling1Actual = sibling1.mergedSelections
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
-    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
+    expect(sibling1Actual).to(equal(sibling1Expected))
+    expect(sibling2Actual).to(equal(sibling2Expected))
   }
 
   // MARK: Merged Selections - Siblings - Object Type -> Interface Type
@@ -1199,7 +1199,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Pet = GraphQLInterfaceType.mock("Pet")
     let Bird = GraphQLObjectType.mock("Bird", interfaces: [Pet])
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1216,19 +1216,22 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children["Bird"]!
     let sibling2 = parent.children["Pet"]!
 
-    let sibling1Expected =
-    sibling1.selections.values.elements +
-    sibling2.selections.values.elements
+    let sibling1Expected: [CompilationResult.Selection] = [
+      .field(.mock("wingspan")),
+      .field(.mock("species"))
+    ]
 
-    let sibling2Expected = sibling2.selections.values.elements
+    let sibling2Expected: [CompilationResult.Selection] = [
+      .field(.mock("species"))
+    ]
 
     // when
     let sibling1Actual = sibling1.mergedSelections
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
-    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
+    expect(sibling1Actual).to(equal(sibling1Expected))
+    expect(sibling2Actual).to(equal(sibling2Expected))
   }
 
   /// Example:
@@ -1240,7 +1243,6 @@ class SelectionSetScopeTests: XCTestCase {
   ///    ... on Pet { // Bird does not implement Pet
   ///      species
   ///    }
-  ///   }
   /// }
   /// Expected:
   /// Bird mergedSelections: [wingspan]
@@ -1250,7 +1252,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Pet = GraphQLInterfaceType.mock("Pet")
     let Bird = GraphQLObjectType.mock("Bird")
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1267,18 +1269,51 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children["Bird"]!
     let sibling2 = parent.children["Pet"]!
 
-    let sibling1Expected = sibling1.selections.values.elements
+    let sibling1Expected: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
 
-    let sibling2Expected = sibling2.selections.values.elements
+    let sibling2Expected: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     // when
     let sibling1Actual = sibling1.mergedSelections
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
-    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
+    expect(sibling1Actual).to(equal(SortedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(SortedSelections(sibling2Expected)))
   }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      ... on Pet {
+  ///        humanName
+  ///      }
+  ///    }
+  ///    ... on Pet {
+  ///      species
+  ///    }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan, species]
+  /// Pet mergedSelections: [species]
+#warning("TODO")
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      ... on Bird {
+  ///        wingspan
+  ///      }
+  ///    }
+  ///    ... on Pet { // Bird Implements Pet
+  ///      species
+  ///    }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan, species]
+  /// Pet mergedSelections: [species]
+#warning("TODO")
 
   // MARK: Merged Selections - Siblings - Object Type <-> Object in Union Type
 
@@ -1305,7 +1340,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
     let Field_Species: CompilationResult.Selection = .field(.mock("species"))
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1342,8 +1377,8 @@ class SelectionSetScopeTests: XCTestCase {
     let onClassroomPet_onBirdActual = onClassroomPet_onBird.mergedSelections
 
     // then
-    expect(onBirdActual).to(equal(MergedSelections(onBirdExpected)))
-    expect(onClassroomPet_onBirdActual).to(equal(MergedSelections(onClassroomPet_onBirdExpected)))
+    expect(onBirdActual).to(equal(SortedSelections(onBirdExpected)))
+    expect(onClassroomPet_onBirdActual).to(equal(SortedSelections(onClassroomPet_onBirdExpected)))
   }
 
   /// Example:
@@ -1372,7 +1407,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
     let Field_Species: CompilationResult.Selection = .field(.mock("species"))
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1407,8 +1442,8 @@ class SelectionSetScopeTests: XCTestCase {
     let onClassroomPet_onCatActual = onClassroomPet_onCat.mergedSelections
 
     // then
-    expect(onBirdActual).to(equal(MergedSelections(onBirdExpected)))
-    expect(onClassroomPet_onCatActual).to(equal(MergedSelections(onClassroomPet_onCatExpected)))
+    expect(onBirdActual).to(equal(SortedSelections(onBirdExpected)))
+    expect(onClassroomPet_onCatActual).to(equal(SortedSelections(onClassroomPet_onCatExpected)))
   }
 
   // MARK: Merged Selections - Siblings - Interface Type -> Interface Type
@@ -1432,7 +1467,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Pet = GraphQLInterfaceType.mock("Pet")
     let HousePet = GraphQLInterfaceType.mock("HousePet", interfaces: [Pet])
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1449,19 +1484,22 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children["HousePet"]!
     let sibling2 = parent.children["Pet"]!
 
-    let sibling1Expected =
-    sibling1.selections.values.elements +
-    sibling2.selections.values.elements
+    let sibling1Expected: [CompilationResult.Selection] = [
+      .field(.mock("humanName")),
+      .field(.mock("species"))
+    ]
 
-    let sibling2Expected = sibling2.selections.values.elements
+    let sibling2Expected: [CompilationResult.Selection] = [
+      .field(.mock("species"))
+    ]
 
     // when
     let sibling1Actual = sibling1.mergedSelections
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
-    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
+    expect(sibling1Actual).to(equal(SortedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(SortedSelections(sibling2Expected)))
   }
 
   /// Example:
@@ -1483,7 +1521,7 @@ class SelectionSetScopeTests: XCTestCase {
     let Pet = GraphQLInterfaceType.mock("Pet")
     let HousePet = GraphQLInterfaceType.mock("HousePet")
 
-    let parent = SelectionSetScope(selectionSet: .mock(
+    let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
         .inlineFragment(.mock(
@@ -1500,17 +1538,17 @@ class SelectionSetScopeTests: XCTestCase {
     let sibling1 = parent.children["HousePet"]!
     let sibling2 = parent.children["Pet"]!
 
-    let sibling1Expected = sibling1.selections.values.elements
+    let sibling1Expected: [CompilationResult.Selection] = [.field(.mock("humanName"))]
 
-    let sibling2Expected = sibling2.selections.values.elements
+    let sibling2Expected: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     // when
     let sibling1Actual = sibling1.mergedSelections
     let sibling2Actual = sibling2.mergedSelections
 
     // then
-    expect(sibling1Actual).to(equal(MergedSelections(sibling1Expected)))
-    expect(sibling2Actual).to(equal(MergedSelections(sibling2Expected)))
+    expect(sibling1Actual).to(equal(SortedSelections(sibling1Expected)))
+    expect(sibling2Actual).to(equal(SortedSelections(sibling2Expected)))
   }
 
   // MARK: - Merged Selections - Child Fragment
@@ -1539,14 +1577,14 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
         .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [Field_Species],
       typeCases: [],
       fragments: [animalDetails]
@@ -1584,14 +1622,14 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
       selections: [
         .fragmentSpread(birdDetails),
       ]
     ), parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [],
       typeCases: [
         .init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)])
@@ -1631,14 +1669,14 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Object_Bird,
       selections: [
         .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [Field_Species],
       typeCases: [],
       fragments: [animalDetails]
@@ -1676,14 +1714,14 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_FlyingAnimal,
       selections: [
         .fragmentSpread(animalDetails),
       ]
     ), parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [Field_Species],
       typeCases: [],
       fragments: [animalDetails]
@@ -1722,14 +1760,14 @@ class SelectionSetScopeTests: XCTestCase {
       ]
     )
 
-    let subject = SelectionSetScope(selectionSet: .mock(
+    let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Object_Rock,
       selections: [
         .fragmentSpread(birdDetails),
       ]
     ), parent: nil)
 
-    let expected = MergedSelections(
+    let expected = SortedSelections(
       fields: [],
       typeCases: [
         .init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)])

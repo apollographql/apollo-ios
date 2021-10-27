@@ -7,7 +7,7 @@ import Nimble
 /// A Matcher that matches that the AST `MergedSelections` are equal, but does not check any nested
 /// selection sets of the `fields`, `typeCases`, and `fragments`. This is used for conveniently
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
-public func shallowlyMatch(_ expectedValue: MergedSelections) -> Predicate<MergedSelections> {
+public func shallowlyMatch(_ expectedValue: SortedSelections) -> Predicate<SortedSelections> {
   return Predicate { actual in
     if let actualValue = try actual.evaluate() {
       if expectedValue.fields.count != actualValue.fields.count {
@@ -113,4 +113,8 @@ fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual
 fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
   return expected.name == actual.name &&
   expected.type == actual.type
+}
+
+public func equal(_ expectedValue: [CompilationResult.Selection]) -> Predicate<SortedSelections> {
+  return equal(SortedSelections(expectedValue))  
 }

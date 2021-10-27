@@ -1,14 +1,22 @@
 import Foundation
 
-extension CompilationResult.SelectionSet {
+protocol SelectionMergable: ScopedSelectionSetHashable {
+  var _selectionSet:CompilationResult.SelectionSet? { get }
+  func merging(_: CompilationResult.SelectionSet) -> Self
+}
 
-  /// Returns a `SelectionSet` with the `newSelections` merged in, removing duplicates.
+extension CompilationResult.SelectionSet: SelectionMergable {
+
+  var _selectionSet: CompilationResult.SelectionSet? { self }
+
+  /// Returns a `Field` with the selections of the `newSelectionSet` merged in,
+  /// removing duplicates.
   ///
   /// - Note: If no changes were made the same `SelectionSet` is returned.
   func merging(
-    _ newSelections: [CompilationResult.Selection]
-  ) -> CompilationResult.SelectionSet {
-    let selectionsToMerge = newSelections.filter { !selections.contains($0) }
+    _ newSelectionSet: CompilationResult.SelectionSet
+  ) -> Self {
+    let selectionsToMerge = newSelectionSet.selections.filter { !selections.contains($0) }
 
     guard !selectionsToMerge.isEmpty else { return self }
 
@@ -17,27 +25,29 @@ extension CompilationResult.SelectionSet {
     return copy
   }
 
-  private func copy() -> CompilationResult.SelectionSet {
-    return CompilationResult.SelectionSet(parentType: self.parentType,
-                                          selections: self.selections)
+  private func copy() -> Self {
+    return Self(parentType: self.parentType,
+                selections: self.selections)
   }
 
 }
 
-extension CompilationResult.Field {
+extension CompilationResult.Field: SelectionMergable {
+
+  var _selectionSet: CompilationResult.SelectionSet? { self.selectionSet }
 
   /// Returns a `Field` with the selections of the `newSelectionSet` merged in,
   /// removing duplicates.
   ///
   /// - Note: If no changes were made the same `Field` is returned.
-  func merging(_ newSelectionSet: CompilationResult.SelectionSet) -> CompilationResult.Field {
+  func merging(_ newSelectionSet: CompilationResult.SelectionSet) -> Self {
     guard let existingSelectionSet = selectionSet else {
       let copy = self.copy()
       copy.selectionSet = newSelectionSet
       return copy
     }
 
-    let mergedSelectionSet = existingSelectionSet.merging(newSelectionSet.selections)
+    let mergedSelectionSet = existingSelectionSet.merging(newSelectionSet)
     guard mergedSelectionSet !== existingSelectionSet else { return self }
 
     let copy = self.copy()
@@ -45,8 +55,8 @@ extension CompilationResult.Field {
     return copy
   }
 
-  private func copy() -> CompilationResult.Field {
-    return CompilationResult.Field(
+  private func copy() -> Self {
+    return Self(
       name: self.name,
       alias: self.alias,
       arguments: self.arguments,
@@ -58,15 +68,26 @@ extension CompilationResult.Field {
 
 }
 
-extension CompilationResult.Selection {
+extension CompilationResult.Selection: SelectionMergable {
 
-  func merging(_ newSelectionSet: CompilationResult.SelectionSet) -> CompilationResult.Selection {
+  var _selectionSet: CompilationResult.SelectionSet? {
+    switch self {
+    case let .field(selection as SelectionMergable),
+      let .inlineFragment(selection as SelectionMergable):
+      return selection._selectionSet
+
+    case let .fragmentSpread(fragment):
+      return fragment.selectionSet
+    }
+  }
+
+  func merging(_ newSelectionSet: CompilationResult.SelectionSet) -> Self {
     switch self {
     case let .field(field):
       return .field(field.merging(newSelectionSet))
 
     case let .inlineFragment(selectionSet):
-      return .inlineFragment(selectionSet.merging(newSelectionSet.selections))
+      return .inlineFragment(selectionSet.merging(newSelectionSet))
 
     case .fragmentSpread:
       fatalError("Selections sets should never be merged into named fragments.")
