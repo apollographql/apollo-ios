@@ -19,9 +19,9 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
 
   let compilationResult: CompilationResult
 
-  let selectionCollector: ScopeSelectionCollector
+  let mergedSelectionBuilder: MergedSelectionBuilder
 
-  lazy var mergedSelections: SortedSelections = selectionCollector.mergedSelections(for: self)
+  lazy var mergedSelections: SortedSelections = mergedSelectionBuilder.mergedSelections(for: self)
 
   // MARK: - Initialization
 
@@ -47,7 +47,7 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
   ) {
     self.type = type
     self.compilationResult = compilationResult
-    self.selectionCollector = ScopeSelectionCollector()
+    self.mergedSelectionBuilder = MergedSelectionBuilder()
 
     computeSelectionsAndChildren(from: selections)
   }
@@ -60,7 +60,7 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
     self.parent = parent
     self.type = type
     self.compilationResult = parent.compilationResult
-    self.selectionCollector = parent.selectionCollector
+    self.mergedSelectionBuilder = parent.mergedSelectionBuilder
 
     computeSelectionsAndChildren(from: selections)
   }
@@ -116,7 +116,7 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
       }
     }
 
-    selectionCollector.add(self.selections, forScope: self.scopeDescriptor.scope)
+    mergedSelectionBuilder.add(self.selections, forScope: self.scopeDescriptor.scope)
 
     self.children = computedChildSelectionSets.mapValues {
       ASTSelectionSet(selections: $0.selections, type: $0.parentType, parent: self)
