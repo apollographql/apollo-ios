@@ -1,5 +1,13 @@
 @testable import ApolloCodegenLib
 
+public extension CompilationResult {
+  class func mock(referencedTypes: ReferencedTypes? = nil) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.referencedTypes = referencedTypes ?? ReferencedTypes([])
+    return mock
+  }
+}
+
 public extension CompilationResult.OperationDefinition {
 
   class func mock(usingFragments: [CompilationResult.FragmentDefinition] = []) -> Self {

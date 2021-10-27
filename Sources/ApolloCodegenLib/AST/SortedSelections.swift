@@ -5,41 +5,44 @@ import ApolloAPI
 typealias TypeScope = Set<GraphQLCompositeType>
 
 struct TypeScopeDescriptor {
-  let scope: TypeScope
-  let otherMatchingScopes: Set<TypeScope>
+  let scope: TypeScope!
 
-  private init(
-    scope: Set<GraphQLCompositeType>,
-    otherMatchingScopes: Set<TypeScope> = []
-  ) {
+  private init() {
+    self.scope = nil
+  }
+
+  private init(scope: TypeScope) {
     self.scope = scope
-    self.otherMatchingScopes = otherMatchingScopes
   }
 
   static func descriptor(for selectionSet: ASTSelectionSet) -> TypeScopeDescriptor {
-    if let parent = selectionSet.parent {
-      return parent.scopeDescriptor.appending(selectionSet.type)
-    } else {
-      return TypeScopeDescriptor(scope: [selectionSet.type])
-    }
+    let allTypes = selectionSet.compilationResult.referencedTypes
+    let parentDescriptor = selectionSet.parent?.scopeDescriptor ?? TypeScopeDescriptor()
+    return parentDescriptor.appending(selectionSet.type, givenAllTypes: allTypes)
   }
 
-  func appending(_ newType: GraphQLCompositeType) -> TypeScopeDescriptor {
-    guard !scope.contains(newType) else { return self }
+  func matches(_ otherScope: TypeScope) -> Bool {
+    otherScope.isSubset(of: self.scope)
+  }
 
-    var newScope = self.scope
+  func appending(
+    _ newType: GraphQLCompositeType,
+    givenAllTypes allTypes: CompilationResult.ReferencedTypes
+  ) -> TypeScopeDescriptor {
+    if let scope = scope, scope.contains(newType) { return self }
+
+    var newScope = self.scope ?? []
     newScope.insert(newType)
-
-    var otherMatchingScopes = self.otherMatchingScopes
-    for scope in otherMatchingScopes {
-      var scope = scope
-      scope.insert(newType)
-      otherMatchingScopes.insert(scope)
+    if let newType = newType as? GraphQLInterfaceImplementingType {
+      newScope.formUnion(newType.interfaces)
+      #warning("Do we need to recursively form union with each interfaces other interfaces? Test this.")
     }
-    otherMatchingScopes.insert(self.scope)
-    otherMatchingScopes.insert([newType])
 
-    return TypeScopeDescriptor(scope: newScope, otherMatchingScopes: otherMatchingScopes)
+    if let newType = newType as? GraphQLObjectType {
+      newScope.formUnion(allTypes.unions(including: newType))
+    }
+
+    return TypeScopeDescriptor(scope: newScope)
   }
 }
 
@@ -59,14 +62,19 @@ class ScopeSelectionCollector {
   }
 
   func mergedSelections(for selectionSet: ASTSelectionSet) -> SortedSelections {
-    let scope = selectionSet.scopeDescriptor.scope
-    var mergedSelections = selectionsForScopes[scope] ?? SortedSelections()
-
-    for otherScope in selectionSet.scopeDescriptor.otherMatchingScopes {
-      if let otherScopeSelections = selectionsForScopes[otherScope] {
-        merge(otherScopeSelections, into: &mergedSelections)
+    let targetScope = selectionSet.scopeDescriptor
+    var mergedSelections = selectionSet.selections
+    for (scope, selections) in selectionsForScopes {
+      if targetScope.matches(scope) {
+        merge(selections, into: &mergedSelections)
       }
     }
+
+//    for otherScope in selectionSet.scopeDescriptor.otherMatchingScopes {
+//      if let otherScopeSelections = selectionsForScopes[otherScope] {
+//        merge(otherScopeSelections, into: &mergedSelections)
+//      }
+//    }
 
     return mergedSelections
   }

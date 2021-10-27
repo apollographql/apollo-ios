@@ -6,6 +6,18 @@ import ApolloCodegenTestSupport
 
 class ASTSelectionSetTests: XCTestCase {
 
+  var mockCompilationResult: CompilationResult!
+
+  override func setUp() {
+    super.setUp()
+    mockCompilationResult = CompilationResult.mock()
+  }
+
+  override func tearDown() {
+    mockCompilationResult = nil
+    super.tearDown()
+  }
+
   // MARK: - Children Computation
 
   /// Example:
@@ -22,6 +34,8 @@ class ASTSelectionSetTests: XCTestCase {
     let Object_Bird = GraphQLObjectType.mock("Bird")
 
     let childSelections: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
+    
+    mockCompilationResult.referencedTypes = .init([Interface_Animal, Object_Bird])
 
     let subject = ASTSelectionSet(selectionSet: .mock(
       parentType: Interface_Animal,
@@ -31,7 +45,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: childSelections
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children.count).to(equal(1))
@@ -63,7 +77,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: childSelections
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children.count).to(equal(1))
@@ -95,7 +109,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children).to(beEmpty())
@@ -124,7 +138,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(birdDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children.count).to(equal(1))
@@ -156,7 +170,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children).to(beEmpty())
@@ -184,7 +198,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children).to(beEmpty())
@@ -212,7 +226,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // then
     expect(subject.children.count).to(equal(1))
@@ -253,7 +267,7 @@ class ASTSelectionSetTests: XCTestCase {
             ))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     // when
     let onClassroomPet = parent.children["ClassroomPet"]!
@@ -305,7 +319,7 @@ class ASTSelectionSetTests: XCTestCase {
       ]
     )
 
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     let expectedChildren: [ASTSelectionSet] = [
       .init(
@@ -358,7 +372,7 @@ class ASTSelectionSetTests: XCTestCase {
       ]
     )
 
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     let expectedChildren: [ASTSelectionSet] = [
       .init(
@@ -419,7 +433,7 @@ class ASTSelectionSetTests: XCTestCase {
       ]
     )
 
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     let expectedChildren: [ASTSelectionSet] = [
       .init(
@@ -482,7 +496,7 @@ class ASTSelectionSetTests: XCTestCase {
       ]
     )
 
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     let expectedChildren: [ASTSelectionSet] = [
       .init(
@@ -517,7 +531,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -538,7 +552,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -585,7 +599,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -655,7 +669,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -687,7 +701,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -717,7 +731,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -747,7 +761,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -779,7 +793,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -840,7 +854,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -865,7 +879,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -889,7 +903,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -917,7 +931,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -979,7 +993,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -1025,7 +1039,7 @@ class ASTSelectionSetTests: XCTestCase {
     ]
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
 
     // then
     expect(actual.selections).to(equal(expected))
@@ -1038,7 +1052,7 @@ class ASTSelectionSetTests: XCTestCase {
     let selectionSet = CompilationResult.SelectionSet.mock()
     
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
       .mergedSelections
 
     // then
@@ -1053,7 +1067,7 @@ class ASTSelectionSetTests: XCTestCase {
     selectionSet.selections = expected
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, parent: nil)
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
       .mergedSelections
 
     // then
@@ -1071,7 +1085,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("B"))]
         ))
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let subject = parent.children["B"]!
 
@@ -1118,7 +1132,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("species"))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let expected = [
       CompilationResult.Selection.field(.mock("wingspan")),
@@ -1160,7 +1174,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("species"))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let sibling1 = parent.children["Bird"]!
     let sibling2 = parent.children["Cat"]!
@@ -1211,7 +1225,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("species"))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let sibling1 = parent.children["Bird"]!
     let sibling2 = parent.children["Pet"]!
@@ -1264,7 +1278,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("species"))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let sibling1 = parent.children["Bird"]!
     let sibling2 = parent.children["Pet"]!
@@ -1340,6 +1354,8 @@ class ASTSelectionSetTests: XCTestCase {
     let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
     let Field_Species: CompilationResult.Selection = .field(.mock("species"))
 
+    mockCompilationResult.referencedTypes = .init([Object_Bird, Union_ClassroomPet])
+
     let parent = ASTSelectionSet(selectionSet: .mock(
       parentType: GraphQLInterfaceType.mock("Animal"),
       selections: [
@@ -1356,7 +1372,7 @@ class ASTSelectionSetTests: XCTestCase {
             ))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let onBird = parent.children["Bird"]!
     let onClassroomPet = parent.children["ClassroomPet"]!
@@ -1423,7 +1439,7 @@ class ASTSelectionSetTests: XCTestCase {
             ))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let onBird = parent.children["Bird"]!
     let onClassroomPet = parent.children["ClassroomPet"]!
@@ -1445,6 +1461,26 @@ class ASTSelectionSetTests: XCTestCase {
     expect(onBirdActual).to(equal(SortedSelections(onBirdExpected)))
     expect(onClassroomPet_onCatActual).to(equal(SortedSelections(onClassroomPet_onCatExpected)))
   }
+
+  // MARK: Merged Selections - Siblings - Interface Type <-> Union Type
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      bodyTemperature
+  ///    }
+  ///    ... on ClassroomPet {
+  ///      ... on WarmBlooded {
+  ///        species
+  ///      }
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
+  /// AllAnimal.AsClassroomPet.AsWarmBlooded mergedSelections: [species, bodyTemperature]
+#warning("TODO")
 
   // MARK: Merged Selections - Siblings - Interface Type -> Interface Type
 
@@ -1479,7 +1515,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("species"))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let sibling1 = parent.children["HousePet"]!
     let sibling2 = parent.children["Pet"]!
@@ -1533,7 +1569,7 @@ class ASTSelectionSetTests: XCTestCase {
           selections: [.field(.mock("species"))]
         )),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let sibling1 = parent.children["HousePet"]!
     let sibling2 = parent.children["Pet"]!
@@ -1582,7 +1618,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
       fields: [Field_Species],
@@ -1627,7 +1663,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(birdDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
       fields: [],
@@ -1674,7 +1710,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
       fields: [Field_Species],
@@ -1719,7 +1755,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(animalDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
       fields: [Field_Species],
@@ -1765,7 +1801,7 @@ class ASTSelectionSetTests: XCTestCase {
       selections: [
         .fragmentSpread(birdDetails),
       ]
-    ), parent: nil)
+    ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
       fields: [],

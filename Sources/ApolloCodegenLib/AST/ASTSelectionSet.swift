@@ -17,27 +17,52 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
 
   private(set) lazy var scopeDescriptor = TypeScopeDescriptor.descriptor(for: self)
 
+  let compilationResult: CompilationResult
+
   let selectionCollector: ScopeSelectionCollector
 
   lazy var mergedSelections: SortedSelections = selectionCollector.mergedSelections(for: self)
 
   // MARK: - Initialization
 
-  convenience init(selectionSet: CompilationResult.SelectionSet, parent: ASTSelectionSet?) {
+  convenience init(
+    selectionSet: CompilationResult.SelectionSet,
+    compilationResult: CompilationResult
+  ) {
+    self.init(selections: selectionSet.selections,
+              type: selectionSet.parentType,
+              compilationResult: compilationResult)
+  }
+
+  convenience init(selectionSet: CompilationResult.SelectionSet, parent: ASTSelectionSet) {
     self.init(selections: selectionSet.selections,
               type: selectionSet.parentType,
               parent: parent)
   }
 
-  init(selections: [Selection], type: GraphQLCompositeType, parent: ASTSelectionSet?) {
-    self.parent = parent
+  private init(
+    selections: [Selection],
+    type: GraphQLCompositeType,
+    compilationResult: CompilationResult
+  ) {
     self.type = type
-    self.selectionCollector = parent?.selectionCollector ?? ScopeSelectionCollector()
+    self.compilationResult = compilationResult
+    self.selectionCollector = ScopeSelectionCollector()
 
     computeSelectionsAndChildren(from: selections)
-//    if parent == nil {
-//      MergedSelectionBuilder.buildMergedSelections(withRootScope: self)
-//    }
+  }
+
+  private init(
+    selections: [Selection],
+    type: GraphQLCompositeType,
+    parent: ASTSelectionSet
+  ) {
+    self.parent = parent
+    self.type = type
+    self.compilationResult = parent.compilationResult
+    self.selectionCollector = parent.selectionCollector
+
+    computeSelectionsAndChildren(from: selections)
   }
 
   private func computeSelectionsAndChildren(from selections: [Selection]) {
@@ -77,6 +102,7 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
 
         if shouldMergeFragmentDirectly() {
           self.selections.mergeIn(fragment)
+          self.selections.mergeIn(fragment.selectionSet.selections)
 
         } else {
           let typeCaseForFragment = SelectionSet(
