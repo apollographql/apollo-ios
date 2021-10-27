@@ -1063,14 +1063,22 @@ class SelectionSetScopeTests: XCTestCase {
   func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() {
     // given
     let parent = SelectionSetScope(selectionSet: .mock(
-      selections: [.field(.mock("A"))]
+      parentType: GraphQLObjectType.mock("A"),
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: GraphQLObjectType.mock("B"),
+          selections: [.field(.mock("B"))]
+        ))
+      ]
     ), parent: nil)
 
-    let subject = SelectionSetScope(selectionSet: .mock(
-      selections: [.field(.mock("B"))]
-    ), parent: parent)
+    let subject = parent.children["B"]!
 
-    let expected = subject.selections.values.elements + parent.selections.values.elements
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("B")),
+      .field(.mock("A")),
+    ]
 
     // when
     let actual = subject.mergedSelections
