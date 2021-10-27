@@ -99,112 +99,112 @@ class FileManagerExtensionTests: XCTestCase {
 
   // MARK: Presence
 
-  func test_doesFileExist_givenExistsTrueAndIsDirectoryFalse_shouldReturnTrue() {
+  func test_doesFileExist_givenExistsTrueAndIsDirectoryFalse_shouldCallFileExistsAndReturnTrue() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beTrue())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesFileExist_givenExistsTrueAndIsDirectoryTrue_shouldReturnFalse() {
+  func test_doesFileExist_givenExistsTrueAndIsDirectoryTrue_shouldCallFileExistsAndReturnFalse() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return true // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesFileExist_givenExistsFalseAndIsDirectoryFalse_shouldReturnFalse() {
+  func test_doesFileExist_givenExistsFalseAndIsDirectoryFalse_shouldCallFileExistsAndReturnFalse() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return false // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesFileExist_givenExistsFalseAndIsDirectoryTrue_shouldReturnFalse() {
+  func test_doesFileExist_givenExistsFalseAndIsDirectoryTrue_shouldCallFileExistsAndReturnFalse() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return false // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesFileExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesDirectoryExist_givenExistsTrueAndIsDirectoryTrue_shouldReturnTrue() {
+  func test_doesDirectoryExist_givenExistsTrueAndIsDirectoryTrue_shouldCallFileExistsAndReturnTrue() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return true // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beTrue())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesDirectoryExist_givenExistsTrueAndIsDirectoryFalse_shouldReturnFalse() {
+  func test_doesDirectoryExist_givenExistsTrueAndIsDirectoryFalse_shouldCallFileExistsAndReturnFalse() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesDirectoryExist_givenExistsFalseAndIsDirectoryTrue_shouldReturnFalse() {
+  func test_doesDirectoryExist_givenExistsFalseAndIsDirectoryTrue_shouldCallFileExistsAndReturnFalse() {
     // given
-    let mocked = MockFileManager { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return false // exists
-    }
+    })
 
     // then
     expect(mocked.apollo.doesDirectoryExist(atPath: self.uniquePath)).to(beFalse())
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_doesDirectoryExist_givenExistsFalseAndIsDirectoryFalse_shouldReturnTrue() {
+  func test_doesDirectoryExist_givenExistsFalseAndIsDirectoryFalse_shouldCallFileExistsAndReturnFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       expect(path).to(match(self.uniquePath))
@@ -219,31 +219,173 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_delete_givenNoThrow_shouldNotThrow() throws {
+  func test_deleteFile_givenExistsTrueAndIsDirectoryTrue_shouldCallFileExistsAndThrow() throws {
     // given
-    let mocked = MockFileManager(removeItem: { (path: String) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = true
+      return true // exists
+    })
+
+    // then
+    expect(try mocked.apollo.deleteFile(atPath: self.uniquePath))
+      .to(throwError(MockFileManager.apollo.PathError.notAFile(path: self.uniquePath)))
+    expect(mocked.blocksCalled).to(equal([.fileExists]))
+  }
+
+  func test_deleteFile_givenExistsTrueAndIsDirectoryFalse_shouldCallFileExistsThenRemoveItemAndNotThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = false
+      return true // exists
+    }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
     })
 
     // then
-    expect(try mocked.apollo.delete(atPath: self.uniquePath)).notTo(throwError())
-    expect(mocked.blocksCalled).to(equal([.removeItem]))
+    expect(try mocked.apollo.deleteFile(atPath: self.uniquePath)).notTo(throwError())
+    expect(mocked.blocksCalled).to(equal([.fileExists, .removeItem]))
   }
 
-  func test_delete_givenThrow_shouldThrow() throws {
+  func test_deleteFile_givenExistsFalseAndIsDirectoryTrue_shouldCallFileExistsAndNotThrow() throws {
     // given
-    let mocked = MockFileManager(removeItem: { (path: String) in
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = true
+      return false // exists
+    })
+
+    // then
+    expect(try mocked.apollo.deleteFile(atPath: self.uniquePath)).notTo(throwError())
+    expect(mocked.blocksCalled).to(equal([.fileExists]))
+  }
+
+  func test_deleteFile_givenExistsFalseAndIsDirectoryFalse_shouldCallFileExistsAndNotThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = false
+      return false // exists
+    })
+
+    // then
+    expect(try mocked.apollo.deleteFile(atPath: self.uniquePath)).notTo(throwError())
+    expect(mocked.blocksCalled).to(equal([.fileExists]))
+  }
+
+  func test_deleteFile_givenExistsTrueAndIsDirectoryFalseAndThrowFromRemoveItem_shouldCallFileExistsThenRemoveItemAndThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = false
+      return true // exists
+    }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
 
       throw self.uniqueError
     })
 
     // then
-    expect(try mocked.apollo.delete(atPath: self.uniquePath)).to(throwError(self.uniqueError))
-    expect(mocked.blocksCalled).to(equal([.removeItem]))
+    expect(try mocked.apollo.deleteFile(atPath: self.uniquePath)).to(throwError(self.uniqueError))
+    expect(mocked.blocksCalled).to(equal([.fileExists, .removeItem]))
   }
 
-  func test_createFile_givenFalseFromCreateFile_shouldReturnFalse() throws {
+  func test_deleteDirectory_givenExistsTrueAndIsDirectoryTrue_shouldCallFileExistsThenRemoveItemAndNotThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = true
+      return true // exists
+    }, removeItem: { (path: String) in
+      expect(path).to(match(self.uniquePath))
+    })
+
+    // then
+    expect(try mocked.apollo.deleteDirectory(atPath: self.uniquePath)).notTo(throwError())
+    expect(mocked.blocksCalled).to(equal([.fileExists, .removeItem]))
+  }
+
+  func test_deleteDirectory_givenExistsTrueAndIsDirectoryFalse_shouldCallFileExistsAndThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = false
+      return true // exists
+    }, removeItem: { (path: String) in
+      expect(path).to(match(self.uniquePath))
+    })
+
+    // then
+    expect(try mocked.apollo.deleteDirectory(atPath: self.uniquePath))
+      .to(throwError(MockFileManager.apollo.PathError.notADirectory(path: self.uniquePath)))
+    expect(mocked.blocksCalled).to(equal([.fileExists]))
+  }
+
+  func test_deleteDirectory_givenExistsFalseAndIsDirectoryTrue_shouldCallFileExistsAndNotThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = true
+      return false // exists
+    })
+
+    // then
+    expect(try mocked.apollo.deleteDirectory(atPath: self.uniquePath)).notTo(throwError())
+    expect(mocked.blocksCalled).to(equal([.fileExists]))
+  }
+
+  func test_deleteDirectory_givenExistsFalseAndIsDirectoryFalse_shouldCallFileExistsAndNotThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = false
+      return false // exists
+    })
+
+    // then
+    expect(try mocked.apollo.deleteDirectory(atPath: self.uniquePath)).notTo(throwError())
+    expect(mocked.blocksCalled).to(equal([.fileExists]))
+  }
+
+  func test_deleteDirectory_givenExistsTrueAndIsDirectoryTrueAndThrowFromRemoveItem_shouldCallFileExistsThenRemoveItemAndThrow() throws {
+    // given
+    let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
+      expect(path).to(match(self.uniquePath))
+      expect(isDirectory).notTo(beNil())
+
+      isDirectory?.pointee = true
+      return true // exists
+    }, removeItem: { (path: String) in
+      expect(path).to(match(self.uniquePath))
+
+      throw self.uniqueError
+    })
+
+    // then
+    expect(try mocked.apollo.deleteDirectory(atPath: self.uniquePath)).to(throwError(self.uniqueError))
+    expect(mocked.blocksCalled).to(equal([.fileExists, .removeItem]))
+  }
+
+  func test_createFile_givenFalseFromCreateFile_shouldCallCreateDirectoryThenCreateFileAndReturnFalse() throws {
     // given
     let mocked = MockFileManager(createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -264,7 +406,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory, .createFile]))
   }
 
-  func test_createFile_givenTrueFromCreateFile_shouldReturnTrue() throws {
+  func test_createFile_givenTrueFromCreateFile_shouldCallCreateDirectoryThenCreateFileAndReturnTrue() throws {
     // given
     let mocked = MockFileManager(createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -285,7 +427,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory, .createFile]))
   }
 
-  func test_createFile_givenThrowFromCreateDirectory_shouldThrow() throws {
+  func test_createFile_givenTrueFromCreateFileAndThrowFromCreateDirectory_shouldCallCreateDirectoryAndThrow() throws {
     // given
     let mocked = MockFileManager(createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -309,7 +451,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory]))
   }
 
-  func test_createContainingDirectory_givenNoThrow_shouldNotThrow() throws {
+  func test_createContainingDirectory_givenNoThrow_shouldCallCreateDirectoryAndNotThrow() throws {
     // given
     let mocked = MockFileManager(createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       let parentPath = URL(fileURLWithPath: path).deletingLastPathComponent().path
@@ -324,7 +466,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory]))
   }
 
-  func test_createContainingDirectory_givenThrow_shouldThrow() throws {
+  func test_createContainingDirectory_givenThrow_shouldCallCreateDirectoryAndThrow() throws {
     // given
     let mocked = MockFileManager(createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       let parentPath = URL(fileURLWithPath: path).deletingLastPathComponent().path
@@ -342,7 +484,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory]))
   }
 
-  func test_createDirectory_givenNoThrow_shouldNotThrow() throws {
+  func test_createDirectory_givenNoThrow_shouldCallCreateDirectoryAndNotThrow() throws {
     // given
     let mocked = MockFileManager(createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -355,7 +497,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.createDirectory]))
   }
 
-  func test_createDirectory_givenThrow_shouldThrow() throws {
+  func test_createDirectory_givenThrow_shouldCallCreateDirectoryAndThrow() throws {
     // given
     let mocked = MockFileManager(createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))

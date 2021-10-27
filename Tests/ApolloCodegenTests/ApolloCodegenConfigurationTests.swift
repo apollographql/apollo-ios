@@ -11,7 +11,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   }
 
   override func tearDownWithError() throws {
-    try FileManager.default.apollo.delete(atPath: directoryURL.path)
+    try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
   }
 
   func test_init_givenBasePathAndSchemaFilename_shouldBuildDefaultPaths() {

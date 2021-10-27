@@ -171,7 +171,7 @@ class CLIExtractorTests: XCTestCase {
   
   func testMissingSHASUMFileButCorrectZipFileCreatesSHASUMFile() throws {
     let shasumFileURL = CodegenTestHelper.shasumFileURL()
-    try FileManager.default.apollo.delete(atPath: shasumFileURL.path)
+    try FileManager.default.apollo.deleteFile(atPath: shasumFileURL.path)
     
     XCTAssertFalse(FileManager.default.apollo.doesFileExist(atPath: shasumFileURL.path))
     

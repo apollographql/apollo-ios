@@ -96,7 +96,7 @@ public struct CodegenTestHelper {
                                          line: UInt = #line) {
     do {
       let outputFolderURL = self.outputFolderURL()
-      try FileManager.default.apollo.delete(atPath: outputFolderURL.path)
+      try FileManager.default.apollo.deleteDirectory(atPath: outputFolderURL.path)
     } catch {
       XCTFail("Error deleting output folder!",
               file: file,
@@ -120,7 +120,7 @@ public struct CodegenTestHelper {
                                          line: UInt = #line) {
     do {
       let apolloFolderURL = self.apolloFolderURL()
-      try FileManager.default.apollo.delete(atPath: apolloFolderURL.path)
+      try FileManager.default.apollo.deleteDirectory(atPath: apolloFolderURL.path)
     } catch {
       XCTFail("Error deleting Apollo folder: \(error)",
               file: file,

@@ -31,9 +31,9 @@ struct CLIDownloader {
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   static func forceRedownload(to cliFolderURL: URL, timeout: Double) throws {
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: cliFolderURL)
-    try FileManager.default.apollo.delete(atPath: zipFileURL.path)
+    try FileManager.default.apollo.deleteFile(atPath: zipFileURL.path)
     let apolloFolderURL = ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: cliFolderURL)
-    try FileManager.default.apollo.delete(atPath: apolloFolderURL.path)
+    try FileManager.default.apollo.deleteDirectory(atPath: apolloFolderURL.path)
     
     try self.download(to: zipFileURL, timeout: timeout)
   }

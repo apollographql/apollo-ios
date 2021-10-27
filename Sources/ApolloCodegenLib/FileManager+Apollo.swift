@@ -22,6 +22,20 @@ extension FileManager: FileManagerProvider {}
 
 extension ApolloExtension where Base: FileManagerProvider {
 
+  public enum PathError: Swift.Error, LocalizedError, Equatable {
+    case notAFile(path: String)
+    case notADirectory(path: String)
+
+    public var errorDescription: String {
+      switch self {
+      case .notAFile(let path):
+        return "\(path) is not a file!"
+      case .notADirectory(let path):
+        return "\(path) is not a directory!"
+      }
+    }
+  }
+
   // MARK: Presence
 
   /// Checks if the path exists and is a file, not a directory.
@@ -48,10 +62,33 @@ extension ApolloExtension where Base: FileManagerProvider {
   
   // MARK: Manipulation
 
-  /// Removes the file or directory at the specified path.
+  /// Verifies that a file exists at the pathRemoves the file at the specified path.
   ///
-  /// - Parameter path: The path of the file or directory to delete.
-  public func delete(atPath path: String) throws {
+  /// - Parameter path: The path of the file to delete.
+  public func deleteFile(atPath path: String) throws {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
+    if exists && isDirectory.boolValue {
+      throw PathError.notAFile(path: path)
+    }
+
+    guard exists else { return }
+    try base.removeItem(atPath: path)
+  }
+
+  /// Removes the directory at the specified path.
+  ///
+  /// - Parameter path: The path of the directory to delete.
+  public func deleteDirectory(atPath path: String) throws {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
+    if exists && !isDirectory.boolValue {
+      throw PathError.notADirectory(path: path)
+    }
+
+    guard exists else { return }
     try base.removeItem(atPath: path)
   }
 
