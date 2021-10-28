@@ -13,6 +13,8 @@ public struct ApolloSchemaDownloader {
     case couldNotExtractSDLFromRegistryJSON
     case couldNotCreateSDLDataToWrite(schema: String)
     case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
+    case couldNotCreateURLComponentsFromEndpointURL
+    case couldNotGetURLFromURLComponents
 
     public var errorDescription: String? {
       switch self {
@@ -29,7 +31,11 @@ public struct ApolloSchemaDownloader {
       case .couldNotCreateSDLDataToWrite(let schema):
         return "Could not convert SDL schema into data to write to the filesystem. Schema: \(schema)"
       case .couldNotConvertIntrospectionJSONToSDL(let underlying):
-          return "Could not convert downloaded introspection JSON into SDL format. Underlying error: \(underlying)"
+        return "Could not convert downloaded introspection JSON into SDL format. Underlying error: \(underlying)"
+      case .couldNotCreateURLComponentsFromEndpointURL:
+        return "Could not create URLComponents from EndpointURL for Introspection."
+      case .couldNotGetURLFromURLComponents:
+        return "Could not get URL from URLComponents."
       }
     }
   }
@@ -237,19 +243,35 @@ public struct ApolloSchemaDownloader {
   
   static func downloadViaIntrospection(from endpointURL: URL, configuration: ApolloSchemaDownloadConfiguration) throws {
     CodegenLogger.log("Downloading schema via introspection from \(endpointURL)", logLevel: .debug)
-    
-    var urlRequest = URLRequest(url: endpointURL)
+
+    var urlRequest: URLRequest
+
+    switch configuration.httpMethod {
+    case .POST:
+      let body = UntypedGraphQLRequestBodyCreator.requestBody(for: self.IntrospectionQuery,
+                                                              variables: nil,
+                                                              operationName: "IntrospectionQuery")
+      urlRequest = URLRequest(url: endpointURL)
+      urlRequest.httpMethod = "POST"
+      urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
+    case .GET(let introspectionQueryParameterName):
+      guard var components = URLComponents(url: endpointURL, resolvingAgainstBaseURL: true) else {
+        throw SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL
+      }
+      components.queryItems = [URLQueryItem(name: introspectionQueryParameterName, value: IntrospectionQuery)]
+      guard let url = components.url else {
+        throw SchemaDownloadError.couldNotGetURLFromURLComponents
+      }
+      urlRequest = URLRequest(url: url)
+      urlRequest.httpMethod = "GET"
+    }
+
     urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
     for header in configuration.headers {
       urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
     }
-    
-    let body = UntypedGraphQLRequestBodyCreator.requestBody(for: self.IntrospectionQuery,
-                                                            variables: nil,
-                                                            operationName: "IntrospectionQuery")
-    urlRequest.httpMethod = "POST"
-    urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
+
     let jsonOutputURL = configuration.outputURL.apollo.parentFolderURL().appendingPathComponent("introspection_response.json")
     
     try URLDownloader().downloadSynchronously(with: urlRequest,

@@ -46,6 +46,11 @@ public struct ApolloSchemaDownloadConfiguration {
     }
 
   }
+
+  public enum ApolloSchemaDownloadHTTPMethod {
+    case POST
+    case GET(introspectionQueryParameterName: String)
+  }
   
   public struct HTTPHeader: Equatable, CustomDebugStringConvertible {
     let key: String
@@ -63,6 +68,8 @@ public struct ApolloSchemaDownloadConfiguration {
 
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
   public let downloadMethod: DownloadMethod
+  /// HTTP Method for Introspection. Setting this to GET requires passing the name of the query parameter for the IntrospectionQuery. Defaults to POST.
+  public let httpMethod: ApolloSchemaDownloadHTTPMethod
   /// The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public let downloadTimeout: Double
   /// Any additional headers to include when retrieving your schema. Defaults to nil.
@@ -75,15 +82,18 @@ public struct ApolloSchemaDownloadConfiguration {
   /// - Parameters:
   ///   - downloadMethod: How to download your schema.
   ///   - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
+  ///   - downloadHTTPMethod: HTTP Method for Introspection. Setting this to GET requires passing the name of the query parameter for the IntrospectionQuery. Defaults to POST.
   ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
   ///   - schemaFilename: The name, without an extension, for your schema file. Defaults to `"schema"
   public init(using downloadMethod: DownloadMethod,
               timeout downloadTimeout: Double = 30.0,
+              httpMethod downloadHTTPMethod: ApolloSchemaDownloadHTTPMethod = .POST,
               headers: [HTTPHeader] = [],
               outputFolderURL: URL,
               schemaFilename: String = "schema") {
     self.downloadMethod = downloadMethod
+    self.httpMethod = downloadHTTPMethod
     self.downloadTimeout = downloadTimeout
     self.headers = headers
     self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
@@ -95,6 +105,7 @@ extension ApolloSchemaDownloadConfiguration: CustomDebugStringConvertible {
     return """
       downloadMethod: \(self.downloadMethod)
       downloadTimeout: \(self.downloadTimeout)
+      downloadHTTPMethod: \(self.httpMethod)
       headers: \(self.headers)
       outputURL: \(self.outputURL)
       """
