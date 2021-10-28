@@ -154,14 +154,14 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     let expected = SortedSelections(
       fields: [
-        .mock("laysEggs",
-              type: .nonNull(.named(GraphQLScalarType.boolean()))),
-        .mock("species",
-              type: .nonNull(.named(GraphQLScalarType.string()))),
         .mock("bodyTemperature",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
         .mock("height",
               type: .nonNull(.named(GraphQLObjectType.mock("Height")))),
+        .mock("laysEggs",
+              type: .nonNull(.named(GraphQLScalarType.boolean()))),
+        .mock("species",
+              type: .nonNull(.named(GraphQLScalarType.string()))),
       ],
       typeCases: [],
       fragments: [
@@ -229,13 +229,13 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
 
     let expected = SortedSelections(
       fields: [
-        .mock("feet",
-              type: .nonNull(.named(GraphQLScalarType.integer()))),
-        .mock("inches",
-              type: .nonNull(.named(GraphQLScalarType.integer()))),
         .mock("meters",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
         .mock("yards",
+              type: .nonNull(.named(GraphQLScalarType.integer()))),
+        .mock("feet",
+              type: .nonNull(.named(GraphQLScalarType.integer()))),
+        .mock("inches",
               type: .nonNull(.named(GraphQLScalarType.integer()))),
       ],
       typeCases: [],

@@ -1,4 +1,5 @@
 import Foundation
+import OrderedCollections
 
 /// An object that collects the selections for the type scopes for a tree of `ASTSelectionSet`s and
 /// computes the merged selections for each `ASTSelectionSet` in the tree.
@@ -10,7 +11,7 @@ import Foundation
 /// representing a different entity. Each new root parent `ASTSelectionSet` should create a new
 /// `MergedSelectionBuilder` for its child tree.
 class MergedSelectionBuilder {
-  var selectionsForScopes: [TypeScope: SortedSelections] = [:]
+  var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
 
   init() {}
 

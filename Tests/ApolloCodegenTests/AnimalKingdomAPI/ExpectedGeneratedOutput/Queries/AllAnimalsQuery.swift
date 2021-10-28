@@ -138,10 +138,10 @@ public struct AllAnimalsQuery: GraphQLQuery {
             .field("laysEggs", Bool.self),
           ] }
 
-          public var laysEggs: Bool { data["laysEggs"] }
-          public var species: String { data["species"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
           public var height: WarmBloodedDetails.Height { data["height"] }
+          public var laysEggs: Bool { data["laysEggs"] }
+          public var species: String { data["species"] }
 
           public struct Fragments: ResponseObject {
             public let data: ResponseDict
@@ -183,10 +183,10 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
 
-          var feet: Int { data["feet"] }
-          var inches: Int { data["inches"] }
           var meters: Int { data["meters"] }
           var yards: Int { data["yards"] }
+          var feet: Int { data["feet"] }
+          var inches: Int { data["inches"] }
         }
       }
 
