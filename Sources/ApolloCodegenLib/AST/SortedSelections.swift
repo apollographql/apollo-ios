@@ -93,7 +93,6 @@ struct SortedSelections: Equatable, CustomDebugStringConvertible {
 
   @inlinable mutating func mergeIn(_ fragment: Fragment) {
     fragments[fragment.hashForSelectionSetScope] = fragment
-//    mergeIn(fragment.selectionSet.selections)
   }
 
   @inlinable mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
