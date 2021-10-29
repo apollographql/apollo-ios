@@ -4,13 +4,15 @@ import CommonCrypto
 import ApolloUtils
 #endif
 
+public typealias FileAttributes = [FileAttributeKey : Any]
+
 /// A protocol to decouple `ApolloExtension` from `FileManager`. Use it to build objects that can support
 /// `ApolloExtension` behavior.
 public protocol FileManagerProvider {
   func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool
   func removeItem(atPath path: String) throws
-  @discardableResult func createFile(atPath path: String, contents data: Data?, attributes attr: [FileAttributeKey : Any]?) -> Bool
-  func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: [FileAttributeKey : Any]?) throws
+  @discardableResult func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool
+  func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws
 }
 
 /// Enables the `.apollo` etension namespace.
