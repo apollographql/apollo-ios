@@ -243,6 +243,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return true // exists
+
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
     })
@@ -260,6 +261,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return true // exists
+
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
 
@@ -309,6 +311,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return true // exists
+
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
     })
@@ -326,6 +329,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return true // exists
+
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
 
@@ -345,6 +349,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return true // exists
+
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
     })
@@ -394,12 +399,14 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return true // exists
+
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
       return true
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
       fail("The containing directory already exists, createDirectory should not be called.")
     })
@@ -418,12 +425,14 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return true // exists
+
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
       return false
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
       fail("The containing directory already exists, createDirectory should not be called.")
     })
@@ -442,12 +451,14 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return false // exists
+
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
       return true
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -468,12 +479,14 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return false // exists
+
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
       return false
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -494,9 +507,11 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return false // exists
+
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       fail("createFile should not be called, due to error in createDirectory.")
       return false
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -521,6 +536,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return true // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       fail("The directory already exists, createDirectory should not be called.")
     })
@@ -539,6 +555,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return true // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -559,6 +576,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return false // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -579,6 +597,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return false // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -599,6 +618,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return false // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
       expect(createIntermediates).to(beTrue())
@@ -621,6 +641,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return true // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       fail("The directory already exists, createDirectory should not be called.")
     })
@@ -638,6 +659,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return true // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(createIntermediates).to(beTrue())
@@ -657,6 +679,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = true
       return false // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(createIntermediates).to(beTrue())
@@ -676,6 +699,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return false // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(createIntermediates).to(beTrue())
@@ -695,6 +719,7 @@ class FileManagerExtensionTests: XCTestCase {
 
       isDirectory?.pointee = false
       return false // exists
+
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
       expect(createIntermediates).to(beTrue())
