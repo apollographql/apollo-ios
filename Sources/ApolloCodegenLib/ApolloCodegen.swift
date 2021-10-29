@@ -109,7 +109,7 @@ public class ApolloCodegen {
     }
 
     do {
-      try fileManager.createDirectory(atPath: path)
+      try fileManager.createDirectoryIfNeeded(atPath: path)
     } catch (let underlyingError) {
       throw PathError.folderCreationFailed(pathType, underlyingError: underlyingError)
         .logging(withPath: path)

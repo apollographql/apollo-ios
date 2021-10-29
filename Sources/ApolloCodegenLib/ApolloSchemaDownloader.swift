@@ -40,7 +40,7 @@ public struct ApolloSchemaDownloader {
   ///   - configuration: The `ApolloSchemaDownloadConfiguration` object to use to download the schema.
   /// - Returns: Output from a successful run
   public static func fetch(with configuration: ApolloSchemaDownloadConfiguration) throws {
-    try FileManager.default.apollo.createContainingDirectory(forPath: configuration.outputURL.path)
+    try FileManager.default.apollo.createContainingDirectoryIfNeeded(forPath: configuration.outputURL.path)
 
     switch configuration.downloadMethod {
     case .introspection(let endpointURL):

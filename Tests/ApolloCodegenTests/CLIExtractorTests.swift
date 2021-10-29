@@ -146,7 +146,7 @@ class CLIExtractorTests: XCTestCase {
   func testFolderExistsButMissingSHASUMFileReExtractionWorks() throws {
     // Make sure there is an apollo folder but no `.shasum` file
     let apolloFolder = CodegenTestHelper.apolloFolderURL()
-    try FileManager.default.apollo.createDirectory(atPath: apolloFolder.path)
+    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: apolloFolder.path)
     
     let cliFolderURL = CodegenTestHelper.cliFolderURL()
     

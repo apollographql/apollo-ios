@@ -99,22 +99,25 @@ extension ApolloExtension where Base: FileManagerProvider {
   ///   - path: Path to the file.
   ///   - data: [optional] Data to write to the file path.
   public func createFile(atPath path: String, data: Data? = nil) throws -> Bool {
-    try createContainingDirectory(forPath: path)
+    try createContainingDirectoryIfNeeded(forPath: path)
     return base.createFile(atPath: path, contents: data, attributes: nil)
   }
 
-  /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary.
+  /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary. This method will not
+  /// overwrite any existing directory.
   ///
   /// - Parameter fileURL: The URL of the file to create a containing directory for if necessary.
-  public func createContainingDirectory(forPath path: String) throws {
+  public func createContainingDirectoryIfNeeded(forPath path: String) throws {
     let parent = URL(fileURLWithPath: path).deletingLastPathComponent()
-    try base.createDirectory(atPath: parent.path, withIntermediateDirectories: true, attributes: nil)
+    try createDirectoryIfNeeded(atPath: parent.path)
   }
 
-  /// Creates the directory (including all intermediate directories) for the given URL if necessary.
+  /// Creates the directory (including all intermediate directories) for the given URL if necessary. This method will not overwrite any
+  /// existing directory.
   ///
   /// - Parameter path: The path of the directory to create if necessary.
-  public func createDirectory(atPath path: String) throws {
+  public func createDirectoryIfNeeded(atPath path: String) throws {
+    if doesDirectoryExist(atPath: path) { return }
     try base.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
   }
 
