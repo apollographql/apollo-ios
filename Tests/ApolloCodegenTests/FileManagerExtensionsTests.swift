@@ -29,7 +29,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
     })
 
     // then
@@ -44,7 +44,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
     })
 
     // then
@@ -59,7 +59,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
     })
 
     // then
@@ -74,7 +74,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
     })
 
     // then
@@ -89,7 +89,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
     })
 
     // then
@@ -104,7 +104,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
     })
 
     // then
@@ -119,7 +119,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
     })
 
     // then
@@ -134,7 +134,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
     })
 
     // then
@@ -149,7 +149,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
     })
 
     // then
@@ -165,7 +165,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
 
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
@@ -183,7 +183,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
 
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
@@ -203,7 +203,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
     })
 
     // then
@@ -218,7 +218,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
     })
 
     // then
@@ -233,7 +233,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
 
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
@@ -251,7 +251,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
 
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
@@ -271,7 +271,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
 
     }, removeItem: { (path: String) in
       expect(path).to(match(self.uniquePath))
@@ -290,7 +290,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
     })
 
     // then
@@ -305,7 +305,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
     })
 
     // then
@@ -321,7 +321,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -347,7 +347,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -373,7 +373,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -401,7 +401,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -429,7 +429,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
       fail("createFile should not be called, due to error in createDirectory.")
@@ -458,7 +458,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       fail("The directory already exists, createDirectory should not be called.")
@@ -477,7 +477,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
@@ -498,7 +498,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
@@ -519,7 +519,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
@@ -540,7 +540,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(parentPath))
@@ -563,7 +563,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return true // exists
+      return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       fail("The directory already exists, createDirectory should not be called.")
@@ -581,7 +581,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return true // exists
+      return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -601,7 +601,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
-      return false // exists
+      return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -621,7 +621,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
@@ -641,7 +641,7 @@ class FileManagerExtensionTests: XCTestCase {
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
-      return false // exists
+      return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
       expect(path).to(match(self.uniquePath))
