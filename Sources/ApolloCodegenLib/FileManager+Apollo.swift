@@ -62,7 +62,7 @@ extension ApolloExtension where Base: FileManagerProvider {
   
   // MARK: Manipulation
 
-  /// Verifies that a file exists at the pathRemoves the file at the specified path.
+  /// Verifies that a file exists at the path and then attempts to delete it. An error is thrown if the path is for a directory.
   ///
   /// - Parameter path: The path of the file to delete.
   public func deleteFile(atPath path: String) throws {
@@ -77,7 +77,7 @@ extension ApolloExtension where Base: FileManagerProvider {
     try base.removeItem(atPath: path)
   }
 
-  /// Removes the directory at the specified path.
+  /// Verifies that a directory exists at the path and then attempts to delete it. An error is thrown if the path is for a file.
   ///
   /// - Parameter path: The path of the directory to delete.
   public func deleteDirectory(atPath path: String) throws {
