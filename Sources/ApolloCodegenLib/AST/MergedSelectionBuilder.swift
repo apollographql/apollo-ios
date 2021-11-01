@@ -39,7 +39,10 @@ class MergedSelectionBuilder {
   /// Does not merge in type cases, since we do not merge type cases across scopes.
   func merge(_ selections: SortedSelections, into mergedSelections: inout SortedSelections) {
     mergedSelections.mergeIn(selections.fields)
-    mergedSelections.mergeIn(selections.fragments)
+    for fragment in selections.fragments.values {
+      mergedSelections.mergeIn(fragment)
+      mergedSelections.mergeIn(fragment.selectionSet.selections)
+    }
   }
 
 }

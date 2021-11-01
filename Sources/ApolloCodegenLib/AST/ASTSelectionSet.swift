@@ -11,17 +11,17 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
 
   weak private(set) var parent: ASTSelectionSet?
 
+  private(set) var children: ChildTypeCaseDictionary = [:]
+
   private(set) var selections: SortedSelections = SortedSelections()
 
-  private(set) var children: ChildTypeCaseDictionary = [:]
+  lazy var mergedSelections: SortedSelections = mergedSelectionBuilder.mergedSelections(for: self)
 
   private(set) lazy var scopeDescriptor = TypeScopeDescriptor.descriptor(for: self)
 
   let compilationResult: CompilationResult
 
   let mergedSelectionBuilder: MergedSelectionBuilder
-
-  lazy var mergedSelections: SortedSelections = mergedSelectionBuilder.mergedSelections(for: self)
 
   // MARK: - Initialization
 
@@ -102,7 +102,6 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
 
         if shouldMergeFragmentDirectly() {
           self.selections.mergeIn(fragment)
-          self.selections.mergeIn(fragment.selectionSet.selections)
 
         } else {
           let typeCaseForFragment = SelectionSet(

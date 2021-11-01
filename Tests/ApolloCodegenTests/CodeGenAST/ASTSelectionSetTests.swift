@@ -860,6 +860,35 @@ class ASTSelectionSetTests: XCTestCase {
     expect(actual.selections).to(equal(expected))
   }
 
+  // MARK: Selections - Fragments
+
+  func test__selections__givenNamedFragmentWithSelectionSet_onMatchingParentType_hasFragmentSelection() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .fragmentSpread(.mock(
+          "FragmentA",
+          type: Object_A,
+          selections: [
+            .field(.mock("A")),
+          ])),
+      ]
+    )
+
+    let expected: [CompilationResult.Selection] = [
+      .fragmentSpread(.mock("FragmentA", type: Object_A)),
+    ]
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    // then
+    expect(actual.selections).to(equal(expected))
+  }
+
   // MARK: Selections - Group Duplicate Fragments
 
   func test__selections__givenNamedFragmentsWithSameName_onMatchingParentType_deduplicatesSelection() {

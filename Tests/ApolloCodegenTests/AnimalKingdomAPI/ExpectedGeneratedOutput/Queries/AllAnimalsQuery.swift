@@ -44,7 +44,6 @@ public struct AllAnimalsQuery: GraphQLQuery {
         }
       }
     }
-
     """,
     fragments: [HeightInMeters.self, WarmBloodedDetails.self, PetDetails.self]))
 
@@ -69,14 +68,14 @@ public struct AllAnimalsQuery: GraphQLQuery {
       public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
       public static var selections: [Selection] { [
         .field("height", Height.self),
-        .fragment(HeightInMeters.self),
-        .typeCase(AsWarmBlooded.self),
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
+        .field("predators", [Predator].self),
+        .typeCase(AsWarmBlooded.self),
         .typeCase(AsPet.self),
         .typeCase(AsCat.self),
         .typeCase(AsClassroomPet.self),
-        .field("predators", [Predator].self),
+        .fragment(HeightInMeters.self),
       ] }
 
       public var height: Height { data["height"] }
