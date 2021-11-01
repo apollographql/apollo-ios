@@ -4,164 +4,122 @@ import CommonCrypto
 import ApolloUtils
 #endif
 
+public typealias FileAttributes = [FileAttributeKey : Any]
+
+/// A protocol to decouple `ApolloExtension` from `FileManager`. Use it to build objects that can support
+/// `ApolloExtension` behavior.
+public protocol FileManagerProvider {
+  func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool
+  func removeItem(atPath path: String) throws
+  @discardableResult func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool
+  func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws
+}
+
+/// Enables the `.apollo` etension namespace.
 extension FileManager: ApolloCompatible {}
 
-extension ApolloExtension where Base == FileManager {
+/// `FileManager` conforms to the `FileManagerProvider` protocol. If it's method signatures change both the protocol and
+/// extension will need to be updated.
+extension FileManager: FileManagerProvider {}
+
+extension ApolloExtension where Base: FileManagerProvider {
+
+  public enum PathError: Swift.Error, LocalizedError, Equatable {
+    case notAFile(path: String)
+    case notADirectory(path: String)
+
+    public var errorDescription: String {
+      switch self {
+      case .notAFile(let path):
+        return "\(path) is not a file!"
+      case .notADirectory(let path):
+        return "\(path) is not a directory!"
+      }
+    }
+  }
 
   // MARK: Presence
 
-  /// Checks if a file exists (and is not a folder) at the given path
+  /// Checks if the path exists and is a file, not a directory.
   ///
-  /// - Parameter path: The path to check
-  /// - Returns: `true` if there is something at the path and it is a file, not a folder.
-  public func fileExists(at path: String) -> Bool {
-    var isFolder = ObjCBool(false)
-    let exists = base.fileExists(atPath: path, isDirectory: &isFolder)
-    return exists && !isFolder.boolValue
-  }
-  
-  /// Checks if a file exists (and is not a folder) at the given URL
-  ///
-  /// - Parameter url: The URL to check
-  /// - Returns: `true` if there is something at the URL and it is a file, not a folder.
-  public func fileExists(at url: URL) -> Bool {
-    return fileExists(at: url.path)
-  }
-  
-  /// Checks if a folder exists (and is not a file) at the given path.
-  ///
-  /// - Parameter path: The path to check
-  /// - Returns: `true` if there is something at the path and it is a folder, not a file.
-  public func folderExists(at path: String) -> Bool {
-    var isFolder = ObjCBool(false)
-    let exists = base.fileExists(atPath: path, isDirectory: &isFolder)
-    return exists && isFolder.boolValue
-  }
-  
-  /// Checks if a folder exists (and is not a file) at the given URL.
-  ///
-  /// - Parameter url: The URL to check
-  /// - Returns: `true` if there is something at the URL and it is a folder, not a file.
-  public func folderExists(at url: URL) -> Bool {
-    return folderExists(at: url.path)
+  /// - Parameter path: The path to check.
+  /// - Returns: `true` if there is something at the path and it is a file, not a directory.
+  public func doesFileExist(atPath path: String) -> Bool {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
+    return exists && !isDirectory.boolValue
   }
 
+  /// Checks if the path exists and is a directory, not a file.
+  ///
+  /// - Parameter path: The path to check.
+  /// - Returns: `true` if there is something at the path and it is a directory, not a file.
+  public func doesDirectoryExist(atPath path: String) -> Bool {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
+    return exists && isDirectory.boolValue
+  }
+  
   // MARK: Manipulation
 
-  /// Checks if a folder exists then attempts to delete it if it's there.
+  /// Verifies that a file exists at the path and then attempts to delete it. An error is thrown if the path is for a directory.
   ///
-  /// - Parameter url: The URL to delete the folder for
-  public func deleteFolder(at url: URL) throws {
-    guard folderExists(at: url) else {
-      // Nothing to delete!
-      return
+  /// - Parameter path: The path of the file to delete.
+  public func deleteFile(atPath path: String) throws {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
+    if exists && isDirectory.boolValue {
+      throw PathError.notAFile(path: path)
     }
-    try base.removeItem(at: url)
+
+    guard exists else { return }
+    try base.removeItem(atPath: path)
   }
-  
-  /// Checks if a file exists then attempts to delete it if it's there.
+
+  /// Verifies that a directory exists at the path and then attempts to delete it. An error is thrown if the path is for a file.
   ///
-  /// - Parameter url: The URL to delete the file for
-  public func deleteFile(at url: URL) throws {
-    guard fileExists(at: url) else {
-      // Nothing to delete!
-      return
+  /// - Parameter path: The path of the directory to delete.
+  public func deleteDirectory(atPath path: String) throws {
+    var isDirectory = ObjCBool(false)
+    let exists = base.fileExists(atPath: path, isDirectory: &isDirectory)
+
+    if exists && !isDirectory.boolValue {
+      throw PathError.notADirectory(path: path)
     }
-    try base.removeItem(at: url)
+
+    guard exists else { return }
+    try base.removeItem(atPath: path)
   }
 
   /// Creates a file at the specified path and writes any given data to it. If a file already exists at `path`, this method overwrites the
   /// contents of that file if the current process has the appropriate privileges to do so.
   ///
   /// - Parameters:
-  ///   - path: Path to the new file.
-  ///   - data: [optional] Data to write to the new file.
-  public func createFile(at path: String, data: Data? = nil) throws {
-    try createContainingFolderIfNeeded(for: .init(fileURLWithPath: path))
-
-    base.createFile(atPath: path, contents: data, attributes: nil)
+  ///   - path: Path to the file.
+  ///   - data: [optional] Data to write to the file path.
+  public func createFile(atPath path: String, data: Data? = nil) throws -> Bool {
+    try createContainingDirectoryIfNeeded(forPath: path)
+    return base.createFile(atPath: path, contents: data, attributes: nil)
   }
 
-  /// Creates a file at the specified URL and writes any given data to it. If a file already exists at `url`, this method overwrites the
-  /// contents of that file if the current process has the appropriate privileges to do so.
+  /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary. This method will not
+  /// overwrite any existing directory.
   ///
-  /// - Parameters:
-  ///   - url: URL to the ne file.
-  ///   - data: [optional] Data to write to the new file.
-  public func createFile(at url: URL, data: Data? = nil) throws {
-    try createFile(at: url.path, data: data)
-  }
-  
-  /// Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
-  ///
-  /// - Parameter fileURL: The URL of the file to create a containing folder for if necessary.
-  public func createContainingFolderIfNeeded(for fileURL: URL) throws {
-    let parent = fileURL.deletingLastPathComponent()
-    try createFolderIfNeeded(at: parent)
-  }
-  
-  /// Creates the folder (including all intermediate directories) for the given URL if necessary.
-  ///
-  /// - Parameter url: The URL of the folder to create if necessary.
-  public func createFolderIfNeeded(at url: URL) throws {
-    try createFolderIfNeeded(at: url.path)
+  /// - Parameter fileURL: The URL of the file to create a containing directory for if necessary.
+  public func createContainingDirectoryIfNeeded(forPath path: String) throws {
+    let parent = URL(fileURLWithPath: path).deletingLastPathComponent()
+    try createDirectoryIfNeeded(atPath: parent.path)
   }
 
-  /// Creates the folder (including all intermediate directories) for the given URL if necessary.
+  /// Creates the directory (including all intermediate directories) for the given URL if necessary. This method will not overwrite any
+  /// existing directory.
   ///
-  /// - Parameter path: The path of the folder to create if necessary.
-  public func createFolderIfNeeded(at path: String) throws {
-    guard !folderExists(at: path) else {
-      // Folder already exists, nothing more to do here.
-      return
-    }
-    try base.createDirectory(atPath: path, withIntermediateDirectories: true)
-  }
-
-  // MARK: Content
-
-  /// Calculates the SHASUM (ie, SHA256 hash) of the given file
-  ///
-  /// - Parameter fileURL: The file to calculate the SHASUM for.
-  public func shasum(at fileURL: URL) throws -> String {
-    let file = try FileHandle(forReadingFrom: fileURL)
-    defer {
-        file.closeFile()
-    }
-    
-    let buffer = 1024 * 1024 // 1GB
-    
-    var context = CC_SHA256_CTX()
-    CC_SHA256_Init(&context)
-    
-    while autoreleasepool(invoking: {
-      let data = file.readData(ofLength: buffer)
-      guard !data.isEmpty else {
-        // Nothing more to read!
-        return false
-      }
-      
-      _ = data.withUnsafeBytes { bytesFromBuffer -> Int32 in
-        guard let rawBytes = bytesFromBuffer.bindMemory(to: UInt8.self).baseAddress else {
-          return Int32(kCCMemoryFailure)
-        }
-        return CC_SHA256_Update(&context, rawBytes, numericCast(data.count))
-      }
-      
-      return true
-    }) {}
-    
-    var digestData = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
-    _ = digestData.withUnsafeMutableBytes { bytesFromDigest -> Int32 in
-      guard let rawBytes = bytesFromDigest.bindMemory(to: UInt8.self).baseAddress else {
-        return Int32(kCCMemoryFailure)
-      }
-      
-      return CC_SHA256_Final(rawBytes, &context)
-    }
-
-    return digestData
-      .map { String(format: "%02hhx", $0) }
-      .joined()
+  /// - Parameter path: The path of the directory to create if necessary.
+  public func createDirectoryIfNeeded(atPath path: String) throws {
+    if doesDirectoryExist(atPath: path) { return }
+    try base.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
   }
 }

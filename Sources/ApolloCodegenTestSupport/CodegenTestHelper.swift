@@ -40,28 +40,6 @@ public struct CodegenTestHelper {
         .deletingLastPathComponent() // apollo-ios
   }
   
-  public static func cliFolderURL() -> URL {
-    self.sourceRootURL()
-      .appendingPathComponent("Tests")
-      .appendingPathComponent("ApolloCodegenTests")
-      .appendingPathComponent("scripts directory")
-  }
-  
-  public static func apolloFolderURL() -> URL {
-    let scripts = self.cliFolderURL()
-    return ApolloFilePathHelper.apolloFolderURL(fromCLIFolder: scripts)
-  }
-  
-  public static func binaryFolderURL() -> URL {
-    let apollo = self.apolloFolderURL()
-    return ApolloFilePathHelper.binaryFolderURL(fromApollo: apollo)
-  }
-  
-  public static func shasumFileURL() -> URL {
-    let apollo = self.apolloFolderURL()
-    return ApolloFilePathHelper.shasumFileURL(fromApollo: apollo)
-  }
-  
   public static func starWarsFolderURL() -> URL {
     let source = self.sourceRootURL()
     return source
@@ -96,44 +74,11 @@ public struct CodegenTestHelper {
                                          line: UInt = #line) {
     do {
       let outputFolderURL = self.outputFolderURL()
-      try FileManager.default.apollo.deleteFolder(at: outputFolderURL)
+      try FileManager.default.apollo.deleteDirectory(atPath: outputFolderURL.path)
     } catch {
       XCTFail("Error deleting output folder!",
               file: file,
               line: line)
     }
-  }
-  
-  public static func downloadCLIIfNeeded(file: StaticString = #filePath,
-                                  line: UInt = #line) {
-    do {
-      let cliFolderURL = self.cliFolderURL()
-      try CLIDownloader.downloadIfNeeded(to: cliFolderURL, timeout: CodegenTestHelper.timeout)
-    } catch {
-      XCTFail("Error downloading CLI if needed: \(error)",
-              file: file,
-              line: line)
-    }
-  }
-  
-  public static func deleteExistingApolloFolder(file: StaticString = #filePath,
-                                         line: UInt = #line) {
-    do {
-      let apolloFolderURL = self.apolloFolderURL()
-      try FileManager.default.apollo.deleteFolder(at: apolloFolderURL)
-    } catch {
-      XCTFail("Error deleting Apollo folder: \(error)",
-              file: file,
-              line: line)
-    }
-  }
-  
-  public static func writeSHASUMOnly(_ shasum: String) throws {
-    let shasumFileURL = self.shasumFileURL()
-    let shasumParent = shasumFileURL.deletingLastPathComponent()
-    try FileManager.default.createDirectory(at: shasumParent,
-                                            withIntermediateDirectories: true)    
-    FileManager.default.createFile(atPath: shasumFileURL.path,
-                                   contents: shasum.data(using: .utf8))
   }
 }

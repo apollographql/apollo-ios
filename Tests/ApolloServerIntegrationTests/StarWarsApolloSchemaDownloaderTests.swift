@@ -12,7 +12,7 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
                                                           outputFolderURL: testOutputFolderURL)
 
     // Delete anything existing at the output URL
-    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
+    try FileManager.default.apollo.delete(at: configuration.outputURL)
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
 
     try ApolloSchemaDownloader.fetch(with: configuration)
@@ -35,7 +35,7 @@ class StarWarsApolloSchemaDownloaderTests: XCTestCase {
     XCTAssertEqual(episodeType?.name, "Episode")
 
     // OK delete it now
-    try FileManager.default.apollo.deleteFile(at: configuration.outputURL)
+    try FileManager.default.apollo.delete(at: configuration.outputURL)
     XCTAssertFalse(FileManager.default.apollo.fileExists(at: configuration.outputURL))
   }
 

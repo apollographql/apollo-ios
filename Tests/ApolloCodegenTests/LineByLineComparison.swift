@@ -26,7 +26,7 @@ struct LineByLineComparison {
                       trimImports: Bool = false,
                       file: StaticString = #filePath,
                       line: UInt = #line) {
-    guard FileManager.default.apollo.fileExists(at: expectedFileURL) else {
+    guard FileManager.default.apollo.doesFileExist(atPath: expectedFileURL.path) else {
       XCTFail("File not found at \(expectedFileURL)",
               file: file,
               line: line)

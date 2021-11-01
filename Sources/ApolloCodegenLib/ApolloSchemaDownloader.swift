@@ -2,7 +2,7 @@ import Foundation
 // Only available on macOS
 #if os(macOS)
 
-/// A wrapper to facilitate downloading a schema with the Apollo node CLI
+/// A wrapper to facilitate downloading a GraphQL schema.
 public struct ApolloSchemaDownloader {
   
   public enum SchemaDownloadError: Error, LocalizedError {
@@ -40,7 +40,7 @@ public struct ApolloSchemaDownloader {
   ///   - configuration: The `ApolloSchemaDownloadConfiguration` object to use to download the schema.
   /// - Returns: Output from a successful run
   public static func fetch(with configuration: ApolloSchemaDownloadConfiguration) throws {
-    try FileManager.default.apollo.createContainingFolderIfNeeded(for: configuration.outputURL)
+    try FileManager.default.apollo.createContainingDirectoryIfNeeded(forPath: configuration.outputURL.path)
 
     switch configuration.downloadMethod {
     case .introspection(let endpointURL):

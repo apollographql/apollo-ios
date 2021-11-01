@@ -10,12 +10,12 @@ class ApolloSchemaInternalTests: XCTestCase {
       throw XCTFailure("Missing resource file!", file: #file, line: #line)
     }
 
-    try FileManager.default.apollo.createFolderIfNeeded(at: CodegenTestHelper.outputFolderURL())
+    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: CodegenTestHelper.outputFolderURL().path)
     let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
                                                           outputFolderURL: CodegenTestHelper.outputFolderURL())
 
     try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: configuration.outputURL))
+    XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputURL.path))
 
     let frontend = try ApolloCodegenFrontend()
     let source = try frontend.makeSource(from: configuration.outputURL)
