@@ -20,72 +20,7 @@ class ASTSelectionSetTests: XCTestCase {
 
   // MARK: - Children Computation
 
-  /// Example:
-  /// query {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///   }
-  /// }
-  func test__children__initWithInlineFragmentWithDifferentParentType_hasChildrenForTypeCases() {
-    // given
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Bird = GraphQLObjectType.mock("Bird")
-
-    let childSelections: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
-    
-    mockCompilationResult.referencedTypes = .init([Interface_Animal, Object_Bird])
-
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Interface_Animal,
-      selections: [
-        .inlineFragment(.mock(
-          parentType: Object_Bird,
-          selections: childSelections
-        )),
-      ]
-    ), compilationResult: mockCompilationResult)
-
-    // then
-    expect(subject.children.count).to(equal(1))
-    let child = subject.children["Bird"]!
-    expect(child.parent).to(beIdenticalTo(subject))
-    expect(child.type.name).to(equal("Bird"))
-    expect(child.selections).to(equal(childSelections))
-  }
-
-  /// Example:
-  /// query {
-  ///  allAnimals {
-  ///    ... on Animal {
-  ///      species
-  ///    }
-  ///   }
-  /// }
-  func test__children__initWithInlineFragmentWithSameParentType_hasChildrenForTypeCase() {
-    // given
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-
-    let childSelections: [CompilationResult.Selection] = [.field(.mock("species"))]
-
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Interface_Animal,
-      selections: [
-        .inlineFragment(.mock(
-          parentType: Interface_Animal,
-          selections: childSelections
-        )),
-      ]
-    ), compilationResult: mockCompilationResult)
-
-    // then
-    expect(subject.children.count).to(equal(1))
-    let child = subject.children["Animal"]!
-    expect(child.parent).to(beIdenticalTo(subject))
-    expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections).to(equal(childSelections))
-  }
+  // MARK: Children - Fragment Type
 
   /// Example:
   /// query {
@@ -281,6 +216,123 @@ class ASTSelectionSetTests: XCTestCase {
     expect(onClassroomPet_onBird.parent).to(beIdenticalTo(onClassroomPet))
     expect(onClassroomPet_onBird.type).to(beIdenticalTo(Object_Bird))
     expect(onClassroomPet_onBird.selections).to(equal([Field_Species]))
+  }
+
+  // MARK: Children - Type Cases
+
+  /// Example:
+  /// query { // On A
+  ///   A
+  ///   ... on A {
+  ///     B
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Children: { }
+  func test__children__givenInlineFragment_onSameType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: Object_A,
+          selections: [
+            .field(.mock("B")),
+          ]
+        ))
+      ])
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    // then
+    expect(actual.children).to(beEmpty())
+  }
+
+  /// Example:
+  /// type B implements A {}
+  ///
+  /// query { // On B
+  ///   A
+  ///   ... on A {
+  ///     B
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Children: { }
+  func test__children__givenInlineFragment_onMatchingType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() {
+    // given
+    let Interface_A = GraphQLInterfaceType.mock("A")
+    let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_B,
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: Interface_A,
+          selections: [
+            .field(.mock("B")),
+          ]
+        ))
+      ])
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    // then
+    expect(actual.children).to(beEmpty())
+  }
+
+  /// Example:
+  /// query { // On A
+  ///   A
+  ///   ... on B {
+  ///     B
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Children: {
+  ///   ... on B
+  /// }
+  func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+    let Object_B = GraphQLObjectType.mock("B")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: Object_B,
+          selections: [
+            .field(.mock("B")),
+          ]
+        ))
+      ])
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    let expected: OrderedDictionary<String, ASTSelectionSet> = [
+      "B": ASTSelectionSet(
+        selectionSet: .mock(
+          parentType: Object_B,
+          selections: [
+            .field(.mock("B")),
+          ]),
+        parent: actual),
+    ]
+
+    // then
+    expect(actual.children).to(equal(expected))
   }
 
   // MARK: Children - Group Duplicate Type Cases
@@ -666,6 +718,142 @@ class ASTSelectionSetTests: XCTestCase {
             .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
           ]
         )))
+    ]
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    // then
+    expect(actual.selections).to(equal(expected))
+  }
+
+  // MARK: Selections - Type Cases
+
+  /// Example:
+  /// query { // On A
+  ///   A
+  ///   ... on A {
+  ///     B
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Selections: {
+  ///   A
+  ///   B
+  /// }
+  func test__selections__givenInlineFragment_onSameType_mergesTypeCaseIn() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: Object_A,
+          selections: [
+            .field(.mock("B")),
+          ]
+        ))
+      ])
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("A")),
+      .field(.mock("B")),
+    ]
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    // then
+    expect(actual.selections).to(equal(expected))
+  }
+
+  /// Example:
+  /// type B implements A {}
+  ///
+  /// query { // On B
+  ///   A
+  ///   ... on A {
+  ///     B
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Selections: {
+  ///   A
+  ///   B
+  /// }
+  func test__selections__givenInlineFragment_onMatchingType_mergesTypeCaseIn() {
+    // given
+    let Interface_A = GraphQLInterfaceType.mock("A")
+    let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_B,
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: Interface_A,
+          selections: [
+            .field(.mock("B")),
+          ]
+        ))
+      ])
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("A")),
+      .field(.mock("B")),
+    ]
+
+    // when
+    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+
+    // then
+    expect(actual.selections).to(equal(expected))
+  }
+
+  /// Example:
+  /// query { // On A
+  ///   A
+  ///   ... on B {
+  ///     B
+  ///   }
+  /// }
+  ///
+  /// Expected:
+  /// Query.Selections: {
+  ///   A
+  ///   ... on B {
+  ///     B
+  ///   }
+  /// }
+  func test__selections__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn() {
+    // given
+    let Object_A = GraphQLObjectType.mock("A")
+    let Object_B = GraphQLObjectType.mock("B")
+
+    let selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: Object_A,
+      selections: [
+        .field(.mock("A")),
+        .inlineFragment(.mock(
+          parentType: Object_B,
+          selections: [
+            .field(.mock("B")),
+          ]
+        ))
+      ])
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("A")),
+      .inlineFragment(.mock(
+        parentType: Object_B,
+        selections: [
+          .field(.mock("B")),
+        ]
+      ))
     ]
 
     // when

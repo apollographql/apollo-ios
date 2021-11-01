@@ -25,6 +25,10 @@ struct TypeScopeDescriptor {
     otherScope.isSubset(of: self.scope)
   }
 
+  func matches(_ otherType: GraphQLCompositeType) -> Bool {
+    self.scope.contains(otherType)
+  }
+
   func appending(
     _ newType: GraphQLCompositeType,
     givenAllTypes allTypes: CompilationResult.ReferencedTypes

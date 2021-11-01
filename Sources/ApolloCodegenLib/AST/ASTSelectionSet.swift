@@ -84,8 +84,13 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
         self.selections.mergeIn(field)
         
       case let .inlineFragment(typeCaseSelectionSet):
-        self.selections.mergeIn(typeCase: typeCaseSelectionSet)
-        appendOrMergeIntoChildren(typeCaseSelectionSet)
+        if self.scopeDescriptor.matches(typeCaseSelectionSet.parentType) {
+          self.selections.mergeIn(typeCaseSelectionSet.selections)
+          
+        } else {
+          self.selections.mergeIn(typeCase: typeCaseSelectionSet)
+          appendOrMergeIntoChildren(typeCaseSelectionSet)
+        }
 
       case let .fragmentSpread(fragment):
         func shouldMergeFragmentDirectly() -> Bool {
