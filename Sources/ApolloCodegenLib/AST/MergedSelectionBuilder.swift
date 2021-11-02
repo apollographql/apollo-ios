@@ -13,8 +13,6 @@ import OrderedCollections
 class MergedSelectionBuilder {
   var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
 
-  init() {}
-
   func add(_ selections: SortedSelections, forScope typeScope: TypeScope) {
     if var selectionsForScope = selectionsForScopes[typeScope] {
       selectionsForScope.mergeIn(selections)

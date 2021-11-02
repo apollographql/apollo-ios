@@ -34,7 +34,10 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
               compilationResult: compilationResult)
   }
 
-  convenience init(selectionSet: CompilationResult.SelectionSet, parent: ASTSelectionSet) {
+  convenience init(
+    selectionSet: CompilationResult.SelectionSet,
+    parent: ASTSelectionSet
+  ) {
     self.init(selections: selectionSet.selections,
               type: selectionSet.parentType,
               parent: parent)
