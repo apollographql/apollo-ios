@@ -16,6 +16,15 @@ public indirect enum GraphQLType: Hashable {
       return "[\(ofType.typeReference)]"
     }
   }
+
+  public var namedType: GraphQLNamedType {
+    switch self {
+    case let .named(type): return type
+    case let .nonNull(innerType),
+      let .list(innerType):
+      return innerType.namedType
+    }
+  }
 }
 
 extension GraphQLType: CustomDebugStringConvertible {

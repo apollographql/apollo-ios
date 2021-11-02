@@ -20,6 +20,31 @@ extension JavaScriptError: CustomStringConvertible {
   }
 }
 
+public class JavaScriptWrapper: JavaScriptValueDecodable {
+  let _underlyingObject: JavaScriptObject?
+
+  required init(_ underlyingObject: JavaScriptObject? = nil) {
+    self._underlyingObject = underlyingObject
+  }
+
+  required convenience init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    self.init(JavaScriptObject(jsValue, bridge: bridge))
+  }
+
+  static func fromJSValue(_ jsValue: JSValue, bridge: JavaScriptBridge) -> Self {
+    return Self.init(JavaScriptObject.fromJSValue(jsValue, bridge: bridge))
+  }
+
+  subscript(property: Any) -> JSValue? {
+    return _underlyingObject?[property]
+  }  
+
+  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable? {
+    return _underlyingObject?[property]
+  }
+
+}
+
 /// A type that references an underlying JavaScript object.
 public class JavaScriptObject: JavaScriptValueDecodable {
   let jsValue: JSValue
@@ -80,12 +105,6 @@ public class JavaScriptObject: JavaScriptValueDecodable {
     return bridge.fromJSValue(try bridge.throwingJavaScriptErrorIfNeeded {
       jsValue.construct(withArguments: bridge.unwrap(arguments))
     })
-  }
-}
-
-extension JavaScriptObject: Equatable {
-  public static func ==(lhs: JavaScriptObject, rhs: JavaScriptObject) -> Bool {
-    return lhs.jsValue == rhs.jsValue
   }
 }
 

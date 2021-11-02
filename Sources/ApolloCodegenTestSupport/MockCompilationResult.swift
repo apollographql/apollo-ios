@@ -1,5 +1,13 @@
 @testable import ApolloCodegenLib
 
+public extension CompilationResult {
+  class func mock(referencedTypes: ReferencedTypes? = nil) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.referencedTypes = referencedTypes ?? ReferencedTypes([])
+    return mock
+  }
+}
+
 public extension CompilationResult.OperationDefinition {
 
   class func mock(usingFragments: [CompilationResult.FragmentDefinition] = []) -> Self {
@@ -15,7 +23,7 @@ public extension CompilationResult.SelectionSet {
     parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
     selections: [CompilationResult.Selection] = []
   ) -> Self {
-    let mock = Self.emptyMockObject()
+    let mock = Self(nil)
     mock.parentType = parentType
     mock.selections = selections
     return mock
@@ -25,13 +33,13 @@ public extension CompilationResult.SelectionSet {
 public extension CompilationResult.Field {
 
   class func mock(
-    name: String = "",
+    _ name: String = "",
     alias: String? = nil,
     arguments: [CompilationResult.Argument]? = nil,
-    type: GraphQLType = .named(GraphQLObjectType.mock()),
+    type: GraphQLType = .named(GraphQLObjectType.mock("MOCK")),
     selectionSet: CompilationResult.SelectionSet = .mock()
   ) -> Self {
-    let mock = Self.emptyMockObject()
+    let mock = Self(nil)
     mock.name = name
     mock.alias = alias
     mock.arguments = arguments
@@ -39,16 +47,21 @@ public extension CompilationResult.Field {
     mock.selectionSet = selectionSet
     return mock
   }
-}
-
-public extension CompilationResult.InlineFragment {
 
   class func mock(
+    _ name: String = "",
+    alias: String? = nil,
+    arguments: [CompilationResult.Argument]? = nil,
+    type: GraphQLScalarType,
     selectionSet: CompilationResult.SelectionSet = .mock()
   ) -> Self {
-    let mock = Self.emptyMockObject()    
-    mock.selectionSet = selectionSet
-    return mock
+    Self.mock(
+      name,
+      alias: alias,
+      arguments: arguments,
+      type: .named(type),
+      selectionSet: selectionSet
+    )
   }
 }
 
@@ -61,8 +74,15 @@ public extension CompilationResult.FragmentDefinition {
     """
   }
 
-  class func mock(_ name: String = "NameFragment") -> Self {
+  class func mock(
+    _ name: String = "NameFragment",
+    type: GraphQLCompositeType = .emptyMockObject(),
+    selections: [CompilationResult.Selection] = []
+  ) -> Self {
     let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.type = type
+    mock.selectionSet = .mock(parentType: type, selections: selections)
     mock.source = Self.mockDefinition(name: name)
     return mock
   }

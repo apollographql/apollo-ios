@@ -124,7 +124,7 @@ class DocumentParsingAndValidationTests: XCTestCase {
     XCTAssertEqual(document.definitions.count, 3)
     
     let validationErrors = try codegenFrontend.validateDocument(schema: schema, document: document)
-    XCTAssertEqual(validationErrors, [])
+    XCTAssertEqual(validationErrors.count, 0)
   }
   
   // Errors during validation may contain multiple source locations. In the case of a field conflict

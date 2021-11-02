@@ -2,11 +2,64 @@ import JavaScriptCore
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
+  lazy var referencedTypes: ReferencedTypes = ReferencedTypes(self["referencedTypes"])
+
   lazy var operations: [OperationDefinition] = self["operations"]
-  
+
   lazy var fragments: [FragmentDefinition] = self["fragments"]
 
-  lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
+  public final class ReferencedTypes {
+    let allTypes: Set<GraphQLNamedType>
+
+    let objects: Set<GraphQLObjectType>
+    let interfaces: Set<GraphQLInterfaceType>
+    let unions: Set<GraphQLUnionType>
+    let scalars: Set<GraphQLScalarType>
+    let enums: Set<GraphQLEnumType>
+    let inputObjects: Set<GraphQLInputObjectType>
+
+    init(_ types: [GraphQLNamedType]) {
+      self.allTypes = Set(types)
+
+      var objects = Set<GraphQLObjectType>()
+      var interfaces = Set<GraphQLInterfaceType>()
+      var unions = Set<GraphQLUnionType>()
+      var scalars = Set<GraphQLScalarType>()
+      var enums = Set<GraphQLEnumType>()
+      var inputObjects = Set<GraphQLInputObjectType>()
+
+      for type in allTypes {
+        switch type {
+        case let type as GraphQLObjectType: objects.insert(type)
+        case let type as GraphQLInterfaceType: interfaces.insert(type)
+        case let type as GraphQLUnionType: unions.insert(type)
+        case let type as GraphQLScalarType: scalars.insert(type)
+        case let type as GraphQLEnumType: enums.insert(type)
+        case let type as GraphQLInputObjectType: inputObjects.insert(type)
+        default: continue
+        }
+      }
+
+      self.objects = objects
+      self.interfaces = interfaces
+      self.unions = unions
+      self.scalars = scalars
+      self.enums = enums
+      self.inputObjects = inputObjects
+    }
+
+    private var typeToUnionMap: [GraphQLObjectType: Set<GraphQLUnionType>] = [:]
+
+    public func unions(including type: GraphQLObjectType) -> Set<GraphQLUnionType> {
+      if let unions = typeToUnionMap[type] {
+        return unions
+      }
+
+      let matchingUnions = unions.filter { $0.types.contains(type) }
+      typeToUnionMap[type] = matchingUnions
+      return matchingUnions
+    }
+  }
   
   public class OperationDefinition: JavaScriptObject {
     lazy var name: String = self["name"]
@@ -83,33 +136,41 @@ public class CompilationResult: JavaScriptObject {
     }
   }
   
-  public class SelectionSet: JavaScriptObject, Hashable {
-    lazy var parentType: GraphQLCompositeType = self["parentType"]
+  public class SelectionSet: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
+    lazy var parentType: GraphQLCompositeType = self["parentType"]!
     
-    lazy var selections: [Selection] = self["selections"]
+    lazy var selections: [Selection] = self["selections"]!
 
-    public override var debugDescription: String {
+    required convenience init(parentType: GraphQLCompositeType, selections: [Selection]) {
+      self.init(nil)
+      self.parentType = parentType
+      self.selections = selections
+    }
+
+    public var debugDescription: String {
       let selectionDescriptions = selections.map(\.debugDescription).joined(separator: "\n")
       return """
-      SelectionSet on \(parentType) {
-      \(selectionDescriptions)
+      ... on \(parentType) {
+        \(indented: selectionDescriptions)
       }
       """
     }
 
     public func hash(into hasher: inout Hasher) {
-      hasher.combine(ObjectIdentifier(self))
+      hasher.combine(parentType)
+      hasher.combine(selections)
     }
 
     public static func ==(lhs: SelectionSet, rhs: SelectionSet) -> Bool {
-      return lhs === rhs
+      return lhs.parentType == rhs.parentType &&
+      lhs.selections == rhs.selections
     }
   }
   
   public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
-    case inlineFragment(InlineFragment)
-    case fragmentSpread(FragmentSpread)
+    case inlineFragment(SelectionSet)
+    case fragmentSpread(FragmentDefinition)
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
       precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
@@ -118,11 +179,12 @@ public class CompilationResult: JavaScriptObject {
 
       switch kind {
       case "Field":
-        self = .field(Field(jsValue, bridge: bridge))
+        self = .field(Field(JavaScriptObject(jsValue, bridge: bridge)))
       case "InlineFragment":
-        self = .inlineFragment(InlineFragment(jsValue, bridge: bridge))
+        let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
+        self = .inlineFragment(selectionSet)
       case "FragmentSpread":
-        self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
+        self = .fragmentSpread(bridge.fromJSValue(jsValue["fragment"]))
       default:
         preconditionFailure("""
           Unknown GraphQL selection of kind "\(kind)"
@@ -130,12 +192,11 @@ public class CompilationResult: JavaScriptObject {
       }
     }
 
-    var value: JavaScriptObject {
+    var selectionSet: SelectionSet? {
       switch self {
-      case let .field(obj as JavaScriptObject),
-          let .inlineFragment(obj as JavaScriptObject),
-          let .fragmentSpread(obj as JavaScriptObject):
-        return obj
+      case let .field(field): return field.selectionSet
+      case let .inlineFragment(selectionSet): return selectionSet
+      case let .fragmentSpread(fragment): return fragment.selectionSet
       }
     }
 
@@ -144,15 +205,15 @@ public class CompilationResult: JavaScriptObject {
       case let .field(field):
         return "field - " + field.debugDescription
       case let .inlineFragment(fragment):
-        return "fragment " + fragment.debugDescription
+        return "fragment - " + fragment.debugDescription
       case let .fragmentSpread(fragment):
-        return "fragment " + fragment.debugDescription
+        return "fragment - " + fragment.debugDescription
       }
     }
   }
   
-  public class Field: JavaScriptObject, Hashable {
-    lazy var name: String = self["name"]
+  public class Field: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
+    lazy var name: String = self["name"]!
     
     lazy var alias: String? = self["alias"]
     
@@ -162,7 +223,7 @@ public class CompilationResult: JavaScriptObject {
     
     lazy var arguments: [Argument]? = self["arguments"]
     
-    lazy var type: GraphQLType = self["type"]
+    lazy var type: GraphQLType = self["type"]!
     
     lazy var selectionSet: SelectionSet? = self["selectionSet"]
     
@@ -174,7 +235,26 @@ public class CompilationResult: JavaScriptObject {
     
     lazy var description: String? = self["description"]
 
-    public override var debugDescription: String {
+    required convenience init(
+      name: String,
+      alias: String? = nil,
+      arguments: [Argument]? = nil,
+      type: GraphQLType,
+      selectionSet: SelectionSet? = nil,
+      deprecationReason: String? = nil,
+      description: String? = nil
+    ) {
+      self.init(nil)
+      self.name = name
+      self.alias = alias
+      self.arguments = arguments
+      self.type = type
+      self.selectionSet = selectionSet
+      self.deprecationReason = deprecationReason
+      self.description = description
+    }
+
+    public var debugDescription: String {
       "\(name): \(type)"
     }
 
@@ -210,38 +290,5 @@ public class CompilationResult: JavaScriptObject {
       lhs.value == rhs.value
     }
   }
-  
-  public class InlineFragment: JavaScriptObject, Hashable {
-    var parentType: GraphQLCompositeType { self.selectionSet.parentType }
-    
-    lazy var selectionSet: SelectionSet = self["selectionSet"]
 
-    public override var debugDescription: String {
-      "... on \(parentType.debugDescription)"
-    }
-
-    public func hash(into hasher: inout Hasher) {
-      hasher.combine(selectionSet)
-    }
-
-    public static func ==(lhs: InlineFragment, rhs: InlineFragment) -> Bool {
-      return lhs.selectionSet == rhs.selectionSet
-    }
-  }
-  
-  public class FragmentSpread: JavaScriptObject, Hashable {
-    lazy var fragment: FragmentDefinition = self["fragment"]
-
-    public override var debugDescription: String {
-      fragment.debugDescription
-    }
-
-    public func hash(into hasher: inout Hasher) {
-      hasher.combine(fragment)
-    }
-
-    public static func ==(lhs: FragmentSpread, rhs: FragmentSpread) -> Bool {
-      return lhs.fragment == rhs.fragment
-    }
-  }
 }

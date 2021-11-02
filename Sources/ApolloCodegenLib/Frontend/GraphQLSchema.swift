@@ -36,7 +36,8 @@ public class GraphQLNamedType: JavaScriptObject, Hashable {
   }
 
   public static func ==(lhs: GraphQLNamedType, rhs: GraphQLNamedType) -> Bool {
-    return lhs.name == rhs.name
+    return lhs.name == rhs.name &&
+    type(of: lhs) == type(of: rhs)
   }
 }
 
@@ -49,11 +50,11 @@ public class GraphQLScalarType: GraphQLNamedType {
 public class GraphQLEnumType: GraphQLNamedType {
   private(set) lazy var description: String? = self["description"]
   
-  private(set) lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
+  lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
 }
 
 public class GraphQLEnumValue: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+  lazy var name: String = self["name"]
   
   private(set) lazy var description: String? = self["description"]
     
@@ -81,7 +82,17 @@ public class GraphQLInputField: JavaScriptObject {
 public class GraphQLCompositeType: GraphQLNamedType {
 }
 
-public class GraphQLObjectType: GraphQLCompositeType {
+protocol GraphQLInterfaceImplementingType: GraphQLCompositeType {
+  var interfaces: [GraphQLInterfaceType] { get }
+}
+
+extension GraphQLInterfaceImplementingType {
+  func implements(_ interface: GraphQLInterfaceType) -> Bool {
+    interfaces.contains(interface)
+  }
+}
+
+public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementingType {
   lazy var description: String? = self["description"]
   
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
@@ -96,7 +107,7 @@ public class GraphQLObjectType: GraphQLCompositeType {
 public class GraphQLAbstractType: GraphQLCompositeType {
 }
 
-public class GraphQLInterfaceType: GraphQLAbstractType {
+public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {
   lazy var description: String? = self["description"]
   
   lazy var deprecationReason: String? = self["deprecationReason"]
@@ -104,10 +115,18 @@ public class GraphQLInterfaceType: GraphQLAbstractType {
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+
+  public override var debugDescription: String {
+    "Interface - \(name)"
+  }
 }
 
 public class GraphQLUnionType: GraphQLAbstractType {
   lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
+
+  public override var debugDescription: String {
+    "Union - \(name)"
+  }
 }
 
 public class GraphQLField: JavaScriptObject {
