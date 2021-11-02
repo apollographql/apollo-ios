@@ -61,7 +61,7 @@ public struct GraphQLField: GraphQLSelection {
     self.type = type
   }
 
-  func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
+  public func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
     if
       let argumentValues = try arguments?.evaluate(with: variables),
       argumentValues.apollo.isNotEmpty {
