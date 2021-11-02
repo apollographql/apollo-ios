@@ -32,7 +32,7 @@ class ASTSelectionSetTests: XCTestCase {
   ///   species
   /// }
   /// Expected:
-  /// Birds.children should not include a type case for asAnimal
+  /// Animal.children should not include a type case for asAnimal
   func test__children__initWithNamedFragmentOnTheSameType_hasNoChildTypeCase() {
     // given
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
@@ -573,13 +573,13 @@ class ASTSelectionSetTests: XCTestCase {
     // given
     let selectionSet = CompilationResult.SelectionSet.mock(
       selections: [
-        .field(.mock("A", type: .named(GraphQLScalarType.integer()))),
-        .field(.mock("A", type: .named(GraphQLScalarType.integer())))
+        .field(.mock("A", type: GraphQLScalarType.integer())),
+        .field(.mock("A", type: GraphQLScalarType.integer()))
       ]
     )
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("A", type: .named(GraphQLScalarType.integer())))
+      .field(.mock("A", type: .GraphQLScalarType.integer()))
     ]
 
     // when
@@ -593,14 +593,14 @@ class ASTSelectionSetTests: XCTestCase {
     // given
     let selectionSet = CompilationResult.SelectionSet.mock(
       selections: [
-        .field(.mock("A", alias: "B", type: .named(GraphQLScalarType.integer()))),
-        .field(.mock("A", alias: "C", type: .named(GraphQLScalarType.integer())))
+        .field(.mock("A", alias: "B", type: GraphQLScalarType.integer())),
+        .field(.mock("A", alias: "C", type: GraphQLScalarType.integer()))
       ]
     )
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("A", alias: "B", type: .named(GraphQLScalarType.integer()))),
-      .field(.mock("A", alias: "C", type: .named(GraphQLScalarType.integer())))
+      .field(.mock("A", alias: "B", type: GraphQLScalarType.integer())),
+      .field(.mock("A", alias: "C", type: GraphQLScalarType.integer()))
     ]
 
     // when
@@ -622,7 +622,7 @@ class ASTSelectionSetTests: XCTestCase {
           selectionSet: .mock(
             parentType: Object_A,
             selections: [
-              .field(.mock("B", type: .named(GraphQLScalarType.integer())))
+              .field(.mock("B", type: GraphQLScalarType.integer()))
             ]
           ))),
         .field(.mock(
@@ -631,7 +631,7 @@ class ASTSelectionSetTests: XCTestCase {
           selectionSet: .mock(
             parentType: Object_A,
             selections: [
-              .field(.mock("C", type: .named(GraphQLScalarType.integer())))
+              .field(.mock("C", type: GraphQLScalarType.integer()))
             ]
           )))
       ]
@@ -644,8 +644,8 @@ class ASTSelectionSetTests: XCTestCase {
         selectionSet: .mock(
           parentType: Object_A,
           selections: [
-            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-            .field(.mock("C", type: .named(GraphQLScalarType.integer())))
+            .field(.mock("B", type: GraphQLScalarType.integer())),
+            .field(.mock("C", type: GraphQLScalarType.integer()))
           ]
         )))
     ]
@@ -689,8 +689,8 @@ class ASTSelectionSetTests: XCTestCase {
           selectionSet: .mock(
             parentType: Object_A,
             selections: [
-              .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-              .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+              .field(.mock("B", type: GraphQLScalarType.integer())),
+              .field(.mock("C", type: GraphQLScalarType.integer())),
             ]
           ))),
         .field(.mock(
@@ -699,8 +699,8 @@ class ASTSelectionSetTests: XCTestCase {
           selectionSet: .mock(
             parentType: Object_A,
             selections: [
-              .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-              .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+              .field(.mock("B", type: GraphQLScalarType.integer())),
+              .field(.mock("D", type: GraphQLScalarType.integer())),
             ]
           )))
       ]
@@ -713,9 +713,9 @@ class ASTSelectionSetTests: XCTestCase {
         selectionSet: .mock(
           parentType: Object_A,
           selections: [
-            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-            .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
-            .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("B", type: GraphQLScalarType.integer())),
+            .field(.mock("C", type: GraphQLScalarType.integer())),
+            .field(.mock("D", type: GraphQLScalarType.integer())),
           ]
         )))
     ]
@@ -1016,15 +1016,15 @@ class ASTSelectionSetTests: XCTestCase {
         .inlineFragment(.mock(
           parentType: Object_A,
           selections: [
-            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-            .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("B", type: GraphQLScalarType.integer())),
+            .field(.mock("C", type: GraphQLScalarType.integer())),
           ]
         )),
         .inlineFragment(.mock(
           parentType: Object_A,
           selections: [
-            .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-            .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+            .field(.mock("B", type: GraphQLScalarType.integer())),
+            .field(.mock("D", type: GraphQLScalarType.integer())),
           ]
         ))
       ]
@@ -1034,9 +1034,9 @@ class ASTSelectionSetTests: XCTestCase {
       .inlineFragment(.mock(
         parentType: Object_A,
         selections: [
-          .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
-          .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
-          .field(.mock("D", type: .named(GraphQLScalarType.integer()))),
+          .field(.mock("B", type: GraphQLScalarType.integer())),
+          .field(.mock("C", type: GraphQLScalarType.integer())),
+          .field(.mock("D", type: GraphQLScalarType.integer())),
         ]
       ))
     ]

@@ -47,6 +47,22 @@ public extension CompilationResult.Field {
     mock.selectionSet = selectionSet
     return mock
   }
+
+  class func mock(
+    _ name: String = "",
+    alias: String? = nil,
+    arguments: [CompilationResult.Argument]? = nil,
+    type: GraphQLScalarType,
+    selectionSet: CompilationResult.SelectionSet = .mock()
+  ) -> Self {
+    Self.mock(
+      name,
+      alias: alias,
+      arguments: arguments,
+      type: .named(type),
+      selectionSet: selectionSet
+    )
+  }
 }
 
 public extension CompilationResult.FragmentDefinition {
