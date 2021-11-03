@@ -8,7 +8,7 @@ import {
   ValidationContext,
 } from "graphql";
 
-const specifiedRulesToBeRemoved = [NoUnusedFragmentsRule];
+const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
 
 export const defaultValidationRules: ValidationRule[] = [
   NoAnonymousQueries,
