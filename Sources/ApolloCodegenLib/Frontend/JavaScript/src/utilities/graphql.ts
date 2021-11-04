@@ -60,20 +60,18 @@ const typenameField = {
 };
 
 export function withTypenameFieldAddedWhereNeeded(ast: ASTNode) {
-  return visit(ast, {
-    enter: {
-      SelectionSet(node: SelectionSetNode) {
-        return {
-          ...node,
-          selections: node.selections.filter(
-            (selection) =>
-              !(
-                selection.kind === "Field" &&
-                (selection as FieldNode).name.value === "__typename"
-              )
-          ),
-        };
-      },
+  return visit(ast, {    
+    SelectionSet(node: SelectionSetNode) {
+      return {
+        ...node,
+        selections: node.selections.filter(
+          (selection) =>
+            !(
+              selection.kind === "Field" &&
+              (selection as FieldNode).name.value === "__typename"
+            )
+        ),
+      };
     },
     leave(node: ASTNode) {
       if (!(node.kind === "Field" || node.kind === "FragmentDefinition"))

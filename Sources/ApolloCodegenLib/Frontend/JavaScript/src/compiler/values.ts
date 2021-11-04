@@ -1,4 +1,4 @@
-import { ValueNode } from 'graphql';
+import { Kind, ValueNode } from 'graphql';
 
 export type GraphQLValue =
   | {
@@ -27,14 +27,14 @@ export interface GraphQLObjectValue {
 
 export function valueFromValueNode(valueNode: ValueNode): GraphQLValue {
   switch (valueNode.kind) {
-    case 'Variable':
+    case Kind.VARIABLE:
       return { kind: valueNode.kind, value: valueNode.name.value };
-    case 'ListValue':
+    case Kind.LIST:
       return {
         kind: valueNode.kind,
         value: valueNode.values.map(valueFromValueNode),
       };
-    case 'ObjectValue':
+    case Kind.OBJECT:
       return {
         kind: valueNode.kind,
         value: valueNode.fields.reduce((object, field) => {

@@ -579,7 +579,7 @@ class ASTSelectionSetTests: XCTestCase {
     )
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("A", type: .GraphQLScalarType.integer()))
+      .field(.mock("A", type: GraphQLScalarType.integer()))
     ]
 
     // when
