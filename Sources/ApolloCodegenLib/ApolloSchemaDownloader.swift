@@ -15,6 +15,7 @@ public struct ApolloSchemaDownloader {
     case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
     case couldNotCreateURLComponentsFromEndpointURL
     case couldNotGetURLFromURLComponents
+    case httpMethodNotSupportedByApolloRegistry
 
     public var errorDescription: String? {
       switch self {
@@ -36,6 +37,8 @@ public struct ApolloSchemaDownloader {
         return "Could not create URLComponents from EndpointURL for Introspection."
       case .couldNotGetURLFromURLComponents:
         return "Could not get URL from URLComponents."
+      case .httpMethodNotSupportedByApolloRegistry:
+        return "The Apollo Registry only supports HTTP POST requests."
       }
     }
   }
@@ -52,6 +55,10 @@ public struct ApolloSchemaDownloader {
     case .introspection(let endpointURL):
       try self.downloadViaIntrospection(from: endpointURL, configuration: configuration)
     case .apolloRegistry(let settings):
+      guard case .POST = configuration.httpMethod else {
+        throw SchemaDownloadError.httpMethodNotSupportedByApolloRegistry
+      }
+
       try self.downloadFromRegistry(with: settings, configuration: configuration)
     }
   }
