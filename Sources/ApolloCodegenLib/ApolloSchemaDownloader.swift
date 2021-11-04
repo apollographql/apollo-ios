@@ -252,18 +252,20 @@ public struct ApolloSchemaDownloader {
                                                               variables: nil,
                                                               operationName: "IntrospectionQuery")
       urlRequest = URLRequest(url: endpointURL)
-      urlRequest.httpMethod = "POST"
+      urlRequest.httpMethod = String(describing: configuration.httpMethod)
       urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [.sortedKeys])
-    case .GET(let introspectionQueryParameterName):
+
+    case .GET(let queryParameterName):
       guard var components = URLComponents(url: endpointURL, resolvingAgainstBaseURL: true) else {
         throw SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL
       }
-      components.queryItems = [URLQueryItem(name: introspectionQueryParameterName, value: IntrospectionQuery)]
+      components.queryItems = [URLQueryItem(name: queryParameterName, value: IntrospectionQuery)]
+
       guard let url = components.url else {
         throw SchemaDownloadError.couldNotGetURLFromURLComponents
       }
       urlRequest = URLRequest(url: url)
-      urlRequest.httpMethod = "GET"
+      urlRequest.httpMethod = String(describing: configuration.httpMethod)
     }
 
     urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
