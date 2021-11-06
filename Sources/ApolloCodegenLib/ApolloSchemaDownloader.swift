@@ -78,7 +78,7 @@ public struct ApolloSchemaDownloader {
 
   static let RegistryEndpoint = URL(string: "https://graphql.api.apollographql.com/api/graphql")!
 
-  private static let RegistryDownloadQuery = """
+  static let RegistryDownloadQuery = """
       query DownloadSchema($graphID: ID!, $variant: String!) {
             service(id: $graphID) {
               variant(name: $variant) {
@@ -174,7 +174,7 @@ public struct ApolloSchemaDownloader {
 
   // MARK: - Schema Introspection
   
-  private static let IntrospectionQuery = """
+  static let IntrospectionQuery = """
     query IntrospectionQuery {
           __schema {
             queryType { name }
