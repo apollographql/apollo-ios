@@ -9,7 +9,7 @@ public struct ApolloSchemaDownloadConfiguration {
     /// The Apollo Schema Registry, which serves as a central hub for managing your graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
     /// GraphQL Introspection connecting to the specified URL.
-    case introspection(endpointURL: URL)
+    case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST)
 
     public struct ApolloRegistrySettings: Equatable {
       /// The API key to use when retrieving your schema from the Apollo Registry.
@@ -33,11 +33,29 @@ public struct ApolloSchemaDownloadConfiguration {
         self.variant = variant
       }
     }
+
+    /// The HTTP request method.
+    public enum HTTPMethod: Equatable, CustomStringConvertible {
+      /// Use POST for HTTP requests. This is the default for GraphQL.
+      case POST
+      /// Use GET for HTTP requests with the GraphQL query being sent in the query string parameter named in
+      /// `queryParameterName`.
+      case GET(queryParameterName: String)
+
+      public var description: String {
+        switch self {
+        case .POST:
+          return "POST"
+        case .GET:
+          return "GET"
+        }
+      }
+    }
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
-      case (.introspection(let lhsURL), introspection(let rhsURL)):
-        return lhsURL == rhsURL
+      case (.introspection(let lhsURL, let lhsHTTPMethod), .introspection(let rhsURL, let rhsHTTPMethod)):
+        return lhsURL == rhsURL && lhsHTTPMethod == rhsHTTPMethod
       case (.apolloRegistry(let lhsSettings), .apolloRegistry(let rhsSettings)):
         return lhsSettings == rhsSettings
       default:
@@ -45,24 +63,6 @@ public struct ApolloSchemaDownloadConfiguration {
       }
     }
 
-  }
-
-  /// The HTTP request method.
-  public enum HTTPMethod: CustomStringConvertible {
-    /// Use POST for HTTP requests. This is the default for GraphQL.
-    case POST
-    /// Use GET for HTTP requests with the GraphQL query being sent in the query string parameter named in
-    /// `queryParameterName`.
-    case GET(queryParameterName: String)
-
-    public var description: String {
-      switch self {
-      case .POST:
-        return "POST"
-      case .GET:
-        return "GET"
-      }
-    }
   }
   
   public struct HTTPHeader: Equatable, CustomDebugStringConvertible {
@@ -81,8 +81,6 @@ public struct ApolloSchemaDownloadConfiguration {
 
   /// How to download your schema. Supports the Apollo Registry and GraphQL Introspection methods.
   public let downloadMethod: DownloadMethod
-  /// HTTP Method for Introspection. Setting this to GET requires passing the name of the query parameter for the IntrospectionQuery. Defaults to POST.
-  public let httpMethod: HTTPMethod
   /// The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public let downloadTimeout: Double
   /// Any additional headers to include when retrieving your schema. Defaults to nil.
@@ -101,12 +99,10 @@ public struct ApolloSchemaDownloadConfiguration {
   ///   - schemaFilename: The name, without an extension, for your schema file. Defaults to `"schema"
   public init(using downloadMethod: DownloadMethod,
               timeout downloadTimeout: Double = 30.0,
-              httpMethod: HTTPMethod = .POST,
               headers: [HTTPHeader] = [],
               outputFolderURL: URL,
               schemaFilename: String = "schema") {
     self.downloadMethod = downloadMethod
-    self.httpMethod = httpMethod
     self.downloadTimeout = downloadTimeout
     self.headers = headers
     self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
@@ -118,7 +114,6 @@ extension ApolloSchemaDownloadConfiguration: CustomDebugStringConvertible {
     return """
       downloadMethod: \(self.downloadMethod)
       downloadTimeout: \(self.downloadTimeout)
-      httpMethod: \(self.httpMethod)
       headers: \(self.headers)
       outputURL: \(self.outputURL)
       """
