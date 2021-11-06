@@ -34,7 +34,8 @@ public struct ApolloSchemaDownloadConfiguration {
       }
     }
 
-    /// The HTTP request method.
+    /// The HTTP request method. This is an option on Introspection schema downloads only. Apollo Registry downloads are always
+    /// POST requests.
     public enum HTTPMethod: Equatable, CustomStringConvertible {
       /// Use POST for HTTP requests. This is the default for GraphQL.
       case POST
@@ -93,7 +94,6 @@ public struct ApolloSchemaDownloadConfiguration {
   /// - Parameters:
   ///   - downloadMethod: How to download your schema.
   ///   - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  ///   - downloadHTTPMethod: HTTP Method for Introspection. Setting this to GET requires passing the name of the query parameter for the IntrospectionQuery. Defaults to POST.
   ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
   ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
   ///   - schemaFilename: The name, without an extension, for your schema file. Defaults to `"schema"
