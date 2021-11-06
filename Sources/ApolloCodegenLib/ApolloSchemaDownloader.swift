@@ -13,8 +13,8 @@ public struct ApolloSchemaDownloader {
     case couldNotExtractSDLFromRegistryJSON
     case couldNotCreateSDLDataToWrite(schema: String)
     case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
-    case couldNotCreateURLComponentsFromEndpointURL
-    case couldNotGetURLFromURLComponents
+    case couldNotCreateURLComponentsFromEndpointURL(url: URL)
+    case couldNotGetURLFromURLComponents(components: URLComponents)
 
     public var errorDescription: String? {
       switch self {
@@ -32,10 +32,10 @@ public struct ApolloSchemaDownloader {
         return "Could not convert SDL schema into data to write to the filesystem. Schema: \(schema)"
       case .couldNotConvertIntrospectionJSONToSDL(let underlying):
         return "Could not convert downloaded introspection JSON into SDL format. Underlying error: \(underlying)"
-      case .couldNotCreateURLComponentsFromEndpointURL:
-        return "Could not create URLComponents from EndpointURL for Introspection."
-      case .couldNotGetURLFromURLComponents:
-        return "Could not get URL from URLComponents."
+      case .couldNotCreateURLComponentsFromEndpointURL(let url):
+        return "Could not create URLComponents from \(url) for Introspection."
+      case .couldNotGetURLFromURLComponents(let components):
+        return "Could not get URL from \(components)."
       }
     }
   }
@@ -302,12 +302,12 @@ public struct ApolloSchemaDownloader {
 
     case .GET(let queryParameterName):
       guard var components = URLComponents(url: endpointURL, resolvingAgainstBaseURL: true) else {
-        throw SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL
+        throw SchemaDownloadError.couldNotCreateURLComponentsFromEndpointURL(url: endpointURL)
       }
       components.queryItems = [URLQueryItem(name: queryParameterName, value: IntrospectionQuery)]
 
       guard let url = components.url else {
-        throw SchemaDownloadError.couldNotGetURLFromURLComponents
+        throw SchemaDownloadError.couldNotGetURLFromURLComponents(components: components)
       }
       urlRequest = request(url: url, httpMethod: httpMethod, headers: headers)
     }
