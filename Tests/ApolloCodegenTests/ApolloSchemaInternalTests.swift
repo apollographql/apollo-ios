@@ -35,5 +35,92 @@ class ApolloSchemaInternalTests: XCTestCase {
 
     XCTAssertEqual(downloadConfiguration.outputURL, codegenOptions.urlToSchemaFile)
   }
+
+  func testRequest_givenIntrospectionGETDownload_shouldOutputGETRequest() throws {
+    let url = ApolloTestSupport.TestURL.mockServer.url
+    let queryParameterName = "customParam"
+    let headers: [ApolloSchemaDownloadConfiguration.HTTPHeader] = [
+      .init(key: "key1", value: "value1"),
+      .init(key: "key2", value: "value2")
+    ]
+
+    let request = try ApolloSchemaDownloader.introspectionRequest(from: url,
+                                                                  httpMethod: .GET(queryParameterName: queryParameterName),
+                                                                  headers: headers)
+
+    XCTAssertEqual(request.httpMethod, "GET")
+    XCTAssertNil(request.httpBody)
+
+    XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "application/json")
+    for header in headers {
+      XCTAssertEqual(request.allHTTPHeaderFields?[header.key], header.value)
+    }
+
+    var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+    components?.queryItems = [URLQueryItem(name: queryParameterName, value: ApolloSchemaDownloader.IntrospectionQuery)]
+
+    XCTAssertNotNil(components?.url)
+    XCTAssertEqual(request.url, components?.url)
+  }
+
+  func testRequest_givenIntrospectionPOSTDownload_shouldOutputPOSTRequest() throws {
+    let url = ApolloTestSupport.TestURL.mockServer.url
+    let headers: [ApolloSchemaDownloadConfiguration.HTTPHeader] = [
+      .init(key: "key1", value: "value1"),
+      .init(key: "key2", value: "value2")
+    ]
+
+    let request = try ApolloSchemaDownloader.introspectionRequest(from: url, httpMethod: .POST, headers: headers)
+
+    XCTAssertEqual(request.httpMethod, "POST")
+    XCTAssertEqual(request.url, url)
+
+    XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "application/json")
+    for header in headers {
+      XCTAssertEqual(request.allHTTPHeaderFields?[header.key], header.value)
+    }
+
+    let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: ApolloSchemaDownloader.IntrospectionQuery,
+                                                                   variables: nil,
+                                                                   operationName: "IntrospectionQuery")
+    let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])
+
+    XCTAssertEqual(request.httpBody, bodyData)
+  }
+
+  func testRequest_givenRegistryDownload_shouldOutputPOSTRequest() throws {
+    let apiKey = "custom-api-key"
+    let graphID = "graph-id"
+    let variant = "a-variant"
+    let headers: [ApolloSchemaDownloadConfiguration.HTTPHeader] = [
+      .init(key: "key1", value: "value1"),
+      .init(key: "key2", value: "value2"),
+    ]
+
+    let request = try ApolloSchemaDownloader.registryRequest(with: .init(apiKey: apiKey,
+                                                                         graphID: graphID,
+                                                                         variant: variant),
+                                                             headers: headers)
+
+    XCTAssertEqual(request.httpMethod, "POST")
+    XCTAssertEqual(request.url, ApolloSchemaDownloader.RegistryEndpoint)
+
+    XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "application/json")
+    XCTAssertEqual(request.allHTTPHeaderFields?["x-api-key"], apiKey)
+    for header in headers {
+      XCTAssertEqual(request.allHTTPHeaderFields?[header.key], header.value)
+    }
+
+    let variables: [String: String] = [
+      "graphID": graphID,
+      "variant": variant
+    ]
+    let requestBody = UntypedGraphQLRequestBodyCreator.requestBody(for: ApolloSchemaDownloader.RegistryDownloadQuery,
+                                                                   variables: variables,
+                                                                   operationName: "DownloadSchema")
+    let bodyData = try JSONSerialization.data(withJSONObject: requestBody, options: [.sortedKeys])
+
+    XCTAssertEqual(request.httpBody, bodyData)
+  }
 }
 
