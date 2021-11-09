@@ -5,10 +5,10 @@ struct ASTField: Equatable {
   enum FieldType: Equatable {
     case scalar(GraphQLScalarType)
     case `enum`(GraphQLEnumType)
-    case object(ObjectFieldData)
+    case entity(EntityFieldData)
   }
 
-  struct ObjectFieldData: Equatable {
+  struct EntityFieldData: Equatable {
     let selectionSet: CompilationResult.SelectionSet
     let enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder
   }
@@ -54,8 +54,8 @@ extension ASTField.FieldType {
         fatalError("enclosingScopeMergedSelectionBuilder must be provided for object type field.")
       }
 
-      self = .object(
-        ASTField.ObjectFieldData(
+      self = .entity(
+        ASTField.EntityFieldData(
           selectionSet: selectionSet,
           enclosingScopeMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
         )
@@ -67,8 +67,8 @@ extension ASTField.FieldType {
   }
 }
 
-extension ASTField.ObjectFieldData {
-  static func == (lhs: ASTField.ObjectFieldData, rhs: ASTField.ObjectFieldData) -> Bool {
+extension ASTField.EntityFieldData {
+  static func == (lhs: ASTField.EntityFieldData, rhs: ASTField.EntityFieldData) -> Bool {
     lhs.selectionSet == rhs.selectionSet &&
     lhs.enclosingScopeMergedSelectionBuilder === rhs.enclosingScopeMergedSelectionBuilder
   }

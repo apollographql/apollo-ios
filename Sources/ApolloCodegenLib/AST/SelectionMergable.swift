@@ -78,7 +78,7 @@ extension ASTField: SelectionMergable {
     case .scalar, .enum:
       fatalError("Selection sets should never be merged into a scalar or enum type field.")
 
-    case .object:
+    case .entity:
       return ASTField(self.underlyingField.merging(newSelectionSet))
     }
   }
