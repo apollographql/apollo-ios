@@ -32,7 +32,8 @@ struct ASTField: Equatable {
   }
 
   static func ==(lhs: ASTField, rhs: ASTField) -> Bool {
-    lhs.underlyingField == rhs.underlyingField
+    lhs.underlyingField == rhs.underlyingField &&
+    lhs.type == rhs.type
   }
 }
 
