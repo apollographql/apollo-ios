@@ -2,10 +2,27 @@ import Foundation
 
 @dynamicMemberLookup
 struct ASTField: Equatable {
-  let underlyingField: CompilationResult.Field
+  enum FieldType: Equatable {
+    case scalar(GraphQLScalarType)
+    case `enum`(GraphQLEnumType)
+    case object(ObjectFieldData)
+  }
 
-  init(_ field: CompilationResult.Field) {
+  struct ObjectFieldData: Equatable {
+    let selectionSet: CompilationResult.SelectionSet
+    let enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder
+  }
+
+  let underlyingField: CompilationResult.Field
+  let type: FieldType
+
+  init(_ field: CompilationResult.Field,
+       enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder? = nil) {
     self.underlyingField = field
+    self.type = FieldType(
+      self.underlyingField,
+      enclosingScopeMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
+    )
   }
 
   subscript<V>(dynamicMember keyPath: KeyPath<CompilationResult.Field, V>) -> V {
@@ -19,26 +36,40 @@ struct ASTField: Equatable {
   }
 }
 
-enum ASTFieldType: Equatable {
-  case scalar(CompilationResult.Field)
-  case entity(ASTField)
-
-  init(_ field: CompilationResult.Field) {
+extension ASTField.FieldType {
+  init(_ field: CompilationResult.Field,
+       enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder?) {
     switch field.type.namedType {
-    case is GraphQLScalarType,
-      is GraphQLEnumType:
-      self = .scalar(field)
+    case let type as GraphQLScalarType:
+      self = .scalar(type)
+
+    case let type as GraphQLEnumType:
+      self = .enum(type)
+
     case is GraphQLCompositeType:
-      self = .entity(ASTField(field))
+      guard let selectionSet = field.selectionSet else {
+        fatalError("Invalid field: \(field). An object type field must contain a selection set.")
+      }
+      guard let enclosingScopeMergedSelectionBuilder = enclosingScopeMergedSelectionBuilder else {
+        fatalError("enclosingScopeMergedSelectionBuilder must be provided for object type field.")
+      }
+
+      self = .object(
+        ASTField.ObjectFieldData(
+          selectionSet: selectionSet,
+          enclosingScopeMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
+        )
+      )
+
     default:
       fatalError("Field \(field) must have a base type of scalar, enum, interface, union, or object. Got \(field.type.namedType)")
     }
   }
+}
 
-  var underlyingField: CompilationResult.Field {
-    switch self {
-    case let .scalar(field): return field
-    case let .entity(astField): return astField.underlyingField
-    }
+extension ASTField.ObjectFieldData {
+  static func == (lhs: ASTField.ObjectFieldData, rhs: ASTField.ObjectFieldData) -> Bool {
+    lhs.selectionSet == rhs.selectionSet &&
+    lhs.enclosingScopeMergedSelectionBuilder === rhs.enclosingScopeMergedSelectionBuilder
   }
 }

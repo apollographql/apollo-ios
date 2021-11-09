@@ -3,7 +3,7 @@ import OrderedCollections
 
 struct SortedSelections: Equatable, CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
-  typealias Field = ASTFieldType
+  typealias Field = ASTField
   typealias TypeCase = CompilationResult.SelectionSet
   typealias Fragment = CompilationResult.FragmentDefinition
 
@@ -68,7 +68,7 @@ struct SortedSelections: Equatable, CustomDebugStringConvertible {
   }
 
   mutating func mergeIn(_ field: CompilationResult.Field) {
-    mergeIn(ASTFieldType(field))
+    mergeIn(ASTField(field))
   }
 
   mutating func mergeIn(_ field: Field) {

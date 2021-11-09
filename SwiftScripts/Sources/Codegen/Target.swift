@@ -83,7 +83,7 @@ enum Target {
         case .animalKingdom:
             let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
             let outputFolderURL = graphQLFolderURL.apollo.childFolderURL(folderName: "Generated")
-            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "schema.graphqls")
+            let schema = try! graphQLFolderURL.apollo.childFileURL(fileName: "AnimalSchema.graphqls")
 
             return ApolloCodegenOptions(codegenEngine: .swift,
                                         outputFormat: .multipleFiles(inFolderAtURL: outputFolderURL),

@@ -30,7 +30,7 @@ extension CompilationResult.Field: ScopedSelectionSetHashable {
   }
 }
 
-extension ASTFieldType: ScopedSelectionSetHashable {
+extension ASTField: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     underlyingField.hashForSelectionSetScope
   }
