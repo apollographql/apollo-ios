@@ -3,7 +3,7 @@ import OrderedCollections
 
 struct SortedSelections: Equatable, CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
-  typealias Field = CompilationResult.Field
+  typealias Field = ASTField
   typealias TypeCase = CompilationResult.SelectionSet
   typealias Fragment = CompilationResult.FragmentDefinition
 
@@ -47,19 +47,19 @@ struct SortedSelections: Equatable, CustomDebugStringConvertible {
 
   // MARK: Selection Merging
 
-  @inlinable mutating func mergeIn(_ selections: SortedSelections) {
+  mutating func mergeIn(_ selections: SortedSelections) {
     mergeIn(selections.fields)
     mergeIn(typeCases: selections.typeCases)
     mergeIn(selections.fragments)
   }
 
-  @inlinable mutating func mergeIn<T: Sequence>(_ selections: T) where T.Element == Selection {
+  mutating func mergeIn<T: Sequence>(_ selections: T) where T.Element == Selection {
     for selection in selections {
       mergeIn(selection)
     }
   }
 
-  @inlinable mutating func mergeIn(_ selection: Selection) {
+  mutating func mergeIn(_ selection: Selection) {
     switch selection {
     case let .field(field): mergeIn(field)
     case let .inlineFragment(typeCase): mergeIn(typeCase: typeCase)
@@ -67,39 +67,43 @@ struct SortedSelections: Equatable, CustomDebugStringConvertible {
     }
   }
 
-  @inlinable mutating func mergeIn(_ field: Field) {
+  mutating func mergeIn(_ field: CompilationResult.Field) {
+    mergeIn(ASTField(field))
+  }
+
+  mutating func mergeIn(_ field: Field) {
     appendOrMerge(field, into: &fields)
   }
 
-  @inlinable mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+  mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
     fields.forEach { mergeIn($0) }
   }
 
-  @inlinable mutating func mergeIn(_ fields: OrderedDictionary<String, Field>) {
+  mutating func mergeIn(_ fields: OrderedDictionary<String, Field>) {
     mergeIn(fields.values)
   }
 
-  @inlinable mutating func mergeIn(typeCase: TypeCase) {
+  mutating func mergeIn(typeCase: TypeCase) {
     appendOrMerge(typeCase, into: &typeCases)
   }
 
-  @inlinable mutating func mergeIn<T: Sequence>(typeCases: T) where T.Element == TypeCase {
+  mutating func mergeIn<T: Sequence>(typeCases: T) where T.Element == TypeCase {
     typeCases.forEach { mergeIn(typeCase: $0) }
   }
 
-  @inlinable mutating func mergeIn(typeCases: OrderedDictionary<String, TypeCase>) {
+  mutating func mergeIn(typeCases: OrderedDictionary<String, TypeCase>) {
     mergeIn(typeCases: typeCases.values)
   }
 
-  @inlinable mutating func mergeIn(_ fragment: Fragment) {
+  mutating func mergeIn(_ fragment: Fragment) {
     fragments[fragment.hashForSelectionSetScope] = fragment
   }
 
-  @inlinable mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
+  mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
     fragments.forEach { mergeIn($0) }
   }
 
-  @inlinable mutating func mergeIn(_ fragments: OrderedDictionary<String, Fragment>) {
+  mutating func mergeIn(_ fragments: OrderedDictionary<String, Fragment>) {
     mergeIn(fragments.values)
   }
 

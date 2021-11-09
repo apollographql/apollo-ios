@@ -11,15 +11,16 @@ import OrderedCollections
 /// representing a different entity. Each new root parent `ASTSelectionSet` should create a new
 /// `MergedSelectionBuilder` for its child tree.
 class MergedSelectionBuilder {
-  var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
+  private(set) var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
+  private(set) var fieldSelectionMergedScopes: [String: MergedSelectionBuilder] = [:]
 
   func add(_ selections: SortedSelections, forScope typeScope: TypeScope) {
-    if var selectionsForScope = selectionsForScopes[typeScope] {
-      selectionsForScope.mergeIn(selections)
-      selectionsForScopes[typeScope] = selectionsForScope
+    if var existingSelections = selectionsForScopes[typeScope] {
+      existingSelections.mergeIn(selections)
+      selectionsForScopes[typeScope] = existingSelections
 
     } else {
-      selectionsForScopes[typeScope] = selections
+      selectionsForScopes.updateValue(selections, forKey: typeScope, insertingAt: 0)
     }
   }
 

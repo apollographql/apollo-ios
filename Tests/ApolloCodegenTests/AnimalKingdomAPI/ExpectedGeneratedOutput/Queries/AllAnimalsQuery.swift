@@ -133,14 +133,14 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
           public static var selections: [Selection] { [
-            .fragment(WarmBloodedDetails.self),
             .field("laysEggs", Bool.self),
+            .fragment(WarmBloodedDetails.self),
           ] }
 
-          public var bodyTemperature: Int { data["bodyTemperature"] }
-          public var height: WarmBloodedDetails.Height { data["height"] }
           public var laysEggs: Bool { data["laysEggs"] }
           public var species: String { data["species"] }
+          public var bodyTemperature: Int { data["bodyTemperature"] }
+          public var height: WarmBloodedDetails.Height { data["height"] }
 
           public struct Fragments: ResponseObject {
             public let data: ResponseDict
@@ -196,14 +196,14 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
         public static var selections: [Selection] { [
-          .fragment(PetDetails.self),
           .typeCase(AsWarmBlooded.self),
+          .fragment(PetDetails.self),
         ] }
 
+        public var height: Height { data["height"] }
         public var humanName: String? { data["humanName"] }
         public var favoriteToy: String { data["favoriteToy"] }
         public var owner: PetDetails.Owner? { data["owner"] }
-        public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
         public var predators: [Predator] { data["predators"] }
@@ -244,22 +244,22 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
 
+          public var bodyTemperature: Int { data["bodyTemperature"] }
           public var height: Height { data["height"] }
-          public var species: String { data["species"] }
-          public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-          public var predators: [Predator] { data["predators"] }
           public var humanName: String? { data["humanName"] }
           public var favoriteToy: String { data["favoriteToy"] }
           public var owner: PetDetails.Owner? { data["owner"] }
-          public var bodyTemperature: Int { data["bodyTemperature"] }
+          public var species: String { data["species"] }
+          public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+          public var predators: [Predator] { data["predators"] }
 
           public struct Fragments: ResponseObject {
             public let data: ResponseDict
             public init(data: ResponseDict) { self.data = data }
 
-            public var heightInMeters: HeightInMeters { _toFragment() }
-            public var petDetails: PetDetails  { _toFragment() }
             public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
+            public var petDetails: PetDetails  { _toFragment() }
+            public var heightInMeters: HeightInMeters { _toFragment() }
           }
         }
       }
@@ -275,22 +275,22 @@ public struct AllAnimalsQuery: GraphQLQuery {
         ] }
 
         public var isJellicle: Bool { data["isJellicle"] }
+        public var bodyTemperature: Int { data["bodyTemperature"] }
         public var height: Height { data["height"] }
-        public var species: String { data["species"] }
-        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-        public var predators: [Predator] { data["predators"] }
         public var humanName: String? { data["humanName"] }
         public var favoriteToy: String { data["favoriteToy"] }
         public var owner: PetDetails.Owner? { data["owner"] }
-        public var bodyTemperature: Int { data["bodyTemperature"] }
+        public var species: String { data["species"] }
+        public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+        public var predators: [Predator] { data["predators"] }
 
         public struct Fragments: ResponseObject {
           public let data: ResponseDict
           public init(data: ResponseDict) { self.data = data }
 
-          public var heightInMeters: HeightInMeters { _toFragment() }
           public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
           public var petDetails: PetDetails  { _toFragment() }
+          public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
         /// `AllAnimal.AsCat.Height`
@@ -344,14 +344,14 @@ public struct AllAnimalsQuery: GraphQLQuery {
           ] }
 
           public var wingspan: Int { data["wingspan"] }
+          public var bodyTemperature: Int { data["bodyTemperature"] }
           public var height: Height { data["height"] }
-          public var species: String { data["species"] }
-          public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
-          public var predators: [Predator] { data["predators"] }
           public var humanName: String? { data["humanName"] }
           public var favoriteToy: String { data["favoriteToy"] }
           public var owner: PetDetails.Owner? { data["owner"] }
-          public var bodyTemperature: Int { data["bodyTemperature"] }
+          public var species: String { data["species"] }
+          public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
+          public var predators: [Predator] { data["predators"] }
 
           public struct Fragments: ResponseObject {
             public let data: ResponseDict
