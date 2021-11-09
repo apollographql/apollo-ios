@@ -12,7 +12,7 @@ import Apollo
 
 class Network {
   static let shared = Network() 
-    
+
   private(set) lazy var apollo = ApolloClient(url: URL(string: "http://localhost:8080/graphql")!)
 }
 ```
@@ -24,8 +24,10 @@ Under the hood, this will create a client using `RequestChainNetworkTransport` w
 For more advanced usage of the client, you can use this initializer which allows you to pass in an object conforming to the `NetworkTransport` protocol, as well as a store: 
 
 ```swift
-public init(networkTransport: NetworkTransport, 
-            store: ApolloStore)
+public init(
+    networkTransport: NetworkTransport, 
+    store: ApolloStore
+)
 ```
 
 The available implementations are: 
@@ -136,27 +138,33 @@ class UserManagementInterceptor: ApolloInterceptor {
         to request: HTTPRequest<Operation>,
         chain: RequestChain,
         response: HTTPResponse<Operation>?,
-        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
         
         request.addHeader(name: "Authorization", value: "Bearer \(token.value)")
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        chain.proceedAsync(
+            request: request,
+            response: response,
+            completion: completion
+        )
     }
     
     func interceptAsync<Operation: GraphQLOperation>(
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
-        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
         
         guard let token = UserManager.shared.token else {
             // In this instance, no user is logged in, so we want to call 
             // the error handler, then return to prevent further work
-            chain.handleErrorAsync(UserError.noUserLoggedIn,
-                                   request: request,
-                                   response: response,
-                                   completion: completion)
+            chain.handleErrorAsync(
+                UserError.noUserLoggedIn,
+                request: request,
+                response: response,
+                completion: completion
+            )
             return
         }
         
@@ -164,35 +172,39 @@ class UserManagementInterceptor: ApolloInterceptor {
         if token.isExpired {
             // Call an async method to renew the token
             UserManager.shared.renewToken { [weak self] tokenRenewResult in
-                guard let self = self else {
-                    return
-                }
+                guard let self = self else { return }
                 
                 switch tokenRenewResult {
                 case .failure(let error):
                     // Pass the token renewal error up the chain, and do 
                     // not proceed further. Note that you could also wrap this in a 
                     // `UserError` if you want.
-                    chain.handleErrorAsync(error,
-                                           request: request,
-                                           response: response,
-                                           completion: completion)
+                    chain.handleErrorAsync(
+                        error,
+                        request: request,
+                        response: response,
+                        completion: completion
+                    )
                 case .success(let token):
                     // Renewing worked! Add the token and move on
-                    self.addTokenAndProceed(token,
-                                            to: request,
-                                            chain: chain,
-                                            response: response,
-                                            completion: completion)
+                    self.addTokenAndProceed(
+                        token,
+                        to: request,
+                        chain: chain,
+                        response: response,
+                        completion: completion
+                    )
                 }
             }
         } else {
             // We don't need to wait for renewal, add token and move on
-            self.addTokenAndProceed(token,
-                                    to: request,
-                                    chain: chain,
-                                    response: response,
-                                    completion: completion)
+            self.addTokenAndProceed(
+                token,
+                to: request,
+                chain: chain,
+                response: response,
+                completion: completion
+            )
         }
     }
 }
@@ -211,12 +223,15 @@ class RequestLoggingInterceptor: ApolloInterceptor {
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
-        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
         
         Logger.log(.debug, "Outgoing request: \(request)")
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        chain.proceedAsync(
+            request: request,
+            response: response,
+            completion: completion
+        )
     }
 }
 ```
@@ -240,20 +255,25 @@ class ResponseLoggingInterceptor: ApolloInterceptor {
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
-        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+        completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
         
         defer {
             // Even if we can't log, we still want to keep going.
-            chain.proceedAsync(request: request,
-                               response: response,
-                               completion: completion)
+            chain.proceedAsync(
+                request: request,
+                response: response,
+                completion: completion
+            )
         }
         
         guard let receivedResponse = response else {
-            chain.handleErrorAsync(ResponseLoggingError.notYetReceived,
-                                   request: request,
-                                   response: response,
-                                   completion: completion)
+            chain.handleErrorAsync(
+                ResponseLoggingError.notYetReceived,
+                request: request,
+                response: response,
+                completion: completion
+            )
             return
         }
         
@@ -283,8 +303,7 @@ struct NetworkInterceptorProvider: InterceptorProvider {
     private let store: ApolloStore
     private let client: URLSessionClient
     
-    init(store: ApolloStore,
-         client: URLSessionClient) {
+    init(store: ApolloStore, client: URLSessionClient) {
         self.store = store
         self.client = client
     }
@@ -326,14 +345,18 @@ class Network {
       let provider = NetworkInterceptorProvider(store: store, client: client)
       let url = URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/")!
 
-      let requestChainTransport = RequestChainNetworkTransport(interceptorProvider: provider,
-                                                               endpointURL: url)
+      let requestChainTransport = RequestChainNetworkTransport(
+          interceptorProvider: provider,
+          endpointURL: url
+      )
                                                                
 
       // Remember to give the store you already created to the client so it 
       // doesn't create one on its own                                                               
-      return ApolloClient(networkTransport: requestChainTransport,
-                          store: store)
+      return ApolloClient(
+          networkTransport: requestChainTransport,
+          store: store
+      )
   }()
 }
 ```
