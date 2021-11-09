@@ -928,6 +928,12 @@
 		DED45FB1261CDE7D0086EF63 /* Apollo-PerformanceTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-PerformanceTestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45FB2261CDE980086EF63 /* Apollo-CITestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CITestPlan.xctestplan"; sourceTree = "<group>"; };
 		DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CodegenTestPlan.xctestplan"; sourceTree = "<group>"; };
+		DEE1B3F0273B08D8007350E5 /* PetDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetails.graphql.swift; sourceTree = "<group>"; };
+		DEE1B3F1273B08D8007350E5 /* ClassroomPets.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomPets.graphql.swift; sourceTree = "<group>"; };
+		DEE1B3F2273B08D8007350E5 /* HeightInMeters.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeightInMeters.graphql.swift; sourceTree = "<group>"; };
+		DEE1B3F3273B08D8007350E5 /* AllAnimals.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAnimals.graphql.swift; sourceTree = "<group>"; };
+		DEE1B3F4273B08D8007350E5 /* Types.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
+		DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
 		E616B6D026C3335600DB049E /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
@@ -1851,6 +1857,7 @@
 			isa = PBXGroup;
 			children = (
 				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
+				DEE1B3EF273B08D8007350E5 /* Generated */,
 				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
 				DE3C7AB7260A6D3E00D2F4FF /* graphql */,
 				DE223C23271F335D004A0148 /* Resources.swift */,
@@ -2032,6 +2039,19 @@
 				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
 			);
 			path = WebSocket;
+			sourceTree = "<group>";
+		};
+		DEE1B3EF273B08D8007350E5 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				DEE1B3F0273B08D8007350E5 /* PetDetails.graphql.swift */,
+				DEE1B3F1273B08D8007350E5 /* ClassroomPets.graphql.swift */,
+				DEE1B3F2273B08D8007350E5 /* HeightInMeters.graphql.swift */,
+				DEE1B3F3273B08D8007350E5 /* AllAnimals.graphql.swift */,
+				DEE1B3F4273B08D8007350E5 /* Types.graphql.swift */,
+				DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */,
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		E676C11F26CB05F90091215A /* DefaultImplementation */ = {
