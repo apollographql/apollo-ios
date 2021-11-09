@@ -10,7 +10,7 @@ struct ASTField: Equatable {
 
   struct EntityFieldData: Equatable {
     let selectionSet: CompilationResult.SelectionSet
-    let enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder
+    let enclosingEntityMergedSelectionBuilder: MergedSelectionBuilder
   }
 
   let underlyingField: CompilationResult.Field
@@ -57,7 +57,7 @@ extension ASTField.FieldType {
       self = .entity(
         ASTField.EntityFieldData(
           selectionSet: selectionSet,
-          enclosingScopeMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
+          enclosingEntityMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
         )
       )
 
@@ -70,6 +70,6 @@ extension ASTField.FieldType {
 extension ASTField.EntityFieldData {
   static func == (lhs: ASTField.EntityFieldData, rhs: ASTField.EntityFieldData) -> Bool {
     lhs.selectionSet == rhs.selectionSet &&
-    lhs.enclosingScopeMergedSelectionBuilder === rhs.enclosingScopeMergedSelectionBuilder
+    lhs.enclosingEntityMergedSelectionBuilder === rhs.enclosingEntityMergedSelectionBuilder
   }
 }
