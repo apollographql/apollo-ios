@@ -23,7 +23,7 @@ class ASTSelectionSet: CustomDebugStringConvertible, Equatable {
 
   let mergedSelectionBuilder: MergedSelectionBuilder
 
-  // MARK: - Initialization
+  // MARK: - Initialization  
 
   convenience init(
     selectionSet: CompilationResult.SelectionSet,

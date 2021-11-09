@@ -30,6 +30,12 @@ extension CompilationResult.Field: ScopedSelectionSetHashable {
   }
 }
 
+extension ASTFieldType: ScopedSelectionSetHashable {
+  var hashForSelectionSetScope: String {
+    underlyingField.hashForSelectionSetScope
+  }
+}
+
 extension CompilationResult.SelectionSet: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
 #warning("What if there is a field with the same name as a type? Do we get a conflict? Write a test for this.")

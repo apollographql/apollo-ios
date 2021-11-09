@@ -12,6 +12,7 @@ import OrderedCollections
 /// `MergedSelectionBuilder` for its child tree.
 class MergedSelectionBuilder {
   private(set) var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
+  private(set) var fieldSelectionMergedScopes: [String: MergedSelectionBuilder] = [:]
 
   func add(_ selections: SortedSelections, forScope typeScope: TypeScope) {
     if var existingSelections = selectionsForScopes[typeScope] {
