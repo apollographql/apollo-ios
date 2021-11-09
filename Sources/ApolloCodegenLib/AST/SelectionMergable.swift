@@ -75,7 +75,7 @@ extension ASTField: SelectionMergable {
 
   func merging(_ newSelectionSet: CompilationResult.SelectionSet) -> ASTField {
     switch self.type {
-    case .scalar, .enum:
+    case .scalar:
       fatalError("Selection sets should never be merged into a scalar or enum type field.")
 
     case .entity:

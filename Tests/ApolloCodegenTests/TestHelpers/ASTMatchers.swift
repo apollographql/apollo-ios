@@ -106,6 +106,10 @@ fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: Compi
   expected.type == actual.type
 }
 
+fileprivate func shallowlyMatch(expected: ASTField, actual: ASTField) -> Bool {
+  return shallowlyMatch(expected: expected.underlyingField, actual: actual.underlyingField)
+}
+
 fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: CompilationResult.SelectionSet) -> Bool {
   return expected.parentType == actual.parentType
 }

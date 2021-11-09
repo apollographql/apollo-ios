@@ -2,7 +2,9 @@ import XCTest
 import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
+import ApolloTestSupport
 import ApolloCodegenTestSupport
+import ApolloAPI
 
 class ASTSelectionSetTests: XCTestCase {
 
@@ -2216,7 +2218,7 @@ class ASTSelectionSetTests: XCTestCase {
     ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
-      fields: [Field_Species],
+      fields: [ASTField(Field_Species)],
       typeCases: [],
       fragments: [animalDetails]
     )
@@ -2261,11 +2263,9 @@ class ASTSelectionSetTests: XCTestCase {
     ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
-      fields: [],
       typeCases: [
         .init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)])
-      ],
-      fragments: []
+      ]
     )
 
     // when
@@ -2308,7 +2308,7 @@ class ASTSelectionSetTests: XCTestCase {
     ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
-      fields: [Field_Species],
+      fields: [ASTField(Field_Species)],
       typeCases: [],
       fragments: [animalDetails]
     )
@@ -2353,7 +2353,7 @@ class ASTSelectionSetTests: XCTestCase {
     ), compilationResult: mockCompilationResult)
 
     let expected = SortedSelections(
-      fields: [Field_Species],
+      fields: [ASTField(Field_Species)],
       typeCases: [],
       fragments: [animalDetails]
     )
@@ -2369,6 +2369,7 @@ class ASTSelectionSetTests: XCTestCase {
   /// query {
   ///  rocks {
   ///    ...BirdDetails
+  ///  }
   /// }
   ///
   /// fragment BirdDetails on Bird {
@@ -2411,5 +2412,101 @@ class ASTSelectionSetTests: XCTestCase {
 
     // then
     expect(actual).to(equal(expected))
+  }
+
+  // MARK: - Nested Entity Field - Merged Selections
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    height {
+  ///      feet
+  ///    }
+  ///    ... on Pet {
+  ///      height {
+  ///        meters
+  ///      }
+  ///    }
+  ///  }
+  /// }
+  ///
+  /// Expected:
+  /// Both height fields have merged selection builder
+  /// Merged selection build has type scopes: [
+  ///   Animal: [feet],
+  ///   Animal+Pet: [meters]
+  /// ]
+  func test__nestedEntityField_mergedSelectionBuilder__givenObjectField_withOtherSameNamedField_onChildTypeCaseSelectionSet_withOtherNestedSelections_fieldsHaveMergedSelectionBuilderWithFieldsForTypeScopes() throws {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
+    let Object_Height = GraphQLObjectType.mock("Height")
+
+    let subject = ASTSelectionSet(selectionSet: .mock(
+      parentType: Interface_Animal,
+      selections: [
+        .field(.mock(
+          "height",
+          selectionSet: .mock(
+            parentType: Object_Height,
+            selections: [
+              .field(.mock("feet", type: .integer()))
+            ]
+          ))),
+        .inlineFragment(.mock(
+          parentType: Interface_Pet,
+          selections: [
+            .field(.mock(
+              "height",
+              selectionSet: .mock(
+                parentType: Object_Height,
+                selections: [
+                  .field(.mock("meters", type: .integer()))
+                ]
+              )))
+          ]))
+      ]), compilationResult: mockCompilationResult)
+
+
+    // when
+    let mergedSelectionBuilder_actual = subject
+      .mergedSelectionBuilder.fieldSelectionMergedScopes["height"]
+
+    let animalScope_expected = SortedSelections([
+      .field(.mock("feet", type: .integer()))
+    ])
+
+    let animal_asPet_scope_expected = SortedSelections([
+      .field(.mock("feet", type: .integer())),
+      .field(.mock("meters", type: .integer()))
+    ])
+
+    let animal_height_actual = subject.selections.fields["height"]
+    let animal_asPet_height_actual = subject
+      .children["Pet"]?
+      .selections.fields["height"]
+
+    let animalScope_actual = mergedSelectionBuilder_actual?.selectionsForScopes[[Interface_Animal]]
+    let animal_asPet_scope_actual = mergedSelectionBuilder_actual?.selectionsForScopes[[Interface_Animal]]
+
+    // then
+    expect(try animal_height_actual?.mergedSelectionBuilder)
+      .to(beIdenticalTo(mergedSelectionBuilder_actual))
+    expect(try animal_asPet_height_actual?.mergedSelectionBuilder)
+      .to(beIdenticalTo(mergedSelectionBuilder_actual))
+
+    expect(animalScope_actual).to(equal(animalScope_expected))
+    expect(animal_asPet_scope_actual).to(equal(animal_asPet_scope_expected))
+  }
+}
+
+extension ASTField {
+  var mergedSelectionBuilder: MergedSelectionBuilder {
+    get throws {
+      guard case let .entity(entityData) = self.type else {
+        throw TestError("Attempted to get MergedSelectionBuilder of non-entity field \(self)")
+      }
+      return entityData.enclosingEntityMergedSelectionBuilder
+    }
   }
 }

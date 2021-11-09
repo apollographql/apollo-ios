@@ -67,8 +67,14 @@ struct SortedSelections: Equatable, CustomDebugStringConvertible {
     }
   }
 
+#warning("TODO: delete CompilationResult.Field merging")
   mutating func mergeIn(_ field: CompilationResult.Field) {
     mergeIn(ASTField(field))
+  }
+
+#warning("TODO: delete CompilationResult.Field merging")
+  mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == CompilationResult.Field {
+    fields.forEach { mergeIn(ASTField($0)) }
   }
 
   mutating func mergeIn(_ field: Field) {
