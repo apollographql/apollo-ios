@@ -55,7 +55,7 @@ public class WebSocketTransport {
 
   private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
-  private let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
+  let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
 
   private let sendOperationIdentifiers: Bool
   private let reconnectionInterval: TimeInterval
