@@ -3,12 +3,12 @@ import Foundation
 @dynamicMemberLookup
 struct ASTField: Equatable {
   enum FieldType: Equatable {
-    case scalar(GraphQLScalarType)
-    case `enum`(GraphQLEnumType)
+    case scalar(GraphQLType)
     case entity(EntityFieldData)
   }
 
   struct EntityFieldData: Equatable {
+    let type: GraphQLType
     let selectionSet: CompilationResult.SelectionSet
     let enclosingEntityMergedSelectionBuilder: MergedSelectionBuilder
   }
@@ -41,11 +41,8 @@ extension ASTField.FieldType {
   init(_ field: CompilationResult.Field,
        enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder?) {
     switch field.type.namedType {
-    case let type as GraphQLScalarType:
-      self = .scalar(type)
-
-    case let type as GraphQLEnumType:
-      self = .enum(type)
+    case is GraphQLScalarType, is GraphQLEnumType:
+      self = .scalar(field.type)
 
     case is GraphQLCompositeType:
       guard let selectionSet = field.selectionSet else {
@@ -57,6 +54,7 @@ extension ASTField.FieldType {
 
       self = .entity(
         ASTField.EntityFieldData(
+          type: field.type,
           selectionSet: selectionSet,
           enclosingEntityMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
         )
