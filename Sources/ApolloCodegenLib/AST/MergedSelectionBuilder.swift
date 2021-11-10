@@ -14,7 +14,78 @@ class MergedSelectionBuilder {
   private(set) var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
   private(set) var fieldSelectionMergedScopes: [String: MergedSelectionBuilder] = [:]
 
-  func add(_ selections: SortedSelections, forScope typeScope: TypeScope) {
+  func computeSelectionsAndChildren(
+    from selections: [CompilationResult.Selection],
+    for selectionSet: ASTSelectionSet
+  ) -> (
+    selections: SortedSelections,
+    children: OrderedDictionary<String, ASTSelectionSet>
+  ) {
+    var computedChildSelectionSets: OrderedDictionary<String, CompilationResult.SelectionSet> = [:]
+    var computedSelections = SortedSelections()
+
+    func appendOrMergeIntoChildren(_ selectionSet: CompilationResult.SelectionSet) {
+      let keyInScope = selectionSet.hashForSelectionSetScope
+      if let existingValue = computedChildSelectionSets[keyInScope] {
+        computedChildSelectionSets[keyInScope] = existingValue.merging(selectionSet)
+
+      } else {
+        computedChildSelectionSets[keyInScope] = selectionSet
+      }
+    }
+
+    for selection in selections {
+      switch selection {
+      case let .field(field):
+        computedSelections.mergeIn(field)
+
+      case let .inlineFragment(typeCaseSelectionSet):
+        if selectionSet.scopeDescriptor.matches(typeCaseSelectionSet.parentType) {
+          computedSelections.mergeIn(typeCaseSelectionSet.selections)
+
+        } else {
+          computedSelections.mergeIn(typeCase: typeCaseSelectionSet)
+          appendOrMergeIntoChildren(typeCaseSelectionSet)
+        }
+
+      case let .fragmentSpread(fragment):
+        func shouldMergeFragmentDirectly() -> Bool {
+          #warning("TODO: Might be able to change this to use TypeScopeDescriptor.matches()?")
+          if fragment.type == selectionSet.type { return true }
+
+          if let implementingType = selectionSet.type as? GraphQLInterfaceImplementingType,
+             let fragmentInterface = fragment.type as? GraphQLInterfaceType,
+             implementingType.implements(fragmentInterface) {
+            return true
+          }
+
+          return false
+        }
+
+        if shouldMergeFragmentDirectly() {
+          computedSelections.mergeIn(fragment)
+
+        } else {
+          let typeCaseForFragment = CompilationResult.SelectionSet(
+            parentType: fragment.type,
+            selections: [selection]
+          )
+
+          computedSelections.mergeIn(typeCase: typeCaseForFragment)
+          appendOrMergeIntoChildren(typeCaseForFragment)
+        }
+      }
+    }
+
+    self.add(computedSelections, forScope: selectionSet.scopeDescriptor.scope)
+
+    let children = computedChildSelectionSets.mapValues {
+      ASTSelectionSet(selectionSet: $0, parent: selectionSet)
+    }
+    return (computedSelections, children)
+  }
+
+  private func add(_ selections: SortedSelections, forScope typeScope: TypeScope) {
     if var existingSelections = selectionsForScopes[typeScope] {
       existingSelections.mergeIn(selections)
       selectionsForScopes[typeScope] = existingSelections
@@ -26,7 +97,7 @@ class MergedSelectionBuilder {
 
   func mergedSelections(for selectionSet: ASTSelectionSet) -> SortedSelections {
     let targetScope = selectionSet.scopeDescriptor
-    var mergedSelections = selectionSet.selections
+    var mergedSelections = selectionSet.selections.unsafelyUnwrapped
     for (scope, selections) in selectionsForScopes {
       if targetScope.matches(scope) {
         merge(selections, into: &mergedSelections)
@@ -36,7 +107,7 @@ class MergedSelectionBuilder {
   }
 
   /// Does not merge in type cases, since we do not merge type cases across scopes.
-  func merge(_ selections: SortedSelections, into mergedSelections: inout SortedSelections) {
+  private func merge(_ selections: SortedSelections, into mergedSelections: inout SortedSelections) {
     mergedSelections.mergeIn(selections.fields)
     for fragment in selections.fragments.values {
       mergedSelections.mergeIn(fragment)
