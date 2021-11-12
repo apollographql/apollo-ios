@@ -17,11 +17,11 @@ struct ASTField: Equatable {
   let type: FieldType
 
   init(_ field: CompilationResult.Field,
-       enclosingScopeMergedSelectionBuilder: MergedSelectionBuilder? = nil) {
+       enclosingEntityMergedSelectionBuilder: MergedSelectionBuilder? = nil) {
     self.underlyingField = field
     self.type = FieldType(
       self.underlyingField,
-      enclosingScopeMergedSelectionBuilder: enclosingScopeMergedSelectionBuilder
+      enclosingScopeMergedSelectionBuilder: enclosingEntityMergedSelectionBuilder
     )
   }
 

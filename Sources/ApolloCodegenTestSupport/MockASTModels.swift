@@ -15,7 +15,7 @@ extension ASTField {
       type: type,
       selectionSet: selectionSet)
 
-    return ASTField(mockField, enclosingScopeMergedSelectionBuilder: nil)
+    return ASTField(mockField, enclosingEntityMergedSelectionBuilder: nil)
   }
 
   public static func mock(
@@ -32,6 +32,6 @@ extension ASTField {
       type: .named(type),
       selectionSet: selectionSet)
 
-    return ASTField(mockField, enclosingScopeMergedSelectionBuilder: nil)
+    return ASTField(mockField, enclosingEntityMergedSelectionBuilder: nil)
   }
 }

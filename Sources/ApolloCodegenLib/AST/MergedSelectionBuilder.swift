@@ -36,8 +36,13 @@ class MergedSelectionBuilder {
 
     for selection in selections {
       switch selection {
+      case let .field(field) where field.type.namedType is GraphQLCompositeType:
+        let builderForField = enclosingEntityMergedSelectionBuilder(for: field)
+        let astField = ASTField(field, enclosingEntityMergedSelectionBuilder: builderForField)
+        computedSelections.mergeIn(astField)
+
       case let .field(field):
-        computedSelections.mergeIn(field)
+        computedSelections.mergeIn(ASTField(field))
 
       case let .inlineFragment(typeCaseSelectionSet):
         if selectionSet.scopeDescriptor.matches(typeCaseSelectionSet.parentType) {
@@ -83,6 +88,17 @@ class MergedSelectionBuilder {
       ASTSelectionSet(selectionSet: $0, parent: selectionSet)
     }
     return (computedSelections, children)
+  }
+
+  private func enclosingEntityMergedSelectionBuilder(
+    for field: CompilationResult.Field
+  ) -> MergedSelectionBuilder {
+    guard let fieldScopeBuilder = fieldSelectionMergedScopes["A"] else {
+      let fieldScopeBuilder = MergedSelectionBuilder()
+      fieldSelectionMergedScopes["A"] = fieldScopeBuilder
+      return fieldScopeBuilder
+    }
+    return fieldScopeBuilder
   }
 
   private func add(_ selections: SortedSelections, forScope typeScope: TypeScope) {
