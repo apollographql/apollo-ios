@@ -2432,7 +2432,7 @@ class ASTSelectionSetTests: XCTestCase {
   ///
   /// Expected:
   /// Both height fields have merged selection builder
-  /// Merged selection build has type scopes: [
+  /// Merged selection builder has type scopes: [
   ///   Animal: [feet],
   ///   Animal+Pet: [meters]
   /// ]

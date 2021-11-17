@@ -1,6 +1,7 @@
 import Foundation
 import OrderedCollections
 
+#warning("TODO: copy on write")
 struct SortedSelections: Equatable, CustomDebugStringConvertible {
   typealias Selection = CompilationResult.Selection
   typealias Field = ASTField

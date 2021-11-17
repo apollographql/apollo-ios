@@ -1,6 +1,93 @@
 import Foundation
 import OrderedCollections
 
+protocol _ASTField {
+  var name: String { get }
+  var alias: String? { get }
+  var type: GraphQLType { get }
+}
+
+struct LinkedList<T> { // copy on write
+
+}
+
+struct Trie<Key, Value> {
+
+}
+
+class AST {
+
+  let compilationResult: CompilationResult
+  let mergedSelectionsForFields: Trie<String, Entity.MergedSelectionTree>
+
+  let rootField: EntityField
+
+  enum Field {
+    case scalar(ScalarField)
+    case entity(EntityField)
+  }
+
+  class ScalarField {
+    let name: String
+    let alias: String?
+    let type: GraphQLType
+  }
+
+  class EntityField {
+    let name: String
+    let alias: String?
+    let type: GraphQLType
+
+    let entity: Entity
+    let selectionSet: SelectionSet
+  }
+
+  class Entity {
+    let rootType: GraphQLCompositeType
+
+    let mergedSelectionTree: MergedSelectionTree
+
+    class MergedSelectionTree {
+      var rootNode: EnclosingEntityNode
+
+      class EnclosingEntityNode {
+        enum Child {
+          case enclosingEntity(EnclosingEntityNode)
+          case fieldScope(FieldScopeNode)
+        }
+
+        var child: Child?
+        var typeCases: [GraphQLCompositeType: EnclosingEntityNode]?
+      }
+
+      class FieldScopeNode {
+        var selections: SortedSelections?
+        var typeCases: [GraphQLCompositeType: FieldScopeNode]?
+      }
+    }
+
+    // TODO: Do we even need this? Can MergedSelectionTree handle all of it?
+//    let mergedSelectionBuilder: MergedSelectionBuilder
+    // TODO: move the builder functionality into this Entity object?
+  }
+
+  class SelectionSet {
+    typealias ChildTypeCaseDictionary = OrderedDictionary<String, SelectionSet>
+
+    weak var entity: Entity?
+
+    let type: GraphQLCompositeType
+    let typeScope: TypeScopeDescriptor
+
+    let responsePath: LinkedList<String>
+    let enclosingEntityScope: LinkedList<TypeScope>
+
+    var childTypeCases: ChildTypeCaseDictionary = [:]
+    var selections: SortedSelections = SortedSelections()
+  }
+
+}
+
 /// An object that collects the selections for the type scopes for a tree of `ASTSelectionSet`s and
 /// computes the merged selections for each `ASTSelectionSet` in the tree.
 ///
@@ -38,6 +125,7 @@ class MergedSelectionBuilder {
       switch selection {
       case let .field(field) where field.type.namedType is GraphQLCompositeType:
         let builderForField = enclosingEntityMergedSelectionBuilder(for: field)
+//        builderForField.add(<#T##selections: SortedSelections##SortedSelections#>, forScope: <#T##TypeScope#>)
         let astField = ASTField(field, enclosingEntityMergedSelectionBuilder: builderForField)
         computedSelections.mergeIn(astField)
 
@@ -93,9 +181,9 @@ class MergedSelectionBuilder {
   private func enclosingEntityMergedSelectionBuilder(
     for field: CompilationResult.Field
   ) -> MergedSelectionBuilder {
-    guard let fieldScopeBuilder = fieldSelectionMergedScopes["A"] else {
+    guard let fieldScopeBuilder = fieldSelectionMergedScopes["height"] else {
       let fieldScopeBuilder = MergedSelectionBuilder()
-      fieldSelectionMergedScopes["A"] = fieldScopeBuilder
+      fieldSelectionMergedScopes["height"] = fieldScopeBuilder
       return fieldScopeBuilder
     }
     return fieldScopeBuilder
