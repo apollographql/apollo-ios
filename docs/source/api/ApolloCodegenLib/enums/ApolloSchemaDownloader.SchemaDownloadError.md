@@ -49,6 +49,18 @@ case couldNotCreateSDLDataToWrite(schema: String)
 case couldNotConvertIntrospectionJSONToSDL(underlying: Error)
 ```
 
+### `couldNotCreateURLComponentsFromEndpointURL(url:)`
+
+```swift
+case couldNotCreateURLComponentsFromEndpointURL(url: URL)
+```
+
+### `couldNotGetURLFromURLComponents(components:)`
+
+```swift
+case couldNotGetURLFromURLComponents(components: URLComponents)
+```
+
 ## Properties
 ### `errorDescription`
 

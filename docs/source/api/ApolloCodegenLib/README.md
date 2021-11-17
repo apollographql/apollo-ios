@@ -61,6 +61,7 @@
 -   [CodegenLogger.LogLevel](enums/CodegenLogger.LogLevel/)
 -   [CompilationResult.OperationType](enums/CompilationResult.OperationType/)
 -   [CompilationResult.Selection](enums/CompilationResult.Selection/)
+-   [DownloadMethod.HTTPMethod](enums/DownloadMethod.HTTPMethod/)
 -   [GraphQLType](enums/GraphQLType/)
 
 ## Extensions
