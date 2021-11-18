@@ -1,24 +1,11 @@
 import Foundation
 import OrderedCollections
+import ApolloUtils
 
-protocol _ASTField {
-  var name: String { get }
-  var alias: String? { get }
-  var type: GraphQLType { get }
-}
-
-struct LinkedList<T> { // copy on write
-
-}
-
-struct Trie<Key, Value> {
-
-}
-
-class AST {
+class IR {
 
   let compilationResult: CompilationResult
-  let mergedSelectionsForFields: Trie<String, Entity.MergedSelectionTree>
+  let entitiesForFields: OrderedDictionary<ResponsePath, Entity>
 
   let rootField: EntityField
 
@@ -50,6 +37,10 @@ class AST {
     class MergedSelectionTree {
       var rootNode: EnclosingEntityNode
 
+      init(rootNode: EnclosingEntityNode) {
+        self.rootNode = rootNode
+      }
+
       class EnclosingEntityNode {
         enum Child {
           case enclosingEntity(EnclosingEntityNode)
@@ -65,21 +56,17 @@ class AST {
         var typeCases: [GraphQLCompositeType: FieldScopeNode]?
       }
     }
-
-    // TODO: Do we even need this? Can MergedSelectionTree handle all of it?
-//    let mergedSelectionBuilder: MergedSelectionBuilder
-    // TODO: move the builder functionality into this Entity object?
   }
 
   class SelectionSet {
-    typealias ChildTypeCaseDictionary = OrderedDictionary<String, SelectionSet>
+    typealias ChildTypeCaseDictionary = OrderedDictionary<GraphQLCompositeType, SelectionSet>
 
     weak var entity: Entity?
 
-    let type: GraphQLCompositeType
+    let parentType: GraphQLCompositeType
     let typeScope: TypeScopeDescriptor
 
-    let responsePath: LinkedList<String>
+    let responsePath: ResponsePath
     let enclosingEntityScope: LinkedList<TypeScope>
 
     var childTypeCases: ChildTypeCaseDictionary = [:]
