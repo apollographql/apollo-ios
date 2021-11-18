@@ -99,12 +99,12 @@ download_apollo_cli_if_needed
 # Make sure we're using an up-to-date and valid version of the Apollo CLI
 validate_codegen_and_extract_if_needed
 
+# Add the binary directory to the beginning of PATH so included binary verson of node is used.
+ PATH="${SCRIPT_DIR}/apollo/bin:${PATH}"
+
 # Give Apple Silicon users the option to install & use an ARM-based binary of node through Homebrew
 if [[ `uname -m` == 'arm64' ]]; then
-  PATH="/opt/homebrew/bin:${SCRIPT_DIR}/apollo/bin:${PATH}"
-else
-  # Add the binary directory to the beginning of PATH so included binary verson of node is used.
-  PATH="${SCRIPT_DIR}/apollo/bin:${PATH}"
+  PATH="/opt/homebrew/bin:${PATH}
 fi
 
 # Use the bundled executable of the Apollo CLI to generate code
