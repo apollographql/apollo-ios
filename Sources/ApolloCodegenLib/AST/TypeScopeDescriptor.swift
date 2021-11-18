@@ -4,7 +4,7 @@ typealias TypeScope = Set<GraphQLCompositeType>
 
 /// Defines the scope for an `ASTSelectionSet`. The scope is derived from the scope and all of its
 /// parent scopes.
-struct TypeScopeDescriptor {
+struct TypeScopeDescriptor: Equatable {
   let scope: TypeScope!
 
   private init() {

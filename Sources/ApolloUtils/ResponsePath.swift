@@ -38,6 +38,10 @@ public struct ResponsePath: ExpressibleByArrayLiteral {
     }
   }
 
+  public init(_ key: Key) {
+    append(key)
+  }
+
   public mutating func append(_ key: Key) {
     head = Node(previous: head, key: key)
   }

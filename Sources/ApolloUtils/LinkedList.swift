@@ -83,3 +83,29 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
 }
+
+extension LinkedList.Node: Equatable where T: Equatable {
+  public static func == (lhs: LinkedList<T>.Node, rhs: LinkedList<T>.Node) -> Bool {
+    lhs.value == rhs.value &&
+    lhs.next == rhs.next
+  }
+}
+
+extension LinkedList: Equatable where T: Equatable {
+  public static func == (lhs: LinkedList<T>, rhs: LinkedList<T>) -> Bool {
+    lhs.headNode == rhs.headNode
+  }
+}
+
+extension LinkedList.Node: Hashable where T: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(value)
+    hasher.combine(next)
+  }
+}
+
+extension LinkedList: Hashable where T: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(headNode)
+  }
+}

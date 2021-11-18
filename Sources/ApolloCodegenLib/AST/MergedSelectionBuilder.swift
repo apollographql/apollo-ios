@@ -1,78 +1,95 @@
 import Foundation
 import OrderedCollections
 import ApolloUtils
+import ApolloAPI
 
 class IR {
-
   let compilationResult: CompilationResult
-  let entitiesForFields: OrderedDictionary<ResponsePath, Entity>
 
-  let rootField: EntityField
+  class Operation {
+    let definition: CompilationResult.OperationDefinition
+    let rootField: Field
 
-  enum Field {
-    case scalar(ScalarField)
-    case entity(EntityField)
-  }
-
-  class ScalarField {
-    let name: String
-    let alias: String?
-    let type: GraphQLType
-  }
-
-  class EntityField {
-    let name: String
-    let alias: String?
-    let type: GraphQLType
-
-    let entity: Entity
-    let selectionSet: SelectionSet
-  }
-
-  class Entity {
-    let rootType: GraphQLCompositeType
-
-    let mergedSelectionTree: MergedSelectionTree
-
-    class MergedSelectionTree {
-      var rootNode: EnclosingEntityNode
-
-      init(rootNode: EnclosingEntityNode) {
-        self.rootNode = rootNode
-      }
-
-      class EnclosingEntityNode {
-        enum Child {
-          case enclosingEntity(EnclosingEntityNode)
-          case fieldScope(FieldScopeNode)
-        }
-
-        var child: Child?
-        var typeCases: [GraphQLCompositeType: EnclosingEntityNode]?
-      }
-
-      class FieldScopeNode {
-        var selections: SortedSelections?
-        var typeCases: [GraphQLCompositeType: FieldScopeNode]?
-      }
+    init(
+      definition: CompilationResult.OperationDefinition,
+      rootField: Field
+    ) {
+      self.definition = definition
+      self.rootField = rootField
     }
   }
 
-  class SelectionSet {
+  class Entity: Equatable {
+    let rootType: GraphQLCompositeType
+    let responsePath: ResponsePath
+    let mergedSelectionTree: MergedSelectionTree
+
+    init(
+      rootType: GraphQLCompositeType,
+      responsePath: ResponsePath,
+      mergedSelectionTree: MergedSelectionTree
+    ) {
+      self.rootType = rootType
+      self.responsePath = responsePath
+      self.mergedSelectionTree = mergedSelectionTree
+    }
+
+    static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {
+      lhs.rootType == rhs.rootType &&
+      lhs.responsePath == rhs.responsePath &&
+      lhs.mergedSelectionTree === rhs.mergedSelectionTree
+    }
+  }
+
+  class MergedSelectionTree {
+    var rootNode: EnclosingEntityNode
+
+    init() {
+      self.rootNode = EnclosingEntityNode()
+    }
+
+    init(rootNode: EnclosingEntityNode) {
+      self.rootNode = rootNode
+    }
+
+    class EnclosingEntityNode {
+      enum Child {
+        case enclosingEntity(EnclosingEntityNode)
+        case fieldScope(FieldScopeNode)
+      }
+
+      var child: Child?
+      var typeCases: [GraphQLCompositeType: EnclosingEntityNode]?
+    }
+
+    class FieldScopeNode {
+      var selections: SortedSelections?
+      var typeCases: [GraphQLCompositeType: FieldScopeNode]?
+    }
+  }
+
+  class SelectionSet: Equatable {
     typealias ChildTypeCaseDictionary = OrderedDictionary<GraphQLCompositeType, SelectionSet>
 
-    weak var entity: Entity?
+    var entity: Entity
 
     let parentType: GraphQLCompositeType
     let typeScope: TypeScopeDescriptor
 
-    let responsePath: ResponsePath
     let enclosingEntityScope: LinkedList<TypeScope>
 
     var childTypeCases: ChildTypeCaseDictionary = [:]
     var selections: SortedSelections = SortedSelections()
-  }
 
+    static func == (lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
+      lhs.entity == rhs.entity &&
+      lhs.parentType == rhs.parentType &&
+      lhs.typeScope == rhs.typeScope &&
+      lhs.enclosingEntityScope == rhs.enclosingEntityScope &&
+      lhs.childTypeCases == rhs.childTypeCases &&
+      lhs.selections == rhs.selections
+    }
+  }
 }
 
 /// An object that collects the selections for the type scopes for a tree of `ASTSelectionSet`s and
@@ -87,6 +104,9 @@ class IR {
 class MergedSelectionBuilder {
   private(set) var selectionsForScopes: OrderedDictionary<TypeScope, SortedSelections> = [:]
   private(set) var fieldSelectionMergedScopes: [String: MergedSelectionBuilder] = [:]
+
+
+
 
   func computeSelectionsAndChildren(
     from selections: [CompilationResult.Selection],
@@ -112,7 +132,7 @@ class MergedSelectionBuilder {
       switch selection {
       case let .field(field) where field.type.namedType is GraphQLCompositeType:
         let builderForField = enclosingEntityMergedSelectionBuilder(for: field)
-//        builderForField.add(<#T##selections: SortedSelections##SortedSelections#>, forScope: <#T##TypeScope#>)
+        //        builderForField.add(<#T##selections: SortedSelections##SortedSelections#>, forScope: <#T##TypeScope#>)
         let astField = ASTField(field, enclosingEntityMergedSelectionBuilder: builderForField)
         computedSelections.mergeIn(astField)
 
@@ -130,7 +150,7 @@ class MergedSelectionBuilder {
 
       case let .fragmentSpread(fragment):
         func shouldMergeFragmentDirectly() -> Bool {
-          #warning("TODO: Might be able to change this to use TypeScopeDescriptor.matches()?")
+#warning("TODO: Might be able to change this to use TypeScopeDescriptor.matches()?")
           if fragment.type == selectionSet.type { return true }
 
           if let implementingType = selectionSet.type as? GraphQLInterfaceImplementingType,
