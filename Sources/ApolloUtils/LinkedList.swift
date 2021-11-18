@@ -77,6 +77,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     if !isKnownUniquelyReferenced(&headNode) {
       headNode = headNode.copy()
     }
+    
     last.next = node
     headNode.last = node
   }

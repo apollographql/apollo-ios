@@ -1,7 +1,13 @@
+/// Represents a list of string components joined into a path using a reverse linked list.
+///
 /// A response path is stored as a linked list because using an array turned out to be
 /// a performance bottleneck during decoding/execution.
-struct ResponsePath: ExpressibleByArrayLiteral {
-  typealias Key = String
+///
+/// In order to optimize for calculation of a path string, `ResponsePath` does not allow insertion
+/// of components in the middle or at the beginning of the path. Components may only be appended to
+/// the end of an existing path.
+public struct ResponsePath: ExpressibleByArrayLiteral {
+  public typealias Key = String
 
   private final class Node {
     let previous: Node?
@@ -22,39 +28,45 @@ struct ResponsePath: ExpressibleByArrayLiteral {
   }
 
   private var head: Node?
-  var joined: String {
+  public var joined: String {
     return head?.joined ?? ""
   }
 
-  init(arrayLiteral segments: Key...) {
+  public init(arrayLiteral segments: Key...) {
     for segment in segments {
       append(segment)
     }
   }
 
-  mutating func append(_ key: Key) {
+  public mutating func append(_ key: Key) {
     head = Node(previous: head, key: key)
   }
 
-  func appending(_ key: Key) -> ResponsePath {
+  public func appending(_ key: Key) -> ResponsePath {
     var copy = self
     copy.append(key)
     return copy
   }
 
-  static func + (lhs: ResponsePath, rhs: Key) -> ResponsePath {
+  public static func + (lhs: ResponsePath, rhs: Key) -> ResponsePath {
     lhs.appending(rhs)
   }
 }
 
 extension ResponsePath: CustomStringConvertible {
-  var description: String {
+  public var description: String {
     return joined
   }
 }
 
+extension ResponsePath: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(joined)
+  }
+}
+
 extension ResponsePath: Equatable {
-  static func == (lhs: ResponsePath, rhs: ResponsePath) -> Bool {
+  static public func == (lhs: ResponsePath, rhs: ResponsePath) -> Bool {
     return lhs.joined == rhs.joined
   }
 }
