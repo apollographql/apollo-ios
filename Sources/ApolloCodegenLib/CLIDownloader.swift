@@ -6,7 +6,7 @@ import Foundation
 /// Helper for downloading the CLI Zip file so we don't have to include it in the repo.
 struct CLIDownloader {
   /// The URL string for getting the current version of the CLI
-  static let downloadURLString = "https://install.apollographql.com/legacy-cli/darwin/2.33.6"
+  static let downloadURLString = "https://install.apollographql.com/legacy-cli/darwin/2.33.9"
   
   /// Downloads the appropriate Apollo CLI in a zip file.
   ///

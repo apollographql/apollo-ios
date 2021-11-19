@@ -17,10 +17,10 @@ case apolloRegistry(_ settings: ApolloRegistrySettings)
 
 The Apollo Schema Registry, which serves as a central hub for managing your graph.
 
-### `introspection(endpointURL:)`
+### `introspection(endpointURL:httpMethod:)`
 
 ```swift
-case introspection(endpointURL: URL)
+case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST)
 ```
 
 GraphQL Introspection connecting to the specified URL.

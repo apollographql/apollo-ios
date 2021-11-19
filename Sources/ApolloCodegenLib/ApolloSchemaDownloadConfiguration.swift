@@ -9,7 +9,7 @@ public struct ApolloSchemaDownloadConfiguration {
     /// The Apollo Schema Registry, which serves as a central hub for managing your graph.
     case apolloRegistry(_ settings: ApolloRegistrySettings)
     /// GraphQL Introspection connecting to the specified URL.
-    case introspection(endpointURL: URL)
+    case introspection(endpointURL: URL, httpMethod: HTTPMethod = .POST)
 
     public struct ApolloRegistrySettings: Equatable {
       /// The API key to use when retrieving your schema from the Apollo Registry.
@@ -33,11 +33,30 @@ public struct ApolloSchemaDownloadConfiguration {
         self.variant = variant
       }
     }
+
+    /// The HTTP request method. This is an option on Introspection schema downloads only. Apollo Registry downloads are always
+    /// POST requests.
+    public enum HTTPMethod: Equatable, CustomStringConvertible {
+      /// Use POST for HTTP requests. This is the default for GraphQL.
+      case POST
+      /// Use GET for HTTP requests with the GraphQL query being sent in the query string parameter named in
+      /// `queryParameterName`.
+      case GET(queryParameterName: String)
+
+      public var description: String {
+        switch self {
+        case .POST:
+          return "POST"
+        case .GET:
+          return "GET"
+        }
+      }
+    }
     
     public static func == (lhs: DownloadMethod, rhs: DownloadMethod) -> Bool {
       switch (lhs, rhs) {
-      case (.introspection(let lhsURL), introspection(let rhsURL)):
-        return lhsURL == rhsURL
+      case (.introspection(let lhsURL, let lhsHTTPMethod), .introspection(let rhsURL, let rhsHTTPMethod)):
+        return lhsURL == rhsURL && lhsHTTPMethod == rhsHTTPMethod
       case (.apolloRegistry(let lhsSettings), .apolloRegistry(let rhsSettings)):
         return lhsSettings == rhsSettings
       default:

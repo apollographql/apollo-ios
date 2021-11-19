@@ -31,9 +31,9 @@
     "name": "HeroAndFriendsNamesWithFragment",
     "source": "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}\nfragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}"
   },
-  "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc": {
+  "b5f4eca712a136f0d5d9f96203ef7d03cd119d8388f093f4b78ae124acb904cb": {
     "name": "HeroAndFriendsNamesWithFragmentTwice",
-    "source": "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
+    "source": "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      __typename\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
   },
   "22d772c0fc813281705e8f0a55fc70e71eeff6e98f3f9ef96cf67fb896914522": {
     "name": "HeroAppearsIn",
@@ -59,33 +59,33 @@
     "name": "HeroNameConditionalBothSeparate",
     "source": "query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n    name @include(if: $includeName)\n  }\n}"
   },
-  "fcd9d7acb4e7c97e3ae5ad3cbf4e83556626149de589f0c2fce2f8ede31b0d90": {
+  "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c": {
     "name": "HeroDetailsInlineConditionalInclusion",
-    "source": "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ... @include(if: $includeDetails) {\n      name\n      appearsIn\n    }\n  }\n}"
+    "source": "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ... @include(if: $includeDetails) {\n      __typename\n      name\n      appearsIn\n    }\n  }\n}"
   },
-  "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f": {
+  "b0fa7927ff93b4a579c3460fb04d093072d34c8018e41197c7e080aeeec5e19b": {
     "name": "HeroDetailsFragmentConditionalInclusion",
-    "source": "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}"
+    "source": "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    __typename\n    height\n  }\n  ... on Droid {\n    __typename\n    primaryFunction\n  }\n}"
   },
-  "4d465fbc6e3731d011025048502f16278307d73300ea9329a709d7e2b6815e40": {
+  "76aecc75265295818d3990000b17e32d5524ca85a4bc159ae8a3f8ec7ce91cc3": {
     "name": "HeroNameTypeSpecificConditionalInclusion",
-    "source": "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {\n  hero(episode: $episode) {\n    __typename\n    name @include(if: $includeName)\n    ... on Droid {\n      name\n    }\n  }\n}"
+    "source": "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {\n  hero(episode: $episode) {\n    __typename\n    name @include(if: $includeName)\n    ... on Droid {\n      __typename\n      name\n    }\n  }\n}"
   },
-  "9bdfeee789c1d22123402a9c3e3edefeb66799b3436289751be8f47905e3babd": {
+  "8cada231691ff2f5a0a07c54b7332114588f11b947795da345c5b054211fbcfd": {
     "name": "HeroFriendsDetailsConditionalInclusion",
-    "source": "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}"
+    "source": "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        __typename\n        primaryFunction\n      }\n    }\n  }\n}"
   },
-  "501fcb710e5ffeeab2c65b7935fbded394ffea92e7b5dd904d05d5deab6f39c6": {
+  "65381a20574db4b458a0821328252deb0da1a107f9ab77c99fb2467e66a5f12d": {
     "name": "HeroFriendsDetailsUnconditionalAndConditionalInclusion",
-    "source": "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends {\n      __typename\n      name\n    }\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        primaryFunction\n      }\n    }\n  }\n}"
+    "source": "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends {\n      __typename\n      name\n    }\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        __typename\n        primaryFunction\n      }\n    }\n  }\n}"
   },
-  "2b67111fd3a1c6b2ac7d1ef7764e5cefa41d3f4218e1d60cb67c22feafbd43ec": {
+  "207d29944f5822bff08a07db4a55274ea14035bacfe20699da41a47454f1181e": {
     "name": "HeroDetails",
-    "source": "query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      height\n    }\n    ... on Droid {\n      primaryFunction\n    }\n  }\n}"
+    "source": "query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      __typename\n      height\n    }\n    ... on Droid {\n      __typename\n      primaryFunction\n    }\n  }\n}"
   },
-  "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce": {
+  "b55bd9d56d1b5972345412b6adb88ceb64d6086c8051d2588d8ab701f0ee7c2f": {
     "name": "HeroDetailsWithFragment",
-    "source": "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    height\n  }\n  ... on Droid {\n    primaryFunction\n  }\n}"
+    "source": "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    __typename\n    height\n  }\n  ... on Droid {\n    __typename\n    primaryFunction\n  }\n}"
   },
   "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739": {
     "name": "DroidDetailsWithFragment",
@@ -119,21 +119,21 @@
     "name": "HeroNameAndAppearsInWithFragment",
     "source": "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}\nfragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}"
   },
-  "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad": {
+  "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b": {
     "name": "HeroParentTypeDependentField",
-    "source": "query HeroParentTypeDependentField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: FOOT)\n        }\n      }\n    }\n    ... on Droid {\n      friends {\n        __typename\n        name\n        ... on Human {\n          height(unit: METER)\n        }\n      }\n    }\n  }\n}"
+    "source": "query HeroParentTypeDependentField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      __typename\n      friends {\n        __typename\n        name\n        ... on Human {\n          __typename\n          height(unit: FOOT)\n        }\n      }\n    }\n    ... on Droid {\n      __typename\n      friends {\n        __typename\n        name\n        ... on Human {\n          __typename\n          height(unit: METER)\n        }\n      }\n    }\n  }\n}"
   },
-  "b5838c22bac1c5626023dac4412ca9b86bebfe16608991fb632a37c44e12811e": {
+  "eac5a52f9020fc2e9b5dc5facfd6a6295683b8d57ea62ee84254069fcd5e504c": {
     "name": "HeroTypeDependentAliasedField",
-    "source": "query HeroTypeDependentAliasedField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ... on Human {\n      property: homePlanet\n    }\n    ... on Droid {\n      property: primaryFunction\n    }\n  }\n}"
+    "source": "query HeroTypeDependentAliasedField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ... on Human {\n      __typename\n      property: homePlanet\n    }\n    ... on Droid {\n      __typename\n      property: primaryFunction\n    }\n  }\n}"
   },
   "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364": {
     "name": "SameHeroTwice",
     "source": "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}"
   },
-  "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77": {
+  "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a": {
     "name": "Search",
-    "source": "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      id\n      name\n    }\n    ... on Droid {\n      id\n      name\n    }\n    ... on Starship {\n      id\n      name\n    }\n  }\n}"
+    "source": "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      __typename\n      id\n      name\n    }\n    ... on Droid {\n      __typename\n      id\n      name\n    }\n    ... on Starship {\n      __typename\n      id\n      name\n    }\n  }\n}"
   },
   "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a": {
     "name": "Starship",

@@ -4,7 +4,7 @@ import ApolloAPI
 import Foundation
 
 extension Selection.Field {
-  func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
+  public func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
     if let arguments = arguments,
        case let argumentValues = try InputValue.evaluate(arguments, with: variables),
        argumentValues.apollo.isNotEmpty {

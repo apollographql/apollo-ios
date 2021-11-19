@@ -52,7 +52,7 @@ public class WebSocketTransport {
 
   private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
-  private let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
+  let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
 
   fileprivate var reconnected = false
 
