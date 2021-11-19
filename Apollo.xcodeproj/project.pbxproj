@@ -202,7 +202,6 @@
 		DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */; };
 		DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */; };
 		DE223C3327221144004A0148 /* ASTMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2A2721FAD6004A0148 /* ASTMatchers.swift */; };
-		DE223C3527223E2A004A0148 /* SelectionMergable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C3427223E2A004A0148 /* SelectionMergable.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */; };
 		DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2026E807EF0057EA67 /* Cacheable.swift */; };
@@ -840,7 +839,6 @@
 		DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringInterpolation+NestedIndentation.swift"; sourceTree = "<group>"; };
 		DE223C2A2721FAD6004A0148 /* ASTMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMatchers.swift; sourceTree = "<group>"; };
 		DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedSelectionSetHashable.swift; sourceTree = "<group>"; };
-		DE223C3427223E2A004A0148 /* SelectionMergable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionMergable.swift; sourceTree = "<group>"; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTransaction.swift; sourceTree = "<group>"; };
 		DE2FCF2026E807EF0057EA67 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
@@ -1988,7 +1986,6 @@
 				DE09114D27288B1F000648E5 /* SortedSelections.swift */,
 				DE7C183D272A154400727031 /* MergedSelectionBuilder.swift */,
 				DE3484612746FF8F0065B77E /* IROperationBuilder.swift */,
-				DE223C3427223E2A004A0148 /* SelectionMergable.swift */,
 				DE7C183B272A12EB00727031 /* TypeScopeDescriptor.swift */,
 			);
 			path = AST;
@@ -2828,7 +2825,6 @@
 				9F628E9525935BE600F94F9D /* GraphQLType.swift in Sources */,
 				9BFE8DA9265D5D8F000BBF81 /* URLDownloader.swift in Sources */,
 				9F1A966D258F34BB00A06EEB /* CompilationResult.swift in Sources */,
-				DE223C3527223E2A004A0148 /* SelectionMergable.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,

@@ -13,38 +13,21 @@ protocol ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String { get }
 }
 
-extension CompilationResult.Selection: ScopedSelectionSetHashable {
+extension IR.SelectionSet: ScopedSelectionSetHashable {
+#warning("What if there is a field with the same name as a type? Do we get a conflict? Write a test for this.")
   var hashForSelectionSetScope: String {
-    switch self {
-    case let .field(selection as ScopedSelectionSetHashable),
-      let .inlineFragment(selection as ScopedSelectionSetHashable),
-      let .fragmentSpread(selection as ScopedSelectionSetHashable):
-      return selection.hashForSelectionSetScope
-    }
-  }
-}
-
-extension CompilationResult.Field: ScopedSelectionSetHashable {
-  var hashForSelectionSetScope: String {
-    return responseKey
+    parentType.name
   }
 }
 
 extension IR.Field: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
-    underlyingField.hashForSelectionSetScope
+    underlyingField.responseKey
   }
 }
 
-extension CompilationResult.SelectionSet: ScopedSelectionSetHashable {
+extension IR.FragmentSpread: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
-#warning("What if there is a field with the same name as a type? Do we get a conflict? Write a test for this.")
-    return parentType.name
-  }
-}
-
-extension CompilationResult.FragmentDefinition: ScopedSelectionSetHashable {
-  var hashForSelectionSetScope: String {
-    return name
+    definition.name
   }
 }

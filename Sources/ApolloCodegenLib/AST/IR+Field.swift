@@ -5,9 +5,9 @@ extension IR {
   @dynamicMemberLookup
   struct Field: Equatable {
     let underlyingField: CompilationResult.Field
-    let selectionSet: SelectionSet
+    let selectionSet: SelectionSet?
 
-    init(_ field: CompilationResult.Field, selectionSet: SelectionSet) {
+    init(_ field: CompilationResult.Field, selectionSet: SelectionSet?) {
       self.underlyingField = field
       self.selectionSet = selectionSet
     }

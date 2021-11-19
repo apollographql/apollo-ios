@@ -69,16 +69,11 @@ class IR {
   }
 
   class SelectionSet: Equatable {
-    typealias ChildTypeCaseDictionary = OrderedDictionary<GraphQLCompositeType, SelectionSet>
-
-    var entity: Entity
-
+    let entity: Entity
     let parentType: GraphQLCompositeType
     let typeScope: TypeScopeDescriptor
-
     let enclosingEntityScope: LinkedList<TypeScope>
 
-    var childTypeCases: ChildTypeCaseDictionary = [:]
     var selections: SortedSelections = SortedSelections()
 
     static func == (lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
@@ -86,8 +81,25 @@ class IR {
       lhs.parentType == rhs.parentType &&
       lhs.typeScope == rhs.typeScope &&
       lhs.enclosingEntityScope == rhs.enclosingEntityScope &&
-      lhs.childTypeCases == rhs.childTypeCases &&
       lhs.selections == rhs.selections
+    }
+  }
+
+  class FragmentSpread: Equatable {
+    let definition: CompilationResult.FragmentDefinition
+    let selectionSet: SelectionSet
+
+    init(
+      definition: CompilationResult.FragmentDefinition,
+      selectionSet: SelectionSet
+    ) {
+      self.definition = definition
+      self.selectionSet = selectionSet
+    }
+
+    static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
+      lhs.definition == rhs.definition &&
+      lhs.selectionSet == rhs.selectionSet
     }
   }
 }
