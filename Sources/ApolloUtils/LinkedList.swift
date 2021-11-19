@@ -1,13 +1,19 @@
-/// A linked list implementation.
+/// A doubly linked list implementation.
 ///
-/// This implementation utilizes copy on write semantics and is optimized for forward traversal
-/// and appending items (which requires accessing last).
+/// This implementation utilizes copy on write semantics and is optimized for forward and backwards
+/// traversal and appending items (which requires accessing last).
 ///
-/// It is not optimized for backwards traversal or prepending items.
+/// It is not optimized for prepending items.
 public struct LinkedList<T>: ExpressibleByArrayLiteral {
   public class Node {
-    let value: T
-    var next: Node?
+    public let value: T
+    fileprivate(set) weak var previous: Node?
+    fileprivate(set) var next: Node? {
+      didSet {
+        next?.previous = self
+        oldValue?.previous = nil
+      }
+    }
 
     init(value: T) {
       self.value = value
@@ -15,9 +21,9 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
   final class HeadNode: Node {
-    private var lastPointer: Node?
+    fileprivate var lastPointer: Node?
 
-    var last: Node {
+    var last: Node! {
       get {
         lastPointer ?? self
       }
@@ -49,7 +55,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   private var headNode: HeadNode
 
   /// The head (first) node in the list
-  var head: Node { headNode }
+  public var head: Node { headNode }
 
   /// The last node in the list
   public var last: Node { headNode.last }
@@ -78,12 +84,15 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
   }
 
   public mutating func append(_ node: Node) {
+    copyOnWriteIfNeeded()
+    last.next = node
+    headNode.last = node
+  }
+
+  private mutating func copyOnWriteIfNeeded() {
     if !isKnownUniquelyReferenced(&headNode) {
       headNode = headNode.copy()
     }
-    
-    last.next = node
-    headNode.last = node
   }
 
   public func appending(_ value: T) -> LinkedList<T> {
@@ -92,6 +101,27 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     copy.append(value)
     return copy
   }
+
+  public mutating func mutateLast(_ mutate: (T) -> T) {
+    copyOnWriteIfNeeded()
+
+    if let last = headNode.lastPointer {
+      let newLast = Node(value: mutate(last.value))
+      last.previous!.next = newLast
+      headNode.last = newLast
+
+    } else {
+      headNode = HeadNode(value: mutate(headNode.value))
+    }
+  }
+
+  public func mutatingLast(_ mutate: (T) -> T) -> LinkedList<T> {
+    let copiedHead = headNode.copy()
+    var copy = Self.init(head: copiedHead)
+    copy.mutateLast(mutate)
+    return copy
+  }
+
 }
 
 extension LinkedList.Node: Equatable where T: Equatable {

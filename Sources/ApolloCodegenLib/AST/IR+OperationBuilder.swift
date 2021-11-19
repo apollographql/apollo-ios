@@ -25,32 +25,142 @@ extension IR {
     }
 
     private func build() -> Operation {
-      let rootFieldName = operationDefinition.operationType.rawValue
-      let rootFieldPath = ResponsePath(rootFieldName)
-      let rootEntity = Entity(
-        rootType: operationDefinition.rootType,
-        responsePath: rootFieldPath
-      )
-      entitiesForFields[rootFieldPath] = rootEntity
+      let rootEntity = buildRootEntity()
 
       let rootField = CompilationResult.Field(
-        name: rootFieldName,
+        name: operationDefinition.operationType.rawValue,
         type: .nonNull(.entity(operationDefinition.rootType)),
         selectionSet: operationDefinition.selectionSet
       )
-      let irRootField = EntityField(
-        rootField,
-        selectionSet: buildRootSelectionSet(for: rootField, on: rootEntity, enclosedInScope: nil)
+
+      let rootSelectionSet = SelectionSet(
+        entity: rootEntity,
+        parentType: operationDefinition.rootType,
+        typePath: rootEntity.rootTypePath
+      )
+      buildSortedSelections(
+        forSelectionSet: rootSelectionSet,
+        from: operationDefinition.selectionSet.selections
       )
 
+      let irRootField = EntityField(rootField, selectionSet: rootSelectionSet)
+
       return IR.Operation(definition: operationDefinition, rootField: irRootField)
+    }
+
+    private func buildRootEntity() -> Entity {
+      let rootFieldName = operationDefinition.operationType.rawValue
+      let rootFieldPath = ResponsePath(rootFieldName)
+      let rootTypePath = TypeScopeDescriptor.descriptor(
+        forType: operationDefinition.rootType,
+        fieldPath: rootFieldPath,
+        givenAllTypes: compilationResult.referencedTypes
+      )
+
+      let rootEntity = Entity(rootTypePath: LinkedList(rootTypePath))
+      entitiesForFields[rootFieldPath] = rootEntity
+      return rootEntity
+    }
+
+    private func buildSortedSelections(
+      forSelectionSet selectionSet: SelectionSet,
+      from selections: [CompilationResult.Selection]
+    ) {
+      for selection in selections {
+        switch selection {
+        case let .field(field):
+          let irField = buildField(from: field, on: selectionSet)
+          selectionSet.selections.mergeIn(irField)
+
+        case let .inlineFragment(typeCaseSelectionSet):
+          if selectionSet.typeScope.matches(typeCaseSelectionSet.parentType) {
+            buildSortedSelections(
+              forSelectionSet: selectionSet,
+              from: typeCaseSelectionSet.selections
+            )
+
+          } else {
+            let irTypeCase = buildTypeCaseSelectionSet(
+              fromSelectionSet: typeCaseSelectionSet,
+              onParent: selectionSet
+            )
+            selectionSet.selections.mergeIn(irTypeCase)
+          }
+
+        case let .fragmentSpread(fragment):
+          if selectionSet.typeScope.matches(fragment.type) {
+            let irFragmentSpread = buildFragmentSpread(
+              fromFragment: fragment,
+              onParent: selectionSet
+            )
+
+            selectionSet.selections.mergeIn(irFragmentSpread)
+
+          } else {
+            let irTypeCaseEnclosingFragment = buildTypeCaseSelectionSet(
+              fromSelectionSet: CompilationResult.SelectionSet(
+                parentType: fragment.type,
+                selections: [selection]
+              ),
+              onParent: selectionSet
+            )
+
+            selectionSet.selections.mergeIn(irTypeCaseEnclosingFragment)
+          }
+        }
+      }
+
+      selectionSet.entity.mergedSelectionTree.mergeIn(selectionSet: selectionSet)
+    }
+
+    private func buildField(
+      from field: CompilationResult.Field,
+      on selectionSet: SelectionSet
+    ) -> Field {
+      if field.type.namedType is GraphQLCompositeType {
+        let irSelectionSet = buildSelectionSet(forField: field, on: selectionSet)
+        return EntityField(field, selectionSet: irSelectionSet)
+
+      } else {
+        return ScalarField(field)
+      }
+    }
+
+    private func buildSelectionSet(
+      forField field: CompilationResult.Field,
+      on enclosingSelectionSet: SelectionSet
+    ) -> SelectionSet {
+      guard let fieldSelectionSet = field.selectionSet else {
+        fatalError("SelectionSet cannot be created for non-entity type field \(field).")
+      }
+
+      let entity = entity(for: field, on: enclosingSelectionSet.entity)
+
+      let typeScope = TypeScopeDescriptor.descriptor(
+        forType: fieldSelectionSet.parentType,
+        fieldPath: enclosingSelectionSet.entity.responsePath.appending(field.responseKey),
+        givenAllTypes: compilationResult.referencedTypes
+      )
+      let typePath = enclosingSelectionSet.typePath.appending(typeScope)
+
+      let irSelectionSet = SelectionSet(
+        entity: entity,
+        parentType: fieldSelectionSet.parentType,
+        typePath: typePath
+      )
+      buildSortedSelections(forSelectionSet: irSelectionSet, from: fieldSelectionSet.selections)
+      return irSelectionSet
     }
 
     private func entity(
       for field: CompilationResult.Field,
       on enclosingEntity: Entity
     ) -> Entity {
-      let fieldPath = enclosingEntity.responsePath.appending(field.responseKey)
+      let fieldPath = enclosingEntity
+        .rootTypePath
+        .last.value
+        .fieldPath
+        .appending(field.responseKey)
 
       if let entity = entitiesForFields[fieldPath] {
         return entity
@@ -60,106 +170,50 @@ extension IR {
         fatalError("Entity cannot be created for non-entity type field \(field).")
       }
 
-      let entity = Entity(
-        rootType: fieldType,
-        responsePath: fieldPath
+      let typeScopeDescriptor = TypeScopeDescriptor.descriptor(
+        forType: fieldType,
+        fieldPath: fieldPath,
+        givenAllTypes: compilationResult.referencedTypes
       )
+
+      let rootTypePath = enclosingEntity.rootTypePath.appending(typeScopeDescriptor)
+      let entity = Entity(rootTypePath: rootTypePath)
 
       entitiesForFields[fieldPath] = entity
 
       return entity
     }
 
-    private func buildRootSelectionSet(
-      for field: CompilationResult.Field,
-      on enclosingSelectionSet: SelectionSet
+    private func buildTypeCaseSelectionSet(
+      fromSelectionSet selectionSet: CompilationResult.SelectionSet,
+      onParent parentSelectionSet: SelectionSet
     ) -> SelectionSet {
-      guard let fieldSelectionSet = field.selectionSet else {
-        fatalError("SelectionSet cannot be created for non-entity type field \(field).")
+      let typePath = parentSelectionSet.typePath.mutatingLast {
+        $0.appending(selectionSet.parentType)
       }
 
-      let typeScope = TypeScopeDescriptor.descriptor(
-        for: fieldSelectionSet.parentType,
-        givenAllTypes: compilationResult.referencedTypes
-      )
-
-      let entity = entity(for: field, on: enclosingSelectionSet.entity)
-
-      let enclosingEntityScope = enclosingSelectionSet
-        .enclosingEntityScope?
-        .appending(enclosingSelectionSet.typeScope.scope) ??
-      LinkedList(enclosingSelectionSet.typeScope.scope)
-
       let irSelectionSet = SelectionSet(
-        entity: entity,
-        parentType: fieldSelectionSet.parentType,
-        typeScope: typeScope,
-        enclosingEntityScope: enclosingEntityScope
+        entity: parentSelectionSet.entity,
+        parentType: selectionSet.parentType,
+        typePath: typePath
       )
-      computeSortedSelections(for: irSelectionSet, from: fieldSelectionSet.selections)
+      buildSortedSelections(forSelectionSet: irSelectionSet, from: selectionSet.selections)
       return irSelectionSet
     }
 
-    private func computeSortedSelections(
-      for selectionSet: SelectionSet,
-      from selections: [CompilationResult.Selection]
-    ) {
-      for selection in selections {
-        switch selection {
-        case let .field(field) where field.type.namedType is GraphQLCompositeType:
-          let irSelectionSet = buildRootSelectionSet(for: field, on: selectionSet)
-          let irField = EntityField(field, selectionSet: irSelectionSet)
-          selectionSet.selections.mergeIn(irField)
+    private func buildFragmentSpread(
+      fromFragment fragment: CompilationResult.FragmentDefinition,
+      onParent parentSelectionSet: SelectionSet
+    ) -> FragmentSpread {
+      let irSelectionSet = buildTypeCaseSelectionSet(
+        fromSelectionSet: fragment.selectionSet,
+        onParent: parentSelectionSet
+      )
 
-        case let .field(field):
-          let irField = ScalarField(field)
-          selectionSet.selections.mergeIn(irField)
-
-        case let .inlineFragment(typeCaseSelectionSet):
-          if selectionSet.scopeDescriptor.matches(typeCaseSelectionSet.parentType) {
-            computedSelections.mergeIn(typeCaseSelectionSet.selections)
-
-          } else {
-            computedSelections.mergeIn(typeCase: typeCaseSelectionSet)
-            appendOrMergeIntoChildren(typeCaseSelectionSet)
-          }
-
-        case let .fragmentSpread(fragment):
-          func shouldMergeFragmentDirectly() -> Bool {
-#warning("TODO: Might be able to change this to use TypeScopeDescriptor.matches()?")
-            if fragment.type == selectionSet.type { return true }
-
-            if let implementingType = selectionSet.type as? GraphQLInterfaceImplementingType,
-               let fragmentInterface = fragment.type as? GraphQLInterfaceType,
-               implementingType.implements(fragmentInterface) {
-              return true
-            }
-
-            return false
-          }
-
-          if shouldMergeFragmentDirectly() {
-            computedSelections.mergeIn(fragment)
-
-          } else {
-            let typeCaseForFragment = CompilationResult.SelectionSet(
-              parentType: fragment.type,
-              selections: [selection]
-            )
-
-            computedSelections.mergeIn(typeCase: typeCaseForFragment)
-            appendOrMergeIntoChildren(typeCaseForFragment)
-          }
-        }
-      }
-
-      self.add(computedSelections, forScope: selectionSet.scopeDescriptor.scope)
-
-      let children = computedChildSelectionSets.mapValues {
-        SelectionSet(selectionSet: $0, parent: selectionSet)
-      }
-      return (computedSelections, children)
+      return FragmentSpread(
+        definition: fragment,
+        selectionSet: irSelectionSet
+      )
     }
-
   }
 }
