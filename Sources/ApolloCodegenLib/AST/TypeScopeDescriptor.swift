@@ -15,6 +15,13 @@ struct TypeScopeDescriptor: Equatable {
     self.scope = scope
   }
 
+  static func descriptor(
+    for type: GraphQLCompositeType,
+    givenAllTypes allTypes: CompilationResult.ReferencedTypes
+  ) -> TypeScopeDescriptor {
+    TypeScopeDescriptor().appending(type, givenAllTypes: allTypes)
+  }
+
   static func descriptor(for selectionSet: ASTSelectionSet) -> TypeScopeDescriptor {
     let allTypes = selectionSet.compilationResult.referencedTypes
     let parentDescriptor = selectionSet.parent?.scopeDescriptor ?? TypeScopeDescriptor()

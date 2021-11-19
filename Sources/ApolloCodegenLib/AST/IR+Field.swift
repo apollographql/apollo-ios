@@ -3,13 +3,11 @@ import Foundation
 extension IR {
 
   @dynamicMemberLookup
-  struct Field: Equatable {
+  class Field: Equatable {
     let underlyingField: CompilationResult.Field
-    let selectionSet: SelectionSet?
 
-    init(_ field: CompilationResult.Field, selectionSet: SelectionSet?) {
+    fileprivate init(_ field: CompilationResult.Field) {
       self.underlyingField = field
-      self.selectionSet = selectionSet
     }
 
     subscript<V>(dynamicMember keyPath: KeyPath<CompilationResult.Field, V>) -> V {
@@ -17,6 +15,25 @@ extension IR {
     }
 
     static func ==(lhs: Field, rhs: Field) -> Bool {
+      lhs.underlyingField == rhs.underlyingField
+    }
+  }
+
+  final class ScalarField: Field {
+    override init(_ field: CompilationResult.Field) {
+      super.init(field)
+    }
+  }
+
+  final class EntityField: Field {
+    let selectionSet: SelectionSet
+
+    init(_ field: CompilationResult.Field, selectionSet: SelectionSet) {
+      self.selectionSet = selectionSet
+      super.init(field)
+    }
+
+    static func ==(lhs: EntityField, rhs: EntityField) -> Bool {
       lhs.underlyingField == rhs.underlyingField &&
       lhs.selectionSet == rhs.selectionSet
     }

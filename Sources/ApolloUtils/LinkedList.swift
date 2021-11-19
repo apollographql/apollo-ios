@@ -58,6 +58,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     self.headNode = head
   }
 
+  public init(_ headValue: T) {    
+    self.init(head: HeadNode(value: headValue))
+  }
+
   public init(arrayLiteral segments: T...) {
     var segments = segments
     let headNode = HeadNode(value: segments.removeFirst())
@@ -69,11 +73,11 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     }
   }
 
-  mutating func append(_ value: T) {
+  public mutating func append(_ value: T) {
     append(Node(value: value))
   }
 
-  mutating func append(_ node: Node) {
+  public mutating func append(_ node: Node) {
     if !isKnownUniquelyReferenced(&headNode) {
       headNode = headNode.copy()
     }
@@ -82,6 +86,12 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     headNode.last = node
   }
 
+  public func appending(_ value: T) -> LinkedList<T> {
+    let copiedHead = headNode.copy()
+    var copy = Self.init(head: copiedHead)
+    copy.append(value)
+    return copy
+  }
 }
 
 extension LinkedList.Node: Equatable where T: Equatable {

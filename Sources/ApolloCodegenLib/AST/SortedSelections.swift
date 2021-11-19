@@ -83,12 +83,10 @@ extension IR {
 
     mutating func mergeIn(_ field: Field) {
       let keyInScope = field.hashForSelectionSetScope
-
-      if let existingField = fields[keyInScope],
-         let existingSelectionSet = existingField.selectionSet {
-
-        if let selectionSetToMerge = field.selectionSet {
-          existingSelectionSet.selections.mergeIn(selectionSetToMerge.selections)
+ 
+      if let existingField = fields[keyInScope] as? EntityField {
+        if let field = field as? EntityField {
+          existingField.selectionSet.selections.mergeIn(field.selectionSet.selections)
         }
 
       } else {

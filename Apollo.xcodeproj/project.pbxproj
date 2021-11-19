@@ -212,7 +212,7 @@
 		DE2FCF2C26E808560057EA67 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2B26E808560057EA67 /* ObjectType.swift */; };
 		DE2FCF4526E80CF10057EA67 /* GraphQLOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC750601D2A59C300458D91 /* GraphQLOperation.swift */; };
 		DE2FCF4926E94D150057EA67 /* SelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF4826E94D150057EA67 /* SelectionTests.swift */; };
-		DE3484622746FF8F0065B77E /* IROperationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3484612746FF8F0065B77E /* IROperationBuilder.swift */; };
+		DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */; };
 		DE3C7974260A646300D2F4FF /* dist in Resources */ = {isa = PBXBuildFile; fileRef = DE3C7973260A646300D2F4FF /* dist */; };
 		DE3C7A94260A6C1000D2F4FF /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
 		DE3C7A95260A6C1000D2F4FF /* ApolloUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -861,7 +861,7 @@
 		DE2FCF3C26E809BB0057EA67 /* AllAnimalsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.swift; sourceTree = "<group>"; };
 		DE2FCF4626E92EAB0057EA67 /* APIv1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIv1.swift; sourceTree = "<group>"; };
 		DE2FCF4826E94D150057EA67 /* SelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTests.swift; sourceTree = "<group>"; };
-		DE3484612746FF8F0065B77E /* IROperationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IROperationBuilder.swift; sourceTree = "<group>"; };
+		DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+OperationBuilder.swift"; sourceTree = "<group>"; };
 		DE3C7973260A646300D2F4FF /* dist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dist; sourceTree = "<group>"; };
 		DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
 		DE3C79AA260A6ACD00D2F4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1985,7 +1985,7 @@
 				DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */,
 				DE09114D27288B1F000648E5 /* SortedSelections.swift */,
 				DE7C183D272A154400727031 /* MergedSelectionBuilder.swift */,
-				DE3484612746FF8F0065B77E /* IROperationBuilder.swift */,
+				DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */,
 				DE7C183B272A12EB00727031 /* TypeScopeDescriptor.swift */,
 			);
 			path = AST;
@@ -2817,7 +2817,7 @@
 				9F62DFD02590710E00E6E808 /* GraphQLSource.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
 				9F628EB52593651B00F94F9D /* GraphQLValue.swift in Sources */,
-				DE3484622746FF8F0065B77E /* IROperationBuilder.swift in Sources */,
+				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
 				9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */,
 				DE7C183C272A12EB00727031 /* TypeScopeDescriptor.swift in Sources */,
