@@ -7,7 +7,7 @@ import Nimble
 /// A Matcher that matches that the AST `MergedSelections` are equal, but does not check any nested
 /// selection sets of the `fields`, `typeCases`, and `fragments`. This is used for conveniently
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
-public func shallowlyMatch(_ expectedValue: SortedSelections) -> Predicate<SortedSelections> {
+public func shallowlyMatch(_ expectedValue: IR.SortedSelections) -> Predicate<IR.SortedSelections> {
   return Predicate { actual in
     if let actualValue = try actual.evaluate() {
       if expectedValue.fields.count != actualValue.fields.count {
@@ -99,6 +99,10 @@ public func shallowlyMatch(_ expectedValue: SortedSelections) -> Predicate<Sorte
   }
 }
 
+fileprivate func shallowlyMatch(expected: IR.Field, actual: IR.Field) -> Bool {
+  return shallowlyMatch(expected: expected.underlyingField, actual: actual.underlyingField)
+}
+
 fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: CompilationResult.Field) -> Bool {
   return expected.name == actual.name &&
   expected.alias == actual.alias &&
@@ -106,12 +110,13 @@ fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: Compi
   expected.type == actual.type
 }
 
-fileprivate func shallowlyMatch(expected: ASTField, actual: ASTField) -> Bool {
-  return shallowlyMatch(expected: expected.underlyingField, actual: actual.underlyingField)
+fileprivate func shallowlyMatch(expected: IR.SelectionSet, actual: IR.SelectionSet) -> Bool {
+  return expected.parentType == actual.parentType &&
+  expected.typePath == actual.typePath
 }
 
-fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: CompilationResult.SelectionSet) -> Bool {
-  return expected.parentType == actual.parentType
+fileprivate func shallowlyMatch(expected: IR.FragmentSpread, actual: IR.FragmentSpread) -> Bool {
+  return shallowlyMatch(expected: expected.definition, actual: actual.definition)
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
@@ -119,6 +124,8 @@ fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, 
   expected.type == actual.type
 }
 
-public func equal(_ expectedValue: [CompilationResult.Selection]) -> Predicate<SortedSelections> {
-  return equal(SortedSelections(expectedValue))  
+public func equal(_ expectedValue: [CompilationResult.Selection]) -> Predicate<IR.SortedSelections> {
+  #warning("TODO fix")
+  return Predicate { .init(bool: false, message: .fail("TODO")) }
+//  return equal(IR.SortedSelections(expectedValue))
 }

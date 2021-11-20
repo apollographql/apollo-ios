@@ -9,15 +9,26 @@ import ApolloAPI
 class ASTSelectionSetTests: XCTestCase {
 
   var mockCompilationResult: CompilationResult!
+  var operation: CompilationResult.OperationDefinition!
+  var subject: IR.Operation!
 
   override func setUp() {
     super.setUp()
     mockCompilationResult = CompilationResult.mock()
+    operation = CompilationResult.OperationDefinition.mock()
   }
 
   override func tearDown() {
     mockCompilationResult = nil
+    operation = nil
+    subject = nil
     super.tearDown()
+  }
+
+  // MARK: = Helpers
+
+  func buildSubjectOperation() {
+    subject = IR(compilationResult: mockCompilationResult).build(operation: operation)
   }
 
   // MARK: - Children Computation
@@ -28,6 +39,7 @@ class ASTSelectionSetTests: XCTestCase {
   /// query {
   ///  allAnimals {
   ///    ...AnimalDetails
+  ///  }
   /// }
   ///
   /// fragment AnimalDetails on Animal {
@@ -41,15 +53,23 @@ class ASTSelectionSetTests: XCTestCase {
 
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Interface_Animal,
-      selections: [
-        .fragmentSpread(animalDetails),
-      ]
-    ), compilationResult: mockCompilationResult)
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .fragmentSpread(animalDetails),
+          ]
+        )))])
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(subject.children).to(beEmpty())
+    expect(allAnimals?.selections.typeCases).to(beEmpty())
   }
 
   /// Example:
@@ -70,19 +90,27 @@ class ASTSelectionSetTests: XCTestCase {
     
     let birdDetails = CompilationResult.FragmentDefinition.mock("BirdDetails", type: Object_Bird)
 
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Interface_Animal,
-      selections: [
-        .fragmentSpread(birdDetails),
-      ]
-    ), compilationResult: mockCompilationResult)
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .fragmentSpread(birdDetails),
+          ]
+        )))])
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(subject.children.count).to(equal(1))
-    let child = subject.children["Bird"]!
-    expect(child.parent).to(beIdenticalTo(subject))
-    expect(child.type).to(equal(Object_Bird))
-    expect(child.selections).to(equal([.fragmentSpread(birdDetails)]))
+    expect(allAnimals?.selections.typeCases.count).to(equal(1))
+
+    let child = allAnimals?[as: "Bird"]
+    expect(child?.parentType).to(equal(Object_Bird))
+    expect(child?.selections).to(equal([.fragmentSpread(birdDetails)]))
   }
 
   /// Example:
@@ -102,15 +130,23 @@ class ASTSelectionSetTests: XCTestCase {
     let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Object_Bird,
-      selections: [
-        .fragmentSpread(animalDetails),
-      ]
-    ), compilationResult: mockCompilationResult)
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Object_Bird,
+          selections: [
+            .fragmentSpread(animalDetails),
+          ]
+        )))])
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(subject.children).to(beEmpty())
+    expect(allAnimals?.selections.typeCases).to(beEmpty())
   }
 
   /// Example:
@@ -130,15 +166,23 @@ class ASTSelectionSetTests: XCTestCase {
     let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Interface_FlyingAnimal,
-      selections: [
-        .fragmentSpread(animalDetails),
-      ]
-    ), compilationResult: mockCompilationResult)
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_FlyingAnimal,
+          selections: [
+            .fragmentSpread(animalDetails),
+          ]
+        )))])
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(subject.children).to(beEmpty())
+    expect(allAnimals?.selections.typeCases).to(beEmpty())
   }
 
   /// Example:
@@ -158,19 +202,27 @@ class ASTSelectionSetTests: XCTestCase {
     let Object_Rock = GraphQLObjectType.mock("Rock")
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
 
-    let subject = ASTSelectionSet(selectionSet: .mock(
-      parentType: Object_Rock,
-      selections: [
-        .fragmentSpread(animalDetails),
-      ]
-    ), compilationResult: mockCompilationResult)
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Object_Rock,
+          selections: [
+            .fragmentSpread(animalDetails),
+          ]
+        )))])
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(subject.children.count).to(equal(1))
-    let child = subject.children["Animal"]!
-    expect(child.parent).to(beIdenticalTo(subject))
-    expect(child.type).to(equal(Interface_Animal))
-    expect(child.selections).to(equal([.fragmentSpread(animalDetails)]))
+    expect(allAnimals?.selections.typeCases.count).to(equal(1))
+
+    let child = allAnimals?[as: "Animal"]
+    expect(child?.parentType).to(equal(Interface_Animal))
+    expect(child?.selections).to(equal([.fragmentSpread(animalDetails)]))
   }
 
   // MARK: Children Computation - Union Type
@@ -192,41 +244,46 @@ class ASTSelectionSetTests: XCTestCase {
 
     let Field_Species: CompilationResult.Selection = .field(.mock("species"))
 
-    let parent = ASTSelectionSet(selectionSet: .mock(
-      parentType: GraphQLInterfaceType.mock("Animal"),
-      selections: [
-        .inlineFragment(.mock(
-          parentType: Union_ClassroomPet,
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: GraphQLInterfaceType.mock("Animal"),
           selections: [
             .inlineFragment(.mock(
-              parentType: Object_Bird,
-              selections: [Field_Species]
-            ))]
-        )),
-      ]
-    ), compilationResult: mockCompilationResult)
+              parentType: Union_ClassroomPet,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Object_Bird,
+                  selections: [Field_Species]
+                ))]
+            )),
+          ]
+        )))])
 
     // when
-    let onClassroomPet = parent.children["ClassroomPet"]!
-    let onClassroomPet_onBird = onClassroomPet.children["Bird"]!
+    buildSubjectOperation()
+
+    let onClassroomPet = subject[field: "query"]?[field: "allAnimals"]?[as: "ClassroomPet"]
+    let onClassroomPet_onBird = onClassroomPet?[as:"Bird"]
 
     // then
-    expect(onClassroomPet.parent).to(beIdenticalTo(parent))
-    expect(onClassroomPet.type).to(beIdenticalTo(Union_ClassroomPet))
-    expect(onClassroomPet.children.count).to(equal(1))
+    expect(onClassroomPet?.parentType).to(beIdenticalTo(Union_ClassroomPet))
+    expect(onClassroomPet?.selections.typeCases.count).to(equal(1))
 
-    expect(onClassroomPet_onBird.parent).to(beIdenticalTo(onClassroomPet))
-    expect(onClassroomPet_onBird.type).to(beIdenticalTo(Object_Bird))
-    expect(onClassroomPet_onBird.selections).to(equal([Field_Species]))
+    expect(onClassroomPet_onBird?.parentType).to(beIdenticalTo(Object_Bird))
+    expect(onClassroomPet_onBird?.selections).to(equal([Field_Species]))
   }
 
   // MARK: Children - Type Cases
 
   /// Example:
-  /// query { // On A
-  ///   A
-  ///   ... on A {
-  ///     B
+  /// query {
+  ///   aField { // On A
+  ///     A
+  ///     ... on A {
+  ///       B
+  ///     }
   ///   }
   /// }
   ///
@@ -236,32 +293,39 @@ class ASTSelectionSetTests: XCTestCase {
     // given
     let Object_A = GraphQLObjectType.mock("A")
 
-    let selectionSet = CompilationResult.SelectionSet.mock(
-      parentType: Object_A,
-      selections: [
-        .field(.mock("A")),
-        .inlineFragment(.mock(
+    operation = .mock(selections: [
+      .field(.mock(
+        "aField",
+        selectionSet: .mock(
           parentType: Object_A,
           selections: [
-            .field(.mock("B")),
-          ]
-        ))
-      ])
+            .field(.mock("A")),
+            .inlineFragment(.mock(
+              parentType: Object_A,
+              selections: [
+                .field(.mock("B")),
+              ]
+            ))
+          ])))])
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+    buildSubjectOperation()
+
+    let aField = subject[field: "query"]?[field: "aField"]
 
     // then
-    expect(actual.children).to(beEmpty())
+    expect(aField?.selectionSet?.selections.typeCases).to(beEmpty())
   }
 
   /// Example:
   /// type B implements A {}
   ///
-  /// query { // On B
-  ///   A
-  ///   ... on A {
-  ///     B
+  /// query {
+  ///   bField { // On B
+  ///     A
+  ///     ... on A {
+  ///       B
+  ///     }
   ///   }
   /// }
   ///
@@ -272,30 +336,37 @@ class ASTSelectionSetTests: XCTestCase {
     let Interface_A = GraphQLInterfaceType.mock("A")
     let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
 
-    let selectionSet = CompilationResult.SelectionSet.mock(
-      parentType: Object_B,
-      selections: [
-        .field(.mock("A")),
-        .inlineFragment(.mock(
-          parentType: Interface_A,
+    operation = .mock(selections: [
+      .field(.mock(
+        "bField",
+        selectionSet: .mock(
+          parentType: Object_B,
           selections: [
-            .field(.mock("B")),
-          ]
-        ))
-      ])
+            .field(.mock("A")),
+            .inlineFragment(.mock(
+              parentType: Interface_A,
+              selections: [
+                .field(.mock("B")),
+              ]
+            ))
+          ])))])
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+    buildSubjectOperation()
+
+    let bField = subject[field: "query"]?[field: "bField"]
 
     // then
-    expect(actual.children).to(beEmpty())
+    expect(bField?.selectionSet?.selections.typeCases).to(beEmpty())
   }
 
   /// Example:
-  /// query { // On A
-  ///   A
-  ///   ... on B {
-  ///     B
+  /// query {
+  ///   aField { // On A
+  ///     A
+  ///     ... on B {
+  ///       B
+  ///     }
   ///   }
   /// }
   ///
@@ -308,20 +379,25 @@ class ASTSelectionSetTests: XCTestCase {
     let Object_A = GraphQLObjectType.mock("A")
     let Object_B = GraphQLObjectType.mock("B")
 
-    let selectionSet = CompilationResult.SelectionSet.mock(
-      parentType: Object_A,
-      selections: [
-        .field(.mock("A")),
-        .inlineFragment(.mock(
-          parentType: Object_B,
+    operation = .mock(selections: [
+      .field(.mock(
+        "aField",
+        selectionSet: .mock(
+          parentType: Object_A,
           selections: [
-            .field(.mock("B")),
-          ]
-        ))
-      ])
+            .field(.mock("A")),
+            .inlineFragment(.mock(
+              parentType: Object_B,
+              selections: [
+                .field(.mock("B")),
+              ]
+            ))
+          ])))])
 
     // when
-    let actual = ASTSelectionSet(selectionSet: selectionSet, compilationResult: mockCompilationResult)
+    buildSubjectOperation()
+
+    let aField = subject[field: "query"]?[field: "aField"]
 
     let expected: OrderedDictionary<String, ASTSelectionSet> = [
       "B": ASTSelectionSet(
@@ -1185,13 +1261,13 @@ class ASTSelectionSetTests: XCTestCase {
       "FragmentA",
       type: Interface_B,
       selections: [
-        .field(.mock("B", type: .named(GraphQLScalarType.integer()))),
+        .field(.mock("B", type: GraphQLScalarType.integer())),
       ])
     let Fragment_B = CompilationResult.FragmentDefinition.mock(
       "FragmentB",
       type: Interface_B,
       selections: [
-        .field(.mock("C", type: .named(GraphQLScalarType.integer()))),
+        .field(.mock("C", type: GraphQLScalarType.integer())),
       ])
 
     let selectionSet = CompilationResult.SelectionSet.mock(

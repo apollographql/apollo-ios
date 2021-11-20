@@ -15,6 +15,26 @@ public extension CompilationResult.OperationDefinition {
 #warning("TODO: Implement - How does code gen engine compute the used fragments?")
     return mock
   }
+
+  class func mock(
+    type: CompilationResult.OperationType = .query,
+    selections: [CompilationResult.Selection]
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.operationType = type
+    mock.rootType = type.mockRootType()
+    mock.selectionSet = CompilationResult.SelectionSet.mock(
+      parentType: mock.rootType,
+      selections: selections
+    )
+    return mock
+  }
+}
+
+public extension CompilationResult.OperationType {
+  public func mockRootType() -> GraphQLCompositeType {
+    GraphQLObjectType.mock(rawValue.uppercased())
+  }
 }
 
 public extension CompilationResult.SelectionSet {
@@ -36,7 +56,7 @@ public extension CompilationResult.Field {
     _ name: String = "",
     alias: String? = nil,
     arguments: [CompilationResult.Argument]? = nil,
-    type: GraphQLType = .named(GraphQLObjectType.mock("MOCK")),
+    type: GraphQLType = .entity(GraphQLObjectType.mock("MOCK")),
     selectionSet: CompilationResult.SelectionSet = .mock()
   ) -> Self {
     let mock = Self(nil)
@@ -52,15 +72,13 @@ public extension CompilationResult.Field {
     _ name: String = "",
     alias: String? = nil,
     arguments: [CompilationResult.Argument]? = nil,
-    type: GraphQLScalarType,
-    selectionSet: CompilationResult.SelectionSet = .mock()
+    type: GraphQLScalarType
   ) -> Self {
     Self.mock(
       name,
       alias: alias,
       arguments: arguments,
-      type: .named(type),
-      selectionSet: selectionSet
+      type: .scalar(type)
     )
   }
 }

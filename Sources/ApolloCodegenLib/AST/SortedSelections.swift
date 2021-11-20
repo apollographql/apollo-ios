@@ -35,14 +35,6 @@ extension IR {
       mergeIn(fragments)
     }
 
-//    init(_ selections: [Selection]) {
-//      mergeIn(selections)
-//    }
-//
-//    init(_ selections: OrderedDictionary<String, Selection>) {
-//      mergeIn(selections.values.elements)
-//    }
-
     var isEmpty: Bool {
       fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
     }
@@ -54,30 +46,6 @@ extension IR {
       mergeIn(selections.typeCases)
       mergeIn(selections.fragments)
     }
-
-//    mutating func mergeIn<T: Sequence>(_ selections: T) where T.Element == Selection {
-//      for selection in selections {
-//        mergeIn(selection)
-//      }
-//    }
-
-//    mutating func mergeIn(_ selection: Selection) {
-//      switch selection {
-//      case let .field(field): mergeIn(field)
-//      case let .inlineFragment(typeCase): mergeIn(typeCase)
-//      case let .fragmentSpread(fragment): mergeIn(fragment)
-//      }
-//    }
-
-//#warning("TODO: delete CompilationResult.Field merging")
-//    mutating func mergeIn(_ field: CompilationResult.Field) {
-//      mergeIn(ASTField(field))
-//    }
-//
-//#warning("TODO: delete CompilationResult.Field merging")
-//    mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == CompilationResult.Field {
-//      fields.forEach { mergeIn(ASTField($0)) }
-//    }
 
     // MARK: Merge In - Field
 
