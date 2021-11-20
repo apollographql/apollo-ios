@@ -7,8 +7,8 @@
 public struct LinkedList<T>: ExpressibleByArrayLiteral {
   public class Node {
     public let value: T
-    fileprivate(set) weak var previous: Node?
-    fileprivate(set) var next: Node? {
+    public fileprivate(set) weak var previous: Node?
+    public fileprivate(set) var next: Node? {
       didSet {
         next?.previous = self
         oldValue?.previous = nil

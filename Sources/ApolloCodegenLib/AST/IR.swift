@@ -1,4 +1,3 @@
-import Foundation
 import OrderedCollections
 import ApolloUtils
 import ApolloAPI
@@ -36,35 +35,6 @@ class IR {
 
     static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {
       lhs.mergedSelectionTree === rhs.mergedSelectionTree
-    }
-  }
-
-  class MergedSelectionTree {
-    let rootTypePath: LinkedList<TypeScopeDescriptor>
-    var rootNode: EnclosingEntityNode
-
-    init(rootTypePath: LinkedList<TypeScopeDescriptor>) {
-      self.rootTypePath = rootTypePath
-      self.rootNode = EnclosingEntityNode()
-    }
-
-    func mergeIn(selectionSet: SelectionSet) {
-
-    }
-
-    class EnclosingEntityNode {
-      enum Child {
-        case enclosingEntity(EnclosingEntityNode)
-        case fieldScope(FieldScopeNode)
-      }
-
-      var child: Child?
-      var typeCases: [GraphQLCompositeType: EnclosingEntityNode]?
-    }
-
-    class FieldScopeNode {
-      var selections: SortedSelections?
-      var typeCases: [GraphQLCompositeType: FieldScopeNode]?
     }
   }
 
