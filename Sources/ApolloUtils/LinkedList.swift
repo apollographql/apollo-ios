@@ -47,7 +47,7 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
         currentCopy = nextCopy
       }
 
-      copiedHead.lastPointer = currentNode
+      copiedHead.last = currentCopy
       return copiedHead
     }
   }
@@ -147,5 +147,38 @@ extension LinkedList.Node: Hashable where T: Hashable {
 extension LinkedList: Hashable where T: Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(headNode)
+  }
+}
+
+extension LinkedList: Sequence {
+  public typealias Element = T
+
+  public class Iterator: IteratorProtocol {
+    var currentNode: Node?
+
+    init(_ list: LinkedList) {
+      currentNode = list.headNode
+    }
+
+    public func next() -> Element? {
+      let next = currentNode?.next
+      defer { currentNode = next }
+      return next?.value
+    }
+  }
+
+  public func makeIterator() -> Iterator {
+    Iterator(self)
+  }
+}
+
+extension LinkedList: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    var string = "[head]"
+    for value in self {
+      string += " \(value) ->"
+    }
+    string += "[tail]"
+    return string
   }
 }
