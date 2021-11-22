@@ -110,7 +110,7 @@ class ASTSelectionSetTests: XCTestCase {
 
     let child = allAnimals?[as: "Bird"]
     expect(child?.parentType).to(equal(Object_Bird))
-    expect(child?.selections).to(equal([.fragmentSpread(birdDetails)]))
+    expect(child?.selections.fragments).to(shallowlyMatch([birdDetails]))
   }
 
   /// Example:
@@ -204,7 +204,7 @@ class ASTSelectionSetTests: XCTestCase {
 
     operation = .mock(selections: [
       .field(.mock(
-        "allAnimals",
+        "rocks",
         selectionSet: .mock(
           parentType: Object_Rock,
           selections: [
@@ -215,14 +215,15 @@ class ASTSelectionSetTests: XCTestCase {
     // when
     buildSubjectOperation()
 
-    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
+    let rocks = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(allAnimals?.selections.typeCases.count).to(equal(1))
+    expect(rocks?.selections.typeCases.count).to(equal(1))
 
-    let child = allAnimals?[as: "Animal"]
+    let child = rocks?[as: "Animal"]
     expect(child?.parentType).to(equal(Interface_Animal))
-    expect(child?.selections).to(equal([.fragmentSpread(animalDetails)]))
+    expect(child?.selections.fragments.count).to(equal(1))
+    expect(child?.selections.fragments.values[0].definition).to(equal(animalDetails))
   }
 
   // MARK: Children Computation - Union Type
@@ -272,7 +273,7 @@ class ASTSelectionSetTests: XCTestCase {
     expect(onClassroomPet?.selections.typeCases.count).to(equal(1))
 
     expect(onClassroomPet_onBird?.parentType).to(beIdenticalTo(Object_Bird))
-    expect(onClassroomPet_onBird?.selections).to(equal([Field_Species]))
+    expect(onClassroomPet_onBird?.selections.fields).to(shallowlyMatch([Field_Species]))
   }
 
   // MARK: Children - Type Cases

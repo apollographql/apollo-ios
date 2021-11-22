@@ -3,7 +3,7 @@
 /// This implementation utilizes copy on write semantics and is optimized for forward and backwards
 /// traversal and appending items (which requires accessing last).
 ///
-/// It is not optimized for prepending items.
+/// It is not optimized for prepending or insertion of items.
 public struct LinkedList<T>: ExpressibleByArrayLiteral {
   public class Node {
     public let value: T

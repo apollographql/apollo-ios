@@ -4,7 +4,6 @@ import OrderedCollections
 extension IR {
 #warning("TODO: copy on write!!!")
   struct SortedSelections: Equatable, CustomDebugStringConvertible {
-//    typealias Selection = CompilationResult.Selection
     typealias Field = IR.Field
     typealias TypeCase = IR.SelectionSet
     typealias Fragment = IR.FragmentSpread
