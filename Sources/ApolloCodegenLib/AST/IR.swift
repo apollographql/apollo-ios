@@ -46,6 +46,9 @@ class IR {
 
     var selections: SortedSelections = SortedSelections()
 
+    lazy var mergedSelections: SortedSelections = entity.mergedSelectionTree
+      .mergedSelections(forSelectionSet: self)
+
     init(
       entity: Entity,
       parentType: GraphQLCompositeType,

@@ -55,6 +55,10 @@ extension IR {
       }
     }
 
+    func mergedSelections(forSelectionSet selectionSet: SelectionSet) -> SortedSelections {
+      return SortedSelections()
+    }
+
     class EnclosingEntityNode {
       enum Child {
         case enclosingEntity(EnclosingEntityNode)

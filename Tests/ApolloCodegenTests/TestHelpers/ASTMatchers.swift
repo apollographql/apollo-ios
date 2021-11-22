@@ -8,7 +8,11 @@ import OrderedCollections
 /// A Matcher that matches that the AST `MergedSelections` are equal, but does not check any nested
 /// selection sets of the `fields`, `typeCases`, and `fragments`. This is used for conveniently
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
-public func shallowlyMatch(_ expectedValue: IR.SortedSelections) -> Predicate<IR.SortedSelections> {
+public func shallowlyMatch(
+  _ expectedValue: (fields: [CompilationResult.Field],
+                    typeCases: [CompilationResult.SelectionSet],
+                    fragments: [CompilationResult.FragmentDefinition])
+) -> Predicate<IR.SortedSelections> {
   return Predicate { actual in
     if let actualValue = try actual.evaluate() {
       if expectedValue.fields.count != actualValue.fields.count {
@@ -36,7 +40,7 @@ public func shallowlyMatch(_ expectedValue: IR.SortedSelections) -> Predicate<IR
       }
 
       for field in zip(expectedValue.fields, actualValue.fields) {
-        guard field.0.key == field.1.key else {
+        guard field.0.responseKey == field.1.key else {
           return PredicateResult(
             status: .fail,
             message: .expectedCustomValueTo("have fields equal to " + expectedValue.fields.debugDescription,
@@ -44,16 +48,16 @@ public func shallowlyMatch(_ expectedValue: IR.SortedSelections) -> Predicate<IR
           )
         }
 
-        guard shallowlyMatch(expected: field.0.value, actual: field.1.value) else {
+        guard shallowlyMatch(expected: field.0, actual: field.1.value) else {
           return PredicateResult(
             status: .fail,
-            message: .fail("Expected fields[\(field.0.key)] to equal \(field.0.value), got \(field.1.value).")
+            message: .fail("Expected fields[\(field.1.key)] to equal \(field.0), got \(field.1.value).")
           )
         }
       }
 
       for typeCase in zip(expectedValue.typeCases, actualValue.typeCases) {
-        guard typeCase.0.key == typeCase.1.key else {
+        guard typeCase.0.parentType.name == typeCase.1.key else {
           return PredicateResult(
             status: .fail,
             message: .expectedCustomValueTo("have type cases equal to " + expectedValue.typeCases.debugDescription,
@@ -61,16 +65,16 @@ public func shallowlyMatch(_ expectedValue: IR.SortedSelections) -> Predicate<IR
           )
         }
 
-        guard shallowlyMatch(expected: typeCase.0.value, actual: typeCase.1.value) else {
+        guard shallowlyMatch(expected: typeCase.0, actual: typeCase.1.value) else {
           return PredicateResult(
             status: .fail,
-            message: .fail("Expected typeCases[\(typeCase.0.key)] to equal \(typeCase.0.value), got \(typeCase.1.value).")
+            message: .fail("Expected typeCases[\(typeCase.1.key)] to equal \(typeCase.0), got \(typeCase.1.value).")
           )
         }
       }
 
       for fragment in zip(expectedValue.fragments, actualValue.fragments) {
-        guard fragment.0.key == fragment.1.key else {
+        guard fragment.0.name == fragment.1.key else {
           return PredicateResult(
             status: .fail,
             message: .expectedCustomValueTo("have fragments equal to " + expectedValue.fragments.debugDescription,
@@ -78,10 +82,10 @@ public func shallowlyMatch(_ expectedValue: IR.SortedSelections) -> Predicate<IR
           )
         }
 
-        guard shallowlyMatch(expected: fragment.0.value, actual: fragment.1.value) else {
+        guard shallowlyMatch(expected: fragment.0, actual: fragment.1.value) else {
           return PredicateResult(
             status: .fail,
-            message: .fail("Expected fragments[\(fragment.0.key)] to equal \(fragment.0.value), got \(fragment.1.value).")
+            message: .fail("Expected fragments[\(fragment.1.key)] to equal \(fragment.0), got \(fragment.1.value).")
           )
         }
       }
