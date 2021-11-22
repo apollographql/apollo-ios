@@ -66,7 +66,7 @@ extension IR.Field {
 
   public var selectionSet: IR.SelectionSet? {
     guard let entityField = self as? IR.EntityField else { return nil }
-    return entityField.selectionSet
+    return entityField.selectionSet as IR.SelectionSet
   }
 }
 

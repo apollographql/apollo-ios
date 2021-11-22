@@ -63,9 +63,11 @@ struct TypeScopeDescriptor: Equatable {
   }
 
   func appending(_ newType: GraphQLCompositeType) -> TypeScopeDescriptor {
-    let scope = Self.typeScope(addingType: type, to: self.scope, givenAllTypes: self.allTypes)
+    let scope = Self.typeScope(addingType: newType,
+                               to: self.scope,
+                               givenAllTypes: self.allTypes)
     return TypeScopeDescriptor(
-      type: type,
+      type: newType,
       fieldPath: fieldPath,
       scope: scope,
       allTypes: self.allTypes
