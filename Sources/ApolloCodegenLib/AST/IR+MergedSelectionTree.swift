@@ -68,14 +68,14 @@ extension IR {
 
       // Advance to next type case in current entity
       let nextTypeForCurrentEntity = nextTypePathForCurrentEntity.value
-      let nextNodeForCurrrentEntity = currentNodeType != nextTypeForCurrentEntity
+      let nextNodeForCurrentEntity = currentNodeType != nextTypeForCurrentEntity
       ? node.typeCaseNode(forType: nextTypeForCurrentEntity) : node
 
       mergeIn(
         selections: selections,
         atEnclosingEntityScope: currentEntityScope,
         withEntityTypePath: nextTypePathForCurrentEntity,
-        to: nextNodeForCurrrentEntity,
+        to: nextNodeForCurrentEntity,
         ofType: nextTypeForCurrentEntity,
         withRootTypePath: currentNodeRootTypePath
       )
