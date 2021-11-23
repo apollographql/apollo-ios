@@ -1739,7 +1739,7 @@ class IROperationBuilderTests: XCTestCase {
     expect(asPet).to(shallowlyMatch(asPetExpected))
   }
 
-  // MARK: - Merged Selections - Uncle (Parent's Sibling)
+  // MARK: - Merged Selections - Parent's Sibling
 
   /// Example:
   /// query {
@@ -1804,529 +1804,534 @@ class IROperationBuilderTests: XCTestCase {
     expect(onWarmBlooded_onPet_actual).to(shallowlyMatch(onWarmBlooded_onPet_expected))
     expect(onPet_actual).to(shallowlyMatch(onPet_expected))
   }
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on WarmBlooded {
-//  ///      ... on Bird {
-//  ///        wingspan
-//  ///      }
-//  ///    }
-//  ///    ... on Pet { // Bird Implements Pet
-//  ///      species
-//  ///    }
-//  /// }
-//  /// Expected:
-//  /// Bird mergedSelections: [wingspan, species]
-//  /// Pet mergedSelections: [species]
-//  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() {
-//    // given
-//    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-//    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-//                                                          interfaces: [Interface_Animal])
-//    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-//                                                  interfaces: [Interface_Animal])
-//    let Object_Bird = GraphQLObjectType.mock("Bird",
-//                                             interfaces: [
-//                                              Interface_Animal,
-//                                              Interface_Pet,
-//                                              Interface_WarmBlooded])
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: Interface_Animal,
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Interface_WarmBlooded,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Object_Bird,
-//              selections: [.field(.mock("wingspan"))]
-//            )),
-//          ]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Interface_Pet,
-//          selections: [.field(.mock("species"))]
-//        )),
-//      ]
-//    )))])
-//
-//    let onWarmBlooded_onBird_expected = [
-//      CompilationResult.Selection.field(.mock("wingspan")),
-//      CompilationResult.Selection.field(.mock("species"))
-//    ]
-//
-//    let onPet_expected = [
-//      CompilationResult.Selection.field(.mock("species"))
-//    ]
-//
-//    // when
-//    let onWarmBlooded_onBird_actual = parent
-//      .children["WarmBlooded"]!
-//      .children["Bird"]!
-//      .mergedSelections
-//
-//    let onPet_actual = parent
-//      .children["Pet"]!
-//      .mergedSelections
-//
-//    // then
-//    expect(onWarmBlooded_onBird_actual).to(equal(onWarmBlooded_onBird_expected))
-//    expect(onPet_actual).to(equal(onPet_expected))
-//  }
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on WarmBlooded {
-//  ///      ... on Bird {
-//  ///        wingspan
-//  ///      }
-//  ///    }
-//  ///    ... on Pet { // Bird Does Not Implement Pet
-//  ///      species
-//  ///    }
-//  /// }
-//  /// Expected:
-//  /// Bird mergedSelections: [wingspan]
-//  /// Pet mergedSelections: [species]
-//  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergeUncleSelections() {
-//    // given
-//    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-//    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-//                                                          interfaces: [Interface_Animal])
-//    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-//                                                  interfaces: [Interface_Animal])
-//    let Object_Bird = GraphQLObjectType.mock("Bird",
-//                                             interfaces: [
-//                                              Interface_Animal,
-//                                              Interface_WarmBlooded])
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: Interface_Animal,
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Interface_WarmBlooded,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Object_Bird,
-//              selections: [.field(.mock("wingspan"))]
-//            )),
-//          ]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Interface_Pet,
-//          selections: [.field(.mock("species"))]
-//        )),
-//      ]
-//    )))])
-//
-//    let onWarmBlooded_onBird_expected = [
-//      CompilationResult.Selection.field(.mock("wingspan")),
-//    ]
-//
-//    let onPet_expected = [
-//      CompilationResult.Selection.field(.mock("species"))
-//    ]
-//
-//    // when
-//    let onWarmBlooded_onBird_actual = parent
-//      .children["WarmBlooded"]!
-//      .children["Bird"]!
-//      .mergedSelections
-//
-//    let onPet_actual = parent
-//      .children["Pet"]!
-//      .mergedSelections
-//
-//    // then
-//    expect(onWarmBlooded_onBird_actual).to(equal(onWarmBlooded_onBird_expected))
-//    expect(onPet_actual).to(equal(onPet_expected))
-//  }
-//
-//  // MARK: Merged Selections - Uncle - Object Type <-> Object in Union Type
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on Bird {
-//  ///      wingspan
-//  ///    }
-//  ///    ... on ClassroomPet {
-//  ///      ... on Bird {
-//  ///        species
-//  ///      }
-//  ///    }
-//  ///   }
-//  /// }
-//  /// Expected:
-//  /// Both selection sets should have mergedSelections [wingspan, species]
-//  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfSameObjectType_mergesSiblingChildSelectionsInBothDirections() {
-//    // given
-//    let Object_Bird = GraphQLObjectType.mock("Bird")
-//    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
-//
-//    let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
-//    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
-//
-//    mockCompilationResult.referencedTypes = .init([Object_Bird, Union_ClassroomPet])
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: GraphQLInterfaceType.mock("Animal"),
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Object_Bird,
-//          selections: [Field_Wingspan]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Union_ClassroomPet,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Object_Bird,
-//              selections: [Field_Species]
-//            ))]
-//        )),
-//      ]
-//    )))])
-//
-//    let onBird = parent.children["Bird"]!
-//    let onClassroomPet = parent.children["ClassroomPet"]!
-//    let onClassroomPet_onBird = onClassroomPet.children["Bird"]!
-//
-//    let onBirdExpected = [
-//      Field_Wingspan,
-//      Field_Species
-//    ]
-//
-//    let onClassroomPet_onBirdExpected = [
-//      Field_Species,
-//      Field_Wingspan
-//    ]
-//
-//    // when
-//    let onBirdActual = onBird.mergedSelections
-//    let onClassroomPet_onBirdActual = onClassroomPet_onBird.mergedSelections
-//
-//    // then
-//    expect(onBirdActual).to(shallowlyMatch(onBirdExpected)))
-//    expect(onClassroomPet_onBirdActual).to(shallowlyMatch(onClassroomPet_onBirdExpected)))
-//  }
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on Bird {
-//  ///      wingspan
-//  ///    }
-//  ///    ... on ClassroomPet {
-//  ///      ... on Cat {
-//  ///        species
-//  ///      }
-//  ///    }
-//  ///   }
-//  /// }
-//  /// Expected:
-//  /// Bird mergedSelections: [wingspan]
-//  /// ClassroomPet.Cat mergedSelections: [species]
-//  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfDifferentObjectType_doesNotMergeSiblingChildSelectionsInEitherDirection() {
-//    // given
-//    let Object_Bird = GraphQLObjectType.mock("Bird")
-//    let Object_Cat = GraphQLObjectType.mock("Cat")
-//    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet",
-//                                                   types: [Object_Bird, Object_Cat])
-//
-//    let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
-//    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: GraphQLInterfaceType.mock("Animal"),
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Object_Bird,
-//          selections: [Field_Wingspan]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Union_ClassroomPet,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Object_Cat,
-//              selections: [Field_Species]
-//            ))]
-//        )),
-//      ]
-//    )))])
-//
-//    let onBird = parent.children["Bird"]!
-//    let onClassroomPet = parent.children["ClassroomPet"]!
-//    let onClassroomPet_onCat = onClassroomPet.children["Cat"]!
-//
-//    let onBirdExpected = [
-//      Field_Wingspan
-//    ]
-//
-//    let onClassroomPet_onCatExpected = [
-//      Field_Species
-//    ]
-//
-//    // when
-//    let onBirdActual = onBird.mergedSelections
-//    let onClassroomPet_onCatActual = onClassroomPet_onCat.mergedSelections
-//
-//    // then
-//    expect(onBirdActual).to(shallowlyMatch(onBirdExpected)))
-//    expect(onClassroomPet_onCatActual).to(shallowlyMatch(onClassroomPet_onCatExpected)))
-//  }
-//
-//  // MARK: Merged Selections - Uncle - Interface in Union Type
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on WarmBlooded {
-//  ///      bodyTemperature
-//  ///    }
-//  ///    ... on ClassroomPet {
-//  ///      ... on WarmBlooded {
-//  ///        species
-//  ///      }
-//  ///    }
-//  ///   }
-//  /// }
-//  /// Expected:
-//  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
-//  /// AllAnimal.AsClassroomPet.AsWarmBlooded mergedSelections: [species, bodyTemperature]
-//  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() {
-//    // given
-//    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-//    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-//                                                          interfaces: [Interface_Animal])
-//    let Object_Bird = GraphQLObjectType.mock("Bird",
-//                                             interfaces: [
-//                                              Interface_Animal,
-//                                              Interface_WarmBlooded])
-//    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
-//
-//    mockCompilationResult.referencedTypes = .init([
-//      Interface_Animal, Interface_WarmBlooded, Object_Bird, Union_ClassroomPet])
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: Interface_Animal,
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Interface_WarmBlooded,
-//          selections: [.field(.mock("bodyTemperature"))]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Union_ClassroomPet,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Interface_WarmBlooded,
-//              selections: [.field(.mock("species"))]
-//            )),
-//          ]
-//        )),
-//      ]
-//    )))])
-//
-//    let asWarmBlooded_expected = [
-//      CompilationResult.Selection.field(.mock("bodyTemperature")),
-//    ]
-//
-//    let asClassroomPet_asWarmBlooded_expected = [
-//      CompilationResult.Selection.field(.mock("species")),
-//      CompilationResult.Selection.field(.mock("bodyTemperature")),
-//    ]
-//
-//    // when
-//    let asWarmBlooded_actual = parent
-//      .children["WarmBlooded"]!
-//      .mergedSelections
-//
-//    let asClassroomPet_asWarmBlooded_actual = parent
-//      .children["ClassroomPet"]!
-//      .children["WarmBlooded"]!
-//      .mergedSelections
-//
-//    // then
-//    expect(asWarmBlooded_actual).to(equal(asWarmBlooded_expected))
-//    expect(asClassroomPet_asWarmBlooded_actual).to(equal(asClassroomPet_asWarmBlooded_expected))
-//  }
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on Pet {
-//  ///      humanName
-//  ///    }
-//  ///    ... on ClassroomPet {
-//  ///      ... on WarmBloodedPet { // WarmBloodedPet implements Pet
-//  ///        species
-//  ///      }
-//  ///    }
-//  ///   }
-//  /// }
-//  /// Expected:
-//  /// AllAnimal.AsPet mergedSelections: [humanName]
-//  /// AllAnimal.AsClassroomPet.AsWarmBloodedPet mergedSelections: [species, humanName]
-//  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsChildMatchingInterfaceType_mergesUncleSelections() {
-//    // given
-//    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-//    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-//                                                  interfaces: [Interface_Animal])
-//    let Interface_WarmBloodedPet = GraphQLInterfaceType.mock("WarmBloodedPet",
-//                                                             interfaces: [
-//                                                              Interface_Animal,
-//                                                              Interface_Pet])
-//    let Object_Bird = GraphQLObjectType.mock("Bird",
-//                                             interfaces: [
-//                                              Interface_Animal,
-//                                              Interface_Pet,
-//                                              Interface_WarmBloodedPet])
-//    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
-//
-//    mockCompilationResult.referencedTypes = .init([
-//      Interface_Animal, Interface_Pet, Interface_WarmBloodedPet, Object_Bird, Union_ClassroomPet])
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: Interface_Animal,
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Interface_Pet,
-//          selections: [.field(.mock("humanName"))]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Union_ClassroomPet,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Interface_WarmBloodedPet,
-//              selections: [.field(.mock("species"))]
-//            )),
-//          ]
-//        )),
-//      ]
-//    )))])
-//
-//    /// AllAnimal.AsPet mergedSelections: [humanName]
-//    /// AllAnimal.AsClassroomPet.AsWarmBloodedPet mergedSelections: [species, humanName]
-//    let asPet_expected = [
-//      CompilationResult.Selection.field(.mock("humanName")),
-//    ]
-//
-//    let asClassroomPet_asWarmBloodedPet_expected = [
-//      CompilationResult.Selection.field(.mock("species")),
-//      CompilationResult.Selection.field(.mock("humanName")),
-//    ]
-//
-//    // when
-//    let asPet_actual = parent
-//      .children["Pet"]!
-//      .mergedSelections
-//
-//    let asClassroomPet_asWarmBloodedPet_actual = parent
-//      .children["ClassroomPet"]!
-//      .children["WarmBloodedPet"]!
-//      .mergedSelections
-//
-//    // then
-//    expect(asPet_actual).to(equal(asPet_expected))
-//    expect(asClassroomPet_asWarmBloodedPet_actual).to(equal(asClassroomPet_asWarmBloodedPet_expected))
-//  }
-//
-//  /// Example:
-//  /// query {
-//  ///  allAnimals {
-//  ///    ... on WarmBlooded {
-//  ///      bodyTemperature
-//  ///    }
-//  ///    ... on ClassroomPet {
-//  ///      ... on Pet {
-//  ///        species
-//  ///      }
-//  ///    }
-//  ///   }
-//  /// }
-//  /// Expected:
-//  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
-//  /// AllAnimal.AsClassroomPet.AsPet mergedSelections: [species]
-//  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergesUncleSelections() {
-//    // given
-//    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-//    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-//                                                  interfaces: [Interface_Animal])
-//    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-//                                                          interfaces: [Interface_Animal])
-//    let Object_Bird = GraphQLObjectType.mock("Bird",
-//                                             interfaces: [
-//                                              Interface_Animal,
-//                                              Interface_WarmBlooded])
-//    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
-//
-//    mockCompilationResult.referencedTypes = .init([
-//      Interface_Animal, Interface_Pet, Interface_WarmBlooded, Object_Bird, Union_ClassroomPet])
-//
-//    operation = .mock(selections: [
-//      .field(.mock(
-//        "allAnimals",
-//        selectionSet: .mock(
-//      parentType: Interface_Animal,
-//      selections: [
-//        .inlineFragment(.mock(
-//          parentType: Interface_WarmBlooded,
-//          selections: [.field(.mock("bodyTemperature"))]
-//        )),
-//        .inlineFragment(.mock(
-//          parentType: Union_ClassroomPet,
-//          selections: [
-//            .inlineFragment(.mock(
-//              parentType: Interface_Pet,
-//              selections: [.field(.mock("species"))]
-//            )),
-//          ]
-//        )),
-//      ]
-//    )))])
-//
-//    let asWarmBlooded_expected = [
-//      CompilationResult.Selection.field(.mock("bodyTemperature")),
-//    ]
-//
-//    let asClassroomPet_asPet_expected = [
-//      CompilationResult.Selection.field(.mock("species")),
-//    ]
-//
-//    // when
-//    let asWarmBlooded_actual = parent
-//      .children["WarmBlooded"]!
-//      .mergedSelections
-//
-//    let asClassroomPet_asPet_actual = parent
-//      .children["ClassroomPet"]!
-//      .children["Pet"]!
-//      .mergedSelections
-//
-//    // then
-//    expect(asWarmBlooded_actual).to(equal(asWarmBlooded_expected))
-//    expect(asClassroomPet_asPet_actual).to(equal(asClassroomPet_asPet_expected))
-//  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      ... on Bird {
+  ///        wingspan
+  ///      }
+  ///    }
+  ///    ... on Pet { // Bird Implements Pet
+  ///      species
+  ///    }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan, species]
+  /// Pet mergedSelections: [species]
+  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
+                                                          interfaces: [Interface_Animal])
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
+                                                  interfaces: [Interface_Animal])
+    let Object_Bird = GraphQLObjectType.mock("Bird",
+                                             interfaces: [
+                                              Interface_Animal,
+                                              Interface_Pet,
+                                              Interface_WarmBlooded])
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Interface_WarmBlooded,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Object_Bird,
+                  selections: [.field(.mock("wingspan"))]
+                )),
+              ]
+            )),
+            .inlineFragment(.mock(
+              parentType: Interface_Pet,
+              selections: [.field(.mock("species"))]
+            )),
+          ]
+        )))])
+
+    let onWarmBlooded_onBird_expected = [
+      CompilationResult.Selection.field(.mock("wingspan")),
+      CompilationResult.Selection.field(.mock("species"))
+    ]
+
+    let onPet_expected = [
+      CompilationResult.Selection.field(.mock("species"))
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asWarmBlooded_asBird_actual = allAnimals?[as: "WarmBlooded"]?[as: "Bird"]?
+      .mergedSelections
+
+    let asPet_actual = allAnimals?[as: "Pet"]?
+      .mergedSelections
+
+    // then
+    expect(asWarmBlooded_asBird_actual).to(shallowlyMatch(onWarmBlooded_onBird_expected))
+    expect(asPet_actual).to(shallowlyMatch(onPet_expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      ... on Bird {
+  ///        wingspan
+  ///      }
+  ///    }
+  ///    ... on Pet { // Bird Does Not Implement Pet
+  ///      species
+  ///    }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan]
+  /// Pet mergedSelections: [species]
+  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergeUncleSelections() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
+                                                          interfaces: [Interface_Animal])
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
+                                                  interfaces: [Interface_Animal])
+    let Object_Bird = GraphQLObjectType.mock("Bird",
+                                             interfaces: [
+                                              Interface_Animal,
+                                              Interface_WarmBlooded])
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Interface_WarmBlooded,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Object_Bird,
+                  selections: [.field(.mock("wingspan"))]
+                )),
+              ]
+            )),
+            .inlineFragment(.mock(
+              parentType: Interface_Pet,
+              selections: [.field(.mock("species"))]
+            )),
+          ]
+        )))])
+
+    let asWarmBlooded_asBird_expected = [
+      CompilationResult.Selection.field(.mock("wingspan")),
+    ]
+
+    let asPet_expected = [
+      CompilationResult.Selection.field(.mock("species"))
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asWarmBlooded_asBird_actual = allAnimals?[as: "WarmBlooded"]?[as: "Bird"]?
+      .mergedSelections
+
+    let asPet_actual = allAnimals?[as: "Pet"]?
+      .mergedSelections
+
+    // then
+    expect(asWarmBlooded_asBird_actual).to(shallowlyMatch(asWarmBlooded_asBird_expected))
+    expect(asPet_actual).to(shallowlyMatch(asPet_expected))
+  }
+
+  // MARK: Merged Selections - Parent's Sibling - Object Type <-> Object in Union Type
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on Bird {
+  ///      wingspan
+  ///    }
+  ///    ... on ClassroomPet {
+  ///      ... on Bird {
+  ///        species
+  ///      }
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// Both selection sets should have mergedSelections [wingspan, species]
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfSameObjectType_mergesSiblingChildSelectionsInBothDirections() {
+    // given
+    let Object_Bird = GraphQLObjectType.mock("Bird")
+    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
+
+    let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
+    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
+
+    mockCompilationResult.referencedTypes = .init([Object_Bird, Union_ClassroomPet])
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: GraphQLInterfaceType.mock("Animal"),
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Object_Bird,
+              selections: [Field_Wingspan]
+            )),
+            .inlineFragment(.mock(
+              parentType: Union_ClassroomPet,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Object_Bird,
+                  selections: [Field_Species]
+                ))]
+            )),
+          ]
+        )))])
+
+    let asBirdExpected = [
+      Field_Wingspan,
+      Field_Species
+    ]
+
+    let asClassroomPet_asBirdExpected = [
+      Field_Species,
+      Field_Wingspan
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asBirdActual = allAnimals?[as: "Bird"]?.mergedSelections
+    let asClassroomPet_asBirdActual = allAnimals?[as: "ClassroomPet"]?[as: "Bird"]?
+      .mergedSelections
+
+    // then
+    expect(asBirdActual).to(shallowlyMatch(asBirdExpected))
+    expect(asClassroomPet_asBirdActual).to(shallowlyMatch(asClassroomPet_asBirdExpected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on Bird {
+  ///      wingspan
+  ///    }
+  ///    ... on ClassroomPet {
+  ///      ... on Cat {
+  ///        species
+  ///      }
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// Bird mergedSelections: [wingspan]
+  /// ClassroomPet.Cat mergedSelections: [species]
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfDifferentObjectType_doesNotMergeSiblingChildSelectionsInEitherDirection() {
+    // given
+    let Object_Bird = GraphQLObjectType.mock("Bird")
+    let Object_Cat = GraphQLObjectType.mock("Cat")
+    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet",
+                                                   types: [Object_Bird, Object_Cat])
+
+    let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
+    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: GraphQLInterfaceType.mock("Animal"),
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Object_Bird,
+              selections: [Field_Wingspan]
+            )),
+            .inlineFragment(.mock(
+              parentType: Union_ClassroomPet,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Object_Cat,
+                  selections: [Field_Species]
+                ))]
+            )),
+          ]
+        )))])
+
+    let asBirdExpected = [
+      Field_Wingspan
+    ]
+
+    let asClassroomPet_asCatExpected = [
+      Field_Species
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asBirdActual = allAnimals?[as: "Bird"]?.mergedSelections
+    let asClassroomPet_asCatActual = allAnimals?[as: "ClassroomPet"]?[as: "Cat"]?
+      .mergedSelections
+
+    // then
+    expect(asBirdActual).to(shallowlyMatch(asBirdExpected))
+    expect(asClassroomPet_asCatActual).to(shallowlyMatch(asClassroomPet_asCatExpected))
+  }
+
+  // MARK: Merged Selections - Parent's Sibling - Interface in Union Type
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      bodyTemperature
+  ///    }
+  ///    ... on ClassroomPet {
+  ///      ... on WarmBlooded {
+  ///        species
+  ///      }
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
+  /// AllAnimal.AsClassroomPet.AsWarmBlooded mergedSelections: [species, bodyTemperature]
+  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
+                                                          interfaces: [Interface_Animal])
+    let Object_Bird = GraphQLObjectType.mock("Bird",
+                                             interfaces: [
+                                              Interface_Animal,
+                                              Interface_WarmBlooded])
+    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
+
+    mockCompilationResult.referencedTypes = .init([
+      Interface_Animal, Interface_WarmBlooded, Object_Bird, Union_ClassroomPet])
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Interface_WarmBlooded,
+              selections: [.field(.mock("bodyTemperature"))]
+            )),
+            .inlineFragment(.mock(
+              parentType: Union_ClassroomPet,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Interface_WarmBlooded,
+                  selections: [.field(.mock("species"))]
+                )),
+              ]
+            )),
+          ]
+        )))])
+
+    let asWarmBlooded_expected = [
+      CompilationResult.Selection.field(.mock("bodyTemperature")),
+    ]
+
+    let asClassroomPet_asWarmBlooded_expected = [
+      CompilationResult.Selection.field(.mock("species")),
+      CompilationResult.Selection.field(.mock("bodyTemperature")),
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asWarmBlooded_actual = allAnimals?[as: "WarmBlooded"]!
+      .mergedSelections
+
+    let asClassroomPet_asWarmBlooded_actual = allAnimals?[as: "ClassroomPet"]?[as: "WarmBlooded"]?
+      .mergedSelections
+
+    // then
+    expect(asWarmBlooded_actual).to(shallowlyMatch(asWarmBlooded_expected))
+    expect(asClassroomPet_asWarmBlooded_actual).to(shallowlyMatch(asClassroomPet_asWarmBlooded_expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on Pet {
+  ///      humanName
+  ///    }
+  ///    ... on ClassroomPet {
+  ///      ... on WarmBloodedPet { // WarmBloodedPet implements Pet
+  ///        species
+  ///      }
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// AllAnimal.AsPet mergedSelections: [humanName]
+  /// AllAnimal.AsClassroomPet.AsWarmBloodedPet mergedSelections: [species, humanName]
+  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsChildMatchingInterfaceType_mergesUncleSelections() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
+                                                  interfaces: [Interface_Animal])
+    let Interface_WarmBloodedPet = GraphQLInterfaceType.mock("WarmBloodedPet",
+                                                             interfaces: [
+                                                              Interface_Animal,
+                                                              Interface_Pet])
+    let Object_Bird = GraphQLObjectType.mock("Bird",
+                                             interfaces: [
+                                              Interface_Animal,
+                                              Interface_Pet,
+                                              Interface_WarmBloodedPet])
+    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
+
+    mockCompilationResult.referencedTypes = .init([
+      Interface_Animal, Interface_Pet, Interface_WarmBloodedPet, Object_Bird, Union_ClassroomPet])
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Interface_Pet,
+              selections: [.field(.mock("humanName"))]
+            )),
+            .inlineFragment(.mock(
+              parentType: Union_ClassroomPet,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Interface_WarmBloodedPet,
+                  selections: [.field(.mock("species"))]
+                )),
+              ]
+            )),
+          ]
+        )))])
+
+    let asPet_expected = [
+      CompilationResult.Selection.field(.mock("humanName")),
+    ]
+
+    let asClassroomPet_asWarmBloodedPet_expected = [
+      CompilationResult.Selection.field(.mock("species")),
+      CompilationResult.Selection.field(.mock("humanName")),
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asPet_actual = allAnimals?[as: "Pet"]?
+      .mergedSelections
+
+    let asClassroomPet_asWarmBloodedPet_actual = allAnimals?[as: "ClassroomPet"]?[as: "WarmBloodedPet"]?
+      .mergedSelections
+
+    // then
+    expect(asPet_actual).to(shallowlyMatch(asPet_expected))
+    expect(asClassroomPet_asWarmBloodedPet_actual).to(shallowlyMatch(asClassroomPet_asWarmBloodedPet_expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    ... on WarmBlooded {
+  ///      bodyTemperature
+  ///    }
+  ///    ... on ClassroomPet {
+  ///      ... on Pet {
+  ///        species
+  ///      }
+  ///    }
+  ///   }
+  /// }
+  /// Expected:
+  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
+  /// AllAnimal.AsClassroomPet.AsPet mergedSelections: [species]
+  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergesUncleSelections() {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
+                                                  interfaces: [Interface_Animal])
+    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
+                                                          interfaces: [Interface_Animal])
+    let Object_Bird = GraphQLObjectType.mock("Bird",
+                                             interfaces: [
+                                              Interface_Animal,
+                                              Interface_WarmBlooded])
+    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
+
+    mockCompilationResult.referencedTypes = .init([
+      Interface_Animal, Interface_Pet, Interface_WarmBlooded, Object_Bird, Union_ClassroomPet])
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .inlineFragment(.mock(
+              parentType: Interface_WarmBlooded,
+              selections: [.field(.mock("bodyTemperature"))]
+            )),
+            .inlineFragment(.mock(
+              parentType: Union_ClassroomPet,
+              selections: [
+                .inlineFragment(.mock(
+                  parentType: Interface_Pet,
+                  selections: [.field(.mock("species"))]
+                )),
+              ]
+            )),
+          ]
+        )))])
+
+    let asWarmBlooded_expected = [
+      CompilationResult.Selection.field(.mock("bodyTemperature")),
+    ]
+
+    let asClassroomPet_asPet_expected = [
+      CompilationResult.Selection.field(.mock("species")),
+    ]
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let asWarmBlooded_actual = allAnimals?[as: "WarmBlooded"]?
+      .mergedSelections
+
+    let asClassroomPet_asPet_actual = allAnimals?[as: "ClassroomPet"]?[as: "Pet"]?
+      .mergedSelections
+
+    // then
+    expect(asWarmBlooded_actual).to(shallowlyMatch(asWarmBlooded_expected))
+    expect(asClassroomPet_asPet_actual).to(shallowlyMatch(asClassroomPet_asPet_expected))
+  }
 //
 //  // MARK: - Merged Selections - Child Fragment
 //
