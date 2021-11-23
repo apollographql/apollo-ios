@@ -81,3 +81,9 @@ struct TypeScopeDescriptor: Equatable {
   }
 
 }
+
+extension TypeScopeDescriptor: CustomDebugStringConvertible {
+  var debugDescription: String {
+    type.debugDescription
+  }
+}

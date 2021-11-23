@@ -327,8 +327,6 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("meters",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("yards",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
       ],
       typeCases: [],
       fragments: []
@@ -387,6 +385,44 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     expect(actual).to(shallowlyMatch(self.expected))
   }
 
+
+  func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet_AsWarmBlooded_Height__isCorrect() throws {
+    // given
+    let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
+    let ir = IR(compilationResult: Self.compilationResult)
+    let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
+
+    let selectionSet = try XCTUnwrap(
+      rootSelectionSet[field: "allAnimals"]?[as: "Pet"]?[as: "WarmBlooded"]?[field: "height"]?.selectionSet
+    )
+
+    expected = (
+      fields: [
+        .mock("relativeSize",
+              type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
+        .mock("centimeters",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("feet",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("inches",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("meters",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("yards",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+      ],
+      typeCases: [],
+      fragments: []
+    )
+
+    // when
+    let actual = selectionSet.mergedSelections
+
+    // then
+    expect(selectionSet.parentType).to(equal(GraphQLObjectType.mock("Height")))
+    expect(actual).to(shallowlyMatch(self.expected))
+  }
+
   func test__mergedSelections_AllAnimalsQuery_AsCat__isCorrect() throws {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
@@ -434,7 +470,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     expect(actual).to(shallowlyMatch(self.expected))
   }
 
-#warning("TODO: This is the same as AllAnimal.AsPet.Height. Should we inherit that object instead?")
+#warning("TODO: This is the same as AllAnimal.AsPet.AsWarmBlooded.Height. Should we inherit that object instead?")
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsCat_Height__isCorrect() throws {
     // given
     let operation = Self.compilationResult.operations.first { $0.name == "AllAnimalsQuery" }

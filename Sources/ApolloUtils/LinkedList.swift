@@ -172,11 +172,11 @@ extension LinkedList: Sequence {
   }
 }
 
-extension LinkedList: CustomDebugStringConvertible {
+extension LinkedList: CustomDebugStringConvertible where T: CustomDebugStringConvertible {
   public var debugDescription: String {
     var string = "[head]"
     for value in self {
-      string += " \(value) ->"
+      string += " \(value.debugDescription) ->\n"
     }
     string += "[tail]"
     return string

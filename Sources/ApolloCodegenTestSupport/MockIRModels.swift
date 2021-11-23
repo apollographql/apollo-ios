@@ -53,15 +53,15 @@ extension IR.SortedSelections {
 
 extension IR.Field {
   public subscript(field field: String) -> IR.Field? {
-    return selectionSet?.selections.fields[field]
+    return selectionSet?.mergedSelections.fields[field]
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    return selectionSet?.selections.typeCases[typeCase]
+    return selectionSet?.mergedSelections.typeCases[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    return selectionSet?.selections.fragments[fragment]
+    return selectionSet?.mergedSelections.fragments[fragment]
   }
 
   public var selectionSet: IR.SelectionSet? {
@@ -72,28 +72,28 @@ extension IR.Field {
 
 extension IR.SelectionSet {
   public subscript(field field: String) -> IR.Field? {
-    selections.fields[field]
+    mergedSelections.fields[field]
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    selections.typeCases[typeCase]
+    mergedSelections.typeCases[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    selections.fragments[fragment]
+    mergedSelections.fragments[fragment]
   }
 }
 
 extension IR.Operation {
   public subscript(field field: String) -> IR.Field? {
-    rootField.selectionSet.selections.fields[field]
+    return rootField.underlyingField.name == field ? rootField : nil
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    rootField.selectionSet.selections.typeCases[typeCase]
+    rootField.selectionSet.mergedSelections.typeCases[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    rootField.selectionSet.selections.fragments[fragment]
+    rootField.selectionSet.mergedSelections.fragments[fragment]
   }
 }

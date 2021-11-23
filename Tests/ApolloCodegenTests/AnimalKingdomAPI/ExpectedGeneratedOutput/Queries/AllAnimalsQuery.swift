@@ -234,7 +234,6 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var feet: Int { data["feet"] }
           public var inches: Int { data["inches"] }
           public var meters: Int { data["meters"] }
-          public var yards: Int { data["yards"] }
         }
 
         /// `AllAnimal.AsPet.AsWarmBlooded`
@@ -260,6 +259,25 @@ public struct AllAnimalsQuery: GraphQLQuery {
             public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
             public var petDetails: PetDetails  { _toFragment() }
             public var heightInMeters: HeightInMeters { _toFragment() }
+          }
+
+          /// `AllAnimal.AsPet.AsWarmBlooded.Height`
+          public struct Height: AnimalKindgomAPI.SelectionSet {
+            public let data: ResponseDict
+            public init(data: ResponseDict) { self.data = data }
+
+            public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
+            public static var selections: [Selection] { [
+              .field("relativeSize", GraphQLEnum<RelativeSize>.self),
+              .field("centimeters", Int.self),
+            ] }
+
+            public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+            public var centimeters: Int { data["centimeters"] }
+            public var feet: Int { data["feet"] }
+            public var inches: Int { data["inches"] }
+            public var meters: Int { data["meters"] }
+            public var yards: Int { data["yards"] }
           }
         }
       }

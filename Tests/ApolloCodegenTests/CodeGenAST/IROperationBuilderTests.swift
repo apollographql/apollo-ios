@@ -215,7 +215,7 @@ class IROperationBuilderTests: XCTestCase {
     // when
     buildSubjectOperation()
 
-    let rocks = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
+    let rocks = self.subject[field: "query"]?[field: "rocks"]?.selectionSet
 
     // then
     expect(rocks?.selections.typeCases.count).to(equal(1))
