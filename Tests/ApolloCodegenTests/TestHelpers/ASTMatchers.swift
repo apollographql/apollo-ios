@@ -151,7 +151,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
         return PredicateResult(
           status: .fail,
           message: .expectedCustomValueTo("have \(currentFieldIndex) fields",
-                                          actual: String(actualValue.fields.count))
+                                          actual: actualValue.fields.debugDescription)
         )
       }
 
@@ -159,7 +159,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
         return PredicateResult(
           status: .fail,
           message: .expectedCustomValueTo("have \(currentTypeCaseIndex) typeCases",
-                                          actual: String(actualValue.typeCases.count))
+                                          actual: actualValue.typeCases.debugDescription)
         )
       }
 
@@ -167,7 +167,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
         return PredicateResult(
           status: .fail,
           message: .expectedCustomValueTo("have \(currentFragmentIndex) fragments",
-                                          actual: String(actualValue.fragments.count))
+                                          actual: actualValue.fragments.debugDescription)
         )
       }
 

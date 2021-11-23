@@ -221,9 +221,12 @@ extension IR.MergedSelectionTree: CustomDebugStringConvertible {
 extension IR.MergedSelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
   var debugDescription: String {
     """
-    child:
-      \(indented: child?.debugDescription ?? "nil")
-    typeCases: \(typeCases?.debugDescription ?? "[]")\n
+    {
+      child:
+        \(indented: child?.debugDescription ?? "nil")
+      typeCases:
+        \(indented: typeCases?.debugDescription ?? "[]")
+    }
     """
   }
 }
@@ -231,9 +234,12 @@ extension IR.MergedSelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
 extension IR.MergedSelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   var debugDescription: String {
     """
-    selections:
-      \(indented: selections?.debugDescription ?? "[]")
-    typeCases: \(typeCases?.debugDescription ?? "[]")\n
+    {
+      selections:
+        \(indented: selections?.debugDescription ?? "[]")
+      typeCases:
+        \(indented: typeCases?.debugDescription ?? "[]")
+    }
     """
   }
 }
