@@ -70,7 +70,7 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).paths).to(beEmpty())
+    expect(Glob(pattern).match).to(beEmpty())
   }
 
   func test_paths_givenSingleMatch_whenMultipleFiles_shouldReturnSingle() throws {
@@ -82,7 +82,7 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).paths).to(haveCount(1))
+    expect(Glob(pattern).match).to(haveCount(1))
   }
 
   func test_paths_givenMultipleMatches_whenMultipleFiles_shouldReturnMultiple() throws {
@@ -94,7 +94,7 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).paths).to(haveCount(2))
+    expect(Glob(pattern).match).to(haveCount(2))
   }
 
   func test_paths_givenMultipleMatchBraces_whenSingleFile_shouldReturnSingle() throws {
@@ -104,7 +104,7 @@ class GlobTests: XCTestCase {
     // when
     // <outputFolder>/Glob/a/file.one
 
-    expect(Glob(pattern).paths).to(haveCount(1))
+    expect(Glob(pattern).match).to(haveCount(1))
   }
 
   func test_paths_givenMultipleMatchBraces_whenMultipleFiles_shouldReturnMultiple() throws {
@@ -116,7 +116,7 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).paths).to(haveCount(2))
+    expect(Glob(pattern).match).to(haveCount(2))
   }
 
   func test_paths_givenMultipleMatchBraces_withNegation_whenMultipleFiles_shouldReturnSingle() throws {
@@ -128,7 +128,7 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).paths).to(haveCount(1))
+    expect(Glob(pattern).match).to(haveCount(1))
   }
 
   func test_paths_givenMultipleMatches_withWildcardCharacter_whenMultipleFiles_shouldReturnMultiple() throws {
@@ -140,7 +140,7 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/other/file.oye
 
     // then
-    expect(Glob(pattern).paths).to(haveCount(2))
+    expect(Glob(pattern).match).to(haveCount(2))
   }
 
   #warning("TODO - memory leak test")

@@ -28,8 +28,8 @@ struct Glob {
     self.pattern = pattern
   }
 
-  func paths() throws -> [String] {
     var paths: [String] = []
+  func match() throws -> [String] {
 
     let patterns = pattern.includesGlobstar ? expandGlobstar(pattern) : [pattern]
     for pattern in patterns {
