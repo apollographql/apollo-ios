@@ -1,14 +1,21 @@
 import Foundation
 
-struct Glob {
-  public let pattern: String
+private extension String {
+  var includesGlobstar: Bool {
+    return self.contains("**")
+  }
+}
 
-  enum Error: Swift.Error, LocalizedError {
+struct Glob {
+  let pattern: String
+  private let flags = GLOB_ERR | GLOB_MARK | GLOB_BRACE | GLOB_TILDE
+
+  public enum Error: Swift.Error, LocalizedError {
     case noSpace // GLOB_NOSPACE
     case aborted // GLOB_ABORTED
     case unknown(code: Int)
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
       switch self {
       case .noSpace: return "Malloc call failed"
       case .aborted: return "Unignored error"
@@ -21,14 +28,30 @@ struct Glob {
     self.pattern = pattern
   }
 
-  public func paths() throws -> [String] {
+  func paths() throws -> [String] {
+    var paths: [String] = []
+
+    let patterns = pattern.includesGlobstar ? expandGlobstar(pattern) : [pattern]
+    for pattern in patterns {
+      paths.append(contentsOf: try matches(for: pattern))
+    }
+
+    return paths
+  }
+
+  func expandGlobstar(_ pattern: String) -> [String] {
+    guard pattern.contains("**") else { return [pattern] }
+
+    return []
+  }
+
+  private func matches(for pattern: String) throws -> [String] {
     var globT = glob_t()
 
     defer {
       globfree(&globT)
     }
 
-    let flags = GLOB_ERR | GLOB_MARK | GLOB_BRACE | GLOB_TILDE
     let response = glob(pattern, flags, nil, &globT)
 
     switch response {
