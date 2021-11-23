@@ -406,11 +406,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("inches",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("yards",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("yards",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
       ],
       typeCases: [],
@@ -459,8 +459,8 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
       typeCases: [],
       fragments: [
         .mock("HeightInMeters", type: GraphQLInterfaceType.mock("Animal")),
-        .mock("PetDetails", type: GraphQLInterfaceType.mock("Pet")),
         .mock("WarmBloodedDetails", type: GraphQLInterfaceType.mock("WarmBlooded")),
+        .mock("PetDetails", type: GraphQLInterfaceType.mock("Pet")),
       ]
     )
 
@@ -491,11 +491,11 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("inches",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("yards",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("yards",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
       ],
       typeCases: [],
@@ -569,20 +569,20 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
               type: .enum(GraphQLEnumType.skinCovering())),
         .mock("predators",
               type: .nonNull(.list(.nonNull(.entity(GraphQLInterfaceType.mock("Animal")))))),
+        .mock("bodyTemperature",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("humanName",
               type: .scalar(GraphQLScalarType.string())),
         .mock("favoriteToy",
               type: .nonNull(.scalar(GraphQLScalarType.string()))),
         .mock("owner",
               type: .entity(GraphQLObjectType.mock("Human"))),
-        .mock("bodyTemperature",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
       ],
       typeCases: [],
       fragments: [
         .mock("HeightInMeters", type: GraphQLInterfaceType.mock("Animal")),
-        .mock("PetDetails", type: GraphQLInterfaceType.mock("Pet")),
         .mock("WarmBloodedDetails", type: GraphQLInterfaceType.mock("WarmBlooded")),
+        .mock("PetDetails", type: GraphQLInterfaceType.mock("Pet")),
       ]
     )
 

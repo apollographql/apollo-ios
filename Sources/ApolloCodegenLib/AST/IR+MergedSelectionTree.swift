@@ -1,5 +1,6 @@
 import ApolloUtils
 import Darwin
+import OrderedCollections
 
 fileprivate protocol MergedSelectionTreeNode {
   func mergeSelections(
@@ -90,7 +91,7 @@ extension IR {
       }
 
       var child: Child?
-      var typeCases: [GraphQLCompositeType: EnclosingEntityNode]?
+      var typeCases: OrderedDictionary<GraphQLCompositeType, EnclosingEntityNode>?
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
@@ -163,7 +164,7 @@ extension IR {
 
     class FieldScopeNode: MergedSelectionTreeNode {
       var selections: SortedSelections?
-      var typeCases: [GraphQLCompositeType: FieldScopeNode]?
+      var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
       fileprivate func mergeIn(_ selections: SortedSelections) {
         var fieldSelections = self.selections ?? SortedSelections()
@@ -176,7 +177,7 @@ extension IR {
         into selections: inout IR.SortedSelections
       ) {
         if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections, mergeTypeCases: false)
+          selections.mergeIn(scopeSelections, mergeTypeCases: false)          
         }
 
         if let typeCases = typeCases {

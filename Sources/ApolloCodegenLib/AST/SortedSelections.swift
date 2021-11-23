@@ -118,7 +118,11 @@ extension IR {
     }
 
     var debugDescription: String {
-      "Fields: \(fields.values.elements) \n TypeCases: \(typeCases.values.elements) \n Fragments: \(fragments.values.elements)"
+      """
+      Fields: \(fields.values.elements)
+      TypeCases: \(typeCases.values.elements.map(\.parentType))
+      Fragments: \(fragments.values.elements.map(\.definition.name))
+      """
     }
   }
 
