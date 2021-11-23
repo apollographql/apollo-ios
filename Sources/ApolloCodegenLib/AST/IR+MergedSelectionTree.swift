@@ -176,7 +176,7 @@ extension IR {
         into selections: inout IR.SortedSelections
       ) {
         if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections)
+          selections.mergeIn(scopeSelections, mergeTypeCases: false)
         }
 
         if let typeCases = typeCases {

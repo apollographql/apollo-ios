@@ -40,10 +40,15 @@ extension IR {
 
     // MARK: Selection Merging
 
-    mutating func mergeIn(_ selections: SortedSelections) {
-      mergeIn(selections.fields)
-      mergeIn(selections.typeCases)
-      mergeIn(selections.fragments)
+    mutating func mergeIn(
+      _ selections: SortedSelections,
+      mergeFields: Bool = true,
+      mergeTypeCases: Bool = true,
+      mergeFragments: Bool = true
+    ) {
+      if mergeFields { mergeIn(selections.fields) }
+      if mergeTypeCases { mergeIn(selections.typeCases) }
+      if mergeFragments { mergeIn(selections.fragments) }
     }
 
     // MARK: Merge In - Field

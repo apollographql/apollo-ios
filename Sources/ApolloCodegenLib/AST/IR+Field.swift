@@ -2,7 +2,7 @@ import Foundation
 
 extension IR {
 
-  class Field: Equatable {
+  class Field: Equatable, CustomDebugStringConvertible {
     let underlyingField: CompilationResult.Field
 
     fileprivate init(_ field: CompilationResult.Field) {
@@ -11,6 +11,10 @@ extension IR {
 
     static func ==(lhs: Field, rhs: Field) -> Bool {
       lhs.underlyingField == rhs.underlyingField
+    }
+
+    var debugDescription: String {
+      underlyingField.debugDescription
     }
   }
 
