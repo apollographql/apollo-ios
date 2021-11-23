@@ -163,7 +163,7 @@ extension LinkedList: Sequence {
     public func next() -> Element? {
       let next = currentNode?.next
       defer { currentNode = next }
-      return next?.value
+      return currentNode?.value
     }
   }
 
@@ -174,11 +174,12 @@ extension LinkedList: Sequence {
 
 extension LinkedList: CustomDebugStringConvertible where T: CustomDebugStringConvertible {
   public var debugDescription: String {
-    var string = "[head]"
-    for value in self {
-      string += " \(value.debugDescription) ->\n"
-    }
-    string += "[tail]"
-    return string
+    "[head] -> \(headNode.debugDescription)"    
+  }
+}
+
+extension LinkedList.Node: CustomDebugStringConvertible {
+  public var debugDescription: String {
+    "[\(value)] -> \(next?.debugDescription ?? "[tail]")"
   }
 }

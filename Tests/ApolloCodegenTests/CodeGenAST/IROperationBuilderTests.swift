@@ -1769,32 +1769,30 @@ class IROperationBuilderTests: XCTestCase {
               selections: [
                 .inlineFragment(.mock(
                   parentType: GraphQLInterfaceType.mock("Pet"),
-                  selections: [.field(.mock("humanName"))]
+                  selections: [.field(.mock("humanName", type: .string()))]
                 )),
               ]
             )),
             .inlineFragment(.mock(
               parentType: GraphQLInterfaceType.mock("Pet"),
-              selections: [.field(.mock("species"))]
+              selections: [.field(.mock("species", type: .string()))]
             )),
           ]
         )))])
 
     let onWarmBlooded_onPet_expected = [
-      CompilationResult.Selection.field(.mock("humanName")),
-      CompilationResult.Selection.field(.mock("species"))
+      CompilationResult.Selection.field(.mock("humanName", type: .string())),
+      CompilationResult.Selection.field(.mock("species", type: .string()))
     ]
 
     let onPet_expected = [
-      CompilationResult.Selection.field(.mock("species"))
+      CompilationResult.Selection.field(.mock("species", type: .string()))
     ]
 
     // when
     buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
-    
-    print(allAnimals?.selectionSet?.entity.mergedSelectionTree)
 
     let onWarmBlooded_onPet_actual = allAnimals?[as:"WarmBlooded"]?[as: "Pet"]?
       .mergedSelections

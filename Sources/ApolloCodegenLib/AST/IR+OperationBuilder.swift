@@ -33,11 +33,18 @@ extension IR {
         selectionSet: operationDefinition.selectionSet
       )
 
+      let rootTypePath = TypeScopeDescriptor.descriptor(
+        forType: rootEntity.rootType,
+        fieldPath: rootEntity.responsePath,
+        givenAllTypes: compilationResult.referencedTypes
+      )
+
       let rootSelectionSet = SelectionSet(
         entity: rootEntity,
         parentType: operationDefinition.rootType,
-        typePath: rootEntity.rootTypePath
+        typePath: LinkedList(rootTypePath)
       )
+      
       buildSortedSelections(
         forSelectionSet: rootSelectionSet,
         from: operationDefinition.selectionSet.selections
@@ -50,15 +57,14 @@ extension IR {
 
     private func buildRootEntity() -> Entity {
       let rootFieldName = operationDefinition.operationType.rawValue
-      let rootFieldPath = ResponsePath(rootFieldName)
-      let rootTypePath = TypeScopeDescriptor.descriptor(
-        forType: operationDefinition.rootType,
-        fieldPath: rootFieldPath,
-        givenAllTypes: compilationResult.referencedTypes
+      let rootResponsePath = ResponsePath(rootFieldName)
+
+      let rootEntity = Entity(
+        rootTypePath: LinkedList(operationDefinition.rootType),
+        responsePath: rootResponsePath
       )
 
-      let rootEntity = Entity(rootTypePath: LinkedList(rootTypePath))
-      entitiesForFields[rootFieldPath] = rootEntity
+      entitiesForFields[rootResponsePath] = rootEntity
       return rootEntity
     }
 
@@ -156,30 +162,22 @@ extension IR {
       for field: CompilationResult.Field,
       on enclosingEntity: Entity
     ) -> Entity {
-      let fieldPath = enclosingEntity
-        .rootTypePath
-        .last.value
-        .fieldPath
+      let responsePath = enclosingEntity
+        .responsePath
         .appending(field.responseKey)
 
-      if let entity = entitiesForFields[fieldPath] {
+      if let entity = entitiesForFields[responsePath] {
         return entity
       }
 
-      guard let fieldType = field.type.namedType as? GraphQLCompositeType else {
+      guard let fieldType = field.selectionSet?.parentType else {
         fatalError("Entity cannot be created for non-entity type field \(field).")
       }
 
-      let typeScopeDescriptor = TypeScopeDescriptor.descriptor(
-        forType: fieldType,
-        fieldPath: fieldPath,
-        givenAllTypes: compilationResult.referencedTypes
-      )
+      let rootTypePath = enclosingEntity.rootTypePath.appending(fieldType)
+      let entity = Entity(rootTypePath: rootTypePath, responsePath: responsePath)
 
-      let rootTypePath = enclosingEntity.rootTypePath.appending(typeScopeDescriptor)
-      let entity = Entity(rootTypePath: rootTypePath)
-
-      entitiesForFields[fieldPath] = entity
+      entitiesForFields[responsePath] = entity
 
       return entity
     }

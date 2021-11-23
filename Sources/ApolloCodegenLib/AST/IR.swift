@@ -24,13 +24,17 @@ class IR {
 
   class Entity: Equatable {
     let mergedSelectionTree: MergedSelectionTree
+    let responsePath: ResponsePath
 
-    var rootTypePath: LinkedList<TypeScopeDescriptor> { mergedSelectionTree.rootTypePath }
-    var responsePath: ResponsePath { rootTypePath.last.value.fieldPath }
-    var rootType: GraphQLCompositeType { rootTypePath.last.value.type }
+    var rootTypePath: LinkedList<GraphQLCompositeType> { mergedSelectionTree.rootTypePath }
+    var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
-    init(rootTypePath: LinkedList<TypeScopeDescriptor>) {
+    init(
+      rootTypePath: LinkedList<GraphQLCompositeType>,
+      responsePath: ResponsePath
+    ) {
       self.mergedSelectionTree = MergedSelectionTree(rootTypePath: rootTypePath)
+      self.responsePath = responsePath
     }
 
     static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {

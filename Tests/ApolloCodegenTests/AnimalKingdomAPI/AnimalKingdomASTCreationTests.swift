@@ -120,6 +120,8 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
       fragments: []
     )
 
+    print(selectionSet.entity.mergedSelectionTree)
+    
     // when
     let actual = selectionSet.mergedSelections
 

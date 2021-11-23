@@ -6,18 +6,20 @@ typealias TypeScope = Set<GraphQLCompositeType>
 /// Defines the scope for an `IR.SelectionSet`. The scope is derived from the scope and all of its
 /// parent scopes.
 struct TypeScopeDescriptor: Equatable {
-  let type: GraphQLCompositeType
+  let typePath: LinkedList<GraphQLCompositeType>
   let fieldPath: ResponsePath
   let scope: TypeScope
   private let allTypes: CompilationResult.ReferencedTypes
 
+  var type: GraphQLCompositeType { typePath.last.value }
+
   private init(
-    type: GraphQLCompositeType,
+    typePath: LinkedList<GraphQLCompositeType>,
     fieldPath: ResponsePath,
     scope: TypeScope,
     allTypes: CompilationResult.ReferencedTypes
   ) {
-    self.type = type
+    self.typePath = typePath
     self.fieldPath = fieldPath
     self.scope = scope
     self.allTypes = allTypes
@@ -29,7 +31,7 @@ struct TypeScopeDescriptor: Equatable {
     givenAllTypes allTypes: CompilationResult.ReferencedTypes
   ) -> TypeScopeDescriptor {
     let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
-    return TypeScopeDescriptor(type: type, fieldPath: fieldPath, scope: scope, allTypes: allTypes)
+    return TypeScopeDescriptor(typePath: LinkedList(type), fieldPath: fieldPath, scope: scope, allTypes: allTypes)
   }
 
   private static func typeScope(
@@ -67,7 +69,7 @@ struct TypeScopeDescriptor: Equatable {
                                to: self.scope,
                                givenAllTypes: self.allTypes)
     return TypeScopeDescriptor(
-      type: newType,
+      typePath: typePath.appending(newType),
       fieldPath: fieldPath,
       scope: scope,
       allTypes: self.allTypes
@@ -75,7 +77,7 @@ struct TypeScopeDescriptor: Equatable {
   }
 
   static func == (lhs: TypeScopeDescriptor, rhs: TypeScopeDescriptor) -> Bool {
-    lhs.type == rhs.type &&
+    lhs.typePath == rhs.typePath &&
     lhs.fieldPath == rhs.fieldPath &&
     lhs.scope == rhs.scope
   }
@@ -84,6 +86,6 @@ struct TypeScopeDescriptor: Equatable {
 
 extension TypeScopeDescriptor: CustomDebugStringConvertible {
   var debugDescription: String {
-    type.debugDescription
+    typePath.debugDescription
   }
 }

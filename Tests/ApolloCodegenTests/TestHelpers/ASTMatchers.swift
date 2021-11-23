@@ -113,9 +113,20 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
       var currentTypeCaseIndex = 0
       var currentFragmentIndex = 0
 
+      func failOnFields() -> PredicateResult {
+        return PredicateResult(
+          status: .fail,
+          message: .fail("got fields: \(actualValue.fields)")
+        )
+      }
+
       for selection in expectedValue {
         switch selection {
         case let .field(expectedField):
+          guard currentFieldIndex < actualValue.fields.values.endIndex else {
+            return failOnFields()
+          }
+
           let actualField = actualValue.fields.values[currentFieldIndex]
           if !shallowlyMatch(expected: expectedField, actual: actualField) {
             return PredicateResult(
@@ -148,11 +159,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
       }
 
       guard currentFieldIndex == actualValue.fields.count else {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have \(currentFieldIndex) fields",
-                                          actual: actualValue.fields.debugDescription)
-        )
+        return failOnFields()
       }
 
       guard currentTypeCaseIndex == actualValue.typeCases.count else {

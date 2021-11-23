@@ -11,61 +11,108 @@ fileprivate protocol MergedSelectionTreeNode {
 
 extension IR {
   class MergedSelectionTree {
-    let rootTypePath: LinkedList<TypeScopeDescriptor>
+    let rootTypePath: LinkedList<GraphQLCompositeType>
     lazy var rootNode = EnclosingEntityNode()
 
-    init(rootTypePath: LinkedList<TypeScopeDescriptor>) {
+    init(rootTypePath: LinkedList<GraphQLCompositeType>) {
       self.rootTypePath = rootTypePath
     }
 
+    // MARK: - Merge Selection Sets Into Tree
+    
     func mergeIn(selectionSet: SelectionSet) {
-      var currentRootScope: LinkedList<TypeScopeDescriptor>.Node? = rootTypePath.head
-      var currentSelectionScope: LinkedList<TypeScopeDescriptor>.Node? = selectionSet.typePath.head
-      var currentNode = rootNode
-      var currentNodeType = currentRootScope?.value.type
-
-      func advanceToNextScope() {
-        currentRootScope = currentRootScope?.next
-        currentSelectionScope = currentSelectionScope?.next
-        currentNodeType = currentRootScope?.value.type
-      }
-
-      while let currentRootScope = currentRootScope {
-        func isEndOfTree() -> Bool { currentRootScope.next == nil }
-        func selectionSetTypeMatchesRootType() -> Bool {
-          currentNodeType == currentSelectionScope?.value.type
-        }
-
-        switch (selectionSetTypeMatchesRootType(), isEndOfTree()) {
-        case (true, true):
-          // Add selections to field node for root type
-          let fieldNode = currentNode.childAsFieldScopeNode()
-          fieldNode.mergeIn(selectionSet.selections)
-          return
-
-        case (true, false):
-          // Advance to next node in root type
-          currentNode = currentNode.childAsEnclosingEntityNode()
-          advanceToNextScope()
-          continue
-
-        case (false, true):
-          // Add selections to field node as type case
-          guard let selectionScopeType = currentSelectionScope?.value.type else { fatalError() }
-          let fieldNode = currentNode.childAsFieldScopeNode()
-          let typeCaseNode = fieldNode.typeCaseNode(forType: selectionScopeType)
-          typeCaseNode.mergeIn(selectionSet.selections)
-          return
-
-        case (false, false):
-          // Advance to next node in type case
-          guard let selectionScopeType = currentSelectionScope?.value.type else { fatalError() }
-          currentNode = currentNode.typeCaseNode(forType: selectionScopeType)
-          currentNodeType = selectionScopeType
-          continue
-        }
-      }
+      mergeIn(
+        selections: selectionSet.selections,
+        atEnclosingEntityScope: selectionSet.typePath.head,
+        withEntityTypePath: selectionSet.typePath.head.value.typePath.head,
+        to: rootNode,
+        ofType: rootTypePath.head.value,
+        withRootTypePath: rootTypePath.head
+      )
     }
+
+    private func mergeIn(
+      selections: IR.SortedSelections,
+      atEnclosingEntityScope currentEntityScope: LinkedList<TypeScopeDescriptor>.Node,
+      withEntityTypePath currentEntityTypePath: LinkedList<GraphQLCompositeType>.Node,
+      to node: EnclosingEntityNode,
+      ofType currentNodeType: GraphQLCompositeType,
+      withRootTypePath currentNodeRootTypePath: LinkedList<GraphQLCompositeType>.Node
+    ) {
+      guard let nextEntityTypePath = currentNodeRootTypePath.next else {
+        // Advance to field node in current entity & type case
+        let fieldNode = node.childAsFieldScopeNode()
+        mergeIn(
+          selections: selections,
+          withTypeScope: currentEntityScope.value.typePath.head,
+          toFieldNode: fieldNode,
+          ofType: currentNodeRootTypePath.value)
+        return
+      }
+
+      guard let nextTypePathForCurrentEntity = currentEntityTypePath.next else {
+        // Advance to next entity
+        guard let nextEntityScope = currentEntityScope.next else { fatalError() }
+        let nextEntityNode = node.childAsEnclosingEntityNode()
+
+        mergeIn(
+          selections: selections,
+          atEnclosingEntityScope: nextEntityScope,
+          withEntityTypePath: nextEntityScope.value.typePath.head,
+          to: nextEntityNode,
+          ofType: nextEntityTypePath.value,
+          withRootTypePath: nextEntityTypePath
+        )
+        return
+      }
+
+      // Advance to next type case in current entity
+      let nextTypeForCurrentEntity = nextTypePathForCurrentEntity.value
+      let nextNodeForCurrrentEntity = currentNodeType != nextTypeForCurrentEntity
+      ? node.typeCaseNode(forType: nextTypeForCurrentEntity) : node
+
+      mergeIn(
+        selections: selections,
+        atEnclosingEntityScope: currentEntityScope,
+        withEntityTypePath: nextTypePathForCurrentEntity,
+        to: nextNodeForCurrrentEntity,
+        ofType: nextTypeForCurrentEntity,
+        withRootTypePath: currentNodeRootTypePath
+      )
+    }
+
+    private func mergeIn(
+      selections: IR.SortedSelections,
+      withTypeScope currentSelectionScopeTypeCase: LinkedList<GraphQLCompositeType>.Node,
+      toFieldNode node: FieldScopeNode,
+      ofType fieldNodeType: GraphQLCompositeType
+    ) {
+      guard let nextTypeCaseInScope = currentSelectionScopeTypeCase.next else {
+        let typeForSelections = currentSelectionScopeTypeCase.value
+
+        if fieldNodeType == typeForSelections {
+          node.mergeIn(selections)
+          return
+
+        } else {
+          let fieldTypeCaseNode = node.typeCaseNode(forType: typeForSelections)
+          fieldTypeCaseNode.mergeIn(selections)
+          return
+        }
+      }
+
+      let nextNodeForField = fieldNodeType != nextTypeCaseInScope.value
+      ? node.typeCaseNode(forType: nextTypeCaseInScope.value) : node
+
+      mergeIn(
+        selections: selections,
+        withTypeScope: nextTypeCaseInScope,
+        toFieldNode: nextNodeForField,
+        ofType: nextTypeCaseInScope.value
+      )
+    }
+
+    // MARK: - Calculate Merged Selections From Tree
 
     func mergedSelections(forSelectionSet selectionSet: SelectionSet) -> SortedSelections {
       var selections = selectionSet.selections
