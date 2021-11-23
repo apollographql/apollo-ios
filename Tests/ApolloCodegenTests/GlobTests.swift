@@ -143,5 +143,14 @@ class GlobTests: XCTestCase {
     expect(Glob(pattern).match).to(haveCount(2))
   }
 
+  func test_paths_givenDuplicateMatches_whenMatches_shouldNotReturnDuplicates() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/{*.one,*.one}").path
+
+    // when
+    // <outputFolder>/Glob/a/file.one
+
+    expect(Glob(pattern).match).to(haveCount(1))
+  }
   #warning("TODO - memory leak test")
 }

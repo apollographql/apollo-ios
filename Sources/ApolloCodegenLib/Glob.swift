@@ -28,21 +28,21 @@ struct Glob {
     self.pattern = pattern
   }
 
-    var paths: [String] = []
   func match() throws -> [String] {
+    var paths: Set<String> = []
 
     let patterns = pattern.includesGlobstar ? expandGlobstar(pattern) : [pattern]
     for pattern in patterns {
       paths.append(contentsOf: try matches(for: pattern))
     }
 
-    return paths
   }
 
   func expandGlobstar(_ pattern: String) -> [String] {
     guard pattern.contains("**") else { return [pattern] }
 
     return []
+    return Array(paths)
   }
 
   private func matches(for pattern: String) throws -> [String] {
