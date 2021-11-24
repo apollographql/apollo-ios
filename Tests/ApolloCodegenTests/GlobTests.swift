@@ -82,7 +82,9 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).match).to(haveCount(1))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path
+    ]))
   }
 
   func test_paths_givenMultipleMatches_whenMultipleFiles_shouldReturnMultiple() throws {
@@ -94,7 +96,10 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).match).to(haveCount(2))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path
+    ]))
   }
 
   func test_paths_givenMultipleMatchBraces_whenSingleFile_shouldReturnSingle() throws {
@@ -104,7 +109,9 @@ class GlobTests: XCTestCase {
     // when
     // <outputFolder>/Glob/a/file.one
 
-    expect(Glob(pattern).match).to(haveCount(1))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path
+    ]))
   }
 
   func test_paths_givenMultipleMatchBraces_whenMultipleFiles_shouldReturnMultiple() throws {
@@ -116,7 +123,10 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).match).to(haveCount(2))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path
+    ]))
   }
 
   func test_paths_givenMultipleMatchBraces_withNegation_whenMultipleFiles_shouldReturnSingle() throws {
@@ -128,7 +138,9 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/file.two
 
     // then
-    expect(Glob(pattern).match).to(haveCount(1))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path
+    ]))
   }
 
   func test_paths_givenMultipleMatches_withWildcardCharacter_whenMultipleFiles_shouldReturnMultiple() throws {
@@ -140,7 +152,10 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/other/file.oye
 
     // then
-    expect(Glob(pattern).match).to(haveCount(2))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ]))
   }
 
   func test_paths_givenDuplicateMatches_whenMatches_shouldNotReturnDuplicates() throws {
@@ -150,7 +165,9 @@ class GlobTests: XCTestCase {
     // when
     // <outputFolder>/Glob/a/file.one
 
-    expect(Glob(pattern).match).to(haveCount(1))
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path
+    ]))
   }
   #warning("TODO - memory leak test")
 }

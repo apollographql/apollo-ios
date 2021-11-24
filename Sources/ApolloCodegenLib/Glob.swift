@@ -28,14 +28,15 @@ struct Glob {
     self.pattern = pattern
   }
 
-  func match() throws -> [String] {
+  func match() throws -> Set<String> {
     var paths: Set<String> = []
 
-    let patterns = pattern.includesGlobstar ? expandGlobstar(pattern) : [pattern]
+    let patterns: Set<String> = pattern.includesGlobstar ? try expandGlobstar() : [pattern]
     for pattern in patterns {
-      paths.append(contentsOf: try matches(for: pattern))
+      paths = paths.union(try matches(for: pattern))
     }
 
+    return paths
   }
 
   func expandGlobstar(_ pattern: String) -> [String] {
@@ -45,7 +46,7 @@ struct Glob {
     return Array(paths)
   }
 
-  private func matches(for pattern: String) throws -> [String] {
+  private func matches(for pattern: String) throws -> Set<String> {
     var globT = glob_t()
 
     defer {
@@ -62,12 +63,14 @@ struct Glob {
     default: throw Error.unknown(code: Int(response))
     }
 
-    return (0..<Int(globT.gl_matchc)).compactMap { index in
+    return Set<String>((0..<Int(globT.gl_matchc)).compactMap({ index in
       if let path = String(validatingUTF8: globT.gl_pathv[index]!) {
         return path
       }
 
       return nil
+    }))
+  }
     }
   }
 }
