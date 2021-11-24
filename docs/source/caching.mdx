@@ -108,7 +108,7 @@ Manual Scenario A
 Manual Scenario B
 
 1. You fire off a mutation which creates a new object.
-2. You may then want to update the cache for a List that should contain this new object. This is a bit fiddly at the moment, as `Droid` for `CreateDroidsMutation` is strongly typed: `CreateDroidsMutation.Droid`. When inserting this object into the cache for `ListDroidsQuery` you need to init a `ListDroidsQuery.Droid` object from a `CreateDroidsMutation.Droid` or the types won't match. Your alternative to this is to manually refectch queries on a mutation which will trigger any watchers to update.
+2. You may then want to update the cache for a List that should contain this new object. This is a bit fiddly at the moment, as `Droid` for `CreateDroidsMutation` is strongly typed: `CreateDroidsMutation.Droid`. When inserting this object into the cache for `ListDroidsQuery` you need to init a `ListDroidsQuery.Droid` object from a `CreateDroidsMutation.Droid` or the types won't match. Your alternative to this is to manually refetch queries on a mutation which will trigger any watchers to update.
 
 Where you may not need to manually update the cache:
 
