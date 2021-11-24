@@ -13,9 +13,12 @@ public struct ApolloCodegenConfiguration {
     ///
     /// - Parameters:
     ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    ///  - glob: Glob of files to search for GraphQL operations. This should be used to find queries and any client
-    ///  schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of
-    ///  the folder where the script is run.
+    ///  - glob: Glob pattern used to search for GraphQL operations, such as queries and mutations. The pattern accepts a
+    ///  number of special characters:
+    ///      - `*` matches everything but the directory separator, eg: `*.graphql`
+    ///      - `?` matches any single character, eg: `file-?.graphql`
+    ///      - `{,}` matches all patterns separated by a comma, eg: `{query.*,operation.*}`
+    ///      - `**` matches all subdirectories, eg: `**/*.graphql`
     public init(schemaPath: String, glob: String = "./**/*.graphql") {
       self.schemaPath = schemaPath
       self.glob = glob
