@@ -68,7 +68,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                             output: .init(schemaTypes: .init(path: fileURL.path)))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -84,7 +84,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                             output: .init(schemaTypes: .init(path: invalidURL.path)))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -108,7 +108,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                                           operationIdentifiersPath: nil))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -126,7 +126,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                                           operationIdentifiersPath: nil))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -151,7 +151,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                                           operationIdentifiersPath: directoryURL.path))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -166,7 +166,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // when
     let expectedSchemaURL = directoryURL.appendingPathComponent(filename)
-    try FileManager.default.apollo.createFile(atPath: expectedSchemaURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: expectedSchemaURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.notTo(throwError())
@@ -181,7 +181,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                                           operationIdentifiersPath: fileURL.path))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.notTo(throwError())
