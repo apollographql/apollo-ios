@@ -8,10 +8,14 @@ private extension String {
   }
 }
 
+/// A path pattern matcher.
 struct Glob {
+  /// The pattern to match paths for.
   let pattern: String
+
   private let flags = GLOB_ERR | GLOB_MARK | GLOB_BRACE | GLOB_TILDE
 
+  /// An error object that indicates why pattern matching failed.
   public enum Error: Swift.Error, LocalizedError {
     case noSpace // GLOB_NOSPACE
     case aborted // GLOB_ABORTED
@@ -28,10 +32,17 @@ struct Glob {
     }
   }
 
+  /// The designated initializer
+  ///
+  /// - Parameters:
+  ///  - pattern: The pattern to match paths for.
   init(_ pattern: String) {
     self.pattern = pattern
   }
 
+  /// Executes the pattern match on the underlying file system.
+  ///
+  /// - Returns: A set of matched file paths.
   func match() throws -> Set<String> {
     var paths: Set<String> = []
 
@@ -71,6 +82,9 @@ struct Glob {
 
   #warning("TODO - should we support negation in globstar with braces?") // something like "{a/**/*,!a/b/c/*}
 
+  /// Expands the globstar (`**`) to find all directory paths to search for the match pattern.
+  ///
+  /// - Returns: A set of directory file paths expanded with the match pattern.
   func expandGlobstar() throws -> Set<String> {
     guard pattern.contains("**") else { return [pattern] }
 
