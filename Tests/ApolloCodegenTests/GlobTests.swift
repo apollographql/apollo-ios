@@ -14,50 +14,21 @@ class GlobTests: XCTestCase {
     // <outputFolder>/Glob/
     try fileManager.createDirectoryIfNeeded(atPath: baseURL.path)
 
-    expect(
-      // <outputFolder>/Glob/file.one
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("file.one").path)
-    ).to(beTrue())
+    let files = [
+      self.baseURL.appendingPathComponent("file.one").path, // <outputFolder>/Glob/file.one
+      self.baseURL.appendingPathComponent("file.two").path, // <outputFolder>/Glob/file.two
+      self.baseURL.appendingPathComponent("a/file.one").path, // <outputFolder>/Glob/a/file.one
+      self.baseURL.appendingPathComponent("a/b/file.one").path, // <outputFolder>/Glob/a/b/file.one
+      self.baseURL.appendingPathComponent("a/b/c/file.one").path, // <outputFolder>/Glob/a/b/c/file.one
+      self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path, // <outputFolder>/Glob/a/b/c/d/e/f/file.one
+      self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path, // <outputFolder>/Glob/a/b/c/d/e/f/file.two
+      self.baseURL.appendingPathComponent("other/file.one").path, // <outputFolder>/Glob/other/file.one
+      self.baseURL.appendingPathComponent("other/file.oye").path // <outputFolder>/Glob/other/file.oye
+    ]
 
-    expect(
-      // <outputFolder>/Glob/file.two
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("file.two").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/a/file.one
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("a/file.one").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/a/b/file.one
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("a/b/file.one").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/a/b/c/file.one
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("a/b/c/file.one").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/a/b/c/d/e/f/file.one
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/a/b/c/d/e/f/file.two
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/other/file.one
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("other/file.one").path)
-    ).to(beTrue())
-
-    expect(
-      // <outputFolder>/Glob/other/file.oye
-      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("other/file.oye").path)
-    ).to(beTrue())
+    for file in files {
+      expect(try fileManager.createFile(atPath: file)).to(beTrue())
+    }
   }
 
   override func tearDownWithError() throws {
@@ -250,6 +221,4 @@ class GlobTests: XCTestCase {
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
     ]))
   }
-
-  #warning("TODO - memory leak test")
 }
