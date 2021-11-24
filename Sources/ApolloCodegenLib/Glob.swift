@@ -1,8 +1,10 @@
 import Foundation
 
 private extension String {
+  static let Globstar: String = "**"
+
   var includesGlobstar: Bool {
-    return self.contains("**")
+    return self.contains(Self.Globstar)
   }
 }
 
@@ -13,12 +15,14 @@ struct Glob {
   public enum Error: Swift.Error, LocalizedError {
     case noSpace // GLOB_NOSPACE
     case aborted // GLOB_ABORTED
+    case enumeration(path: String)
     case unknown(code: Int)
 
     public var errorDescription: String? {
       switch self {
-      case .noSpace: return "Malloc call failed"
-      case .aborted: return "Unignored error"
+      case .noSpace: return "Malloc call failed" // From Darwin.POSIX.glob
+      case .aborted: return "Unignored error" // From Darwin.POSIX.glob
+      case .enumeration(let path): return "Cannot enumerate \(path)"
       case .unknown(let code): return "Unknown error: \(code)"
       }
     }
@@ -37,13 +41,6 @@ struct Glob {
     }
 
     return paths
-  }
-
-  func expandGlobstar(_ pattern: String) -> [String] {
-    guard pattern.contains("**") else { return [pattern] }
-
-    return []
-    return Array(paths)
   }
 
   private func matches(for pattern: String) throws -> Set<String> {
@@ -71,6 +68,56 @@ struct Glob {
       return nil
     }))
   }
+
+  #warning("TODO - should we support negation in globstar with braces?") // something like "{a/**/*,!a/b/c/*}
+
+  func expandGlobstar() throws -> Set<String> {
+    guard pattern.contains("**") else { return [pattern] }
+
+    var parts = pattern.components(separatedBy: String.Globstar)
+    let firstPart = parts.removeFirst()
+    let lastPart = parts.joined(separator: String.Globstar)
+
+    let fileManager = FileManager.default
+    let searchPath = firstPart.isEmpty ? fileManager.currentDirectoryPath : firstPart
+    var directories: Set<String> = [searchPath] // include files at the globstar root directory
+
+    do {
+      let searchURL = URL(fileURLWithPath: searchPath)
+      let resourceKeys: [URLResourceKey] = [.isDirectoryKey]
+      var enumeratorError: Swift.Error?
+
+      let errorHandler: ((URL, Swift.Error) -> Bool) = { url, error in
+        enumeratorError = error
+        return false // aborts enumeration
+      }
+
+      guard let enumerator = fileManager.enumerator(
+        at: searchURL,
+        includingPropertiesForKeys: resourceKeys,
+        errorHandler: errorHandler)
+      else {
+        throw Error.enumeration(path: searchPath)
+      }
+
+      if let enumeratorError = enumeratorError { throw enumeratorError }
+
+      for case (let url as URL) in enumerator {
+        guard
+          let resourceValues = try? url.resourceValues(forKeys: Set(resourceKeys)),
+          let isDirectory = resourceValues.isDirectory,
+          isDirectory == true
+        else { continue }
+
+        directories.insert(url.path)
+      }
+
+    } catch(let error) {
+      throw(error)
     }
+
+    return Set<String>(directories.compactMap({ directory in
+      URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
+    }))
   }
 }

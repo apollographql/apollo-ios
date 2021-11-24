@@ -45,6 +45,11 @@ class GlobTests: XCTestCase {
     ).to(beTrue())
 
     expect(
+      // <outputFolder>/Glob/a/b/c/d/e/f/file.two
+      try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path)
+    ).to(beTrue())
+
+    expect(
       // <outputFolder>/Glob/other/file.one
       try fileManager.createFile(atPath: self.baseURL.appendingPathComponent("other/file.one").path)
     ).to(beTrue())
@@ -169,5 +174,82 @@ class GlobTests: XCTestCase {
       baseURL.appendingPathComponent("a/file.one").path
     ]))
   }
+
+  func test_expandGlobstar_givenRootGlobstar_shouldExpandAllDirectoriesWithPattern() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("**/*.one").path
+
+    // when
+    // <outputFolder>/Glob/file.one
+    // <outputFolder>/Glob/file.two
+    // <outputFolder>/Glob/a/file.one
+    // <outputFolder>/Glob/a/b/file.one
+    // <outputFolder>/Glob/a/b/c/file.one
+    // <outputFolder>/Glob/a/b/c/d/e/f/file.one
+    // <outputFolder>/Glob/a/b/c/d/e/f/file.two
+    // <outputFolder>/Glob/other/file.one
+    // <outputFolder>/Glob/other/file.oye
+
+    // then
+    expect(Glob(pattern).expandGlobstar).to(equal([
+      baseURL.path.appending("/*.one"),
+      baseURL.appendingPathComponent("a/*.one").path,
+      baseURL.appendingPathComponent("a/b/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/*.one").path,
+      baseURL.appendingPathComponent("other/*.one").path
+    ]))
+  }
+
+  func test_expandGlobstar_givenPathGlobstar_shouldExpandSubdirectoriesWithPattern() {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/**/*.one").path
+
+    // when
+    // <outputFolder>/Glob/file.one
+    // <outputFolder>/Glob/file.two
+    // <outputFolder>/Glob/a/file.one
+    // <outputFolder>/Glob/a/b/file.one
+    // <outputFolder>/Glob/a/b/c/file.one
+    // <outputFolder>/Glob/a/b/c/d/e/f/file.one
+    // <outputFolder>/Glob/a/b/c/d/e/f/file.two
+    // <outputFolder>/Glob/other/file.one
+    // <outputFolder>/Glob/other/file.oye
+
+    // then
+    expect(Glob(pattern).expandGlobstar).to(equal([
+      baseURL.appendingPathComponent("a/*.one").path,
+      baseURL.appendingPathComponent("a/b/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/*.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/*.one").path
+    ]))
+  }
+
+  func test_paths_givenRootGlobstar_whenSubdirectoryMatches_shouldReturnAllMatches() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("**/*.two").path
+
+    // when
+    // <outputFolder>/Glob/file.one
+    // <outputFolder>/Glob/file.two
+    // <outputFolder>/Glob/a/file.one
+    // <outputFolder>/Glob/a/b/file.one
+    // <outputFolder>/Glob/a/b/c/file.one
+    // <outputFolder>/Glob/a/b/c/d/e/f/file.one
+    // <outputFolder>/Glob/a/b/c/d/e/f/file.two
+    // <outputFolder>/Glob/other/file.one
+    // <outputFolder>/Glob/other/file.oye
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ]))
+  }
+
   #warning("TODO - memory leak test")
 }
