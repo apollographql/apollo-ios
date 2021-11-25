@@ -9,9 +9,10 @@ public struct ApolloCodegenConfiguration {
     /// A comma-delimited string of path matching patterns to search for GraphQL operations, such as queries and mutations.
     /// 
     /// Each path matching pattern can include the following characters:
-    /// - `*` matches 0 or more characters in a single path portion, eg: `*.graphql`
-    /// - `?` matches 1 character, eg: `file-?.graphql`
-    /// - `**` matches zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
+    /// - `*` matches zero or more characters in a single path portion, eg: `*.graphql`
+    /// - `?` matches one character in a single path portion, eg: `file-?.graphql`
+    /// - `**` includes zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
+    /// - `!` excludes any match, eg: `a/*.graphql,!a/file.graphql`
     public let includes: String
 
     /// Designated initializer.
@@ -20,9 +21,10 @@ public struct ApolloCodegenConfiguration {
     ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
     ///  - includes: A comma-delimited string of path matching patterns to search for GraphQL operations, such as queries and
     ///  mutations. Each path matching pattern can include the following characters:
-    ///     - `*` matches 0 or more characters in a single path portion, eg: `*.graphql`
-    ///     - `?` matches 1 character, eg: `file-?.graphql`
-    ///     - `**` matches zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
+    ///     - `*` matches zero or more characters in a single path portion, eg: `*.graphql`
+    ///     - `?` matches one character in a single path portion, eg: `file-?.graphql`
+    ///     - `**` includes zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
+    ///     - `!` excludes any match, eg: `a/*.graphql,!a/file.graphql`
     public init(schemaPath: String, includes: String) {
       self.schemaPath = schemaPath
       self.includes = includes

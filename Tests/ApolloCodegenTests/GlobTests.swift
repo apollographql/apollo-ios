@@ -37,25 +37,27 @@ class GlobTests: XCTestCase {
 
   // MARK: Tests
 
-  func test_paths_givenNoMatch_whenMultipleFiles_shouldReturnEmpty() throws {
+  func test_paths_givenSinglePattern_whenNoMatch_shouldReturnEmpty() throws {
     // given
     let pattern = baseURL.appendingPathComponent("*.xyz").path
 
     // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
+    // <baseURL>/file.one
+    // <baseURL>/file.two
 
     // then
-    expect(Glob(pattern).match).to(beEmpty())
+    let results = try Glob(pattern).match()
+
+    expect(results).to(beEmpty())
   }
 
-  func test_paths_givenSingleMatch_whenMultipleFiles_shouldReturnSingle() throws {
+  func test_paths_givenSinglePattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = baseURL.appendingPathComponent("*.one").path
 
     // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
+    // <baseURL>/file.one
+    // <baseURL>/file.two
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -63,13 +65,13 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultipleMatches_whenMultipleFiles_shouldReturnMultiple() throws {
+  func test_paths_givenSinglePattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = baseURL.appendingPathComponent("file.*").path
 
     // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
+    // <baseURL>/file.one
+    // <baseURL>/file.two
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -78,40 +80,13 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultipleMatchBraces_whenSingleFile_shouldReturnSingle() throws {
+  func test_paths_givenSinglePattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
-    let pattern = baseURL.appendingPathComponent("a/{*.one,*.two}").path
+    let pattern = baseURL.appendingPathComponent("fil?.one").path
 
     // when
-    // <outputFolder>/Glob/a/file.one
-
-    expect(Glob(pattern).match).to(equal([
-      baseURL.appendingPathComponent("a/file.one").path
-    ]))
-  }
-
-  func test_paths_givenMultipleMatchBraces_whenMultipleFiles_shouldReturnMultiple() throws {
-    // given
-    let pattern = baseURL.appendingPathComponent("{*.one,*.two}").path
-
-    // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
-
-    // then
-    expect(Glob(pattern).match).to(equal([
-      baseURL.appendingPathComponent("file.one").path,
-      baseURL.appendingPathComponent("file.two").path
-    ]))
-  }
-
-  func test_paths_givenMultipleMatchBraces_withNegation_whenMultipleFiles_shouldReturnSingle() throws {
-    // given
-    let pattern = baseURL.appendingPathComponent("{*.one,!*.two}").path
-
-    // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
+    // <baseURL>/file.one
+    // <baseURL>/file.two
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -119,13 +94,13 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultipleMatches_withWildcardCharacter_whenMultipleFiles_shouldReturnMultiple() throws {
+  func test_paths_givenSinglePattern_usingSingleWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = baseURL.appendingPathComponent("other/file.o?e").path
 
     // when
-    // <outputFolder>/Glob/other/file.one
-    // <outputFolder>/Glob/other/file.oye
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -134,91 +109,172 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenDuplicateMatches_whenMatches_shouldNotReturnDuplicates() throws {
+  func test_paths_givenMultiplePattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
-    let pattern = baseURL.appendingPathComponent("a/{*.one,*.one}").path
+    let pattern = [
+      baseURL.appendingPathComponent("a/file.*").path,
+      baseURL.appendingPathComponent("a/*.ext").path
+    ].joined(separator: ",")
 
     // when
-    // <outputFolder>/Glob/a/file.one
+    // <baseURL>/a/file.one
 
+    // then
     expect(Glob(pattern).match).to(equal([
       baseURL.appendingPathComponent("a/file.one").path
     ]))
   }
 
-  func test_expandGlobstar_givenRootGlobstar_shouldExpandAllDirectoriesWithPattern() throws {
+  func test_paths_givenMultiplePattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
-    let pattern = baseURL.appendingPathComponent("**/*.one").path
+    let pattern = [
+      baseURL.appendingPathComponent("a/file.*").path,
+      baseURL.appendingPathComponent("other/file.*").path
+    ].joined(separator: ",")
 
     // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
-    // <outputFolder>/Glob/a/file.one
-    // <outputFolder>/Glob/a/b/file.one
-    // <outputFolder>/Glob/a/b/c/file.one
-    // <outputFolder>/Glob/a/b/c/d/e/f/file.one
-    // <outputFolder>/Glob/a/b/c/d/e/f/file.two
-    // <outputFolder>/Glob/other/file.one
-    // <outputFolder>/Glob/other/file.oye
-
-    // then
-    expect(Glob(pattern).expandGlobstar).to(equal([
-      baseURL.path.appending("/*.one"),
-      baseURL.appendingPathComponent("a/*.one").path,
-      baseURL.appendingPathComponent("a/b/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/f/*.one").path,
-      baseURL.appendingPathComponent("other/*.one").path
-    ]))
-  }
-
-  func test_expandGlobstar_givenPathGlobstar_shouldExpandSubdirectoriesWithPattern() {
-    // given
-    let pattern = baseURL.appendingPathComponent("a/**/*.one").path
-
-    // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
-    // <outputFolder>/Glob/a/file.one
-    // <outputFolder>/Glob/a/b/file.one
-    // <outputFolder>/Glob/a/b/c/file.one
-    // <outputFolder>/Glob/a/b/c/d/e/f/file.one
-    // <outputFolder>/Glob/a/b/c/d/e/f/file.two
-    // <outputFolder>/Glob/other/file.one
-    // <outputFolder>/Glob/other/file.oye
-
-    // then
-    expect(Glob(pattern).expandGlobstar).to(equal([
-      baseURL.appendingPathComponent("a/*.one").path,
-      baseURL.appendingPathComponent("a/b/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/*.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/f/*.one").path
-    ]))
-  }
-
-  func test_paths_givenRootGlobstar_whenSubdirectoryMatches_shouldReturnAllMatches() throws {
-    // given
-    let pattern = baseURL.appendingPathComponent("**/*.two").path
-
-    // when
-    // <outputFolder>/Glob/file.one
-    // <outputFolder>/Glob/file.two
-    // <outputFolder>/Glob/a/file.one
-    // <outputFolder>/Glob/a/b/file.one
-    // <outputFolder>/Glob/a/b/c/file.one
-    // <outputFolder>/Glob/a/b/c/d/e/f/file.one
-    // <outputFolder>/Glob/a/b/c/d/e/f/file.two
-    // <outputFolder>/Glob/other/file.one
-    // <outputFolder>/Glob/other/file.oye
+    // <baseURL>/a/file.one
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
 
     // then
     expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ]))
+  }
+
+  func test_paths_givenMultiplePattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
+    // given
+    let pattern = [
+      baseURL.appendingPathComponent("a/file.?ne").path,
+      baseURL.appendingPathComponent("other/file.?xt").path
+    ].joined(separator: ",")
+
+    // when
+    // <baseURL>/a/file.one
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path
+    ]))
+  }
+
+  func test_paths_givenMultiplePattern_usingSingleWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+    // given
+    let pattern = [
+      baseURL.appendingPathComponent("a/file.o?e").path,
+      baseURL.appendingPathComponent("other/file.o?e").path
+    ].joined(separator: ",")
+
+    // when
+    // <baseURL>/a/file.one
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ]))
+  }
+
+  func test_paths_givenSinglePattern_usingCombinedWildcard_whenSingleMatch_shouldReturnSingle() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("*.o?e").path
+
+    // when
+    // <baseURL>/file.one
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path
+    ]))
+  }
+
+  func test_paths_givenMultiplePattern_usingCombinedWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+    // given
+    let pattern = [
+      baseURL.appendingPathComponent("file.*").path,
+      baseURL.appendingPathComponent("other/file.o?e").path
+    ].joined(separator: ",")
+
+    // when
+    // <baseURL>/file.one
+    // <baseURL>/file.two
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ]))
+  }
+
+  func test_paths_givenGlobstarPattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/b/c/d/**/*.one").path
+
+    // when
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
+    ]))
+  }
+
+  func test_paths_givenGlobstarPattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/b/c/d/**/file.*").path
+
+    // when
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
     ]))
   }
+
+  func test_paths_givenGlobstarPattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/b/c/d/**/?ile.one").path
+
+    // when
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
+    ]))
+  }
+
+  func test_paths_givenGlobstarPattern_usingCombinedWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/b/c/d/**/fil?.*").path
+
+    // when
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ]))
+  }
+
+  #warning("TODO - test globstar negation")
 }
