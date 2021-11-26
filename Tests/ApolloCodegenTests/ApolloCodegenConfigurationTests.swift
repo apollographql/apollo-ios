@@ -26,7 +26,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(config.input.schemaPath).to(equal(expectedSchemaURL.path))
-    expect(config.input.includes).to(equal(expectedIncludesURL.path))
+    expect(config.input.includes).to(equal([expectedIncludesURL.path]))
     expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 
@@ -45,7 +45,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let schemaPath = directoryURL.appendingPathComponent(UUID().uuidString)
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: schemaPath.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
@@ -57,7 +57,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenSchemaPath_isDirectory_shouldThrow() throws {
     // given
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: directoryURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
@@ -70,7 +70,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: fileURL.path)))
 
     // when
@@ -87,7 +87,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let invalidURL = fileURL.appendingPathComponent("nested")
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: invalidURL.path)))
 
     // when
@@ -110,7 +110,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .absolute(path: fileURL.path),
                                                           operationIdentifiersPath: nil))
@@ -129,7 +129,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let invalidURL = fileURL.appendingPathComponent("nested")
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .absolute(path: invalidURL.path),
                                                           operationIdentifiersPath: nil))
@@ -155,7 +155,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .relative(subpath: nil),
                                                           operationIdentifiersPath: directoryURL.path))
@@ -186,7 +186,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         includes: "**/*.graphql"),
+                                                         includes: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .absolute(path: directoryURL.path),
                                                           operationIdentifiersPath: fileURL.path))

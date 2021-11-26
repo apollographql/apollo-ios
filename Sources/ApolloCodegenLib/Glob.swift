@@ -10,7 +10,7 @@ private extension String {
 
 /// A path pattern matcher.
 public struct Glob {
-  let pattern: String
+  let patterns: [String]
 
   // GLOB_ERR - Return on error
   // GLOB_MARK - Append / to matching directories
@@ -39,15 +39,15 @@ public struct Glob {
   /// The designated initializer
   ///
   /// - Parameters:
-  ///  - pattern: A comma-delimited string of path matching patterns.
+  ///  - pattern: An array of path matching pattern strings.
   ///
   /// Each path matching pattern can include the following characters:
-  /// - `*` matches zero or more characters in a single path portion, eg: `*.graphql`
-  /// - `?` matches one character in a single path portion, eg: `file-?.graphql`
-  /// - `**` includes zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
-  /// - `!` excludes any match, eg: `a/*.graphql,!a/file.graphql`
-  init(_ pattern: String) {
-    self.pattern = pattern
+  /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+  /// - `?` matches any single character, eg: `file-?.graphql`
+  /// - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+  /// - `!` excludes any match, eg: `*.graphql,!file.graphql`
+  init(_ patterns: [String]) {
+    self.patterns = patterns
   }
 
   /// Executes the pattern match on the underlying file system.

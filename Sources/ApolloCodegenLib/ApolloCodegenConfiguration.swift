@@ -6,26 +6,27 @@ public struct ApolloCodegenConfiguration {
   public struct FileInput {
     /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
     public let schemaPath: String
-    /// A comma-delimited string of path matching patterns to search for GraphQL operations, such as queries and mutations.
+    /// An array of path matching pattern strings. This is used to find files, such as GraphQL operations (queries, mutations, etc.),
+    /// included for code generation.
     /// 
     /// Each path matching pattern can include the following characters:
-    /// - `*` matches zero or more characters in a single path portion, eg: `*.graphql`
-    /// - `?` matches one character in a single path portion, eg: `file-?.graphql`
-    /// - `**` includes zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
-    /// - `!` excludes any match, eg: `a/*.graphql,!a/file.graphql`
-    public let includes: String
+    /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+    /// - `?` matches any single character, eg: `file-?.graphql`
+    /// - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+    /// - `!` excludes any match, eg: `*.graphql,!file.graphql`
+    public let includes: [String]
 
     /// Designated initializer.
     ///
     /// - Parameters:
     ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    ///  - includes: A comma-delimited string of path matching patterns to search for GraphQL operations, such as queries and
-    ///  mutations. Each path matching pattern can include the following characters:
-    ///     - `*` matches zero or more characters in a single path portion, eg: `*.graphql`
-    ///     - `?` matches one character in a single path portion, eg: `file-?.graphql`
-    ///     - `**` includes zero or more directories and subdirectories searching for matches, eg: `**/*.graphql`
-    ///     - `!` excludes any match, eg: `a/*.graphql,!a/file.graphql`
-    public init(schemaPath: String, includes: String) {
+    ///  - includes: An array of path matching pattern strings. This is used to find files, such as GraphQL operations (queries,
+    ///  mutations, etc.), included for code generation. Each path matching pattern can include the following characters:
+    ///     - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
+    ///     - `?` matches any single character, eg: `file-?.graphql`
+    ///     - `**` matches all subdirectories (deep), eg: `**/*.graphql`
+    ///     - `!` excludes any match, eg: `*.graphql,!file.graphql`
+    public init(schemaPath: String, includes: [String]) {
       self.schemaPath = schemaPath
       self.includes = includes
     }
@@ -187,7 +188,8 @@ public struct ApolloCodegenConfiguration {
   /// - Parameters:
   ///  - basePath: The base path used to find the schema and operation files.
   ///  - schemaFilename: The filename of the GraphQL schema. This will be combined with `basePath`.
-  ///  - includesPattern: The pattern used to match operation files. This will be combined with `basePath`.
+  ///  - includesPattern: The pattern used to match operation files. This should be a relative path to `basePath`. If you want
+  ///  to use absolute paths or multiple patterns please use the designated initializer instead.
   public init(
     basePath: String,
     schemaFilename: String = "schema.graphqls",
@@ -196,7 +198,7 @@ public struct ApolloCodegenConfiguration {
     let schemaURL = URL(fileURLWithPath: basePath).appendingPathComponent(schemaFilename)
     let includesURL = URL(fileURLWithPath: basePath).appendingPathComponent(includesPattern)
 
-    self.init(input: FileInput(schemaPath: schemaURL.path, includes: includesURL.path),
+    self.init(input: FileInput(schemaPath: schemaURL.path, includes: [includesURL.path]),
               output: FileOutput(schemaTypes: SchemaTypesFileOutput(path: basePath)))
   }
 }

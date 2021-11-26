@@ -46,7 +46,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/file.two
 
     // then
-    let results = try Glob(pattern).match()
+    let results = try Glob([pattern]).match()
 
     expect(results).to(beEmpty())
   }
@@ -60,7 +60,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("file.one").path
     ]))
   }
@@ -74,7 +74,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("file.two").path
     ]))
@@ -89,7 +89,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("file.one").path
     ]))
   }
@@ -103,7 +103,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/other/file.oye
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("other/file.one").path,
       baseURL.appendingPathComponent("other/file.oye").path
     ]))
@@ -114,7 +114,7 @@ class GlobTests: XCTestCase {
     let pattern = [
       baseURL.appendingPathComponent("a/file.*").path,
       baseURL.appendingPathComponent("a/*.ext").path
-    ].joined(separator: ",")
+    ]
 
     // when
     // <baseURL>/a/file.one
@@ -130,7 +130,7 @@ class GlobTests: XCTestCase {
     let pattern = [
       baseURL.appendingPathComponent("a/file.*").path,
       baseURL.appendingPathComponent("other/file.*").path
-    ].joined(separator: ",")
+    ]
 
     // when
     // <baseURL>/a/file.one
@@ -150,7 +150,7 @@ class GlobTests: XCTestCase {
     let pattern = [
       baseURL.appendingPathComponent("a/file.?ne").path,
       baseURL.appendingPathComponent("other/file.?xt").path
-    ].joined(separator: ",")
+    ]
 
     // when
     // <baseURL>/a/file.one
@@ -168,7 +168,7 @@ class GlobTests: XCTestCase {
     let pattern = [
       baseURL.appendingPathComponent("a/file.o?e").path,
       baseURL.appendingPathComponent("other/file.o?e").path
-    ].joined(separator: ",")
+    ]
 
     // when
     // <baseURL>/a/file.one
@@ -191,7 +191,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/file.one
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("file.one").path
     ]))
   }
@@ -201,7 +201,7 @@ class GlobTests: XCTestCase {
     let pattern = [
       baseURL.appendingPathComponent("file.*").path,
       baseURL.appendingPathComponent("other/file.o?e").path
-    ].joined(separator: ",")
+    ]
 
     // when
     // <baseURL>/file.one
@@ -227,7 +227,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/a/b/c/d/e/f/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
     ]))
   }
@@ -241,7 +241,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/a/b/c/d/e/f/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
     ]))
@@ -256,7 +256,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/a/b/c/d/e/f/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
     ]))
   }
@@ -270,7 +270,7 @@ class GlobTests: XCTestCase {
     // <baseURL>/a/b/c/d/e/f/file.two
 
     // then
-    expect(Glob(pattern).match).to(equal([
+    expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
     ]))
