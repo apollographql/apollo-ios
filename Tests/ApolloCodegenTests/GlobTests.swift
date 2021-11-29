@@ -37,7 +37,7 @@ class GlobTests: XCTestCase {
 
   // MARK: Tests
 
-  func test_paths_givenSinglePattern_whenNoMatch_shouldReturnEmpty() throws {
+  func test_match_givenSinglePattern_whenNoMatch_shouldReturnEmpty() throws {
     // given
     let pattern = baseURL.appendingPathComponent("*.xyz").path
 
@@ -51,7 +51,7 @@ class GlobTests: XCTestCase {
     expect(results).to(beEmpty())
   }
 
-  func test_paths_givenSinglePattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenSinglePattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = baseURL.appendingPathComponent("*.one").path
 
@@ -65,7 +65,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenSinglePattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenSinglePattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = baseURL.appendingPathComponent("file.*").path
 
@@ -80,7 +80,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenSinglePattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenSinglePattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = baseURL.appendingPathComponent("fil?.one").path
 
@@ -94,7 +94,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenSinglePattern_usingSingleWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenSinglePattern_usingSingleWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = baseURL.appendingPathComponent("other/file.o?e").path
 
@@ -109,7 +109,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultiplePattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenMultiplePattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = [
       baseURL.appendingPathComponent("a/file.*").path,
@@ -125,7 +125,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultiplePattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenMultiplePattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = [
       baseURL.appendingPathComponent("a/file.*").path,
@@ -145,7 +145,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultiplePattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenMultiplePattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = [
       baseURL.appendingPathComponent("a/file.?ne").path,
@@ -163,7 +163,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultiplePattern_usingSingleWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenMultiplePattern_usingSingleWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = [
       baseURL.appendingPathComponent("a/file.o?e").path,
@@ -183,7 +183,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenSinglePattern_usingCombinedWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenSinglePattern_usingCombinedWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = baseURL.appendingPathComponent("*.o?e").path
 
@@ -196,7 +196,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenMultiplePattern_usingCombinedWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenMultiplePattern_usingCombinedWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = [
       baseURL.appendingPathComponent("file.*").path,
@@ -218,7 +218,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenGlobstarPattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenGlobstarPattern_usingAnyWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/*.one").path
 
@@ -232,7 +232,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenGlobstarPattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenGlobstarPattern_usingAnyWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/file.*").path
 
@@ -247,7 +247,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenGlobstarPattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
+  func test_match_givenGlobstarPattern_usingSingleWildcard_whenSingleMatch_shouldReturnSingle() throws {
     // given
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/?ile.one").path
 
@@ -261,7 +261,7 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_paths_givenGlobstarPattern_usingCombinedWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
+  func test_match_givenGlobstarPattern_usingCombinedWildcard_whenMultipleMatch_shouldReturnMultiple() throws {
     // given
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/fil?.*").path
 
