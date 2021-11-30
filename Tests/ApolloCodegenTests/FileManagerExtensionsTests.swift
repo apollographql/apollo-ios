@@ -25,7 +25,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesFileExist_givenFileExistsAndIsDirectory_shouldReturnFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -40,7 +40,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesFileExist_givenFileExistsAndIsNotDirectory_shouldReturnTrue() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
@@ -55,7 +55,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesFileExist_givenFileDoesNotExistAndIsDirectory_shouldReturnFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -70,7 +70,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesFileExist_givenFileDoesNotExistAndIsNotDirectory_shouldReturnFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
@@ -85,7 +85,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesDirectoryExist_givenFilesExistsAndIsDirectory_shouldReturnTrue() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -100,7 +100,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesDirectoryExist_givenFileExistsAndIsNotDirectory_shouldReturnFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
@@ -115,7 +115,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesDirectoryExist_givenFileDoesNotExistAndIsDirectory_shouldReturnFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -130,7 +130,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_doesDirectoryExist_givenFileDoesNotExistAndIsNotDirectory_shouldFalse() {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
@@ -145,7 +145,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteFile_givenFileExistsAndIsDirectory_shouldThrow() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -161,14 +161,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteFile_givenFileExistsAndIsNotDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true
 
     }, removeItem: { (path: String) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
     })
 
     // then
@@ -179,14 +179,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteFile_givenFileExistsAndIsNotDirectoryAndError_shouldThrow() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true
 
     }, removeItem: { (path: String) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
 
       throw self.uniqueError
     })
@@ -199,7 +199,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteFile_givenFileDoesNotExistAndIsDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -214,7 +214,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteFile_givenFileDoesNotExistAndIsNotDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
@@ -229,14 +229,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteDirectory_givenFileExistsAndIsDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return true
 
     }, removeItem: { (path: String) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
     })
 
     // then
@@ -247,14 +247,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteDirectory_givenFileExistsAndIsDirectoryAndError_shouldThrow() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return true
 
     }, removeItem: { (path: String) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
 
       throw self.uniqueError
     })
@@ -267,14 +267,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteDirectory_givenFileExistsAndIsNotDirectory_shouldThrow() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true
 
     }, removeItem: { (path: String) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
     })
 
     // then
@@ -286,7 +286,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteDirectory_givenFileDoesNotExistAndIsDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -301,7 +301,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_deleteDirectory_givenFileDoesNotExistAndIsNotDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
@@ -317,14 +317,14 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return true
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
@@ -343,14 +343,14 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return true
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
@@ -369,21 +369,21 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return false
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
       return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attr).to(beNil())
     })
@@ -397,21 +397,21 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return false
 
     }, createFile: { (path: String, data: Data?, attr: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
 
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attr).to(beNil())
     })
@@ -425,7 +425,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -436,7 +436,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attr: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attr).to(beNil())
 
@@ -454,7 +454,7 @@ class FileManagerExtensionTests: XCTestCase {
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
       let parentPath = URL(fileURLWithPath: path).deletingLastPathComponent().path
 
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -473,14 +473,14 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
     })
@@ -494,14 +494,14 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
     })
@@ -515,14 +515,14 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
     })
@@ -536,14 +536,14 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(parentPath))
+      expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
 
@@ -559,7 +559,7 @@ class FileManagerExtensionTests: XCTestCase {
   func test_createDirectory_givenFileExistsAndIsDirectory_shouldReturnEarly() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
@@ -577,14 +577,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_createDirectory_givenFileExistsAndIsNotDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return true
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
     })
@@ -597,14 +597,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_createDirectory_givenFileDoesNotExistAndIsDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = true
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
     })
@@ -617,14 +617,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_createDirectory_givenFileDoesNotExistAndIsNotDirectory_shouldSucceed() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
     })
@@ -637,14 +637,14 @@ class FileManagerExtensionTests: XCTestCase {
   func test_createDirectory_givenError_shouldThrow() throws {
     // given
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
       isDirectory?.pointee = false
       return false
 
     }, createDirectory: { (path: String, createIntermediates: Bool, attributes: FileAttributes?) in
-      expect(path).to(match(self.uniquePath))
+      expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
 
