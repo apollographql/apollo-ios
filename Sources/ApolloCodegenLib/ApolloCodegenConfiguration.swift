@@ -6,8 +6,9 @@ public struct ApolloCodegenConfiguration {
   public struct FileInput {
     /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
     public let schemaPath: String
-    /// An array of path matching pattern strings. This is used to find files, such as GraphQL operations (queries, mutations, etc.),
-    /// included for code generation.
+    /// An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations, etc.), to be
+    /// included for code generation. You can use absolute or relative paths for the path portion of the pattern. Relative paths will be
+    /// based off the current working directory from `FileManager`.
     /// 
     /// Each path matching pattern can include the following characters:
     /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
@@ -20,8 +21,10 @@ public struct ApolloCodegenConfiguration {
     ///
     /// - Parameters:
     ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    ///  - includes: An array of path matching pattern strings. This is used to find files, such as GraphQL operations (queries,
-    ///  mutations, etc.), included for code generation. Each path matching pattern can include the following characters:
+    ///  - includes: An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations,
+    ///  etc.), included for code generation. You can use absolute or relative paths for the path portion of the pattern. Relative paths
+    ///  will be based off the current working directory from `FileManager`. Each path matching pattern can include the following
+    ///  characters:
     ///     - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
     ///     - `?` matches any single character, eg: `file-?.graphql`
     ///     - `**` matches all subdirectories (deep), eg: `**/*.graphql`
