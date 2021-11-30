@@ -13,7 +13,7 @@ public struct ApolloCodegenConfiguration {
     /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
     /// - `?` matches any single character, eg: `file-?.graphql`
     /// - `**` matches all subdirectories (deep), eg: `**/*.graphql`
-    /// - `!` excludes any match, eg: `*.graphql,!file.graphql`
+    /// - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     public let includes: [String]
 
     /// Designated initializer.
@@ -25,7 +25,7 @@ public struct ApolloCodegenConfiguration {
     ///     - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
     ///     - `?` matches any single character, eg: `file-?.graphql`
     ///     - `**` matches all subdirectories (deep), eg: `**/*.graphql`
-    ///     - `!` excludes any match, eg: `*.graphql,!file.graphql`
+    ///     - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     public init(schemaPath: String, includes: [String]) {
       self.schemaPath = schemaPath
       self.includes = includes

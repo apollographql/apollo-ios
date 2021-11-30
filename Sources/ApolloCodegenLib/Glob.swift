@@ -6,6 +6,14 @@ private extension String {
   var includesGlobstar: Bool {
     return self.contains(Self.Globstar)
   }
+
+  var isExclude: Bool {
+    return self.first == "!"
+  }
+
+  var containsExclude: Bool {
+    return self.contains("!")
+  }
 }
 
 /// A path pattern matcher.
@@ -20,10 +28,11 @@ public struct Glob {
   private let flags = GLOB_ERR | GLOB_MARK | GLOB_NOSORT | GLOB_BRACE | GLOB_TILDE
 
   /// An error object that indicates why pattern matching failed.
-  public enum MatchError: Error, LocalizedError {
+  public enum MatchError: Error, LocalizedError, Equatable {
     case noSpace // GLOB_NOSPACE
     case aborted // GLOB_ABORTED
     case cannotEnumerate(path: String)
+    case invalidExclude(path: String)
     case unknown(code: Int)
 
     public var errorDescription: String? {
@@ -31,6 +40,7 @@ public struct Glob {
       case .noSpace: return "Malloc call failed" // From Darwin.POSIX.glob
       case .aborted: return "Unignored error" // From Darwin.POSIX.glob
       case .cannotEnumerate(let path): return "Cannot enumerate \(path)"
+      case .invalidExclude(let path): return "Exclude paths must start with '!' - \(path)"
       case .unknown(let code): return "Unknown error: \(code)"
       }
     }
@@ -45,7 +55,10 @@ public struct Glob {
   /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
   /// - `?` matches any single character, eg: `file-?.graphql`
   /// - `**` matches all subdirectories (deep), eg: `**/*.graphql`
-  /// - `!` excludes any match, eg: `*.graphql,!file.graphql`
+  /// - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
+  ///
+  /// - Discussion:
+  ///
   init(_ patterns: [String]) {
     self.patterns = patterns
   }
@@ -54,50 +67,55 @@ public struct Glob {
   ///
   /// - Returns: A set of matched file paths.
   func match() throws -> Set<String> {
-    let paths: Set<String> = try expand(self.pattern)
+    let expandedPatterns = try expand(self.patterns)
 
-    var matches: Set<String> = []
-    for path in paths {
-      matches.formUnion(try self.matches(for: path))
+    var includeMatches: [String] = []
+    var excludeMatches: [String] = []
+
+    for pattern in expandedPatterns {
+      if pattern.isExclude {
+        let patternMatches = try matches(for: String(pattern.dropFirst()))
+        excludeMatches.append(contentsOf: patternMatches)
+
+      } else {
+        let patternMatches = try matches(for: pattern)
+        includeMatches.append(contentsOf: patternMatches)
+      }
     }
 
-    return matches
+    return Set<String>(includeMatches).subtracting(excludeMatches)
   }
 
-  /// Separates a comma-delimited string into paths, expanding any globstars, removing duplicates and negated path patterns.
-  private func expand(_ pattern: String) throws -> Set<String> {
-    // The ordered nature of an array is important here because we process negatives (!) in the
-    // order which they appear in the pattern.
-    let components: [String] = pattern.components(separatedBy: ",").compactMap({
-      let trimmed = $0.trimmingCharacters(in: .whitespacesAndNewlines)
-      return trimmed.isEmpty ? nil : trimmed
-    })
-
+  /// Separates a comma-delimited string into paths, expanding any globstars and removes duplicates.
+  private func expand(_ patterns: [String]) throws -> Set<String> {
     var paths: Set<String> = []
-    for item in components {
-      let expanded: Set<String> = item.includesGlobstar ? try expandGlobstar(item) : [item]
-
-      if item.first == "!" {
-        paths.subtract(expanded)
-      } else {
-        paths.formUnion(expanded)
+    for pattern in patterns {
+      if pattern.containsExclude && !pattern.isExclude {
+        throw MatchError.invalidExclude(path: pattern)
       }
+
+      paths.formUnion(pattern.includesGlobstar ? try expandGlobstar(pattern) : [pattern])
     }
 
     return paths
   }
 
-  /// Expands the globstar (`**`) to find all directory paths to search for the match pattern.
+  /// Expands the globstar (`**`) to find all directory paths to search for the match pattern and removes duplicates.
   private func expandGlobstar(_ pattern: String) throws -> Set<String> {
     guard pattern.contains("**") else { return [pattern] }
 
+    let isExclude = pattern.isExclude
     var parts = pattern.components(separatedBy: String.Globstar)
-    let firstPart = parts.removeFirst()
+    var firstPart = parts.removeFirst()
     let lastPart = parts.joined(separator: String.Globstar)
+
+    if isExclude {
+      firstPart = String(firstPart.dropFirst())
+    }
 
     let fileManager = FileManager.default
     let searchPath = firstPart.isEmpty ? fileManager.currentDirectoryPath : firstPart
-    var directories: Set<String> = [searchPath] // include searching the globstar root directory
+    var directories: [String] = [searchPath] // include searching the globstar root directory
 
     do {
       let searchURL = URL(fileURLWithPath: searchPath)
@@ -126,7 +144,7 @@ public struct Glob {
           isDirectory == true
         else { continue }
 
-        directories.insert(url.path)
+        directories.append(url.path)
       }
 
     } catch(let error) {
@@ -134,12 +152,13 @@ public struct Glob {
     }
 
     return Set<String>(directories.compactMap({ directory in
-      URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
+      let path = URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
+      return (isExclude ? "!" + path : path)
     }))
   }
 
   /// Performs the underlying file system path matching.
-  private func matches(for pattern: String) throws -> Set<String> {
+  private func matches(for pattern: String) throws -> [String] {
     var globT = glob_t()
 
     defer {
@@ -156,12 +175,12 @@ public struct Glob {
     default: throw MatchError.unknown(code: Int(response))
     }
 
-    return Set<String>((0..<Int(globT.gl_matchc)).compactMap({ index in
+    return (0..<Int(globT.gl_matchc)).compactMap({ index in
       if let path = String(validatingUTF8: globT.gl_pathv[index]!) {
         return path
       }
 
       return nil
-    }))
+    })
   }
 }

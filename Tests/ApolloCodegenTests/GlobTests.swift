@@ -276,5 +276,28 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  #warning("TODO - test globstar negation")
+  func test_match_givenPattern_withExcludeNotFirst_shouldThrow() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("a/b/c/d/**/!file.swift").path
+
+    // then
+    expect(Glob([pattern]).match).to(throwError(Glob.MatchError.invalidExclude(path: pattern)))
+  }
+
+  func test_match_givenGlobstarPattern_usingPathExclude_whenMultipleMatch_shouldExclude() throws {
+    // given
+    let pattern = [
+      baseURL.appendingPathComponent("a/b/c/d/**/file.*").path,
+      "!" + baseURL.appendingPathComponent("a/b/c/d/**/file.two").path,
+    ]
+
+    // when
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
+    ]))
+  }
 }
