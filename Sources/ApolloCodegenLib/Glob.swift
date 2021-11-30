@@ -23,9 +23,8 @@ public struct Glob {
   // GLOB_ERR - Return on error
   // GLOB_MARK - Append / to matching directories
   // GLOB_NOSORT - Don't sort
-  // GLOB_BRACE - Expand braces ala csh
   // GLOB_TILDE - Expand tilde names from the passwd file
-  private let flags = GLOB_ERR | GLOB_MARK | GLOB_NOSORT | GLOB_BRACE | GLOB_TILDE
+  private let flags = GLOB_ERR | GLOB_MARK | GLOB_NOSORT | GLOB_TILDE
 
   /// An error object that indicates why pattern matching failed.
   public enum MatchError: Error, LocalizedError, Equatable {
