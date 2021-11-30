@@ -90,6 +90,9 @@ public struct Glob {
     var paths: Set<String> = []
     for pattern in patterns {
       if pattern.containsExclude && !pattern.isExclude {
+        // glob and fnmatch do support ! being used elsewhere in the path match pattern but for the
+        // purposes of Glob we reserve it exclusively for the exclude pattern and it is required to
+        // be the first character otherwise we throw.
         throw MatchError.invalidExclude(path: pattern)
       }
 
@@ -111,6 +114,8 @@ public struct Glob {
     let lastPart = parts.joined(separator: String.Globstar)
 
     if isExclude {
+      // Remove ! here otherwise the Linux glob function would not return any results. Results for
+      // the exclude path match patterns are needed because match() manually handles exclusion.
       firstPart = String(firstPart.dropFirst())
     }
 
