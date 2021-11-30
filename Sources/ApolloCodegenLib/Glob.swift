@@ -103,6 +103,8 @@ public struct Glob {
   private func expandGlobstar(_ pattern: String) throws -> Set<String> {
     guard pattern.contains("**") else { return [pattern] }
 
+    CodegenLogger.log("Expanding globstar \(pattern)", logLevel: .debug)
+
     let isExclude = pattern.isExclude
     var parts = pattern.components(separatedBy: String.Globstar)
     var firstPart = parts.removeFirst()
@@ -151,8 +153,14 @@ public struct Glob {
     }
 
     return Set<String>(directories.compactMap({ directory in
-      let path = URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
-      return (isExclude ? "!" + path : path)
+      var path = URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
+      if isExclude {
+        path.insert("!", at: path.startIndex)
+      }
+
+      CodegenLogger.log("Expanded to \(path)", logLevel: .debug)
+
+      return path
     }))
   }
 
@@ -163,6 +171,8 @@ public struct Glob {
     defer {
       globfree(&globT)
     }
+
+    CodegenLogger.log("Matching \(pattern)", logLevel: .debug)
 
     let response = glob(pattern, flags, nil, &globT)
 
@@ -176,6 +186,7 @@ public struct Glob {
 
     return (0..<Int(globT.gl_matchc)).compactMap({ index in
       if let path = String(validatingUTF8: globT.gl_pathv[index]!) {
+        CodegenLogger.log("Matched \(path)", logLevel: .debug)
         return path
       }
 
