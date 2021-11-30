@@ -33,6 +33,8 @@ class GlobTests: XCTestCase {
 
   override func tearDownWithError() throws {
     try FileManager.default.apollo.deleteDirectory(atPath: baseURL.path)
+
+    try super.tearDownWithError()
   }
 
   // MARK: Tests
