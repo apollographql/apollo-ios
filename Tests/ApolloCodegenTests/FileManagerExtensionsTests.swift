@@ -451,9 +451,8 @@ class FileManagerExtensionTests: XCTestCase {
 
   func test_createContainingDirectory_givenFileExistsAndIsDirectory_shouldReturnEarly() throws {
     // given
+    let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
-      let parentPath = URL(fileURLWithPath: path).deletingLastPathComponent().path
-
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
