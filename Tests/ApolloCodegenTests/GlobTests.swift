@@ -5,36 +5,28 @@ import ApolloCodegenTestSupport
 
 class GlobTests: XCTestCase {
   let baseURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Glob")
+  let fileManager = FileManager.default.apollo
 
   // MARK: Setup
 
   override func setUpWithError() throws {
-    let fileManager = FileManager.default.apollo
+    try super.setUpWithError()
 
-    // <outputFolder>/Glob/
     try fileManager.createDirectoryIfNeeded(atPath: baseURL.path)
-
-    let files = [
-      self.baseURL.appendingPathComponent("file.one").path, // <outputFolder>/Glob/file.one
-      self.baseURL.appendingPathComponent("file.two").path, // <outputFolder>/Glob/file.two
-      self.baseURL.appendingPathComponent("a/file.one").path, // <outputFolder>/Glob/a/file.one
-      self.baseURL.appendingPathComponent("a/b/file.one").path, // <outputFolder>/Glob/a/b/file.one
-      self.baseURL.appendingPathComponent("a/b/c/file.one").path, // <outputFolder>/Glob/a/b/c/file.one
-      self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path, // <outputFolder>/Glob/a/b/c/d/e/f/file.one
-      self.baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path, // <outputFolder>/Glob/a/b/c/d/e/f/file.two
-      self.baseURL.appendingPathComponent("other/file.one").path, // <outputFolder>/Glob/other/file.one
-      self.baseURL.appendingPathComponent("other/file.oye").path // <outputFolder>/Glob/other/file.oye
-    ]
-
-    for file in files {
-      expect(try fileManager.createFile(atPath: file)).to(beTrue())
-    }
   }
 
   override func tearDownWithError() throws {
     try FileManager.default.apollo.deleteDirectory(atPath: baseURL.path)
 
     try super.tearDownWithError()
+  }
+
+  // MARK: Helpers
+
+  private func create(files: [String]) throws {
+    for file in files {
+      expect(try self.fileManager.createFile(atPath: file)).to(beTrue())
+    }
   }
 
   // MARK: Tests
@@ -44,8 +36,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("*.xyz").path
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path
+    ])
 
     // then
     let results = try Glob([pattern]).match()
@@ -58,8 +52,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("*.one").path
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -72,8 +68,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("file.*").path
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -87,8 +85,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("fil?.one").path
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -101,8 +101,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("other/file.o?e").path
 
     // when
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -119,7 +121,9 @@ class GlobTests: XCTestCase {
     ]
 
     // when
-    // <baseURL>/a/file.one
+    try create(files: [
+      baseURL.appendingPathComponent("a/file.one").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -135,9 +139,11 @@ class GlobTests: XCTestCase {
     ]
 
     // when
-    // <baseURL>/a/file.one
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -155,9 +161,11 @@ class GlobTests: XCTestCase {
     ]
 
     // when
-    // <baseURL>/a/file.one
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -173,9 +181,11 @@ class GlobTests: XCTestCase {
     ]
 
     // when
-    // <baseURL>/a/file.one
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -190,7 +200,9 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("*.o?e").path
 
     // when
-    // <baseURL>/file.one
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -206,10 +218,12 @@ class GlobTests: XCTestCase {
     ]
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -225,8 +239,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/*.one").path
 
     // when
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -239,8 +255,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/file.*").path
 
     // when
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -254,8 +272,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/?ile.one").path
 
     // when
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -268,8 +288,10 @@ class GlobTests: XCTestCase {
     let pattern = baseURL.appendingPathComponent("a/b/c/d/**/fil?.*").path
 
     // when
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ])
 
     // then
     expect(Glob([pattern]).match).to(equal([
@@ -294,8 +316,10 @@ class GlobTests: XCTestCase {
     ]
 
     // when
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
+    try create(files: [
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -310,15 +334,17 @@ class GlobTests: XCTestCase {
     FileManager.default.changeCurrentDirectoryPath(baseURL.path)
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
-    // <baseURL>/a/file.one
-    // <baseURL>/a/b/file.one
-    // <baseURL>/a/b/c/file.one
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
@@ -338,15 +364,17 @@ class GlobTests: XCTestCase {
     FileManager.default.changeCurrentDirectoryPath(baseURL.path)
 
     // when
-    // <baseURL>/file.one
-    // <baseURL>/file.two
-    // <baseURL>/a/file.one
-    // <baseURL>/a/b/file.one
-    // <baseURL>/a/b/c/file.one
-    // <baseURL>/a/b/c/d/e/f/file.one
-    // <baseURL>/a/b/c/d/e/f/file.two
-    // <baseURL>/other/file.one
-    // <baseURL>/other/file.oye
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
 
     // then
     expect(Glob(pattern).match).to(equal([
