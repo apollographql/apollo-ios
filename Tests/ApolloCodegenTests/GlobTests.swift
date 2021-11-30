@@ -300,4 +300,60 @@ class GlobTests: XCTestCase {
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
     ]))
   }
+
+  func test_match_givenRelativePattern_usingNoPrefix_shouldUseCurrentDirectory() throws {
+    // given
+    let pattern = ["**/*.one"]
+
+    FileManager.default.changeCurrentDirectoryPath(baseURL.path)
+
+    // when
+    // <baseURL>/file.one
+    // <baseURL>/file.two
+    // <baseURL>/a/file.one
+    // <baseURL>/a/b/file.one
+    // <baseURL>/a/b/c/file.one
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path
+    ]))
+  }
+
+  func test_match_givenRelativePattern_usingSingleDotPrefix_shouldUseCurrentDirectory() throws {
+    // given
+    let pattern = ["./**/*.one"]
+
+    FileManager.default.changeCurrentDirectoryPath(baseURL.path)
+
+    // when
+    // <baseURL>/file.one
+    // <baseURL>/file.two
+    // <baseURL>/a/file.one
+    // <baseURL>/a/b/file.one
+    // <baseURL>/a/b/c/file.one
+    // <baseURL>/a/b/c/d/e/f/file.one
+    // <baseURL>/a/b/c/d/e/f/file.two
+    // <baseURL>/other/file.one
+    // <baseURL>/other/file.oye
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path
+    ]))
+  }
 }
