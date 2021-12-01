@@ -40,7 +40,7 @@ class IR {
     let fieldPath: ResponsePath
 
     var rootTypePath: LinkedList<GraphQLCompositeType> { mergedSelectionTree.rootTypePath }
-    
+
     var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
     init(
@@ -64,12 +64,26 @@ class IR {
 
     let parentType: GraphQLCompositeType
 
+    /// A list of the type scopes for the selection set and its enclosing entities.
+    ///
+    /// The selection set's type scope is the last element in the list.
     let typePath: LinkedList<TypeScopeDescriptor>
 
+    /// Describes all of the types the selection set matches.
+    /// Derived from all the selection set's parents.
     var typeScope: TypeScopeDescriptor { typePath.last.value }
 
+    /// The selections that are directly selected by this selection set.
     var selections: SortedSelections = SortedSelections()
 
+    /// The selections that will be selected for this selection set.
+    ///
+    /// Includes the direct selections, along with all selections from other related
+    /// `SelectionSet`s on the same entity that match the selection set's type scope.
+    ///
+    /// Selections in the `mergedSelections` are guarunteed to be selected if this `SelectionSet`'s
+    /// `selections` are selected. This means they can be merged into the generated object
+    /// representing this `SelectionSet` as field accessors.
     lazy var mergedSelections: SortedSelections = entity.mergedSelectionTree
       .mergedSelections(forSelectionSet: self)
 

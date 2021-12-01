@@ -10,6 +10,16 @@ fileprivate protocol MergedSelectionTreeNode {
 }
 
 extension IR {
+
+  /// Represents the selections for an entity at different nested type scopes in a tree.
+  ///
+  /// This data structure is used to memoize the selections for an `Entity` to quickly compute
+  /// the `mergedSelections` for `SelectionSet`s.
+  ///
+  /// During the creation of `SelectionSet`s, their `selections` are added to their entities
+  /// mergedSelectionTree at the appropriate type scope. After all `SelectionSet`s have been added
+  /// to the `MergedSelectionTree`, the tree can be quickly traversed to collect the selections
+  /// that will be selected for a given `SelectionSet`'s type scope.
   class MergedSelectionTree {
     let rootTypePath: LinkedList<GraphQLCompositeType>
     lazy var rootNode = EnclosingEntityNode()
