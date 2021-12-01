@@ -16,15 +16,18 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   func test_init_givenBasePathAndSchemaFilename_shouldBuildDefaultPaths() {
     // given
-    let filename = "could_be_anything"
-    let expectedSchemaURL = directoryURL.appendingPathComponent(filename)
-    let config = ApolloCodegenConfiguration(basePath: directoryURL.path, schemaFilename: filename)
+    let schemafilename = "could_be_anything"
+    let includeFilename = "file.ext"
+    let expectedSchemaURL = directoryURL.appendingPathComponent(schemafilename)
+    let expectedIncludeURL = directoryURL.appendingPathComponent(includeFilename)
+    let config = ApolloCodegenConfiguration(basePath: directoryURL.path,
+                                            schemaFilename: schemafilename,
+                                            searchPattern: includeFilename)
 
     // then
-    expect(config.input.schemaPath).to(
-      match(expectedSchemaURL.path)
-    )
-    expect(config.output.schemaTypes.path).to(match(directoryURL.path))
+    expect(config.input.schemaPath).to(equal(expectedSchemaURL.path))
+    expect(config.input.searchPaths).to(equal([expectedIncludeURL.path]))
+    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 
   func test_validation_givenSchemaFilename_doesNotExist_shouldThrow() throws {
@@ -41,7 +44,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenSchemaPath_doesNotExist_shouldThrow() throws {
     // given
     let schemaPath = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: schemaPath.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: schemaPath.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
@@ -52,7 +56,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   func test_validation_givenSchemaPath_isDirectory_shouldThrow() throws {
     // given
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: directoryURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: directoryURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
@@ -64,11 +69,12 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenSchemaTypesPath_isFile_shouldThrow() throws {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: fileURL.path)))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -80,11 +86,12 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let invalidURL = fileURL.appendingPathComponent("nested")
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: invalidURL.path)))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -102,13 +109,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenOperations_absolutePath_isFile_shouldThrow() throws {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .absolute(path: fileURL.path),
                                                           operationIdentifiersPath: nil))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -120,13 +128,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let invalidURL = fileURL.appendingPathComponent("nested")
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .absolute(path: invalidURL.path),
                                                           operationIdentifiersPath: nil))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -145,13 +154,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenOperationIdentifiersPath_isDirectory_shouldThrow() throws {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .relative(subpath: nil),
                                                           operationIdentifiersPath: directoryURL.path))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.to(
@@ -166,7 +176,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // when
     let expectedSchemaURL = directoryURL.appendingPathComponent(filename)
-    try FileManager.default.apollo.createFile(atPath: expectedSchemaURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: expectedSchemaURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.notTo(throwError())
@@ -175,13 +185,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_validation_givenValidConfiguration_designatedInitializer_shouldNotThrow() throws {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
+    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
+                                                         searchPaths: ["**/*.graphql"]),
                                             output: .init(schemaTypes: .init(path: directoryURL.path),
                                                           operations: .absolute(path: directoryURL.path),
                                                           operationIdentifiersPath: fileURL.path))
 
     // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
+    expect(try FileManager.default.apollo.createFile(atPath: fileURL.path)).to(beTrue())
 
     // then
     expect { try ApolloCodegen.validate(config) }.notTo(throwError())
