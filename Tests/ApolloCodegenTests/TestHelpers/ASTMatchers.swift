@@ -131,7 +131,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
           if !shallowlyMatch(expected: expectedField, actual: actualField) {
             return PredicateResult(
               status: .fail,
-              message: .fail("Expected fields[\(actualValue.fields.keys[currentFieldIndex])] to equal \(expectedField), got \(actualField).")
+              message: .fail("Expected fields[\(currentFieldIndex)] to equal \(expectedField), got \(actualField).")
             )
           }
           currentFieldIndex += 1
@@ -141,7 +141,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
           if !shallowlyMatch(expected: expectedTypeCase, actual: actualTypeCase) {
             return PredicateResult(
               status: .fail,
-              message: .fail("Expected typeCases[\(actualValue.fields.keys[currentTypeCaseIndex])] to equal \(expectedTypeCase), got \(actualTypeCase).")
+              message: .fail("Expected typeCases[\(currentTypeCaseIndex)] to equal \(expectedTypeCase), got \(actualTypeCase).")
             )
           }
           currentTypeCaseIndex += 1
@@ -151,7 +151,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
           if !shallowlyMatch(expected: expectedFragment, actual: actualFragment) {
             return PredicateResult(
               status: .fail,
-              message: .fail("Expected fragments[\(actualValue.fields.keys[currentFragmentIndex])] to equal \(expectedFragment), got \(actualFragment).")
+              message: .fail("Expected fragments[\(currentFragmentIndex)] to equal \(expectedFragment), got \(actualFragment).")
             )
           }
           currentFragmentIndex += 1

@@ -2664,4 +2664,368 @@ class IROperationBuilderTests: XCTestCase {
     expect(allAnimals_height_actual).to(shallowlyMatch(allAnimals_expected))
     expect(allAnimals_asPet_height_actual).to(shallowlyMatch(allAnimals_asPet_expected))
   }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    height {
+  ///      feet
+  ///    }
+  ///    predators {
+  ///      height {
+  ///        meters
+  ///      }
+  ///    }
+  ///  }
+  /// }
+  ///
+  /// Expected:
+  /// AllAnimal.mergedSelections: [feet]
+  /// AllAnimal.Predator.mergedSelections: [meters]
+  func test__mergedSelections__givenEntityFieldOnObjectWithSelectionSetIncludingSameFieldNameAndDifferentSelections_doesNotMergeFieldIntoNestedFieldsSelections() throws {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Object_Height = GraphQLObjectType.mock("Height")
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .field(.mock(
+              "height",
+              selectionSet: .mock(
+                parentType: Object_Height,
+                selections: [
+                  .field(.mock("feet", type: .integer()))
+                ]
+              ))),
+            .field(.mock(
+              "predators",
+              selectionSet: .mock(
+                parentType: Interface_Animal,
+                selections: [
+                  .field(.mock(
+                    "height",
+                    selectionSet: .mock(
+                      parentType: Object_Height,
+                      selections: [
+                        .field(.mock("meters", type: .integer()))
+                      ]
+                    )))
+                ])))
+          ])))])
+
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let allAnimals_expected: [CompilationResult.Selection] = [
+      .field(.mock("feet", type: .integer()))
+    ]
+
+    let predators_expected: [CompilationResult.Selection] = [
+      .field(.mock("meters", type: .integer())),
+    ]
+
+    let allAnimals_height_actual = allAnimals?[field: "height"]?.selectionSet?.mergedSelections
+    let predators_height_actual = allAnimals?[field: "predators"]?[field: "height"]?.selectionSet?.mergedSelections
+
+    // then
+    expect(allAnimals_height_actual).to(shallowlyMatch(allAnimals_expected))
+    expect(predators_height_actual).to(shallowlyMatch(predators_expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    height {
+  ///      feet
+  ///    }
+  ///    ... on Pet {
+  ///      height {
+  ///        meters
+  ///      }
+  ///    }
+  ///    ... on Cat {
+  ///      species
+  ///    }
+  ///  }
+  /// }
+  ///
+  /// Expected:
+  /// AllAnimal.mergedSelections: [feet]
+  /// AllAnimal.AsCat.mergedSelections: [feet, meters]
+  func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_mergesParentFieldIntoNestedSelectionsInObjectTypeCaseMatchingInterfaceTypeCase() throws {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
+    let Object_Cat = GraphQLObjectType.mock("Cat", interfaces: [Interface_Animal, Interface_Pet])
+    let Object_Height = GraphQLObjectType.mock("Height")
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .field(.mock(
+              "height",
+              selectionSet: .mock(
+                parentType: Object_Height,
+                selections: [
+                  .field(.mock("feet", type: .integer()))
+                ]
+              ))),
+            .inlineFragment(.mock(
+              parentType: Interface_Pet,
+              selections: [
+                .field(.mock(
+                  "height",
+                  selectionSet: .mock(
+                    parentType: Object_Height,
+                    selections: [
+                      .field(.mock("meters", type: .integer()))
+                    ]
+                  )))
+              ])),
+            .inlineFragment(.mock(
+              parentType: Object_Cat,
+              selections: [
+                .field(.mock("species", type: .integer()))
+              ]))
+          ])))])
+
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let allAnimals_asCat_expected: [CompilationResult.Selection] = [
+      .field(.mock("feet", type: .integer())),
+      .field(.mock("meters", type: .integer())),
+    ]
+
+    let allAnimals_asCat_height_actual = allAnimals?[as: "Cat"]?[field: "height"]?.selectionSet?.mergedSelections
+
+    // then
+    expect(allAnimals_asCat_height_actual).to(shallowlyMatch(allAnimals_asCat_expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    height {
+  ///      feet
+  ///    }
+  ///    ... on Pet {
+  ///      height {
+  ///        meters
+  ///      }
+  ///    }
+  ///    ... on Elephant { // does not implement Pet
+  ///      species
+  ///    }
+  ///  }
+  /// }
+  ///
+  /// Expected:
+  /// AllAnimal.mergedSelections: [feet]
+  /// AllAnimal.AsElephant.mergedSelections: [feet]
+  func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_doesNotMergeParentFieldIntoNestedSelectionsInObjectTypeCaseNotMatchingInterfaceTypeCase() throws {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
+    let Object_Elephant = GraphQLObjectType.mock("Elephant", interfaces: [Interface_Animal])
+    let Object_Height = GraphQLObjectType.mock("Height")
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .field(.mock(
+              "height",
+              selectionSet: .mock(
+                parentType: Object_Height,
+                selections: [
+                  .field(.mock("feet", type: .integer()))
+                ]
+              ))),
+            .inlineFragment(.mock(
+              parentType: Interface_Pet,
+              selections: [
+                .field(.mock(
+                  "height",
+                  selectionSet: .mock(
+                    parentType: Object_Height,
+                    selections: [
+                      .field(.mock("meters", type: .integer()))
+                    ]
+                  )))
+              ])),
+            .inlineFragment(.mock(
+              parentType: Object_Elephant,
+              selections: [
+                .field(.mock("species", type: .integer()))
+              ]))
+          ])))])
+
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let allAnimals_asElephant_expected: [CompilationResult.Selection] = [
+      .field(.mock("feet", type: .integer()))
+    ]
+
+    let allAnimals_asElephant_height_actual = allAnimals?[as: "Elephant"]?[field: "height"]?.selectionSet?.mergedSelections
+
+    // then
+    expect(allAnimals_asElephant_height_actual).to(shallowlyMatch(allAnimals_asElephant_expected))
+  }
+
+  /// Example:
+  /// query {
+  ///  allAnimals {
+  ///    height {
+  ///      feet
+  ///    }
+  ///    ... on Pet {
+  ///      height {
+  ///        meters
+  ///      }
+  ///      ... on WarmBlooded {
+  ///        height {
+  ///          inches
+  ///        }
+  ///      }
+  ///    }
+  ///    ... on WarmBlooded {
+  ///      height {
+  ///        yards
+  ///      }
+  ///    }
+  ///  }
+  /// }
+  ///
+  /// Expected:
+  /// AllAnimal.Height.mergedSelections: [feet]
+  /// AllAnimal.AsPet.Height.mergedSelections: [feet, meters]
+  /// AllAnimal.AsPet.AsWarmBlooded.Height.mergedSelections: [feet, meters, inches, yards]
+  /// AllAnimal.AsWarmBlooded.Height.mergedSelections: [feet, yards]
+  func test__mergedSelections__givenEntityFieldOnEntityWithDeepNestedTypeCases_eachTypeCaseHasDifferentNestedEntityFields_mergesFieldIntoMatchingNestedTypeCases() throws {
+    // given
+    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
+    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded", interfaces: [Interface_Animal])
+    let Object_Height = GraphQLObjectType.mock("Height")
+
+    operation = .mock(selections: [
+      .field(.mock(
+        "allAnimals",
+        selectionSet: .mock(
+          parentType: Interface_Animal,
+          selections: [
+            .field(.mock(
+              "height",
+              selectionSet: .mock(
+                parentType: Object_Height,
+                selections: [
+                  .field(.mock("feet", type: .integer()))
+                ]
+              ))),
+            .inlineFragment(.mock(
+              parentType: Interface_Pet,
+              selections: [
+                .field(.mock(
+                  "height",
+                  selectionSet: .mock(
+                    parentType: Object_Height,
+                    selections: [
+                      .field(.mock("meters", type: .integer()))
+                    ]
+                  ))),
+                .inlineFragment(.mock(
+                  parentType: Interface_WarmBlooded,
+                  selections: [
+                    .field(.mock(
+                      "height",
+                      selectionSet: .mock(
+                        parentType: Object_Height,
+                        selections: [
+                          .field(.mock("inches", type: .integer()))
+                        ]
+                      )))
+                  ]))
+              ])),
+            .inlineFragment(.mock(
+              parentType: Interface_WarmBlooded,
+              selections: [
+                .field(.mock(
+                  "height",
+                  selectionSet: .mock(
+                    parentType: Object_Height,
+                    selections: [
+                      .field(.mock("yards", type: .integer()))
+                    ]
+                  )))
+              ]))
+          ])))])
+
+
+    // when
+    buildSubjectOperation()
+
+    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
+
+    let allAnimals_height_expected: [CompilationResult.Selection] = [
+      .field(.mock("feet", type: .integer()))
+    ]
+
+    let allAnimals_asPet_height_expected: [CompilationResult.Selection] = [
+      .field(.mock("meters", type: .integer())),
+      .field(.mock("feet", type: .integer())),
+    ]
+
+    let allAnimals_asPet_asWarmBlooded_height_expected: [CompilationResult.Selection] = [
+      .field(.mock("inches", type: .integer())),
+      .field(.mock("feet", type: .integer())),
+      .field(.mock("meters", type: .integer())),
+      .field(.mock("yards", type: .integer())),
+    ]
+
+    let allAnimals_asWarmBlooded_height_expected: [CompilationResult.Selection] = [
+      .field(.mock("yards", type: .integer())),
+      .field(.mock("feet", type: .integer())),
+    ]
+
+    let allAnimals_height_actual = allAnimals?[field: "height"]?.selectionSet?.mergedSelections
+
+    let allAnimals_asPet_height_actual =
+    allAnimals?[as: "Pet"]?[field: "height"]?.selectionSet?.mergedSelections
+
+    let allAnimals_asPet_asWarmBlooded_height_actual =
+    allAnimals?[as: "Pet"]?[as: "WarmBlooded"]?[field: "height"]?.selectionSet?.mergedSelections
+
+    let allAnimals_asWarmBlooded_height_actual =
+    allAnimals?[as: "WarmBlooded"]?[field: "height"]?.selectionSet?.mergedSelections
+
+    // then
+    expect(allAnimals_height_actual)
+      .to(shallowlyMatch(allAnimals_height_expected))
+    expect(allAnimals_asPet_height_actual)
+      .to(shallowlyMatch(allAnimals_asPet_height_expected))
+    expect(allAnimals_asPet_asWarmBlooded_height_actual)
+      .to(shallowlyMatch(allAnimals_asPet_asWarmBlooded_height_expected))
+    expect(allAnimals_asWarmBlooded_height_actual)
+      .to(shallowlyMatch(allAnimals_asWarmBlooded_height_expected))
+  }
 }
