@@ -29,6 +29,11 @@ class GlobTests: XCTestCase {
     }
   }
 
+  private func changeCurrentDirectory(to directory: String) throws {
+    try fileManager.createDirectoryIfNeeded(atPath: directory)
+    expect(self.fileManager.base.changeCurrentDirectoryPath(directory)).to(beTrue())
+  }
+
   // MARK: Tests
 
   func test_match_givenSinglePattern_whenNoMatch_shouldReturnEmpty() throws {
@@ -327,13 +332,13 @@ class GlobTests: XCTestCase {
     ]))
   }
 
-  func test_match_givenRelativePattern_usingNoPrefix_shouldUseCurrentDirectory() throws {
+  func test_match_givenRelativePattern_usingNoPrefix_andRootCurrentDirectory_shouldUseCurrentDirectory() throws {
     // given
     let pattern = ["**/*.one"]
 
-    FileManager.default.changeCurrentDirectoryPath(baseURL.path)
-
     // when
+    try changeCurrentDirectory(to: baseURL.path)
+
     try create(files: [
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("file.two").path,
@@ -361,9 +366,9 @@ class GlobTests: XCTestCase {
     // given
     let pattern = ["./**/*.one"]
 
-    FileManager.default.changeCurrentDirectoryPath(baseURL.path)
-
     // when
+    try changeCurrentDirectory(to: baseURL.path)
+
     try create(files: [
       baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("file.two").path,
