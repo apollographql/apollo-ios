@@ -3,6 +3,7 @@ import ApolloUtils
 import ApolloAPI
 
 class IR {
+
   let compilationResult: CompilationResult
 
   init(compilationResult: CompilationResult) {
@@ -11,6 +12,9 @@ class IR {
 
   class Operation {
     let definition: CompilationResult.OperationDefinition
+
+    /// The root field of the operation. This field must be the root query, mutation, or
+    /// subscription field of the schema.
     let rootField: EntityField
 
     init(
@@ -22,19 +26,29 @@ class IR {
     }
   }
 
+  /// Represents a concrete entity in an operation that fields are selected upon.
+  ///
+  /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
+  /// be selected on the same object share the same `Entity`.
   class Entity: Equatable {
+    /// The selections that are selected for the entity across all type scopes in the operation.
+    /// Represented as a tree.
     let mergedSelectionTree: MergedSelectionTree
-    let responsePath: ResponsePath
+
+    /// A list of path components indicating the path to the field containing the `Entity` in
+    /// an operation.
+    let fieldPath: ResponsePath
 
     var rootTypePath: LinkedList<GraphQLCompositeType> { mergedSelectionTree.rootTypePath }
+    
     var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
     init(
       rootTypePath: LinkedList<GraphQLCompositeType>,
-      responsePath: ResponsePath
+      fieldPath: ResponsePath
     ) {
       self.mergedSelectionTree = MergedSelectionTree(rootTypePath: rootTypePath)
-      self.responsePath = responsePath
+      self.fieldPath = fieldPath
     }
 
     static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {
@@ -43,9 +57,15 @@ class IR {
   }
 
   class SelectionSet: Equatable {
+    /// The entity that the `selections` are being selected on.
+    ///
+    /// Multiple `SelectionSet`s may reference the same `Entity`
     let entity: Entity
+
     let parentType: GraphQLCompositeType
+
     let typePath: LinkedList<TypeScopeDescriptor>
+
     var typeScope: TypeScopeDescriptor { typePath.last.value }
 
     var selections: SortedSelections = SortedSelections()

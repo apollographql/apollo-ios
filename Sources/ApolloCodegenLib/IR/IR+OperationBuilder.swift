@@ -35,7 +35,6 @@ extension IR {
 
       let rootTypePath = TypeScopeDescriptor.descriptor(
         forType: rootEntity.rootType,
-        fieldPath: rootEntity.responsePath,
         givenAllTypesInSchema: compilationResult.referencedTypes
       )
 
@@ -61,7 +60,7 @@ extension IR {
 
       let rootEntity = Entity(
         rootTypePath: LinkedList(operationDefinition.rootType),
-        responsePath: rootResponsePath
+        fieldPath: rootResponsePath
       )
 
       entitiesForFields[rootResponsePath] = rootEntity
@@ -144,7 +143,6 @@ extension IR {
 
       let typeScope = TypeScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
-        fieldPath: enclosingSelectionSet.entity.responsePath.appending(field.responseKey),
         givenAllTypesInSchema: compilationResult.referencedTypes
       )
       let typePath = enclosingSelectionSet.typePath.appending(typeScope)
@@ -163,7 +161,7 @@ extension IR {
       on enclosingEntity: Entity
     ) -> Entity {
       let responsePath = enclosingEntity
-        .responsePath
+        .fieldPath
         .appending(field.responseKey)
 
       if let entity = entitiesForFields[responsePath] {
@@ -175,7 +173,7 @@ extension IR {
       }
 
       let rootTypePath = enclosingEntity.rootTypePath.appending(fieldType)
-      let entity = Entity(rootTypePath: rootTypePath, responsePath: responsePath)
+      let entity = Entity(rootTypePath: rootTypePath, fieldPath: responsePath)
 
       entitiesForFields[responsePath] = entity
 

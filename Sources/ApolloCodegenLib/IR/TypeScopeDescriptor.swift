@@ -23,35 +23,7 @@ struct TypeScopeDescriptor: Equatable {
   /// ```
   /// The typePath for the `SelectionSet` that includes field `fieldOnABC` would be:
   /// `[A, B, C]`.
-  ///
-  /// - Note: While the `fieldPath` indicates the path of different entities to the `SelectionSet`,
-  /// `typePath` indicates the type cases of the `SelectionSet` on the same entity. The `fieldPath`
-  /// for `SelectionSet`s on the same entity will be the same, while the `typePath` will differ
-  /// across type cases.
   let typePath: LinkedList<GraphQLCompositeType>
-
-  /// A list of path components indicating the path to the field containing the `SelectionSet` in
-  /// an operation.
-  ///
-  /// For example, given the set of nested selections sets:
-  /// ```
-  /// object {
-  ///  a {
-  ///   b {
-  ///     c {
-  ///       fieldOnC
-  ///     }
-  ///   }
-  /// }
-  /// ```
-  /// The fieldPath for the `SelectionSet` that includes field `fieldOnC` would be:
-  /// `[object, a, b, c]`.
-  ///
-  /// - Note: While `typePath` indicates the type cases of the `SelectionSet` on the same entity, the
-  /// `fieldPath` indicates the path of different entities to the `SelectionSet`. The `fieldPath`
-  /// for `SelectionSet`s on the same entity will be the same, while the `typePath` will differ
-  /// across type cases.
-  let fieldPath: ResponsePath
 
   /// All of the types that the `SelectionSet` implements. That is, all of the types in the
   /// `typePath`, all of those types implemented interfaces, and all unions that include
@@ -65,12 +37,10 @@ struct TypeScopeDescriptor: Equatable {
 
   private init(
     typePath: LinkedList<GraphQLCompositeType>,
-    fieldPath: ResponsePath,
     matchingTypes: TypeScope,
     allTypesInSchema: CompilationResult.ReferencedTypes
   ) {
     self.typePath = typePath
-    self.fieldPath = fieldPath
     self.matchingTypes = matchingTypes
     self.allTypesInSchema = allTypesInSchema
   }
@@ -83,16 +53,14 @@ struct TypeScopeDescriptor: Equatable {
   ///
   /// - Parameters:
   ///   - forType: The parentType for the entity.
-  ///   - fieldPath: The path of fields to the entity in the operation.
   ///   - givenAllTypesInSchema: The `ReferencedTypes` object that provides information on all of
   ///                            the types in the schema.
   static func descriptor(
     forType type: GraphQLCompositeType,
-    fieldPath: ResponsePath,
     givenAllTypesInSchema allTypes: CompilationResult.ReferencedTypes
   ) -> TypeScopeDescriptor {
     let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
-    return TypeScopeDescriptor(typePath: LinkedList(type), fieldPath: fieldPath, matchingTypes: scope, allTypesInSchema: allTypes)
+    return TypeScopeDescriptor(typePath: LinkedList(type), matchingTypes: scope, allTypesInSchema: allTypes)
   }
 
   private static func typeScope(
@@ -128,7 +96,6 @@ struct TypeScopeDescriptor: Equatable {
                                givenAllTypes: self.allTypesInSchema)
     return TypeScopeDescriptor(
       typePath: typePath.appending(newType),
-      fieldPath: fieldPath,
       matchingTypes: scope,
       allTypesInSchema: self.allTypesInSchema
     )
@@ -150,7 +117,6 @@ struct TypeScopeDescriptor: Equatable {
 
   static func == (lhs: TypeScopeDescriptor, rhs: TypeScopeDescriptor) -> Bool {
     lhs.typePath == rhs.typePath &&
-    lhs.fieldPath == rhs.fieldPath &&
     lhs.matchingTypes == rhs.matchingTypes
   }
 
