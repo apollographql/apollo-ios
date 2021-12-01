@@ -2,7 +2,6 @@ import Foundation
 import OrderedCollections
 
 extension IR {
-#warning("TODO: copy on write!!!")
   struct SortedSelections: Equatable, CustomDebugStringConvertible {
     typealias Field = IR.Field
     typealias TypeCase = IR.SelectionSet

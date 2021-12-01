@@ -4,7 +4,7 @@ import AnimalKingdomAPI
 /// A response data object for a `HeightInMeters` fragment
 ///
 /// ```
-/// fragment HeightInMeters on Animal {
+/// fragment HeightInMeters on Height {
 ///   height {
 ///     meters
 ///   }

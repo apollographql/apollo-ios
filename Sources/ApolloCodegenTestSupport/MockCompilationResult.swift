@@ -32,7 +32,7 @@ public extension CompilationResult.OperationDefinition {
 }
 
 public extension CompilationResult.OperationType {
-  public func mockRootType() -> GraphQLCompositeType {
+  func mockRootType() -> GraphQLCompositeType {
     GraphQLObjectType.mock(rawValue.uppercased())
   }
 }

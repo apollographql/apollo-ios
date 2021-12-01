@@ -36,7 +36,7 @@ extension IR {
       let rootTypePath = TypeScopeDescriptor.descriptor(
         forType: rootEntity.rootType,
         fieldPath: rootEntity.responsePath,
-        givenAllTypes: compilationResult.referencedTypes
+        givenAllTypesInSchema: compilationResult.referencedTypes
       )
 
       let rootSelectionSet = SelectionSet(
@@ -145,7 +145,7 @@ extension IR {
       let typeScope = TypeScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
         fieldPath: enclosingSelectionSet.entity.responsePath.appending(field.responseKey),
-        givenAllTypes: compilationResult.referencedTypes
+        givenAllTypesInSchema: compilationResult.referencedTypes
       )
       let typePath = enclosingSelectionSet.typePath.appending(typeScope)
 
