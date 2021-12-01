@@ -313,7 +313,7 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.blocksCalled).to(equal([.fileExists]))
   }
 
-  func test_createFile_givenContainingDirectoryDoesExistAndFileCreated_shouldReturnTrue() throws {
+  func test_createFile_givenContainingDirectoryDoesExistAndFileCreated_shouldNotThrow() throws {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
@@ -335,11 +335,13 @@ class FileManagerExtensionTests: XCTestCase {
     })
 
     // then
-    expect(try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)).to(beTrue())
+    expect(
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+    ).notTo(throwError())
     expect(mocked.blocksCalled).to(equal([.fileExists, .createFile]))
   }
 
-  func test_createFile_givenContainingDirectoryDoesExistAndFileNotCreated_shouldReturnFalse() throws {
+  func test_createFile_givenContainingDirectoryDoesExistAndFileNotCreated_shouldThrow() throws {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
@@ -361,11 +363,13 @@ class FileManagerExtensionTests: XCTestCase {
     })
 
     // then
-    expect(try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)).to(beFalse())
+    expect(
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+    ).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
     expect(mocked.blocksCalled).to(equal([.fileExists, .createFile]))
   }
 
-  func test_createFile_givenContainingDirectoryDoesNotExistAndFileCreated_shouldReturnTrue() throws {
+  func test_createFile_givenContainingDirectoryDoesNotExistAndFileCreated_shouldNotThrow() throws {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
@@ -389,11 +393,13 @@ class FileManagerExtensionTests: XCTestCase {
     })
 
     // then
-    expect(try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)).to(beTrue())
+    expect(
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+    ).notTo(throwError())
     expect(mocked.blocksCalled).to(equal([.fileExists, .createDirectory, .createFile]))
   }
 
-  func test_createFile_givenContainingDirectoryDoesNotExistAndFileNotCreated_shouldReturnFalse() throws {
+  func test_createFile_givenContainingDirectoryDoesNotExistAndFileNotCreated_shouldThrow() throws {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager(fileExists: { (path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) in
@@ -417,7 +423,9 @@ class FileManagerExtensionTests: XCTestCase {
     })
 
     // then
-    expect(try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)).to(beFalse())
+    expect(
+      try mocked.apollo.createFile(atPath: self.uniquePath, data:self.uniqueData)
+    ).to(throwError(MockFileManager.apollo.PathError.cannotCreateFile(at: self.uniquePath)))
     expect(mocked.blocksCalled).to(equal([.fileExists, .createDirectory, .createFile]))
   }
 
