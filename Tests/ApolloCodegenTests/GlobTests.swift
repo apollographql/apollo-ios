@@ -362,6 +362,34 @@ class GlobTests: XCTestCase {
     ]))
   }
 
+  func test_match_givenRelativePattern_usingNoPrefix_andSubfolderCurrentDirectory_shouldUseCurrentDirectory() throws {
+    // given
+    let pattern = ["**/*.one"]
+
+    // when
+    try changeCurrentDirectory(to: baseURL.appendingPathComponent("a/").path)
+
+    try create(files: [
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
+      baseURL.appendingPathComponent("other/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path
+    ])
+
+    // then
+    expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("a/b/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path
+    ]))
+  }
+
   func test_match_givenRelativePattern_usingSingleDotPrefix_shouldUseCurrentDirectory() throws {
     // given
     let pattern = ["./**/*.one"]
