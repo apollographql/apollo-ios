@@ -1326,7 +1326,7 @@
 		9B7B6F50233C26E400F32205 /* ApolloCodegenLib */ = {
 			isa = PBXGroup;
 			children = (
-				DEAFB7772705271D00BE02F3 /* AST */,
+				DEAFB7772705271D00BE02F3 /* IR */,
 				9FE1E54C2588C5E000AA967E /* Frontend */,
 				9B4751BD2575BAFB0001FB87 /* Naming */,
 				9BCB585D240758B2002F766E /* Extensions */,
@@ -1977,7 +1977,7 @@
 			path = CodeGenAST;
 			sourceTree = "<group>";
 		};
-		DEAFB7772705271D00BE02F3 /* AST */ = {
+		DEAFB7772705271D00BE02F3 /* IR */ = {
 			isa = PBXGroup;
 			children = (
 				DE7C183D272A154400727031 /* IR.swift */,
@@ -1988,7 +1988,7 @@
 				DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */,
 				DE7C183B272A12EB00727031 /* TypeScopeDescriptor.swift */,
 			);
-			path = AST;
+			path = IR;
 			sourceTree = "<group>";
 		};
 		DECD490C262F81BF00924527 /* ApolloCodegenTestSupport */ = {
