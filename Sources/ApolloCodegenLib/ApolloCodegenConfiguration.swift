@@ -15,13 +15,13 @@ public struct ApolloCodegenConfiguration {
     /// - `?` matches any single character, eg: `file-?.graphql`
     /// - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     /// - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
-    public let includes: [String]
+    public let searchPaths: [String]
 
     /// Designated initializer.
     ///
     /// - Parameters:
     ///  - schemaPath: Local path to the GraphQL schema file. Can be in JSON or SDL format.
-    ///  - includes: An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations,
+    ///  - searchPaths: An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations,
     ///  etc.), included for code generation. You can use absolute or relative paths for the path portion of the pattern. Relative paths
     ///  will be based off the current working directory from `FileManager`. Each path matching pattern can include the following
     ///  characters:
@@ -29,9 +29,9 @@ public struct ApolloCodegenConfiguration {
     ///     - `?` matches any single character, eg: `file-?.graphql`
     ///     - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     ///     - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
-    public init(schemaPath: String, includes: [String]) {
+    public init(schemaPath: String, searchPaths: [String]) {
       self.schemaPath = schemaPath
-      self.includes = includes
+      self.searchPaths = searchPaths
     }
   }
 
@@ -196,12 +196,12 @@ public struct ApolloCodegenConfiguration {
   public init(
     basePath: String,
     schemaFilename: String = "schema.graphqls",
-    includesPattern: String = "**/*.graphql"
+    searchPattern: String = "**/*.graphql"
   ) {
     let schemaURL = URL(fileURLWithPath: basePath).appendingPathComponent(schemaFilename)
-    let includesURL = URL(fileURLWithPath: basePath).appendingPathComponent(includesPattern)
+    let searchURL = URL(fileURLWithPath: basePath).appendingPathComponent(searchPattern)
 
-    self.init(input: FileInput(schemaPath: schemaURL.path, includes: [includesURL.path]),
+    self.init(input: FileInput(schemaPath: schemaURL.path, searchPaths: [searchURL.path]),
               output: FileOutput(schemaTypes: SchemaTypesFileOutput(path: basePath)))
   }
 }
