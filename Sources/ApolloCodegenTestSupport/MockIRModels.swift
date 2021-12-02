@@ -1,42 +1,5 @@
 @testable import ApolloCodegenLib
 
-//extension IR.Field {
-//  public static func mock(
-//    _ name: String = "",
-//    alias: String? = nil,
-//    arguments: [CompilationResult.Argument]? = nil,
-//    type: GraphQLCompositeType = GraphQLObjectType.mock("MOCK"),
-//    selectionSet: CompilationResult.SelectionSet = .mock()
-//  ) -> Self {
-//    let mockField = CompilationResult.Field.mock(
-//      name,
-//      alias: alias,
-//      arguments: arguments,
-//      type: type,
-//      selectionSet: selectionSet)
-//
-//    return IR.EntityField(mockField, selectionSet: selectionSet)
-//  }
-//
-//  public static func mock(
-//    _ name: String = "",
-//    alias: String? = nil,
-//    arguments: [CompilationResult.Argument]? = nil,
-//    type: GraphQLScalarType,
-//    selectionSet: CompilationResult.SelectionSet = .mock()
-//  ) -> Self {
-//    let mockField = CompilationResult.Field.mock(
-//      name,
-//      alias: alias,
-//      arguments: arguments,
-//      type: .scalar(type),
-//      selectionSet: selectionSet)
-//
-//    return IR.Field(mockField, enclosingEntityMergedSelectionBuilder: nil)
-//  }
-//}
-//
-
 extension IR.SortedSelections {
   public subscript(field field: String) -> IR.Field? {
     fields[field]

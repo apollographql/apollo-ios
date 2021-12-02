@@ -28,10 +28,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
           }
         }
         ... on Cat {
-          isJellicle
-          height {
-            ...HeightInMeters
-          }
+          isJellicle          
         }
         ... on ClassroomPet {
           ... on Bird {
@@ -297,7 +294,7 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         public var isJellicle: Bool { data["isJellicle"] }
         public var bodyTemperature: Int { data["bodyTemperature"] }
-        public var height: AllAnimal.AsPet.AsWarmBlooded.Height { data["height"] }
+        public var height: Height { data["height"] }
         public var humanName: String? { data["humanName"] }
         public var favoriteToy: String { data["favoriteToy"] }
         public var owner: PetDetails.Owner? { data["owner"] }
