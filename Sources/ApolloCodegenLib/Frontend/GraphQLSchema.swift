@@ -80,6 +80,9 @@ public class GraphQLInputField: JavaScriptObject {
 }
 
 public class GraphQLCompositeType: GraphQLNamedType {
+  public override var debugDescription: String {
+    "Type - \(name)"
+  }
 }
 
 protocol GraphQLInterfaceImplementingType: GraphQLCompositeType {
