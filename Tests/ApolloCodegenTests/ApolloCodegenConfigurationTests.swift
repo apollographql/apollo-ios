@@ -36,8 +36,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     let config = ApolloCodegenConfiguration(basePath: directoryURL.path, schemaFilename: filename)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.PathError.notAFile(.schema))
+    expect { try config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
     )
   }
 
@@ -49,8 +49,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.PathError.notAFile(.schema))
+    expect { try config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
     )
   }
 
@@ -61,8 +61,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
                                             output: .init(schemaTypes: .init(path: directoryURL.path)))
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.PathError.notAFile(.schema))
+    expect { try config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
     )
   }
 
@@ -77,8 +77,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.PathError.notADirectory(.schemaTypes))
+    expect { try config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.PathError.notADirectory(.schemaTypes))
     )
   }
 
@@ -94,9 +94,9 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
+    expect { try config.validate() }.to(
       throwError { error in
-        guard case let ApolloCodegen.PathError
+        guard case let ApolloCodegenConfiguration.PathError
                 .folderCreationFailed(pathType, _) = error else {
                   fail()
                   return
@@ -119,8 +119,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.PathError.notADirectory(.operations))
+    expect { try config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.PathError.notADirectory(.operations))
     )
   }
 
@@ -138,9 +138,9 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
+    expect { try config.validate() }.to(
       throwError { error in        
-        guard case let ApolloCodegen.PathError
+        guard case let ApolloCodegenConfiguration.PathError
                 .folderCreationFailed(pathType, _) = error else {
                   fail()
                   return
@@ -164,8 +164,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.to(
-      throwError(ApolloCodegen.PathError.notAFile(.operationIdentifiers))
+    expect { try config.validate() }.to(
+      throwError(ApolloCodegenConfiguration.PathError.notAFile(.operationIdentifiers))
     )
   }
 
@@ -179,7 +179,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: expectedSchemaURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.notTo(throwError())
+    expect { try config.validate() }.notTo(throwError())
   }
 
   func test_validation_givenValidConfiguration_designatedInitializer_shouldNotThrow() throws {
@@ -195,6 +195,6 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try ApolloCodegen.validate(config) }.notTo(throwError())
+    expect { try config.validate() }.notTo(throwError())
   }
 }
