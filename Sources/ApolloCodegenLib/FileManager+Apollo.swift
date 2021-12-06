@@ -27,6 +27,7 @@ extension ApolloExtension where Base: FileManagerProvider {
   public enum PathError: Swift.Error, LocalizedError, Equatable {
     case notAFile(path: String)
     case notADirectory(path: String)
+    case cannotCreateFile(at: String)
 
     public var errorDescription: String {
       switch self {
@@ -34,6 +35,8 @@ extension ApolloExtension where Base: FileManagerProvider {
         return "\(path) is not a file!"
       case .notADirectory(let path):
         return "\(path) is not a directory!"
+      case .cannotCreateFile(let path):
+        return "Cannot create file at \(path)"
       }
     }
   }
@@ -100,9 +103,12 @@ extension ApolloExtension where Base: FileManagerProvider {
   /// - Parameters:
   ///   - path: Path to the file.
   ///   - data: [optional] Data to write to the file path.
-  public func createFile(atPath path: String, data: Data? = nil) throws -> Bool {
+  public func createFile(atPath path: String, data: Data? = nil) throws {
     try createContainingDirectoryIfNeeded(forPath: path)
-    return base.createFile(atPath: path, contents: data, attributes: nil)
+
+    guard base.createFile(atPath: path, contents: data, attributes: nil) else {
+      throw PathError.cannotCreateFile(at: path)
+    }
   }
 
   /// Creates the containing directory (including all intermediate directories) for the given file URL if necessary. This method will not
