@@ -1,6 +1,5 @@
 import OrderedCollections
 import ApolloUtils
-import ApolloAPI
 
 class IR {
 
