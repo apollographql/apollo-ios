@@ -291,6 +291,7 @@
 		DEFE0FC52748822900FFA440 /* IR+MergedSelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+MergedSelectionTree.swift */; };
 		E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616B6D026C3335600DB049E /* ExecutionTests.swift */; };
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
+		E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
@@ -919,6 +920,7 @@
 		DEFE0FC42748822900FFA440 /* IR+MergedSelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+MergedSelectionTree.swift"; sourceTree = "<group>"; };
 		E616B6D026C3335600DB049E /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
+		E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		E674DB40274C0A9B009BB90E /* Glob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glob.swift; sourceTree = "<group>"; };
@@ -1375,6 +1377,7 @@
 				E6BE04ED26F11B3500CF858D /* Resources */,
 				E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */,
 				9BAEEC16234C275600808306 /* ApolloSchemaPublicTests.swift */,
+				E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */,
 				9BAEEC18234C297800808306 /* ApolloCodegenConfigurationTests.swift */,
 				9BAEEC0D234BB95B00808306 /* FileManagerExtensionsTests.swift */,
 				9B68F0542416B33300E97318 /* LineByLineComparison.swift */,
@@ -2862,6 +2865,7 @@
 				DE223C3327221144004A0148 /* ASTMatchers.swift in Sources */,
 				E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */,
 				E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */,
+				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,
 				DE09F9C6270269F800795949 /* Generate_OperationDefinition_Tests.swift in Sources */,
