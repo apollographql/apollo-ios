@@ -158,7 +158,7 @@ class JavaScriptBridge {
   /// TODO: We may want to consider making the keys weak here, because this does mean we'll be
   /// keeping alive all objects that are passed over the bridge in JavaScript.
   /// ('JSValue` is an Objective-C object that uses `JSValueProtect` to mark the underlying
-  /// JavaScript object as inelligible for garbage collection.)
+  /// JavaScript object as ineligible for garbage collection.)
   private var wrapperMap: [JSValue: WeakRef<JavaScriptObject>] = [:]
   
   init() throws {
