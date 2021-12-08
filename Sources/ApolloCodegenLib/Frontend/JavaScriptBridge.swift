@@ -1,5 +1,7 @@
 import JavaScriptCore
 
+// MARK: - JavaScriptError
+
 // JavaScriptCore APIs haven't been annotated for nullability, but most of its methods will never return `null`
 // and can be safely force unwrapped. (Even when an exception is thrown they would still return
 // a `JSValue` representing a JavaScript `undefined` value.)
@@ -20,35 +22,12 @@ extension JavaScriptError: CustomStringConvertible {
   }
 }
 
-public class JavaScriptWrapper: JavaScriptValueDecodable {
-  let _underlyingObject: JavaScriptObject?
-
-  required init(_ underlyingObject: JavaScriptObject? = nil) {
-    self._underlyingObject = underlyingObject
-  }
-
-  required convenience init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-    self.init(JavaScriptObject(jsValue, bridge: bridge))
-  }
-
-  static func fromJSValue(_ jsValue: JSValue, bridge: JavaScriptBridge) -> Self {
-    return Self.init(JavaScriptObject.fromJSValue(jsValue, bridge: bridge))
-  }
-
-  subscript(property: Any) -> JSValue? {
-    return _underlyingObject?[property]
-  }  
-
-  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable? {
-    return _underlyingObject?[property]
-  }
-
-}
+// MARK: - JavaScriptObject
 
 /// A type that references an underlying JavaScript object.
 public class JavaScriptObject: JavaScriptValueDecodable {
   let jsValue: JSValue
-  unowned let bridge: JavaScriptBridge
+  let bridge: JavaScriptBridge
   
   static func fromJSValue(_ jsValue: JSValue, bridge: JavaScriptBridge) -> Self {
     return bridge.wrap(jsValue)
@@ -114,9 +93,57 @@ extension JavaScriptObject: CustomDebugStringConvertible {
   }
 }
 
+// MARK: - JavaScriptWrapper
+
+/// An object that can wrap an underlying `JavaScriptObject`.
+///
+/// Can be used as an alternative to subclassing `JavaScriptObject` when you
+/// need to be able to create a non-javascript backed version of the class also.
+public class JavaScriptWrapper: JavaScriptValueDecodable {
+  let _underlyingObject: JavaScriptObject?
+
+  required init(_ underlyingObject: JavaScriptObject? = nil) {
+    self._underlyingObject = underlyingObject
+  }
+
+  required convenience init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    self.init(JavaScriptObject(jsValue, bridge: bridge))
+  }
+
+  static func fromJSValue(_ jsValue: JSValue, bridge: JavaScriptBridge) -> Self {
+    return Self.init(JavaScriptObject.fromJSValue(jsValue, bridge: bridge))
+  }
+
+  subscript(property: Any) -> JSValue? {
+    return _underlyingObject?[property]
+  }
+
+  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable? {
+    return _underlyingObject?[property]
+  }
+
+}
+
+// MARK: - JavaScriptBridge
+
 /// The JavaScript bridge is responsible for converting values to and from type-safe wrapper objects. It also ensures exceptions thrown from JavaScript wrapped and rethrown.
 class JavaScriptBridge {
-  private var context: JSContext
+
+  public enum Error: Swift.Error {
+    case failedToCreateJSContext
+  }
+
+  private struct WeakRef<T: AnyObject> {
+    weak var value: T?
+
+    init(_ value: T) {
+      self.value = value
+    }
+  }
+
+  private let virtualMachine = JSVirtualMachine()
+
+  let context: JSContext
   
   // In JavaScript, classes are represented by constructor functions. We need access to these when checking
   // the type of a received value in `wrap(_)` below.
@@ -126,15 +153,19 @@ class JavaScriptBridge {
   private var constructorToWrapperType: [JSValue /* constructor function */: JavaScriptObject.Type] = [:]
   private var wrapperTypeToConstructor: [AnyHashable /* JavaScriptObject.Type */: JSValue] = [:]
   
-  // We keep a map between `JSValue` objects and wrapper objects, to avoid repeatedly creating new wrappers and
-  // to guarantee referential equality.
-  // TODO: We may want to consider a weak map here, because this does mean we'll be keeping alive
-  // all objects that are passed over the bridge both on the Swift side and in JavaScript
-  // ('JSValue` is an Objective-C object that uses `JSValueProtect` to mark the underlying JavaScript
-  // object as inelligable for garbage collection.)
-  private var wrapperMap: [JSValue: JavaScriptObject] = [:]
+  /// We keep a map between `JSValue` objects and wrapper objects, to avoid repeatedly creating new
+  /// wrappers and to guarantee referential equality.
+  /// TODO: We may want to consider making the keys weak here, because this does mean we'll be
+  /// keeping alive all objects that are passed over the bridge in JavaScript.
+  /// ('JSValue` is an Objective-C object that uses `JSValueProtect` to mark the underlying
+  /// JavaScript object as inelligible for garbage collection.)
+  private var wrapperMap: [JSValue: WeakRef<JavaScriptObject>] = [:]
   
-  init(context: JSContext) {
+  init() throws {
+    guard let context = JSContext(virtualMachine: virtualMachine) else {
+      throw Error.failedToCreateJSContext
+    }
+
     self.context = context
     
     register(JavaScriptObject.self, forJavaScriptClass: "Object", from: context.globalObject)
@@ -160,7 +191,7 @@ class JavaScriptBridge {
   }
   
   fileprivate func wrap<Wrapper: JavaScriptObject>(_ jsValue: JSValue) -> Wrapper {
-    if let wrapper = wrapperMap[jsValue] {
+    if let wrapper = wrapperMap[jsValue]?.value {
       return checkedDowncast(wrapper)
     }
     
@@ -203,7 +234,7 @@ class JavaScriptBridge {
     }
     
     let wrapper = wrapperType.init(jsValue, bridge: self)
-    wrapperMap[jsValue] = wrapper
+    wrapperMap[jsValue] = WeakRef(wrapper)
     return checkedDowncast(wrapper)
   }
   

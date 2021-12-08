@@ -5,13 +5,13 @@ import ApolloCodegenTestSupport
 
 class CompilationTests: XCTestCase {
 
-  var codegenFrontend: ApolloCodegenFrontend!
+  var codegenFrontend: GraphQLJSFrontend!
   var schema: GraphQLSchema!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
     
-    codegenFrontend = try ApolloCodegenFrontend()
+    codegenFrontend = try GraphQLJSFrontend()
     
     let introspectionResult = try String(contentsOf: XCTUnwrap(starWarsAPIBundle.url(forResource: "schema", withExtension: "json")))
         
