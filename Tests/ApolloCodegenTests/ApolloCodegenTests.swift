@@ -4,7 +4,19 @@ import ApolloCodegenTestSupport
 import Nimble
 
 class ApolloCodegenTests: XCTestCase {
-  private let schemaSDL: String = {
+  override func setUpWithError() throws {
+    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
+  }
+
+  override func tearDownWithError() throws {
+    try cleanTestOutput()
+  }
+
+  // MARK: Helpers
+
+  private let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Codegen")
+
+  private let schemaData: Data = {
     """
     type Query {
       books: [Book!]!
@@ -21,40 +33,28 @@ class ApolloCodegenTests: XCTestCase {
       books: [Book!]!
     }
     """
-  }()
-
-  let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Codegen")
-
-  override func setUpWithError() throws {
-    try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
-  }
-
-  override func tearDownWithError() throws {
-    try cleanTestOutput()
-  }
-
-  // MARK: Helpers
+  }().data(using: .utf8)!
 
   private func cleanTestOutput() throws {
     try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
   }
 
-  private func createSchema(at path: String) {
+  /// Creates a file in the test directory.
+  ///
+  /// - Parameters:
+  ///   - data: File content
+  ///   - filename: Target name of the file. This should not include any path information
+  ///
+  /// - Returns:
+  ///    - The full path of the created file.
+  @discardableResult
+  private func createFile(containing data: Data, named filename: String) -> String {
+    let path = directoryURL.appendingPathComponent(filename).path
     expect(
-      try FileManager.default.apollo.createFile(
-        atPath: path,
-        data: self.schemaSDL.data(using: .utf8)!
-      )
+      try FileManager.default.apollo.createFile(atPath: path, data: data)
     ).notTo(throwError())
-  }
 
-  private func createOperationFile(for data: Data, inDirectory directoryURL: URL) {
-    expect(
-      try FileManager.default.apollo.createFile(
-        atPath: directoryURL.appendingPathComponent("\(UUID().uuidString).graphql").path,
-        data: data
-      )
-    ).notTo(throwError())
+    return path
   }
 
   // MARK: Tests
@@ -69,11 +69,9 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_compileResults_givenOperation_withGraphQLErrors_shouldThrow() throws {
     // given
-    let schemaPath = directoryURL.appendingPathComponent("schema.graphqls").path
-    createSchema(at: schemaPath)
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
 
-    let searchPath = directoryURL.appendingPathComponent("*.graphql").path
-    let data: Data =
+    let operationData: Data =
       """
       query getBooks {
         books {
@@ -82,11 +80,11 @@ class ApolloCodegenTests: XCTestCase {
         }
       }
       """.data(using: .utf8)!
-    createOperationFile(for: data, inDirectory: directoryURL)
+    createFile(containing: operationData, named: "operation.graphql")
 
     let config = ApolloCodegenConfiguration.FileInput(
       schemaPath: schemaPath,
-      searchPaths: [searchPath]
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )
 
     // with
@@ -107,10 +105,8 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
     // given
-    let schemaPath = directoryURL.appendingPathComponent("schema.graphqls").path
-    createSchema(at: schemaPath)
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
 
-    let searchPath = directoryURL.appendingPathComponent("*.graphql").path
     let booksData: Data =
       """
       query getBooks {
@@ -119,7 +115,7 @@ class ApolloCodegenTests: XCTestCase {
         }
       }
       """.data(using: .utf8)!
-    createOperationFile(for: booksData, inDirectory: directoryURL)
+    createFile(containing: booksData, named: "books-operation.graphql")
 
     let authorsData: Data =
       """
@@ -129,11 +125,11 @@ class ApolloCodegenTests: XCTestCase {
         }
       }
       """.data(using: .utf8)!
-    createOperationFile(for: authorsData, inDirectory: directoryURL)
+    createFile(containing: authorsData, named: "authors-operation.graphql")
 
     let config = ApolloCodegenConfiguration.FileInput(
       schemaPath: schemaPath,
-      searchPaths: [searchPath]
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )
 
     // then
