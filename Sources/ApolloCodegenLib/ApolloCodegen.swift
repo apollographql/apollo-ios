@@ -29,7 +29,7 @@ public class ApolloCodegen {
   static func compileResults(
     using input: ApolloCodegenConfiguration.FileInput
   ) throws -> CompilationResult {
-    let frontend = try ApolloCodegenFrontend()
+    let frontend = try GraphQLJSFrontend()
 
     let schemaURL = URL(fileURLWithPath: input.schemaPath)
     let graphqlSchema = try frontend.loadSchema(from: schemaURL)
