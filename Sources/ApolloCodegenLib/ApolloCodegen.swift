@@ -42,7 +42,9 @@ public class ApolloCodegen {
 
     let graphqlErrors = try frontend.validateDocument(schema: graphqlSchema, document: mergedDocument)
     guard graphqlErrors.isEmpty else {
-      throw Error.validationFailed(atLines: graphqlErrors.flatMap({ $0.logLines }))
+      let errorlines = graphqlErrors.flatMap({ $0.logLines })
+      CodegenLogger.log(String(describing: errorlines), logLevel: .error)
+      throw Error.validationFailed(atLines: errorlines)
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
