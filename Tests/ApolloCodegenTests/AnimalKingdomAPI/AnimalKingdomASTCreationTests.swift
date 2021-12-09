@@ -8,7 +8,7 @@ import ApolloCodegenTestSupport
 
 final class AnimalKingdomASTCreationTests: XCTestCase {
 
-  static let frontend = try! ApolloCodegenFrontend()
+  static let frontend = try! GraphQLJSFrontend()
 
   static let schema = try! frontend.loadSchema(from: AnimalKingdomAPI.Resources.Schema)
 

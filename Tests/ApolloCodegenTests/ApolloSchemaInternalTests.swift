@@ -17,7 +17,7 @@ class ApolloSchemaInternalTests: XCTestCase {
     try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
     XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputURL.path))
 
-    let frontend = try ApolloCodegenFrontend()
+    let frontend = try GraphQLJSFrontend()
     let source = try frontend.makeSource(from: configuration.outputURL)
     let schema = try frontend.loadSchemaFromSDL(source)
 

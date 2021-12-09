@@ -10,7 +10,7 @@ const options = {
     file: "../dist/ApolloCodegenFrontend.bundle.js",
     format: "iife",
     name: "ApolloCodegenFrontend",
-    sourcemap: true,
+    sourcemap: false,
   },
   plugins: [
     typescript({

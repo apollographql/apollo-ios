@@ -5,12 +5,12 @@ import ApolloCodegenTestSupport
 
 class SchemaLoadingTests: XCTestCase {
   
-  var codegenFrontend: ApolloCodegenFrontend!
+  var codegenFrontend: GraphQLJSFrontend!
   
   override func setUpWithError() throws {
     try super.setUpWithError()
 
-    codegenFrontend = try ApolloCodegenFrontend()
+    codegenFrontend = try GraphQLJSFrontend()
   }
 
   override func tearDown() {

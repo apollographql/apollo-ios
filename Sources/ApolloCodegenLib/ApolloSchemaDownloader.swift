@@ -266,9 +266,11 @@ public struct ApolloSchemaDownloader {
     """
   
   
-  static func downloadViaIntrospection(from endpointURL: URL,
-                                       httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
-                                       configuration: ApolloSchemaDownloadConfiguration) throws {
+  static func downloadViaIntrospection(
+    from endpointURL: URL,
+    httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
+    configuration: ApolloSchemaDownloadConfiguration
+  ) throws {
 
     CodegenLogger.log("Downloading schema via introspection from \(endpointURL)", logLevel: .debug)
 
@@ -284,9 +286,11 @@ public struct ApolloSchemaDownloader {
     CodegenLogger.log("Successfully downloaded schema via introspection", logLevel: .debug)
   }
 
-  static func introspectionRequest(from endpointURL: URL,
-                                   httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
-                                   headers: [ApolloSchemaDownloadConfiguration.HTTPHeader]) throws -> URLRequest {
+  static func introspectionRequest(
+    from endpointURL: URL,
+    httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
+    headers: [ApolloSchemaDownloadConfiguration.HTTPHeader]
+  ) throws -> URLRequest {
     let urlRequest: URLRequest
 
     switch httpMethod {
@@ -315,8 +319,11 @@ public struct ApolloSchemaDownloader {
     return urlRequest
   }
 
-  static func convertFromIntrospectionJSONToSDLFile(jsonFileURL: URL, configuration: ApolloSchemaDownloadConfiguration) throws {
-    let frontend = try ApolloCodegenFrontend()
+  static func convertFromIntrospectionJSONToSDLFile(
+    jsonFileURL: URL,
+    configuration: ApolloSchemaDownloadConfiguration
+  ) throws {
+    let frontend = try GraphQLJSFrontend()
     let schema: GraphQLSchema
     do {
       schema = try frontend.loadSchema(from: jsonFileURL)
