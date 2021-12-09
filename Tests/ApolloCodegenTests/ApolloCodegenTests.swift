@@ -67,31 +67,6 @@ class ApolloCodegenTests: XCTestCase {
     expect(try ApolloCodegen.build(with: config)).to(throwError())
   }
 
-  /// ```
-  /// SCHEMA:
-  /// type Query {
-  ///   books: [Book!]!
-  ///   authors: [Author!]!
-  /// }
-  ///
-  /// type Book {
-  ///   title: String!
-  ///   author: Author!
-  /// }
-  ///
-  /// type Author {
-  ///   name: String!
-  ///   books: [Book!]!
-  /// }
-  ///
-  /// OPERATION:
-  /// query getBooks {
-  ///   books {
-  ///     title
-  ///     name (this will cause the validation error)
-  ///   }
-  /// }
-  /// ```
   func test_compileResults_givenOperation_withGraphQLErrors_shouldThrow() throws {
     // given
     let schemaPath = directoryURL.appendingPathComponent("schema.graphqls").path
@@ -114,6 +89,11 @@ class ApolloCodegenTests: XCTestCase {
       searchPaths: [searchPath]
     )
 
+    // with
+    //
+    // Fetching `books.name` will cause a GraphQL validation error because `name`
+    // is not a property of the `Book` type.
+
     // then
     expect(try ApolloCodegen.compileResults(using: config))
     .to(throwError { error in
@@ -125,37 +105,6 @@ class ApolloCodegenTests: XCTestCase {
     })
   }
 
-  /// ```
-  /// SCHEMA:
-  /// type Query {
-  ///   books: [Book!]!
-  ///   authors: [Author!]!
-  /// }
-  ///
-  /// type Book {
-  ///   title: String!
-  ///   author: Author!
-  /// }
-  ///
-  /// type Author {
-  ///   name: String!
-  ///   books: [Book!]!
-  /// }
-  ///
-  /// OPERATION 1:
-  /// query getBooks {
-  ///   books {
-  ///     title
-  ///   }
-  /// }
-  ///
-  /// OPERATION 2:
-  /// query getAuthors {
-  ///   authors {
-  ///     name
-  ///   }
-  /// }
-  /// ```
   func test_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
     // given
     let schemaPath = directoryURL.appendingPathComponent("schema.graphqls").path
