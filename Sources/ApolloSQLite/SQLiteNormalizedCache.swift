@@ -37,7 +37,7 @@ public final class SQLiteNormalizedCache {
   }
   
   private func recordCacheKey(forFieldCacheKey fieldCacheKey: CacheKey) -> CacheKey {
-    let components = fieldCacheKey.components(separatedBy: ".")
+    let components = fieldCacheKey.split(usingRegex: "\\.(?![^()]*\\))") // Matches `.` so long as it's not contained within a parentheses group
     var updatedComponents = [String]()
     if components.first?.contains("_ROOT") == true {
       for component in components {
@@ -115,5 +115,16 @@ extension SQLiteNormalizedCache: NormalizedCache {
   
   public func clear() throws {
     try self.database.clearDatabase(shouldVacuumOnClear: self.shouldVacuumOnClear)
+  }
+}
+
+private extension String {
+  func split(usingRegex pattern: String) -> [String] {
+    guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }
+    let matches = regex.matches(in: self, range: NSRange(0..<utf16.count))
+    let ranges = [startIndex..<startIndex]
+      + matches.compactMap { Range($0.range, in: self) }
+      + [endIndex..<endIndex]
+    return (0...matches.count).map { String(self[ranges[$0].upperBound..<ranges[$0+1].lowerBound]) }
   }
 }
