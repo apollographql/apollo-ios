@@ -60,3 +60,17 @@ extension IR.Operation {
     rootField.selectionSet.mergedSelections.fragments[fragment]
   }
 }
+
+extension CompilationResult {
+  public subscript(object name: String) -> GraphQLObjectType? {
+    return referencedTypes.objects.first { $0.name == name }
+  }
+
+  public subscript(interface name: String) -> GraphQLInterfaceType? {
+    return referencedTypes.interfaces.first { $0.name == name }
+  }
+
+  public subscript(fragment name: String) -> FragmentDefinition? {
+    return fragments.first { $0.name == name }
+  }
+}

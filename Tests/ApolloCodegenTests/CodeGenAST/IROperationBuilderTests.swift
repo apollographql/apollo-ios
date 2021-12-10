@@ -8,9 +8,15 @@ import ApolloAPI
 
 class IROperationBuilderTests: XCTestCase {
 
-  var mockCompilationResult: CompilationResult!
+  var schema: String!
+  var document: String!
+  var ir: IR!
   var operation: CompilationResult.OperationDefinition!
   var subject: IR.Operation!
+
+  var compilationResult: CompilationResult { ir.compilationResult }
+
+  var mockCompilationResult: CompilationResult!
 
   override func setUp() {
     super.setUp()
@@ -20,6 +26,9 @@ class IROperationBuilderTests: XCTestCase {
 
   override func tearDown() {
     mockCompilationResult = nil
+
+    schema = nil
+    document = nil
     operation = nil
     subject = nil
     super.tearDown()
@@ -27,44 +36,44 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: = Helpers
 
-  func buildSubjectOperation() {
-    subject = IR(compilationResult: mockCompilationResult).build(operation: operation)
+  func buildSubjectOperation() throws {
+    let frontend = try GraphQLJSFrontend()
+    let compilationResult = try frontend.compile(schema: schema, document: document)
+    operation = try XCTUnwrap(compilationResult.operations.first)
+    ir = IR(compilationResult: compilationResult)
+    subject = ir.build(operation: operation)
   }
 
   // MARK: - Children Computation
 
   // MARK: Children - Fragment Type
 
-  /// Example:
-  /// query {
-  ///  allAnimals {
-  ///    ...AnimalDetails
-  ///  }
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  /// Expected:
-  /// Animal.children should not include a type case for asAnimal
-  func test__children__initWithNamedFragmentOnTheSameType_hasNoChildTypeCase() {
+  func test__children__initWithNamedFragmentOnTheSameType_hasNoChildTypeCase() throws {
     // given
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
 
-    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+    interface Animal {
+      species: String!
+    }
+    """
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
+    document = """
+    query Test {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
@@ -72,36 +81,39 @@ class IROperationBuilderTests: XCTestCase {
     expect(allAnimals?.selections.typeCases).to(beEmpty())
   }
 
-  /// Example:
-  /// query {
-  ///  allAnimals {
-  ///    ...BirdDetails
-  /// }
-  ///
-  /// fragment BirdDetails on Bird {
-  ///   species
-  /// }
-  /// Expected:
-  /// AllAnimals.children: [AsBird]
-  func test__children__initWithNamedFragmentOnMoreSpecificType_hasChildTypeCase() {
+  func test__children__initWithNamedFragmentOnMoreSpecificType_hasChildTypeCase() throws {
     // given
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Bird = GraphQLObjectType.mock("Bird")
-    
-    let birdDetails = CompilationResult.FragmentDefinition.mock("BirdDetails", type: Object_Bird)
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .fragmentSpread(birdDetails),
-          ]
-        )))])
+    interface Animal {
+      species: String!
+    }
+
+    type Bird implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ...BirdDetails
+      }
+    }
+
+    fragment BirdDetails on Bird {
+      species
+    }
+    """
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
+
+    let Object_Bird = try XCTUnwrap(compilationResult[object: "Bird"])
+    let Fragment_BirdDetails = try XCTUnwrap(compilationResult[fragment: "BirdDetails"])
 
     let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
@@ -110,22 +122,32 @@ class IROperationBuilderTests: XCTestCase {
 
     let child = allAnimals?[as: "Bird"]
     expect(child?.parentType).to(equal(Object_Bird))
-    expect(child?.selections.fragments).to(shallowlyMatch([birdDetails]))
+    expect(child?.selections.fragments).to(shallowlyMatch([Fragment_BirdDetails]))
   }
 
-  /// Example:
-  /// query {
-  ///  birds {
-  ///    ...AnimalDetails
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  /// Expected:
-  /// Children should not include a type case for asAnimal
-  func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() {
+  func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test {
+      birds {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
@@ -141,7 +163,7 @@ class IROperationBuilderTests: XCTestCase {
         )))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
@@ -150,7 +172,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  flyingAnimals {
   ///    ...AnimalDetails
   /// }
@@ -160,8 +182,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// Children should not include a type case for asAnimal
-  func test__children__isInterfaceType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() {
+  func test__children__isInterfaceType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
@@ -177,7 +211,7 @@ class IROperationBuilderTests: XCTestCase {
         )))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
 
@@ -186,7 +220,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  rocks {
   ///    ...AnimalDetails
   /// }
@@ -196,8 +230,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// Children should not include a type case for asAnimal
-  func test__children__initWithNamedFragmentOnUnrelatedType_hasChildTypeCase() {
+  func test__children__initWithNamedFragmentOnUnrelatedType_hasChildTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Object_Rock = GraphQLObjectType.mock("Rock")
     let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
@@ -213,7 +259,7 @@ class IROperationBuilderTests: XCTestCase {
         )))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let rocks = self.subject[field: "query"]?[field: "rocks"]?.selectionSet
 
@@ -229,7 +275,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Children Computation - Union Type
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on ClassroomPet {
   ///      ... on Bird {
@@ -238,8 +284,20 @@ class IROperationBuilderTests: XCTestCase {
   ///    }
   ///   }
   /// }
-  func test__children__givenIsUnionType_withNestedTypeCaseOfObjectType_hasChildrenForTypeCase() {
+  func test__children__givenIsUnionType_withNestedTypeCaseOfObjectType_hasChildrenForTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_Bird = GraphQLObjectType.mock("Bird")
     let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
 
@@ -263,7 +321,7 @@ class IROperationBuilderTests: XCTestCase {
         )))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let onClassroomPet = subject[field: "query"]?[field: "allAnimals"]?[as: "ClassroomPet"]
     let onClassroomPet_onBird = onClassroomPet?[as:"Bird"]
@@ -279,7 +337,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Children - Type Cases
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   aField { // On A
   ///     A
   ///     ... on A {
@@ -290,8 +348,20 @@ class IROperationBuilderTests: XCTestCase {
   ///
   /// Expected:
   /// Query.Children: { }
-  func test__children__givenInlineFragment_onSameType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() {
+  func test__children__givenInlineFragment_onSameType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -310,7 +380,7 @@ class IROperationBuilderTests: XCTestCase {
           ])))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"]
 
@@ -321,7 +391,7 @@ class IROperationBuilderTests: XCTestCase {
   /// Example:
   /// type B implements A {}
   ///
-  /// query {
+  /// query Test {
   ///   bField { // On B
   ///     A
   ///     ... on A {
@@ -332,8 +402,20 @@ class IROperationBuilderTests: XCTestCase {
   ///
   /// Expected:
   /// Query.Children: { }
-  func test__children__givenInlineFragment_onMatchingType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() {
+  func test__children__givenInlineFragment_onMatchingType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_A = GraphQLInterfaceType.mock("A")
     let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
 
@@ -353,7 +435,7 @@ class IROperationBuilderTests: XCTestCase {
           ])))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let bField = subject[field: "query"]?[field: "bField"]
 
@@ -362,7 +444,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   aField { // On A
   ///     A
   ///     ... on B {
@@ -375,8 +457,20 @@ class IROperationBuilderTests: XCTestCase {
   /// aField.typeCases: {
   ///   ... on B
   /// }
-  func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() {
+  func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
     let Object_B = GraphQLObjectType.mock("B")
 
@@ -396,7 +490,7 @@ class IROperationBuilderTests: XCTestCase {
           ])))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -415,7 +509,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Children - Group Duplicate Type Cases
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   aField {
   ///     ... on InterfaceA {
   ///       A
@@ -433,8 +527,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     B
   ///   }
   /// }
-  func test__children__givenInlineFragmentsWithSameType_deduplicatesChildren() {
+  func test__children__givenInlineFragmentsWithSameType_deduplicatesChildren() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
       .field(.mock(
         "aField",
@@ -458,7 +564,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceA = aField?[as: "InterfaceA"]
@@ -470,7 +576,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   aField {
   ///     ... on InterfaceA {
   ///       A
@@ -490,8 +596,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     B
   ///   }
   /// }
-  func test__children__givenInlineFragmentsWithDifferentType_hasSeperateChildrenChildren() {
+  func test__children__givenInlineFragmentsWithDifferentType_hasSeperateChildrenChildren() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
       .field(.mock(
         "aField",
@@ -510,7 +628,7 @@ class IROperationBuilderTests: XCTestCase {
           ])))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceA = aField?[as: "InterfaceA"]
@@ -533,7 +651,7 @@ class IROperationBuilderTests: XCTestCase {
   ///   C
   /// }
   ///
-  /// query {
+  /// query Test {
   ///   aField { // on A
   ///     ... FragmentB
   ///     ... FragmentB
@@ -546,8 +664,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     selections: [FragmentB]
   ///   }
   /// }
-  func test__children__givenDuplicateNamedFragments_onNonMatchingParentType_hasDeduplicatedTypeCaseWithChildFragment() {
+  func test__children__givenDuplicateNamedFragments_onNonMatchingParentType_hasDeduplicatedTypeCaseWithChildFragment() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
     let InterfaceB = GraphQLInterfaceType.mock("InterfaceB")
     let FragmentB = CompilationResult.FragmentDefinition.mock(
@@ -569,7 +699,7 @@ class IROperationBuilderTests: XCTestCase {
           ])))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
@@ -590,7 +720,7 @@ class IROperationBuilderTests: XCTestCase {
   ///   C
   /// }
   ///
-  /// query {
+  /// query Test {
   ///   aField {// on A
   ///     ... FragmentB1
   ///     ... FragmentB2
@@ -603,8 +733,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     selections: [FragmentB1, FragmentB2]
   ///   }
   /// }
-  func test__children__givenTwoNamedFragments_onSameNonMatchingParentType_hasDeduplicatedTypeCaseWithBothChildFragments() {
+  func test__children__givenTwoNamedFragments_onSameNonMatchingParentType_hasDeduplicatedTypeCaseWithBothChildFragments() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
     let InterfaceB = GraphQLInterfaceType.mock("InterfaceB")
     let FragmentB1 = CompilationResult.FragmentDefinition.mock(
@@ -632,7 +774,7 @@ class IROperationBuilderTests: XCTestCase {
           ])))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
@@ -651,8 +793,20 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Selections - Group Duplicate Fields
 
-  func test__selections__givenFieldSelectionsWithSameName_scalarType_deduplicatesSelection() {
+  func test__selections__givenFieldSelectionsWithSameName_scalarType_deduplicatesSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
         .field(.mock("A", type: GraphQLScalarType.integer())),
         .field(.mock("A", type: GraphQLScalarType.integer()))
@@ -664,14 +818,26 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  func test__selections__givenFieldSelectionsWithSameNameDifferentAlias_scalarType_doesNotDeduplicateSelection() {
+  func test__selections__givenFieldSelectionsWithSameNameDifferentAlias_scalarType_doesNotDeduplicateSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
         .field(.mock("A", alias: "B", type: GraphQLScalarType.integer())),
         .field(.mock("A", alias: "C", type: GraphQLScalarType.integer()))
@@ -684,14 +850,26 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithDifferentChildSelections_mergesChildSelectionsIntoOneField() {
+  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithDifferentChildSelections_mergesChildSelectionsIntoOneField() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -722,7 +900,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let queryField = subject[field: "query"] as? IR.EntityField
     let aField = queryField?[field: "A"] as? IR.EntityField
@@ -734,7 +912,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   A {
   ///     B
   ///     C
@@ -753,8 +931,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     D
   ///   }
   /// }
-  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithSameAndDifferentChildSelections_mergesChildSelectionsAndDoesNotDuplicateFields() {
+  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithSameAndDifferentChildSelections_mergesChildSelectionsAndDoesNotDuplicateFields() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -788,7 +978,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let queryField = subject[field: "query"] as? IR.EntityField
     let aField = queryField?[field: "A"] as? IR.EntityField
@@ -802,7 +992,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Selections - Type Cases
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   aField { // On A
   ///     A
   ///     ... on A {
@@ -816,8 +1006,20 @@ class IROperationBuilderTests: XCTestCase {
   ///   A
   ///   B
   /// }
-  func test__selections__givenInlineFragment_onSameType_mergesTypeCaseIn() {
+  func test__selections__givenInlineFragment_onSameType_mergesTypeCaseIn() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -842,7 +1044,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -853,7 +1055,7 @@ class IROperationBuilderTests: XCTestCase {
   /// Example:
   /// type B implements A {}
   ///
-  /// query {
+  /// query Test {
   ///   bField { // On B
   ///     A
   ///     ... on A {
@@ -867,8 +1069,20 @@ class IROperationBuilderTests: XCTestCase {
   ///   A
   ///   B
   /// }
-  func test__selections__givenInlineFragment_onMatchingType_mergesTypeCaseIn() {
+  func test__selections__givenInlineFragment_onMatchingType_mergesTypeCaseIn() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_A = GraphQLInterfaceType.mock("A")
     let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
 
@@ -893,7 +1107,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let bField = subject[field: "query"]?[field: "bField"] as? IR.EntityField
 
@@ -902,7 +1116,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   aField { // On A
   ///     A
   ///     ... on B {
@@ -919,8 +1133,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     }
   ///   }
   /// }
-  func test__selections__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn() {
+  func test__selections__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
     let Object_B = GraphQLObjectType.mock("B")
 
@@ -941,7 +1167,7 @@ class IROperationBuilderTests: XCTestCase {
 
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asB = aField?[as: "B"]
@@ -956,7 +1182,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Selections - Group Duplicate Type Cases
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   ... on InterfaceA {}
   ///   ... on InterfaceA {}
   /// }
@@ -965,8 +1191,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Query.Selections: {
   ///   ... on InterfaceA {}
   /// }
-  func test__selections__givenInlineFragmentsWithSameInterfaceType_deduplicatesSelection() {
+  func test__selections__givenInlineFragmentsWithSameInterfaceType_deduplicatesSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
         .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
         .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
@@ -978,14 +1216,14 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   ... on ObjectA {}
   ///   ... on ObjectA {}
   /// }
@@ -994,8 +1232,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Query.Selections: {
   ///   ... on ObjectA {}
   /// }
-  func test__selections__givenInlineFragmentsWithSameObjectType_deduplicatesSelection() {
+  func test__selections__givenInlineFragmentsWithSameObjectType_deduplicatesSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
         .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
         .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
@@ -1007,14 +1257,14 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   ... on UnionA {}
   ///   ... on UnionA {}
   /// }
@@ -1023,8 +1273,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Query.Selections: {
   ///   ... on UnionA {}
   /// }
-  func test__selections__givenInlineFragmentsWithSameUnionType_deduplicatesSelection() {
+  func test__selections__givenInlineFragmentsWithSameUnionType_deduplicatesSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
         .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
         .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
@@ -1036,14 +1298,14 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   ... on InterfaceA {}
   ///   ... on InterfaceB {}
   /// }
@@ -1053,8 +1315,20 @@ class IROperationBuilderTests: XCTestCase {
   ///   ... on InterfaceA {}
   ///   ... on InterfaceB {}
   /// }
-  func test__selections__givenInlineFragmentsWithDifferentType_doesNotDeduplicateSelection() {
+  func test__selections__givenInlineFragmentsWithDifferentType_doesNotDeduplicateSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
         .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
         .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceB"))),
@@ -1067,14 +1341,14 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///   ... on A {
   ///     B
   ///     C
@@ -1093,8 +1367,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     D
   ///   }
   /// }
-  func test__selections__givenInlineFragmentsWithSameType_withSameAndDifferentChildSelections_mergesChildSelectionsIntoOneTypeCaseAndDeduplicatesChildSelections() {
+  func test__selections__givenInlineFragmentsWithSameType_withSameAndDifferentChildSelections_mergesChildSelectionsIntoOneTypeCaseAndDeduplicatesChildSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -1122,7 +1408,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let rootField_asA = subject[as: "A"]
 
@@ -1133,8 +1419,20 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Selections - Fragments
 
-  func test__selections__givenNamedFragmentWithSelectionSet_onMatchingParentType_hasFragmentSelection() {
+  func test__selections__givenNamedFragmentWithSelectionSet_onMatchingParentType_hasFragmentSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -1157,7 +1455,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1167,8 +1465,20 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Selections - Group Duplicate Fragments
 
-  func test__selections__givenNamedFragmentsWithSameName_onMatchingParentType_deduplicatesSelection() {
+  func test__selections__givenNamedFragmentsWithSameName_onMatchingParentType_deduplicatesSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -1187,7 +1497,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1195,8 +1505,20 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  func test__selections__givenNamedFragmentsWithDifferentNames_onMatchingParentType_doesNotDeduplicateSelection() {
+  func test__selections__givenNamedFragmentsWithDifferentNames_onMatchingParentType_doesNotDeduplicateSelection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
 
     operation = .mock(selections: [
@@ -1216,7 +1538,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1224,8 +1546,20 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  func test__selections__givenNamedFragmentsWithSameName_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCase() {
+  func test__selections__givenNamedFragmentsWithSameName_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
     let Interface_B = GraphQLInterfaceType.mock("B")
 
@@ -1245,7 +1579,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1264,7 +1598,7 @@ class IROperationBuilderTests: XCTestCase {
   ///   C
   /// }
   ///
-  /// query {
+  /// query Test {
   ///   aField { // on A
   ///     ...FragmentA
   ///     ...FragmentB
@@ -1278,8 +1612,20 @@ class IROperationBuilderTests: XCTestCase {
   ///     ...FragmentB
   ///   }
   /// }
-  func test__selections__givenNamedFragmentsWithDifferentNamesAndSameParentType_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCaseWithBothFragments() {
+  func test__selections__givenNamedFragmentsWithDifferentNamesAndSameParentType_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCaseWithBothFragments() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
     let Interface_B = GraphQLInterfaceType.mock("B")
     let Fragment_A = CompilationResult.FragmentDefinition.mock(
@@ -1312,7 +1658,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1322,8 +1668,20 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?[as: "B"]?.selections).to(shallowlyMatch(expected))
   }
 
-  func test__selections__givenNamedFragmentsWithDifferentNamesAndDifferentParentType_onNonMatchingParentType_doesNotDeduplicate_hasTypeCaseForEachFragment() {
+  func test__selections__givenNamedFragmentsWithDifferentNamesAndDifferentParentType_onNonMatchingParentType_doesNotDeduplicate_hasTypeCaseForEachFragment() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_A = GraphQLObjectType.mock("A")
     let Interface_B = GraphQLInterfaceType.mock("B")
     let Interface_C = GraphQLInterfaceType.mock("C")
@@ -1352,7 +1710,7 @@ class IROperationBuilderTests: XCTestCase {
     )))])
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1365,32 +1723,68 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: - Merged Selections
 
-  func test__mergedSelections__givenSelectionSetWithNoSelectionsAndNoParent_returnsNil() {
+  func test__mergedSelections__givenSelectionSetWithNoSelectionsAndNoParent_returnsNil() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [])
     
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.mergedSelections.isEmpty).to(beTrue())
   }
 
-  func test__mergedSelections__givenSelectionSetWithSelections_returnsSelections() {
+  func test__mergedSelections__givenSelectionSetWithSelections_returnsSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let expected = [CompilationResult.Selection.field(.mock())]
 
     operation = .mock(selections: expected)
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     // then
     expect(self.subject.rootField.selectionSet.mergedSelections).to(shallowlyMatch(expected))
   }
 
-  func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() {
+  func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
       .field(.mock(
         "aField",
@@ -1411,7 +1805,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let actual = subject[field: "query"]?[field: "aField"]?[as: "B"]?.mergedSelections
 
@@ -1424,7 +1818,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Merged Selections - Siblings - Object Type <-> Object Type
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Bird {
   ///      wingspan
@@ -1436,8 +1830,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// One merged typecase selection set with mergedSelections [wingspan, species]
-  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsTheSameObjectType_mergesSiblingSelections() {
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsTheSameObjectType_mergesSiblingSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
       .field(.mock(
         "allAnimals",
@@ -1461,7 +1867,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?[as: "Bird"]?.mergedSelections
@@ -1472,7 +1878,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Bird {
   ///      wingspan
@@ -1484,8 +1890,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// Bird and Cat selections sets should not merge each other's selections
-  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsDifferentObjectType_doesNotMergesSiblingSelections() {
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsDifferentObjectType_doesNotMergesSiblingSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
       .field(.mock(
         "allAnimals",
@@ -1507,7 +1925,7 @@ class IROperationBuilderTests: XCTestCase {
     let asCatExpected: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let asBird = allAnimals?[as: "Bird"]?.mergedSelections
@@ -1521,7 +1939,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Merged Selections - Siblings - Object Type -> Interface Type
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Bird {
   ///      wingspan
@@ -1534,8 +1952,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// Bird mergedSelections: [wingspan, species]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() {
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Pet = GraphQLInterfaceType.mock("Pet")
     let Bird = GraphQLObjectType.mock("Bird", interfaces: [Pet])
 
@@ -1566,7 +1996,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let asBird = allAnimals?[as: "Bird"]?.mergedSelections
@@ -1578,7 +2008,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Bird {
   ///      wingspan
@@ -1590,8 +2020,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// Bird mergedSelections: [wingspan]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() {
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Pet = GraphQLInterfaceType.mock("Pet")
     let Bird = GraphQLObjectType.mock("Bird")
 
@@ -1617,7 +2059,7 @@ class IROperationBuilderTests: XCTestCase {
     let asPetExpected: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let asBird = allAnimals?[as: "Bird"]?.mergedSelections
@@ -1631,7 +2073,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Merged Selections - Siblings - Interface Type -> Interface Type
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on HousePet {
   ///      humanName
@@ -1644,8 +2086,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// HousePet mergedSelections: [humanName, species]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsInterfaceType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() {
+  func test__mergedSelections__givenIsInterfaceType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Pet = GraphQLInterfaceType.mock("Pet")
     let HousePet = GraphQLInterfaceType.mock("HousePet", interfaces: [Pet])
 
@@ -1676,7 +2130,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let asHousePet = allAnimals?[as: "HousePet"]?.mergedSelections
@@ -1688,7 +2142,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on HousePet {
   ///      humanName
@@ -1701,8 +2155,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// HousePet mergedSelections: [humanName]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsInterfaceType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() {
+  func test__mergedSelections__givenIsInterfaceType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Pet = GraphQLInterfaceType.mock("Pet")
     let HousePet = GraphQLInterfaceType.mock("HousePet")
 
@@ -1728,7 +2194,7 @@ class IROperationBuilderTests: XCTestCase {
     let asPetExpected: [CompilationResult.Selection] = [.field(.mock("species"))]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let asHousePet = allAnimals?[as: "HousePet"]?.mergedSelections
@@ -1742,7 +2208,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: - Merged Selections - Parent's Sibling
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on WarmBlooded {
   ///      ... on Pet {
@@ -1756,8 +2222,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// Bird mergedSelections: [humanName, species]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsNestedInterfaceType_uncleSelectionSetIsTheSameInterfaceType_mergesUncleSelections() {
+  func test__mergedSelections__givenIsNestedInterfaceType_uncleSelectionSetIsTheSameInterfaceType_mergesUncleSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     operation = .mock(selections: [
       .field(.mock(
         "allAnimals",
@@ -1790,7 +2268,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -1806,7 +2284,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on WarmBlooded {
   ///      ... on Bird {
@@ -1820,8 +2298,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// Bird mergedSelections: [wingspan, species]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() {
+  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
                                                           interfaces: [Interface_Animal])
@@ -1865,7 +2355,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -1881,7 +2371,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on WarmBlooded {
   ///      ... on Bird {
@@ -1895,8 +2385,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// Bird mergedSelections: [wingspan]
   /// Pet mergedSelections: [species]
-  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergeUncleSelections() {
+  func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergeUncleSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
                                                           interfaces: [Interface_Animal])
@@ -1938,7 +2440,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -1956,7 +2458,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Merged Selections - Parent's Sibling - Object Type <-> Object in Union Type
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Bird {
   ///      wingspan
@@ -1970,8 +2472,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// Both selection sets should have mergedSelections [wingspan, species]
-  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfSameObjectType_mergesSiblingChildSelectionsInBothDirections() {
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfSameObjectType_mergesSiblingChildSelectionsInBothDirections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_Bird = GraphQLObjectType.mock("Bird")
     let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
 
@@ -2012,7 +2526,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2026,7 +2540,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Bird {
   ///      wingspan
@@ -2041,8 +2555,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// Bird mergedSelections: [wingspan]
   /// ClassroomPet.Cat mergedSelections: [species]
-  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfDifferentObjectType_doesNotMergeSiblingChildSelectionsInEitherDirection() {
+  func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfDifferentObjectType_doesNotMergeSiblingChildSelectionsInEitherDirection() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Object_Bird = GraphQLObjectType.mock("Bird")
     let Object_Cat = GraphQLObjectType.mock("Cat")
     let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet",
@@ -2081,7 +2607,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2097,7 +2623,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: Merged Selections - Parent's Sibling - Interface in Union Type
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on WarmBlooded {
   ///      bodyTemperature
@@ -2112,8 +2638,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
   /// AllAnimal.AsClassroomPet.AsWarmBlooded mergedSelections: [species, bodyTemperature]
-  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() {
+  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
                                                           interfaces: [Interface_Animal])
@@ -2158,7 +2696,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2174,7 +2712,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on Pet {
   ///      humanName
@@ -2189,8 +2727,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// AllAnimal.AsPet mergedSelections: [humanName]
   /// AllAnimal.AsClassroomPet.AsWarmBloodedPet mergedSelections: [species, humanName]
-  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsChildMatchingInterfaceType_mergesUncleSelections() {
+  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsChildMatchingInterfaceType_mergesUncleSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_Pet = GraphQLInterfaceType.mock("Pet",
                                                   interfaces: [Interface_Animal])
@@ -2240,7 +2790,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2256,7 +2806,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ... on WarmBlooded {
   ///      bodyTemperature
@@ -2271,8 +2821,20 @@ class IROperationBuilderTests: XCTestCase {
   /// Expected:
   /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
   /// AllAnimal.AsClassroomPet.AsPet mergedSelections: [species]
-  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergesUncleSelections() {
+  func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergesUncleSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_Pet = GraphQLInterfaceType.mock("Pet",
                                                   interfaces: [Interface_Animal])
@@ -2318,7 +2880,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2336,7 +2898,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: - Merged Selections - Child Fragment
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ...AnimalDetails
   ///  }
@@ -2348,8 +2910,20 @@ class IROperationBuilderTests: XCTestCase {
   ///
   /// Expected:
   /// AllAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
-  func test__mergedSelections__givenChildIsNamedFragmentOnSameType_mergesFragmentFieldsAndMaintainsFragment() {
+  func test__mergedSelections__givenChildIsNamedFragmentOnSameType_mergesFragmentFieldsAndMaintainsFragment() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Field_Species = CompilationResult.Field.mock("species")
 
@@ -2377,7 +2951,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?.selectionSet?.mergedSelections
@@ -2387,7 +2961,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    ...BirdDetails
   ///  }
@@ -2398,8 +2972,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// AllAnimal.mergedSelections: [typeCase_AsBird]
-  func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
+  func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
     let Field_Species = CompilationResult.Field.mock("species")
@@ -2427,7 +3013,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?.selectionSet?.mergedSelections
@@ -2437,7 +3023,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  birds {
   ///    ...AnimalDetails
   ///  }
@@ -2449,8 +3035,20 @@ class IROperationBuilderTests: XCTestCase {
   ///
   /// Expected:
   /// AllAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
-  func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() {
+  func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
     let Field_Species = CompilationResult.Field.mock("species")
@@ -2479,7 +3077,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?.selectionSet?.mergedSelections
@@ -2489,7 +3087,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  flyingAnimals {
   ///    ...AnimalDetails
   /// }
@@ -2499,8 +3097,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// FlyingAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
-  func test__mergedSelections__givenIsInterfaceType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() {
+  func test__mergedSelections__givenIsInterfaceType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
     let Field_Species = CompilationResult.Field.mock("species")
@@ -2529,7 +3139,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?.selectionSet?.mergedSelections
@@ -2539,7 +3149,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  rocks {
   ///    ...BirdDetails
   ///  }
@@ -2550,8 +3160,20 @@ class IROperationBuilderTests: XCTestCase {
   /// }
   /// Expected:
   /// Rocks.mergedSelections: [typeCase_AsBird]
-  func test__mergedSelections__givenChildIsNamedFragmentOnUnrelatedType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() {
+  func test__mergedSelections__givenChildIsNamedFragmentOnUnrelatedType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
     let Object_Rock = GraphQLObjectType.mock("Rock")
@@ -2580,7 +3202,7 @@ class IROperationBuilderTests: XCTestCase {
     ]
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let rocks = subject[field: "query"]?[field: "rocks"]
     let actual = rocks?.selectionSet?.mergedSelections
@@ -2592,7 +3214,7 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: - Nested Entity Field - Merged Selections
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    height {
   ///      feet
@@ -2610,6 +3232,18 @@ class IROperationBuilderTests: XCTestCase {
   /// AllAnimal.AsPet.mergedSelections: [feet, meters]
   func test__mergedSelections__givenEntityFieldOnObjectAndTypeCase_withOtherNestedFieldInTypeCase_mergesParentFieldIntoNestedSelectionsInTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
     let Object_Height = GraphQLObjectType.mock("Height")
@@ -2644,7 +3278,7 @@ class IROperationBuilderTests: XCTestCase {
 
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2666,7 +3300,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    height {
   ///      feet
@@ -2684,6 +3318,18 @@ class IROperationBuilderTests: XCTestCase {
   /// AllAnimal.Predator.mergedSelections: [meters]
   func test__mergedSelections__givenEntityFieldOnObjectWithSelectionSetIncludingSameFieldNameAndDifferentSelections_doesNotMergeFieldIntoNestedFieldsSelections() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Object_Height = GraphQLObjectType.mock("Height")
 
@@ -2719,7 +3365,7 @@ class IROperationBuilderTests: XCTestCase {
 
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2740,7 +3386,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    height {
   ///      feet
@@ -2761,6 +3407,18 @@ class IROperationBuilderTests: XCTestCase {
   /// AllAnimal.AsCat.mergedSelections: [feet, meters]
   func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_mergesParentFieldIntoNestedSelectionsInObjectTypeCaseMatchingInterfaceTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
     let Object_Cat = GraphQLObjectType.mock("Cat", interfaces: [Interface_Animal, Interface_Pet])
@@ -2801,7 +3459,7 @@ class IROperationBuilderTests: XCTestCase {
 
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2817,7 +3475,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    height {
   ///      feet
@@ -2838,6 +3496,18 @@ class IROperationBuilderTests: XCTestCase {
   /// AllAnimal.AsElephant.mergedSelections: [feet]
   func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_doesNotMergeParentFieldIntoNestedSelectionsInObjectTypeCaseNotMatchingInterfaceTypeCase() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
     let Object_Elephant = GraphQLObjectType.mock("Elephant", interfaces: [Interface_Animal])
@@ -2878,7 +3548,7 @@ class IROperationBuilderTests: XCTestCase {
 
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
@@ -2893,7 +3563,7 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query {
+  /// query Test {
   ///  allAnimals {
   ///    height {
   ///      feet
@@ -2923,6 +3593,18 @@ class IROperationBuilderTests: XCTestCase {
   /// AllAnimal.AsWarmBlooded.Height.mergedSelections: [feet, yards]
   func test__mergedSelections__givenEntityFieldOnEntityWithDeepNestedTypeCases_eachTypeCaseHasDifferentNestedEntityFields_mergesFieldIntoMatchingNestedTypeCases() throws {
     // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    """
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
     let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
     let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded", interfaces: [Interface_Animal])
@@ -2982,7 +3664,7 @@ class IROperationBuilderTests: XCTestCase {
 
 
     // when
-    buildSubjectOperation()
+    try buildSubjectOperation()
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
 
