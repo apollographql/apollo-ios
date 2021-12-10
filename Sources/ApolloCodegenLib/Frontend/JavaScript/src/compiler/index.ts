@@ -159,6 +159,8 @@ export function compileToIR(
       fragmentDefinition.typeCondition
     ) as GraphQLCompositeType;
 
+    referencedTypes.add(typeCondition)
+
     return {
       name,
       filePath,
