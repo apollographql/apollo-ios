@@ -36,7 +36,7 @@ class GlobTests: XCTestCase {
 
   // MARK: Tests
 
-  func test_match_givenSinglePattern_whenNoMatch_shouldReturnEmpty() throws {
+  func test_match_givenSinglePattern_usingAnyWildcard_whenNoMatch_shouldReturnEmpty() throws {
     // given
     let pattern = baseURL.appendingPathComponent("*.xyz").path
 
@@ -458,6 +458,24 @@ class GlobTests: XCTestCase {
       baseURL.appendingPathComponent("a/b/c/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
       baseURL.appendingPathComponent("other/file.one").path
+    ]))
+  }
+
+  func test_match_givenAbsolutePattern_shouldMatch() throws {
+    // given
+    let pattern = baseURL.appendingPathComponent("other/file.xyz").path
+
+    // when
+    try create(files: [
+      baseURL.appendingPathComponent("file.xyz").path,
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("other/file.xyz").path,
+      baseURL.appendingPathComponent("other/file.two").path
+    ])
+
+    // then
+    expect(Glob([pattern]).match).to(equal([
+      baseURL.appendingPathComponent("other/file.xyz").path
     ]))
   }
 }
