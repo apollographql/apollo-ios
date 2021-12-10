@@ -93,9 +93,9 @@ class ApolloCodegenTests: XCTestCase {
     // is not a property of the `Book` type.
 
     // then
-    expect(try ApolloCodegen.compileResults(using: config))
+    expect(try ApolloCodegen.compileGraphQLResult(using: config))
     .to(throwError { error in
-      guard case let ApolloCodegen.Error.validationFailed(lines) = error else {
+      guard case let ApolloCodegen.Error.graphQLSourceValidationFailed(lines) = error else {
         fail("Expected .validationFailed, got .\(error)")
         return
       }
@@ -133,6 +133,6 @@ class ApolloCodegenTests: XCTestCase {
     )
 
     // then
-    expect(try ApolloCodegen.compileResults(using: config).operations).to(haveCount(2))
+    expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(haveCount(2))
   }
 }

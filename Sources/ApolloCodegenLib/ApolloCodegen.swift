@@ -5,28 +5,33 @@ import Foundation
 
 /// A class to facilitate running code generation
 public class ApolloCodegen {
+  // MARK: Public
+
+  /// Errors that can occur during code generation.
   public enum Error: Swift.Error, LocalizedError {
-    case validationFailed(atLines: [String])
+    /// An error occured during validation of the GraphQL schema or operations.
+    case graphQLSourceValidationFailed(atLines: [String])
 
     public var errorDescription: String? {
       switch self {
-      case let .validationFailed(lines):
-        return "Schema and Operation validation failed! Check \(lines)"
+      case let .graphQLSourceValidationFailed(lines):
+        return "An error occured during validation of the GraphQL schema or operations! Check \(lines)"
       }
     }
   }
+
   /// Executes the code generation engine with a specified configuration.
   ///
   /// - Parameters:
-  ///   - configuration: The configuration to use to build the code generation.
+  ///   - configuration: A configuration object that specifies inputs, outputs and behaviours used during code generation.
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
     try configuration.validate()
 
-    let compilationResult = try compileResults(using: configuration.input)
     #warning("TODO - compilationResult will be passed into the next step")
+    let compilationResult = try compileGraphQLResult(using: configuration.input)
   }
 
-  static func compileResults(
+  static func compileGraphQLResult(
     using input: ApolloCodegenConfiguration.FileInput
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
@@ -44,7 +49,7 @@ public class ApolloCodegen {
     guard graphqlErrors.isEmpty else {
       let errorlines = graphqlErrors.flatMap({ $0.logLines })
       CodegenLogger.log(String(describing: errorlines), logLevel: .error)
-      throw Error.validationFailed(atLines: errorlines)
+      throw Error.graphQLSourceValidationFailed(atLines: errorlines)
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
