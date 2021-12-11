@@ -159,7 +159,7 @@ export function compileToIR(
       fragmentDefinition.typeCondition
     ) as GraphQLCompositeType;
 
-    referencedTypes.add(typeCondition)
+    referencedTypes.add(typeCondition);
 
     return {
       name,
@@ -264,6 +264,9 @@ export function compileToIR(
         const typeCondition = typeNode
           ? (typeFromAST(schema, typeNode) as GraphQLCompositeType)
           : parentType;
+
+        referencedTypes.add(typeCondition);
+
         return {
           kind: "InlineFragment",
           selectionSet: compileSelectionSet(
