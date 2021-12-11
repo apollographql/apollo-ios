@@ -70,6 +70,14 @@ extension CompilationResult {
     return referencedTypes.interfaces.first { $0.name == name }
   }
 
+  public subscript(union name: String) -> GraphQLUnionType? {
+    return referencedTypes.unions.first { $0.name == name }
+  }
+
+  public subscript(scalar name: String) -> GraphQLScalarType? {
+    return referencedTypes.scalars.first { $0.name == name }
+  }
+
   public subscript(fragment name: String) -> FragmentDefinition? {
     return fragments.first { $0.name == name }
   }

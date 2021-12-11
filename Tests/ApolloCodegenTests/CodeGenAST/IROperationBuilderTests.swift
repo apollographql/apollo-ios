@@ -16,17 +16,12 @@ class IROperationBuilderTests: XCTestCase {
 
   var compilationResult: CompilationResult { ir.compilationResult }
 
-  var mockCompilationResult: CompilationResult!
-
   override func setUp() {
     super.setUp()
-    mockCompilationResult = CompilationResult.mock()
     operation = CompilationResult.OperationDefinition.mock()
   }
 
   override func tearDown() {
-    mockCompilationResult = nil
-
     schema = nil
     document = nil
     operation = nil
@@ -129,10 +124,14 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      birds: [Bird!]
     }
 
     interface Animal {
+      species: String!
+    }
+
+    type Bird implements Animal {
       species: String!
     }
     """
@@ -148,118 +147,86 @@ class IROperationBuilderTests: XCTestCase {
       species
     }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
-    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Object_Bird,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
 
     // when
     try buildSubjectOperation()
 
-    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
+    let birds = self.subject[field: "query"]?[field: "birds"]?.selectionSet
 
     // then
-    expect(allAnimals?.selections.typeCases).to(beEmpty())
+    expect(birds?.selections.typeCases).to(beEmpty())
   }
 
-  /// Example:
-  /// query Test {
-  ///  flyingAnimals {
-  ///    ...AnimalDetails
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  /// Expected:
-  /// Children should not include a type case for asAnimal
   func test__children__isInterfaceType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      flyingAnimals: [FlyingAnimal!]
     }
 
     interface Animal {
       species: String!
     }
+
+    interface FlyingAnimal implements Animal {
+      species: String!
+    }
     """
 
     document = """
-    """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
-    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+    query Test {
+      flyingAnimals {
+        ...AnimalDetails
+      }
+    }
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_FlyingAnimal,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
 
     // when
     try buildSubjectOperation()
 
-    let allAnimals = self.subject[field: "query"]?[field: "allAnimals"]?.selectionSet
+    let flyingAnimals = self.subject[field: "query"]?[field: "flyingAnimals"]?.selectionSet
 
     // then
-    expect(allAnimals?.selections.typeCases).to(beEmpty())
+    expect(flyingAnimals?.selections.typeCases).to(beEmpty())
   }
 
-  /// Example:
-  /// query Test {
-  ///  rocks {
-  ///    ...AnimalDetails
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  /// Expected:
-  /// Children should not include a type case for asAnimal
   func test__children__initWithNamedFragmentOnUnrelatedType_hasChildTypeCase() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      rocks: [Rock!]
     }
 
     interface Animal {
       species: String!
     }
+
+    type Rock {
+      name: String!
+    }
     """
 
     document = """
-    """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Rock = GraphQLObjectType.mock("Rock")
-    let animalDetails = CompilationResult.FragmentDefinition.mock("AnimalDetails", type: Interface_Animal)
+    query Test {
+     rocks {
+       ...AnimalDetails
+      }
+    }
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "rocks",
-        selectionSet: .mock(
-          parentType: Object_Rock,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
 
     // when
     try buildSubjectOperation()
+
+    let Interface_Animal = try XCTUnwrap(compilationResult[interface: "Animal"])
+    let Fragment_AnimalDetails = try XCTUnwrap(compilationResult[fragment: "AnimalDetails"])
 
     let rocks = self.subject[field: "query"]?[field: "rocks"]?.selectionSet
 
@@ -269,21 +236,11 @@ class IROperationBuilderTests: XCTestCase {
     let child = rocks?[as: "Animal"]
     expect(child?.parentType).to(equal(Interface_Animal))
     expect(child?.selections.fragments.count).to(equal(1))
-    expect(child?.selections.fragments.values[0].definition).to(equal(animalDetails))
+    expect(child?.selections.fragments.values[0].definition).to(equal(Fragment_AnimalDetails))
   }
 
   // MARK: Children Computation - Union Type
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on ClassroomPet {
-  ///      ... on Bird {
-  ///        species
-  ///      }
-  ///    }
-  ///   }
-  /// }
   func test__children__givenIsUnionType_withNestedTypeCaseOfObjectType_hasChildrenForTypeCase() throws {
     // given
     schema = """
@@ -294,34 +251,36 @@ class IROperationBuilderTests: XCTestCase {
     interface Animal {
       species: String!
     }
+
+    type Bird {
+      species: String!
+    }
+
+    union ClassroomPet = Bird
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on ClassroomPet {
+          ... on Bird {
+            species
+          }
+        }
+      }
+    }
     """
-    let Object_Bird = GraphQLObjectType.mock("Bird")
-    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
-
-    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Union_ClassroomPet,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Object_Bird,
-                  selections: [Field_Species]
-                ))]
-            )),
-          ]
-        )))])
 
     // when
     try buildSubjectOperation()
+
+    let Object_Bird = try XCTUnwrap(compilationResult[object: "Bird"])
+    let Union_ClassroomPet = try XCTUnwrap(compilationResult[union: "ClassroomPet"])
+
+    let Scalar_String = try XCTUnwrap(compilationResult[scalar: "String"])
+    let Field_Species: CompilationResult.Selection = .field(.mock(
+      "species", type: .nonNull(.scalar(Scalar_String)))
+    )
 
     let onClassroomPet = subject[field: "query"]?[field: "allAnimals"]?[as: "ClassroomPet"]
     let onClassroomPet_onBird = onClassroomPet?[as:"Bird"]
@@ -336,48 +295,29 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Children - Type Cases
 
-  /// Example:
-  /// query Test {
-  ///   aField { // On A
-  ///     A
-  ///     ... on A {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// Query.Children: { }
   func test__children__givenInlineFragment_onSameType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      A: String!
+      B: String!
     }
     """
 
     document = """
+    query Test {
+      aField { # On A
+        A
+        ... on A {
+          B
+        }
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: Object_A,
-              selections: [
-                .field(.mock("B")),
-              ]
-            ))
-          ])))])
 
     // when
     try buildSubjectOperation()
@@ -388,51 +328,34 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?.selectionSet?.selections.typeCases).to(beEmpty())
   }
 
-  /// Example:
-  /// type B implements A {}
-  ///
-  /// query Test {
-  ///   bField { // On B
-  ///     A
-  ///     ... on A {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// Query.Children: { }
   func test__children__givenInlineFragment_onMatchingType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      bField: [B!]
     }
 
-    interface Animal {
-      species: String!
+    interface A {
+      A: String!
+      B: String!
+    }
+
+    type B implements A {
+      A: String!
+      B: String!
     }
     """
 
     document = """
+    query Test {
+      bField { # On B
+        A
+        ... on A {
+          B
+        }
+      }
+    }
     """
-    let Interface_A = GraphQLInterfaceType.mock("A")
-    let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "bField",
-        selectionSet: .mock(
-          parentType: Object_B,
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: Interface_A,
-              selections: [
-                .field(.mock("B")),
-              ]
-            ))
-          ])))])
 
     // when
     try buildSubjectOperation()
@@ -444,14 +367,6 @@ class IROperationBuilderTests: XCTestCase {
   }
 
   /// Example:
-  /// query Test {
-  ///   aField { // On A
-  ///     A
-  ///     ... on B {
-  ///       B
-  ///     }
-  ///   }
-  /// }
   ///
   /// Expected:
   /// aField.typeCases: {
@@ -461,36 +376,36 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    interface A {
+      A: String!
+      B: String!
+    }
+
+    type B {
+      A: String
+      B: String
     }
     """
 
     document = """
+    query Test {
+      aField { # On A
+        A
+        ... on B {
+          B
+        }
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-    let Object_B = GraphQLObjectType.mock("B")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: Object_B,
-              selections: [
-                .field(.mock("B")),
-              ]
-            ))
-          ])))])
 
     // when
     try buildSubjectOperation()
+
+    let Object_B = try XCTUnwrap(compilationResult[object: "B"])
+    let Scalar_String = try XCTUnwrap(compilationResult[scalar: "String"])
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -498,7 +413,7 @@ class IROperationBuilderTests: XCTestCase {
       CompilationResult.SelectionSet.mock(
         parentType: Object_B,
         selections: [
-          .field(.mock("B")),
+          .field(.mock("B", type: .scalar(Scalar_String))),
         ])
     ]
 
@@ -508,127 +423,94 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Children - Group Duplicate Type Cases
 
-  /// Example:
-  /// query Test {
-  ///   aField {
-  ///     ... on InterfaceA {
-  ///       A
-  ///     }
-  ///     ... on InterfaceA {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.TypeCases: {
-  ///   ... on InterfaceA {
-  ///     A
-  ///     B
-  ///   }
-  /// }
   func test__children__givenInlineFragmentsWithSameType_deduplicatesChildren() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      bField: [B!]
     }
 
-    interface Animal {
-      species: String!
+    interface InterfaceA {
+      A: String
+      B: String
+    }
+
+    type B {
+      name: String
     }
     """
 
     document = """
+    query Test {
+      bField {
+        ... on InterfaceA {
+          A
+        }
+        ... on InterfaceA {
+          B
+        }
+      }
+    }
     """
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          selections: [
-            .inlineFragment(.mock(
-              parentType: GraphQLInterfaceType.mock("InterfaceA"),
-              selections: [
-                .field(.mock("A")),
-              ])),
-            .inlineFragment(.mock(
-              parentType: GraphQLInterfaceType.mock("InterfaceA"),
-              selections: [
-                .field(.mock("B")),
-              ])),
-          ])))])
-
-    let expectedChildren: [CompilationResult.Selection] = [
-      .field(.mock("A")),
-      .field(.mock("B")),
-    ]
 
     // when
     try buildSubjectOperation()
 
-    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
-    let aField_asInterfaceA = aField?[as: "InterfaceA"]
+    let Scalar_String = try XCTUnwrap(compilationResult[scalar: "String"])
+
+    let expectedChildren: [CompilationResult.Selection] = [
+      .field(.mock("A", type: .scalar(Scalar_String))),
+      .field(.mock("B", type: .scalar(Scalar_String))),
+    ]
+
+    let bField = subject[field: "query"]?[field: "bField"] as? IR.EntityField
+    let bField_asInterfaceA = bField?[as: "InterfaceA"]
 
     // then
-    expect(aField?.selectionSet.selections.typeCases.count).to(equal(1))
-    expect(aField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
-    expect(aField_asInterfaceA?.selections).to(shallowlyMatch(expectedChildren))
+    expect(bField?.selectionSet.selections.typeCases.count).to(equal(1))
+    expect(bField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
+    expect(bField_asInterfaceA?.selections).to(shallowlyMatch(expectedChildren))
   }
 
-  /// Example:
-  /// query Test {
-  ///   aField {
-  ///     ... on InterfaceA {
-  ///       A
-  ///     }
-  ///     ... on InterfaceB {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.typeCases: {
-  ///   ... on InterfaceA {
-  ///     A
-  ///   }
-  ///   ... on InterfaceB {
-  ///     B
-  ///   }
-  /// }
-  func test__children__givenInlineFragmentsWithDifferentType_hasSeperateChildrenChildren() throws {
+  func test__children__givenInlineFragmentsWithDifferentType_hasSeperateChildTypeCases() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    interface InterfaceA {
+      A: String
+    }
+
+    interface InterfaceB {
+      B: String
+    }
+
+    type A {
+      name: String
     }
     """
 
     document = """
+    query Test {
+      aField {
+        ... on InterfaceA {
+          A
+        }
+        ... on InterfaceB {
+          B
+        }
+      }
+    }
     """
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          selections: [
-            .inlineFragment(.mock(
-              parentType: GraphQLInterfaceType.mock("InterfaceA"),
-              selections: [
-                .field(.mock("A")),
-              ])),
-            .inlineFragment(.mock(
-              parentType: GraphQLInterfaceType.mock("InterfaceB"),
-              selections: [
-                .field(.mock("B")),
-              ])),
-          ])))])
 
     // when
     try buildSubjectOperation()
+
+    let Scalar_String = try XCTUnwrap(compilationResult[scalar: "String"])
+    let Field_A: CompilationResult.Selection = .field(.mock("A", type: .scalar(Scalar_String)))
+    let Field_B: CompilationResult.Selection = .field(.mock("B", type: .scalar(Scalar_String)))
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceA = aField?[as: "InterfaceA"]
@@ -638,68 +520,47 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?.selectionSet.selections.typeCases.count).to(equal(2))
 
     expect(aField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
-    expect(aField_asInterfaceA?.selections).to(shallowlyMatch([.field(.mock("A"))]))
+    expect(aField_asInterfaceA?.selections).to(shallowlyMatch([Field_A]))
 
     expect(aField_asInterfaceB?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceB")))
-    expect(aField_asInterfaceB?.selections).to(shallowlyMatch([.field(.mock("B"))]))
+    expect(aField_asInterfaceB?.selections).to(shallowlyMatch([Field_B]))
   }
 
   // MARK: Children - Group Duplicate Fragments
 
-  /// Example:
-  /// fragment FragmentB on B {
-  ///   C
-  /// }
-  ///
-  /// query Test {
-  ///   aField { // on A
-  ///     ... FragmentB
-  ///     ... FragmentB
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.typeCases: {
-  ///   ... on B {
-  ///     selections: [FragmentB]
-  ///   }
-  /// }
   func test__children__givenDuplicateNamedFragments_onNonMatchingParentType_hasDeduplicatedTypeCaseWithChildFragment() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [InterfaceA!]
     }
 
-    interface Animal {
-      species: String!
+    interface InterfaceA {
+      a: String
+    }
+
+    interface InterfaceB {
+      b: String
     }
     """
 
     document = """
+    fragment FragmentB on InterfaceB {
+      b
+    }
+
+    query Test {
+      aField {
+        ... FragmentB
+        ... FragmentB
+      }
+    }
     """
-    let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
-    let InterfaceB = GraphQLInterfaceType.mock("InterfaceB")
-    let FragmentB = CompilationResult.FragmentDefinition.mock(
-      "FragmentB",
-      type: InterfaceB,
-      selections: [
-        .field(.mock("C"))
-      ]
-    )
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: InterfaceA,
-          selections: [
-            .fragmentSpread(FragmentB),
-            .fragmentSpread(FragmentB),
-          ])))])
-
     // when
     try buildSubjectOperation()
+
+    let InterfaceB = try XCTUnwrap(compilationResult[interface: "InterfaceB"])
+    let FragmentB = try XCTUnwrap(compilationResult[fragment: "FragmentB"])
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
@@ -711,70 +572,46 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField_asInterfaceB?.selections).to(shallowlyMatch([.fragmentSpread(FragmentB)]))
   }
 
-  /// Example:
-  /// fragment FragmentB1 on B {
-  ///   B
-  /// }
-  ///
-  /// fragment FragmentB2 on B {
-  ///   C
-  /// }
-  ///
-  /// query Test {
-  ///   aField {// on A
-  ///     ... FragmentB1
-  ///     ... FragmentB2
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.typeCaes: {
-  ///   ... on B {
-  ///     selections: [FragmentB1, FragmentB2]
-  ///   }
-  /// }
   func test__children__givenTwoNamedFragments_onSameNonMatchingParentType_hasDeduplicatedTypeCaseWithBothChildFragments() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [InterfaceA!]
     }
 
-    interface Animal {
-      species: String!
+    interface InterfaceA {
+      a: String
+    }
+
+    interface InterfaceB {
+      b: String
+      c: String
     }
     """
 
     document = """
+    fragment FragmentB1 on InterfaceB {
+      b
+    }
+
+    fragment FragmentB2 on InterfaceB {
+      c
+    }
+
+    query Test {
+      aField {
+        ... FragmentB1
+        ... FragmentB2
+      }
+    }
     """
-    let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
-    let InterfaceB = GraphQLInterfaceType.mock("InterfaceB")
-    let FragmentB1 = CompilationResult.FragmentDefinition.mock(
-      "FragmentB1",
-      type: InterfaceB,
-      selections: [
-        .field(.mock("B"))
-      ]
-    )
-    let FragmentB2 = CompilationResult.FragmentDefinition.mock(
-      "FragmentB2",
-      type: InterfaceB,
-      selections: [
-        .field(.mock("C"))
-      ]
-    )
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: InterfaceA,
-          selections: [
-            .fragmentSpread(FragmentB1),
-            .fragmentSpread(FragmentB2),
-          ])))])
 
     // when
     try buildSubjectOperation()
+
+    let InterfaceB = try XCTUnwrap(compilationResult[interface: "InterfaceB"])
+    let FragmentB1 = try XCTUnwrap(compilationResult[fragment: "FragmentB1"])
+    let FragmentB2 = try XCTUnwrap(compilationResult[fragment: "FragmentB2"])
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
@@ -797,250 +634,25 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: String
     }
     """
 
     document = """
+    query Test {
+      aField {
+        a
+        a
+      }
+    }
     """
-    operation = .mock(selections: [
-        .field(.mock("A", type: GraphQLScalarType.integer())),
-        .field(.mock("A", type: GraphQLScalarType.integer()))
-      ]
-    )
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("A", type: GraphQLScalarType.integer()))
-    ]
-
-    // when
-    try buildSubjectOperation()
-
-    // then
-    expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
-  }
-
-  func test__selections__givenFieldSelectionsWithSameNameDifferentAlias_scalarType_doesNotDeduplicateSelection() throws {
-    // given
-    schema = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    """
-    operation = .mock(selections: [
-        .field(.mock("A", alias: "B", type: GraphQLScalarType.integer())),
-        .field(.mock("A", alias: "C", type: GraphQLScalarType.integer()))
-      ]
-    )
-
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("A", alias: "B", type: GraphQLScalarType.integer())),
-      .field(.mock("A", alias: "C", type: GraphQLScalarType.integer()))
-    ]
-
-    // when
-    try buildSubjectOperation()
-
-    // then
-    expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
-  }
-
-  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithDifferentChildSelections_mergesChildSelectionsIntoOneField() throws {
-    // given
-    schema = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    """
-    let Object_A = GraphQLObjectType.mock("A")
-
-    operation = .mock(selections: [
-        .field(.mock(
-          "A",
-          type: .entity(Object_A),
-          selectionSet: .mock(
-            parentType: Object_A,
-            selections: [
-              .field(.mock("B", type: GraphQLScalarType.integer()))
-            ]
-          ))),
-        .field(.mock(
-          "A",
-          type: .entity(Object_A),
-          selectionSet: .mock(
-            parentType: Object_A,
-            selections: [
-              .field(.mock("C", type: GraphQLScalarType.integer()))
-            ]
-          )))
-      ]
-    )
-
-    let expectedAFields: [CompilationResult.Selection] = [
-      .field(.mock("B", type: GraphQLScalarType.integer())),
-      .field(.mock("C", type: GraphQLScalarType.integer()))
-    ]
-
-    // when
-    try buildSubjectOperation()
-
-    let queryField = subject[field: "query"] as? IR.EntityField
-    let aField = queryField?[field: "A"] as? IR.EntityField
-
-    // then
-    expect(queryField?.selectionSet.selections.fields.count).to(equal(1))
-    expect(aField?.selectionSet.parentType).to(equal(Object_A))
-    expect(aField?.selectionSet.selections).to(shallowlyMatch(expectedAFields))
-  }
-
-  /// Example:
-  /// query Test {
-  ///   A {
-  ///     B
-  ///     C
-  ///   }
-  ///   A {
-  ///     B
-  ///     D
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// Query.Selections: {
-  ///   A {
-  ///     B
-  ///     C
-  ///     D
-  ///   }
-  /// }
-  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithSameAndDifferentChildSelections_mergesChildSelectionsAndDoesNotDuplicateFields() throws {
-    // given
-    schema = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    """
-    let Object_A = GraphQLObjectType.mock("A")
-
-    operation = .mock(selections: [
-        .field(.mock(
-          "A",
-          type: .entity(Object_A),
-          selectionSet: .mock(
-            parentType: Object_A,
-            selections: [
-              .field(.mock("B", type: GraphQLScalarType.integer())),
-              .field(.mock("C", type: GraphQLScalarType.integer())),
-            ]
-          ))),
-        .field(.mock(
-          "A",
-          type: .entity(Object_A),
-          selectionSet: .mock(
-            parentType: Object_A,
-            selections: [
-              .field(.mock("B", type: GraphQLScalarType.integer())),
-              .field(.mock("D", type: GraphQLScalarType.integer())),
-            ]
-          )))
-      ]
-    )
-
-    let expectedAFields: [CompilationResult.Selection] = [
-      .field(.mock("B", type: GraphQLScalarType.integer())),
-      .field(.mock("C", type: GraphQLScalarType.integer())),
-      .field(.mock("D", type: GraphQLScalarType.integer())),
-    ]
-
-    // when
-    try buildSubjectOperation()
-
-    let queryField = subject[field: "query"] as? IR.EntityField
-    let aField = queryField?[field: "A"] as? IR.EntityField
-
-    // then
-    expect(queryField?.selectionSet.selections.fields.count).to(equal(1))
-    expect(aField?.selectionSet.parentType).to(equal(Object_A))
-    expect(aField?.selectionSet.selections).to(shallowlyMatch(expectedAFields))
-  }
-
-  // MARK: Selections - Type Cases
-
-  /// Example:
-  /// query Test {
-  ///   aField { // On A
-  ///     A
-  ///     ... on A {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.Selections: {
-  ///   A
-  ///   B
-  /// }
-  func test__selections__givenInlineFragment_onSameType_mergesTypeCaseIn() throws {
-    // given
-    schema = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    """
-    let Object_A = GraphQLObjectType.mock("A")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: Object_A,
-              selections: [
-                .field(.mock("B")),
-              ]
-            ))
-          ])
-      ))])
-
-    let expected: [CompilationResult.Selection] = [
-      .field(.mock("A")),
-      .field(.mock("B")),
+      .field(.mock("a", type: .scalar(.string())))
     ]
 
     // when
@@ -1052,58 +664,210 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// type B implements A {}
-  ///
-  /// query Test {
-  ///   bField { // On B
-  ///     A
-  ///     ... on A {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// bField.Selections: {
-  ///   A
-  ///   B
-  /// }
-  func test__selections__givenInlineFragment_onMatchingType_mergesTypeCaseIn() throws {
+  func test__selections__givenFieldSelectionsWithSameNameDifferentAlias_scalarType_doesNotDeduplicateSelection() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: String
     }
     """
 
     document = """
+    query Test {
+      aField {
+        b: a
+        c: a
+      }
+    }
     """
-    let Interface_A = GraphQLInterfaceType.mock("A")
-    let Object_B = GraphQLObjectType.mock("B", interfaces: [Interface_A])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "bField",
-        selectionSet: .mock(
-          parentType: Object_B,
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: Interface_A,
-              selections: [
-                .field(.mock("B")),
-              ]
-            ))
-          ])))])
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("A")),
-      .field(.mock("B")),
+      .field(.mock("a", alias: "b", type: .scalar(.string()))),
+      .field(.mock("a", alias: "c", type: .scalar(.string())))
+    ]
+
+    // when
+    try buildSubjectOperation()
+
+    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
+
+    // then
+    expect(aField?.selectionSet.selections).to(shallowlyMatch(expected))
+  }
+
+  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithDifferentChildSelections_mergesChildSelectionsIntoOneField() throws {
+    // given
+    schema = """
+    type Query {
+      aField: [A!]
+    }
+
+    type A {
+      a: A
+      b: String
+      c: Int
+    }
+    """
+
+    document = """
+    query Test {
+      aField {
+        a {
+          b
+        }
+        a {
+          c
+        }
+      }
+    }
+    """
+
+    let expectedAFields: [CompilationResult.Selection] = [
+      .field(.mock("b", type: .scalar(.string()))),
+      .field(.mock("c", type: .scalar(.integer())))
+    ]
+
+    // when
+    try buildSubjectOperation()
+
+    let Object_A = try XCTUnwrap(compilationResult[object: "A"])
+
+    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
+    let aField_a = aField?[field: "a"] as? IR.EntityField
+
+    // then
+    expect(aField?.selectionSet.selections.fields.count).to(equal(1))
+    expect(aField?.selectionSet.parentType).to(equal(Object_A))
+    expect(aField_a?.selectionSet.parentType).to(equal(Object_A))
+    expect(aField_a?.selectionSet.selections).to(shallowlyMatch(expectedAFields))
+  }
+
+  func test__selections__givenFieldSelectionsWithSameResponseKey_onObjectWithSameAndDifferentChildSelections_mergesChildSelectionsAndDoesNotDuplicateFields() throws {
+    // given
+    schema = """
+    type Query {
+      aField: [A!]
+    }
+
+    type A {
+      a: A
+      b: Int
+      c: Boolean
+      d: String
+    }
+    """
+
+    document = """
+    query Test {
+      aField {
+        a {
+          b
+          c
+        }
+        a {
+          b
+          d
+        }
+      }
+    }
+    """
+
+    let expectedAFields: [CompilationResult.Selection] = [
+      .field(.mock("b", type: GraphQLScalarType.integer())),
+      .field(.mock("c", type: GraphQLScalarType.boolean())),
+      .field(.mock("d", type: GraphQLScalarType.string())),
+    ]
+
+    // when
+    try buildSubjectOperation()
+
+    let Object_A = try XCTUnwrap(compilationResult[object: "A"])
+
+    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
+    let aField_a = aField?[field: "a"] as? IR.EntityField
+
+    // then
+    expect(aField?.selectionSet.selections.fields.count).to(equal(1))
+    expect(aField?.selectionSet.parentType).to(equal(Object_A))
+    expect(aField_a?.selectionSet.parentType).to(equal(Object_A))
+    expect(aField_a?.selectionSet.selections).to(shallowlyMatch(expectedAFields))
+  }
+
+  // MARK: Selections - Type Cases
+
+  func test__selections__givenInlineFragment_onSameType_mergesTypeCaseIn() throws {
+    // given
+    schema = """
+    type Query {
+      aField: [A!]
+    }
+
+    type A {
+      a: String
+      b: Int
+    }
+    """
+
+    document = """
+    query Test {
+      aField {
+        a
+        ... on A {
+          b
+        }
+      }
+    }
+    """
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("a", type: GraphQLScalarType.string())),
+      .field(.mock("b", type: GraphQLScalarType.integer())),
+    ]
+
+    // when
+    try buildSubjectOperation()
+
+    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
+
+    // then
+    expect(aField?.selectionSet.selections).to(shallowlyMatch(expected))
+  }
+
+  func test__selections__givenInlineFragment_onMatchingType_mergesTypeCaseIn() throws {
+    // given
+    schema = """
+    type Query {
+      bField: [B!]
+    }
+
+    interface A {
+      a: String
+    }
+
+    type B implements A {
+      a: String
+      b: Int
+    }
+    """
+
+    document = """
+    query Test {
+      bField {
+        b
+        ... on A {
+          a
+        }
+      }
+    }
+    """
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("b", type: GraphQLScalarType.integer())),
+      .field(.mock("a", type: GraphQLScalarType.string())),
     ]
 
     // when
@@ -1115,56 +879,33 @@ class IROperationBuilderTests: XCTestCase {
     expect(bField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///   aField { // On A
-  ///     A
-  ///     ... on B {
-  ///       B
-  ///     }
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.Selections: {
-  ///     A
-  ///     ... on B {
-  ///       B
-  ///     }
-  ///   }
-  /// }
   func test__selections__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    interface A {
+      a: String
+    }
+
+    type B {
+      a: String
+      b: Int
     }
     """
 
     document = """
+    query Test {
+      aField {
+        a
+        ... on B {
+          b
+        }
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-    let Object_B = GraphQLObjectType.mock("B")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: Object_B,
-              selections: [
-                .field(.mock("B")),
-              ]
-            ))
-          ])))])
-
 
     // when
     try buildSubjectOperation()
@@ -1173,248 +914,236 @@ class IROperationBuilderTests: XCTestCase {
     let aField_asB = aField?[as: "B"]
 
     // then
-    expect(aField?.selectionSet.selections.fields).to(shallowlyMatch([.field(.mock("A"))]))
+    expect(aField?.selectionSet.selections.fields).to(shallowlyMatch([
+      .field(.mock("a", type: .string()))
+    ]))
     expect(aField?.selectionSet.selections.typeCases.count).to(equal(1))
 
-    expect(aField_asB?.selections).to(shallowlyMatch([.field(.mock("B"))]))
+    expect(aField_asB?.selections).to(shallowlyMatch([
+      .field(.mock("b", type: .integer()))
+    ]))
   }
 
   // MARK: Selections - Group Duplicate Type Cases
 
-  /// Example:
-  /// query Test {
-  ///   ... on InterfaceA {}
-  ///   ... on InterfaceA {}
-  /// }
-  ///
-  /// Expected:
-  /// Query.Selections: {
-  ///   ... on InterfaceA {}
-  /// }
   func test__selections__givenInlineFragmentsWithSameInterfaceType_deduplicatesSelection() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      bField: [B!]
     }
 
-    interface Animal {
-      species: String!
+    interface A {
+      a: String
+    }
+
+    type B {
+      b: Int
     }
     """
 
     document = """
+    query Test {
+      bField {
+        ... on A { a }
+        ... on A { a }
+      }
+    }
     """
-    operation = .mock(selections: [
-        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
-        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
-      ]
-    )
-
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA")))
-    ]
 
     // when
     try buildSubjectOperation()
 
+    let Interface_A = try XCTUnwrap(compilationResult[interface: "A"])
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: Interface_A))
+    ]
+
+    let bField = subject[field: "query"]?[field: "bField"] as? IR.EntityField
+
     // then
-    expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
+    expect(bField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///   ... on ObjectA {}
-  ///   ... on ObjectA {}
-  /// }
-  ///
-  /// Expected:
-  /// Query.Selections: {
-  ///   ... on ObjectA {}
-  /// }
   func test__selections__givenInlineFragmentsWithSameObjectType_deduplicatesSelection() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      bField: [B!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: String
+    }
+
+    type B {
+      b: Int
     }
     """
 
     document = """
+    query Test {
+      bField {
+        ... on A { a }
+        ... on A { a }
+      }
+    }
     """
-    operation = .mock(selections: [
-        .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
-        .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
-      ]
-    )
-
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: GraphQLObjectType.mock("ObjectA"))),
-    ]
 
     // when
     try buildSubjectOperation()
 
+    let Object_A = try XCTUnwrap(compilationResult[object: "A"])
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: Object_A))
+    ]
+
+    let bField = subject[field: "query"]?[field: "bField"] as? IR.EntityField
+
     // then
-    expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
+    expect(bField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///   ... on UnionA {}
-  ///   ... on UnionA {}
-  /// }
-  ///
-  /// Expected:
-  /// Query.Selections: {
-  ///   ... on UnionA {}
-  /// }
   func test__selections__givenInlineFragmentsWithSameUnionType_deduplicatesSelection() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      bField: [B!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a1: String
+      a2: String
+    }
+
+    union UnionA = A
+
+    type B {
+      b: Int
     }
     """
 
     document = """
+    query Test {
+      bField {
+        ... on UnionA { ...on A { a1 } }
+        ... on UnionA { ...on A { a2 } }
+      }
+    }
     """
-    operation = .mock(selections: [
-        .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
-        .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
-      ]
-    )
-
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: GraphQLUnionType.mock("UnionA"))),
-    ]
 
     // when
     try buildSubjectOperation()
 
+    let Union_A = try XCTUnwrap(compilationResult[union: "UnionA"])
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: Union_A))
+    ]
+
+    let bField = subject[field: "query"]?[field: "bField"] as? IR.EntityField
+
     // then
-    expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
+    expect(bField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///   ... on InterfaceA {}
-  ///   ... on InterfaceB {}
-  /// }
-  ///
-  /// Expected:
-  /// Query.Selections: {
-  ///   ... on InterfaceA {}
-  ///   ... on InterfaceB {}
-  /// }
   func test__selections__givenInlineFragmentsWithDifferentType_doesNotDeduplicateSelection() throws {
-    // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      objField: [Object!]
     }
 
-    interface Animal {
-      species: String!
+    type Object {
+      name: String
+    }
+
+    interface A {
+      a: String
+    }
+
+    interface B {
+      b: String
     }
     """
 
     document = """
+    query Test {
+      objField {
+        ... on A { a }
+        ... on B { b }
+      }
+    }
     """
-    operation = .mock(selections: [
-        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
-        .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceB"))),
-      ]
-    )
-
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceA"))),
-      .inlineFragment(.mock(parentType: GraphQLInterfaceType.mock("InterfaceB"))),
-    ]
 
     // when
     try buildSubjectOperation()
 
+    let Interface_A = try XCTUnwrap(compilationResult[interface: "A"])
+    let Interface_B = try XCTUnwrap(compilationResult[interface: "B"])
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.mock(parentType: Interface_A)),
+      .inlineFragment(.mock(parentType: Interface_B)),
+    ]
+
+    let objField = subject[field: "query"]?[field: "objField"] as? IR.EntityField
+
     // then
-    expect(self.subject.rootField.selectionSet.selections).to(shallowlyMatch(expected))
+    expect(objField?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///   ... on A {
-  ///     B
-  ///     C
-  ///   }
-  ///   ... on A {
-  ///     B
-  ///     D
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// Query.Selections: {
-  ///   ... on A {
-  ///     B
-  ///     C
-  ///     D
-  ///   }
-  /// }
   func test__selections__givenInlineFragmentsWithSameType_withSameAndDifferentChildSelections_mergesChildSelectionsIntoOneTypeCaseAndDeduplicatesChildSelections() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: A
+    }
+
+    interface B {
+      b: Int
+      c: Boolean
+      d: String
     }
     """
 
     document = """
+    query Test {
+      aField {
+        ... on B {
+          b
+          c
+        }
+        ... on B {
+          b
+          d
+        }
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-
-    operation = .mock(selections: [
-        .inlineFragment(.mock(
-          parentType: Object_A,
-          selections: [
-            .field(.mock("B", type: GraphQLScalarType.integer())),
-            .field(.mock("C", type: GraphQLScalarType.integer())),
-          ]
-        )),
-        .inlineFragment(.mock(
-          parentType: Object_A,
-          selections: [
-            .field(.mock("B", type: GraphQLScalarType.integer())),
-            .field(.mock("D", type: GraphQLScalarType.integer())),
-          ]
-        ))
-      ]
-    )
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("B", type: GraphQLScalarType.integer())),
-      .field(.mock("C", type: GraphQLScalarType.integer())),
-      .field(.mock("D", type: GraphQLScalarType.integer())),
+      .field(.mock("b", type: GraphQLScalarType.integer())),
+      .field(.mock("c", type: GraphQLScalarType.boolean())),
+      .field(.mock("d", type: GraphQLScalarType.string())),
     ]
 
     // when
     try buildSubjectOperation()
 
-    let rootField_asA = subject[as: "A"]
+    let Interface_B = try XCTUnwrap(compilationResult[interface:"B"])
+
+    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
+    let aField_asB = aField?[as: "B"]
 
     // then
-    expect(rootField_asA?.parentType).to(equal(Object_A))
-    expect(rootField_asA?.selections).to(shallowlyMatch(expected))
+    expect(aField_asB?.parentType).to(equal(Interface_B))
+    expect(aField_asB?.selections).to(shallowlyMatch(expected))
   }
 
   // MARK: Selections - Fragments
@@ -1423,39 +1152,34 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
     }
     """
 
     document = """
-    """
-    let Object_A = GraphQLObjectType.mock("A")
+    fragment FragmentA on A {
+      a
+    }
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .fragmentSpread(.mock(
-              "FragmentA",
-              type: Object_A,
-              selections: [
-                .field(.mock("A")),
-              ])),
-          ]
-        )))])
+    query Test {
+      aField {
+        ...FragmentA
+      }
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    let Object_A = try XCTUnwrap(compilationResult[object: "A"])
 
     let expected: [CompilationResult.Selection] = [
       .fragmentSpread(.mock("FragmentA", type: Object_A)),
     ]
-
-    // when
-    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1469,35 +1193,35 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
     }
     """
 
     document = """
-    """
-    let Object_A = GraphQLObjectType.mock("A")
+    fragment FragmentA on A {
+      a
+    }
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .fragmentSpread(.mock("FragmentA", type: Object_A)),
-            .fragmentSpread(.mock("FragmentA", type: Object_A)),
-          ]
-        )))])
+    query Test {
+      aField {
+        ...FragmentA
+        ...FragmentA
+      }
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    let Object_A = try XCTUnwrap(compilationResult[object: "A"])
 
     let expected: [CompilationResult.Selection] = [
       .fragmentSpread(.mock("FragmentA", type: Object_A)),
     ]
-
-    // when
-    try buildSubjectOperation()
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1509,36 +1233,41 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
+      b: String
     }
     """
 
     document = """
+    fragment FragmentA1 on A {
+      a
+    }
+
+    fragment FragmentA2 on A {
+      b
+    }
+
+    query Test {
+      aField {
+        ...FragmentA1
+        ...FragmentA2
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .fragmentSpread(.mock("FragmentA", type: Object_A)),
-            .fragmentSpread(.mock("FragmentB", type: Object_A)),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(.mock("FragmentA", type: Object_A)),
-      .fragmentSpread(.mock("FragmentB", type: Object_A)),
-    ]
 
     // when
     try buildSubjectOperation()
+
+    let Object_A = try XCTUnwrap(compilationResult[object: "A"])
+
+    let expected: [CompilationResult.Selection] = [
+      .fragmentSpread(.mock("FragmentA1", type: Object_A)),
+      .fragmentSpread(.mock("FragmentA2", type: Object_A)),
+    ]
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1550,36 +1279,40 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
+      b: String
+    }
+
+    interface B {
+      b: String
     }
     """
 
     document = """
+    fragment FragmentB on B {
+      b
+    }
+
+    query Test {
+      aField {
+        ...FragmentB
+        ...FragmentB
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-    let Interface_B = GraphQLInterfaceType.mock("B")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .fragmentSpread(.mock("FragmentA", type: Interface_B)),
-            .fragmentSpread(.mock("FragmentA", type: Interface_B)),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(.mock("FragmentA", type: Interface_B))
-    ]
 
     // when
     try buildSubjectOperation()
+
+    let Interface_B = try XCTUnwrap(compilationResult[interface: "B"])
+
+    let expected: [CompilationResult.Selection] = [
+      .fragmentSpread(.mock("FragmentB", type: Interface_B))
+    ]
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1589,76 +1322,50 @@ class IROperationBuilderTests: XCTestCase {
     expect(aField?[as: "B"]?.selections).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// FragmentA on B {
-  ///   B
-  /// }
-  ///
-  /// FragmentB on B {
-  ///   C
-  /// }
-  ///
-  /// query Test {
-  ///   aField { // on A
-  ///     ...FragmentA
-  ///     ...FragmentB
-  ///   }
-  /// }
-  ///
-  /// Expected:
-  /// aField.selections = {
-  ///   ... on B {
-  ///     ...FragmentA
-  ///     ...FragmentB
-  ///   }
-  /// }
   func test__selections__givenNamedFragmentsWithDifferentNamesAndSameParentType_onNonMatchingParentType_deduplicatesSelectionIntoSingleTypeCaseWithBothFragments() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
+    }
+
+    interface B {
+      b1: String
+      b2: String
     }
     """
 
     document = """
+    fragment FragmentB1 on B {
+      b1
+    }
+
+    fragment FragmentB2 on B {
+      b2
+    }
+
+    query Test {
+      aField {
+        ...FragmentB1
+        ...FragmentB2
+      }
+    }
     """
-    let Object_A = GraphQLObjectType.mock("A")
-    let Interface_B = GraphQLInterfaceType.mock("B")
-    let Fragment_A = CompilationResult.FragmentDefinition.mock(
-      "FragmentA",
-      type: Interface_B,
-      selections: [
-        .field(.mock("B", type: GraphQLScalarType.integer())),
-      ])
-    let Fragment_B = CompilationResult.FragmentDefinition.mock(
-      "FragmentB",
-      type: Interface_B,
-      selections: [
-        .field(.mock("C", type: GraphQLScalarType.integer())),
-      ])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: Object_A,
-          selections: [
-            .fragmentSpread(Fragment_A),
-            .fragmentSpread(Fragment_B),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .fragmentSpread(Fragment_A),
-      .fragmentSpread(Fragment_B),
-    ]
 
     // when
     try buildSubjectOperation()
+
+    let Fragment_B1 = try XCTUnwrap(compilationResult[fragment: "FragmentB1"])
+    let Fragment_B2 = try XCTUnwrap(compilationResult[fragment: "FragmentB2"])
+
+    let expected: [CompilationResult.Selection] = [
+      .fragmentSpread(Fragment_B1),
+      .fragmentSpread(Fragment_B2),
+    ]
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1672,45 +1379,44 @@ class IROperationBuilderTests: XCTestCase {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
+    }
+
+    interface B {
+      b: String
+    }
+
+    interface C {
+      c: String
     }
     """
 
     document = """
-    """
-    let Object_A = GraphQLObjectType.mock("A")
-    let Interface_B = GraphQLInterfaceType.mock("B")
-    let Interface_C = GraphQLInterfaceType.mock("C")
-    let Fragment_B = CompilationResult.FragmentDefinition.mock(
-      "FragmentB",
-      type: Interface_B,
-      selections: [
-        .field(.mock("B", type: GraphQLScalarType.integer())),
-      ])
-    let Fragment_C = CompilationResult.FragmentDefinition.mock(
-      "FragmentC",
-      type: Interface_C,
-      selections: [
-        .field(.mock("C", type: GraphQLScalarType.integer())),
-      ])
+    fragment FragmentB on B {
+      b
+    }
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-      parentType: Object_A,
-      selections: [
-        .fragmentSpread(Fragment_B),
-        .fragmentSpread(Fragment_C),
-      ]
-    )))])
+    fragment FragmentC on C {
+      c
+    }
+
+    query Test {
+      aField {
+        ...FragmentB
+        ...FragmentC
+      }
+    }
+    """
 
     // when
     try buildSubjectOperation()
+
+    let Fragment_B = try XCTUnwrap(compilationResult[fragment: "FragmentB"])
+    let Fragment_C = try XCTUnwrap(compilationResult[fragment: "FragmentC"])
 
     let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
 
@@ -1723,85 +1429,69 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: - Merged Selections
 
-  func test__mergedSelections__givenSelectionSetWithNoSelectionsAndNoParent_returnsNil() throws {
-    // given
-    schema = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    """
-    operation = .mock(selections: [])
-    
-    // when
-    try buildSubjectOperation()
-
-    // then
-    expect(self.subject.rootField.selectionSet.mergedSelections.isEmpty).to(beTrue())
-  }
-
   func test__mergedSelections__givenSelectionSetWithSelections_returnsSelections() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
     }
     """
 
     document = """
+    query Test {
+      aField {
+        a
+      }
+    }
     """
-    let expected = [CompilationResult.Selection.field(.mock())]
-
-    operation = .mock(selections: expected)
 
     // when
     try buildSubjectOperation()
 
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("a", type: .scalar(.integer())))
+    ]
+
+    let aField = subject[field: "query"]?[field: "aField"] as? IR.EntityField
+
     // then
-    expect(self.subject.rootField.selectionSet.mergedSelections).to(shallowlyMatch(expected))
+    expect(aField?.selectionSet.mergedSelections).to(shallowlyMatch(expected))
   }
 
   func test__mergedSelections__givenSelectionSetWithSelectionsAndParentFields_returnsSelfAndParentFields() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      aField: [A!]
     }
 
-    interface Animal {
-      species: String!
+    type A {
+      a: Int
+    }
+
+    type B {
+      b: Int
     }
     """
 
     document = """
+    query Test {
+      aField {
+        a
+        ... on B {
+          b
+        }
+      }
+    }
     """
-    operation = .mock(selections: [
-      .field(.mock(
-        "aField",
-        selectionSet: .mock(
-          parentType: GraphQLObjectType.mock("A"),
-          selections: [
-            .field(.mock("A")),
-            .inlineFragment(.mock(
-              parentType: GraphQLObjectType.mock("B"),
-              selections: [.field(.mock("B"))]
-            ))
-          ]
-        )))])
 
     let expected: [CompilationResult.Selection] = [
-      .field(.mock("B")),
-      .field(.mock("A")),
+      .field(.mock("b", type: .scalar(.integer()))),
+      .field(.mock("a", type: .scalar(.integer()))),
     ]
 
     // when
@@ -1817,19 +1507,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Merged Selections - Siblings - Object Type <-> Object Type
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///    ... on Bird {
-  ///      species
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// One merged typecase selection set with mergedSelections [wingspan, species]
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsTheSameObjectType_mergesSiblingSelections() throws {
     // given
     schema = """
@@ -1838,32 +1515,31 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    type Bird implements Animal {
+      species: String
+      wingspan: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on Bird {
+          wingspan
+        }
+        ... on Bird {
+          species
+        }
+      }
+    }
     """
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: GraphQLObjectType.mock("Bird"),
-              selections: [.field(.mock("wingspan"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: GraphQLObjectType.mock("Bird"),
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
 
-    let expected = [
-      CompilationResult.Selection.field(.mock("wingspan")),
-      CompilationResult.Selection.field(.mock("species"))
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("wingspan", type: .scalar(.integer()))),
+      .field(.mock("species", type: .scalar(.string()))),
     ]
 
     // when
@@ -1877,19 +1553,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(actual).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///    ... on Cat {
-  ///      species
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// Bird and Cat selections sets should not merge each other's selections
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsDifferentObjectType_doesNotMergesSiblingSelections() throws {
     // given
     schema = """
@@ -1898,31 +1561,38 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    type Bird implements Animal {
+      species: String
+      wingspan: Int
+    }
+
+    type Cat implements Animal {
+      species: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on Bird {
+          wingspan
+        }
+        ... on Cat {
+          species
+        }
+      }
+    }
     """
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: GraphQLObjectType.mock("Bird"),
-              selections: [.field(.mock("wingspan"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: GraphQLObjectType.mock("Cat"),
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
 
-    let asBirdExpected: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
-    let asCatExpected: [CompilationResult.Selection] = [.field(.mock("species"))]
+    let asBirdExpected: [CompilationResult.Selection] = [
+      .field(.mock("wingspan", type: .scalar(.integer()))),
+    ]
+    let asCatExpected: [CompilationResult.Selection] = [
+      .field(.mock("species", type: .scalar(.string()))),
+    ]
 
     // when
     try buildSubjectOperation()
@@ -1938,20 +1608,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Merged Selections - Siblings - Object Type -> Interface Type
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///    ... on Pet { // Bird Implements Pet
-  ///      species
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// Bird mergedSelections: [wingspan, species]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() throws {
     // given
     schema = """
@@ -1960,39 +1616,39 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface Pet {
+      species: String
+    }
+
+    type Bird implements Pet {
+      species: String
+      wingspan: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on Bird {
+          wingspan
+        }
+        ... on Pet {
+          species
+        }
+      }
+    }
     """
-    let Pet = GraphQLInterfaceType.mock("Pet")
-    let Bird = GraphQLObjectType.mock("Bird", interfaces: [Pet])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Bird,
-              selections: [.field(.mock("wingspan"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Pet,
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
 
     let asBirdExpected: [CompilationResult.Selection] = [
-      .field(.mock("wingspan")),
-      .field(.mock("species"))
+      .field(.mock("wingspan", type: .scalar(.integer()))),
+      .field(.mock("species", type: .scalar(.string()))),
     ]
 
     let asPetExpected: [CompilationResult.Selection] = [
-      .field(.mock("species"))
+      .field(.mock("species", type: .scalar(.string()))),
     ]
 
     // when
@@ -2007,19 +1663,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(asPet).to(shallowlyMatch(asPetExpected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///    ... on Pet { // Bird does not implement Pet
-  ///      species
-  ///    }
-  /// }
-  /// Expected:
-  /// Bird mergedSelections: [wingspan]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() throws {
     // given
     schema = """
@@ -2028,35 +1671,39 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface Pet {
+      species: String
+    }
+
+    type Bird {
+      species: String
+      wingspan: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on Bird {
+          wingspan
+        }
+        ... on Pet { # Bird does not implement Pet
+          species
+        }
+      }
+    }
     """
-    let Pet = GraphQLInterfaceType.mock("Pet")
-    let Bird = GraphQLObjectType.mock("Bird")
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Bird,
-              selections: [.field(.mock("wingspan"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Pet,
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
+    let asBirdExpected: [CompilationResult.Selection] = [
+      .field(.mock("wingspan", type: .scalar(.integer()))),
+    ]
 
-    let asBirdExpected: [CompilationResult.Selection] = [.field(.mock("wingspan"))]
-
-    let asPetExpected: [CompilationResult.Selection] = [.field(.mock("species"))]
+    let asPetExpected: [CompilationResult.Selection] = [
+      .field(.mock("species", type: .scalar(.string()))),
+    ]
 
     // when
     try buildSubjectOperation()
@@ -2072,20 +1719,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Merged Selections - Siblings - Interface Type -> Interface Type
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on HousePet {
-  ///      humanName
-  ///    }
-  ///    ... on Pet { // HousePet Implements Pet
-  ///      species
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// HousePet mergedSelections: [humanName, species]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsInterfaceType_siblingSelectionSetIsImplementedInterface_mergesSiblingSelections() throws {
     // given
     schema = """
@@ -2094,39 +1727,39 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface Pet {
+      species: String
+    }
+
+    interface HousePet implements Pet {
+      species: String
+      humanName: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on HousePet {
+          humanName
+        }
+        ... on Pet { # HousePet Implements Pet
+          species
+        }
+      }
+    }
     """
-    let Pet = GraphQLInterfaceType.mock("Pet")
-    let HousePet = GraphQLInterfaceType.mock("HousePet", interfaces: [Pet])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: HousePet,
-              selections: [.field(.mock("humanName"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Pet,
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-    )))])
 
     let asHousePetExpected: [CompilationResult.Selection] = [
-      .field(.mock("humanName")),
-      .field(.mock("species"))
+      .field(.mock("humanName", type: .scalar(.string()))),
+      .field(.mock("species", type: .scalar(.string()))),
     ]
 
     let asPetExpected: [CompilationResult.Selection] = [
-      .field(.mock("species"))
+      .field(.mock("species", type: .scalar(.string()))),
     ]
 
     // when
@@ -2141,20 +1774,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(asPet).to(shallowlyMatch(asPetExpected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on HousePet {
-  ///      humanName
-  ///    }
-  ///    ... on Pet { // HousePet does not implement Pet
-  ///      species
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// HousePet mergedSelections: [humanName]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsInterfaceType_siblingSelectionSetIsUnimplementedInterface_doesNotMergeSiblingSelections() throws {
     // given
     schema = """
@@ -2163,35 +1782,38 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface Pet {
+      species: String
+    }
+
+    interface HousePet {
+      humanName: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on HousePet {
+          humanName
+        }
+        ... on Pet { # HousePet does not implement Pet
+          species
+        }
+      }
+    }
     """
-    let Pet = GraphQLInterfaceType.mock("Pet")
-    let HousePet = GraphQLInterfaceType.mock("HousePet")
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: HousePet,
-              selections: [.field(.mock("humanName"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Pet,
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
+    let asHousePetExpected: [CompilationResult.Selection] = [
+      .field(.mock("humanName", type: .scalar(.string()))),
+    ]
 
-    let asHousePetExpected: [CompilationResult.Selection] = [.field(.mock("humanName"))]
-
-    let asPetExpected: [CompilationResult.Selection] = [.field(.mock("species"))]
+    let asPetExpected: [CompilationResult.Selection] = [
+      .field(.mock("species", type: .scalar(.string()))),
+    ]
 
     // when
     try buildSubjectOperation()
@@ -2207,21 +1829,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: - Merged Selections - Parent's Sibling
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on WarmBlooded {
-  ///      ... on Pet {
-  ///        humanName
-  ///      }
-  ///    }
-  ///    ... on Pet {
-  ///      species
-  ///    }
-  /// }
-  /// Expected:
-  /// Bird mergedSelections: [humanName, species]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsNestedInterfaceType_uncleSelectionSetIsTheSameInterfaceType_mergesUncleSelections() throws {
     // given
     schema = """
@@ -2230,41 +1837,39 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface WarmBlooded {
+      bodyTemperature: Int
+    }
+
+    interface Pet implements Animal {
+      species: String
+      humanName: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on WarmBlooded {
+          ... on Pet {
+            humanName
+          }
+        }
+        ... on Pet {
+          species
+        }
+      }
+    }
     """
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: GraphQLInterfaceType.mock("WarmBlooded"),
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: GraphQLInterfaceType.mock("Pet"),
-                  selections: [.field(.mock("humanName", type: .string()))]
-                )),
-              ]
-            )),
-            .inlineFragment(.mock(
-              parentType: GraphQLInterfaceType.mock("Pet"),
-              selections: [.field(.mock("species", type: .string()))]
-            )),
-          ]
-        )))])
 
-    let onWarmBlooded_onPet_expected = [
-      CompilationResult.Selection.field(.mock("humanName", type: .string())),
+    let onWarmBlooded_onPet_expected: [CompilationResult.Selection] = [.field(.mock("humanName", type: .string())),
       CompilationResult.Selection.field(.mock("species", type: .string()))
     ]
 
-    let onPet_expected = [
-      CompilationResult.Selection.field(.mock("species", type: .string()))
+    let onPet_expected: [CompilationResult.Selection] = [.field(.mock("species", type: .string()))
     ]
 
     // when
@@ -2283,21 +1888,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(onPet_actual).to(shallowlyMatch(onPet_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on WarmBlooded {
-  ///      ... on Bird {
-  ///        wingspan
-  ///      }
-  ///    }
-  ///    ... on Pet { // Bird Implements Pet
-  ///      species
-  ///    }
-  /// }
-  /// Expected:
-  /// Bird mergedSelections: [wingspan, species]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() throws {
     // given
     schema = """
@@ -2306,52 +1896,45 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface WarmBlooded {
+      bodyTemperature: Int
+    }
+
+    interface Pet {
+      humanName: String
+      species: String
+    }
+
+    type Bird implements Pet {
+      wingspan: Int
+      humanName: String
+      species: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on WarmBlooded {
+          ... on Bird {
+            wingspan
+          }
+        }
+        ... on Pet { # Bird Implements Pet
+          species
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-                                                          interfaces: [Interface_Animal])
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-                                                  interfaces: [Interface_Animal])
-    let Object_Bird = GraphQLObjectType.mock("Bird",
-                                             interfaces: [
-                                              Interface_Animal,
-                                              Interface_Pet,
-                                              Interface_WarmBlooded])
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Interface_WarmBlooded,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Object_Bird,
-                  selections: [.field(.mock("wingspan"))]
-                )),
-              ]
-            )),
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
-
-    let onWarmBlooded_onBird_expected = [
-      CompilationResult.Selection.field(.mock("wingspan")),
-      CompilationResult.Selection.field(.mock("species"))
+    let onWarmBlooded_onBird_expected: [CompilationResult.Selection] = [.field(.mock("wingspan", type: .integer())),
+      CompilationResult.Selection.field(.mock("species", type: .string()))
     ]
 
-    let onPet_expected = [
-      CompilationResult.Selection.field(.mock("species"))
+    let onPet_expected: [CompilationResult.Selection] = [.field(.mock("species", type: .string()))
     ]
 
     // when
@@ -2370,21 +1953,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(asPet_actual).to(shallowlyMatch(onPet_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on WarmBlooded {
-  ///      ... on Bird {
-  ///        wingspan
-  ///      }
-  ///    }
-  ///    ... on Pet { // Bird Does Not Implement Pet
-  ///      species
-  ///    }
-  /// }
-  /// Expected:
-  /// Bird mergedSelections: [wingspan]
-  /// Pet mergedSelections: [species]
   func test__mergedSelections__givenIsObjectInInterfaceType_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergeUncleSelections() throws {
     // given
     schema = """
@@ -2393,50 +1961,42 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface WarmBlooded {
+      bodyTemperature: Int
+    }
+
+    interface Pet {
+      humanName: String
+      species: String
+    }
+
+    type Bird {
+      wingspan: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on WarmBlooded {
+          ... on Bird {
+            wingspan
+          }
+        }
+        ... on Pet { # Bird Does Not Implement Pet
+          species
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-                                                          interfaces: [Interface_Animal])
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-                                                  interfaces: [Interface_Animal])
-    let Object_Bird = GraphQLObjectType.mock("Bird",
-                                             interfaces: [
-                                              Interface_Animal,
-                                              Interface_WarmBlooded])
 
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Interface_WarmBlooded,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Object_Bird,
-                  selections: [.field(.mock("wingspan"))]
-                )),
-              ]
-            )),
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [.field(.mock("species"))]
-            )),
-          ]
-        )))])
-
-    let asWarmBlooded_asBird_expected = [
-      CompilationResult.Selection.field(.mock("wingspan")),
+    let asWarmBlooded_asBird_expected: [CompilationResult.Selection] = [.field(.mock("wingspan", type: .integer())),
     ]
 
-    let asPet_expected = [
-      CompilationResult.Selection.field(.mock("species"))
+    let asPet_expected: [CompilationResult.Selection] = [.field(.mock("species", type: .string()))
     ]
 
     // when
@@ -2457,21 +2017,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Merged Selections - Parent's Sibling - Object Type <-> Object in Union Type
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///    ... on ClassroomPet {
-  ///      ... on Bird {
-  ///        species
-  ///      }
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// Both selection sets should have mergedSelections [wingspan, species]
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfSameObjectType_mergesSiblingChildSelectionsInBothDirections() throws {
     // given
     schema = """
@@ -2480,40 +2025,36 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
     }
+
+    type Bird implements Animal {
+      wingspan: Int
+      species: String
+    }
+
+    union ClassroomPet = Bird
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on Bird {
+          wingspan
+        }
+        ... on ClassroomPet {
+          ... on Bird {
+            species
+          }
+        }
+      }
+    }
     """
-    let Object_Bird = GraphQLObjectType.mock("Bird")
-    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
 
-    let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
-    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
-
-    mockCompilationResult.referencedTypes = .init([Object_Bird, Union_ClassroomPet])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Object_Bird,
-              selections: [Field_Wingspan]
-            )),
-            .inlineFragment(.mock(
-              parentType: Union_ClassroomPet,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Object_Bird,
-                  selections: [Field_Species]
-                ))]
-            )),
-          ]
-        )))])
+    let Field_Wingspan: CompilationResult.Selection =
+      .field(.mock("wingspan", type: .integer()))
+    let Field_Species: CompilationResult.Selection =
+      .field(.mock("species", type: .string()))
 
     let asBirdExpected = [
       Field_Wingspan,
@@ -2539,22 +2080,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(asClassroomPet_asBirdActual).to(shallowlyMatch(asClassroomPet_asBirdExpected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Bird {
-  ///      wingspan
-  ///    }
-  ///    ... on ClassroomPet {
-  ///      ... on Cat {
-  ///        species
-  ///      }
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// Bird mergedSelections: [wingspan]
-  /// ClassroomPet.Cat mergedSelections: [species]
   func test__mergedSelections__givenIsObjectType_siblingSelectionSetIsUnionTypeWithNestedTypeCaseOfDifferentObjectType_doesNotMergeSiblingChildSelectionsInEitherDirection() throws {
     // given
     schema = """
@@ -2563,40 +2088,40 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
     }
+
+    type Bird implements Animal {
+      wingspan: Int
+      species: String
+    }
+
+    type Cat implements Animal {
+      species: String
+    }
+
+    union ClassroomPet = Bird | Cat
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on Bird {
+          wingspan
+        }
+        ... on ClassroomPet {
+          ... on Cat {
+            species
+          }
+        }
+      }
+    }
     """
-    let Object_Bird = GraphQLObjectType.mock("Bird")
-    let Object_Cat = GraphQLObjectType.mock("Cat")
-    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet",
-                                                   types: [Object_Bird, Object_Cat])
 
-    let Field_Wingspan: CompilationResult.Selection = .field(.mock("wingspan"))
-    let Field_Species: CompilationResult.Selection = .field(.mock("species"))
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: GraphQLInterfaceType.mock("Animal"),
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Object_Bird,
-              selections: [Field_Wingspan]
-            )),
-            .inlineFragment(.mock(
-              parentType: Union_ClassroomPet,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Object_Cat,
-                  selections: [Field_Species]
-                ))]
-            )),
-          ]
-        )))])
+    let Field_Wingspan: CompilationResult.Selection =
+      .field(.mock("wingspan", type: .integer()))
+    let Field_Species: CompilationResult.Selection =
+      .field(.mock("species", type: .string()))
 
     let asBirdExpected = [
       Field_Wingspan
@@ -2622,22 +2147,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: Merged Selections - Parent's Sibling - Interface in Union Type
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on WarmBlooded {
-  ///      bodyTemperature
-  ///    }
-  ///    ... on ClassroomPet {
-  ///      ... on WarmBlooded {
-  ///        species
-  ///      }
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
-  /// AllAnimal.AsClassroomPet.AsWarmBlooded mergedSelections: [species, bodyTemperature]
   func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsMatchingInterfaceType_mergesUncleSelections() throws {
     // given
     schema = """
@@ -2646,53 +2155,44 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
     }
+
+    interface WarmBlooded implements Animal {
+      bodyTemperature: Int
+      species: String
+    }
+
+    type Bird implements Animal {
+      wingspan: Int
+      species: String
+    }
+
+    union ClassroomPet = Bird
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on WarmBlooded {
+          bodyTemperature
+        }
+        ... on ClassroomPet {
+          ... on WarmBlooded {
+            species
+          }
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-                                                          interfaces: [Interface_Animal])
-    let Object_Bird = GraphQLObjectType.mock("Bird",
-                                             interfaces: [
-                                              Interface_Animal,
-                                              Interface_WarmBlooded])
-    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
 
-    mockCompilationResult.referencedTypes = .init([
-      Interface_Animal, Interface_WarmBlooded, Object_Bird, Union_ClassroomPet])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Interface_WarmBlooded,
-              selections: [.field(.mock("bodyTemperature"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Union_ClassroomPet,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Interface_WarmBlooded,
-                  selections: [.field(.mock("species"))]
-                )),
-              ]
-            )),
-          ]
-        )))])
-
-    let asWarmBlooded_expected = [
-      CompilationResult.Selection.field(.mock("bodyTemperature")),
+    let asWarmBlooded_expected: [CompilationResult.Selection] = [
+      .field(.mock("bodyTemperature", type: .integer())),
     ]
 
-    let asClassroomPet_asWarmBlooded_expected = [
-      CompilationResult.Selection.field(.mock("species")),
-      CompilationResult.Selection.field(.mock("bodyTemperature")),
+    let asClassroomPet_asWarmBlooded_expected: [CompilationResult.Selection] = [
+      .field(.mock("species", type: .string())),
+      .field(.mock("bodyTemperature", type: .integer())),
     ]
 
     // when
@@ -2711,22 +2211,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(asClassroomPet_asWarmBlooded_actual).to(shallowlyMatch(asClassroomPet_asWarmBlooded_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on Pet {
-  ///      humanName
-  ///    }
-  ///    ... on ClassroomPet {
-  ///      ... on WarmBloodedPet { // WarmBloodedPet implements Pet
-  ///        species
-  ///      }
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// AllAnimal.AsPet mergedSelections: [humanName]
-  /// AllAnimal.AsClassroomPet.AsWarmBloodedPet mergedSelections: [species, humanName]
   func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsChildMatchingInterfaceType_mergesUncleSelections() throws {
     // given
     schema = """
@@ -2735,58 +2219,51 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
     }
+
+    interface Pet {
+      humanName: String
+      species: String
+    }
+
+    interface WarmBloodedPet implements Pet {
+      bodyTemperature: Int
+      species: String
+      humanName: String
+    }
+
+    type Cat implements WarmBloodedPet & Pet {
+      bodyTemperature: Int
+      species: String
+      humanName: String
+    }
+
+    union ClassroomPet = Cat
     """
 
     document = """
+    query Test {
+     allAnimals {
+       ... on Pet {
+         humanName
+       }
+       ... on ClassroomPet {
+         ... on WarmBloodedPet { # WarmBloodedPet implements Pet
+           species
+         }
+       }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-                                                  interfaces: [Interface_Animal])
-    let Interface_WarmBloodedPet = GraphQLInterfaceType.mock("WarmBloodedPet",
-                                                             interfaces: [
-                                                              Interface_Animal,
-                                                              Interface_Pet])
-    let Object_Bird = GraphQLObjectType.mock("Bird",
-                                             interfaces: [
-                                              Interface_Animal,
-                                              Interface_Pet,
-                                              Interface_WarmBloodedPet])
-    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
 
-    mockCompilationResult.referencedTypes = .init([
-      Interface_Animal, Interface_Pet, Interface_WarmBloodedPet, Object_Bird, Union_ClassroomPet])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [.field(.mock("humanName"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Union_ClassroomPet,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Interface_WarmBloodedPet,
-                  selections: [.field(.mock("species"))]
-                )),
-              ]
-            )),
-          ]
-        )))])
-
-    let asPet_expected = [
-      CompilationResult.Selection.field(.mock("humanName")),
+    let asPet_expected: [CompilationResult.Selection] = [
+      .field(.mock("humanName", type: .string())),
     ]
 
-    let asClassroomPet_asWarmBloodedPet_expected = [
-      CompilationResult.Selection.field(.mock("species")),
-      CompilationResult.Selection.field(.mock("humanName")),
+    let asClassroomPet_asWarmBloodedPet_expected: [CompilationResult.Selection] = [
+      .field(.mock("species", type: .string())),
+      .field(.mock("humanName", type: .string())),
     ]
 
     // when
@@ -2805,22 +2282,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(asClassroomPet_asWarmBloodedPet_actual).to(shallowlyMatch(asClassroomPet_asWarmBloodedPet_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ... on WarmBlooded {
-  ///      bodyTemperature
-  ///    }
-  ///    ... on ClassroomPet {
-  ///      ... on Pet {
-  ///        species
-  ///      }
-  ///    }
-  ///   }
-  /// }
-  /// Expected:
-  /// AllAnimal.AsWarmBlooded mergedSelections: [bodyTemperature]
-  /// AllAnimal.AsClassroomPet.AsPet mergedSelections: [species]
   func test__mergedSelections__givenInterfaceTypeInUnion_uncleSelectionSetIsNonMatchingInterfaceType_doesNotMergesUncleSelections() throws {
     // given
     schema = """
@@ -2831,52 +2292,48 @@ class IROperationBuilderTests: XCTestCase {
     interface Animal {
       species: String!
     }
+
+    interface Pet {
+      humanName: String
+      species: String
+    }
+
+    interface WarmBlooded {
+      bodyTemperature: Int
+      species: String
+      humanName: String
+    }
+
+    type Cat implements WarmBlooded & Pet {
+      bodyTemperature: Int
+      species: String
+      humanName: String
+    }
+
+    union ClassroomPet = Cat
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ... on WarmBlooded {
+          bodyTemperature
+        }
+        ... on ClassroomPet {
+          ... on Pet {
+            species
+          }
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet",
-                                                  interfaces: [Interface_Animal])
-    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded",
-                                                          interfaces: [Interface_Animal])
-    let Object_Bird = GraphQLObjectType.mock("Bird",
-                                             interfaces: [
-                                              Interface_Animal,
-                                              Interface_WarmBlooded])
-    let Union_ClassroomPet = GraphQLUnionType.mock("ClassroomPet", types: [Object_Bird])
 
-    mockCompilationResult.referencedTypes = .init([
-      Interface_Animal, Interface_Pet, Interface_WarmBlooded, Object_Bird, Union_ClassroomPet])
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .inlineFragment(.mock(
-              parentType: Interface_WarmBlooded,
-              selections: [.field(.mock("bodyTemperature"))]
-            )),
-            .inlineFragment(.mock(
-              parentType: Union_ClassroomPet,
-              selections: [
-                .inlineFragment(.mock(
-                  parentType: Interface_Pet,
-                  selections: [.field(.mock("species"))]
-                )),
-              ]
-            )),
-          ]
-        )))])
-
-    let asWarmBlooded_expected = [
-      CompilationResult.Selection.field(.mock("bodyTemperature")),
+    let asWarmBlooded_expected: [CompilationResult.Selection] = [
+      .field(.mock("bodyTemperature", type: .integer())),
     ]
 
-    let asClassroomPet_asPet_expected = [
-      CompilationResult.Selection.field(.mock("species")),
+    let asClassroomPet_asPet_expected: [CompilationResult.Selection] = [
+      .field(.mock("species", type: .string())),
     ]
 
     // when
@@ -2897,19 +2354,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: - Merged Selections - Child Fragment
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ...AnimalDetails
-  ///  }
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
   func test__mergedSelections__givenChildIsNamedFragmentOnSameType_mergesFragmentFieldsAndMaintainsFragment() throws {
     // given
     schema = """
@@ -2918,40 +2362,33 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Field_Species = CompilationResult.Field.mock("species")
-
-    let animalDetails = CompilationResult.FragmentDefinition.mock(
-      "AnimalDetails",
-      type: Interface_Animal,
-      selections: [
-        .field(Field_Species)
-      ]
-    )
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .field(Field_Species),
-      .fragmentSpread(animalDetails)
-    ]
 
     // when
     try buildSubjectOperation()
+
+    let Field_Species = CompilationResult.Field.mock("species", type: .string())
+
+    let Fragment_AnimalDetails = try XCTUnwrap(compilationResult[fragment: "AnimalDetails"])
+
+    let expected: [CompilationResult.Selection] = [
+      .field(Field_Species),
+      .fragmentSpread(Fragment_AnimalDetails)
+    ]
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?.selectionSet?.mergedSelections
@@ -2960,18 +2397,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(actual).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    ...BirdDetails
-  ///  }
-  /// }
-  ///
-  /// fragment BirdDetails on Bird {
-  ///   species
-  /// }
-  /// Expected:
-  /// AllAnimal.mergedSelections: [typeCase_AsBird]
   func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
     // given
     schema = """
@@ -2980,40 +2405,36 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    type Bird implements Animal {
+      species: String
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        ...BirdDetails
+      }
+    }
+
+    fragment BirdDetails on Bird {
+      species
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
-    let Field_Species = CompilationResult.Field.mock("species")
-
-    let birdDetails = CompilationResult.FragmentDefinition.mock(
-      "BirdDetails",
-      type: Object_Bird,
-      selections: [
-        .field(Field_Species)
-      ]
-    )
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .fragmentSpread(birdDetails),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)]))
-    ]
 
     // when
     try buildSubjectOperation()
+
+    let Object_Bird = try XCTUnwrap(compilationResult[object: "Bird"])
+    let Fragment_BirdDetails = try XCTUnwrap(compilationResult[fragment: "BirdDetails"])
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.init(parentType: Object_Bird,
+                            selections: [.fragmentSpread(Fragment_BirdDetails)]))
+    ]
 
     let allAnimals = subject[field: "query"]?[field: "allAnimals"]
     let actual = allAnimals?.selectionSet?.mergedSelections
@@ -3022,187 +2443,141 @@ class IROperationBuilderTests: XCTestCase {
     expect(actual).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  birds {
-  ///    ...AnimalDetails
-  ///  }
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
   func test__mergedSelections__givenIsObjectType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      birds: [Bird!]
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    type Bird implements Animal {
+      species: String
     }
     """
 
     document = """
+    fragment AnimalDetails on Animal {
+      species
+    }
+
+    query Test {
+      birds {
+        ...AnimalDetails
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
-    let Field_Species = CompilationResult.Field.mock("species")
-
-    let animalDetails = CompilationResult.FragmentDefinition.mock(
-      "AnimalDetails",
-      type: Interface_Animal,
-      selections: [
-        .field(Field_Species)
-      ]
-    )
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Object_Bird,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .field(Field_Species),
-      .fragmentSpread(animalDetails)
-    ]
 
     // when
     try buildSubjectOperation()
 
-    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
-    let actual = allAnimals?.selectionSet?.mergedSelections
+    let Field_Species = CompilationResult.Field.mock("species", type: .string())
+    let Fragment_AnimalDetails = try XCTUnwrap(compilationResult[fragment: "AnimalDetails"])
+
+    let expected: [CompilationResult.Selection] = [
+      .field(Field_Species),
+      .fragmentSpread(Fragment_AnimalDetails)
+    ]
+
+    let birds = subject[field: "query"]?[field: "birds"]
+    let actual = birds?.selectionSet?.mergedSelections
 
     // then
     expect(actual).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  flyingAnimals {
-  ///    ...AnimalDetails
-  /// }
-  ///
-  /// fragment AnimalDetails on Animal {
-  ///   species
-  /// }
-  /// Expected:
-  /// FlyingAnimal.mergedSelections: [field_species, fragment_AnimalDetails]
   func test__mergedSelections__givenIsInterfaceType_childIsNamedFragmentOnLessSpecificMatchingType_mergesFragmentFields() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      flyingAnimals: [Animal!]
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    interface FlyingAnimal implements Animal {
+      species: String
     }
     """
 
     document = """
+    fragment AnimalDetails on Animal {
+      species
+    }
+
+    query Test {
+      flyingAnimals {
+        ...AnimalDetails
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_FlyingAnimal = GraphQLInterfaceType.mock("FlyingAnimal", interfaces: [Interface_Animal])
-    let Field_Species = CompilationResult.Field.mock("species")
-
-    let animalDetails = CompilationResult.FragmentDefinition.mock(
-      "AnimalDetails",
-      type: Interface_Animal,
-      selections: [
-        .field(Field_Species)
-      ]
-    )
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_FlyingAnimal,
-          selections: [
-            .fragmentSpread(animalDetails),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .field(Field_Species),
-      .fragmentSpread(animalDetails)
-    ]
 
     // when
     try buildSubjectOperation()
 
-    let allAnimals = subject[field: "query"]?[field: "allAnimals"]
-    let actual = allAnimals?.selectionSet?.mergedSelections
+    let Field_Species = CompilationResult.Field.mock("species", type: .string())
+    let Fragment_AnimalDetails = try XCTUnwrap(compilationResult[fragment: "AnimalDetails"])
+
+    let expected: [CompilationResult.Selection] = [
+      .field(Field_Species),
+      .fragmentSpread(Fragment_AnimalDetails)
+    ]
+
+    let flyingAnimals = subject[field: "query"]?[field: "flyingAnimals"]
+    let actual = flyingAnimals?.selectionSet?.mergedSelections
 
     // then
     expect(actual).to(shallowlyMatch(expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  rocks {
-  ///    ...BirdDetails
-  ///  }
-  /// }
-  ///
-  /// fragment BirdDetails on Bird {
-  ///   species
-  /// }
-  /// Expected:
-  /// Rocks.mergedSelections: [typeCase_AsBird]
   func test__mergedSelections__givenChildIsNamedFragmentOnUnrelatedType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
     // given
     schema = """
     type Query {
-      allAnimals: [Animal!]
+      rocks: [Rock!]
     }
 
     interface Animal {
-      species: String!
+      species: String
+    }
+
+    type Bird implements Animal {
+      species: String
+    }
+
+    type Rock {
+      name: String
     }
     """
 
     document = """
+    fragment BirdDetails on Bird {
+      species
+    }
+
+    query Test {
+      rocks {
+        ...BirdDetails
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Bird = GraphQLObjectType.mock("Bird", interfaces: [Interface_Animal])
-    let Object_Rock = GraphQLObjectType.mock("Rock")
-    let Field_Species = CompilationResult.Field.mock("species")
-
-    let birdDetails = CompilationResult.FragmentDefinition.mock(
-      "BirdDetails",
-      type: Object_Bird,
-      selections: [
-        .field(Field_Species)
-      ]
-    )
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "rocks",
-        selectionSet: .mock(
-          parentType: Object_Rock,
-          selections: [
-            .fragmentSpread(birdDetails),
-          ]
-        )))])
-
-    let expected: [CompilationResult.Selection] = [
-      .inlineFragment(.init(parentType: Object_Bird, selections: [.fragmentSpread(birdDetails)]))
-    ]
 
     // when
     try buildSubjectOperation()
+
+    let Object_Bird = try XCTUnwrap(compilationResult[object: "Bird"])
+
+    let Fragment_BirdDetails = try XCTUnwrap(compilationResult[fragment: "BirdDetails"])
+
+    let expected: [CompilationResult.Selection] = [
+      .inlineFragment(.init(parentType: Object_Bird,
+                            selections: [.fragmentSpread(Fragment_BirdDetails)]))
+    ]
 
     let rocks = subject[field: "query"]?[field: "rocks"]
     let actual = rocks?.selectionSet?.mergedSelections
@@ -3213,23 +2588,6 @@ class IROperationBuilderTests: XCTestCase {
 
   // MARK: - Nested Entity Field - Merged Selections
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    height {
-  ///      feet
-  ///    }
-  ///    ... on Pet {
-  ///      height {
-  ///        meters
-  ///      }
-  ///    }
-  ///  }
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.mergedSelections: [feet]
-  /// AllAnimal.AsPet.mergedSelections: [feet, meters]
   func test__mergedSelections__givenEntityFieldOnObjectAndTypeCase_withOtherNestedFieldInTypeCase_mergesParentFieldIntoNestedSelectionsInTypeCase() throws {
     // given
     schema = """
@@ -3238,44 +2596,33 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      height: Height
+    }
+
+    interface Pet implements Animal {
+      height: Height
+    }
+
+    type Height {
+      feet: Int
+      meters: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        height {
+          feet
+        }
+        ... on Pet {
+          height {
+            meters
+          }
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
-    let Object_Height = GraphQLObjectType.mock("Height")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .field(.mock(
-              "height",
-              selectionSet: .mock(
-                parentType: Object_Height,
-                selections: [
-                  .field(.mock("feet", type: .integer()))
-                ]
-              ))),
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [
-                .field(.mock(
-                  "height",
-                  selectionSet: .mock(
-                    parentType: Object_Height,
-                    selections: [
-                      .field(.mock("meters", type: .integer()))
-                    ]
-                  )))
-              ]))
-          ])))])
-
 
     // when
     try buildSubjectOperation()
@@ -3299,23 +2646,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(allAnimals_asPet_height_actual).to(shallowlyMatch(allAnimals_asPet_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    height {
-  ///      feet
-  ///    }
-  ///    predators {
-  ///      height {
-  ///        meters
-  ///      }
-  ///    }
-  ///  }
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.mergedSelections: [feet]
-  /// AllAnimal.Predator.mergedSelections: [meters]
   func test__mergedSelections__givenEntityFieldOnObjectWithSelectionSetIncludingSameFieldNameAndDifferentSelections_doesNotMergeFieldIntoNestedFieldsSelections() throws {
     // given
     schema = """
@@ -3324,45 +2654,30 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      height: Height
+      predators: [Animal!]
+    }
+
+    type Height {
+      feet: Int
+      meters: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        height {
+          feet
+        }
+        predators {
+          height {
+            meters
+          }
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Object_Height = GraphQLObjectType.mock("Height")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .field(.mock(
-              "height",
-              selectionSet: .mock(
-                parentType: Object_Height,
-                selections: [
-                  .field(.mock("feet", type: .integer()))
-                ]
-              ))),
-            .field(.mock(
-              "predators",
-              selectionSet: .mock(
-                parentType: Interface_Animal,
-                selections: [
-                  .field(.mock(
-                    "height",
-                    selectionSet: .mock(
-                      parentType: Object_Height,
-                      selections: [
-                        .field(.mock("meters", type: .integer()))
-                      ]
-                    )))
-                ])))
-          ])))])
-
 
     // when
     try buildSubjectOperation()
@@ -3385,26 +2700,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(predators_height_actual).to(shallowlyMatch(predators_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    height {
-  ///      feet
-  ///    }
-  ///    ... on Pet {
-  ///      height {
-  ///        meters
-  ///      }
-  ///    }
-  ///    ... on Cat {
-  ///      species
-  ///    }
-  ///  }
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.mergedSelections: [feet]
-  /// AllAnimal.AsCat.mergedSelections: [feet, meters]
   func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_mergesParentFieldIntoNestedSelectionsInObjectTypeCaseMatchingInterfaceTypeCase() throws {
     // given
     schema = """
@@ -3413,50 +2708,43 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+      height: Height
+    }
+
+    interface Pet implements Animal {
+      height: Height
+      species: String
+    }
+
+    type Cat implements Pet & Animal {
+      species: String
+      height: Height
+    }
+
+    type Height {
+      feet: Int
+      meters: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        height {
+          feet
+        }
+        ... on Pet {
+          height {
+            meters
+          }
+        }
+        ... on Cat {
+          species
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
-    let Object_Cat = GraphQLObjectType.mock("Cat", interfaces: [Interface_Animal, Interface_Pet])
-    let Object_Height = GraphQLObjectType.mock("Height")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .field(.mock(
-              "height",
-              selectionSet: .mock(
-                parentType: Object_Height,
-                selections: [
-                  .field(.mock("feet", type: .integer()))
-                ]
-              ))),
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [
-                .field(.mock(
-                  "height",
-                  selectionSet: .mock(
-                    parentType: Object_Height,
-                    selections: [
-                      .field(.mock("meters", type: .integer()))
-                    ]
-                  )))
-              ])),
-            .inlineFragment(.mock(
-              parentType: Object_Cat,
-              selections: [
-                .field(.mock("species", type: .integer()))
-              ]))
-          ])))])
-
 
     // when
     try buildSubjectOperation()
@@ -3474,26 +2762,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(allAnimals_asCat_height_actual).to(shallowlyMatch(allAnimals_asCat_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    height {
-  ///      feet
-  ///    }
-  ///    ... on Pet {
-  ///      height {
-  ///        meters
-  ///      }
-  ///    }
-  ///    ... on Elephant { // does not implement Pet
-  ///      species
-  ///    }
-  ///  }
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.mergedSelections: [feet]
-  /// AllAnimal.AsElephant.mergedSelections: [feet]
   func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_doesNotMergeParentFieldIntoNestedSelectionsInObjectTypeCaseNotMatchingInterfaceTypeCase() throws {
     // given
     schema = """
@@ -3502,50 +2770,43 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+      height: Height
+    }
+
+    interface Pet implements Animal {
+      height: Height
+      species: String
+    }
+
+    type Elephant implements Animal {
+      species: String
+      height: Height
+    }
+
+    type Height {
+      feet: Int
+      meters: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        height {
+          feet
+        }
+        ... on Pet {
+          height {
+            meters
+          }
+        }
+        ... on Elephant { # does not implement Pet
+          species
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
-    let Object_Elephant = GraphQLObjectType.mock("Elephant", interfaces: [Interface_Animal])
-    let Object_Height = GraphQLObjectType.mock("Height")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .field(.mock(
-              "height",
-              selectionSet: .mock(
-                parentType: Object_Height,
-                selections: [
-                  .field(.mock("feet", type: .integer()))
-                ]
-              ))),
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [
-                .field(.mock(
-                  "height",
-                  selectionSet: .mock(
-                    parentType: Object_Height,
-                    selections: [
-                      .field(.mock("meters", type: .integer()))
-                    ]
-                  )))
-              ])),
-            .inlineFragment(.mock(
-              parentType: Object_Elephant,
-              selections: [
-                .field(.mock("species", type: .integer()))
-              ]))
-          ])))])
-
 
     // when
     try buildSubjectOperation()
@@ -3562,35 +2823,6 @@ class IROperationBuilderTests: XCTestCase {
     expect(allAnimals_asElephant_height_actual).to(shallowlyMatch(allAnimals_asElephant_expected))
   }
 
-  /// Example:
-  /// query Test {
-  ///  allAnimals {
-  ///    height {
-  ///      feet
-  ///    }
-  ///    ... on Pet {
-  ///      height {
-  ///        meters
-  ///      }
-  ///      ... on WarmBlooded {
-  ///        height {
-  ///          inches
-  ///        }
-  ///      }
-  ///    }
-  ///    ... on WarmBlooded {
-  ///      height {
-  ///        yards
-  ///      }
-  ///    }
-  ///  }
-  /// }
-  ///
-  /// Expected:
-  /// AllAnimal.Height.mergedSelections: [feet]
-  /// AllAnimal.AsPet.Height.mergedSelections: [feet, meters]
-  /// AllAnimal.AsPet.AsWarmBlooded.Height.mergedSelections: [feet, meters, inches, yards]
-  /// AllAnimal.AsWarmBlooded.Height.mergedSelections: [feet, yards]
   func test__mergedSelections__givenEntityFieldOnEntityWithDeepNestedTypeCases_eachTypeCaseHasDifferentNestedEntityFields_mergesFieldIntoMatchingNestedTypeCases() throws {
     // given
     schema = """
@@ -3599,69 +2831,51 @@ class IROperationBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String!
+      species: String
+      height: Height
+    }
+
+    interface Pet implements Animal {
+      height: Height
+      species: String
+    }
+
+    interface WarmBlooded {
+      height: Height
+    }
+
+    type Height {
+      feet: Int
+      meters: Int
+      inches: Int
+      yards: Int
     }
     """
 
     document = """
+    query Test {
+      allAnimals {
+        height {
+          feet
+        }
+        ... on Pet {
+          height {
+            meters
+          }
+          ... on WarmBlooded {
+            height {
+              inches
+            }
+          }
+        }
+        ... on WarmBlooded {
+          height {
+            yards
+          }
+        }
+      }
+    }
     """
-    let Interface_Animal = GraphQLInterfaceType.mock("Animal")
-    let Interface_Pet = GraphQLInterfaceType.mock("Pet", interfaces: [Interface_Animal])
-    let Interface_WarmBlooded = GraphQLInterfaceType.mock("WarmBlooded", interfaces: [Interface_Animal])
-    let Object_Height = GraphQLObjectType.mock("Height")
-
-    operation = .mock(selections: [
-      .field(.mock(
-        "allAnimals",
-        selectionSet: .mock(
-          parentType: Interface_Animal,
-          selections: [
-            .field(.mock(
-              "height",
-              selectionSet: .mock(
-                parentType: Object_Height,
-                selections: [
-                  .field(.mock("feet", type: .integer()))
-                ]
-              ))),
-            .inlineFragment(.mock(
-              parentType: Interface_Pet,
-              selections: [
-                .field(.mock(
-                  "height",
-                  selectionSet: .mock(
-                    parentType: Object_Height,
-                    selections: [
-                      .field(.mock("meters", type: .integer()))
-                    ]
-                  ))),
-                .inlineFragment(.mock(
-                  parentType: Interface_WarmBlooded,
-                  selections: [
-                    .field(.mock(
-                      "height",
-                      selectionSet: .mock(
-                        parentType: Object_Height,
-                        selections: [
-                          .field(.mock("inches", type: .integer()))
-                        ]
-                      )))
-                  ]))
-              ])),
-            .inlineFragment(.mock(
-              parentType: Interface_WarmBlooded,
-              selections: [
-                .field(.mock(
-                  "height",
-                  selectionSet: .mock(
-                    parentType: Object_Height,
-                    selections: [
-                      .field(.mock("yards", type: .integer()))
-                    ]
-                  )))
-              ]))
-          ])))])
-
 
     // when
     try buildSubjectOperation()
