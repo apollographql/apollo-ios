@@ -135,4 +135,17 @@ class ApolloCodegenTests: XCTestCase {
     // then
     expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(haveCount(2))
   }
+
+  func test_compileResults_givenSchema_withNoOperations_shouldReturnEmpty() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let config = ApolloCodegenConfiguration.FileInput(
+      schemaPath: schemaPath,
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(beEmpty())
+  }
 }
