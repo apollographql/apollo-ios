@@ -1,7 +1,7 @@
 import XCTest
 @testable import ApolloSQLite
 
-final class CacheKeyRegexTests: XCTestCase {
+final class CacheKeyConstructionTests: XCTestCase {
   func testCacheKeySplitsPeriods() {
     let input = "my.chemical.romance"
     let expected = ["my", "chemical", "romance"]
@@ -23,9 +23,23 @@ final class CacheKeyRegexTests: XCTestCase {
     XCTAssertEqual(input.splitIntoCacheKeyComponents(), expected)
   }
 
-  func testGarbageInput() {
-    let input = "my.chemical.romance(name:((((..((.(.(((((.()"
-    let expected = ["my", "chemical", "romance(name:((((..((.(.(((((.()"]
+  func testDoubleNestedInput() {
+    let input = "my.chemical.romance(name:imnotokay.rip(xWv(the.original).HIGH-QUALITY)).mp3"
+    let expected = ["my", "chemical", "romance(name:imnotokay.rip(xWv(the.original).HIGH-QUALITY))", "mp3"]
+
+    XCTAssertEqual(input.splitIntoCacheKeyComponents(), expected)
+  }
+
+  func testUnbalancedInput() {
+    let input = "my.chemical.romance(name: )(.thebest.)()"
+    let expected = ["my", "chemical", "romance(name: )(.thebest.)()"]
+
+    XCTAssertEqual(input.splitIntoCacheKeyComponents(), expected)
+  }
+
+  func testUnbalancedInputContinued() {
+    let input = "my.chemical.romance(name: )(.thebest.)().count"
+    let expected = ["my", "chemical", "romance(name: )(.thebest.)()", "count"]
 
     XCTAssertEqual(input.splitIntoCacheKeyComponents(), expected)
   }
