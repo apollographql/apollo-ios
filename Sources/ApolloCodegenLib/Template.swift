@@ -12,6 +12,10 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
     self.value = stringInterpolation.output
   }
 
+  init(_ stringInterpolation: StringInterpolation) {
+    self.value = stringInterpolation.output
+  }
+
   var description: String { value }
 
   struct StringInterpolation: StringInterpolationProtocol {
@@ -47,6 +51,24 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
 
         appendLiteral(indentedString)
       }
+    }
+
+    mutating func appendInterpolation<T>(
+      _ sequence: T,
+      separator: String = ",\n"
+    )
+    where T: Sequence, T.Element: CustomStringConvertible {
+      var iterator = sequence.makeIterator()
+      guard var elementsString = iterator.next()?.description else {
+        removeLineIfEmpty()
+        return
+      }
+
+      while let element = iterator.next() {
+        elementsString.append(separator + element.description)
+      }
+
+      appendInterpolation(elementsString)
     }
 
     mutating func appendInterpolation(if bool: Bool, _ string: String) {

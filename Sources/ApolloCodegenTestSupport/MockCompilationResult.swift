@@ -10,15 +10,9 @@ public extension CompilationResult {
 
 public extension CompilationResult.OperationDefinition {
 
-  class func mock(usingFragments: [CompilationResult.FragmentDefinition] = []) -> Self {
-    let mock = Self.emptyMockObject()
-#warning("TODO: Implement - How does code gen engine compute the used fragments?")
-    return mock
-  }
-
   class func mock(
     type: CompilationResult.OperationType = .query,
-    selections: [CompilationResult.Selection]
+    selections: [CompilationResult.Selection] = []
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.operationType = type

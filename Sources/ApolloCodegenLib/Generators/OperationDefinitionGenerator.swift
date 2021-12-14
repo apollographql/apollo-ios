@@ -1,4 +1,5 @@
 import ApolloAPI
+import OrderedCollections
 
 enum OperationDefinitionGenerator {
 
@@ -35,9 +36,12 @@ extension OperationDefinitionGenerator {
   enum DocumentType {
     static func render(
       operation: CompilationResult.OperationDefinition,
+      referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>,
       apq: ApolloCodegenConfiguration.APQConfig
     ) -> Template {
-      """
+      let includeFragments = !referencedFragments.isEmpty
+
+      return """
       public let document: DocumentType = .notPersisted(
         \(if: apq != .disabled,
         "operationIdentifier: \(operation.operationIdentifier),"
@@ -45,8 +49,18 @@ extension OperationDefinitionGenerator {
         definition: .init(
         ""\"
         \(operation.source)
-        ""\"))
+        ""\"\(if: includeFragments, ",")
+        \(if: includeFragments, Template("""
+        fragments: [\(referencedFragments.map { "\($0.name).self" }, separator: ", ")]
+        """))
+      ))
       """
+    }
+
+    private static func render(
+      _ referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>
+    ) -> Template {
+      ""
     }
   }
 }

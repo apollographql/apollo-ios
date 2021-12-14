@@ -18,7 +18,6 @@ class IROperationBuilderTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    operation = CompilationResult.OperationDefinition.mock()
   }
 
   override func tearDown() {
@@ -3089,7 +3088,7 @@ class IROperationBuilderTests: XCTestCase {
 
     query Test {
       allAnimals {
-        ...AnimalDetails        
+        ...AnimalDetails
       }
     }
     """
