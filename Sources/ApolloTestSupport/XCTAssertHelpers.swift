@@ -151,3 +151,11 @@ public struct XCTFailure: Error, CustomNSError {
     "XCTestErrorUserInfoKeyShouldIgnore": true
   ]
 }
+
+public extension Optional {
+  var xctUnwrapped: Wrapped {
+    get throws {
+      try XCTUnwrap(self)
+    }
+  }
+}

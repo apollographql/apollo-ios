@@ -9,7 +9,7 @@ public struct ApolloCodegenConfiguration {
     /// An array of path matching pattern strings used to find files, such as GraphQL operations (queries, mutations, etc.), to be
     /// included for code generation. You can use absolute or relative paths for the path portion of the pattern. Relative paths will be
     /// based off the current working directory from `FileManager`.
-    /// 
+    ///
     /// Each path matching pattern can include the following characters:
     /// - `*` matches everything but the directory separator (shallow), eg: `*.graphql`
     /// - `?` matches any single character, eg: `file-?.graphql`
@@ -141,13 +141,38 @@ public struct ApolloCodegenConfiguration {
     case passthroughWithPrefix(String)
   }
 
+  /// Enum to enable using
+  /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq)
+  /// with your generated operations.
+  ///
+  /// APQs are an Apollo Server feature. When using Apollo iOS to connect to any other GraphQL server,
+  /// `APQConfig` should be set to `.disabled`
+  public enum APQConfig {
+    /// The default value. Disables APQs.
+    /// The operation document is sent to the server with each operation request.
+    case disabled
+
+    /// Automatically persists your operations using Apollo Server's
+    /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    case automaticallyPersist
+
+    /// Provides only the `operationIdentifier` for operations that have been previously persisted
+    /// to an Apollo Server using
+    /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    ///
+    /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
+    /// method should only be used if you are manually persisting your queries to an Apollo Server.
+    case persistedOperationsOnly
+  }
+
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
   public let output: FileOutput
   /// Any non-default rules for pluralization or singularization you wish to include.
   public let additionalInflectionRules: [InflectionRule]
-  /// Formatting of the GraphQL query string literal that is included in each generated operation object.
+  /// Formatting of the GraphQL query string literal that is included in each
+  /// generated operation object.
   public let queryStringLiteralFormat: QueryStringLiteralFormat
   /// How to handle properties using a custom scalar from the schema.
   public let customScalarFormat: CustomScalarFormat
@@ -155,28 +180,38 @@ public struct ApolloCodegenConfiguration {
   public let deprecatedEnumCases: Composition
   /// Whether schema documentation is added to the generated files.
   public let schemaDocumentation: Composition
+  /// Whether the generated operations should use Automatic Persisted Queries.
+  ///
+  /// See `APQConfig` for more information on Automatic Persisted Queries.
+  public let apqs: APQConfig
 
   /// Designated initializer.
   ///
   /// - Parameters:
   ///  - input: The input files required for code generation.
   ///  - output: The paths and files output by code generation.
-  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you wish to include. Defaults to
-  ///  an empty array.
-  ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is included in each generated operation
-  ///  object. Defaults to `.multiline`.
+  ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization you
+  ///  wish to include. Defaults to an empty array.
+  ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is included
+  ///  in each generated operation object. Defaults to `.multiline`.
   ///  - customScalarFormat: How to handle properties using a custom scalar from the schema. Defaults to `.defaultAsString`.
-  ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled. The default of `.include`
-  ///  will cause the generated code to include the deprecated enum cases.
-  ///  - schemaDocumentation: Whether schema documentation is added to the generated files. The default of `.include` will
-  ///  cause the schema documentation comments to be copied over into the generated schema types files.
-  public init(input: FileInput,
-              output: FileOutput,
-              additionalInflectionRules: [InflectionRule] = [],
-              queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
-              customScalarFormat: CustomScalarFormat = .defaultAsString,
-              deprecatedEnumCases: Composition = .include,
-              schemaDocumentation: Composition = .include) {
+  ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled. The
+  ///  default of `.include` will cause the generated code to include the deprecated enum cases.
+  ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
+  ///  The default of `.include` will cause the schema documentation comments to be copied over
+  ///  into the generated schema types files.
+  ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
+  ///  Defaults to `.disabled`.
+  public init(
+    input: FileInput,
+    output: FileOutput,
+    additionalInflectionRules: [InflectionRule] = [],
+    queryStringLiteralFormat: QueryStringLiteralFormat = .multiline,
+    customScalarFormat: CustomScalarFormat = .defaultAsString,
+    deprecatedEnumCases: Composition = .include,
+    schemaDocumentation: Composition = .include,
+    apqs: APQConfig = .disabled
+  ) {
     self.input = input
     self.output = output
     self.additionalInflectionRules = additionalInflectionRules
@@ -184,6 +219,7 @@ public struct ApolloCodegenConfiguration {
     self.customScalarFormat = customScalarFormat
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
+    self.apqs = apqs
   }
 
   /// Convenience initializer with all paths extended from a supplied base path.
@@ -268,7 +304,8 @@ extension ApolloCodegenConfiguration {
     }
   }
 
-  /// Validates paths within the configuration ensuring that required files exist and that output directories can be created.
+  /// Validates paths within the configuration ensuring that required files exist and that output
+  /// directories can be created.
   func validate() throws {
     let fileManager = FileManager.default.apollo
 

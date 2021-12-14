@@ -18,7 +18,6 @@ class IROperationBuilderTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    operation = CompilationResult.OperationDefinition.mock()
   }
 
   override func tearDown() {
@@ -32,10 +31,8 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: = Helpers
 
   func buildSubjectOperation() throws {
-    let frontend = try GraphQLJSFrontend()
-    let compilationResult = try frontend.compile(schema: schema, document: document)
+    ir = try .mock(schema: schema, document: document)
     operation = try XCTUnwrap(compilationResult.operations.first)
-    ir = IR(compilationResult: compilationResult)
     subject = ir.build(operation: operation)
   }
 
@@ -2923,5 +2920,188 @@ class IROperationBuilderTests: XCTestCase {
       .to(shallowlyMatch(allAnimals_asPet_asWarmBlooded_height_expected))
     expect(allAnimals_asWarmBlooded_height_actual)
       .to(shallowlyMatch(allAnimals_asWarmBlooded_height_expected))
+  }
+
+  // MARK: - Referenced Fragments
+
+  func test__referencedFragments__givenUsesNoFragments_isEmpty() throws {
+    // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    // then
+    expect(self.subject.referencedFragments).to(beEmpty())
+  }
+
+  func test__referencedFragments__givenUsesFragmentAtRoot_includesFragment() throws {
+    // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+    """
+
+    document = """
+    fragment QueryDetails on Query {
+      allAnimals {
+        species
+      }
+    }
+
+    query Test {
+      ...QueryDetails
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    let expected: OrderedSet = [
+      try compilationResult[fragment: "QueryDetails"].xctUnwrapped
+    ]
+
+    // then
+    expect(self.subject.referencedFragments).to(equal(expected))
+  }
+
+  func test__referencedFragments__givenUsesFragmentOnEntityField_includesFragment() throws {
+    // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+    """
+
+    document = """
+    fragment AnimalDetails on Animal {
+      species
+    }
+
+    query Test {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    let expected: OrderedSet = [
+      try compilationResult[fragment: "AnimalDetails"].xctUnwrapped
+    ]
+
+    // then
+    expect(self.subject.referencedFragments).to(equal(expected))
+  }
+
+  func test__referencedFragments__givenUsesMultipleFragmentsOnEntityField_includesFragments() throws {
+    // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+      name: String
+    }
+    """
+
+    document = """
+    fragment AnimalDetails on Animal {
+      species
+    }
+
+    fragment AnimalName on Animal {
+      name
+    }
+
+    query Test {
+      allAnimals {
+        ...AnimalDetails
+        ...AnimalName
+      }
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    let expected: OrderedSet = [
+      try compilationResult[fragment: "AnimalDetails"].xctUnwrapped,
+      try compilationResult[fragment: "AnimalName"].xctUnwrapped,
+    ]
+
+    // then
+    expect(self.subject.referencedFragments).to(equal(expected))
+  }
+
+  func test__referencedFragments__givenUsesFragmentsReferencingOtherFragment_includesBothFragments() throws {
+    // given
+    schema = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+      name: String
+    }
+    """
+
+    document = """
+    fragment AnimalDetails on Animal {
+      species
+      ...AnimalName
+    }
+
+    fragment AnimalName on Animal {
+      name
+    }
+
+    query Test {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+    """
+
+    // when
+    try buildSubjectOperation()
+
+    let expected: OrderedSet = [
+      try compilationResult[fragment: "AnimalDetails"].xctUnwrapped,
+      try compilationResult[fragment: "AnimalName"].xctUnwrapped,
+    ]
+
+    // then
+    expect(self.subject.referencedFragments).to(equal(expected))
   }
 }
