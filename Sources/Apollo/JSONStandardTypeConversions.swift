@@ -7,6 +7,8 @@ extension String: JSONDecodable, JSONEncodable {
         self = string
     case let int as Int:
         self = String(int)
+    case let double as Double:
+        self = String(double)
     default:
         throw JSONDecodingError.couldNotConvert(value: value, to: String.self)
     }
