@@ -54,7 +54,7 @@ class GETTransformerTests: XCTestCase {
     
     // Here, we know that everything should be encoded in a stable order,
     // and we can check the encoded URL string directly.
-    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20__typename%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
   }
   
   func testEncodingQueryWith2DParameter() throws {
