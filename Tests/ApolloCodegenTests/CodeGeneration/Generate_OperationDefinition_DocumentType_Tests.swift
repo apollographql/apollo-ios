@@ -49,12 +49,12 @@ class Generate_OperationDefinition_DocumentType_Tests: XCTestCase {
     """
     public let document: DocumentType = .notPersisted(
       definition: .init(
-      ""\"
-      query NameQuery {
-        name
-      }
-      ""\"
-    ))
+        ""\"
+        query NameQuery {
+          name
+        }
+        ""\"
+      ))
     """
     expect(actual).to(equalLineByLine(expected))
   }
@@ -82,13 +82,13 @@ class Generate_OperationDefinition_DocumentType_Tests: XCTestCase {
     """
     public let document: DocumentType = .notPersisted(
       definition: .init(
-      ""\"
-      query NameQuery {
-        ...NameFragment
-      }
-      ""\",
-      fragments: [NameFragment.self]
-    ))
+        ""\"
+        query NameQuery {
+          ...NameFragment
+        }
+        ""\",
+        fragments: [NameFragment.self]
+      ))
     """
     expect(actual).to(equalLineByLine(expected))
   }
@@ -124,17 +124,17 @@ class Generate_OperationDefinition_DocumentType_Tests: XCTestCase {
     """
     public let document: DocumentType = .notPersisted(
       definition: .init(
-      ""\"
-      query NameQuery {
-        ...Fragment1
-        ...Fragment2
-        ...Fragment3
-        ...Fragment4
-        ...FragmentWithLongName1234123412341234123412341234
-      }
-      ""\",
-      fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
-    ))
+        ""\"
+        query NameQuery {
+          ...Fragment1
+          ...Fragment2
+          ...Fragment3
+          ...Fragment4
+          ...FragmentWithLongName1234123412341234123412341234
+        }
+        ""\",
+        fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
+      ))
     """
     expect(actual).to(equalLineByLine(expected))
   }
@@ -160,12 +160,12 @@ class Generate_OperationDefinition_DocumentType_Tests: XCTestCase {
     public let document: DocumentType = .automaticallyPersisted(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5",
       definition: .init(
-      ""\"
-      query NameQuery {
-        name
-      }
-      ""\"
-    ))
+        ""\"
+        query NameQuery {
+          name
+        }
+        ""\"
+      ))
     """
     expect(actual).to(equalLineByLine(expected))
   }

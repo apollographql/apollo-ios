@@ -3,31 +3,6 @@ import OrderedCollections
 
 enum OperationDefinitionGenerator {
 
-//  static let templates = [
-//    "documentType": DocumentType.template
-//  ]
-//  static let environment = Environment(loader: DictionaryLoader(templates: templates))
-//
-//  static func render(
-//    operation: CompilationResult.OperationDefinition,
-//    in schema: IR.Schema,
-//    config: ApolloCodegenConfiguration
-//  ) throws -> String {
-//    let context: [String: Any] = [
-//      "schema": schema,
-//      "operation": operation,
-//      "config": config
-//    ]
-//    return try environment.renderTemplate(string: template, context: context)
-//  }
-//
-//  private static let template =
-//  """
-//  query \(operation.name) {
-//    \(indented: OperationDefinition.DocumentType.render(operation: operation)
-//  }
-//  """
-
 }
 
 // MARK: - DocumentType
@@ -40,20 +15,25 @@ extension OperationDefinitionGenerator {
       apq: ApolloCodegenConfiguration.APQConfig
     ) -> Template {
       let includeFragments = !referencedFragments.isEmpty
+      let includeDefinition = apq != .persistedOperationsOnly
 
       return """
-      public let document: DocumentType = .notPersisted(
+      public let document: DocumentType = .\(apq.rendered)(
         \(if: apq != .disabled,
-        "operationIdentifier: \(operation.operationIdentifier),"
-        )
+        "operationIdentifier: \"\(operation.operationIdentifier)\"\(if: includeDefinition, ",")")
+      \(if: includeDefinition,
+      """
         definition: .init(
-        ""\"
-        \(operation.source)
-        ""\"\(if: includeFragments, ",")
-        \(if: includeFragments, Template("""
-        fragments: [\(referencedFragments.map { "\($0.name).self" }, separator: ", ")]
-        """))
-      ))
+          ""\"
+          \(operation.source)
+          ""\"\(if: includeFragments, ",")
+          \(if: includeFragments,
+          "fragments: [\(referencedFragments.map { "\($0.name).self" }, separator: ", ")]")
+        ))
+      """,
+      else: """
+      )
+      """)
       """
     }
 
@@ -66,5 +46,11 @@ extension OperationDefinitionGenerator {
 }
 
 extension ApolloCodegenConfiguration.APQConfig {
-
+  fileprivate var rendered: String {
+    switch self {
+    case .disabled: return "notPersisted"
+    case .automaticallyPersist: return "automaticallyPersisted"
+    case .persistedOperationsOnly: return "persistedOperationsOnly"
+    }
+  }
 }

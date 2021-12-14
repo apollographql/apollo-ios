@@ -71,16 +71,14 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
       appendInterpolation(elementsString)
     }
 
-    mutating func appendInterpolation(if bool: Bool, _ string: String) {
+    mutating func appendInterpolation(if bool: Bool, _ template: Template, else: Template? = nil) {
       if bool {
-        appendInterpolation(string)
+        appendInterpolation(template.value)
+      } else if let elseTemplate = `else` {
+        appendInterpolation(elseTemplate.value)
       } else {
         removeLineIfEmpty()
       }
-    }
-
-    mutating func appendInterpolation(if bool: Bool, _ template: Template) {
-      appendInterpolation(if: bool, template.value)
     }
 
     private mutating func removeLineIfEmpty() {
