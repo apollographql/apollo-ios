@@ -1,11 +1,11 @@
 @testable import ApolloCodegenLib
 
 public extension CompilationResult {
-  class func mock(referencedTypes: ReferencedTypes? = nil) -> Self {
-    let mock = Self.emptyMockObject()
-    mock.referencedTypes = referencedTypes ?? ReferencedTypes([])
-    return mock
-  }
+//  class func mock(referencedTypes: IR.Schema.ReferencedTypes? = nil) -> Self {
+//    let mock = Self.emptyMockObject()
+//    mock.referencedTypes = Array(referencedTypes?.allTypes) ?? []
+//    return mock
+//  }
 }
 
 public extension CompilationResult.OperationDefinition {

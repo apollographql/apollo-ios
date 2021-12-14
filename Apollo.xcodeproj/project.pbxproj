@@ -231,6 +231,8 @@
 		DE5FD5FF276922AA0033EE23 /* MockApolloCodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */; };
 		DE5FD601276923620033EE23 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD600276923620033EE23 /* Template.swift */; };
 		DE5FD603276926EF0033EE23 /* IR+Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD602276926EF0033EE23 /* IR+Mocking.swift */; };
+		DE5FD60527694FA70033EE23 /* SchemaGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD60427694FA70033EE23 /* SchemaGenerator.swift */; };
+		DE5FD607276950CC0033EE23 /* IR+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD606276950CC0033EE23 /* IR+Schema.swift */; };
 		DE674D9D261CEEE4000E8FC8 /* c.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061172591B3550020D1E0 /* c.txt */; };
 		DE674D9E261CEEE4000E8FC8 /* b.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061182591B3550020D1E0 /* b.txt */; };
 		DE674D9F261CEEE4000E8FC8 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
@@ -867,6 +869,8 @@
 		DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApolloCodegenConfiguration.swift; sourceTree = "<group>"; };
 		DE5FD600276923620033EE23 /* Template.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		DE5FD602276926EF0033EE23 /* IR+Mocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Mocking.swift"; sourceTree = "<group>"; };
+		DE5FD60427694FA70033EE23 /* SchemaGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaGenerator.swift; sourceTree = "<group>"; };
+		DE5FD606276950CC0033EE23 /* IR+Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Schema.swift"; sourceTree = "<group>"; };
 		DE664ED326602AF60054DB4F /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ApolloServerIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProviderIntegrationTests.swift; sourceTree = "<group>"; };
@@ -1908,6 +1912,7 @@
 			isa = PBXGroup;
 			children = (
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionGenerator.swift */,
+				DE5FD60427694FA70033EE23 /* SchemaGenerator.swift */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -1983,6 +1988,7 @@
 			isa = PBXGroup;
 			children = (
 				DE7C183D272A154400727031 /* IR.swift */,
+				DE5FD606276950CC0033EE23 /* IR+Schema.swift */,
 				DEFE0FC42748822900FFA440 /* IR+MergedSelectionTree.swift */,
 				DEFBBC85273470F70088AABC /* IR+Field.swift */,
 				DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */,
@@ -2817,6 +2823,7 @@
 				9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
 				9BCA8C0926618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift in Sources */,
+				DE5FD60527694FA70033EE23 /* SchemaGenerator.swift in Sources */,
 				DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */,
 				9F62DFD02590710E00E6E808 /* GraphQLSource.swift in Sources */,
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
@@ -2840,6 +2847,7 @@
 				9B7B6F5A233C287200F32205 /* ApolloCodegenConfiguration.swift in Sources */,
 				9F1A966B258F34BB00A06EEB /* GraphQLJSFrontend.swift in Sources */,
 				DE09114E27288B1F000648E5 /* SortedSelections.swift in Sources */,
+				DE5FD607276950CC0033EE23 /* IR+Schema.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

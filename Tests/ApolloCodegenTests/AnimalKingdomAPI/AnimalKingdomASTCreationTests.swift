@@ -38,7 +38,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_RootQuery__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     expected = (
@@ -62,7 +62,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
     let Interface_Animal = GraphQLInterfaceType.mock("Animal")
 
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(rootSelectionSet[field: "allAnimals"]?.selectionSet)
@@ -100,7 +100,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -133,7 +133,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_Predator__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -162,7 +162,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_Predator_AsWarmBlooded__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -197,7 +197,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsWarmBlooded__isCorrect() throws  {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -235,7 +235,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsWarmBlooded_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -268,7 +268,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -312,7 +312,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -347,7 +347,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AsPet_AsWarmBlooded__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -393,7 +393,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet_AsWarmBlooded_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -430,7 +430,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AsCat__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -478,7 +478,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsCat_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -515,7 +515,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AsClassroomPet__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -552,7 +552,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AsClassroomPet_AsBird__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(
@@ -600,7 +600,7 @@ final class AnimalKingdomASTCreationTests: XCTestCase {
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsClassroomPet_AsBird_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
-    let ir = IR(compilationResult: compilationResult)
+    let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
     let selectionSet = try XCTUnwrap(

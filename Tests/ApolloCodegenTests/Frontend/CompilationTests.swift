@@ -61,7 +61,7 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(friendsField.name, "friends")
     XCTAssertEqual(friendsField.type.typeReference, "[Character]")
     
-    XCTAssertEqualUnordered(compilationResult.referencedTypes.allTypes.map(\.name),
+    XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
                             ["Episode", "Character", "String"])
   }
 }

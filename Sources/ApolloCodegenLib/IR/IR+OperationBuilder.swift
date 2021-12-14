@@ -5,12 +5,11 @@ import ApolloUtils
 extension IR {
 
   func build(operation: CompilationResult.OperationDefinition) -> Operation {
-    OperationBuilder(compilationResult: compilationResult,
-                     operationDefinition: operation).builtOperation
+    OperationBuilder(schema: schema, operationDefinition: operation).builtOperation
   }
 
   fileprivate final class OperationBuilder {
-    let compilationResult: CompilationResult
+    let schema: Schema
     let operationDefinition: CompilationResult.OperationDefinition
 
     var entitiesForFields: OrderedDictionary<ResponsePath, IR.Entity> = [:]
@@ -18,10 +17,10 @@ extension IR {
     lazy var builtOperation: IR.Operation = { build() }()
 
     init(
-      compilationResult: CompilationResult,
+      schema: Schema,
       operationDefinition: CompilationResult.OperationDefinition
     ) {
-      self.compilationResult = compilationResult
+      self.schema = schema
       self.operationDefinition = operationDefinition
     }
 
@@ -36,7 +35,7 @@ extension IR {
 
       let rootTypePath = TypeScopeDescriptor.descriptor(
         forType: rootEntity.rootType,
-        givenAllTypesInSchema: compilationResult.referencedTypes
+        givenAllTypesInSchema: schema.referencedTypes
       )
 
       let rootSelectionSet = SelectionSet(
@@ -149,7 +148,7 @@ extension IR {
 
       let typeScope = TypeScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
-        givenAllTypesInSchema: compilationResult.referencedTypes
+        givenAllTypesInSchema: schema.referencedTypes
       )
       let typePath = enclosingSelectionSet.typePath.appending(typeScope)
 

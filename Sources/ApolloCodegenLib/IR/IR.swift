@@ -5,8 +5,14 @@ class IR {
 
   let compilationResult: CompilationResult
 
-  init(compilationResult: CompilationResult) {
+  let schema: Schema
+
+  init(schemaName: String, compilationResult: CompilationResult) {
     self.compilationResult = compilationResult
+    self.schema = Schema(
+      name: schemaName,
+      referencedTypes: .init(compilationResult.referencedTypes)
+    )
   }
 
   class Operation {
