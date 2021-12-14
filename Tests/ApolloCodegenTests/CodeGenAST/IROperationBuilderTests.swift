@@ -32,10 +32,8 @@ class IROperationBuilderTests: XCTestCase {
   // MARK: = Helpers
 
   func buildSubjectOperation() throws {
-    let frontend = try GraphQLJSFrontend()
-    let compilationResult = try frontend.compile(schema: schema, document: document)
+    ir = try .mock(schema: schema, document: document)
     operation = try XCTUnwrap(compilationResult.operations.first)
-    ir = IR(compilationResult: compilationResult)
     subject = ir.build(operation: operation)
   }
 

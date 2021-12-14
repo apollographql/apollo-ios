@@ -10,27 +10,7 @@ import XCTest
 @testable import ApolloCodegenLib
 
 public struct CodegenTestHelper {
-  
-  public static func handleFileLoadError(_ error: Error,
-                                  file: StaticString = #filePath,
-                                  line: UInt = #line) {
-    let nsError = error as NSError
-    if let underlying = nsError.userInfo["NSUnderlyingError"] as? NSError,
-      underlying.domain == NSPOSIXErrorDomain,
-      underlying.code == 4 { // The filesystem can't open the file, which for some reason is only happening on my laptop.
-        // Ellen's computer has lost its mind and intermittently won't load files
-        // from the file system with inexplicable process interrupted errors
-        // This is not technically a failure but we shouldn't fail the test on it.
-        // TODO: Mark test as skipped in Xcode 11.4
-        print("🐶☕️🔥 This is fine")
-    } else {
-      // There was an actual problem.
-      XCTFail("Unexpected error loading file: \(error)",
-        file: file,
-        line: line)
-    }
-  }
-  
+    
   // Centralized timeout for adjustment when working on terrible wifi
   public static var timeout: Double = 90.0
   

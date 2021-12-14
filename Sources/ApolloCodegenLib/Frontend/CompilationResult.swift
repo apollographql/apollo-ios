@@ -77,8 +77,8 @@ public class CompilationResult: JavaScriptObject {
     lazy var filePath: String = self["filePath"]
     
     lazy var operationIdentifier: String = {
-      // TODO: Compute this from source + referenced fragments
-      fatalError()
+      #warning("TODO: Compute this from source + referenced fragments")
+      return ""
     }()
 
     /// Computes the fragments that the operation uses by all selections on the operation.
