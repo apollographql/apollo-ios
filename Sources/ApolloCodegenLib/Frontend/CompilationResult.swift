@@ -79,11 +79,7 @@ public class CompilationResult: JavaScriptObject {
     lazy var operationIdentifier: String = {
       #warning("TODO: Compute this from source + referenced fragments")
       return ""
-    }()
-
-    /// Computes the fragments that the operation uses by all selections on the operation.
-    #warning("TODO: Implement this and unit test. Probably want to implement fragments used for each SelectionSet and agregate them here.")
-//    public internal(set) lazy var fragmentsUsed: Set<FragmentDefinition> = []
+    }()    
   }
   
   public enum OperationType: String, Equatable, JavaScriptValueDecodable {
