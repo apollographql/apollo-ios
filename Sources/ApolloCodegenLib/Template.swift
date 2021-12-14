@@ -83,7 +83,7 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
 
     private mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
-      if !slice.isEmpty && slice.allSatisfy(\.isWhitespace) {
+      if slice.allSatisfy(\.isWhitespace) {
         output.removeLast(slice.count + 1) // + 1 removes the \n character.
       }
     }

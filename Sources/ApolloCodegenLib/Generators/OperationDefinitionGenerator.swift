@@ -19,10 +19,10 @@ extension OperationDefinitionGenerator {
 
       return """
       public let document: DocumentType = .\(apq.rendered)(
-        \(if: apq != .disabled,
-        "operationIdentifier: \"\(operation.operationIdentifier)\"\(if: includeDefinition, ",")")
-      \(if: includeDefinition,
-      """
+      \(if: apq != .disabled, """
+        operationIdentifier: \"\(operation.operationIdentifier)\"\(if: includeDefinition, ",")
+      """)
+      \(if: includeDefinition, """
         definition: .init(
           ""\"
           \(operation.source)
