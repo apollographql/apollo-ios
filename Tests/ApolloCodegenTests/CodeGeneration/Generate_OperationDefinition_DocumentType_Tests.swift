@@ -164,7 +164,7 @@ class Generate_OperationDefinition_DocumentType_Tests: XCTestCase {
   }
 
   func test__generate__givenAPQ_persistedOperationsOnly_generatesWithOperationDefinitionAndIdentifier() throws {
-    // given    
+    // given
     definition.operationIdentifier = "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
     definition.source =
     """

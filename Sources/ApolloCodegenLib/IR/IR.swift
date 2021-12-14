@@ -16,12 +16,17 @@ class IR {
     /// subscription field of the schema.
     let rootField: EntityField
 
+    /// All of the fragments that are referenced by this operation's selection set.
+    let referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>
+
     init(
       definition: CompilationResult.OperationDefinition,
-      rootField: EntityField
+      rootField: EntityField,
+      referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>
     ) {
       self.definition = definition
       self.rootField = rootField
+      self.referencedFragments = referencedFragments
     }
   }
 

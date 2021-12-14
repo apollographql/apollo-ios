@@ -14,6 +14,7 @@ extension IR {
     let operationDefinition: CompilationResult.OperationDefinition
 
     var entitiesForFields: OrderedDictionary<ResponsePath, IR.Entity> = [:]
+    var referencedFragments: OrderedSet<CompilationResult.FragmentDefinition> = []
     lazy var builtOperation: IR.Operation = { build() }()
 
     init(
@@ -51,7 +52,11 @@ extension IR {
 
       let irRootField = EntityField(rootField, selectionSet: rootSelectionSet)
 
-      return IR.Operation(definition: operationDefinition, rootField: irRootField)
+      return IR.Operation(
+        definition: operationDefinition,
+        rootField: irRootField,
+        referencedFragments: referencedFragments
+      )
     }
 
     private func buildRootEntity() -> Entity {
@@ -94,6 +99,7 @@ extension IR {
 
         case let .fragmentSpread(fragment):
           if selectionSet.typeScope.matches(fragment.type) {
+            referencedFragments.append(fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragment,
               onParent: selectionSet
