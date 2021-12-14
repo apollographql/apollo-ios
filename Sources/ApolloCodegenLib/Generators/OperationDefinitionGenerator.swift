@@ -36,12 +36,6 @@ extension OperationDefinitionGenerator {
       """)
       """
     }
-
-    private static func render(
-      _ referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>
-    ) -> Template {
-      ""
-    }
   }
 }
 
