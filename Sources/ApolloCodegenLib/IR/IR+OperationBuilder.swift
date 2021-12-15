@@ -28,7 +28,7 @@ extension IR {
       self.operationDefinition = operationDefinition
     }
 
-    private func build() -> Operation {
+    private func build() -> IR.Operation {
       let rootEntity = buildRootEntity()
 
       let rootField = CompilationResult.Field(
