@@ -1,9 +1,9 @@
-struct SchemaGenerator {
+struct SchemaTemplate {
 
   let schema: IR.Schema
 
-  func generate() -> String {
-    Template(
+  func render() -> String {
+    TemplateString(
     """
     import ApolloAPI
 

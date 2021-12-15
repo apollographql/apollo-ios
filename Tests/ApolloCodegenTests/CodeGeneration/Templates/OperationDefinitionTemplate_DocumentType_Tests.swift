@@ -4,7 +4,7 @@ import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 
-class OperationDefinitionGenerator_DocumentType_Tests: XCTestCase {
+class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
   var config: ApolloCodegenConfiguration!
   var definition: CompilationResult.OperationDefinition!
@@ -23,7 +23,7 @@ class OperationDefinitionGenerator_DocumentType_Tests: XCTestCase {
   }
 
   func renderDocumentType() throws -> String {
-    OperationDefinitionGenerator.DocumentType.render(
+    OperationDefinitionTemplate.DocumentType.render(
       operation: try XCTUnwrap(definition),
       referencedFragments: referencedFragments ?? [],
       apq: try XCTUnwrap(config.apqs)

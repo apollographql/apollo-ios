@@ -1,6 +1,6 @@
 import Foundation
 
-struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
+struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible {
 
   let value: String
 
@@ -31,7 +31,7 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
       output.append(literal)
     }
 
-    mutating func appendInterpolation(_ template: Template) {
+    mutating func appendInterpolation(_ template: TemplateString) {
       appendInterpolation(template.value)
     }
 
@@ -39,7 +39,7 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
 
     mutating func appendInterpolation(_ string: String) {
       let indent = output.reversed().prefix {
-        Template.StringInterpolation.whitespaceNotNewline.contains($0)
+        TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
       }
 
       if indent.isEmpty {
@@ -71,7 +71,7 @@ struct Template: ExpressibleByStringInterpolation, CustomStringConvertible {
       appendInterpolation(elementsString)
     }
 
-    mutating func appendInterpolation(if bool: Bool, _ template: Template, else: Template? = nil) {
+    mutating func appendInterpolation(if bool: Bool, _ template: TemplateString, else: TemplateString? = nil) {
       if bool {
         appendInterpolation(template.value)
       } else if let elseTemplate = `else` {

@@ -1,22 +1,22 @@
 import OrderedCollections
 
-enum OperationDefinitionGenerator {
+enum OperationDefinitionTemplate {
 
 }
 
 // MARK: - DocumentType
 
-extension OperationDefinitionGenerator {
+extension OperationDefinitionTemplate {
   enum DocumentType {
     static func render(
       operation: CompilationResult.OperationDefinition,
       referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>,
       apq: ApolloCodegenConfiguration.APQConfig
-    ) -> Template {
+    ) -> String {
       let includeFragments = !referencedFragments.isEmpty
       let includeDefinition = apq != .persistedOperationsOnly
 
-      return """
+      return TemplateString("""
       public let document: DocumentType = .\(apq.rendered)(
       \(if: apq != .disabled, """
         operationIdentifier: \"\(operation.operationIdentifier)\"\(if: includeDefinition, ",")
@@ -34,6 +34,7 @@ extension OperationDefinitionGenerator {
       )
       """)
       """
+      ).description
     }
   }
 }
