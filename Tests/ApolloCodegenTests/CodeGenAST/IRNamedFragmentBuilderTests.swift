@@ -63,7 +63,7 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     // then
     expect(self.subject.definition).to(beIdenticalTo(fragment))
     expect(self.subject.definition.name).to(equal("TestFragment"))
-
+    
     expect(self.subject.rootField.underlyingField.name).to(equal("TestFragment"))
     expect(self.subject.rootField.underlyingField.type).to(equal(.nonNull(.entity(Object_Animal))))
     expect(self.subject.rootField.underlyingField.selectionSet)
