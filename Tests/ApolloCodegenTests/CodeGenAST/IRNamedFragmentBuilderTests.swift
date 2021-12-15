@@ -5,6 +5,7 @@ import OrderedCollections
 import ApolloTestSupport
 import ApolloCodegenTestSupport
 import ApolloAPI
+import ApolloUtils
 
 class IRNamedFragmentBuilderTests: XCTestCase {
 
@@ -32,7 +33,7 @@ class IRNamedFragmentBuilderTests: XCTestCase {
 
   func buildSubjectFragment() throws {
     ir = try .mock(schema: schemaSDL, document: document)
-    fragment = try XCTUnwrap(ir.compilationResult[fragment: "Test"])
+    fragment = try XCTUnwrap(ir.compilationResult[fragment: "TestFragment"])
     subject = ir.build(fragment: fragment)
   }
 
@@ -50,9 +51,7 @@ class IRNamedFragmentBuilderTests: XCTestCase {
 
     document = """
     fragment TestFragment on Animal {
-      allAnimals {
-        species
-      }
+      species
     }
     """
 
@@ -65,10 +64,10 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     expect(self.subject.definition).to(beIdenticalTo(fragment))
     expect(self.subject.definition.name).to(equal("TestFragment"))
 
-    expect(self.subject.rootField.underlyingField.name).to(equal("query"))
+    expect(self.subject.rootField.underlyingField.name).to(equal("TestFragment"))
     expect(self.subject.rootField.underlyingField.type).to(equal(.nonNull(.entity(Object_Animal))))
     expect(self.subject.rootField.underlyingField.selectionSet)
-      .to(beIdenticalTo(self.operation.selectionSet))
+      .to(beIdenticalTo(self.fragment.selectionSet))
 
     expect(self.subject.rootField.selectionSet.entity.rootType).to(equal(Object_Animal))
     expect(self.subject.rootField.selectionSet.entity.rootTypePath)
