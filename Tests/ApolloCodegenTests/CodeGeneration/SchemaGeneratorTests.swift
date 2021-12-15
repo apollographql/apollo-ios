@@ -17,6 +17,7 @@ class SchemaGeneratorTests: XCTestCase {
 
     public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
     where Schema == TestSchemaName.Schema {}
+
     public protocol TypeCase: ApolloAPI.SelectionSet & RootSelectionSet
     where Schema == TestSchemaName.Schema {}
 
@@ -57,7 +58,7 @@ class SchemaGeneratorTests: XCTestCase {
     let actual = generator.generate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11))
+    expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
 
   func test__generate__givenWithReferencedOtherTypes_generatesObjectTypeNotIncludingNonObjectTypesFunction() {
@@ -86,6 +87,6 @@ class SchemaGeneratorTests: XCTestCase {
     let actual = generator.generate()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11))
+    expect(actual).to(equalLineByLine(expected, atLine: 12))
   }
 }

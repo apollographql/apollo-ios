@@ -11,6 +11,7 @@ struct SchemaGenerator {
 
     public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
     where Schema == \(schema.name).Schema {}
+    
     public protocol TypeCase: ApolloAPI.SelectionSet & RootSelectionSet
     where Schema == \(schema.name).Schema {}
 
