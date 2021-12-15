@@ -8,6 +8,7 @@ import ApolloCodegenTestSupport
 /// - Parameters:
 ///   - expectedValue: The expected string to match against
 ///   - atLine: [optional] The line in the actual value where matching should begin.
+///   This parameter is 1 indexed, representing actual line number, not 0 indexed.
 ///   If provided, the actual value will be compared to the lines at the given range.
 ///   Defaults to `nil`.
 public func equalLineByLine(
