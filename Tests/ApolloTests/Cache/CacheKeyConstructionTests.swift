@@ -43,4 +43,11 @@ final class CacheKeyConstructionTests: XCTestCase {
 
     XCTAssertEqual(input.splitIntoCacheKeyComponents(), expected)
   }
+
+  func testNoSplits() {
+    let input = "mychemicalromance"
+    let expected = ["mychemicalromance"]
+
+    XCTAssertEqual(input.splitIntoCacheKeyComponents(), expected)
+  }
 }
