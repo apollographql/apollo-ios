@@ -33,12 +33,12 @@ struct TypeScopeDescriptor: Equatable {
   /// The parentType of the `SelectionSet`. Computed as the last value of the `typePath`.
   var type: GraphQLCompositeType { typePath.last.value }
 
-  private let allTypesInSchema: CompilationResult.ReferencedTypes
+  private let allTypesInSchema: IR.Schema.ReferencedTypes
 
   private init(
     typePath: LinkedList<GraphQLCompositeType>,
     matchingTypes: TypeScope,
-    allTypesInSchema: CompilationResult.ReferencedTypes
+    allTypesInSchema: IR.Schema.ReferencedTypes
   ) {
     self.typePath = typePath
     self.matchingTypes = matchingTypes
@@ -57,7 +57,7 @@ struct TypeScopeDescriptor: Equatable {
   ///                            the types in the schema.
   static func descriptor(
     forType type: GraphQLCompositeType,
-    givenAllTypesInSchema allTypes: CompilationResult.ReferencedTypes
+    givenAllTypesInSchema allTypes: IR.Schema.ReferencedTypes
   ) -> TypeScopeDescriptor {
     let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
     return TypeScopeDescriptor(typePath: LinkedList(type), matchingTypes: scope, allTypesInSchema: allTypes)
@@ -66,7 +66,7 @@ struct TypeScopeDescriptor: Equatable {
   private static func typeScope(
     addingType newType: GraphQLCompositeType,
     to scope: TypeScope?,
-    givenAllTypes allTypes: CompilationResult.ReferencedTypes
+    givenAllTypes allTypes: IR.Schema.ReferencedTypes
   ) -> TypeScope {
     if let scope = scope, scope.contains(newType) { return scope }
 

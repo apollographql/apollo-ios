@@ -1,4 +1,3 @@
-import ApolloAPI
 import OrderedCollections
 
 enum OperationDefinitionGenerator {

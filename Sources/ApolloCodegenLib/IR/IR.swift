@@ -5,8 +5,14 @@ class IR {
 
   let compilationResult: CompilationResult
 
-  init(compilationResult: CompilationResult) {
+  let schema: Schema
+
+  init(schemaName: String, compilationResult: CompilationResult) {
     self.compilationResult = compilationResult
+    self.schema = Schema(
+      name: schemaName,
+      referencedTypes: .init(compilationResult.referencedTypes)
+    )
   }
 
   class Operation {
@@ -109,8 +115,15 @@ class IR {
     }
   }
 
+  /// Represents a Fragment that has been "spread into" another SelectionSet using the
+  /// spread operator (`...`).
+  ///
+  /// While a `NamedFragment` can be shared between operations, a `FragmentSpread` represents a
+  /// `NamedFragment` included in a specific operation.
   class FragmentSpread: Equatable {
     let definition: CompilationResult.FragmentDefinition
+    /// The selection set for the fragment in the operation it has been "spread into".
+    /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
     let selectionSet: SelectionSet
 
     init(
@@ -126,4 +139,5 @@ class IR {
       lhs.selectionSet == rhs.selectionSet
     }
   }
+  
 }

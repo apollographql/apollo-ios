@@ -1,26 +1,47 @@
 import Foundation
 import Nimble
+import ApolloTestSupport
 import ApolloCodegenTestSupport
 
 /// A Nimble matcher that compares two strings line-by-line.
-public func equalLineByLine(_ expectedValue: String) -> Predicate<String> {
+///
+/// - Parameters:
+///   - expectedValue: The expected string to match against
+///   - atLine: [optional] The line in the actual value where matching should begin.
+///   This parameter is 1 indexed, representing actual line number, not 0 indexed.
+///   If provided, the actual value will be compared to the lines at the given range.
+///   Defaults to `nil`.
+public func equalLineByLine(
+  _ expectedValue: String,
+  atLine startLine: Int = 1,
+  ignoringExtraLines: Bool = false
+) -> Predicate<String> {
   return Predicate.define() { actual in
-    guard let actualLines = try actual.evaluate()?.components(separatedBy: "\n") else {
+    guard let actualLines = try actual.evaluate()?.lines(startingAt: startLine) else {
       return PredicateResult(
         status: .fail,
         message: .expectedActualValueTo("equal <\(expectedValue)>")
       )
     }
 
-    var actualLinesBuffer: [String] = actualLines.reversed()
     let expectedLines = expectedValue.components(separatedBy: "\n")
 
-    for (index, expectedLine) in expectedLines.enumerated() {
-      guard let actualLine = actualLinesBuffer.popLast() else {
-        return PredicateResult(
-          status: .fail,
-          message: .fail("Expected \(expectedLines.count), actual ended at line \(index).")
-        )
+    var expectedLinesBuffer: [String] = expectedLines.reversed()
+
+    for index in actualLines.indices {
+      let actualLine = actualLines[index]
+      guard let expectedLine = expectedLinesBuffer.popLast() else {
+        if ignoringExtraLines {
+          return PredicateResult(
+            status: .matches,
+            message: .expectedTo("be equal")
+          )
+        } else {
+          return PredicateResult(
+            status: .fail,
+            message: .fail("Expected \(expectedLines.count), actual ended at line \(index).")
+          )
+        }
       }
 
       if actualLine != expectedLine {
@@ -35,6 +56,13 @@ public func equalLineByLine(_ expectedValue: String) -> Predicate<String> {
       status: .matches,
       message: .expectedTo("be equal")
     )
+  }
+}
+
+extension String {
+  fileprivate func lines(startingAt startLine: Int) -> ArraySlice<String> {
+    let allLines = self.components(separatedBy: "\n")
+    return allLines[(startLine - 1)..<allLines.endIndex]
   }
 }
 

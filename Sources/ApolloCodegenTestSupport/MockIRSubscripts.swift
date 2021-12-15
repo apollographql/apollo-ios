@@ -61,7 +61,7 @@ extension IR.Operation {
   }
 }
 
-extension CompilationResult {
+extension IR.Schema {
   public subscript(object name: String) -> GraphQLObjectType? {
     return referencedTypes.objects.first { $0.name == name }
   }
@@ -77,8 +77,9 @@ extension CompilationResult {
   public subscript(scalar name: String) -> GraphQLScalarType? {
     return referencedTypes.scalars.first { $0.name == name }
   }
-
-  public subscript(fragment name: String) -> FragmentDefinition? {
+}
+extension CompilationResult {
+  public subscript(fragment name: String) -> CompilationResult.FragmentDefinition? {
     return fragments.first { $0.name == name }
   }
 }
