@@ -61,6 +61,20 @@ extension IR.Operation {
   }
 }
 
+extension IR.NamedFragment {
+  public subscript(field field: String) -> IR.Field? {
+    return rootField.selectionSet[field: field]
+  }
+
+  public subscript(as typeCase: String) -> IR.SelectionSet? {
+    return rootField.selectionSet[as: typeCase]
+  }
+
+  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+    rootField.selectionSet[fragment: fragment]
+  }
+}
+
 extension IR.Schema {
   public subscript(object name: String) -> GraphQLObjectType? {
     return referencedTypes.objects.first { $0.name == name }
@@ -78,6 +92,7 @@ extension IR.Schema {
     return referencedTypes.scalars.first { $0.name == name }
   }
 }
+
 extension CompilationResult {
   public subscript(fragment name: String) -> CompilationResult.FragmentDefinition? {
     return fragments.first { $0.name == name }
