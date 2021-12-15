@@ -120,6 +120,7 @@ Like for queries and mutations, the subscription will throw an error if the conn
 Build and run your app and go back to Sandbox Explorer, and select the tab where you set up the `BookTrip` mutation. Book a new trip while your app is open, you should see a SnackBar 🚀:
 
 <img alt="A trip has been booked" class="screenshot" src="images/snackbar.png"/>
+// TODO: REPLACE
 
 This concludes the tutorial.
 
