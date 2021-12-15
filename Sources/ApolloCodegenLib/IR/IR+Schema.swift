@@ -1,4 +1,5 @@
 import Foundation
+import OrderedCollections
 
 extension IR {
   struct Schema {
@@ -6,33 +7,33 @@ extension IR {
     let referencedTypes: ReferencedTypes
 
     public final class ReferencedTypes {
-      let allTypes: Set<GraphQLNamedType>
+      let allTypes: OrderedSet<GraphQLNamedType>
 
-      let objects: Set<GraphQLObjectType>
-      let interfaces: Set<GraphQLInterfaceType>
-      let unions: Set<GraphQLUnionType>
-      let scalars: Set<GraphQLScalarType>
-      let enums: Set<GraphQLEnumType>
-      let inputObjects: Set<GraphQLInputObjectType>
+      let objects: OrderedSet<GraphQLObjectType>
+      let interfaces: OrderedSet<GraphQLInterfaceType>
+      let unions: OrderedSet<GraphQLUnionType>
+      let scalars: OrderedSet<GraphQLScalarType>
+      let enums: OrderedSet<GraphQLEnumType>
+      let inputObjects: OrderedSet<GraphQLInputObjectType>
 
       init(_ types: [GraphQLNamedType]) {
-        self.allTypes = Set(types)
+        self.allTypes = OrderedSet(types)
 
-        var objects = Set<GraphQLObjectType>()
-        var interfaces = Set<GraphQLInterfaceType>()
-        var unions = Set<GraphQLUnionType>()
-        var scalars = Set<GraphQLScalarType>()
-        var enums = Set<GraphQLEnumType>()
-        var inputObjects = Set<GraphQLInputObjectType>()
+        var objects = OrderedSet<GraphQLObjectType>()
+        var interfaces = OrderedSet<GraphQLInterfaceType>()
+        var unions = OrderedSet<GraphQLUnionType>()
+        var scalars = OrderedSet<GraphQLScalarType>()
+        var enums = OrderedSet<GraphQLEnumType>()
+        var inputObjects = OrderedSet<GraphQLInputObjectType>()
 
         for type in allTypes {
           switch type {
-          case let type as GraphQLObjectType: objects.insert(type)
-          case let type as GraphQLInterfaceType: interfaces.insert(type)
-          case let type as GraphQLUnionType: unions.insert(type)
-          case let type as GraphQLScalarType: scalars.insert(type)
-          case let type as GraphQLEnumType: enums.insert(type)
-          case let type as GraphQLInputObjectType: inputObjects.insert(type)
+          case let type as GraphQLObjectType: objects.append(type)
+          case let type as GraphQLInterfaceType: interfaces.append(type)
+          case let type as GraphQLUnionType: unions.append(type)
+          case let type as GraphQLScalarType: scalars.append(type)
+          case let type as GraphQLEnumType: enums.append(type)
+          case let type as GraphQLInputObjectType: inputObjects.append(type)
           default: continue
           }
         }
@@ -52,7 +53,7 @@ extension IR {
           return unions
         }
 
-        let matchingUnions = unions.filter { $0.types.contains(type) }
+        let matchingUnions = Set(unions.filter { $0.types.contains(type) })
         typeToUnionMap[type] = matchingUnions
         return matchingUnions
       }

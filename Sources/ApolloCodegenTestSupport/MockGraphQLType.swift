@@ -79,3 +79,11 @@ public extension GraphQLEnumValue {
     return mock
   }
 }
+
+public extension GraphQLInputObjectType {
+  class func mock(_ name: String) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    return mock
+  }
+}

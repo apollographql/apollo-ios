@@ -3,9 +3,8 @@ import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
-@testable import SQLite
 
-class Generate_OperationDefinition_DocumentType_Tests: XCTestCase {
+class OperationDefinitionGenerator_DocumentType_Tests: XCTestCase {
 
   var config: ApolloCodegenConfiguration!
   var definition: CompilationResult.OperationDefinition!
