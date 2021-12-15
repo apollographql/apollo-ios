@@ -15,10 +15,10 @@ class SchemaTemplateTests: XCTestCase {
 
     public typealias ID = String
 
-    public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
+    public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
     where Schema == TestSchemaName.Schema {}
 
-    public protocol TypeCase: ApolloAPI.SelectionSet & RootSelectionSet
+    public protocol TypeCase: ApolloAPI.SelectionSet & ApolloAPI.TypeCase
     where Schema == TestSchemaName.Schema {}
 
     public enum Schema: SchemaConfiguration {

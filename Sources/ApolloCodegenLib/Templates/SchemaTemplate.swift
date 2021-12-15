@@ -9,10 +9,10 @@ struct SchemaTemplate {
 
     public typealias ID = String
 
-    public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
+    public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
     where Schema == \(schema.name).Schema {}
     
-    public protocol TypeCase: ApolloAPI.SelectionSet & RootSelectionSet
+    public protocol TypeCase: ApolloAPI.SelectionSet & ApolloAPI.TypeCase
     where Schema == \(schema.name).Schema {}
 
     public enum Schema: SchemaConfiguration {

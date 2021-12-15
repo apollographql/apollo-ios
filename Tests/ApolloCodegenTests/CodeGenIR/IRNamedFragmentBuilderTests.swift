@@ -29,7 +29,7 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: = Helpers
+  // MARK: - Helpers
 
   func buildSubjectFragment() throws {
     ir = try .mock(schema: schemaSDL, document: document)
