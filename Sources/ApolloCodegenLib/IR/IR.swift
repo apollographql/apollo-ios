@@ -36,6 +36,21 @@ class IR {
     }
   }
 
+  class NamedFragment {
+    let definition: CompilationResult.FragmentDefinition
+    let rootField: EntityField
+
+    var name: String { definition.name }
+
+    init(
+      definition: CompilationResult.FragmentDefinition,
+      rootField: EntityField
+    ) {
+      self.definition = definition
+      self.rootField = rootField
+    }
+  }
+
   /// Represents a concrete entity in an operation that fields are selected upon.
   ///
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will

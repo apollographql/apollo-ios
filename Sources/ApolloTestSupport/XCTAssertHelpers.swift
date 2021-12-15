@@ -153,9 +153,7 @@ public struct XCTFailure: Error, CustomNSError {
 }
 
 public extension Optional {
-  var xctUnwrapped: Wrapped {
-    get throws {
-      try XCTUnwrap(self)
-    }
+  func xctUnwrapped(file: String = #file, line: Int = #line) throws -> Wrapped {
+    try XCTUnwrap(self)
   }
 }
