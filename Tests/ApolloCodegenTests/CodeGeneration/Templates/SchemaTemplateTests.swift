@@ -3,12 +3,12 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 
-class SchemaGeneratorTests: XCTestCase {
+class SchemaTemplateTests: XCTestCase {
 
   func test__generate__givenSchemaName_generatesBoilerplate() {
     // given
     let schema = IR.Schema(name: "TestSchemaName", referencedTypes: .init([]))
-    let generator = SchemaGenerator(schema: schema)
+    let template = SchemaTemplate(schema: schema)
 
     let expected = """
     import ApolloAPI
@@ -27,7 +27,7 @@ class SchemaGeneratorTests: XCTestCase {
     """
 
     // when
-    let actual = generator.generate()
+    let actual = template.render()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -40,7 +40,7 @@ class SchemaGeneratorTests: XCTestCase {
       GraphQLObjectType.mock("ObjB"),
       GraphQLObjectType.mock("ObjC"),
     ]))
-    let generator = SchemaGenerator(schema: schema)
+    let template = SchemaTemplate(schema: schema)
 
     let expected = """
       public static func objectType(forTypename __typename: String) -> Object.Type? {
@@ -55,7 +55,7 @@ class SchemaGeneratorTests: XCTestCase {
     """
 
     // when
-    let actual = generator.generate()
+    let actual = template.render()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12))
@@ -71,7 +71,7 @@ class SchemaGeneratorTests: XCTestCase {
       GraphQLEnumType.mock(name: "EnumE"),
       GraphQLInputObjectType.mock("InputObjectC"),
     ]))
-    let generator = SchemaGenerator(schema: schema)
+    let template = SchemaTemplate(schema: schema)
 
     let expected = """
       public static func objectType(forTypename __typename: String) -> Object.Type? {
@@ -84,7 +84,7 @@ class SchemaGeneratorTests: XCTestCase {
     """
 
     // when
-    let actual = generator.generate()
+    let actual = template.render()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12))
