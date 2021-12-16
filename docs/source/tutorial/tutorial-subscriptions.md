@@ -49,88 +49,148 @@ Continue booking and/or canceling trips, you will see events coming in the subsc
 
 ## Add the subscription to the project
 
-Now that your subscription is working, add it to your project. Create a file named `TripsBooked.graphql` next to `schema.graphqls` and your other GraphQL files and paste the contents of the subscription. The process is similar to what you did for queries and mutations:
+Now that your subscription is working, add it to your project. Create an empty file named `TripsBooked.graphql` next to your other GraphQL files and paste the contents of the subscription. The process is similar to what you've already done for queries and mutations:
 
-```graphql:title=app/src/main/graphql/com/example/rocketreserver/TripsBooked.graphql
+```graphql:title=TripsBooked.graphql
 subscription TripsBooked {
   tripsBooked
 }
 ```
 
+Build your project, and the subscription will be picked up and added to your `API.swift` file. 
+
 ## Configure your ApolloClient to use subscriptions
 
-In `Apollo.kt`, configure a `webSocketServerUrl` for your `ApolloClient`:
+In `Network.swift`, you'll need to set up a transport which supports subscriptions in addition to general network usage. In practice, this means adding a `WebSocketTransport` which will allow real-time communication with your server. 
 
-```kotlin:title=Apollo.kt
-    instance = ApolloClient.Builder()
-        .httpServerUrl("https://apollo-fullstack-tutorial.herokuapp.com/graphql")
-        .webSocketServerUrl("wss://apollo-fullstack-tutorial.herokuapp.com/graphql")
-        .okHttpClient(okHttpClient)
-        .build()
+First, at the top of the file, add an import for the **ApolloWebSocket** framework to get access to the classes you'll need:
+
+```swift:title=Network.swift
+import ApolloWebSocket
 ```
 
-`wss://` is the protocol for WebSocket.
+Next, in the lazy declaration of the `apollo` variable, immediately after `transport` is declared, set up what you need to add subscription support to your client: 
 
-## Display a SnackBar when a trip is booked/cancelled
+```swift:title=Network.swift
+// 1
+let webSocket = WebSocket(url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!)
 
-In `MainActivity`, register your subscription and start listening to events using coroutine Flows. Use a [Material SnackBar](https://material.io/develop/android/components/snackbar/) to display a small message coming from the bottom of the screen:
+// 2
+let webSocketTransport = WebSocketTransport(websocket: webSocket)
 
-```kotlin:title=MainActivity.kt
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+// 3
+let splitTransport = SplitNetworkTransport(uploadingNetworkTransport: transport,
+                                                   webSocketNetworkTransport: webSocketTransport)
 
-        setContentView(R.layout.activity_main)
+// 4       
+return ApolloClient(networkTransport: splitTransport, store: store)
+```
 
-        lifecycleScope.launch {
-            apolloClient(this@MainActivity).subscription(TripsBookedSubscription()).toFlow()
-                .collect {
-                    val text = when (val trips = it.data?.tripsBooked) {
-                        null -> getString(R.string.subscriptionError)
-                        -1 -> getString(R.string.tripCancelled)
-                        else -> getString(R.string.tripBooked, trips)
-                    }
-                    Snackbar.make(
-                        findViewById(R.id.main_frame_layout),
-                        text,
-                        Snackbar.LENGTH_LONG
-                    ).show()
+What's happening here? 
+
+1. You've created a web socket with the server's web socket URL - `wss://` is the protocol for a secure web socket.
+2. You've created a `WebSocketTransport`, which allows the Apollo SDK to communicate with the web socket. 
+3. You've created a `SplitNetworkTransport`, which can decide whether to use a web socket or not automatically, with both the `RequestChainNetworkTransport` you had previously set up, and the `WebSocketTransport` you just set up. 
+4. You're now passing the `splitTransport` into the `ApolloClient`, so that it's the main transport being used in your `ApolloClient`.  
+
+Now, you're ready to actually use your subscription!
+
+## Display a view when a trip is booked/cancelled
+
+In `LaunchesViewController`, add a new variable just below `activeRequest` to hang on to a reference to your subscription so it doesn't get hammered by ARC as soon as it goes out of scope:
+
+```swift:title=LaunchesViewController.swift
+private var activeSubscription: Cancellable?
+```
+
+Next, just above the code for handling Segues, add code for starting and handling the result of a subscription:
+
+```swift:title=LaunchesViewController.swift
+// MARK: - Subscriptions
+
+private func startSubscription() {
+          activeSubscription = Network.shared.apollo.subscribe(subscription: TripsBookedSubscription()) { result in
+            switch result {
+            case .failure(let error):
+                self.showAlert(title: "NetworkError",
+                               message: error.localizedDescription)
+            case .success(let graphQLResult):
+                if let errors = graphQLResult.errors {
+                    self.showAlertForErrors(errors)
+                } else if let tripsBooked = graphQLResult.data?.tripsBooked {
+                    self.handleTripsBooked(value: tripsBooked)
+                } else {
+                    // There was no data and there were no errors, do nothing.
                 }
+            }
         }
+    }  
+}
+
+private func handleSubscriptionEvent() {
+   print("Trips booked: \(value)")
+}
+```
+
+Finally, add a line to `viewDidLoad` which actually starts the subscription: 
+
+```swift:title=LaunchesViewController.swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    self.startSubscription()
+    self.loadMoreLaunchesIfTheyExist()
+}
+```
+
+Build and run your app and go back to Sandbox Explorer, and select the tab where you set up the `BookTrip` mutation. Book a new trip while your app is open, you'll see a log print out: 
+
+```
+Trips booked: 1
+```
+
+Cancel that same trip, and you'll see another log: 
+
+```
+Trips booked: -1
+```
+
+Now, let's display that information in a view! Use the included `NotificationView` to show a brief alert at the bottom of the screen with information about a trip being booked or cancelled: 
+
+```swift:title="LaunchesViewController.swift"
+private func handleTripsBooked(value: Int) {
+        var message: String
+        switch value {
+        case 1:
+            message = "A new trip was booked! 🚀"
+        case -1:
+            message = "A trip was cancelled! 😭"
+        default:
+            self.showAlert(title: "Unexpected value",
+                           message: " Subscription returned unexpected value: \(value)")
+            return
+        }
+        
+        NotificationView.show(in: self.navigationController!.view,
+                              with: message,
+                              for: 4.0)
     }
 ```
 
-> NOTE: You may need to `import kotlinx.coroutines.flow.collect` if you see an error about internal use for `collect`.
+<img alt="A new trip was booked (rocket)" class="screenshot" src="images/screenshot_trip_booked"/>
 
-## Handle errors
-
-Like for queries and mutations, the subscription will throw an error if the connection is lost or any other protocol error happens. To handle these situations, you can use [Flow.retry](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/retry.html):
-
-```kotlin:title=MainActivity.kt
-    apolloClient(this@MainActivity).subscription(TripsBookedSubscription()).toFlow()
-        .retryWhen { _, attempt ->
-            delay(attempt * 1000)
-            true
-        }
-        .collect {
-            // ...
-```
-
-## Test your code
-
-Build and run your app and go back to Sandbox Explorer, and select the tab where you set up the `BookTrip` mutation. Book a new trip while your app is open, you should see a SnackBar 🚀:
-
-<img alt="A trip has been booked" class="screenshot" src="images/snackbar.png"/>
-// TODO: REPLACE
-
-This concludes the tutorial.
+And you've done it! You've completed the tutorial. 
 
 ## More resources
 
-Use the rest of this documentation for more advanced topics like [Caching](/essentials/caching/)  or [Gradle configuration](/essentials/plugin-configuration/).
+There are way more things you can do with the Apollo iOS SDK, and the rest of this documentation includes info on more advanced topics like:
 
-Feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-android/issues), [joining the community](http://community.apollographql.com/new-topic?category=Help&tags=mobile,client) or [stopping by our channel in the KotlinLang Slack](https://app.slack.com/client/T09229ZC6/C01A6KM1SBZ)(get your invite [here](https://slack.kotl.in/)).
+- Using [fragments](/fragments/)
+- Working with [custom scalars](/fetching-queries/#notes-on-working-with-custom-scalars)
+- [Caching](/caching/)
 
-And if you want dig more and see GraphQL in real-world apps, you can take a look at these open source projects using Apollo Kotlin:
+Feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues), or [joining the community](http://community.apollographql.com/new-topic?category=Help&tags=mobile,client).
 
-* https://github.com/BoD/apollo-graphql-android-sample
-* https://github.com/ZacSweers/CatchUp
+And if you want dig more and see GraphQL in real-world apps, you can take a look at these open source projects using Apollo iOS:
+
+* https://github.com/GitHawkApp/GitHawk
+* [open a PR if you have an example app that should be here!]
