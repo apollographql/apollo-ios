@@ -151,7 +151,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Selections
 
-  func test__render_selections__givenStringField() throws {
+  func test__render_selections__givenFieldSelections_rendersAllFieldSelections() throws {
     // given
     schemaSDL = """
     type Query {
@@ -159,21 +159,74 @@ class SelectionSetTemplateTests: XCTestCase {
     }
 
     type Animal {
-      species: String!
+      string: String!
+      string_optional: String
+      int: Int!
+      int_optional: Int
+      custom: Custom!
+      custom_optional: Custom
+      list_required_required: [String!]!
+      list_optional_required: [String!]
+      list_required_optional: [String]!
+      list_optional_optional: [String]
+      nestedList_required_required_required: [[String!]!]!
+      nestedList_required_required_optional: [[String]!]!
+      nestedList_required_optional_optional: [[String]]!
+      nestedList_required_optional_required: [[String!]]!
+      nestedList_optional_required_required: [[String!]!]
+      nestedList_optional_required_optional: [[String]!]
+      nestedList_optional_optional_required: [[String!]]
+      nestedList_optional_optional_optional: [[String]]
     }
+
+    scalar Custom
     """
 
     document = """
     query TestOperation {
       allAnimals {
-        species
+        string
+        string_optional
+        int
+        int_optional
+        custom
+        custom_optional
+        list_required_required
+        list_optional_required
+        list_required_optional
+        list_optional_optional
+        nestedList_required_required_required
+        nestedList_required_required_optional
+        nestedList_required_optional_optional
+        nestedList_required_optional_required
+        nestedList_optional_required_required
+        nestedList_optional_required_optional
+        nestedList_optional_optional_required
+        nestedList_optional_optional_optional
       }
     }
     """
 
     let expected = """
       public static var selections: [Selection] { [
-        .field("species", String.self),
+        .field("string", String.self),
+        .field("string_optional", String?.self),
+        .field("int", Int.self),
+        .field("int_optional", Int?.self),
+        .field("custom", Custom.self),
+        .field("custom_optional", Custom?.self),
+        .field("list_required_required", [String].self),
+        .field("list_optional_required", [String]?.self),
+        .field("list_required_optional", [String?].self),
+        .field("list_optional_optional", [String?]?.self),
+        .field("nestedList_required_required_required", [[String]].self),
+        .field("nestedList_required_required_optional", [[String?]].self),
+        .field("nestedList_required_optional_optional", [[String?]?].self),
+        .field("nestedList_required_optional_required", [[String]?].self),
+        .field("nestedList_optional_required_required", [[String]]?.self),
+        .field("nestedList_optional_required_optional", [[String?]]?.self),
+        .field("nestedList_optional_optional_required", [[String]?]?.self),
+        .field("nestedList_optional_optional_optional", [[String?]?]?.self),
       ] }
     """
 

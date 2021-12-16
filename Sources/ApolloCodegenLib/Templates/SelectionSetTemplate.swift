@@ -94,7 +94,9 @@ fileprivate extension GraphQLType {
       return ofType.rendered(containedInNonNull: true)
 
     case let .list(ofType):
-      return "[\(ofType.rendered(containedInNonNull: false))]"
+      let inner = "[\(ofType.rendered(containedInNonNull: false))]"
+
+      return containedInNonNull ? inner : "\(inner)?"
     }
   }
 }
