@@ -57,23 +57,20 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-    public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
     """
 
     // when
     try buildSubjectAndOperation()
 
     let allAnimals = try XCTUnwrap(
-      operation[
-      field: "query"]?[
-        field: "allAnimals"]?
-        .selectionSet
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
 
-    let actual = subject.ParentTypeTemplate(allAnimals.parentType)
+    let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected))
+    expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenParentTypeAs_Interface_rendersParentType() throws {
@@ -97,22 +94,19 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-    public static var __parentType: ParentType { .Interface(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Interface(TestSchema.Animal.self) }
     """
 
     // when
     try buildSubjectAndOperation()
     let allAnimals = try XCTUnwrap(
-      operation[
-      field: "query"]?[
-        field: "allAnimals"]?
-        .selectionSet
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
 
-    let actual = subject.ParentTypeTemplate(allAnimals.parentType)
+    let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected))
+    expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenParentTypeAs_Union_rendersParentType() throws {
@@ -140,22 +134,19 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-    public static var __parentType: ParentType { .Union(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Union(TestSchema.Animal.self) }
     """
 
     // when
     try buildSubjectAndOperation()
     let allAnimals = try XCTUnwrap(
-      operation[
-      field: "query"]?[
-        field: "allAnimals"]?
-        .selectionSet
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
 
-    let actual = subject.ParentTypeTemplate(allAnimals.parentType)
+    let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected))
+    expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
   }
 
   // MARK: Selections
@@ -167,41 +158,35 @@ class SelectionSetTemplateTests: XCTestCase {
       allAnimals: [Animal!]
     }
 
-    type Dog {
+    type Animal {
       species: String!
     }
-
-    union Animal = Dog
     """
 
     document = """
     query TestOperation {
       allAnimals {
-        ... on Dog {
-          species
-        }
+        species
       }
     }
     """
 
     let expected = """
-    public static var __parentType: ParentType { .Union(TestSchema.Animal.self) }
+      public static var selections: [Selection] { [
+        .field("species", String.self),
+      ] }
     """
 
     // when
     try buildSubjectAndOperation()
     let allAnimals = try XCTUnwrap(
-      operation[
-      field: "query"]?[
-        field: "allAnimals"]?
-        .selectionSet
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
 
-    let actual = subject.ParentTypeTemplate(allAnimals.parentType)
+    let actual = subject.render(field: allAnimals)
 
     // then
-    fail()
-    expect(actual).to(equalLineByLine(expected))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
 }

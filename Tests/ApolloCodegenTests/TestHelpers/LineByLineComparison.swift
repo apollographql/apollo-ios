@@ -20,7 +20,7 @@ public func equalLineByLine(
     guard let actualLines = try actual.evaluate()?.lines(startingAt: startLine) else {
       return PredicateResult(
         status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>")
+        message: .fail("Insufficient Lines. Check `atLine` value.")
       )
     }
 
@@ -60,8 +60,9 @@ public func equalLineByLine(
 }
 
 extension String {
-  fileprivate func lines(startingAt startLine: Int) -> ArraySlice<String> {
+  fileprivate func lines(startingAt startLine: Int) -> ArraySlice<String>? {
     let allLines = self.components(separatedBy: "\n")
+    guard allLines.count >= startLine else { return nil }
     return allLines[(startLine - 1)..<allLines.endIndex]
   }
 }

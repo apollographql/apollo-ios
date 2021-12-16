@@ -5,6 +5,9 @@ extension IR {
   class Field: Equatable, CustomDebugStringConvertible {
     let underlyingField: CompilationResult.Field
 
+    var name: String { underlyingField.name }
+    var type: GraphQLType { underlyingField.type }
+
     fileprivate init(_ field: CompilationResult.Field) {
       self.underlyingField = field
     }
