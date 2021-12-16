@@ -6,6 +6,8 @@ import Nimble
 class ApolloCodegenConfigurationTests: XCTestCase {
   let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Configuration")
 
+  // MARK: Lifecycle
+
   override func setUpWithError() throws {
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
   }
@@ -13,6 +15,21 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   override func tearDownWithError() throws {
     try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
   }
+
+  // MARK: Test Helper Methods
+
+  private func buildConfig(
+    forDependencyAutomation moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
+  ) -> ApolloCodegenConfiguration {
+    ApolloCodegenConfiguration(
+      input: .init(schemaPath: "schema.graphqls",
+                   searchPaths: ["*.operation"]),
+      output: .init(schemaTypes: .init(path: directoryURL.path,
+                                       dependencyAutomation: moduleType))
+    )
+  }
+
+  // MARK: Initializer Tests
 
   func test_init_givenBasePathAndSchemaFilename_shouldBuildDefaultPaths() {
     // given
@@ -29,6 +46,8 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     expect(config.input.searchPaths).to(equal([expectedIncludeURL.path]))
     expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
+
+  // MARK: Validation Tests
 
   func test_validation_givenSchemaFilename_doesNotExist_shouldThrow() throws {
     // given
@@ -196,5 +215,60 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect { try config.validate() }.notTo(throwError())
+  }
+
+  // MARK: Helper Tests
+
+  func test_givenDefaultConfiguration_shouldBuildHelperValues() {
+    // given
+    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
+    let config = ApolloCodegenConfiguration(basePath: fileURL.path,
+                                            schemaFilename: "different_schema.graphql",
+                                            searchPattern: "*.operation")
+
+    // then
+    expect(config.output.schemaTypes.moduleName).to(equal("API"))
+    expect(config.output.schemaTypes.modulePath)
+      .to(equal(fileURL.appendingPathComponent("API").path))
+  }
+
+  func test_givenSwiftPackageManagerConfiguration_shouldBuildHelperValues() {
+    // given
+    let moduleName = "SPMModule"
+    let config = buildConfig(forDependencyAutomation: .swiftPackageManager(moduleName: moduleName))
+
+    expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
+    expect(config.output.schemaTypes.modulePath)
+      .to(equal(directoryURL.appendingPathComponent(moduleName).path))
+  }
+
+  func test_givenCocoaPodsConfiguration_shouldBuildHelperValues() {
+    // given
+    let moduleName = "PodsModule"
+    let config = buildConfig(forDependencyAutomation: .cocoaPods(moduleName: moduleName))
+
+    expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
+    expect(config.output.schemaTypes.modulePath)
+      .to(equal(directoryURL.appendingPathComponent(moduleName).path))
+  }
+
+  func test_givenCarthageConfiguration_shouldBuildHelperValues() {
+    // given
+    let moduleName = "CarthageModule"
+    let config = buildConfig(forDependencyAutomation: .carthage(moduleName: moduleName))
+
+    expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
+    expect(config.output.schemaTypes.modulePath)
+      .to(equal(directoryURL.appendingPathComponent(moduleName).path))
+  }
+
+  func test_givenManuallyLinkedConfiguration_shouldBuildHelperValues() {
+    // given
+    let namespace = "NamespaceModule"
+    let config = buildConfig(forDependencyAutomation: .manuallyLinked(namespace: namespace))
+
+    expect(config.output.schemaTypes.moduleName).to(equal(namespace))
+    expect(config.output.schemaTypes.modulePath)
+      .to(equal(directoryURL.appendingPathComponent(namespace).path))
   }
 }
