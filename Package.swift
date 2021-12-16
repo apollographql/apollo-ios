@@ -38,7 +38,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-        .upToNextMinor(from: "0.13.1"))
+        .upToNextMinor(from: "0.13.1")),
     .package(
       url: "https://github.com/mattt/InflectorKit",
       .upToNextMinor(from: "1.0.0")),
@@ -81,7 +81,6 @@ let package = Package(
       ],
       resources: [
         .copy("Frontend/dist/ApolloCodegenFrontend.bundle.js"),
-        .copy("Frontend/dist/ApolloCodegenFrontend.bundle.js.map")
       ]),
     .target(
       name: "ApolloSQLite",
