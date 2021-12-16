@@ -2,27 +2,10 @@
 
 /// A protocol representing a fragment that a `SelectionSet` object may be converted to.
 ///
-/// A `SelectionSet` that conforms to `HasFragments` can be converted to
-/// any `Fragment` included in it's `Fragments` object via its `fragments` property.
-///
-/// - SeeAlso: `HasFragments`, `ToFragments`
+/// A `SelectionSet` can be converted to any `Fragment` included in it's `Fragments` object via
+/// its `fragments` property.
 public protocol Fragment: AnySelectionSet {
   static var fragmentDefinition: String { get }
-}
-
-// MARK: - HasFragments
-
-/// A protocol that a `ResponseObject` that contains fragments should conform to.
-public protocol HasFragments: AnySelectionSet {
-
-  /// A type representing all of the fragments contained on the `SelectionSet`.
-  associatedtype Fragments: FragmentContainer
-}
-
-public extension HasFragments {
-  /// A `FieldData` object that contains accessors for all of the fragments
-  /// the object can be converted to.
-  var fragments: Fragments { Fragments(data: data) }
 }
 
 public protocol FragmentContainer {
@@ -43,3 +26,8 @@ public extension FragmentContainer {
     return T.init(data: data)
   }
 }
+
+/// A `FragmentContainer` to be used by `SelectionSet`s that have no fragments.
+/// This is the default `FragmentContainer` for a `SelectionSet` that does not specify a
+/// `Fragments` type.
+public enum NoFragments {}

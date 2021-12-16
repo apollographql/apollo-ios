@@ -52,6 +52,11 @@ public protocol TypeCase: AnySelectionSet { }
 // MARK: - SelectionSet
 public protocol SelectionSet: AnySelectionSet {
   associatedtype Schema: SchemaConfiguration
+
+  /// A type representing all of the fragments the `SelectionSet` can be converted to.
+  /// Defaults to a stub type with no fragments.
+  /// A `SelectionSet` with fragments should provide a type that conforms to `FragmentContainer`
+  associatedtype Fragments = NoFragments
 }
 
 extension SelectionSet {
@@ -74,4 +79,9 @@ extension SelectionSet {
 
     return T.init(data: data)
   }
+}
+
+extension SelectionSet where Fragments: FragmentContainer {
+  /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
+  var fragments: Fragments { Fragments(data: data) }
 }
