@@ -176,7 +176,7 @@ private func handleTripsBooked(value: Int) {
     }
 ```
 
-<img alt="A new trip was booked (rocket)" class="screenshot" src="images/screenshot_trip_booked"/>
+<img alt="A new trip was booked (rocket)" class="screenshot" src="images/screenshot_trip_booked.png"/>
 
 And you've done it! You've completed the tutorial. 
 
