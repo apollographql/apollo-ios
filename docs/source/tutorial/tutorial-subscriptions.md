@@ -154,7 +154,7 @@ Cancel that same trip, and you'll see another log:
 Trips booked: -1
 ```
 
-Now, let's display that information in a view! Use the included `NotificationView` to show a brief alert at the bottom of the screen with information about a trip being booked or cancelled: 
+Now, let's display that information in a view! Replace the `print` statement in `handleTripsBooked` with code to use the included `NotificationView` to show a brief alert at the bottom of the screen with information about a trip being booked or cancelled: 
 
 ```swift:title="LaunchesViewController.swift"
 private func handleTripsBooked(value: Int) {
