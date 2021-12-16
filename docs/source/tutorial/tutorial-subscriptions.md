@@ -27,7 +27,7 @@ Click the Submit Operation button, and your subscription will start listening to
 
 ## Test your subscription
 
-Open a new tab in Explorer. In this new tab, add code to book a trip like on [step 9](09-write-your-first-mutation), but with a hard-coded ID:
+Open a new tab in Explorer. In this new tab, add code to book a trip like on [step 8](tutorial-mutations), but with a hard-coded ID:
 
 ```graphql
 mutation BookTrip {
