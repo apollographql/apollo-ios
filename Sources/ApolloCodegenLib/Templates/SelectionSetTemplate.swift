@@ -34,7 +34,7 @@ struct SelectionSetTemplate {
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(field.selectionSet.parentType))
-    \(SelectionsTemplate(field.selectionSet.selections))
+    \(ifLet: field.selectionSet.selections.direct, { SelectionsTemplate($0) })
     """
   }
 
@@ -47,7 +47,7 @@ struct SelectionSetTemplate {
     "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name).\(type.name).self) }"
   }
 
-  private func SelectionsTemplate(_ selections: IR.SortedSelections) -> TemplateString {
+  private func SelectionsTemplate(_ selections: IR.DirectSelections) -> TemplateString {
     """
     public static var selections: [Selection] { [
       \(selections.fields.values.map {
@@ -59,7 +59,7 @@ struct SelectionSetTemplate {
 
   private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
     """
-    .field("\(field.name)", \(field.type.rendered).self)
+    .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(field.type.rendered).self)
     """
   }
 

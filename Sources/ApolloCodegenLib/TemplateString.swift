@@ -71,7 +71,11 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       appendInterpolation(elementsString)
     }
 
-    mutating func appendInterpolation(if bool: Bool, _ template: TemplateString, else: TemplateString? = nil) {
+    mutating func appendInterpolation(
+      if bool: Bool,
+      _ template: TemplateString,
+      else: TemplateString? = nil
+    ) {
       if bool {
         appendInterpolation(template.value)
       } else if let elseTemplate = `else` {
@@ -90,6 +94,20 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
     private func substringToStartOfLine() -> Slice<ReversedCollection<String>> {
       return output.reversed().prefix { !$0.isNewline }
+    }
+
+    mutating func appendInterpolation<T>(
+    ifLet optional: Optional<T>,
+    _ includeBlock: (T) -> TemplateString,
+    else: TemplateString? = nil
+    ) {
+      if let element = optional {
+        appendInterpolation(includeBlock(element))
+      } else if let elseTemplate = `else` {
+        appendInterpolation(elseTemplate.value)
+      } else {
+        removeLineIfEmpty()
+      }
     }
   }
 }

@@ -149,7 +149,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
   }
 
-  // MARK: Selections
+  // MARK: Selections - Fields
 
   func test__render_selections__givenFieldSelections_rendersAllFieldSelections() throws {
     // given
@@ -227,6 +227,46 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("nestedList_optional_required_optional", [[String?]]?.self),
         .field("nestedList_optional_optional_required", [[String]?]?.self),
         .field("nestedList_optional_optional_optional", [[String?]?]?.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFieldWithAlias_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: string
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self),
       ] }
     """
 
