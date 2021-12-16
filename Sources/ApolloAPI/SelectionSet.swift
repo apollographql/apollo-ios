@@ -1,6 +1,6 @@
 // MARK: - Type Erased SelectionSets
 
-public protocol AnySelectionSet: ResponseObject {
+public protocol AnySelectionSet {
   static var schema: SchemaConfiguration.Type { get }
 
   static var selections: [Selection] { get }
@@ -9,6 +9,10 @@ public protocol AnySelectionSet: ResponseObject {
   ///
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: ParentType { get }
+
+  var data: DataDict { get }
+
+  init(data: DataDict)
 }
 
 public extension AnySelectionSet {
