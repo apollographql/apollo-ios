@@ -176,7 +176,9 @@ private func handleTripsBooked(value: Int) {
     }
 ```
 
-<img alt="A new trip was booked (rocket)" class="screenshot" src="images/screenshot_trip_booked.png"/>
+Build and run the application to your simulator, then use Studio to send bookings and cancellations again, and your iOS app should see some shiny new notifications pop up: 
+
+<img alt="A new trip was booked (rocket)" class="screenshot" src="images/screenshot_trip_booked.png" width="300"/>
 
 And you've done it! You've completed the tutorial. 
 
