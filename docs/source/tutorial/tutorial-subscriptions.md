@@ -13,7 +13,7 @@ Open your [Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=h
 
 This subscription doesn't take any argument and returns a single scalar named `tripsBooked`. Since you can book multiple trips at once, `tripsBooked` is an `Int`. It will contain the number of trips booked at once or -1 if a trip has been cancelled.
 
-Click the play button to the left of `tripsBooked` to open the subscription in Explorer. Open a new tab, then check the `tripsBooked` button to have the subscription added:
+Click the play button to the far right of `tripsBooked` to open the subscription in Explorer. Open a new tab, then check the `tripsBooked` button to have the subscription added:
 
 <img alt="The initial definition of the TripsBooked subscription" class="screenshot" src="images/explorer_tripsbooked_initial.png"/>
 
