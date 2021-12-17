@@ -41,6 +41,6 @@ final class GraphQLSelectionSetMapper<SelectionSet: AnySelectionSet>: GraphQLRes
   }
 
   func finish(rootValue: JSONObject) -> SelectionSet {
-    return SelectionSet.init(data: ResponseDict(rootValue))
+    return SelectionSet.init(data: DataDict(rootValue))
   }
 }

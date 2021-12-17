@@ -1,6 +1,6 @@
 // MARK: - Type Erased SelectionSets
 
-public protocol AnySelectionSet: ResponseObject {
+public protocol AnySelectionSet {
   static var schema: SchemaConfiguration.Type { get }
 
   static var selections: [Selection] { get }
@@ -9,6 +9,10 @@ public protocol AnySelectionSet: ResponseObject {
   ///
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: ParentType { get }
+
+  var data: DataDict { get }
+
+  init(data: DataDict)
 }
 
 public extension AnySelectionSet {
@@ -48,6 +52,11 @@ public protocol TypeCase: AnySelectionSet { }
 // MARK: - SelectionSet
 public protocol SelectionSet: AnySelectionSet {
   associatedtype Schema: SchemaConfiguration
+
+  /// A type representing all of the fragments the `SelectionSet` can be converted to.
+  /// Defaults to a stub type with no fragments.
+  /// A `SelectionSet` with fragments should provide a type that conforms to `FragmentContainer`
+  associatedtype Fragments = NoFragments
 }
 
 extension SelectionSet {
@@ -70,4 +79,9 @@ extension SelectionSet {
 
     return T.init(data: data)
   }
+}
+
+extension SelectionSet where Fragments: FragmentContainer {
+  /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
+  var fragments: Fragments { Fragments(data: data) }
 }
