@@ -2,7 +2,7 @@
 title: "9. Write your first subscription"
 ---
 
-In this section, you will use subscriptions to get notified whenever someone books a flight 🚀! [Subscriptions](https://graphql.org/blog/subscriptions-in-graphql-and-relay/) allow to be notified in real time whenever an event happens on your server. The [fullstack backend](https://apollo-fullstack-tutorial.herokuapp.com) supports subscriptions based on [WebSockets](https://en.wikipedia.org/wiki/WebSocket).
+In this section, you will use subscriptions to get notified whenever someone books a flight 🚀! [Subscriptions](https://graphql.org/blog/subscriptions-in-graphql-and-relay/) allow you to be notified in real time whenever an event happens on your server. The [fullstack backend](https://apollo-fullstack-tutorial.herokuapp.com) supports subscriptions based on [WebSockets](https://en.wikipedia.org/wiki/WebSocket).
 
 
 ## Write your subscription
