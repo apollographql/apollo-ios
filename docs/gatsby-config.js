@@ -35,7 +35,8 @@ module.exports = {
             'tutorial/tutorial-pagination',
             'tutorial/tutorial-detail-view',
             'tutorial/tutorial-authentication',
-            'tutorial/tutorial-mutations'
+            'tutorial/tutorial-mutations',
+            'tutorial/tutorial-subscriptions'
           ],
           Usage:[
             'downloading-schema',

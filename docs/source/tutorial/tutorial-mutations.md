@@ -349,4 +349,4 @@ self.loadLaunchDetails(forceReload: true)
 
 Run the application. When you book or cancel a trip, the application will fetch the updated state and update the UI with the correct state. When you go out and back in, the cache will be updated with the most recent state, and the most recent state will display. 
 
-This works well, but it could be more efficient. In the next section (🤞 coming soon 🤞), you'll learn more about how to get details in a reusable fashion and how to work with the cache directly.
+In the next section, you'll learn how to use [subscriptions](/tutorial/tutorial-subscriptions/) with the Apollo client. 
