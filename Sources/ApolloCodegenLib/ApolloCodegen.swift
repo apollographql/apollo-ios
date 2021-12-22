@@ -38,7 +38,7 @@ public class ApolloCodegen {
       for: ir.schema.referencedTypes,
       configuration: configuration.output.schemaTypes
     )
-    #warning("TODO - generate operation files")
+    #warning("TODO - generate operation/fragment files")
     #warning("TODO - generate package manager manifest")
   }
 
@@ -79,6 +79,7 @@ public class ApolloCodegen {
     #warning("TODO - generate enum files")
     #warning("TODO - generate interface files")
     #warning("TODO - generate union files")
+    #warning("TODO - generate schema file")
   }
 }
 
