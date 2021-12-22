@@ -6,23 +6,10 @@ import ApolloUtils
 
 public typealias FileAttributes = [FileAttributeKey : Any]
 
-/// A protocol to decouple `ApolloExtension` from `FileManager`. Use it to build objects that can support
-/// `ApolloExtension` behavior.
-public protocol FileManagerProvider {
-  func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool
-  func removeItem(atPath path: String) throws
-  @discardableResult func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool
-  func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws
-}
-
 /// Enables the `.apollo` etension namespace.
 extension FileManager: ApolloCompatible {}
 
-/// `FileManager` conforms to the `FileManagerProvider` protocol. If it's method signatures change both the protocol and
-/// extension will need to be updated.
-extension FileManager: FileManagerProvider {}
-
-extension ApolloExtension where Base: FileManagerProvider {
+extension ApolloExtension where Base: FileManager {
 
   public enum PathError: Swift.Error, LocalizedError, Equatable {
     case notAFile(path: String)

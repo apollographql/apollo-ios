@@ -3,77 +3,113 @@ import ApolloCodegenLib
 import ApolloUtils
 import XCTest
 
-/// A `FileManagerProvider` that can be used to mock the `apollo` extension as  found on `FileManager`.
-public class MockFileManager: FileManagerProvider {
-  public typealias fileExistsBlock = ((String, UnsafeMutablePointer<ObjCBool>?) -> Bool)
-  public typealias removeItemBlock = ((String) throws -> ())
-  public typealias createFileBlock = ((String, Data?, FileAttributes?) -> Bool)
-  public typealias createDirectoryBlock = ((String, Bool, FileAttributes?) throws -> ())
+/// Used to mock a `FileManager` instance that is compatible with the `.apollo` namespace extension.
+public class MockFileManager: FileManager {
+  /// Translates to the `FileManager` functions that can be mocked.
+  public enum Closure: CustomStringConvertible {
+    case fileExists(_ handler: (String, UnsafeMutablePointer<ObjCBool>?) -> Bool)
+    case removeItem(_ handler: (String) throws -> Void)
+    case createFile(_ handler: (String, Data?, FileAttributes?) -> Bool)
+    case createDirectory(_ handler: (String, Bool, FileAttributes?) throws -> Void)
 
-  public enum BlocksCalled {
-    case fileExists
-    case removeItem
-    case createFile
-    case createDirectory
+    public var description: String {
+      switch self {
+      case .fileExists(_): return "fileExists(atPath:isDirectory:)"
+      case .removeItem(_): return "removeItem(atPath:)"
+      case .createFile(_): return "createFile(atPath:contents:attributes:)"
+      case .createDirectory(_): return "createDirectory(atPath:withIntermediateDirectories:attributes:)"
+      }
+    }
   }
 
-  public var fileExists: fileExistsBlock?
-  public var removeItem: removeItemBlock?
-  public var createFile: createFileBlock?
-  public var createDirectory: createDirectoryBlock?
-  private(set) public var blocksCalled: [BlocksCalled] = []
+  private var closures: [String: Closure] = [:]
+  private var closuresToBeCalled: Set<String> = []
 
-  /// Initialize the instance with one or many of the method stubs to control the return values.
-  public init(fileExists: fileExistsBlock? = nil,
-              removeItem: removeItemBlock? = nil,
-              createFile: createFileBlock? = nil,
-              createDirectory: createDirectoryBlock? = nil) {
-    self.fileExists = fileExists
-    self.removeItem = removeItem
-    self.createFile = createFile
-    self.createDirectory = createDirectory
+  /// Provide a mock closure for the `FileManager` function.
+  ///
+  /// - Parameter closure: The mocked function closure.
+  public func set(closure: Closure) {
+    closures[closure.description] = closure
+    closuresToBeCalled.insert(closure.description)
   }
 
-  public func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
-    guard let block = fileExists else {
-      XCTFail("fileExists block must be set before calling this method!")
-      return false
+  private func didCall(closure: Closure) {
+    closuresToBeCalled.remove(closure.description)
+  }
+
+
+  /// Check whether all mocked closures were called during the lifetime of an instance.
+  public var allClosuresCalled: Bool {
+    return closuresToBeCalled.isEmpty
+  }
+
+  // MARK: FileManager overrides
+
+  public override func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
+    let key = #function
+
+    guard
+      let closure = closures[key],
+      case let .fileExists(handler) = closure else {
+        XCTFail("\(key) closure must be set before calling it!")
+        return false
+      }
+
+    defer {
+      didCall(closure: closure)
     }
 
-    blocksCalled.append(.fileExists)
-    return block(path, isDirectory)
+    return handler(path, isDirectory)
   }
 
-  public func removeItem(atPath path: String) throws {
-    guard let block = removeItem else {
-      XCTFail("removeItem block must be set before calling this method!")
-      return
+  public override func removeItem(atPath path: String) throws {
+    let key = #function
+
+    guard
+      let closure = closures[key],
+      case let .removeItem(handler) = closure else {
+        XCTFail("\(key) closure must be set before calling it!")
+        return
+      }
+
+    defer {
+      didCall(closure: closure)
     }
 
-    blocksCalled.append(.removeItem)
-    try block(path)
+    try handler(path)
   }
 
-  public func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool {
-    guard let block = createFile else {
-      XCTFail("createFile block must be set before calling this method!")
-      return false
+  public override func createFile(atPath path: String, contents data: Data?, attributes attr: FileAttributes?) -> Bool {
+    let key = #function
+
+    guard
+      let closure = closures[key],
+      case let .createFile(handler) = closure else {
+        XCTFail("\(key) closure must be set before calling it!")
+        return false
+      }
+
+    defer {
+      didCall(closure: closure)
     }
 
-    blocksCalled.append(.createFile)
-    return block(path, data, attr)
+    return handler(path, data, attr)
   }
 
-  public func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws {
-    guard let block = createDirectory else {
-      XCTFail("createDirectory block must be set before calling this method!")
-      return
+  public override func createDirectory(atPath path: String, withIntermediateDirectories createIntermediates: Bool, attributes: FileAttributes?) throws {
+    let key = #function
+
+    guard
+      let closure = closures[key],
+      case let .createDirectory(handler) = closure else {
+        XCTFail("\(key) closure must be set before calling it!")
+        return
+      }
+
+    defer {
+      didCall(closure: closure)
     }
 
-    blocksCalled.append(.createDirectory)
-    try block(path, createIntermediates, attributes)
+    try handler(path, createIntermediates, attributes)
   }
 }
-
-/// Enables the `.apollo` etension namespace.
-extension MockFileManager: ApolloCompatible {}
