@@ -34,7 +34,10 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    try generateSchemaTypeFiles(for: ir.schema.referencedTypes, configuration: configuration)
+    try generateSchemaTypeFiles(
+      for: ir.schema.referencedTypes,
+      configuration: configuration.output.schemaTypes
+    )
     #warning("TODO - generate operation files")
     #warning("TODO - generate package manager manifest")
   }
@@ -65,9 +68,9 @@ public class ApolloCodegen {
 
   static func generateSchemaTypeFiles(
     for referencedTypes: IR.Schema.ReferencedTypes,
-    configuration: ApolloCodegenConfiguration
+    configuration: ApolloCodegenConfiguration.SchemaTypesFileOutput
   ) throws {
-    let schemaTypesDirectory = configuration.output.schemaTypes.modulePath
+    let schemaTypesDirectory = configuration.modulePath
 
     try referencedTypes.objects.forEach { graphqlObject in
       try TypeFileGenerator.generate(for: graphqlObject, in: schemaTypesDirectory)
