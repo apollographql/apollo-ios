@@ -27,8 +27,16 @@ public class ApolloCodegen {
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
     try configuration.validate()
 
-    #warning("TODO - compilationResult will be passed into the next step")
     let compilationResult = try compileGraphQLResult(using: configuration.input)
+
+    let ir = IR(
+      schemaName: configuration.output.schemaTypes.moduleName,
+      compilationResult: compilationResult
+    )
+
+    try generateSchemaTypeFiles(for: ir.schema.referencedTypes, configuration: configuration)
+    #warning("TODO - generate operation files")
+    #warning("TODO - generate package manager manifest")
   }
 
   static func compileGraphQLResult(
@@ -53,6 +61,21 @@ public class ApolloCodegen {
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
+  }
+
+  static func generateSchemaTypeFiles(
+    for referencedTypes: IR.Schema.ReferencedTypes,
+    configuration: ApolloCodegenConfiguration
+  ) throws {
+    let schemaTypesDirectory = configuration.output.schemaTypes.modulePath
+
+    try referencedTypes.objects.forEach { graphqlObject in
+      try TypeFileGenerator.generate(for: graphqlObject, in: schemaTypesDirectory)
+    }
+
+    #warning("TODO - generate enum files")
+    #warning("TODO - generate interface files")
+    #warning("TODO - generate union files")
   }
 }
 
