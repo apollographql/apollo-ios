@@ -34,7 +34,7 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    try generateSchemaTypeFiles(
+    try generateSchemaFiles(
       for: ir.schema.referencedTypes,
       configuration: configuration.output.schemaTypes
     )
@@ -66,7 +66,7 @@ public class ApolloCodegen {
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
   }
 
-  static func generateSchemaTypeFiles(
+  static func generateSchemaFiles(
     for referencedTypes: IR.Schema.ReferencedTypes,
     configuration: ApolloCodegenConfiguration.SchemaTypesFileOutput
   ) throws {
