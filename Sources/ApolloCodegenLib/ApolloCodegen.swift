@@ -73,7 +73,7 @@ public class ApolloCodegen {
     let schemaTypesDirectory = configuration.modulePath
 
     try referencedTypes.objects.forEach { graphqlObject in
-      try TypeFileGenerator.generate(for: graphqlObject, in: schemaTypesDirectory)
+      try TypeFileGenerator.generateFile(for: graphqlObject, directoryPath: schemaTypesDirectory)
     }
 
     #warning("TODO - generate enum files")

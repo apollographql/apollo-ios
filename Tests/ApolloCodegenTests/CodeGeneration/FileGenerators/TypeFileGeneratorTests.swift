@@ -47,7 +47,11 @@ class TypeFileGeneratorTests: XCTestCase {
     }))
 
     // then
-    try TypeFileGenerator.generate(for: bookType, in: rootURL.path, fileManager: mockFileManager)
+    try TypeFileGenerator.generateFile(
+      for: bookType,
+      directoryPath: rootURL.path,
+      fileManager: mockFileManager
+    )
 
     expect(mockFileManager.allClosuresCalled).to(beTrue())
   }

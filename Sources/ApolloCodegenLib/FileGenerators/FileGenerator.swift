@@ -5,9 +5,9 @@ import ApolloUtils
 protocol FileGenerator {
   associatedtype graphQLType
 
-  static func generate(
+  static func generateFile(
     for object: graphQLType,
-    in rootPath: String,
+    directoryPath: String,
     fileManager: FileManager
   ) throws
 }
