@@ -219,12 +219,14 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   // MARK: Helper Tests
 
-  func test_givenDefaultConfiguration_shouldBuildHelperValues() {
+  func test_givenDefaultConfiguration_shouldBuildDefaultSchemaModuleProperties() {
     // given
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(basePath: fileURL.path,
-                                            schemaFilename: "different_schema.graphql",
-                                            searchPattern: "*.operation")
+    let config = ApolloCodegenConfiguration(
+      basePath: fileURL.path,
+      schemaFilename: "different_schema.graphql",
+      searchPattern: "*.operation"
+    )
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal("API"))
@@ -232,41 +234,45 @@ class ApolloCodegenConfigurationTests: XCTestCase {
       .to(equal(fileURL.appendingPathComponent("API").path))
   }
 
-  func test_givenSwiftPackageManagerConfiguration_shouldBuildHelperValues() {
+  func test_givenSwiftPackageManagerConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let moduleName = "SPMModule"
     let config = buildConfig(forDependencyAutomation: .swiftPackageManager(moduleName: moduleName))
 
+    // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
     expect(config.output.schemaTypes.modulePath)
       .to(equal(directoryURL.appendingPathComponent(moduleName).path))
   }
 
-  func test_givenCocoaPodsConfiguration_shouldBuildHelperValues() {
+  func test_givenCocoaPodsConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let moduleName = "PodsModule"
     let config = buildConfig(forDependencyAutomation: .cocoaPods(moduleName: moduleName))
 
+    // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
     expect(config.output.schemaTypes.modulePath)
       .to(equal(directoryURL.appendingPathComponent(moduleName).path))
   }
 
-  func test_givenCarthageConfiguration_shouldBuildHelperValues() {
+  func test_givenCarthageConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let moduleName = "CarthageModule"
     let config = buildConfig(forDependencyAutomation: .carthage(moduleName: moduleName))
 
+    // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
     expect(config.output.schemaTypes.modulePath)
       .to(equal(directoryURL.appendingPathComponent(moduleName).path))
   }
 
-  func test_givenManuallyLinkedConfiguration_shouldBuildHelperValues() {
+  func test_givenManuallyLinkedConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let namespace = "NamespaceModule"
     let config = buildConfig(forDependencyAutomation: .manuallyLinked(namespace: namespace))
 
+    // then
     expect(config.output.schemaTypes.moduleName).to(equal(namespace))
     expect(config.output.schemaTypes.modulePath)
       .to(equal(directoryURL.appendingPathComponent(namespace).path))
