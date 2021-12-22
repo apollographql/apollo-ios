@@ -2,10 +2,9 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
-import ApolloUtils
 
 class TypeFileGeneratorTests: XCTestCase {
-  func test_generate_givenSchemaType_shouldWriteTemplateToPath() throws {
+  func test_generate_givenSchemaType_shouldOutputToPath() throws {
     // given
     let schema = """
     type Query {
@@ -41,7 +40,8 @@ class TypeFileGeneratorTests: XCTestCase {
     }))
     mockFileManager.set(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
-      expect(String(data: try! data.xctUnwrapped(), encoding: .utf8)).to(equal("public class Book {}"))
+      expect(String(data: try! data.xctUnwrapped(), encoding: .utf8))
+        .to(equal("public class Book {}"))
 
       return true
     }))

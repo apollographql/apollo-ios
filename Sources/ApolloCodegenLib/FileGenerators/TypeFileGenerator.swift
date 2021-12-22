@@ -10,9 +10,8 @@ struct TypeFileGenerator: FileGenerator {
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {
-    let filename = object.name
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(filename).swift").path
+      .appendingPathComponent("\(object.name).swift").path
 
     #warning("TODO: Build correct content with template string")
     let data = "public class \(object.name) {}".data(using: .utf8)
