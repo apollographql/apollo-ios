@@ -45,13 +45,17 @@ public class MockFileManager: FileManager {
 
   // MARK: FileManager overrides
 
+  private func missingClosureMessage(_ function: String) -> String {
+    return "\(function) closure must be set before calling it! Check your MockFileManager instance."
+  }
+
   public override func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
     let key = #function
 
     guard
       let closure = closures[key],
       case let .fileExists(handler) = closure else {
-        XCTFail("\(key) closure must be set before calling it!")
+        XCTFail(missingClosureMessage(key))
         return false
       }
 
@@ -68,7 +72,7 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .removeItem(handler) = closure else {
-        XCTFail("\(key) closure must be set before calling it!")
+        XCTFail(missingClosureMessage(key))
         return
       }
 
@@ -85,7 +89,7 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .createFile(handler) = closure else {
-        XCTFail("\(key) closure must be set before calling it!")
+        XCTFail(missingClosureMessage(key))
         return false
       }
 
@@ -102,7 +106,7 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .createDirectory(handler) = closure else {
-        XCTFail("\(key) closure must be set before calling it!")
+        XCTFail(missingClosureMessage(key))
         return
       }
 
