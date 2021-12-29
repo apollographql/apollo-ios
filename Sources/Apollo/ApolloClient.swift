@@ -155,7 +155,8 @@ extension ApolloClient: ApolloClientProtocol {
   }
 
 #if swift(>=5.5)
-  @available(iOS 15.0.0, *)
+  @available(iOS 13.0.0, *)
+  @available(macOS 10.15.0, *)
   public func fetch<Query>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID?, queue: DispatchQueue) async throws -> GraphQLResult<Query.Data> where Query : GraphQLQuery {
     return try await withCheckedThrowingContinuation { continuation in
       _ = self.networkTransport.send(operation: query,
@@ -172,7 +173,8 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
 
-  @available(iOS 15.0.0, *)
+  @available(iOS 13.0.0, *)
+  @available(macOS 10.15.0, *)
   public func perform<Mutation>(mutation: Mutation, publishResultToStore: Bool, queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data> where Mutation : GraphQLMutation {
     return try await withCheckedThrowingContinuation { continuation in
       _ = self.networkTransport.send(
@@ -192,7 +194,8 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
 
-  @available(iOS 15.0.0, *)
+  @available(iOS 13.0.0, *)
+  @available(macOS 10.15.0, *)
   public func upload<Operation>(operation: Operation, files: [GraphQLFile], queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data> where Operation : GraphQLOperation {
     return try await withCheckedThrowingContinuation { continuation in
       guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {

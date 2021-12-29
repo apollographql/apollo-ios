@@ -93,8 +93,8 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
-  @available(iOS 15.0.0, *)
-  @available(macOS 12.0.0, *)
+  @available(iOS 13.0.0, *)
+  @available(macOS 10.15.0, *)
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
                                   contextIdentifier: UUID?,
@@ -108,8 +108,8 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
-  @available(iOS 15.0.0, *)
-  @available(macOS 12.0.0, *)
+  @available(iOS 13.0.0, *)
+  @available(macOS 10.15.0, *)
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                           publishResultToStore: Bool,
                                           queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data>
@@ -122,8 +122,8 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - completionHandler: The completion handler to execute when the request completes or errors. Note that an error will be returned If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   /// - Returns: An object that can be used to cancel an in progress request.
-  @available(iOS 15.0.0, *)
-  @available(macOS 12.0.0, *)
+  @available(iOS 13.0.0, *)
+  @available(macOS 10.15.0, *)
   func upload<Operation: GraphQLOperation>(operation: Operation,
                                            files: [GraphQLFile],
                                            queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data>
