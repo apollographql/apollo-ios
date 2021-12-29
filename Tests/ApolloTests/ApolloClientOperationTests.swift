@@ -71,7 +71,7 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-#if swift(>=5.5.0) && swift(<5.5.2)
+#if swift(>=5.5.0) && swift(<5.5.2) && $AsyncAwait
   @available(iOS 15.0.0, macOS 12.0.0, *)
   func testAsync() async throws {
     let mutation = CreateReviewForEpisodeMutation(episode: .newhope, review: .init(stars: 3))
@@ -90,7 +90,8 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     }
     let performResultFromServerExpectation = resultObserver.expectation(description: "Mutation was successful") { _ in }
 
-    self.client.perform(mutation: mutation, publishResultToStore: false, resultHandler: resultObserver.handler)
+    let result = try await self.client.perform(mutation: mutation, publishResultToStore: false, queue: .main)
+    resultObserver.handler(.success(result))
 
     self.loadFromStore(query: mutation) {
       try XCTAssertFailureResult($0) { error in
@@ -112,7 +113,7 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-#elseif swift(>=5.5.2)
+#elseif swift(>=5.5.2) && $AsyncAwait
   @available(iOS 13.0.0, macOS 10.15.0, *)
   func testAsync() async throws {
     let mutation = CreateReviewForEpisodeMutation(episode: .newhope, review: .init(stars: 3))
@@ -131,7 +132,8 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     }
     let performResultFromServerExpectation = resultObserver.expectation(description: "Mutation was successful") { _ in }
 
-    self.client.perform(mutation: mutation, publishResultToStore: false, resultHandler: resultObserver.handler)
+    let result = try await self.client.perform(mutation: mutation, publishResultToStore: false, queue: .main)
+    resultObserver.handler(.success(result))
 
     self.loadFromStore(query: mutation) {
       try XCTAssertFailureResult($0) { error in

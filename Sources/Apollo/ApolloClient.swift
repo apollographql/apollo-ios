@@ -154,7 +154,7 @@ extension ApolloClient: ApolloClientProtocol {
                                       completionHandler: resultHandler)
   }
 
-#if swift(>=5.5.2) && canImport(_Concurrency)
+#if swift(>=5.5.2) && $AsyncAwait
   @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
   public func fetch<Query>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID?, queue: DispatchQueue) async throws -> GraphQLResult<Query.Data> where Query : GraphQLQuery {
     return try await withCheckedThrowingContinuation { continuation in
@@ -212,7 +212,7 @@ extension ApolloClient: ApolloClientProtocol {
       }
     }
   }
-#elseif swift(>=5.5.0) && swift(<5.5.2) && canImport(_Concurrency)
+#elseif swift(>=5.5.0) && swift(<5.5.2) && $AsyncAwait
   @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
   public func fetch<Query>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID?, queue: DispatchQueue) async throws -> GraphQLResult<Query.Data> where Query : GraphQLQuery {
     return try await withCheckedThrowingContinuation { continuation in
