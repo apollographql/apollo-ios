@@ -83,7 +83,7 @@ public protocol ApolloClientProtocol: AnyObject {
                                                     queue: DispatchQueue,
                                                     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable
 
-#if swift(>=5.5)
+#if compiler(>=5.5.2) && canImport(_Concurrency)
   /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
   ///
   /// - Parameters:
@@ -93,8 +93,7 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
-  @available(iOS 13.0.0, *)
-  @available(macOS 10.15.0, *)
+  @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
                                   contextIdentifier: UUID?,
@@ -108,8 +107,7 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
-  @available(iOS 13.0.0, *)
-  @available(macOS 10.15.0, *)
+  @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                           publishResultToStore: Bool,
                                           queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data>
@@ -122,8 +120,49 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - completionHandler: The completion handler to execute when the request completes or errors. Note that an error will be returned If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   /// - Returns: An object that can be used to cancel an in progress request.
-  @available(iOS 13.0.0, *)
-  @available(macOS 10.15.0, *)
+  @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
+  func upload<Operation: GraphQLOperation>(operation: Operation,
+                                           files: [GraphQLFile],
+                                           queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data>
+
+#elseif swift(>=5.5.0) && swift(<5.5.2) && canImport(_Concurrency)
+  /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
+  ///
+  /// - Parameters:
+  ///   - query: The query to fetch.
+  ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
+  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
+  ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
+  ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
+  /// - Returns: An object that can be used to cancel an in progress fetch.
+  @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+  func fetch<Query: GraphQLQuery>(query: Query,
+                                  cachePolicy: CachePolicy,
+                                  contextIdentifier: UUID?,
+                                  queue: DispatchQueue) async throws -> GraphQLResult<Query.Data>
+
+  /// Performs a mutation by sending it to the server.
+  ///
+  /// - Parameters:
+  ///   - mutation: The mutation to perform.
+  ///   - publishResultToStore: If `true`, this will publish the result returned from the operation to the cache store. Default is `true`.
+  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
+  ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
+  /// - Returns: An object that can be used to cancel an in progress mutation.
+  @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+  func perform<Mutation: GraphQLMutation>(mutation: Mutation,
+                                          publishResultToStore: Bool,
+                                          queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data>
+
+  /// Uploads the given files with the given operation.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send
+  ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
+  ///   - completionHandler: The completion handler to execute when the request completes or errors. Note that an error will be returned If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
+  /// - Returns: An object that can be used to cancel an in progress request.
+  @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
   func upload<Operation: GraphQLOperation>(operation: Operation,
                                            files: [GraphQLFile],
                                            queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data>

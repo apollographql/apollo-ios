@@ -154,9 +154,8 @@ extension ApolloClient: ApolloClientProtocol {
                                       completionHandler: resultHandler)
   }
 
-#if swift(>=5.5)
-  @available(iOS 13.0.0, *)
-  @available(macOS 10.15.0, *)
+#if swift(>=5.5.2) && canImport(_Concurrency)
+  @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
   public func fetch<Query>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID?, queue: DispatchQueue) async throws -> GraphQLResult<Query.Data> where Query : GraphQLQuery {
     return try await withCheckedThrowingContinuation { continuation in
       _ = self.networkTransport.send(operation: query,
@@ -173,8 +172,7 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
 
-  @available(iOS 13.0.0, *)
-  @available(macOS 10.15.0, *)
+  @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
   public func perform<Mutation>(mutation: Mutation, publishResultToStore: Bool, queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data> where Mutation : GraphQLMutation {
     return try await withCheckedThrowingContinuation { continuation in
       _ = self.networkTransport.send(
@@ -194,8 +192,7 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
 
-  @available(iOS 13.0.0, *)
-  @available(macOS 10.15.0, *)
+  @available(macOS 10.15, iOS 13, watchOS 8, tvOS 15, *)
   public func upload<Operation>(operation: Operation, files: [GraphQLFile], queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data> where Operation : GraphQLOperation {
     return try await withCheckedThrowingContinuation { continuation in
       guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
@@ -206,6 +203,64 @@ extension ApolloClient: ApolloClientProtocol {
       _ = uploadingTransport.upload(operation: operation,
                                        files: files,
                                        callbackQueue: queue) { result in
+        switch result {
+        case .success(let data):
+          continuation.resume(with: .success(data))
+        case .failure(let error):
+          continuation.resume(with: .failure(error))
+        }
+      }
+    }
+  }
+#elseif swift(>=5.5.0) && swift(<5.5.2) && canImport(_Concurrency)
+  @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+  public func fetch<Query>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID?, queue: DispatchQueue) async throws -> GraphQLResult<Query.Data> where Query : GraphQLQuery {
+    return try await withCheckedThrowingContinuation { continuation in
+      _ = self.networkTransport.send(operation: query,
+                                     cachePolicy: cachePolicy,
+                                     contextIdentifier: contextIdentifier,
+                                     callbackQueue: queue) { result in
+        switch result {
+        case .success(let data):
+          continuation.resume(with: .success(data))
+        case .failure(let error):
+          continuation.resume(with: .failure(error))
+        }
+      }
+    }
+  }
+
+  @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+  public func perform<Mutation>(mutation: Mutation, publishResultToStore: Bool, queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data> where Mutation : GraphQLMutation {
+    return try await withCheckedThrowingContinuation { continuation in
+      _ = self.networkTransport.send(
+        operation: mutation,
+        cachePolicy: publishResultToStore ? .default : .fetchIgnoringCacheCompletely,
+        contextIdentifier: nil,
+        callbackQueue: queue,
+        completionHandler: { result in
+          switch result {
+          case .success(let data):
+            continuation.resume(with: .success(data))
+          case .failure(let error):
+            continuation.resume(with: .failure(error))
+          }
+        }
+      )
+    }
+  }
+
+  @available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data> where Operation : GraphQLOperation {
+    return try await withCheckedThrowingContinuation { continuation in
+      guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
+        assertionFailure("Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`.")
+        return continuation.resume(with: .failure(ApolloClientError.noUploadTransport))
+      }
+
+      _ = uploadingTransport.upload(operation: operation,
+                                    files: files,
+                                    callbackQueue: queue) { result in
         switch result {
         case .success(let data):
           continuation.resume(with: .success(data))
