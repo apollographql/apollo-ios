@@ -71,7 +71,7 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-#if swift(>=5.5.0) && swift(<5.5.2) && $AsyncAwait
+#if swift(>=5.5.0) && swift(<5.5.2) && canImport(_Concurrency)
   @available(iOS 15.0.0, macOS 12.0.0, *)
   func testAsync() async throws {
     let mutation = CreateReviewForEpisodeMutation(episode: .newhope, review: .init(stars: 3))
@@ -113,7 +113,7 @@ final class ApolloClientOperationTests: XCTestCase, CacheDependentTesting, Store
     self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-#elseif swift(>=5.5.2) && $AsyncAwait
+#elseif swift(>=5.5.2)
   @available(iOS 13.0.0, macOS 10.15.0, *)
   func testAsync() async throws {
     let mutation = CreateReviewForEpisodeMutation(episode: .newhope, review: .init(stars: 3))

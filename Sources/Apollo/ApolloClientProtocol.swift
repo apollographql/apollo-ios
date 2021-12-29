@@ -83,7 +83,7 @@ public protocol ApolloClientProtocol: AnyObject {
                                                     queue: DispatchQueue,
                                                     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable
 
-#if compiler(>=5.5.2) && $AsyncAwait
+#if compiler(>=5.5.2)
   /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
   ///
   /// - Parameters:
@@ -125,7 +125,7 @@ public protocol ApolloClientProtocol: AnyObject {
                                            files: [GraphQLFile],
                                            queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data>
 
-#elseif swift(>=5.5.0) && swift(<5.5.2) && $AsyncAwait
+#elseif swift(>=5.5.0) && swift(<5.5.2) && canImport(_Concurrency)
   /// Fetches a query from the server or from the local cache, depending on the current contents of the cache and the specified cache policy.
   ///
   /// - Parameters:
