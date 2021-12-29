@@ -68,7 +68,6 @@ public class ApolloClient {
 // MARK: - ApolloClientProtocol conformance
 
 extension ApolloClient: ApolloClientProtocol {
-
   public var cacheKeyForObject: CacheKeyForObject? {
     get {
       return self.store.cacheKeyForObject
@@ -154,6 +153,66 @@ extension ApolloClient: ApolloClientProtocol {
                                       callbackQueue: queue,
                                       completionHandler: resultHandler)
   }
+
+#if swift(>=5.5)
+  @available(iOS 15.0.0, *)
+  public func fetch<Query>(query: Query, cachePolicy: CachePolicy, contextIdentifier: UUID?, queue: DispatchQueue) async throws -> GraphQLResult<Query.Data> where Query : GraphQLQuery {
+    return try await withCheckedThrowingContinuation { continuation in
+      _ = self.networkTransport.send(operation: query,
+                                        cachePolicy: cachePolicy,
+                                        contextIdentifier: contextIdentifier,
+                                        callbackQueue: queue) { result in
+        switch result {
+        case .success(let data):
+          continuation.resume(with: .success(data))
+        case .failure(let error):
+          continuation.resume(with: .failure(error))
+        }
+      }
+    }
+  }
+
+  @available(iOS 15.0.0, *)
+  public func perform<Mutation>(mutation: Mutation, publishResultToStore: Bool, queue: DispatchQueue) async throws -> GraphQLResult<Mutation.Data> where Mutation : GraphQLMutation {
+    return try await withCheckedThrowingContinuation { continuation in
+      _ = self.networkTransport.send(
+        operation: mutation,
+        cachePolicy: publishResultToStore ? .default : .fetchIgnoringCacheCompletely,
+        contextIdentifier: nil,
+        callbackQueue: queue,
+        completionHandler: { result in
+          switch result {
+          case .success(let data):
+            continuation.resume(with: .success(data))
+          case .failure(let error):
+            continuation.resume(with: .failure(error))
+          }
+        }
+      )
+    }
+  }
+
+  @available(iOS 15.0.0, *)
+  public func upload<Operation>(operation: Operation, files: [GraphQLFile], queue: DispatchQueue) async throws -> GraphQLResult<Operation.Data> where Operation : GraphQLOperation {
+    return try await withCheckedThrowingContinuation { continuation in
+      guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
+        assertionFailure("Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`.")
+        return continuation.resume(with: .failure(ApolloClientError.noUploadTransport))
+      }
+
+      _ = uploadingTransport.upload(operation: operation,
+                                       files: files,
+                                       callbackQueue: queue) { result in
+        switch result {
+        case .success(let data):
+          continuation.resume(with: .success(data))
+        case .failure(let error):
+          continuation.resume(with: .failure(error))
+        }
+      }
+    }
+  }
+#endif
 }
 
 
