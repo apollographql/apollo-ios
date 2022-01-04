@@ -12,6 +12,9 @@ public class MockFileManager: FileManager {
     case createFile(_ handler: (String, Data?, FileAttributes?) -> Bool)
     case createDirectory(_ handler: (String, Bool, FileAttributes?) throws -> Void)
 
+    // These are based on the return string from the #function macro. They are used in overriden
+    // functions to lookup the provided closure. Be aware that if the function signature changes
+    // these should be updated so the mocked closures can still be looked up.
     public var description: String {
       switch self {
       case .fileExists(_): return "fileExists(atPath:isDirectory:)"
