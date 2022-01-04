@@ -1,7 +1,7 @@
 import ApolloAPI
 import AnimalKingdomAPI
 
-public struct AllAnimalsQuery: GraphQLQuery {
+public class AllAnimalsQuery: GraphQLQuery {
   public let operationName: String = "AllAnimalsQuery"
   public let document: DocumentType = .automaticallyPersisted(
     operationIdentifier: "88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7",
@@ -49,9 +49,9 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
   public init() {}
 
-  public struct ResponseData: AnimalKindgomAPI.SelectionSet {
-    public let data: ResponseDict
-    public init(data: ResponseDict) { self.data = data }
+  public struct Data: AnimalKindgomAPI.SelectionSet {
+    public let data: DataDict
+    public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -62,8 +62,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
     /// `AllAnimal`
     public struct AllAnimal: AnimalKindgomAPI.SelectionSet, HasFragments {
-      public let data: ResponseDict
-      public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
       public static var selections: [Selection] { [
@@ -89,16 +89,16 @@ public struct AllAnimalsQuery: GraphQLQuery {
       public var asClassroomPet: AsClassroomPet? { _asType() }
 
       public struct Fragments: ResponseObject {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public var heightInMeters: HeightInMeters { _toFragment() }
       }
 
       /// `AllAnimal.Height`
       public struct Height: AnimalKindgomAPI.SelectionSet {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
         public static var selections: [Selection] { [
@@ -113,8 +113,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
       /// `AllAnimal.Predator`
       public struct Predator: AnimalKindgomAPI.SelectionSet {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Animal.self) }
         public static var selections: [Selection] { [
@@ -128,8 +128,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         /// `AllAnimal.Predator.AsWarmBlooded`
         public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
           public static var selections: [Selection] { [
@@ -143,8 +143,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var height: WarmBloodedDetails.Height { data["height"] }
 
           public struct Fragments: ResponseObject {
-            public let data: ResponseDict
-            public init(data: ResponseDict) { self.data = data }
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           }
@@ -153,8 +153,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
       /// `AllAnimal.AsWarmBlooded`
       public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
         public static var selections: [Selection] { [
@@ -168,8 +168,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var predators: [Predator] { data["predators"] }
 
         public struct Fragments: ResponseObject {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
           public var heightInMeters: HeightInMeters { _toFragment() }
@@ -177,8 +177,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         /// `AllAnimal.AsWarmBlooded.Height`
         public struct Height: AnimalKindgomAPI.SelectionSet {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
 
@@ -191,8 +191,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
       /// `AllAnimal.AsPet`
       public struct AsPet: AnimalKindgomAPI.TypeCase, HasFragments {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
         public static var selections: [Selection] { [
@@ -211,8 +211,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
         public struct Fragments: ResponseObject {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public var heightInMeters: HeightInMeters { _toFragment() }
           public var petDetails: PetDetails  { _toFragment() }
@@ -220,8 +220,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         /// `AllAnimal.AsPet.Height`
         public struct Height: AnimalKindgomAPI.SelectionSet {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
           public static var selections: [Selection] { [
@@ -238,8 +238,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         /// `AllAnimal.AsPet.AsWarmBlooded`
         public struct AsWarmBlooded: AnimalKindgomAPI.TypeCase, HasFragments {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
 
@@ -253,8 +253,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var predators: [Predator] { data["predators"] }
 
           public struct Fragments: ResponseObject {
-            public let data: ResponseDict
-            public init(data: ResponseDict) { self.data = data }
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
 
             public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
             public var petDetails: PetDetails  { _toFragment() }
@@ -263,8 +263,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
           /// `AllAnimal.AsPet.AsWarmBlooded.Height`
           public struct Height: AnimalKindgomAPI.SelectionSet {
-            public let data: ResponseDict
-            public init(data: ResponseDict) { self.data = data }
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
 
             public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
             public static var selections: [Selection] { [
@@ -284,8 +284,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
       /// `AllAnimal.AsCat`
       public struct AsCat: AnimalKindgomAPI.TypeCase: HasFragments {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Cat.self) }
         public static var selections: [Selection] { [
@@ -303,8 +303,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var predators: [Predator] { data["predators"] }
 
         public struct Fragments: ResponseObject {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
           public var petDetails: PetDetails  { _toFragment() }
@@ -313,8 +313,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
         /// `AllAnimal.AsCat.Height`
         public struct Height: AnimalKindgomAPI.SelectionSet {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
 
@@ -329,8 +329,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
 
       /// `AllAnimal.AsClassroomPet`
       public struct AsClassroomPet: AnimalKindgomAPI.TypeCase, HasFragments {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Union(AnimalKindgomAPI.ClassroomPet.self) }
         public static var selections: [Selection] { [
@@ -345,16 +345,16 @@ public struct AllAnimalsQuery: GraphQLQuery {
         public var asBird: AsBird? { _asType() }
 
         public struct Fragments: ResponseObject {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
         /// `AllAnimal.AsClassroomPet.AsBird`
         public struct AsBird: AnimalKindgomAPI.SelectionSet: HasFragments {
-          public let data: ResponseDict
-          public init(data: ResponseDict) { self.data = data }
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Bird.self) }
           public static var selections: [Selection] { [
@@ -372,8 +372,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
           public var predators: [Predator] { data["predators"] }
 
           public struct Fragments: ResponseObject {
-            public let data: ResponseDict
-            public init(data: ResponseDict) { self.data = data }
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
 
             public var heightInMeters: HeightInMeters { _toFragment() }
             public var warmBloodedDetails: WarmBloodedDetails  { _toFragment() }
@@ -381,8 +381,8 @@ public struct AllAnimalsQuery: GraphQLQuery {
           }
 
           public struct Height: AnimalKindgomAPI.SelectionSet {
-            public let data: ResponseDict
-            public init(data: ResponseDict) { self.data = data }
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
 
             public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
 

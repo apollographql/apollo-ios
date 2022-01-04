@@ -122,7 +122,7 @@ class IR {
       self.typePath = typePath
     }
 
-    static func == (lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
+    static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
       lhs.entity == rhs.entity &&
       lhs.parentType == rhs.parentType &&
       lhs.typePath == rhs.typePath &&
