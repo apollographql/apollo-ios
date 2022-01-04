@@ -166,8 +166,8 @@
 		C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCA822D798BD00572E03 /* GraphQLFile.swift */; };
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
+		DE03FDDB2784D0B2007425BD /* DataDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE03FDDA2784D0B2007425BD /* DataDict.swift */; };
 		DE058609266978A100265760 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE664ED326602AF60054DB4F /* Selection.swift */; };
-		DE05860A266978A100265760 /* ResponseDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */; };
 		DE05860B266978A100265760 /* SelectionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */; };
 		DE05860C266978A100265760 /* FragmentProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */; };
 		DE05860D266978A100265760 /* ScalarTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */; };
@@ -271,7 +271,6 @@
 		DECD49C9262F88FE00924527 /* ApolloCodegenLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7B6F47233C26D100F32205 /* ApolloCodegenLib.framework */; };
 		DECD49DB262F8AAA00924527 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		DECD53CF26EC0EE50059A639 /* OutputTypeConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */; };
-		DECD53D126EC48200059A639 /* ResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECD53D026EC48200059A639 /* ResponseObject.swift */; };
 		DED18CC727023C0400F62977 /* OperationDefinitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED18CC627023C0400F62977 /* OperationDefinitionTests.swift */; };
 		DED45C2A2615319E0086EF63 /* DefaultInterceptorProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */; };
 		DED45D73261675890086EF63 /* StarWarsServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA6ABC91EC0A9F7000017BE /* StarWarsServerTests.swift */; };
@@ -808,6 +807,7 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
+		DE03FDDA2784D0B2007425BD /* DataDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDict.swift; sourceTree = "<group>"; };
 		DE058621266978A100265760 /* ApolloAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE0586222669793200265760 /* Apollo-Target-ApolloAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-ApolloAPI.xcconfig"; sourceTree = "<group>"; };
 		DE05862426697A8C00265760 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -862,7 +862,6 @@
 		DE3C79AA260A6ACD00D2F4FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSet.swift; sourceTree = "<group>"; };
-		DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDict.swift; sourceTree = "<group>"; };
 		DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FragmentProtocols.swift; sourceTree = "<group>"; };
 		DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLEnum.swift; sourceTree = "<group>"; };
 		DE3C7B15260A6FCA00D2F4FF /* ScalarTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalarTypes.swift; sourceTree = "<group>"; };
@@ -931,7 +930,6 @@
 		DECD4930262F824B00924527 /* Workspace-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		DECD493E262F82D600924527 /* Workspace-Target-Codegen.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Target-Codegen.xcconfig"; sourceTree = "<group>"; };
 		DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputTypeConvertible.swift; sourceTree = "<group>"; };
-		DECD53D026EC48200059A639 /* ResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseObject.swift; sourceTree = "<group>"; };
 		DED18CC627023C0400F62977 /* OperationDefinitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinitionTests.swift; sourceTree = "<group>"; };
 		DED45C172615308E0086EF63 /* TestServerURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestServerURLs.swift; sourceTree = "<group>"; };
 		DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProviderTests.swift; sourceTree = "<group>"; };
@@ -1787,11 +1785,10 @@
 				9B68F06E241C649E00E97318 /* GraphQLNullable.swift */,
 				DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */,
 				DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */,
-				DE3C7B11260A6FC900D2F4FF /* ResponseDict.swift */,
 				DE09F9BC27024FEA00795949 /* InputObject.swift */,
 				DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */,
 				DEA6A83326F298660091AF8A /* ParentType.swift */,
-				DECD53D026EC48200059A639 /* ResponseObject.swift */,
+				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
 				DE664ED326602AF60054DB4F /* Selection.swift */,
 				DECD53CE26EC0EE50059A639 /* OutputTypeConvertible.swift */,
@@ -3130,8 +3127,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE058609266978A100265760 /* Selection.swift in Sources */,
-				DE05860A266978A100265760 /* ResponseDict.swift in Sources */,
-				DECD53D126EC48200059A639 /* ResponseObject.swift in Sources */,
 				DE05860B266978A100265760 /* SelectionSet.swift in Sources */,
 				DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */,
 				DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */,
@@ -3146,6 +3141,7 @@
 				DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */,
 				DEA6A83426F298660091AF8A /* ParentType.swift in Sources */,
 				DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */,
+				DE03FDDB2784D0B2007425BD /* DataDict.swift in Sources */,
 				DE2FCF2826E8083A0057EA67 /* Interface.swift in Sources */,
 				DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */,
 				DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */,
