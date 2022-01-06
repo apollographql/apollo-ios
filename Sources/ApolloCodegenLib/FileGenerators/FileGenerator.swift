@@ -2,7 +2,7 @@ import Foundation
 import ApolloUtils
 
 /// The methods to conform to when building a code generation Swift file generator.
-protocol FileGenerator {
+protocol FileGenerator: Equatable {
   associatedtype graphQLType
 
   var objectType: GraphQLObjectType { get }

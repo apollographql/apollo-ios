@@ -1,4 +1,5 @@
 import Foundation
+import OrderedCollections
 
 // Only available on macOS
 #if os(macOS)
@@ -34,10 +35,15 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    try generateSchemaFiles(
-      for: ir.schema.referencedTypes,
-      configuration: configuration.output.schemaTypes
-    )
+    try fileGenerators(
+      for: ir.schema.referencedTypes.objects,
+      directoryPath: configuration.output.schemaTypes.modulePath
+    ).forEach({ try $0.generateFile() })
+
+    #warning("TODO - generate schema enum files")
+    #warning("TODO - generate schema interface files")
+    #warning("TODO - generate schema union files")
+    #warning("TODO - generate schema file")
     #warning("TODO - generate operation/fragment files")
     #warning("TODO - generate package manager manifest")
   }
@@ -66,20 +72,13 @@ public class ApolloCodegen {
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
   }
 
-  static func generateSchemaFiles(
-    for referencedTypes: IR.Schema.ReferencedTypes,
-    configuration: ApolloCodegenConfiguration.SchemaTypesFileOutput
-  ) throws {
-    let schemaTypesDirectory = configuration.modulePath
-
-    try referencedTypes.objects.forEach { graphqlObject in
-      try TypeFileGenerator.generateFile(for: graphqlObject, directoryPath: schemaTypesDirectory)
-    }
-
-    #warning("TODO - generate enum files")
-    #warning("TODO - generate interface files")
-    #warning("TODO - generate union files")
-    #warning("TODO - generate schema file")
+  static func fileGenerators(
+    for objectTypes: OrderedSet<GraphQLObjectType>,
+    directoryPath path: String
+  ) -> [TypeFileGenerator] {
+    return objectTypes.map({ graphqlObjectType in
+      TypeFileGenerator(objectType: graphqlObjectType, directoryPath: path)
+    })
   }
 }
 

@@ -57,7 +57,7 @@ class ApolloCodegenTests: XCTestCase {
     return path
   }
 
-  // MARK: Tests
+  // MARK: Configuration Tests
 
   func test_build_givenInvalidConfiguration_shouldThrow() throws {
     // given
@@ -66,6 +66,8 @@ class ApolloCodegenTests: XCTestCase {
     // then
     expect(try ApolloCodegen.build(with: config)).to(throwError())
   }
+
+  // MARK: CompilationResult Tests
 
   func test_compileResults_givenOperation_withGraphQLErrors_shouldThrow() throws {
     // given
@@ -147,5 +149,45 @@ class ApolloCodegenTests: XCTestCase {
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(beEmpty())
+  }
+
+  // MARK: File Generator Tests
+
+  func test_fileGenerators_givenGraphQLObjectType_shouldOnlyCreateGeneratorsForUsedTypes() throws {
+    // given
+    let schema = """
+    type Query {
+      books: [Book!]!
+    }
+
+    type Book {
+      name: String!
+      author: Author!
+    }
+
+    type Author {
+      name: String!
+    }
+    """
+
+    let operation = """
+    query getBooks {
+      books {
+        name
+      }
+    }
+    """
+
+    let ir = try IR.mock(schema: schema, document: operation)
+    let bookType = try ir.schema[object: "Book"].xctUnwrapped()
+
+    let directoryPath = CodegenTestHelper.outputFolderURL().path
+
+    expect(ApolloCodegen.fileGenerators(
+      for: ir.schema.referencedTypes.objects,
+      directoryPath: directoryPath
+    )).to(equal([
+      TypeFileGenerator(objectType: bookType, directoryPath: directoryPath)
+    ]))
   }
 }
