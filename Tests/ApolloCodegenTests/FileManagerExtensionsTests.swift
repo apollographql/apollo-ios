@@ -26,7 +26,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -43,7 +43,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -60,7 +60,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -77,7 +77,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -94,7 +94,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -111,7 +111,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -128,7 +128,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -145,7 +145,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -158,11 +158,13 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.allClosuresCalled).to(beTrue())
   }
 
+  // MARK: Deletion
+
   func test_deleteFile_givenFileExistsAndIsDirectory_shouldThrow() throws {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -180,7 +182,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -188,7 +190,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .removeItem({ path in
+    mocked.mock(closure: .removeItem({ path in
       expect(path).to(equal(self.uniquePath))
     }))
 
@@ -201,7 +203,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -209,7 +211,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .removeItem({ path in
+    mocked.mock(closure: .removeItem({ path in
       expect(path).to(equal(self.uniquePath))
 
       throw self.uniqueError
@@ -224,7 +226,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -241,7 +243,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -258,7 +260,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -266,7 +268,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .removeItem({ path in
+    mocked.mock(closure: .removeItem({ path in
       expect(path).to(equal(self.uniquePath))
     }))
 
@@ -279,7 +281,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -287,7 +289,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .removeItem({ path in
+    mocked.mock(closure: .removeItem({ path in
       expect(path).to(equal(self.uniquePath))
 
       throw self.uniqueError
@@ -302,7 +304,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -321,7 +323,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -338,7 +340,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -351,12 +353,14 @@ class FileManagerExtensionTests: XCTestCase {
     expect(mocked.allClosuresCalled).to(beTrue())
   }
 
+  // MARK: Creation
+
   func test_createFile_givenContainingDirectoryDoesExistAndFileCreated_shouldNotThrow() throws {
     // given
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -364,7 +368,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .createFile({ path, data, attr in
+    mocked.mock(closure: .createFile({ path, data, attr in
       expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
@@ -385,7 +389,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -393,7 +397,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .createFile({ path, data, attr in
+    mocked.mock(closure: .createFile({ path, data, attr in
       expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
@@ -414,7 +418,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -422,7 +426,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createFile({ path, data, attr in
+    mocked.mock(closure: .createFile({ path, data, attr in
       expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
@@ -430,7 +434,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attr in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attr in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attr).to(beNil())
@@ -448,7 +452,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -456,7 +460,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createFile({ path, data, attr in
+    mocked.mock(closure: .createFile({ path, data, attr in
       expect(path).to(equal(self.uniquePath))
       expect(data).to(equal(self.uniqueData))
       expect(attr).to(beNil())
@@ -464,7 +468,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attr in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attr in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attr).to(beNil())
@@ -482,7 +486,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -490,7 +494,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attr in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attr in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attr).to(beNil())
@@ -509,7 +513,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -528,7 +532,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -536,7 +540,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -552,7 +556,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -560,7 +564,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -576,7 +580,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -584,7 +588,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -600,7 +604,7 @@ class FileManagerExtensionTests: XCTestCase {
     let parentPath = URL(fileURLWithPath: self.uniquePath).deletingLastPathComponent().path
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(parentPath))
       expect(isDirectory).notTo(beNil())
 
@@ -608,7 +612,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(parentPath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -626,7 +630,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -644,7 +648,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -652,7 +656,7 @@ class FileManagerExtensionTests: XCTestCase {
       return true
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -667,7 +671,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -675,7 +679,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -690,7 +694,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -698,7 +702,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())
@@ -713,7 +717,7 @@ class FileManagerExtensionTests: XCTestCase {
     // given
     let mocked = MockFileManager()
 
-    mocked.set(closure: .fileExists({ path, isDirectory in
+    mocked.mock(closure: .fileExists({ path, isDirectory in
       expect(path).to(equal(self.uniquePath))
       expect(isDirectory).notTo(beNil())
 
@@ -721,7 +725,7 @@ class FileManagerExtensionTests: XCTestCase {
       return false
 
     }))
-    mocked.set(closure: .createDirectory({ path, createIntermediates, attributes in
+    mocked.mock(closure: .createDirectory({ path, createIntermediates, attributes in
       expect(path).to(equal(self.uniquePath))
       expect(createIntermediates).to(beTrue())
       expect(attributes).to(beNil())

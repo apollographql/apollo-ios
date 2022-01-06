@@ -28,10 +28,31 @@ public class MockFileManager: FileManager {
   private var closures: [String: Closure] = [:]
   private var closuresToBeCalled: Set<String> = []
 
+  /// If `true` then all called closures must be mocked otherwise the call will fail. When `false` any called closure
+  /// that is not mocked will fall through to `super`. As a byproduct of `false`, all mocked closures must be called otherwise
+  /// the test will fail.
+  let strict: Bool
+
+  /// Designated initializer.
+  ///
+  /// - Parameters:
+  ///  - strict: If `true` then all called closures must be mocked otherwise the call will fail. When `false` any called closure
+  ///  that is not mocked will fall through to `super`. As a byproduct of `false`, all mocked closures must be called otherwise
+  ///  the test will fail.
+  public init(strict: Bool = true) {
+    self.strict = strict
+  }
+
+  deinit {
+    if strict == false && allClosuresCalled == false {
+      XCTFail("Non-strict mode requires that all mocked closures are called! Check \(closuresToBeCalled) in your MockFileManager instance.")
+    }
+  }
+
   /// Provide a mock closure for the `FileManager` function.
   ///
   /// - Parameter closure: The mocked function closure.
-  public func set(closure: Closure) {
+  public func mock(closure: Closure) {
     closures[closure.description] = closure
     closuresToBeCalled.insert(closure.description)
   }
@@ -39,7 +60,6 @@ public class MockFileManager: FileManager {
   private func didCall(closure: Closure) {
     closuresToBeCalled.remove(closure.description)
   }
-
 
   /// Check whether all mocked closures were called during the lifetime of an instance.
   public var allClosuresCalled: Bool {
@@ -49,7 +69,7 @@ public class MockFileManager: FileManager {
   // MARK: FileManager overrides
 
   private func missingClosureMessage(_ function: String) -> String {
-    return "\(function) closure must be set before calling it! Check your MockFileManager instance."
+    return "\(function) closure must be mocked before calling it! Check your MockFileManager instance."
   }
 
   public override func fileExists(atPath path: String, isDirectory: UnsafeMutablePointer<ObjCBool>?) -> Bool {
@@ -58,8 +78,12 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .fileExists(handler) = closure else {
-        XCTFail(missingClosureMessage(key))
-        return false
+        if strict {
+          XCTFail(missingClosureMessage(key))
+          return false
+        } else {
+          return super.fileExists(atPath: path, isDirectory: isDirectory)
+        }
       }
 
     defer {
@@ -75,8 +99,12 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .removeItem(handler) = closure else {
-        XCTFail(missingClosureMessage(key))
-        return
+        if strict {
+          XCTFail(missingClosureMessage(key))
+          return
+        } else {
+          return try super.removeItem(atPath: path)
+        }
       }
 
     defer {
@@ -92,8 +120,12 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .createFile(handler) = closure else {
-        XCTFail(missingClosureMessage(key))
-        return false
+        if strict {
+          XCTFail(missingClosureMessage(key))
+          return false
+        } else {
+          return super.createFile(atPath: path, contents: data, attributes: attr)
+        }
       }
 
     defer {
@@ -109,8 +141,16 @@ public class MockFileManager: FileManager {
     guard
       let closure = closures[key],
       case let .createDirectory(handler) = closure else {
-        XCTFail(missingClosureMessage(key))
-        return
+        if strict {
+          XCTFail(missingClosureMessage(key))
+          return
+        } else {
+          return try super.createDirectory(
+            atPath: path,
+            withIntermediateDirectories: createIntermediates,
+            attributes: attributes
+          )
+        }
       }
 
     defer {
