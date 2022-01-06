@@ -5,18 +5,27 @@ import ApolloUtils
 struct TypeFileGenerator: FileGenerator {
   typealias graphQLType = GraphQLObjectType
 
-  static func generateFile(
-    for object: GraphQLObjectType,
+  let objectType: GraphQLObjectType
+  let filePath: String
+
+  private let fileManager: FileManager
+
+  init(
+    objectType: GraphQLObjectType,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
-  ) throws {
-    let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(object.name).swift").path
+  ) {
+    self.objectType = objectType
+    self.fileManager = fileManager
 
+    self.filePath = URL(fileURLWithPath: directoryPath)
+      .appendingPathComponent("\(objectType.name).swift").path
+  }
+
+  func generateFile() throws {
     #warning("TODO: Build correct content with template string")
-    let data = "public class \(object.name) {}".data(using: .utf8)
+    let data = "public class \(objectType.name) {}".data(using: .utf8)
 
     try fileManager.apollo.createFile(atPath: filePath, data: data)
   }
 }
-

@@ -4,6 +4,12 @@ import Nimble
 import ApolloCodegenTestSupport
 
 class TypeFileGeneratorTests: XCTestCase {
+  override func tearDown() {
+    CodegenTestHelper.deleteExistingOutputFolder()
+
+    super.tearDown()
+  }
+
   func test_generate_givenSchemaType_shouldOutputToPath() throws {
     // given
     let schema = """
@@ -27,18 +33,12 @@ class TypeFileGeneratorTests: XCTestCase {
     let ir = try IR.mock(schema: schema, document: operation)
     let bookType = try ir.schema[object: "Book"].xctUnwrapped()
 
-    let rootURL = URL(fileURLWithPath: "a/path")
+    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("Book.swift")
-    let mockFileManager = MockFileManager()
 
-    mockFileManager.set(closure: .fileExists({ path, isDirectory in
-      // This is a directory-level check, not a file-level check.
-      return false
-    }))
-    mockFileManager.set(closure: .createDirectory({ path, createIntermediates, attributes in
-      return
-    }))
-    mockFileManager.set(closure: .createFile({ path, data, attributes in
+    let mockFileManager = MockFileManager(strict: false)
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
       expect(String(data: try! data.xctUnwrapped(), encoding: .utf8))
         .to(equal("public class Book {}"))
@@ -47,11 +47,11 @@ class TypeFileGeneratorTests: XCTestCase {
     }))
 
     // then
-    try TypeFileGenerator.generateFile(
-      for: bookType,
+    try TypeFileGenerator(
+      objectType: bookType,
       directoryPath: rootURL.path,
       fileManager: mockFileManager
-    )
+    ).generateFile()
 
     expect(mockFileManager.allClosuresCalled).to(beTrue())
   }
