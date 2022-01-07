@@ -1,5 +1,8 @@
 # Change log
 
+## v0.51.0
+- **Allow periods in arguments to be ignored when parsing cacheKeys**: If your query arguments include periods they will no longer cause broken cache keys. This means the cached data for those queries can be correctly found and returned. [#2057](https://github.com/apollographql/apollo-ios/pull/2057) - _Thanks to [Hesham Salman](https://github.com/Iron-Ham) for the contribution!_
+
 ## v0.50.0
 - **Dropped SPM support for Swift 5.2**: The minimum version of the Swift tools and language compatibilty required to process the SPM manifest is Swift 5.3. This means a minimum of Xcode version 12 is required for Swift Package Manager support. [#1992](https://github.com/apollographql/apollo-ios/pull/1992)
 - **Removed unnecessary assertion failure**: The completion handler on `returnResultAsyncIfNeeded` is defined as optional but if not included would cause debug builds to crash with an `assertionFailure` in the case of a `failure` of the `Result`. [#2005](https://github.com/apollographql/apollo-ios/pull/2005) - _Thank you to [Richard Topchii](https://github.com/richardtop) for raising this issue!_
