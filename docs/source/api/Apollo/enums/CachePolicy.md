@@ -48,3 +48,12 @@ case returnCacheDataAndFetch
 ```
 
 Return data from the cache if available, and always fetch results from the server.
+
+## Properties
+### `default`
+
+```swift
+public static var `default`: CachePolicy = .returnCacheDataElseFetch
+```
+
+The current default cache policy.

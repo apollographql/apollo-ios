@@ -46,6 +46,15 @@ The underlying enum case. If the value is `__unknown`, this will be `nil`.
 public var rawValue: String
 ```
 
+### `allCases`
+
+```swift
+public static var allCases: [GraphQLEnum<T>]
+```
+
+A collection of all known values of the wrapped enum.
+This collection does not include the `__unknown` case.
+
 ## Methods
 ### `init(_:)`
 
