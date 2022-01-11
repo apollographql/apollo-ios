@@ -97,8 +97,8 @@ class ApolloCodegenTests: XCTestCase {
     // then
     expect(try ApolloCodegen.compileGraphQLResult(using: config))
     .to(throwError { error in
-      guard case let ApolloCodegen.Error.graphQLSourceValidationFailed(lines) = error else {
-        fail("Expected .validationFailed, got .\(error)")
+      guard case let ApolloCodegen.Error.graphQLSourceValidationFailure(lines) = error else {
+        fail("Expected .graphQLSourceValidationFailure, got .\(error)")
         return
       }
       expect(lines).notTo(beEmpty())

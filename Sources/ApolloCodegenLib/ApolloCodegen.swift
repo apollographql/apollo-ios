@@ -11,11 +11,11 @@ public class ApolloCodegen {
   /// Errors that can occur during code generation.
   public enum Error: Swift.Error, LocalizedError {
     /// An error occured during validation of the GraphQL schema or operations.
-    case graphQLSourceValidationFailed(atLines: [String])
+    case graphQLSourceValidationFailure(atLines: [String])
 
     public var errorDescription: String? {
       switch self {
-      case let .graphQLSourceValidationFailed(lines):
+      case let .graphQLSourceValidationFailure(lines):
         return "An error occured during validation of the GraphQL schema or operations! Check \(lines)"
       }
     }
@@ -66,7 +66,7 @@ public class ApolloCodegen {
     guard graphqlErrors.isEmpty else {
       let errorlines = graphqlErrors.flatMap({ $0.logLines })
       CodegenLogger.log(String(describing: errorlines), logLevel: .error)
-      throw Error.graphQLSourceValidationFailed(atLines: errorlines)
+      throw Error.graphQLSourceValidationFailure(atLines: errorlines)
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
