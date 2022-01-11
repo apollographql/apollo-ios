@@ -81,7 +81,7 @@ class IR {
     }
   }
 
-  class SelectionSet: Equatable {
+  class SelectionSet: Equatable, CustomDebugStringConvertible {
     /// The entity that the `selections` are being selected on.
     ///
     /// Multiple `SelectionSet`s may reference the same `Entity`
@@ -122,12 +122,17 @@ class IR {
       self.typePath = typePath
     }
 
+    var debugDescription: String {
+      "SelectionSet on \(parentType)"
+    }
+
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
       lhs.entity == rhs.entity &&
       lhs.parentType == rhs.parentType &&
       lhs.typePath == rhs.typePath &&
       lhs.selections == rhs.selections
     }
+
   }
 
   /// Represents a Fragment that has been "spread into" another SelectionSet using the
