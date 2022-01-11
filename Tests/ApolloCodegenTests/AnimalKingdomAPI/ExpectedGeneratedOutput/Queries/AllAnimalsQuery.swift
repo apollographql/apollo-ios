@@ -267,10 +267,6 @@ public class AllAnimalsQuery: GraphQLQuery {
             public init(data: DataDict) { self.data = data }
 
             public static var __parentType: ParentType { .Object(AnimalKindgomAPI.Height.self) }
-            public static var selections: [Selection] { [
-              .field("relativeSize", GraphQLEnum<RelativeSize>.self),
-              .field("centimeters", Int.self),
-            ] }
 
             public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
             public var centimeters: Int { data["centimeters"] }

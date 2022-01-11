@@ -190,7 +190,7 @@
 		DE181A3226C5C401000C0B9C /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3126C5C401000C0B9C /* Compression.swift */; };
 		DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */; };
 		DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
-		DE223C1C271F3288004A0148 /* AnimalKingdomASTCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */; };
+		DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C1B271F3288004A0148 /* AnimalKingdomIRCreationTests.swift */; };
 		DE223C1D271F332D004A0148 /* AllAnimals.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2E26E8092B0057EA67 /* AllAnimals.graphql */; };
 		DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */; };
 		DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
@@ -200,7 +200,7 @@
 		DE223C24271F335D004A0148 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C23271F335D004A0148 /* Resources.swift */; };
 		DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */; };
 		DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */; };
-		DE223C3327221144004A0148 /* ASTMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2A2721FAD6004A0148 /* ASTMatchers.swift */; };
+		DE223C3327221144004A0148 /* IRMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2A2721FAD6004A0148 /* IRMatchers.swift */; };
 		DE27390F2769AE9700B886EF /* SelectionSetTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE27390E2769AE9700B886EF /* SelectionSetTemplateTests.swift */; };
 		DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
@@ -839,10 +839,10 @@
 		DE181A3126C5C401000C0B9C /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
 		DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressionTests.swift; sourceTree = "<group>"; };
 		DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStream.swift; sourceTree = "<group>"; };
-		DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKingdomASTCreationTests.swift; sourceTree = "<group>"; };
+		DE223C1B271F3288004A0148 /* AnimalKingdomIRCreationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalKingdomIRCreationTests.swift; sourceTree = "<group>"; };
 		DE223C23271F335D004A0148 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringInterpolation+NestedIndentation.swift"; sourceTree = "<group>"; };
-		DE223C2A2721FAD6004A0148 /* ASTMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTMatchers.swift; sourceTree = "<group>"; };
+		DE223C2A2721FAD6004A0148 /* IRMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRMatchers.swift; sourceTree = "<group>"; };
 		DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedSelectionSetHashable.swift; sourceTree = "<group>"; };
 		DE27390E2769AE9700B886EF /* SelectionSetTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplateTests.swift; sourceTree = "<group>"; };
 		DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate.swift; sourceTree = "<group>"; };
@@ -1425,7 +1425,7 @@
 			isa = PBXGroup;
 			children = (
 				DE223C3227221116004A0148 /* TestHelpers */,
-				DEAFB7762705270E00BE02F3 /* CodeGenAST */,
+				DEAFB7762705270E00BE02F3 /* CodeGenIR */,
 				DE09F9C4270269F800795949 /* CodeGeneration */,
 				DE2FCF3326E809A30057EA67 /* AnimalKingdomAPI */,
 				9F1A96AE258F367100A06EEB /* Frontend */,
@@ -1845,7 +1845,7 @@
 		DE223C3227221116004A0148 /* TestHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				DE223C2A2721FAD6004A0148 /* ASTMatchers.swift */,
+				DE223C2A2721FAD6004A0148 /* IRMatchers.swift */,
 				9B68F0542416B33300E97318 /* LineByLineComparison.swift */,
 			);
 			path = TestHelpers;
@@ -1867,7 +1867,7 @@
 			isa = PBXGroup;
 			children = (
 				DE2FCF3426E809BB0057EA67 /* ExpectedGeneratedOutput */,
-				DE223C1B271F3288004A0148 /* AnimalKingdomASTCreationTests.swift */,
+				DE223C1B271F3288004A0148 /* AnimalKingdomIRCreationTests.swift */,
 			);
 			path = AnimalKingdomAPI;
 			sourceTree = "<group>";
@@ -2032,14 +2032,14 @@
 			name = Accumulators;
 			sourceTree = "<group>";
 		};
-		DEAFB7762705270E00BE02F3 /* CodeGenAST */ = {
+		DEAFB7762705270E00BE02F3 /* CodeGenIR */ = {
 			isa = PBXGroup;
 			children = (
 				DEAFB77A2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift */,
 				DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */,
 				DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */,
 			);
-			path = CodeGenAST;
+			path = CodeGenIR;
 			sourceTree = "<group>";
 		};
 		DEAFB7772705271D00BE02F3 /* IR */ = {
@@ -2987,7 +2987,7 @@
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				DE5FD60D2769711E0033EE23 /* FragmentTemplateTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
-				DE223C1C271F3288004A0148 /* AnimalKingdomASTCreationTests.swift in Sources */,
+				DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */,
 				9BAEEC17234C275600808306 /* ApolloSchemaPublicTests.swift in Sources */,
 				E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
@@ -3001,7 +3001,7 @@
 				9B8C3FB5248DA3E000707B13 /* URLExtensionsTests.swift in Sources */,
 				E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */,
 				9FDE0731258F3AA100DC0CA5 /* SchemaLoadingTests.swift in Sources */,
-				DE223C3327221144004A0148 /* ASTMatchers.swift in Sources */,
+				DE223C3327221144004A0148 /* IRMatchers.swift in Sources */,
 				DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */,
 				E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */,
 				E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */,

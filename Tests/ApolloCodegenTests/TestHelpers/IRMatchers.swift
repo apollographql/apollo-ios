@@ -116,7 +116,7 @@ public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Pr
       func failOnFields() -> PredicateResult {
         return PredicateResult(
           status: .fail,
-          message: .fail("got fields: \(actualValue.fields)")
+          message: .fail("got fields: \(actualValue.fields.values.elements)")
         )
       }
 
