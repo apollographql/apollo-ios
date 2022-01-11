@@ -378,12 +378,6 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     expect(bField?.selectionSet?.selections.typeCases).to(beEmpty())
   }
 
-  /// Example:
-  ///
-  /// Expected:
-  /// aField.typeCases: {
-  ///   ... on B
-  /// }
   func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() throws {
     // given
     schemaSDL = """
@@ -1437,6 +1431,57 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     expect(aField?.selectionSet.selections.typeCases.count).to(equal(2))
     expect(aField?[as: "B"]?.selections).to(shallowlyMatch([.fragmentSpread(Fragment_B)]))
     expect(aField?[as: "C"]?.selections).to(shallowlyMatch([.fragmentSpread(Fragment_C)]))
+  }
+
+  // MARK: Selections - Nested Objects
+
+  func test__selections__givenNestedObjectInRootAndTypeCase_doesNotInheritSelectionsFromRoot() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      childContainer: HasChild!
+    }
+
+    interface HasChild {
+      child: Child
+    }
+
+    type Root {
+      child: Child
+    }
+
+    type Child {
+      a: Int
+      b: Int
+    }
+    """
+
+    document = """
+    query Test {
+      childContainer {
+        child {
+          a
+        }
+        ... on Root {
+          child {
+            b
+          }
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let expected: [CompilationResult.Selection] = [
+      .field(.mock("b", type: .scalar(.integer())))
+    ]
+
+    let asRoot_child = subject[field: "childContainer"]?[as: "Root"]?[field: "child"] as? IR.EntityField
+
+    // then
+    expect(asRoot_child?.selectionSet.selections).to(shallowlyMatch(expected))
   }
 
   // MARK: - Merged Selections
