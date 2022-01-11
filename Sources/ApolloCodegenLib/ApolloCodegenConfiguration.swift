@@ -367,10 +367,12 @@ extension ApolloCodegenConfiguration {
 extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
   var moduleName: String {
     switch self.dependencyAutomation {
-    case let .manuallyLinked(namespace):
-      return namespace
-    case let .carthage(moduleName), let .cocoaPods(moduleName), let .swiftPackageManager(moduleName):
-      return moduleName
+    case
+      let .manuallyLinked(name),
+      let .carthage(name),
+      let .cocoaPods(name),
+      let .swiftPackageManager(name):
+        return name
     }
   }
 
