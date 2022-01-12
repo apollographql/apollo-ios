@@ -101,15 +101,15 @@ class IR {
     /// The selections that are directly selected by this selection set.
     var selections: SortedSelections = SortedSelections()
 
-    /// The selections that will be selected for this selection set.
+    /// The selections that are available to be accessed by this selection set.
     ///
-    /// Includes the direct selections, along with all selections from other related
+    /// Includes the direct `selections`, along with all selections from other related
     /// `SelectionSet`s on the same entity that match the selection set's type scope.
     ///
     /// Selections in the `mergedSelections` are guarunteed to be selected if this `SelectionSet`'s
     /// `selections` are selected. This means they can be merged into the generated object
     /// representing this `SelectionSet` as field accessors.
-    lazy var mergedSelections: SortedSelections = entity.mergedSelectionTree
+    lazy var mergedSelections: MergedSelections = entity.mergedSelectionTree
       .mergedSelections(forSelectionSet: self)
 
     init(

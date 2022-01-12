@@ -143,6 +143,11 @@ extension IR {
 import ApolloUtils
 
 extension IR {
+  /// Represents the selections that can be accessed on a `SelectionSet`.
+  ///
+  /// - Precondition: The `selections` for all `SelectionSet`s in the operation must be
+  /// completed prior to initialization and merging of fields into `MergedSelections`.
+  /// Otherwise, the merged selections will be incomplete.
   struct MergedSelections: SelectionCollection, Equatable {
     fileprivate(set) var fields: OrderedDictionary<String, Field>
     fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase>
@@ -165,15 +170,29 @@ extension IR {
 
     mutating func mergeIn(_ field: Field) {
       let keyInScope = field.hashForSelectionSetScope
+      if fields.keys.contains(keyInScope) { return }
 
-      if let existingField = fields[keyInScope] as? EntityField {
-        if let field = field as? EntityField {
-          existingField.selectionSet.selections.mergeIn(field.selectionSet.selections)
-        }
-
+      if let field = field as? EntityField {
+        let scopedField = copy(field: field, inScope: self.typePath)
+        fields[keyInScope] = scopedField
       } else {
-        fields[keyInScope] = field
+        #warning("Test & implement merged only scalar fields!")
+        return
       }
+    }
+
+    private func copy(
+      field: EntityField,
+      inScope scope: LinkedList<TypeScopeDescriptor>
+    ) -> EntityField {
+      let selectionSet = IR.SelectionSet(
+        entity: field.entity,
+        parentType: field.selectionSet.parentType,
+        typePath: scope.appending(field.selectionSet.typeScope)
+      )
+      selectionSet.selections = field.selectionSet.selections
+
+      let scopedField = EntityField(field.underlyingField, selectionSet: selectionSet)
     }
 
     // MARK: Merge In - TypeCase

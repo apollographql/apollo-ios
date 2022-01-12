@@ -5,7 +5,7 @@ import OrderedCollections
 fileprivate protocol MergedSelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-    into selections: inout IR.SortedSelections
+    into selections: inout IR.MergedSelections
   )
 }
 
@@ -125,8 +125,8 @@ extension IR {
 
     // MARK: - Calculate Merged Selections From Tree
 
-    func mergedSelections(forSelectionSet selectionSet: SelectionSet) -> SortedSelections {
-      var selections = selectionSet.selections
+    func mergedSelections(forSelectionSet selectionSet: SelectionSet) -> MergedSelections {
+      var selections = MergedSelections(selectionSet: selectionSet)
       rootNode.mergeSelections(matchingTypePath: selectionSet.typePath.head, into: &selections)
       return selections
     }
@@ -138,7 +138,7 @@ extension IR {
 
         func mergeSelections(
           matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-          into selections: inout IR.SortedSelections
+          into selections: inout IR.MergedSelections
         ) {
           switch self {
           case let .enclosingEntity(node as MergedSelectionTreeNode),
@@ -153,7 +153,7 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: inout IR.SortedSelections
+        into selections: inout IR.MergedSelections
       ) {
         guard let nextTypePathNode = typePath.next else {
           guard case let .fieldScope(node) = child else { fatalError() }
@@ -232,7 +232,7 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: inout IR.SortedSelections
+        into selections: inout IR.MergedSelections
       ) {
         if let scopeSelections = self.selections {
           selections.mergeIn(scopeSelections, mergeTypeCases: false)          
