@@ -3065,6 +3065,107 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     expect(allAnimals_asCat_predator_height_actual?.typePath).to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
+  func test__mergedSelections__givenEntityFieldInMatchingTypeCaseOnTypeWithOnlyMergedSelections_mergedOnlyEntityFieldHasCorrectTypePath() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+
+    interface Pet {
+      predator: Animal
+      height: Height
+    }
+
+    type Cat implements Pet & Animal {
+      species: String
+      breed: String
+      height: Height
+      predator: Animal
+    }
+
+    type Height {
+      feet: Int
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ... on Pet {
+          predator {
+            ... on Pet {
+              height {
+                feet
+              }
+            }
+          }
+        }
+        ... on Cat {
+          breed
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = subject[field: "allAnimals"]
+
+    let query_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: operation.rootType,
+      givenAllTypesInSchema: schema.referencedTypes)
+
+    let allAnimals_asCat_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[interface: "Animal"]!,
+      givenAllTypesInSchema: schema.referencedTypes
+    ).appending(schema[object: "Cat"]!)
+
+    let allAnimals_asCat_predator_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[interface: "Animal"]!,
+      givenAllTypesInSchema: schema.referencedTypes
+    )
+
+    let allAnimals_asCat_predator_asPet_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[interface: "Animal"]!,
+      givenAllTypesInSchema: schema.referencedTypes
+    ).appending(schema[interface: "Pet"]!)
+
+    let allAnimals_asCat_predator_asPet_height_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[object: "Height"]!,
+      givenAllTypesInSchema: schema.referencedTypes
+    )
+
+    let allAnimals_asCat_predator_expectedTypePath = LinkedList(array: [
+      query_TypeScope,
+      allAnimals_asCat_TypeScope,
+      allAnimals_asCat_predator_TypeScope
+    ])
+
+    let allAnimals_asCat_predator_height_expectedTypePath = LinkedList(array: [
+      query_TypeScope,
+      allAnimals_asCat_TypeScope,
+      allAnimals_asCat_predator_asPet_TypeScope,
+      allAnimals_asCat_predator_asPet_height_TypeScope
+    ])
+
+    let allAnimals_asCat_predator_actual = allAnimals?[as: "Cat"]?[field: "predator"]?.selectionSet
+
+    let allAnimals_asCat_predator_height_actual = allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[field: "height"]?.selectionSet
+
+    // then
+    expect(allAnimals_asCat_predator_actual?.typePath)
+      .to(equal(allAnimals_asCat_predator_expectedTypePath))
+
+    expect(allAnimals_asCat_predator_height_actual?.typePath)
+      .to(equal(allAnimals_asCat_predator_height_expectedTypePath))
+  }
+
   // MARK: - Referenced Fragments
 
   func test__referencedFragments__givenUsesNoFragments_isEmpty() throws {
