@@ -2,30 +2,18 @@ import Foundation
 import ApolloUtils
 
 /// Generates a file containing the Swift representation of a [GraphQL Object type](https://spec.graphql.org/draft/#sec-Objects).
-struct TypeFileGenerator: FileGenerator {
-  typealias graphQLType = GraphQLObjectType
-
+struct TypeFileGenerator: FileGenerator, Equatable {
   let objectType: GraphQLObjectType
-  let filePath: String
+  let path: String
 
-  private let fileManager: FileManager
-
-  init(
-    objectType: GraphQLObjectType,
-    directoryPath: String,
-    fileManager: FileManager = FileManager.default
-  ) {
-    self.objectType = objectType
-    self.fileManager = fileManager
-
-    self.filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(objectType.name).swift").path
+  var data: Data {
+    return "public class \(objectType.name) {}".data(using: .utf8)!
   }
 
-  func generateFile() throws {
-    #warning("TODO: Build correct content with template string")
-    let data = "public class \(objectType.name) {}".data(using: .utf8)
+  init(objectType: GraphQLObjectType, directoryPath: String) {
+    self.objectType = objectType
 
-    try fileManager.apollo.createFile(atPath: filePath, data: data)
+    self.path = URL(fileURLWithPath: directoryPath)
+      .appendingPathComponent("\(objectType.name).swift").path
   }
 }

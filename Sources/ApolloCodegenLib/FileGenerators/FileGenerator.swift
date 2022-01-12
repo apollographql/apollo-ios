@@ -2,11 +2,15 @@ import Foundation
 import ApolloUtils
 
 /// The methods to conform to when building a code generation Swift file generator.
-protocol FileGenerator: Equatable {
-  associatedtype graphQLType
+protocol FileGenerator {
+  var path: String { get }
+  var data: Data { get }
 
-  var objectType: GraphQLObjectType { get }
-  var filePath: String { get }
+  func generateFile(fileManager: FileManager) throws
+}
 
-  func generateFile() throws
+extension FileGenerator {
+  func generateFile(fileManager: FileManager = FileManager.default) throws {
+    try fileManager.apollo.createFile(atPath: path, data: data)
+  }
 }
