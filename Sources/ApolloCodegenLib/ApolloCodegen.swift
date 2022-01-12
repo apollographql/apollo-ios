@@ -42,6 +42,8 @@ public class ApolloCodegen {
       .forEach({ try $0.generateFile() })
     try fileGenerators(for: ir.schema.referencedTypes.interfaces, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
+    try fileGenerators(for: ir.schema.referencedTypes.unions, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
 
     #warning("TODO - generate schema union files")
     #warning("TODO - generate schema file")
@@ -99,6 +101,15 @@ public class ApolloCodegen {
   ) -> [InterfaceFileGenerator] {
     return interfaceTypes.map({ graphqlInterfaceType in
       InterfaceFileGenerator(interfaceType: graphqlInterfaceType, directoryPath: path)
+    })
+  }
+
+  static func fileGenerators(
+    for unionTypes: OrderedSet<GraphQLUnionType>,
+    directoryPath path: String
+  ) -> [UnionFileGenerator] {
+    return unionTypes.map({ graphqlUnionType in
+      UnionFileGenerator(unionType: graphqlUnionType, directoryPath: path)
     })
   }
 }

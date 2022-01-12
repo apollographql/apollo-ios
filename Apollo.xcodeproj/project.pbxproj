@@ -308,6 +308,8 @@
 		E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */; };
 		E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */; };
 		E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DC278EB1500023E495 /* InterfaceFileGeneratorTests.swift */; };
+		E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */; };
+		E610D8E1278F8F3D0023E495 /* UnionFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */; };
 		E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616B6D026C3335600DB049E /* ExecutionTests.swift */; };
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
 		E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */; };
@@ -959,6 +961,8 @@
 		E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceFileGenerator.swift; sourceTree = "<group>"; };
 		E610D8DC278EB1500023E495 /* InterfaceFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceFileGeneratorTests.swift; sourceTree = "<group>"; };
+		E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionFileGenerator.swift; sourceTree = "<group>"; };
+		E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E616B6D026C3335600DB049E /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
 		E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
@@ -2131,6 +2135,7 @@
 				E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */,
 				E66F8896276C136B0000BDA8 /* TypeFileGeneratorTests.swift */,
 				E610D8DC278EB1500023E495 /* InterfaceFileGeneratorTests.swift */,
+				E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */,
 			);
 			path = FileGenerators;
 			sourceTree = "<group>";
@@ -2162,6 +2167,7 @@
 				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */,
 				E66F8898276C15580000BDA8 /* TypeFileGenerator.swift */,
+				E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */,
 			);
 			path = FileGenerators;
 			sourceTree = "<group>";
@@ -2903,6 +2909,7 @@
 				9F628EB52593651B00F94F9D /* GraphQLValue.swift in Sources */,
 				DE5FD5FD2769222D0033EE23 /* OperationDefinitionTemplate.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
+				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
 				DE79642D27699A6A00978A03 /* IR+NamedFragmentBuilder.swift in Sources */,
 				9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */,
@@ -2990,6 +2997,7 @@
 				DE09F9C6270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift in Sources */,
 				9B4751AD2575B5070001FB87 /* PluralizerTests.swift in Sources */,
 				9BAEEC19234C297800808306 /* ApolloCodegenConfigurationTests.swift in Sources */,
+				E610D8E1278F8F3D0023E495 /* UnionFileGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
