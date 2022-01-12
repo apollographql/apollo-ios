@@ -26,7 +26,11 @@ public class CompilationResult: JavaScriptObject {
     lazy var operationIdentifier: String = {
       #warning("TODO: Compute this from source + referenced fragments")
       return ""
-    }()
+    }()    
+
+    override public var debugDescription: String {
+      "\(name) on \(rootType.debugDescription)"
+    }
   }
   
   public enum OperationType: String, Equatable, JavaScriptValueDecodable {

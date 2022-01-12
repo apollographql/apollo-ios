@@ -57,7 +57,7 @@ class ApolloCodegenTests: XCTestCase {
     return path
   }
 
-  // MARK: Tests
+  // MARK: Configuration Tests
 
   func test_build_givenInvalidConfiguration_shouldThrow() throws {
     // given
@@ -66,6 +66,8 @@ class ApolloCodegenTests: XCTestCase {
     // then
     expect(try ApolloCodegen.build(with: config)).to(throwError())
   }
+
+  // MARK: CompilationResult Tests
 
   func test_compileResults_givenOperation_withGraphQLErrors_shouldThrow() throws {
     // given
@@ -93,10 +95,10 @@ class ApolloCodegenTests: XCTestCase {
     // is not a property of the `Book` type.
 
     // then
-    expect(try ApolloCodegen.compileResults(using: config))
+    expect(try ApolloCodegen.compileGraphQLResult(using: config))
     .to(throwError { error in
-      guard case let ApolloCodegen.Error.validationFailed(lines) = error else {
-        fail("Expected .validationFailed, got .\(error)")
+      guard case let ApolloCodegen.Error.graphQLSourceValidationFailure(lines) = error else {
+        fail("Expected .graphQLSourceValidationFailure, got .\(error)")
         return
       }
       expect(lines).notTo(beEmpty())
@@ -133,6 +135,59 @@ class ApolloCodegenTests: XCTestCase {
     )
 
     // then
-    expect(try ApolloCodegen.compileResults(using: config).operations).to(haveCount(2))
+    expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(haveCount(2))
+  }
+
+  func test_compileResults_givenSchema_withNoOperations_shouldReturnEmpty() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let config = ApolloCodegenConfiguration.FileInput(
+      schemaPath: schemaPath,
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(beEmpty())
+  }
+
+  // MARK: File Generator Tests
+
+  func test_fileGenerators_givenGraphQLObjectType_shouldOnlyCreateGeneratorsForUsedTypes() throws {
+    // given
+    let schema = """
+    type Query {
+      books: [Book!]!
+    }
+
+    type Book {
+      name: String!
+      author: Author!
+    }
+
+    type Author {
+      name: String!
+    }
+    """
+
+    let operation = """
+    query getBooks {
+      books {
+        name
+      }
+    }
+    """
+
+    let ir = try IR.mock(schema: schema, document: operation)
+    let bookType = try ir.schema[object: "Book"].xctUnwrapped()
+
+    let directoryPath = CodegenTestHelper.outputFolderURL().path
+
+    expect(ApolloCodegen.fileGenerators(
+      for: ir.schema.referencedTypes.objects,
+      directoryPath: directoryPath
+    )).to(equal([
+      TypeFileGenerator(objectType: bookType, directoryPath: directoryPath)
+    ]))
   }
 }

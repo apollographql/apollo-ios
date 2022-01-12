@@ -2,6 +2,9 @@ import Foundation
 
 /// A configuration object that defines behavior for code generation.
 public struct ApolloCodegenConfiguration {
+
+  // MARK: Input Types
+
   /// The input paths and files required for code generation.
   public struct FileInput {
     /// Local path to the GraphQL schema file. Can be in JSON or SDL format.
@@ -34,6 +37,8 @@ public struct ApolloCodegenConfiguration {
       self.searchPaths = searchPaths
     }
   }
+
+  // MARK: Output Types
 
   /// The paths and files output by code generation.
   public struct FileOutput {
@@ -118,6 +123,8 @@ public struct ApolloCodegenConfiguration {
     case absolute(path: String)
   }
 
+  // MARK: General Types
+
   /// Specify the formatting of the GraphQL query string literal.
   public enum QueryStringLiteralFormat {
     /// The query string will be copied into the operation object with all line break formatting removed.
@@ -165,6 +172,8 @@ public struct ApolloCodegenConfiguration {
     case persistedOperationsOnly
   }
 
+  // MARK: Properties
+
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
@@ -184,6 +193,8 @@ public struct ApolloCodegenConfiguration {
   ///
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   public let apqs: APQConfig
+
+  // MARK: Initializers
 
   /// Designated initializer.
   ///
@@ -241,6 +252,8 @@ public struct ApolloCodegenConfiguration {
               output: FileOutput(schemaTypes: SchemaTypesFileOutput(path: basePath)))
   }
 }
+
+// MARK: Validation Extension
 
 extension ApolloCodegenConfiguration {
   public enum PathType {
@@ -346,5 +359,24 @@ extension ApolloCodegenConfiguration {
       throw PathError.folderCreationFailed(pathType, underlyingError: underlyingError)
         .logging(withPath: path)
     }
+  }
+}
+
+// MARK: Helper Extensions (Internal Only)
+
+extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
+  var moduleName: String {
+    switch self.dependencyAutomation {
+    case
+      let .manuallyLinked(name),
+      let .carthage(name),
+      let .cocoaPods(name),
+      let .swiftPackageManager(name):
+        return name
+    }
+  }
+
+  var modulePath: String {
+    URL(fileURLWithPath: self.path).appendingPathComponent(self.moduleName).path
   }
 }

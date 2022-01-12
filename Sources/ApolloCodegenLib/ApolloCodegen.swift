@@ -1,32 +1,54 @@
 import Foundation
+import OrderedCollections
 
 // Only available on macOS
 #if os(macOS)
 
 /// A class to facilitate running code generation
 public class ApolloCodegen {
+  // MARK: Public
+
+  /// Errors that can occur during code generation.
   public enum Error: Swift.Error, LocalizedError {
-    case validationFailed(atLines: [String])
+    /// An error occured during validation of the GraphQL schema or operations.
+    case graphQLSourceValidationFailure(atLines: [String])
 
     public var errorDescription: String? {
       switch self {
-      case let .validationFailed(lines):
-        return "Schema and Operation validation failed! Check \(lines)"
+      case let .graphQLSourceValidationFailure(lines):
+        return "An error occured during validation of the GraphQL schema or operations! Check \(lines)"
       }
     }
   }
+
   /// Executes the code generation engine with a specified configuration.
   ///
   /// - Parameters:
-  ///   - configuration: The configuration to use to build the code generation.
+  ///   - configuration: A configuration object that specifies inputs, outputs and behaviours used during code generation.
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
     try configuration.validate()
 
-    let compilationResult = try compileResults(using: configuration.input)
-    #warning("TODO - compilationResult will be passed into the next step")
+    let compilationResult = try compileGraphQLResult(using: configuration.input)
+
+    let ir = IR(
+      schemaName: configuration.output.schemaTypes.moduleName,
+      compilationResult: compilationResult
+    )
+
+    try fileGenerators(
+      for: ir.schema.referencedTypes.objects,
+      directoryPath: configuration.output.schemaTypes.modulePath
+    ).forEach({ try $0.generateFile() })
+
+    #warning("TODO - generate schema enum files")
+    #warning("TODO - generate schema interface files")
+    #warning("TODO - generate schema union files")
+    #warning("TODO - generate schema file")
+    #warning("TODO - generate operation/fragment files")
+    #warning("TODO - generate package manager manifest")
   }
 
-  static func compileResults(
+  static func compileGraphQLResult(
     using input: ApolloCodegenConfiguration.FileInput
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
@@ -44,10 +66,19 @@ public class ApolloCodegen {
     guard graphqlErrors.isEmpty else {
       let errorlines = graphqlErrors.flatMap({ $0.logLines })
       CodegenLogger.log(String(describing: errorlines), logLevel: .error)
-      throw Error.validationFailed(atLines: errorlines)
+      throw Error.graphQLSourceValidationFailure(atLines: errorlines)
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
+  }
+
+  static func fileGenerators(
+    for objectTypes: OrderedSet<GraphQLObjectType>,
+    directoryPath path: String
+  ) -> [TypeFileGenerator] {
+    return objectTypes.map({ graphqlObjectType in
+      TypeFileGenerator(objectType: graphqlObjectType, directoryPath: path)
+    })
   }
 }
 
