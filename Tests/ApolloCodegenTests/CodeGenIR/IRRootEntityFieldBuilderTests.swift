@@ -2808,7 +2808,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
-    let allAnimals_asCat_expected: [CompilationResult.Selection] = [
+    let allAnimals_asCat_height_expected: [CompilationResult.Selection] = [
       .field(.mock("feet", type: .integer())),
       .field(.mock("meters", type: .integer())),
     ]
@@ -2816,7 +2816,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asCat_height_actual = allAnimals?[as: "Cat"]?[field: "height"]?.selectionSet?.mergedSelections
 
     // then
-    expect(allAnimals_asCat_height_actual).to(shallowlyMatch(allAnimals_asCat_expected))
+    expect(allAnimals_asCat_height_actual).to(shallowlyMatch(allAnimals_asCat_height_expected))
   }
 
   func test__mergedSelections__givenEntityFieldOnInterfaceAndTypeCase_withOtherNestedFieldInTypeCase_doesNotMergeParentFieldIntoNestedSelectionsInObjectTypeCaseNotMatchingInterfaceTypeCase() throws {
