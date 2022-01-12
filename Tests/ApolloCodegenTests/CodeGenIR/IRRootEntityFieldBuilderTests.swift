@@ -2990,13 +2990,14 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     }
 
     interface Animal {
-      species: String
       height: Height
+      predator: Animal
     }
 
     type Cat implements Animal {
-      species: String
+      breed: String
       height: Height
+      predator: Animal
     }
 
     type Height {
@@ -3007,11 +3008,13 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     document = """
     query Test {
       allAnimals {
-        height {
-          feet
+        predator {
+          height {
+            feet
+          }
         }
         ... on Cat {
-          species
+          breed
         }
       }
     }
@@ -3031,20 +3034,35 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[object: "Cat"]!)
 
-    let allAnimals_asCat_height_TypeScope = TypeScopeDescriptor.descriptor(
+    let allAnimals_asCat_predator_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[interface: "Animal"]!,
+      givenAllTypesInSchema: schema.referencedTypes)
+
+    let allAnimals_asCat_predator_height_TypeScope = TypeScopeDescriptor.descriptor(
       forType: schema[object: "Height"]!,
       givenAllTypesInSchema: schema.referencedTypes)
 
-    let allAnimals_asCat_height_expectedTypePath = LinkedList(array: [
+    let allAnimals_asCat_predator_expectedTypePath = LinkedList(array: [
       query_TypeScope,
       allAnimals_asCat_TypeScope,
-      allAnimals_asCat_height_TypeScope
+      allAnimals_asCat_predator_TypeScope
     ])
 
-    let allAnimals_asCat_height_actual = allAnimals?[as: "Cat"]?[field: "height"]?.selectionSet
+    let allAnimals_asCat_predator_height_expectedTypePath = LinkedList(array: [
+      query_TypeScope,
+      allAnimals_asCat_TypeScope,
+      allAnimals_asCat_predator_TypeScope,
+      allAnimals_asCat_predator_height_TypeScope
+    ])
+
+    let allAnimals_asCat_predator_actual = allAnimals?[as: "Cat"]?[field: "predator"]?.selectionSet
+
+    let allAnimals_asCat_predator_height_actual = allAnimals?[as: "Cat"]?[field: "predator"]?[field: "height"]?.selectionSet
 
     // then
-    expect(allAnimals_asCat_height_actual?.typePath).to(equal(allAnimals_asCat_height_expectedTypePath))
+    expect(allAnimals_asCat_predator_actual?.typePath).to(equal(allAnimals_asCat_predator_expectedTypePath))
+
+    expect(allAnimals_asCat_predator_height_actual?.typePath).to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
   // MARK: - Referenced Fragments
