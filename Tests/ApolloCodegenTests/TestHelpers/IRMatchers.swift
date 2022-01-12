@@ -8,11 +8,11 @@ import OrderedCollections
 /// A Matcher that matches that the AST `MergedSelections` are equal, but does not check any nested
 /// selection sets of the `fields`, `typeCases`, and `fragments`. This is used for conveniently
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
-public func shallowlyMatch(
+public func shallowlyMatch<T: SelectionCollection>(
   _ expectedValue: (fields: [CompilationResult.Field],
                     typeCases: [CompilationResult.SelectionSet],
                     fragments: [CompilationResult.FragmentDefinition])
-) -> Predicate<IR.SortedSelections> {
+) -> Predicate<T> {
   return Predicate { actual in
     if let actualValue = try actual.evaluate() {
       if expectedValue.fields.count != actualValue.fields.count {
@@ -106,7 +106,9 @@ public func shallowlyMatch(
 
 // MARK:
 
-public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Predicate<IR.SortedSelections> {
+public func shallowlyMatch<T: SelectionCollection>(
+  _ expectedValue: [CompilationResult.Selection]
+) -> Predicate<T> {
   return Predicate { actual in
     if let actualValue = try actual.evaluate() {
       var currentFieldIndex = 0
