@@ -40,13 +40,16 @@ public class ApolloCodegen {
       .forEach({ try $0.generateFile() })
     try fileGenerators(for: ir.schema.referencedTypes.enums, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
+    try fileGenerators(for: ir.schema.referencedTypes.interfaces, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
 
-    #warning("TODO - generate schema interface files")
     #warning("TODO - generate schema union files")
     #warning("TODO - generate schema file")
     #warning("TODO - generate operation/fragment files")
     #warning("TODO - generate package manager manifest")
   }
+
+  // MARK: Internal
 
   static func compileGraphQLResult(
     using input: ApolloCodegenConfiguration.FileInput
@@ -87,6 +90,15 @@ public class ApolloCodegen {
   ) -> [EnumFileGenerator] {
     return enumTypes.map({ graphqlEnumType in
       EnumFileGenerator(enumType: graphqlEnumType, directoryPath: path)
+    })
+  }
+
+  static func fileGenerators(
+    for interfaceTypes: OrderedSet<GraphQLInterfaceType>,
+    directoryPath path: String
+  ) -> [InterfaceFileGenerator] {
+    return interfaceTypes.map({ graphqlInterfaceType in
+      InterfaceFileGenerator(interfaceType: graphqlInterfaceType, directoryPath: path)
     })
   }
 }

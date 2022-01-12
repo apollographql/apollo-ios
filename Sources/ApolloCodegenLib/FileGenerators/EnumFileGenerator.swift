@@ -6,6 +6,7 @@ struct EnumFileGenerator: FileGenerator, Equatable {
   let path: String
 
   var data: Data {
+    #warning("TODO: need correct data template")
     return "public enum \(enumType.name) {}".data(using: .utf8)!
   }
 
