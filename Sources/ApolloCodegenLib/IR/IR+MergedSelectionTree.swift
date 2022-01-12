@@ -56,7 +56,8 @@ extension IR {
           selections: selections,
           withTypeScope: currentEntityScope.value.typePath.head,
           toFieldNode: fieldNode,
-          ofType: currentNodeRootTypePath.value)
+          ofType: currentNodeRootTypePath.value
+        )
         return
       }
 

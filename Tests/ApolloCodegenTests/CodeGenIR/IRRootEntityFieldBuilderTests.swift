@@ -2982,6 +2982,71 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       .to(shallowlyMatch(allAnimals_asWarmBlooded_height_expected))
   }
 
+  func test__mergedSelections__givenEntityFieldOnTypeWithOnlyMergedSelections_mergedOnlyEntityFieldHasCorrectTypePath() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+      height: Height
+    }
+
+    type Cat implements Animal {
+      species: String
+      height: Height
+    }
+
+    type Height {
+      feet: Int
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        height {
+          feet
+        }
+        ... on Cat {
+          species
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = subject[field: "allAnimals"]
+
+    let query_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: operation.rootType,
+      givenAllTypesInSchema: schema.referencedTypes)
+
+    let allAnimals_asCat_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[interface: "Animal"]!,
+      givenAllTypesInSchema: schema.referencedTypes
+    ).appending(schema[object: "Cat"]!)
+
+    let allAnimals_asCat_height_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[object: "Height"]!,
+      givenAllTypesInSchema: schema.referencedTypes)
+
+    let allAnimals_asCat_height_expectedTypePath = LinkedList(array: [
+      query_TypeScope,
+      allAnimals_asCat_TypeScope,
+      allAnimals_asCat_height_TypeScope
+    ])
+
+    let allAnimals_asCat_height_actual = allAnimals?[as: "Cat"]?[field: "height"]?.selectionSet
+
+    // then
+    expect(allAnimals_asCat_height_actual?.typePath).to(equal(allAnimals_asCat_height_expectedTypePath))
+  }
+
   // MARK: - Referenced Fragments
 
   func test__referencedFragments__givenUsesNoFragments_isEmpty() throws {
