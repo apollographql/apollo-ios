@@ -1,7 +1,6 @@
 import Foundation
-import ApolloUtils
 
-/// Generates a file containing the Swift representation of a [GraphQL Object type](https://spec.graphql.org/draft/#sec-Objects).
+/// Generates a file containing the Swift representation of a [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
 struct TypeFileGenerator: FileGenerator, Equatable {
   let objectType: GraphQLObjectType
   let path: String

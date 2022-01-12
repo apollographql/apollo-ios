@@ -91,6 +91,10 @@ extension IR.Schema {
   public subscript(scalar name: String) -> GraphQLScalarType? {
     return referencedTypes.scalars.first { $0.name == name }
   }
+
+  public subscript(enum name: String) -> GraphQLEnumType? {
+    return referencedTypes.enums.first { $0.name == name }
+  }
 }
 
 extension CompilationResult {
