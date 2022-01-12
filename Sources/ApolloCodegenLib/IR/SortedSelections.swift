@@ -10,36 +10,12 @@ protocol SelectionCollection: CustomDebugStringConvertible {
   var typeCases: OrderedDictionary<String, TypeCase> { get }
   var fragments: OrderedDictionary<String, Fragment> { get }
 
-  init()
-
   mutating func mergeIn(_ field: Field)
   mutating func mergeIn(_ typeCase: TypeCase)
   mutating func mergeIn(_ fragment: Fragment)
 }
 
 extension SelectionCollection {
-
-  init(
-    fields: [Field] = [],
-    typeCases: [TypeCase] = [],
-    fragments: [Fragment] = []
-  ) {
-    self.init()
-    mergeIn(fields)
-    mergeIn(typeCases)
-    mergeIn(fragments)
-  }
-
-  init(
-    fields: OrderedDictionary<String, Field> = [:],
-    typeCases: OrderedDictionary<String, TypeCase> = [:],
-    fragments: OrderedDictionary<String, Fragment> = [:]
-  ) {
-    self.init()
-    mergeIn(fields)
-    mergeIn(typeCases)
-    mergeIn(fragments)
-  }
 
   var isEmpty: Bool {
     fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
@@ -103,11 +79,93 @@ extension IR {
     fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, Fragment> = [:]
 
+    init() {}
+
+    init(
+      fields: [Field] = [],
+      typeCases: [TypeCase] = [],
+      fragments: [Fragment] = []
+    ) {
+      self.init()
+      mergeIn(fields)
+      mergeIn(typeCases)
+      mergeIn(fragments)
+    }
+
+    init(
+      fields: OrderedDictionary<String, Field> = [:],
+      typeCases: OrderedDictionary<String, TypeCase> = [:],
+      fragments: OrderedDictionary<String, Fragment> = [:]
+    ) {
+      self.init()
+      mergeIn(fields)
+      mergeIn(typeCases)
+      mergeIn(fragments)
+    }
+
     // MARK: Merge In - Field
 
     mutating func mergeIn(_ field: Field) {
       let keyInScope = field.hashForSelectionSetScope
  
+      if let existingField = fields[keyInScope] as? EntityField {
+        if let field = field as? EntityField {
+          existingField.selectionSet.selections.mergeIn(field.selectionSet.selections)
+        }
+
+      } else {
+        fields[keyInScope] = field
+      }
+    }
+
+    // MARK: Merge In - TypeCase
+
+    mutating func mergeIn(_ typeCase: TypeCase) {
+      let keyInScope = typeCase.hashForSelectionSetScope
+
+      if let existingTypeCase = typeCases[keyInScope] {
+        existingTypeCase.selections.mergeIn(typeCase.selections)
+
+      } else {
+        typeCases[keyInScope] = typeCase
+      }
+    }
+
+    // MARK: Merge In - Fragment
+
+    mutating func mergeIn(_ fragment: Fragment) {
+      fragments[fragment.hashForSelectionSetScope] = fragment
+    }
+  }
+
+}
+
+import ApolloUtils
+
+extension IR {
+  struct MergedSelections: SelectionCollection, Equatable {
+    fileprivate(set) var fields: OrderedDictionary<String, Field>
+    fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase>
+    fileprivate(set) var fragments: OrderedDictionary<String, Fragment>
+
+    /// The `typePath` of the `SelectionSet` the `MergedSelections` belong to.
+    ///
+    /// Used to set the type path for fields that are merged in that do not exist in the
+    /// initial selections.
+    let typePath: LinkedList<TypeScopeDescriptor>
+
+    init(selectionSet: SelectionSet) {
+      self.typePath = selectionSet.typePath
+      self.fields = selectionSet.selections.fields
+      self.typeCases = selectionSet.selections.typeCases
+      self.fragments = selectionSet.selections.fragments
+    }
+
+    // MARK: Merge In - Field
+
+    mutating func mergeIn(_ field: Field) {
+      let keyInScope = field.hashForSelectionSetScope
+
       if let existingField = fields[keyInScope] as? EntityField {
         if let field = field as? EntityField {
           existingField.selectionSet.selections.mergeIn(field.selectionSet.selections)
