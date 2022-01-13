@@ -14,17 +14,28 @@ extension IR.SortedSelections {
   }
 }
 
-extension IR.Field {
+extension IR.ShallowSelections {
   public subscript(field field: String) -> IR.Field? {
-    return selectionSet?.mergedSelections.fields[field]
-  }
-
-  public subscript(as typeCase: String) -> IR.SelectionSet? {
-    return selectionSet?.mergedSelections.typeCases[typeCase]
+    fields[field]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    return selectionSet?.mergedSelections.fragments[fragment]
+    fragments[fragment]
+  }
+}
+
+
+extension IR.Field {
+  public subscript(field field: String) -> IR.Field? {
+    return selectionSet?[field: field]
+  }
+
+  public subscript(as typeCase: String) -> IR.SelectionSet? {
+    return selectionSet?[as: typeCase]
+  }
+
+  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+    return selectionSet?[fragment: fragment]
   }
 
   public var selectionSet: IR.SelectionSet? {
@@ -35,15 +46,15 @@ extension IR.Field {
 
 extension IR.SelectionSet {
   public subscript(field field: String) -> IR.Field? {
-    mergedSelections.fields[field]
+    directSelections.fields[field] ?? mergedSelections.fields[field]
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    mergedSelections.typeCases[typeCase]
+    directSelections.typeCases[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    mergedSelections.fragments[fragment]
+    directSelections.fragments[fragment] ?? mergedSelections.fragments[fragment]
   }
 }
 
@@ -53,11 +64,11 @@ extension IR.Operation {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    rootField.selectionSet.mergedSelections.typeCases[typeCase]
+    rootField[as: typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    rootField.selectionSet.mergedSelections.fragments[fragment]
+    rootField[fragment: fragment]
   }
 }
 

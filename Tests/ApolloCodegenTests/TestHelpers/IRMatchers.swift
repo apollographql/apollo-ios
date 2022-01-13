@@ -3,12 +3,29 @@ import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
 
+protocol SelectionShallowMatchable {
+  typealias Field = IR.Field
+  typealias TypeCase = IR.SelectionSet
+  typealias Fragment = IR.FragmentSpread
+
+  var fields: OrderedDictionary<String, Field> { get }
+  var typeCases: OrderedDictionary<String, TypeCase> { get }
+  var fragments: OrderedDictionary<String, Fragment> { get }
+
+  var isEmpty: Bool { get }
+}
+
+extension IR.SortedSelections: SelectionShallowMatchable { }
+extension IR.ShallowSelections: SelectionShallowMatchable {
+  var typeCases: OrderedDictionary<String, TypeCase> { [:] }
+}
+
 // MARK - Custom Matchers
 
 /// A Matcher that matches that the AST `MergedSelections` are equal, but does not check any nested
 /// selection sets of the `fields`, `typeCases`, and `fragments`. This is used for conveniently
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
-public func shallowlyMatch<T: SelectionCollection>(
+func shallowlyMatch<T: SelectionShallowMatchable>(
   _ expectedValue: (fields: [CompilationResult.Field],
                     typeCases: [CompilationResult.SelectionSet],
                     fragments: [CompilationResult.FragmentDefinition])
@@ -106,7 +123,7 @@ public func shallowlyMatch<T: SelectionCollection>(
 
 // MARK:
 
-public func shallowlyMatch<T: SelectionCollection>(
+func shallowlyMatch<T: SelectionShallowMatchable>(
   _ expectedValue: [CompilationResult.Selection]
 ) -> Predicate<T> {
   return Predicate { actual in
@@ -119,6 +136,20 @@ public func shallowlyMatch<T: SelectionCollection>(
         return PredicateResult(
           status: .fail,
           message: .fail("got fields: \(actualValue.fields.values.elements)")
+        )
+      }
+
+      func failOnTypeCases() -> PredicateResult {
+        return PredicateResult(
+          status: .fail,
+          message: .fail("got typeCases: \(actualValue.typeCases.values.elements)")
+        )
+      }
+
+      func failOnFragments() -> PredicateResult {
+        return PredicateResult(
+          status: .fail,
+          message: .fail("got fragments: \(actualValue.fragments.values.elements)")
         )
       }
 
@@ -139,6 +170,10 @@ public func shallowlyMatch<T: SelectionCollection>(
           currentFieldIndex += 1
 
         case let .inlineFragment(expectedTypeCase):
+          guard currentTypeCaseIndex < actualValue.typeCases.values.endIndex else {
+            return failOnTypeCases()
+          }
+
           let actualTypeCase = actualValue.typeCases.values[currentTypeCaseIndex]
           if !shallowlyMatch(expected: expectedTypeCase, actual: actualTypeCase) {
             return PredicateResult(
@@ -149,6 +184,10 @@ public func shallowlyMatch<T: SelectionCollection>(
           currentTypeCaseIndex += 1
 
         case let .fragmentSpread(expectedFragment):
+          guard currentFragmentIndex < actualValue.fragments.values.endIndex else {
+            return failOnFragments()
+          }
+
           let actualFragment = actualValue.fragments.values[currentFragmentIndex]
           if !shallowlyMatch(expected: expectedFragment, actual: actualFragment) {
             return PredicateResult(
@@ -364,4 +403,11 @@ fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, 
 fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
   return expected.name == actual.name &&
   expected.type == actual.type
+}
+
+func beEmpty<S: SelectionShallowMatchable>() -> Predicate<S> {
+    return Predicate.simple("be empty") { actualExpression in
+      guard let actual = try actualExpression.evaluate() else { return .fail }
+      return PredicateStatus(bool: actual.isEmpty)
+    }
 }

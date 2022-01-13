@@ -110,6 +110,10 @@ class IR {
     /// Selections in the `mergedSelections` are guarunteed to be selected if this `SelectionSet`'s
     /// `selections` are selected. This means they can be merged into the generated object
     /// representing this `SelectionSet` as field accessors.
+    ///
+    /// - Precondition: The `selections` for all `SelectionSet`s in the operation must be
+    /// completed prior to first access of `mergedSelections`. Otherwise, the merged selections
+    /// will be incomplete.
     private(set) lazy var mergedSelections: ShallowSelections = {
       entity.mergedSelectionTree.calculateMergedSelections(forSelectionSet: self)
       return _mergedSelections

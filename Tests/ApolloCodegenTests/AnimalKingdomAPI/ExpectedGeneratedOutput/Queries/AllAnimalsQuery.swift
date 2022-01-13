@@ -196,6 +196,7 @@ public class AllAnimalsQuery: GraphQLQuery {
 
         public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.Pet.self) }
         public static var selections: [Selection] { [
+          .field("height", Height.self),
           .typeCase(AsWarmBlooded.self),
           .fragment(PetDetails.self),
         ] }
@@ -242,6 +243,9 @@ public class AllAnimalsQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public static var __parentType: ParentType { .Interface(AnimalKindgomAPI.WarmBlooded.self) }
+          public static var selections: [Selection] { [            
+            .fragment(WarmBloodedDetails.self),
+          ] }
 
           public var bodyTemperature: Int { data["bodyTemperature"] }
           public var height: Height { data["height"] }
