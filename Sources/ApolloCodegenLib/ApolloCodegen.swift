@@ -120,7 +120,7 @@ public class ApolloCodegen {
   }
 
   static func fileGenerators(
-    for inputObjectTypes: OrderedSet<GraphQLInputObjectType>,
+    for unionTypes: OrderedSet<GraphQLInputObjectType>,
     directoryPath path: String
   ) -> [InputObjectFileGenerator] {
     return unionTypes.map({ graphqlInputObjectType in
