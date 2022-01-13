@@ -83,6 +83,7 @@ extension IR {
 
         case let .fragmentSpread(fragment):
           if selectionSet.typeScope.matches(fragment.type) {
+#warning("TODO: Might be missing referenced fragments for type case nested fragments?")
             referencedFragments.append(fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragment,
@@ -191,6 +192,7 @@ extension IR {
       fromFragment fragment: CompilationResult.FragmentDefinition,
       onParent parentSelectionSet: SelectionSet
     ) -> FragmentSpread {
+      #warning("TODO! Why are we wrapping in a type case here??")
       let irSelectionSet = buildTypeCaseSelectionSet(
         fromSelectionSet: fragment.selectionSet,
         onParent: parentSelectionSet
