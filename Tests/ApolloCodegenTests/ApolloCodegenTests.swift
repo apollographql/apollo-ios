@@ -241,6 +241,7 @@ class ApolloCodegenTests: XCTestCase {
 
     let directoryPath = CodegenTestHelper.outputFolderURL().path
 
+    // then
     expect(ApolloCodegen.fileGenerators(
       for: ir.schema.referencedTypes.interfaces,
       directoryPath:directoryPath
