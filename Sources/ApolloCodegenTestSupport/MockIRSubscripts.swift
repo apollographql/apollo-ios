@@ -95,6 +95,10 @@ extension IR.Schema {
   public subscript(enum name: String) -> GraphQLEnumType? {
     return referencedTypes.enums.first { $0.name == name }
   }
+
+  public subscript(inputObject name: String) -> GraphQLInputObjectType? {
+    return referencedTypes.inputObjects.first { $0.name == name }
+  }
 }
 
 extension CompilationResult {

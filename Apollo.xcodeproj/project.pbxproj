@@ -323,6 +323,8 @@
 		E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */; };
 		E6C4267B26F16CB400904AD2 /* introspection_response.json in Resources */ = {isa = PBXBuildFile; fileRef = E6C4267A26F16CB400904AD2 /* introspection_response.json */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
+		E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */; };
+		E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */; };
 		E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
@@ -976,6 +978,8 @@
 		E6C4267A26F16CB400904AD2 /* introspection_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = introspection_response.json; sourceTree = "<group>"; };
 		E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDownloaderTests.swift; sourceTree = "<group>"; };
 		E6D79AB926EC05290094434A /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
+		E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputObjectFileGenerator.swift; sourceTree = "<group>"; };
+		E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
@@ -2133,8 +2137,9 @@
 			isa = PBXGroup;
 			children = (
 				E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */,
-				E66F8896276C136B0000BDA8 /* TypeFileGeneratorTests.swift */,
+				E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */,
 				E610D8DC278EB1500023E495 /* InterfaceFileGeneratorTests.swift */,
+				E66F8896276C136B0000BDA8 /* TypeFileGeneratorTests.swift */,
 				E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */,
 			);
 			path = FileGenerators;
@@ -2165,6 +2170,7 @@
 			children = (
 				E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */,
 				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
+				E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */,
 				E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */,
 				E66F8898276C15580000BDA8 /* TypeFileGenerator.swift */,
 				E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */,
@@ -2900,6 +2906,7 @@
 				DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */,
 				9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
+				E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */,
 				9BCA8C0926618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift in Sources */,
 				DE5FD60527694FA70033EE23 /* SchemaTemplate.swift in Sources */,
 				DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */,
@@ -2970,6 +2977,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionsTests.swift in Sources */,
+				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				DE5FD60D2769711E0033EE23 /* FragmentTemplateTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
 				DE223C1C271F3288004A0148 /* AnimalKingdomASTCreationTests.swift in Sources */,
