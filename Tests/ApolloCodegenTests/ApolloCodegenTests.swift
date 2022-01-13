@@ -153,7 +153,7 @@ class ApolloCodegenTests: XCTestCase {
 
   // MARK: File Generator Tests
 
-  func test_fileGenerators_givenGraphQLObjectType_shouldOnlyCreateGeneratorsForUsedTypes() throws {
+  func test_fileGenerators_givenSchema_shouldCreateFileGeneratorsForUsedSchema1Types() throws {
     // given
     let schema = """
     type Query {

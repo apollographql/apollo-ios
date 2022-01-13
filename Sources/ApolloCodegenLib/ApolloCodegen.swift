@@ -47,7 +47,12 @@ public class ApolloCodegen {
     try fileGenerators(for: ir.schema.referencedTypes.inputObjects, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
 
-    #warning("TODO - generate schema file")
+    try SchemaFileGenerator(
+      name: configuration.output.schemaTypes.moduleName,
+      objectTypes: ir.schema.referencedTypes.objects,
+      directoryPath: modulePath
+    ).generateFile()
+
     #warning("TODO - generate operation/fragment files")
     #warning("TODO - generate package manager manifest")
   }
