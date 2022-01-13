@@ -472,7 +472,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       rootSelectionSet[field: "allAnimals"]?[as: "Pet"]
     )
 
-#warning("TODO: height is redundant, but is redeclared, do we include or omit it?")
+#warning("TODO: height is redundant, but is redeclared, do we include or omit it? It's nested fields are not redundant though, so I'm pretty sure we keep it...?")
     expected = (
       fields: [
         .mock("height",
@@ -583,11 +583,11 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
         .mock("centimeters",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("meters",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("feet",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("inches",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("meters",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
       ],
       typeCases: [],
@@ -712,11 +712,11 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("meters",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("yards",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("feet",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("inches",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("yards",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
@@ -848,11 +848,11 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("meters",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("yards",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("feet",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("inches",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("yards",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),
@@ -1047,11 +1047,11 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       fields: [
         .mock("meters",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+        .mock("yards",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("feet",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("inches",
-              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
-        .mock("yards",
               type: .nonNull(.scalar(GraphQLScalarType.integer()))),
         .mock("relativeSize",
               type: .nonNull(.enum(GraphQLEnumType.relativeSize()))),

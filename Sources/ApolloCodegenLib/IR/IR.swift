@@ -99,7 +99,8 @@ class IR {
     var typeScope: TypeScopeDescriptor { typePath.last.value }
 
     /// The selections that are directly selected by this selection set.
-    var selections: SortedSelections = SortedSelections()
+    var directSelections: SortedSelections = SortedSelections()
+    #warning("TODO: can we make this a let?")
 
     /// The selections that are available to be accessed by this selection set.
     ///
@@ -109,8 +110,11 @@ class IR {
     /// Selections in the `mergedSelections` are guarunteed to be selected if this `SelectionSet`'s
     /// `selections` are selected. This means they can be merged into the generated object
     /// representing this `SelectionSet` as field accessors.
-    lazy var mergedSelections: MergedSelections = entity.mergedSelectionTree
-      .mergedSelections(forSelectionSet: self)
+    private(set) lazy var mergedSelections: ShallowSelections = {
+      entity.mergedSelectionTree.calculateMergedSelections(forSelectionSet: self)
+      return _mergedSelections
+    }()
+    private var _mergedSelections: ShallowSelections = ShallowSelections()
 
     init(
       entity: Entity,
@@ -122,6 +126,23 @@ class IR {
       self.typePath = typePath
     }
 
+    private func mergeIn(_ field: IR.Field) {
+      guard !directSelections.fields.keys
+              .contains(field.hashForSelectionSetScope) else { return }
+      _mergedSelections.mergeIn(field)
+    }
+
+    private func mergeIn(_ fragment: IR.FragmentSpread) {
+      guard !directSelections.fragments.keys
+              .contains(fragment.hashForSelectionSetScope) else { return }
+      _mergedSelections.mergeIn(fragment)
+    }
+
+    func mergeIn(_ selections: IR.ShallowSelections) {
+      selections.fields.values.forEach { self.mergeIn($0) }
+      selections.fragments.values.forEach { self.mergeIn($0) }
+    }
+
     var debugDescription: String {
       "SelectionSet on \(parentType)"
     }
@@ -130,7 +151,7 @@ class IR {
       lhs.entity == rhs.entity &&
       lhs.parentType == rhs.parentType &&
       lhs.typePath == rhs.typePath &&
-      lhs.selections == rhs.selections
+      lhs.directSelections == rhs.directSelections
     }
 
   }

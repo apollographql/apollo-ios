@@ -5,7 +5,7 @@ import OrderedCollections
 fileprivate protocol MergedSelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-    into selections: inout IR.MergedSelections
+    into selectionSet: IR.SelectionSet
   )
 }
 
@@ -32,7 +32,7 @@ extension IR {
     
     func mergeIn(selectionSet: SelectionSet) {
       mergeIn(
-        selections: selectionSet.selections,
+        selections: selectionSet.directSelections,
         atEnclosingEntityScope: selectionSet.typePath.head,
         withEntityTypePath: selectionSet.typePath.head.value.typePath.head,
         to: rootNode,
@@ -125,10 +125,10 @@ extension IR {
 
     // MARK: - Calculate Merged Selections From Tree
 
-    func mergedSelections(forSelectionSet selectionSet: SelectionSet) -> MergedSelections {
-      var selections = MergedSelections(selectionSet: selectionSet)
-      rootNode.mergeSelections(matchingTypePath: selectionSet.typePath.head, into: &selections)
-      return selections
+    func calculateMergedSelections(
+      forSelectionSet selectionSet: SelectionSet
+    ) {
+      rootNode.mergeSelections(matchingTypePath: selectionSet.typePath.head, into: selectionSet)
     }
 
     class EnclosingEntityNode: MergedSelectionTreeNode {
@@ -138,12 +138,12 @@ extension IR {
 
         func mergeSelections(
           matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-          into selections: inout IR.MergedSelections
+          into selectionSet: IR.SelectionSet
         ) {
           switch self {
           case let .enclosingEntity(node as MergedSelectionTreeNode),
             let .fieldScope(node as MergedSelectionTreeNode):
-            node.mergeSelections(matchingTypePath: typePath, into: &selections)
+            node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
           }
         }
       }
@@ -153,22 +153,22 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: inout IR.MergedSelections
+        into selectionSet: IR.SelectionSet
       ) {
         guard let nextTypePathNode = typePath.next else {
           guard case let .fieldScope(node) = child else { fatalError() }
-          node.mergeSelections(matchingTypePath: typePath, into: &selections)
+          node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
           return
         }
 
         if let child = child {
-          child.mergeSelections(matchingTypePath: nextTypePathNode, into: &selections)
+          child.mergeSelections(matchingTypePath: nextTypePathNode, into: selectionSet)
         }
 
         if let typeCases = typeCases {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: &selections)
+              node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
             }
           }
         }
@@ -221,27 +221,27 @@ extension IR {
     }
 
     class FieldScopeNode: MergedSelectionTreeNode {
-      var selections: SortedSelections?
+      var selections: ShallowSelections?
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
       fileprivate func mergeIn(_ selections: SortedSelections) {
-        var fieldSelections = self.selections ?? SortedSelections()
+        var fieldSelections = self.selections ?? ShallowSelections()
         fieldSelections.mergeIn(selections)
         self.selections = fieldSelections
       }
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: inout IR.MergedSelections
+        into selectionSet: IR.SelectionSet
       ) {
         if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections, mergeTypeCases: false)          
+          selectionSet.mergeIn(scopeSelections)
         }
 
         if let typeCases = typeCases {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: &selections)
+              node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
             }
           }
         }
