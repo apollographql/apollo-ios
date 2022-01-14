@@ -1,5 +1,6 @@
 import Foundation
 import OrderedCollections
+import ApolloUtils
 
 protocol FieldMergable {
   typealias Field = IR.Field
@@ -135,8 +136,6 @@ extension IR {
   }
 
 }
-
-import ApolloUtils
 
 extension IR {
   struct ShallowSelections:

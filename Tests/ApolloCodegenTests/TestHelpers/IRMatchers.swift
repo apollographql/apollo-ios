@@ -233,6 +233,44 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
   }
 }
 
+typealias SelectionMatcher = (
+  direct: [CompilationResult.Selection],
+  merged:[CompilationResult.Selection]
+)
+
+func shallowlyMatch<T: IR.SelectionSet>(
+  _ expectedValue: SelectionMatcher
+) -> Predicate<T> {
+  return Predicate { actual in
+    let directExpression = actual.cast { $0?.directSelections }
+    let directPredicate: Predicate<IR.SortedSelections> = shallowlyMatch(expectedValue.direct)
+
+    let directResult = try directPredicate.satisfies(directExpression)
+    if directResult.status != .matches {
+      return PredicateResult(
+        status: directResult.status,
+        message: directResult.message.appended(message: " for direct selections")
+      )
+    }
+
+    let mergedExpression = actual.cast { $0?.mergedSelections }
+    let mergedPredicate: Predicate<IR.ShallowSelections> = shallowlyMatch(expectedValue.merged)
+
+    let mergedResult = try mergedPredicate.satisfies(mergedExpression)
+    if mergedResult.status != .matches {
+      return PredicateResult(
+        status: mergedResult.status,
+        message: mergedResult.message.appended(message: " for merged selections")
+      )
+    }
+
+    return PredicateResult(
+      status: .matches,
+      message: .expectedActualValueTo("equal <\(expectedValue)>")
+    )
+  }
+}
+
 // MARK: Field Matchers
 
 public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Predicate<OrderedDictionary<String, IR.Field>> {
