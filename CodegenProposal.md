@@ -298,9 +298,11 @@ enum SkinCovering {
 
 In order to fulfill all of the stated goals of this project, the following approach is proposed for the structure of the Codegen:
 
-## `SelectionSet` - A “View” of an Entity
+## Entity
 
 We will refer to each individual object fetched in a GraphQL response as an “entity”. An entity defines a single type (object, interface, or union) that has fields on it that can be fetched. 
+
+## `SelectionSet` - A “View” of an Entity
 
 A `SelectionSet` defines a set of fields that have been selected to be visible for access on a given entity. The `SelectionSet` determines the shape of the generated response data objects for a given operation.
 
@@ -317,7 +319,7 @@ query {
 }
 ```
 
-Each animal in the list of `allAnimals` is a single entity. Each of those entities has a concrete type (Cat, Fish, Bird, etc.). For each animal entity, we define a group of `SelectionSet`s that exposes the `species` field and, if the entity is a `Pet`, the `humanName` field.
+Each animal in the list of `allAnimals` is a single entity. Each of those entities has a concrete type (`Cat`, `Fish`, `Bird`, etc.). For each animal entity, we define a group of `SelectionSet`s that exposes the `species` field and, if the entity is a `Pet`, the `humanName` field.
 
 Each generated data object conforms to a `SelectionSet` protocol, which defines some universal behaviors. Type cases, fragments, and root types all conform to this protocol. For reference see [SelectionSet.swift](Sources/ApolloAPI/SelectionSet.swift).
 
@@ -391,7 +393,7 @@ For more information and implementation details, see: [GraphQLNullable.swift](So
 
 An overview of the format of all generated object types.
 
-# Schema Type Generation
+## Schema Type Generation
 
 In addition to generating `SelectionSet`s for your `GraphQLOperation`s, types will be generated for each type (object, interface, or union) that is used in any operations across your entire application. These types will include all the fields that may be fetched by any operation used and can include other type metadata. 
 
@@ -407,7 +409,7 @@ These schema types can be included directly in your application target, or be ge
 
 Schema types are implemented as `class` objects, not `struct`s. They will use reference type semantics and are mutable within a cache transaction.
 
-## `Object` Types
+### `Object` Types
 
 For each concrete type declared in your schema and referenced by any generated operation, an `Object` subclass is generated. Each `Object` type contains a `static var __metadata` containing a struct that provides a list of the interfaces implemented by the concrete type.
 
@@ -423,7 +425,7 @@ public final class Dog: Object {
 }
 ```
 
-## `Interface` Types
+### `Interface` Types
 
 For each interface type declared in your schema and referenced by any generated operation, an `Interface` subclass is generated. Interfaces wrap an underlying `Object` type and ensure that only objects of types that they are only initialized with a wrapped object of a type that implements the interface.
 
@@ -431,7 +433,7 @@ For each interface type declared in your schema and referenced by any generated 
 public final class Pet: Interface {}
 ```
 
-## `Union` Types
+### `Union` Types
 
 For each union type declared in your schema and referenced by any generated operation, a `UnionType` enum is generated. `UnionType` enums have cases representing each possible type in the union. Each case has an associated value of the `Object` type represented by that case. `UnionType` enums are referenced as fields by being wrapped in a `Union<UnionType>` enum that provides access to the underlying `UnionType` and unknown cases. See [Handling Unknown Types](#handling-unknown-types) for more information. `UnionType` enums contain a `static let possibleTypes` property that provides a list of the concrete `Object` types contained in the union.
 ```swift
@@ -463,13 +465,13 @@ public enum ClassroomPet: UnionType, Equatable {
 }
 ```
 
-## `Schema` Metadata
+### `Schema` Metadata
 
 A `SchemaConfiguration` object will also be generated for your schema. This object will have a function that maps the `Object` types in your schema to their `__typename` string. This allows the execution to convert data (from a network response from the cache) to the correct `Object` type at runtime.
 
 For an example of generated schema metadata see [AnimalKindgomAPI/Schema.swift](Tests/ApolloCodegenTests/AnimalKingdomAPI/ExpectedGeneratedOutput/Schema.swift).
 
-# `EnumType` Generation
+### `EnumType` Generation
 
 Enums will be generated for each `enum` type in the schema that is used in any of the operations defined in your application. These enums will conform to a simple `EnumType` protocol. When used as the type for a field on a `SelectionSet`, these enums will be wrapped in the generic `GraphQLEnum`. Unlike the previous code generation engine, the new code generation will respect the capitalization of the enum cases from the schema.
 
@@ -528,7 +530,7 @@ case .none: break
 ```
 See [GraphQLEnum.swift](Sources/ApolloAPI/GraphQLEnum.swift) for implementation details.
 
-# `InputObject` Generation
+### `InputObject` Generation
 
 Input objects will be generated for each `input` type in the schema that is used in an argument for any of the operations defined in your application. Input objects are structs that are backed by a `InputDict` struct that stores the values for the fields on the input object in a dictionary. This allows for `InputObject`s to be treated as values types but use copy-on-write semantics under the hood.
 
@@ -608,7 +610,7 @@ struct MyInput: InputObject {
 > Note that we are not generating these fields with the provided default values. This is to account for default values that may change on the schema in the future. See [Generate Default Parameter Values for `InputObject` Default Values](#generate-default-parameter-values-for-inputobject-default-values) for more discussion.
 
 
-# `GraphQLOperation` Generation
+## `GraphQLOperation` Generation
 
 A `GraphQLOperation` is generated for each operation defined in your application. `GraphQLOperation`s can be queries (`GraphQLQuery`), mutations (`GraphQLMutation`), or subscriptions (`GraphQLSubscription`).
 
@@ -636,7 +638,7 @@ class AnimalQuery: GraphQLQuery {
 }
 ```
 
-## Operation Arguments
+### Operation Arguments
 
 For an operation that takes input arguments, the initializer will be generated with parameters for each argument. Arguments can be scalar types, `GraphQLEnum`s, or `InputObject`s. During execution, these arguments will be used as the operation's `variables`, which are then used as the values for arguments on `SelectionSet` fields matching the variables name.
 
@@ -708,29 +710,29 @@ class AnimalQuery: GraphQLQuery {
 }
 ```
 
-# `SelectionSet` Generation
+## `SelectionSet` Generation
 
-## Metadata
+### Metadata
 
 Each `SelectionSet` has metadata properties that provide the Apollo library the ability to check for valid type conversions at runtime.
 
-### `__typename`
+**`__typename`**
 
 `__typename` is a computed property on each concrete instance of a `SelectionSet` that defines the concrete type of the underlying entity that the `SelectionSet` represents. This is a `String` representation that is fetched from the server using the `__typename` metadata field in the query. All queried selection sets will automatically include the `__typename` field.
 
-### `__objectType` 
+**`__objectType`**
 
 `__objectType` is a computed property that provides a strongly typed wrapper for `__typename`. It converts the `__typename` string into a concrete case of the `Object` enum from the schema.
 
-### `__parentType`
+**`__parentType`**
 
  `__parentType` is a static property on each `SelectionSet` *type* that defines the known type that the `SelectionSet` is being fetched on. The `__parentType` may be an `Object`, `Interface`, or `Union`. This property is represented by the `ParentType` enum. `__parentType` is generated for each `SelectionSet`, not computed at runtime.
 
-### `selections`
+**`selections`**
 
 Indicates the fields that should be “selected” during GraphQL execution. See [Selection Generation](#selection-generation) for more information.
 
-### Example
+**Example**
 
 To illustrate the difference between these properties, we will use an example. Given the query:
 
@@ -748,7 +750,7 @@ The `__typename` field, provided by the server would provide the actual concrete
 The `__objectType` property would convert this into a strongly typed `Object` from the generated schema types. This property will have different values for each concrete `Animal` object.
 The `__parentType` for all of these entities would still be the same — the `Animal` interface. 
 
-# Field Accessor Generation
+### Field Accessor Generation
 
 Each field selected in a `SelectionSet`'s `selections` can be accessed via a generated field accessor. Generated field accessors provide type-safe access to the values for fields that are selected on the `SelectionSet`. These field accessors access the data on the underlying `ResponseDict`, which holds the data for the `SelectionSet`. The data is then cast to the correct type and any transformations needed are applied under the hood. Because the GraphQL execution validates response data before mapping it onto generated `SelectionSet`s, the data is guarunteed to exist and be the correct type.
 
@@ -758,14 +760,14 @@ var species: String { data["species"] }
 ```
 The `ResponseDict` accesses the field's value and force casts it to a `String`, which will always be safe.
 
-# `Fragment` Generation
+## `Fragment` Generation
 
 Fragments are used in GraphQL operations primarily for two reasons:
 
 1. Sharing common `SelectionSet`s across multiple operations
 2. Querying fields on a more specific type than the current parent type
 
-## Fragment Structs
+### Fragment Structs
 
 When sharing a common `SelectionSet` across multiple operations, a fragment can be used. This can reduce the size of your operation definition files. Additionally, and often more importantly, it allows you to reuse generated `SelectionSet` data objects across multiple operations. This can enable your code to consume fragments of an operation’s response data irrespective of the operation executed. Using fragments this way acts as a form of abstraction similar to protocols. It has often been proposed that fragments should be represented as generated protocols, however due to implementation details of the Swift language, this approach has serious limitations. See [Appendix A: Why Fragment Protocols Don’t Work](#appendix-a-why-fragment-protocols-dont-work) for more information.
 
@@ -820,15 +822,15 @@ struct Animal: SelectionSet, HasFragments {
 
 The query’s `Animal` struct conforms to `HasFragments`, which is a protocol that exposes a `fragments` property that exposes the nested `Fragments` struct. The fragments a `SelectionSet` contains are exposed in this `Fragments` struct via computed properties that utilize a `_toFragment()` helper function. This allows you to access the `AnimalDetails` fragment via `myAnimal.fragments.animalDetails`.
 
-### Merging Fragment Fields Into Parent `SelectionSet`
+**Merging Fragment Fields Into Parent `SelectionSet`**
 
 In the above example you may note that the `species` field is accessible directly on the `Animal` object without having to access the `AnimalDetails` fragment first. This is because fields from fragments that have the same `__parentType` as the enclosing `SelectionSet` are automatically merged into the enclosing `SelectionSet`. 
 
-## Inline Fragments
+### Inline Fragments
 
 Inline fragments are fragments that are unnamed and defined within an individual operation. These fragments cannot be shared, and as such, individual fragment `SelectionSet`s are not generated. Inline fragments are used strictly for handling “Type Cases“.
 
-# `TypeCase` Generation
+## `TypeCase` Generation
 
 When using a fragment to fetch fields on a more specific interface or type than the `SelectionSet`’s `__parentType`, we create a new `SelectionSet` for the more specific type. We refer to these more specific `SelectionSet`s as “Type Cases”. 
 
@@ -878,7 +880,7 @@ struct Animal: RootSelectionSet {
 
 The computed property for `asPet` uses an internal function `_asType()`, which is defined in an extension on `SelectionSet`. This function checks the concrete `__objectType` against the  `__parentType` of the Type Case to see if the entity can be converted to the `SelectionSet` of the TypeCase. An `AsPet` struct will only be returned if the underlying entity for the `Animal` is a type that conforms to the `Pet` `Interface`, otherwise `asPet` will return `nil`. 
 
-## Merging `TypeCase` Fields Into Children and Siblings
+### Merging `TypeCase` Fields Into Children and Siblings
 
 Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. Since the field will already be selected and will exist in the underlying `ResponseDict`, the child `SelectionSet` does not need to duplicate the `Selection` for the field. Only a duplicated field accessor needs to be generated. For more explanation of how the `Selection`s for `TypeCase`s work, see [`TypeCase` Selections](#typecase-selections).
 
@@ -935,7 +937,7 @@ struct Animal: RootSelectionSet {
 
 The `AsCat` `TypeCase` is on the `__parentType` “`Cat`" and the "`Cat`" object type implements the “`Pet`" `Interface`. Given this information the code generation engine can deduce that, any `AsCat` will also have the `humanName` field selected by the `AsPet` `TypeCase`. This field gets merged in and the `AsCat` has a field accessor for it.
 
-# Union Generation
+## Union Generation
 
 Union types are generated just like any other `SelectionSet`. Because a union has no knowledge of the underlying type or the selections available, a union `SelectionSet` will not generally include any field accessors itself. Rather, a union will only provide access to its child `TypeCases`s.
 
@@ -974,7 +976,7 @@ struct ClassroomPet: RootSelectionSet {
 }
 ```
 
-# `Selection` Generation
+## `Selection` Generation
 
 Each `SelectionSet` includes an array of `Selection`s that indicate what fields should be “selected” during execution.
 A parent `SelectionSet` will conditionally include its children’s selections as nested selections. The `GraphQLExecutor` determines if child selections should be included. 
@@ -983,7 +985,7 @@ While merged fields will be generated as  field accessors on children, the `sele
 
 `Selection` is an enum with cases representing different types of selections. A simple field selection is represented as a `Field`, but nested selections that are conditionally included are represented by additional types. 
 
-## `Field` Selections
+### `Field` Selections
 
 The `Selection.field(Field)` case represents a specific field that should be selected. It contains a `Field` struct that includes the field name; the field alias if it exists; any arguments the field takes, and the field’s type.
 
@@ -1005,7 +1007,7 @@ struct Animal: RootSelectionSet {
 }
 ```
 
-### Field Arguments
+#### **Field Arguments**
 
 If a field takes arguments, the arguments will be generated on the field’s `Selection`. Arguments are represented as a dictionary of argument names and their values. An argument’s value is represented as an `InputValue` and can be a scalar value, a list of other `InputValue`s, a generated input type, or a variable. Variable arguments have their values provided when an instance of an operation is created.
 
@@ -1050,7 +1052,7 @@ class Query: GraphQLQuery {
 }
 ```
 
-## `@skip/@include` Selections
+### `@skip/@include` Selections
 
 One or more `Selection`s may be conditionally included based on a `@skip` or `@include` directive. These `Selection`s provide a variable name for a variable of type `Boolean` on the operation that will determine if the `Selection`s are included.
 
@@ -1116,7 +1118,7 @@ class Query: GraphQLQuery {
 }
 ```
 
-## `Fragment` Selections
+### `Fragment` Selections
 
 Fragments included by a `SelectionSet` reference the `Fragment` `SelectionSet` and automatically include all the fragment’s `selections`.
 
@@ -1166,7 +1168,7 @@ class Query: GraphQLQuery {
 }
 ```
 
-## `TypeCase` Selections
+### `TypeCase` Selections
 
 When a `SelectionSet` has a nested type case, the type case’s selections are only included if the `__typename` of the object matches a type that is compatible with the `TypeCase`’s `__parentType`. This is determined at runtime by the `GraphQLExecutor` during the process of executing the `selections` on each `SelectionSet`. While the selections for each `TypeCase` are not duplicated, field accessors for fields merged from the parent and other `TypeCase`s will be generated on each `TypeCase` struct. This is described in [Merging `TypeCase` Fields Into Children and Siblings](#merging-typecase-fields-into-children-and-siblings).
 
@@ -1270,7 +1272,7 @@ struct Animal: RootSelectionSet {
 }
 ```
 
-## `RootSelectionSet` vs `TypeCase`
+### `RootSelectionSet` vs `TypeCase`
 
 A `SelectionSet` that represents the root selections on its `__parentType` is a `RootSelectionSet`. Nested selection sets for `TypeCase`s are not `RootSelectionSet`s.
 
@@ -1278,11 +1280,11 @@ While a `TypeCase` only provides the additional selections that should be select
 
 For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `ResponseDict` for the `SelectionSet`'s data.
 
-# Handling Unknown Types
+## Handling Unknown Types
 
 Types that are added to your schema server side after the code generation has run could be returned in a response from the server, but will not have a generated `Object` type object that recognizes them. These types are unknown to the client-side type system. Because all data about these types is not known, certain functionality will be limited on unknown types. The `RootSelectionSet` fields will be selected properly for unknown types, but any child `TypeCase` will not be present on unknown types, as we are unable to know if the unknown type matches a `TypeCase` or not.
 
-# Cache Key Resolution
+## Cache Key Resolution
 
 Each generated object can provide a function for computing it's cache key by conforming to the `CacheKeyProvider` protocol. Extensions can be created manually to provide conformance to this protocol on object types.
 
@@ -1303,7 +1305,7 @@ If `nil` is returned, the object will be treated as if it does not have a unique
 
 > When reading/writing data to the cache, the `__typename` will always be prepended to the returned cache key. It does not need to be included in the value returned by your `CacheKeyProvider`. This means that cache keys only need to be guaranteed to be unique across objects of the same type.
 
-## Composable Cache Key Providers
+### Composable Cache Key Providers
 
 Multiple types that compute their cache keys in the same way can share their cache key provider function via protocol composition.
 
@@ -1326,7 +1328,7 @@ extension Fish: PetCacheKeyProvider {}
 
 > In the future, we hope to provide mechanisms to have `CacheKeyProvider` implementations automatically generated based on client-side directives that can be added as extensions to your graphql schema directly.
 
-## Unknown Type Cache Key Providers
+### Unknown Type Cache Key Providers
 
 If you would like to automatically provide cache key computation for unknown types (types that are added to your schema after code generation), you can extend your generated `SchemaConfiguration` to conform to the `SchemaUnknownTypeCacheKeyProvider` protocol.
 
