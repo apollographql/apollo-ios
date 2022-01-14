@@ -300,7 +300,7 @@ In order to fulfill all of the stated goals of this project, the following appro
 
 ## Entity
 
-We will refer to each individual object fetched in a GraphQL response as an “entity”. An entity defines a single type (object, interface, or union) that has fields on it that can be fetched. 
+We will refer to each individual object fetched in a GraphQL response as an “entity”. An entity defines a single type (Object, Interface, or Union) that has fields on it that can be fetched. 
 
 ## `SelectionSet` - A “View” of an Entity
 
@@ -369,7 +369,7 @@ struct Animal: SelectionSet, HasFragments {
 }
 ```
 
-In this simple example, the `Animal` object has a nested `Height` object. Each conforms to `SelectionSet` and each has a single stored property let data: `DataDict`. The `DataDict` is a struct that wraps the dictionary storage, and provides custom subscript accessors for casting/transforming the underlying data to the correct types. For more information and implementation details, see: [DataDict.swift](Sources/ApolloAPI/DataDict.swift)
+In this simple example, the `Animal` object has a nested `Height` object. Each conforms to `SelectionSet` and each has a single stored property `let data: DataDict`. The `DataDict` is a struct that wraps the dictionary storage, and provides custom subscript accessors for casting/transforming the underlying data to the correct types. For more information and implementation details, see: [DataDict.swift](Sources/ApolloAPI/DataDict.swift)
 
 ## GraphQL Execution
 
@@ -395,7 +395,7 @@ An overview of the format of all generated object types.
 
 ## Schema Type Generation
 
-In addition to generating `SelectionSet`s for your `GraphQLOperation`s, types will be generated for each type (object, interface, or union) that is used in any operations across your entire application. These types will include all the fields that may be fetched by any operation used and can include other type metadata. 
+In addition to generating `SelectionSet`s for your `GraphQLOperation`s, types will be generated for each type (Object, Interface, Union, Enum, or Input Object) that is used in any operations across your entire application. These types will include all the fields that may be fetched by any operation used and can include other type metadata. 
 
 The schema types have a number of functions. 
 
@@ -405,9 +405,7 @@ The schema types have a number of functions.
 * Used to create mock objects for generated `SelectionSet`s to be used in unit tests.
 
 
-These schema types can be included directly in your application target, or be generated into a separate shared library that can be used across modules in your application.
-
-Schema types are implemented as `class` objects, not `struct`s. They will use reference type semantics and are mutable within a cache transaction.
+These schema types can be included directly in your application target, or be generated into a separate shared library that can be used across modules in your application. They will use reference type semantics where applicable, and are mutable within a cache transaction.
 
 ### `Object` Types
 
