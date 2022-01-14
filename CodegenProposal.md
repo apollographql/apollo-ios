@@ -463,12 +463,6 @@ public enum ClassroomPet: UnionType, Equatable {
 }
 ```
 
-### `Schema` Metadata
-
-A `SchemaConfiguration` object will also be generated for your schema. This object will have a function that maps the `Object` types in your schema to their `__typename` string. This allows the execution to convert data (from a network response from the cache) to the correct `Object` type at runtime.
-
-For an example of generated schema metadata see [AnimalKindgomAPI/Schema.swift](Tests/ApolloCodegenTests/AnimalKingdomAPI/ExpectedGeneratedOutput/Schema.swift).
-
 ### `EnumType` Generation
 
 Enums will be generated for each `enum` type in the schema that is used in any of the operations defined in your application. These enums will conform to a simple `EnumType` protocol. When used as the type for a field on a `SelectionSet`, these enums will be wrapped in the generic `GraphQLEnum`. Unlike the previous code generation engine, the new code generation will respect the capitalization of the enum cases from the schema.
@@ -606,6 +600,12 @@ struct MyInput: InputObject {
 }
 ```
 > Note that we are not generating these fields with the provided default values. This is to account for default values that may change on the schema in the future. See [Generate Default Parameter Values for `InputObject` Default Values](#generate-default-parameter-values-for-inputobject-default-values) for more discussion.
+
+### `Schema` Metadata
+
+A `SchemaConfiguration` object will also be generated for your schema. This object will have a function that maps the `Object` types in your schema to their `__typename` string. This allows the execution to convert data (from a network response from the cache) to the correct `Object` type at runtime.
+
+For an example of generated schema metadata see [AnimalKindgomAPI/Schema.swift](Tests/ApolloCodegenTests/AnimalKingdomAPI/ExpectedGeneratedOutput/Schema.swift).
 
 
 ## `GraphQLOperation` Generation
