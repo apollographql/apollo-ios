@@ -326,7 +326,7 @@ Each generated data object conforms to a `SelectionSet` protocol, which defines 
 ### `SelectionSet` Data is Represented as Structs With Dictionary Storage
 ---
 
-The generated data objects are structs that have a single stored property. The stored property is to another struct named `ResponseDict`, which has a single stored constant property of type `[String: Any]`.
+The generated data objects are structs that have a single stored property. The stored property is to another struct named `DataDict`, which has a single stored constant property of type `[String: Any]`.
 
 Often times the same data can be represented by different generated types. For example, when checking a type condition or accessing a fragment on an entity. By using structs with a single dictionary pointer, we are able to reference the same underlying data, while providing different accessors for fields at different scopes. 
 
@@ -356,20 +356,20 @@ query {
 
 ```swift
 struct Animal: SelectionSet, HasFragments {
-  let data: ResponseDict
+  let data: DataDict
 
   var species: String { data["species"] }
   var height: Height { data["height"] }
       
   struct Height: SelectionSet {
-    let data: ResponseDict
+    let data: DataDict
 
     var feet: Int { data["feet"] }
   }
 }
 ```
 
-In this simple example, the `Animal` object has a nested `Height` object. Each conforms to `SelectionSet` and each has a single stored property let data: `ResponseDict`. The `ResponseDict` is a struct that wraps the dictionary storage, and provides custom subscript accessors for casting/transforming the underlying data to the correct types. For more information and implementation details, see: [ResponseDict.swift](Sources/ApolloAPI/ResponseDict.swift)
+In this simple example, the `Animal` object has a nested `Height` object. Each conforms to `SelectionSet` and each has a single stored property let data: `DataDict`. The `DataDict` is a struct that wraps the dictionary storage, and provides custom subscript accessors for casting/transforming the underlying data to the correct types. For more information and implementation details, see: [DataDict.swift](Sources/ApolloAPI/DataDict.swift)
 
 ## GraphQL Execution
 
@@ -752,13 +752,13 @@ The `__parentType` for all of these entities would still be the same — the `An
 
 ### Field Accessor Generation
 
-Each field selected in a `SelectionSet`'s `selections` can be accessed via a generated field accessor. Generated field accessors provide type-safe access to the values for fields that are selected on the `SelectionSet`. These field accessors access the data on the underlying `ResponseDict`, which holds the data for the `SelectionSet`. The data is then cast to the correct type and any transformations needed are applied under the hood. Because the GraphQL execution validates response data before mapping it onto generated `SelectionSet`s, the data is guarunteed to exist and be the correct type.
+Each field selected in a `SelectionSet`'s `selections` can be accessed via a generated field accessor. Generated field accessors provide type-safe access to the values for fields that are selected on the `SelectionSet`. These field accessors access the data on the underlying `DataDict`, which holds the data for the `SelectionSet`. The data is then cast to the correct type and any transformations needed are applied under the hood. Because the GraphQL execution validates response data before mapping it onto generated `SelectionSet`s, the data is guarunteed to exist and be the correct type.
 
 When the `species` field on an `Animal` is selected, the following field accessor is generated:
 ```swift
 var species: String { data["species"] }
 ```
-The `ResponseDict` accesses the field's value and force casts it to a `String`, which will always be safe.
+The `DataDict` accesses the field's value and force casts it to a `String`, which will always be safe.
 
 ## `Fragment` Generation
 
@@ -797,7 +797,7 @@ query AllAnimalSpecies {
 ```swift
 struct AnimalDetails: SelectionSet, Fragment {
   static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-  let data: ResponseDict
+  let data: DataDict
 
   var species: String { data["species"] }
 }
@@ -808,12 +808,12 @@ struct AnimalDetails: SelectionSet, Fragment {
 ```swift
 struct Animal: SelectionSet, HasFragments {
     static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-    let data: ResponseDict
+    let data: DataDict
     
     var species: String { data["species"] }
       
     struct Fragments: ResponseObject {
-      let data: ResponseDict
+      let data: DataDict
 
       var animalDetails: AnimalDetails { _toFragment() }
     }
@@ -862,7 +862,7 @@ query {
 ```swift
 struct Animal: RootSelectionSet {
     static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-    let data: ResponseDict
+    let data: DataDict
     
     var asPet: AsPet? { _asType() }
     
@@ -870,7 +870,7 @@ struct Animal: RootSelectionSet {
       
     struct AsPet: TypeCase {
       static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
-      let data: ResponseDict
+      let data: DataDict
       
       var species: String { data["species"] }
       var humanName: String? { data["humanName"] }      
@@ -882,7 +882,7 @@ The computed property for `asPet` uses an internal function `_asType()`, which i
 
 ### Merging `TypeCase` Fields Into Children and Siblings
 
-Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. Since the field will already be selected and will exist in the underlying `ResponseDict`, the child `SelectionSet` does not need to duplicate the `Selection` for the field. Only a duplicated field accessor needs to be generated. For more explanation of how the `Selection`s for `TypeCase`s work, see [`TypeCase` Selections](#typecase-selections).
+Similarly to merging in fragment fields, fields from a parent and any sibling `TypeCase`s that match the `__parentType` of a `TypeCase` are merged in as well. In the above example the `species` field that is selected by the `Animal` `SelectionSet` is merged into the child `AsPet` `TypeCase`. The `AsPet` represents the same entity as the `Animal`, and because we know that the `species` field will exist for the entity, it is merged in. Since the field will already be selected and will exist in the underlying `DataDict`, the child `SelectionSet` does not need to duplicate the `Selection` for the field. Only a duplicated field accessor needs to be generated. For more explanation of how the `Selection`s for `TypeCase`s work, see [`TypeCase` Selections](#typecase-selections).
 
 Additionally, since any fields from other `TypeCases` defined on the parent `SelectionSet` that match the type of a `TypeCase` are guaranteed to exist, they are also merged in. This makes it much easier to consume the data on a generated `TypeCase`.
 
@@ -909,7 +909,7 @@ query {
 ```swift
 struct Animal: RootSelectionSet {
     static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
-    let data: ResponseDict    
+    let data: DataDict    
     
     var species: String { data["species"] }
     
@@ -918,7 +918,7 @@ struct Animal: RootSelectionSet {
       
     struct AsPet: TypeCase {
       static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
-      let data: ResponseDict
+      let data: DataDict
       
       var species: String { data["species"] }
       var humanName: String? { data["humanName"] }      
@@ -926,7 +926,7 @@ struct Animal: RootSelectionSet {
     
     struct AsCat: TypeCase {
       static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
-      let data: ResponseDict
+      let data: DataDict
       
       var species: String { data["species"] }
       var humanName: String? { data["humanName"] }      
@@ -1278,7 +1278,7 @@ A `SelectionSet` that represents the root selections on its `__parentType` is a 
 
 While a `TypeCase` only provides the additional selections that should be selected for its specific type, a `RootSelectionSet` guarantees that all fields for itself and its nested type cases are selected. When considering a specific `TypeCase`, all fields will be selected either by the root selection set, a fragment spread, the type case itself, or another compatible `TypeCase` on the root selection set. 
 
-For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `ResponseDict` for the `SelectionSet`'s data.
+For this reason, only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a non-root `SelectionSet` would result in fields from its parent `RootSelectionSet` not being collected into the `DataDict` for the `SelectionSet`'s data.
 
 ## Handling Unknown Types
 
