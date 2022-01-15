@@ -6,9 +6,9 @@ struct InputObjectFileGenerator: FileGenerator, Equatable {
   let inputObjectType: GraphQLInputObjectType
   let path: String
 
-  var data: Data {
+  var data: Data? {
     #warning("TODO: need correct data template")
-    return "public struct \(inputObjectType.name) {}".data(using: .utf8)!
+    return "public struct \(inputObjectType.name) {}".data(using: .utf8)
   }
 
   /// Designated initializer.

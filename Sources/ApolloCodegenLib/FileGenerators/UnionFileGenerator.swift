@@ -6,9 +6,9 @@ struct UnionFileGenerator: FileGenerator, Equatable {
   let unionType: GraphQLUnionType
   let path: String
 
-  var data: Data {
+  var data: Data? {
     #warning("TODO: need correct data template")
-    return "public enum \(unionType.name) {}".data(using: .utf8)!
+    return "public enum \(unionType.name) {}".data(using: .utf8)
   }
 
   /// Designated initializer.

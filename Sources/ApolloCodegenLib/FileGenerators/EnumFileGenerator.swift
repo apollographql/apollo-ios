@@ -6,9 +6,9 @@ struct EnumFileGenerator: FileGenerator, Equatable {
   let enumType: GraphQLEnumType
   let path: String
 
-  var data: Data {
+  var data: Data? {
     #warning("TODO: need correct data template")
-    return "public enum \(enumType.name) {}".data(using: .utf8)!
+    return "public enum \(enumType.name) {}".data(using: .utf8)
   }
 
   /// Designated initializer.

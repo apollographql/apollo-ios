@@ -9,9 +9,9 @@ struct SchemaFileGenerator: FileGenerator, Equatable {
   let objectTypes: OrderedSet<GraphQLObjectType>
   let path: String
 
-  var data: Data {
+  var data: Data? {
     #warning("TODO: need correct data template")
-    return "public enum Schema {}".data(using: .utf8)!
+    return "public enum Schema {}".data(using: .utf8)
   }
 
   /// Designated initializer.
