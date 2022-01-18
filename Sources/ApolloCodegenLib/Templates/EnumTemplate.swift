@@ -4,7 +4,7 @@ struct EnumTemplate {
   func render() -> String {
     TemplateString(
     """
-    public enum \(graphqlEnum.name): String, CaseIterable {
+    public enum \(graphqlEnum.name): String, EnumType {
       \(graphqlEnum.values.map({
         "case \($0.name)"
       }), separator: "\n")

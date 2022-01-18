@@ -13,7 +13,7 @@ class EnumTemplateTests: XCTestCase {
     let template = EnumTemplate(graphqlEnum: graphqlEnum)
 
     let expected = """
-    public enum TestEnum: String, CaseIterable {
+    public enum TestEnum: String, EnumType {
       case ONE
       case TWO
     }
@@ -35,7 +35,7 @@ class EnumTemplateTests: XCTestCase {
     let template = EnumTemplate(graphqlEnum: graphqlEnum)
 
     let expected = """
-    public enum CasedEnum: String, CaseIterable {
+    public enum CasedEnum: String, EnumType {
       case lower
       case UPPER
       case Capitalized
