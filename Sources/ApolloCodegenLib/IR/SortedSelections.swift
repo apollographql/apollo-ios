@@ -3,7 +3,7 @@ import OrderedCollections
 import ApolloUtils
 
 protocol FieldMergable {
-  typealias Field = IR.Field
+  associatedtype Field = IR.Field
 
   mutating func mergeIn(_ field: Field)
 }
@@ -19,7 +19,7 @@ extension FieldMergable {
 }
 
 protocol TypeCaseMergable {
-  typealias TypeCase = IR.SelectionSet
+  associatedtype TypeCase = IR.SelectionSet
 
   mutating func mergeIn(_ typeCase: TypeCase)
 }
@@ -35,7 +35,7 @@ extension TypeCaseMergable {
 }
 
 protocol FragmentMergable {
-  typealias Fragment = IR.FragmentSpread
+  associatedtype Fragment = IR.FragmentSpread
 
   mutating func mergeIn(_ fragment: Fragment)
 }
@@ -50,14 +50,14 @@ extension FragmentMergable {
   }
 }
 
-protocol SelectionMergable: FieldMergable, TypeCaseMergable, FragmentMergable {
-  var fields: OrderedDictionary<String, Field> { get }
-  var typeCases: OrderedDictionary<String, TypeCase> { get }
-  var fragments: OrderedDictionary<String, Fragment> { get }
-}
+typealias SelectionMergable = FieldMergable & TypeCaseMergable & FragmentMergable
 
 extension IR {
   struct SortedSelections: SelectionMergable, Equatable, CustomDebugStringConvertible {
+    typealias Field = IR.Field
+    typealias TypeCase = IR.SelectionSet
+    typealias Fragment = IR.FragmentSpread
+
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, Fragment> = [:]
@@ -92,7 +92,7 @@ extension IR {
 
     // MARK: Merge In
 
-    mutating func mergeIn(_ field: Field) {
+    mutating func mergeIn(_ field: IR.Field) {
       let keyInScope = field.hashForSelectionSetScope
  
       if let existingField = fields[keyInScope] as? EntityField {
@@ -120,7 +120,7 @@ extension IR {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    mutating func mergeIn(_ selections: SelectionMergable) {
+    mutating func mergeIn(_ selections: SortedSelections) {
       mergeIn(selections.fields)
       mergeIn(selections.typeCases)
       mergeIn(selections.fragments)
@@ -141,6 +141,9 @@ extension IR {
   struct ShallowSelections:
     FieldMergable, FragmentMergable, Equatable, CustomDebugStringConvertible
   {
+    typealias Field = IR.Field    
+    typealias Fragment = IR.FragmentSpread
+
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, Fragment> = [:]
 
@@ -159,7 +162,7 @@ extension IR {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    mutating func mergeIn(_ selections: SelectionMergable) {
+    mutating func mergeIn(_ selections: SortedSelections) {
       mergeIn(selections.fields)
       mergeIn(selections.fragments)
     }

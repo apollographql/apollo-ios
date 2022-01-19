@@ -100,7 +100,7 @@ class IR {
 
     /// The selections that are directly selected by this selection set.
     var directSelections: SortedSelections = SortedSelections()
-    #warning("TODO: can we make this a let?")
+    #warning("TODO: can we make this a let? For merged only, maybe make it optional also.")
 
     /// The selections that are available to be accessed by this selection set.
     ///
@@ -133,7 +133,21 @@ class IR {
     private func mergeIn(_ field: IR.Field) {
       guard !directSelections.fields.keys
               .contains(field.hashForSelectionSetScope) else { return }
-      _mergedSelections.mergeIn(field)
+
+      if let entityField = field as? EntityField {
+        _mergedSelections.mergeIn(createShallowlyMergedEntityField(from: entityField))
+
+      } else {
+        _mergedSelections.mergeIn(field)
+      }
+    }
+
+    private func createShallowlyMergedEntityField(from field: IR.EntityField) -> IR.EntityField {
+      let newSelectionSet = SelectionSet(
+        entity: field.entity,
+        parentType: field.selectionSet.parentType,
+        typePath: self.typePath.appending(field.selectionSet.typeScope))
+      return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
     }
 
     private func mergeIn(_ fragment: IR.FragmentSpread) {

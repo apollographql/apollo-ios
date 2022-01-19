@@ -131,7 +131,9 @@ public func shallowlyMatch(
     guard shallowlyMatch(expected: field.0, actual: field.1.value) else {
       return PredicateResult(
         status: .fail,
-        message: .fail("Expected field[\(index)] to equal \(field.0), got \(field.1.value).")
+        message: message.appended(
+          details: "Expected fields[\(index)] to equal \(field.0), got \(field.1.value)."
+        )
       )
     }
   }
@@ -182,7 +184,9 @@ fileprivate func shallowlyMatch(
     guard shallowlyMatch(expected: typeCase.0, actual: typeCase.1.value) else {
       return PredicateResult(
         status: .fail,
-        message: .fail("Expected typeCases[\(index)] to equal \(typeCase.0), got \(typeCase.1.value).")
+        message: message.appended(
+          details: "Expected typeCases[\(index)] to equal \(typeCase.0), got \(typeCase.1.value)."
+        )
       )
     }
   }
@@ -210,7 +214,7 @@ public func shallowlyMatch(
     } else {
       return PredicateResult(
         status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>").appendedBeNilHint()
+        message: .expectedActualValueTo("equal \(expectedValue)").appendedBeNilHint()
       )
     }
   }
@@ -229,7 +233,9 @@ fileprivate func shallowlyMatch(
     guard shallowlyMatch(expected: fragment.0, actual: fragment.1.value) else {
       return PredicateResult(
         status: .fail,
-        message: .fail("Expected fragments[\(index)] to equal \(fragment.0), got \(fragment.1.value).")
+        message: message.appended(
+          details: "Expected fragments[\(index)] to equal \(fragment.0), got \(fragment.1.value)."
+        )
       )
     }
   }
