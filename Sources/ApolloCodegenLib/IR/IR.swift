@@ -138,14 +138,14 @@ class IR {
       }
 
       if let entityField = field as? EntityField {
-        _mergedSelections.mergeIn(createShallowlyMergedEntityField(from: entityField))
+        _mergedSelections.mergeIn(createShallowlyMergedNestedEntityField(from: entityField))
 
       } else {
         _mergedSelections.mergeIn(field)
       }
     }
 
-    private func createShallowlyMergedEntityField(from field: IR.EntityField) -> IR.EntityField {
+    private func createShallowlyMergedNestedEntityField(from field: IR.EntityField) -> IR.EntityField {
       let newSelectionSet = SelectionSet(
         entity: field.entity,
         parentType: field.selectionSet.parentType,

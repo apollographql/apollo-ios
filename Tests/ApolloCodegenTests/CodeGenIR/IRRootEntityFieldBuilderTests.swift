@@ -3118,6 +3118,93 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       .to(shallowlyMatch(allAnimals_asWarmBlooded_height_expected))
   }
 
+  func test__mergedSelections__givenSiblingTypeCasesAndNestedEntityTypeCases_onlyNestedEntityFieldMergeTypeCases() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+
+    interface Pet {
+      predator: Animal
+      height: Height
+    }
+
+    interface Reptile {
+      skinCovering: String
+    }
+
+    type Cat implements Pet & Animal {
+      species: String
+      breed: String
+      height: Height
+      predator: Animal
+    }
+
+    type Height {
+      feet: Int
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ... on Pet {
+          predator {
+            ... on Pet {
+              height {
+                feet
+              }
+            }
+            ... on Reptile {
+              skinCovering
+            }
+            ... on Cat {
+              breed
+            }
+          }
+        }
+        ... on Reptile {
+          skinCovering
+        }
+        ... on Cat {
+          breed
+        }
+      }
+    }
+    """
+
+    // allAnimals.asCat.predator.asPet != nil
+    // allAnimals.asCat.asReptile == nil
+    // allAnimals.asCat.asPet == nil
+
+    // allAnimals.asCat.predator.asPet.height != nil
+    // allAnimals.asCat.predator.asPet.skinCovering == nil
+    // allAnimals.asCat.predator.asPet.breed == nil
+    // allAnimals.asCat.predator.asPet.asReptile == nil
+    // allAnimals.asCat.predator.asPet.asPet == nil
+
+    // allAnimals.asCat.predator.asCat.height != nil
+    // allAnimals.asCat.predator.asCat.skinCovering == nil
+    // allAnimals.asCat.predator.asCat.asReptile == nil
+    // allAnimals.asCat.predator.asCat.asPet == nil
+
+    // allAnimals.asPet.predator.asCat.height != nil
+    // allAnimals.asPet.predator.asCat.breed != nil
+    // allAnimals.asPet.predator.asCat.skinCovering == nil
+    // allAnimals.asPet.predator.asCat.asReptile == nil
+    // allAnimals.asPet.predator.asCat.asPet == nil
+
+    // Basically - TypeCase selection sets, merged or direct should not merge in sibling type cases,
+    // but field selection sets should merge in all their type cases, even when merged only
+
+    fail("Test that nested fields merge type cases, but sibling type cases don't merge")
+  }
+
   #warning("TODO: Unit tests that nested entity fields merge in named fragments")
 
   // MARK: - Nested Entity Field - Merged Selections - Calculate Type Path
@@ -3243,7 +3330,16 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
                 feet
               }
             }
+            ... on HousePet {
+              humanName
+            }
+            ... on Cat {
+              breed
+            }
           }
+        }
+        ... on HousePet {
+          humanName
         }
         ... on Cat {
           breed
