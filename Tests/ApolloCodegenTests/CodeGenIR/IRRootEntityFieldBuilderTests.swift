@@ -3182,6 +3182,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
+    #warning("TODO: test type case inside type case?")
+
     expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]).toNot(beNil())
     expect(allAnimals?[as: "Cat"]?[as: "Reptile"]).to(beNil())
     expect(allAnimals?[as: "Cat"]?[as: "Pet"]).to(beNil())

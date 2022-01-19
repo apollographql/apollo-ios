@@ -183,7 +183,6 @@ extension IR {
 
     override func mergeIn(_ fragment: IR.FragmentSpread) {
       let keyInScope = fragment.hashForSelectionSetScope
-
       if let directSelections = directSelections,
           directSelections.fragments.keys.contains(keyInScope) {
         return
@@ -192,29 +191,28 @@ extension IR {
       fragments[keyInScope] = fragment
     }
 
-//    override func mergeIn(_ field: Field) {
-//      let keyInScope = field.hashForSelectionSetScope
-//
-//      if let existingField = fields[keyInScope] as? EntityField {
-//        if let field = field as? EntityField {
-//          existingField.selectionSet.directSelections!.mergeIn(field.selectionSet.directSelections!)
-//        }
-//
-//      } else {
-//        fields[keyInScope] = field
-//      }
-//    }
-//
-//    override func mergeIn(_ typeCase: TypeCase) {
-//      let keyInScope = typeCase.hashForSelectionSetScope
-//
-//      if let existingTypeCase = typeCases[keyInScope] {
-//        existingTypeCase.directSelections!.mergeIn(typeCase.directSelections!)
-//
-//      } else {
-//        typeCases[keyInScope] = typeCase
-//      }
-//    }
+    func addMergedTypeCase(withType type: GraphQLCompositeType) {
+      guard !typeInfo.isTypeCase else {
+        return
+      }
+
+      let keyInScope = type.hashForSelectionSetScope
+      if let directSelections = directSelections,
+         directSelections.typeCases.keys.contains(keyInScope) {
+        return
+      }
+
+      typeCases[keyInScope] = createShallowlyMergedTypeCase(withType: type)
+    }
+
+    private func createShallowlyMergedTypeCase(withType type: GraphQLCompositeType) -> TypeCase {
+      IR.SelectionSet(
+        entity: self.typeInfo.entity,
+        parentType: type,
+        typePath: self.typeInfo.typePath.mutatingLast { $0.appending(type) },
+        mergedSelectionsOnly: true
+      )
+    }
 
   }
 

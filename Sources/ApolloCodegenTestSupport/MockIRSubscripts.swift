@@ -64,7 +64,7 @@ extension IR.SelectionSet.Selections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    direct?.typeCases[typeCase]
+    direct?.typeCases[typeCase] ?? merged.typeCases[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {

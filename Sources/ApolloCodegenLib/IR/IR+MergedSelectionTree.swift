@@ -242,6 +242,9 @@ extension IR {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
               node.mergeSelections(matchingTypePath: typePath, into: selections)
+
+            } else {
+              selections.addMergedTypeCase(withType: typeCase)
             }
           }
         }

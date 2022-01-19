@@ -11,7 +11,7 @@ extension IR {
 
       let parentType: GraphQLCompositeType
 
-      /// A list of the type scopes for the selection set and its enclosing entities.
+      /// A list of the type scopes for the `SelectionSet` and its enclosing entities.
       ///
       /// The selection set's type scope is the last element in the list.
       let typePath: LinkedList<TypeScopeDescriptor>
@@ -19,6 +19,11 @@ extension IR {
       /// Describes all of the types the selection set matches.
       /// Derived from all the selection set's parents.
       var typeScope: TypeScopeDescriptor { typePath.last.value }
+
+      /// Indicates if the `SelectionSet` represents a type case.
+      /// If `true`, the `SelectionSet` belongs to a type case enclosed in a field's `SelectionSet`.
+      /// If `false`, the `SelectionSet` belongs to a field directly.
+      var isTypeCase: Bool { typeScope.typePath.head.next != nil }
 
       init(
         entity: Entity,
@@ -31,7 +36,7 @@ extension IR {
       }
     }
 
-    class Selections {
+    class Selections: CustomDebugStringConvertible {
       /// The selections that are directly selected by this selection set.
       let direct: DirectSelections?
 
@@ -65,6 +70,17 @@ extension IR {
       ) {
         self.typeInfo = typeInfo
         self.direct = mergedSelectionsOnly ? nil : DirectSelections()
+      }
+
+      var debugDescription: String {
+        """
+        direct: {
+          \(indented: direct.debugDescription)
+        }
+        merged: {
+          \(indented: merged.debugDescription)
+        }
+        """
       }
     }
 
