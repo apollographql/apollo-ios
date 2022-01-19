@@ -35,18 +35,28 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    try fileGenerators(
-      for: ir.schema.referencedTypes.objects,
-      directoryPath: configuration.output.schemaTypes.modulePath
-    ).forEach({ try $0.generateFile() })
+    let modulePath = configuration.output.schemaTypes.modulePath
+    try fileGenerators(for: ir.schema.referencedTypes.objects, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
+    try fileGenerators(for: ir.schema.referencedTypes.enums, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
+    try fileGenerators(for: ir.schema.referencedTypes.interfaces, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
+    try fileGenerators(for: ir.schema.referencedTypes.unions, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
+    try fileGenerators(for: ir.schema.referencedTypes.inputObjects, directoryPath: modulePath)
+      .forEach({ try $0.generateFile() })
+    try SchemaFileGenerator(
+      name: configuration.output.schemaTypes.moduleName,
+      objectTypes: ir.schema.referencedTypes.objects,
+      directoryPath: modulePath
+    ).generateFile()
 
-    #warning("TODO - generate schema enum files")
-    #warning("TODO - generate schema interface files")
-    #warning("TODO - generate schema union files")
-    #warning("TODO - generate schema file")
     #warning("TODO - generate operation/fragment files")
     #warning("TODO - generate package manager manifest")
   }
+
+  // MARK: Internal
 
   static func compileGraphQLResult(
     using input: ApolloCodegenConfiguration.FileInput
@@ -78,6 +88,42 @@ public class ApolloCodegen {
   ) -> [TypeFileGenerator] {
     return objectTypes.map({ graphqlObjectType in
       TypeFileGenerator(objectType: graphqlObjectType, directoryPath: path)
+    })
+  }
+
+  static func fileGenerators(
+    for enumTypes: OrderedSet<GraphQLEnumType>,
+    directoryPath path: String
+  ) -> [EnumFileGenerator] {
+    return enumTypes.map({ graphqlEnumType in
+      EnumFileGenerator(enumType: graphqlEnumType, directoryPath: path)
+    })
+  }
+
+  static func fileGenerators(
+    for interfaceTypes: OrderedSet<GraphQLInterfaceType>,
+    directoryPath path: String
+  ) -> [InterfaceFileGenerator] {
+    return interfaceTypes.map({ graphqlInterfaceType in
+      InterfaceFileGenerator(interfaceType: graphqlInterfaceType, directoryPath: path)
+    })
+  }
+
+  static func fileGenerators(
+    for unionTypes: OrderedSet<GraphQLUnionType>,
+    directoryPath path: String
+  ) -> [UnionFileGenerator] {
+    return unionTypes.map({ graphqlUnionType in
+      UnionFileGenerator(unionType: graphqlUnionType, directoryPath: path)
+    })
+  }
+
+  static func fileGenerators(
+    for unionTypes: OrderedSet<GraphQLInputObjectType>,
+    directoryPath path: String
+  ) -> [InputObjectFileGenerator] {
+    return unionTypes.map({ graphqlInputObjectType in
+      InputObjectFileGenerator(inputObjectType: graphqlInputObjectType, directoryPath: path)
     })
   }
 }

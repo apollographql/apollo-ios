@@ -153,41 +153,130 @@ class ApolloCodegenTests: XCTestCase {
 
   // MARK: File Generator Tests
 
-  func test_fileGenerators_givenGraphQLObjectType_shouldOnlyCreateGeneratorsForUsedTypes() throws {
+  func test_fileGenerators_givenSchema_shouldCreateFileGeneratorsForUsedSchemaTypes() throws {
     // given
     let schema = """
+    interface NamedEntity {
+      name: String
+    }
+
+    type Person implements NamedEntity {
+      name: String
+      age: Int
+    }
+
+    type Business implements NamedEntity {
+      name: String
+      type: BUSINESS_TYPE
+    }
+
+    enum BUSINESS_TYPE {
+      MOM_AND_POP
+      BIG_RETAIL
+    }
+
+    type Contact {
+      entity: NamedEntity!
+      address: String
+      phoneNumber: String
+    }
+
+    union SearchResult = Person | Business
+
+    input ContactInput {
+      name: String
+      address: String
+      phoneNumber: String
+    }
+
     type Query {
-      books: [Book!]!
+      contacts: [Contact!]
+      searchResult: SearchResult
     }
 
-    type Book {
-      name: String!
-      author: Author!
-    }
-
-    type Author {
-      name: String!
+    type Mutation {
+      createContact(contact: ContactInput!): Contact
     }
     """
 
-    let operation = """
-    query getBooks {
-      books {
-        name
+    let operations = """
+    query AllContacts {
+      contacts {
+        entity {
+          name
+        }
+      }
+    }
+
+    query FindEntity {
+      searchResult {
+        ... on Person {
+          name
+          age
+        }
+        ... on Business {
+          name
+          type
+        }
+      }
+    }
+
+    mutation CreateContact($contact: ContactInput!) {
+      createContact(contact: $contact) {
+        entity {
+          name
+        }
       }
     }
     """
 
-    let ir = try IR.mock(schema: schema, document: operation)
-    let bookType = try ir.schema[object: "Book"].xctUnwrapped()
+    let ir = try IR.mock(schema: schema, document: operations)
+    let namedEntityInterface = try ir.schema[interface: "NamedEntity"].xctUnwrapped()
+    let personObject = try ir.schema[object: "Person"].xctUnwrapped()
+    let businessObject = try ir.schema[object: "Business"].xctUnwrapped()
+    let contactObject = try ir.schema[object: "Contact"].xctUnwrapped()
+    let businessTypeEnum = try ir.schema[enum: "BUSINESS_TYPE"].xctUnwrapped()
+    let searchResultUnion = try ir.schema[union: "SearchResult"].xctUnwrapped()
+    let contactInput = try ir.schema[inputObject: "ContactInput"].xctUnwrapped()
 
     let directoryPath = CodegenTestHelper.outputFolderURL().path
+
+    // then
+    expect(ApolloCodegen.fileGenerators(
+      for: ir.schema.referencedTypes.interfaces,
+      directoryPath:directoryPath
+    )).to(equal([
+      InterfaceFileGenerator(interfaceType: namedEntityInterface, directoryPath: directoryPath)
+    ]))
 
     expect(ApolloCodegen.fileGenerators(
       for: ir.schema.referencedTypes.objects,
       directoryPath: directoryPath
     )).to(equal([
-      TypeFileGenerator(objectType: bookType, directoryPath: directoryPath)
+      TypeFileGenerator(objectType: contactObject, directoryPath: directoryPath),
+      TypeFileGenerator(objectType: personObject, directoryPath: directoryPath),
+      TypeFileGenerator(objectType: businessObject, directoryPath: directoryPath)
+    ]))
+
+    expect(ApolloCodegen.fileGenerators(
+      for: ir.schema.referencedTypes.enums,
+      directoryPath: directoryPath
+    )).to(equal([
+      EnumFileGenerator(enumType: businessTypeEnum, directoryPath: directoryPath)
+    ]))
+
+    expect(ApolloCodegen.fileGenerators(
+      for: ir.schema.referencedTypes.unions,
+      directoryPath: directoryPath
+    )).to(equal([
+      UnionFileGenerator(unionType: searchResultUnion, directoryPath: directoryPath)
+    ]))
+
+    expect(ApolloCodegen.fileGenerators(
+      for: ir.schema.referencedTypes.inputObjects,
+      directoryPath: directoryPath
+    )).to(equal([
+      InputObjectFileGenerator(inputObjectType: contactInput, directoryPath: directoryPath)
     ]))
   }
 }
