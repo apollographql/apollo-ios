@@ -230,6 +230,7 @@
 		DE5EB9C526EFD4D10004176A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DE5EB9C426EFD4D10004176A /* Nimble */; };
 		DE5EB9CB26EFE5510004176A /* MockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9CA26EFE5510004176A /* MockOperation.swift */; };
 		DE5EEC83279796EA00AF5913 /* MockApolloCodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */; };
+		DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EEC8427988F1A00AF5913 /* IR+SelectionSet.swift */; };
 		DE5FD5FD2769222D0033EE23 /* OperationDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */; };
 		DE5FD601276923620033EE23 /* TemplateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD600276923620033EE23 /* TemplateString.swift */; };
 		DE5FD603276926EF0033EE23 /* IR+Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD602276926EF0033EE23 /* IR+Mocking.swift */; };
@@ -888,6 +889,7 @@
 		DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApolloStore.swift; sourceTree = "<group>"; };
 		DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueMatcher.swift; sourceTree = "<group>"; };
 		DE5EB9CA26EFE5510004176A /* MockOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOperation.swift; sourceTree = "<group>"; };
+		DE5EEC8427988F1A00AF5913 /* IR+SelectionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+SelectionSet.swift"; sourceTree = "<group>"; };
 		DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationDefinitionTemplate.swift; sourceTree = "<group>"; };
 		DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApolloCodegenConfiguration.swift; sourceTree = "<group>"; };
 		DE5FD600276923620033EE23 /* TemplateString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateString.swift; sourceTree = "<group>"; };
@@ -2046,6 +2048,7 @@
 			isa = PBXGroup;
 			children = (
 				DE7C183D272A154400727031 /* IR.swift */,
+				DE5EEC8427988F1A00AF5913 /* IR+SelectionSet.swift */,
 				DE5FD606276950CC0033EE23 /* IR+Schema.swift */,
 				DEFE0FC42748822900FFA440 /* IR+MergedSelectionTree.swift */,
 				DEFBBC85273470F70088AABC /* IR+Field.swift */,
@@ -2920,6 +2923,7 @@
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
 				9F628EB52593651B00F94F9D /* GraphQLValue.swift in Sources */,
 				DE5FD5FD2769222D0033EE23 /* OperationDefinitionTemplate.swift in Sources */,
+				DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
