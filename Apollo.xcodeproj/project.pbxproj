@@ -229,8 +229,8 @@
 		DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */; };
 		DE5EB9C526EFD4D10004176A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DE5EB9C426EFD4D10004176A /* Nimble */; };
 		DE5EB9CB26EFE5510004176A /* MockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9CA26EFE5510004176A /* MockOperation.swift */; };
+		DE5EEC83279796EA00AF5913 /* MockApolloCodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */; };
 		DE5FD5FD2769222D0033EE23 /* OperationDefinitionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */; };
-		DE5FD5FF276922AA0033EE23 /* MockApolloCodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */; };
 		DE5FD601276923620033EE23 /* TemplateString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD600276923620033EE23 /* TemplateString.swift */; };
 		DE5FD603276926EF0033EE23 /* IR+Mocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD602276926EF0033EE23 /* IR+Mocking.swift */; };
 		DE5FD60527694FA70033EE23 /* SchemaTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */; };
@@ -2904,7 +2904,6 @@
 			files = (
 				E610D8D7278EA2390023E495 /* EnumFileGenerator.swift in Sources */,
 				9BAEEBEE2346644600808306 /* ApolloSchemaDownloadConfiguration.swift in Sources */,
-				DE5FD5FF276922AA0033EE23 /* MockApolloCodegenConfiguration.swift in Sources */,
 				9B8C3FB3248DA2FE00707B13 /* URL+Apollo.swift in Sources */,
 				E66F8899276C15580000BDA8 /* TypeFileGenerator.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
@@ -3245,6 +3244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5FD603276926EF0033EE23 /* IR+Mocking.swift in Sources */,
+				DE5EEC83279796EA00AF5913 /* MockApolloCodegenConfiguration.swift in Sources */,
 				DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */,
 				DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */,
 				E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */,

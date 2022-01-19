@@ -2,6 +2,7 @@ import Foundation
 import Nimble
 import OrderedCollections
 @testable import ApolloCodegenLib
+import ApolloTestSupport
 
 protocol SelectionShallowMatchable {
   typealias Field = IR.Field
@@ -30,207 +31,29 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
                     typeCases: [CompilationResult.SelectionSet],
                     fragments: [CompilationResult.FragmentDefinition])
 ) -> Predicate<T> {
-  return Predicate { actual in
-    if let actualValue = try actual.evaluate() {
-      if expectedValue.fields.count != actualValue.fields.count {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have fields equal to " + expectedValue.fields.debugDescription,
-                                          actual: actualValue.fields.debugDescription)
-        )
-      }
-
-      if expectedValue.typeCases.count != actualValue.typeCases.count {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have typeCases equal to " + expectedValue.typeCases.debugDescription,
-                                          actual: actualValue.typeCases.debugDescription)
-        )
-      }
-
-      if expectedValue.fragments.count != actualValue.fragments.count {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have fragments equal to " + expectedValue.fragments.debugDescription,
-                                          actual: actualValue.fragments.debugDescription)
-        )
-      }
-
-      for field in zip(expectedValue.fields, actualValue.fields) {
-        guard field.0.responseKey == field.1.key else {
-          return PredicateResult(
-            status: .fail,
-            message: .expectedCustomValueTo("have fields equal to " + expectedValue.fields.debugDescription,
-                                            actual: actualValue.fields.debugDescription)
-          )
-        }
-
-        guard shallowlyMatch(expected: field.0, actual: field.1.value) else {
-          return PredicateResult(
-            status: .fail,
-            message: .fail("Expected fields[\(field.1.key)] to equal \(field.0), got \(field.1.value).")
-          )
-        }
-      }
-
-      for typeCase in zip(expectedValue.typeCases, actualValue.typeCases) {
-        guard typeCase.0.parentType.name == typeCase.1.key else {
-          return PredicateResult(
-            status: .fail,
-            message: .expectedCustomValueTo("have type cases equal to " + expectedValue.typeCases.debugDescription,
-                                            actual: actualValue.typeCases.debugDescription)
-          )
-        }
-
-        guard shallowlyMatch(expected: typeCase.0, actual: typeCase.1.value) else {
-          return PredicateResult(
-            status: .fail,
-            message: .fail("Expected typeCases[\(typeCase.1.key)] to equal \(typeCase.0), got \(typeCase.1.value).")
-          )
-        }
-      }
-
-      for fragment in zip(expectedValue.fragments, actualValue.fragments) {
-        guard fragment.0.name == fragment.1.key else {
-          return PredicateResult(
-            status: .fail,
-            message: .expectedCustomValueTo("have fragments equal to " + expectedValue.fragments.debugDescription,
-                                            actual: actualValue.fragments.debugDescription)
-          )
-        }
-
-        guard shallowlyMatch(expected: fragment.0, actual: fragment.1.value) else {
-          return PredicateResult(
-            status: .fail,
-            message: .fail("Expected fragments[\(fragment.1.key)] to equal \(fragment.0), got \(fragment.1.value).")
-          )
-        }
-      }
-
-      return PredicateResult(
-        status: .matches,
-        message: .expectedActualValueTo("equal <\(expectedValue)>")
-      )
-
-    } else {
-      return PredicateResult(
-        status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>").appendedBeNilHint()
-      )
-    }
-  }
+  return satisfyAllOf([
+    shallowlyMatch(expectedValue.fields).mappingActualTo { $0?.fields },
+    shallowlyMatch(expectedValue.typeCases).mappingActualTo { $0?.typeCases },
+    shallowlyMatch(expectedValue.fragments).mappingActualTo { $0?.fragments }
+  ])
 }
-
-// MARK:
 
 func shallowlyMatch<T: SelectionShallowMatchable>(
   _ expectedValue: [CompilationResult.Selection]
 ) -> Predicate<T> {
-  return Predicate { actual in
-    if let actualValue = try actual.evaluate() {
-      var currentFieldIndex = 0
-      var currentTypeCaseIndex = 0
-      var currentFragmentIndex = 0
+  var expectedFields: [CompilationResult.Field] = []
+  var expectedTypeCases: [CompilationResult.SelectionSet] = []
+  var expectedFragments: [CompilationResult.FragmentDefinition] = []
 
-      func failOnFields() -> PredicateResult {
-        return PredicateResult(
-          status: .fail,
-          message: .fail("got fields: \(actualValue.fields.values.elements)")
-        )
-      }
-
-      func failOnTypeCases() -> PredicateResult {
-        return PredicateResult(
-          status: .fail,
-          message: .fail("got typeCases: \(actualValue.typeCases.values.elements)")
-        )
-      }
-
-      func failOnFragments() -> PredicateResult {
-        return PredicateResult(
-          status: .fail,
-          message: .fail("got fragments: \(actualValue.fragments.values.elements)")
-        )
-      }
-
-      for selection in expectedValue {
-        switch selection {
-        case let .field(expectedField):
-          guard currentFieldIndex < actualValue.fields.values.endIndex else {
-            return failOnFields()
-          }
-
-          let actualField = actualValue.fields.values[currentFieldIndex]
-          if !shallowlyMatch(expected: expectedField, actual: actualField) {
-            return PredicateResult(
-              status: .fail,
-              message: .fail("Expected fields[\(currentFieldIndex)] to equal \(expectedField), got \(actualField).")
-            )
-          }
-          currentFieldIndex += 1
-
-        case let .inlineFragment(expectedTypeCase):
-          guard currentTypeCaseIndex < actualValue.typeCases.values.endIndex else {
-            return failOnTypeCases()
-          }
-
-          let actualTypeCase = actualValue.typeCases.values[currentTypeCaseIndex]
-          if !shallowlyMatch(expected: expectedTypeCase, actual: actualTypeCase) {
-            return PredicateResult(
-              status: .fail,
-              message: .fail("Expected typeCases[\(currentTypeCaseIndex)] to equal \(expectedTypeCase), got \(actualTypeCase).")
-            )
-          }
-          currentTypeCaseIndex += 1
-
-        case let .fragmentSpread(expectedFragment):
-          guard currentFragmentIndex < actualValue.fragments.values.endIndex else {
-            return failOnFragments()
-          }
-
-          let actualFragment = actualValue.fragments.values[currentFragmentIndex]
-          if !shallowlyMatch(expected: expectedFragment, actual: actualFragment) {
-            return PredicateResult(
-              status: .fail,
-              message: .fail("Expected fragments[\(currentFragmentIndex)] to equal \(expectedFragment), got \(actualFragment).")
-            )
-          }
-          currentFragmentIndex += 1
-        }
-      }
-
-      guard currentFieldIndex == actualValue.fields.count else {
-        return failOnFields()
-      }
-
-      guard currentTypeCaseIndex == actualValue.typeCases.count else {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have \(currentTypeCaseIndex) typeCases",
-                                          actual: actualValue.typeCases.debugDescription)
-        )
-      }
-
-      guard currentFragmentIndex == actualValue.fragments.count else {
-        return PredicateResult(
-          status: .fail,
-          message: .expectedCustomValueTo("have \(currentFragmentIndex) fragments",
-                                          actual: actualValue.fragments.debugDescription)
-        )
-      }
-
-      return PredicateResult(
-        status: .matches,
-        message: .expectedActualValueTo("equal <\(expectedValue)>")
-      )
-
-    } else {
-      return PredicateResult(
-        status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>").appendedBeNilHint()
-      )
+  for selection in expectedValue {
+    switch selection {
+    case let .field(field): expectedFields.append(field)
+    case let .inlineFragment(typeCase): expectedTypeCases.append(typeCase)
+    case let .fragmentSpread(fragment): expectedFragments.append(fragment)
     }
   }
+
+  return shallowlyMatch((expectedFields, expectedTypeCases, expectedFragments))
 }
 
 typealias SelectionMatcher = (
@@ -238,9 +61,9 @@ typealias SelectionMatcher = (
   merged:[CompilationResult.Selection]
 )
 
-func shallowlyMatch<T: IR.SelectionSet>(
+func shallowlyMatch(
   _ expectedValue: SelectionMatcher
-) -> Predicate<T> {
+) -> Predicate<IR.SelectionSet> {
   return Predicate { actual in
     let directExpression = actual.cast { $0?.directSelections }
     let directPredicate: Predicate<IR.SortedSelections> = shallowlyMatch(expectedValue.direct)
@@ -273,29 +96,35 @@ func shallowlyMatch<T: IR.SelectionSet>(
 
 // MARK: Field Matchers
 
-public func shallowlyMatch(_ expectedValue: [CompilationResult.Selection]) -> Predicate<OrderedDictionary<String, IR.Field>> {
-  return Predicate { actual in
-    if let actualValue = try actual.evaluate() {
-      return shallowlyMatch(expected: expectedValue, actual: actualValue)
-    } else {
-      return PredicateResult(
-        status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>").appendedBeNilHint()
-      )
-    }
+public func shallowlyMatch(
+  _ expectedValue: [CompilationResult.Field]
+) -> Predicate<OrderedDictionary<String, IR.Field>> {
+  return Predicate.define { actual in
+    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate()!)
   }
 }
 
 public func shallowlyMatch(
-  expected: [CompilationResult.Selection],
+  _ expectedValue: [CompilationResult.Selection]
+) -> Predicate<OrderedDictionary<String, IR.Field>> {
+  return Predicate.define { actual in
+    let expectedAsFields: [CompilationResult.Field] = try expectedValue.map {
+      guard case let .field(field) = $0 else {
+        throw TestError("")
+      }
+      return field
+    }
+    return try shallowlyMatch(expectedAsFields).satisfies(actual)
+  }
+}
+
+public func shallowlyMatch(
+  expected: [CompilationResult.Field],
   actual: OrderedDictionary<String, IR.Field>
 ) -> PredicateResult {
+  let message: ExpectationMessage = .expectedActualValueTo("have fields equal to \(expected)")
   if expected.count != actual.count {
-    return PredicateResult(
-      status: .fail,
-      message: .expectedCustomValueTo("have fields equal to " + expected.debugDescription,
-                                      actual: actual.debugDescription)
-    )
+    return PredicateResult(status: .fail, message: message)
   }
 
   for (index, field) in zip(expected, actual).enumerated() {
@@ -307,10 +136,7 @@ public func shallowlyMatch(
     }
   }
 
-  return PredicateResult(
-    status: .matches,
-    message: .expectedActualValueTo("equal <\(expected)>")
-  )
+  return PredicateResult(status: .matches, message: message)
 }
 
 fileprivate func shallowlyMatch(expected: IR.Field, actual: IR.Field) -> Bool {
@@ -338,15 +164,8 @@ fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: Compi
 public func shallowlyMatch(
   _ expectedValue: [CompilationResult.SelectionSet]
 ) -> Predicate<OrderedDictionary<String, IR.SelectionSet>> {
-  return Predicate { actual in
-    if let actualValue = try actual.evaluate() {
-      return shallowlyMatch(expected: expectedValue, actual: actualValue)
-    } else {
-      return PredicateResult(
-        status: .fail,
-        message: .expectedActualValueTo("equal <\(expectedValue)>").appendedBeNilHint()
-      )
-    }
+  return Predicate.define { actual in
+    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate()!)
   }
 }
 
@@ -354,12 +173,9 @@ fileprivate func shallowlyMatch(
   expected: [CompilationResult.SelectionSet],
   actual: OrderedDictionary<String, IR.SelectionSet>
 ) -> PredicateResult {
+  let message: ExpectationMessage = .expectedActualValueTo("have typeCases equal to \(expected)")
   if expected.count != actual.count {
-    return PredicateResult(
-      status: .fail,
-      message: .expectedCustomValueTo("have typeCases equal to " + expected.debugDescription,
-                                      actual: actual.debugDescription)
-    )
+    return PredicateResult(status: .fail, message: message)
   }
 
   for (index, typeCase) in zip(expected, actual).enumerated() {
@@ -371,10 +187,7 @@ fileprivate func shallowlyMatch(
     }
   }
 
-  return PredicateResult(
-    status: .matches,
-    message: .expectedActualValueTo("equal <\(expected)>")
-  )
+  return PredicateResult(status: .matches, message: message)
 }
 
 fileprivate func shallowlyMatch(expected: IR.SelectionSet, actual: IR.SelectionSet) -> Bool {
@@ -407,12 +220,9 @@ fileprivate func shallowlyMatch(
   expected: [CompilationResult.FragmentDefinition],
   actual: OrderedDictionary<String, IR.FragmentSpread>
 ) -> PredicateResult {
+  let message: ExpectationMessage = .expectedActualValueTo("have fragments equal to \(expected)")
   if expected.count != actual.count {
-    return PredicateResult(
-      status: .fail,
-      message: .expectedCustomValueTo("have fragments equal to " + expected.debugDescription,
-                                      actual: actual.debugDescription)
-    )
+    return PredicateResult(status: .fail, message: message)
   }
 
   for (index, fragment) in zip(expected, actual).enumerated() {
@@ -424,10 +234,7 @@ fileprivate func shallowlyMatch(
     }
   }
 
-  return PredicateResult(
-    status: .matches,
-    message: .expectedActualValueTo("equal <\(expected)>")
-  )
+  return PredicateResult(status: .matches, message: message)
 }
 
 fileprivate func shallowlyMatch(expected: IR.FragmentSpread, actual: IR.FragmentSpread) -> Bool {
@@ -449,3 +256,17 @@ func beEmpty<S: SelectionShallowMatchable>() -> Predicate<S> {
       return PredicateStatus(bool: actual.isEmpty)
     }
 }
+
+// MARK: - Predicate Mapping
+
+extension Nimble.Predicate {
+  func mappingActualTo<U>(
+    _ actualMapper: @escaping ((U?) throws -> T?)
+  ) -> Predicate<U> {
+    Predicate<U>.define { (actual: Expression<U>) in
+      let newActual = actual.cast(actualMapper)
+      return try self.satisfies(newActual)
+    }
+  }
+}
+
