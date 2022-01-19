@@ -69,8 +69,8 @@ func shallowlyMatch(
   : shallowlyMatch(expectedValue.direct!)
 
   return satisfyAllOf([
-    directPredicate.mappingActualTo { $0?.directSelections },
-    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.mergedSelections }
+    directPredicate.mappingActualTo { $0?.selections.directSelections },
+    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.mergedSelections }
   ])
 }
 
@@ -178,12 +178,12 @@ fileprivate func shallowlyMatch(
 }
 
 fileprivate func shallowlyMatch(expected: IR.SelectionSet, actual: IR.SelectionSet) -> Bool {
-  return expected.parentType == actual.parentType &&
-  expected.typePath == actual.typePath
+  return expected.typeInfo.parentType == actual.typeInfo.parentType &&
+  expected.typeInfo.typePath == actual.typeInfo.typePath
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: IR.SelectionSet) -> Bool {
-  return expected.parentType == actual.parentType
+  return expected.parentType == actual.typeInfo.parentType
 }
 
 // MARK: Fragment Matchers

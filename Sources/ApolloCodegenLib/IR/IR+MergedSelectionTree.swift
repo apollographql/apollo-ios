@@ -5,7 +5,7 @@ import OrderedCollections
 fileprivate protocol MergedSelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-    into selections: IR.SelectionSet.Selections
+    into selections: IR.MergedSelections
   )
 }
 
@@ -126,11 +126,9 @@ extension IR {
 
     // MARK: - Calculate Merged Selections From Tree
 
-    func addMergedSelections(
-      matchingTypePath typePath: LinkedList<TypeScopeDescriptor>,
-      into selections: SelectionSet.Selections
-    ) {
-      rootNode.mergeSelections(matchingTypePath: typePath.head, into: selections)
+    func addMergedSelections(into selections: IR.MergedSelections) {
+      let rootTypePath = selections.typeInfo.typePath.head
+      rootNode.mergeSelections(matchingTypePath: rootTypePath, into: selections)
     }
 
     class EnclosingEntityNode: MergedSelectionTreeNode {
@@ -140,7 +138,7 @@ extension IR {
 
         func mergeSelections(
           matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-          into selections: IR.SelectionSet.Selections
+          into selections: IR.MergedSelections
         ) {
           switch self {
           case let .enclosingEntity(node as MergedSelectionTreeNode),
@@ -155,7 +153,7 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: IR.SelectionSet.Selections
+        into selections: IR.MergedSelections
       ) {
         guard let nextTypePathNode = typePath.next else {
           guard case let .fieldScope(node) = child else { fatalError() }
@@ -234,10 +232,10 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: IR.SelectionSet.Selections
+        into selections: IR.MergedSelections
       ) {
         if let scopeSelections = self.selections {
-          selections.addMergedSelections(scopeSelections)
+          selections.mergeIn(scopeSelections)          
         }
 
         if let typeCases = typeCases {

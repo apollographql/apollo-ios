@@ -45,21 +45,22 @@ extension IR {
       fatalError("Must be overridden by subclasses!")
     }
 
-    func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
-      fields.forEach { mergeIn($0) }
-    }
-
     func mergeIn(_ typeCase: TypeCase) {
       fatalError("Must be overridden by subclasses!")
+    }
+
+    func mergeIn(_ fragment: Fragment) {
+      fatalError("Must be overridden by subclasses!")
+    }
+
+    func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+      fields.forEach { mergeIn($0) }
     }
 
     func mergeIn<T: Sequence>(_ typeCases: T) where T.Element == TypeCase {
       typeCases.forEach { mergeIn($0) }
     }
 
-    func mergeIn(_ fragment: Fragment) {
-      fragments[fragment.hashForSelectionSetScope] = fragment
-    }
 
     func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
       fragments.forEach { mergeIn($0) }
@@ -85,8 +86,12 @@ extension IR {
       """
     }
 
+    var readOnlyView: ReadOnly {
+      ReadOnly(value: self)
+    }
+
     struct ReadOnly {
-      private let value: SortedSelections
+      fileprivate let value: SortedSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
       var typeCases: OrderedDictionary<String, TypeCase> { value.typeCases }
@@ -123,20 +128,68 @@ extension IR {
       }
     }
 
+    override func mergeIn(_ fragment: Fragment) {
+      fragments[fragment.hashForSelectionSetScope] = fragment
+    }
+
   }
 
   class MergedSelections: SortedSelections {
 
-    let directSelections: DirectSelections.ReadOnly
+    let directSelections: DirectSelections.ReadOnly?
     let typeInfo: SelectionSet.TypeInfo
 
     init(
-      directSelections: DirectSelections.ReadOnly,
+      directSelections: DirectSelections.ReadOnly?,
       typeInfo: SelectionSet.TypeInfo
     ) {
       self.directSelections = directSelections
       self.typeInfo = typeInfo
       super.init()
+    }
+
+    func mergeIn(_ selections: IR.ShallowSelections) {
+      selections.fields.values.forEach { self.mergeIn($0) }
+      selections.fragments.values.forEach { self.mergeIn($0) }
+    }
+
+    override func mergeIn(_ field: IR.Field) {
+      let keyInScope = field.hashForSelectionSetScope
+      if let directSelections = directSelections,
+          directSelections.fields.keys.contains(keyInScope) {
+        return
+      }
+
+      let fieldToMerge: IR.Field
+      if let entityField = field as? IR.EntityField {
+        fieldToMerge = createShallowlyMergedNestedEntityField(from: entityField)
+
+      } else {
+        fieldToMerge = field
+      }
+
+      fields[keyInScope] = fieldToMerge
+    }
+
+    private func createShallowlyMergedNestedEntityField(from field: IR.EntityField) -> IR.EntityField {
+      let newSelectionSet = IR.SelectionSet(
+        entity: field.entity,
+        parentType: field.selectionSet.typeInfo.parentType,
+        typePath: self.typeInfo.typePath.appending(field.selectionSet.typeInfo.typeScope),
+        mergedSelectionsOnly: true
+      )
+      return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
+    }
+
+    override func mergeIn(_ fragment: IR.FragmentSpread) {
+      let keyInScope = fragment.hashForSelectionSetScope
+
+      if let directSelections = directSelections,
+          directSelections.fragments.keys.contains(keyInScope) {
+        return
+      }
+
+      fragments[keyInScope] = fragment
     }
 
 //    override func mergeIn(_ field: Field) {

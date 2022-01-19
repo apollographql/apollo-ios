@@ -1,6 +1,7 @@
 import ApolloUtils
 
 extension IR {
+  @dynamicMemberLookup
   class SelectionSet: Equatable, CustomDebugStringConvertible {
     class TypeInfo {
       /// The entity that the `selections` are being selected on.
@@ -46,14 +47,15 @@ extension IR {
       /// - Precondition: The `directSelections` for all `SelectionSet`s in the operation must be
       /// completed prior to first access of `mergedSelections`. Otherwise, the merged selections
       /// will be incomplete.
-      private(set) lazy var mergedSelections: ShallowSelections = {
-        typeInfo.entity.mergedSelectionTree.addMergedSelections(
-          matchingTypePath: self.typeInfo.typePath,
-          into: self
+      private(set) lazy var mergedSelections: MergedSelections = {
+        let mergedSelections = MergedSelections(
+          directSelections: self.directSelections?.readOnlyView,
+          typeInfo: self.typeInfo
         )
-        return _mergedSelections
+        typeInfo.entity.mergedSelectionTree.addMergedSelections(into: mergedSelections)
+
+        return mergedSelections
       }()
-      private var _mergedSelections: ShallowSelections = ShallowSelections()
 
       private let typeInfo: TypeInfo
 
@@ -97,48 +99,9 @@ extension IR {
       lhs.selections.directSelections == rhs.selections.directSelections
     }
 
-  }
-}
-
-/// MARK: - MergedSelections Merging
-
-extension IR.SelectionSet.Selections {  
-
-  func addMergedSelections(_ selections: IR.ShallowSelections) {
-    selections.fields.values.forEach { self.addMergedSelection($0) }
-    selections.fragments.values.forEach { self.addMergedSelection($0) }
-  }
-
-  private func addMergedSelection(_ field: IR.Field) {
-    if let directSelections = directSelections,
-        directSelections.fields.keys.contains(field.hashForSelectionSetScope) {
-      return
+    subscript<T>(dynamicMember keyPath: KeyPath<TypeInfo, T>) -> T {
+      typeInfo[keyPath: keyPath]
     }
 
-    if let entityField = field as? IR.EntityField {
-      _mergedSelections.mergeIn(createShallowlyMergedNestedEntityField(from: entityField))
-
-    } else {
-      _mergedSelections.mergeIn(field)
-    }
-  }
-
-  private func createShallowlyMergedNestedEntityField(from field: IR.EntityField) -> IR.EntityField {
-    let newSelectionSet = IR.SelectionSet(
-      entity: field.entity,
-      parentType: field.selectionSet.typeInfo.parentType,
-      typePath: self.typeInfo.typePath.appending(field.selectionSet.typeInfo.typeScope),
-      mergedSelectionsOnly: true
-    )
-    return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
-  }
-
-  private func addMergedSelection(_ fragment: IR.FragmentSpread) {
-    if let directSelections = directSelections,
-        directSelections.fragments.keys.contains(fragment.hashForSelectionSetScope) {
-      return
-    }
-
-    _mergedSelections.mergeIn(fragment)
   }
 }
