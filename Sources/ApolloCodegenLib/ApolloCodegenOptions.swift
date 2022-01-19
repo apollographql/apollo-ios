@@ -86,7 +86,7 @@ public struct ApolloCodegenOptions {
   ///  - outputFormat: The `OutputFormat` enum option to use to output generated code.
   ///  - customScalarFormat: How to handle properties using a custom scalar from the schema.
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
-  ///  - urlToSchemaFile: The URL to your schema file.
+  ///  - urlToSchemaFile: The URL to your schema file. Accepted file types are `.json` for JSON files, or either `.graphqls` or `.sdl` for Schema Definition Language files.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(codegenEngine: CodeGenerationEngine = .default,
               includes: String = "./**/*.graphql",
