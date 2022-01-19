@@ -110,7 +110,7 @@ class IR {
     /// `selections` are selected. This means they can be merged into the generated object
     /// representing this `SelectionSet` as field accessors.
     ///
-    /// - Precondition: The `selections` for all `SelectionSet`s in the operation must be
+    /// - Precondition: The `directSelections` for all `SelectionSet`s in the operation must be
     /// completed prior to first access of `mergedSelections`. Otherwise, the merged selections
     /// will be incomplete.
     private(set) lazy var mergedSelections: ShallowSelections = {
@@ -123,12 +123,12 @@ class IR {
       entity: Entity,
       parentType: GraphQLCompositeType,
       typePath: LinkedList<TypeScopeDescriptor>,
-      mergedOnly: Bool = false
+      mergedSelectionsOnly: Bool = false
     ) {
       self.entity = entity
       self.parentType = parentType
       self.typePath = typePath
-      self.directSelections = mergedOnly ? nil : SortedSelections()
+      self.directSelections = mergedSelectionsOnly ? nil : SortedSelections()
     }
 
     private func mergeIn(_ field: IR.Field) {
@@ -150,7 +150,7 @@ class IR {
         entity: field.entity,
         parentType: field.selectionSet.parentType,
         typePath: self.typePath.appending(field.selectionSet.typeScope),
-        mergedOnly: true
+        mergedSelectionsOnly: true
       )
       return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
     }
