@@ -5,7 +5,7 @@ import OrderedCollections
 fileprivate protocol MergedSelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-    into selectionSet: IR.SelectionSet
+    into selections: IR.SelectionSet.Selections
   )
 }
 
@@ -31,11 +31,11 @@ extension IR {
     // MARK: - Merge Selection Sets Into Tree
     
     func mergeIn(selectionSet: SelectionSet) {
-      guard let directSelections = selectionSet.directSelections else { return }
+      guard let directSelections = selectionSet.selections.directSelections else { return }
       mergeIn(
         selections: directSelections,
-        atEnclosingEntityScope: selectionSet.typePath.head,
-        withEntityTypePath: selectionSet.typePath.head.value.typePath.head,
+        atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
+        withEntityTypePath: selectionSet.typeInfo.typePath.head.value.typePath.head,
         to: rootNode,
         ofType: rootTypePath.head.value,
         withRootTypePath: rootTypePath.head
@@ -126,10 +126,11 @@ extension IR {
 
     // MARK: - Calculate Merged Selections From Tree
 
-    func calculateMergedSelections(
-      forSelectionSet selectionSet: SelectionSet
+    func addMergedSelections(
+      matchingTypePath typePath: LinkedList<TypeScopeDescriptor>,
+      into selections: SelectionSet.Selections
     ) {
-      rootNode.mergeSelections(matchingTypePath: selectionSet.typePath.head, into: selectionSet)
+      rootNode.mergeSelections(matchingTypePath: typePath.head, into: selections)
     }
 
     class EnclosingEntityNode: MergedSelectionTreeNode {
@@ -139,12 +140,12 @@ extension IR {
 
         func mergeSelections(
           matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-          into selectionSet: IR.SelectionSet
+          into selections: IR.SelectionSet.Selections
         ) {
           switch self {
           case let .enclosingEntity(node as MergedSelectionTreeNode),
             let .fieldScope(node as MergedSelectionTreeNode):
-            node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
+            node.mergeSelections(matchingTypePath: typePath, into: selections)
           }
         }
       }
@@ -154,22 +155,22 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selectionSet: IR.SelectionSet
+        into selections: IR.SelectionSet.Selections
       ) {
         guard let nextTypePathNode = typePath.next else {
           guard case let .fieldScope(node) = child else { fatalError() }
-          node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
+          node.mergeSelections(matchingTypePath: typePath, into: selections)
           return
         }
 
         if let child = child {
-          child.mergeSelections(matchingTypePath: nextTypePathNode, into: selectionSet)
+          child.mergeSelections(matchingTypePath: nextTypePathNode, into: selections)
         }
 
         if let typeCases = typeCases {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
+              node.mergeSelections(matchingTypePath: typePath, into: selections)
             }
           }
         }
@@ -233,16 +234,16 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selectionSet: IR.SelectionSet
+        into selections: IR.SelectionSet.Selections
       ) {
         if let scopeSelections = self.selections {
-          selectionSet.mergeIn(scopeSelections)
+          selections.addMergedSelections(scopeSelections)
         }
 
         if let typeCases = typeCases {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: selectionSet)
+              node.mergeSelections(matchingTypePath: typePath, into: selections)
             }
           }
         }

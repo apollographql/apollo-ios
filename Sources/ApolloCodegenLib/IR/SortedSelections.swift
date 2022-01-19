@@ -41,17 +41,8 @@ extension IR {
 
     // MARK: Merge In
 
-    func mergeIn(_ field: IR.Field) {
-      let keyInScope = field.hashForSelectionSetScope
-
-      if let existingField = fields[keyInScope] as? EntityField {
-        if let field = field as? EntityField {
-          existingField.selectionSet.directSelections!.mergeIn(field.selectionSet.directSelections!)
-        }
-
-      } else {
-        fields[keyInScope] = field
-      }
+    func mergeIn(_ field: Field) {
+      fatalError("Must be overridden by subclasses!")
     }
 
     func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
@@ -59,14 +50,7 @@ extension IR {
     }
 
     func mergeIn(_ typeCase: TypeCase) {
-      let keyInScope = typeCase.hashForSelectionSetScope
-
-      if let existingTypeCase = typeCases[keyInScope] {
-        existingTypeCase.directSelections!.mergeIn(typeCase.directSelections!)
-
-      } else {
-        typeCases[keyInScope] = typeCase
-      }
+      fatalError("Must be overridden by subclasses!")
     }
 
     func mergeIn<T: Sequence>(_ typeCases: T) where T.Element == TypeCase {
@@ -96,10 +80,89 @@ extension IR {
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      TypeCases: \(typeCases.values.elements.map(\.parentType))
+      TypeCases: \(typeCases.values.elements.map(\.typeInfo.parentType))
       Fragments: \(fragments.values.elements.map(\.definition.name))
       """
     }
+
+    struct ReadOnly {
+      private let value: SortedSelections
+
+      var fields: OrderedDictionary<String, Field> { value.fields }
+      var typeCases: OrderedDictionary<String, TypeCase> { value.typeCases }
+      var fragments: OrderedDictionary<String, Fragment> { value.fragments }
+    }
+  }
+
+
+  class DirectSelections: SortedSelections {
+
+    override func mergeIn(_ field: Field) {
+      let keyInScope = field.hashForSelectionSetScope
+
+      if let existingField = fields[keyInScope] as? EntityField {
+        if let field = field as? EntityField {
+          existingField.selectionSet.selections.directSelections!
+            .mergeIn(field.selectionSet.selections.directSelections!)
+        }
+
+      } else {
+        fields[keyInScope] = field
+      }
+    }
+
+    override func mergeIn(_ typeCase: TypeCase) {
+      let keyInScope = typeCase.hashForSelectionSetScope
+
+      if let existingTypeCase = typeCases[keyInScope] {
+        existingTypeCase.selections.directSelections!
+          .mergeIn(typeCase.selections.directSelections!)
+
+      } else {
+        typeCases[keyInScope] = typeCase
+      }
+    }
+
+  }
+
+  class MergedSelections: SortedSelections {
+
+    let directSelections: DirectSelections.ReadOnly
+    let typeInfo: SelectionSet.TypeInfo
+
+    init(
+      directSelections: DirectSelections.ReadOnly,
+      typeInfo: SelectionSet.TypeInfo
+    ) {
+      self.directSelections = directSelections
+      self.typeInfo = typeInfo
+      super.init()
+    }
+
+//    override func mergeIn(_ field: Field) {
+//      let keyInScope = field.hashForSelectionSetScope
+//
+//      if let existingField = fields[keyInScope] as? EntityField {
+//        if let field = field as? EntityField {
+//          existingField.selectionSet.directSelections!.mergeIn(field.selectionSet.directSelections!)
+//        }
+//
+//      } else {
+//        fields[keyInScope] = field
+//      }
+//    }
+//
+//    override func mergeIn(_ typeCase: TypeCase) {
+//      let keyInScope = typeCase.hashForSelectionSetScope
+//
+//      if let existingTypeCase = typeCases[keyInScope] {
+//        existingTypeCase.directSelections!.mergeIn(typeCase.directSelections!)
+//
+//      } else {
+//        typeCases[keyInScope] = typeCase
+//      }
+//    }
+
   }
 
 }
@@ -119,9 +182,8 @@ extension IR {
       fields.isEmpty && fragments.isEmpty
     }
 
-    mutating func mergeIn(_ field: Field) {
-      let keyInScope = field.hashForSelectionSetScope
-      fields[keyInScope] = field
+    mutating func mergeIn(_ field: Field) {      
+      fields[field.hashForSelectionSetScope] = field
     }
 
     mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {

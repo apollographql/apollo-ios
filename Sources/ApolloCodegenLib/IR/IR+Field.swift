@@ -26,7 +26,7 @@ extension IR {
 
   final class EntityField: Field {
     let selectionSet: SelectionSet
-    var entity: Entity { selectionSet.entity }
+    var entity: Entity { selectionSet.typeInfo.entity }
 
     init(_ field: CompilationResult.Field, selectionSet: SelectionSet) {
       self.selectionSet = selectionSet
