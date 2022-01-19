@@ -4,9 +4,6 @@ import ApolloUtils
 
 extension IR {
   class SortedSelections: Equatable, CustomDebugStringConvertible {
-    static func == (lhs: IR.SortedSelections, rhs: IR.SortedSelections) -> Bool {
-      return true
-    }
 
     typealias Field = IR.Field
     typealias TypeCase = IR.SelectionSet
@@ -46,7 +43,7 @@ extension IR {
 
     func mergeIn(_ field: IR.Field) {
       let keyInScope = field.hashForSelectionSetScope
- 
+
       if let existingField = fields[keyInScope] as? EntityField {
         if let field = field as? EntityField {
           existingField.selectionSet.directSelections!.mergeIn(field.selectionSet.directSelections!)
@@ -88,6 +85,12 @@ extension IR {
       mergeIn(selections.fields.values)
       mergeIn(selections.typeCases.values)
       mergeIn(selections.fragments.values)
+    }
+
+    static func == (lhs: IR.SortedSelections, rhs: IR.SortedSelections) -> Bool {
+      lhs.fields == rhs.fields &&
+      lhs.typeCases == rhs.typeCases &&
+      lhs.fragments == rhs.fragments
     }
 
     var debugDescription: String {
