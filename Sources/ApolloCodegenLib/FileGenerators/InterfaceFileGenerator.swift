@@ -7,8 +7,9 @@ struct InterfaceFileGenerator: FileGenerator, Equatable {
   let path: String
 
   var data: Data? {
-    #warning("TODO: need correct data template")
-    return "public class \(interfaceType.name) {}".data(using: .utf8)
+    InterfaceTemplate(graphqlInterface: interfaceType)
+      .render()
+      .data(using: .utf8)
   }
 
   /// Designated initializer.
