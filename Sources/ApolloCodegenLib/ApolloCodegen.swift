@@ -47,8 +47,7 @@ public class ApolloCodegen {
     try fileGenerators(for: ir.schema.referencedTypes.inputObjects, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
     try SchemaFileGenerator(
-      name: configuration.output.schemaTypes.moduleName,
-      objectTypes: ir.schema.referencedTypes.objects,
+      schema: ir.schema,
       directoryPath: modulePath
     ).generateFile()
 
