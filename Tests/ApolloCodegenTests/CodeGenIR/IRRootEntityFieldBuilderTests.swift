@@ -3177,32 +3177,31 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       }
     }
     """
+    // when
+    try buildSubjectRootField()
 
-    // allAnimals.asCat.predator.asPet != nil
-    // allAnimals.asCat.asReptile == nil
-    // allAnimals.asCat.asPet == nil
+    let allAnimals = subject[field: "allAnimals"]
 
-    // allAnimals.asCat.predator.asPet.height != nil
-    // allAnimals.asCat.predator.asPet.skinCovering == nil
-    // allAnimals.asCat.predator.asPet.breed == nil
-    // allAnimals.asCat.predator.asPet.asReptile == nil
-    // allAnimals.asCat.predator.asPet.asPet == nil
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]).toNot(beNil())
+    expect(allAnimals?[as: "Cat"]?[as: "Reptile"]).to(beNil())
+    expect(allAnimals?[as: "Cat"]?[as: "Pet"]).to(beNil())
 
-    // allAnimals.asCat.predator.asCat.height != nil
-    // allAnimals.asCat.predator.asCat.skinCovering == nil
-    // allAnimals.asCat.predator.asCat.asReptile == nil
-    // allAnimals.asCat.predator.asCat.asPet == nil
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[field: "height"]).toNot(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[field: "skinCovering"]).to(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[field: "breed"]).to(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[as: "Reptile"]).to(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[as: "Pet"]).to(beNil())
 
-    // allAnimals.asPet.predator.asCat.height != nil
-    // allAnimals.asPet.predator.asCat.breed != nil
-    // allAnimals.asPet.predator.asCat.skinCovering == nil
-    // allAnimals.asPet.predator.asCat.asReptile == nil
-    // allAnimals.asPet.predator.asCat.asPet == nil
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Cat"]?[field: "height"]).toNot(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Cat"]?[field: "skinCovering"]).to(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Cat"]?[as: "Reptile"]).to(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Cat"]?[as: "Pet"]).to(beNil())
 
-    // Basically - TypeCase selection sets, merged or direct should not merge in sibling type cases,
-    // but field selection sets should merge in all their type cases, even when merged only
-
-    fail("Test that nested fields merge type cases, but sibling type cases don't merge")
+    expect(allAnimals?[as: "Pet"]?[field: "predator"]?[as: "Cat"]?[field: "height"]).toNot(beNil())
+    expect(allAnimals?[as: "Pet"]?[field: "predator"]?[as: "Cat"]?[field: "breed"]).toNot(beNil())
+    expect(allAnimals?[as: "Pet"]?[field: "predator"]?[as: "Cat"]?[field: "skinCovering"]).to(beNil())
+    expect(allAnimals?[as: "Pet"]?[field: "predator"]?[as: "Cat"]?[as: "Reptile"]).to(beNil())
+    expect(allAnimals?[as: "Pet"]?[field: "predator"]?[as: "Cat"]?[as: "Pet"]).to(beNil())
   }
 
   #warning("TODO: Unit tests that nested entity fields merge in named fragments")
