@@ -6,10 +6,7 @@ import ApolloCodegenTestSupport
 class EnumTemplateTests: XCTestCase {
   func test_render_givenSchemaEnum_generatesSwiftEnum() throws {
     // given
-    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([
-      GraphQLEnumType.mock(name: "TestEnum", values: ["ONE", "TWO"])
-    ]))
-    let graphqlEnum = try schema[enum: "TestEnum"].xctUnwrapped()
+    let graphqlEnum = GraphQLEnumType.mock(name: "TestEnum", values: ["ONE", "TWO"])
     let template = EnumTemplate(graphqlEnum: graphqlEnum)
 
     let expected = """
@@ -28,10 +25,10 @@ class EnumTemplateTests: XCTestCase {
 
   func test_render_givenSchemaEnum_generatesSwiftEnumRespectingCase() throws {
     // given
-    let schema = IR.Schema(name: "TestSchema", referencedTypes: .init([
-      GraphQLEnumType.mock(name: "CasedEnum", values: ["lower", "UPPER", "Capitalized"])
-    ]))
-    let graphqlEnum = try schema[enum: "CasedEnum"].xctUnwrapped()
+    let graphqlEnum = GraphQLEnumType.mock(
+      name: "CasedEnum",
+      values: ["lower", "UPPER", "Capitalized"]
+    )
     let template = EnumTemplate(graphqlEnum: graphqlEnum)
 
     let expected = """
