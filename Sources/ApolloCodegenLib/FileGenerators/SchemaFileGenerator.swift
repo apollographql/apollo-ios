@@ -8,8 +8,9 @@ struct SchemaFileGenerator: FileGenerator {
   let path: String
 
   var data: Data? {
-    #warning("TODO: need correct data template")
-    return "public enum Schema {}".data(using: .utf8)
+    SchemaTemplate(schema: self.schema)
+      .render()
+      .data(using: .utf8)
   }
 
   /// Designated initializer.
