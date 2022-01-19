@@ -46,15 +46,15 @@ extension IR.Field {
 
 extension IR.SelectionSet {
   public subscript(field field: String) -> IR.Field? {
-    directSelections.fields[field] ?? mergedSelections.fields[field]
+    directSelections?.fields[field] ?? mergedSelections.fields[field]
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    directSelections.typeCases[typeCase]
+    directSelections?.typeCases[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    directSelections.fragments[fragment] ?? mergedSelections.fragments[fragment]
+    directSelections?.fragments[fragment] ?? mergedSelections.fragments[fragment]
   }
 }
 

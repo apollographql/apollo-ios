@@ -99,8 +99,7 @@ class IR {
     var typeScope: TypeScopeDescriptor { typePath.last.value }
 
     /// The selections that are directly selected by this selection set.
-    var directSelections: SortedSelections = SortedSelections()
-    #warning("TODO: can we make this a let? For merged only, maybe make it optional also.")
+    let directSelections: SortedSelections?
 
     /// The selections that are available to be accessed by this selection set.
     ///
@@ -123,16 +122,20 @@ class IR {
     init(
       entity: Entity,
       parentType: GraphQLCompositeType,
-      typePath: LinkedList<TypeScopeDescriptor>
+      typePath: LinkedList<TypeScopeDescriptor>,
+      mergedOnly: Bool = false
     ) {
       self.entity = entity
       self.parentType = parentType
       self.typePath = typePath
+      self.directSelections = mergedOnly ? nil : SortedSelections()
     }
 
     private func mergeIn(_ field: IR.Field) {
-      guard !directSelections.fields.keys
-              .contains(field.hashForSelectionSetScope) else { return }
+      if let directSelections = directSelections,
+          directSelections.fields.keys.contains(field.hashForSelectionSetScope) {
+        return
+      }
 
       if let entityField = field as? EntityField {
         _mergedSelections.mergeIn(createShallowlyMergedEntityField(from: entityField))
@@ -146,13 +149,18 @@ class IR {
       let newSelectionSet = SelectionSet(
         entity: field.entity,
         parentType: field.selectionSet.parentType,
-        typePath: self.typePath.appending(field.selectionSet.typeScope))
+        typePath: self.typePath.appending(field.selectionSet.typeScope),
+        mergedOnly: true
+      )
       return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
     }
 
     private func mergeIn(_ fragment: IR.FragmentSpread) {
-      guard !directSelections.fragments.keys
-              .contains(fragment.hashForSelectionSetScope) else { return }
+      if let directSelections = directSelections,
+          directSelections.fragments.keys.contains(fragment.hashForSelectionSetScope) {
+        return
+      }
+
       _mergedSelections.mergeIn(fragment)
     }
 

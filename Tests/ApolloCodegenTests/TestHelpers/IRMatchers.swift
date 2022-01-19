@@ -57,41 +57,50 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
 }
 
 typealias SelectionMatcher = (
-  direct: [CompilationResult.Selection],
+  direct: [CompilationResult.Selection]?,
   merged:[CompilationResult.Selection]
 )
 
 func shallowlyMatch(
   _ expectedValue: SelectionMatcher
 ) -> Predicate<IR.SelectionSet> {
-  return Predicate { actual in
-    let directExpression = actual.cast { $0?.directSelections }
-    let directPredicate: Predicate<IR.SortedSelections> = shallowlyMatch(expectedValue.direct)
+  let directPredicate: Predicate<IR.SortedSelections> = expectedValue.direct == nil
+  ? beNil()
+  : shallowlyMatch(expectedValue.direct!)
 
-    let directResult = try directPredicate.satisfies(directExpression)
-    if directResult.status != .matches {
-      return PredicateResult(
-        status: directResult.status,
-        message: directResult.message.appended(message: " for direct selections")
-      )
-    }
+  return satisfyAllOf([
+    directPredicate.mappingActualTo { $0?.directSelections },
+    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.mergedSelections }
+  ])
 
-    let mergedExpression = actual.cast { $0?.mergedSelections }
-    let mergedPredicate: Predicate<IR.ShallowSelections> = shallowlyMatch(expectedValue.merged)
-
-    let mergedResult = try mergedPredicate.satisfies(mergedExpression)
-    if mergedResult.status != .matches {
-      return PredicateResult(
-        status: mergedResult.status,
-        message: mergedResult.message.appended(message: " for merged selections")
-      )
-    }
-
-    return PredicateResult(
-      status: .matches,
-      message: .expectedActualValueTo("equal <\(expectedValue)>")
-    )
-  }
+//  return Predicate { actual in
+//    let directExpression = actual.cast { $0?.directSelections }
+//    let directPredicate: Predicate<IR.SortedSelections> = shallowlyMatch(expectedValue.direct)
+//
+//    let directResult = try directPredicate.satisfies(directExpression)
+//    if directResult.status != .matches {
+//      return PredicateResult(
+//        status: directResult.status,
+//        message: directResult.message.appended(message: " for direct selections")
+//      )
+//    }
+//
+//    let mergedExpression = actual.cast { $0?.mergedSelections }
+//    let mergedPredicate: Predicate<IR.ShallowSelections> = shallowlyMatch(expectedValue.merged)
+//
+//    let mergedResult = try mergedPredicate.satisfies(mergedExpression)
+//    if mergedResult.status != .matches {
+//      return PredicateResult(
+//        status: mergedResult.status,
+//        message: mergedResult.message.appended(message: " for merged selections")
+//      )
+//    }
+//
+//    return PredicateResult(
+//      status: .matches,
+//      message: .expectedActualValueTo("equal <\(expectedValue)>")
+//    )
+//  }
 }
 
 // MARK: Field Matchers
@@ -100,7 +109,7 @@ public func shallowlyMatch(
   _ expectedValue: [CompilationResult.Field]
 ) -> Predicate<OrderedDictionary<String, IR.Field>> {
   return Predicate.define { actual in
-    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate()!)
+    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate())
   }
 }
 
@@ -110,7 +119,7 @@ public func shallowlyMatch(
   return Predicate.define { actual in
     let expectedAsFields: [CompilationResult.Field] = try expectedValue.map {
       guard case let .field(field) = $0 else {
-        throw TestError("")
+        throw TestError("Selection \($0) is not a field!")
       }
       return field
     }
@@ -120,10 +129,12 @@ public func shallowlyMatch(
 
 public func shallowlyMatch(
   expected: [CompilationResult.Field],
-  actual: OrderedDictionary<String, IR.Field>
+  actual: OrderedDictionary<String, IR.Field>?
 ) -> PredicateResult {
   let message: ExpectationMessage = .expectedActualValueTo("have fields equal to \(expected)")
-  if expected.count != actual.count {
+
+  guard let actual = actual,
+        expected.count == actual.count else {
     return PredicateResult(status: .fail, message: message)
   }
 
@@ -167,16 +178,17 @@ public func shallowlyMatch(
   _ expectedValue: [CompilationResult.SelectionSet]
 ) -> Predicate<OrderedDictionary<String, IR.SelectionSet>> {
   return Predicate.define { actual in
-    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate()!)
+    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate())
   }
 }
 
 fileprivate func shallowlyMatch(
   expected: [CompilationResult.SelectionSet],
-  actual: OrderedDictionary<String, IR.SelectionSet>
+  actual: OrderedDictionary<String, IR.SelectionSet>?
 ) -> PredicateResult {
   let message: ExpectationMessage = .expectedActualValueTo("have typeCases equal to \(expected)")
-  if expected.count != actual.count {
+  guard let actual = actual,
+        expected.count == actual.count else {
     return PredicateResult(status: .fail, message: message)
   }
 
@@ -208,24 +220,18 @@ fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual
 public func shallowlyMatch(
   _ expectedValue: [CompilationResult.FragmentDefinition]
 ) -> Predicate<OrderedDictionary<String, IR.FragmentSpread>> {
-  return Predicate { actual in
-    if let actualValue = try actual.evaluate() {
-      return shallowlyMatch(expected: expectedValue, actual: actualValue)
-    } else {
-      return PredicateResult(
-        status: .fail,
-        message: .expectedActualValueTo("equal \(expectedValue)").appendedBeNilHint()
-      )
-    }
+  return Predicate.define { actual in
+    return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate())
   }
 }
 
 fileprivate func shallowlyMatch(
   expected: [CompilationResult.FragmentDefinition],
-  actual: OrderedDictionary<String, IR.FragmentSpread>
+  actual: OrderedDictionary<String, IR.FragmentSpread>?
 ) -> PredicateResult {
   let message: ExpectationMessage = .expectedActualValueTo("have fragments equal to \(expected)")
-  if expected.count != actual.count {
+  guard let actual = actual,
+        expected.count == actual.count else {
     return PredicateResult(status: .fail, message: message)
   }
 
@@ -275,4 +281,3 @@ extension Nimble.Predicate {
     }
   }
 }
-

@@ -85,7 +85,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals = self.subject[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(allAnimals?.directSelections.typeCases).to(beEmpty())
+    expect(allAnimals?.directSelections?.typeCases).to(beEmpty())
   }
 
   func test__children__initWithNamedFragmentOnMoreSpecificType_hasChildTypeCase() throws {
@@ -125,11 +125,11 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals = self.subject[field: "allAnimals"]?.selectionSet
 
     // then
-    expect(allAnimals?.directSelections.typeCases.count).to(equal(1))
+    expect(allAnimals?.directSelections?.typeCases.count).to(equal(1))
 
     let child = allAnimals?[as: "Bird"]
     expect(child?.parentType).to(equal(Object_Bird))
-    expect(child?.directSelections.fragments).to(shallowlyMatch([Fragment_BirdDetails]))
+    expect(child?.directSelections?.fragments).to(shallowlyMatch([Fragment_BirdDetails]))
   }
 
   func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
@@ -166,7 +166,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let birds = self.subject[field: "birds"]?.selectionSet
 
     // then
-    expect(birds?.directSelections.typeCases).to(beEmpty())
+    expect(birds?.directSelections?.typeCases).to(beEmpty())
   }
 
   func test__children__isInterfaceType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
@@ -203,7 +203,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let flyingAnimals = self.subject[field: "flyingAnimals"]?.selectionSet
 
     // then
-    expect(flyingAnimals?.directSelections.typeCases).to(beEmpty())
+    expect(flyingAnimals?.directSelections?.typeCases).to(beEmpty())
   }
 
   func test__children__initWithNamedFragmentOnUnrelatedType_hasChildTypeCase() throws {
@@ -243,12 +243,12 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let rocks = self.subject[field: "rocks"]?.selectionSet
 
     // then
-    expect(rocks?.directSelections.typeCases.count).to(equal(1))
+    expect(rocks?.directSelections?.typeCases.count).to(equal(1))
 
     let child = rocks?[as: "Animal"]
     expect(child?.parentType).to(equal(Interface_Animal))
-    expect(child?.directSelections.fragments.count).to(equal(1))
-    expect(child?.directSelections.fragments.values[0].definition).to(equal(Fragment_AnimalDetails))
+    expect(child?.directSelections?.fragments.count).to(equal(1))
+    expect(child?.directSelections?.fragments.values[0].definition).to(equal(Fragment_AnimalDetails))
   }
 
   // MARK: Children Computation - Union Type
@@ -299,10 +299,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     // then
     expect(onClassroomPet?.parentType).to(beIdenticalTo(Union_ClassroomPet))
-    expect(onClassroomPet?.directSelections.typeCases.count).to(equal(1))
+    expect(onClassroomPet?.directSelections?.typeCases.count).to(equal(1))
 
     expect(onClassroomPet_onBird?.parentType).to(beIdenticalTo(Object_Bird))
-    expect(onClassroomPet_onBird?.directSelections.fields).to(shallowlyMatch([Field_Species]))
+    expect(onClassroomPet_onBird?.directSelections?.fields).to(shallowlyMatch([Field_Species]))
   }
 
   // MARK: Children - Type Cases
@@ -337,7 +337,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField = subject[field: "aField"]
 
     // then
-    expect(aField?.selectionSet?.directSelections.typeCases).to(beEmpty())
+    expect(aField?.selectionSet?.directSelections?.typeCases).to(beEmpty())
   }
 
   func test__children__givenInlineFragment_onMatchingType_mergesTypeCaseIn_doesNotHaveTypeCaseChild() throws {
@@ -375,7 +375,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let bField = subject[field: "bField"]
 
     // then
-    expect(bField?.selectionSet?.directSelections.typeCases).to(beEmpty())
+    expect(bField?.selectionSet?.directSelections?.typeCases).to(beEmpty())
   }
 
   func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() throws {
@@ -424,7 +424,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     ]
 
     // then
-    expect(aField?.selectionSet.directSelections.typeCases).to(shallowlyMatch(expected))
+    expect(aField?.selectionSet.directSelections?.typeCases).to(shallowlyMatch(expected))
   }
 
   // MARK: Children - Group Duplicate Type Cases
@@ -473,7 +473,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let bField_asInterfaceA = bField?[as: "InterfaceA"]
 
     // then
-    expect(bField?.selectionSet.directSelections.typeCases.count).to(equal(1))
+    expect(bField?.selectionSet.directSelections?.typeCases.count).to(equal(1))
     expect(bField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
     expect(bField_asInterfaceA?.directSelections).to(shallowlyMatch(expectedChildren))
   }
@@ -523,7 +523,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
 
     // then
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(2))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(2))
 
     expect(aField_asInterfaceA?.parentType).to(equal(GraphQLInterfaceType.mock("InterfaceA")))
     expect(aField_asInterfaceA?.directSelections).to(shallowlyMatch([Field_A]))
@@ -572,7 +572,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
 
     // then
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(1))
 
     expect(aField_asInterfaceB?.parentType).to(equal(InterfaceB))
     expect(aField_asInterfaceB?.directSelections).to(shallowlyMatch([.fragmentSpread(FragmentB)]))
@@ -623,7 +623,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asInterfaceB = aField?[as: "InterfaceB"]
 
     // then
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(1))
 
     expect(aField_asInterfaceB?.parentType).to(equal(InterfaceB))
     expect(aField_asInterfaceB?.directSelections).to(shallowlyMatch([
@@ -746,7 +746,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_a = aField?[field: "a"] as? IR.EntityField
 
     // then
-    expect(aField?.selectionSet.directSelections.fields.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.fields.count).to(equal(1))
     expect(aField?.selectionSet.parentType).to(equal(Object_A))
     expect(aField_a?.selectionSet.parentType).to(equal(Object_A))
     expect(aField_a?.selectionSet.directSelections).to(shallowlyMatch(expectedAFields))
@@ -797,7 +797,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_a = aField?[field: "a"] as? IR.EntityField
 
     // then
-    expect(aField?.selectionSet.directSelections.fields.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.fields.count).to(equal(1))
     expect(aField?.selectionSet.parentType).to(equal(Object_A))
     expect(aField_a?.selectionSet.parentType).to(equal(Object_A))
     expect(aField_a?.selectionSet.directSelections).to(shallowlyMatch(expectedAFields))
@@ -920,10 +920,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField_asB = aField?[as: "B"]
 
     // then
-    expect(aField?.selectionSet.directSelections.fields).to(shallowlyMatch([
+    expect(aField?.selectionSet.directSelections?.fields).to(shallowlyMatch([
       .field(.mock("a", type: .string()))
     ]))
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(1))
 
     expect(aField_asB?.directSelections).to(shallowlyMatch([
       .field(.mock("b", type: .integer()))
@@ -1363,8 +1363,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField = subject[field: "aField"] as? IR.EntityField
 
     // then
-    expect(aField?.selectionSet.directSelections.fields.count).to(equal(0))
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.fields.count).to(equal(0))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(1))
     expect(aField?[as: "B"]?.directSelections).to(shallowlyMatch(expected))
   }
 
@@ -1416,8 +1416,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField = subject[field: "aField"] as? IR.EntityField
 
     // then
-    expect(aField?.selectionSet.directSelections.fields.count).to(equal(0))
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(1))
+    expect(aField?.selectionSet.directSelections?.fields.count).to(equal(0))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(1))
     expect(aField?[as: "B"]?.directSelections).to(shallowlyMatch(expected))
   }
 
@@ -1467,8 +1467,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField = subject[field: "aField"] as? IR.EntityField
 
     // then
-    expect(aField?.selectionSet.directSelections.fields.count).to(equal(0))
-    expect(aField?.selectionSet.directSelections.typeCases.count).to(equal(2))
+    expect(aField?.selectionSet.directSelections?.fields.count).to(equal(0))
+    expect(aField?.selectionSet.directSelections?.typeCases.count).to(equal(2))
     expect(aField?[as: "B"]?.directSelections).to(shallowlyMatch([.fragmentSpread(Fragment_B)]))
     expect(aField?[as: "C"]?.directSelections).to(shallowlyMatch([.fragmentSpread(Fragment_C)]))
   }
@@ -2923,8 +2923,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals = subject[field: "allAnimals"]
 
     let allAnimals_asCat_height_expected: SelectionMatcher = (
-      direct: [
-      ],
+      direct: nil,
       merged: [
         .field(.mock("feet", type: .integer())),
         .field(.mock("meters", type: .integer())),
@@ -2988,9 +2987,8 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let allAnimals = subject[field: "allAnimals"]
 
-    let allAnimals_asElephant_expected: SelectionMatcher = (
-      direct: [
-      ],
+    let allAnimals_asElephant_height_expected: SelectionMatcher = (
+      direct: nil,
       merged: [
         .field(.mock("feet", type: .integer()))
       ]
@@ -2999,7 +2997,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asElephant_height_actual = allAnimals?[as: "Elephant"]?[field: "height"]?.selectionSet
 
     // then
-    expect(allAnimals_asElephant_height_actual).to(shallowlyMatch(allAnimals_asElephant_expected))
+    expect(allAnimals_asElephant_height_actual).to(shallowlyMatch(allAnimals_asElephant_height_expected))
   }
 
   func test__mergedSelections__givenEntityFieldOnEntityWithDeepNestedTypeCases_eachTypeCaseHasDifferentNestedEntityFields_mergesFieldIntoMatchingNestedTypeCases() throws {

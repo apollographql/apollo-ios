@@ -44,7 +44,7 @@ extension IR {
         parentType: rootEntity.rootType,
         typePath: LinkedList(rootTypePath)
       )
-
+      
       buildSortedSelections(
         forSelectionSet: rootIrSelectionSet,
         from: rootSelectionSet
@@ -64,7 +64,7 @@ extension IR {
         switch selection {
         case let .field(field):
           let irField = buildField(from: field, on: selectionSet)
-          selectionSet.directSelections.mergeIn(irField)
+          selectionSet.directSelections!.mergeIn(irField)
 
         case let .inlineFragment(typeCaseSelectionSet):
           if selectionSet.typeScope.matches(typeCaseSelectionSet.parentType) {
@@ -78,7 +78,7 @@ extension IR {
               fromSelectionSet: typeCaseSelectionSet,
               onParent: selectionSet
             )
-            selectionSet.directSelections.mergeIn(irTypeCase)
+            selectionSet.directSelections!.mergeIn(irTypeCase)
           }
 
         case let .fragmentSpread(fragment):
@@ -90,7 +90,7 @@ extension IR {
               onParent: selectionSet
             )
 
-            selectionSet.directSelections.mergeIn(irFragmentSpread)
+            selectionSet.directSelections!.mergeIn(irFragmentSpread)
 
           } else {
             let irTypeCaseEnclosingFragment = buildTypeCaseSelectionSet(
@@ -101,7 +101,7 @@ extension IR {
               onParent: selectionSet
             )
 
-            selectionSet.directSelections.mergeIn(irTypeCaseEnclosingFragment)
+            selectionSet.directSelections!.mergeIn(irTypeCaseEnclosingFragment)
           }
         }
       }

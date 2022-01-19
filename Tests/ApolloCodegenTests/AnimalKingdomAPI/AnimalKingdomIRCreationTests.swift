@@ -370,7 +370,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
     // then
     expect(selectionSet.parentType).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(beEmpty())
+    expect(actual).to(beNil())
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsWarmBlooded_Height__isCorrect() throws {
@@ -624,7 +624,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
     // then
     expect(selectionSet.parentType).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(beEmpty())
+    expect(actual).to(beNil())
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsPet_AsWarmBlooded_Height__isCorrect() throws {
@@ -751,7 +751,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
     // then
     expect(selectionSet.parentType).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(beEmpty())
+    expect(actual).to(beNil())
   }
 
 #warning("TODO: This is the same as AllAnimal.AsPet.AsWarmBlooded.Height. Should we inherit that object instead?")
@@ -941,7 +941,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
     // then
     expect(selectionSet.parentType).to(equal(GraphQLObjectType.mock("Height")))
-    expect(actual).to(beEmpty())
+    expect(actual).to(beNil())
   }
 
 #warning("TODO: This is the same as AllAnimal.AsPet.Height. Should we inherit that object instead?")
