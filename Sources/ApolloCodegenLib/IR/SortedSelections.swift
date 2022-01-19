@@ -107,8 +107,8 @@ extension IR {
 
       if let existingField = fields[keyInScope] as? EntityField {
         if let field = field as? EntityField {
-          existingField.selectionSet.selections.directSelections!
-            .mergeIn(field.selectionSet.selections.directSelections!)
+          existingField.selectionSet.selections.direct!
+            .mergeIn(field.selectionSet.selections.direct!)
         }
 
       } else {
@@ -120,8 +120,8 @@ extension IR {
       let keyInScope = typeCase.hashForSelectionSetScope
 
       if let existingTypeCase = typeCases[keyInScope] {
-        existingTypeCase.selections.directSelections!
-          .mergeIn(typeCase.selections.directSelections!)
+        existingTypeCase.selections.direct!
+          .mergeIn(typeCase.selections.direct!)
 
       } else {
         typeCases[keyInScope] = typeCase

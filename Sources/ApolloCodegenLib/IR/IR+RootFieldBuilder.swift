@@ -64,7 +64,7 @@ extension IR {
         switch selection {
         case let .field(field):
           let irField = buildField(from: field, on: selectionSet)
-          selectionSet.selections.directSelections!.mergeIn(irField)
+          selectionSet.selections.direct!.mergeIn(irField)
 
         case let .inlineFragment(typeCaseSelectionSet):
           if selectionSet.typeInfo.typeScope.matches(typeCaseSelectionSet.parentType) {
@@ -78,7 +78,7 @@ extension IR {
               fromSelectionSet: typeCaseSelectionSet,
               onParent: selectionSet
             )
-            selectionSet.selections.directSelections!.mergeIn(irTypeCase)
+            selectionSet.selections.direct!.mergeIn(irTypeCase)
           }
 
         case let .fragmentSpread(fragment):
@@ -90,7 +90,7 @@ extension IR {
               onParent: selectionSet
             )
 
-            selectionSet.selections.directSelections!.mergeIn(irFragmentSpread)
+            selectionSet.selections.direct!.mergeIn(irFragmentSpread)
 
           } else {
             let irTypeCaseEnclosingFragment = buildTypeCaseSelectionSet(
@@ -101,7 +101,7 @@ extension IR {
               onParent: selectionSet
             )
 
-            selectionSet.selections.directSelections!.mergeIn(irTypeCaseEnclosingFragment)
+            selectionSet.selections.direct!.mergeIn(irTypeCaseEnclosingFragment)
           }
         }
       }

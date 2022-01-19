@@ -69,8 +69,8 @@ func shallowlyMatch(
   : shallowlyMatch(expectedValue.direct!)
 
   return satisfyAllOf([
-    directPredicate.mappingActualTo { $0?.selections.directSelections },
-    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.mergedSelections }
+    directPredicate.mappingActualTo { $0?.selections.direct },
+    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.merged }
   ])
 }
 

@@ -33,7 +33,7 @@ extension IR {
 
     class Selections {
       /// The selections that are directly selected by this selection set.
-      let directSelections: DirectSelections?
+      let direct: DirectSelections?
 
       /// The selections that are available to be accessed by this selection set.
       ///
@@ -47,9 +47,9 @@ extension IR {
       /// - Precondition: The `directSelections` for all `SelectionSet`s in the operation must be
       /// completed prior to first access of `mergedSelections`. Otherwise, the merged selections
       /// will be incomplete.
-      private(set) lazy var mergedSelections: MergedSelections = {
+      private(set) lazy var merged: MergedSelections = {
         let mergedSelections = MergedSelections(
-          directSelections: self.directSelections?.readOnlyView,
+          directSelections: self.direct?.readOnlyView,
           typeInfo: self.typeInfo
         )
         typeInfo.entity.mergedSelectionTree.addMergedSelections(into: mergedSelections)
@@ -64,7 +64,7 @@ extension IR {
         mergedSelectionsOnly: Bool = false
       ) {
         self.typeInfo = typeInfo
-        self.directSelections = mergedSelectionsOnly ? nil : DirectSelections()
+        self.direct = mergedSelectionsOnly ? nil : DirectSelections()
       }
     }
 
@@ -96,7 +96,7 @@ extension IR {
       lhs.typeInfo.entity == rhs.typeInfo.entity &&
       lhs.typeInfo.parentType == rhs.typeInfo.parentType &&
       lhs.typeInfo.typePath == rhs.typeInfo.typePath &&
-      lhs.selections.directSelections == rhs.selections.directSelections
+      lhs.selections.direct == rhs.selections.direct
     }
 
     subscript<T>(dynamicMember keyPath: KeyPath<TypeInfo, T>) -> T {

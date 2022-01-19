@@ -31,7 +31,7 @@ extension IR {
     // MARK: - Merge Selection Sets Into Tree
     
     func mergeIn(selectionSet: SelectionSet) {
-      guard let directSelections = selectionSet.selections.directSelections else { return }
+      guard let directSelections = selectionSet.selections.direct else { return }
       mergeIn(
         selections: directSelections,
         atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
