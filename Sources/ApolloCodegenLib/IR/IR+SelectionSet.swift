@@ -105,7 +105,11 @@ extension IR {
     }
 
     var debugDescription: String {
-      "SelectionSet on \(typeInfo.parentType)"
+      """
+      SelectionSet on \(typeInfo.parentType) {
+        \(indented: self.selections.debugDescription)
+      }
+      """
     }
 
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {

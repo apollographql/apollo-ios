@@ -3154,6 +3154,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     query Test {
       allAnimals {
         ... on Pet {
+          ... on Reptile {
+            skinCovering
+          }
           predator {
             ... on Pet {
               height {
@@ -3177,14 +3180,14 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       }
     }
     """
+    
     // when
     try buildSubjectRootField()
 
     let allAnimals = subject[field: "allAnimals"]
 
-    #warning("TODO: test type case inside type case?")
-
     expect(allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]).toNot(beNil())
+    expect(allAnimals?[as: "Cat"]?[field: "skinCovering"]).to(beNil())
     expect(allAnimals?[as: "Cat"]?[as: "Reptile"]).to(beNil())
     expect(allAnimals?[as: "Cat"]?[as: "Pet"]).to(beNil())
 
@@ -3206,7 +3209,115 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     expect(allAnimals?[as: "Pet"]?[field: "predator"]?[as: "Cat"]?[as: "Pet"]).to(beNil())
   }
 
-  #warning("TODO: Unit tests that nested entity fields merge in named fragments")
+  func test__mergedSelections__givenSiblingTypeCasesAndNestedEntityTypeCases_withNamedFragments_mergesFragmentsIntoNestedEntityTypeCases() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+
+    interface Pet {
+      predator: Animal
+      height: Height
+    }
+
+    interface Reptile {
+      skinCovering: String
+    }
+
+    type Cat implements Pet & Animal {
+      species: String
+      breed: String
+      height: Height
+      predator: Animal
+    }
+
+    type Height {
+      feet: Int
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ... on Pet {
+          ... on Reptile {
+            ...SkinCoveringFragment
+          }
+          predator {
+            ... on Pet {
+              ...HeightFragment
+            }
+            ... on Reptile {
+              ...SkinCoveringFragment
+            }
+            ... on Cat {
+              ...SpeciesFragment
+            }
+          }
+        }
+        ... on Reptile {
+          ...SkinCoveringFragment
+        }
+        ... on Cat {
+          ...BreedFragment
+        }
+      }
+    }
+
+    fragment HeightFragment on Pet {
+      height {
+        feet
+      }
+    }
+
+    fragment SkinCoveringFragment on Reptile {
+      skinCovering
+    }
+
+    fragment SpeciesFragment on Animal {
+      species
+    }
+
+    fragment BreedFragment on Cat {
+      breed
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = subject[field: "allAnimals"]
+    let asCat = allAnimals?[as: "Cat"]
+    let asCat_predator = asCat?[field: "predator"]
+
+    expect(asCat?[fragment: "BreedFragment"]).toNot(beNil())
+    expect(asCat?[fragment: "SkinCoveringFragment"]).to(beNil())
+
+    expect(asCat?[field: "predator"]?[fragment: "SkinCoveringFragment"]).to(beNil())
+    expect(asCat?[field: "predator"]?[fragment: "BreedFragment"]).to(beNil())
+    expect(asCat?[field: "predator"]?[fragment: "SpeciesFragment"]).to(beNil())
+    expect(asCat?[field: "predator"]?[fragment: "HeightFragment"]).to(beNil())
+
+    expect(asCat_predator?[as: "Pet"]?[fragment: "SkinCoveringFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Pet"]?[fragment: "BreedFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Pet"]?[fragment: "SpeciesFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Pet"]?[fragment: "HeightFragment"]).toNot(beNil())
+
+    expect(asCat_predator?[as: "Reptile"]?[fragment: "SkinCoveringFragment"]).toNot(beNil())
+    expect(asCat_predator?[as: "Reptile"]?[fragment: "BreedFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Reptile"]?[fragment: "SpeciesFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Reptile"]?[fragment: "HeightFragment"]).to(beNil())
+
+    expect(asCat_predator?[as: "Cat"]?[fragment: "SkinCoveringFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Cat"]?[fragment: "BreedFragment"]).to(beNil())
+    expect(asCat_predator?[as: "Cat"]?[fragment: "SpeciesFragment"]).toNot(beNil())
+    expect(asCat_predator?[as: "Cat"]?[fragment: "HeightFragment"]).toNot(beNil())
+  }
 
   // MARK: - Nested Entity Field - Merged Selections - Calculate Type Path
 

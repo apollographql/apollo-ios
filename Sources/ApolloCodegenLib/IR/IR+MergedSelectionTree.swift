@@ -235,7 +235,7 @@ extension IR {
         into selections: IR.MergedSelections
       ) {
         if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections)          
+          selections.mergeIn(scopeSelections)
         }
 
         if let typeCases = typeCases {
