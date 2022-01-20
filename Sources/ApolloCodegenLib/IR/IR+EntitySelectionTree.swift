@@ -2,7 +2,7 @@ import ApolloUtils
 import Darwin
 import OrderedCollections
 
-fileprivate protocol MergedSelectionTreeNode {
+fileprivate protocol EntitySelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
     into selections: IR.MergedSelections
@@ -18,9 +18,9 @@ extension IR {
   ///
   /// During the creation of `SelectionSet`s, their `selections` are added to their entities
   /// mergedSelectionTree at the appropriate type scope. After all `SelectionSet`s have been added
-  /// to the `MergedSelectionTree`, the tree can be quickly traversed to collect the selections
+  /// to the `EntitySelectionTree`, the tree can be quickly traversed to collect the selections
   /// that will be selected for a given `SelectionSet`'s type scope.
-  class MergedSelectionTree {
+  class EntitySelectionTree {
     let rootTypePath: LinkedList<GraphQLCompositeType>
     lazy var rootNode = EnclosingEntityNode()
 
@@ -131,8 +131,8 @@ extension IR {
       rootNode.mergeSelections(matchingTypePath: rootTypePath, into: selections)
     }
 
-    class EnclosingEntityNode: MergedSelectionTreeNode {
-      enum Child: MergedSelectionTreeNode {
+    class EnclosingEntityNode: EntitySelectionTreeNode {
+      enum Child: EntitySelectionTreeNode {
         case enclosingEntity(EnclosingEntityNode)
         case fieldScope(FieldScopeNode)
 
@@ -141,8 +141,8 @@ extension IR {
           into selections: IR.MergedSelections
         ) {
           switch self {
-          case let .enclosingEntity(node as MergedSelectionTreeNode),
-            let .fieldScope(node as MergedSelectionTreeNode):
+          case let .enclosingEntity(node as EntitySelectionTreeNode),
+            let .fieldScope(node as EntitySelectionTreeNode):
             node.mergeSelections(matchingTypePath: typePath, into: selections)
           }
         }
@@ -220,7 +220,7 @@ extension IR {
       }
     }
 
-    class FieldScopeNode: MergedSelectionTreeNode {
+    class FieldScopeNode: EntitySelectionTreeNode {
       var selections: ShallowSelections?
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
@@ -270,7 +270,7 @@ extension IR {
   }
 }
 
-extension IR.MergedSelectionTree: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     rootTypePath: \(rootTypePath.debugDescription)
@@ -279,7 +279,7 @@ extension IR.MergedSelectionTree: CustomDebugStringConvertible {
   }
 }
 
-extension IR.MergedSelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     {
@@ -292,7 +292,7 @@ extension IR.MergedSelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
   }
 }
 
-extension IR.MergedSelectionTree.FieldScopeNode: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     {
@@ -305,7 +305,7 @@ extension IR.MergedSelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   }
 }
 
-extension IR.MergedSelectionTree.EnclosingEntityNode.Child: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.EnclosingEntityNode.Child: CustomDebugStringConvertible {
   var debugDescription: String {
     switch self {
     case let .enclosingEntity(node): return node.debugDescription

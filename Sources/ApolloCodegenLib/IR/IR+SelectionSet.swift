@@ -57,7 +57,7 @@ extension IR {
           directSelections: self.direct?.readOnlyView,
           typeInfo: self.typeInfo
         )
-        typeInfo.entity.mergedSelectionTree.addMergedSelections(into: mergedSelections)
+        typeInfo.entity.selectionTree.addMergedSelections(into: mergedSelections)
 
         return mergedSelections
       }()

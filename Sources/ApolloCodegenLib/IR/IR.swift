@@ -58,13 +58,13 @@ class IR {
   class Entity: Equatable {
     /// The selections that are selected for the entity across all type scopes in the operation.
     /// Represented as a tree.
-    let mergedSelectionTree: MergedSelectionTree
+    let selectionTree: EntitySelectionTree
 
     /// A list of path components indicating the path to the field containing the `Entity` in
     /// an operation.
     let fieldPath: ResponsePath
 
-    var rootTypePath: LinkedList<GraphQLCompositeType> { mergedSelectionTree.rootTypePath }
+    var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
 
     var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
@@ -72,12 +72,12 @@ class IR {
       rootTypePath: LinkedList<GraphQLCompositeType>,
       fieldPath: ResponsePath
     ) {
-      self.mergedSelectionTree = MergedSelectionTree(rootTypePath: rootTypePath)
+      self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
       self.fieldPath = fieldPath
     }
 
     static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {
-      lhs.mergedSelectionTree === rhs.mergedSelectionTree
+      lhs.selectionTree === rhs.selectionTree
     }
   }
 

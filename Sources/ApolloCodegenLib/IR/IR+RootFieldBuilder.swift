@@ -106,7 +106,7 @@ extension IR {
         }
       }
 
-      selectionSet.typeInfo.entity.mergedSelectionTree.mergeIn(selectionSet: selectionSet)
+      selectionSet.typeInfo.entity.selectionTree.mergeIn(selectionSet: selectionSet)
     }
 
     private func buildField(
