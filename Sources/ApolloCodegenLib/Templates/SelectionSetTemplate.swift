@@ -50,9 +50,12 @@ struct SelectionSetTemplate {
   private func SelectionsTemplate(_ selections: IR.DirectSelections) -> TemplateString {
     """
     public static var selections: [Selection] { [
-      \(selections.fields.values.map {
-        FieldSelectionTemplate($0)
-      }),
+      \(if: !selections.fields.values.isEmpty, """
+        \(selections.fields.values.map { FieldSelectionTemplate($0) }),
+        """)
+      \(if: !selections.typeCases.values.isEmpty, """
+        \(selections.typeCases.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
+        """)
     ] }
     """
   }
@@ -60,6 +63,12 @@ struct SelectionSetTemplate {
   private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
     """
     .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(field.type.rendered).self)
+    """
+  }
+
+  private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
+    """
+    .typeCase(As\(typeCase.parentType.name.firstUppercased).self)
     """
   }
 

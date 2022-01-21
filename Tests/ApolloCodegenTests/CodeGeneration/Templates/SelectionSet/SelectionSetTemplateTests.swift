@@ -149,6 +149,44 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
   }
 
+  // MARK: - Selections
+
+  func test__render_selections__givenNilDirectSelections_doesNotRenderSelections() throws {
+    // given
+    let type = GraphQLObjectType.mock("Animal")
+
+    let field = IR.EntityField(
+      .mock(),
+      selectionSet: .init(
+        entity: .init(
+          rootTypePath: [type],
+          fieldPath: ["query", "allAnimals"]
+        ),
+        parentType: type,
+        typePath: [.descriptor(forType: type, givenAllTypesInSchema: .init([type]))],
+        mergedSelectionsOnly: true
+      )
+    )
+
+    let result = CompilationResult.emptyMockObject()
+    result.referencedTypes = [type]
+
+    let schema = IR.mock(compilationResult: result).schema
+
+    let expected = """
+      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+
+    """
+
+    // when
+    subject = SelectionSetTemplate(schema: schema)
+
+    let actual = subject.render(field: field)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
+  }
+
   // MARK: Selections - Fields
 
   func test__render_selections__givenFieldSelections_rendersAllFieldSelections() throws {
@@ -252,8 +290,6 @@ class SelectionSetTemplateTests: XCTestCase {
     type Animal {
       string: String!
     }
-
-    scalar Custom
     """
 
     document = """
@@ -267,6 +303,60 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public static var selections: [Selection] { [
         .field("string", alias: "aliased", String.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  // MARK: Selections - Type Cases
+
+  func test__render_selections__givenTypeCases_rendersTypeCaseSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+    }
+
+    interface Pet {
+      int: Int!
+    }
+
+    interface lowercaseInterface {
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Pet {
+          int
+        }
+        ... on lowercaseInterface {
+          int
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .typeCase(AsPet.self),
+        .typeCase(AsLowercaseInterface.self),
       ] }
     """
 

@@ -73,11 +73,11 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
     mutating func appendInterpolation(
       if bool: Bool,
-      _ template: TemplateString,
+      _ template: @autoclosure () -> TemplateString,
       else: TemplateString? = nil
     ) {
       if bool {
-        appendInterpolation(template.value)
+        appendInterpolation(template().value)
       } else if let elseTemplate = `else` {
         appendInterpolation(elseTemplate.value)
       } else {
@@ -126,4 +126,9 @@ fileprivate extension Array where Element == Substring {
 
     return string
   }
+}
+
+extension StringProtocol {
+    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
 }
