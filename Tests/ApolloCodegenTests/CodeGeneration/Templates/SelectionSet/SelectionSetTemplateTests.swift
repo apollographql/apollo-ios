@@ -34,6 +34,39 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: - Tests
 
+  func test__render_rendersClosingBracket() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+  }
+
   // MARK: Parent Type
 
   func test__render_parentType__givenParentTypeAs_Object_rendersParentType() throws {
@@ -175,7 +208,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
-
+    
     """
 
     // when

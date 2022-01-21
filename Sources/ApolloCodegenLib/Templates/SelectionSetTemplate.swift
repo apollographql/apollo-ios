@@ -7,6 +7,7 @@ struct SelectionSetTemplate {
     """
     public struct Data: \(schema.name).SelectionSet {
       \(BodyTemplate(operation.rootField))
+    }
     """
     ).description
   }
@@ -16,6 +17,7 @@ struct SelectionSetTemplate {
     """
     public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
       \(BodyTemplate(fragment.rootField))
+    }
     """
     ).description
   }
@@ -25,6 +27,7 @@ struct SelectionSetTemplate {
     """
     public struct TODO: \(schema.name).SelectionSet {
       \(BodyTemplate(field))
+    }
     """
     ).description
   }
@@ -34,7 +37,7 @@ struct SelectionSetTemplate {
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(field.selectionSet.parentType))
-    \(ifLet: field.selectionSet.selections.direct, { SelectionsTemplate($0) })
+    \(ifLet: field.selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
     """
   }
 

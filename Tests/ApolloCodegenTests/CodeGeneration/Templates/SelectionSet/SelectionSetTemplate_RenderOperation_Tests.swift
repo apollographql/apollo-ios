@@ -68,6 +68,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
 }

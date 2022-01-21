@@ -190,6 +190,7 @@ class SelectionSetTemplate_RenderFragment_Tests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
   
 }
