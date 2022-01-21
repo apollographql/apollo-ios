@@ -68,8 +68,8 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     self.init(head: HeadNode(value: headValue))
   }
 
-  public init(arrayLiteral segments: T...) {
-    var segments = segments
+  public init(array: [T]) {
+    var segments = array
     let headNode = HeadNode(value: segments.removeFirst())
 
     self.init(head: headNode)
@@ -77,6 +77,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     for segment in segments {
       append(segment)
     }
+  }
+
+  public init(arrayLiteral segments: T...) {
+    self.init(array: segments)
   }
 
   public mutating func append(_ value: T) {
@@ -174,12 +178,16 @@ extension LinkedList: Sequence {
 
 extension LinkedList: CustomDebugStringConvertible where T: CustomDebugStringConvertible {
   public var debugDescription: String {
-    "[head] -> \(headNode.debugDescription)"    
+    "[\(headNode.debugDescription)]"
   }
 }
 
 extension LinkedList.Node: CustomDebugStringConvertible {
   public var debugDescription: String {
-    "[\(value)] -> \(next?.debugDescription ?? "[tail]")"
+    var string = "\(value)"
+    if let next = next {
+      string += " -> \(next.debugDescription)"
+    }
+    return string
   }
 }

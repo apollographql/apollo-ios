@@ -2,10 +2,10 @@ import ApolloUtils
 import Darwin
 import OrderedCollections
 
-fileprivate protocol MergedSelectionTreeNode {
+fileprivate protocol EntitySelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-    into selections: inout IR.SortedSelections
+    into selections: IR.MergedSelections
   )
 }
 
@@ -18,9 +18,9 @@ extension IR {
   ///
   /// During the creation of `SelectionSet`s, their `selections` are added to their entities
   /// mergedSelectionTree at the appropriate type scope. After all `SelectionSet`s have been added
-  /// to the `MergedSelectionTree`, the tree can be quickly traversed to collect the selections
+  /// to the `EntitySelectionTree`, the tree can be quickly traversed to collect the selections
   /// that will be selected for a given `SelectionSet`'s type scope.
-  class MergedSelectionTree {
+  class EntitySelectionTree {
     let rootTypePath: LinkedList<GraphQLCompositeType>
     lazy var rootNode = EnclosingEntityNode()
 
@@ -31,10 +31,11 @@ extension IR {
     // MARK: - Merge Selection Sets Into Tree
     
     func mergeIn(selectionSet: SelectionSet) {
+      guard let directSelections = selectionSet.selections.direct else { return }
       mergeIn(
-        selections: selectionSet.selections,
-        atEnclosingEntityScope: selectionSet.typePath.head,
-        withEntityTypePath: selectionSet.typePath.head.value.typePath.head,
+        selections: directSelections,
+        atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
+        withEntityTypePath: selectionSet.typeInfo.typePath.head.value.typePath.head,
         to: rootNode,
         ofType: rootTypePath.head.value,
         withRootTypePath: rootTypePath.head
@@ -56,7 +57,8 @@ extension IR {
           selections: selections,
           withTypeScope: currentEntityScope.value.typePath.head,
           toFieldNode: fieldNode,
-          ofType: currentNodeRootTypePath.value)
+          ofType: currentNodeRootTypePath.value
+        )
         return
       }
 
@@ -124,25 +126,24 @@ extension IR {
 
     // MARK: - Calculate Merged Selections From Tree
 
-    func mergedSelections(forSelectionSet selectionSet: SelectionSet) -> SortedSelections {
-      var selections = selectionSet.selections
-      rootNode.mergeSelections(matchingTypePath: selectionSet.typePath.head, into: &selections)
-      return selections
+    func addMergedSelections(into selections: IR.MergedSelections) {
+      let rootTypePath = selections.typeInfo.typePath.head
+      rootNode.mergeSelections(matchingTypePath: rootTypePath, into: selections)
     }
 
-    class EnclosingEntityNode: MergedSelectionTreeNode {
-      enum Child: MergedSelectionTreeNode {
+    class EnclosingEntityNode: EntitySelectionTreeNode {
+      enum Child: EntitySelectionTreeNode {
         case enclosingEntity(EnclosingEntityNode)
         case fieldScope(FieldScopeNode)
 
         func mergeSelections(
           matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-          into selections: inout IR.SortedSelections
+          into selections: IR.MergedSelections
         ) {
           switch self {
-          case let .enclosingEntity(node as MergedSelectionTreeNode),
-            let .fieldScope(node as MergedSelectionTreeNode):
-            node.mergeSelections(matchingTypePath: typePath, into: &selections)
+          case let .enclosingEntity(node as EntitySelectionTreeNode),
+            let .fieldScope(node as EntitySelectionTreeNode):
+            node.mergeSelections(matchingTypePath: typePath, into: selections)
           }
         }
       }
@@ -152,22 +153,22 @@ extension IR {
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: inout IR.SortedSelections
+        into selections: IR.MergedSelections
       ) {
         guard let nextTypePathNode = typePath.next else {
           guard case let .fieldScope(node) = child else { fatalError() }
-          node.mergeSelections(matchingTypePath: typePath, into: &selections)
+          node.mergeSelections(matchingTypePath: typePath, into: selections)
           return
         }
 
         if let child = child {
-          child.mergeSelections(matchingTypePath: nextTypePathNode, into: &selections)
+          child.mergeSelections(matchingTypePath: nextTypePathNode, into: selections)
         }
 
         if let typeCases = typeCases {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: &selections)
+              node.mergeSelections(matchingTypePath: typePath, into: selections)
             }
           }
         }
@@ -219,28 +220,31 @@ extension IR {
       }
     }
 
-    class FieldScopeNode: MergedSelectionTreeNode {
-      var selections: SortedSelections?
+    class FieldScopeNode: EntitySelectionTreeNode {
+      var selections: ShallowSelections?
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
       fileprivate func mergeIn(_ selections: SortedSelections) {
-        var fieldSelections = self.selections ?? SortedSelections()
+        var fieldSelections = self.selections ?? ShallowSelections()
         fieldSelections.mergeIn(selections)
         self.selections = fieldSelections
       }
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
-        into selections: inout IR.SortedSelections
+        into selections: IR.MergedSelections
       ) {
         if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections, mergeTypeCases: false)          
+          selections.mergeIn(scopeSelections)
         }
 
         if let typeCases = typeCases {
           for (typeCase, node) in typeCases {
             if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: &selections)
+              node.mergeSelections(matchingTypePath: typePath, into: selections)
+
+            } else {
+              selections.addMergedTypeCase(withType: typeCase)
             }
           }
         }
@@ -266,7 +270,7 @@ extension IR {
   }
 }
 
-extension IR.MergedSelectionTree: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     rootTypePath: \(rootTypePath.debugDescription)
@@ -275,7 +279,7 @@ extension IR.MergedSelectionTree: CustomDebugStringConvertible {
   }
 }
 
-extension IR.MergedSelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     {
@@ -288,7 +292,7 @@ extension IR.MergedSelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
   }
 }
 
-extension IR.MergedSelectionTree.FieldScopeNode: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     {
@@ -301,7 +305,7 @@ extension IR.MergedSelectionTree.FieldScopeNode: CustomDebugStringConvertible {
   }
 }
 
-extension IR.MergedSelectionTree.EnclosingEntityNode.Child: CustomDebugStringConvertible {
+extension IR.EntitySelectionTree.EnclosingEntityNode.Child: CustomDebugStringConvertible {
   var debugDescription: String {
     switch self {
     case let .enclosingEntity(node): return node.debugDescription

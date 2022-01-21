@@ -58,13 +58,13 @@ class IR {
   class Entity: Equatable {
     /// The selections that are selected for the entity across all type scopes in the operation.
     /// Represented as a tree.
-    let mergedSelectionTree: MergedSelectionTree
+    let selectionTree: EntitySelectionTree
 
     /// A list of path components indicating the path to the field containing the `Entity` in
     /// an operation.
     let fieldPath: ResponsePath
 
-    var rootTypePath: LinkedList<GraphQLCompositeType> { mergedSelectionTree.rootTypePath }
+    var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
 
     var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
@@ -72,61 +72,12 @@ class IR {
       rootTypePath: LinkedList<GraphQLCompositeType>,
       fieldPath: ResponsePath
     ) {
-      self.mergedSelectionTree = MergedSelectionTree(rootTypePath: rootTypePath)
+      self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
       self.fieldPath = fieldPath
     }
 
     static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {
-      lhs.mergedSelectionTree === rhs.mergedSelectionTree
-    }
-  }
-
-  class SelectionSet: Equatable {
-    /// The entity that the `selections` are being selected on.
-    ///
-    /// Multiple `SelectionSet`s may reference the same `Entity`
-    let entity: Entity
-
-    let parentType: GraphQLCompositeType
-
-    /// A list of the type scopes for the selection set and its enclosing entities.
-    ///
-    /// The selection set's type scope is the last element in the list.
-    let typePath: LinkedList<TypeScopeDescriptor>
-
-    /// Describes all of the types the selection set matches.
-    /// Derived from all the selection set's parents.
-    var typeScope: TypeScopeDescriptor { typePath.last.value }
-
-    /// The selections that are directly selected by this selection set.
-    var selections: SortedSelections = SortedSelections()
-
-    /// The selections that will be selected for this selection set.
-    ///
-    /// Includes the direct selections, along with all selections from other related
-    /// `SelectionSet`s on the same entity that match the selection set's type scope.
-    ///
-    /// Selections in the `mergedSelections` are guarunteed to be selected if this `SelectionSet`'s
-    /// `selections` are selected. This means they can be merged into the generated object
-    /// representing this `SelectionSet` as field accessors.
-    lazy var mergedSelections: SortedSelections = entity.mergedSelectionTree
-      .mergedSelections(forSelectionSet: self)
-
-    init(
-      entity: Entity,
-      parentType: GraphQLCompositeType,
-      typePath: LinkedList<TypeScopeDescriptor>
-    ) {
-      self.entity = entity
-      self.parentType = parentType
-      self.typePath = typePath
-    }
-
-    static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
-      lhs.entity == rhs.entity &&
-      lhs.parentType == rhs.parentType &&
-      lhs.typePath == rhs.typePath &&
-      lhs.selections == rhs.selections
+      lhs.selectionTree === rhs.selectionTree
     }
   }
 

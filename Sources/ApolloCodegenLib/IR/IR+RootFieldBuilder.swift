@@ -44,7 +44,7 @@ extension IR {
         parentType: rootEntity.rootType,
         typePath: LinkedList(rootTypePath)
       )
-
+      
       buildSortedSelections(
         forSelectionSet: rootIrSelectionSet,
         from: rootSelectionSet
@@ -64,10 +64,10 @@ extension IR {
         switch selection {
         case let .field(field):
           let irField = buildField(from: field, on: selectionSet)
-          selectionSet.selections.mergeIn(irField)
+          selectionSet.selections.direct!.mergeIn(irField)
 
         case let .inlineFragment(typeCaseSelectionSet):
-          if selectionSet.typeScope.matches(typeCaseSelectionSet.parentType) {
+          if selectionSet.typeInfo.typeScope.matches(typeCaseSelectionSet.parentType) {
             buildSortedSelections(
               forSelectionSet: selectionSet,
               from: typeCaseSelectionSet.selections
@@ -78,18 +78,19 @@ extension IR {
               fromSelectionSet: typeCaseSelectionSet,
               onParent: selectionSet
             )
-            selectionSet.selections.mergeIn(irTypeCase)
+            selectionSet.selections.direct!.mergeIn(irTypeCase)
           }
 
         case let .fragmentSpread(fragment):
-          if selectionSet.typeScope.matches(fragment.type) {
+          if selectionSet.typeInfo.typeScope.matches(fragment.type) {
+#warning("TODO: Might be missing referenced fragments for type case nested fragments?")
             referencedFragments.append(fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragment,
               onParent: selectionSet
             )
 
-            selectionSet.selections.mergeIn(irFragmentSpread)
+            selectionSet.selections.direct!.mergeIn(irFragmentSpread)
 
           } else {
             let irTypeCaseEnclosingFragment = buildTypeCaseSelectionSet(
@@ -100,12 +101,12 @@ extension IR {
               onParent: selectionSet
             )
 
-            selectionSet.selections.mergeIn(irTypeCaseEnclosingFragment)
+            selectionSet.selections.direct!.mergeIn(irTypeCaseEnclosingFragment)
           }
         }
       }
 
-      selectionSet.entity.mergedSelectionTree.mergeIn(selectionSet: selectionSet)
+      selectionSet.typeInfo.entity.selectionTree.mergeIn(selectionSet: selectionSet)
     }
 
     private func buildField(
@@ -129,13 +130,13 @@ extension IR {
         fatalError("SelectionSet cannot be created for non-entity type field \(field).")
       }
 
-      let entity = entity(for: field, on: enclosingSelectionSet.entity)
+      let entity = entity(for: field, on: enclosingSelectionSet.typeInfo.entity)
 
       let typeScope = TypeScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
         givenAllTypesInSchema: schema.referencedTypes
       )
-      let typePath = enclosingSelectionSet.typePath.appending(typeScope)
+      let typePath = enclosingSelectionSet.typeInfo.typePath.appending(typeScope)
 
       let irSelectionSet = SelectionSet(
         entity: entity,
@@ -174,12 +175,12 @@ extension IR {
       fromSelectionSet selectionSet: CompilationResult.SelectionSet,
       onParent parentSelectionSet: SelectionSet
     ) -> SelectionSet {
-      let typePath = parentSelectionSet.typePath.mutatingLast {
+      let typePath = parentSelectionSet.typeInfo.typePath.mutatingLast {
         $0.appending(selectionSet.parentType)
       }
 
       let irSelectionSet = SelectionSet(
-        entity: parentSelectionSet.entity,
+        entity: parentSelectionSet.typeInfo.entity,
         parentType: selectionSet.parentType,
         typePath: typePath
       )
@@ -191,6 +192,7 @@ extension IR {
       fromFragment fragment: CompilationResult.FragmentDefinition,
       onParent parentSelectionSet: SelectionSet
     ) -> FragmentSpread {
+      #warning("TODO! Why are we wrapping in a type case here??")
       let irSelectionSet = buildTypeCaseSelectionSet(
         fromSelectionSet: fragment.selectionSet,
         onParent: parentSelectionSet
