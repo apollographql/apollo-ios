@@ -24,8 +24,7 @@ class SchemaFileGeneratorTests: XCTestCase {
 
     // then
     try SchemaFileGenerator(
-      name: "MockSchema",
-      objectTypes: IR.Schema(name: "MockSchema", referencedTypes: .init([])).referencedTypes.objects,
+      schema: IR.Schema(name: "MockSchema", referencedTypes: .init([])),
       directoryPath: rootURL.path
     ).generateFile(fileManager: mockFileManager)
 
