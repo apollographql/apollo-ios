@@ -38,16 +38,16 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private static let whitespaceNotNewline = Set(" \t")
 
     mutating func appendInterpolation(_ string: String) {
-      let indent = output.reversed().prefix {
+      let indent = String(output.reversed().prefix {
         TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
-      }
+      })
 
       if indent.isEmpty {
         appendLiteral(string)
       } else {
         let indentedString = string
           .split(separator: "\n", omittingEmptySubsequences: false)
-          .joined(separator: "\n" + indent)
+          .joinedAsLines(withIndent: indent)
 
         appendLiteral(indentedString)
       }
@@ -91,5 +91,21 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private func substringToStartOfLine() -> Slice<ReversedCollection<String>> {
       return output.reversed().prefix { !$0.isNewline }
     }
+  }
+}
+
+fileprivate extension Array where Element == Substring {
+  func joinedAsLines(withIndent indent: String) -> String {
+    var iterator = self.makeIterator()
+    var string = iterator.next()?.description ?? ""
+
+    while let nextLine = iterator.next() {
+      string += "\n"
+      if !nextLine.isEmpty {
+        string += indent + nextLine
+      }
+    }
+
+    return string
   }
 }
