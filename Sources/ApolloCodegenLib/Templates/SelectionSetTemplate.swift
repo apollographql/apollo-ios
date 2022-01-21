@@ -56,6 +56,9 @@ struct SelectionSetTemplate {
       \(if: !selections.typeCases.values.isEmpty, """
         \(selections.typeCases.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
         """)
+      \(if: !selections.fragments.values.isEmpty, """
+        \(selections.fragments.values.map { FragmentSelectionTemplate($0) }),
+        """)
     ] }
     """
   }
@@ -69,6 +72,12 @@ struct SelectionSetTemplate {
   private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
     """
     .typeCase(As\(typeCase.parentType.name.firstUppercased).self)
+    """
+  }
+
+  private func FragmentSelectionTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
+    """
+    .fragment(\(fragment.definition.name.firstUppercased).self)
     """
   }
 

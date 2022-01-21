@@ -372,4 +372,55 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  // MARK: Selections - Fragments
+
+  func test__render_selections__givenFragments_rendersFragmentSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...FragmentA
+        ...lowercaseFragment
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+
+    fragment lowercaseFragment on Animal {
+      string
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .fragment(FragmentA.self),
+        .fragment(LowercaseFragment.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
 }
