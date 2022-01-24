@@ -314,6 +314,55 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  func test__render_selections__givenEnumField_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      testEnum: TestEnum!
+      testEnumOptional: TestEnumOptional
+    }
+
+    enum TestEnum {
+      CASE_ONE
+    }
+
+    enum TestEnumOptional {
+      CASE_ONE
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        testEnum
+        testEnumOptional
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("testEnum", GraphQLEnum<TestEnum>.self),
+        .field("testEnumOptional", GraphQLEnum<TestEnumOptional>?.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
   func test__render_selections__givenFieldWithAlias_rendersFieldSelections() throws {
     // given
     schemaSDL = """
@@ -549,7 +598,52 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 27, ignoringExtraLines: true))
   }
 
-  // MARK: - Field Accessors - Scalar
+  func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      testEnum: TestEnum!
+      testEnumOptional: TestEnumOptional
+    }
+
+    enum TestEnum {
+      CASE_ONE
+    }
+
+    enum TestEnumOptional {
+      CASE_ONE
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        testEnum
+        testEnumOptional
+      }
+    }
+    """
+
+    let expected = """
+      public var testEnum: GraphQLEnum<TestEnum> { data["testEnum"] }
+      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { data["testEnumOptional"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
 
   func test__render_fieldAccessors__givenFieldWithAlias_rendersAllFieldAccessors() throws {
     // given

@@ -39,9 +39,11 @@ struct SelectionSetTemplate {
     \(ParentTypeTemplate(field.selectionSet.parentType))
     \(ifLet: field.selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
 
-    \(ifLet: field.selectionSet.selections.direct?.fields.values, {
-      "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
-    }, else: "\n")
+    \(ifLet: field.selectionSet.selections.direct?.fields.values,
+      where: { !$0.isEmpty }, {
+        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
+      },
+      else: "\n")
     """
   }
 
@@ -116,10 +118,14 @@ fileprivate extension GraphQLType {
     switch self {
     case let .entity(type as GraphQLNamedType),
       let .scalar(type as GraphQLNamedType),
-      let .enum(type as GraphQLNamedType),
       let .inputObject(type as GraphQLNamedType):
 
       return containedInNonNull ? type.name : "\(type.name)?"
+
+    case let .enum(type as GraphQLNamedType):
+      let enumType = "GraphQLEnum<\(type.name)>"
+
+      return containedInNonNull ? enumType : "\(enumType)?"
 
     case let .nonNull(ofType):
       return ofType.rendered(containedInNonNull: true)
