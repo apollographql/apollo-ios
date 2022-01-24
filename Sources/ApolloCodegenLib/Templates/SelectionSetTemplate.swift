@@ -1,3 +1,5 @@
+import InflectorKit
+
 struct SelectionSetTemplate {
 
   let schema: IR.Schema
@@ -106,9 +108,24 @@ struct SelectionSetTemplate {
   }
 
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
-    """
-    public var \(field.responseKey): \(field.type.rendered) { data["\(field.responseKey)"] }
-    """
+    func template(withType type: String) -> TemplateString {
+      """
+      public var \(field.responseKey): \(type) { data["\(field.responseKey)"] }
+      """
+    }
+
+    let type: String
+    switch field {
+    case let scalarField as IR.ScalarField:
+      type = scalarField.type.rendered
+
+    case let entityField as IR.EntityField:
+      type = entityField.generatedSelectionSetType
+
+    default:
+      fatalError()
+    }
+    return template(withType: type)
   }
 
 }
@@ -129,26 +146,48 @@ fileprivate extension GraphQLType {
     rendered(containedInNonNull: false)
   }
 
-  private func rendered(containedInNonNull: Bool) -> String {
+  func rendered(replacingNamedTypeWith newTypeName: String) -> String {
+    rendered(containedInNonNull: false, replacingNamedTypeWith: newTypeName)
+  }
+
+  private func rendered(
+    containedInNonNull: Bool,
+    replacingNamedTypeWith newTypeName: String? = nil
+  ) -> String {
     switch self {
     case let .entity(type as GraphQLNamedType),
       let .scalar(type as GraphQLNamedType),
       let .inputObject(type as GraphQLNamedType):
 
-      return containedInNonNull ? type.name : "\(type.name)?"
+      let typeName = newTypeName ?? type.name
+
+      return containedInNonNull ? typeName : "\(typeName)?"
 
     case let .enum(type as GraphQLNamedType):
-      let enumType = "GraphQLEnum<\(type.name)>"
+      let typeName = newTypeName ?? type.name
+      let enumType = "GraphQLEnum<\(typeName)>"
 
       return containedInNonNull ? enumType : "\(enumType)?"
 
     case let .nonNull(ofType):
-      return ofType.rendered(containedInNonNull: true)
+      return ofType.rendered(containedInNonNull: true, replacingNamedTypeWith: newTypeName)
 
     case let .list(ofType):
-      let inner = "[\(ofType.rendered(containedInNonNull: false))]"
+      let inner = "[\(ofType.rendered(containedInNonNull: false, replacingNamedTypeWith: newTypeName))]"
 
       return containedInNonNull ? inner : "\(inner)?"
     }
   }
+}
+
+fileprivate extension IR.EntityField {
+
+  var generatedSelectionSetName: String {
+    return StringInflector.default.singularize(responseKey.firstUppercased)
+  }
+
+  var generatedSelectionSetType: String {
+    return self.type.rendered(replacingNamedTypeWith: generatedSelectionSetName)
+  }
+
 }

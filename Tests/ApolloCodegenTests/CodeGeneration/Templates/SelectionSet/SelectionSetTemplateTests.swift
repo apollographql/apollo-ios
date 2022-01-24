@@ -742,4 +742,163 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
+
+  // MARK: - Field Accessors - Entity
+
+  func test__render_fieldAccessors__givenDirectEntityField_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var predator: Predator { data["predator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenDirectEntityFieldWithAlias_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliasedPredator: predator {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var aliasedPredator: AliasedPredator { data["aliasedPredator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenDirectEntityFieldAsOptional_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var predator: Predator? { data["predator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenDirectEntityFieldAsList_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predators {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var predators: [Predator]? { data["predators"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
 }
