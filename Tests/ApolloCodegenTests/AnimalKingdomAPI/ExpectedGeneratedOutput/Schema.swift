@@ -5,7 +5,7 @@ public typealias ID = String
 public protocol SelectionSet: ApolloAPI.SelectionSet & RootSelectionSet
 where Schema == AnimalKingdomAPI.Schema {}
 
-public protocol TypeCase: ApolloAPI.SelectionSet & RootSelectionSet
+public protocol TypeCase: ApolloAPI.SelectionSet & TypeCase
 where Schema == AnimalKingdomAPI.Schema {}
 
 public enum Schema: SchemaConfiguration {

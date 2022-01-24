@@ -38,16 +38,16 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private static let whitespaceNotNewline = Set(" \t")
 
     mutating func appendInterpolation(_ string: String) {
-      let indent = output.reversed().prefix {
+      let indent = String(output.reversed().prefix {
         TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
-      }
+      })
 
       if indent.isEmpty {
         appendLiteral(string)
       } else {
         let indentedString = string
           .split(separator: "\n", omittingEmptySubsequences: false)
-          .joined(separator: "\n" + indent)
+          .joinedAsLines(withIndent: indent)
 
         appendLiteral(indentedString)
       }
@@ -71,9 +71,13 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       appendInterpolation(elementsString)
     }
 
-    mutating func appendInterpolation(if bool: Bool, _ template: TemplateString, else: TemplateString? = nil) {
+    mutating func appendInterpolation(
+      if bool: Bool,
+      _ template: @autoclosure () -> TemplateString,
+      else: TemplateString? = nil
+    ) {
       if bool {
-        appendInterpolation(template.value)
+        appendInterpolation(template().value)
       } else if let elseTemplate = `else` {
         appendInterpolation(elseTemplate.value)
       } else {
@@ -91,5 +95,40 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private func substringToStartOfLine() -> Slice<ReversedCollection<String>> {
       return output.reversed().prefix { !$0.isNewline }
     }
+
+    mutating func appendInterpolation<T>(
+    ifLet optional: Optional<T>,
+    _ includeBlock: (T) -> TemplateString,
+    else: TemplateString? = nil
+    ) {
+      if let element = optional {
+        appendInterpolation(includeBlock(element))
+      } else if let elseTemplate = `else` {
+        appendInterpolation(elseTemplate.value)
+      } else {
+        removeLineIfEmpty()
+      }
+    }
   }
+}
+
+fileprivate extension Array where Element == Substring {
+  func joinedAsLines(withIndent indent: String) -> String {
+    var iterator = self.makeIterator()
+    var string = iterator.next()?.description ?? ""
+
+    while let nextLine = iterator.next() {
+      string += "\n"
+      if !nextLine.isEmpty {
+        string += indent + nextLine
+      }
+    }
+
+    return string
+  }
+}
+
+extension StringProtocol {
+    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
+    var firstCapitalized: String { prefix(1).capitalized + dropFirst() }
 }
