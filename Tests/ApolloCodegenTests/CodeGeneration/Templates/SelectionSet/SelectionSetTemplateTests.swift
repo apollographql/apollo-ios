@@ -901,4 +901,101 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenEntityFieldMergedFromFragment_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...PredatorDetails
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        species
+      }
+    }
+    """
+
+    let expected = """
+      public var predator: PredatorDetails.Predator { data["predator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEntityFieldMergedFromFragmentEntityNestedInEntity_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      feet: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+        ...PredatorDetails
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        height {
+          feet
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var species: String { data["species"] }
+      public var height: PredatorDetails.Predator.Height { data["height"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
 }
