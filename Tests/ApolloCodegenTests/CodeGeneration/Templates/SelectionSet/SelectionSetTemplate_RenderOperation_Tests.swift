@@ -18,6 +18,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
   override func tearDown() {
     schemaSDL = nil
     document = nil
+    ir = nil
     operation = nil
     subject = nil
     super.tearDown()
