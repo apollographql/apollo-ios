@@ -7,6 +7,7 @@ extension IR {
 
     var name: String { underlyingField.name }
     var alias: String? { underlyingField.alias }
+    var responseKey: String { underlyingField.responseKey }
     var type: GraphQLType { underlyingField.type }
 
     fileprivate init(_ field: CompilationResult.Field) {

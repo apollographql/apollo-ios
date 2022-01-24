@@ -38,6 +38,10 @@ struct SelectionSetTemplate {
 
     \(ParentTypeTemplate(field.selectionSet.parentType))
     \(ifLet: field.selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
+
+    \(ifLet: field.selectionSet.selections.direct?.fields.values, {
+      "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
+    }, else: "\n")
     """
   }
 
@@ -81,6 +85,12 @@ struct SelectionSetTemplate {
   private func FragmentSelectionTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
     """
     .fragment(\(fragment.definition.name.firstUppercased).self)
+    """
+  }
+
+  private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
+    """
+    public var \(field.responseKey): \(field.type.rendered) { data["\(field.responseKey)"] }
     """
   }
 
