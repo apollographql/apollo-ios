@@ -6,7 +6,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     public struct Data: \(schema.name).SelectionSet {
-      \(BodyTemplate(operation.rootField))
+      \(BodyTemplate(operation.rootField.selectionSet))
     }
     """
     ).description
@@ -16,7 +16,7 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
-      \(BodyTemplate(fragment.rootField))
+      \(BodyTemplate(fragment.rootField.selectionSet))
     }
     """
     ).description
@@ -26,23 +26,38 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     public struct TODO: \(schema.name).SelectionSet {
-      \(BodyTemplate(field))
+      \(BodyTemplate(field.selectionSet))
     }
     """
     ).description
   }
 
-  private func BodyTemplate(_ field: IR.EntityField) -> TemplateString {
+  func render(typeCase: IR.SelectionSet) -> String {
+    TemplateString(
+    """
+    public struct TODO: \(schema.name).SelectionSet {
+      \(BodyTemplate(typeCase))
+    }
+    """
+    ).description
+  }
+
+  private func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     """
     \(Self.DataFieldAndInitializerTemplate)
 
-    \(ParentTypeTemplate(field.selectionSet.parentType))
-    \(ifLet: field.selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
+    \(ParentTypeTemplate(selectionSet.parentType))
+    \(ifLet: selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
 
-    \(ifLet: field.selectionSet.selections.direct?.fields.values,
+    \(ifLet: selectionSet.selections.direct?.fields.values,
       where: { !$0.isEmpty }, {
         "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
       },
+      else: "\n")
+    \(if: !selectionSet.selections.merged.fields.values.isEmpty, """
+      \(selectionSet.selections.merged.fields.values.map { FieldAccessorTemplate($0) },
+        separator: "\n")
+      """,
       else: "\n")
     """
   }

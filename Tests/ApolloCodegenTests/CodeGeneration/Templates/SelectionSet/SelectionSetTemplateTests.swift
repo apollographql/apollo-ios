@@ -187,35 +187,51 @@ class SelectionSetTemplateTests: XCTestCase {
 
   func test__render_selections__givenNilDirectSelections_doesNotRenderSelections() throws {
     // given
-    let type = GraphQLObjectType.mock("Animal")
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
 
-    let field = IR.EntityField(
-      .mock(),
-      selectionSet: .init(
-        entity: .init(
-          rootTypePath: [type],
-          fieldPath: ["query", "allAnimals"]
-        ),
-        parentType: type,
-        typePath: [.descriptor(forType: type, givenAllTypesInSchema: .init([type]))],
-        mergedSelectionsOnly: true
-      )
-    )
+    type Dog {
+      species: String!
+      nested: Nested!
+    }
 
-    let result = CompilationResult.emptyMockObject()
-    result.referencedTypes = [type]
+    type Nested {
+      a: Int!
+      b: Int!
+    }
 
-    let schema = IR.mock(compilationResult: result).schema
+    interface Animal {
+      nested: Nested!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        nested {
+          a
+        }
+        ... on Dog {
+          species
+        }
+      }
+    }
+    """
 
     let expected = """
-      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+      public static var __parentType: ParentType { .Object(TestSchema.Nested.self) }
     
     """
 
     // when
-    subject = SelectionSetTemplate(schema: schema)
+    try buildSubjectAndOperation()
+    let asDog_Nested = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]?[field: "nested"] as? IR.EntityField
+    )
 
-    let actual = subject.render(field: field)
+    let actual = subject.render(field: asDog_Nested)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 5, ignoringExtraLines: true))
@@ -683,4 +699,47 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenMergedScalarField_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String!
+    }
+
+    type Dog {
+      b: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        a
+        ... on Dog {
+          b
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var b: String { data["b"] }
+      public var a: String { data["a"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let dog = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]
+    )
+
+    let actual = subject.render(typeCase: dog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
 }
