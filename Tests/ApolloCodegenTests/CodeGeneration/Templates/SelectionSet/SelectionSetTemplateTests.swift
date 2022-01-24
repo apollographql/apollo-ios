@@ -18,6 +18,7 @@ class SelectionSetTemplateTests: XCTestCase {
   override func tearDown() {
     schemaSDL = nil
     document = nil
+    ir = nil
     operation = nil
     subject = nil
     super.tearDown()
@@ -222,7 +223,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Selections - Fields
 
-  func test__render_selections__givenFieldSelections_rendersAllFieldSelections() throws {
+  func test__render_selections__givenScalarFieldSelections_rendersAllFieldSelections() throws {
     // given
     schemaSDL = """
     type Query {
@@ -298,6 +299,55 @@ class SelectionSetTemplateTests: XCTestCase {
         .field("nestedList_optional_required_optional", [[String?]]?.self),
         .field("nestedList_optional_optional_required", [[String]?]?.self),
         .field("nestedList_optional_optional_optional", [[String?]?]?.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenEnumField_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      testEnum: TestEnum!
+      testEnumOptional: TestEnumOptional
+    }
+
+    enum TestEnum {
+      CASE_ONE
+    }
+
+    enum TestEnumOptional {
+      CASE_ONE
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        testEnum
+        testEnumOptional
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("testEnum", GraphQLEnum<TestEnum>.self),
+        .field("testEnumOptional", GraphQLEnum<TestEnumOptional>?.self),
       ] }
     """
 
@@ -454,6 +504,183 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+
+  // MARK: - Field Accessors - Scalar
+
+  func test__render_fieldAccessors__givenScalarFields_rendersAllFieldAccessors() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+      string_optional: String
+      int: Int!
+      int_optional: Int
+      custom: Custom!
+      custom_optional: Custom
+      list_required_required: [String!]!
+      list_optional_required: [String!]
+      list_required_optional: [String]!
+      list_optional_optional: [String]
+      nestedList_required_required_required: [[String!]!]!
+      nestedList_required_required_optional: [[String]!]!
+      nestedList_required_optional_optional: [[String]]!
+      nestedList_required_optional_required: [[String!]]!
+      nestedList_optional_required_required: [[String!]!]
+      nestedList_optional_required_optional: [[String]!]
+      nestedList_optional_optional_required: [[String!]]
+      nestedList_optional_optional_optional: [[String]]
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        string
+        string_optional
+        int
+        int_optional
+        custom
+        custom_optional
+        list_required_required
+        list_optional_required
+        list_required_optional
+        list_optional_optional
+        nestedList_required_required_required
+        nestedList_required_required_optional
+        nestedList_required_optional_optional
+        nestedList_required_optional_required
+        nestedList_optional_required_required
+        nestedList_optional_required_optional
+        nestedList_optional_optional_required
+        nestedList_optional_optional_optional
+      }
+    }
+    """
+
+    let expected = """
+      public var string: String { data["string"] }
+      public var string_optional: String? { data["string_optional"] }
+      public var int: Int { data["int"] }
+      public var int_optional: Int? { data["int_optional"] }
+      public var custom: Custom { data["custom"] }
+      public var custom_optional: Custom? { data["custom_optional"] }
+      public var list_required_required: [String] { data["list_required_required"] }
+      public var list_optional_required: [String]? { data["list_optional_required"] }
+      public var list_required_optional: [String?] { data["list_required_optional"] }
+      public var list_optional_optional: [String?]? { data["list_optional_optional"] }
+      public var nestedList_required_required_required: [[String]] { data["nestedList_required_required_required"] }
+      public var nestedList_required_required_optional: [[String?]] { data["nestedList_required_required_optional"] }
+      public var nestedList_required_optional_optional: [[String?]?] { data["nestedList_required_optional_optional"] }
+      public var nestedList_required_optional_required: [[String]?] { data["nestedList_required_optional_required"] }
+      public var nestedList_optional_required_required: [[String]]? { data["nestedList_optional_required_required"] }
+      public var nestedList_optional_required_optional: [[String?]]? { data["nestedList_optional_required_optional"] }
+      public var nestedList_optional_optional_required: [[String]?]? { data["nestedList_optional_optional_required"] }
+      public var nestedList_optional_optional_optional: [[String?]?]? { data["nestedList_optional_optional_optional"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 27, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEnumField_rendersFieldAccessors() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      testEnum: TestEnum!
+      testEnumOptional: TestEnumOptional
+    }
+
+    enum TestEnum {
+      CASE_ONE
+    }
+
+    enum TestEnumOptional {
+      CASE_ONE
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        testEnum
+        testEnumOptional
+      }
+    }
+    """
+
+    let expected = """
+      public var testEnum: GraphQLEnum<TestEnum> { data["testEnum"] }
+      public var testEnumOptional: GraphQLEnum<TestEnumOptional>? { data["testEnumOptional"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenFieldWithAlias_rendersAllFieldAccessors() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string: String!
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliasedFieldName: string
+      }
+    }
+    """
+
+    let expected = """
+      public var aliasedFieldName: String { data["aliasedFieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
 }

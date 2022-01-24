@@ -98,10 +98,11 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
     mutating func appendInterpolation<T>(
     ifLet optional: Optional<T>,
+    where whereBlock: ((T) -> Bool)? = nil,
     _ includeBlock: (T) -> TemplateString,
     else: TemplateString? = nil
     ) {
-      if let element = optional {
+      if let element = optional, whereBlock?(element) ?? true {
         appendInterpolation(includeBlock(element))
       } else if let elseTemplate = `else` {
         appendInterpolation(elseTemplate.value)

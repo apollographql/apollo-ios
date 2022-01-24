@@ -18,6 +18,7 @@ class SelectionSetTemplate_RenderFragment_Tests: XCTestCase {
   override func tearDown() {
     schemaSDL = nil
     document = nil
+    ir = nil
     fragment = nil
     subject = nil
     super.tearDown()
