@@ -191,9 +191,9 @@ And you've done it! You've completed the tutorial.
 
 There are way more things you can do with the Apollo iOS SDK, and the rest of this documentation includes info on more advanced topics like:
 
-- Using [fragments](/fragments/)
-- Working with [custom scalars](/fetching-queries/#notes-on-working-with-custom-scalars)
-- [Caching](/caching/)
+- Using [fragments](../fragments/)
+- Working with [custom scalars](../fetching-queries/#notes-on-working-with-custom-scalars)
+- [Caching](../caching/)
 
 Feel free to ask questions by either [opening an issue on our GitHub repo](https://github.com/apollographql/apollo-ios/issues), or [joining the community](http://community.apollographql.com/new-topic?category=Help&tags=mobile,client).
 

@@ -1,0 +1,12 @@
+{
+  "title": "Apollo iOS",
+  "sidebar": {
+    "Introduction": "/",
+    "Get started": "/get-started",
+    "Why Apollo Client?": "/why-apollo",
+    "Caching": {
+      "Advanced topics": "/caching/advanced-topics",
+      "Overview": "/caching/overview"
+    }
+  }
+}
