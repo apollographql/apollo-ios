@@ -1,4 +1,5 @@
 @testable import ApolloCodegenLib
+import OrderedCollections
 
 public extension GraphQLObjectType {
   class func mock(
@@ -44,6 +45,7 @@ public extension GraphQLScalarType {
   class func string() -> Self { mock(name: "String") }
   class func integer() -> Self { mock(name: "Int") }
   class func boolean() -> Self { mock(name: "Boolean") }
+  class func float() -> Self { mock(name: "Float") }
 
   class func mock(name: String) -> Self {
     let mock = Self.emptyMockObject()
@@ -81,9 +83,27 @@ public extension GraphQLEnumValue {
 }
 
 public extension GraphQLInputObjectType {
-  class func mock(_ name: String) -> Self {
+  class func mock(
+    _ name: String,
+    fields: [GraphQLInputField] = []
+  ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
+    mock.fields = OrderedDictionary.init(uniqueKeysWithValues: fields.map({ ($0.name, $0) }))
+    return mock
+  }
+}
+
+public extension GraphQLInputField {
+  class func mock(
+    _ name: String,
+    type: GraphQLType,
+    defaultValue: Any?
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.type = type
+    mock.defaultValue = defaultValue
     return mock
   }
 }

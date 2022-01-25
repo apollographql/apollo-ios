@@ -68,13 +68,13 @@ public class GraphQLInputObjectType: GraphQLNamedType {
 }
 
 public class GraphQLInputField: JavaScriptObject {
-  private(set) lazy var name: String = self["name"]
+  lazy var name: String = self["name"]
   
-  private(set) lazy var type: GraphQLType = self["type"]
+  lazy var type: GraphQLType = self["type"]
   
   private(set) lazy var description: String? = self["description"]
   
-  private(set) lazy var defaultValue: Any? = self["defaultValue"]
+  lazy var defaultValue: Any? = self["defaultValue"]
     
   private(set) lazy var deprecationReason: String? = self["deprecationReason"]
 }
