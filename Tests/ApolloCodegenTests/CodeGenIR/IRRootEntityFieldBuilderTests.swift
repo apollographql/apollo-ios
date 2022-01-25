@@ -3605,6 +3605,61 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
       .to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
+  // MARK: - Nested Entity In Fragments - Merged Sources
+
+  func test__mergedSources__givenEntityField_DirectSelectonsAndMergedFromNestedEntityInFragment_nestedEntityFieldHasFragmentMergedSources() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      feet: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+        ...PredatorDetails
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        height {
+          feet
+        }
+      }
+    }
+    """    
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals_predator = try XCTUnwrap(
+      subject?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
+    )
+    let Fragment_PredatorDetails = subject?[field: "allAnimals"]?[fragment: "PredatorDetails"]
+
+    let expected: IR.MergedSelections.MergedSources = [
+      try .mock(for: allAnimals_predator, from: Fragment_PredatorDetails)
+    ]
+
+    // then
+    expect(allAnimals_predator.selectionSet.selections.merged.mergedSources).to(equal(expected))
+  }
+
   // MARK: - Referenced Fragments
 
   func test__referencedFragments__givenUsesNoFragments_isEmpty() throws {

@@ -47,6 +47,7 @@ extension IR {
       
       buildSortedSelections(
         forSelectionSet: rootIrSelectionSet,
+        inFragmentSpread: nil,
         from: rootSelectionSet
       )
 
@@ -58,40 +59,48 @@ extension IR {
 
     private func buildSortedSelections(
       forSelectionSet selectionSet: SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread?,
       from selections: [CompilationResult.Selection]
     ) {
-      buildDirectSelections(forSelectionSet: selectionSet, from: selections)
-      selectionSet.typeInfo.entity.selectionTree.mergeIn(selectionSet: selectionSet)
-    }
+      buildDirectSelections(
+        forSelectionSet: selectionSet,
+        inFragmentSpread: fragmentSpread,
+        from: selections
+      )
 
-    private func buildSortedSelections(
-      forFragmentSpread fragmentSpread: FragmentSpread,
-      from selections: [CompilationResult.Selection]
-    ) {
-      buildDirectSelections(forSelectionSet: fragmentSpread.selectionSet, from: selections)
-      fragmentSpread.selectionSet.typeInfo.entity.selectionTree.mergeIn(fragmentSpread: fragmentSpread)
+      selectionSet.typeInfo.entity.selectionTree.mergeIn(
+        selectionSet: selectionSet,
+        inFragmentSpread: fragmentSpread
+      )
     }
 
     private func buildDirectSelections(
       forSelectionSet selectionSet: SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread?,
       from selections: [CompilationResult.Selection]
     ) {
       for selection in selections {
         switch selection {
         case let .field(field):
-          let irField = buildField(from: field, on: selectionSet)
+          let irField = buildField(
+            from: field,
+            on: selectionSet,
+            inFragmentSpread: fragmentSpread
+          )
           selectionSet.selections.direct!.mergeIn(irField)
 
         case let .inlineFragment(typeCaseSelectionSet):
           if selectionSet.typeInfo.typeScope.matches(typeCaseSelectionSet.parentType) {
             buildSortedSelections(
               forSelectionSet: selectionSet,
+              inFragmentSpread: fragmentSpread,
               from: typeCaseSelectionSet.selections
             )
 
           } else {
             let irTypeCase = buildTypeCaseSelectionSet(
               fromSelectionSet: typeCaseSelectionSet,
+              inFragmentSpread: fragmentSpread,
               onParent: selectionSet
             )
             selectionSet.selections.direct!.mergeIn(irTypeCase)
@@ -113,6 +122,7 @@ extension IR {
                 parentType: fragment.type,
                 selections: [selection]
               ),
+              inFragmentSpread: fragmentSpread,
               onParent: selectionSet
             )
 
@@ -124,10 +134,16 @@ extension IR {
 
     private func buildField(
       from field: CompilationResult.Field,
-      on selectionSet: SelectionSet
+      on selectionSet: SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> Field {
       if field.type.namedType is GraphQLCompositeType {
-        let irSelectionSet = buildSelectionSet(forField: field, on: selectionSet)
+        let irSelectionSet = buildSelectionSet(
+          forField: field,
+          on: selectionSet,
+          inFragmentSpread: fragmentSpread
+        )
+
         return EntityField(field, selectionSet: irSelectionSet)
 
       } else {
@@ -137,7 +153,8 @@ extension IR {
 
     private func buildSelectionSet(
       forField field: CompilationResult.Field,
-      on enclosingSelectionSet: SelectionSet
+      on enclosingSelectionSet: SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> SelectionSet {
       guard let fieldSelectionSet = field.selectionSet else {
         fatalError("SelectionSet cannot be created for non-entity type field \(field).")
@@ -156,7 +173,11 @@ extension IR {
         parentType: fieldSelectionSet.parentType,
         typePath: typePath
       )
-      buildSortedSelections(forSelectionSet: irSelectionSet, from: fieldSelectionSet.selections)
+      buildSortedSelections(
+        forSelectionSet: irSelectionSet,
+        inFragmentSpread: fragmentSpread,
+        from: fieldSelectionSet.selections
+      )
       return irSelectionSet
     }
 
@@ -186,6 +207,7 @@ extension IR {
 
     private func buildTypeCaseSelectionSet(
       fromSelectionSet selectionSet: CompilationResult.SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread?,
       onParent parentSelectionSet: SelectionSet
     ) -> SelectionSet {
       let typePath = parentSelectionSet.typeInfo.typePath.mutatingLast {
@@ -197,7 +219,11 @@ extension IR {
         parentType: selectionSet.parentType,
         typePath: typePath
       )
-      buildSortedSelections(forSelectionSet: irSelectionSet, from: selectionSet.selections)
+      buildSortedSelections(
+        forSelectionSet: irSelectionSet,
+        inFragmentSpread: fragmentSpread,
+        from: selectionSet.selections
+      )
       return irSelectionSet
     }
 
@@ -215,7 +241,11 @@ extension IR {
         definition: fragment,
         selectionSet: irSelectionSet
       )
-      buildSortedSelections(forFragmentSpread: fragmentSpread, from: fragment.selectionSet.selections)
+      buildSortedSelections(
+        forSelectionSet: fragmentSpread.selectionSet,
+        inFragmentSpread: fragmentSpread,
+        from: fragment.selectionSet.selections
+      )
 
       return fragmentSpread
     }

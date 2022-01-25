@@ -30,17 +30,15 @@ extension IR {
 
     // MARK: - Merge Selection Sets Into Tree
     
-    func mergeIn(selectionSet: SelectionSet) {
-      let source = MergedSelections.MergedSource(typePath: selectionSet.typeInfo, fragment: nil)
-      mergeIn(selectionSet: selectionSet, from: source)
-    }
-
-    func mergeIn(fragmentSpread: FragmentSpread) {
+    func mergeIn(
+      selectionSet: SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread? = nil
+    ) {
       let source = MergedSelections.MergedSource(
-        typePath: fragmentSpread.selectionSet.typeInfo,
-        fragment: fragmentSpread.definition.name
+        typePath: selectionSet.typeInfo,
+        fragment: fragmentSpread?.definition.name
       )
-      mergeIn(selectionSet: fragmentSpread.selectionSet, from: source)
+      mergeIn(selectionSet: selectionSet, from: source)
     }
 
     private func mergeIn(selectionSet: SelectionSet, from source: MergedSelections.MergedSource) {
