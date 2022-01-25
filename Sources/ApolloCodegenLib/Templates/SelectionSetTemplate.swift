@@ -182,7 +182,21 @@ fileprivate extension GraphQLType {
 fileprivate extension IR.EntityField {
 
   var generatedSelectionSetName: String {
-    return StringInflector.default.singularize(responseKey.firstUppercased)
+    func fieldName() -> String {
+      return StringInflector.default.singularize(responseKey.firstUppercased)
+    }
+
+    if selectionSet.selections.direct != nil {
+      return fieldName()
+    }
+
+    if selectionSet.selections.merged.mergedSources.count == 1 {
+      if let fragmentForField = selectionSet.selections.merged.mergedSources.first?.fragment {
+        return "\(fragmentForField).\(fieldName())"
+      }
+    }
+
+    return fieldName()
   }
 
   var generatedSelectionSetType: String {

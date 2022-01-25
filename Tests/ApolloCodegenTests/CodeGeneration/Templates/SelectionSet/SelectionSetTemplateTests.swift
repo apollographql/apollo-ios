@@ -901,6 +901,53 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
+  func test__render_fieldAccessors__givenEntityFieldWithDirectSelectionsAndMergedFromFragment_rendersFieldAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      name: String!
+      predator: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...PredatorDetails
+        predator {
+          name
+        }
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        species
+      }
+    }
+    """
+
+    let expected = """
+      public var predator: Predator { data["predator"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
   func test__render_fieldAccessors__givenEntityFieldMergedFromFragment_rendersFieldAccessor() throws {
     // given
     schemaSDL = """
@@ -988,11 +1035,11 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // when
     try buildSubjectAndOperation()
-    let allAnimals = try XCTUnwrap(
+    let allAnimals_predator = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"]?[field: "predator"] as? IR.EntityField
     )
 
-    let actual = subject.render(field: allAnimals)
+    let actual = subject.render(field: allAnimals_predator)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
