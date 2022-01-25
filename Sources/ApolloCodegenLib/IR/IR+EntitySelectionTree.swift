@@ -45,8 +45,8 @@ extension IR {
     }
 
     private func mergeIn(
-      selections: IR.SortedSelections,
-      from source: IR.MergedSelections.MergedSource,
+      selections: DirectSelections,
+      from source: MergedSelections.MergedSource,
       atEnclosingEntityScope currentEntityScope: LinkedList<TypeScopeDescriptor>.Node,
       withEntityTypePath currentEntityTypePath: LinkedList<GraphQLCompositeType>.Node,
       to node: EnclosingEntityNode,
@@ -100,7 +100,7 @@ extension IR {
     }
 
     private func mergeIn(
-      selections: IR.SortedSelections,
+      selections: DirectSelections,
       from source: IR.MergedSelections.MergedSource,
       withTypeScope currentSelectionScopeTypeCase: LinkedList<GraphQLCompositeType>.Node,
       toFieldNode node: FieldScopeNode,
@@ -229,14 +229,14 @@ extension IR {
     }
 
     class FieldScopeNode: EntitySelectionTreeNode {
-      var selections: ShallowSelections?
+      var selections: EntityTreeScopeSelections?
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
       fileprivate func mergeIn(
-        _ selections: SortedSelections,
+        _ selections: DirectSelections,
         from source: IR.MergedSelections.MergedSource
       ) {
-        var fieldSelections = self.selections ?? ShallowSelections()
+        var fieldSelections = self.selections ?? EntityTreeScopeSelections()
         fieldSelections.mergeIn(selections, from: source)
         self.selections = fieldSelections
       }
@@ -277,6 +277,54 @@ extension IR {
 
         return node
       }
+    }
+  }
+
+  struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible
+  {
+    typealias Field = IR.Field
+    typealias Fragment = IR.FragmentSpread
+
+    fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
+    fileprivate(set) var fragments: OrderedDictionary<String, Fragment> = [:]
+    fileprivate(set) var mergedSources: MergedSelections.MergedSources = []
+
+    init() {}
+
+    var isEmpty: Bool {
+      fields.isEmpty && fragments.isEmpty
+    }
+
+    private mutating func mergeIn(_ field: Field) {
+      fields[field.hashForSelectionSetScope] = field
+    }
+
+    private mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+      fields.forEach { mergeIn($0) }
+    }
+
+    private mutating func mergeIn(_ fragment: Fragment) {
+      fragments[fragment.hashForSelectionSetScope] = fragment
+    }
+
+    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
+      fragments.forEach { mergeIn($0) }
+    }
+
+    mutating func mergeIn(
+      _ selections: DirectSelections,
+      from source: IR.MergedSelections.MergedSource
+    ) {
+      mergedSources.insert(source)
+      mergeIn(selections.fields.values)
+      mergeIn(selections.fragments.values)
+    }
+
+    var debugDescription: String {
+      """
+      Fields: \(fields.values.elements)
+      Fragments: \(fragments.values.elements.map(\.definition.name))
+      """
     }
   }
 }

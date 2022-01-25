@@ -17,7 +17,7 @@ protocol SelectionShallowMatchable {
 }
 
 extension IR.SortedSelections: SelectionShallowMatchable { }
-extension IR.ShallowSelections: SelectionShallowMatchable {
+extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
   var typeCases: OrderedDictionary<String, TypeCase> { [:] }
 }
 

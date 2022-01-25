@@ -14,7 +14,7 @@ extension IR.SortedSelections {
   }
 }
 
-extension IR.ShallowSelections {
+extension IR.EntityTreeScopeSelections {
   public subscript(field field: String) -> IR.Field? {
     fields[field]
   }
