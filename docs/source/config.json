@@ -2,11 +2,29 @@
   "title": "Apollo iOS",
   "sidebar": {
     "Introduction": "/",
-    "Get started": "/get-started",
-    "Why Apollo Client?": "/why-apollo",
-    "Caching": {
-      "Advanced topics": "/caching/advanced-topics",
-      "Overview": "/caching/overview"
+    "Installation": "/installation",
+    "API Reference": "/api-reference",
+    "Tutorial": {
+      "0. Introduction": "/tutorial/tutorial-introduction",
+      "1. Add the Apollo SDK": "/tutorial/tutorial-add-sdk",
+      "2. Obtain your GraphQL schema": "/tutorial/tutorial-obtain-schema",
+      "3. Execute your first query": "/tutorial/tutorial-execute-query",
+      "4. Connect your queries to your UI": "/tutorial/tutorial-query-ui",
+      "5. Paginate results": "/tutorial/tutorial-pagination",
+      "6. Complete the detail view": "/tutorial/tutorial-detail-view",
+      "7. Enable authentication": "/tutorial/tutorial-authentication",
+      "8. Define additional mutations": "/tutorial/tutorial-mutations",
+      "9. Write your first subscription": "/tutorial/tutorial-subscriptions"
+    },
+    "Usage": {
+      "Downloading a schema": "/downloading-schema",
+      "Creating a client": "/initialization",
+      "Fetching queries": "/fetching-queries",
+      "Performing mutations": "/mutations",
+      "Using fragments": "/fragments",
+      "Client-side caching": "/caching",
+      "Subscriptions": "/subscriptions",
+      "Swift scripting": "/swift-scripting"
     }
   }
 }
