@@ -944,7 +944,6 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
-  #warning("TODO")
   func test__render_fieldAccessors__givenEntityFieldMergedFromFragmentEntityNestedInEntity_rendersFieldAccessor() throws {
     // given
     schemaSDL = """
@@ -969,35 +968,7 @@ class SelectionSetTemplateTests: XCTestCase {
         predator {
           species
         }
-        ... on Dog {
-          ...PredatorDetails
-        }
-        ... on Pet {
-          predator {
-            height {
-              feet
-              yard
-            }
-          }
-        }
-        ... on WarmBlooded {
-          predator {
-            species
-            height {
-              inches
-            }
-          }
-        }
-        ... on Cat {
-          predator {
-            species
-          }
-        }
-        ... on Rabbit {
-          predator {
-            species
-          }
-        }
+        ...PredatorDetails
       }
     }
 

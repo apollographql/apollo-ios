@@ -138,14 +138,14 @@ extension IR {
       self.typeInfo = typeInfo
     }
 
-    func mergeIn(_ selections: EntityTreeScopeSelections) {
+    func mergeIn(_ selections: EntityTreeScopeSelections, from source: MergedSource) {
       @IsEverTrue var didMergeAnySelections: Bool
 
       selections.fields.values.forEach { didMergeAnySelections = self.mergeIn($0) }
       selections.fragments.values.forEach { didMergeAnySelections = self.mergeIn($0) }
 
       if didMergeAnySelections {
-        mergedSources = mergedSources.union(selections.mergedSources)
+        mergedSources.insert(source)
       }
     }
 

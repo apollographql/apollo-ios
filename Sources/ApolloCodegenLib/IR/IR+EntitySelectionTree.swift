@@ -44,7 +44,11 @@ extension IR {
     }
 
     private func mergeIn(selectionSet: SelectionSet, from source: MergedSelections.MergedSource) {
-      guard let directSelections = selectionSet.selections.direct else { return }
+      guard let directSelections = selectionSet.selections.direct,
+            (!directSelections.fields.isEmpty || !directSelections.fragments.isEmpty) else {
+              return
+            }
+
       mergeIn(
         selections: directSelections,
         from: source,
@@ -241,24 +245,24 @@ extension IR {
     }
 
     class FieldScopeNode: EntitySelectionTreeNode {
-      var selections: EntityTreeScopeSelections?
+      var selections: OrderedDictionary<MergedSelections.MergedSource, EntityTreeScopeSelections> = [:]
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
       fileprivate func mergeIn(
         _ selections: DirectSelections,
         from source: IR.MergedSelections.MergedSource
       ) {
-        var fieldSelections = self.selections ?? EntityTreeScopeSelections()
-        fieldSelections.mergeIn(selections, from: source)
-        self.selections = fieldSelections
+        var selectionsFromSource = self.selections[source] ?? EntityTreeScopeSelections()
+        selectionsFromSource.mergeIn(selections)
+        self.selections[source] = selectionsFromSource
       }
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
         into selections: IR.MergedSelections
       ) {
-        if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections)
+        for (source, scopeSelections) in self.selections {
+          selections.mergeIn(scopeSelections, from: source)
         }
 
         if let typeCases = typeCases {
@@ -296,7 +300,6 @@ extension IR {
   {
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
-    fileprivate(set) var mergedSources: MergedSelections.MergedSources = []
 
     init() {}
 
@@ -320,12 +323,7 @@ extension IR {
       fragments.forEach { mergeIn($0) }
     }
 
-    mutating func mergeIn(
-      _ selections: DirectSelections,
-      from source: IR.MergedSelections.MergedSource
-    ) {
-      guard !selections.fields.isEmpty || !selections.fragments.isEmpty else { return }
-      mergedSources.insert(source)
+    mutating func mergeIn(_ selections: DirectSelections) {
       mergeIn(selections.fields.values)
       mergeIn(selections.fragments.values)
     }
@@ -366,7 +364,7 @@ extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
     """
     {
       selections:
-        \(indented: selections?.debugDescription ?? "[]")
+        \(indented: selections.debugDescription)
       typeCases:
         \(indented: typeCases?.debugDescription ?? "[]")
     }
