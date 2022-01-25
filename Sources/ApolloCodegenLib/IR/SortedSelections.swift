@@ -141,9 +141,11 @@ extension IR {
       let fragment: String?
     }
 
+    typealias MergedSources = Set<MergedSource>
+
     let directSelections: DirectSelections.ReadOnly?
     let typeInfo: SelectionSet.TypeInfo
-    var mergedSources: [MergedSource] = []
+    fileprivate(set) var mergedSources: MergedSources = []
 
     init(
       directSelections: DirectSelections.ReadOnly?,
@@ -155,6 +157,7 @@ extension IR {
     }
 
     func mergeIn(_ selections: IR.ShallowSelections) {
+      mergedSources = mergedSources.union(selections.mergedSources)
       selections.fields.values.forEach { self.mergeIn($0) }
       selections.fragments.values.forEach { self.mergeIn($0) }
     }
@@ -232,6 +235,7 @@ extension IR {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, Fragment> = [:]
+    fileprivate(set) var mergedSources: MergedSelections.MergedSources = []
 
     init() {}
 
@@ -239,23 +243,27 @@ extension IR {
       fields.isEmpty && fragments.isEmpty
     }
 
-    mutating func mergeIn(_ field: Field) {      
+    private mutating func mergeIn(_ field: Field) {
       fields[field.hashForSelectionSetScope] = field
     }
 
-    mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+    private mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
       fields.forEach { mergeIn($0) }
     }
 
-    mutating func mergeIn(_ fragment: Fragment) {
+    private mutating func mergeIn(_ fragment: Fragment) {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
+    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
       fragments.forEach { mergeIn($0) }
     }
 
-    mutating func mergeIn(_ selections: SortedSelections) {
+    mutating func mergeIn(
+      _ selections: SortedSelections,
+      from source: IR.MergedSelections.MergedSource
+    ) {
+      mergedSources.insert(source)
       mergeIn(selections.fields.values)
       mergeIn(selections.fragments.values)
     }

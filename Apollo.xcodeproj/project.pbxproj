@@ -205,6 +205,7 @@
 		DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */; };
 		DE29653A279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */; };
 		DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */; };
+		DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA427A07C37004F571F /* MockMergedSelections.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */; };
 		DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2026E807EF0057EA67 /* Cacheable.swift */; };
@@ -855,6 +856,7 @@
 		DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplateTests.swift; sourceTree = "<group>"; };
 		DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderFragment_Tests.swift; sourceTree = "<group>"; };
 		DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderOperation_Tests.swift; sourceTree = "<group>"; };
+		DE296BA427A07C37004F571F /* MockMergedSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMergedSelections.swift; sourceTree = "<group>"; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTransaction.swift; sourceTree = "<group>"; };
 		DE2FCF2026E807EF0057EA67 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
@@ -2097,6 +2099,7 @@
 				E6D79AB926EC05290094434A /* MockNetworkSession.swift */,
 				DE09F9C0270269E800795949 /* MockJavaScriptObject.swift */,
 				DEAFB780270647D400BE02F3 /* MockCompilationResult.swift */,
+				DE296BA427A07C37004F571F /* MockMergedSelections.swift */,
 				DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */,
 				DE5FD602276926EF0033EE23 /* IR+Mocking.swift */,
 				DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */,
@@ -3279,6 +3282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */,
 				DE5FD603276926EF0033EE23 /* IR+Mocking.swift in Sources */,
 				DE5EEC83279796EA00AF5913 /* MockApolloCodegenConfiguration.swift in Sources */,
 				DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */,

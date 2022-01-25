@@ -56,10 +56,21 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
   return shallowlyMatch((expectedFields, expectedTypeCases, expectedFragments))
 }
 
-typealias SelectionMatcher = (
-  direct: [CompilationResult.Selection]?,
-  merged:[CompilationResult.Selection]
-)
+struct SelectionMatcher {
+  let direct: [CompilationResult.Selection]?
+  let merged: [CompilationResult.Selection]
+  let mergedSources: Set<IR.MergedSelections.MergedSource>
+
+  public init(
+    direct: [CompilationResult.Selection]?,
+    merged: [CompilationResult.Selection],
+    mergedSources: Set<IR.MergedSelections.MergedSource> = []
+  ) {
+    self.direct = direct
+    self.merged = merged
+    self.mergedSources = mergedSources
+  }
+}
 
 func shallowlyMatch(
   _ expectedValue: SelectionMatcher
@@ -70,7 +81,8 @@ func shallowlyMatch(
 
   return satisfyAllOf([
     directPredicate.mappingActualTo { $0?.selections.direct },
-    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.merged }
+    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.merged },
+    equal(expectedValue.mergedSources).mappingActualTo { $0?.selections.merged.mergedSources }
   ])
 }
 

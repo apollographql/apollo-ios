@@ -944,6 +944,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
+  #warning("TODO")
   func test__render_fieldAccessors__givenEntityFieldMergedFromFragmentEntityNestedInEntity_rendersFieldAccessor() throws {
     // given
     schemaSDL = """

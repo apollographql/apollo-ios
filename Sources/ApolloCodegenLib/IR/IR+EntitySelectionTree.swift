@@ -32,8 +32,10 @@ extension IR {
     
     func mergeIn(selectionSet: SelectionSet) {
       guard let directSelections = selectionSet.selections.direct else { return }
+      let source = MergedSelections.MergedSource(typePath: selectionSet.typeInfo, fragment: nil)
       mergeIn(
         selections: directSelections,
+        from: source,
         atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
         withEntityTypePath: selectionSet.typeInfo.typePath.head.value.typePath.head,
         to: rootNode,
@@ -44,6 +46,7 @@ extension IR {
 
     private func mergeIn(
       selections: IR.SortedSelections,
+      from source: IR.MergedSelections.MergedSource,
       atEnclosingEntityScope currentEntityScope: LinkedList<TypeScopeDescriptor>.Node,
       withEntityTypePath currentEntityTypePath: LinkedList<GraphQLCompositeType>.Node,
       to node: EnclosingEntityNode,
@@ -55,6 +58,7 @@ extension IR {
         let fieldNode = node.childAsFieldScopeNode()
         mergeIn(
           selections: selections,
+          from: source,
           withTypeScope: currentEntityScope.value.typePath.head,
           toFieldNode: fieldNode,
           ofType: currentNodeRootTypePath.value
@@ -69,6 +73,7 @@ extension IR {
 
         mergeIn(
           selections: selections,
+          from: source,
           atEnclosingEntityScope: nextEntityScope,
           withEntityTypePath: nextEntityScope.value.typePath.head,
           to: nextEntityNode,
@@ -85,6 +90,7 @@ extension IR {
 
       mergeIn(
         selections: selections,
+        from: source,
         atEnclosingEntityScope: currentEntityScope,
         withEntityTypePath: nextTypePathForCurrentEntity,
         to: nextNodeForCurrentEntity,
@@ -95,6 +101,7 @@ extension IR {
 
     private func mergeIn(
       selections: IR.SortedSelections,
+      from source: IR.MergedSelections.MergedSource,
       withTypeScope currentSelectionScopeTypeCase: LinkedList<GraphQLCompositeType>.Node,
       toFieldNode node: FieldScopeNode,
       ofType fieldNodeType: GraphQLCompositeType
@@ -103,12 +110,12 @@ extension IR {
         let typeForSelections = currentSelectionScopeTypeCase.value
 
         if fieldNodeType == typeForSelections {
-          node.mergeIn(selections)
+          node.mergeIn(selections, from: source)
           return
 
         } else {
           let fieldTypeCaseNode = node.typeCaseNode(forType: typeForSelections)
-          fieldTypeCaseNode.mergeIn(selections)
+          fieldTypeCaseNode.mergeIn(selections, from: source)
           return
         }
       }
@@ -118,6 +125,7 @@ extension IR {
 
       mergeIn(
         selections: selections,
+        from: source,
         withTypeScope: nextTypeCaseInScope,
         toFieldNode: nextNodeForField,
         ofType: nextTypeCaseInScope.value
@@ -224,9 +232,12 @@ extension IR {
       var selections: ShallowSelections?
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
-      fileprivate func mergeIn(_ selections: SortedSelections) {
+      fileprivate func mergeIn(
+        _ selections: SortedSelections,
+        from source: IR.MergedSelections.MergedSource
+      ) {
         var fieldSelections = self.selections ?? ShallowSelections()
-        fieldSelections.mergeIn(selections)
+        fieldSelections.mergeIn(selections, from: source)
         self.selections = fieldSelections
       }
 
