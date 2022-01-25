@@ -1,4 +1,5 @@
 import JavaScriptCore
+import OrderedCollections
 
 // MARK: - JavaScriptError
 
@@ -298,6 +299,12 @@ extension Dictionary: JavaScriptValueDecodable where Key == String, Value: JavaS
   }
 }
 
+extension OrderedDictionary: JavaScriptValueDecodable where Key == String, Value: JavaScriptValueDecodable {
+  init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    self = jsValue.toOrderedDictionary { Value.fromJSValue($0, bridge: bridge) }
+  }
+}
+
 extension String: JavaScriptValueDecodable {
   init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
     precondition(jsValue.isString, "Expected JavaScript string but found: \(jsValue)")
@@ -364,6 +371,26 @@ extension JSValue {
       dictionary[key] = element
     }
     
+    return dictionary
+  }
+
+  // The regular `toDictionary()` creates an `NSDictionary` that while it preserves the order of
+  // `keys` from JavaScript during initialization, there is no order afterwards. `OrderedDictionary`
+  // provides for the preservation and subsequent use of ordering in the collection.
+  func toOrderedDictionary<Value>(_ transform: (JSValue) throws -> Value) rethrows -> OrderedDictionary<String, Value> {
+    precondition(isObject, "Expected JavaScript object but found: \(self)")
+
+    guard let keys = context.globalObject["Object"].invokeMethod("keys", withArguments: [self])?.toArray() as? [String] else {
+      preconditionFailure("Couldn't get keys for object \(self)")
+    }
+
+    var dictionary = OrderedDictionary<String, Value>()
+
+    for key in keys {
+      let element = try transform(self.objectForKeyedSubscript(key))
+      dictionary[key] = element
+    }
+
     return dictionary
   }
 }

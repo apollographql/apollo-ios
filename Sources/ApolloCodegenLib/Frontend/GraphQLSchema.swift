@@ -1,4 +1,5 @@
 import JavaScriptCore
+import OrderedCollections
 
 // These classes correspond directly to the ones in
 // https://github.com/graphql/graphql-js/tree/master/src/type
@@ -63,8 +64,8 @@ public class GraphQLEnumValue: JavaScriptObject {
 
 public class GraphQLInputObjectType: GraphQLNamedType {
   private(set) lazy var description: String? = self["description"]
-  
-  private(set) lazy var fields: [String: GraphQLInputField] = try! invokeMethod("getFields")
+
+  lazy var fields: OrderedDictionary<String, GraphQLInputField> = try! invokeMethod("getFields")
 }
 
 public class GraphQLInputField: JavaScriptObject {
