@@ -5,7 +5,7 @@ typealias TypeScope = Set<GraphQLCompositeType>
 
 /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the operation the
 /// selection set is located and what types the `SelectionSet` implements.
-struct TypeScopeDescriptor: Equatable {
+struct TypeScopeDescriptor: Hashable {
   /// A list of the parent types for the selection set and it's parents on the same entity.
   ///
   /// The last element in the list is equal to the parent type for the `SelectionSet`
@@ -118,6 +118,11 @@ struct TypeScopeDescriptor: Equatable {
   static func == (lhs: TypeScopeDescriptor, rhs: TypeScopeDescriptor) -> Bool {
     lhs.typePath == rhs.typePath &&
     lhs.matchingTypes == rhs.matchingTypes
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(typePath)
+    hasher.combine(matchingTypes)
   }
 
 }

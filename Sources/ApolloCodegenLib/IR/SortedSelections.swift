@@ -136,8 +136,14 @@ extension IR {
 
   class MergedSelections: SortedSelections {
 
+    struct MergedSource: Hashable {
+      let typePath: SelectionSet.TypeInfo
+      let fragment: String?
+    }
+
     let directSelections: DirectSelections.ReadOnly?
     let typeInfo: SelectionSet.TypeInfo
+    var mergedSources: [MergedSource] = []
 
     init(
       directSelections: DirectSelections.ReadOnly?,

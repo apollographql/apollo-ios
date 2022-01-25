@@ -968,7 +968,35 @@ class SelectionSetTemplateTests: XCTestCase {
         predator {
           species
         }
-        ...PredatorDetails
+        ... on Dog {
+          ...PredatorDetails
+        }
+        ... on Pet {
+          predator {
+            height {
+              feet
+              yard
+            }
+          }
+        }
+        ... on WarmBlooded {
+          predator {
+            species
+            height {
+              inches
+            }
+          }
+        }
+        ... on Cat {
+          predator {
+            species
+          }
+        }
+        ... on Rabbit {
+          predator {
+            species
+          }
+        }
       }
     }
 

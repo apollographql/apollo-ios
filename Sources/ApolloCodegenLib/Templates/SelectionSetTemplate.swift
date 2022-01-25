@@ -54,8 +54,7 @@ struct SelectionSetTemplate {
     \(ifLet: selectionSet.selections.direct?.fields.values,
       where: { !$0.isEmpty }, {
         "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
-      },
-      else: "\n")
+      })
     \(if: !selectionSet.selections.merged.fields.values.isEmpty, """
       \(selectionSet.selections.merged.fields.values.map { FieldAccessorTemplate($0) },
         separator: "\n")

@@ -83,7 +83,6 @@ extension IR {
 
         case let .fragmentSpread(fragment):
           if selectionSet.typeInfo.typeScope.matches(fragment.type) {
-#warning("TODO: Might be missing referenced fragments for type case nested fragments?")
             referencedFragments.append(fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragment,
