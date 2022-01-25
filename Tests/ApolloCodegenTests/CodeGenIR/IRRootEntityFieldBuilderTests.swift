@@ -2556,6 +2556,53 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     expect(actual).to(shallowlyMatch(expected))
   }
 
+  func test__mergedSelections__givenChildIsNamedFragmentOnSameType_fragmentSpreadTypePathIsCorrect() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String
+    }
+    """
+
+    document = """
+    query Test {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = subject[field: "allAnimals"]?[fragment: "AnimalDetails"]
+
+    let query_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: operation.rootType,
+      givenAllTypesInSchema: schema.referencedTypes)
+
+    let allAnimals_TypeScope = TypeScopeDescriptor.descriptor(
+      forType: schema[interface: "Animal"]!,
+      givenAllTypesInSchema: schema.referencedTypes
+    )
+
+    let expectedTypePath = LinkedList(array: [
+      query_TypeScope,
+      allAnimals_TypeScope,
+    ])
+
+    // then
+    expect(actual?.selectionSet.typeInfo.typePath).to(equal(expectedTypePath))
+  }
+
   func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
     // given
     schemaSDL = """

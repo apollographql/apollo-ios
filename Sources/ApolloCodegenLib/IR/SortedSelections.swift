@@ -80,6 +80,10 @@ extension IR {
       fragments.forEach { mergeIn($0) }
     }
 
+    var isEmpty: Bool {
+      fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+    }
+
     static func == (lhs: DirectSelections, rhs: DirectSelections) -> Bool {
       lhs.fields == rhs.fields &&
       lhs.typeCases == rhs.typeCases &&
@@ -135,16 +139,21 @@ extension IR {
     }
 
     func mergeIn(_ selections: EntityTreeScopeSelections) {
-      mergedSources = mergedSources.union(selections.mergedSources)
-      selections.fields.values.forEach { self.mergeIn($0) }
-      selections.fragments.values.forEach { self.mergeIn($0) }
+      @IsEverTrue var didMergeAnySelections: Bool
+
+      selections.fields.values.forEach { didMergeAnySelections = self.mergeIn($0) }
+      selections.fragments.values.forEach { didMergeAnySelections = self.mergeIn($0) }
+
+      if didMergeAnySelections {
+        mergedSources = mergedSources.union(selections.mergedSources)
+      }
     }
 
-    func mergeIn(_ field: IR.Field) {
+    private func mergeIn(_ field: IR.Field) -> Bool {
       let keyInScope = field.hashForSelectionSetScope
       if let directSelections = directSelections,
           directSelections.fields.keys.contains(keyInScope) {
-        return
+        return false
       }
 
       let fieldToMerge: IR.Field
@@ -156,6 +165,7 @@ extension IR {
       }
 
       fields[keyInScope] = fieldToMerge
+      return true
     }
 
     private func createShallowlyMergedNestedEntityField(from field: IR.EntityField) -> IR.EntityField {
@@ -168,14 +178,16 @@ extension IR {
       return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
     }
 
-    func mergeIn(_ fragment: IR.FragmentSpread) {
+    private func mergeIn(_ fragment: IR.FragmentSpread) -> Bool {
       let keyInScope = fragment.hashForSelectionSetScope
       if let directSelections = directSelections,
           directSelections.fragments.keys.contains(keyInScope) {
-        return
+        return false
       }
 
       fragments[keyInScope] = fragment
+
+      return true
     }
 
     func addMergedTypeCase(withType type: GraphQLCompositeType) {
@@ -199,6 +211,10 @@ extension IR {
         typePath: self.typeInfo.typePath.mutatingLast { $0.appending(type) },
         mergedSelectionsOnly: true
       )
+    }
+
+    var isEmpty: Bool {
+      fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: MergedSelections, rhs: MergedSelections) -> Bool {

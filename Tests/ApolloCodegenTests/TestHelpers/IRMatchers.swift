@@ -16,7 +16,8 @@ protocol SelectionShallowMatchable {
   var isEmpty: Bool { get }
 }
 
-extension IR.SortedSelections: SelectionShallowMatchable { }
+extension IR.DirectSelections: SelectionShallowMatchable { }
+extension IR.MergedSelections: SelectionShallowMatchable { }
 extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
   var typeCases: OrderedDictionary<String, TypeCase> { [:] }
 }
@@ -75,7 +76,7 @@ struct SelectionMatcher {
 func shallowlyMatch(
   _ expectedValue: SelectionMatcher
 ) -> Predicate<IR.SelectionSet> {
-  let directPredicate: Predicate<IR.SortedSelections> = expectedValue.direct == nil
+  let directPredicate: Predicate<IR.DirectSelections> = expectedValue.direct == nil
   ? beNil()
   : shallowlyMatch(expectedValue.direct!)
 

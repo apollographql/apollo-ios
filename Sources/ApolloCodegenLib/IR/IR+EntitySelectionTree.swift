@@ -31,8 +31,20 @@ extension IR {
     // MARK: - Merge Selection Sets Into Tree
     
     func mergeIn(selectionSet: SelectionSet) {
-      guard let directSelections = selectionSet.selections.direct else { return }
       let source = MergedSelections.MergedSource(typePath: selectionSet.typeInfo, fragment: nil)
+      mergeIn(selectionSet: selectionSet, from: source)
+    }
+
+    func mergeIn(fragmentSpread: FragmentSpread) {
+      let source = MergedSelections.MergedSource(
+        typePath: fragmentSpread.selectionSet.typeInfo,
+        fragment: fragmentSpread.definition.name
+      )
+      mergeIn(selectionSet: fragmentSpread.selectionSet, from: source)
+    }
+
+    private func mergeIn(selectionSet: SelectionSet, from source: MergedSelections.MergedSource) {
+      guard let directSelections = selectionSet.selections.direct else { return }
       mergeIn(
         selections: directSelections,
         from: source,
@@ -282,11 +294,8 @@ extension IR {
 
   struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible
   {
-    typealias Field = IR.Field
-    typealias Fragment = IR.FragmentSpread
-
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var fragments: OrderedDictionary<String, Fragment> = [:]
+    fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
     fileprivate(set) var mergedSources: MergedSelections.MergedSources = []
 
     init() {}
@@ -303,11 +312,11 @@ extension IR {
       fields.forEach { mergeIn($0) }
     }
 
-    private mutating func mergeIn(_ fragment: Fragment) {
+    private mutating func mergeIn(_ fragment: FragmentSpread) {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == Fragment {
+    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
       fragments.forEach { mergeIn($0) }
     }
 
@@ -315,6 +324,7 @@ extension IR {
       _ selections: DirectSelections,
       from source: IR.MergedSelections.MergedSource
     ) {
+      guard !selections.fields.isEmpty || !selections.fragments.isEmpty else { return }
       mergedSources.insert(source)
       mergeIn(selections.fields.values)
       mergeIn(selections.fragments.values)

@@ -60,6 +60,22 @@ extension IR {
       forSelectionSet selectionSet: SelectionSet,
       from selections: [CompilationResult.Selection]
     ) {
+      buildDirectSelections(forSelectionSet: selectionSet, from: selections)
+      selectionSet.typeInfo.entity.selectionTree.mergeIn(selectionSet: selectionSet)
+    }
+
+    private func buildSortedSelections(
+      forFragmentSpread fragmentSpread: FragmentSpread,
+      from selections: [CompilationResult.Selection]
+    ) {
+      buildDirectSelections(forSelectionSet: fragmentSpread.selectionSet, from: selections)
+      fragmentSpread.selectionSet.typeInfo.entity.selectionTree.mergeIn(fragmentSpread: fragmentSpread)
+    }
+
+    private func buildDirectSelections(
+      forSelectionSet selectionSet: SelectionSet,
+      from selections: [CompilationResult.Selection]
+    ) {
       for selection in selections {
         switch selection {
         case let .field(field):
@@ -86,7 +102,7 @@ extension IR {
             referencedFragments.append(fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragment,
-              onParent: selectionSet
+              spreadIntoParent: selectionSet
             )
 
             selectionSet.selections.direct!.mergeIn(irFragmentSpread)
@@ -104,8 +120,6 @@ extension IR {
           }
         }
       }
-
-      selectionSet.typeInfo.entity.selectionTree.mergeIn(selectionSet: selectionSet)
     }
 
     private func buildField(
@@ -189,18 +203,21 @@ extension IR {
 
     private func buildFragmentSpread(
       fromFragment fragment: CompilationResult.FragmentDefinition,
-      onParent parentSelectionSet: SelectionSet
+      spreadIntoParent parentSelectionSet: SelectionSet
     ) -> FragmentSpread {
-      #warning("TODO! Why are we wrapping in a type case here??")
-      let irSelectionSet = buildTypeCaseSelectionSet(
-        fromSelectionSet: fragment.selectionSet,
-        onParent: parentSelectionSet
+      let irSelectionSet = SelectionSet(
+        entity: parentSelectionSet.typeInfo.entity,
+        parentType: fragment.selectionSet.parentType,
+        typePath: parentSelectionSet.typeInfo.typePath
       )
 
-      return FragmentSpread(
+      let fragmentSpread = FragmentSpread(
         definition: fragment,
         selectionSet: irSelectionSet
       )
+      buildSortedSelections(forFragmentSpread: fragmentSpread, from: fragment.selectionSet.selections)
+
+      return fragmentSpread
     }
   }
 }

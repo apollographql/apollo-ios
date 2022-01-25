@@ -206,6 +206,7 @@
 		DE29653A279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */; };
 		DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */; };
 		DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA427A07C37004F571F /* MockMergedSelections.swift */; };
+		DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA627A09A11004F571F /* IsEverTrue.swift */; };
 		DE2FCF1D26E806710057EA67 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */; };
 		DE2FCF1F26E807CC0057EA67 /* CacheTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */; };
 		DE2FCF2126E807EF0057EA67 /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2FCF2026E807EF0057EA67 /* Cacheable.swift */; };
@@ -857,6 +858,7 @@
 		DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderFragment_Tests.swift; sourceTree = "<group>"; };
 		DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderOperation_Tests.swift; sourceTree = "<group>"; };
 		DE296BA427A07C37004F571F /* MockMergedSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMergedSelections.swift; sourceTree = "<group>"; };
+		DE296BA627A09A11004F571F /* IsEverTrue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsEverTrue.swift; sourceTree = "<group>"; };
 		DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE2FCF1E26E807CC0057EA67 /* CacheTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTransaction.swift; sourceTree = "<group>"; };
 		DE2FCF2026E807EF0057EA67 /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
@@ -1369,6 +1371,7 @@
 				9B455CE82492D0A7002255A9 /* Extensions */,
 				DE4841A82745BBF10001E594 /* LinkedList.swift */,
 				9F7BA89822927A3700999B3B /* ResponsePath.swift */,
+				DE296BA627A09A11004F571F /* IsEverTrue.swift */,
 			);
 			name = ApolloUtils;
 			path = Sources/ApolloUtils;
@@ -2921,6 +2924,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE4841A92745BBF10001E594 /* LinkedList.swift in Sources */,
+				DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */,
 				DE4841AA2745EF530001E594 /* ResponsePath.swift in Sources */,
 				9B455CE52492D0A3002255A9 /* ApolloExtension.swift in Sources */,
 				DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */,
