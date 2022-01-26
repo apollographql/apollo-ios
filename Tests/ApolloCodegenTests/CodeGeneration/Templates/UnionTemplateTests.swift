@@ -7,14 +7,14 @@ class UnionTemplateTests: XCTestCase {
   let graphqlUnion = GraphQLUnionType.mock(
     "ClassroomPet",
     types: [
-      GraphQLObjectType.mock("Cat", fields: [:], interfaces: []),
-      GraphQLObjectType.mock("Bird", fields: [:], interfaces: []),
-      GraphQLObjectType.mock("Rat", fields: [:], interfaces: []),
-      GraphQLObjectType.mock("PetRock", fields: [:], interfaces: [])
+      GraphQLObjectType.mock("Cat"),
+      GraphQLObjectType.mock("Bird"),
+      GraphQLObjectType.mock("Rat"),
+      GraphQLObjectType.mock("PetRock")
     ]
   )
 
-  // MARK: Boiletplate tests
+  // MARK: Boilerplate tests
 
   func test_boilerplate_importsApolloAPI_generatesSwiftEnumDefinition() throws {
     // given
@@ -43,7 +43,8 @@ class UnionTemplateTests: XCTestCase {
     expect(String(actual.reversed())).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  // MARK: Enum Tests
+  // MARK: Enum Generation Tests
+
   func test_render_givenSchemaUnion_generatesEnumCases() throws {
     let expected = """
     public enum ClassroomPet: UnionType, Equatable {
