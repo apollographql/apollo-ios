@@ -53,22 +53,22 @@ fileprivate extension GraphQLInputField {
     "\(type.render())\(isSwiftOptional ? "?" : "")\(includeDefault && hasSwiftNilDefault ? " = nil" : "")"
   }
 
-  private var isSwiftOptional: Bool {
+  var isSwiftOptional: Bool {
     !isNullable && hasSchemaDefault
   }
 
-  private var hasSwiftNilDefault: Bool {
+  var hasSwiftNilDefault: Bool {
     isNullable && !hasSchemaDefault
   }
 
-  private var isNullable: Bool {
+  var isNullable: Bool {
     switch type {
     case .nonNull(_): return false
     default: return true
     }
   }
 
-  private var hasSchemaDefault: Bool {
+  var hasSchemaDefault: Bool {
     switch defaultValue {
     case .none, .some(nil):
       return false
@@ -87,14 +87,10 @@ fileprivate extension GraphQLType {
     switch self {
     case let .entity(type as GraphQLNamedType),
       let .enum(type as GraphQLNamedType),
+      let .scalar(type as GraphQLNamedType),
       let .inputObject(type as GraphQLNamedType):
 
-      return containedInNonNull ? type.name : "GraphQLNullable<\(type.name)>"
-
-    case let .scalar(type as GraphQLNamedType):
-      let typeName = (type.name == "Boolean" ? "Bool" : type.name)
-
-      return containedInNonNull ? typeName : "GraphQLNullable<\(typeName)>"
+      return containedInNonNull ? type.swiftName : "GraphQLNullable<\(type.swiftName)>"
 
     case let .nonNull(ofType):
       return ofType.render(containedInNonNull: true)
