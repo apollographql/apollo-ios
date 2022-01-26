@@ -6,8 +6,9 @@ struct TypeFileGenerator: FileGenerator, Equatable {
   let path: String
 
   var data: Data? {
-    #warning("TODO: need correct data template")
-    return "public class \(objectType.name) {}".data(using: .utf8)
+    TypeTemplate(graphqlObject: objectType)
+      .render()
+      .data(using: .utf8)
   }
 
   init(objectType: GraphQLObjectType, directoryPath: String) {
