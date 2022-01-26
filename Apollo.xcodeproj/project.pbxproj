@@ -316,6 +316,7 @@
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
 		E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */; };
 		E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */; };
+		E64F7EB827A0854E0059C021 /* UnionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EB727A0854E0059C021 /* UnionTemplate.swift */; };
 		E64F7EBC27A11A510059C021 /* GraphQLNamedType+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBB27A11A510059C021 /* GraphQLNamedType+Swift.swift */; };
 		E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
@@ -986,6 +987,7 @@
 		E61EF712275EC99A00191DA7 /* ApolloCodegenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloCodegenTests.swift; sourceTree = "<group>"; };
 		E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplate.swift; sourceTree = "<group>"; };
 		E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplateTests.swift; sourceTree = "<group>"; };
+		E64F7EB727A0854E0059C021 /* UnionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionTemplate.swift; sourceTree = "<group>"; };
 		E64F7EBB27A11A510059C021 /* GraphQLNamedType+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLNamedType+Swift.swift"; sourceTree = "<group>"; };
 		E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLNamedType+SwiftTests.swift"; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
@@ -1947,6 +1949,7 @@
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */,
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
+				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2962,6 +2965,7 @@
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
 				E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */,
 				E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */,
+				E64F7EB827A0854E0059C021 /* UnionTemplate.swift in Sources */,
 				9BCA8C0926618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift in Sources */,
 				DE5FD60527694FA70033EE23 /* SchemaTemplate.swift in Sources */,
 				DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */,
