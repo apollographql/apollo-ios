@@ -6,7 +6,7 @@ import ApolloUtils
 
 public typealias FileAttributes = [FileAttributeKey : Any]
 
-/// Enables the `.apollo` etension namespace.
+/// Enables the `.apollo` extension namespace.
 extension FileManager: ApolloCompatible {}
 
 extension ApolloExtension where Base: FileManager {
