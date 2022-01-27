@@ -28,7 +28,7 @@ struct SelectionSetTemplate {
   func render(field: IR.EntityField) -> String {
     TemplateString(
     """
-    public struct TODO: \(schema.name).SelectionSet {
+    public struct \(field.formattedFieldName): \(schema.name).SelectionSet {
       \(BodyTemplate(field.selectionSet))
     }
     """
@@ -59,8 +59,12 @@ struct SelectionSetTemplate {
     \(if: !selectionSet.selections.merged.fields.values.isEmpty, """
       \(selectionSet.selections.merged.fields.values.map { FieldAccessorTemplate($0) },
         separator: "\n")
-      """,
-      else: "\n")
+      """)
+
+    \(ifLet: selectionSet.selections.direct?.fields.values.compactMap { $0 as? IR.EntityField },
+      where: { !$0.isEmpty }, {
+        "\($0.map { render(field: $0) }, separator: "\n")"
+      })
     """
   }
 
