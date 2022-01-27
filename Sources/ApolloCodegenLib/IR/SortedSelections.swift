@@ -117,7 +117,7 @@ extension IR {
     typealias TypeCase = IR.SelectionSet
 
     struct MergedSource: Hashable {
-      let typePath: SelectionSet.TypeInfo
+      let typeInfo: SelectionSet.TypeInfo
       unowned let fragment: FragmentSpread?
     }
 

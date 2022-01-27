@@ -1,3 +1,4 @@
+import ApolloUtils
 import InflectorKit
 
 struct SelectionSetTemplate {
@@ -181,26 +182,79 @@ fileprivate extension GraphQLType {
 
 fileprivate extension IR.EntityField {
 
-  var generatedSelectionSetName: String {
-    func fieldName() -> String {
-      return StringInflector.default.singularize(responseKey.firstUppercased)
-    }
+  var formattedFieldName: String {
+    return StringInflector.default.singularize(responseKey.firstUppercased)
+  }
 
+  var generatedSelectionSetName: String {
     if selectionSet.selections.direct != nil {
-      return fieldName()
+      return formattedFieldName
     }
 
     if selectionSet.selections.merged.mergedSources.count == 1 {
-      if let fragmentForField = selectionSet.selections.merged.mergedSources.first?.fragment {
-        return "\(fragmentForField).\(fieldName())"
-      }
+      return selectionSet.selections.merged.mergedSources
+        .first.unsafelyUnwrapped
+        .generatedSelectionSetName
     }
 
-    return fieldName()
+    return formattedFieldName
   }
 
   var generatedSelectionSetType: String {
     return self.type.rendered(replacingNamedTypeWith: generatedSelectionSetName)
+  }
+
+}
+
+fileprivate extension IR.MergedSelections.MergedSource {
+  var generatedSelectionSetName: String {
+    guard let fragmentSource = fragment else {
+      return typeInfo.debugDescription
+    }
+
+    var fragmentTypePathCurrentNode = fragmentSource.selectionSet.typeInfo.typePath.head
+    var sourceTypePathCurrentNode = typeInfo.typePath.head
+    var nodesToFragment = 1
+
+    while let nextNode = fragmentTypePathCurrentNode.next {
+      fragmentTypePathCurrentNode = nextNode
+      sourceTypePathCurrentNode = sourceTypePathCurrentNode.next!
+      nodesToFragment += 1
+    }
+
+    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment))
+    let selectionSetName = generatedSelectionSetName(
+      from: sourceTypePathCurrentNode.next!,
+      withFieldPath: fieldPath
+    )
+
+    return "\(fragmentSource.definition.name).\(selectionSetName)"
+  }
+
+  private func generatedSelectionSetName(
+    from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
+    withFieldPath fieldPath: [String]
+  ) -> String {
+    var currentNode: LinkedList<TypeScopeDescriptor>.Node? = typePathNode
+    var fieldPathIndex = 0
+
+    var components: [String] = []
+
+    repeat {
+      let fieldName = fieldPath[fieldPathIndex]
+      components.append(StringInflector.default.singularize(fieldName.firstUppercased))
+
+      var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.typePath.head
+      while let typeCaseNode = currentTypeScopeNode.next {
+        components.append("As\(typeCaseNode.value.name.firstUppercased)")
+        currentTypeScopeNode = typeCaseNode
+      }
+
+      fieldPathIndex += 1
+      currentNode = currentNode.unsafelyUnwrapped.next
+    } while currentNode !== nil
+
+    return components.joined(separator: ".")
   }
 
 }
