@@ -51,7 +51,18 @@ public class ApolloCodegen {
       directoryPath: modulePath
     ).generateFile()
 
-    #warning("TODO - generate operation/fragment files")
+    for fragment in compilationResult.fragments {
+      let irFragment = ir.build(fragment: fragment)
+      try FragmentFileGenerator(fragment: irFragment, schema: ir.schema, directoryPath: modulePath)
+        .generateFile()
+    }
+
+    for operation in compilationResult.operations {
+      let irOperation = ir.build(operation: operation)
+      try OperationFileGenerator(operation: irOperation, schema: ir.schema, directoryPath: modulePath)
+        .generateFile()
+    }
+
     #warning("TODO - generate package manager manifest")
   }
 
@@ -125,6 +136,7 @@ public class ApolloCodegen {
       InputObjectFileGenerator(inputObjectType: graphqlInputObjectType, directoryPath: path)
     })
   }
+  
 }
 
 #endif

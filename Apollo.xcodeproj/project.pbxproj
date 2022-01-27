@@ -228,6 +228,8 @@
 		DE4766E826F92F30004622E0 /* MockSchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4766E726F92F30004622E0 /* MockSchemaConfiguration.swift */; };
 		DE4841A92745BBF10001E594 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4841A82745BBF10001E594 /* LinkedList.swift */; };
 		DE4841AA2745EF530001E594 /* ResponsePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7BA89822927A3700999B3B /* ResponsePath.swift */; };
+		DE4D54E727A3504B00D26B68 /* OperationFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */; };
+		DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
 		DE5EB9C026EFCB010004176A /* TestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9BF26EFCB010004176A /* TestObserver.swift */; };
 		DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */; };
@@ -896,6 +898,8 @@
 		DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCodeInterceptorTests.swift; sourceTree = "<group>"; };
 		DE4766E726F92F30004622E0 /* MockSchemaConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSchemaConfiguration.swift; sourceTree = "<group>"; };
 		DE4841A82745BBF10001E594 /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGenerator.swift; sourceTree = "<group>"; };
+		DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentFileGenerator.swift; sourceTree = "<group>"; };
 		DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProvider.swift; sourceTree = "<group>"; };
 		DE5EB9BF26EFCB010004176A /* TestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObserver.swift; sourceTree = "<group>"; };
 		DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApolloStore.swift; sourceTree = "<group>"; };
@@ -2209,6 +2213,8 @@
 			isa = PBXGroup;
 			children = (
 				E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */,
+				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
+				DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */,
 				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				E6D90D06278FA595009CAC5D /* InputObjectFileGenerator.swift */,
 				E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */,
@@ -2948,6 +2954,7 @@
 				9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */,
 				9BAEEBF72346F0A000808306 /* StaticString+Apollo.swift in Sources */,
 				E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */,
+				DE4D54E727A3504B00D26B68 /* OperationFileGenerator.swift in Sources */,
 				E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */,
 				9BCA8C0926618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift in Sources */,
 				DE5FD60527694FA70033EE23 /* SchemaTemplate.swift in Sources */,
@@ -2970,6 +2977,7 @@
 				9BFE8DA9265D5D8F000BBF81 /* URLDownloader.swift in Sources */,
 				E6C9849327929EBE009481BE /* EnumTemplate.swift in Sources */,
 				9F1A966D258F34BB00A06EEB /* CompilationResult.swift in Sources */,
+				DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */,
 				E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
