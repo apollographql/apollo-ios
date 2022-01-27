@@ -16,14 +16,14 @@ extension IR.MergedSelections.MergedSource {
     let fragment = try XCTUnwrap(fragment)
     return self.init(
       typePath: fragment.selectionSet.typeInfo,
-      fragment: fragment.definition.name
+      fragment: fragment
     )
   }
 
   public static func mock(for field: IR.Field?, from fragment: IR.FragmentSpread?) throws -> Self {
     self.init(
       typePath: try XCTUnwrap(field?.selectionSet?.typeInfo),
-      fragment: try XCTUnwrap(fragment?.definition.name)
+      fragment: try XCTUnwrap(fragment)
     )
   }
 }

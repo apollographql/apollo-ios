@@ -118,7 +118,7 @@ extension IR {
 
     struct MergedSource: Hashable {
       let typePath: SelectionSet.TypeInfo
-      let fragment: String?
+      unowned let fragment: FragmentSpread?
     }
 
     typealias MergedSources = Set<MergedSource>

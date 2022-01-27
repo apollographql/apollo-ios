@@ -36,7 +36,7 @@ extension IR {
     ) {
       let source = MergedSelections.MergedSource(
         typePath: selectionSet.typeInfo,
-        fragment: fragmentSpread?.definition.name
+        fragment: fragmentSpread
       )
       mergeIn(selectionSet: selectionSet, from: source)
     }

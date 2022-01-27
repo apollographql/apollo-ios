@@ -86,7 +86,7 @@ class IR {
   ///
   /// While a `NamedFragment` can be shared between operations, a `FragmentSpread` represents a
   /// `NamedFragment` included in a specific operation.
-  class FragmentSpread: Equatable {
+  class FragmentSpread: Hashable {
     let definition: CompilationResult.FragmentDefinition
     /// The selection set for the fragment in the operation it has been "spread into".
     /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
@@ -103,6 +103,11 @@ class IR {
     static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
       lhs.definition == rhs.definition &&
       lhs.selectionSet == rhs.selectionSet
+    }
+
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(definition)
+      hasher.combine(ObjectIdentifier(selectionSet))
     }
   }
   
