@@ -107,3 +107,15 @@ public extension GraphQLInputField {
     return mock
   }
 }
+
+public extension GraphQLField {
+  class func mock(
+    _ name: String,
+    type: GraphQLType
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.type = type
+    return mock
+  }
+}
