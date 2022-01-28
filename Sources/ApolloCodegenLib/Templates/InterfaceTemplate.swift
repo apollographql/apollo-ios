@@ -6,7 +6,7 @@ struct InterfaceTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.render())
+    \(ImportStatementTemplate.SchemaType.render())
 
     public final class \(graphqlInterface.name): Interface { }
     """

@@ -4,7 +4,7 @@ struct EnumTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.render())
+    \(ImportStatementTemplate.SchemaType.render())
     
     public enum \(graphqlEnum.name): String, EnumType {
       \(graphqlEnum.values.map({

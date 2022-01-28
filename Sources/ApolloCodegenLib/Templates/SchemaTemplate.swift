@@ -5,7 +5,7 @@ struct SchemaTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.render())
+    \(ImportStatementTemplate.SchemaType.render())
 
     public typealias ID = String
 

@@ -56,8 +56,12 @@ public class ApolloCodegen {
 
     for fragment in compilationResult.fragments {
       let irFragment = ir.build(fragment: fragment)
-      try FragmentFileGenerator(fragment: irFragment, schema: ir.schema, directoryPath: modulePath)
-        .generateFile()
+      try FragmentFileGenerator(
+        fragment: irFragment,
+        schema: ir.schema,
+        config: configuration,
+        directoryPath: modulePath
+      ).generateFile()
     }
 
     for operation in compilationResult.operations {

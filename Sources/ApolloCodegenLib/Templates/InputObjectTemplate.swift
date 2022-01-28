@@ -7,7 +7,7 @@ struct InputObjectTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.render())
+    \(ImportStatementTemplate.SchemaType.render())
 
     struct \(graphqlInputObject.name.firstUppercased): InputObject {
       private(set) public var dict: InputDict

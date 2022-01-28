@@ -5,7 +5,7 @@ struct UnionTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.render())
+    \(ImportStatementTemplate.SchemaType.render())
 
     public enum \(graphqlUnion.name): UnionType, Equatable {
       \(graphqlUnion.types.map({ type in

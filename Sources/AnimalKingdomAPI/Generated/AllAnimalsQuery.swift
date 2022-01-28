@@ -49,8 +49,8 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
-    public let data: ResponseDict
-    public init(data: ResponseDict) { self.data = data }
+    public let data: DataDict
+    public init(data: DataDict) { self.data = data }
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -60,8 +60,8 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
     public var allAnimals: [AllAnimal] { data["allAnimals"] }
 
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
-      public let data: ResponseDict
-      public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
       public static var selections: [Selection] { [
@@ -82,8 +82,8 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
       public var predators: [Predator] { data["predators"] }
 
       public struct Height: AnimalKingdomAPI.SelectionSet {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
         public static var selections: [Selection] { [
@@ -97,8 +97,8 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
       }
       public struct Predator: AnimalKingdomAPI.SelectionSet {
-        public let data: ResponseDict
-        public init(data: ResponseDict) { self.data = data }
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
         public static var selections: [Selection] { [

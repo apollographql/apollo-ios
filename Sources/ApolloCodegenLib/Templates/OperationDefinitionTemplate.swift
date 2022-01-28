@@ -7,9 +7,9 @@ struct OperationDefinitionTemplate {
   let config: ApolloCodegenConfiguration
 
   func render() -> String {
-    TemplateString("""
-    \(ImportStatementTemplate.render())
-    \(if: shouldImportSchemaModule, "import \(config.output.schemaTypes.moduleName)")
+    TemplateString(
+    """
+    \(ImportStatementTemplate.Operation.render(config))
 
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
@@ -19,10 +19,6 @@ struct OperationDefinitionTemplate {
       \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
     """).description
-  }
-
-  private var shouldImportSchemaModule: Bool {
-    config.output.operations != .inSchemaModule && config.output.schemaTypes.isInModule
   }
 
   func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
@@ -70,15 +66,6 @@ fileprivate extension ApolloCodegenConfiguration.APQConfig {
     case .disabled: return "notPersisted"
     case .automaticallyPersist: return "automaticallyPersisted"
     case .persistedOperationsOnly: return "persistedOperationsOnly"
-    }
-  }
-}
-
-fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
-  var isInModule: Bool {
-    switch dependencyAutomation {
-    case .manuallyLinked: return false
-    case .swiftPackageManager, .cocoaPods, .carthage: return true
     }
   }
 }
