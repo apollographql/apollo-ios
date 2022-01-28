@@ -190,7 +190,22 @@ fileprivate extension IR.EntityField {
     return StringInflector.default.singularize(responseKey.firstUppercased)
   }
 
+  var generatedSelectionSetType: String {
+    return self.type.rendered(replacingNamedTypeWith: generatedSelectionSetName)
+  }
+
+  private static var _generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
+
   var generatedSelectionSetName: String {
+    let objectId = ObjectIdentifier(self)
+    if let name = Self._generatedSelectionSetNames[objectId] { return name }
+
+    let name = computeGeneratedSelectionSetName()
+    Self._generatedSelectionSetNames[objectId] = name
+    return name
+  }
+
+  private func computeGeneratedSelectionSetName() -> String {
     if selectionSet.selections.direct != nil {
       return formattedFieldName
     }
@@ -198,27 +213,53 @@ fileprivate extension IR.EntityField {
     if selectionSet.selections.merged.mergedSources.count == 1 {
       return selectionSet.selections.merged.mergedSources
         .first.unsafelyUnwrapped
-        .generatedSelectionSetName
+        .generatedSelectionSetName(for: self)
     }
 
     return formattedFieldName
   }
 
-  var generatedSelectionSetType: String {
-    return self.type.rendered(replacingNamedTypeWith: generatedSelectionSetName)
-  }
-
 }
 
 fileprivate extension IR.MergedSelections.MergedSource {
-  var generatedSelectionSetName: String {
-    guard let fragmentSource = fragment else {
-      return typeInfo.debugDescription
+
+  func generatedSelectionSetName(for field: IR.EntityField) -> String {
+    if let fragment = fragment {
+      return generatedSelectionSetNameForMergedEntity(in: fragment)
     }
 
-    var fragmentTypePathCurrentNode = fragmentSource.selectionSet.typeInfo.typePath.head
+    var fieldTypePathCurrentNode = field.selectionSet.typeInfo.typePath.last
+    var sourceTypePathCurrentNode = typeInfo.typePath.last
+    var nodesToSharedRoot = 0
+
+    while fieldTypePathCurrentNode.value == sourceTypePathCurrentNode.value {
+      guard let previousFieldNode = fieldTypePathCurrentNode.previous,
+            let previousSourceNode = sourceTypePathCurrentNode.previous else {
+              break
+            }
+
+      fieldTypePathCurrentNode = previousFieldNode
+      sourceTypePathCurrentNode = previousSourceNode
+      nodesToSharedRoot += 1
+    }
+
+    let fieldPath = Array(typeInfo.entity.fieldPath
+                            .toArray()
+                            .suffix(nodesToSharedRoot + 1))
+
+    let selectionSetName = generatedSelectionSetName(
+      from: sourceTypePathCurrentNode,
+      withFieldPath: fieldPath,
+      removingFirst: nodesToSharedRoot <= 1
+    )
+
+    return selectionSetName
+  }
+
+  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
+    var fragmentTypePathCurrentNode = fragment.selectionSet.typeInfo.typePath.head
     var sourceTypePathCurrentNode = typeInfo.typePath.head
-    var nodesToFragment = 1
+    var nodesToFragment = 0
 
     while let nextNode = fragmentTypePathCurrentNode.next {
       fragmentTypePathCurrentNode = nextNode
@@ -226,20 +267,21 @@ fileprivate extension IR.MergedSelections.MergedSource {
       nodesToFragment += 1
     }
 
-    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment))
+    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment + 1))
     let selectionSetName = generatedSelectionSetName(
       from: sourceTypePathCurrentNode.next!,
       withFieldPath: fieldPath
     )
 
-    return "\(fragmentSource.definition.name).\(selectionSetName)"
+    return "\(fragment.definition.name).\(selectionSetName)"
   }
 
   private func generatedSelectionSetName(
     from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
-    withFieldPath fieldPath: [String]
+    withFieldPath fieldPath: [String],
+    removingFirst: Bool = false
   ) -> String {
-    var currentNode: LinkedList<TypeScopeDescriptor>.Node? = typePathNode
+    var currentNode = Optional(typePathNode)
     var fieldPathIndex = 0
 
     var components: [String] = []
@@ -257,6 +299,8 @@ fileprivate extension IR.MergedSelections.MergedSource {
       fieldPathIndex += 1
       currentNode = currentNode.unsafelyUnwrapped.next
     } while currentNode !== nil
+
+    if removingFirst { components.removeFirst() }
 
     return components.joined(separator: ".")
   }
