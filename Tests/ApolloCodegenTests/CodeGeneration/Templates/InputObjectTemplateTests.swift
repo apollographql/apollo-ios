@@ -23,7 +23,7 @@ class InputObjectTemplateTests: XCTestCase {
 
   // MARK: Casing Tests
 
-  func test_render_givenLowercasedInputObjectField_generatesCorrectlyCasedSwiftDefinition() throws {
+  func test__render__givenLowercasedInputObjectField__generatesCorrectlyCasedSwiftDefinition() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("mockInput", fields: [
       GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)
@@ -38,7 +38,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenUppercasedInputObjectField_generatesCorrectlyCasedSwiftDefinition() throws {
+  func test__render__givenUppercasedInputObjectField__generatesCorrectlyCasedSwiftDefinition() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MOCKInput", fields: [
       GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)
@@ -53,7 +53,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenMixedCaseInputObjectField_generatesCorrectlyCasedSwiftDefinition() throws {
+  func test__render__givenMixedCaseInputObjectField__generatesCorrectlyCasedSwiftDefinition() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("mOcK_Input", fields: [
       GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)
@@ -70,7 +70,7 @@ class InputObjectTemplateTests: XCTestCase {
 
   // MARK: Field Type Tests
 
-  func test_render_givenSingleFieldType_generatesCorrectParameterAndInitializer_withClosingBrace() throws {
+  func test__render__givenSingleFieldType__generatesCorrectParameterAndInitializer_withClosingBrace() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
       GraphQLInputField.mock("field", type: .scalar(.string()), defaultValue: nil)
@@ -99,7 +99,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: false))
   }
 
-  func test_render_givenAllPossibleSchemaInputFieldTypes_generatesCorrectParametersAndInitializer() throws {
+  func test__render__givenAllPossibleSchemaInputFieldTypes__generatesCorrectParametersAndInitializer() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
       GraphQLInputField.mock(
@@ -210,7 +210,7 @@ class InputObjectTemplateTests: XCTestCase {
 
   // MARK: Nullable Field Tests
 
-  func test_render_givenNullableFieldNoDefault_generatesNullableParameterWithInitializerNilDefault() throws {
+  func test__render__given_NullableField_NoDefault__generates_NullableParameter_InitializerNilDefault() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
       GraphQLInputField.mock("nullable", type: .scalar(.integer()), defaultValue: nil)
@@ -235,7 +235,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
-  func test_render_givenNullableFieldWithDefault_generatesNullableParameterWithoutInitializerDefault() throws {
+  func test__render__given_NullableField_WithDefault__generates_NullableParameter_NoInitializerDefault() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
       GraphQLInputField.mock("nullableWithDefault", type: .scalar(.integer()), defaultValue: JSValue(int32: 3, in: jsContext))
@@ -260,7 +260,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
-  func test_render_givenNonNullableFieldNoDefault_generatesNonNullableNonOptionalParameterWithoutInitializerDefault() throws {
+  func test__render__given_NonNullableField_NoDefault__generates_NonNullableNonOptionalParameter_NoInitializerDefault() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
       GraphQLInputField.mock("nonNullable", type: .nonNull(.scalar(.integer())), defaultValue: nil)
@@ -285,7 +285,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
-  func test_render_givenNonNullableFieldWithDefault_generatesOptionalParameterWithoutInitializerDefault() throws {
+  func test__render__given_NonNullableField_WithDefault__generates_OptionalParameter_NoInitializerDefault() throws {
     // given
     let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
       GraphQLInputField.mock("nonNullableWithDefault", type: .nonNull(.scalar(.integer())), defaultValue: JSValue(int32: 3, in: jsContext))
