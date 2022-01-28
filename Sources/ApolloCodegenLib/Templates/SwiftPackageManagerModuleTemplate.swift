@@ -20,8 +20,13 @@ struct SwiftPackageManagerModuleTemplate {
       products: [
         .library(name: "\(moduleName)", targets: ["\(moduleName)"]),
       ],
+      dependencies: [
+        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
+      ],
       targets: [
-        .target(name: "\(moduleName)"),
+        .target(name: "\(moduleName)", dependencies: [
+          .product(name: "ApolloAPI", package: "apollo-ios"),
+        ]),
       ]
     )
     """).value

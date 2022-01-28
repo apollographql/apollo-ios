@@ -83,18 +83,26 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
   }
 
   func test__packageDescription__generatesNoDependencies() {
+    // given
+    let expected = """
+      dependencies: [
+        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
+      ],
+    """
     // when
     let actual = subject.render()
 
     // then
-    expect(actual.contains("dependencies: [")).to(beFalse())
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__packageDescription__generatesTargets() {
     // given
     let expected = """
       targets: [
-        .target(name: "TestModule"),
+        .target(name: "TestModule", dependencies: [
+          .product(name: "ApolloAPI", package: "apollo-ios"),
+        ]),
       ]
     """
 
@@ -102,6 +110,6 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
   }
 }
