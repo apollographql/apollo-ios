@@ -3,7 +3,7 @@ import ApolloUtils
 extension IR {
   @dynamicMemberLookup
   class SelectionSet: Equatable, CustomDebugStringConvertible {
-    class TypeInfo {
+    class TypeInfo: Hashable, CustomDebugStringConvertible {
       /// The entity that the `selections` are being selected on.
       ///
       /// Multiple `SelectionSet`s may reference the same `Entity`
@@ -33,6 +33,22 @@ extension IR {
         self.entity = entity
         self.parentType = parentType
         self.typePath = typePath
+      }
+
+      static func == (lhs: TypeInfo, rhs: TypeInfo) -> Bool {
+        lhs.entity === rhs.entity &&
+        lhs.parentType == rhs.parentType &&
+        lhs.typePath == rhs.typePath
+      }
+
+      func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(entity))
+        hasher.combine(parentType)
+        hasher.combine(typePath)
+      }
+
+      var debugDescription: String {
+        typePath.debugDescription
       }
     }
 

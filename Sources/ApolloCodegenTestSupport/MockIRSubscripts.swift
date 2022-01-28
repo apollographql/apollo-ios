@@ -1,6 +1,6 @@
 @testable import ApolloCodegenLib
 
-extension IR.SortedSelections {
+extension IR.DirectSelections {
   public subscript(field field: String) -> IR.Field? {
     fields[field]
   }
@@ -14,7 +14,22 @@ extension IR.SortedSelections {
   }
 }
 
-extension IR.ShallowSelections {
+extension IR.MergedSelections {
+  public subscript(field field: String) -> IR.Field? {
+    fields[field]
+  }
+
+  public subscript(as typeCase: String) -> IR.SelectionSet? {
+    typeCases[typeCase]
+  }
+
+  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+    fragments[fragment]
+  }
+}
+
+
+extension IR.EntityTreeScopeSelections {
   public subscript(field field: String) -> IR.Field? {
     fields[field]
   }

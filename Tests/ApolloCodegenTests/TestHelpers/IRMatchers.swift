@@ -16,8 +16,9 @@ protocol SelectionShallowMatchable {
   var isEmpty: Bool { get }
 }
 
-extension IR.SortedSelections: SelectionShallowMatchable { }
-extension IR.ShallowSelections: SelectionShallowMatchable {
+extension IR.DirectSelections: SelectionShallowMatchable { }
+extension IR.MergedSelections: SelectionShallowMatchable { }
+extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
   var typeCases: OrderedDictionary<String, TypeCase> { [:] }
 }
 
@@ -56,21 +57,33 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
   return shallowlyMatch((expectedFields, expectedTypeCases, expectedFragments))
 }
 
-typealias SelectionMatcher = (
-  direct: [CompilationResult.Selection]?,
-  merged:[CompilationResult.Selection]
-)
+struct SelectionMatcher {
+  let direct: [CompilationResult.Selection]?
+  let merged: [CompilationResult.Selection]
+  let mergedSources: Set<IR.MergedSelections.MergedSource>
+
+  public init(
+    direct: [CompilationResult.Selection]?,
+    merged: [CompilationResult.Selection],
+    mergedSources: Set<IR.MergedSelections.MergedSource> = []
+  ) {
+    self.direct = direct
+    self.merged = merged
+    self.mergedSources = mergedSources
+  }
+}
 
 func shallowlyMatch(
   _ expectedValue: SelectionMatcher
 ) -> Predicate<IR.SelectionSet> {
-  let directPredicate: Predicate<IR.SortedSelections> = expectedValue.direct == nil
+  let directPredicate: Predicate<IR.DirectSelections> = expectedValue.direct == nil
   ? beNil()
   : shallowlyMatch(expectedValue.direct!)
 
   return satisfyAllOf([
     directPredicate.mappingActualTo { $0?.selections.direct },
-    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.merged }
+    shallowlyMatch(expectedValue.merged).mappingActualTo { $0?.selections.merged },
+    equal(expectedValue.mergedSources).mappingActualTo { $0?.selections.merged.mergedSources }
   ])
 }
 

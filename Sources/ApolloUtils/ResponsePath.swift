@@ -25,11 +25,25 @@ public struct ResponsePath: ExpressibleByArrayLiteral {
         return key
       }
     }()
+
+    lazy var components: [String] = {
+      if let previous = previous {
+        var components = previous.components
+        components.append(key)
+        return components
+      } else {
+        return [key]
+      }
+    }()
   }
 
   private var head: Node?
   public var joined: String {
     return head?.joined ?? ""
+  }
+
+  public func toArray() -> [String] {
+    return head?.components ?? []
   }
 
   public init(arrayLiteral segments: Key...) {

@@ -30,10 +30,26 @@ extension IR {
 
     // MARK: - Merge Selection Sets Into Tree
     
-    func mergeIn(selectionSet: SelectionSet) {
-      guard let directSelections = selectionSet.selections.direct else { return }
+    func mergeIn(
+      selectionSet: SelectionSet,
+      inFragmentSpread fragmentSpread: FragmentSpread? = nil
+    ) {
+      let source = MergedSelections.MergedSource(
+        typeInfo: selectionSet.typeInfo,
+        fragment: fragmentSpread
+      )
+      mergeIn(selectionSet: selectionSet, from: source)
+    }
+
+    private func mergeIn(selectionSet: SelectionSet, from source: MergedSelections.MergedSource) {
+      guard let directSelections = selectionSet.selections.direct,
+            (!directSelections.fields.isEmpty || !directSelections.fragments.isEmpty) else {
+              return
+            }
+
       mergeIn(
         selections: directSelections,
+        from: source,
         atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
         withEntityTypePath: selectionSet.typeInfo.typePath.head.value.typePath.head,
         to: rootNode,
@@ -43,7 +59,8 @@ extension IR {
     }
 
     private func mergeIn(
-      selections: IR.SortedSelections,
+      selections: DirectSelections,
+      from source: MergedSelections.MergedSource,
       atEnclosingEntityScope currentEntityScope: LinkedList<TypeScopeDescriptor>.Node,
       withEntityTypePath currentEntityTypePath: LinkedList<GraphQLCompositeType>.Node,
       to node: EnclosingEntityNode,
@@ -55,6 +72,7 @@ extension IR {
         let fieldNode = node.childAsFieldScopeNode()
         mergeIn(
           selections: selections,
+          from: source,
           withTypeScope: currentEntityScope.value.typePath.head,
           toFieldNode: fieldNode,
           ofType: currentNodeRootTypePath.value
@@ -69,6 +87,7 @@ extension IR {
 
         mergeIn(
           selections: selections,
+          from: source,
           atEnclosingEntityScope: nextEntityScope,
           withEntityTypePath: nextEntityScope.value.typePath.head,
           to: nextEntityNode,
@@ -85,6 +104,7 @@ extension IR {
 
       mergeIn(
         selections: selections,
+        from: source,
         atEnclosingEntityScope: currentEntityScope,
         withEntityTypePath: nextTypePathForCurrentEntity,
         to: nextNodeForCurrentEntity,
@@ -94,7 +114,8 @@ extension IR {
     }
 
     private func mergeIn(
-      selections: IR.SortedSelections,
+      selections: DirectSelections,
+      from source: IR.MergedSelections.MergedSource,
       withTypeScope currentSelectionScopeTypeCase: LinkedList<GraphQLCompositeType>.Node,
       toFieldNode node: FieldScopeNode,
       ofType fieldNodeType: GraphQLCompositeType
@@ -103,12 +124,12 @@ extension IR {
         let typeForSelections = currentSelectionScopeTypeCase.value
 
         if fieldNodeType == typeForSelections {
-          node.mergeIn(selections)
+          node.mergeIn(selections, from: source)
           return
 
         } else {
           let fieldTypeCaseNode = node.typeCaseNode(forType: typeForSelections)
-          fieldTypeCaseNode.mergeIn(selections)
+          fieldTypeCaseNode.mergeIn(selections, from: source)
           return
         }
       }
@@ -118,6 +139,7 @@ extension IR {
 
       mergeIn(
         selections: selections,
+        from: source,
         withTypeScope: nextTypeCaseInScope,
         toFieldNode: nextNodeForField,
         ofType: nextTypeCaseInScope.value
@@ -221,21 +243,24 @@ extension IR {
     }
 
     class FieldScopeNode: EntitySelectionTreeNode {
-      var selections: ShallowSelections?
+      var selections: OrderedDictionary<MergedSelections.MergedSource, EntityTreeScopeSelections> = [:]
       var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
 
-      fileprivate func mergeIn(_ selections: SortedSelections) {
-        var fieldSelections = self.selections ?? ShallowSelections()
-        fieldSelections.mergeIn(selections)
-        self.selections = fieldSelections
+      fileprivate func mergeIn(
+        _ selections: DirectSelections,
+        from source: IR.MergedSelections.MergedSource
+      ) {
+        var selectionsFromSource = self.selections[source] ?? EntityTreeScopeSelections()
+        selectionsFromSource.mergeIn(selections)
+        self.selections[source] = selectionsFromSource
       }
 
       func mergeSelections(
         matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
         into selections: IR.MergedSelections
       ) {
-        if let scopeSelections = self.selections {
-          selections.mergeIn(scopeSelections)
+        for (source, scopeSelections) in self.selections {
+          selections.mergeIn(scopeSelections, from: source)
         }
 
         if let typeCases = typeCases {
@@ -268,6 +293,46 @@ extension IR {
       }
     }
   }
+
+  struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible
+  {
+    fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
+    fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
+
+    init() {}
+
+    var isEmpty: Bool {
+      fields.isEmpty && fragments.isEmpty
+    }
+
+    private mutating func mergeIn(_ field: Field) {
+      fields[field.hashForSelectionSetScope] = field
+    }
+
+    private mutating func mergeIn<T: Sequence>(_ fields: T) where T.Element == Field {
+      fields.forEach { mergeIn($0) }
+    }
+
+    private mutating func mergeIn(_ fragment: FragmentSpread) {
+      fragments[fragment.hashForSelectionSetScope] = fragment
+    }
+
+    private mutating func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
+      fragments.forEach { mergeIn($0) }
+    }
+
+    mutating func mergeIn(_ selections: DirectSelections) {
+      mergeIn(selections.fields.values)
+      mergeIn(selections.fragments.values)
+    }
+
+    var debugDescription: String {
+      """
+      Fields: \(fields.values.elements)
+      Fragments: \(fragments.values.elements.map(\.definition.name))
+      """
+    }
+  }
 }
 
 extension IR.EntitySelectionTree: CustomDebugStringConvertible {
@@ -297,7 +362,7 @@ extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
     """
     {
       selections:
-        \(indented: selections?.debugDescription ?? "[]")
+        \(indented: selections.debugDescription)
       typeCases:
         \(indented: typeCases?.debugDescription ?? "[]")
     }
