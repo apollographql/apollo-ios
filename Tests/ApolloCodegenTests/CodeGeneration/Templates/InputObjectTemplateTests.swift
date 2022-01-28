@@ -152,7 +152,7 @@ class InputObjectTemplateTests: XCTestCase {
         floatField: GraphQLNullable<Float> = nil,
         enumField: GraphQLNullable<EnumValue> = nil,
         inputField: GraphQLNullable<InnerInputObject> = nil,
-        listField: GraphQLNullable<[GraphQLNullable<String>]> = nil
+        listField: GraphQLNullable<[String?]> = nil
       ) {
         dict = InputDict([
           "stringField": stringField,
@@ -195,7 +195,7 @@ class InputObjectTemplateTests: XCTestCase {
         set { dict["inputField"] = newValue }
       }
 
-      var listField: GraphQLNullable<[GraphQLNullable<String>]> {
+      var listField: GraphQLNullable<[String?]> {
         get { dict["listField"] }
         set { dict["listField"] = newValue }
       }

@@ -83,22 +83,33 @@ fileprivate extension GraphQLInputField {
 }
 
 fileprivate extension GraphQLType {
-  func render(containedInNonNull: Bool = false) -> String {
+  enum NullabilityContainer {
+    case none
+    case graphqlNullable
+    case swiftOptional
+  }
+
+  func render(nullability: NullabilityContainer = .graphqlNullable) -> String {
     switch self {
     case let .entity(type as GraphQLNamedType),
       let .enum(type as GraphQLNamedType),
       let .scalar(type as GraphQLNamedType),
       let .inputObject(type as GraphQLNamedType):
 
-      return containedInNonNull ? type.swiftName : "GraphQLNullable<\(type.swiftName)>"
+      switch nullability {
+      case .none: return type.swiftName
+      case .graphqlNullable: return "GraphQLNullable<\(type.swiftName)>"
+      case .swiftOptional: return "\(type.swiftName)?"
+      }
 
     case let .nonNull(ofType):
-      return ofType.render(containedInNonNull: true)
+      return ofType.render(nullability: .none)
 
     case let .list(ofType):
-      let inner = "[\(ofType.render(containedInNonNull: false))]"
+      let inner = "[\(ofType.render(nullability: .swiftOptional))]"
 
-      return containedInNonNull ? inner : "GraphQLNullable<\(inner)>"
+      if nullability == .graphqlNullable { return "GraphQLNullable<\(inner)>" }
+      else { return inner }
     }
   }
 }
