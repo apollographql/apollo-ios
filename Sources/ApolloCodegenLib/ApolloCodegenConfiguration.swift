@@ -375,9 +375,5 @@ extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
       let .swiftPackageManager(name):
         return name
     }
-  }
-
-  var modulePath: String {
-    URL(fileURLWithPath: self.path).appendingPathComponent(self.moduleName).path
-  }
+  }  
 }

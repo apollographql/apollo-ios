@@ -230,8 +230,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal("API"))
-    expect(config.output.schemaTypes.modulePath)
-      .to(equal(fileURL.appendingPathComponent("API").path))
+    expect(config.output.schemaTypes.path).to(equal(fileURL.path))
   }
 
   func test_givenSwiftPackageManagerConfiguration_shouldBuildSchemaModuleProperties() {
@@ -241,8 +240,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
-    expect(config.output.schemaTypes.modulePath)
-      .to(equal(directoryURL.appendingPathComponent(moduleName).path))
+    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 
   func test_givenCocoaPodsConfiguration_shouldBuildSchemaModuleProperties() {
@@ -252,8 +250,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
-    expect(config.output.schemaTypes.modulePath)
-      .to(equal(directoryURL.appendingPathComponent(moduleName).path))
+    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 
   func test_givenCarthageConfiguration_shouldBuildSchemaModuleProperties() {
@@ -263,8 +260,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
-    expect(config.output.schemaTypes.modulePath)
-      .to(equal(directoryURL.appendingPathComponent(moduleName).path))
+    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 
   func test_givenManuallyLinkedConfiguration_shouldBuildSchemaModuleProperties() {
@@ -274,7 +270,6 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(namespace))
-    expect(config.output.schemaTypes.modulePath)
-      .to(equal(directoryURL.appendingPathComponent(namespace).path))
+    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 }

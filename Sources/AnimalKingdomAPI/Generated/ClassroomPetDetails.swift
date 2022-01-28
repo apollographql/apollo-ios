@@ -1,8 +1,8 @@
-public struct ClassroomPetDetails: API.SelectionSet, Fragment {
+public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public let data: ResponseDict
   public init(data: ResponseDict) { self.data = data }
 
-  public static var __parentType: ParentType { .Union(API.ClassroomPet.self) }
+  public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
   public static var selections: [Selection] { [
     .typeCase(AsAnimal.self),
     .typeCase(AsPet.self),

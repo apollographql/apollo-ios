@@ -85,9 +85,23 @@ enum Target {
 //                                  suppressSwiftMultilineStringLiterals: true,
 //                                  urlToSchemaFile: schema)
     case .animalKingdom:
-      let graphQLFolderURL = targetRootURL.apollo.childFolderURL(folderName: "graphql")
+      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
-      return ApolloCodegenConfiguration(basePath: graphQLFolderURL.path)
+      let input = ApolloCodegenConfiguration.FileInput(
+        schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
+        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+      )
+
+      let output = ApolloCodegenConfiguration.FileOutput(
+        schemaTypes: .init(
+          path: targetRootURL.appendingPathComponent("Generated").path,
+          dependencyAutomation: .manuallyLinked(namespace: "AnimalKingdomAPI")
+        ),
+        operations: .inSchemaModule,
+        operationIdentifiersPath: nil
+      )
+
+      return ApolloCodegenConfiguration(input: input, output: output)
     }
   }
 }

@@ -15,6 +15,10 @@ struct OperationDefinitionTemplate {
 
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
+
+      public init() {}
+
+      \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
     """).description
   }

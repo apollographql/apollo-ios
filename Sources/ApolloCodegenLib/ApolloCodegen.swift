@@ -35,7 +35,7 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    let modulePath = configuration.output.schemaTypes.modulePath
+    let modulePath = configuration.output.schemaTypes.path
     try fileGenerators(for: ir.schema.referencedTypes.objects, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
     try fileGenerators(for: ir.schema.referencedTypes.enums, directoryPath: modulePath)
