@@ -267,9 +267,14 @@ class ApolloCodegenTests: XCTestCase {
 
     expect(ApolloCodegen.fileGenerators(
       for: ir.schema.referencedTypes.unions,
+      moduleName: ir.schema.name,
       directoryPath: directoryPath
     )).to(equal([
-      UnionFileGenerator(unionType: searchResultUnion, directoryPath: directoryPath)
+      UnionFileGenerator(
+        unionType: searchResultUnion,
+        moduleName: "TestSchema",
+        directoryPath: directoryPath
+      )
     ]))
 
     expect(ApolloCodegen.fileGenerators(

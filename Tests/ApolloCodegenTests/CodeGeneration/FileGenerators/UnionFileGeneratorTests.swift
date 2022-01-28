@@ -25,6 +25,7 @@ class UnionFileGeneratorTests: XCTestCase {
     // then
     try UnionFileGenerator(
       unionType: GraphQLUnionType.mock("MockUnion", types: []),
+      moduleName: "ModuleAPI",
       directoryPath: rootURL.path
     ).generateFile(fileManager: mockFileManager)
 
