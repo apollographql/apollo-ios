@@ -1,3 +1,5 @@
+import ApolloAPI
+
 public enum SkinCovering: String, EnumType {
   case FUR
   case HAIR

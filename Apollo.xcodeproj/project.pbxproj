@@ -257,6 +257,7 @@
 		DE5B318B27A48C8D0051C9D3 /* SkinCovering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B317927A48C8D0051C9D3 /* SkinCovering.swift */; };
 		DE5B318C27A48C8D0051C9D3 /* RelativeSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B317A27A48C8D0051C9D3 /* RelativeSize.swift */; };
 		DE5B318D27A48C8D0051C9D3 /* PetRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B317B27A48C8D0051C9D3 /* PetRock.swift */; };
+		DE5B318F27A48E060051C9D3 /* ImportStatementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B318E27A48E060051C9D3 /* ImportStatementTemplate.swift */; };
 		DE5EB9C026EFCB010004176A /* TestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9BF26EFCB010004176A /* TestObserver.swift */; };
 		DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */; };
 		DE5EB9C526EFD4D10004176A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DE5EB9C426EFD4D10004176A /* Nimble */; };
@@ -948,6 +949,7 @@
 		DE5B317927A48C8D0051C9D3 /* SkinCovering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinCovering.swift; sourceTree = "<group>"; };
 		DE5B317A27A48C8D0051C9D3 /* RelativeSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeSize.swift; sourceTree = "<group>"; };
 		DE5B317B27A48C8D0051C9D3 /* PetRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetRock.swift; sourceTree = "<group>"; };
+		DE5B318E27A48E060051C9D3 /* ImportStatementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportStatementTemplate.swift; sourceTree = "<group>"; };
 		DE5EB9BF26EFCB010004176A /* TestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObserver.swift; sourceTree = "<group>"; };
 		DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApolloStore.swift; sourceTree = "<group>"; };
 		DE5EB9C626EFE0F80004176A /* JSONValueMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueMatcher.swift; sourceTree = "<group>"; };
@@ -2005,6 +2007,7 @@
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
 				E64F7EC027A122300059C021 /* TypeTemplate.swift */,
 				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
+				DE5B318E27A48E060051C9D3 /* ImportStatementTemplate.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -3087,6 +3090,7 @@
 				E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
+				DE5B318F27A48E060051C9D3 /* ImportStatementTemplate.swift in Sources */,
 				9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				E64F7EBC27A11A510059C021 /* GraphQLNamedType+Swift.swift in Sources */,

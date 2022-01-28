@@ -8,10 +8,8 @@ struct OperationDefinitionTemplate {
 
   func render() -> String {
     TemplateString("""
-    import ApolloAPI
-    \(if: shouldImportSchemaModule,
-                   "import \(config.output.schemaTypes.moduleName)"
-    )
+    \(ImportStatementTemplate.render())
+    \(if: shouldImportSchemaModule, "import \(config.output.schemaTypes.moduleName)")
 
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))

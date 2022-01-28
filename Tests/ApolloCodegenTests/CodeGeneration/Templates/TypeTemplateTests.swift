@@ -7,6 +7,22 @@ class TypeTemplateTests: XCTestCase {
 
   // MARK: Boilerplate tests
 
+  func test_boilerplate_givenSchemaType_generatesImportStatement() {
+    // given
+    let graphqlObject = GraphQLObjectType.mock("Dog")
+
+    let expected = """
+    import ApolloAPI
+
+    """
+
+    // when
+    let actual = TypeTemplate(graphqlObject: graphqlObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   func test_boilerplate_givenSchemaType_generatesSwiftClassDefinition() {
     // given
     let graphqlObject = GraphQLObjectType.mock("Dog")
@@ -21,7 +37,7 @@ class TypeTemplateTests: XCTestCase {
     let actual = TypeTemplate(graphqlObject: graphqlObject).render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
   func test_boilerplate_givenSchemaType_generatesClosingBrace() {
@@ -59,6 +75,6 @@ class TypeTemplateTests: XCTestCase {
     let actual = TypeTemplate(graphqlObject: graphqlObject).render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 }

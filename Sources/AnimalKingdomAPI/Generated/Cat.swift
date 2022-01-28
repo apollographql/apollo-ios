@@ -1,3 +1,5 @@
+import ApolloAPI
+
 public final class Cat: Object {
   override public class var __typename: String { "Cat" }
 

@@ -4,7 +4,10 @@ struct TypeTemplate {
   let graphqlObject: GraphQLObjectType
 
   func render() -> String {
-    TemplateString("""
+    TemplateString(
+    """
+    \(ImportStatementTemplate.render())
+
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: String { \"\(graphqlObject.name.firstUppercased)\" }
 
@@ -15,6 +18,6 @@ struct TypeTemplate {
         }), separator: ",\n")
       ])
     }
-    """).value
+    """).description
   }
 }
