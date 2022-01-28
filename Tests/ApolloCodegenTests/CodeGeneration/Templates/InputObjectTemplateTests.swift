@@ -309,4 +309,204 @@ class InputObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
+
+  func test__render__given_NullableList_NullableItem_NoDefault__generates_NullableParameter_OptionalItem_InitializerNilDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nullableListNullableItem", type: .list(.scalar(.string())), defaultValue: nil)
+    ])
+
+    let expected = """
+      init(
+        nullableListNullableItem: GraphQLNullable<[String?]> = nil
+      ) {
+        dict = InputDict([
+          "nullableListNullableItem": nullableListNullableItem
+        ])
+      }
+
+      var nullableListNullableItem: GraphQLNullable<[String?]> {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NullableList_NullableItem_WithDefault__generates_NullableParameter_OptionalItem_NoInitializerDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nullableListNullableItemWithDefault", type: .list(.scalar(.string())), defaultValue: JSValue(object: ["val"], in: jsContext))
+    ])
+
+    let expected = """
+      init(
+        nullableListNullableItemWithDefault: GraphQLNullable<[String?]>
+      ) {
+        dict = InputDict([
+          "nullableListNullableItemWithDefault": nullableListNullableItemWithDefault
+        ])
+      }
+
+      var nullableListNullableItemWithDefault: GraphQLNullable<[String?]> {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NullableList_NonNullableItem_NoDefault__generates_NullableParameter_NonOptionalItem_InitializerNilDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nullableListNonNullableItem", type: .list(.nonNull(.scalar(.string()))), defaultValue: nil)
+    ])
+
+    let expected = """
+      init(
+        nullableListNonNullableItem: GraphQLNullable<[String]> = nil
+      ) {
+        dict = InputDict([
+          "nullableListNonNullableItem": nullableListNonNullableItem
+        ])
+      }
+
+      var nullableListNonNullableItem: GraphQLNullable<[String]> {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NullableList_NonNullableItem_WithDefault__generates_NullableParameter_NonOptionalItem_NoInitializerDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nullableListNonNullableItemWithDefault", type: .list(.nonNull(.scalar(.string()))), defaultValue: JSValue(object: ["val"], in: jsContext))
+    ])
+
+    let expected = """
+      init(
+        nullableListNonNullableItemWithDefault: GraphQLNullable<[String]>
+      ) {
+        dict = InputDict([
+          "nullableListNonNullableItemWithDefault": nullableListNonNullableItemWithDefault
+        ])
+      }
+
+      var nullableListNonNullableItemWithDefault: GraphQLNullable<[String]> {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NonNullableList_NullableItem_NoDefault__generates_NonNullableNonOptionalParameter_OptionalItem_NoInitializerDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nonNullableListNullableItem", type: .nonNull(.list(.scalar(.string()))), defaultValue: nil)
+    ])
+
+    let expected = """
+      init(
+        nonNullableListNullableItem: [String?]
+      ) {
+        dict = InputDict([
+          "nonNullableListNullableItem": nonNullableListNullableItem
+        ])
+      }
+
+      var nonNullableListNullableItem: [String?] {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NonNullableList_NullableItem_WithDefault__generates_OptionalParameter_OptionalItem_NoInitializerDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nonNullableListNullableItemWithDefault", type: .nonNull(.list(.scalar(.string()))), defaultValue: JSValue(object: ["val"], in: jsContext))
+    ])
+
+    let expected = """
+      init(
+        nonNullableListNullableItemWithDefault: [String?]?
+      ) {
+        dict = InputDict([
+          "nonNullableListNullableItemWithDefault": nonNullableListNullableItemWithDefault
+        ])
+      }
+
+      var nonNullableListNullableItemWithDefault: [String?]? {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NonNullableList_NonNullableItem_NoDefault__generates_NonNullableNonOptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nonNullableListNonNullableItem", type: .nonNull(.list(.nonNull(.scalar(.string())))), defaultValue: nil)
+    ])
+
+    let expected = """
+      init(
+        nonNullableListNonNullableItem: [String]
+      ) {
+        dict = InputDict([
+          "nonNullableListNonNullableItem": nonNullableListNonNullableItem
+        ])
+      }
+
+      var nonNullableListNonNullableItem: [String] {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NonNullableList_NonNullableItem_WithDefault__generates_OptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
+    // given
+    let graphqlInputObject = GraphQLInputObjectType.mock("MockInput", fields: [
+      GraphQLInputField.mock("nonNullableListNonNullableItemWithDefault", type: .nonNull(.list(.nonNull(.scalar(.string())))), defaultValue: JSValue(object: ["val"], in: jsContext))
+    ])
+
+    let expected = """
+      init(
+        nonNullableListNonNullableItemWithDefault: [String]?
+      ) {
+        dict = InputDict([
+          "nonNullableListNonNullableItemWithDefault": nonNullableListNonNullableItemWithDefault
+        ])
+      }
+
+      var nonNullableListNonNullableItemWithDefault: [String]? {
+    """
+
+    // when
+    let actual = InputObjectTemplate(graphqlInputObject: graphqlInputObject).render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
 }
