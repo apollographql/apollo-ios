@@ -30,7 +30,12 @@ struct SchemaModuleFileGenerator: FileGenerator, Equatable {
   }
 
   static func == (lhs: SchemaModuleFileGenerator, rhs: SchemaModuleFileGenerator) -> Bool {
-    return lhs.path == rhs.path
+    switch (lhs.fileGenerator, rhs.fileGenerator) {
+    case let (lhs as SwiftPackageManagerFileGenerator, rhs as SwiftPackageManagerFileGenerator):
+      return lhs == rhs
+    default:
+      return false
+    }
   }
 }
 
