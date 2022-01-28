@@ -62,8 +62,12 @@ public class ApolloCodegen {
 
     for operation in compilationResult.operations {
       let irOperation = ir.build(operation: operation)
-      try OperationFileGenerator(operation: irOperation, schema: ir.schema, directoryPath: modulePath)
-        .generateFile()
+      try OperationFileGenerator(
+        operation: irOperation,
+        schema: ir.schema,
+        config: configuration,
+        directoryPath: modulePath
+      ).generateFile()
     }
 
     #warning("TODO - generate package manager manifest")

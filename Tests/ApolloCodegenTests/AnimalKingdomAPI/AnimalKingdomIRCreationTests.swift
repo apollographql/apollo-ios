@@ -2,7 +2,6 @@ import Foundation
 import XCTest
 import Nimble
 import OrderedCollections
-import AnimalKingdomAPI
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 
@@ -10,10 +9,10 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static let frontend = try! GraphQLJSFrontend()
 
-  static let schema = try! frontend.loadSchema(from: AnimalKingdomAPI.Resources.Schema)
+  static let schema = try! frontend.loadSchema(from: ApolloCodegenTestSupport.Resources.AnimalKingdomSchema)
 
   static let operationDocuments = { try! frontend.mergeDocuments(
-    AnimalKingdomAPI.Resources.GraphQLOperations.map {
+    ApolloCodegenTestSupport.Resources.GraphQLOperations.map {
       try! frontend.parseDocument(from: $0)
     }
   )}()

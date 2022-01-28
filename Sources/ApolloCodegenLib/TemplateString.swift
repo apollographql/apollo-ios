@@ -88,7 +88,10 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {
-        output.removeLast(slice.count + 1) // + 1 removes the \n character.
+        let charsToRemove = slice.count < output.count ? slice.count + 1 : slice.count
+        // + 1 removes the \n character.
+
+        output.removeLast(charsToRemove)
       }
     }
 
