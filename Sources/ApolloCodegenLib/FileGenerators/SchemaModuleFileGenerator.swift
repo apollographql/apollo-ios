@@ -12,7 +12,7 @@ struct SchemaModuleFileGenerator: FileGenerator, Equatable {
   /// - Parameters:
   ///  - configuration: A configuration object that specifies properties such as which dependency manager and where the file
   ///  should be output to.
-  init(_ configuration: ApolloCodegenConfiguration.SchemaTypesFileOutput) {
+  init(_ configuration: ApolloCodegenConfiguration.SchemaTypesFileOutput) throws {
     switch configuration.dependencyAutomation {
     case let .swiftPackageManager(moduleName):
       self.fileGenerator = SwiftPackageManagerFileGenerator(
@@ -21,7 +21,7 @@ struct SchemaModuleFileGenerator: FileGenerator, Equatable {
       )
 
     default:
-      fatalError("Only Swift Package Manager is supported at the moment!")
+      throw NSError(domain: "ApolloCodegen", code: -1, userInfo: [NSLocalizedDescriptionKey: "Only Swift Package Manager is supported at the moment!"])
     }
   }
 
