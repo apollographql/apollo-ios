@@ -354,6 +354,7 @@
 		E69BEDA52798B86D00000D10 /* InputObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */; };
 		E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */; };
 		E6B42D0927A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */; };
+		E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */; };
 		E6B4E9982798A8C6004EC8C4 /* FragmentTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */; };
 		E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */; };
 		E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */; };
@@ -1043,6 +1044,7 @@
 		E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplate.swift; sourceTree = "<group>"; };
 		E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputObjectTemplateTests.swift; sourceTree = "<group>"; };
 		E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplate.swift; sourceTree = "<group>"; };
+		E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplateTests.swift; sourceTree = "<group>"; };
 		E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockFileManager.swift; sourceTree = "<group>"; };
 		E6C4267A26F16CB400904AD2 /* introspection_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = introspection_response.json; sourceTree = "<group>"; };
 		E6C9849227929EBE009481BE /* EnumTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTemplate.swift; sourceTree = "<group>"; };
@@ -2014,6 +2016,7 @@
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* TypeTemplateTests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
+				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -3132,6 +3135,7 @@
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
 				9F62E0102590728000E6E808 /* CompilationTests.swift in Sources */,
 				DEAFB77B2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift in Sources */,
+				E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */,
 				9F62DFBF2590560000E6E808 /* Helpers.swift in Sources */,
 				DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */,
 				DED18CC727023C0400F62977 /* OperationDefinitionTests.swift in Sources */,
