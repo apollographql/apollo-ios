@@ -16,19 +16,6 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
   }
 
-  // MARK: Test Helper Methods
-
-  private func buildConfig(
-    forDependencyAutomation moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType
-  ) -> ApolloCodegenConfiguration {
-    ApolloCodegenConfiguration(
-      input: .init(schemaPath: "schema.graphqls",
-                   searchPaths: ["*.operation"]),
-      output: .init(schemaTypes: .init(path: directoryURL.path,
-                                       dependencyAutomation: moduleType))
-    )
-  }
-
   // MARK: Initializer Tests
 
   func test_init_givenBasePathAndSchemaFilename_shouldBuildDefaultPaths() {
@@ -237,7 +224,10 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_givenSwiftPackageManagerConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let moduleName = "SPMModule"
-    let config = buildConfig(forDependencyAutomation: .swiftPackageManager(moduleName: moduleName))
+    let config = ApolloCodegenConfiguration.mock(
+      .swiftPackageManager(moduleName: moduleName),
+      to: directoryURL.path
+    )
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
@@ -248,7 +238,10 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_givenCocoaPodsConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let moduleName = "PodsModule"
-    let config = buildConfig(forDependencyAutomation: .cocoaPods(moduleName: moduleName))
+    let config = ApolloCodegenConfiguration.mock(
+      .cocoaPods(moduleName: moduleName),
+      to: directoryURL.path
+    )
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
@@ -259,7 +252,10 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_givenCarthageConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let moduleName = "CarthageModule"
-    let config = buildConfig(forDependencyAutomation: .carthage(moduleName: moduleName))
+    let config = ApolloCodegenConfiguration.mock(
+      .carthage(moduleName: moduleName),
+      to: directoryURL.path
+    )
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
@@ -270,7 +266,10 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test_givenManuallyLinkedConfiguration_shouldBuildSchemaModuleProperties() {
     // given
     let namespace = "NamespaceModule"
-    let config = buildConfig(forDependencyAutomation: .manuallyLinked(namespace: namespace))
+    let config = ApolloCodegenConfiguration.mock(
+      .manuallyLinked(namespace: namespace),
+      to: directoryURL.path
+    )
 
     // then
     expect(config.output.schemaTypes.moduleName).to(equal(namespace))

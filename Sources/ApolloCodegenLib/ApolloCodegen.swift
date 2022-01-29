@@ -66,7 +66,8 @@ public class ApolloCodegen {
         .generateFile()
     }
 
-    #warning("TODO - generate package manager manifest")
+    try SchemaModuleFileGenerator(configuration.output.schemaTypes)
+      .generateFile()
   }
 
   // MARK: Internal

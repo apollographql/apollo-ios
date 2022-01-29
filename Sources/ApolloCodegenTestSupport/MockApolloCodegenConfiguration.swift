@@ -22,4 +22,16 @@ extension ApolloCodegenConfiguration {
       apqs: apqs
     )
   }
+
+  public static func mock(
+    _ moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
+    to path: String = "MockModulePath"
+  ) -> Self {
+    .init(
+      input: .init(schemaPath: "schema.graphqls",
+                   searchPaths: ["*.graphql"]),
+      output: .init(schemaTypes: .init(path: path,
+                                       dependencyAutomation: moduleType))
+    )
+  }
 }
