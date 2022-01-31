@@ -7,7 +7,7 @@ struct TypeTemplate {
     TemplateString(
     """
     \(ImportStatementTemplate.SchemaType.render())
-
+    
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: String { \"\(graphqlObject.name.firstUppercased)\" }
 

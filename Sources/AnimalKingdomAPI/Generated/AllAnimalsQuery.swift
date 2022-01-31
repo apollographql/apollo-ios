@@ -132,7 +132,11 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
     }
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
+=======
+}
+>>>>>>> e84b84b7 (Added import ApolloAPI to templates)
