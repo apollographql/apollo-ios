@@ -35,7 +35,7 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    let modulePath = configuration.output.schemaTypes.modulePath
+    let modulePath = configuration.output.schemaTypes.path
     try fileGenerators(for: ir.schema.referencedTypes.objects, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
     try fileGenerators(for: ir.schema.referencedTypes.enums, directoryPath: modulePath)
@@ -56,14 +56,22 @@ public class ApolloCodegen {
 
     for fragment in compilationResult.fragments {
       let irFragment = ir.build(fragment: fragment)
-      try FragmentFileGenerator(fragment: irFragment, schema: ir.schema, directoryPath: modulePath)
-        .generateFile()
+      try FragmentFileGenerator(
+        fragment: irFragment,
+        schema: ir.schema,
+        config: configuration,
+        directoryPath: modulePath
+      ).generateFile()
     }
 
     for operation in compilationResult.operations {
       let irOperation = ir.build(operation: operation)
-      try OperationFileGenerator(operation: irOperation, schema: ir.schema, directoryPath: modulePath)
-        .generateFile()
+      try OperationFileGenerator(
+        operation: irOperation,
+        schema: ir.schema,
+        config: configuration,
+        directoryPath: modulePath
+      ).generateFile()
     }
 
     try SchemaModuleFileGenerator(configuration.output.schemaTypes)

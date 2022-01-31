@@ -24,8 +24,8 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
   func renderDocumentType() throws -> String {
     OperationDefinitionTemplate.DocumentType.render(
-      operation: try XCTUnwrap(definition),
-      referencedFragments: referencedFragments ?? [],
+      try XCTUnwrap(definition),
+      fragments: referencedFragments ?? [],
       apq: try XCTUnwrap(config.apqs)
     ).description
   }

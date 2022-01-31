@@ -1,16 +1,17 @@
 import XCTest
 import Nimble
+import OrderedCollections
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 
-class FragmentTemplateTests: XCTestCase {
+class OperationDefinitionTemplateTests: XCTestCase {
 
   var schemaSDL: String!
   var document: String!
   var ir: IR!
-  var fragment: IR.NamedFragment!
+  var operation: IR.Operation!
   var config: ApolloCodegenConfiguration!
-  var subject: FragmentTemplate!
+  var subject: OperationDefinitionTemplate!
 
   override func setUp() {
     super.setUp()
@@ -25,7 +26,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     document = """
-    fragment TestFragment on Query {
+    query TestOperation {
       allAnimals {
         species
       }
@@ -39,7 +40,7 @@ class FragmentTemplateTests: XCTestCase {
     schemaSDL = nil
     document = nil
     ir = nil
-    fragment = nil
+    operation = nil
     config = nil
     subject = nil
     super.tearDown()
@@ -47,12 +48,12 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Helpers
 
-  func buildSubjectAndFragment(named fragmentName: String = "TestFragment") throws {
+  func buildSubjectAndOperation(named operationName: String = "TestOperation") throws {
     ir = try .mock(schema: schemaSDL, document: document)
-    let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
-    fragment = ir.build(fragment: fragmentDefinition)
-    subject = FragmentTemplate(
-      fragment: fragment,
+    let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
+    operation = ir.build(operation: operationDefinition)
+    subject = OperationDefinitionTemplate(
+      operation: operation,
       schema: ir.schema,
       config: config
     )
@@ -74,7 +75,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndFragment()
+    try buildSubjectAndOperation()
 
     let actual = subject.render()
 
@@ -96,7 +97,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndFragment()
+    try buildSubjectAndOperation()
 
     let actual = subject.render()
 
@@ -119,7 +120,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndFragment()
+    try buildSubjectAndOperation()
 
     let actual = subject.render()
 
@@ -127,17 +128,18 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  // MARK: - Fragment Definition
+  // MARK: - Operation Definition
 
-  func test__generate__givenFragment_generatesFragmentDeclaration() throws {
+  func test__generate__givenQuery_generatesQueryOperation() throws {
     // given
     let expected =
     """
-    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    public class TestOperationQuery: GraphQLQuery {
+      public let operationName: String = "TestOperation"
     """
 
     // when
-    try buildSubjectAndFragment()
+    try buildSubjectAndOperation()
 
     let actual = subject.render()
 
@@ -145,4 +147,81 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
+  func test__generate__givenMutation_generatesMutationOperation() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Mutation {
+      addAnimal: Animal!
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    mutation TestOperation {
+      addAnimal {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public class TestOperationMutation: GraphQLMutation {
+      public let operationName: String = "TestOperation"
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenSubscription_generatesSubscriptionOperation() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Subscription {
+      streamAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    subscription TestOperation {
+      streamAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public class TestOperationSubscription: GraphQLSubscription {
+      public let operationName: String = "TestOperation"
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
 }

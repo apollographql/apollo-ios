@@ -1,19 +1,40 @@
 import OrderedCollections
 
-enum OperationDefinitionTemplate {
+struct OperationDefinitionTemplate {
 
-}
+  let operation: IR.Operation
+  let schema: IR.Schema
+  let config: ApolloCodegenConfiguration
 
-// MARK: - DocumentType
+  func render() -> String {
+    TemplateString(
+    """
+    \(ImportStatementTemplate.Operation.render(config))
 
-extension OperationDefinitionTemplate {
+    \(OperationDeclaration(operation.definition))
+      \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
+
+      public init() {}
+
+      \(SelectionSetTemplate(schema: schema).render(for: operation))
+    }
+    """).description
+  }
+
+  func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
+    return """
+    public class \(operation.name)\(operation.operationType.operationNameTypeSuffix): \(operation.operationType.renderedProtocolName) {
+      public let operationName: String = "\(operation.name)"
+    """
+  }
+
   enum DocumentType {
     static func render(
-      operation: CompilationResult.OperationDefinition,
-      referencedFragments: OrderedSet<CompilationResult.FragmentDefinition>,
+      _ operation: CompilationResult.OperationDefinition,
+      fragments: OrderedSet<CompilationResult.FragmentDefinition>,
       apq: ApolloCodegenConfiguration.APQConfig
-    ) -> String {
-      let includeFragments = !referencedFragments.isEmpty
+    ) -> TemplateString {
+      let includeFragments = !fragments.isEmpty
       let includeDefinition = apq != .persistedOperationsOnly
 
       return TemplateString("""
@@ -27,24 +48,42 @@ extension OperationDefinitionTemplate {
           \(operation.source)
           ""\"\(if: includeFragments, ",")
           \(if: includeFragments,
-          "fragments: [\(referencedFragments.map { "\($0.name).self" }, separator: ", ")]")
+                            "fragments: [\(fragments.map { "\($0.name).self" }, separator: ", ")]")
         ))
       """,
       else: """
       )
       """)
       """
-      ).description
+      )
     }
   }
 }
 
-extension ApolloCodegenConfiguration.APQConfig {
-  fileprivate var rendered: String {
+fileprivate extension ApolloCodegenConfiguration.APQConfig {
+  var rendered: String {
     switch self {
     case .disabled: return "notPersisted"
     case .automaticallyPersist: return "automaticallyPersisted"
     case .persistedOperationsOnly: return "persistedOperationsOnly"
+    }
+  }
+}
+
+fileprivate extension CompilationResult.OperationType {
+  var renderedProtocolName: String {
+    switch self {
+    case .query: return "GraphQLQuery"
+    case .mutation: return "GraphQLMutation"
+    case .subscription: return "GraphQLSubscription"
+    }
+  }
+
+  var operationNameTypeSuffix: String {
+    switch self {
+    case .query: return "Query"
+    case .mutation: return "Mutation"
+    case .subscription: return "Subscription"
     }
   }
 }

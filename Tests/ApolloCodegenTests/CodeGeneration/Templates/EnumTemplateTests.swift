@@ -4,6 +4,23 @@ import Nimble
 import ApolloCodegenTestSupport
 
 class EnumTemplateTests: XCTestCase {
+
+  func test_render_boilerplate_givenInputObject_generatesImportStatement() {
+    let graphqlEnum = GraphQLEnumType.mock(name: "TestEnum", values: ["ONE", "TWO"])
+    let template = EnumTemplate(graphqlEnum: graphqlEnum)
+
+    let expected = """
+    import ApolloAPI
+
+    """
+
+    // when
+    let actual = template.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   func test_render_givenSchemaEnum_generatesSwiftEnum() throws {
     // given
     let graphqlEnum = GraphQLEnumType.mock(name: "TestEnum", values: ["ONE", "TWO"])
@@ -20,7 +37,7 @@ class EnumTemplateTests: XCTestCase {
     let actual = template.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected))
+    expect(actual).to(equalLineByLine(expected, atLine: 3))
   }
 
   func test_render_givenSchemaEnum_generatesSwiftEnumRespectingCase() throws {
@@ -43,6 +60,6 @@ class EnumTemplateTests: XCTestCase {
     let actual = template.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected))
+    expect(actual).to(equalLineByLine(expected, atLine: 3))
   }
 }

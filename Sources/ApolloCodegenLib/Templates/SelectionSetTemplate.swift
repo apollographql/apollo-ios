@@ -69,8 +69,8 @@ struct SelectionSetTemplate {
   }
 
   private static let DataFieldAndInitializerTemplate = """
-    public let data: ResponseDict
-    public init(data: ResponseDict) { self.data = data }
+    public let data: DataDict
+    public init(data: DataDict) { self.data = data }
     """
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {

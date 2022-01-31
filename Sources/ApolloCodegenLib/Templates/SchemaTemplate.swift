@@ -5,7 +5,7 @@ struct SchemaTemplate {
   func render() -> String {
     TemplateString(
     """
-    import ApolloAPI
+    \(ImportStatementTemplate.SchemaType.render())
 
     public typealias ID = String
 
@@ -26,6 +26,6 @@ struct SchemaTemplate {
       }
     }
     """
-    ).value
+    ).description
   }
 }

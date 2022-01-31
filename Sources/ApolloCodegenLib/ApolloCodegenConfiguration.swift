@@ -71,8 +71,9 @@ public struct ApolloCodegenConfiguration {
   public struct SchemaTypesFileOutput {
     /// Compatible dependency manager automation.
     public enum ModuleType {
-      /// No module will be created for the generated schema types. Generated files must be manually added to the main application
-      /// target. The generated files will be namespaced to prevent naming conflicts.
+      /// No module will be created for the generated schema types.
+      /// Generated files must be manually added to the main application target.
+      /// The generated files will be namespaced to prevent naming conflicts.
       ///
       /// - Parameters:
       ///  - namespace: The namespace to use for generated operation objects.
@@ -374,9 +375,5 @@ extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
       let .swiftPackageManager(name):
         return name
     }
-  }
-
-  var modulePath: String {
-    URL(fileURLWithPath: self.path).appendingPathComponent(self.moduleName).path
-  }
+  }  
 }

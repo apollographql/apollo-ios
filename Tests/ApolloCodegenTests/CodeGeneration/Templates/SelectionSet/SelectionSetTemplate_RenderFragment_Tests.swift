@@ -55,8 +55,8 @@ class SelectionSetTemplate_RenderFragment_Tests: XCTestCase {
 
     let expected = """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public let data: ResponseDict
-      public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
     """
 
     // when
@@ -87,8 +87,8 @@ class SelectionSetTemplate_RenderFragment_Tests: XCTestCase {
 
     let expected = """
     public struct Test_Fragment: TestSchema.SelectionSet, Fragment {
-      public let data: ResponseDict
-      public init(data: ResponseDict) { self.data = data }
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
     """
 
     // when
