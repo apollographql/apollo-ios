@@ -1464,7 +1464,6 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
-
   func test__render_typeCaseAccessors__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseAccessorWithCorrectName() throws {
     // given
     schemaSDL = """
@@ -1510,7 +1509,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AllAnimals.Predator.AsPet? { _asType() }
+      public var asPet: AsPet? { _asType() }
     """
 
     // when

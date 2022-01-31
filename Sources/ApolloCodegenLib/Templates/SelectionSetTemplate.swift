@@ -148,8 +148,9 @@ struct SelectionSetTemplate {
   }
 
   private func TypeCaseAccessorTemplate(_ typeCase: IR.SelectionSet) -> TemplateString {
-    """
-    public var as\(typeCase.parentType.name): As\(typeCase.parentType.name)? { _asType() }
+    let typeName = typeCase.renderedTypeName
+    return """
+    public var as\(typeName): As\(typeName)? { _asType() }
     """
   }
 
@@ -158,17 +159,31 @@ struct SelectionSetTemplate {
 fileprivate class SelectionSetNameCache {
   private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
 
+  // MARK: Entity Field
   func selectionSetName(for field: IR.EntityField) -> String {
-    let objectId = ObjectIdentifier(self)
+    let objectId = ObjectIdentifier(field)
     if let name = generatedSelectionSetNames[objectId] { return name }
 
-    let name = field.computeGeneratedSelectionSetName()
+    let name = computeGeneratedSelectionSetName(for: field)
     generatedSelectionSetNames[objectId] = name
     return name
   }
 
   func selectionSetType(for field: IR.EntityField) -> String {
     field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field))
+  }
+
+  // MARK: Name Computation
+  func computeGeneratedSelectionSetName(for field: IR.EntityField) -> String {
+    let selectionSet = field.selectionSet
+    if selectionSet.shouldBeRendered {
+      return field.formattedFieldName
+
+    } else {
+      return selectionSet.selections.merged.mergedSources
+        .first.unsafelyUnwrapped
+        .generatedSelectionSetName(for: selectionSet)
+    }
   }
 }
 
@@ -224,46 +239,49 @@ fileprivate extension GraphQLType {
   }
 }
 
+fileprivate extension IR.SelectionSet {
+
+  /// Indicates if the SelectionSet should be rendered by the template engine.
+  ///
+  /// If `false`, references to the selection set can point to another rendered selection set.
+  /// Use `nameCache.selectionSetName(for:)` to get the name of the rendered selection set that
+  /// should be referenced.
+  var shouldBeRendered: Bool {
+    return selections.direct != nil || selections.merged.mergedSources.count != 1
+  }
+
+  var renderedTypeName: String {
+    self.parentType.name.firstUppercased
+  }
+
+}
+
 fileprivate extension IR.EntityField {
 
   var formattedFieldName: String {
     return StringInflector.default.singularize(responseKey.firstUppercased)
   }
 
-  func computeGeneratedSelectionSetName() -> String {
-    if selectionSet.selections.direct != nil {
-      return formattedFieldName
-    }
-
-    if selectionSet.selections.merged.mergedSources.count == 1 {
-      return selectionSet.selections.merged.mergedSources
-        .first.unsafelyUnwrapped
-        .generatedSelectionSetName(for: self)
-    }
-
-    return formattedFieldName
-  }
-
 }
 
 fileprivate extension IR.MergedSelections.MergedSource {
 
-  func generatedSelectionSetName(for field: IR.EntityField) -> String {
+  func generatedSelectionSetName(for selectionSet: IR.SelectionSet) -> String {
     if let fragment = fragment {
       return generatedSelectionSetNameForMergedEntity(in: fragment)
     }
 
-    var fieldTypePathCurrentNode = field.selectionSet.typeInfo.typePath.last
+    var targetTypePathCurrentNode = selectionSet.typeInfo.typePath.last
     var sourceTypePathCurrentNode = typeInfo.typePath.last
     var nodesToSharedRoot = 0
 
-    while fieldTypePathCurrentNode.value == sourceTypePathCurrentNode.value {
-      guard let previousFieldNode = fieldTypePathCurrentNode.previous,
+    while targetTypePathCurrentNode.value == sourceTypePathCurrentNode.value {
+      guard let previousFieldNode = targetTypePathCurrentNode.previous,
             let previousSourceNode = sourceTypePathCurrentNode.previous else {
               break
             }
 
-      fieldTypePathCurrentNode = previousFieldNode
+      targetTypePathCurrentNode = previousFieldNode
       sourceTypePathCurrentNode = previousSourceNode
       nodesToSharedRoot += 1
     }
