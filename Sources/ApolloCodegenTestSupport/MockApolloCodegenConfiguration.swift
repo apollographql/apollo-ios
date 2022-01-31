@@ -51,3 +51,19 @@ extension ApolloCodegenConfiguration.FileOutput {
     )
   }
 }
+
+extension ApolloCodegenConfiguration.FileOutput {
+  public static func mock(
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType =
+      .manuallyLinked(namespace: "MockSchemaTypes"),
+    operations: ApolloCodegenConfiguration.OperationsFileOutput
+  ) -> Self {
+    .init(
+      schemaTypes: .init(
+        path: "",
+        dependencyAutomation: moduleType
+      ),
+      operations: operations
+    )
+  }
+}
