@@ -25,6 +25,5 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public var meters: Int { data["meters"] }
     public var yards: Int { data["yards"] }
-
   }
 }
