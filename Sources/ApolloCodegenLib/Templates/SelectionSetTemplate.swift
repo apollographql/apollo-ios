@@ -4,6 +4,7 @@ import InflectorKit
 struct SelectionSetTemplate {
 
   let schema: IR.Schema
+  private let nameCache = SelectionSetNameCache()
 
   func render(for operation: IR.Operation) -> String {
     TemplateString(
@@ -138,7 +139,7 @@ struct SelectionSetTemplate {
       type = scalarField.type.rendered
 
     case let entityField as IR.EntityField:
-      type = entityField.generatedSelectionSetType
+      type = self.nameCache.selectionSetType(for: entityField)
 
     default:
       fatalError()
@@ -152,6 +153,23 @@ struct SelectionSetTemplate {
     """
   }
 
+}
+
+fileprivate class SelectionSetNameCache {
+  private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
+
+  func selectionSetName(for field: IR.EntityField) -> String {
+    let objectId = ObjectIdentifier(self)
+    if let name = generatedSelectionSetNames[objectId] { return name }
+
+    let name = field.computeGeneratedSelectionSetName()
+    generatedSelectionSetNames[objectId] = name
+    return name
+  }
+
+  func selectionSetType(for field: IR.EntityField) -> String {
+    field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field))
+  }
 }
 
 // MARK: - Helper Extensions
@@ -212,22 +230,7 @@ fileprivate extension IR.EntityField {
     return StringInflector.default.singularize(responseKey.firstUppercased)
   }
 
-  var generatedSelectionSetType: String {
-    return self.type.rendered(replacingNamedTypeWith: generatedSelectionSetName)
-  }
-
-  private static var _generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
-
-  var generatedSelectionSetName: String {
-    let objectId = ObjectIdentifier(self)
-    if let name = Self._generatedSelectionSetNames[objectId] { return name }
-
-    let name = computeGeneratedSelectionSetName()
-    Self._generatedSelectionSetNames[objectId] = name
-    return name
-  }
-
-  private func computeGeneratedSelectionSetName() -> String {
+  func computeGeneratedSelectionSetName() -> String {
     if selectionSet.selections.direct != nil {
       return formattedFieldName
     }
