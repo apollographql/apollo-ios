@@ -54,29 +54,10 @@ struct SelectionSetTemplate {
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct, { SelectionsTemplate($0) })
 
-    \(ifLet: selections.direct?.fields.values, {
-        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
-      })
-    \(if: !selections.merged.fields.values.isEmpty, """
-      \(selections.merged.fields.values.map { FieldAccessorTemplate($0) },
-        separator: "\n")
-      """)
+    \(section: FieldAccessorsTemplate(selections))
 
-    \(if: !(selections.direct?.typeCases.isEmpty ?? true) || !selections.merged.typeCases.isEmpty,
-      """
-      \(ifLet: selections.direct?.typeCases.values, {
-          """
-          \($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
-          """
-        })
-      \(ifLet: selections.merged.typeCases.values, {
-          """
-          \($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
-          """
-        })
+    \(section: TypeCaseAccessorsTemplate(selections))
 
-      """
-    )
     \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
         "\($0.map { render(field: $0) }, separator: "\n")"
       })
@@ -126,6 +107,17 @@ struct SelectionSetTemplate {
     """
   }
 
+  private func FieldAccessorsTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.fields.values, {
+        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
+      })
+    \(ifLet: selections.merged.fields.values, {
+        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
+      })
+    """
+  }
+
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
     func template(withType type: String) -> TemplateString {
       """
@@ -145,6 +137,19 @@ struct SelectionSetTemplate {
       fatalError()
     }
     return template(withType: type)
+  }
+
+  private func TypeCaseAccessorsTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.typeCases.values, {
+        "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
+      })
+    \(ifLet: selections.merged.typeCases.values, {
+        "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
+      })
+    """
   }
 
   private func TypeCaseAccessorTemplate(_ typeCase: IR.SelectionSet) -> TemplateString {

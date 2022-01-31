@@ -3,17 +3,21 @@ import Foundation
 struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible {
 
   private let value: String
+  private let lastLineWasRemoved: Bool
 
   init(stringLiteral: String) {
     self.value = stringLiteral
+    lastLineWasRemoved = false
   }
 
   init(stringInterpolation: StringInterpolation) {
     self.value = stringInterpolation.output
+    self.lastLineWasRemoved = stringInterpolation.lastLineWasRemoved
   }
 
   init(_ stringInterpolation: StringInterpolation) {
     self.value = stringInterpolation.output
+    self.lastLineWasRemoved = stringInterpolation.lastLineWasRemoved
   }
 
   var description: String { value }
@@ -21,34 +25,55 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
   var isEmpty: Bool { description.isEmpty }
 
   struct StringInterpolation: StringInterpolationProtocol {
-    var output: String
+
+    fileprivate var lastLineWasRemoved = false
+    private var buffer: String
+
+    fileprivate var output: String {
+      if lastLineWasRemoved && buffer.hasSuffix("\n") {
+        return String(buffer.dropLast())
+      }
+      return buffer
+    }
 
     init(literalCapacity: Int, interpolationCount: Int) {
       var string = String()
       string.reserveCapacity(literalCapacity)
-      self.output = string
+      self.buffer = string
     }
 
     mutating func appendLiteral(_ literal: StringLiteralType) {
-      output.append(literal)
+      guard !literal.isEmpty else { return }
+      defer { lastLineWasRemoved = false }
+
+      if lastLineWasRemoved && literal.hasPrefix("\n") {
+        buffer.append(contentsOf: literal.dropFirst())
+      } else {
+        buffer.append(literal)
+      }
     }
 
     mutating func appendInterpolation(_ template: TemplateString) {
-      appendInterpolation(template.description)
-    }
-
-    private mutating func appendOrRemoveLineIfEmpty(_ template: TemplateString) {
       if template.isEmpty {
         removeLineIfEmpty()
+
       } else {
         appendInterpolation(template.description)
+      }
+    }
+
+    mutating func appendInterpolation(section: TemplateString) {
+      appendInterpolation(section)
+
+      if section.isEmpty && buffer.hasSuffix("\n") {
+        buffer.removeLast()
       }
     }
 
     private static let whitespaceNotNewline = Set(" \t")
 
     mutating func appendInterpolation(_ string: String) {
-      let indent = String(output.reversed().prefix {
+      let indent = String(buffer.reversed().prefix {
         TemplateString.StringInterpolation.whitespaceNotNewline.contains($0)
       })
 
@@ -87,9 +112,9 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       else: TemplateString? = nil
     ) {
       if bool {
-        appendInterpolation(template().value)
+        appendInterpolation(template())
       } else if let elseTemplate = `else` {
-        appendInterpolation(elseTemplate.value)
+        appendInterpolation(elseTemplate)
       } else {
         removeLineIfEmpty()
       }
@@ -98,15 +123,13 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     private mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {
-        let charsToRemove = slice.count < output.count ? slice.count + 1 : slice.count
-        // + 1 removes the \n character.
-
-        output.removeLast(charsToRemove)
+        buffer.removeLast(slice.count)
+        lastLineWasRemoved = true
       }
     }
 
     private func substringToStartOfLine() -> Slice<ReversedCollection<String>> {
-      return output.reversed().prefix { !$0.isNewline }
+      return buffer.reversed().prefix { !$0.isNewline }
     }
 
     mutating func appendInterpolation<T>(
@@ -116,7 +139,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     else: TemplateString? = nil
     ) {
       if let element = optional, whereBlock?(element) ?? true {
-        appendOrRemoveLineIfEmpty(includeBlock(element))
+        appendInterpolation(includeBlock(element))
       } else if let elseTemplate = `else` {
         appendInterpolation(elseTemplate.value)
       } else {

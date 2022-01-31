@@ -522,7 +522,6 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-
   // MARK: - Field Accessors - Scalar
 
   func test__render_fieldAccessors__givenScalarFields_rendersAllFieldAccessors() throws {
@@ -1521,8 +1520,62 @@ class SelectionSetTemplateTests: XCTestCase {
     let actual = subject.render(field: allAnimals_asDog_predator)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
+
+  // MARK: - Fragment Accessors
+
+//  func test__render_fragmentAccessor__givenFragments_rendersFragmentAccessor() throws {
+//    // given
+//    schemaSDL = """
+//    type Query {
+//      allAnimals: [Animal!]
+//    }
+//
+//    type Animal {
+//      string: String!
+//      int: Int!
+//    }
+//    """
+//
+//    document = """
+//    query TestOperation {
+//      allAnimals {
+//        ...FragmentA
+//        ...lowercaseFragment
+//      }
+//    }
+//
+//    fragment FragmentA on Animal {
+//      int
+//    }
+//
+//    fragment lowercaseFragment on Animal {
+//      string
+//    }
+//    """
+//
+//    let expected = """
+//      public struct Fragments: FragmentContainer {
+//        public let data: DataDict
+//        public init(data: DataDict) { self.data = data }
+//
+//        public var fragmentA: FragmentA { _toFragment() }
+//        public var lowercaseFragment: LowercaseFragment { _toFragment() }
+//      }
+//    """
+//
+//    // when
+//    try buildSubjectAndOperation()
+//    let allAnimals = try XCTUnwrap(
+//      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+//    )
+//
+//    let actual = subject.render(field: allAnimals)
+//
+//    // then
+//    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+//  }
 
   // MARK: - Nested Selection Sets
 
