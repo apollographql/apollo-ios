@@ -17,8 +17,13 @@ public class ClassroomPetsQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
+<<<<<<< HEAD
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
+=======
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -28,8 +33,13 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public var classroomPets: [ClassroomPet] { data["classroomPets"] }
 
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
+<<<<<<< HEAD
       public let data: DataDict
       public init(data: DataDict) { self.data = data }
+=======
+      public let data: ResponseDict
+      public init(data: ResponseDict) { self.data = data }
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
 
       public static var __parentType: ParentType { .Union(AnimalKingdomAPI.ClassroomPet.self) }
       public static var selections: [Selection] { [

@@ -49,8 +49,13 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
   public init() {}
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
+<<<<<<< HEAD
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
+=======
+    public let data: ResponseDict
+    public init(data: ResponseDict) { self.data = data }
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -60,8 +65,13 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
     public var allAnimals: [AllAnimal] { data["allAnimals"] }
 
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
+<<<<<<< HEAD
       public let data: DataDict
       public init(data: DataDict) { self.data = data }
+=======
+      public let data: ResponseDict
+      public init(data: ResponseDict) { self.data = data }
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
       public static var selections: [Selection] { [
@@ -82,8 +92,13 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
       public var predators: [Predator] { data["predators"] }
 
       public struct Height: AnimalKingdomAPI.SelectionSet {
+<<<<<<< HEAD
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
+=======
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
         public static var selections: [Selection] { [
@@ -97,8 +112,13 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
       }
       public struct Predator: AnimalKingdomAPI.SelectionSet {
+<<<<<<< HEAD
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
+=======
+        public let data: ResponseDict
+        public init(data: ResponseDict) { self.data = data }
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
         public static var selections: [Selection] { [
@@ -111,4 +131,8 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
       }
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
