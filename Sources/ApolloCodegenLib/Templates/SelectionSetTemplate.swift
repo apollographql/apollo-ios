@@ -39,7 +39,7 @@ struct SelectionSetTemplate {
   func render(typeCase: IR.SelectionSet) -> String {
     TemplateString(
     """
-    public struct TODO: \(schema.name).SelectionSet {
+    public struct As\(typeCase.renderedTypeName): \(schema.name).TypeCase {
       \(BodyTemplate(typeCase))
     }
     """
@@ -60,9 +60,9 @@ struct SelectionSetTemplate {
 
     \(section: FragmentAccessorsTemplate(selections))
 
-    \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
-        "\($0.map { render(field: $0) }, separator: "\n")"
-      })
+    \(section: ChildEntityFieldSelectionSets(selections))
+
+    \(section: ChildTypeCaseSelectionSets(selections))
     """
   }
 
@@ -181,6 +181,24 @@ struct SelectionSetTemplate {
     let name = fragment.definition.name
     return """
     public var \(name.firstLowercased): \(name.firstUppercased) { _toFragment() }
+    """
+  }
+
+  private func ChildEntityFieldSelectionSets(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
+      "\($0.map { render(field: $0) }, separator: "\n")"
+    })
+    """
+  }
+
+  private func ChildTypeCaseSelectionSets(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.typeCases.values, {
+        "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
+      })
     """
   }
 
