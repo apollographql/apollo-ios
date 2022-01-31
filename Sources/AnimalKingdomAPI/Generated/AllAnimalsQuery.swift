@@ -50,12 +50,17 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
   public struct Data: AnimalKingdomAPI.SelectionSet {
 <<<<<<< HEAD
+<<<<<<< HEAD
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
 =======
     public let data: ResponseDict
     public init(data: ResponseDict) { self.data = data }
 >>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
+=======
+    public let data: DataDict
+    public init(data: DataDict) { self.data = data }
+>>>>>>> bcaa9878 (Implement Fragment Template + File Generator)
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
@@ -66,12 +71,17 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
 <<<<<<< HEAD
+<<<<<<< HEAD
       public let data: DataDict
       public init(data: DataDict) { self.data = data }
 =======
       public let data: ResponseDict
       public init(data: ResponseDict) { self.data = data }
 >>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
+=======
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
+>>>>>>> bcaa9878 (Implement Fragment Template + File Generator)
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
       public static var selections: [Selection] { [
@@ -93,12 +103,17 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
       public struct Height: AnimalKingdomAPI.SelectionSet {
 <<<<<<< HEAD
+<<<<<<< HEAD
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 =======
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
 >>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
+=======
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+>>>>>>> bcaa9878 (Implement Fragment Template + File Generator)
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
         public static var selections: [Selection] { [
@@ -113,12 +128,17 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
       }
       public struct Predator: AnimalKingdomAPI.SelectionSet {
 <<<<<<< HEAD
+<<<<<<< HEAD
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
 =======
         public let data: ResponseDict
         public init(data: ResponseDict) { self.data = data }
 >>>>>>> ab7ba884 (Generation of Operation Definition 7 Clean up Swift Scripts)
+=======
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+>>>>>>> bcaa9878 (Implement Fragment Template + File Generator)
 
         public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
         public static var selections: [Selection] { [
