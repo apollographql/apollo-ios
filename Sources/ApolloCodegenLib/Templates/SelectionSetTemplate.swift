@@ -58,6 +58,8 @@ struct SelectionSetTemplate {
 
     \(section: TypeCaseAccessorsTemplate(selections))
 
+    \(section: FragmentAccessorsTemplate(selections))
+
     \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
         "\($0.map { render(field: $0) }, separator: "\n")"
       })
@@ -112,9 +114,7 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.fields.values, {
         "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
       })
-    \(ifLet: selections.merged.fields.values, {
-        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
-      })
+    \(selections.merged.fields.values.map { FieldAccessorTemplate($0) }, separator: "\n")
     """
   }
 
@@ -146,9 +146,7 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.typeCases.values, {
         "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
       })
-    \(ifLet: selections.merged.typeCases.values, {
-        "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
-      })
+    \(selections.merged.typeCases.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
     """
   }
 
@@ -156,6 +154,33 @@ struct SelectionSetTemplate {
     let typeName = typeCase.renderedTypeName
     return """
     public var as\(typeName): As\(typeName)? { _asType() }
+    """
+  }
+
+  private func FragmentAccessorsTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    guard !(selections.direct?.fragments.isEmpty ?? true) ||
+            !selections.merged.fragments.isEmpty else {
+      return ""
+    }
+
+    return """
+    public struct Fragments: FragmentContainer {
+      \(Self.DataFieldAndInitializerTemplate)
+
+      \(ifLet: selections.direct?.fragments.values, {
+          "\($0.map { FragmentAccessorTemplate($0) }, separator: "\n")"
+        })
+      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0) }, separator: "\n")
+    }
+    """
+  }
+
+  private func FragmentAccessorTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
+    let name = fragment.definition.name
+    return """
+    public var \(name.firstLowercased): \(name.firstUppercased) { _toFragment() }
     """
   }
 
