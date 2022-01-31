@@ -23,7 +23,7 @@ struct InputObjectTemplate {
       \(graphqlInputObject.fields.map({ "\(FieldPropertyTemplate($1))" }), separator: "\n\n")
     }
     """
-    ).value
+    ).description
   }
 
   private func InitializerParametersTemplate() -> TemplateString {

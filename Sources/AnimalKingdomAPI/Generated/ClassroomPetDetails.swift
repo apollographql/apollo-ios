@@ -15,4 +15,11 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   ] }
 
 
+  public var asAnimal: AsAnimal? { _asType() }
+  public var asPet: AsPet? { _asType() }
+  public var asWarmBlooded: AsWarmBlooded? { _asType() }
+  public var asCat: AsCat? { _asType() }
+  public var asBird: AsBird? { _asType() }
+  public var asPetRock: AsPetRock? { _asType() }
+
 }

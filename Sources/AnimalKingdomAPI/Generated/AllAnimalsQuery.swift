@@ -101,6 +101,11 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
       public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }
       public var predators: [Predator] { data["predators"] }
 
+      public var asWarmBlooded: AsWarmBlooded? { _asType() }
+      public var asPet: AsPet? { _asType() }
+      public var asCat: AsCat? { _asType() }
+      public var asClassroomPet: AsClassroomPet? { _asType() }
+
       public struct Height: AnimalKingdomAPI.SelectionSet {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -147,6 +152,8 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
         ] }
 
         public var species: String { data["species"] }
+
+        public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
       }
     }

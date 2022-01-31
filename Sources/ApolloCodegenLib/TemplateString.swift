@@ -2,7 +2,7 @@ import Foundation
 
 struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible {
 
-  let value: String
+  private let value: String
 
   init(stringLiteral: String) {
     self.value = stringLiteral
@@ -18,6 +18,8 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
 
   var description: String { value }
 
+  var isEmpty: Bool { description.isEmpty }
+
   struct StringInterpolation: StringInterpolationProtocol {
     var output: String
 
@@ -32,7 +34,15 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     }
 
     mutating func appendInterpolation(_ template: TemplateString) {
-      appendInterpolation(template.value)
+      appendInterpolation(template.description)
+    }
+
+    private mutating func appendOrRemoveLineIfEmpty(_ template: TemplateString) {
+      if template.isEmpty {
+        removeLineIfEmpty()
+      } else {
+        appendInterpolation(template.description)
+      }
     }
 
     private static let whitespaceNotNewline = Set(" \t")
@@ -106,13 +116,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
     else: TemplateString? = nil
     ) {
       if let element = optional, whereBlock?(element) ?? true {
-        appendInterpolation(includeBlock(element))
+        appendOrRemoveLineIfEmpty(includeBlock(element))
       } else if let elseTemplate = `else` {
         appendInterpolation(elseTemplate.value)
       } else {
         removeLineIfEmpty()
       }
     }
+
   }
 }
 

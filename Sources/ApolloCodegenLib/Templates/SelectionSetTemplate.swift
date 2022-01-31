@@ -46,23 +46,37 @@ struct SelectionSetTemplate {
   }
 
   private func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
-    """
+    let selections = selectionSet.selections
+    return """
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(selectionSet.parentType))
-    \(ifLet: selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
+    \(ifLet: selections.direct, { SelectionsTemplate($0) })
 
-    \(ifLet: selectionSet.selections.direct?.fields.values,
-      where: { !$0.isEmpty }, {
+    \(ifLet: selections.direct?.fields.values, {
         "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
       })
-    \(if: !selectionSet.selections.merged.fields.values.isEmpty, """
-      \(selectionSet.selections.merged.fields.values.map { FieldAccessorTemplate($0) },
+    \(if: !selections.merged.fields.values.isEmpty, """
+      \(selections.merged.fields.values.map { FieldAccessorTemplate($0) },
         separator: "\n")
       """)
 
-    \(ifLet: selectionSet.selections.direct?.fields.values.compactMap { $0 as? IR.EntityField },
-      where: { !$0.isEmpty }, {
+    \(if: !(selections.direct?.typeCases.isEmpty ?? true) || !selections.merged.typeCases.isEmpty,
+      """
+      \(ifLet: selections.direct?.typeCases.values, {
+          """
+          \($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
+          """
+        })
+      \(ifLet: selections.merged.typeCases.values, {
+          """
+          \($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
+          """
+        })
+
+      """
+    )
+    \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
         "\($0.map { render(field: $0) }, separator: "\n")"
       })
     """
@@ -132,7 +146,15 @@ struct SelectionSetTemplate {
     return template(withType: type)
   }
 
+  private func TypeCaseAccessorTemplate(_ typeCase: IR.SelectionSet) -> TemplateString {
+    """
+    public var as\(typeCase.parentType.name): As\(typeCase.parentType.name)? { _asType() }
+    """
+  }
+
 }
+
+// MARK: - Helper Extensions
 
 fileprivate extension GraphQLCompositeType {
   var parentTypeEnumType: String {
