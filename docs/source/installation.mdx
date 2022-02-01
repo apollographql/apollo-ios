@@ -31,9 +31,9 @@ You can install `Apollo.framework` into your project using any of the three majo
 
 ## 3. Add a schema file to your target directory
 
-For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema in JSON format. To acquire this schema, see [Downloading a schema](/downloading-schema/).
+For Apollo iOS to generate models for your GraphQL operations, you need a local copy of your GraphQL server's schema. To acquire this schema, see [Downloading a schema](/downloading-schema/).
 
-Make sure to add this `schema.json` file to the folder where most of your code is, _not_ to the folder where your `.xcodeproj` and/or `.xcworkspace` files are located.
+Make sure to add your `schema.json`/`schema.graphqls` file to the folder where most of your code is, _not_ to the folder where your `.xcodeproj` and/or `.xcworkspace` files are located.
 
 Here's an example file structure:
 
@@ -49,7 +49,7 @@ Here's an example file structure:
         | etc...
 ```
 
-> **Note:** You _can_ put the `schema.json` file in a different location, but if you do, you need to modify all relative paths to the file shown in future steps.
+> **Note:** You _can_ put the schema file in a different location, but if you do, you need to modify all relative paths to the file shown in future steps.
 
 ## 3. Install the Xcode add-ons for syntax highlighting (optional)
 
@@ -74,7 +74,7 @@ The wrapper script calls through to the included binaries and files that constit
 The location of this wrapper script depends on how you've integrated Apollo into your project, but these first steps are always the same:
 
 1. On your application target's **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**.
-2. In the created Run Script, change its name to **Generate Apollo GraphQL API**
+2. In the created Run Script, change its name to **Generate Apollo GraphQL API**.
 3. Drag this new run script just above **Compile Sources** in your list of **Build Phases** so that it executes _before_ your code is compiled.
 4. Add the contents of the appropriate run script for the package manager you're using:
 
@@ -89,7 +89,7 @@ The location of this wrapper script depends on how you've integrated Apollo into
 
 ## 6. Build your target
 
-At this point, you can try building your target in Xcode. This verifies that the code generation build step can correctly locate your `schema.json` file.
+At this point, you can try building your target in Xcode. This verifies that the code generation build step can correctly locate your schema file.
 
 ### Troubleshooting
 
@@ -97,7 +97,7 @@ If you get this error:
 
 > `Cannot find GraphQL schema file [...]`
 
-The script can't locate your `schema.json` file. Double check the path you've used.
+The script can't locate your schema file. Double check the path you've used.
 
 If you get this error:
 
@@ -141,7 +141,7 @@ Assuming you've set the script to run from `$(SRCROOT)/YourTarget`, you can add 
 
 This should prevent automatic rebuild cycles if none of the `InputFiles` are changed. The script *will* still run if you explicitly build and run.
 
-There's an [open issue to auto-generate input and output file lists](https://github.com/apollographql/apollo-ios/issues/636) which will be addressed as part of the Swift Codegen project, but this will help until that's done.
+There's an [open issue to auto-generate input and output file lists](https://github.com/apollographql/apollo-ios/issues/636) which will be addressed as part of Apollo iOS 1.0, but this will help until that's done.
 
 #### Write to a temporary file
 
@@ -158,7 +158,7 @@ else
 fi
 ```
 
-### Generate multiple files in a folder instead of one giant file
+### Generate multiple files in a folder instead of one large file
 
 Instead of passing a single `API.swift` file, you can pass a (pre-existing) relative folder path such as `API` as the final parameter. This causes the codegen to create individual files and place them in that folder.
 
