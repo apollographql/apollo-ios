@@ -38,15 +38,10 @@ public class ApolloCodegen {
 
     try generateFiles(
       for: ir.schema.referencedTypes,
-      directoryPath: configuration.output.schemaTypes.path
+      config: configuration
     )
 
     let modulePath = configuration.output.schemaTypes.path
-    try fileGenerators(
-        for: ir.schema.referencedTypes.unions,
-        moduleName: configuration.output.schemaTypes.moduleName,
-        directoryPath: modulePath
-      ).forEach({ try $0.generateFile() })
     try fileGenerators(for: ir.schema.referencedTypes.inputObjects, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
     try SchemaFileGenerator(
@@ -94,23 +89,42 @@ public class ApolloCodegen {
   /// Generates files for referenced schema types.
   static func generateFiles(
     for referencedTypes: IR.Schema.ReferencedTypes,
-    directoryPath: String
+    config: ApolloCodegenConfiguration
   ) throws {
     for graphQLObject in referencedTypes.objects {
       try autoreleasepool {
-        try ObjectFileGenerator.generate(graphQLObject, directoryPath: directoryPath)
+        try ObjectFileGenerator.generate(
+          graphQLObject,
+          directoryPath: config.output.schemaTypes.path
+        )
       }
     }
 
     for graphQLEnum in referencedTypes.enums {
       try autoreleasepool {
-        try EnumFileGenerator.generate(graphQLEnum, directoryPath: directoryPath)
+        try EnumFileGenerator.generate(
+          graphQLEnum,
+          directoryPath: config.output.schemaTypes.path
+        )
       }
     }
 
     for graphQLInterface in referencedTypes.interfaces {
       try autoreleasepool {
-        try InterfaceFileGenerator.generate(graphQLInterface, directoryPath: directoryPath)
+        try InterfaceFileGenerator.generate(
+          graphQLInterface,
+          directoryPath: config.output.schemaTypes.path
+        )
+      }
+    }
+
+    for graphQLUnion in referencedTypes.unions {
+      try autoreleasepool {
+        try UnionFileGenerator.generate(
+          graphQLUnion,
+          moduleName: config.output.schemaTypes.moduleName,
+          directoryPath: config.output.schemaTypes.path
+        )
       }
     }
   }
@@ -144,16 +158,6 @@ public class ApolloCodegen {
         )
       }
     }
-  }
-
-  static func fileGenerators(
-    for unionTypes: OrderedSet<GraphQLUnionType>,
-    moduleName: String,
-    directoryPath path: String
-  ) -> [UnionFileGenerator] {
-    return unionTypes.map({ graphqlUnionType in
-      UnionFileGenerator(unionType: graphqlUnionType, moduleName: moduleName, directoryPath: path)
-    })
   }
 
   static func fileGenerators(
