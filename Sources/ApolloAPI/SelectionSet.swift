@@ -73,7 +73,7 @@ extension SelectionSet {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
+  public func _asType<T: SelectionSet>() -> T? where T.Schema == Schema {
     guard let __objectType = __objectType,
           __objectType._canBeConverted(to: T.__parentType) else { return nil }
 

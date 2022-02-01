@@ -266,7 +266,7 @@ fileprivate extension GraphQLType {
       let .scalar(type as GraphQLNamedType),
       let .inputObject(type as GraphQLNamedType):
 
-      let typeName = newTypeName ?? type.name
+      let typeName = newTypeName ?? type.swiftName
 
       return containedInNonNull ? typeName : "\(typeName)?"
 

@@ -249,6 +249,8 @@ class SelectionSetTemplateTests: XCTestCase {
     type Animal {
       string: String!
       string_optional: String
+      boolean: Boolean!
+      boolean_optional: Boolean
       int: Int!
       int_optional: Int
       custom: Custom!
@@ -275,6 +277,8 @@ class SelectionSetTemplateTests: XCTestCase {
       allAnimals {
         string
         string_optional
+        boolean
+        boolean_optional
         int
         int_optional
         custom
@@ -299,6 +303,8 @@ class SelectionSetTemplateTests: XCTestCase {
       public static var selections: [Selection] { [
         .field("string", String.self),
         .field("string_optional", String?.self),
+        .field("boolean", Bool.self),
+        .field("boolean_optional", Bool?.self),
         .field("int", Int.self),
         .field("int_optional", Int?.self),
         .field("custom", Custom.self),

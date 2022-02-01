@@ -127,11 +127,11 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
           public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
           public static var selections: [Selection] { [
-            .field("laysEggs", Boolean.self),
+            .field("laysEggs", Bool.self),
             .fragment(WarmBloodedDetails.self),
           ] }
 
-          public var laysEggs: Boolean { data["laysEggs"] }
+          public var laysEggs: Bool { data["laysEggs"] }
           public var species: String { data["species"] }
           public var bodyTemperature: Int { data["bodyTemperature"] }
           public var height: WarmBloodedDetails.Height { data["height"] }
@@ -250,10 +250,10 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
         public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
         public static var selections: [Selection] { [
-          .field("isJellicle", Boolean.self),
+          .field("isJellicle", Bool.self),
         ] }
 
-        public var isJellicle: Boolean { data["isJellicle"] }
+        public var isJellicle: Bool { data["isJellicle"] }
         public var height: Height { data["height"] }
         public var species: String { data["species"] }
         public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }

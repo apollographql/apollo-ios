@@ -51,10 +51,10 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
     public static var selections: [Selection] { [
-      .field("laysEggs", Boolean.self),
+      .field("laysEggs", Bool.self),
     ] }
 
-    public var laysEggs: Boolean { data["laysEggs"] }
+    public var laysEggs: Bool { data["laysEggs"] }
     public var species: String { data["species"] }
   }
 
@@ -65,14 +65,14 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
     public static var selections: [Selection] { [
       .field("bodyTemperature", Int.self),
-      .field("isJellicle", Boolean.self),
+      .field("isJellicle", Bool.self),
     ] }
 
     public var bodyTemperature: Int { data["bodyTemperature"] }
-    public var isJellicle: Boolean { data["isJellicle"] }
+    public var isJellicle: Bool { data["isJellicle"] }
     public var species: String { data["species"] }
     public var humanName: String? { data["humanName"] }
-    public var laysEggs: Boolean { data["laysEggs"] }
+    public var laysEggs: Bool { data["laysEggs"] }
   }
 
   public struct AsBird: AnimalKingdomAPI.TypeCase {
@@ -87,7 +87,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var wingspan: Int { data["wingspan"] }
     public var species: String { data["species"] }
     public var humanName: String? { data["humanName"] }
-    public var laysEggs: Boolean { data["laysEggs"] }
+    public var laysEggs: Bool { data["laysEggs"] }
   }
 
   public struct AsPetRock: AnimalKingdomAPI.TypeCase {
