@@ -168,6 +168,18 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
+
+        public struct Height: AnimalKingdomAPI.SelectionSet {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+          public var feet: Int { data["feet"] }
+          public var inches: Int { data["inches"] }
+          public var meters: Int { data["meters"] }
+          public var yards: Int { data["yards"] }
+        }
       }
 
       public struct AsPet: AnimalKingdomAPI.TypeCase {
@@ -242,6 +254,20 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
             public var heightInMeters: HeightInMeters { _toFragment() }
             public var petDetails: PetDetails { _toFragment() }
           }
+
+          public struct Height: AnimalKingdomAPI.SelectionSet {
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
+
+            public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+            public var feet: Int { data["feet"] }
+            public var inches: Int { data["inches"] }
+            public var meters: Int { data["meters"] }
+            public var yards: Int { data["yards"] }
+            public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+            public var centimeters: Int { data["centimeters"] }
+          }
         }
       }
 
@@ -272,6 +298,20 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           public var petDetails: PetDetails { _toFragment() }
         }
+
+        public struct Height: AnimalKingdomAPI.SelectionSet {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+          public var feet: Int { data["feet"] }
+          public var inches: Int { data["inches"] }
+          public var meters: Int { data["meters"] }
+          public var yards: Int { data["yards"] }
+          public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+          public var centimeters: Int { data["centimeters"] }
+        }
       }
 
       public struct AsClassroomPet: AnimalKingdomAPI.TypeCase {
@@ -295,6 +335,17 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
           public init(data: DataDict) { self.data = data }
 
           public var heightInMeters: HeightInMeters { _toFragment() }
+        }
+
+        public struct Height: AnimalKingdomAPI.SelectionSet {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+          public var feet: Int { data["feet"] }
+          public var inches: Int { data["inches"] }
+          public var meters: Int { data["meters"] }
         }
 
         public struct AsBird: AnimalKingdomAPI.TypeCase {
@@ -323,6 +374,20 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
             public var heightInMeters: HeightInMeters { _toFragment() }
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
             public var petDetails: PetDetails { _toFragment() }
+          }
+
+          public struct Height: AnimalKingdomAPI.SelectionSet {
+            public let data: DataDict
+            public init(data: DataDict) { self.data = data }
+
+            public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Height.self) }
+
+            public var feet: Int { data["feet"] }
+            public var inches: Int { data["inches"] }
+            public var meters: Int { data["meters"] }
+            public var yards: Int { data["yards"] }
+            public var relativeSize: GraphQLEnum<RelativeSize> { data["relativeSize"] }
+            public var centimeters: Int { data["centimeters"] }
           }
         }
       }

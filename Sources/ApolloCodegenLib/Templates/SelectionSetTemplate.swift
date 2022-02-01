@@ -179,6 +179,11 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
       "\($0.map { render(field: $0) }, separator: "\n\n")"
     })
+    \(selections.merged.fields.values.compactMap { field -> String? in
+      guard let field = field as? IR.EntityField,
+        field.selectionSet.shouldBeRendered else { return nil }
+      return render(field: field)
+    }, separator: "\n\n")
     """
   }
 
@@ -187,7 +192,8 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.typeCases.values, {
         "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
       })
-    """
+    \(selections.merged.typeCases.values.map { render(typeCase: $0) }, separator: "\n\n")
+    """    
   }
 
 }
