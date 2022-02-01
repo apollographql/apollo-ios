@@ -11,17 +11,17 @@ struct FragmentFileGenerator {
   ///   - directoryPath: The output path that the file will be written to.
   ///   - fileManager: `FileManager` object used to create the file. Defaults to `FileManager.default`.
   static func generate(
-    _ graphQLFragment: IR.NamedFragment,
+    _ graphqlFragment: IR.NamedFragment,
     schema: IR.Schema,
     config: ApolloCodegenConfiguration,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphQLFragment.definition.name).swift").path
+      .appendingPathComponent("\(graphqlFragment.definition.name).swift").path
 
     let data = FragmentTemplate(
-      fragment: graphQLFragment,
+      fragment: graphqlFragment,
       schema: schema,
       config: config
     ).render().data(using: .utf8)

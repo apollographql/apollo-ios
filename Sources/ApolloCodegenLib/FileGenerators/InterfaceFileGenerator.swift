@@ -9,15 +9,15 @@ struct InterfaceFileGenerator {
   ///   - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
   ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
   static func generate(
-    _ graphQLInterface: GraphQLInterfaceType,
+    _ graphqlInterface: GraphQLInterfaceType,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphQLInterface.name).swift").path
+      .appendingPathComponent("\(graphqlInterface.name).swift").path
 
     let data = InterfaceTemplate(
-      graphqlInterface: graphQLInterface
+      graphqlInterface: graphqlInterface
     ).render().data(using: .utf8)
 
     try fileManager.apollo.createFile(atPath: filePath, data: data)

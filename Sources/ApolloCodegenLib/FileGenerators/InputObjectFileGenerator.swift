@@ -9,15 +9,15 @@ struct InputObjectFileGenerator {
   ///   - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
   ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
   static func generate(
-    _ graphQLInputObject: GraphQLInputObjectType,
+    _ graphqlInputObject: GraphQLInputObjectType,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphQLInputObject.name).swift").path
+      .appendingPathComponent("\(graphqlInputObject.name).swift").path
 
     let data = InputObjectTemplate(
-      graphqlInputObject: graphQLInputObject
+      graphqlInputObject: graphqlInputObject
     ).render().data(using: .utf8)
 
     try fileManager.apollo.createFile(atPath: filePath, data: data)

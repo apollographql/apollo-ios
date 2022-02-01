@@ -9,14 +9,14 @@ struct EnumFileGenerator {
   ///   - directoryPath: The output path that the file will be written to.
   ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
   static func generate(
-    _ graphQLEnum: GraphQLEnumType,
+    _ graphqlEnum: GraphQLEnumType,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphQLEnum.name).swift").path
+      .appendingPathComponent("\(graphqlEnum.name).swift").path
 
-    let data = EnumTemplate(graphqlEnum: graphQLEnum).render().data(using: .utf8)
+    let data = EnumTemplate(graphqlEnum: graphqlEnum).render().data(using: .utf8)
 
     try fileManager.apollo.createFile(atPath: filePath, data: data)
   }

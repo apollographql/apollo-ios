@@ -11,17 +11,17 @@ struct OperationFileGenerator {
   ///   - directoryPath: The output path that the file will be written to.
   ///   - fileManager: `FileManager` object used to create the file. Defaults to `FileManager.default`.
   static func generate(
-    _ graphQLOperation: IR.Operation,
+    _ graphqlOperation: IR.Operation,
     schema: IR.Schema,
     config: ApolloCodegenConfiguration,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphQLOperation.definition.name).swift").path
+      .appendingPathComponent("\(graphqlOperation.definition.name).swift").path
 
     let data = OperationDefinitionTemplate(
-      operation: graphQLOperation,
+      operation: graphqlOperation,
       schema: schema,
       config: config
     ).render().data(using: .utf8)
