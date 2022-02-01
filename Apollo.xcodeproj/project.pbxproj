@@ -185,6 +185,8 @@
 		DE09F9C6270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
+		DE16ADF827A8C0C3007F5C59 /* Rat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE16ADF727A8C0C3007F5C59 /* Rat.swift */; };
+		DE16ADFA27A8C0CC007F5C59 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE16ADF927A8C0CC007F5C59 /* Query.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
 		DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */; };
 		DE181A3026C5C38E000C0B9C /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */; };
@@ -877,6 +879,8 @@
 		DE09F9C727026E0B00795949 /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		DE12B2D6273B204B003371CC /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIRSubscripts.swift; sourceTree = "<group>"; };
+		DE16ADF727A8C0C3007F5C59 /* Rat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rat.swift; sourceTree = "<group>"; };
+		DE16ADF927A8C0CC007F5C59 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
 		DE181A2F26C5C38E000C0B9C /* SSLSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
@@ -2102,7 +2106,9 @@
 				DE5B317227A48C8D0051C9D3 /* Animal.swift */,
 				DE5B317327A48C8D0051C9D3 /* AllAnimalsQuery.swift */,
 				DE5B317427A48C8D0051C9D3 /* Pet.swift */,
+				DE16ADF727A8C0C3007F5C59 /* Rat.swift */,
 				DE5B317527A48C8D0051C9D3 /* Schema.swift */,
+				DE16ADF927A8C0CC007F5C59 /* Query.swift */,
 				DE5B317627A48C8D0051C9D3 /* ClassroomPet.swift */,
 				DE5B317727A48C8D0051C9D3 /* Height.swift */,
 				DE5B317827A48C8D0051C9D3 /* WarmBlooded.swift */,
@@ -3401,6 +3407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5B318927A48C8D0051C9D3 /* Height.swift in Sources */,
+				DE16ADFA27A8C0CC007F5C59 /* Query.swift in Sources */,
 				DE5B318527A48C8D0051C9D3 /* AllAnimalsQuery.swift in Sources */,
 				DE5B318B27A48C8D0051C9D3 /* SkinCovering.swift in Sources */,
 				DE5B318827A48C8D0051C9D3 /* ClassroomPet.swift in Sources */,
@@ -3419,6 +3426,7 @@
 				DE5B318227A48C8D0051C9D3 /* WarmBloodedDetails.swift in Sources */,
 				DE5B318027A48C8D0051C9D3 /* ClassroomPetDetails.swift in Sources */,
 				DE5B318C27A48C8D0051C9D3 /* RelativeSize.swift in Sources */,
+				DE16ADF827A8C0C3007F5C59 /* Rat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
