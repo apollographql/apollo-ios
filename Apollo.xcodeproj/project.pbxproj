@@ -338,6 +338,7 @@
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
 		DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFBBC85273470F70088AABC /* IR+Field.swift */; };
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
+		E607AD8E27A88F340026742A /* OperationFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */; };
 		E610D8D7278EA2390023E495 /* EnumFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */; };
 		E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */; };
 		E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */; };
@@ -1034,6 +1035,7 @@
 		DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
 		DEFBBC85273470F70088AABC /* IR+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Field.swift"; sourceTree = "<group>"; };
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
+		E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGenerator.swift; sourceTree = "<group>"; };
 		E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceFileGenerator.swift; sourceTree = "<group>"; };
@@ -2301,6 +2303,7 @@
 				E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */,
 				E66F8896276C136B0000BDA8 /* TypeFileGeneratorTests.swift */,
 				E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */,
+				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
 			);
 			path = FileGenerators;
 			sourceTree = "<group>";
@@ -3185,6 +3188,7 @@
 				DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */,
 				E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */,
 				E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */,
+				E607AD8E27A88F340026742A /* OperationFileGeneratorTests.swift in Sources */,
 				E6C9849527929FED009481BE /* EnumTemplateTests.swift in Sources */,
 				DE5FD609276956C70033EE23 /* SchemaTemplateTests.swift in Sources */,
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
