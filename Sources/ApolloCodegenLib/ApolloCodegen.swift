@@ -42,9 +42,6 @@ public class ApolloCodegen {
     )
 
     let modulePath = configuration.output.schemaTypes.path
-    try fileGenerators(for: ir.schema.referencedTypes.objects, directoryPath: modulePath)
-      .forEach({ try $0.generateFile() })
-
     try fileGenerators(for: ir.schema.referencedTypes.interfaces, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
     try fileGenerators(
@@ -101,6 +98,12 @@ public class ApolloCodegen {
     for referencedTypes: IR.Schema.ReferencedTypes,
     directoryPath: String
   ) throws {
+    for graphQLObject in referencedTypes.objects {
+      try autoreleasepool {
+        try ObjectFileGenerator.generate(graphQLObject, directoryPath: directoryPath)
+      }
+    }
+
     for graphQLEnum in referencedTypes.enums {
       try autoreleasepool {
         try EnumFileGenerator.generate(graphQLEnum, directoryPath: directoryPath)
@@ -137,15 +140,6 @@ public class ApolloCodegen {
         )
       }
     }
-  }
-
-  static func fileGenerators(
-    for objectTypes: OrderedSet<GraphQLObjectType>,
-    directoryPath path: String
-  ) -> [TypeFileGenerator] {
-    return objectTypes.map({ graphqlObjectType in
-      TypeFileGenerator(objectType: graphqlObjectType, directoryPath: path)
-    })
   }
 
   static func fileGenerators(
