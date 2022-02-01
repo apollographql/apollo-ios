@@ -35,11 +35,15 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
+    try generateSchemaTypesFiles(
+      ir.schema.referencedTypes,
+      directoryPath: configuration.output.schemaTypes.path
+    )
+
     let modulePath = configuration.output.schemaTypes.path
     try fileGenerators(for: ir.schema.referencedTypes.objects, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
-    try fileGenerators(for: ir.schema.referencedTypes.enums, directoryPath: modulePath)
-      .forEach({ try $0.generateFile() })
+
     try fileGenerators(for: ir.schema.referencedTypes.interfaces, directoryPath: modulePath)
       .forEach({ try $0.generateFile() })
     try fileGenerators(
@@ -104,21 +108,23 @@ public class ApolloCodegen {
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
   }
 
+  static func generateSchemaTypesFiles(
+    _ schemaTypes: IR.Schema.ReferencedTypes,
+    directoryPath: String
+  ) throws {
+    for graphQLEnum in schemaTypes.enums {
+      try autoreleasepool {
+        try EnumFileGenerator.generate(graphQLEnum, directoryPath: directoryPath)
+      }
+    }
+  }
+
   static func fileGenerators(
     for objectTypes: OrderedSet<GraphQLObjectType>,
     directoryPath path: String
   ) -> [TypeFileGenerator] {
     return objectTypes.map({ graphqlObjectType in
       TypeFileGenerator(objectType: graphqlObjectType, directoryPath: path)
-    })
-  }
-
-  static func fileGenerators(
-    for enumTypes: OrderedSet<GraphQLEnumType>,
-    directoryPath path: String
-  ) -> [EnumFileGenerator] {
-    return enumTypes.map({ graphqlEnumType in
-      EnumFileGenerator(enumType: graphqlEnumType, directoryPath: path)
     })
   }
 
