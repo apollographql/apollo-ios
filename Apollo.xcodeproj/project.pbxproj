@@ -206,7 +206,6 @@
 		DE223C3327221144004A0148 /* IRMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2A2721FAD6004A0148 /* IRMatchers.swift */; };
 		DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */; };
 		DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */; };
-		DE29653A279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */; };
 		DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */; };
 		DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA427A07C37004F571F /* MockMergedSelections.swift */; };
 		DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA627A09A11004F571F /* IsEverTrue.swift */; };
@@ -894,7 +893,6 @@
 		DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedSelectionSetHashable.swift; sourceTree = "<group>"; };
 		DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate.swift; sourceTree = "<group>"; };
 		DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplateTests.swift; sourceTree = "<group>"; };
-		DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderFragment_Tests.swift; sourceTree = "<group>"; };
 		DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_RenderOperation_Tests.swift; sourceTree = "<group>"; };
 		DE296BA427A07C37004F571F /* MockMergedSelections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMergedSelections.swift; sourceTree = "<group>"; };
 		DE296BA627A09A11004F571F /* IsEverTrue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsEverTrue.swift; sourceTree = "<group>"; };
@@ -1949,7 +1947,6 @@
 			isa = PBXGroup;
 			children = (
 				DE296536279B3B8200BF9B49 /* SelectionSetTemplateTests.swift */,
-				DE296537279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift */,
 				DE296538279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift */,
 			);
 			path = SelectionSet;
@@ -3186,7 +3183,6 @@
 				DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */,
 				E68D824527A1D8A60040A46F /* TypeTemplateTests.swift in Sources */,
 				DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */,
-				DE29653A279B3B8200BF9B49 /* SelectionSetTemplate_RenderFragment_Tests.swift in Sources */,
 				E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */,
 				E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */,
 				E6C9849527929FED009481BE /* EnumTemplateTests.swift in Sources */,

@@ -60,7 +60,7 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Import Statements
 
-  func test__generate__givenFileOutput_inSchemaModule_schemaModuleManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
+  func test__render__givenFileOutput_inSchemaModule_schemaModuleManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
       moduleType: .manuallyLinked(namespace: "TestModuleName"),
@@ -82,7 +82,7 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__generate__givenFileOutput_inSchemaModule_schemaModuleNotManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
+  func test__render__givenFileOutput_inSchemaModule_schemaModuleNotManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
       moduleType: .swiftPackageManager(moduleName: "TestModuleName"),
@@ -104,7 +104,7 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__generate__givenFileOutput_notInSchemaModule_schemaModuleNotManuallyLinked_generatesImportIncludingSchemaModule() throws {
+  func test__render__givenFileOutput_notInSchemaModule_schemaModuleNotManuallyLinked_generatesImportIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
       moduleType: .swiftPackageManager(moduleName: "TestModuleName"),
@@ -129,11 +129,21 @@ class FragmentTemplateTests: XCTestCase {
 
   // MARK: - Fragment Definition
 
-  func test__generate__givenFragment_generatesFragmentDeclaration() throws {
+  func test__render__givenFragment_generatesFragmentDeclarationDefinitionAndBoilerplate() throws {
     // given
     let expected =
     """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        fragment TestFragment on Query {
+          allAnimals {
+            species
+          }
+        }
+        ""\" }
+
+      public let data: DataDict
+      public init(data: DataDict) { self.data = data }
     """
 
     // when
@@ -143,6 +153,131 @@ class FragmentTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+  }
+
+  func test__render__givenFragmentWithUnderscoreInName_rendersDeclarationWithName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    fragment Test_Fragment on Animal {
+      species
+    }
+    """
+
+    let expected = """
+    public struct Test_Fragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    try buildSubjectAndFragment(named: "Test_Fragment")
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
+  func test__render_parentType__givenFragmentTypeConditionAs_Object_rendersParentType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    fragment TestFragment on Animal {
+      species
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ParentType { .Object(TestSchema.Animal.self) }
+    """
+
+    // when
+    try buildSubjectAndFragment()
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_parentType__givenFragmentTypeConditionAs_Interface_rendersParentType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    fragment TestFragment on Animal {
+      species
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ParentType { .Interface(TestSchema.Animal.self) }
+    """
+
+    // when
+    try buildSubjectAndFragment()
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_parentType__givenFragmentTypeConditionAs_Union_rendersParentType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Dog {
+      species: String!
+    }
+
+    union Animal = Dog
+    """
+
+    document = """
+    fragment TestFragment on Animal {
+      ... on Dog {
+        species
+      }
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ParentType { .Union(TestSchema.Animal.self) }
+    """
+
+    // when
+    try buildSubjectAndFragment()
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
 }

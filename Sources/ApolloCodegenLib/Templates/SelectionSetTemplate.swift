@@ -16,16 +16,6 @@ struct SelectionSetTemplate {
     ).description
   }
 
-  func render(for fragment: IR.NamedFragment) -> String {
-    TemplateString(
-    """
-    public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
-      \(BodyTemplate(fragment.rootField.selectionSet))
-    }
-    """
-    ).description
-  }
-
   func render(field: IR.EntityField) -> String {
     TemplateString(
     """
@@ -46,7 +36,7 @@ struct SelectionSetTemplate {
     ).description
   }
 
-  private func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
+  func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     let selections = selectionSet.selections
     return """
     \(Self.DataFieldAndInitializerTemplate)

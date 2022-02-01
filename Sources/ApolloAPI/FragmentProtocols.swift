@@ -5,7 +5,7 @@
 /// A `SelectionSet` can be converted to any `Fragment` included in it's `Fragments` object via
 /// its `fragments` property.
 public protocol Fragment: AnySelectionSet {
-  static var fragmentDefinition: String { get }
+  static var fragmentDefinition: StaticString { get }
 }
 
 public protocol FragmentContainer {

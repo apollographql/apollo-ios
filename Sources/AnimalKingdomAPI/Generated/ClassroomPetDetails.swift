@@ -1,6 +1,30 @@
 import ApolloAPI
 
 public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
+  public static var fragmentDefinition: StaticString { """
+    fragment ClassroomPetDetails on ClassroomPet {
+      ... on Animal {
+        species
+      }
+      ... on Pet {
+        humanName
+      }
+      ... on WarmBlooded {
+        laysEggs
+      }
+      ... on Cat {
+        bodyTemperature
+        isJellicle
+      }
+      ... on Bird {
+        wingspan
+      }
+      ... on PetRock {
+        favoriteToy
+      }
+    }
+    """ }
+
   public let data: DataDict
   public init(data: DataDict) { self.data = data }
 
