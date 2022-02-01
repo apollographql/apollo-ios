@@ -42,8 +42,6 @@ public class ApolloCodegen {
     )
 
     let modulePath = configuration.output.schemaTypes.path
-    try fileGenerators(for: ir.schema.referencedTypes.inputObjects, directoryPath: modulePath)
-      .forEach({ try $0.generateFile() })
     try SchemaFileGenerator(
       schema: ir.schema,
       directoryPath: modulePath
@@ -127,6 +125,15 @@ public class ApolloCodegen {
         )
       }
     }
+
+    for graphQLInputObject in referencedTypes.inputObjects {
+      try autoreleasepool {
+        try InputObjectFileGenerator.generate(
+          graphQLInputObject,
+          directoryPath: config.output.schemaTypes.moduleName
+        )
+      }
+    }
   }
 
   /// Generates files for operation and fragment types.
@@ -159,16 +166,6 @@ public class ApolloCodegen {
       }
     }
   }
-
-  static func fileGenerators(
-    for unionTypes: OrderedSet<GraphQLInputObjectType>,
-    directoryPath path: String
-  ) -> [InputObjectFileGenerator] {
-    return unionTypes.map({ graphqlInputObjectType in
-      InputObjectFileGenerator(inputObjectType: graphqlInputObjectType, directoryPath: path)
-    })
-  }
-  
 }
 
 #endif
