@@ -8,13 +8,13 @@ Apollo iOS requires a GraphQL schema file as input to the code generation proces
 
 You can use the [Apollo CLI](https://www.apollographql.com/docs/devtools/cli/) to download a GraphQL schema by sending an introspection query to the server.
 
-If you've installed the CLI globally, you can use the following command to download your schema: 
+If you've installed the CLI globally, you can use the following command to download your schema:
 
 ```sh
 apollo schema:download --endpoint=http://localhost:8080/graphql schema.json
 ```
 
-Note that if you're using the local version set up for codegen, you'll want to use the same method you're using in the [Adding A Code Generation Build Step](installation#adding-a-code-generation-build-step) instructions to access that specific CLI. For example, if you're using CocoaPods, you can set it up like this to download your schema: 
+Note that if you're using the local version set up for codegen, you'll want to use the same method you're using in the [Add a code generation build step](/installation/#5-add-a-code-generation-build-step) instructions to access that specific CLI. For example, if you're using CocoaPods, you can set it up like this to download your schema:
 
 ```sh
 SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"
