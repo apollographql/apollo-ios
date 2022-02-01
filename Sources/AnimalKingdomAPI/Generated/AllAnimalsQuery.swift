@@ -1,6 +1,6 @@
 import ApolloAPI
 
-public class AllAnimalsQueryQuery: GraphQLQuery {
+public class AllAnimalsQuery: GraphQLQuery {
   public let operationName: String = "AllAnimalsQuery"
   public let document: DocumentType = .notPersisted(
     definition: .init(
