@@ -12,23 +12,26 @@ class UnionFileGeneratorTests: XCTestCase {
 
   func test_generate_givenSchemaType_shouldOutputToPath() throws {
     // given
+    let graphQLUnion = GraphQLUnionType.mock("MockUnion", types: [])
+    let fileManager = MockFileManager(strict: false)
+
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("MockUnion.swift")
-    let mockFileManager = MockFileManager(strict: false)
 
-    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+    fileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
 
       return true
     }))
 
     // then
-    try UnionFileGenerator(
-      unionType: GraphQLUnionType.mock("MockUnion", types: []),
+    try UnionFileGenerator.generate(
+      graphQLUnion,
       moduleName: "ModuleAPI",
-      directoryPath: rootURL.path
-    ).generateFile(fileManager: mockFileManager)
+      directoryPath: rootURL.path,
+      fileManager: fileManager
+    )
 
-    expect(mockFileManager.allClosuresCalled).to(beTrue())
+    expect(fileManager.allClosuresCalled).to(beTrue())
   }
 }
