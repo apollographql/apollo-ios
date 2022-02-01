@@ -10,7 +10,7 @@ class InterfaceFileGeneratorTests: XCTestCase {
     super.tearDown()
   }
 
-  func test_generate_givenSchemaType_shouldOutputToPath() throws {
+  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
     // given
     let graphQLInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
     let fileManager = MockFileManager(strict: false)
