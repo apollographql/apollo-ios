@@ -107,6 +107,7 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
         public var inches: Int { data["inches"] }
         public var meters: Int { data["meters"] }
       }
+      
       public struct Predator: AnimalKingdomAPI.SelectionSet {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }

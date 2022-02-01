@@ -189,7 +189,7 @@ struct SelectionSetTemplate {
   ) -> TemplateString {
     """
     \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
-      "\($0.map { render(field: $0) }, separator: "\n")"
+      "\($0.map { render(field: $0) }, separator: "\n\n")"
     })
     """
   }
