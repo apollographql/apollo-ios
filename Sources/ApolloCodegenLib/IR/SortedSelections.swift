@@ -228,6 +228,7 @@ extension IR {
       """
       Merged Sources: \(mergedSources)
       Fields: \(fields.values.elements)
+      TypeCases: \(typeCases.values.elements.map(\.typeInfo.parentType))
       Fragments: \(fragments.values.elements.map(\.definition.name))
       """
     }

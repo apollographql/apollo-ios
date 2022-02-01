@@ -37,6 +37,6 @@ struct UnionTemplate {
       ]
     }
     """
-    ).value
+    ).description
   }
 }

@@ -17,7 +17,7 @@ struct SchemaModuleFileGenerator: FileGenerator, Equatable {
     case let .swiftPackageManager(moduleName):
       self.fileGenerator = SwiftPackageManagerFileGenerator(
         moduleName: moduleName,
-        directoryPath: configuration.modulePath
+        directoryPath: configuration.path
       )
 
     default:

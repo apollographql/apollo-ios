@@ -25,6 +25,5 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     ] }
 
     public var firstName: String { data["firstName"] }
-
   }
 }

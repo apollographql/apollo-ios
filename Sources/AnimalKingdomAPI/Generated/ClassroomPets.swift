@@ -36,7 +36,19 @@ public class ClassroomPetsQuery: GraphQLQuery {
         .fragment(ClassroomPetDetails.self),
       ] }
 
+      public var asAnimal: AsAnimal? { _asType() }
+      public var asPet: AsPet? { _asType() }
+      public var asWarmBlooded: AsWarmBlooded? { _asType() }
+      public var asCat: AsCat? { _asType() }
+      public var asBird: AsBird? { _asType() }
+      public var asPetRock: AsPetRock? { _asType() }
 
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+      }
     }
   }
 }

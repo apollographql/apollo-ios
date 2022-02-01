@@ -13,7 +13,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
   func test__generate__givenSwiftPackageManagerConfiguration_shouldGenerateManifest() throws {
     // given
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("TestModule/Package.swift")
+    let fileURL = rootURL.appendingPathComponent("Package.swift")
     let configuration = ApolloCodegenConfiguration.mock(
       .swiftPackageManager(moduleName: "TestModule"),
       to: rootURL.path

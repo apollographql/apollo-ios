@@ -29,6 +29,6 @@ struct SwiftPackageManagerModuleTemplate {
         ]),
       ]
     )
-    """).value
+    """).description
   }
 }

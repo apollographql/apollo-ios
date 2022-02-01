@@ -21,6 +21,5 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     ] }
 
     public var meters: Int { data["meters"] }
-
   }
 }

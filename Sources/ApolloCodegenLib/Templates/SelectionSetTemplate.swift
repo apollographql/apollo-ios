@@ -4,6 +4,7 @@ import InflectorKit
 struct SelectionSetTemplate {
 
   let schema: IR.Schema
+  private let nameCache = SelectionSetNameCache()
 
   func render(for operation: IR.Operation) -> String {
     TemplateString(
@@ -38,7 +39,7 @@ struct SelectionSetTemplate {
   func render(typeCase: IR.SelectionSet) -> String {
     TemplateString(
     """
-    public struct TODO: \(schema.name).SelectionSet {
+    public struct As\(typeCase.renderedTypeName): \(schema.name).TypeCase {
       \(BodyTemplate(typeCase))
     }
     """
@@ -46,25 +47,22 @@ struct SelectionSetTemplate {
   }
 
   private func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
-    """
+    let selections = selectionSet.selections
+    return """
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(selectionSet.parentType))
-    \(ifLet: selectionSet.selections.direct, { SelectionsTemplate($0) }, else: "\n")
+    \(ifLet: selections.direct, { SelectionsTemplate($0) })
 
-    \(ifLet: selectionSet.selections.direct?.fields.values,
-      where: { !$0.isEmpty }, {
-        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
-      })
-    \(if: !selectionSet.selections.merged.fields.values.isEmpty, """
-      \(selectionSet.selections.merged.fields.values.map { FieldAccessorTemplate($0) },
-        separator: "\n")
-      """)
+    \(section: FieldAccessorsTemplate(selections))
 
-    \(ifLet: selectionSet.selections.direct?.fields.values.compactMap { $0 as? IR.EntityField },
-      where: { !$0.isEmpty }, {
-        "\($0.map { render(field: $0) }, separator: "\n")"
-      })
+    \(section: TypeCaseAccessorsTemplate(selections))
+
+    \(section: FragmentAccessorsTemplate(selections))
+
+    \(section: ChildEntityFieldSelectionSets(selections))
+
+    \(section: ChildTypeCaseSelectionSets(selections))
     """
   }
 
@@ -111,6 +109,15 @@ struct SelectionSetTemplate {
     """
   }
 
+  private func FieldAccessorsTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.fields.values, {
+        "\($0.map { FieldAccessorTemplate($0) }, separator: "\n")"
+      })
+    \(selections.merged.fields.values.map { FieldAccessorTemplate($0) }, separator: "\n")
+    """
+  }
+
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
     func template(withType type: String) -> TemplateString {
       """
@@ -124,7 +131,7 @@ struct SelectionSetTemplate {
       type = scalarField.type.rendered
 
     case let entityField as IR.EntityField:
-      type = entityField.generatedSelectionSetType
+      type = self.nameCache.selectionSetType(for: entityField)
 
     default:
       fatalError()
@@ -132,7 +139,103 @@ struct SelectionSetTemplate {
     return template(withType: type)
   }
 
+  private func TypeCaseAccessorsTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.typeCases.values, {
+        "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
+      })
+    \(selections.merged.typeCases.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
+    """
+  }
+
+  private func TypeCaseAccessorTemplate(_ typeCase: IR.SelectionSet) -> TemplateString {
+    let typeName = typeCase.renderedTypeName
+    return """
+    public var as\(typeName): As\(typeName)? { _asType() }
+    """
+  }
+
+  private func FragmentAccessorsTemplate(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    guard !(selections.direct?.fragments.isEmpty ?? true) ||
+            !selections.merged.fragments.isEmpty else {
+      return ""
+    }
+
+    return """
+    public struct Fragments: FragmentContainer {
+      \(Self.DataFieldAndInitializerTemplate)
+
+      \(ifLet: selections.direct?.fragments.values, {
+          "\($0.map { FragmentAccessorTemplate($0) }, separator: "\n")"
+        })
+      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0) }, separator: "\n")
+    }
+    """
+  }
+
+  private func FragmentAccessorTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
+    let name = fragment.definition.name
+    return """
+    public var \(name.firstLowercased): \(name.firstUppercased) { _toFragment() }
+    """
+  }
+
+  private func ChildEntityFieldSelectionSets(
+    _ selections: IR.SelectionSet.Selections
+  ) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
+      "\($0.map { render(field: $0) }, separator: "\n\n")"
+    })
+    """
+  }
+
+  private func ChildTypeCaseSelectionSets(_ selections: IR.SelectionSet.Selections) -> TemplateString {
+    """
+    \(ifLet: selections.direct?.typeCases.values, {
+        "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
+      })
+    """
+  }
+
 }
+
+fileprivate class SelectionSetNameCache {
+  private var generatedSelectionSetNames: [ObjectIdentifier: String] = [:]
+
+  // MARK: Entity Field
+  func selectionSetName(for field: IR.EntityField) -> String {
+    let objectId = ObjectIdentifier(field)
+    if let name = generatedSelectionSetNames[objectId] { return name }
+
+    let name = computeGeneratedSelectionSetName(for: field)
+    generatedSelectionSetNames[objectId] = name
+    return name
+  }
+
+  func selectionSetType(for field: IR.EntityField) -> String {
+    field.type.rendered(replacingNamedTypeWith: selectionSetName(for: field))
+  }
+
+  // MARK: Name Computation
+  func computeGeneratedSelectionSetName(for field: IR.EntityField) -> String {
+    let selectionSet = field.selectionSet
+    if selectionSet.shouldBeRendered {
+      return field.formattedFieldName
+
+    } else {
+      return selectionSet.selections.merged.mergedSources
+        .first.unsafelyUnwrapped
+        .generatedSelectionSetName(for: selectionSet)
+    }
+  }
+}
+
+// MARK: - Helper Extensions
 
 fileprivate extension GraphQLCompositeType {
   var parentTypeEnumType: String {
@@ -163,7 +266,7 @@ fileprivate extension GraphQLType {
       let .scalar(type as GraphQLNamedType),
       let .inputObject(type as GraphQLNamedType):
 
-      let typeName = newTypeName ?? type.name
+      let typeName = newTypeName ?? type.swiftName
 
       return containedInNonNull ? typeName : "\(typeName)?"
 
@@ -184,41 +287,70 @@ fileprivate extension GraphQLType {
   }
 }
 
+fileprivate extension IR.SelectionSet {
+
+  /// Indicates if the SelectionSet should be rendered by the template engine.
+  ///
+  /// If `false`, references to the selection set can point to another rendered selection set.
+  /// Use `nameCache.selectionSetName(for:)` to get the name of the rendered selection set that
+  /// should be referenced.
+  var shouldBeRendered: Bool {
+    return selections.direct != nil || selections.merged.mergedSources.count != 1
+  }
+
+  var renderedTypeName: String {
+    self.parentType.name.firstUppercased
+  }
+
+}
+
 fileprivate extension IR.EntityField {
 
   var formattedFieldName: String {
     return StringInflector.default.singularize(responseKey.firstUppercased)
   }
 
-  var generatedSelectionSetName: String {
-    if selectionSet.selections.direct != nil {
-      return formattedFieldName
-    }
-
-    if selectionSet.selections.merged.mergedSources.count == 1 {
-      return selectionSet.selections.merged.mergedSources
-        .first.unsafelyUnwrapped
-        .generatedSelectionSetName
-    }
-
-    return formattedFieldName
-  }
-
-  var generatedSelectionSetType: String {
-    return self.type.rendered(replacingNamedTypeWith: generatedSelectionSetName)
-  }
-
 }
 
 fileprivate extension IR.MergedSelections.MergedSource {
-  var generatedSelectionSetName: String {
-    guard let fragmentSource = fragment else {
-      return typeInfo.debugDescription
+
+  func generatedSelectionSetName(for selectionSet: IR.SelectionSet) -> String {
+    if let fragment = fragment {
+      return generatedSelectionSetNameForMergedEntity(in: fragment)
     }
 
-    var fragmentTypePathCurrentNode = fragmentSource.selectionSet.typeInfo.typePath.head
+    var targetTypePathCurrentNode = selectionSet.typeInfo.typePath.last
+    var sourceTypePathCurrentNode = typeInfo.typePath.last
+    var nodesToSharedRoot = 0
+
+    while targetTypePathCurrentNode.value == sourceTypePathCurrentNode.value {
+      guard let previousFieldNode = targetTypePathCurrentNode.previous,
+            let previousSourceNode = sourceTypePathCurrentNode.previous else {
+              break
+            }
+
+      targetTypePathCurrentNode = previousFieldNode
+      sourceTypePathCurrentNode = previousSourceNode
+      nodesToSharedRoot += 1
+    }
+
+    let fieldPath = Array(typeInfo.entity.fieldPath
+                            .toArray()
+                            .suffix(nodesToSharedRoot + 1))
+
+    let selectionSetName = generatedSelectionSetName(
+      from: sourceTypePathCurrentNode,
+      withFieldPath: fieldPath,
+      removingFirst: nodesToSharedRoot <= 1
+    )
+
+    return selectionSetName
+  }
+
+  private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
+    var fragmentTypePathCurrentNode = fragment.selectionSet.typeInfo.typePath.head
     var sourceTypePathCurrentNode = typeInfo.typePath.head
-    var nodesToFragment = 1
+    var nodesToFragment = 0
 
     while let nextNode = fragmentTypePathCurrentNode.next {
       fragmentTypePathCurrentNode = nextNode
@@ -226,20 +358,21 @@ fileprivate extension IR.MergedSelections.MergedSource {
       nodesToFragment += 1
     }
 
-    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment))
+    let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment + 1))
     let selectionSetName = generatedSelectionSetName(
       from: sourceTypePathCurrentNode.next!,
       withFieldPath: fieldPath
     )
 
-    return "\(fragmentSource.definition.name).\(selectionSetName)"
+    return "\(fragment.definition.name).\(selectionSetName)"
   }
 
   private func generatedSelectionSetName(
     from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
-    withFieldPath fieldPath: [String]
+    withFieldPath fieldPath: [String],
+    removingFirst: Bool = false
   ) -> String {
-    var currentNode: LinkedList<TypeScopeDescriptor>.Node? = typePathNode
+    var currentNode = Optional(typePathNode)
     var fieldPathIndex = 0
 
     var components: [String] = []
@@ -257,6 +390,8 @@ fileprivate extension IR.MergedSelections.MergedSource {
       fieldPathIndex += 1
       currentNode = currentNode.unsafelyUnwrapped.next
     } while currentNode !== nil
+
+    if removingFirst { components.removeFirst() }
 
     return components.joined(separator: ".")
   }
