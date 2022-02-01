@@ -12,22 +12,25 @@ class InterfaceFileGeneratorTests: XCTestCase {
 
   func test_generate_givenSchemaType_shouldOutputToPath() throws {
     // given
+    let graphQLInterface = GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: [])
+    let fileManager = MockFileManager(strict: false)
+
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("MockInterface.swift")
-    let mockFileManager = MockFileManager(strict: false)
 
-    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+    fileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
 
       return true
     }))
 
     // then
-    try InterfaceFileGenerator(
-      interfaceType: GraphQLInterfaceType.mock("MockInterface", fields: [:], interfaces: []),
-      directoryPath: rootURL.path
-    ).generateFile(fileManager: mockFileManager)
+    try InterfaceFileGenerator.generate(
+      graphQLInterface,
+      directoryPath: rootURL.path,
+      fileManager: fileManager
+    )
 
-    expect(mockFileManager.allClosuresCalled).to(beTrue())
+    expect(fileManager.allClosuresCalled).to(beTrue())
   }
 }
