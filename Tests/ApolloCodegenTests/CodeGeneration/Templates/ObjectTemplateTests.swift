@@ -3,7 +3,7 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenTestSupport
 
-class TypeTemplateTests: XCTestCase {
+class ObjectTemplateTests: XCTestCase {
 
   // MARK: Boilerplate tests
 
@@ -17,7 +17,7 @@ class TypeTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = TypeTemplate(graphqlObject: graphqlObject).render()
+    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
@@ -34,7 +34,7 @@ class TypeTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = TypeTemplate(graphqlObject: graphqlObject).render()
+    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
@@ -45,7 +45,7 @@ class TypeTemplateTests: XCTestCase {
     let graphqlObject = GraphQLObjectType.mock("Dog")
 
     // when
-    let actual = TypeTemplate(graphqlObject: graphqlObject).render()
+    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
 
     // then
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
@@ -72,7 +72,7 @@ class TypeTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = TypeTemplate(graphqlObject: graphqlObject).render()
+    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
