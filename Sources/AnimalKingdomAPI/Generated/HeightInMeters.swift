@@ -1,6 +1,14 @@
 import ApolloAPI
 
 public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
+  public static var fragmentDefinition: StaticString { """
+    fragment HeightInMeters on Animal {
+      height {
+        meters
+      }
+    }
+    """ }
+
   public let data: DataDict
   public init(data: DataDict) { self.data = data }
 

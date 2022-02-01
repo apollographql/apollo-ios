@@ -55,7 +55,7 @@ public struct OperationDefinition {
   public var queryDocument: String {
     var document = operationDefinition
     fragments?.forEach {
-      document.append("\n" + $0.fragmentDefinition)
+      document.append("\n" + $0.fragmentDefinition.description)
     }
     return document
   }

@@ -1,6 +1,16 @@
 import ApolloAPI
 
 public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
+  public static var fragmentDefinition: StaticString { """
+    fragment WarmBloodedDetails on WarmBlooded {
+      bodyTemperature
+      height {
+        meters
+        yards
+      }
+    }
+    """ }
+
   public let data: DataDict
   public init(data: DataDict) { self.data = data }
 
