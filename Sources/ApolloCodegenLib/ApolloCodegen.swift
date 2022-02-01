@@ -35,8 +35,8 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    try generateSchemaTypesFiles(
-      ir.schema.referencedTypes,
+    try generateFiles(
+      for: ir.schema.referencedTypes,
       directoryPath: configuration.output.schemaTypes.path
     )
 
@@ -68,15 +68,11 @@ public class ApolloCodegen {
       ).generateFile()
     }
 
-    for operation in compilationResult.operations {
-      let irOperation = ir.build(operation: operation)
-      try OperationFileGenerator(
-        operation: irOperation,
-        schema: ir.schema,
-        config: configuration,
-        directoryPath: modulePath
-      ).generateFile()
-    }
+    try generateFiles(
+      for: compilationResult,
+      ir: ir,
+      config: configuration
+    )
 
     try SchemaModuleFileGenerator(configuration.output.schemaTypes)
       .generateFile()
@@ -108,13 +104,31 @@ public class ApolloCodegen {
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
   }
 
-  static func generateSchemaTypesFiles(
-    _ schemaTypes: IR.Schema.ReferencedTypes,
+  static func generateFiles(
+    for referencedTypes: IR.Schema.ReferencedTypes,
     directoryPath: String
   ) throws {
-    for graphQLEnum in schemaTypes.enums {
+    for graphQLEnum in referencedTypes.enums {
       try autoreleasepool {
         try EnumFileGenerator.generate(graphQLEnum, directoryPath: directoryPath)
+      }
+    }
+  }
+
+  static func generateFiles(
+    for compilationResult: CompilationResult,
+    ir: IR,
+    config: ApolloCodegenConfiguration
+  ) throws {
+    for operation in compilationResult.operations {
+      try autoreleasepool {
+        let irOperation = ir.build(operation: operation)
+        try OperationFileGenerator.generate(
+          irOperation,
+          schema: ir.schema,
+          config: config,
+          directoryPath: config.output.schemaTypes.path
+        )
       }
     }
   }
