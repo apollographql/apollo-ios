@@ -42,8 +42,6 @@ public class ApolloCodegen {
     )
 
     let modulePath = configuration.output.schemaTypes.path
-    try fileGenerators(for: ir.schema.referencedTypes.interfaces, directoryPath: modulePath)
-      .forEach({ try $0.generateFile() })
     try fileGenerators(
         for: ir.schema.referencedTypes.unions,
         moduleName: configuration.output.schemaTypes.moduleName,
@@ -109,6 +107,12 @@ public class ApolloCodegen {
         try EnumFileGenerator.generate(graphQLEnum, directoryPath: directoryPath)
       }
     }
+
+    for graphQLInterface in referencedTypes.interfaces {
+      try autoreleasepool {
+        try InterfaceFileGenerator.generate(graphQLInterface, directoryPath: directoryPath)
+      }
+    }
   }
 
   /// Generates files for operation and fragment types.
@@ -140,15 +144,6 @@ public class ApolloCodegen {
         )
       }
     }
-  }
-
-  static func fileGenerators(
-    for interfaceTypes: OrderedSet<GraphQLInterfaceType>,
-    directoryPath path: String
-  ) -> [InterfaceFileGenerator] {
-    return interfaceTypes.map({ graphqlInterfaceType in
-      InterfaceFileGenerator(interfaceType: graphqlInterfaceType, directoryPath: path)
-    })
   }
 
   static func fileGenerators(

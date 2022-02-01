@@ -1,26 +1,25 @@
 import Foundation
 
 /// Generates a file containing the Swift representation of a [GraphQL Interface](https://spec.graphql.org/draft/#sec-Interfaces).
-struct InterfaceFileGenerator: FileGenerator, Equatable {
-  /// The `GraphQLInterfaceType` object used to build the file content.
-  let interfaceType: GraphQLInterfaceType
-  let path: String
-
-  var data: Data? {
-    InterfaceTemplate(graphqlInterface: interfaceType)
-      .render()
-      .data(using: .utf8)
-  }
-
-  /// Designated initializer.
+struct InterfaceFileGenerator {
+  /// Converts `graphQLInterface` into Swift code and writes the result to a file in `directoryPath`.
   ///
   /// - Parameters:
-  ///  - interfaceType: The `GraphQLInterfaceType` object used to build the file content.
-  ///  - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
-  init(interfaceType: GraphQLInterfaceType, directoryPath: String) {
-    self.interfaceType = interfaceType
+  ///   - graphQLInterface: The `GraphQLInterfaceType` object used to build the file content.
+  ///   - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
+  ///   - fileManager: The `FileManager` object used to create the file. Defaults to `FileManager.default`.
+  static func generate(
+    _ graphQLInterface: GraphQLInterfaceType,
+    directoryPath: String,
+    fileManager: FileManager = FileManager.default
+  ) throws {
+    let filePath = URL(fileURLWithPath: directoryPath)
+      .appendingPathComponent("\(graphQLInterface.name).swift").path
 
-    self.path = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(interfaceType.name).swift").path
+    let data = InterfaceTemplate(
+      graphqlInterface: graphQLInterface
+    ).render().data(using: .utf8)
+
+    try fileManager.apollo.createFile(atPath: filePath, data: data)
   }
 }
