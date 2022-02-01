@@ -1,35 +1,31 @@
 import Foundation
 
-/// Generates a file containing the Swift representation of a GraphQL Fragment.
-struct FragmentFileGenerator: FileGenerator {
-  /// The `IR.NamedFragment` object used to build the file content.
-  let fragment: IR.NamedFragment
-  let schema: IR.Schema
-  let config: ApolloCodegenConfiguration
-  let path: String
-
-  var data: Data? {
-    FragmentTemplate(fragment: fragment, schema: schema, config: config)
-      .render()
-      .data(using: .utf8)
-  }
-
-  /// Designated initializer.
+/// Generates a file containing the Swift representation of a [GraphQL Fragment](https://spec.graphql.org/draft/#sec-Language.Fragments).
+struct FragmentFileGenerator {
+  /// Converts `graphQLFragment` into Swift code and writes the results to a file in `directoryPath`.
   ///
   /// - Parameters:
-  ///  - fragment: The `IR.NamedFragment` object used to build the file content.
-  ///  - schema: The `IR.Schema` the fragment is belongs to.
-  ///  - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
-  init(
-    fragment: IR.NamedFragment,
+  ///   - graphQLFragment: The `IR.NamedFragment` object used to build the file content.
+  ///   - schema: The `IR.Schema` the fragment is belongs to.
+  ///   - config: `ApolloCodegenConfiguration` object that defines behavior for the Swift code generation.
+  ///   - directoryPath: The output path that the file will be written to.
+  ///   - fileManager: `FileManager` object used to create the file. Defaults to `FileManager.default`.
+  static func generate(
+    _ graphQLFragment: IR.NamedFragment,
     schema: IR.Schema,
     config: ApolloCodegenConfiguration,
-    directoryPath: String
-  ) {
-    self.fragment = fragment
-    self.schema = schema
-    self.config = config
-    self.path = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(fragment.definition.name).swift").path
+    directoryPath: String,
+    fileManager: FileManager = FileManager.default
+  ) throws {
+    let filePath = URL(fileURLWithPath: directoryPath)
+      .appendingPathComponent("\(graphQLFragment.definition.name).swift").path
+
+    let data = FragmentTemplate(
+      fragment: graphQLFragment,
+      schema: schema,
+      config: config
+    ).render().data(using: .utf8)
+
+    try fileManager.apollo.createFile(atPath: filePath, data: data)
   }
 }

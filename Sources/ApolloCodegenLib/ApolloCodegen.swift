@@ -6,6 +6,7 @@ import OrderedCollections
 
 /// A class to facilitate running code generation
 public class ApolloCodegen {
+
   // MARK: Public
 
   /// Errors that can occur during code generation.
@@ -58,16 +59,6 @@ public class ApolloCodegen {
       directoryPath: modulePath
     ).generateFile()
 
-    for fragment in compilationResult.fragments {
-      let irFragment = ir.build(fragment: fragment)
-      try FragmentFileGenerator(
-        fragment: irFragment,
-        schema: ir.schema,
-        config: configuration,
-        directoryPath: modulePath
-      ).generateFile()
-    }
-
     try generateFiles(
       for: compilationResult,
       ir: ir,
@@ -80,6 +71,7 @@ public class ApolloCodegen {
 
   // MARK: Internal
 
+  /// Performs GraphQL source validation and compiles the schema and operation source documents. 
   static func compileGraphQLResult(
     using input: ApolloCodegenConfiguration.FileInput
   ) throws -> CompilationResult {
@@ -104,6 +96,7 @@ public class ApolloCodegen {
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
   }
 
+  /// Generates files for referenced schema types.
   static func generateFiles(
     for referencedTypes: IR.Schema.ReferencedTypes,
     directoryPath: String
@@ -115,11 +108,24 @@ public class ApolloCodegen {
     }
   }
 
+  /// Generates files for operation and fragment types.
   static func generateFiles(
     for compilationResult: CompilationResult,
     ir: IR,
     config: ApolloCodegenConfiguration
   ) throws {
+    for fragment in compilationResult.fragments {
+      try autoreleasepool {
+        let irFragment = ir.build(fragment: fragment)
+        try FragmentFileGenerator.generate(
+          irFragment,
+          schema: ir.schema,
+          config: config,
+          directoryPath: config.output.schemaTypes.path
+        )
+      }
+    }
+
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
