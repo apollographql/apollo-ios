@@ -8,7 +8,6 @@ import {
   DocumentNode,
   FragmentDefinitionNode,
   getNamedType,
-  getOperationRootType,
   GraphQLCompositeType,
   GraphQLError,
   GraphQLNamedType,
@@ -16,6 +15,7 @@ import {
   GraphQLSchema,
   GraphQLType,
   isCompositeType,
+  isUnionType,
   Kind,
   OperationDefinitionNode,
   print,
@@ -73,6 +73,17 @@ export function compileToIR(
     referencedTypes: Array.from(referencedTypes.values()),
   };
 
+  function addReferencedType(type: GraphQLNamedType) {
+    referencedTypes.add(type)
+    
+    if (isUnionType(type)) {
+      const unionReferencedTypes = type.getTypes()
+      for (type of unionReferencedTypes) {
+        referencedTypes.add(getNamedType(type))
+      }      
+    }
+  }
+
   function getFragment(name: string): ir.FragmentDefinition | undefined {
     let fragment = fragmentMap.get(name);
     if (fragment) return fragment;
@@ -117,7 +128,7 @@ export function compileToIR(
           );
         }
 
-        referencedTypes.add(getNamedType(type));
+        addReferencedType(getNamedType(type));
 
         return {
           name,
@@ -127,10 +138,9 @@ export function compileToIR(
     );
 
     const source = print(operationDefinition);
-    const rootType = getOperationRootType(
-      schema,
-      operationDefinition
-    ) as GraphQLObjectType;
+    const rootType = schema.getRootType(operationType) as GraphQLObjectType;
+
+    referencedTypes.add(getNamedType(rootType));
 
     return {
       filePath,
@@ -159,7 +169,7 @@ export function compileToIR(
       fragmentDefinition.typeCondition
     ) as GraphQLCompositeType;
 
-    referencedTypes.add(typeCondition);
+    addReferencedType(getNamedType(typeCondition));
 
     return {
       name,
@@ -209,7 +219,7 @@ export function compileToIR(
         const fieldType = fieldDef.type;
         const unwrappedFieldType = getNamedType(fieldType);
 
-        referencedTypes.add(unwrappedFieldType);
+        addReferencedType(getNamedType(unwrappedFieldType));
 
         const { description, deprecationReason } = fieldDef;
 
@@ -265,7 +275,7 @@ export function compileToIR(
           ? (typeFromAST(schema, typeNode) as GraphQLCompositeType)
           : parentType;
 
-        referencedTypes.add(typeCondition);
+        addReferencedType(typeCondition);        
 
         return {
           kind: "InlineFragment",
