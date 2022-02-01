@@ -54,7 +54,7 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
-      .field("allAnimals", [Animal].self),
+      .field("allAnimals", [AllAnimal].self),
     ] }
 
     public var allAnimals: [AllAnimal] { data["allAnimals"] }
@@ -68,7 +68,7 @@ public class AllAnimalsQueryQuery: GraphQLQuery {
         .field("height", Height.self),
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<SkinCovering>?.self),
-        .field("predators", [Animal].self),
+        .field("predators", [Predator].self),
         .typeCase(AsWarmBlooded.self),
         .typeCase(AsPet.self),
         .typeCase(AsCat.self),

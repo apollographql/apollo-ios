@@ -83,8 +83,21 @@ struct SelectionSetTemplate {
 
   private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
     """
-    .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(field.type.rendered).self)
+    .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(typeName(for: field)).self)
     """
+  }
+
+  private func typeName(for field: IR.Field) -> String {
+    switch field {
+    case let scalarField as IR.ScalarField:
+      return scalarField.type.rendered
+
+    case let entityField as IR.EntityField:
+      return self.nameCache.selectionSetType(for: entityField)
+
+    default:
+      fatalError()
+    }
   }
 
   private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
@@ -109,24 +122,9 @@ struct SelectionSetTemplate {
   }
 
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
-    func template(withType type: String) -> TemplateString {
-      """
-      public var \(field.responseKey): \(type) { data["\(field.responseKey)"] }
-      """
-    }
-
-    let type: String
-    switch field {
-    case let scalarField as IR.ScalarField:
-      type = scalarField.type.rendered
-
-    case let entityField as IR.EntityField:
-      type = self.nameCache.selectionSetType(for: entityField)
-
-    default:
-      fatalError()
-    }
-    return template(withType: type)
+    """
+    public var \(field.responseKey): \(typeName(for: field)) { data["\(field.responseKey)"] }
+    """
   }
 
   private func TypeCaseAccessorsTemplate(
