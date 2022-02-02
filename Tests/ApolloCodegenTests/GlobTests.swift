@@ -84,8 +84,8 @@ class GlobTests: XCTestCase {
 
     // then
     expect(Glob([pattern]).match).to(equal([
+      baseURL.appendingPathComponent("file.two").path,
       baseURL.appendingPathComponent("file.one").path,
-      baseURL.appendingPathComponent("file.two").path
     ]))
   }
 
@@ -121,8 +121,8 @@ class GlobTests: XCTestCase {
 
     // then
     expect(Glob([pattern]).match).to(equal([
+      baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
-      baseURL.appendingPathComponent("other/file.oye").path
     ]))
   }
 
@@ -170,8 +170,8 @@ class GlobTests: XCTestCase {
     // then
     expect(Glob(pattern).match).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
-      baseURL.appendingPathComponent("other/file.oye").path
     ]))
   }
 
@@ -216,8 +216,8 @@ class GlobTests: XCTestCase {
     // then
     expect(Glob(pattern).match).to(equal([
       baseURL.appendingPathComponent("a/file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
-      baseURL.appendingPathComponent("other/file.oye").path
     ]))
   }
 
@@ -257,10 +257,10 @@ class GlobTests: XCTestCase {
 
     // then
     expect(Glob(pattern).match).to(equal([
-      baseURL.appendingPathComponent("file.one").path,
       baseURL.appendingPathComponent("file.two").path,
+      baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("other/file.oye").path,
       baseURL.appendingPathComponent("other/file.one").path,
-      baseURL.appendingPathComponent("other/file.oye").path
     ]))
   }
 
@@ -298,8 +298,8 @@ class GlobTests: XCTestCase {
     // then
     expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/file.one").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
     ]))
   }
 
@@ -337,8 +337,8 @@ class GlobTests: XCTestCase {
     // then
     expect(Glob([pattern]).match).to(equal([
       baseURL.appendingPathComponent("a/b/c/d/file.two").path,
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/f/file.two").path
     ]))
   }
 
@@ -368,8 +368,8 @@ class GlobTests: XCTestCase {
 
     // then
     expect(Glob(pattern).match).to(equal([
+      baseURL.appendingPathComponent("a/b/c/d/e/f/file.ext").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
-      baseURL.appendingPathComponent("a/b/c/d/e/f/file.ext").path
     ]))
   }
 
@@ -395,11 +395,11 @@ class GlobTests: XCTestCase {
     // then
     expect(Glob(pattern).match).to(equal([
       baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("a/b/file.one").path,
       baseURL.appendingPathComponent("a/b/c/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
-      baseURL.appendingPathComponent("other/file.one").path
     ]))
   }
 
@@ -453,11 +453,11 @@ class GlobTests: XCTestCase {
     // then
     expect(Glob(pattern).match).to(equal([
       baseURL.appendingPathComponent("file.one").path,
+      baseURL.appendingPathComponent("other/file.one").path,
       baseURL.appendingPathComponent("a/file.one").path,
       baseURL.appendingPathComponent("a/b/file.one").path,
       baseURL.appendingPathComponent("a/b/c/file.one").path,
       baseURL.appendingPathComponent("a/b/c/d/e/f/file.one").path,
-      baseURL.appendingPathComponent("other/file.one").path
     ]))
   }
 
