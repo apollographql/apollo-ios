@@ -49,6 +49,111 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
         public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
       }
+
+      public struct AsAnimal: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Animal.self) }
+
+        public var species: String { data["species"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+      }
+
+      public struct AsPet: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
+
+        public var humanName: String? { data["humanName"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+      }
+
+      public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.WarmBlooded.self) }
+
+        public var species: String { data["species"] }
+        public var laysEggs: Bool { data["laysEggs"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+      }
+
+      public struct AsCat: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Cat.self) }
+
+        public var species: String { data["species"] }
+        public var humanName: String? { data["humanName"] }
+        public var laysEggs: Bool { data["laysEggs"] }
+        public var bodyTemperature: Int { data["bodyTemperature"] }
+        public var isJellicle: Bool { data["isJellicle"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+      }
+
+      public struct AsBird: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
+
+        public var species: String { data["species"] }
+        public var humanName: String? { data["humanName"] }
+        public var laysEggs: Bool { data["laysEggs"] }
+        public var wingspan: Int { data["wingspan"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+      }
+
+      public struct AsPetRock: AnimalKingdomAPI.TypeCase {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public static var __parentType: ParentType { .Object(AnimalKingdomAPI.PetRock.self) }
+
+        public var humanName: String? { data["humanName"] }
+        public var favoriteToy: String { data["favoriteToy"] }
+
+        public struct Fragments: FragmentContainer {
+          public let data: DataDict
+          public init(data: DataDict) { self.data = data }
+
+          public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
+        }
+      }
     }
   }
 }

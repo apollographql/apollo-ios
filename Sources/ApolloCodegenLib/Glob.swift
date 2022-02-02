@@ -1,4 +1,5 @@
 import Foundation
+import OrderedCollections
 
 private extension String {
   static let Globstar: String = "**"
@@ -65,7 +66,7 @@ public struct Glob {
   /// Executes the pattern match on the underlying file system.
   ///
   /// - Returns: A set of matched file paths.
-  func match() throws -> Set<String> {
+  func match() throws -> OrderedSet<String> {
     let expandedPatterns = try expand(self.patterns)
 
     var includeMatches: [String] = []
@@ -82,12 +83,12 @@ public struct Glob {
       }
     }
 
-    return Set<String>(includeMatches).subtracting(excludeMatches)
+    return OrderedSet<String>(includeMatches).subtracting(excludeMatches)
   }
 
   /// Separates a comma-delimited string into paths, expanding any globstars and removes duplicates.
-  private func expand(_ patterns: [String]) throws -> Set<String> {
-    var paths: Set<String> = []
+  private func expand(_ patterns: [String]) throws -> OrderedSet<String> {
+    var paths: OrderedSet<String> = []
     for pattern in patterns {
       if pattern.containsExclude && !pattern.isExclude {
         // glob and fnmatch do support ! being used elsewhere in the path match pattern but for the
@@ -103,7 +104,7 @@ public struct Glob {
   }
 
   /// Expands the globstar (`**`) to find all directory paths to search for the match pattern and removes duplicates.
-  private func expandGlobstar(_ pattern: String) throws -> Set<String> {
+  private func expandGlobstar(_ pattern: String) throws -> OrderedSet<String> {
     guard pattern.contains("**") else { return [pattern] }
 
     CodegenLogger.log("Expanding globstar \(pattern)", logLevel: .debug)
@@ -157,7 +158,7 @@ public struct Glob {
       throw(error)
     }
 
-    return Set<String>(directories.compactMap({ directory in
+    return OrderedSet<String>(directories.compactMap({ directory in
       var path = URL(fileURLWithPath: directory).appendingPathComponent(lastPart).standardizedFileURL.path
       if isExclude {
         path.insert("!", at: path.startIndex)
