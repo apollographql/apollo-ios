@@ -36,82 +36,10 @@ public class ApolloCodegen {
       compilationResult: compilationResult
     )
 
-    for graphQLObject in ir.schema.referencedTypes.objects {
-      try autoreleasepool {
-        try ObjectFileGenerator.generate(
-          graphQLObject,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLEnum in ir.schema.referencedTypes.enums {
-      try autoreleasepool {
-        try EnumFileGenerator.generate(
-          graphQLEnum,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLInterface in ir.schema.referencedTypes.interfaces {
-      try autoreleasepool {
-        try InterfaceFileGenerator.generate(
-          graphQLInterface,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLUnion in ir.schema.referencedTypes.unions {
-      try autoreleasepool {
-        try UnionFileGenerator.generate(
-          graphQLUnion,
-          moduleName: configuration.output.schemaTypes.moduleName,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLInputObject in ir.schema.referencedTypes.inputObjects {
-      try autoreleasepool {
-        try InputObjectFileGenerator.generate(
-          graphQLInputObject,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    try SchemaFileGenerator.generate(
-      ir.schema,
-      directoryPath: configuration.output.schemaTypes.path
-    )
-
-    for fragment in compilationResult.fragments {
-      try autoreleasepool {
-        let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator.generate(
-          irFragment,
-          schema: ir.schema,
-          config: configuration.output,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    for operation in compilationResult.operations {
-      try autoreleasepool {
-        let irOperation = ir.build(operation: operation)
-        try OperationFileGenerator.generate(
-          irOperation,
-          schema: ir.schema,
-          config: configuration,
-          directoryPath: configuration.output.schemaTypes.path
-        )
-      }
-    }
-
-    try SchemaModuleFileGenerator.generate(configuration.output.schemaTypes
+    try generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: configuration
     )
   }
 
@@ -140,6 +68,102 @@ public class ApolloCodegen {
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
+  }
+
+  /// Generates Swift files for the compiled schema, ir and configured output structure.
+  static func generateFiles(
+    compilationResult: CompilationResult,
+    ir: IR,
+    config: ApolloCodegenConfiguration,
+    fileManager: FileManager = FileManager.default
+  ) throws {
+    for graphQLObject in ir.schema.referencedTypes.objects {
+      try autoreleasepool {
+        try ObjectFileGenerator.generate(
+          graphQLObject,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    for graphQLEnum in ir.schema.referencedTypes.enums {
+      try autoreleasepool {
+        try EnumFileGenerator.generate(
+          graphQLEnum,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    for graphQLInterface in ir.schema.referencedTypes.interfaces {
+      try autoreleasepool {
+        try InterfaceFileGenerator.generate(
+          graphQLInterface,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    for graphQLUnion in ir.schema.referencedTypes.unions {
+      try autoreleasepool {
+        try UnionFileGenerator.generate(
+          graphQLUnion,
+          moduleName: config.output.schemaTypes.moduleName,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    for graphQLInputObject in ir.schema.referencedTypes.inputObjects {
+      try autoreleasepool {
+        try InputObjectFileGenerator.generate(
+          graphQLInputObject,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    try SchemaFileGenerator.generate(
+      ir.schema,
+      directoryPath: config.output.schemaTypes.path,
+      fileManager: fileManager
+    )
+
+    for fragment in compilationResult.fragments {
+      try autoreleasepool {
+        let irFragment = ir.build(fragment: fragment)
+        try FragmentFileGenerator.generate(
+          irFragment,
+          schema: ir.schema,
+          config: config.output,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    for operation in compilationResult.operations {
+      try autoreleasepool {
+        let irOperation = ir.build(operation: operation)
+        try OperationFileGenerator.generate(
+          irOperation,
+          schema: ir.schema,
+          config: config,
+          directoryPath: config.output.schemaTypes.path,
+          fileManager: fileManager
+        )
+      }
+    }
+
+    try SchemaModuleFileGenerator.generate(
+      config.output.schemaTypes,
+      fileManager: fileManager
+    )
   }
 }
 
