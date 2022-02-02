@@ -23,9 +23,19 @@ struct OperationDefinitionTemplate {
 
   func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
-    public class \(operation.name)\(operation.operationType.operationNameTypeSuffix): \(operation.operationType.renderedProtocolName) {
+    public class \(operation.name)\(OperationNameSuffix(operation)): \(operation.operationType.renderedProtocolName) {
       public let operationName: String = "\(operation.name)"
     """
+  }
+
+  private func OperationNameSuffix(
+    _ operation: CompilationResult.OperationDefinition
+  ) -> String {
+    let suffix = operation.operationType.operationNameTypeSuffix
+    guard !operation.name.hasSuffix(suffix) else {
+      return ""
+    }
+    return suffix
   }
 
   enum DocumentType {

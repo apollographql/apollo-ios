@@ -9,7 +9,13 @@ struct FragmentTemplate {
     """
     \(ImportStatementTemplate.Operation.render(config))
 
-    \(SelectionSetTemplate(schema: schema).render(for: fragment))
+    public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        \(fragment.definition.source)
+        ""\" }
+
+      \(SelectionSetTemplate(schema: schema).BodyTemplate(fragment.rootField.selectionSet))
+    }
     """).description
   }
 

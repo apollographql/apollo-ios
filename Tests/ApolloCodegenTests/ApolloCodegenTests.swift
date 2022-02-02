@@ -232,12 +232,14 @@ class ApolloCodegenTests: XCTestCase {
 
     let ir = try IR.mock(schema: schema, document: operations)
     let namedEntityInterface = try ir.schema[interface: "NamedEntity"].xctUnwrapped()
+    let queryObject = try ir.schema[object: "Query"].xctUnwrapped()
     let personObject = try ir.schema[object: "Person"].xctUnwrapped()
     let businessObject = try ir.schema[object: "Business"].xctUnwrapped()
     let contactObject = try ir.schema[object: "Contact"].xctUnwrapped()
     let businessTypeEnum = try ir.schema[enum: "BUSINESS_TYPE"].xctUnwrapped()
     let searchResultUnion = try ir.schema[union: "SearchResult"].xctUnwrapped()
     let contactInput = try ir.schema[inputObject: "ContactInput"].xctUnwrapped()
+    let mutationObject = try ir.schema[object: "Mutation"].xctUnwrapped()
 
     let directoryPath = CodegenTestHelper.outputFolderURL().path
 
@@ -253,9 +255,11 @@ class ApolloCodegenTests: XCTestCase {
       for: ir.schema.referencedTypes.objects,
       directoryPath: directoryPath
     )).to(equal([
+      TypeFileGenerator(objectType: queryObject, directoryPath: directoryPath),
       TypeFileGenerator(objectType: contactObject, directoryPath: directoryPath),
       TypeFileGenerator(objectType: personObject, directoryPath: directoryPath),
-      TypeFileGenerator(objectType: businessObject, directoryPath: directoryPath)
+      TypeFileGenerator(objectType: businessObject, directoryPath: directoryPath),
+      TypeFileGenerator(objectType: mutationObject, directoryPath: directoryPath)
     ]))
 
     expect(ApolloCodegen.fileGenerators(

@@ -16,16 +16,6 @@ struct SelectionSetTemplate {
     ).description
   }
 
-  func render(for fragment: IR.NamedFragment) -> String {
-    TemplateString(
-    """
-    public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
-      \(BodyTemplate(fragment.rootField.selectionSet))
-    }
-    """
-    ).description
-  }
-
   func render(field: IR.EntityField) -> String {
     TemplateString(
     """
@@ -46,7 +36,7 @@ struct SelectionSetTemplate {
     ).description
   }
 
-  private func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
+  func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     let selections = selectionSet.selections
     return """
     \(Self.DataFieldAndInitializerTemplate)
@@ -93,8 +83,21 @@ struct SelectionSetTemplate {
 
   private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
     """
-    .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(field.type.rendered).self)
+    .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(typeName(for: field)).self)
     """
+  }
+
+  private func typeName(for field: IR.Field) -> String {
+    switch field {
+    case let scalarField as IR.ScalarField:
+      return scalarField.type.rendered
+
+    case let entityField as IR.EntityField:
+      return self.nameCache.selectionSetType(for: entityField)
+
+    default:
+      fatalError()
+    }
   }
 
   private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
@@ -119,24 +122,9 @@ struct SelectionSetTemplate {
   }
 
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
-    func template(withType type: String) -> TemplateString {
-      """
-      public var \(field.responseKey): \(type) { data["\(field.responseKey)"] }
-      """
-    }
-
-    let type: String
-    switch field {
-    case let scalarField as IR.ScalarField:
-      type = scalarField.type.rendered
-
-    case let entityField as IR.EntityField:
-      type = self.nameCache.selectionSetType(for: entityField)
-
-    default:
-      fatalError()
-    }
-    return template(withType: type)
+    """
+    public var \(field.responseKey): \(typeName(for: field)) { data["\(field.responseKey)"] }
+    """
   }
 
   private func TypeCaseAccessorsTemplate(
@@ -191,6 +179,11 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.fields.values.compactMap { $0 as? IR.EntityField }, {
       "\($0.map { render(field: $0) }, separator: "\n\n")"
     })
+    \(selections.merged.fields.values.compactMap { field -> String? in
+      guard let field = field as? IR.EntityField,
+        field.selectionSet.shouldBeRendered else { return nil }
+      return render(field: field)
+    }, separator: "\n\n")
     """
   }
 
@@ -199,7 +192,8 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.typeCases.values, {
         "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
       })
-    """
+    \(selections.merged.typeCases.values.map { render(typeCase: $0) }, separator: "\n\n")
+    """    
   }
 
 }

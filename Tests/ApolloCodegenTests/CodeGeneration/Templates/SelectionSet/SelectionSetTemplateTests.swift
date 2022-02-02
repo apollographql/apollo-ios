@@ -423,6 +423,47 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  func test__render_selections__givenEnitityFieldWithNameNotMatchingType_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      predator: Animal!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("predator", Predator.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
   // MARK: Selections - Type Cases
 
   func test__render_selections__givenTypeCases_rendersTypeCaseSelections() throws {
@@ -1583,6 +1624,64 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
+  func test__render_fragmentAccessor__givenInheritedFragmentFromParent_rendersFragmentAccessor() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      string: String!
+      int: Int!
+    }
+
+    type Cat implements Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...FragmentA
+        ... on Cat {
+          string
+        }
+      }
+    }
+
+    fragment FragmentA on Animal {
+      int
+    }
+
+    fragment lowercaseFragment on Animal {
+      string
+    }
+    """
+
+    let expected = """
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var fragmentA: FragmentA { _toFragment() }
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asCat = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Cat"]
+    )
+
+    let actual = subject.render(typeCase: allAnimals_asCat)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
   // MARK: - Nested Selection Sets
 
   func test__render_nestedSelectionSets__givenDirectEntityFieldAsList_rendersNestedSelectionSet() throws {
@@ -1612,6 +1711,140 @@ class SelectionSetTemplateTests: XCTestCase {
       public var predators: [Predator]? { data["predators"] }
 
       public struct Predator: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSets__givenEntityFieldMergedFromTwoSources_rendersMergedSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    interface Pet implements Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    interface WarmBlooded implements Animal {
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Dog implements Animal & Pet & WarmBlooded {
+      name: String!
+      species: String!
+      predator: Animal!
+      height: Height!
+    }
+
+    type Height {
+      feet: Int!
+      meters: Int!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Pet {
+          predator {
+            height {
+              feet
+            }
+          }
+        }
+        ... on WarmBlooded {
+          predator {
+            height {
+              meters
+            }
+          }
+        }
+        ... on Dog {
+          predator {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var species: String { data["species"] }
+      public var height: Height { data["height"] }
+
+      public struct Height: TestSchema.SelectionSet {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asDog_predator = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]?[field: "predator"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals_asDog_predator)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSet__givenEntityFieldMergedFromFragment_doesNotRendersSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...PredatorDetails
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      predator {
+        species
+      }
+    }
+    """
+
+    let expected = """
+      public var predator: PredatorDetails.Predator { data["predator"] }
+
+      public struct Fragments: FragmentContainer {
+        public let data: DataDict
+        public init(data: DataDict) { self.data = data }
+
+        public var predatorDetails: PredatorDetails { _toFragment() }
+      }
+    }
     """
 
     // when
@@ -1678,6 +1911,68 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+  }
+
+  func test__render_nestedSelectionSet__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    interface Pet implements Animal {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+
+    type Dog implements Animal & Pet {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+        predator {
+          ... on Pet {
+            name
+          }
+        }
+        ... on Dog {
+          name
+          predator {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public var asPet: AsPet? { _asType() }
+
+      public struct AsPet: TestSchema.TypeCase {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asDog_predator = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]?[field: "predator"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals_asDog_predator)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
 }
