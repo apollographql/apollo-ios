@@ -1,5 +1,5 @@
 import XCTest
-import ApolloCodegenTestSupport
+@testable import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 import Nimble
 
@@ -95,7 +95,7 @@ class ApolloCodegenTests: XCTestCase {
     // is not a property of the `Book` type.
 
     // then
-    expect(try ApolloCodegen.compileGraphQLResult(using: config))
+    expect(try ApolloCodegen.compileGraphQLResult(config))
     .to(throwError { error in
       guard case let ApolloCodegen.Error.graphQLSourceValidationFailure(lines) = error else {
         fail("Expected .graphQLSourceValidationFailure, got .\(error)")
@@ -135,7 +135,7 @@ class ApolloCodegenTests: XCTestCase {
     )
 
     // then
-    expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(haveCount(2))
+    expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(haveCount(2))
   }
 
   func test_compileResults_givenSchema_withNoOperations_shouldReturnEmpty() throws {
@@ -148,144 +148,77 @@ class ApolloCodegenTests: XCTestCase {
     )
 
     // then
-    expect(try ApolloCodegen.compileGraphQLResult(using: config).operations).to(beEmpty())
+    expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(beEmpty())
   }
 
   // MARK: File Generator Tests
 
-  func test_fileGenerators_givenSchema_shouldCreateFileGeneratorsForUsedSchemaTypes() throws {
+  func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles() throws {
     // given
-    let schema = """
-    interface NamedEntity {
-      name: String
-    }
+    let schemaPath = ApolloCodegenTestSupport.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenTestSupport.Resources.url
+      .appendingPathComponent("**/*.graphql").path
 
-    type Person implements NamedEntity {
-      name: String
-      age: Int
-    }
+    let config = ApolloCodegenConfiguration(
+      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      output: .mock(
+        moduleType: .swiftPackageManager(moduleName: "AnimalKingdomAPI"),
+        operations: .inSchemaModule,
+        path: directoryURL.path
+      )
+    )
 
-    type Business implements NamedEntity {
-      name: String
-      type: BUSINESS_TYPE
-    }
+    let fileManager = MockFileManager(strict: false)
 
-    enum BUSINESS_TYPE {
-      MOM_AND_POP
-      BIG_RETAIL
-    }
+    var filePaths: Set<String> = []
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      filePaths.insert(path)
+      return true
+    }))
 
-    type Contact {
-      entity: NamedEntity!
-      address: String
-      phoneNumber: String
-    }
+    let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Height.swift").path,
+      directoryURL.appendingPathComponent("HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Pet.swift").path,
+      directoryURL.appendingPathComponent("PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Animal.swift").path,
+      directoryURL.appendingPathComponent("RelativeSize.swift").path,
+      directoryURL.appendingPathComponent("Human.swift").path,
+      directoryURL.appendingPathComponent("Cat.swift").path,
+      directoryURL.appendingPathComponent("WarmBlooded.swift").path,
+      directoryURL.appendingPathComponent("ClassroomPet.swift").path,
+      directoryURL.appendingPathComponent("Bird.swift").path,
+      directoryURL.appendingPathComponent("Rat.swift").path,
+      directoryURL.appendingPathComponent("PetRock.swift").path,
+      directoryURL.appendingPathComponent("ClassroomPetsQuery.swift").path,
+      directoryURL.appendingPathComponent("ClassroomPetDetails.swift").path,
+      directoryURL.appendingPathComponent("Query.swift").path,
+      directoryURL.appendingPathComponent("Schema.swift").path,
+      directoryURL.appendingPathComponent("Package.swift").path,
+    ]
 
-    union SearchResult = Person | Business
+    // when
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(config.input)
 
-    input ContactInput {
-      name: String
-      address: String
-      phoneNumber: String
-    }
+    let ir = IR(
+      schemaName: config.output.schemaTypes.moduleName,
+      compilationResult: compilationResult
+    )
 
-    type Query {
-      contacts: [Contact!]
-      searchResult: SearchResult
-    }
-
-    type Mutation {
-      createContact(contact: ContactInput!): Contact
-    }
-    """
-
-    let operations = """
-    query AllContacts {
-      contacts {
-        entity {
-          name
-        }
-      }
-    }
-
-    query FindEntity {
-      searchResult {
-        ... on Person {
-          name
-          age
-        }
-        ... on Business {
-          name
-          type
-        }
-      }
-    }
-
-    mutation CreateContact($contact: ContactInput!) {
-      createContact(contact: $contact) {
-        entity {
-          name
-        }
-      }
-    }
-    """
-
-    let ir = try IR.mock(schema: schema, document: operations)
-    let namedEntityInterface = try ir.schema[interface: "NamedEntity"].xctUnwrapped()
-    let queryObject = try ir.schema[object: "Query"].xctUnwrapped()
-    let personObject = try ir.schema[object: "Person"].xctUnwrapped()
-    let businessObject = try ir.schema[object: "Business"].xctUnwrapped()
-    let contactObject = try ir.schema[object: "Contact"].xctUnwrapped()
-    let businessTypeEnum = try ir.schema[enum: "BUSINESS_TYPE"].xctUnwrapped()
-    let searchResultUnion = try ir.schema[union: "SearchResult"].xctUnwrapped()
-    let contactInput = try ir.schema[inputObject: "ContactInput"].xctUnwrapped()
-    let mutationObject = try ir.schema[object: "Mutation"].xctUnwrapped()
-
-    let directoryPath = CodegenTestHelper.outputFolderURL().path
+    try ApolloCodegen.generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: config,
+      fileManager: fileManager
+    )
 
     // then
-    expect(ApolloCodegen.fileGenerators(
-      for: ir.schema.referencedTypes.interfaces,
-      directoryPath:directoryPath
-    )).to(equal([
-      InterfaceFileGenerator(interfaceType: namedEntityInterface, directoryPath: directoryPath)
-    ]))
-
-    expect(ApolloCodegen.fileGenerators(
-      for: ir.schema.referencedTypes.objects,
-      directoryPath: directoryPath
-    )).to(equal([
-      TypeFileGenerator(objectType: queryObject, directoryPath: directoryPath),
-      TypeFileGenerator(objectType: contactObject, directoryPath: directoryPath),
-      TypeFileGenerator(objectType: personObject, directoryPath: directoryPath),
-      TypeFileGenerator(objectType: businessObject, directoryPath: directoryPath),
-      TypeFileGenerator(objectType: mutationObject, directoryPath: directoryPath)
-    ]))
-
-    expect(ApolloCodegen.fileGenerators(
-      for: ir.schema.referencedTypes.enums,
-      directoryPath: directoryPath
-    )).to(equal([
-      EnumFileGenerator(enumType: businessTypeEnum, directoryPath: directoryPath)
-    ]))
-
-    expect(ApolloCodegen.fileGenerators(
-      for: ir.schema.referencedTypes.unions,
-      moduleName: ir.schema.name,
-      directoryPath: directoryPath
-    )).to(equal([
-      UnionFileGenerator(
-        unionType: searchResultUnion,
-        moduleName: "TestSchema",
-        directoryPath: directoryPath
-      )
-    ]))
-
-    expect(ApolloCodegen.fileGenerators(
-      for: ir.schema.referencedTypes.inputObjects,
-      directoryPath: directoryPath
-    )).to(equal([
-      InputObjectFileGenerator(inputObjectType: contactInput, directoryPath: directoryPath)
-    ]))
+    expect(filePaths).to(equal(expectedPaths))
+    expect(fileManager.allClosuresCalled).to(beTrue())
   }
+
+  #warning("todo - test case with schema + single operations document; should it create single or multiple operations files?")
 }
