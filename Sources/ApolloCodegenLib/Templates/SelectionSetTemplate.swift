@@ -6,6 +6,7 @@ struct SelectionSetTemplate {
   let schema: IR.Schema
   private let nameCache = SelectionSetNameCache()
 
+  // MARK: - Operation
   func render(for operation: IR.Operation) -> String {
     TemplateString(
     """
@@ -16,6 +17,7 @@ struct SelectionSetTemplate {
     ).description
   }
 
+  // MARK: - Field
   func render(field: IR.EntityField) -> String {
     TemplateString(
     """
@@ -27,6 +29,7 @@ struct SelectionSetTemplate {
     ).description
   }
 
+  // MARK: - Type Case
   func render(typeCase: IR.SelectionSet) -> String {
     TemplateString(
     """
@@ -38,6 +41,7 @@ struct SelectionSetTemplate {
     ).description
   }
 
+  // MARK: - Selection Set Name Documentation
   func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
     """
     /// \(generatedSelectionSetName(
@@ -47,6 +51,7 @@ struct SelectionSetTemplate {
     """
   }
 
+  // MARK: - Body
   func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     let selections = selectionSet.selections
     return """
@@ -76,6 +81,7 @@ struct SelectionSetTemplate {
     "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name).\(type.name).self) }"
   }
 
+  // MARK: - Selections
   private func SelectionsTemplate(_ selections: IR.DirectSelections) -> TemplateString {
     """
     public static var selections: [Selection] { [
@@ -123,6 +129,7 @@ struct SelectionSetTemplate {
     """
   }
 
+  // MARK: - Accessors
   private func FieldAccessorsTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     """
     \(ifLet: selections.direct?.fields.values, {
@@ -183,6 +190,7 @@ struct SelectionSetTemplate {
     """
   }
 
+  // MARK: - Nested Selection Sets
   private func ChildEntityFieldSelectionSets(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
