@@ -18,7 +18,7 @@ struct OperationFileGenerator {
     fileManager: FileManager = FileManager.default
   ) throws {
     let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("\(graphqlOperation.definition.name).swift").path
+      .appendingPathComponent("\(graphqlOperation.definition.nameWithSuffix).swift").path
 
     let data = OperationDefinitionTemplate(
       operation: graphqlOperation,
