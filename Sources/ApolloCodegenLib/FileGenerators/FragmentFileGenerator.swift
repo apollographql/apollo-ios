@@ -13,7 +13,7 @@ struct FragmentFileGenerator {
   static func generate(
     _ graphqlFragment: IR.NamedFragment,
     schema: IR.Schema,
-    config: ApolloCodegenConfiguration,
+    config: ApolloCodegenConfiguration.FileOutput,
     directoryPath: String,
     fileManager: FileManager = FileManager.default
   ) throws {

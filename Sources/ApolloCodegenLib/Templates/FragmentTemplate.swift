@@ -2,7 +2,7 @@ struct FragmentTemplate {
 
   let fragment: IR.NamedFragment
   let schema: IR.Schema
-  let config: ApolloCodegenConfiguration
+  let config: ApolloCodegenConfiguration.FileOutput
 
   func render() -> String {
     TemplateString(

@@ -52,7 +52,7 @@ class FragmentFileGeneratorTests: XCTestCase {
     try FragmentFileGenerator.generate(
       irFragment,
       schema: ir.schema,
-      config: config,
+      config: config.output,
       directoryPath: rootURL.path,
       fileManager: fileManager
     )

@@ -9,7 +9,7 @@ struct OperationDefinitionTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.Operation.render(config))
+    \(ImportStatementTemplate.Operation.render(config.output))
 
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))

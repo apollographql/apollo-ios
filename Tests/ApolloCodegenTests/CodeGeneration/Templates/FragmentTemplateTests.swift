@@ -54,7 +54,7 @@ class FragmentTemplateTests: XCTestCase {
     subject = FragmentTemplate(
       fragment: fragment,
       schema: ir.schema,
-      config: config
+      config: config.output
     )
   }
 

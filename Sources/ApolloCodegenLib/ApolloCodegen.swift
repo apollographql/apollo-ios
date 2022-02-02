@@ -29,46 +29,104 @@ public class ApolloCodegen {
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
     try configuration.validate()
 
-    let compilationResult = try compileGraphQLResult(using: configuration.input)
+    let compilationResult = try compileGraphQLResult(configuration.input)
 
     let ir = IR(
       schemaName: configuration.output.schemaTypes.moduleName,
       compilationResult: compilationResult
     )
 
-    try generateFiles(
-      for: ir.schema.referencedTypes,
-      config: configuration
+    for graphQLObject in ir.schema.referencedTypes.objects {
+      try autoreleasepool {
+        try ObjectFileGenerator.generate(
+          graphQLObject,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
+
+    for graphQLEnum in ir.schema.referencedTypes.enums {
+      try autoreleasepool {
+        try EnumFileGenerator.generate(
+          graphQLEnum,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
+
+    for graphQLInterface in ir.schema.referencedTypes.interfaces {
+      try autoreleasepool {
+        try InterfaceFileGenerator.generate(
+          graphQLInterface,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
+
+    for graphQLUnion in ir.schema.referencedTypes.unions {
+      try autoreleasepool {
+        try UnionFileGenerator.generate(
+          graphQLUnion,
+          moduleName: configuration.output.schemaTypes.moduleName,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
+
+    for graphQLInputObject in ir.schema.referencedTypes.inputObjects {
+      try autoreleasepool {
+        try InputObjectFileGenerator.generate(
+          graphQLInputObject,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
+
+    try SchemaFileGenerator.generate(
+      ir.schema,
+      directoryPath: configuration.output.schemaTypes.path
     )
 
-    let modulePath = configuration.output.schemaTypes.path
-    try SchemaFileGenerator(
-      schema: ir.schema,
-      directoryPath: modulePath
-    ).generateFile()
+    for fragment in compilationResult.fragments {
+      try autoreleasepool {
+        let irFragment = ir.build(fragment: fragment)
+        try FragmentFileGenerator.generate(
+          irFragment,
+          schema: ir.schema,
+          config: configuration.output,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
 
-    try generateFiles(
-      for: compilationResult,
-      ir: ir,
-      config: configuration
+    for operation in compilationResult.operations {
+      try autoreleasepool {
+        let irOperation = ir.build(operation: operation)
+        try OperationFileGenerator.generate(
+          irOperation,
+          schema: ir.schema,
+          config: configuration,
+          directoryPath: configuration.output.schemaTypes.path
+        )
+      }
+    }
+
+    try SchemaModuleFileGenerator.generate(configuration.output.schemaTypes
     )
-
-    try SchemaModuleFileGenerator(configuration.output.schemaTypes)
-      .generateFile()
   }
 
   // MARK: Internal
 
   /// Performs GraphQL source validation and compiles the schema and operation source documents. 
   static func compileGraphQLResult(
-    using input: ApolloCodegenConfiguration.FileInput
+    _ config: ApolloCodegenConfiguration.FileInput
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
 
-    let schemaURL = URL(fileURLWithPath: input.schemaPath)
+    let schemaURL = URL(fileURLWithPath: config.schemaPath)
     let graphqlSchema = try frontend.loadSchema(from: schemaURL)
 
-    let matches = try Glob(input.searchPaths).match()
+    let matches = try Glob(config.searchPaths).match()
     let documents = try matches.map({ path in
       return try frontend.parseDocument(from: URL(fileURLWithPath: path))
     })
@@ -82,89 +140,6 @@ public class ApolloCodegen {
     }
 
     return try frontend.compile(schema: graphqlSchema, document: mergedDocument)
-  }
-
-  /// Generates files for referenced schema types.
-  static func generateFiles(
-    for referencedTypes: IR.Schema.ReferencedTypes,
-    config: ApolloCodegenConfiguration
-  ) throws {
-    for graphQLObject in referencedTypes.objects {
-      try autoreleasepool {
-        try ObjectFileGenerator.generate(
-          graphQLObject,
-          directoryPath: config.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLEnum in referencedTypes.enums {
-      try autoreleasepool {
-        try EnumFileGenerator.generate(
-          graphQLEnum,
-          directoryPath: config.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLInterface in referencedTypes.interfaces {
-      try autoreleasepool {
-        try InterfaceFileGenerator.generate(
-          graphQLInterface,
-          directoryPath: config.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLUnion in referencedTypes.unions {
-      try autoreleasepool {
-        try UnionFileGenerator.generate(
-          graphQLUnion,
-          moduleName: config.output.schemaTypes.moduleName,
-          directoryPath: config.output.schemaTypes.path
-        )
-      }
-    }
-
-    for graphQLInputObject in referencedTypes.inputObjects {
-      try autoreleasepool {
-        try InputObjectFileGenerator.generate(
-          graphQLInputObject,
-          directoryPath: config.output.schemaTypes.moduleName
-        )
-      }
-    }
-  }
-
-  /// Generates files for operation and fragment types.
-  static func generateFiles(
-    for compilationResult: CompilationResult,
-    ir: IR,
-    config: ApolloCodegenConfiguration
-  ) throws {
-    for fragment in compilationResult.fragments {
-      try autoreleasepool {
-        let irFragment = ir.build(fragment: fragment)
-        try FragmentFileGenerator.generate(
-          irFragment,
-          schema: ir.schema,
-          config: config,
-          directoryPath: config.output.schemaTypes.path
-        )
-      }
-    }
-
-    for operation in compilationResult.operations {
-      try autoreleasepool {
-        let irOperation = ir.build(operation: operation)
-        try OperationFileGenerator.generate(
-          irOperation,
-          schema: ir.schema,
-          config: config,
-          directoryPath: config.output.schemaTypes.path
-        )
-      }
-    }
   }
 }
 
