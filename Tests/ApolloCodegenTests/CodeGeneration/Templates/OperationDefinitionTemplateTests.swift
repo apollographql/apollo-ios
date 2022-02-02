@@ -172,6 +172,45 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
+  func test__generate__givenMutationWithNameEndingInQuery_generatesQueryOperationWithBothSuffixes() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Mutation {
+      addAnimal: Animal!
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    mutation TestOperationQuery {
+      addAnimal {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+    public class TestOperationQueryMutation: GraphQLMutation {
+      public let operationName: String = "TestOperationQuery"
+    """
+
+    // when
+    try buildSubjectAndOperation(named: "TestOperationQuery")
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+  }
+
   func test__generate__givenMutation_generatesMutationOperation() throws {
     // given
     schemaSDL = """
