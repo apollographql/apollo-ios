@@ -59,6 +59,7 @@ public class AllAnimalsQuery: GraphQLQuery {
 
     public var allAnimals: [AllAnimal] { data["allAnimals"] }
 
+    /// AllAnimal
     public struct AllAnimal: AnimalKingdomAPI.SelectionSet {
       public let data: DataDict
       public init(data: DataDict) { self.data = data }
@@ -93,6 +94,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var heightInMeters: HeightInMeters { _toFragment() }
       }
 
+      /// AllAnimal.Height
       public struct Height: AnimalKingdomAPI.SelectionSet {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -108,6 +110,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public var meters: Int { data["meters"] }
       }
 
+      /// AllAnimal.Predator
       public struct Predator: AnimalKingdomAPI.SelectionSet {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -122,6 +125,7 @@ public class AllAnimalsQuery: GraphQLQuery {
 
         public var asWarmBlooded: AsWarmBlooded? { _asType() }
 
+        /// AllAnimal.Predator.AsWarmBlooded
         public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -146,6 +150,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         }
       }
 
+      /// AllAnimal.AsWarmBlooded
       public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -169,6 +174,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
+        /// AllAnimal.AsWarmBlooded.Height
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -182,6 +188,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         }
       }
 
+      /// AllAnimal.AsPet
       public struct AsPet: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -211,6 +218,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
+        /// AllAnimal.AsPet.Height
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -228,6 +236,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var meters: Int { data["meters"] }
         }
 
+        /// AllAnimal.AsPet.AsWarmBlooded
         public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -255,6 +264,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             public var petDetails: PetDetails { _toFragment() }
           }
 
+          /// AllAnimal.AsPet.AsWarmBlooded.Height
           public struct Height: AnimalKingdomAPI.SelectionSet {
             public let data: DataDict
             public init(data: DataDict) { self.data = data }
@@ -271,6 +281,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         }
       }
 
+      /// AllAnimal.AsCat
       public struct AsCat: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -299,6 +310,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var petDetails: PetDetails { _toFragment() }
         }
 
+        /// AllAnimal.AsCat.Height
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -314,6 +326,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         }
       }
 
+      /// AllAnimal.AsClassroomPet
       public struct AsClassroomPet: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -337,6 +350,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
+        /// AllAnimal.AsClassroomPet.Height
         public struct Height: AnimalKingdomAPI.SelectionSet {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -348,6 +362,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public var meters: Int { data["meters"] }
         }
 
+        /// AllAnimal.AsClassroomPet.AsBird
         public struct AsBird: AnimalKingdomAPI.TypeCase {
           public let data: DataDict
           public init(data: DataDict) { self.data = data }
@@ -376,6 +391,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             public var petDetails: PetDetails { _toFragment() }
           }
 
+          /// AllAnimal.AsClassroomPet.AsBird.Height
           public struct Height: AnimalKingdomAPI.SelectionSet {
             public let data: DataDict
             public init(data: DataDict) { self.data = data }
