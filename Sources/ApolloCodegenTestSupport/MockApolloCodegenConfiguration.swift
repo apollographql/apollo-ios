@@ -40,11 +40,12 @@ extension ApolloCodegenConfiguration.FileOutput {
   public static func mock(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType =
       .manuallyLinked(namespace: "MockSchemaTypes"),
-    operations: ApolloCodegenConfiguration.OperationsFileOutput
+    operations: ApolloCodegenConfiguration.OperationsFileOutput,
+    path: String = ""
   ) -> Self {
     .init(
       schemaTypes: .init(
-        path: "",
+        path: path,
         dependencyAutomation: moduleType
       ),
       operations: operations
