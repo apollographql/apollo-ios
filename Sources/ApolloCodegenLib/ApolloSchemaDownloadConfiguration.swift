@@ -86,7 +86,7 @@ public struct ApolloSchemaDownloadConfiguration {
   public let downloadTimeout: Double
   /// Any additional headers to include when retrieving your schema. Defaults to nil.
   public let headers: [HTTPHeader]
-  /// The URL of the folder in which the downloaded schema should be written.
+  /// The URL where the downloaded schema should be written to.
   public let outputURL: URL
 
   /// Designated Initializer
@@ -95,17 +95,15 @@ public struct ApolloSchemaDownloadConfiguration {
   ///   - downloadMethod: How to download your schema.
   ///   - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   ///   - headers: [optional] Any additional headers to include when retrieving your schema. Defaults to nil
-  ///   - outputFolderURL: The URL of the folder in which the downloaded schema should be written
-  ///   - schemaFilename: The name, without an extension, for your schema file. Defaults to `"schema"
+  ///   - outputURL: The URL where the downloaded schema should be written to.
   public init(using downloadMethod: DownloadMethod,
               timeout downloadTimeout: Double = 30.0,
               headers: [HTTPHeader] = [],
-              outputFolderURL: URL,
-              schemaFilename: String = "schema") {
+              outputURL: URL) {
     self.downloadMethod = downloadMethod
     self.downloadTimeout = downloadTimeout
     self.headers = headers
-    self.outputURL = outputFolderURL.appendingPathComponent("\(schemaFilename).graphqls")
+    self.outputURL = outputURL
   }
 }
 

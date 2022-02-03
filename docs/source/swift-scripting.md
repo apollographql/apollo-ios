@@ -41,7 +41,7 @@ We've created a template of a Swift Package Manager Executable to speed things a
 
 This project is provided as a template for an executable rather than a compiled executable to allow you to make changes to the executable relevant to your setup. This allows you to customize while still using Swift as much as possible and bash as little as possible, to preserve both type safety and readability. 
 
-You can download the current version of the template from this repo: [https://github.com/apollographql/iOSCodegenTemplate](https://github.com/apollographql/iOSCodegenTemplate)
+You can download the current version of the template from the [iOSCodegenTemplate Repository](https://github.com/apollographql/iOSCodegenTemplate/tree/1.0.0-alpha).
 
 When you unzip the downloaded repo, you'll see that there's a folder called **`ApolloCodgen`**. 
 
@@ -73,7 +73,7 @@ Double-click `Package.swift` in the `ApolloCodegen` folder to open the executabl
 ```swift:title=Package.swift
 .package(name: "Apollo",
          url: "https://github.com/apollographql/apollo-ios.git", 
-         .upToNextMinor(from: "0.49.0"))
+         from: "1.0.0-alpha-1")
 ```
 
 Note that these instructions are updated along with newer versions of the library - if you're seeing something that doesn't compile, please check that you're on the most recent version of the SDK both in your app and in your Codegen project. 
@@ -82,25 +82,11 @@ Note that these instructions are updated along with newer versions of the librar
 
 This section will walk you through the already-set up code in the template project. There are two files: `main.swift` and `FileStructure.swift`. 
 
-### FileStructure
-
-This structure exists to simplify accessing your local filesystem without needing to pass any URLs through as environment variables. 
-
-It uses `FileFinder` to find the directory that the file containing the code lives in, and then you can use either standard `FileManager` APIs or `.apollo` extension methods provided by `ApolloCodegenLib` to find parent or child files and folders. 
-
-There are two major pieces of information it grabs automatically, assuming you have a filesystem set up as in the example above: 
-
-- The location where the Typescript CLI will be downloaded. This is what (currently) does the actual generation of code and fetching of schemas. **NOTE**: This location should be added to your `.gitignore` file, since it's going to contain a ton of JS that can be redownloaded locally very easily, and will otherwise bloat your repo.
-- The `sourceRoot` of your entire repository, which contains both your Xcode project and your Swift Scripting project. 
-
-From `sourceRoot` you should be able to use `FileManager` APIs or their `.apollo` extensions to navigate anywhere in your project's file tree. 
-
 ### SwiftScript
 
 This object uses the [Swift Argument Parser](https://github.com/apple/swift-argument-parser) to create an outer root command which can be run either from the command line if a binary is exported, or run directly by using `swift run` (recommended).  
 
 There are sub-commands to run specific tasks - these are most often what you'll want to focus on, and where you'll need to make changes appropriate to your project's name and structure. 
-
 
 #### DownloadSchema
 

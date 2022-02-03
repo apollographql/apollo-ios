@@ -61,7 +61,10 @@ class ApolloCodegenTests: XCTestCase {
 
   func test_build_givenInvalidConfiguration_shouldThrow() throws {
     // given
-    let config = ApolloCodegenConfiguration(basePath: "not_a_path")
+    let config = ApolloCodegenConfiguration(
+      input: .init(schemaPath: "not_a_path", searchPaths: []),
+      output: .mock(operations: .inSchemaModule)
+    )
 
     // then
     expect(try ApolloCodegen.build(with: config)).to(throwError())

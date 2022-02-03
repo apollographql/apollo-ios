@@ -11,8 +11,10 @@ class ApolloSchemaInternalTests: XCTestCase {
     }
 
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: CodegenTestHelper.outputFolderURL().path)
-    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
+    let configuration = ApolloSchemaDownloadConfiguration(
+      using: .introspection(endpointURL: TestURL.mockPort8080.url),
+      outputURL: CodegenTestHelper.schemaOutputURL()
+    )
 
     try ApolloSchemaDownloader.convertFromIntrospectionJSONToSDLFile(jsonFileURL: jsonURL, configuration: configuration)
     XCTAssertTrue(FileManager.default.apollo.doesFileExist(atPath: configuration.outputURL.path))

@@ -32,7 +32,9 @@ public struct ApolloCodegenConfiguration {
     ///     - `?` matches any single character, eg: `file-?.graphql`
     ///     - `**` matches all subdirectories (deep), eg: `**/*.graphql`
     ///     - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
-    public init(schemaPath: String, searchPaths: [String]) {
+    ///
+    ///     Defaults to ["**/*.graphql"].
+    public init(schemaPath: String, searchPaths: [String] = ["**/*.graphql"]) {
       self.schemaPath = schemaPath
       self.searchPaths = searchPaths
     }
@@ -234,24 +236,6 @@ public struct ApolloCodegenConfiguration {
     self.apqs = apqs
   }
 
-  /// Convenience initializer with all paths extended from a supplied base path.
-  ///
-  /// - Parameters:
-  ///  - basePath: The base path used to find the schema and operation files.
-  ///  - schemaFilename: The filename of the GraphQL schema. This will be combined with `basePath`.
-  ///  - includesPattern: The pattern used to match operation files. This should be a relative path to `basePath`. If you want
-  ///  to use absolute paths or multiple patterns please use the designated initializer instead.
-  public init(
-    basePath: String,
-    schemaFilename: String = "schema.graphqls",
-    searchPattern: String = "**/*.graphql"
-  ) {
-    let schemaURL = URL(fileURLWithPath: basePath).appendingPathComponent(schemaFilename)
-    let searchURL = URL(fileURLWithPath: basePath).appendingPathComponent(searchPattern)
-
-    self.init(input: FileInput(schemaPath: schemaURL.path, searchPaths: [searchURL.path]),
-              output: FileOutput(schemaTypes: SchemaTypesFileOutput(path: basePath)))
-  }
 }
 
 // MARK: Validation Extension
