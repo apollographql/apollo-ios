@@ -45,6 +45,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var asBird: AsBird? { _asType() }
   public var asPetRock: AsPetRock? { _asType() }
 
+  /// AsAnimal
   public struct AsAnimal: AnimalKingdomAPI.TypeCase {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
@@ -57,6 +58,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var species: String { data["species"] }
   }
 
+  /// AsPet
   public struct AsPet: AnimalKingdomAPI.TypeCase {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
@@ -69,6 +71,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var humanName: String? { data["humanName"] }
   }
 
+  /// AsWarmBlooded
   public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
@@ -82,6 +85,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var species: String { data["species"] }
   }
 
+  /// AsCat
   public struct AsCat: AnimalKingdomAPI.TypeCase {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
@@ -99,6 +103,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var laysEggs: Bool { data["laysEggs"] }
   }
 
+  /// AsBird
   public struct AsBird: AnimalKingdomAPI.TypeCase {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }
@@ -114,6 +119,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public var laysEggs: Bool { data["laysEggs"] }
   }
 
+  /// AsPetRock
   public struct AsPetRock: AnimalKingdomAPI.TypeCase {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }

@@ -25,6 +25,7 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var favoriteToy: String { data["favoriteToy"] }
   public var owner: Owner? { data["owner"] }
 
+  /// Owner
   public struct Owner: AnimalKingdomAPI.SelectionSet {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }

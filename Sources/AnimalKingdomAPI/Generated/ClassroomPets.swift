@@ -27,6 +27,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
     public var classroomPets: [ClassroomPet] { data["classroomPets"] }
 
+    /// ClassroomPet
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
       public let data: DataDict
       public init(data: DataDict) { self.data = data }
@@ -50,6 +51,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
       }
 
+      /// ClassroomPet.AsAnimal
       public struct AsAnimal: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -66,6 +68,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         }
       }
 
+      /// ClassroomPet.AsPet
       public struct AsPet: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -82,6 +85,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         }
       }
 
+      /// ClassroomPet.AsWarmBlooded
       public struct AsWarmBlooded: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -99,6 +103,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         }
       }
 
+      /// ClassroomPet.AsCat
       public struct AsCat: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -119,6 +124,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         }
       }
 
+      /// ClassroomPet.AsBird
       public struct AsBird: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }
@@ -138,6 +144,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         }
       }
 
+      /// ClassroomPet.AsPetRock
       public struct AsPetRock: AnimalKingdomAPI.TypeCase {
         public let data: DataDict
         public init(data: DataDict) { self.data = data }

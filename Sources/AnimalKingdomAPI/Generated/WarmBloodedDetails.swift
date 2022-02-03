@@ -23,6 +23,7 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public var bodyTemperature: Int { data["bodyTemperature"] }
   public var height: Height { data["height"] }
 
+  /// Height
   public struct Height: AnimalKingdomAPI.SelectionSet {
     public let data: DataDict
     public init(data: DataDict) { self.data = data }

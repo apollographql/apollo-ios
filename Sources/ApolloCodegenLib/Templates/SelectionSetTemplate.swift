@@ -6,6 +6,7 @@ struct SelectionSetTemplate {
   let schema: IR.Schema
   private let nameCache = SelectionSetNameCache()
 
+  // MARK: - Operation
   func render(for operation: IR.Operation) -> String {
     TemplateString(
     """
@@ -16,9 +17,11 @@ struct SelectionSetTemplate {
     ).description
   }
 
+  // MARK: - Field
   func render(field: IR.EntityField) -> String {
     TemplateString(
     """
+    \(SelectionSetNameDocumentation(field.selectionSet))
     public struct \(field.formattedFieldName): \(schema.name).SelectionSet {
       \(BodyTemplate(field.selectionSet))
     }
@@ -26,9 +29,11 @@ struct SelectionSetTemplate {
     ).description
   }
 
+  // MARK: - Type Case
   func render(typeCase: IR.SelectionSet) -> String {
     TemplateString(
     """
+    \(SelectionSetNameDocumentation(typeCase))
     public struct As\(typeCase.renderedTypeName): \(schema.name).TypeCase {
       \(BodyTemplate(typeCase))
     }
@@ -36,13 +41,24 @@ struct SelectionSetTemplate {
     ).description
   }
 
+  // MARK: - Selection Set Name Documentation
+  func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    """
+    /// \(generatedSelectionSetName(
+    from: selectionSet.typePath.head,
+    withFieldPath: selectionSet.entity.fieldPath.toArray(),
+    removingFirst: true))
+    """
+  }
+
+  // MARK: - Body
   func BodyTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     let selections = selectionSet.selections
     return """
     \(Self.DataFieldAndInitializerTemplate)
 
     \(ParentTypeTemplate(selectionSet.parentType))
-    \(ifLet: selections.direct, { SelectionsTemplate($0) })
+    \(ifLet: selections.direct, SelectionsTemplate )
 
     \(section: FieldAccessorsTemplate(selections))
 
@@ -65,6 +81,7 @@ struct SelectionSetTemplate {
     "public static var __parentType: ParentType { .\(type.parentTypeEnumType)(\(schema.name).\(type.name).self) }"
   }
 
+  // MARK: - Selections
   private func SelectionsTemplate(_ selections: IR.DirectSelections) -> TemplateString {
     """
     public static var selections: [Selection] { [
@@ -112,6 +129,7 @@ struct SelectionSetTemplate {
     """
   }
 
+  // MARK: - Accessors
   private func FieldAccessorsTemplate(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     """
     \(ifLet: selections.direct?.fields.values, {
@@ -172,6 +190,7 @@ struct SelectionSetTemplate {
     """
   }
 
+  // MARK: - Nested Selection Sets
   private func ChildEntityFieldSelectionSets(
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
@@ -332,7 +351,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
                             .toArray()
                             .suffix(nodesToSharedRoot + 1))
 
-    let selectionSetName = generatedSelectionSetName(
+    let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
       withFieldPath: fieldPath,
       removingFirst: nodesToSharedRoot <= 1
@@ -353,7 +372,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
     }
 
     let fieldPath = Array(typeInfo.entity.fieldPath.toArray().suffix(from: nodesToFragment + 1))
-    let selectionSetName = generatedSelectionSetName(
+    let selectionSetName = ApolloCodegenLib.generatedSelectionSetName(
       from: sourceTypePathCurrentNode.next!,
       withFieldPath: fieldPath
     )
@@ -361,33 +380,33 @@ fileprivate extension IR.MergedSelections.MergedSource {
     return "\(fragment.definition.name).\(selectionSetName)"
   }
 
-  private func generatedSelectionSetName(
-    from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
-    withFieldPath fieldPath: [String],
-    removingFirst: Bool = false
-  ) -> String {
-    var currentNode = Optional(typePathNode)
-    var fieldPathIndex = 0
+}
 
-    var components: [String] = []
+private func generatedSelectionSetName(
+  from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
+  withFieldPath fieldPath: [String],
+  removingFirst: Bool = false
+) -> String {
+  var currentNode = Optional(typePathNode)
+  var fieldPathIndex = 0
 
-    repeat {
-      let fieldName = fieldPath[fieldPathIndex]
-      components.append(StringInflector.default.singularize(fieldName.firstUppercased))
+  var components: [String] = []
 
-      var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.typePath.head
-      while let typeCaseNode = currentTypeScopeNode.next {
-        components.append("As\(typeCaseNode.value.name.firstUppercased)")
-        currentTypeScopeNode = typeCaseNode
-      }
+  repeat {
+    let fieldName = fieldPath[fieldPathIndex]
+    components.append(StringInflector.default.singularize(fieldName.firstUppercased))
 
-      fieldPathIndex += 1
-      currentNode = currentNode.unsafelyUnwrapped.next
-    } while currentNode !== nil
+    var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.typePath.head
+    while let typeCaseNode = currentTypeScopeNode.next {
+      components.append("As\(typeCaseNode.value.name.firstUppercased)")
+      currentTypeScopeNode = typeCaseNode
+    }
 
-    if removingFirst { components.removeFirst() }
+    fieldPathIndex += 1
+    currentNode = currentNode.unsafelyUnwrapped.next
+  } while currentNode !== nil
 
-    return components.joined(separator: ".")
-  }
+  if removingFirst { components.removeFirst() }
 
+  return components.joined(separator: ".")
 }
