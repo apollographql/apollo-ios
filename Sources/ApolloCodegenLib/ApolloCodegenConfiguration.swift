@@ -65,6 +65,60 @@ public struct ApolloCodegenConfiguration {
       self.operations = operations
       self.operationIdentifiersPath = operationIdentifiersPath
     }
+
+    enum PathResolver: CustomStringConvertible {
+      case object
+      case `enum`
+      case interface
+      case union
+      case inputObject
+      case fragment(CompilationResult.FragmentDefinition)
+      case operation(CompilationResult.OperationDefinition)
+
+      var description: String {
+        switch self {
+        case .object: return "object"
+        case .enum: return "enum"
+        case .interface: return "interface"
+        case .union: return "union"
+        case .inputObject: return "inputObject"
+        case .fragment: return "fragment"
+        case .operation: return "operation"
+        }
+      }
+
+      var subpath: String {
+        switch self {
+        case .object: return "Objects"
+        case .enum: return "Enums"
+        case .interface: return "Interfaces"
+        case .union: return "Unions"
+        case .inputObject: return "InputObjects"
+        case .fragment: return "Fragments"
+        case .operation: return "Operations"
+        }
+      }
+    }
+
+    func resolvePath(_ type: PathResolver) -> String {
+      switch type {
+      case .object, .enum, .interface, .union, .inputObject:
+        return resolveSchemaPath(typeSubpath: type.subpath)
+
+      case .fragment, .operation:
+        return "none"
+      }
+    }
+
+    private func resolveSchemaPath(typeSubpath: String) -> String {
+      var moduleSubpath: String = ""
+      if operations == .inSchemaModule {
+        moduleSubpath = schemaTypes.moduleName + "/"
+      }
+
+      return URL(fileURLWithPath: schemaTypes.path)
+        .appendingPathComponent("\(moduleSubpath)\(typeSubpath)").path
+    }
   }
 
   /// The local path structure for the generated schema types files.
