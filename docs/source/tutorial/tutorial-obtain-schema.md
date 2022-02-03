@@ -6,7 +6,7 @@ This tutorial uses a modified version of the GraphQL server you build as part of
 
 <img src="images/sandbox_landing.png" alt="The Sandbox query explorer" class="screenshot"/>
 
-You'll know that this Sandbox instance is pointed at our server because its URL, `https://apollo-fullstack-tutorial.herokuapp.com`, is in the box at the top left of the page. If Sandbox is properly connected, you'll see a green dot:
+You'll know that this Sandbox instance is pointed at our server because its URL, `https://apollo-fullstack-tutorial.herokuapp.com/graphql`, is in the box at the top left of the page. If Sandbox is properly connected, you'll see a green dot:
 
 <img src="images/sandbox_green_dot.png" alt="A closeup of the URL box with a dot indicating it's connected" class="screenshot"/>
 
@@ -51,7 +51,7 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 7. Before the script can generate code, it needs a local copy of your GraphQL server's schema. For now, using a `#`, **comment out the last line** of the script you pasted and add the following line below it:
 
     ```
-    "${SCRIPT_PATH}"/run-bundled-codegen.sh schema:download --endpoint="https://apollo-fullstack-tutorial.herokuapp.com/"
+    "${SCRIPT_PATH}"/run-bundled-codegen.sh schema:download --endpoint="https://apollo-fullstack-tutorial.herokuapp.com/graphql"
     ```
 
     This line runs the Apollo CLI's `schema:download` command, which downloads the schema to a `schema.json` file at the same level of your project as the `AppDelegate.swift` file.
