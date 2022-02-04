@@ -36,7 +36,7 @@ class OperationFileGeneratorTests: XCTestCase {
 
     let fileManager = MockFileManager(strict: false)
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
-    let fileURL = rootURL.appendingPathComponent("AllAnimals.swift")
+    let fileURL = rootURL.appendingPathComponent("AllAnimalsQuery.swift")
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
