@@ -10,24 +10,27 @@ class InputObjectFileGeneratorTests: XCTestCase {
     super.tearDown()
   }
 
-  func test_generate_givenSchemaType_shouldOutputToPath() throws {
+  func test_generate_givenSchemaType_shouldWriteToCorrectFilePath() throws {
     // given
+    let graphQLInputObject = GraphQLInputObjectType.mock("MockInputObject")
+    let fileManager = MockFileManager(strict: false)
+
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("MockInputObject.swift")
-    let mockFileManager = MockFileManager(strict: false)
 
-    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+    fileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
 
       return true
     }))
 
     // then
-    try InputObjectFileGenerator(
-      inputObjectType: GraphQLInputObjectType.mock("MockInputObject"),
-      directoryPath: rootURL.path
-    ).generateFile(fileManager: mockFileManager)
+    try InputObjectFileGenerator.generate(
+      graphQLInputObject,
+      directoryPath: rootURL.path,
+      fileManager: fileManager
+    )
 
-    expect(mockFileManager.allClosuresCalled).to(beTrue())
+    expect(fileManager.allClosuresCalled).to(beTrue())
   }
 }

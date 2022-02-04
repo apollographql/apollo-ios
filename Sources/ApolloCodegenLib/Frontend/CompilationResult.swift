@@ -31,6 +31,21 @@ public class CompilationResult: JavaScriptObject {
     override public var debugDescription: String {
       "\(name) on \(rootType.debugDescription)"
     }
+
+    lazy var nameWithSuffix: String = {
+      let suffix: String
+      switch operationType {
+        case .query: suffix = "Query"
+        case .mutation: suffix = "Mutation"
+        case .subscription: suffix = "Subscription"
+      }
+
+      guard !name.hasSuffix(suffix) else {
+        return name
+      }
+
+      return name+suffix
+    }()
   }
   
   public enum OperationType: String, Equatable, JavaScriptValueDecodable {

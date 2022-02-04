@@ -14,6 +14,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     // given
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("Package.swift")
+
     let configuration = ApolloCodegenConfiguration.mock(
       .swiftPackageManager(moduleName: "TestModule"),
       to: rootURL.path
@@ -27,22 +28,24 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     }))
 
     // then
-    try SchemaModuleFileGenerator(configuration.output.schemaTypes)
-      .generateFile(fileManager: mockFileManager)
+    try SchemaModuleFileGenerator.generate(
+      configuration.output.schemaTypes,
+      fileManager: mockFileManager
+    )
 
     expect(mockFileManager.allClosuresCalled).to(beTrue())
   }
 
   func test__generate__givenUnimplementedConfigurations_shouldThrow() throws {
-    expect(try SchemaModuleFileGenerator(
+    expect(try SchemaModuleFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.cocoaPods(moduleName: "TestModule")).output.schemaTypes
     )).to(throwError())
 
-    expect(try SchemaModuleFileGenerator(
+    expect(try SchemaModuleFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.carthage(moduleName: "TestModule")).output.schemaTypes
     )).to(throwError())
 
-    expect(try SchemaModuleFileGenerator(
+    expect(try SchemaModuleFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.manuallyLinked(namespace: "TestModule")).output.schemaTypes
     )).to(throwError())
   }

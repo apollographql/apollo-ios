@@ -12,22 +12,25 @@ class SchemaFileGeneratorTests: XCTestCase {
 
   func test_generate_givenSchemaTypes_shouldOutputToPath() throws {
     // given
+    let irSchema = IR.Schema(name: "MockSchema", referencedTypes: .init([]))
+    let fileManager = MockFileManager(strict: false)
+
     let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("Schema.swift")
-    let mockFileManager = MockFileManager(strict: false)
 
-    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+    fileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
 
       return true
     }))
 
     // then
-    try SchemaFileGenerator(
-      schema: IR.Schema(name: "MockSchema", referencedTypes: .init([])),
-      directoryPath: rootURL.path
-    ).generateFile(fileManager: mockFileManager)
+    try SchemaFileGenerator.generate(
+      irSchema,
+      directoryPath: rootURL.path,
+      fileManager: fileManager
+    )
 
-    expect(mockFileManager.allClosuresCalled).to(beTrue())
+    expect(fileManager.allClosuresCalled).to(beTrue())
   }
 }

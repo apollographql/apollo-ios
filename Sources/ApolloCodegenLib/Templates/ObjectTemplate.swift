@@ -1,6 +1,6 @@
 import Foundation
 
-struct TypeTemplate {
+struct ObjectTemplate {
   let graphqlObject: GraphQLObjectType
 
   func render() -> String {

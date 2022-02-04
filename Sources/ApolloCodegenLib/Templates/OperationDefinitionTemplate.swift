@@ -9,7 +9,7 @@ struct OperationDefinitionTemplate {
   func render() -> String {
     TemplateString(
     """
-    \(ImportStatementTemplate.Operation.render(config))
+    \(ImportStatementTemplate.Operation.render(config.output))
 
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
@@ -23,19 +23,9 @@ struct OperationDefinitionTemplate {
 
   func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
-    public class \(operation.name)\(OperationNameSuffix(operation)): \(operation.operationType.renderedProtocolName) {
+    public class \(operation.nameWithSuffix): \(operation.operationType.renderedProtocolName) {
       public let operationName: String = "\(operation.name)"
     """
-  }
-
-  private func OperationNameSuffix(
-    _ operation: CompilationResult.OperationDefinition
-  ) -> String {
-    let suffix = operation.operationType.operationNameTypeSuffix
-    guard !operation.name.hasSuffix(suffix) else {
-      return ""
-    }
-    return suffix
   }
 
   enum DocumentType {
@@ -86,14 +76,6 @@ fileprivate extension CompilationResult.OperationType {
     case .query: return "GraphQLQuery"
     case .mutation: return "GraphQLMutation"
     case .subscription: return "GraphQLSubscription"
-    }
-  }
-
-  var operationNameTypeSuffix: String {
-    switch self {
-    case .query: return "Query"
-    case .mutation: return "Mutation"
-    case .subscription: return "Subscription"
     }
   }
 }
