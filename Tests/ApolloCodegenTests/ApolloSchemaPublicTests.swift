@@ -4,33 +4,35 @@ import ApolloCodegenTestSupport
 import ApolloCodegenLib // Do not use @testable with this import! Plain `import` ensures the correct access modifiers are used.
 
 class ApolloSchemaPublicTests: XCTestCase {
-  private var defaultOutputURL: URL {
-    return CodegenTestHelper.outputFolderURL()
-      .appendingPathComponent("schema.graphqls")
-  }
 
   func testCreatingSchemaDownloadConfiguration_forIntrospectionDownload_usingDefaultParameters() throws {
-    let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
+    let configuration = ApolloSchemaDownloadConfiguration(
+      using: .introspection(endpointURL: TestURL.mockPort8080.url),
+      outputURL: CodegenTestHelper.schemaOutputURL()
+    )
 
     XCTAssertEqual(configuration.downloadMethod, .introspection(endpointURL: TestURL.mockPort8080.url))
-    XCTAssertEqual(configuration.outputURL, self.defaultOutputURL)
+    XCTAssertEqual(configuration.outputURL, CodegenTestHelper.schemaOutputURL())
     XCTAssertTrue(configuration.headers.isEmpty)
   }
 
   func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingDefaultParameters() throws {
-    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(apiKey: "Fake_API_Key",
-                                                                                           graphID: "Fake_Graph_ID")
-    let configuration = ApolloSchemaDownloadConfiguration(using: .apolloRegistry(settings),
-                                                          outputFolderURL: CodegenTestHelper.outputFolderURL())
+    let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(
+      apiKey: "Fake_API_Key",
+      graphID: "Fake_Graph_ID"
+    )
+    
+    let configuration = ApolloSchemaDownloadConfiguration(
+      using: .apolloRegistry(settings),
+      outputURL: CodegenTestHelper.schemaOutputURL()
+    )
 
     XCTAssertEqual(configuration.downloadMethod, .apolloRegistry(settings))
-    XCTAssertEqual(configuration.outputURL, self.defaultOutputURL)
+    XCTAssertEqual(configuration.outputURL, CodegenTestHelper.schemaOutputURL())
     XCTAssertTrue(configuration.headers.isEmpty)
   }
 
   func testCreatingSchemaDownloadConfiguration_forRegistryDownload_usingAllParameters() throws {
-    let sourceRoot = CodegenTestHelper.sourceRootURL()
     let settings = ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings(apiKey: "Fake_API_Key",
                                                                                            graphID: "Fake_Graph_ID",
                                                                                            variant: "Fake_Variant")
@@ -40,25 +42,19 @@ class ApolloSchemaPublicTests: XCTestCase {
     ]
 
     let schemaFileName = "different_name"
-    let configuration = ApolloSchemaDownloadConfiguration(using: .apolloRegistry(settings),
-                                                          headers: headers,
-                                                          outputFolderURL: sourceRoot,
-                                                          schemaFilename: schemaFileName)
+    let outputURL = CodegenTestHelper.outputFolderURL()
+      .appendingPathComponent("\(schemaFileName).graphqls")
+    let configuration = ApolloSchemaDownloadConfiguration(
+      using: .apolloRegistry(settings),
+      headers: headers,
+      outputURL: outputURL
+    )
 
     XCTAssertEqual(configuration.downloadMethod, .apolloRegistry(settings))
     XCTAssertEqual(configuration.headers, headers)
 
-    let expectedOutputURL = sourceRoot.appendingPathComponent("\(schemaFileName).graphqls")
-    XCTAssertEqual(configuration.outputURL, expectedOutputURL)
+    XCTAssertEqual(configuration.outputURL, outputURL)
   }
-
-  func testConfiguration_usingOnlyInputOutputFolders_shouldGenerateCompatibleFilenames() {
-    let folderURL = CodegenTestHelper.outputFolderURL()
-    let downloadConfiguration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: TestURL.mockPort8080.url),
-                                                                  outputFolderURL: folderURL)
-    let codegenConfiguration = ApolloCodegenConfiguration(basePath: folderURL.path)
-
-    XCTAssertEqual(downloadConfiguration.outputURL.path, codegenConfiguration.input.schemaPath)
-  }
+  
 }
 

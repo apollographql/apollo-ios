@@ -41,6 +41,10 @@ public struct CodegenTestHelper {
       .appendingPathComponent("ApolloCodegenTests")
       .appendingPathComponent("Output")
   }
+
+  public static func schemaOutputURL() -> URL {
+    outputFolderURL().appendingPathComponent("schema.graphqls")
+  }
   
   public static func schemaFolderURL() -> URL {
     let sourceRoot = self.sourceRootURL()
