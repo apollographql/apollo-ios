@@ -66,7 +66,7 @@ public struct ApolloCodegenConfiguration {
       self.operationIdentifiersPath = operationIdentifiersPath
     }
 
-    enum PathResolver: CustomStringConvertible {
+    enum PathResolver {
       case object
       case `enum`
       case interface
@@ -74,18 +74,7 @@ public struct ApolloCodegenConfiguration {
       case inputObject
       case fragment(CompilationResult.FragmentDefinition)
       case operation(CompilationResult.OperationDefinition)
-
-      var description: String {
-        switch self {
-        case .object: return "object"
-        case .enum: return "enum"
-        case .interface: return "interface"
-        case .union: return "union"
-        case .inputObject: return "inputObject"
-        case .fragment: return "fragment"
-        case .operation: return "operation"
-        }
-      }
+      case schema
 
       var subpath: String {
         switch self {
@@ -95,13 +84,14 @@ public struct ApolloCodegenConfiguration {
         case .union: return "Unions"
         case .inputObject: return "InputObjects"
         case .fragment, .operation: return "Operations"
+        case .schema: return ""
         }
       }
     }
 
     func resolvePath(_ type: PathResolver) -> String {
       switch type {
-      case .object, .enum, .interface, .union, .inputObject:
+      case .object, .enum, .interface, .union, .inputObject, .schema:
         return resolveSchemaPath(typeSubpath: type.subpath)
 
       case let .fragment(fragmentDefinition):
@@ -115,11 +105,11 @@ public struct ApolloCodegenConfiguration {
     private func resolveSchemaPath(typeSubpath: String) -> String {
       var moduleSubpath: String = ""
       if operations == .inSchemaModule {
-        moduleSubpath = "Schema/"
+        moduleSubpath = "Schema"
       }
 
       return URL(fileURLWithPath: schemaTypes.path)
-        .appendingPathComponent("\(moduleSubpath)\(typeSubpath)").path
+        .appendingPathComponent("\(moduleSubpath)/\(typeSubpath)").standardizedFileURL.path
     }
 
     private func resolveOperationPath(typeSubpath: String, filePath: String) -> String {

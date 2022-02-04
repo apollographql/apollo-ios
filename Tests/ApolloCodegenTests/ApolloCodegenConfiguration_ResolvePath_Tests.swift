@@ -157,6 +157,19 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
+  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputSchemaToSchemaTypesPath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: "Generated"))
+
+    let expected: String = directoryURL.path
+
+    //when
+    let actual = config.resolvePath(.schema)
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
   func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputSchemaObjectToSchemaPath() throws {
     // given
     buildOutputConfig(operations: .relative(subpath: nil))
@@ -289,6 +302,19 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     //when
     let actual = config.resolvePath(.fragment(fragment))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputSchemaToSchemaTypesPath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: nil))
+
+    let expected: String = directoryURL.path
+
+    //when
+    let actual = config.resolvePath(.schema)
 
     // then
     expect(actual).to(equal(expected))
@@ -436,6 +462,19 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
+  func test_resolvePath_givenOperationsAbsolute_shouldOutputSchemaToSchemaTypesPath() throws {
+    // given
+    buildOutputConfig(operations: .absolute(path: directoryURL.appendingPathComponent("Generated").path))
+
+    let expected: String = directoryURL.path
+
+    //when
+    let actual = config.resolvePath(.schema)
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
   // MARK: OperationsFileOutput.inSchemaModule
   //
   // Operations/Fragments written to <schema types path>/<subtype>/file.swift
@@ -573,6 +612,19 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     //when
     let actual = config.resolvePath(.fragment(fragment))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputSchemaToSubpath() throws {
+    // given
+    buildOutputConfig(operations: .inSchemaModule)
+
+    let expected: String = directoryURL.appendingPathComponent("Schema").path
+
+    //when
+    let actual = config.resolvePath(.schema)
 
     // then
     expect(actual).to(equal(expected))
