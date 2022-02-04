@@ -81,7 +81,7 @@ public class ApolloCodegen {
       try autoreleasepool {
         try ObjectFileGenerator.generate(
           graphQLObject,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.object),
           fileManager: fileManager
         )
       }
@@ -91,7 +91,7 @@ public class ApolloCodegen {
       try autoreleasepool {
         try EnumFileGenerator.generate(
           graphQLEnum,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.enum),
           fileManager: fileManager
         )
       }
@@ -101,7 +101,7 @@ public class ApolloCodegen {
       try autoreleasepool {
         try InterfaceFileGenerator.generate(
           graphQLInterface,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.interface),
           fileManager: fileManager
         )
       }
@@ -112,7 +112,7 @@ public class ApolloCodegen {
         try UnionFileGenerator.generate(
           graphQLUnion,
           moduleName: config.output.schemaTypes.moduleName,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.union),
           fileManager: fileManager
         )
       }
@@ -122,7 +122,7 @@ public class ApolloCodegen {
       try autoreleasepool {
         try InputObjectFileGenerator.generate(
           graphQLInputObject,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.inputObject),
           fileManager: fileManager
         )
       }
@@ -130,7 +130,7 @@ public class ApolloCodegen {
 
     try SchemaFileGenerator.generate(
       ir.schema,
-      directoryPath: config.output.schemaTypes.path,
+      directoryPath: config.output.resolvePath(.schema),
       fileManager: fileManager
     )
 
@@ -141,7 +141,7 @@ public class ApolloCodegen {
           irFragment,
           schema: ir.schema,
           config: config.output,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.fragment(fragment)),
           fileManager: fileManager
         )
       }
@@ -154,7 +154,7 @@ public class ApolloCodegen {
           irOperation,
           schema: ir.schema,
           config: config,
-          directoryPath: config.output.schemaTypes.path,
+          directoryPath: config.output.resolvePath(.operation(operation)),
           fileManager: fileManager
         )
       }
