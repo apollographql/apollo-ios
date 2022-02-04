@@ -64,12 +64,6 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     switch operation.operationType {
     case .query:
       if isPersistedQueryRetry {
-#warning("""
-TODO: if using persistedOperationsOnly, we should throw an error. Not sure if that should be
-here or somewhere else in the RequestChain? Probably earlier than this when we actually go to
-start a retry.
-Need to write unit tests for this new behavior.
-""")
         useGetMethod = self.useGETForPersistedQueryRetry
         sendQueryDocument = true
         autoPersistQueries = true

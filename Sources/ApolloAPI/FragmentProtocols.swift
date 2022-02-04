@@ -21,7 +21,6 @@ public extension FragmentContainer {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  #warning("TODO: Audit all _ prefixed things to see if they should be available using ApolloExtension.")
   func _toFragment<T: Fragment>() -> T {
     return T.init(data: data)
   }

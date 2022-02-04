@@ -14,7 +14,6 @@ protocol ScopedSelectionSetHashable {
 }
 
 extension IR.SelectionSet: ScopedSelectionSetHashable {
-#warning("What if there is a field with the same name as a type? Do we get a conflict? Write a test for this.")
   var hashForSelectionSetScope: String {
     typeInfo.parentType.hashForSelectionSetScope
   }

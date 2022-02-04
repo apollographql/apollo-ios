@@ -22,7 +22,6 @@ extension ScalarType {
   public var asInputValue: InputValue { .scalar(self) }
 }
 
-#warning("TODO: do we really need to have both scalar and custom scalar?")
 public protocol CustomScalarType:
   AnyScalarType,
   JSONDecodable,

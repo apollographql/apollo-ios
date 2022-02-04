@@ -73,7 +73,6 @@ extension EnumType {
   public var jsonValue: JSONValue { rawValue }
 }
 
-#warning("might be able to remove these since we are using EnumType")
 extension RawRepresentable where RawValue: JSONDecodable {
   public init(jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(jsonValue: value)

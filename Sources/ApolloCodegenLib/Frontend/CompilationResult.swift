@@ -24,7 +24,6 @@ public class CompilationResult: JavaScriptObject {
     lazy var filePath: String = self["filePath"]
     
     lazy var operationIdentifier: String = {
-      #warning("TODO: Compute this from source + referenced fragments")
       return ""
     }()    
 

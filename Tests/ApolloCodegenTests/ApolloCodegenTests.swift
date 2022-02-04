@@ -222,6 +222,4 @@ class ApolloCodegenTests: XCTestCase {
     expect(filePaths).to(equal(expectedPaths))
     expect(fileManager.allClosuresCalled).to(beTrue())
   }
-
-  #warning("todo - test case with schema + single operations document; should it create single or multiple operations files?")
 }
