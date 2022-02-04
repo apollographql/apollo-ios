@@ -4,7 +4,8 @@ public extension CompilationResult.OperationDefinition {
 
   class func mock(
     type: CompilationResult.OperationType = .query,
-    selections: [CompilationResult.Selection] = []
+    selections: [CompilationResult.Selection] = [],
+    path: String = ""
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.operationType = type
@@ -13,6 +14,7 @@ public extension CompilationResult.OperationDefinition {
       parentType: mock.rootType,
       selections: selections
     )
+    mock.filePath = path
     return mock
   }
 }
@@ -81,13 +83,15 @@ public extension CompilationResult.FragmentDefinition {
   class func mock(
     _ name: String = "NameFragment",
     type: GraphQLCompositeType = .emptyMockObject(),
-    selections: [CompilationResult.Selection] = []
+    selections: [CompilationResult.Selection] = [],
+    path: String = ""
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name
     mock.type = type
     mock.selectionSet = .mock(parentType: type, selections: selections)
     mock.source = Self.mockDefinition(name: name)
+    mock.filePath = path
     return mock
   }
 }

@@ -94,8 +94,7 @@ public struct ApolloCodegenConfiguration {
         case .interface: return "Interfaces"
         case .union: return "Unions"
         case .inputObject: return "InputObjects"
-        case .fragment: return "Fragments"
-        case .operation: return "Operations"
+        case .fragment, .operation: return "Operations"
         }
       }
     }
@@ -105,19 +104,41 @@ public struct ApolloCodegenConfiguration {
       case .object, .enum, .interface, .union, .inputObject:
         return resolveSchemaPath(typeSubpath: type.subpath)
 
-      case .fragment, .operation:
-        return "none"
+      case let .fragment(fragmentDefinition):
+        return resolveOperationPath(typeSubpath: type.subpath, filePath: fragmentDefinition.filePath)
+
+      case let .operation(operationDefinition):
+        return resolveOperationPath(typeSubpath: type.subpath, filePath: operationDefinition.filePath)
       }
     }
 
     private func resolveSchemaPath(typeSubpath: String) -> String {
       var moduleSubpath: String = ""
       if operations == .inSchemaModule {
-        moduleSubpath = schemaTypes.moduleName + "/"
+        moduleSubpath = "Schema/"
       }
 
       return URL(fileURLWithPath: schemaTypes.path)
         .appendingPathComponent("\(moduleSubpath)\(typeSubpath)").path
+    }
+
+    private func resolveOperationPath(typeSubpath: String, filePath: String) -> String {
+      switch operations {
+      case .inSchemaModule:
+        return URL(fileURLWithPath: schemaTypes.path).appendingPathComponent(typeSubpath).path
+
+      case let .absolute(path):
+        return path
+
+      case let .relative(subpath):
+        let relativeURL = URL(fileURLWithPath: filePath)
+
+        if let subpath = subpath {
+          return relativeURL.appendingPathComponent(subpath).path
+        }
+
+        return relativeURL.path
+      }
     }
   }
 

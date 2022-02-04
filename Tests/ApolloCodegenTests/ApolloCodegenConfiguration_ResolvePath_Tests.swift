@@ -17,8 +17,8 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
   // MARK: OperationsFileOutput.relative
   //
-  // <graphql path>/file.swift
-  // <schema path>/<NamedType>/file.swift
+  // Operations written to <.graphql file path>/<subpath?>/file.swift
+  // Schema Types written to <schema types path>/<subtype>/file.swift
 
   func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputSchemaObjectToSchemaPath() throws {
     // given
@@ -85,12 +85,76 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputOperationToRelativeSubpath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputQueryOperationToRelativeSubpath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: "Generated"))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .query,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputFragmentToRelativeSubpath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputMutationOperationToRelativeSubpath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: "Generated"))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .mutation,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputSubscriptionOperationToRelativeSubpath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: "Generated"))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .subscription,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsRelativeWithSubpath_shouldOutputFragmentOperationToRelativeSubpath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: "Generated"))
+
+    let fragment = CompilationResult.FragmentDefinition.mock(
+      "TestFragment",
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
+
+    //when
+    let actual = config.resolvePath(.fragment(fragment))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputSchemaObjectToSchemaPath() throws {
@@ -158,18 +222,82 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputOperationToRelativePath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputQueryOperationToRelativePath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: nil))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .query,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputFragmentToRelativePath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputMutationOperationToRelativePath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: nil))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .mutation,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputSubscriptionOperationToRelativePath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: nil))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .subscription,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsRelativeNoSubpath_shouldOutputFragmentOperationToRelativePath() throws {
+    // given
+    buildOutputConfig(operations: .relative(subpath: nil))
+
+    let fragment = CompilationResult.FragmentDefinition.mock(
+      "TestFragment",
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Sources").path
+
+    //when
+    let actual = config.resolvePath(.fragment(fragment))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   // MARK: OperationsFileOutput.absolute
   //
-  // <absolute path>/file.swift
-  // <schema path>/<NamedType>/file.swift
+  // Operations written to <absolute path>/file.swift
+  // Schema Types written to <schema types path>/<subtype>/file.swift
 
   func test_resolvePath_givenOperationsAbsolute_shouldOutputSchemaObjectToSchemaPath() throws {
     // given
@@ -236,24 +364,88 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsAbsolute_shouldOutputOperationToAbsolutePath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsAbsolute_shouldOutputQueryOperationToAbsolutePath() throws {
+    // given
+    buildOutputConfig(operations: .absolute(path: directoryURL.appendingPathComponent("Generated").path))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .query,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Generated").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsAbsolute_shouldOutputFragmentToAbsolutePath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsAbsolute_shouldOutputMutationOperationToAbsolutePath() throws {
+    // given
+    buildOutputConfig(operations: .absolute(path: directoryURL.appendingPathComponent("Generated").path))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .mutation,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Generated").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsAbsolute_shouldOutputSubscriptionOperationToAbsolutePath() throws {
+    // given
+    buildOutputConfig(operations: .absolute(path: directoryURL.appendingPathComponent("Generated").path))
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .subscription,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Generated").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsAbsolute_shouldOutputFragmentOperationToAbsolutePath() throws {
+    // given
+    buildOutputConfig(operations: .absolute(path: directoryURL.appendingPathComponent("Generated").path))
+
+    let fragment = CompilationResult.FragmentDefinition.mock(
+      "TestFragment",
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Generated").path
+
+    //when
+    let actual = config.resolvePath(.fragment(fragment))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
   // MARK: OperationsFileOutput.inSchemaModule
   //
-  // <schema path> /Operations/file.swift /Fragments/file.swift
-  // <schema path>/AnimalKingdomAPI/<NamedType>/file.swift
+  // Operations/Fragments written to <schema types path>/<subtype>/file.swift
+  // Schema Types written to <schema types path>/Schema/<subtype>/file.swift
 
   func test_resolvePath_givenOperationsInSchemaModule_shouldOutputSchemaObjectToSchemaSubpath() throws {
     // given
     buildOutputConfig(operations: .inSchemaModule)
 
-    let expected: String = directoryURL.appendingPathComponent("TestAPI/Objects").path
+    let expected: String = directoryURL.appendingPathComponent("Schema/Objects").path
 
     //when
     let actual = config.resolvePath(.object)
@@ -266,7 +458,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     // given
     buildOutputConfig(operations: .inSchemaModule)
 
-    let expected: String = directoryURL.appendingPathComponent("TestAPI/Enums").path
+    let expected: String = directoryURL.appendingPathComponent("Schema/Enums").path
 
     //when
     let actual = config.resolvePath(.enum)
@@ -279,7 +471,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     // given
     buildOutputConfig(operations: .inSchemaModule)
 
-    let expected: String = directoryURL.appendingPathComponent("TestAPI/Interfaces").path
+    let expected: String = directoryURL.appendingPathComponent("Schema/Interfaces").path
 
     //when
     let actual = config.resolvePath(.interface)
@@ -292,7 +484,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     // given
     buildOutputConfig(operations: .inSchemaModule)
 
-    let expected: String = directoryURL.appendingPathComponent("TestAPI/Unions").path
+    let expected: String = directoryURL.appendingPathComponent("Schema/Unions").path
 
     //when
     let actual = config.resolvePath(.union)
@@ -305,7 +497,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     // given
     buildOutputConfig(operations: .inSchemaModule)
 
-    let expected: String = directoryURL.appendingPathComponent("TestAPI/InputObjects").path
+    let expected: String = directoryURL.appendingPathComponent("Schema/InputObjects").path
 
     //when
     let actual = config.resolvePath(.inputObject)
@@ -314,11 +506,75 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
     expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputOperationToAbsoluteSubpath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputQueryOperationToSubpath() throws {
+    // given
+    buildOutputConfig(operations: .inSchemaModule)
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .query,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Operations").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 
-  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputFragmentToAbsoluteSubpath() throws {
-    XCTFail()
+  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputMutationOperationToSubpath() throws {
+    // given
+    buildOutputConfig(operations: .inSchemaModule)
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .mutation,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Operations").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputSubscriptionOperationToSubpath() throws {
+    // given
+    buildOutputConfig(operations: .inSchemaModule)
+
+    let operation = CompilationResult.OperationDefinition.mock(
+      type: .subscription,
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Operations").path
+
+    //when
+    let actual = config.resolvePath(.operation(operation))
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationsInSchemaModule_shouldOutputFragmentOperationToSubpath() throws {
+    // given
+    buildOutputConfig(operations: .inSchemaModule)
+
+    let fragment = CompilationResult.FragmentDefinition.mock(
+      "TestFragment",
+      path: directoryURL.appendingPathComponent("Sources").path
+    )
+
+    let expected: String = directoryURL.appendingPathComponent("Operations").path
+
+    //when
+    let actual = config.resolvePath(.fragment(fragment))
+
+    // then
+    expect(actual).to(equal(expected))
   }
 }
