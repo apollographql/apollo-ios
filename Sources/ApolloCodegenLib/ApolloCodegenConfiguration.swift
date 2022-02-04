@@ -67,6 +67,71 @@ public struct ApolloCodegenConfiguration {
       self.operations = operations
       self.operationIdentifiersPath = operationIdentifiersPath
     }
+
+    enum PathResolver {
+      case object
+      case `enum`
+      case interface
+      case union
+      case inputObject
+      case fragment(CompilationResult.FragmentDefinition)
+      case operation(CompilationResult.OperationDefinition)
+      case schema
+
+      var subpath: String {
+        switch self {
+        case .object: return "Objects"
+        case .enum: return "Enums"
+        case .interface: return "Interfaces"
+        case .union: return "Unions"
+        case .inputObject: return "InputObjects"
+        case .fragment, .operation: return "Operations"
+        case .schema: return ""
+        }
+      }
+    }
+
+    func resolvePath(_ type: PathResolver) -> String {
+      switch type {
+      case .object, .enum, .interface, .union, .inputObject, .schema:
+        return resolveSchemaPath(typeSubpath: type.subpath)
+
+      case let .fragment(fragmentDefinition):
+        return resolveOperationPath(typeSubpath: type.subpath, filePath: fragmentDefinition.filePath)
+
+      case let .operation(operationDefinition):
+        return resolveOperationPath(typeSubpath: type.subpath, filePath: operationDefinition.filePath)
+      }
+    }
+
+    private func resolveSchemaPath(typeSubpath: String) -> String {
+      var moduleSubpath: String = ""
+      if operations == .inSchemaModule {
+        moduleSubpath = "Schema"
+      }
+
+      return URL(fileURLWithPath: schemaTypes.path)
+        .appendingPathComponent("\(moduleSubpath)/\(typeSubpath)").standardizedFileURL.path
+    }
+
+    private func resolveOperationPath(typeSubpath: String, filePath: String) -> String {
+      switch operations {
+      case .inSchemaModule:
+        return URL(fileURLWithPath: schemaTypes.path).appendingPathComponent(typeSubpath).path
+
+      case let .absolute(path):
+        return path
+
+      case let .relative(subpath):
+        let relativeURL = URL(fileURLWithPath: filePath)
+
+        if let subpath = subpath {
+          return relativeURL.appendingPathComponent(subpath).path
+        }
+
+        return relativeURL.path
+      }
+    }
   }
 
   /// The local path structure for the generated schema types files.
