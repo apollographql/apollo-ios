@@ -46,7 +46,8 @@ module.exports = {
             'fragments',
             'caching',
             'subscriptions',
-            'swift-scripting'
+            'swift-scripting',
+            'request-pipeline',
           ]
         }
       }
