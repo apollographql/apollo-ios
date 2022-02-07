@@ -73,7 +73,7 @@ flowchart TB
 
 > [See an example interceptor provider.](#example-interceptor-provider)
 
-If your use case requires it, you can create a custom class that conforms to the [`InterceptorProvider` protocol](https://github.com/apollographql/apollo-ios/blob/main/Sources/Apollo/InterceptorProvider.swift).
+If your use case requires it, you can create a custom struct or class that conforms to the [`InterceptorProvider` protocol](https://github.com/apollographql/apollo-ios/blob/main/Sources/Apollo/InterceptorProvider.swift).
 
 If you define a custom `InterceptorProvider`, it should almost always create a `RequestChain` that uses a similar structure to the [default](#default-interceptors), but that includes additions or modifications as needed for particular operations.
 
