@@ -41,7 +41,7 @@ By default when the last interceptor in the chain finishes, if a parsed operatio
 
 ## Interceptor providers
 
-To generate a [request chain](#understanding-request-chains) for each GraphQL operation, Apollo iOS passes operations to an object called an **interceptor provider**. This object conforms to the [`InterceptorProvider` protocol](https://github.com/apollographql/apollo-ios/blob/main/Sources/Apollo/InterceptorProvider.swift).
+To generate a [request chain](#request-chains) for each GraphQL operation, Apollo iOS passes operations to an object called an **interceptor provider**. This object conforms to the [`InterceptorProvider` protocol](https://github.com/apollographql/apollo-ios/blob/main/Sources/Apollo/InterceptorProvider.swift).
 
 ### Default provider
 
@@ -67,7 +67,7 @@ flowchart TB
 
 </ExpansionPanel>
 
-> These built-in interceptors are described [below](#available-interceptors).
+> These built-in interceptors are described [below](#built-in-interceptors).
 
 ### Custom interceptor providers
 
@@ -521,7 +521,7 @@ The initializer for `RequestChainNetworkTransport` accepts the following propert
 </td>
 <td>
 
-**Required.** The interceptor provider to use when constructing a [request chain](#understanding-request-chains). See below for details on interceptor providers.
+**Required.** The interceptor provider to use when constructing a [request chain](#request-chains). See below for details on interceptor providers.
 </td>
 </tr>
 
