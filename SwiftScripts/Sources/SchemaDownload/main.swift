@@ -15,11 +15,11 @@ let endpoint = URL(string: "http://localhost:4000/")!
 let output = sourceRootURL
     .appendingPathComponent("Sources")
     .appendingPathComponent("UploadAPI")
+    .appendingPathComponent("schema.graphqls")
 
 // Introspection download:
 let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: endpoint),
-                                                      outputFolderURL: output,
-                                                      schemaFilename: "schema")
+                                                      outputURL: output)
 
 // Registry download:
 //let registrySettings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
