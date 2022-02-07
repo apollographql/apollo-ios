@@ -100,9 +100,13 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     // given
     let expected = """
       targets: [
-        .target(name: "TestModule", dependencies: [
-          .product(name: "ApolloAPI", package: "apollo-ios"),
-        ]),
+        .target(
+          name: "TestModule",
+          dependencies: [
+            .product(name: "ApolloAPI", package: "apollo-ios"),
+          ],
+          path: "."
+        ),
       ]
     """
 
