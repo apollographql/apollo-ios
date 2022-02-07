@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "13.0.0"
+    default: "13.2.1"
   ios_current_version:
     type: string
     default: "15.0"
@@ -15,10 +15,10 @@ parameters:
     default: "iphonesimulator15.0"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "11.5.2"
+    default: "11.6.2"
   macos_sdk: # The full SDK string to use for macOS builds
     type: string
-    default: "macosx11.3"
+    default: "macosx12.1"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
     default: "15.0"
@@ -200,10 +200,6 @@ workflows:
     jobs:
       - Swift_Build:
           name: Build with SPM
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - IntegrationTests_macOS_current:
           name: Apollo Integration Tests macOS << pipeline.parameters.macos_version >>
           filters:
@@ -236,10 +232,6 @@ workflows:
               ignore: /.*1.0.*/
       - CodegenLib_macOS_current:
           name: Swift Code Generation
-          filters:
-            # Don't run this on any branch with "1.0" in the name (temporary!)
-            branches:
-              ignore: /.*1.0.*/
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk
           requires:
