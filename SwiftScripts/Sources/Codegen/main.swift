@@ -10,21 +10,38 @@ struct Codegen: ParsableCommand {
 
   enum ArgumentError: Error, LocalizedError {
     case invalidTargetName(name: String)
+    case invalidPackageType(name: String)
 
     var errorDescription: String? {
       switch self {
-      case .invalidTargetName(let name):
-        return "The target \"\(name)\" was invalid. Please try again."
+      case let .invalidTargetName(name):
+        return "The target \"\(name)\" is invalid. Please try again."
+
+      case let .invalidPackageType(name):
+        return "The package type \"\(name)\" is invalid. Please try again."
       }
     }
   }
 
-  @Option(name: [.customLong("target"), .customShort("t")], help: "The target to generate code for. Required.")
+  @Option(
+    name: [.customLong("target"), .customShort("t")],
+    help: "The target to generate code for - Required."
+  )
   var targetName: String
+
+  @Option(
+    name: [.customLong("package-type"), .customShort("p")],
+    help: "The package manager for the generated module - Required."
+  )
+  var packageManager: String
 
   mutating func run() throws {
     guard let target = Target(name: targetName) else {
       throw ArgumentError.invalidTargetName(name: targetName)
+    }
+
+    guard let module = Module(module: packageManager, name: target.moduleName) else {
+      throw ArgumentError.invalidPackageType(name: packageManager)
     }
 
     // Grab the parent folder of this file on the filesystem
@@ -37,14 +54,15 @@ struct Codegen: ParsableCommand {
       .apollo.parentFolderURL() // apollo-ios
 
     let targetURL = target.targetRootURL(fromSourceRoot: sourceRootURL)
-    let config = target.config(fromSourceRoot: sourceRootURL)
+    let inputConfig = target.inputConfig(fromSourceRoot: sourceRootURL)
+    let outputConfig = module.outputConfig(toTargetRoot: targetURL)
 
     // This more necessary if you're using a sub-folder, but make sure
     // there's actually a place to write out what you're doing.
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: targetURL.path)
 
     // Actually attempt to generate code.
-    try ApolloCodegen.build(with: config)
+    try ApolloCodegen.build(with: ApolloCodegenConfiguration(input: inputConfig, output: outputConfig))
   }
 }
 
