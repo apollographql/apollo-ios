@@ -13,6 +13,10 @@ module.exports = {
         subtitle: 'Client (iOS)',
         description: 'A guide to using Apollo with iOS',
         githubRepo: 'apollographql/apollo-ios',
+        defaultVersion: '0.X',
+        versions: {
+          '1.0 (Alpha)': 'release/1.0',
+        },
         checkLinksOptions: {
           ignore: [
             '/api/Apollo/README/',
