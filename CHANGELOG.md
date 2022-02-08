@@ -1,5 +1,37 @@
 # Change log
 
+## v1.0.0-alpha.1
+
+This is the first Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+### What’s New
+
+* The size of generated code has been reduced dramatically. In the most complex operations, the generated code can be up to **90% smaller** than in the previous version.
+* Generated response objects are more powerful and easier to consume.
+    * The response objects now intelligently merge fields from not only their parents, but also other matching siblings.
+
+```
+query AnimalQuery {
+  allAnimals {
+    species
+    ... on Pet {
+      name
+    }
+    ... on Cat {
+      furColor
+    }
+}
+```
+
+In the past, the `AsCat` model would have fields for `species`, and `furColor`, but to access the `name` field, you would need to keep a reference to the `AllAnimal` object and call `AsPet.name`. This means that you couldn’t just pass the `AsCat` object to a UI component. 
+
+In 1.0, because we know that `Cat` implements the `Pet` interface, the `name` field is merged into the `Cat` object. 
+
+*Any property that should exist based on the type of the object will be accessible.* This makes consuming our generated response objects in your applications much easier. This should greatly reduce the need for view models to wrap our generated response objects.
+
+* The code generation engine is now written in native Swift! This makes it easier for Swift developers to contribute to the project or alter the generated code for their specific needs! In future iterations, we hope to open up the code generation templating API to allow for even easier customization of your generated code!
+* Computation of Cache Keys is protocol oriented now. Instead of a single `cacheKeyForObject` closure on your `ApolloClient`, you can implement cache key computation on individual object types with the `CacheKeyProvider` protocol. See [Cache Key Resolution](https://github.com/apollographql/apollo-ios/blob/release/1.0-alpha-incubating/CodegenProposal.md#cache-key-resolution) in the RFC for more information.
+
 ## v0.50.0
 - **Dropped SPM support for Swift 5.2**: The minimum version of the Swift tools and language compatibilty required to process the SPM manifest is Swift 5.3. This means a minimum of Xcode version 12 is required for Swift Package Manager support. [#1992](https://github.com/apollographql/apollo-ios/pull/1992)
 - **Removed unnecessary assertion failure**: The completion handler on `returnResultAsyncIfNeeded` is defined as optional but if not included would cause debug builds to crash with an `assertionFailure` in the case of a `failure` of the `Result`. [#2005](https://github.com/apollographql/apollo-ios/pull/2005) - _Thank you to [Richard Topchii](https://github.com/richardtop) for raising this issue!_
