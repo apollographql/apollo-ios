@@ -91,7 +91,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let operation = CompilationResult.OperationDefinition.mock(
       type: .query,
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/query.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
@@ -109,7 +109,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let operation = CompilationResult.OperationDefinition.mock(
       type: .mutation,
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/mutation.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
@@ -127,7 +127,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let operation = CompilationResult.OperationDefinition.mock(
       type: .subscription,
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/subscription.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
@@ -145,7 +145,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let fragment = CompilationResult.FragmentDefinition.mock(
       "TestFragment",
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/TestFragment.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources/Generated").path
@@ -241,7 +241,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let operation = CompilationResult.OperationDefinition.mock(
       type: .query,
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/query.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources").path
@@ -259,7 +259,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let operation = CompilationResult.OperationDefinition.mock(
       type: .mutation,
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/mutation.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources").path
@@ -277,7 +277,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let operation = CompilationResult.OperationDefinition.mock(
       type: .subscription,
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/subscription.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources").path
@@ -295,7 +295,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     let fragment = CompilationResult.FragmentDefinition.mock(
       "TestFragment",
-      path: directoryURL.appendingPathComponent("Sources").path
+      path: directoryURL.appendingPathComponent("Sources/TestFragment.graphql").path
     )
 
     let expected: String = directoryURL.appendingPathComponent("Sources").path
@@ -318,6 +318,38 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
 
     // then
     expect(actual).to(equal(expected))
+  }
+
+  func test_resolvePath_givenFragmentFilenameWithExtension_shouldNotIncludeExtension() throws {
+    // given
+    let config = ApolloCodegenConfiguration.FileOutput(
+      schemaTypes: .init(path: directoryURL.path, dependencyAutomation: .swiftPackageManager(moduleName: "API")),
+      operations: .relative(subpath: nil),
+      operationIdentifiersPath: nil
+    )
+
+    let fragment = CompilationResult.FragmentDefinition.mock(path: directoryURL.appendingPathComponent("filename.extension").path)
+
+    let expected = directoryURL.path
+
+    // then
+    expect(config.resolvePath(.fragment(fragment))).to(equal(expected))
+  }
+
+  func test_resolvePath_givenOperationFilenameWithExtension_shouldNotIncludeExtension() throws {
+    // given
+    let config = ApolloCodegenConfiguration.FileOutput(
+      schemaTypes: .init(path: directoryURL.path, dependencyAutomation: .swiftPackageManager(moduleName: "API")),
+      operations: .relative(subpath: nil),
+      operationIdentifiersPath: nil
+    )
+
+    let operation = CompilationResult.OperationDefinition.mock(path: directoryURL.appendingPathComponent("filename.extension").path)
+
+    let expected = directoryURL.path
+
+    // then
+    expect(config.resolvePath(.operation(operation))).to(equal(expected))
   }
 
   // MARK: OperationsFileOutput.absolute

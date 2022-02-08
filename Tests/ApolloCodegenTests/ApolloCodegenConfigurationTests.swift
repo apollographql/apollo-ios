@@ -1,5 +1,5 @@
 import XCTest
-import ApolloCodegenTestSupport
+@testable import ApolloCodegenTestSupport
 @testable import ApolloCodegenLib
 import Nimble
 

@@ -64,3 +64,7 @@ SwiftScripts/.build-**
 
 # Local Netlify folder
 .netlify
+
+# Local generated packages we don't need in the main project
+Sources/AnimalKingdomAPI/Generated/Package.swift
+Sources/AnimalKingdomAPI/Generated/Package.resolved
