@@ -7,6 +7,8 @@ struct InputObjectTemplate {
   func render() -> String {
     TemplateString(
     """
+    \(HeaderCommentTemplate.render())
+
     \(ImportStatementTemplate.SchemaType.render())
 
     struct \(graphqlInputObject.name.firstUppercased): InputObject {

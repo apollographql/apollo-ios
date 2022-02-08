@@ -4,12 +4,42 @@ import Nimble
 import ApolloCodegenTestSupport
 
 class ObjectTemplateTests: XCTestCase {
+  var subject: ObjectTemplate!
+
+  override func tearDown() {
+    subject = nil
+
+    super.tearDown()
+  }
+
+  private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
+    subject = ObjectTemplate(
+      graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
+    )
+  }
 
   // MARK: Boilerplate tests
 
-  func test_boilerplate_givenSchemaType_generatesImportStatement() {
+  func test_render_generatesHeaderComment() {
     // given
-    let graphqlObject = GraphQLObjectType.mock("Dog")
+    buildSubject()
+
+    let expected = """
+    // @generated
+    // This file was automatically generated and should not be edited.
+
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_generatesImportStatement() {
+    // given
+    buildSubject()
 
     let expected = """
     import ApolloAPI
@@ -17,15 +47,28 @@ class ObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
-  func test_boilerplate_givenSchemaType_generatesSwiftClassDefinition() {
+  func test_render_generatesClosingBrace() {
     // given
-    let graphqlObject = GraphQLObjectType.mock("Dog")
+    buildSubject()
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+  }
+
+  // MARK: Class Definition Tests
+
+  func test_render_givenSchemaType_generatesSwiftClassDefinition() {
+    // given
+    buildSubject()
 
     let expected = """
     public final class Dog: Object {
@@ -34,30 +77,17 @@ class ObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
-  }
-
-  func test_boilerplate_givenSchemaType_generatesClosingBrace() {
-    // given
-    let graphqlObject = GraphQLObjectType.mock("Dog")
-
-    // when
-    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
-
-    // then
-    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   // MARK: Metadata Tests
 
   func test_render_givenSchemaType_generatesTypeMetadata() {
     // given
-    let graphqlObject = GraphQLObjectType.mock(
-      "Dog",
-      interfaces: [
+    buildSubject(interfaces: [
         GraphQLInterfaceType.mock("Animal", fields: ["species": GraphQLField.mock("species", type: .scalar(.string()))]),
         GraphQLInterfaceType.mock("Pet", fields: ["name": GraphQLField.mock("name", type: .scalar(.string()))])
       ]
@@ -72,9 +102,9 @@ class ObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = ObjectTemplate(graphqlObject: graphqlObject).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 }

@@ -58,6 +58,31 @@ class FragmentTemplateTests: XCTestCase {
     )
   }
 
+  // MARK: - Boilerplate Tests
+
+  func test__render__generatesHeaderComment() throws {
+    // given
+    config = .mock(output: .mock(
+      moduleType: .manuallyLinked(namespace: "TestModuleName"),
+      operations: .inSchemaModule
+    ))
+
+    let expected =
+    """
+    // @generated
+    // This file was automatically generated and should not be edited.
+    
+    """
+
+    // when
+    try buildSubjectAndFragment()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   // MARK: - Import Statements
 
   func test__render__givenFileOutput_inSchemaModule_schemaModuleManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
@@ -79,7 +104,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
   func test__render__givenFileOutput_inSchemaModule_schemaModuleNotManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
@@ -101,7 +126,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
   func test__render__givenFileOutput_notInSchemaModule_schemaModuleNotManuallyLinked_generatesImportIncludingSchemaModule() throws {
@@ -124,7 +149,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
   // MARK: - Fragment Definition
@@ -152,7 +177,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
@@ -183,7 +208,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Object_rendersParentType() throws {
@@ -213,7 +238,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Interface_rendersParentType() throws {
@@ -243,7 +268,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Union_rendersParentType() throws {
@@ -277,7 +302,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
 }
