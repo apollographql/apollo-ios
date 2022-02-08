@@ -264,7 +264,6 @@ final class GraphQLExecutor {
                         info: info)
 
       case let .typeCase(typeCase):
-        #warning("Write extensive tests for this. Multiple merged sibling type cases.")
         if let runtimeType = runtimeObjectType(for: object, schema: info.schema),
            runtimeType._canBeConverted(to: typeCase.__parentType) {
           try groupFields(typeCase.selections,

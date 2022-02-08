@@ -1,6 +1,5 @@
 import Foundation
 
-#warning("TODO: It might be more performant to just use the raw values like before commit: e7a9b2c27f9d01764943f1aa7ff9d759d8762bff - We should run performance tests and try reverting and see what performance is like.")
 /// Represents an input value to an argument on a `Selection.Field`'s `Arguments`.
 ///
 /// - See: [GraphQLSpec - Input Values](http://spec.graphql.org/June2018/#sec-Input-Values)

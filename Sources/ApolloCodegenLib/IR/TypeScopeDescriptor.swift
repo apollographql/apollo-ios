@@ -75,7 +75,6 @@ struct TypeScopeDescriptor: Hashable {
 
     if let newType = newType as? GraphQLInterfaceImplementingType {
       newScope.formUnion(newType.interfaces)
-      #warning("Do we need to recursively form union with each interfaces other interfaces? Test this.")
     }
 
     if let newType = newType as? GraphQLObjectType {

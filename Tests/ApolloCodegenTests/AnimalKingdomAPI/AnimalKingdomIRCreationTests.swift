@@ -415,7 +415,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       rootSelectionSet[field: "allAnimals"]?[as: "Pet"]
     )
 
-#warning("TODO: height is redundant, but is redeclared, do we include or omit it? It's nested fields are not redundant though, so I'm pretty sure we keep it...?")
     expected = (
       fields: [
         .mock("height",
@@ -547,7 +546,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
       rootSelectionSet[field: "allAnimals"]?[as: "Pet"]?[as: "WarmBlooded"]
     )
 
-#warning("TODO: ...WarmBloodedDetails is redundant, but is redeclared, do we include or omit it?")
     expected = (
       fields: [],
       typeCases: [],
@@ -753,7 +751,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
     expect(actual).to(beNil())
   }
 
-#warning("TODO: This is the same as AllAnimal.AsPet.AsWarmBlooded.Height. Should we inherit that object instead?")
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsCat_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
@@ -943,7 +940,6 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
     expect(actual).to(beNil())
   }
 
-#warning("TODO: This is the same as AllAnimal.AsPet.Height. Should we inherit that object instead?")
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsClassroomPet_AsBird_Height__isCorrect() throws {
     // given
     let operation = compilationResult.operations.first { $0.name == "AllAnimalsQuery" }
