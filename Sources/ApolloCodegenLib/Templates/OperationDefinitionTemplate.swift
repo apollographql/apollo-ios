@@ -9,6 +9,8 @@ struct OperationDefinitionTemplate {
   func render() -> String {
     TemplateString(
     """
+    \(HeaderCommentTemplate.render())
+
     \(ImportStatementTemplate.Operation.render(config.output))
 
     \(OperationDeclaration(operation.definition))

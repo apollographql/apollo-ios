@@ -7,6 +7,8 @@ struct FragmentTemplate {
   func render() -> String {
     TemplateString(
     """
+    \(HeaderCommentTemplate.render())
+
     \(ImportStatementTemplate.Operation.render(config))
 
     public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {

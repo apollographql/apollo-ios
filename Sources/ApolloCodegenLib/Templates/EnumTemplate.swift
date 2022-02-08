@@ -4,9 +4,11 @@ struct EnumTemplate {
   func render() -> String {
     TemplateString(
     """
+    \(HeaderCommentTemplate.render())
+
     \(ImportStatementTemplate.SchemaType.render())
 
-    public enum \(graphqlEnum.name): String, EnumType {
+    public enum \(graphqlEnum.name.firstUppercased): String, EnumType {
       \(graphqlEnum.values.map({
         "case \($0.name)"
       }), separator: "\n")

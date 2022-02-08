@@ -5,6 +5,8 @@ struct UnionTemplate {
   func render() -> String {
     TemplateString(
     """
+    \(HeaderCommentTemplate.render())
+
     \(ImportStatementTemplate.SchemaType.render())
 
     public enum \(graphqlUnion.name): UnionType, Equatable {

@@ -4,50 +4,97 @@ import Nimble
 import ApolloAPI
 
 class UnionTemplateTests: XCTestCase {
-  let graphqlUnion = GraphQLUnionType.mock(
-    "ClassroomPet",
-    types: [
-      GraphQLObjectType.mock("Cat"),
-      GraphQLObjectType.mock("Bird"),
-      GraphQLObjectType.mock("Rat"),
-      GraphQLObjectType.mock("PetRock")
-    ]
-  )
+  var subject: UnionTemplate!
+
+  override func tearDown() {
+    subject = nil
+
+    super.tearDown()
+  }
+
+  private func buildSubject() {
+    subject = UnionTemplate(
+      moduleName: "ModuleAPI",
+      graphqlUnion: GraphQLUnionType.mock(
+        "ClassroomPet",
+        types: [
+          GraphQLObjectType.mock("Cat"),
+          GraphQLObjectType.mock("Bird"),
+          GraphQLObjectType.mock("Rat"),
+          GraphQLObjectType.mock("PetRock")
+        ]
+      )
+    )
+  }
 
   // MARK: Boilerplate tests
 
-  func test_boilerplate_importsApolloAPI_generatesSwiftEnumDefinition() throws {
+  func test_render_generatesHeaderComment() throws {
     // given
-    let expected = """
-    import ApolloAPI
+    buildSubject()
 
-    public enum ClassroomPet: UnionType, Equatable {
+    let expected = """
+    // @generated
+    // This file was automatically generated and should not be edited.
+
     """
 
     // when
-    let actual = UnionTemplate(moduleName: "ModuleAPI", graphqlUnion: graphqlUnion).render()
+    let actual = subject.render()
 
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_boilerplate_generatesEnumClosingBrace() throws {
+  func test_render_gneratesImportStatement() throws {
+    // given
+    buildSubject()
+
     let expected = """
-    }
+    import ApolloAPI
+
     """
 
     // when
-    let actual = UnionTemplate(moduleName: "ModuleAPI", graphqlUnion: graphqlUnion).render()
+    let actual = subject.render()
 
     // then
-    expect(String(actual.reversed())).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
+  }
+
+  func test_render_generatesClosingBrace() throws {
+    // given
+    buildSubject()
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
   }
 
   // MARK: Enum Generation Tests
 
-  func test_render_givenSchemaUnion_generatesEnumCases() throws {
+  func test_render_generatesSwiftEnumDefinition() throws {
+    // given
+    buildSubject()
+
     let expected = """
     public enum ClassroomPet: UnionType, Equatable {
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test_render_givenSchemaUnion_generatesEnumCases() throws {
+    // given
+    buildSubject()
+
+    let expected = """
       case Cat(Cat)
       case Bird(Bird)
       case Rat(Rat)
@@ -55,13 +102,16 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = UnionTemplate(moduleName: "ModuleAPI", graphqlUnion: graphqlUnion).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesEnumInitializer() throws {
+    // given
+    buildSubject()
+
     let expected = """
       public init?(_ object: Object) {
         switch object {
@@ -75,13 +125,16 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = UnionTemplate(moduleName: "ModuleAPI", graphqlUnion: graphqlUnion).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesObjectProperty() throws {
+    // given
+    buildSubject()
+
     let expected = """
       public var object: Object {
         switch self {
@@ -95,13 +148,16 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = UnionTemplate(moduleName: "ModuleAPI", graphqlUnion: graphqlUnion).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 22, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaUnion_generatesPossibleTypesProperty() throws {
+    // given
+    buildSubject()
+
     let expected = """
       public static let possibleTypes: [Object.Type] = [
         ModuleAPI.Cat.self,
@@ -112,9 +168,9 @@ class UnionTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = UnionTemplate(moduleName: "ModuleAPI", graphqlUnion: graphqlUnion).render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 29, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
   }
 }

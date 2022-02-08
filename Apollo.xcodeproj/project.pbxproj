@@ -338,6 +338,7 @@
 		DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFBBC85273470F70088AABC /* IR+Field.swift */; };
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
 		E607AD8E27A88F340026742A /* OperationFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */; };
+		E608FBA527B1EFDF00493756 /* HeaderCommentTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */; };
 		E610D8D7278EA2390023E495 /* EnumFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */; };
 		E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */; };
 		E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */; };
@@ -1036,6 +1037,7 @@
 		DEFBBC85273470F70088AABC /* IR+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Field.swift"; sourceTree = "<group>"; };
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
 		E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGeneratorTests.swift; sourceTree = "<group>"; };
+		E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCommentTemplate.swift; sourceTree = "<group>"; };
 		E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGenerator.swift; sourceTree = "<group>"; };
 		E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceFileGenerator.swift; sourceTree = "<group>"; };
@@ -2013,6 +2015,7 @@
 			children = (
 				E6C9849227929EBE009481BE /* EnumTemplate.swift */,
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
+				E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */,
 				DE5B318E27A48E060051C9D3 /* ImportStatementTemplate.swift */,
 				E69BEDA42798B86D00000D10 /* InputObjectTemplate.swift */,
 				E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */,
@@ -3118,6 +3121,7 @@
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
 				E64F7EBC27A11A510059C021 /* GraphQLNamedType+Swift.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
+				E608FBA527B1EFDF00493756 /* HeaderCommentTemplate.swift in Sources */,
 				DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */,
 				E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */,
 				DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */,

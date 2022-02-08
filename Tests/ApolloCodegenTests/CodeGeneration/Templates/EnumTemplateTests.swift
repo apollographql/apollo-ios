@@ -4,10 +4,42 @@ import Nimble
 import ApolloCodegenTestSupport
 
 class EnumTemplateTests: XCTestCase {
+  var subject: EnumTemplate!
 
-  func test_render_boilerplate_givenInputObject_generatesImportStatement() {
-    let graphqlEnum = GraphQLEnumType.mock(name: "TestEnum", values: ["ONE", "TWO"])
-    let template = EnumTemplate(graphqlEnum: graphqlEnum)
+  override func tearDown() {
+    subject = nil
+
+    super.tearDown()
+  }
+
+  private func buildSubject(name: String, values: [String]) {
+    subject = EnumTemplate(
+      graphqlEnum: GraphQLEnumType.mock(name: name, values: values)
+    )
+  }
+
+  // MARK: Boilerplate Tests
+
+  func test_render_generatesHeaderComment() {
+    // given
+    buildSubject(name: "TestEnum", values: ["ONE", "TWO"])
+
+    let expected = """
+    // @generated
+    // This file was automatically generated and should not be edited.
+    
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_generatesImportStatement() {
+    // given
+    buildSubject(name: "TestEnum", values: ["ONE", "TWO"])
 
     let expected = """
     import ApolloAPI
@@ -15,16 +47,17 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = template.render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 
-  func test_render_givenSchemaEnum_generatesSwiftEnum() throws {
+  // MARK: Enum Casing Tests
+
+  func test_render_givenSchemaEnum_generatesSwiftEnumNameFirstUppercased() throws {
     // given
-    let graphqlEnum = GraphQLEnumType.mock(name: "TestEnum", values: ["ONE", "TWO"])
-    let template = EnumTemplate(graphqlEnum: graphqlEnum)
+    buildSubject(name: "testEnum", values: ["ONE", "TWO"])
 
     let expected = """
     public enum TestEnum: String, EnumType {
@@ -34,19 +67,33 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = template.render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3))
+    expect(actual).to(equalLineByLine(expected, atLine: 6))
+  }
+
+  func test_render_givenSchemaEnum_generatesSwiftEnum() throws {
+    // given
+    buildSubject(name: "TestEnum", values: ["ONE", "TWO"])
+
+    let expected = """
+    public enum TestEnum: String, EnumType {
+      case ONE
+      case TWO
+    }
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6))
   }
 
   func test_render_givenSchemaEnum_generatesSwiftEnumRespectingCase() throws {
     // given
-    let graphqlEnum = GraphQLEnumType.mock(
-      name: "CasedEnum",
-      values: ["lower", "UPPER", "Capitalized"]
-    )
-    let template = EnumTemplate(graphqlEnum: graphqlEnum)
+    buildSubject(name: "CasedEnum", values: ["lower", "UPPER", "Capitalized"])
 
     let expected = """
     public enum CasedEnum: String, EnumType {
@@ -57,9 +104,9 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = template.render()
+    let actual = subject.render()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 3))
+    expect(actual).to(equalLineByLine(expected, atLine: 6))
   }
 }

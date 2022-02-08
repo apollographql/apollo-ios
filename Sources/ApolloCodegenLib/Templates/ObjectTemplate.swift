@@ -6,6 +6,8 @@ struct ObjectTemplate {
   func render() -> String {
     TemplateString(
     """
+    \(HeaderCommentTemplate.render())
+
     \(ImportStatementTemplate.SchemaType.render())
     
     public final class \(graphqlObject.name.firstUppercased): Object {
