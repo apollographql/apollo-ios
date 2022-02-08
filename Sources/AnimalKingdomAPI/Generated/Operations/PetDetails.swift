@@ -1,3 +1,6 @@
+// @generated
+// This file was automatically generated and should not be edited.
+
 import ApolloAPI
 
 public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
