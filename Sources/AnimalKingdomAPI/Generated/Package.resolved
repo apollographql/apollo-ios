@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Apollo",
+        "repositoryURL": "https://github.com/apollographql/apollo-ios.git",
+        "state": {
+          "branch": "release/1.0-alpha-incubating",
+          "revision": "1c9cc6b28e15a09b35c12d36adebdc0c141ab716",
+          "version": null
+        }
+      },
+      {
+        "package": "InflectorKit",
+        "repositoryURL": "https://github.com/mattt/InflectorKit",
+        "state": {
+          "branch": null,
+          "revision": "d8cbcc04972690aaa5fc760a2b9ddb3e9f0decd7",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SQLite.swift",
+        "repositoryURL": "https://github.com/stephencelis/SQLite.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "5f5ad81ac0d0a0f3e56e39e646e8423c617df523",
+          "version": "0.13.2"
+        }
+      },
+      {
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
+        "state": {
+          "branch": null,
+          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
+          "version": "1.0.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

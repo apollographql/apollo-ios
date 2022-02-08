@@ -1,8 +1,5 @@
 import Foundation
 import ApolloCodegenLib
-import ArgumentParser
-
-#warning("TODO: Ensure this script keeps up with the changes to codegen!")
 
 enum Target {
   case starWars
@@ -25,29 +22,39 @@ enum Target {
     }
   }
 
+  var moduleName: String {
+    switch self {
+    case .starWars: return "StarWarsAPI"
+    case .gitHub: return "GitHubAPI"
+    case .upload: return "UploadAPI"
+    case .animalKingdom: return "AnimalKingdomAPI"
+    }
+  }
+
   func targetRootURL(fromSourceRoot sourceRootURL: Foundation.URL) -> Foundation.URL {
     switch self {
     case .gitHub:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
-        .apollo.childFolderURL(folderName: "GitHubAPI")
+        .apollo.childFolderURL(folderName: moduleName)
     case .starWars:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
-        .apollo.childFolderURL(folderName: "StarWarsAPI")
+        .apollo.childFolderURL(folderName: moduleName)
     case .upload:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
-        .apollo.childFolderURL(folderName: "UploadAPI")
+        .apollo.childFolderURL(folderName: moduleName)
     case .animalKingdom:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
-        .apollo.childFolderURL(folderName: "AnimalKingdomAPI")
+        .apollo.childFolderURL(folderName: moduleName)
     }
   }
 
-  func config(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenConfiguration {
+  func inputConfig(fromSourceRoot sourceRootURL: Foundation.URL) -> ApolloCodegenConfiguration.FileInput {
     let targetRootURL = self.targetRootURL(fromSourceRoot: sourceRootURL)
+
     switch self {
     case .upload:
       fatalError()
@@ -87,21 +94,10 @@ enum Target {
     case .animalKingdom:
       let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "graphql")
 
-      let input = ApolloCodegenConfiguration.FileInput(
+      return ApolloCodegenConfiguration.FileInput(
         schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
-
-      let output = ApolloCodegenConfiguration.FileOutput(
-        schemaTypes: .init(
-          path: targetRootURL.appendingPathComponent("Generated").path,
-          dependencyAutomation: .manuallyLinked(namespace: "AnimalKingdomAPI")
-        ),
-        operations: .inSchemaModule,
-        operationIdentifiersPath: nil
-      )
-
-      return ApolloCodegenConfiguration(input: input, output: output)
     }
   }
 }
