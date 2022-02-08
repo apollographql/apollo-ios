@@ -46,7 +46,7 @@ To use the Apollo CLI from Xcode, add a **Run Script** build phase to your app:
 
     <img src="images/rename_run_script.png" alt="UI for renaming" class="screenshot"/>
 
-6. Expand the Apollo phase. Paste the **Swift Package Manager Run Script** from [Adding a code generation build step](/installation/#adding-a-code-generation-build-step) into the text area. This script uses your schema to generate the code that the Apollo iOS SDK uses to interact with your server.
+6. Expand the Apollo phase. Paste the **Swift Package Manager Run Script** from [Adding a code generation build step](../installation/#adding-a-code-generation-build-step) into the text area. This script uses your schema to generate the code that the Apollo iOS SDK uses to interact with your server.
 
 7. Before the script can generate code, it needs a local copy of your GraphQL server's schema. For now, using a `#`, **comment out the last line** of the script you pasted and add the following line below it:
 
