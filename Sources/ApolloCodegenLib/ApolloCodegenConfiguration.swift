@@ -97,10 +97,16 @@ public struct ApolloCodegenConfiguration {
         return resolveSchemaPath(typeSubpath: type.subpath)
 
       case let .fragment(fragmentDefinition):
-        return resolveOperationPath(typeSubpath: type.subpath, filePath: fragmentDefinition.filePath)
+        return resolveOperationPath(
+          typeSubpath: type.subpath,
+          filePath: NSString(string: fragmentDefinition.filePath).deletingLastPathComponent
+        )
 
       case let .operation(operationDefinition):
-        return resolveOperationPath(typeSubpath: type.subpath, filePath: operationDefinition.filePath)
+        return resolveOperationPath(
+          typeSubpath: type.subpath,
+          filePath: NSString(string: operationDefinition.filePath).deletingLastPathComponent
+        )
       }
     }
 
