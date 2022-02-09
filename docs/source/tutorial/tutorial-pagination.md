@@ -10,25 +10,25 @@ You're going to use a second section in the TableView to allow your user to load
 
 Add a variable to hold on to this object at the top of the `LaunchesViewController.swift` file near your `launches` variable:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private var lastConnection: LaunchListQuery.Data.Launch?
 ```
 
 Next, you're going to take advantage of a type from the Apollo library. Add the following to the top of the file:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 import Apollo
 ```
 
 Then, below `lastConnection`, add a variable to hang on to the most recent request: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private var activeRequest: Cancellable?
 ```
 
 Next, add a second case to your `ListSection` enum:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 enum ListSection: Int, CaseIterable {
   case launches
   case loading
@@ -41,7 +41,7 @@ This will also cause a number of errors because you're no longer exhaustively ha
 
 In `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case, which returns `0` if there are no more launches to load: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 case .loading:
   if self.lastConnection?.hasMore == false {
     return 0
@@ -54,7 +54,7 @@ Remember here that if `lastConnection` is nil, there *are* more launches to load
 
 Next, add handling for the `.loading` case to `tableView(_, cellForRowAt:)`, showing a different message based on whether there's an active request or not:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 case .loading:
   if self.activeRequest == nil {
     cell.textLabel?.text = "Tap to load more"
@@ -69,7 +69,7 @@ To pass a variable into a GraphQL query, you need to use syntax that defines tha
 
 What does this look like in practice? Go to `LaunchList.graphql` and update just the first two lines to take and use the cursor as a parameter: 
 
-```graphql:title=LaunchList.graphql
+```graphql title="LaunchList.graphql"
 query LaunchList($cursor:String) {
   launches(after:$cursor) {
 ```
@@ -78,7 +78,7 @@ Build the application so the code generation picks up on this new parameter. You
 
 Next, go back to `LaunchesViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private func loadMoreLaunches(from cursor: String?) {
   self.activeRequest = Network.shared.apollo.fetch(query: LaunchListQuery(cursor: cursor)) { [weak self] result in
     guard let self = self else {
@@ -114,7 +114,7 @@ private func loadMoreLaunches(from cursor: String?) {
 
 Then, add a new method to figure out if new launches need to be loaded:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private func loadMoreLaunchesIfTheyExist() {
   guard let connection = self.lastConnection else {
     // We don't have stored launch details, load from scratch
@@ -133,7 +133,7 @@ private func loadMoreLaunchesIfTheyExist() {
 
 Update `viewDidLoad` to use this new method rather than calling `loadMoreLaunches(from:)` directly:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 override func viewDidLoad() {
   super.viewDidLoad()
   self.loadMoreLaunchesIfTheyExist()
@@ -147,7 +147,7 @@ Luckily, you can use `UIViewController`'s  `shouldPerformSegue(withIdentifier:se
 This method was already overridden in the starter project. Update the code within it to perform the segue for anything in the `.launches` section and _not_ perform it (instead loading more launches if needed) for the `.loading` section. Replace the `TODO` and everything below it with: 
 
 
-```swift:title=LaunchesViewController.swift     
+```swift title="LaunchesViewController.swift"
  guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
   assertionFailure("Invalid section")
   return false
@@ -177,7 +177,7 @@ However, your code should theoretically never reach this point, so it's a good p
 
 Add the following to the `switch` statement in `prepare(for segue:)`
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 case .loading:
   assertionFailure("Shouldn't have gotten here!")
 ```

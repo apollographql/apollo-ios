@@ -18,7 +18,7 @@ The nice thing is that you can also add your own interceptors to the chain anywh
 
 First, create the new interceptor. Go to **File > New > File...** and create a new **Swift File**. Name it **TokenAddingInterceptor.swift**, and make sure it's added to the **RocketReserver** target. Open that file, and add the following code:
 
-```swift:title=TokenAddingInterceptor.swift
+```swift title="TokenAddingInterceptor.swift"
 import Foundation
 import Apollo
 
@@ -36,13 +36,13 @@ class TokenAddingInterceptor: ApolloInterceptor {
 
 Next, import `KeychainSwift` at the top of the file so you can access the key you stored in the keychain in the last step of the tutorial:
 
-```swift:title=TokenAddingInterceptor.swift
+```swift title="TokenAddingInterceptor.swift"
 import KeychainSwift
 ```
 
 Then, replace the `TODO` within the `interceptAsync` method with code to get the token from the keychain, and add it to your headers if it exists:
 
-```swift:title=TokenAddingInterceptor.swift
+```swift title="TokenAddingInterceptor.swift"
 let keychain = KeychainSwift()
 if let token = keychain.get(LoginViewController.loginKeychainKey) {
     request.addHeader(name: "Authorization", value: token)
@@ -59,7 +59,7 @@ You can also make your own object conforming to `InterceptorProvider` - or, in t
 
 Go to **File > New > File...** and create a new **Swift File**. Name it **NetworkInterceptorProvider.swift**, and make sure it's added to the **RocketReserver** target. Add code which inserts your `TokenAddingInterceptor` before the other interceptors provided by the `DefaultInterceptorProvider`:
 
-```swift:title=NetworkInterceptorProvider.swift
+```swift title="NetworkInterceptorProvider.swift"
 import Foundation
 import Apollo
 
@@ -76,7 +76,7 @@ class NetworkInterceptorProvider: DefaultInterceptorProvider {
 
 Next, go back to your `Network` class. Replace the `ApolloClient` with an updated `lazy var` which creates the `RequestChainNetworkTransport` manually, using your custom interceptor provider:
 
-```swift:title=Network.swift
+```swift title="Network.swift"
 class Network {
     static let shared = Network()
 
@@ -163,7 +163,7 @@ Now that you've fleshed out your operation, it's time to put it into the app. Go
 
 Build the application to run the code generation. Then, in `DetailViewController.swift`, fill in the `bookTrip` method with the code to book your trip based on the flight's ID:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func bookTrip(with id: GraphQLID) {
   Network.shared.apollo.perform(mutation: BookTripMutation(id: id)) { [weak self] result in
     guard let self = self else {
@@ -190,7 +190,7 @@ private func bookTrip(with id: GraphQLID) {
 
 Then, update the `cancelTrip` method print the ID of the flight being cancelled (you'll be adding the actual cancellation in the next step):
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func cancelTrip(with id: GraphQLID) {
   print("Cancel trip \(id)")
   // TODO: Add code to cancel trip
@@ -199,7 +199,7 @@ private func cancelTrip(with id: GraphQLID) {
 
 Next, update the `bookOrCancelTapped` method to use the two methods you've just added instead of `print`ing:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 if launch.isBooked {
   self.cancelTrip(with: launch.id)
 } else {
@@ -209,7 +209,7 @@ if launch.isBooked {
 
 In `bookTrip`, replace the `TODO` with code to handle what comes back in the `success` property:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 if bookingResult.success {
   self.showAlert(title: "Success!",
                  message: bookingResult.message ?? "Trip booked successfully")
@@ -264,7 +264,7 @@ It works! Once again, go back to Xcode and create a new empty file, and name it 
 
 Next, go to the `cancelTrip(with id:)` method in `DetailViewController.swift`. Replace the `print` statement with code that makes the call to cancel the trip:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self] result in
   guard let self = self else {
     return
@@ -291,7 +291,7 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
 
 In `cancelTrip(with id:)`, replace the `TODO` with code to handle what comes back in that mutation's `success` property:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 if cancelResult.success {
   self.showAlert(title: "Trip cancelled",
                  message: cancelResult.message ?? "Your trip has been officially cancelled.")
@@ -319,7 +319,7 @@ There are [several different cache policies available to you](../caching/#specif
 
 Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload. If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheData`:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func loadLaunchDetails(forceReload: Bool = false) {
   guard
     let launchID = self.launchID,
@@ -343,7 +343,7 @@ private func loadLaunchDetails(forceReload: Bool = false) {
 
 Next, add the following line to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods before showing the alerts:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 self.loadLaunchDetails(forceReload: true)
 ```
 

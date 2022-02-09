@@ -51,7 +51,7 @@ Continue booking and/or canceling trips, you will see events coming in the subsc
 
 Now that your subscription is working, add it to your project. Create an empty file named `TripsBooked.graphql` next to your other GraphQL files and paste the contents of the subscription. The process is similar to what you've already done for queries and mutations:
 
-```graphql:title=TripsBooked.graphql
+```graphql title="TripsBooked.graphql"
 subscription TripsBooked {
   tripsBooked
 }
@@ -65,13 +65,13 @@ In `Network.swift`, you'll need to set up a transport which supports subscriptio
 
 First, at the top of the file, add an import for the **ApolloWebSocket** framework to get access to the classes you'll need:
 
-```swift:title=Network.swift
+```swift title="Network.swift"
 import ApolloWebSocket
 ```
 
 Next, in the lazy declaration of the `apollo` variable, immediately after `transport` is declared, set up what you need to add subscription support to your client:
 
-```swift:title=Network.swift
+```swift title="Network.swift"
 // 1
 let webSocket = WebSocket(
   url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!,
@@ -104,13 +104,13 @@ Now, you're ready to actually use your subscription!
 
 In `LaunchesViewController`, add a new variable just below `activeRequest` to hang on to a reference to your subscription so it doesn't get hammered by ARC as soon as it goes out of scope:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private var activeSubscription: Cancellable?
 ```
 
 Next, just above the code for handling Segues, add code for starting and handling the result of a subscription:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 // MARK: - Subscriptions
 
 private func startSubscription() {
@@ -139,7 +139,7 @@ private func handleSubscriptionEvent() {
 
 Finally, add a line to `viewDidLoad` which actually starts the subscription:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 override func viewDidLoad() {
     super.viewDidLoad()
     self.startSubscription()
@@ -161,7 +161,7 @@ Trips booked: -1
 
 Now, let's display that information in a view! Replace the `print` statement in `handleTripsBooked` with code to use the included `NotificationView` to show a brief alert at the bottom of the screen with information about a trip being booked or cancelled:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private func handleTripsBooked(value: Int) {
         var message: String
         switch value {

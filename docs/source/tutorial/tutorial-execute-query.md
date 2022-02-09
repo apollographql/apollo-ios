@@ -131,7 +131,7 @@ To use the generated operations in `API.swift`, you first create an instance of 
 
 3. To make sure your `ApolloClient` instance is communicating correctly with the server, add the following code to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method, above `return true`:
 
-    ```swift:title=AppDelegate.swift
+    ```swift title="AppDelegate.swift"
     Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
       switch result {
       case .success(let graphQLResult):
