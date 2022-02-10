@@ -377,9 +377,11 @@ extension WebSocketTransport: NetworkTransport {
               callCompletion(with: .success(graphQLResult))
               return
             }
+            let queryName = operation.operationType == .query ? operation.operationName : nil
 
             store.publish(records: records,
                           identifier: contextIdentifier,
+                          queryName: queryName,
                           callbackQueue: callbackQueue) { result in
               switch result {
               case .success:

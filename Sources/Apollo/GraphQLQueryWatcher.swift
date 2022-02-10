@@ -3,7 +3,7 @@ import Foundation
 import ApolloUtils
 #endif
 
-/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
+/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous successful result depends on changes.
 ///
 /// NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result in a memory leak.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
@@ -24,6 +24,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   private var fetching: Atomic<WeakCancellableContainer> = Atomic(.init(nil))
 
   private var dependentKeys: Atomic<Set<CacheKey>?> = Atomic(nil)
+
+  private var hasReceivedValidResponse: Bool = false
 
   /// Designated initializer
   ///
@@ -61,6 +63,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
           self.dependentKeys.mutate {
             $0 = graphQLResult.dependentKeys
           }
+          self.hasReceivedValidResponse = true
         case .failure:
           break
         }
@@ -78,7 +81,8 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   func store(_ store: ApolloStore,
              didChangeKeys changedKeys: Set<CacheKey>,
-             contextIdentifier: UUID?) {
+             contextIdentifier: UUID?,
+             queryName: String?) {
     if
       let incomingIdentifier = contextIdentifier,
       incomingIdentifier == self.contextIdentifier {
@@ -87,13 +91,17 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
         // here as well.
         return
     }
+
+    let initializeDependantKeys = (self.query.operationName == queryName && !self.hasReceivedValidResponse)
+
+    let dependentKeys = self.dependentKeys.value ?? []
     
-    guard let dependentKeys = self.dependentKeys.value else {
-      // This query has nil dependent keys, so nothing that changed will affect it.
+    guard self.dependentKeys.value != nil || initializeDependantKeys else {
+      // This query has nil dependent keys and operation is not watched query, so nothing that changed will affect it.
       return
     }
     
-    if !dependentKeys.isDisjoint(with: changedKeys) {
+    if !dependentKeys.isDisjoint(with: changedKeys) || initializeDependantKeys {
       // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.
       store.load(query: self.query) { [weak self] result in
         guard let self = self else { return }
@@ -108,6 +116,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
             self.dependentKeys.mutate {
               $0 = graphQLResult.dependentKeys
             }
+            self.hasReceivedValidResponse = true
             self.resultHandler(result)
           }
         case .failure:

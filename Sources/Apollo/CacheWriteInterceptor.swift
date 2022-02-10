@@ -53,9 +53,10 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       guard chain.isNotCancelled else {
         return
       }
+      let queryName = request.operation.operationType == .query ? request.operation.operationName : nil
       
       if let records = records {
-        self.store.publish(records: records, identifier: request.contextIdentifier)
+        self.store.publish(records: records, identifier: request.contextIdentifier, queryName: queryName)
       }
       
       chain.proceedAsync(request: request,
