@@ -31,16 +31,19 @@ import XCTest
 public class MockGraphQLServer {
   enum ServerError: Error, CustomStringConvertible {
     case unexpectedRequest(String)
+    case timeout(String)
     
     public var description: String {
       switch self {
       case .unexpectedRequest(let requestDescription):
         return "Mock GraphQL server received an unexpected request: \(requestDescription)"
+      case .timeout(let requestDescription):
+        return "Mock GraphQL server mock timeout: \(requestDescription)"
       }
     }
   }
   
-  public typealias RequestHandler<Operation: GraphQLOperation> = (HTTPRequest<Operation>) -> JSONObject
+  public typealias RequestHandler<Operation: GraphQLOperation> = (HTTPRequest<Operation>) -> JSONObject?
   
   private class RequestExpectation<Operation: GraphQLOperation>: XCTestExpectation {
     let file: StaticString
@@ -75,7 +78,7 @@ public class MockGraphQLServer {
     }
   }
   
-  public func expect<Operation: GraphQLOperation>(_ operationType: Operation.Type, file: StaticString = #filePath, line: UInt = #line, requestHandler: @escaping (HTTPRequest<Operation>) -> JSONObject) -> XCTestExpectation {
+  public func expect<Operation: GraphQLOperation>(_ operationType: Operation.Type, file: StaticString = #filePath, line: UInt = #line, requestHandler: @escaping (HTTPRequest<Operation>) -> JSONObject?) -> XCTestExpectation {
     return queue.sync {
       let expectation = RequestExpectation<Operation>(description: "Served request for \(String(describing: operationType))", file: file, line: line, handler: requestHandler)
       expectation.assertForOverFulfill = true
@@ -92,7 +95,11 @@ public class MockGraphQLServer {
       let operationType = type(of: request.operation)
       
       if let expectation = self[operationType] {
-        completionHandler(.success(expectation.handler(request)))
+        if let result = expectation.handler(request) {
+          completionHandler(.success(result))
+        } else {
+          completionHandler(.failure(ServerError.timeout(String(describing: operationType))))
+        }
         expectation.fulfill()
       } else {
         completionHandler(.failure(ServerError.unexpectedRequest(String(describing: operationType))))

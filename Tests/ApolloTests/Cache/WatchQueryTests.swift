@@ -633,6 +633,71 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       wait(for: [updatedWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
+
+  func testWatchedQueryGetsUpdatedWhenInitiallyOfflineWithEmptyCache() throws {
+    let watchedQuery = HeroAndFriendsNamesQuery()
+
+    let resultObserver = makeResultObserver(for: watchedQuery)
+
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+
+    addTeardownBlock { watcher.cancel() }
+
+    runActivity("Initial fetch from server fails") { _ in
+      let serverRequestExpectationNil = server.expect(HeroAndFriendsNamesQuery.self) { request in
+        nil
+      }
+
+      let initialWatcherResultExpectation = resultObserver.expectation(description: "Watcher received nil result from server") { result in
+
+        XCTAssertFailureResult(result) { graphQLError in
+          XCTAssertNotNil(graphQLError)
+        }
+      }
+
+      watcher.fetch(cachePolicy: .fetchIgnoringCacheData)
+
+      wait(for: [serverRequestExpectationNil, initialWatcherResultExpectation], timeout: Self.defaultWaitTimeout)
+
+      let serverRequestExpectationSuccess = server.expect(HeroAndFriendsNamesQuery.self) { request in
+        [
+          "data": [
+            "hero": [
+              "name": "R2-D2",
+              "__typename": "Droid",
+              "friends": [
+                ["__typename": "Human", "name": "Luke Skywalker"],
+                ["__typename": "Human", "name": "Han Solo"],
+                ["__typename": "Human", "name": "Leia Organa"],
+              ]
+            ]
+          ]
+        ]
+      }
+
+      let successWatcherResultExpectation = resultObserver.expectation(description: "Watcher received successful result from server") { result in
+
+        try XCTAssertSuccessResult(result) { graphQLResult in
+          XCTAssertEqual(graphQLResult.source, .cache)
+          XCTAssertNil(graphQLResult.errors)
+
+          let data = try XCTUnwrap(graphQLResult.data)
+          XCTAssertEqual(data.hero?.name, "R2-D2")
+          let friendsNames = data.hero?.friends?.compactMap { $0?.name }
+          XCTAssertEqual(friendsNames, ["Luke Skywalker", "Han Solo", "Leia Organa"])
+        }
+      }
+
+      let otherFetchCompletedExpectation = expectation(description: "Other fetch completed")
+
+      client.fetch(query: HeroAndFriendsNamesQuery(), cachePolicy: .fetchIgnoringCacheData) { result in
+        defer { otherFetchCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      }
+
+      wait(for: [serverRequestExpectationSuccess, successWatcherResultExpectation, otherFetchCompletedExpectation], timeout: Self.defaultWaitTimeout)
+    }
+  }
   
   func testWatchedQueryIsOnlyUpdatedOnceIfConcurrentFetchesAllReturnTheSameResult() throws {
     let watchedQuery = HeroNameQuery()
