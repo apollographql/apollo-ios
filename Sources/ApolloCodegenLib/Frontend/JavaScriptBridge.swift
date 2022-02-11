@@ -4,7 +4,7 @@ import JavaScriptCore
 // and can be safely force unwrapped. (Even when an exception is thrown they would still return
 // a `JSValue` representing a JavaScript `undefined` value.)
 
-/// An errror thrown during JavaScript execution.
+/// An error thrown during JavaScript execution.
 /// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 public class JavaScriptError: JavaScriptObject, Error, @unchecked Sendable {
   // These properties were changed to read-only when `@unchecked Sendable` was added for
