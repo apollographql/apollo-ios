@@ -2,6 +2,7 @@
 
 ## v0.51.0
 - **Allow periods in arguments to be ignored when parsing cacheKeys**: If your query arguments include periods they will no longer cause broken cache keys. This means the cached data for those queries can be correctly found and returned. The caveat with this change though is that if you use a persisted cache, after the upgrade you could see cache misses the data would need to be refetched. [#2057](https://github.com/apollographql/apollo-ios/pull/2057) - _Thanks to [Hesham Salman](https://github.com/Iron-Ham) for the contribution!_
+- **Fixed - [`Sendable` class `JavaScriptError` cannot inherit from another class other than `NSObject`](https://github.com/apollographql/apollo-ios/issues/2146):** Xcode 13.3 introduced some additional requirements for `Error` types and `JavaScriptError` did not conform causing compile errors in `ApolloCodegenLib`. This change disables `Sendable` type checking for `JavaScriptError` while maintaining type-safety across concurrency boundaries. [#2147](https://github.com/apollographql/apollo-ios/pull/2147) - _Thank you to [Tiziano Coroneo](https://github.com/TizianoCoroneo) for the contribution!_
 
 ## v0.50.0
 - **Dropped SPM support for Swift 5.2**: The minimum version of the Swift tools and language compatibilty required to process the SPM manifest is Swift 5.3. This means a minimum of Xcode version 12 is required for Swift Package Manager support. [#1992](https://github.com/apollographql/apollo-ios/pull/1992)
