@@ -4,14 +4,15 @@ import JavaScriptCore
 // and can be safely force unwrapped. (Even when an exception is thrown they would still return
 // a `JSValue` representing a JavaScript `undefined` value.)
 
-/// An errror thrown during JavaScript execution.
+/// An error thrown during JavaScript execution.
 /// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
-public class JavaScriptError: JavaScriptObject, Error {
-  lazy var name: String? = self["name"]
-  
-  lazy var message: String? = self["message"]
-  
-  lazy var stack: String? = self["stack"]
+public class JavaScriptError: JavaScriptObject, Error, @unchecked Sendable {
+  // These properties were changed to read-only when `@unchecked Sendable` was added for
+  // Xcode 13.3. If you make them publicly writable or alter their values within the class
+  // you will need to do so with thread-safety in mind.
+  var name: String? { self["name"] }
+  var message: String? { self["message"] }
+  var stack: String? { self["stack"] }
 }
 
 extension JavaScriptError: CustomStringConvertible {
