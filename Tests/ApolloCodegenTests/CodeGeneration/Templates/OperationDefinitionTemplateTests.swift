@@ -310,7 +310,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
   // MARK: - Variables
 
-   func test__generate__givenQueryWithScalarVariables_generatesQueryOperationWithVariable() throws {
+   func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {
      // given
      schemaSDL = """
      type Query {
@@ -393,6 +393,49 @@ class OperationDefinitionTemplateTests: XCTestCase {
         ["variable1": variable1,
          "variable2": variable2,
          "variable3": variable3]
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+
+  func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($variable: String) {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public var variable: GraphQLNullable<String>
+    
+      public init(variable: GraphQLNullable<String> = nil) {
+        self.variable = variable
+      }
+
+      public var variables: Variables? {
+        ["variable": variable]
       }
     """
 
