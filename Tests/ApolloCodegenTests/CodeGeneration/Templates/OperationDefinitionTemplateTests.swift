@@ -352,4 +352,56 @@ class OperationDefinitionTemplateTests: XCTestCase {
      expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
    }
 
+  func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      intField: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($variable1: String!, $variable2: Boolean!, $variable3: Int!) {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public var variable1: String
+      public var variable2: Bool
+      public var variable3: Int
+
+      public init(
+        variable1: String,
+        variable2: Bool,
+        variable3: Int
+      ) {
+        self.variable1 = variable1
+        self.variable2 = variable2
+        self.variable3 = variable3
+      }
+
+      public var variables: Variables? {
+        ["variable1": variable1,
+         "variable2": variable2,
+         "variable3": variable3]
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
 }

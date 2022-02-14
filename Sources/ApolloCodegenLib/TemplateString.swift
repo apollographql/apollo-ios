@@ -106,6 +106,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       appendInterpolation(elementsString)
     }
 
+    mutating func appendInterpolation<T>(list: T)
+    where T: Collection, T.Element: CustomStringConvertible {
+      let shouldWrapInNewlines = list.count > 1
+      if shouldWrapInNewlines { appendLiteral("\n  ") }
+      appendInterpolation(list)
+      if shouldWrapInNewlines { appendInterpolation("\n") }
+    }
+
     mutating func appendInterpolation(
       if bool: Bool,
       _ template: @autoclosure () -> TemplateString,

@@ -81,19 +81,15 @@ struct OperationDefinitionTemplate {
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
     let `init` = "public init"
-    switch variables.count {
-    case 0:
-      return "\(`init`)() {}"
-    case 1:
-      let variable = variables.first.unsafelyUnwrapped
-      return """
-      \(`init`)(\(VariableParameter(variable))) {
-        self.\(variable.name) = \(variable.name)
-      }
-      """
-    default:
+    if variables.isEmpty {
       return "\(`init`)() {}"
     }
+
+    return """
+    \(`init`)(\(list: variables.map(VariableParameter))) {
+      \(variables.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
+    }
+    """
   }
 
   private func VariablesAccessor(
@@ -105,7 +101,7 @@ struct OperationDefinitionTemplate {
 
     return """
     public var variables: Variables? {
-      [\(variables.map { "\"\($0.name)\": \($0.name)"})]
+      [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
     }
     """
   }
