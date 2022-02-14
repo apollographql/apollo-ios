@@ -16,7 +16,11 @@ struct OperationDefinitionTemplate {
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
 
-      public init() {}
+      \(section: VariableProperties(operation.definition.variables))
+
+      \(Initializer(operation.definition.variables))
+
+      \(section: VariablesAccessor(operation.definition.variables))
 
       \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
@@ -60,6 +64,52 @@ struct OperationDefinitionTemplate {
       )
     }
   }
+
+  private func VariableProperties(
+    _ variables: [CompilationResult.VariableDefinition]
+  ) -> TemplateString {
+    """
+    \(variables.map { "public var \(VariableParameter($0))"}, separator: "\n")
+    """
+  }
+
+  private func VariableParameter(_ variable: CompilationResult.VariableDefinition) -> String {
+    "\(variable.name): \(variable.type.rendered)"
+  }
+
+  private func Initializer(
+    _ variables: [CompilationResult.VariableDefinition]
+  ) -> TemplateString {
+    let `init` = "public init"
+    switch variables.count {
+    case 0:
+      return "\(`init`)() {}"
+    case 1:
+      let variable = variables.first.unsafelyUnwrapped
+      return """
+      \(`init`)(\(VariableParameter(variable))) {
+        self.\(variable.name) = \(variable.name)
+      }
+      """
+    default:
+      return "\(`init`)() {}"
+    }
+  }
+
+  private func VariablesAccessor(
+    _ variables: [CompilationResult.VariableDefinition]
+  ) -> TemplateString {
+    guard !variables.isEmpty else {
+      return ""
+    }
+
+    return """
+    public var variables: Variables? {
+      [\(variables.map { "\"\($0.name)\": \($0.name)"})]
+    }
+    """
+  }
+
 }
 
 fileprivate extension ApolloCodegenConfiguration.APQConfig {
