@@ -200,7 +200,7 @@ class InputObjectTemplateTests: XCTestCase {
         intField: GraphQLNullable<Int> = nil,
         boolField: GraphQLNullable<Bool> = nil,
         floatField: GraphQLNullable<Float> = nil,
-        enumField: GraphQLNullable<EnumValue> = nil,
+        enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = nil,
         inputField: GraphQLNullable<InnerInputObject> = nil,
         listField: GraphQLNullable<[String?]> = nil
       ) {
@@ -235,7 +235,7 @@ class InputObjectTemplateTests: XCTestCase {
         set { dict["floatField"] = newValue }
       }
 
-      var enumField: GraphQLNullable<EnumValue> {
+      var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
         get { dict["enumField"] }
         set { dict["enumField"] = newValue }
       }
@@ -551,6 +551,33 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       var nonNullableListNonNullableItemWithDefault: [String]? {
+    """
+
+    // when
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
+  }
+
+  func test__render__given_NullableListOfNullableEnum_NoDefault__generates_NullableParameter_OptionalItem_InitializerNilDefault() throws {
+    // given
+    buildSubject(fields: [
+      GraphQLInputField.mock("nullableListNullableItem",
+                             type: .list(.enum(.mock(name: "EnumValue"))),
+                             defaultValue: nil)
+    ])
+
+    let expected = """
+      init(
+        nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> = nil
+      ) {
+        dict = InputDict([
+          "nullableListNullableItem": nullableListNullableItem
+        ])
+      }
+
+      var nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]> {
     """
 
     // when

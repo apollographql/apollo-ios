@@ -35,4 +35,25 @@ extension GraphQLType {
       return containedInNonNull ? inner : "\(inner)?"
     }
   }
+
+  // MARK: Input Value
+
+  func renderAsInputValue() -> String {
+    return renderAsInputValue(inNullable: true)
+  }
+
+  private func renderAsInputValue(inNullable: Bool) -> String {
+    switch self {
+    case .entity, .enum, .scalar, .inputObject:
+      let typeName = self.rendered(containedInNonNull: true)
+      return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+
+    case let .nonNull(ofType):
+      return ofType.renderAsInputValue(inNullable: false)
+
+    case let .list(ofType):
+      let typeName = "[\(ofType.rendered)]"
+      return inNullable ? "GraphQLNullable<\(typeName)>" : typeName
+    }
+  }
 }

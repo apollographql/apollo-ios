@@ -258,6 +258,8 @@
 		DE674D9F261CEEE4000E8FC8 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
 		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
+		DE6D07F927BC3B6D009F5F33 /* InputValueRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07F827BC3B6D009F5F33 /* InputValueRenderable.swift */; };
+		DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -981,6 +983,8 @@
 		DE6B160B26152D210068D642 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
+		DE6D07F827BC3B6D009F5F33 /* InputValueRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValueRenderable.swift; sourceTree = "<group>"; };
+		DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinition_VariableDefinition_Tests.swift; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -2017,6 +2021,7 @@
 		DE31A437276A78140020DC44 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */,
 				E6C9849227929EBE009481BE /* EnumTemplate.swift */,
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */,
@@ -2027,7 +2032,6 @@
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */,
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
-				DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */,
 				E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */,
 				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
 			);
@@ -2043,8 +2047,9 @@
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
 				E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
-				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
+				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
+				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
@@ -2148,6 +2153,15 @@
 			name = Shared;
 			path = Configuration/Shared;
 			sourceTree = SOURCE_ROOT;
+		};
+		DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */,
+				DE6D07F827BC3B6D009F5F33 /* InputValueRenderable.swift */,
+			);
+			path = RenderingHelpers;
+			sourceTree = "<group>";
 		};
 		DE9C04AB26EA763E00EC35E7 /* Accumulators */ = {
 			isa = PBXGroup;
@@ -3171,6 +3185,7 @@
 				E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
+				DE6D07F927BC3B6D009F5F33 /* InputValueRenderable.swift in Sources */,
 				DE5B318F27A48E060051C9D3 /* ImportStatementTemplate.swift in Sources */,
 				9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
@@ -3254,6 +3269,7 @@
 				E6C9849527929FED009481BE /* EnumTemplateTests.swift in Sources */,
 				DE5FD609276956C70033EE23 /* SchemaTemplateTests.swift in Sources */,
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
+				DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */,
 				E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
 				E6D90D0D278FFE35009CAC5D /* SchemaFileGeneratorTests.swift in Sources */,

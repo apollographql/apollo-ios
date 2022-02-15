@@ -16,11 +16,11 @@ struct OperationDefinitionTemplate {
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
 
-      \(section: VariableProperties(operation.definition.variables))
+      \(section: Variables.Properties(operation.definition.variables))
 
       \(Initializer(operation.definition.variables))
 
-      \(section: VariablesAccessor(operation.definition.variables))
+      \(section: Variables.Accessors(operation.definition.variables))
 
       \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
@@ -65,18 +65,6 @@ struct OperationDefinitionTemplate {
     }
   }
 
-  private func VariableProperties(
-    _ variables: [CompilationResult.VariableDefinition]
-  ) -> TemplateString {
-    """
-    \(variables.map { "public var \(VariableParameter($0))"}, separator: "\n")
-    """
-  }
-
-  private func VariableParameter(_ variable: CompilationResult.VariableDefinition) -> String {
-    "\(variable.name): \(variable.type.rendered)"
-  }
-
   private func Initializer(
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
@@ -86,24 +74,38 @@ struct OperationDefinitionTemplate {
     }
 
     return """
-    \(`init`)(\(list: variables.map(VariableParameter))) {
+    \(`init`)(\(list: variables.map(Variables.Parameter))) {
       \(variables.map { "self.\($0.name) = \($0.name)" }, separator: "\n")
     }
     """
   }
 
-  private func VariablesAccessor(
-    _ variables: [CompilationResult.VariableDefinition]
-  ) -> TemplateString {
-    guard !variables.isEmpty else {
-      return ""
+  enum Variables {
+    static func Properties(
+      _ variables: [CompilationResult.VariableDefinition]
+    ) -> TemplateString {
+    """
+    \(variables.map { "public var \($0.name): \($0.renderInputValueType())"}, separator: "\n")
+    """
     }
 
-    return """
+    static func Parameter(_ variable: CompilationResult.VariableDefinition) -> String {
+      "\(variable.name): \(variable.renderInputValueType(includeDefault: true))"
+    }
+
+    static func Accessors(
+      _ variables: [CompilationResult.VariableDefinition]
+    ) -> TemplateString {
+      guard !variables.isEmpty else {
+        return ""
+      }
+
+      return """
     public var variables: Variables? {
       [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
     }
     """
+    }
   }
 
 }
