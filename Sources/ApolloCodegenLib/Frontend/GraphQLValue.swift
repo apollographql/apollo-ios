@@ -1,5 +1,6 @@
 import Foundation
 import JavaScriptCore
+import OrderedCollections
 
 indirect enum GraphQLValue: Hashable {
   case variable(String)
@@ -10,7 +11,7 @@ indirect enum GraphQLValue: Hashable {
   case null
   case `enum`(String)
   case list([GraphQLValue])
-  case object([String: GraphQLValue])
+  case object(OrderedDictionary<String, GraphQLValue>)
 }
 
 extension GraphQLValue: JavaScriptValueDecodable {

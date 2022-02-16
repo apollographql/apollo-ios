@@ -237,7 +237,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
       "innerEnumField": GraphQLEnum("CaseONE"),
       "innerInputObject": [
         "innerStringField": "EFGH",
-        "innerListField": ["C", "D"],
+        "innerListField": ["C", "D"]
       ]
     ]
     """

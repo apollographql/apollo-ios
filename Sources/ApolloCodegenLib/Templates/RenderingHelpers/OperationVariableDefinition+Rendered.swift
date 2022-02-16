@@ -1,6 +1,6 @@
 extension CompilationResult.VariableDefinition {
   func renderInputValueType(includeDefault: Bool = false) -> TemplateString {
-    "\(type.renderAsInputValue())\(ifLet: defaultValue, where: {_ in includeDefault}, {" = \($0.renderedAsVariableDefaultValue)"})"
+    "\(type.renderAsInputValue())\(ifLet: defaultValue, where: {_ in includeDefault}, {" = " + $0.renderedAsVariableDefaultValue})"
   }
 
   var hasDefaultValue: Bool {

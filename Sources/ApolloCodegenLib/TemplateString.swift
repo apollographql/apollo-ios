@@ -132,6 +132,21 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       }
     }
 
+    mutating func appendInterpolation<T>(
+    ifLet optional: Optional<T>,
+    where whereBlock: ((T) -> Bool)? = nil,
+    _ includeBlock: (T) -> TemplateString,
+    else: TemplateString? = nil
+    ) {
+      if let element = optional, whereBlock?(element) ?? true {
+        appendInterpolation(includeBlock(element))
+      } else if let elseTemplate = `else` {
+        appendInterpolation(elseTemplate.description)
+      } else {
+        removeLineIfEmpty()
+      }
+    }
+
     private mutating func removeLineIfEmpty() {
       let slice = substringToStartOfLine()
       if slice.allSatisfy(\.isWhitespace) {
@@ -144,22 +159,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       return buffer.reversed().prefix { !$0.isNewline }
     }
 
-    mutating func appendInterpolation<T>(
-    ifLet optional: Optional<T>,
-    where whereBlock: ((T) -> Bool)? = nil,
-    _ includeBlock: (T) -> TemplateString,
-    else: TemplateString? = nil
-    ) {
-      if let element = optional, whereBlock?(element) ?? true {
-        appendInterpolation(includeBlock(element))
-      } else if let elseTemplate = `else` {
-        appendInterpolation(elseTemplate.value)
-      } else {
-        removeLineIfEmpty()
-      }
-    }
-
   }
+
+}
+
+/// Can be used to concatenate a `TemplateString` and `String` directly.
+/// This bypasses `TemplateString` interpolation logic such as indentation calculation.
+func +(lhs: String, rhs: TemplateString) -> TemplateString {
+  TemplateString(lhs + rhs.description)
 }
 
 fileprivate extension Array where Element == Substring {
