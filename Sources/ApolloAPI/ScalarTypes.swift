@@ -27,7 +27,8 @@ public protocol CustomScalarType:
   JSONDecodable,
   JSONEncodable,
   Cacheable,
-  OutputTypeConvertible
+  OutputTypeConvertible,
+  GraphQLOperationVariableValue
 {
   var jsonValue: Any { get }
 }

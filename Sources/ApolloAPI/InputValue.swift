@@ -55,7 +55,7 @@ extension InputValueConvertible where Self: RawRepresentable, RawValue == String
   @inlinable public var asInputValue: InputValue { .scalar(rawValue) }
 }
 
-// MARK: - Expressible as literals
+// MARK: - ExpressibleBy Literal Extensions
 
 extension InputValue: ExpressibleByStringLiteral {
   @inlinable public init(stringLiteral value: StringLiteralType) {
