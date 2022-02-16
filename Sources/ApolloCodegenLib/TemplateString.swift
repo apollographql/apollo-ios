@@ -5,9 +5,13 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
   private let value: String
   private let lastLineWasRemoved: Bool
 
-  init(stringLiteral: String) {
-    self.value = stringLiteral
+  init(_ string: String) {
+    self.value = string
     lastLineWasRemoved = false
+  }
+
+  init(stringLiteral: String) {
+    self.init(stringLiteral)
   }
 
   init(stringInterpolation: StringInterpolation) {

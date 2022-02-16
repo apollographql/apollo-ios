@@ -84,7 +84,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
 
     for test in tests {
       // when
-      let actual = test.variable.renderInputValueType(includeDefault: true)
+      let actual = test.variable.renderInputValueType(includeDefault: true).description
 
       // then
       expect(actual).to(equal(test.expected))
@@ -179,7 +179,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
 
     for test in tests {
       // when
-      let actual = test.variable.renderInputValueType(includeDefault: true)
+      let actual = test.variable.renderInputValueType(includeDefault: true).description
 
       // then
       expect(actual).to(equal(test.expected))
@@ -243,10 +243,10 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     """
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
-    expect(actual).to(equal(expected))
+    expect(actual).to(equalLineByLine(expected))
   }
 
   // MARK: Nullable Field Tests
@@ -258,7 +258,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<Int>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -271,7 +271,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<Int> = 3"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -284,7 +284,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<String>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: false)
+    let actual = subject.renderInputValueType(includeDefault: false).description
 
     // then
     expect(actual).to(equal(expected))
@@ -298,20 +298,20 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "Int"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NonNullableField_WithDefault__generates_NonNullableNonOptionalParameter_NoInitializerDefault() throws {
+  func test__renderInputValueType__given_NonNullableField_WithDefault__generates_NonNullableNonOptionalParameter_WithInitializerDefault() throws {
     // given
     subject = .mock("nonNullableWithDefault", type: .nonNull(.scalar(.integer())), defaultValue: .int(3))
 
     let expected = "Int = 3"
     
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -324,7 +324,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<[String?]>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -339,7 +339,22 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<[String?]> = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__renderInputValueType__given_NullableList_NullableItem_WithDefault_includingNullElement_generates_NullableParameter_OptionalItem_WithInitializerDefault() throws {
+    // given
+    subject = .mock("nullableListNullableItemWithDefault",
+                    type: .list(.scalar(.string())),
+                    defaultValue: .list([.string("val"), .null]))
+
+    let expected = "GraphQLNullable<[String?]> = [\"val\", nil]"
+
+    // when
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -354,7 +369,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<[String]>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -367,7 +382,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<[String]> = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -380,7 +395,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "[String?]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -392,10 +407,10 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
                     type: .nonNull(.list(.scalar(.string()))),
                     defaultValue: .list([.string("val")]))
 
-    let expected = "[String?]? = [\"val\"]"
+    let expected = "[String?] = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -410,7 +425,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "[String]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -422,10 +437,10 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
                     type: .nonNull(.list(.nonNull(.scalar(.string())))),
                     defaultValue: .list([.string("val")]))
 
-    let expected = "[String]? = [\"val\"]"
+    let expected = "[String] = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))
@@ -440,7 +455,7 @@ class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
     let expected = "GraphQLNullable<[GraphQLEnum<EnumValue>?]>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true)
+    let actual = subject.renderInputValueType(includeDefault: true).description
 
     // then
     expect(actual).to(equal(expected))

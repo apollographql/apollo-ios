@@ -38,6 +38,10 @@ extension GraphQLType {
 
   // MARK: Input Value
 
+  /// Renders the type for use as an input value.
+  ///
+  /// If the outermost type is nullable, it will be wrapped in a `GraphQLNullable` instead of
+  /// an `Optional`.
   func renderAsInputValue() -> String {
     return renderAsInputValue(inNullable: true)
   }

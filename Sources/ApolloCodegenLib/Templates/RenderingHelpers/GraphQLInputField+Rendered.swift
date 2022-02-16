@@ -1,12 +1,6 @@
 import JavaScriptCore
 
-protocol InputValueRenderable {
-  var name: String { get }
-  var type: GraphQLType { get }
-  var hasDefaultValue: Bool { get }
-}
-
-extension InputValueRenderable {
+extension GraphQLInputField {
   func renderInputValueType(includeDefault: Bool = false) -> String {
     "\(type.renderAsInputValue())\(isSwiftOptional ? "?" : "")\(includeDefault && hasSwiftNilDefault ? " = nil" : "")"
   }
@@ -25,9 +19,7 @@ extension InputValueRenderable {
     default: return true
     }
   }
-}
 
-extension GraphQLInputField: InputValueRenderable {
   var hasDefaultValue: Bool {
     switch defaultValue {
     case .none, .some(nil):
@@ -38,15 +30,6 @@ extension GraphQLInputField: InputValueRenderable {
       }
 
       return !value.isUndefined
-    }
-  }
-}
-
-extension CompilationResult.VariableDefinition: InputValueRenderable {
-  var hasDefaultValue: Bool {
-    switch defaultValue {
-    case .none, .some(nil), .some(.null): return false
-    default: return true
     }
   }
 }
