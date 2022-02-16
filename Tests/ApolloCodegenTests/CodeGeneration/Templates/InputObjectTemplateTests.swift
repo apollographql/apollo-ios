@@ -77,7 +77,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "struct MockInput: InputObject {"
+    let expected = "public struct MockInput: InputObject {"
 
     // when
     let actual = subject.render()
@@ -93,7 +93,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "struct MOCKInput: InputObject {"
+    let expected = "public struct MOCKInput: InputObject {"
 
     // when
     let actual = subject.render()
@@ -109,7 +109,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "struct MOcK_Input: InputObject {"
+    let expected = "public struct MOcK_Input: InputObject {"
 
     // when
     let actual = subject.render()

@@ -11,7 +11,7 @@ struct InputObjectTemplate {
 
     \(ImportStatementTemplate.SchemaType.render())
 
-    struct \(graphqlInputObject.name.firstUppercased): InputObject {
+    public struct \(graphqlInputObject.name.firstUppercased): InputObject {
       private(set) public var dict: InputDict
 
       init(

@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-struct PetAdoptionInput: InputObject {
+public struct PetAdoptionInput: InputObject {
   private(set) public var dict: InputDict
 
   init(

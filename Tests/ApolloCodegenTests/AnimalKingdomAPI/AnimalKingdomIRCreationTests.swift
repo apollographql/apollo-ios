@@ -863,7 +863,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
     expected = (
       fields: [
         .mock("wingspan",
-              type: .nonNull(.scalar(GraphQLScalarType.integer())))
+              type: .nonNull(.scalar(GraphQLScalarType.float())))
       ],
       typeCases: [],
       fragments: []

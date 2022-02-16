@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-struct MeasurementsInput: InputObject {
+public struct MeasurementsInput: InputObject {
   private(set) public var dict: InputDict
 
   init(
