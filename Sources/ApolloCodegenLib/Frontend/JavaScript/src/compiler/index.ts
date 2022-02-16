@@ -113,6 +113,7 @@ export function compileToIR(
     const variables = (operationDefinition.variableDefinitions || []).map(
       (node) => {
         const name = node.variable.name.value;
+        const defaultValue = node.defaultValue ? valueFromValueNode(node.defaultValue) : undefined
 
         // The casts are a workaround for the lack of support for passing a type union
         // to overloaded functions in TypeScript.
@@ -133,6 +134,7 @@ export function compileToIR(
         return {
           name,
           type,
+          defaultValue
         };
       }
     );
