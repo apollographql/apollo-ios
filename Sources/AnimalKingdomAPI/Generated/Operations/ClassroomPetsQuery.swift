@@ -137,7 +137,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
         public var species: String { data["species"] }
         public var humanName: String? { data["humanName"] }
         public var laysEggs: Bool { data["laysEggs"] }
-        public var wingspan: Int { data["wingspan"] }
+        public var wingspan: Float { data["wingspan"] }
 
         public struct Fragments: FragmentContainer {
           public let data: DataDict

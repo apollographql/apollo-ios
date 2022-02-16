@@ -10,11 +10,13 @@ import {
   getNamedType,
   GraphQLCompositeType,
   GraphQLError,
+  GraphQLInputObjectType,  
   GraphQLNamedType,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLType,
   isCompositeType,
+  isInputObjectType,
   isUnionType,
   Kind,
   OperationDefinitionNode,
@@ -81,6 +83,10 @@ export function compileToIR(
       for (type of unionReferencedTypes) {
         referencedTypes.add(getNamedType(type))
       }      
+    }
+
+    if (isInputObjectType(type)) {
+      addReferencedTypesFromInputObject(type)
     }
   }
 
@@ -306,6 +312,18 @@ export function compileToIR(
         };
         return fragmentSpread;
       }
+    }
+  }
+
+  function addReferencedTypesFromInputObject(
+    inputObject: GraphQLInputObjectType
+  ) {
+    const fields = inputObject.astNode?.fields
+    if (fields) {
+      for (const field of fields) {
+        const type = typeFromAST(schema, field.type) as GraphQLType
+        addReferencedType(getNamedType(type))
+      }    
     }
   }
 }

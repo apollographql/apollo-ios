@@ -372,10 +372,10 @@ public class AllAnimalsQuery: GraphQLQuery {
 
           public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Bird.self) }
           public static var selections: [Selection] { [
-            .field("wingspan", Int.self),
+            .field("wingspan", Float.self),
           ] }
 
-          public var wingspan: Int { data["wingspan"] }
+          public var wingspan: Float { data["wingspan"] }
           public var height: Height { data["height"] }
           public var species: String { data["species"] }
           public var skinCovering: GraphQLEnum<SkinCovering>? { data["skinCovering"] }

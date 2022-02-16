@@ -262,6 +262,10 @@
 		DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */; };
 		DE6D07FF27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FE27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift */; };
 		DE6D080127BC802D009F5F33 /* GraphQLValue+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080027BC802D009F5F33 /* GraphQLValue+Rendered.swift */; };
+		DE6D080427BD9A91009F5F33 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */; };
+		DE6D080727BD9AA9009F5F33 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */; };
+		DE6D080927BD9ABA009F5F33 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080827BD9ABA009F5F33 /* Mutation.swift */; };
+		DE6D083327BDA211009F5F33 /* MeasurementsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -989,6 +993,11 @@
 		DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinition_VariableDefinition_Tests.swift; sourceTree = "<group>"; };
 		DE6D07FE27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationVariableDefinition+Rendered.swift"; sourceTree = "<group>"; };
 		DE6D080027BC802D009F5F33 /* GraphQLValue+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLValue+Rendered.swift"; sourceTree = "<group>"; };
+		DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetAdoptionMutation.graphql; sourceTree = "<group>"; };
+		DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
+		DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
+		DE6D080827BD9ABA009F5F33 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
+		DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.swift; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -2079,6 +2088,7 @@
 			children = (
 				DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */,
 				DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */,
+				DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */,
 				DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */,
 				DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */,
 				DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */,
@@ -2167,6 +2177,15 @@
 				DE6D080027BC802D009F5F33 /* GraphQLValue+Rendered.swift */,
 			);
 			path = RenderingHelpers;
+			sourceTree = "<group>";
+		};
+		DE6D080527BD9AA9009F5F33 /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */,
+				DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */,
+			);
+			path = InputObjects;
 			sourceTree = "<group>";
 		};
 		DE9C04AB26EA763E00EC35E7 /* Accumulators */ = {
@@ -2305,6 +2324,7 @@
 				E603765827B2FB1900E7B060 /* HeightInMeters.swift */,
 				E603765927B2FB1900E7B060 /* ClassroomPetDetails.swift */,
 				E603765A27B2FB1900E7B060 /* ClassroomPetsQuery.swift */,
+				DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */,
 				E603765B27B2FB1900E7B060 /* AllAnimalsQuery.swift */,
 				E603765C27B2FB1900E7B060 /* WarmBloodedDetails.swift */,
 			);
@@ -2314,6 +2334,7 @@
 		E603765D27B2FB1900E7B060 /* Schema */ = {
 			isa = PBXGroup;
 			children = (
+				DE6D080527BD9AA9009F5F33 /* InputObjects */,
 				E603765E27B2FB1900E7B060 /* Unions */,
 				E603766027B2FB1900E7B060 /* Enums */,
 				E603766327B2FB1900E7B060 /* Objects */,
@@ -2343,6 +2364,7 @@
 		E603766327B2FB1900E7B060 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				DE6D080827BD9ABA009F5F33 /* Mutation.swift */,
 				E603766427B2FB1900E7B060 /* Query.swift */,
 				E603766527B2FB1900E7B060 /* Bird.swift */,
 				E603766627B2FB1900E7B060 /* Human.swift */,
@@ -3498,12 +3520,15 @@
 				E603864227B2FB1D00E7B060 /* ClassroomPet.swift in Sources */,
 				E603864F27B2FB1D00E7B060 /* WarmBlooded.swift in Sources */,
 				E603863F27B2FB1D00E7B060 /* ClassroomPetsQuery.swift in Sources */,
+				DE6D080727BD9AA9009F5F33 /* PetAdoptionInput.swift in Sources */,
 				E603864D27B2FB1D00E7B060 /* Animal.swift in Sources */,
 				E603864527B2FB1D00E7B060 /* Query.swift in Sources */,
 				DE223C24271F335D004A0148 /* Resources.swift in Sources */,
 				E603864B27B2FB1D00E7B060 /* PetRock.swift in Sources */,
 				E603864027B2FB1D00E7B060 /* AllAnimalsQuery.swift in Sources */,
+				DE6D080927BD9ABA009F5F33 /* Mutation.swift in Sources */,
 				E603864427B2FB1D00E7B060 /* RelativeSize.swift in Sources */,
+				DE6D083327BDA211009F5F33 /* MeasurementsInput.swift in Sources */,
 				E603864627B2FB1D00E7B060 /* Bird.swift in Sources */,
 				E603864927B2FB1D00E7B060 /* Rat.swift in Sources */,
 				E603863E27B2FB1D00E7B060 /* ClassroomPetDetails.swift in Sources */,
@@ -3514,6 +3539,7 @@
 				E603864E27B2FB1D00E7B060 /* Pet.swift in Sources */,
 				E603864327B2FB1D00E7B060 /* SkinCovering.swift in Sources */,
 				E603864727B2FB1D00E7B060 /* Human.swift in Sources */,
+				DE6D080427BD9A91009F5F33 /* PetAdoptionMutation.swift in Sources */,
 				E603864827B2FB1D00E7B060 /* Cat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
