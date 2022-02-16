@@ -405,7 +405,6 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
   }
 
-
   func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
     // given
     schemaSDL = """
@@ -419,7 +418,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation($variable: String) {
+    query TestOperation($variable: String = "TestVar") {
       allAnimals {
         species
       }
@@ -430,7 +429,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
       public var variable: GraphQLNullable<String>
     
-      public init(variable: GraphQLNullable<String> = nil) {
+      public init(variable: GraphQLNullable<String> = "TestVar") {
         self.variable = variable
       }
 
@@ -447,4 +446,5 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
   }
+
 }
