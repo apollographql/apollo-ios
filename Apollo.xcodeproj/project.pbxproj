@@ -538,6 +538,13 @@
 			remoteGlobalIDString = 9FC750431D2A532C00458D91;
 			remoteInfo = Apollo;
 		};
+		DE6D083427BDAB9E009F5F33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE058606266978A100265760;
+			remoteInfo = ApolloAPI;
+		};
 		DECD46F9262F659100924527 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -2831,6 +2838,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DE6D083527BDAB9E009F5F33 /* PBXTargetDependency */,
 				DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */,
 			);
 			name = AnimalKingdomAPI;
@@ -3688,6 +3696,11 @@
 			isa = PBXTargetDependency;
 			target = 9FC750431D2A532C00458D91 /* Apollo */;
 			targetProxy = DE6B15B226152BE10068D642 /* PBXContainerItemProxy */;
+		};
+		DE6D083527BDAB9E009F5F33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE058606266978A100265760 /* ApolloAPI */;
+			targetProxy = DE6D083427BDAB9E009F5F33 /* PBXContainerItemProxy */;
 		};
 		DECD46FA262F659100924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

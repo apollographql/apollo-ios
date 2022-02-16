@@ -127,12 +127,21 @@ extension Dictionary: GraphQLOperationVariableValue where Key == String, Value =
   }
 }
 
-extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: JSONEncodable {
+extension GraphQLNullable: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
   public var jsonEncodableValue: JSONEncodable? {
     switch self {
     case .none: return nil
     case .null: return NSNull()
-    case let .some(value): return value
+    case let .some(value): return value.jsonEncodableValue
+    }
+  }
+}
+
+extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
+  public var jsonEncodableValue: JSONEncodable? {
+    switch self {
+    case .none: return nil    
+    case let .some(value): return value.jsonEncodableValue
     }
   }
 }
