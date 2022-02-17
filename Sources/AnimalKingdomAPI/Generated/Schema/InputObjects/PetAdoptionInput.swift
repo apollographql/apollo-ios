@@ -4,7 +4,7 @@
 import ApolloAPI
 
 public struct PetAdoptionInput: InputObject {
-  public private(set) var dict: InputDict
+  public private(set) var data: InputDict
 
   public init(
     ownerID: ID,
@@ -14,7 +14,7 @@ public struct PetAdoptionInput: InputObject {
     isSpayedOrNeutered: Bool?,
     measurements: GraphQLNullable<MeasurementsInput> = nil
   ) {
-    dict = InputDict([
+    data = InputDict([
       "ownerID": ownerID,
       "petID": petID,
       "humanName": humanName,
@@ -25,32 +25,32 @@ public struct PetAdoptionInput: InputObject {
   }
 
   public var ownerID: ID {
-    get { dict.ownerID }
-    set { dict.ownerID = newValue }
+    get { data.ownerID }
+    set { data.ownerID = newValue }
   }
 
   public var petID: ID {
-    get { dict.petID }
-    set { dict.petID = newValue }
+    get { data.petID }
+    set { data.petID = newValue }
   }
 
   public var humanName: GraphQLNullable<String> {
-    get { dict.humanName }
-    set { dict.humanName = newValue }
+    get { data.humanName }
+    set { data.humanName = newValue }
   }
 
   public var favoriteToy: String {
-    get { dict.favoriteToy }
-    set { dict.favoriteToy = newValue }
+    get { data.favoriteToy }
+    set { data.favoriteToy = newValue }
   }
 
   public var isSpayedOrNeutered: Bool? {
-    get { dict.isSpayedOrNeutered }
-    set { dict.isSpayedOrNeutered = newValue }
+    get { data.isSpayedOrNeutered }
+    set { data.isSpayedOrNeutered = newValue }
   }
 
   public var measurements: GraphQLNullable<MeasurementsInput> {
-    get { dict.measurements }
-    set { dict.measurements = newValue }
+    get { data.measurements }
+    set { data.measurements = newValue }
   }
 }

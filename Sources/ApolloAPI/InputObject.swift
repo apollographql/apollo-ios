@@ -2,11 +2,11 @@
 ///
 /// - See: [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
 public protocol InputObject: GraphQLOperationVariableValue {
-  var dict: InputDict { get }
+  var data: InputDict { get }
 }
 
 extension InputObject {
-  public var jsonEncodableValue: JSONEncodable? { dict.jsonEncodableValue }
+  public var jsonEncodableValue: JSONEncodable? { data.jsonEncodableValue }
 }
 
 /// A structure that wraps the underlying data dictionary used by `InputObject`s.
