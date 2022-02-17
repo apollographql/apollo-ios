@@ -12,9 +12,9 @@ struct InputObjectTemplate {
     \(ImportStatementTemplate.SchemaType.render())
 
     public struct \(graphqlInputObject.name.firstUppercased): InputObject {
-      private(set) public var dict: InputDict
+      public private(set) var dict: InputDict
 
-      init(
+      public init(
         \(InitializerParametersTemplate())
       ) {
         dict = InputDict([
@@ -44,7 +44,7 @@ struct InputObjectTemplate {
 
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
     """
-    var \(field.name): \(field.renderInputValueType()) {
+    public var \(field.name): \(field.renderInputValueType()) {
       get { dict[\"\(field.name)\"] }
       set { dict[\"\(field.name)\"] = newValue }
     }

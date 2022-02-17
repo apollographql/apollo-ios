@@ -4,9 +4,9 @@
 import ApolloAPI
 
 public struct MeasurementsInput: InputObject {
-  private(set) public var dict: InputDict
+  public private(set) var dict: InputDict
 
-  init(
+  public init(
     height: Float,
     weight: Float,
     wingspan: GraphQLNullable<Float> = nil
@@ -18,18 +18,18 @@ public struct MeasurementsInput: InputObject {
     ])
   }
 
-  var height: Float {
-    get { dict.height }
-    set { dict.height = newValue }
+  public var height: Float {
+    get { dict["height"] }
+    set { dict["height"] = newValue }
   }
 
-  var weight: Float {
-    get { dict.weight }
-    set { dict.weight = newValue }
+  public var weight: Float {
+    get { dict["weight"] }
+    set { dict["weight"] = newValue }
   }
 
-  var wingspan: GraphQLNullable<Float> {
-    get { dict.wingspan }
-    set { dict.wingspan = newValue }
+  public var wingspan: GraphQLNullable<Float> {
+    get { dict["wingspan"] }
+    set { dict["wingspan"] = newValue }
   }
 }
