@@ -6,6 +6,10 @@ import ApolloAPI
 public struct PetSearchFilters: InputObject {
   public private(set) var data: InputDict
 
+  public init(_ data: InputDict) {
+    self.data = data
+  }
+
   public init(
     species: [String],
     size: GraphQLNullable<GraphQLEnum<RelativeSize>> = nil,

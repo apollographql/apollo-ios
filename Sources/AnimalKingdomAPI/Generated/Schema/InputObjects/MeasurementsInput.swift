@@ -6,6 +6,10 @@ import ApolloAPI
 public struct MeasurementsInput: InputObject {
   public private(set) var data: InputDict
 
+  public init(_ data: InputDict) {
+    self.data = data
+  }
+
   public init(
     height: Float,
     weight: Float,

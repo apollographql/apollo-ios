@@ -45,11 +45,11 @@ public class PetAdoptionMutation: GraphQLMutation {
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
       public static var selections: [Selection] { [
-        .field("id", ID?.self),
+        .field("id", ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID? { data["id"] }
+      public var id: ID { data["id"] }
       public var humanName: String? { data["humanName"] }
     }
   }

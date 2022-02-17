@@ -101,6 +101,7 @@ extension Array: _InitializableByArrayLiteralElements {}
 public protocol _InitializableByDictionaryLiteralElements: ExpressibleByDictionaryLiteral {
   init(_ elements: [(Key, Value)])
 }
+
 extension Dictionary: _InitializableByDictionaryLiteralElements {
   public init(_ elements: [(Key, Value)]) {
     self.init(uniqueKeysWithValues: elements)

@@ -13,6 +13,10 @@ struct InputObjectTemplate {
 
     public struct \(graphqlInputObject.name.firstUppercased): InputObject {
       public private(set) var data: InputDict
+    
+      public init(_ data: InputDict) {
+        self.data = data
+      }
 
       public init(
         \(InitializerParametersTemplate())

@@ -21,7 +21,7 @@ public class PetSearchQuery: GraphQLQuery {
 
   public init(filters: GraphQLNullable<PetSearchFilters> = [
     "species": ["Dog", "Cat"],
-    "size": GraphQLEnum("SMALL"),
+    "size": GraphQLEnum<RelativeSize>("SMALL"),
     "measurements": [
       "height": 10.5,
       "weight": 5.0
@@ -52,11 +52,11 @@ public class PetSearchQuery: GraphQLQuery {
 
       public static var __parentType: ParentType { .Interface(AnimalKingdomAPI.Pet.self) }
       public static var selections: [Selection] { [
-        .field("id", ID?.self),
+        .field("id", ID.self),
         .field("humanName", String?.self),
       ] }
 
-      public var id: ID? { data["id"] }
+      public var id: ID { data["id"] }
       public var humanName: String? { data["humanName"] }
     }
   }

@@ -6,6 +6,10 @@ import ApolloAPI
 public struct PetAdoptionInput: InputObject {
   public private(set) var data: InputDict
 
+  public init(_ data: InputDict) {
+    self.data = data
+  }
+
   public init(
     ownerID: ID,
     petID: ID,

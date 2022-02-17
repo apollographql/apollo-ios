@@ -31,7 +31,7 @@ input PetSearchFilters {
 }
 
 interface Animal {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -39,14 +39,14 @@ interface Animal {
 }
 
 interface Pet {
-  id: ID
+  id: ID!
   humanName: String
   favoriteToy: String!
   owner: Human
 }
 
 interface HousePet implements Animal & Pet {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -60,7 +60,7 @@ interface HousePet implements Animal & Pet {
 }
 
 interface WarmBlooded implements Animal {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -79,7 +79,7 @@ type Height {
 }
 
 type Human implements Animal & WarmBlooded {
-  id: ID
+  id: ID!
   firstName: String!
   species: String!
   height: Height!
@@ -90,7 +90,7 @@ type Human implements Animal & WarmBlooded {
 }
 
 type Cat implements Animal & Pet & WarmBlooded {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -104,7 +104,7 @@ type Cat implements Animal & Pet & WarmBlooded {
 }
 
 type Dog implements Animal & Pet & HousePet & WarmBlooded {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -120,7 +120,7 @@ type Dog implements Animal & Pet & HousePet & WarmBlooded {
 }
 
 type Bird implements Animal & Pet & WarmBlooded {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -134,7 +134,7 @@ type Bird implements Animal & Pet & WarmBlooded {
 }
 
 type Fish implements Animal & Pet {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -145,7 +145,7 @@ type Fish implements Animal & Pet {
 }
 
 type Rat implements Animal & Pet {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -156,7 +156,7 @@ type Rat implements Animal & Pet {
 }
 
 type Crocodile implements Animal {
-  id: ID
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -165,7 +165,7 @@ type Crocodile implements Animal {
 }
 
 type PetRock implements Pet {
-  id: ID
+  id: ID!
   humanName: String
   favoriteToy: String!
   owner: Human
