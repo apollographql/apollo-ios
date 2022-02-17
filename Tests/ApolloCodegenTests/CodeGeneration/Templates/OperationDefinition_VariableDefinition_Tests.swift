@@ -204,7 +204,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
                   "InnerInputObject",
                   fields: [
                     .mock("innerStringField", type: .scalar(.string()), defaultValue: nil),
-                    .mock("innerListField", type: .list(.scalar(.string())), defaultValue: nil),
+                    .mock("innerListField", type: .list(.enum(.mock(name: "EnumList"))), defaultValue: nil),
                     .mock("innerIntField", type: .scalar(.integer()), defaultValue: nil),
                     .mock("innerEnumField", type: .enum(.mock(name: "EnumValue")), defaultValue: nil),
                   ]
@@ -222,7 +222,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
         "innerEnumField": .enum("CaseONE"),
         "innerInputObject": .object([
           "innerStringField": .string("EFGH"),
-          "innerListField": .list([.string("C"), .string("D")]),
+          "innerListField": .list([.enum("CaseTwo"), .enum("CaseThree")]),
         ])
       ])
     )
@@ -234,10 +234,10 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
       "innerFloatField": 12.3456,
       "innerBoolField": true,
       "innerListField": ["A", "B"],
-      "innerEnumField": GraphQLEnum("CaseONE"),
+      "innerEnumField": GraphQLEnum<EnumValue>("CaseONE"),
       "innerInputObject": [
         "innerStringField": "EFGH",
-        "innerListField": ["C", "D"]
+        "innerListField": [GraphQLEnum<EnumList>("CaseTwo"), GraphQLEnum<EnumList>("CaseThree")]
       ]
     ]
     """
