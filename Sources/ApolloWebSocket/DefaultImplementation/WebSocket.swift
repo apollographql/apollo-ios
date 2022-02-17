@@ -290,8 +290,8 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     }
   }
 
-  public func disconnect() {
-    self.disconnect(forceTimeout: nil, closeCode: CloseCode.normal.rawValue)
+  public func disconnect(forceTimeout: TimeInterval? = nil) {
+    self.disconnect(forceTimeout: forceTimeout, closeCode: CloseCode.normal.rawValue)
   }
 
   /**
