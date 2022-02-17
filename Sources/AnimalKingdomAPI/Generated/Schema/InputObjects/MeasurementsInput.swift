@@ -19,17 +19,17 @@ public struct MeasurementsInput: InputObject {
   }
 
   public var height: Float {
-    get { dict["height"] }
-    set { dict["height"] = newValue }
+    get { dict.height }
+    set { dict.height = newValue }
   }
 
   public var weight: Float {
-    get { dict["weight"] }
-    set { dict["weight"] = newValue }
+    get { dict.weight }
+    set { dict.weight = newValue }
   }
 
   public var wingspan: GraphQLNullable<Float> {
-    get { dict["wingspan"] }
-    set { dict["wingspan"] = newValue }
+    get { dict.wingspan }
+    set { dict.wingspan = newValue }
   }
 }

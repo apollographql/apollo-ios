@@ -45,8 +45,8 @@ struct InputObjectTemplate {
   private func FieldPropertyTemplate(_ field: GraphQLInputField) -> String {
     """
     public var \(field.name): \(field.renderInputValueType()) {
-      get { dict[\"\(field.name)\"] }
-      set { dict[\"\(field.name)\"] = newValue }
+      get { dict.\(field.name) }
+      set { dict.\(field.name) = newValue }
     }
     """
   }

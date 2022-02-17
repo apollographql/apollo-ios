@@ -25,32 +25,32 @@ public struct PetAdoptionInput: InputObject {
   }
 
   public var ownerID: ID {
-    get { dict["ownerID"] }
-    set { dict["ownerID"] = newValue }
+    get { dict.ownerID }
+    set { dict.ownerID = newValue }
   }
 
   public var petID: ID {
-    get { dict["petID"] }
-    set { dict["petID"] = newValue }
+    get { dict.petID }
+    set { dict.petID = newValue }
   }
 
   public var humanName: GraphQLNullable<String> {
-    get { dict["humanName"] }
-    set { dict["humanName"] = newValue }
+    get { dict.humanName }
+    set { dict.humanName = newValue }
   }
 
   public var favoriteToy: String {
-    get { dict["favoriteToy"] }
-    set { dict["favoriteToy"] = newValue }
+    get { dict.favoriteToy }
+    set { dict.favoriteToy = newValue }
   }
 
   public var isSpayedOrNeutered: Bool? {
-    get { dict["isSpayedOrNeutered"] }
-    set { dict["isSpayedOrNeutered"] = newValue }
+    get { dict.isSpayedOrNeutered }
+    set { dict.isSpayedOrNeutered = newValue }
   }
 
   public var measurements: GraphQLNullable<MeasurementsInput> {
-    get { dict["measurements"] }
-    set { dict["measurements"] = newValue }
+    get { dict.measurements }
+    set { dict.measurements = newValue }
   }
 }

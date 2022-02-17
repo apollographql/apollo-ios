@@ -155,8 +155,8 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var field: GraphQLNullable<String> {
-        get { dict["field"] }
-        set { dict["field"] = newValue }
+        get { dict.field }
+        set { dict.field = newValue }
       }
     }
     """
@@ -235,38 +235,38 @@ class InputObjectTemplateTests: XCTestCase {
       }
 
       public var stringField: GraphQLNullable<String> {
-        get { dict["stringField"] }
-        set { dict["stringField"] = newValue }
+        get { dict.stringField }
+        set { dict.stringField = newValue }
       }
 
       public var intField: GraphQLNullable<Int> {
-        get { dict["intField"] }
-        set { dict["intField"] = newValue }
+        get { dict.intField }
+        set { dict.intField = newValue }
       }
 
       public var boolField: GraphQLNullable<Bool> {
-        get { dict["boolField"] }
-        set { dict["boolField"] = newValue }
+        get { dict.boolField }
+        set { dict.boolField = newValue }
       }
 
       public var floatField: GraphQLNullable<Float> {
-        get { dict["floatField"] }
-        set { dict["floatField"] = newValue }
+        get { dict.floatField }
+        set { dict.floatField = newValue }
       }
 
       public var enumField: GraphQLNullable<GraphQLEnum<EnumValue>> {
-        get { dict["enumField"] }
-        set { dict["enumField"] = newValue }
+        get { dict.enumField }
+        set { dict.enumField = newValue }
       }
 
       public var inputField: GraphQLNullable<InnerInputObject> {
-        get { dict["inputField"] }
-        set { dict["inputField"] = newValue }
+        get { dict.inputField }
+        set { dict.inputField = newValue }
       }
 
       public var listField: GraphQLNullable<[String?]> {
-        get { dict["listField"] }
-        set { dict["listField"] = newValue }
+        get { dict.listField }
+        set { dict.listField = newValue }
       }
     """
 
