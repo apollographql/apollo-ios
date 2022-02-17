@@ -266,6 +266,9 @@
 		DE6D080727BD9AA9009F5F33 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */; };
 		DE6D080927BD9ABA009F5F33 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080827BD9ABA009F5F33 /* Mutation.swift */; };
 		DE6D083327BDA211009F5F33 /* MeasurementsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */; };
+		DE72867A27BEEC4D00577A0E /* PetSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */; };
+		DE72867C27BEEDF900577A0E /* PetSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE72867B27BEEDF900577A0E /* PetSearchQuery.swift */; };
+		DE72867E27BEEE2D00577A0E /* PetSearchFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE72867D27BEEE2D00577A0E /* PetSearchFilters.swift */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -1005,6 +1008,9 @@
 		DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
 		DE6D080827BD9ABA009F5F33 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
 		DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.swift; sourceTree = "<group>"; };
+		DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetSearchQuery.graphql; sourceTree = "<group>"; };
+		DE72867B27BEEDF900577A0E /* PetSearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.swift; sourceTree = "<group>"; };
+		DE72867D27BEEE2D00577A0E /* PetSearchFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.swift; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -2095,6 +2101,7 @@
 			children = (
 				DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */,
 				DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */,
+				DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */,
 				DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */,
 				DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */,
 				DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */,
@@ -2190,6 +2197,7 @@
 			isa = PBXGroup;
 			children = (
 				DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */,
+				DE72867D27BEEE2D00577A0E /* PetSearchFilters.swift */,
 				DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */,
 			);
 			path = InputObjects;
@@ -2332,6 +2340,7 @@
 				E603765927B2FB1900E7B060 /* ClassroomPetDetails.swift */,
 				E603765A27B2FB1900E7B060 /* ClassroomPetsQuery.swift */,
 				DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */,
+				DE72867B27BEEDF900577A0E /* PetSearchQuery.swift */,
 				E603765B27B2FB1900E7B060 /* AllAnimalsQuery.swift */,
 				E603765C27B2FB1900E7B060 /* WarmBloodedDetails.swift */,
 			);
@@ -3093,6 +3102,7 @@
 				DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */,
 				DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */,
 				DE223C20271F332D004A0148 /* HeightInMeters.graphql in Resources */,
+				DE72867A27BEEC4D00577A0E /* PetSearchQuery.graphql in Resources */,
 				DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */,
 				DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */,
 			);
@@ -3525,6 +3535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E603864A27B2FB1D00E7B060 /* Height.swift in Sources */,
+				DE72867E27BEEE2D00577A0E /* PetSearchFilters.swift in Sources */,
 				E603864227B2FB1D00E7B060 /* ClassroomPet.swift in Sources */,
 				E603864F27B2FB1D00E7B060 /* WarmBlooded.swift in Sources */,
 				E603863F27B2FB1D00E7B060 /* ClassroomPetsQuery.swift in Sources */,
@@ -3538,6 +3549,7 @@
 				E603864427B2FB1D00E7B060 /* RelativeSize.swift in Sources */,
 				DE6D083327BDA211009F5F33 /* MeasurementsInput.swift in Sources */,
 				E603864627B2FB1D00E7B060 /* Bird.swift in Sources */,
+				DE72867C27BEEDF900577A0E /* PetSearchQuery.swift in Sources */,
 				E603864927B2FB1D00E7B060 /* Rat.swift in Sources */,
 				E603863E27B2FB1D00E7B060 /* ClassroomPetDetails.swift in Sources */,
 				E603864127B2FB1D00E7B060 /* WarmBloodedDetails.swift in Sources */,

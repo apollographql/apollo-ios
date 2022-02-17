@@ -2,7 +2,7 @@ import XCTest
 import Nimble
 @testable import ApolloCodegenLib
 
-class OperationDefinition_VariableDefinition_Render_Tests: XCTestCase {
+class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
   var subject: CompilationResult.VariableDefinition!
 

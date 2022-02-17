@@ -1,7 +1,7 @@
 type Query {
   allAnimals: [Animal!]!
-  allPets: [Pet!]!
   classroomPets: [ClassroomPet!]!
+  pets(filters: PetSearchFilters!): [Pet!]!
 }
 
 type Mutation {
@@ -22,6 +22,12 @@ input MeasurementsInput {
   height: Float!
   weight: Float!
   wingspan: Float
+}
+
+input PetSearchFilters {
+  species: [String!]!
+  size: RelativeSize
+  measurements: MeasurementsInput
 }
 
 interface Animal {
