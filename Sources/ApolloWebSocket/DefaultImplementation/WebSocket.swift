@@ -68,14 +68,25 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     public let code: Int
   }
 
-  private struct Constants {
+  public enum WSProtocol: CustomStringConvertible {
+    case graphql_ws
+    case graphql_transport_ws
+
+    public var description: String {
+      switch self {
+      case .graphql_ws: return "graphql-ws"
+      case .graphql_transport_ws: return "graphql-transport-ws"
+      }
+    }
+  }
+
+  struct Constants {
     static let headerWSUpgradeName     = "Upgrade"
     static let headerWSUpgradeValue    = "websocket"
     static let headerWSHostName        = "Host"
     static let headerWSConnectionName  = "Connection"
     static let headerWSConnectionValue = "Upgrade"
     static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
-    static let headerWSProtocolValue   = "graphql-ws"
     static let headerWSVersionName     = "Sec-WebSocket-Version"
     static let headerWSVersionValue    = "13"
     static let headerWSExtensionName   = "Sec-WebSocket-Extensions"
@@ -197,20 +208,29 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
       self.request.setValue(origin, forHTTPHeaderField: Constants.headerOriginName)
     }
 
-    self.request.setValue(Constants.headerWSProtocolValue,
-                          forHTTPHeaderField: Constants.headerWSProtocolName)
+    if self.request.value(forHTTPHeaderField: Constants.headerWSProtocolName) == nil {
+      self.request.setValue(WSProtocol.graphql_ws.description,
+                            forHTTPHeaderField: Constants.headerWSProtocolName)
+    }
     writeQueue.maxConcurrentOperationCount = 1
   }
 
-  public convenience init(url: URL) {
+  public convenience init(url: URL, webSocketProtocol: WSProtocol = .graphql_ws) {
     var request = URLRequest(url: url)
     request.timeoutInterval = 5
+    request.setValue(webSocketProtocol.description,
+                     forHTTPHeaderField: Constants.headerWSProtocolName)
+
     self.init(request: request)
   }
 
   // Used for specifically setting the QOS for the write queue.
-  public convenience init(url: URL, writeQueueQOS: QualityOfService) {
-    self.init(url: url)
+  public convenience init(
+    url: URL,
+    writeQueueQOS: QualityOfService,
+    webSocketProtocol: WSProtocol = .graphql_ws
+  ) {
+    self.init(url: url, webSocketProtocol: webSocketProtocol)
     writeQueue.qualityOfService = writeQueueQOS
   }
 

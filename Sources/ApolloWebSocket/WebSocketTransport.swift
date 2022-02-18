@@ -145,6 +145,7 @@ public class WebSocketTransport {
 
       switch messageType {
       case .data,
+           .next,
            .error:
         if let id = parseHandler.id, let responseHandler = subscribers[id] {
           if let payload = parseHandler.payload {
@@ -185,6 +186,7 @@ public class WebSocketTransport {
 
       case .connectionInit,
            .connectionTerminate,
+           .subscribe,
            .start,
            .stop,
            .connectionError:
@@ -270,7 +272,13 @@ public class WebSocketTransport {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     let identifier = operationMessageIdCreator.requestId()
-    guard let message = OperationMessage(payload: body, id: identifier).rawMessage else {
+
+    var type: OperationMessage.Types = .start
+    if case WebSocket.WSProtocol.graphql_transport_ws.description = websocket.request.value(forHTTPHeaderField: WebSocket.Constants.headerWSProtocolName) {
+      type = .subscribe
+    }
+
+    guard let message = OperationMessage(payload: body, id: identifier, type: type).rawMessage else {
       return nil
     }
 
