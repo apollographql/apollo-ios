@@ -1,25 +1,16 @@
 import XCTest
 import Nimble
 @testable import ApolloCodegenLib
-import JavaScriptCore
 
 class InputObjectTemplateTests: XCTestCase {
-  var jsVM: JSVirtualMachine!
-  var jsContext: JSContext!
   var subject: InputObjectTemplate!
 
   override func setUp() {
     super.setUp()
-
-    jsVM = JSVirtualMachine()
-    jsContext = JSContext(virtualMachine: jsVM)
   }
 
   override func tearDown() {
     subject = nil
-    jsContext = nil
-    jsVM = nil
-
     super.tearDown()
   }
 
@@ -311,7 +302,7 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NullableField_WithDefault__generates_NullableParameter_NoInitializerDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nullableWithDefault", type: .scalar(.integer()), defaultValue: JSValue(int32: 3, in: jsContext))
+      GraphQLInputField.mock("nullableWithDefault", type: .scalar(.integer()), defaultValue: .int(3))
     ])
 
     let expected = """
@@ -361,7 +352,7 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NonNullableField_WithDefault__generates_OptionalParameter_NoInitializerDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nonNullableWithDefault", type: .nonNull(.scalar(.integer())), defaultValue: JSValue(int32: 3, in: jsContext))
+      GraphQLInputField.mock("nonNullableWithDefault", type: .nonNull(.scalar(.integer())), defaultValue: .int(3))
     ])
 
     let expected = """
@@ -411,7 +402,9 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NullableList_NullableItem_WithDefault__generates_NullableParameter_OptionalItem_NoInitializerDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nullableListNullableItemWithDefault", type: .list(.scalar(.string())), defaultValue: JSValue(object: ["val"], in: jsContext))
+      GraphQLInputField.mock("nullableListNullableItemWithDefault",
+                             type: .list(.scalar(.string())),
+                             defaultValue: .list([.string("val")]))
     ])
 
     let expected = """
@@ -461,7 +454,9 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NullableList_NonNullableItem_WithDefault__generates_NullableParameter_NonOptionalItem_NoInitializerDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nullableListNonNullableItemWithDefault", type: .list(.nonNull(.scalar(.string()))), defaultValue: JSValue(object: ["val"], in: jsContext))
+      GraphQLInputField.mock("nullableListNonNullableItemWithDefault",
+                             type: .list(.nonNull(.scalar(.string()))),
+                             defaultValue: .list([.string("val")]))
     ])
 
     let expected = """
@@ -511,7 +506,9 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NonNullableList_NullableItem_WithDefault__generates_OptionalParameter_OptionalItem_NoInitializerDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nonNullableListNullableItemWithDefault", type: .nonNull(.list(.scalar(.string()))), defaultValue: JSValue(object: ["val"], in: jsContext))
+      GraphQLInputField.mock("nonNullableListNullableItemWithDefault",
+                             type: .nonNull(.list(.scalar(.string()))),
+                             defaultValue: .list([.string("val")]))
     ])
 
     let expected = """
@@ -561,7 +558,9 @@ class InputObjectTemplateTests: XCTestCase {
   func test__render__given_NonNullableList_NonNullableItem_WithDefault__generates_OptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
     // given
     buildSubject(fields: [
-      GraphQLInputField.mock("nonNullableListNonNullableItemWithDefault", type: .nonNull(.list(.nonNull(.scalar(.string())))), defaultValue: JSValue(object: ["val"], in: jsContext))
+      GraphQLInputField.mock("nonNullableListNonNullableItemWithDefault",
+                             type: .nonNull(.list(.nonNull(.scalar(.string())))),
+                             defaultValue: .list([.string("val")]))
     ])
 
     let expected = """

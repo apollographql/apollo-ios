@@ -1,48 +1,85 @@
 import OrderedCollections
-extension CompilationResult.VariableDefinition {
-  func renderVariableDefaultValue() -> TemplateString? {
-    switch defaultValue {
-    case .none: return nil
-    case .null: return ".null"
-    case let .enum(enumValue): return ".init(\"\(enumValue)\")"
-    case let .some(value): return renderInputValueLiteral(value: value, type: type)
-    }
-  }
+
+protocol InputVariableRenderable {
+  var type: GraphQLType { get }
+  var defaultValue: GraphQLValue? { get }
 }
 
-private func renderInputValueLiteral(value: GraphQLValue, type: GraphQLType) -> TemplateString {
-  switch value {
-  case let .string(string): return "\"\(string)\""
-  case let .boolean(boolean): return boolean ? "true" : "false"
-  case let .int(int): return TemplateString(int.description)
-  case let .float(float): return TemplateString(float.description)
-  case let .enum(enumValue): return "GraphQLEnum<\(type.namedType.name)>(\"\(enumValue)\")"
-  case .null: return "nil"
-  case let .list(list):
-    return "[\(list.map { renderInputValueLiteral(value: $0, type: type) }, separator: ", ")]"
+extension CompilationResult.VariableDefinition: InputVariableRenderable {}
 
-  case let .object(object):
-    guard case let .inputObject(inputObject) = type else {
-      preconditionFailure("Variable type must be InputObject with value of .object type.")
+struct InputVariable: InputVariableRenderable {
+  let type: GraphQLType
+  let defaultValue: GraphQLValue?
+}
+
+extension InputVariableRenderable {
+  func renderVariableDefaultValue() -> TemplateString? {
+    renderVariableDefaultValue(inList: false)
+  }
+
+  private func renderVariableDefaultValue(inList: Bool) -> TemplateString? {
+    switch defaultValue {
+    case .none: return nil
+    case .null: return inList ? "nil" : ".null"
+    case let .string(string): return "\"\(string)\""
+    case let .boolean(boolean): return boolean ? "true" : "false"
+    case let .int(int): return TemplateString(int.description)
+    case let .float(float): return TemplateString(float.description)
+    case let .enum(enumValue): return ".init(.\(enumValue))"
+    case let .list(list):
+      switch type {
+      case let .nonNull(.list(listInnerType)),
+        let .list(listInnerType):
+        return """
+        [\(list.compactMap {
+          InputVariable(type: listInnerType, defaultValue: $0).renderVariableDefaultValue(inList: true)
+        }, separator: ", ")]
+        """
+
+      default:
+        preconditionFailure("Variable type must be List with value of .list type.")
+      }
+
+    case let .object(object):
+      switch type {
+      case let .nonNull(.inputObject(inputObjectType)):
+        return inputObjectType.renderInputValueLiteral(values: object).unsafelyUnwrapped
+
+      case let .inputObject(inputObjectType):
+        return """
+        .init(
+          \(inputObjectType.renderInputValueLiteral(values: object).unsafelyUnwrapped)
+        )
+        """
+
+      default:
+        preconditionFailure("Variable type must be InputObject with value of .object type.")
+      }
+
+    case .variable:
+      preconditionFailure("Variable cannot be used as Default Value for an Operation Variable!")
     }
-
-    return inputObject.renderInputValueLiteral(values: object)
-
-  case .variable:
-    preconditionFailure("Variable cannot be used as Default Value for an Operation Variable!")
   }
 }
 
 fileprivate extension GraphQLInputObjectType {
-  func renderInputValueLiteral(values: OrderedDictionary<String, GraphQLValue>) -> TemplateString {
-    let entries = values.map { entry -> TemplateString in
+  func renderInputValueLiteral(values: OrderedDictionary<String, GraphQLValue>) -> TemplateString? {
+    let entries = values.compactMap { entry -> TemplateString? in
       guard let field = self.fields[entry.0] else {
         preconditionFailure("Field \(entry.0) not found on input object.")
       }
+      let variable = InputVariable(type: field.type, defaultValue: entry.value)
+      guard let defaultValue = variable.renderVariableDefaultValue() else {
+        return nil
+      }
 
-      return "\"\(entry.0)\": " +
-      ApolloCodegenLib.renderInputValueLiteral(value: entry.1, type: field.type)
+      return "\(entry.0): " + defaultValue
     }
-    return "[\(list: entries)]"
+
+    guard !entries.isEmpty else { return nil }
+
+    return """
+    \(name)(\(list: entries))
+    """
   }
 }

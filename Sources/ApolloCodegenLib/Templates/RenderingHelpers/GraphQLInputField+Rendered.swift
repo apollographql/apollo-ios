@@ -24,12 +24,8 @@ extension GraphQLInputField {
     switch defaultValue {
     case .none, .some(nil):
       return false
-    case let .some(value):
-      guard let value = value as? JSValue else {
-        fatalError("Cannot determine default value for Input field: \(self)")
-      }
-
-      return !value.isUndefined
+    case .some:
+      return true
     }
   }
 }
