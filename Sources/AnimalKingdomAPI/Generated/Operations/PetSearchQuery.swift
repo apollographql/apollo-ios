@@ -19,14 +19,17 @@ public class PetSearchQuery: GraphQLQuery {
 
   public var filters: GraphQLNullable<PetSearchFilters>
 
-  public init(filters: GraphQLNullable<PetSearchFilters> = [
-    "species": ["Dog", "Cat"],
-    "size": GraphQLEnum<RelativeSize>("SMALL"),
-    "measurements": [
-      "height": 10.5,
-      "weight": 5.0
-    ]
-  ]) {
+  public enum DefaultVariables {
+    public static let filters: GraphQLNullable<PetSearchFilters> = .some(PetSearchFilters(
+      species: ["Dog", "Cat"],
+      size: .some(.case(.SMALL)),
+      measurements: .some(MeasurementsInput(
+        height: 10.5,
+        weight: 5.0
+      ))))
+  }
+
+  public init(filters: GraphQLNullable<PetSearchFilters> = DefaultVariables.filters) {
     self.filters = filters
   }
 

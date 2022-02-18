@@ -464,6 +464,46 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  // MARK: Selections - Fields - Arguments
+
+  func test__render_selections__givenFieldWithArgumentWithConstantValue_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string(variable: Int): String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: string(variable: 3)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self, arguments: ["variable": 3]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
   // MARK: Selections - Type Cases
 
   func test__render_selections__givenTypeCases_rendersTypeCaseSelections() throws {

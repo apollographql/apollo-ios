@@ -85,12 +85,15 @@ struct OperationDefinitionTemplate {
       _ variables: [CompilationResult.VariableDefinition]
     ) -> TemplateString {
     """
-    \(variables.map { "public var \($0.name): \($0.renderInputValueType())"}, separator: "\n")
+    \(variables.map { "public var \($0.name): \($0.type.renderAsInputValue())"}, separator: "\n")
     """
     }
 
-    static func Parameter(_ variable: CompilationResult.VariableDefinition) -> String {
-      "\(variable.name): \(variable.renderInputValueType(includeDefault: true))"
+    static func Parameter(_ variable: CompilationResult.VariableDefinition) -> TemplateString {
+      """
+      \(variable.name): \(variable.type.renderAsInputValue())\
+      \(ifLet: variable.renderVariableDefaultValue(), {" = " + $0})
+      """
     }
 
     static func Accessors(
@@ -101,10 +104,10 @@ struct OperationDefinitionTemplate {
       }
 
       return """
-    public var variables: Variables? {
-      [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
-    }
-    """
+      public var variables: Variables? {
+        [\(variables.map { "\"\($0.name)\": \($0.name)"}, separator: ",\n   ")]
+      }
+      """
     }
   }
 

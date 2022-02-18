@@ -1,13 +1,6 @@
 import OrderedCollections
 extension CompilationResult.VariableDefinition {
-  func renderInputValueType(includeDefault: Bool = false) -> TemplateString {
-    """
-    \(type.renderAsInputValue())\
-    \(ifLet: renderVariableDefaultValue(), where: {_ in includeDefault}, {" = " + $0})
-    """
-  }
-
-  private func renderVariableDefaultValue() -> TemplateString? {
+  func renderVariableDefaultValue() -> TemplateString? {
     switch defaultValue {
     case .none: return nil
     case .null: return ".null"

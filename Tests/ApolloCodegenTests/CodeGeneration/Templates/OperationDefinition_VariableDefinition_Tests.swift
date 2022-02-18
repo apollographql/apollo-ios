@@ -16,7 +16,20 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     super.tearDown()
   }
 
-  func test__renderInputValueType_includeDefaultTrue__givenAllInputFieldTypes_nilDefaultValues__generatesCorrectParametersWithoutInitializer() throws {
+  func test__renderOperationVariableProperty_givenDefaultValue_generatesCorrectParameterNoInitializerDefault() throws {
+    // given
+    subject = .mock("variable", type: .scalar(.string()), defaultValue: .string("Value"))
+
+    let expected = "public var variable: GraphQLNullable<String>"
+
+    // when
+    let actual = OperationDefinitionTemplate.Variables.Properties([subject]).description
+
+    // then
+    expect(actual).to(equal(expected))
+  }
+
+  func test__renderOperationVariableParameter_includeDefaultTrue__givenAllInputFieldTypes_nilDefaultValues__generatesCorrectParametersWithoutInitializer() throws {
     // given
     let tests: [(variable: CompilationResult.VariableDefinition, expected: String)] = [
       (
@@ -25,7 +38,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.string()),
           defaultValue: nil
         ),
-        "GraphQLNullable<String>"
+        "stringField: GraphQLNullable<String>"
       ),
       (
         .mock(
@@ -33,7 +46,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.integer()),
           defaultValue: nil
         ),
-        "GraphQLNullable<Int>"
+        "intField: GraphQLNullable<Int>"
       ),
       (
         .mock(
@@ -41,7 +54,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.boolean()),
           defaultValue: nil
         ),
-        "GraphQLNullable<Bool>"
+        "boolField: GraphQLNullable<Bool>"
       ),
       (
         .mock(
@@ -49,7 +62,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.float()),
           defaultValue: nil
         ),
-        "GraphQLNullable<Float>"
+        "floatField: GraphQLNullable<Float>"
       ),
       (
         .mock(
@@ -57,7 +70,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .enum(.mock(name: "EnumValue")),
           defaultValue: nil
         ),
-        "GraphQLNullable<GraphQLEnum<EnumValue>>"
+        "enumField: GraphQLNullable<GraphQLEnum<EnumValue>>"
       ),
       (
         .mock(
@@ -70,7 +83,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           )),
           defaultValue: nil
         ),
-        "GraphQLNullable<InnerInputObject>"
+        "inputField: GraphQLNullable<InnerInputObject>"
       ),
       (
         .mock(
@@ -78,20 +91,20 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .list(.scalar(.string())),
           defaultValue: nil
         ),
-        "GraphQLNullable<[String?]>"
+        "listField: GraphQLNullable<[String?]>"
       )
     ]
 
     for test in tests {
       // when
-      let actual = test.variable.renderInputValueType(includeDefault: true).description
+      let actual = OperationDefinitionTemplate.Variables.Parameter(test.variable).description
 
       // then
       expect(actual).to(equal(test.expected))
     }
   }
 
-  func test__renderInputValueType_includeDefaultTrue__givenAllInputFieldTypes_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
+  func test__renderOperationVariableParameter_includeDefaultTrue__givenAllInputFieldTypes_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
     // given
     let tests: [(variable: CompilationResult.VariableDefinition, expected: String)] = [
       (
@@ -100,7 +113,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.string()),
           defaultValue: .string("Value")
         ),
-        "GraphQLNullable<String> = \"Value\""
+        "stringField: GraphQLNullable<String> = \"Value\""
       ),
       (
         .mock(
@@ -108,7 +121,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.string()),
           defaultValue: .null
         ),
-        "GraphQLNullable<String> = .null"
+        "stringFieldNullDefaultValue: GraphQLNullable<String> = .null"
       ),
       (
         .mock(
@@ -116,7 +129,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.integer()),
           defaultValue: .int(300)
         ),
-        "GraphQLNullable<Int> = 300"
+        "intField: GraphQLNullable<Int> = 300"
       ),
       (
         .mock(
@@ -124,7 +137,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.boolean()),
           defaultValue: .boolean(true)
         ),
-        "GraphQLNullable<Bool> = true"
+        "boolField: GraphQLNullable<Bool> = true"
       ),
       (
         .mock(
@@ -132,7 +145,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.boolean()),
           defaultValue: .boolean(false)
         ),
-        "GraphQLNullable<Bool> = false"
+        "boolField: GraphQLNullable<Bool> = false"
       ),
       (
         .mock(
@@ -140,7 +153,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .scalar(.float()),
           defaultValue: .float(12.3943)
         ),
-        "GraphQLNullable<Float> = 12.3943"
+        "floatField: GraphQLNullable<Float> = 12.3943"
       ),
       (
         .mock(
@@ -148,7 +161,17 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .enum(.mock(name: "EnumValue")),
           defaultValue: .enum("CaseONE")
         ),
-        "GraphQLNullable<GraphQLEnum<EnumValue>> = .init(\"CaseONE\")"
+        "enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = .init(\"CaseONE\")"
+      ),
+      (
+        .mock(
+          "listField",
+          type: .list(.scalar(.string())),
+          defaultValue: .list([.string("1"), .string("2")])
+        ),
+        """
+        listField: GraphQLNullable<[String?]> = ["1", "2"]
+        """
       ),
       (
         .mock(
@@ -162,31 +185,21 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           defaultValue: .object(["innerStringField": .string("Value")])
         ),
         """
-        GraphQLNullable<InnerInputObject> = ["innerStringField": "Value"]
+        inputField: GraphQLNullable<InnerInputObject> = ["innerStringField": "Value"]
         """
       ),
-      (
-        .mock(
-          "listField",
-          type: .list(.scalar(.string())),
-          defaultValue: .list([.string("1"), .string("2")])
-        ),
-        """
-        GraphQLNullable<[String?]> = ["1", "2"]
-        """
-      )
     ]
 
     for test in tests {
       // when
-      let actual = test.variable.renderInputValueType(includeDefault: true).description
+      let actual = OperationDefinitionTemplate.Variables.Parameter(test.variable).description
 
       // then
       expect(actual).to(equal(test.expected))
     }
   }
 
-  func test__renderInputValueType_includeDefaultTrue__givenNestedInputObject_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
+  func test__renderOperationVariableParameter_includeDefaultTrue__givenNestedInputObject_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
     // given
     subject = .mock(
       "inputField",
@@ -228,7 +241,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     )
 
     let expected = """
-    GraphQLNullable<InputObject> = [
+    inputField: GraphQLNullable<InputObject> = [
       "innerStringField": "ABCD",
       "innerIntField": 123,
       "innerFloatField": 12.3456,
@@ -243,7 +256,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     """
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equalLineByLine(expected))
@@ -251,211 +264,197 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
   // MARK: Nullable Field Tests
 
-  func test__renderInputValueType__given_NullableField_NoDefault__generates_NullableParameter_Initializer() throws {
+  func test__renderOperationVariableParameter__given_NullableField_NoDefault__generates_NullableParameter_Initializer() throws {
     // given
     subject = .mock("nullable", type: .scalar(.integer()), defaultValue: nil)
 
-    let expected = "GraphQLNullable<Int>"
+    let expected = "nullable: GraphQLNullable<Int>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableField_WithDefault__generates_NullableParameter_NoInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableField_WithDefault__generates_NullableParameter_NoInitializerDefault() throws {
     // given
     subject = .mock("nullableWithDefault", type: .scalar(.integer()), defaultValue: .int(3))
 
-    let expected = "GraphQLNullable<Int> = 3"
+    let expected = "nullableWithDefault: GraphQLNullable<Int> = 3"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType_includeDefaultFalse_givenDefaultValue_generatesCorrectParameterNoInitializerDefault() throws {
-    // given
-    subject = .mock("variable", type: .scalar(.string()), defaultValue: .string("Value"))
-
-    let expected = "GraphQLNullable<String>"
-
-    // when
-    let actual = subject.renderInputValueType(includeDefault: false).description
-
-    // then
-    expect(actual).to(equal(expected))
-  }
-
-
-  func test__renderInputValueType__given_NonNullableField_NoDefault__generates_NonNullableNonOptionalParameter_NoInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NonNullableField_NoDefault__generates_NonNullableNonOptionalParameter_NoInitializerDefault() throws {
     // given
     subject = .mock("nonNullable", type: .nonNull(.scalar(.integer())), defaultValue: nil)
 
-    let expected = "Int"
+    let expected = "nonNullable: Int"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NonNullableField_WithDefault__generates_NonNullableNonOptionalParameter_WithInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NonNullableField_WithDefault__generates_NonNullableNonOptionalParameter_WithInitializerDefault() throws {
     // given
     subject = .mock("nonNullableWithDefault", type: .nonNull(.scalar(.integer())), defaultValue: .int(3))
 
-    let expected = "Int = 3"
+    let expected = "nonNullableWithDefault: Int = 3"
     
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableList_NullableItem_NoDefault__generates_NullableParameter_OptionalItem_NoInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableList_NullableItem_NoDefault__generates_NullableParameter_OptionalItem_NoInitializerDefault() throws {
     // given
     subject = .mock("nullableListNullableItem", type: .list(.scalar(.string())), defaultValue: nil)
 
-    let expected = "GraphQLNullable<[String?]>"
+    let expected = "nullableListNullableItem: GraphQLNullable<[String?]>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableList_NullableItem_WithDefault__generates_NullableParameter_OptionalItem_WithInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableList_NullableItem_WithDefault__generates_NullableParameter_OptionalItem_WithInitializerDefault() throws {
     // given
     subject = .mock("nullableListNullableItemWithDefault",
                     type: .list(.scalar(.string())),
                     defaultValue: .list([.string("val")]))
 
-    let expected = "GraphQLNullable<[String?]> = [\"val\"]"
+    let expected = "nullableListNullableItemWithDefault: GraphQLNullable<[String?]> = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableList_NullableItem_WithDefault_includingNullElement_generates_NullableParameter_OptionalItem_WithInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableList_NullableItem_WithDefault_includingNullElement_generates_NullableParameter_OptionalItem_WithInitializerDefault() throws {
     // given
     subject = .mock("nullableListNullableItemWithDefault",
                     type: .list(.scalar(.string())),
                     defaultValue: .list([.string("val"), .null]))
 
-    let expected = "GraphQLNullable<[String?]> = [\"val\", nil]"
+    let expected = "nullableListNullableItemWithDefault: GraphQLNullable<[String?]> = [\"val\", nil]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableList_NonNullableItem_NoDefault__generates_NullableParameter_NonOptionalItem_NoInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableList_NonNullableItem_NoDefault__generates_NullableParameter_NonOptionalItem_NoInitializerDefault() throws {
     // given
     subject = .mock("nullableListNonNullableItem",
                     type: .list(.nonNull(.scalar(.string()))),
                     defaultValue: nil)
 
-    let expected = "GraphQLNullable<[String]>"
+    let expected = "nullableListNonNullableItem: GraphQLNullable<[String]>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableList_NonNullableItem_WithDefault__generates_NullableParameter_NonOptionalItem_WithInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableList_NonNullableItem_WithDefault__generates_NullableParameter_NonOptionalItem_WithInitializerDefault() throws {
     // given
     subject = .mock("nullableListNonNullableItemWithDefault", type: .list(.nonNull(.scalar(.string()))), defaultValue: .list([.string("val")]))
 
-    let expected = "GraphQLNullable<[String]> = [\"val\"]"
+    let expected = "nullableListNonNullableItemWithDefault: GraphQLNullable<[String]> = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NonNullableList_NullableItem_NoDefault__generates_NonNullableNonOptionalParameter_OptionalItem_NoInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NonNullableList_NullableItem_NoDefault__generates_NonNullableNonOptionalParameter_OptionalItem_NoInitializerDefault() throws {
     // given
     subject = .mock("nonNullableListNullableItem", type: .nonNull(.list(.scalar(.string()))), defaultValue: nil)
 
-    let expected = "[String?]"
+    let expected = "nonNullableListNullableItem: [String?]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NonNullableList_NullableItem_WithDefault__generates_OptionalParameter_OptionalItem_WithInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NonNullableList_NullableItem_WithDefault__generates_OptionalParameter_OptionalItem_WithInitializerDefault() throws {
     // given
     subject = .mock("nonNullableListNullableItemWithDefault",
                     type: .nonNull(.list(.scalar(.string()))),
                     defaultValue: .list([.string("val")]))
 
-    let expected = "[String?] = [\"val\"]"
+    let expected = "nonNullableListNullableItemWithDefault: [String?] = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NonNullableList_NonNullableItem_NoDefault__generates_NonNullableNonOptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NonNullableList_NonNullableItem_NoDefault__generates_NonNullableNonOptionalParameter_NonOptionalItem_NoInitializerDefault() throws {
     // given
     subject = .mock("nonNullableListNonNullableItem",
                     type: .nonNull(.list(.nonNull(.scalar(.string())))),
                     defaultValue: nil)
 
-    let expected = "[String]"
+    let expected = "nonNullableListNonNullableItem: [String]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NonNullableList_NonNullableItem_WithDefault__generates_OptionalParameter_NonOptionalItem_WithInitializerDefault() throws {
+  func test__renderOperationVariableParameter__given_NonNullableList_NonNullableItem_WithDefault__generates_OptionalParameter_NonOptionalItem_WithInitializerDefault() throws {
     // given
     subject = .mock("nonNullableListNonNullableItemWithDefault",
                     type: .nonNull(.list(.nonNull(.scalar(.string())))),
                     defaultValue: .list([.string("val")]))
 
-    let expected = "[String] = [\"val\"]"
+    let expected = "nonNullableListNonNullableItemWithDefault: [String] = [\"val\"]"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
   }
 
-  func test__renderInputValueType__given_NullableListOfNullableEnum_NoDefault__generates_NullableParameter_OptionalItem_NoInitializerNilDefault() throws {
+  func test__renderOperationVariableParameter__given_NullableListOfNullableEnum_NoDefault__generates_NullableParameter_OptionalItem_NoInitializerNilDefault() throws {
     // given
     subject = .mock("nullableListNullableItem",
                     type: .list(.enum(.mock(name: "EnumValue"))),
                     defaultValue: nil)
 
-    let expected = "GraphQLNullable<[GraphQLEnum<EnumValue>?]>"
+    let expected = "nullableListNullableItem: GraphQLNullable<[GraphQLEnum<EnumValue>?]>"
 
     // when
-    let actual = subject.renderInputValueType(includeDefault: true).description
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
 
     // then
     expect(actual).to(equal(expected))
