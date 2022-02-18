@@ -6,6 +6,9 @@ protocol InputVariableRenderable {
 }
 
 extension CompilationResult.VariableDefinition: InputVariableRenderable {}
+extension CompilationResult.Argument: InputVariableRenderable {
+  var defaultValue: GraphQLValue? { value }
+}
 
 struct InputVariable: InputVariableRenderable {
   let type: GraphQLType
@@ -13,13 +16,13 @@ struct InputVariable: InputVariableRenderable {
 }
 
 extension InputVariableRenderable {
-  func renderVariableDefaultValue() -> TemplateString? {
+  func renderVariableDefaultValue() -> TemplateString {
     renderVariableDefaultValue(inList: false)
   }
 
-  private func renderVariableDefaultValue(inList: Bool) -> TemplateString? {
+  private func renderVariableDefaultValue(inList: Bool) -> TemplateString {
     switch defaultValue {
-    case .none: return nil
+    case .none: return ""
     case .null: return inList ? "nil" : ".null"
     case let .string(string): return "\"\(string)\""
     case let .boolean(boolean): return boolean ? "true" : "false"
@@ -43,12 +46,12 @@ extension InputVariableRenderable {
     case let .object(object):
       switch type {
       case let .nonNull(.inputObject(inputObjectType)):
-        return inputObjectType.renderInputValueLiteral(values: object).unsafelyUnwrapped
+        return inputObjectType.renderInitializer(values: object)
 
       case let .inputObject(inputObjectType):
         return """
         .init(
-          \(inputObjectType.renderInputValueLiteral(values: object).unsafelyUnwrapped)
+          \(inputObjectType.renderInitializer(values: object))
         )
         """
 
@@ -63,20 +66,16 @@ extension InputVariableRenderable {
 }
 
 fileprivate extension GraphQLInputObjectType {
-  func renderInputValueLiteral(values: OrderedDictionary<String, GraphQLValue>) -> TemplateString? {
-    let entries = values.compactMap { entry -> TemplateString? in
+  func renderInitializer(values: OrderedDictionary<String, GraphQLValue>) -> TemplateString {
+    let entries = values.compactMap { entry -> TemplateString in
       guard let field = self.fields[entry.0] else {
         preconditionFailure("Field \(entry.0) not found on input object.")
       }
+
       let variable = InputVariable(type: field.type, defaultValue: entry.value)
-      guard let defaultValue = variable.renderVariableDefaultValue() else {
-        return nil
-      }
 
-      return "\(entry.0): " + defaultValue
+      return "\(entry.0): " + variable.renderVariableDefaultValue()
     }
-
-    guard !entries.isEmpty else { return nil }
 
     return """
     \(name)(\(list: entries))

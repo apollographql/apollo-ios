@@ -92,7 +92,7 @@ struct OperationDefinitionTemplate {
     static func Parameter(_ variable: CompilationResult.VariableDefinition) -> TemplateString {
       """
       \(variable.name): \(variable.type.renderAsInputValue())\
-      \(ifLet: variable.renderVariableDefaultValue(), {" = " + $0})
+      \(if: variable.defaultValue != nil, " = " + variable.renderVariableDefaultValue())
       """
     }
 

@@ -100,14 +100,15 @@ struct SelectionSetTemplate {
 
   private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
     """
-    .field("\(field.name)", \
-    \(ifLet: field.alias, {"alias: \"\($0)\", "})\
-    \(typeName(for: field)).self\
+    .field("\(field.name)"\
+    \(ifLet: field.alias, {", alias: \"\($0)\""})\
+    , \(typeName(for: field)).self\
+    \(ifLet: field.arguments,
+      where: { !$0.isEmpty }, {
+        ", arguments: [\($0.map { "\"\($0.name)\": \($0.renderVariableDefaultValue())" })]"
+    })\
     )
     """
-    // \(ifLet: field.arguments, where: { !$0.isEmpty }, {
-    // "arguments: [\($0.map {"" }), "
-    //  })
   }
 
   private func typeName(for field: IR.Field) -> String {

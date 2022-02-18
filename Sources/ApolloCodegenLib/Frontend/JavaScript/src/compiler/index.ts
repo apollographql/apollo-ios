@@ -220,7 +220,7 @@ export function compileToIR(
         if (!fieldDef) {
           throw new GraphQLError(
             `Cannot query field "${name}" on type "${String(parentType)}"`,
-            selectionNode
+            { nodes: selectionNode }
           );
         }
 
@@ -238,7 +238,15 @@ export function compileToIR(
                 const argDef = fieldDef.args.find(
                   (argDef) => argDef.name === arg.name.value
                 );
-                const argDefType = (argDef && argDef.type) || undefined;
+                const argDefType = argDef?.type;
+
+                if (!argDefType) {
+                  throw new GraphQLError(
+                    `Cannot find argument type for argument "${name}" on field "${selectionNode.name.value}"`,
+                    { nodes: [selectionNode, arg] }
+                  )
+                }
+                
                 return {
                   name,
                   value: valueFromValueNode(arg.value),

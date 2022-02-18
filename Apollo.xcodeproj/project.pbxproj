@@ -262,7 +262,7 @@
 		DE6B650827C059A800970E4E /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
 		DE6D07F927BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */; };
 		DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */; };
-		DE6D07FF27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FE27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift */; };
+		DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */; };
 		DE6D080427BD9A91009F5F33 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */; };
 		DE6D080727BD9AA9009F5F33 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */; };
 		DE6D080927BD9ABA009F5F33 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080827BD9ABA009F5F33 /* Mutation.swift */; };
@@ -1009,7 +1009,7 @@
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
 		DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLInputField+Rendered.swift"; sourceTree = "<group>"; };
 		DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinition_VariableDefinition_Tests.swift; sourceTree = "<group>"; };
-		DE6D07FE27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationVariableDefinition+Rendered.swift"; sourceTree = "<group>"; };
+		DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVariableRenderable.swift; sourceTree = "<group>"; };
 		DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetAdoptionMutation.graphql; sourceTree = "<group>"; };
 		DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
 		DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
@@ -2196,7 +2196,7 @@
 				E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */,
 				DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */,
 				DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */,
-				DE6D07FE27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift */,
+				DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */,
 			);
 			path = RenderingHelpers;
 			sourceTree = "<group>";
@@ -3204,7 +3204,7 @@
 				E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				DE5FD601276923620033EE23 /* TemplateString.swift in Sources */,
-				DE6D07FF27BC7F78009F5F33 /* OperationVariableDefinition+Rendered.swift in Sources */,
+				DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */,
 				DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */,
 				E64F7EC127A122300059C021 /* ObjectTemplate.swift in Sources */,
 				9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */,

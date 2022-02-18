@@ -504,6 +504,87 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  func test__render_selections__givenFieldWithArgumentOfInputObjectTypeWithNullableFields_withConstantValues_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string(input: TestInput): String!
+    }
+
+    input TestInput {
+      string: String
+      int: Int
+      float: Float
+      bool: Boolean
+      list: [String]
+      enum: TestEnum
+      innerInput: InnerInput
+    }
+
+    input InnerInput {
+      string: String
+      enumList: [TestEnum]
+    }
+
+    enum TestEnum {
+      CaseOne
+      CaseTwo
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: string(input: {
+          string: "ABCD",
+          int: 3,
+          float: 123.456,
+          bool: true,
+          list: ["A", "B"],
+          enum: CaseOne,
+          innerInput: {
+            string: "EFGH",
+            enumList: [CaseOne, CaseTwo]
+          }
+        })
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self, arguments: ["input": [
+          "string": "ABCD",
+          "int": 3,
+          "float": 123.456,
+          "bool": true,
+          "list": ["A", "B"],
+          "enum": .init(.CaseOne),
+          "innerInput": [
+              "string": "EFGH",
+              "enumList": ["CaseOne", ".CaseTwo"]
+            ]
+          ]
+        )
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
   // MARK: Selections - Type Cases
 
   func test__render_selections__givenTypeCases_rendersTypeCaseSelections() throws {
