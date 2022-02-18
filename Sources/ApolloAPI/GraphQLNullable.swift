@@ -110,8 +110,12 @@ extension Dictionary: _InitializableByDictionaryLiteralElements {
 
 // MARK: - Custom Type Initialization
 
-public extension GraphQLNullable where Wrapped: RawRepresentable, Wrapped.RawValue == String {
-  init(_ rawValue: String) {
-    self = .some(Wrapped(rawValue: rawValue)!)
+public extension GraphQLNullable {
+  init<T: EnumType>(_ caseValue: T) where Wrapped == GraphQLEnum<T> {
+    self = .some(Wrapped(caseValue))
+  }
+
+  init(_ object: Wrapped) where Wrapped: InputObject {
+    self = .some(object)
   }
 }

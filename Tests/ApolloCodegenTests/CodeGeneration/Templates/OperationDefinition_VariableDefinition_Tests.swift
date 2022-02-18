@@ -104,7 +104,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     }
   }
 
-  func test__renderOperationVariableParameter_includeDefaultTrue__givenAllInputFieldTypes_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
+  func test__renderOperationVariableParameter__givenAllInputFieldTypes_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
     // given
     let tests: [(variable: CompilationResult.VariableDefinition, expected: String)] = [
       (
@@ -161,7 +161,15 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           type: .enum(.mock(name: "EnumValue")),
           defaultValue: .enum("CaseONE")
         ),
-        "enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = .init(\"CaseONE\")"
+        "enumField: GraphQLNullable<GraphQLEnum<EnumValue>> = .init(.CaseONE)"
+      ),
+      (
+        .mock(
+          "enumField",
+          type: .nonNull(.enum(.mock(name: "EnumValue"))),
+          defaultValue: .enum("CaseONE")
+        ),
+        "enumField: GraphQLEnum<EnumValue> = .init(.CaseONE)"
       ),
       (
         .mock(
@@ -185,7 +193,9 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
           defaultValue: .object(["innerStringField": .string("Value")])
         ),
         """
-        inputField: GraphQLNullable<InnerInputObject> = ["innerStringField": "Value"]
+        inputField: GraphQLNullable<InnerInputObject> = .init(
+          InnerInputObject(innerStringField: "Value")
+        )
         """
       ),
     ]
@@ -199,7 +209,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     }
   }
 
-  func test__renderOperationVariableParameter_includeDefaultTrue__givenNestedInputObject_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
+  func test__renderOperationVariableParameter_includeDefaultTrue__givenNullable_nestedInputObject_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
     // given
     subject = .mock(
       "inputField",
@@ -241,18 +251,85 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     )
 
     let expected = """
-    inputField: GraphQLNullable<InputObject> = [
-      "innerStringField": "ABCD",
-      "innerIntField": 123,
-      "innerFloatField": 12.3456,
-      "innerBoolField": true,
-      "innerListField": ["A", "B"],
-      "innerEnumField": GraphQLEnum<EnumValue>("CaseONE"),
-      "innerInputObject": [
-        "innerStringField": "EFGH",
-        "innerListField": [GraphQLEnum<EnumList>("CaseTwo"), GraphQLEnum<EnumList>("CaseThree")]
-      ]
-    ]
+    inputField: GraphQLNullable<InputObject> = .init(
+      InputObject(
+        innerStringField: "ABCD",
+        innerIntField: 123,
+        innerFloatField: 12.3456,
+        innerBoolField: true,
+        innerListField: ["A", "B"],
+        innerEnumField: .init(.CaseONE),
+        innerInputObject: .init(
+          InnerInputObject(
+            innerStringField: "EFGH",
+            innerListField: [.init(.CaseTwo), .init(.CaseThree)]
+          )
+        )
+      )
+    )
+    """
+
+    // when
+    let actual = OperationDefinitionTemplate.Variables.Parameter(subject).description
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__renderOperationVariableParameter_includeDefaultTrue__givenNotNullable_nestedInputObject_withDefaultValues__generatesCorrectParametersWithInitializer() throws {
+    // given
+    subject = .mock(
+      "inputField",
+      type: .nonNull(.inputObject(.mock(
+        "InputObject",
+        fields: [
+          .mock("innerStringField", type: .scalar(.string()), defaultValue: nil),
+          .mock("innerIntField", type: .scalar(.integer()), defaultValue: nil),
+          .mock("innerFloatField", type: .scalar(.float()), defaultValue: nil),
+          .mock("innerBoolField", type: .scalar(.boolean()), defaultValue: nil),
+          .mock("innerListField", type: .list(.scalar(.string())), defaultValue: nil),
+          .mock("innerEnumField", type: .enum(.mock(name: "EnumValue")), defaultValue: nil),
+          .mock("innerInputObject",
+                type: .nonNull(.inputObject(.mock(
+                  "InnerInputObject",
+                  fields: [
+                    .mock("innerStringField", type: .scalar(.string()), defaultValue: nil),
+                    .mock("innerListField", type: .list(.enum(.mock(name: "EnumList"))), defaultValue: nil),
+                    .mock("innerIntField", type: .scalar(.integer()), defaultValue: nil),
+                    .mock("innerEnumField", type: .enum(.mock(name: "EnumValue")), defaultValue: nil),
+                  ]
+                ))),
+                defaultValue: nil
+               )
+        ]
+      ))),
+      defaultValue: .object([
+        "innerStringField": .string("ABCD"),
+        "innerIntField": .int(123),
+        "innerFloatField": .float(12.3456),
+        "innerBoolField": .boolean(true),
+        "innerListField": .list([.string("A"), .string("B")]),
+        "innerEnumField": .enum("CaseONE"),
+        "innerInputObject": .object([
+          "innerStringField": .string("EFGH"),
+          "innerListField": .list([.enum("CaseTwo"), .enum("CaseThree")]),
+        ])
+      ])
+    )
+
+    let expected = """
+    inputField: InputObject = InputObject(
+      innerStringField: "ABCD",
+      innerIntField: 123,
+      innerFloatField: 12.3456,
+      innerBoolField: true,
+      innerListField: ["A", "B"],
+      innerEnumField: .init(.CaseONE),
+      innerInputObject: InnerInputObject(
+        innerStringField: "EFGH",
+        innerListField: [.init(.CaseTwo), .init(.CaseThree)]
+      )
+    )
     """
 
     // when
