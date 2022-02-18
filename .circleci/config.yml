@@ -45,7 +45,7 @@ commands:
           name: Start StarWars Server
           background: true
       - run:
-          command: cd SimpleUploadServer && npm install && npm start
+          command: cd SimpleUploadServer && nvm use && npm install && npm start
           name: Start Upload Server
           background: true
       - run:
