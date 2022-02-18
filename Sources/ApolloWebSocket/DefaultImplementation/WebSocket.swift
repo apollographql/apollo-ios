@@ -68,8 +68,11 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     public let code: Int
   }
 
+  /// The WebSocket sub-protocols supported.
   public enum WSProtocol: CustomStringConvertible {
+    /// Protocol implemented by the graphql-ws library.
     case graphql_ws
+    /// Protocol implemented by the subscriptions-transport-ws libary - considered legacy.
     case graphql_transport_ws
 
     public var description: String {
