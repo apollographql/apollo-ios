@@ -18,7 +18,7 @@ class SubscriptionTests: XCTestCase {
     // given
     let store = ApolloStore()
     let webSocketTransport = WebSocketTransport(
-      websocket: WebSocket(url: TestServerURL.subscriptionWebSocket.url, webSocketProtocol: .graphql_transport_ws),
+      websocket: WebSocket(url: TestServerURL.subscriptionWebSocket.url, webSocketProtocol: .graphqlWsProtocol),
       store: store
     )
     webSocketTransport.delegate = self

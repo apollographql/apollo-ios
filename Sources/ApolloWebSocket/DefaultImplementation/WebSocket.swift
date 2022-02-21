@@ -70,15 +70,16 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
 
   /// The WebSocket sub-protocols supported.
   public enum WSProtocol: CustomStringConvertible {
-    /// Protocol implemented by the graphql-ws library.
-    case graphql_ws
-    /// Protocol implemented by the subscriptions-transport-ws libary - considered legacy.
-    case graphql_transport_ws
+    /// Protocol implemented in the https://github.com/apollographql/subscriptions-transport-ws
+    /// library. That library is not actively maintained and considered legacy.
+    case subscriptionWsProtocol
+    /// Protocol implemented by the https://github.com/enisdenjo/graphql-ws library.
+    case graphqlWsProtocol
 
     public var description: String {
       switch self {
-      case .graphql_ws: return "graphql-ws"
-      case .graphql_transport_ws: return "graphql-transport-ws"
+      case .subscriptionWsProtocol: return "graphql-ws"
+      case .graphqlWsProtocol: return "graphql-transport-ws"
       }
     }
   }
@@ -212,13 +213,13 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     }
 
     if self.request.value(forHTTPHeaderField: Constants.headerWSProtocolName) == nil {
-      self.request.setValue(WSProtocol.graphql_ws.description,
+      self.request.setValue(WSProtocol.subscriptionWsProtocol.description,
                             forHTTPHeaderField: Constants.headerWSProtocolName)
     }
     writeQueue.maxConcurrentOperationCount = 1
   }
 
-  public convenience init(url: URL, webSocketProtocol: WSProtocol = .graphql_ws) {
+  public convenience init(url: URL, webSocketProtocol: WSProtocol = .subscriptionWsProtocol) {
     var request = URLRequest(url: url)
     request.timeoutInterval = 5
     request.setValue(webSocketProtocol.description,
@@ -231,7 +232,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   public convenience init(
     url: URL,
     writeQueueQOS: QualityOfService,
-    webSocketProtocol: WSProtocol = .graphql_ws
+    webSocketProtocol: WSProtocol = .subscriptionWsProtocol
   ) {
     self.init(url: url, webSocketProtocol: webSocketProtocol)
     writeQueue.qualityOfService = writeQueueQOS
