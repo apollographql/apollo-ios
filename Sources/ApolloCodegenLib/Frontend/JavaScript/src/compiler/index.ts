@@ -131,7 +131,7 @@ export function compileToIR(
         if (!type) {
           throw new GraphQLError(
             `Couldn't get type from type node "${node.type}"`,
-            node
+            { nodes: node }
           );
         }
 

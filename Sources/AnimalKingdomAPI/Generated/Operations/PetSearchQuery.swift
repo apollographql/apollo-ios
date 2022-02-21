@@ -19,20 +19,18 @@ public class PetSearchQuery: GraphQLQuery {
 
   public var filters: GraphQLNullable<PetSearchFilters>
 
-  public init(
-    filters: GraphQLNullable<PetSearchFilters> = .init(
-      PetSearchFilters(
-        species: ["Dog", "Cat"],
-        size: .init(.SMALL),
-        measurements: .init(
-          MeasurementsInput(
-            height: 10.5,
-            weight: 5.0
-          )
+  public init(filters: GraphQLNullable<PetSearchFilters> = .init(
+    PetSearchFilters(
+      species: ["Dog", "Cat"],
+      size: .init(.SMALL),
+      measurements: .init(
+        MeasurementsInput(
+          height: 10.5,
+          weight: 5.0
         )
       )
     )
-  ) {
+  )) {
     self.filters = filters
   }
 
@@ -46,7 +44,7 @@ public class PetSearchQuery: GraphQLQuery {
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
-      .field("pets", [Pet].self),
+      .field("pets", [Pet].self, arguments: ["filters": .variable("filters")]),
     ] }
 
     public var pets: [Pet] { data["pets"] }

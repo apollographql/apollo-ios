@@ -33,7 +33,7 @@ public class PetAdoptionMutation: GraphQLMutation {
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Mutation.self) }
     public static var selections: [Selection] { [
-      .field("adoptPet", AdoptPet.self),
+      .field("adoptPet", AdoptPet.self, arguments: ["input": .variable("input")]),
     ] }
 
     public var adoptPet: AdoptPet { data["adoptPet"] }

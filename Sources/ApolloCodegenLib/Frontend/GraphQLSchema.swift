@@ -75,7 +75,7 @@ public class GraphQLInputField: JavaScriptObject {
   
   private(set) lazy var description: String? = self["description"]
   
-  lazy var defaultValue: GraphQLValue? = self["defaultValue"]
+  lazy var defaultValue: GraphQLValue? = (self["astNode"] as JavaScriptObject)["defaultValue"]
     
   private(set) lazy var deprecationReason: String? = self["deprecationReason"]
 }
