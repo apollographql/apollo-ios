@@ -6,9 +6,6 @@ protocol InputVariableRenderable {
 }
 
 extension CompilationResult.VariableDefinition: InputVariableRenderable {}
-extension CompilationResult.Argument: InputVariableRenderable {
-  var defaultValue: GraphQLValue? { value }
-}
 
 struct InputVariable: InputVariableRenderable {
   let type: GraphQLType

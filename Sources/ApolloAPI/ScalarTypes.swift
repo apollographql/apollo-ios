@@ -5,7 +5,6 @@ public protocol ScalarType:
   JSONDecodable,
   JSONEncodable,
   Cacheable,
-  InputValueConvertible,
   GraphQLOperationVariableValue {}
 
 extension String: ScalarType {}
@@ -17,9 +16,7 @@ extension Double: ScalarType {}
 extension ScalarType {
   public static func value(with cacheData: JSONValue, in transaction: CacheTransaction) throws -> Self {
     return cacheData as! Self
-  }
-
-  public var asInputValue: InputValue { .scalar(self) }
+  }  
 }
 
 public protocol CustomScalarType:

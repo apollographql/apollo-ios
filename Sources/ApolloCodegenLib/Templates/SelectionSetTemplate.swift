@@ -104,8 +104,8 @@ struct SelectionSetTemplate {
     \(ifLet: field.alias, {", alias: \"\($0)\""})\
     , \(typeName(for: field)).self\
     \(ifLet: field.arguments,
-      where: { !$0.isEmpty }, {
-        ", arguments: [\($0.map { "\"\($0.name)\": \($0.renderVariableDefaultValue())" })]"
+      where: { !$0.isEmpty }, { args in
+        ", arguments: " + renderValue(for: args)
     })\
     )
     """
@@ -122,6 +122,10 @@ struct SelectionSetTemplate {
     default:
       fatalError()
     }
+  }
+
+  private func renderValue(for arguments: [CompilationResult.Argument]) -> TemplateString {
+    "[\(list: arguments.map{ "\"\($0.name)\": " + $0.value.renderInputValueLiteral() })]"
   }
 
   private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
