@@ -21,17 +21,11 @@ Typically, you'll want to use `SplitNetworkTransport`, since this allows you to 
 
 ## GraphQL over WebSocket Protocols
 
-There are two WebSocket sub-protocols that apollo-ios supports:
-1. [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) which is implemented in the [graphql-ws](https://github.com/enisdenjo/graphql-ws) package. This is a modern, actively maintained package and is our recommendation to use in your server.
-2. [graphql-ws](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) which is implemented in the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) package. This is considered a legacy implementation and is not recommended for new server builds.
+There are two GraphQL over WebSocket protocols that apollo-ios supports:
+1. [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) which is implemented in the [graphql-ws](https://github.com/enisdenjo/graphql-ws) package. This is a modern, actively maintained library and is our recommendation to use in your server.
+2. [graphql-ws](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) which is implemented in the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) package. This library is not actively maintained and is considered legacy. It is not recommended for new server builds.
 
-It is important to note that the two libraries and protocols are not cross-compatible. You will need to know which sub-protocol is implemented in the server you're connecting to.
-
-There are a number of ways to specify which sub-protocol apollo-ios should use:
-1. Manually specify the protocol in the `Sec-WebSocket-Protocol` header of a `URLRequest`. This must be done before initializing a WebSocket using `WebSocket(request:)` as apollo-ios will look for the header key and if found it will use that protocol otherwise it will default to using the `graphql-transport-ws`. See `WebSocket.WSProtocol` for the header values.
-2. Use one of the convenience initializers `WebSocket(url:webSocketProtocol:)` or `WebSocket(url:writeQueueQOS:webSocketProtocol:)` where you can specify the protocol on initialization.
-
-Using `graphql-transport-ws` as the default may seem odd since it's considered a legacy protocol but this was done to not force a breaking change to pre-existing apps using apollo-ios.
+It is important to note that the two libraries and protocols are not cross-compatible. You will need to know which is implemented in the server you're connecting to. All `WebSocket` initializers allow you to specify the GraphQL over WebSocket protocol to be used.
 
 ## Sample subscription-supporting initializer 
 
