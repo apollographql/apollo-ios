@@ -152,7 +152,7 @@ struct SelectionSetTemplate {
 
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
     """
-    public var \(field.responseKey): \(typeName(for: field)) { data["\(field.responseKey)"] }
+    public var \(field.responseKey.firstLowercased): \(typeName(for: field)) { data["\(field.responseKey)"] }
     """
   }
 

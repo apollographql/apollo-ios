@@ -385,6 +385,44 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  func test__render_selections__givenFieldWithUppercasedName_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      FieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        FieldName
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("FieldName", String.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
   func test__render_selections__givenFieldWithAlias_rendersFieldSelections() throws {
     // given
     schemaSDL = """
@@ -901,6 +939,44 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenFieldWithUpperCaseName_rendersFieldAccessorWithLowercaseName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      AllAnimals: [Animal!]
+    }
+
+    type Animal {
+      FieldName: String!
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      AllAnimals {
+        FieldName
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String { data["FieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenFieldWithAlias_rendersAllFieldAccessors() throws {
