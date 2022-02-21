@@ -198,8 +198,12 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     return canWork
   }
 
-  /// Used for setting protocols.
-  public init(request: URLRequest) {
+  /// Designated initializer.
+  ///
+  /// - Parameters:
+  ///   - request: A URL request object that provides request-specific information such as the URL.
+  ///   - webSocketProtocol: Protocol to use for communication over the web socket.
+  public init(request: URLRequest, webSocketProtocol: WSProtocol) {
     self.request = request
     self.stream = FoundationStream()
     if request.value(forHTTPHeaderField: Constants.headerOriginName) == nil {
@@ -212,27 +216,35 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
       self.request.setValue(origin, forHTTPHeaderField: Constants.headerOriginName)
     }
 
-    if self.request.value(forHTTPHeaderField: Constants.headerWSProtocolName) == nil {
-      self.request.setValue(WSProtocol.subscriptionWsProtocol.description,
-                            forHTTPHeaderField: Constants.headerWSProtocolName)
-    }
+    self.request.setValue(webSocketProtocol.description,
+                          forHTTPHeaderField: Constants.headerWSProtocolName)
+
     writeQueue.maxConcurrentOperationCount = 1
   }
 
-  public convenience init(url: URL, webSocketProtocol: WSProtocol = .subscriptionWsProtocol) {
+  /// Convenience initializer to specify the URL and web socket protocol.
+  ///
+  /// - Parameters:
+  ///   - url: The destination URL to connect to.
+  ///   - webSocketProtocol: Protocol to use for communication over the web socket.
+  public convenience init(url: URL, webSocketProtocol: WSProtocol) {
     var request = URLRequest(url: url)
     request.timeoutInterval = 5
-    request.setValue(webSocketProtocol.description,
-                     forHTTPHeaderField: Constants.headerWSProtocolName)
 
-    self.init(request: request)
+    self.init(request: request, webSocketProtocol: webSocketProtocol)
   }
 
-  // Used for specifically setting the QOS for the write queue.
+  /// Convenience initializer to specify the URL and web socket protocol with a specific quality of
+  /// service on the write queue.
+  ///
+  /// - Parameters:
+  ///   - url: The destination URL to connect to.
+  ///   - writeQueueQOS: Specifies the quality of service for the write queue.
+  ///   - webSocketProtocol: Protocol to use for communication over the web socket.
   public convenience init(
     url: URL,
     writeQueueQOS: QualityOfService,
-    webSocketProtocol: WSProtocol = .subscriptionWsProtocol
+    webSocketProtocol: WSProtocol
   ) {
     self.init(url: url, webSocketProtocol: webSocketProtocol)
     writeQueue.qualityOfService = writeQueueQOS
