@@ -75,10 +75,12 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     case subscriptionWsProtocol
     /// Protocol implemented by the https://github.com/enisdenjo/graphql-ws library.
     case graphqlWsProtocol
+    /// Protocol implemented by AWS AppSync
+    case appSyncWsProtocol
 
     public var description: String {
       switch self {
-      case .subscriptionWsProtocol: return "graphql-ws"
+      case .subscriptionWsProtocol, .appSyncWsProtocol: return "graphql-ws"
       case .graphqlWsProtocol: return "graphql-transport-ws"
       }
     }
