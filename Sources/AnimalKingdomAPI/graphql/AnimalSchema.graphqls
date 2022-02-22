@@ -1,10 +1,37 @@
 type Query {
   allAnimals: [Animal!]!
-  allPets: [Pet!]!
   classroomPets: [ClassroomPet!]!
+  pets(filters: PetSearchFilters!): [Pet!]!
+}
+
+type Mutation {
+  adoptPet(input: PetAdoptionInput!): Pet!
+}
+
+input PetAdoptionInput {
+  ownerID: ID!
+  petID: ID!
+  "The given name the pet is called by its human."
+  humanName: String
+  favoriteToy: String!
+  isSpayedOrNeutered: Boolean! = false
+  measurements: MeasurementsInput
+}
+
+input MeasurementsInput {
+  height: Float!
+  weight: Float!
+  wingspan: Float
+}
+
+input PetSearchFilters {
+  species: [String!]!
+  size: RelativeSize
+  measurements: MeasurementsInput
 }
 
 interface Animal {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -12,12 +39,14 @@ interface Animal {
 }
 
 interface Pet {
+  id: ID!
   humanName: String
   favoriteToy: String!
   owner: Human
 }
 
 interface HousePet implements Animal & Pet {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -31,6 +60,7 @@ interface HousePet implements Animal & Pet {
 }
 
 interface WarmBlooded implements Animal {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -49,6 +79,7 @@ type Height {
 }
 
 type Human implements Animal & WarmBlooded {
+  id: ID!
   firstName: String!
   species: String!
   height: Height!
@@ -59,6 +90,7 @@ type Human implements Animal & WarmBlooded {
 }
 
 type Cat implements Animal & Pet & WarmBlooded {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -72,6 +104,7 @@ type Cat implements Animal & Pet & WarmBlooded {
 }
 
 type Dog implements Animal & Pet & HousePet & WarmBlooded {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -87,6 +120,7 @@ type Dog implements Animal & Pet & HousePet & WarmBlooded {
 }
 
 type Bird implements Animal & Pet & WarmBlooded {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -96,10 +130,11 @@ type Bird implements Animal & Pet & WarmBlooded {
   owner: Human
   bodyTemperature: Int!
   laysEggs: Boolean!
-  wingspan: Int!
+  wingspan: Float!
 }
 
 type Fish implements Animal & Pet {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -110,6 +145,7 @@ type Fish implements Animal & Pet {
 }
 
 type Rat implements Animal & Pet {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -120,6 +156,7 @@ type Rat implements Animal & Pet {
 }
 
 type Crocodile implements Animal {
+  id: ID!
   species: String!
   height: Height!
   predators: [Animal!]!
@@ -128,6 +165,7 @@ type Crocodile implements Animal {
 }
 
 type PetRock implements Pet {
+  id: ID!
   humanName: String
   favoriteToy: String!
   owner: Human

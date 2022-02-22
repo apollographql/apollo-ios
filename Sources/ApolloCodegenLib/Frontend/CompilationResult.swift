@@ -238,7 +238,9 @@ public class CompilationResult: JavaScriptObject {
   
   public class Argument: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
-    
+
+    lazy var type: GraphQLType = self["type"]
+
     lazy var value: GraphQLValue = self["value"]
 
     public func hash(into hasher: inout Hasher) {

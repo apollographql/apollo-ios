@@ -98,7 +98,7 @@ public extension GraphQLInputField {
   class func mock(
     _ name: String,
     type: GraphQLType,
-    defaultValue: Any?
+    defaultValue: GraphQLValue?
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.name = name

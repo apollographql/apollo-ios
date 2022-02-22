@@ -184,6 +184,7 @@
 		DE09F9BD27024FEA00795949 /* InputObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9BC27024FEA00795949 /* InputObject.swift */; };
 		DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C0270269E800795949 /* MockJavaScriptObject.swift */; };
 		DE09F9C6270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */; };
+		DE0BCCE127C020F300A04743 /* AnimalKingdomAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3C7A11260A6B9800D2F4FF /* AnimalKingdomAPI.framework */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
@@ -258,6 +259,18 @@
 		DE674D9F261CEEE4000E8FC8 /* a.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9B2061192591B3550020D1E0 /* a.txt */; };
 		DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B15AE26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift */; };
 		DE6B15B126152BE10068D642 /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
+		DE6B650827C059A800970E4E /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
+		DE6B650C27C4293D00970E4E /* FieldArgumentRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6B650B27C4293D00970E4E /* FieldArgumentRendering.swift */; };
+		DE6D07F927BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */; };
+		DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */; };
+		DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */; };
+		DE6D080427BD9A91009F5F33 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */; };
+		DE6D080727BD9AA9009F5F33 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */; };
+		DE6D080927BD9ABA009F5F33 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D080827BD9ABA009F5F33 /* Mutation.swift */; };
+		DE6D083327BDA211009F5F33 /* MeasurementsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */; };
+		DE72867A27BEEC4D00577A0E /* PetSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */; };
+		DE72867C27BEEDF900577A0E /* PetSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE72867B27BEEDF900577A0E /* PetSearchQuery.swift */; };
+		DE72867E27BEEE2D00577A0E /* PetSearchFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE72867D27BEEE2D00577A0E /* PetSearchFilters.swift */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -316,6 +329,7 @@
 		DED46035261CEA660086EF63 /* ApolloTestSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */; };
 		DED46042261CEA8A0086EF63 /* TestServerURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED45C172615308E0086EF63 /* TestServerURLs.swift */; };
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
+		DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */; };
 		DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFBBC85273470F70088AABC /* IR+Field.swift */; };
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
 		E603863C27B2FB1D00E7B060 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E603765727B2FB1900E7B060 /* PetDetails.swift */; };
@@ -353,7 +367,7 @@
 		E623FD2A2797A6F4008B4CED /* InterfaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E623FD292797A6F4008B4CED /* InterfaceTemplate.swift */; };
 		E64F7EB827A0854E0059C021 /* UnionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EB727A0854E0059C021 /* UnionTemplate.swift */; };
 		E64F7EBA27A085D90059C021 /* UnionTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */; };
-		E64F7EBC27A11A510059C021 /* GraphQLNamedType+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBB27A11A510059C021 /* GraphQLNamedType+Swift.swift */; };
+		E64F7EBC27A11A510059C021 /* GraphQLNamedType+SwiftName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */; };
 		E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */; };
 		E64F7EC127A122300059C021 /* ObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC027A122300059C021 /* ObjectTemplate.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
@@ -515,6 +529,13 @@
 			remoteGlobalIDString = DE058606266978A100265760;
 			remoteInfo = ApolloModels;
 		};
+		DE0BCCDF27C020EE00A04743 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE3C7A00260A6B9800D2F4FF;
+			remoteInfo = AnimalKingdomAPI;
+		};
 		DE3C7A96260A6C1000D2F4FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -528,6 +549,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9FC750431D2A532C00458D91;
 			remoteInfo = Apollo;
+		};
+		DE6D083427BDAB9E009F5F33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE058606266978A100265760;
+			remoteInfo = ApolloAPI;
 		};
 		DECD46F9262F659100924527 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -980,6 +1008,18 @@
 		DE6B160B26152D210068D642 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		DE6B160C26152D210068D642 /* Workspace-Packaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Packaging.xcconfig"; sourceTree = "<group>"; };
 		DE6B160D26152D210068D642 /* Workspace-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Workspace-Shared.xcconfig"; sourceTree = "<group>"; };
+		DE6B650B27C4293D00970E4E /* FieldArgumentRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldArgumentRendering.swift; sourceTree = "<group>"; };
+		DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLInputField+Rendered.swift"; sourceTree = "<group>"; };
+		DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinition_VariableDefinition_Tests.swift; sourceTree = "<group>"; };
+		DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVariableRenderable.swift; sourceTree = "<group>"; };
+		DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetAdoptionMutation.graphql; sourceTree = "<group>"; };
+		DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
+		DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
+		DE6D080827BD9ABA009F5F33 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
+		DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.swift; sourceTree = "<group>"; };
+		DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetSearchQuery.graphql; sourceTree = "<group>"; };
+		DE72867B27BEEDF900577A0E /* PetSearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.swift; sourceTree = "<group>"; };
+		DE72867D27BEEE2D00577A0E /* PetSearchFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.swift; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -1016,6 +1056,7 @@
 		DEE1B3F3273B08D8007350E5 /* AllAnimals.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAnimals.graphql.swift; sourceTree = "<group>"; };
 		DEE1B3F4273B08D8007350E5 /* Types.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
 		DEE1B3F5273B08D8007350E5 /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
+		DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLType+Rendered.swift"; sourceTree = "<group>"; };
 		DEFBBC85273470F70088AABC /* IR+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Field.swift"; sourceTree = "<group>"; };
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
 		E603765727B2FB1900E7B060 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
@@ -1054,7 +1095,7 @@
 		E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceTemplateTests.swift; sourceTree = "<group>"; };
 		E64F7EB727A0854E0059C021 /* UnionTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionTemplate.swift; sourceTree = "<group>"; };
 		E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionTemplateTests.swift; sourceTree = "<group>"; };
-		E64F7EBB27A11A510059C021 /* GraphQLNamedType+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLNamedType+Swift.swift"; sourceTree = "<group>"; };
+		E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLNamedType+SwiftName.swift"; sourceTree = "<group>"; };
 		E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLNamedType+SwiftTests.swift"; sourceTree = "<group>"; };
 		E64F7EC027A122300059C021 /* ObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplate.swift; sourceTree = "<group>"; };
 		E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateTests.swift; sourceTree = "<group>"; };
@@ -1137,6 +1178,7 @@
 				DEAFB77F2706474C00BE02F3 /* Nimble in Frameworks */,
 				DECD49DB262F8AAA00924527 /* ApolloTestSupport.framework in Frameworks */,
 				DECD4992262F841600924527 /* ApolloCodegenTestSupport.framework in Frameworks */,
+				DE0BCCE127C020F300A04743 /* AnimalKingdomAPI.framework in Frameworks */,
 				9FDE0752258F3BC200DC0CA5 /* StarWarsAPI.framework in Frameworks */,
 				9BAEEC01234BB8FD00808306 /* ApolloCodegenLib.framework in Frameworks */,
 			);
@@ -1201,6 +1243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE6B650827C059A800970E4E /* ApolloAPI.framework in Frameworks */,
 				DE3C7A94260A6C1000D2F4FF /* ApolloUtils.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1566,7 +1609,6 @@
 				9B7B6F68233C2C0C00F32205 /* FileManager+Apollo.swift */,
 				9BAEEBF62346F0A000808306 /* StaticString+Apollo.swift */,
 				9B8C3FB1248DA2EA00707B13 /* URL+Apollo.swift */,
-				E64F7EBB27A11A510059C021 /* GraphQLNamedType+Swift.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -2015,6 +2057,7 @@
 		DE31A437276A78140020DC44 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */,
 				E6C9849227929EBE009481BE /* EnumTemplate.swift */,
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */,
@@ -2040,8 +2083,9 @@
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
 				E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
-				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
+				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
+				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
@@ -2068,6 +2112,8 @@
 			children = (
 				DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */,
 				DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */,
+				DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */,
+				DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */,
 				DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */,
 				DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */,
 				DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */,
@@ -2145,6 +2191,28 @@
 			name = Shared;
 			path = Configuration/Shared;
 			sourceTree = SOURCE_ROOT;
+		};
+		DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */,
+				DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */,
+				DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */,
+				DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */,
+				DE6B650B27C4293D00970E4E /* FieldArgumentRendering.swift */,
+			);
+			path = RenderingHelpers;
+			sourceTree = "<group>";
+		};
+		DE6D080527BD9AA9009F5F33 /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				DE6D080627BD9AA9009F5F33 /* PetAdoptionInput.swift */,
+				DE72867D27BEEE2D00577A0E /* PetSearchFilters.swift */,
+				DE6D083227BDA211009F5F33 /* MeasurementsInput.swift */,
+			);
+			path = InputObjects;
+			sourceTree = "<group>";
 		};
 		DE9C04AB26EA763E00EC35E7 /* Accumulators */ = {
 			isa = PBXGroup;
@@ -2282,6 +2350,8 @@
 				E603765827B2FB1900E7B060 /* HeightInMeters.swift */,
 				E603765927B2FB1900E7B060 /* ClassroomPetDetails.swift */,
 				E603765A27B2FB1900E7B060 /* ClassroomPetsQuery.swift */,
+				DE6D080327BD9A91009F5F33 /* PetAdoptionMutation.swift */,
+				DE72867B27BEEDF900577A0E /* PetSearchQuery.swift */,
 				E603765B27B2FB1900E7B060 /* AllAnimalsQuery.swift */,
 				E603765C27B2FB1900E7B060 /* WarmBloodedDetails.swift */,
 			);
@@ -2291,6 +2361,7 @@
 		E603765D27B2FB1900E7B060 /* Schema */ = {
 			isa = PBXGroup;
 			children = (
+				DE6D080527BD9AA9009F5F33 /* InputObjects */,
 				E603765E27B2FB1900E7B060 /* Unions */,
 				E603766027B2FB1900E7B060 /* Enums */,
 				E603766327B2FB1900E7B060 /* Objects */,
@@ -2320,6 +2391,7 @@
 		E603766327B2FB1900E7B060 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				DE6D080827BD9ABA009F5F33 /* Mutation.swift */,
 				E603766427B2FB1900E7B060 /* Query.swift */,
 				E603766527B2FB1900E7B060 /* Bird.swift */,
 				E603766627B2FB1900E7B060 /* Human.swift */,
@@ -2615,10 +2687,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
 				DECD49DA262F8AA500924527 /* PBXTargetDependency */,
 				DECD4991262F841300924527 /* PBXTargetDependency */,
+				DE0BCCE027C020EE00A04743 /* PBXTargetDependency */,
 				9FDE0742258F3B6100DC0CA5 /* PBXTargetDependency */,
-				9BAEEC03234BB8FD00808306 /* PBXTargetDependency */,
 			);
 			name = ApolloCodegenTests;
 			packageProductDependencies = (
@@ -2786,6 +2859,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DE6D083527BDAB9E009F5F33 /* PBXTargetDependency */,
 				DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */,
 			);
 			name = AnimalKingdomAPI;
@@ -3040,6 +3114,7 @@
 				DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */,
 				DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */,
 				DE223C20271F332D004A0148 /* HeightInMeters.graphql in Resources */,
+				DE72867A27BEEC4D00577A0E /* PetSearchQuery.graphql in Resources */,
 				DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */,
 				DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */,
 			);
@@ -3132,6 +3207,7 @@
 				E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */,
 				9BAEEBEF2346644B00808306 /* ApolloSchemaDownloader.swift in Sources */,
 				DE5FD601276923620033EE23 /* TemplateString.swift in Sources */,
+				DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */,
 				DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */,
 				E64F7EC127A122300059C021 /* ObjectTemplate.swift in Sources */,
 				9F1A966F258F34BB00A06EEB /* JavaScriptBridge.swift in Sources */,
@@ -3149,9 +3225,11 @@
 				9BAEEBF32346DDAD00808306 /* CodegenLogger.swift in Sources */,
 				9F628EB52593651B00F94F9D /* GraphQLValue.swift in Sources */,
 				DE5FD5FD2769222D0033EE23 /* OperationDefinitionTemplate.swift in Sources */,
+				DE6B650C27C4293D00970E4E /* FieldArgumentRendering.swift in Sources */,
 				DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
+				DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */,
 				DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */,
 				DE79642D27699A6A00978A03 /* IR+NamedFragmentBuilder.swift in Sources */,
 				9B47518D2575AA850001FB87 /* Pluralizer.swift in Sources */,
@@ -3167,10 +3245,11 @@
 				E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */,
 				9B7B6F69233C2C0C00F32205 /* FileManager+Apollo.swift in Sources */,
 				E674DB41274C0A9B009BB90E /* Glob.swift in Sources */,
+				DE6D07F927BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift in Sources */,
 				DE5B318F27A48E060051C9D3 /* ImportStatementTemplate.swift in Sources */,
 				9F1A966C258F34BB00A06EEB /* GraphQLSchema.swift in Sources */,
 				9BE74D3D23FB4A8E006D354F /* FileFinder.swift in Sources */,
-				E64F7EBC27A11A510059C021 /* GraphQLNamedType+Swift.swift in Sources */,
+				E64F7EBC27A11A510059C021 /* GraphQLNamedType+SwiftName.swift in Sources */,
 				9B7B6F59233C287200F32205 /* ApolloCodegen.swift in Sources */,
 				E608FBA527B1EFDF00493756 /* HeaderCommentTemplate.swift in Sources */,
 				DE2739112769AEBA00B886EF /* SelectionSetTemplate.swift in Sources */,
@@ -3250,6 +3329,7 @@
 				E6C9849527929FED009481BE /* EnumTemplateTests.swift in Sources */,
 				DE5FD609276956C70033EE23 /* SchemaTemplateTests.swift in Sources */,
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
+				DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */,
 				E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
 				E6D90D0D278FFE35009CAC5D /* SchemaFileGeneratorTests.swift in Sources */,
@@ -3467,16 +3547,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				E603864A27B2FB1D00E7B060 /* Height.swift in Sources */,
+				DE72867E27BEEE2D00577A0E /* PetSearchFilters.swift in Sources */,
 				E603864227B2FB1D00E7B060 /* ClassroomPet.swift in Sources */,
 				E603864F27B2FB1D00E7B060 /* WarmBlooded.swift in Sources */,
 				E603863F27B2FB1D00E7B060 /* ClassroomPetsQuery.swift in Sources */,
+				DE6D080727BD9AA9009F5F33 /* PetAdoptionInput.swift in Sources */,
 				E603864D27B2FB1D00E7B060 /* Animal.swift in Sources */,
 				E603864527B2FB1D00E7B060 /* Query.swift in Sources */,
 				DE223C24271F335D004A0148 /* Resources.swift in Sources */,
 				E603864B27B2FB1D00E7B060 /* PetRock.swift in Sources */,
 				E603864027B2FB1D00E7B060 /* AllAnimalsQuery.swift in Sources */,
+				DE6D080927BD9ABA009F5F33 /* Mutation.swift in Sources */,
 				E603864427B2FB1D00E7B060 /* RelativeSize.swift in Sources */,
+				DE6D083327BDA211009F5F33 /* MeasurementsInput.swift in Sources */,
 				E603864627B2FB1D00E7B060 /* Bird.swift in Sources */,
+				DE72867C27BEEDF900577A0E /* PetSearchQuery.swift in Sources */,
 				E603864927B2FB1D00E7B060 /* Rat.swift in Sources */,
 				E603863E27B2FB1D00E7B060 /* ClassroomPetDetails.swift in Sources */,
 				E603864127B2FB1D00E7B060 /* WarmBloodedDetails.swift in Sources */,
@@ -3486,6 +3571,7 @@
 				E603864E27B2FB1D00E7B060 /* Pet.swift in Sources */,
 				E603864327B2FB1D00E7B060 /* SkinCovering.swift in Sources */,
 				E603864727B2FB1D00E7B060 /* Human.swift in Sources */,
+				DE6D080427BD9A91009F5F33 /* PetAdoptionMutation.swift in Sources */,
 				E603864827B2FB1D00E7B060 /* Cat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3625,6 +3711,11 @@
 			target = DE058606266978A100265760 /* ApolloAPI */;
 			targetProxy = DE05862726697B1D00265760 /* PBXContainerItemProxy */;
 		};
+		DE0BCCE027C020EE00A04743 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */;
+			targetProxy = DE0BCCDF27C020EE00A04743 /* PBXContainerItemProxy */;
+		};
 		DE3C7A97260A6C1000D2F4FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9B68353D2463481A00337AE6 /* ApolloUtils */;
@@ -3634,6 +3725,11 @@
 			isa = PBXTargetDependency;
 			target = 9FC750431D2A532C00458D91 /* Apollo */;
 			targetProxy = DE6B15B226152BE10068D642 /* PBXContainerItemProxy */;
+		};
+		DE6D083527BDAB9E009F5F33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE058606266978A100265760 /* ApolloAPI */;
+			targetProxy = DE6D083427BDAB9E009F5F33 /* PBXContainerItemProxy */;
 		};
 		DECD46FA262F659100924527 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

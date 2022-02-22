@@ -307,4 +307,144 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
+
+  // MARK: - Variables
+
+   func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {
+     // given
+     schemaSDL = """
+     type Query {
+       allAnimals: [Animal!]
+     }
+
+     type Animal {
+       species: String!
+     }
+     """
+
+     document = """
+     query TestOperation($variable: String!) {
+       allAnimals {
+         species
+       }
+     }
+     """
+
+     let expected =
+     """
+       public var variable: String
+
+       public init(variable: String) {
+         self.variable = variable
+       }
+
+       public var variables: Variables? {
+         ["variable": variable]
+       }
+     """
+
+     // when
+     try buildSubjectAndOperation()
+
+     let actual = subject.render()
+
+     // then
+     expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+   }
+
+  func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      intField: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($variable1: String!, $variable2: Boolean!, $variable3: Int!) {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public var variable1: String
+      public var variable2: Bool
+      public var variable3: Int
+
+      public init(
+        variable1: String,
+        variable2: Bool,
+        variable3: Int
+      ) {
+        self.variable1 = variable1
+        self.variable2 = variable2
+        self.variable3 = variable3
+      }
+
+      public var variables: Variables? {
+        ["variable1": variable1,
+         "variable2": variable2,
+         "variable3": variable3]
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($variable: String = "TestVar") {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected =
+    """
+      public var variable: GraphQLNullable<String>
+    
+      public init(variable: GraphQLNullable<String> = "TestVar") {
+        self.variable = variable
+      }
+
+      public var variables: Variables? {
+        ["variable": variable]
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+  }
+
 }

@@ -95,3 +95,17 @@ public extension CompilationResult.FragmentDefinition {
     return mock
   }
 }
+
+public extension CompilationResult.VariableDefinition {
+  class func mock(
+    _ name: String,
+    type: GraphQLType,
+    defaultValue: GraphQLValue?
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    mock.type = type
+    mock.defaultValue = defaultValue
+    return mock
+  }
+}

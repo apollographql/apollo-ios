@@ -10,11 +10,13 @@ import {
   getNamedType,
   GraphQLCompositeType,
   GraphQLError,
+  GraphQLInputObjectType,  
   GraphQLNamedType,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLType,
   isCompositeType,
+  isInputObjectType,
   isUnionType,
   Kind,
   OperationDefinitionNode,
@@ -82,6 +84,10 @@ export function compileToIR(
         referencedTypes.add(getNamedType(type))
       }      
     }
+
+    if (isInputObjectType(type)) {
+      addReferencedTypesFromInputObject(type)
+    }
   }
 
   function getFragment(name: string): ir.FragmentDefinition | undefined {
@@ -113,6 +119,7 @@ export function compileToIR(
     const variables = (operationDefinition.variableDefinitions || []).map(
       (node) => {
         const name = node.variable.name.value;
+        const defaultValue = node.defaultValue ? valueFromValueNode(node.defaultValue) : undefined
 
         // The casts are a workaround for the lack of support for passing a type union
         // to overloaded functions in TypeScript.
@@ -124,7 +131,7 @@ export function compileToIR(
         if (!type) {
           throw new GraphQLError(
             `Couldn't get type from type node "${node.type}"`,
-            node
+            { nodes: node }
           );
         }
 
@@ -133,6 +140,7 @@ export function compileToIR(
         return {
           name,
           type,
+          defaultValue
         };
       }
     );
@@ -212,7 +220,7 @@ export function compileToIR(
         if (!fieldDef) {
           throw new GraphQLError(
             `Cannot query field "${name}" on type "${String(parentType)}"`,
-            selectionNode
+            { nodes: selectionNode }
           );
         }
 
@@ -230,7 +238,15 @@ export function compileToIR(
                 const argDef = fieldDef.args.find(
                   (argDef) => argDef.name === arg.name.value
                 );
-                const argDefType = (argDef && argDef.type) || undefined;
+                const argDefType = argDef?.type;
+
+                if (!argDefType) {
+                  throw new GraphQLError(
+                    `Cannot find argument type for argument "${name}" on field "${selectionNode.name.value}"`,
+                    { nodes: [selectionNode, arg] }
+                  )
+                }
+                
                 return {
                   name,
                   value: valueFromValueNode(arg.value),
@@ -304,6 +320,18 @@ export function compileToIR(
         };
         return fragmentSpread;
       }
+    }
+  }
+
+  function addReferencedTypesFromInputObject(
+    inputObject: GraphQLInputObjectType
+  ) {
+    const fields = inputObject.astNode?.fields
+    if (fields) {
+      for (const field of fields) {
+        const type = typeFromAST(schema, field.type) as GraphQLType
+        addReferencedType(getNamedType(type))
+      }    
     }
   }
 }
