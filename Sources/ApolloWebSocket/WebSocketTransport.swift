@@ -181,8 +181,15 @@ public class WebSocketTransport {
         writeQueue()
 
       case .connectionKeepAlive,
-           .startAck:
+           .startAck,
+           .pong:
         writeQueue()
+
+      case .ping:
+        if let str = OperationMessage(type: .pong).rawMessage {
+          write(str)
+          writeQueue()
+        }
 
       case .connectionInit,
            .connectionTerminate,

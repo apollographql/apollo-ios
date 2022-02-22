@@ -19,6 +19,9 @@ final class OperationMessage {
     case error = "error"                               // Server -> Client
     case complete = "complete"                         // Server -> Client
     case next = "next"                                 // Server -> Client
+
+    case ping = "ping"                                 // Bidirectional
+    case pong = "pong"                                 // Bidirectional
   }
 
   let serializationFormat = JSONSerializationFormat.self
