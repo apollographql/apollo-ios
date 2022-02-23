@@ -29,7 +29,10 @@ public class ApolloCodegen {
   public static func build(with configuration: ApolloCodegenConfiguration) throws {
     try configuration.validate()
 
-    let compilationResult = try compileGraphQLResult(configuration.input)
+    let compilationResult = try compileGraphQLResult(
+      configuration.input,
+      experimentalClientControlledNullability: configuration.experimentalClientControlledNullability
+    )
 
     let ir = IR(
       schemaName: configuration.output.schemaTypes.moduleName,
@@ -45,9 +48,11 @@ public class ApolloCodegen {
 
   // MARK: Internal
 
+  // TODO: Pass CCN configuration here
   /// Performs GraphQL source validation and compiles the schema and operation source documents. 
   static func compileGraphQLResult(
-    _ config: ApolloCodegenConfiguration.FileInput
+    _ config: ApolloCodegenConfiguration.FileInput,
+    experimentalClientControlledNullability: Bool = false
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
 
@@ -56,7 +61,10 @@ public class ApolloCodegen {
 
     let matches = try Glob(config.searchPaths).match()
     let documents = try matches.map({ path in
-      return try frontend.parseDocument(from: URL(fileURLWithPath: path))
+      return try frontend.parseDocument(
+        from: URL(fileURLWithPath: path),
+        experimentalClientControlledNullability: experimentalClientControlledNullability
+      )
     })
     let mergedDocument = try frontend.mergeDocuments(documents)
 
