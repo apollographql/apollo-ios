@@ -19,13 +19,14 @@ There are two different classes which conform to the [`NetworkTransport` protoco
 
 Typically, you'll want to use `SplitNetworkTransport`, since this allows you to retain the single `NetworkTransport` setup and avoids any potential issues of using multiple client objects. 
 
-## GraphQL over WebSocket Protocols
+## GraphQL over WebSocket
 
-There are two GraphQL over WebSocket protocols that apollo-ios supports:
-1. [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) which is implemented in the [graphql-ws](https://github.com/enisdenjo/graphql-ws) package. This is a modern, actively maintained library and is our recommendation to use in your server.
-2. [graphql-ws](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) which is implemented in the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) package. This library is not actively maintained and is considered legacy. It is not recommended for new server builds.
+There are three GraphQL over WebSocket implementations supported by apollo-ios:
+1. The [graphql-ws](https://github.com/enisdenjo/graphql-ws) library which implements the [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) protocol. This is a modern, actively maintained library and is our recommendation to use in your server.
+2. The [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) library which implements the [graphql-ws](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) protocol. This library is not actively maintained and is considered legacy. It is not recommended for new server builds.
+3. AWS AppSync which implements the [graphql-ws](https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#appsynclong-real-time-websocket-client-implementation-guide-for-graphql-subscriptions) protocol with a few additions.
 
-It is important to note that the two libraries and protocols are not cross-compatible. You will need to know which is implemented in the server you're connecting to. All `WebSocket` initializers allow you to specify the GraphQL over WebSocket protocol to be used.
+It is important to note that the libraries are not cross-compatible and you will need to know which is implemented in the server you're connecting to. All `WebSocket` initializers allow you to specify which GraphQL over WebSocket protocol should be used.
 
 ## Sample subscription-supporting initializer 
 
@@ -44,7 +45,7 @@ class Apollo {
   /// A web socket transport to use for subscriptions  
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
-    let webSocketClient = WebSocket(url: url, webSocketProtocol: .graphql_ws)
+    let webSocketClient = WebSocket(url: url, webSocketProtocol: .graphqlWsProtocol)
     return WebSocketTransport(websocket: webSocketClient)
   }()
   
@@ -168,7 +169,7 @@ class Apollo {
   // initializes the connection as an authorized channel.
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
-    let webSocketClient = WebSocket(url: url, webSocketProtocol: .graphql_ws)
+    let webSocketClient = WebSocket(url: url, webSocketProtocol: .graphqlWsProtocol)
     let authPayload = ["authToken": magicToken]
     return WebSocketTransport(websocket: webSocketClient, connectingPayload: authPayload)
   }()
