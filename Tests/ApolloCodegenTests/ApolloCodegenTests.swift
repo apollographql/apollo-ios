@@ -141,6 +141,58 @@ class ApolloCodegenTests: XCTestCase {
     expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(haveCount(2))
   }
 
+  func test_CCN_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let authorsData: Data =
+      """
+      query getAuthors {
+        authors {
+          name!
+        }
+      }
+      """.data(using: .utf8)!
+    createFile(containing: authorsData, named: "authors-operation.graphql")
+
+    let config = ApolloCodegenConfiguration.FileInput(
+      schemaPath: schemaPath,
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: true).operations).to(haveCount(1))
+  }
+
+  func test_CCN_compileResults_givenOperations_withErrors_shouldError() throws {
+    // given
+    let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
+
+    let authorsData: Data =
+      """
+      query getAuthors {
+        authors {
+          name!
+        }
+      }
+      """.data(using: .utf8)!
+    createFile(containing: authorsData, named: "authors-operation.graphql")
+
+    let config = ApolloCodegenConfiguration.FileInput(
+      schemaPath: schemaPath,
+      searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
+    )
+
+    // then
+    expect(try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: false).operations).to(throwError { error in
+      guard let error = error as? GraphQLError else {
+        fail("Expected .graphQLSourceValidationFailure, got .\(error)")
+        return
+      }
+      expect(error.message).to(equal("Syntax Error: Expected Name, found \"!\"."))
+    })
+  }
+
   func test_compileResults_givenSchema_withNoOperations_shouldReturnEmpty() throws {
     // given
     let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
