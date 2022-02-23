@@ -142,13 +142,25 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_CCN_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
+    let schemaData: Data = {
+      """
+      type Query {
+        author: Author
+      }
+
+      type Author {
+        name: String
+        age: Int
+      }
+      """
+    }().data(using: .utf8)!
     // given
     let schemaPath = createFile(containing: schemaData, named: "schema.graphqls")
 
     let authorsData: Data =
       """
       query getAuthors {
-        authors {
+        author! {
           name!
         }
       }
@@ -159,9 +171,10 @@ class ApolloCodegenTests: XCTestCase {
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )
+    let compiledDocument = try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: true)
 
     // then
-    expect(try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: true).operations).to(haveCount(1))
+    expect(compiledDocument.operations).to(haveCount(1))
   }
 
   func test_CCN_compileResults_givenOperations_withErrors_shouldError() throws {

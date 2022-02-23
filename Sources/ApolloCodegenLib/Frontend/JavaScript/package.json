@@ -13,7 +13,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "graphql": "^16.3.0-canary.pr.3418.64c65ba6a2e7e923ed9a476c945f3c72da7a6c7f",
+    "graphql": "16.3.0-canary.pr.3418.662180be9091ee1edf699b4cf4922bd5b7705297",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

@@ -48,7 +48,6 @@ public class ApolloCodegen {
 
   // MARK: Internal
 
-  // TODO: Pass CCN configuration here
   /// Performs GraphQL source validation and compiles the schema and operation source documents. 
   static func compileGraphQLResult(
     _ config: ApolloCodegenConfiguration.FileInput,
