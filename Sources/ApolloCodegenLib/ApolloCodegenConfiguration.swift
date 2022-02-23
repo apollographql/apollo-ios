@@ -199,6 +199,8 @@ public struct ApolloCodegenConfiguration {
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   public let apqs: APQConfig
 
+  public let experimentalClientControlledNullability: Bool
+
   // MARK: Initializers
 
   /// Designated initializer.
@@ -226,7 +228,8 @@ public struct ApolloCodegenConfiguration {
     customScalarFormat: CustomScalarFormat = .defaultAsString,
     deprecatedEnumCases: Composition = .include,
     schemaDocumentation: Composition = .include,
-    apqs: APQConfig = .disabled
+    apqs: APQConfig = .disabled,
+    experimentalClientControlledNullability: Bool = false
   ) {
     self.input = input
     self.output = output
@@ -236,6 +239,7 @@ public struct ApolloCodegenConfiguration {
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.apqs = apqs
+    self.experimentalClientControlledNullability = experimentalClientControlledNullability
   }
 
 }
