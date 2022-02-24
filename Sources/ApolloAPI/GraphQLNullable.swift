@@ -119,3 +119,13 @@ public extension GraphQLNullable {
     self = .some(object)
   }
 }
+
+// MARK: - Nil Coalescing Operator
+
+public func ??<T>(lhs: T?, rhs: GraphQLNullable<T>) -> GraphQLNullable<T> {
+  if let lhs = lhs {
+    return .some(lhs)
+  }
+  return rhs
+}
+
