@@ -15,6 +15,7 @@ public enum Schema: SchemaConfiguration {
   public static func objectType(forTypename __typename: String) -> Object.Type? {
     switch __typename {
     case "Query": return AnimalKingdomAPI.Query.self
+    case "Mutation": return AnimalKingdomAPI.Mutation.self
     case "Cat": return AnimalKingdomAPI.Cat.self
     case "Bird": return AnimalKingdomAPI.Bird.self
     case "Rat": return AnimalKingdomAPI.Rat.self

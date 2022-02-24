@@ -5,9 +5,13 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
   private let value: String
   private let lastLineWasRemoved: Bool
 
-  init(stringLiteral: String) {
-    self.value = stringLiteral
+  init(_ string: String) {
+    self.value = string
     lastLineWasRemoved = false
+  }
+
+  init(stringLiteral: String) {
+    self.init(stringLiteral)
   }
 
   init(stringInterpolation: StringInterpolation) {
@@ -106,6 +110,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       appendInterpolation(elementsString)
     }
 
+    mutating func appendInterpolation<T>(list: T)
+    where T: Collection, T.Element: CustomStringConvertible {
+      let shouldWrapInNewlines = list.count > 1
+      if shouldWrapInNewlines { appendLiteral("\n  ") }
+      appendInterpolation(list)
+      if shouldWrapInNewlines { appendInterpolation("\n") }
+    }
+
     mutating func appendInterpolation(
       if bool: Bool,
       _ template: @autoclosure () -> TemplateString,
@@ -115,6 +127,21 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
         appendInterpolation(template())
       } else if let elseTemplate = `else` {
         appendInterpolation(elseTemplate)
+      } else {
+        removeLineIfEmpty()
+      }
+    }
+
+    mutating func appendInterpolation<T>(
+    ifLet optional: Optional<T>,
+    where whereBlock: ((T) -> Bool)? = nil,
+    _ includeBlock: (T) -> TemplateString,
+    else: TemplateString? = nil
+    ) {
+      if let element = optional, whereBlock?(element) ?? true {
+        appendInterpolation(includeBlock(element))
+      } else if let elseTemplate = `else` {
+        appendInterpolation(elseTemplate.description)
       } else {
         removeLineIfEmpty()
       }
@@ -132,22 +159,14 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       return buffer.reversed().prefix { !$0.isNewline }
     }
 
-    mutating func appendInterpolation<T>(
-    ifLet optional: Optional<T>,
-    where whereBlock: ((T) -> Bool)? = nil,
-    _ includeBlock: (T) -> TemplateString,
-    else: TemplateString? = nil
-    ) {
-      if let element = optional, whereBlock?(element) ?? true {
-        appendInterpolation(includeBlock(element))
-      } else if let elseTemplate = `else` {
-        appendInterpolation(elseTemplate.value)
-      } else {
-        removeLineIfEmpty()
-      }
-    }
-
   }
+
+}
+
+/// Can be used to concatenate a `TemplateString` and `String` directly.
+/// This bypasses `TemplateString` interpolation logic such as indentation calculation.
+func +(lhs: String, rhs: TemplateString) -> TemplateString {
+  TemplateString(lhs + rhs.description)
 }
 
 fileprivate extension Array where Element == Substring {

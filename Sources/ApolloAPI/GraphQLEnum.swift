@@ -34,6 +34,10 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Equatable, RawRepresentable 
     self = .case(caseValue)
   }
 
+  public init(_ rawValue: String) {
+    self.init(rawValue: rawValue)
+  }
+
   /// The underlying enum case. If the value is `__unknown`, this will be `nil`.
   public var value: T? {
     switch self {

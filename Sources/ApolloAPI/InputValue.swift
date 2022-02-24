@@ -29,33 +29,7 @@ public indirect enum InputValue {
   case null
 }
 
-// MARK: - InputValueConvertible
-
-extension InputValue: InputValueConvertible {
-  public init(_ value: InputValueConvertible) {
-    self = value.asInputValue
-  }
-
-  @inlinable public var asInputValue: InputValue { self }
-}
-
-public protocol InputValueConvertible {
-  @inlinable var asInputValue: InputValue { get }
-}
-
-extension Array: InputValueConvertible where Element: InputValueConvertible {
-  @inlinable public var asInputValue: InputValue { .list(self.map{ $0.asInputValue })}
-}
-
-extension Dictionary: InputValueConvertible where Key == String, Value: InputValueConvertible {
-  @inlinable public var asInputValue: InputValue { .object(self.mapValues { $0.asInputValue })}
-}
-
-extension InputValueConvertible where Self: RawRepresentable, RawValue == String {
-  @inlinable public var asInputValue: InputValue { .scalar(rawValue) }
-}
-
-// MARK: - Expressible as literals
+// MARK: - ExpressibleBy Literal Extensions
 
 extension InputValue: ExpressibleByStringLiteral {
   @inlinable public init(stringLiteral value: StringLiteralType) {
@@ -82,14 +56,14 @@ extension InputValue: ExpressibleByBooleanLiteral {
 }
 
 extension InputValue: ExpressibleByArrayLiteral {
-  @inlinable public init(arrayLiteral elements: InputValueConvertible...) {
-    self = .list(Array(elements.map { $0.asInputValue }))
+  @inlinable public init(arrayLiteral elements: InputValue...) {
+    self = .list(Array(elements.map { $0 }))
   }
 }
 
 extension InputValue: ExpressibleByDictionaryLiteral {
-  @inlinable public init(dictionaryLiteral elements: (String, InputValueConvertible)...) {
-    self = .object(Dictionary(elements.map{ ($0.0, $0.1.asInputValue) },
+  @inlinable public init(dictionaryLiteral elements: (String, InputValue)...) {
+    self = .object(Dictionary(elements.map{ ($0.0, $0.1) },
                               uniquingKeysWith: { (_, last) in last }))
   }
 }

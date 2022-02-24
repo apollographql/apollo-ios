@@ -1,5 +1,12 @@
 # Change log
 
+## v1.0.0-alpha.2
+
+This is the second Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.
+
+* **Operation Variables and Field Arguments are now supported!**
+* **Fixed - Capitalized field names generate code that doesn't compile**[#2167](https://github.com/apollographql/apollo-ios/issues/2167) 
+
 ## v1.0.0-alpha.1
 
 This is the first Alpha Release of Apollo iOS 1.0. This first major version will include a new code generation engine, better generated models, and many syntax and performance improvements across the entire library. The primary goal of Apollo iOS 1.0 is to stabilize the API of the model layer and provide a foundation for future feature additions and evolution of the library.

@@ -100,7 +100,14 @@ struct SelectionSetTemplate {
 
   private func FieldSelectionTemplate(_ field: IR.Field) -> TemplateString {
     """
-    .field("\(field.name)", \(ifLet: field.alias, {"alias: \"\($0)\", "})\(typeName(for: field)).self)
+    .field("\(field.name)"\
+    \(ifLet: field.alias, {", alias: \"\($0)\""})\
+    , \(typeName(for: field)).self\
+    \(ifLet: field.arguments,
+      where: { !$0.isEmpty }, { args in
+        ", arguments: " + renderValue(for: args)
+    })\
+    )
     """
   }
 
@@ -115,6 +122,10 @@ struct SelectionSetTemplate {
     default:
       fatalError()
     }
+  }
+
+  private func renderValue(for arguments: [CompilationResult.Argument]) -> TemplateString {
+    "[\(list: arguments.map{ "\"\($0.name)\": " + $0.value.renderInputValueLiteral() })]"
   }
 
   private func TypeCaseSelectionTemplate(_ typeCase: IR.SelectionSet.TypeInfo) -> TemplateString {
@@ -141,7 +152,7 @@ struct SelectionSetTemplate {
 
   private func FieldAccessorTemplate(_ field: IR.Field) -> TemplateString {
     """
-    public var \(field.responseKey): \(typeName(for: field)) { data["\(field.responseKey)"] }
+    public var \(field.responseKey.firstLowercased): \(typeName(for: field)) { data["\(field.responseKey)"] }
     """
   }
 
@@ -257,45 +268,6 @@ fileprivate extension GraphQLCompositeType {
     case is GraphQLInterfaceType: return "Interface"
     case is GraphQLUnionType: return "Union"
     default: fatalError("Invalid parentType for Selection Set: \(self)")
-    }
-  }
-}
-
-fileprivate extension GraphQLType {
-  var rendered: String {
-    rendered(containedInNonNull: false)
-  }
-
-  func rendered(replacingNamedTypeWith newTypeName: String) -> String {
-    rendered(containedInNonNull: false, replacingNamedTypeWith: newTypeName)
-  }
-
-  private func rendered(
-    containedInNonNull: Bool,
-    replacingNamedTypeWith newTypeName: String? = nil
-  ) -> String {
-    switch self {
-    case let .entity(type as GraphQLNamedType),
-      let .scalar(type as GraphQLNamedType),
-      let .inputObject(type as GraphQLNamedType):
-
-      let typeName = newTypeName ?? type.swiftName
-
-      return containedInNonNull ? typeName : "\(typeName)?"
-
-    case let .enum(type as GraphQLNamedType):
-      let typeName = newTypeName ?? type.name
-      let enumType = "GraphQLEnum<\(typeName)>"
-
-      return containedInNonNull ? enumType : "\(enumType)?"
-
-    case let .nonNull(ofType):
-      return ofType.rendered(containedInNonNull: true, replacingNamedTypeWith: newTypeName)
-
-    case let .list(ofType):
-      let inner = "[\(ofType.rendered(containedInNonNull: false, replacingNamedTypeWith: newTypeName))]"
-
-      return containedInNonNull ? inner : "\(inner)?"
     }
   }
 }

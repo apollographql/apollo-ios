@@ -55,7 +55,7 @@ export interface Field {
 export interface Argument {
   name: string;
   value: GraphQLValue;
-  type?: GraphQLInputType;
+  type: GraphQLInputType;
 }
 
 export interface InlineFragment {

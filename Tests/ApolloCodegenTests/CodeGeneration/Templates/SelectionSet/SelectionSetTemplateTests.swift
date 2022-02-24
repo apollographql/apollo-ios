@@ -385,6 +385,44 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  func test__render_selections__givenFieldWithUppercasedName_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      FieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        FieldName
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("FieldName", String.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
   func test__render_selections__givenFieldWithAlias_rendersFieldSelections() throws {
     // given
     schemaSDL = """
@@ -449,6 +487,202 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public static var selections: [Selection] { [
         .field("predator", Predator.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  // MARK: Selections - Fields - Arguments
+
+  func test__render_selections__givenFieldWithArgumentWithConstantValue_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string(variable: Int): String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: string(variable: 3)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self, arguments: ["variable": 3]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFieldWithArgumentWithNullConstantValue_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string(variable: Int): String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: string(variable: null)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self, arguments: ["variable": .null]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFieldWithArgumentWithVariableValue_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string(variable: Int): String!
+    }
+    """
+
+    document = """
+    query TestOperation($var: Int) {
+      allAnimals {
+        aliased: string(variable: $var)
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self, arguments: ["variable": .variable("var")]),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selections__givenFieldWithArgumentOfInputObjectTypeWithNullableFields_withConstantValues_rendersFieldSelections() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      string(input: TestInput): String!
+    }
+
+    input TestInput {
+      string: String
+      int: Int
+      float: Float
+      bool: Boolean
+      list: [String]
+      enum: TestEnum
+      innerInput: InnerInput
+    }
+
+    input InnerInput {
+      string: String
+      enumList: [TestEnum]
+    }
+
+    enum TestEnum {
+      CaseOne
+      CaseTwo
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        aliased: string(input: {
+          string: "ABCD",
+          int: 3,
+          float: 123.456,
+          bool: true,
+          list: ["A", "B"],
+          enum: CaseOne,
+          innerInput: {
+            string: "EFGH",
+            enumList: [CaseOne, CaseTwo]
+          }
+        })
+      }
+    }
+    """
+
+    let expected = """
+      public static var selections: [Selection] { [
+        .field("string", alias: "aliased", String.self, arguments: ["input": [
+          "string": "ABCD",
+          "int": 3,
+          "float": 123.456,
+          "bool": true,
+          "list": ["A", "B"],
+          "enum": "CaseOne",
+          "innerInput": [
+            "string": "EFGH",
+            "enumList": ["CaseOne", "CaseTwo"]
+          ]
+        ]]),
       ] }
     """
 
@@ -705,6 +939,44 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenFieldWithUpperCaseName_rendersFieldAccessorWithLowercaseName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      AllAnimals: [Animal!]
+    }
+
+    type Animal {
+      FieldName: String!
+    }
+
+    scalar Custom
+    """
+
+    document = """
+    query TestOperation {
+      AllAnimals {
+        FieldName
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String { data["FieldName"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenFieldWithAlias_rendersAllFieldAccessors() throws {
