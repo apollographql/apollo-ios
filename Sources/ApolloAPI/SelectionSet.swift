@@ -83,5 +83,5 @@ extension SelectionSet {
 
 extension SelectionSet where Fragments: FragmentContainer {
   /// Contains accessors for all of the fragments the `SelectionSet` can be converted to.
-  var fragments: Fragments { Fragments(data: data) }
+  public var fragments: Fragments { Fragments(data: data) }
 }
