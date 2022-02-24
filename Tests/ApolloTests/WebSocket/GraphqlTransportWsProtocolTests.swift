@@ -6,6 +6,8 @@ import Apollo
 import SubscriptionAPI
 
 class GraphqlTransportWsProtocolTests: XCTestCase {
+  private let asyncTimeout: DispatchTimeInterval = .seconds(3)
+
   private var store: ApolloStore!
   private var mockWebSocket: MockWebSocket!
   private var websocketTransport: WebSocketTransport! {
@@ -92,7 +94,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
     // given
     buildWebSocket()
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         expect(message).to(equalMessage(payload: [:], type: .connectionInit))
@@ -110,7 +112,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
     // given
     websocketTransport = WebSocketTransport(websocket: mockWebSocket, connectingPayload: nil)
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         expect(message).to(equalMessage(type: .connectionInit))
@@ -131,7 +133,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
       connectingPayload: ["sample": "data"]
     )
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         expect(message).to(equalMessage(payload: ["sample": "data"], type: .connectionInit))
@@ -153,7 +155,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
 
     let operation = IncrementingSubscription()
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         expect(message).to(equalMessage(payload: operation.requestBody, id: "1", type: .subscribe))
@@ -175,7 +177,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
 
     let subject = client.subscribe(subscription: IncrementingSubscription()) { _ in }
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         let expected = OperationMessage(id: "1", type: .stop).rawMessage!
@@ -196,7 +198,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
     connectWebSocket()
     ackConnection()
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         expect(message).to(equalMessage(type: .connectionTerminate))
@@ -218,7 +220,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
 
     let operation = IncrementingSubscription()
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       // when
       self.client.subscribe(subscription: operation) { result in
         switch result {
@@ -248,7 +250,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
     connectWebSocket()
     ackConnection()
 
-    waitUntil { done in
+    waitUntil(timeout: asyncTimeout) { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
         expect(message).to(equalMessage(type: .pong))
