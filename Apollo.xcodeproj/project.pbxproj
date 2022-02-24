@@ -13,6 +13,8 @@
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
+		96F32C2227C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */; };
+		96F32C2327C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEA245A020300562176 /* ApolloInterceptor.swift */; };
@@ -755,6 +757,7 @@
 		90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-GitHubAPI.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
+		96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllAnimalsQueryCCN.graphql; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B2061172591B3550020D1E0 /* c.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c.txt; sourceTree = "<group>"; };
 		9B2061182591B3550020D1E0 /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
@@ -1495,6 +1498,14 @@
 			);
 			name = Configuration;
 			path = Configuration/Apollo;
+			sourceTree = "<group>";
+		};
+		96F32C2427C6FDA900F3383C /* CCNQueries */ = {
+			isa = PBXGroup;
+			children = (
+				96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */,
+			);
+			path = CCNQueries;
 			sourceTree = "<group>";
 		};
 		9B0417812390320A00C9EC4E /* TestHelpers */ = {
@@ -2308,6 +2319,7 @@
 		DE3C7AB7260A6D3E00D2F4FF /* graphql */ = {
 			isa = PBXGroup;
 			children = (
+				96F32C2427C6FDA900F3383C /* CCNQueries */,
 				DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */,
 				DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */,
 				DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */,
@@ -3503,6 +3515,7 @@
 				DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */,
 				DEA9A22B27CD96CD00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */,
 				DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */,
+				96F32C2227C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3528,6 +3541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5B313B27A482980051C9D3 /* ClassroomPets.graphql in Resources */,
+				96F32C2327C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */,
 				DE5B313A27A482950051C9D3 /* AnimalSchema.graphqls in Resources */,
 				DE5B313927A482920051C9D3 /* AllAnimalsQuery.graphql in Resources */,
 				DE5B313E27A482A30051C9D3 /* WarmBloodedDetails.graphql in Resources */,
