@@ -11,11 +11,27 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static let schema = try! frontend.loadSchema(from: ApolloCodegenTestSupport.Resources.AnimalKingdomSchema)
 
-  static let operationDocuments = { try! frontend.mergeDocuments(
-    ApolloCodegenTestSupport.Resources.GraphQLOperations.map {
-      try! frontend.parseDocument(from: $0)
-    }
-  )}()
+  static func operationDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
+    try! frontend.mergeDocuments(
+      ApolloCodegenTestSupport.Resources.GraphQLOperations.map {
+        try! frontend.parseDocument(
+          from: $0,
+          experimentalClientControlledNullability: experimentalClientControlledNullability
+        )
+      }
+    )
+  }
+
+  static func operationCCNDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
+    try! frontend.mergeDocuments(
+      ApolloCodegenTestSupport.Resources.GraphQLCCNOperations.map {
+        try! frontend.parseDocument(
+          from: $0,
+          experimentalClientControlledNullability: experimentalClientControlledNullability
+        )
+      }
+    )
+  }
 
   var compilationResult: CompilationResult!
 
@@ -25,7 +41,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    compilationResult = try! Self.frontend.compile(schema: Self.schema, document: Self.operationDocuments)
+    compilationResult = try! Self.frontend.compile(schema: Self.schema, document: Self.operationDocuments())
   }
 
   override func tearDown() {
@@ -977,4 +993,38 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
     expect(actual).to(shallowlyMatch(self.expected))
   }
 
+  func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsClassroomPet_AsBird_Height__isCorrect_CCN() throws {
+    // given
+    compilationResult = try! Self.frontend.compile(
+      schema: Self.schema,
+      document: Self.operationCCNDocuments(
+        experimentalClientControlledNullability: true
+      )
+    )
+    let operation = compilationResult.operations.first { $0.name == "AllAnimalsQueryCCN" }
+    let ir = IR.mock(compilationResult: compilationResult)
+    let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
+
+    let selectionSet = try XCTUnwrap(
+      rootSelectionSet[field: "allAnimals"]?[field: "height"]?.selectionSet
+    )
+
+    expected = (
+      fields: [
+        .mock("feet",
+              type: .scalar(GraphQLScalarType.integer())),
+        .mock("inches",
+              type: .nonNull(.scalar(GraphQLScalarType.integer()))),
+      ],
+      typeCases: [],
+      fragments: []
+    )
+
+    // when
+    let actual = selectionSet.selections.direct
+
+    // then
+    expect(selectionSet.parentType).to(equal(GraphQLObjectType.mock("Height")))
+    expect(actual).to(shallowlyMatch(self.expected))
+  }
 }
