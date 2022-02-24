@@ -23,7 +23,7 @@ class StarWarsSubscriptionTests: XCTestCase {
     webSocketTransport = WebSocketTransport(
       websocket: WebSocket(
         request: URLRequest(url: TestServerURL.starWarsWebSocket.url),
-        webSocketProtocol: .subscriptionWsProtocol
+        webSocketProtocol: .graphql_ws
       ),
       store: ApolloStore()
     )

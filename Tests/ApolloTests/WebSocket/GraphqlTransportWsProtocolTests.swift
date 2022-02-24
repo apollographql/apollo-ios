@@ -5,7 +5,7 @@ import Nimble
 import Apollo
 import SubscriptionAPI
 
-class SubscriptionWsProtocolTests: XCTestCase {
+class GraphqlTransportWsProtocolTests: XCTestCase {
   private var store: ApolloStore!
   private var mockWebSocket: MockWebSocket!
   private var websocketTransport: WebSocketTransport! {
@@ -38,7 +38,7 @@ class SubscriptionWsProtocolTests: XCTestCase {
 
   private func buildWebSocket() {
     var request = URLRequest(url: TestURL.mockServer.url)
-    request.setValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
+    request.setValue("graphql-transport-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
 
     mockWebSocketDelegate = MockWebSocketDelegate()
     mockWebSocket = MockWebSocket(request: request)
@@ -64,26 +64,26 @@ class SubscriptionWsProtocolTests: XCTestCase {
     expect(
       WebSocket(
         request: URLRequest(url: TestURL.mockServer.url),
-        webSocketProtocol: .subscriptionWsProtocol
+        webSocketProtocol: .graphql_transport_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-ws"))
+    ).to(equal("graphql-transport-ws"))
   }
 
   func test__convenienceInitializers__shouldSetRequestProtocolHeader() {
     expect(
       WebSocket(
         url: TestURL.mockServer.url,
-        webSocketProtocol: .subscriptionWsProtocol
+        webSocketProtocol: .graphql_transport_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-ws"))
+    ).to(equal("graphql-transport-ws"))
 
     expect(
       WebSocket(
         url: TestURL.mockServer.url,
         writeQueueQOS: .default,
-        webSocketProtocol: .subscriptionWsProtocol
+        webSocketProtocol: .graphql_transport_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-ws"))
+    ).to(equal("graphql-transport-ws"))
   }
 
   // MARK: Protocol Tests
@@ -156,7 +156,7 @@ class SubscriptionWsProtocolTests: XCTestCase {
     waitUntil { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
-        expect(message).to(equalMessage(payload: operation.requestBody, id: "1", type: .start))
+        expect(message).to(equalMessage(payload: operation.requestBody, id: "1", type: .subscribe))
         done()
       }
 
@@ -208,7 +208,7 @@ class SubscriptionWsProtocolTests: XCTestCase {
     }
   }
 
-  func test__messaging__whenReceivesData_shouldParseMessage() throws {
+  func test__messaging__whenReceivesNext_shouldParseMessage() throws {
     // given
     buildWebSocket()
     buildClient()
@@ -234,8 +234,29 @@ class SubscriptionWsProtocolTests: XCTestCase {
       let message = OperationMessage(
         payload: ["data": ["numberIncremented": 42]],
         id: "1",
-        type: .data
+        type: .next
       ).rawMessage!
+      self.websocketTransport.websocketDidReceiveMessage(socket: self.mockWebSocket, text: message)
+    }
+  }
+
+  func test__messaging__whenReceivesPing_shouldSendPong() throws {
+    // given
+    buildWebSocket()
+    buildClient()
+
+    connectWebSocket()
+    ackConnection()
+
+    waitUntil { done in
+      self.mockWebSocketDelegate.didReceiveMessage = { message in
+        // then
+        expect(message).to(equalMessage(type: .pong))
+        done()
+      }
+
+      // when
+      let message = OperationMessage(payload: ["sample": "data"], type: .ping).rawMessage!
       self.websocketTransport.websocketDidReceiveMessage(socket: self.mockWebSocket, text: message)
     }
   }

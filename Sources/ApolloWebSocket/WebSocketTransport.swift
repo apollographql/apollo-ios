@@ -281,7 +281,7 @@ public class WebSocketTransport {
     let identifier = operationMessageIdCreator.requestId()
 
     var type: OperationMessage.Types = .start
-    if case WebSocket.WSProtocol.graphqlWsProtocol.description = websocket.request.value(forHTTPHeaderField: WebSocket.Constants.headerWSProtocolName) {
+    if case WebSocket.WSProtocol.graphql_transport_ws.description = websocket.request.value(forHTTPHeaderField: WebSocket.Constants.headerWSProtocolName) {
       type = .subscribe
     }
 

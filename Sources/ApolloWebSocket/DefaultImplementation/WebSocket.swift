@@ -68,20 +68,19 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     public let code: Int
   }
 
-  /// The WebSocket sub-protocols supported.
+  /// The GraphQL over WebSocket protocols supported by apollo-ios.
   public enum WSProtocol: CustomStringConvertible {
-    /// Protocol implemented in the https://github.com/apollographql/subscriptions-transport-ws
-    /// library. That library is not actively maintained and considered legacy.
-    case subscriptionWsProtocol
-    /// Protocol implemented by the https://github.com/enisdenjo/graphql-ws library.
-    case graphqlWsProtocol
-    /// Protocol implemented by AWS AppSync
-    case appSyncWsProtocol
+    /// WebSocket protocol `graphql-ws`. This is implemented by the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws)
+    /// and AWS AppSync libraries.
+    case graphql_ws
+    /// WebSocket protocol `graphql-transport-ws`. This is implemented by the [graphql-ws](https://github.com/enisdenjo/graphql-ws)
+    /// library.
+    case graphql_transport_ws
 
     public var description: String {
       switch self {
-      case .subscriptionWsProtocol, .appSyncWsProtocol: return "graphql-ws"
-      case .graphqlWsProtocol: return "graphql-transport-ws"
+      case .graphql_ws: return "graphql-ws"
+      case .graphql_transport_ws: return "graphql-transport-ws"
       }
     }
   }

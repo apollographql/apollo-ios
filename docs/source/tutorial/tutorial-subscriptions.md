@@ -75,7 +75,7 @@ Next, in the lazy declaration of the `apollo` variable, immediately after `trans
 // 1
 let webSocket = WebSocket(
   url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!,
-  webSocketProtocol: .subscriptionWsProtocol
+  webSocketProtocol: .graphql_ws
 )
 
 // 2

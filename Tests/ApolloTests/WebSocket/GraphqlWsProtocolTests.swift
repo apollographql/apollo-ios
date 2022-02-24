@@ -38,7 +38,7 @@ class GraphqlWsProtocolTests: XCTestCase {
 
   private func buildWebSocket() {
     var request = URLRequest(url: TestURL.mockServer.url)
-    request.setValue("graphql-transport-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
+    request.setValue("graphql-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
 
     mockWebSocketDelegate = MockWebSocketDelegate()
     mockWebSocket = MockWebSocket(request: request)
@@ -64,26 +64,26 @@ class GraphqlWsProtocolTests: XCTestCase {
     expect(
       WebSocket(
         request: URLRequest(url: TestURL.mockServer.url),
-        webSocketProtocol: .graphqlWsProtocol
+        webSocketProtocol: .graphql_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-transport-ws"))
+    ).to(equal("graphql-ws"))
   }
 
   func test__convenienceInitializers__shouldSetRequestProtocolHeader() {
     expect(
       WebSocket(
         url: TestURL.mockServer.url,
-        webSocketProtocol: .graphqlWsProtocol
+        webSocketProtocol: .graphql_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-transport-ws"))
+    ).to(equal("graphql-ws"))
 
     expect(
       WebSocket(
         url: TestURL.mockServer.url,
         writeQueueQOS: .default,
-        webSocketProtocol: .graphqlWsProtocol
+        webSocketProtocol: .graphql_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-transport-ws"))
+    ).to(equal("graphql-ws"))
   }
 
   // MARK: Protocol Tests
@@ -156,7 +156,7 @@ class GraphqlWsProtocolTests: XCTestCase {
     waitUntil { done in
       self.mockWebSocketDelegate.didReceiveMessage = { message in
         // then
-        expect(message).to(equalMessage(payload: operation.requestBody, id: "1", type: .subscribe))
+        expect(message).to(equalMessage(payload: operation.requestBody, id: "1", type: .start))
         done()
       }
 
@@ -208,7 +208,7 @@ class GraphqlWsProtocolTests: XCTestCase {
     }
   }
 
-  func test__messaging__whenReceivesNext_shouldParseMessage() throws {
+  func test__messaging__whenReceivesData_shouldParseMessage() throws {
     // given
     buildWebSocket()
     buildClient()
@@ -234,29 +234,8 @@ class GraphqlWsProtocolTests: XCTestCase {
       let message = OperationMessage(
         payload: ["data": ["numberIncremented": 42]],
         id: "1",
-        type: .next
+        type: .data
       ).rawMessage!
-      self.websocketTransport.websocketDidReceiveMessage(socket: self.mockWebSocket, text: message)
-    }
-  }
-
-  func test__messaging__whenReceivesPing_shouldSendPong() throws {
-    // given
-    buildWebSocket()
-    buildClient()
-
-    connectWebSocket()
-    ackConnection()
-
-    waitUntil { done in
-      self.mockWebSocketDelegate.didReceiveMessage = { message in
-        // then
-        expect(message).to(equalMessage(type: .pong))
-        done()
-      }
-
-      // when
-      let message = OperationMessage(payload: ["sample": "data"], type: .ping).rawMessage!
       self.websocketTransport.websocketDidReceiveMessage(socket: self.mockWebSocket, text: message)
     }
   }
