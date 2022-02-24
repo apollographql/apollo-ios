@@ -145,7 +145,7 @@ class GraphqlWsProtocolTests: XCTestCase {
     }
   }
 
-  func test__messaging__givenSubscriptionSubscribe_shouldSendStartMessage() {
+  func test__messaging__givenSubscriptionSubscribe_shouldSendStart() {
     // given
     buildWebSocket()
     buildClient()
@@ -167,7 +167,7 @@ class GraphqlWsProtocolTests: XCTestCase {
     }
   }
 
-  func test__messaging__givenSubscriptionCancel_shouldSendStopMessage() {
+  func test__messaging__givenSubscriptionCancel_shouldSendStop() {
     // given
     buildWebSocket()
     buildClient()
