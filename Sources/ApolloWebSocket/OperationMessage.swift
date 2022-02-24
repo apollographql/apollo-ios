@@ -104,6 +104,12 @@ final class OperationMessage {
   }
 }
 
+extension OperationMessage: CustomDebugStringConvertible {
+  var debugDescription: String {
+    rawMessage!
+  }
+}
+
 struct ParseHandler {
   let type: String?
   let id: String?
