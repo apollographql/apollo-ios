@@ -55,12 +55,12 @@ public class AsyncResultObserver<Success, Failure> where Failure: Error {
     }
         
     do {
+      defer { expectation.fulfill() }
       try expectation.handler(result)
+
     } catch {
       testCase.record(error, file: expectation.file, line: expectation.line)
     }
-    
-    expectation.fulfill()
     
     if expectation.apollo.numberOfFulfillments >= expectation.expectedFulfillmentCount {
       expectations.removeFirst()
