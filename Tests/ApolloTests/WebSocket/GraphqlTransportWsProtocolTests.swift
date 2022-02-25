@@ -5,57 +5,15 @@ import Nimble
 import Apollo
 import SubscriptionAPI
 
-class GraphqlTransportWsProtocolTests: XCTestCase {
-  private var store: ApolloStore!
-  private var mockWebSocket: MockWebSocket!
-  private var websocketTransport: WebSocketTransport! {
-    didSet {
-      if let websocketTransport = websocketTransport { // caters for tearDown setting nil value
-        websocketTransport.websocket.delegate = mockWebSocketDelegate
-      }
-    }
-  }
-  private var mockWebSocketDelegate: MockWebSocketDelegate!
-  private var client: ApolloClient!
+class GraphqlTransportWsProtocolTests: WSProtocolTestsBase {
 
-  override func setUp() {
-    super.setUp()
+  let `protocol` = "graphql-transport-ws"
 
-    store = ApolloStore()
-  }
-
-  override func tearDown() {
-    client = nil
-    websocketTransport = nil
-    mockWebSocket = nil
-    mockWebSocketDelegate = nil
-    store = nil
-
-    super.tearDown()
-  }
-
-  // MARK: Helpers
-
-  private func buildWebSocket() {
+  override var urlRequest: URLRequest {
     var request = URLRequest(url: TestURL.mockServer.url)
-    request.setValue("graphql-transport-ws", forHTTPHeaderField: "Sec-WebSocket-Protocol")
+    request.setValue(`protocol`, forHTTPHeaderField: "Sec-WebSocket-Protocol")
 
-    mockWebSocketDelegate = MockWebSocketDelegate()
-    mockWebSocket = MockWebSocket(request: request)
-    websocketTransport = WebSocketTransport(websocket: mockWebSocket, store: store)
-  }
-
-  private func buildClient() {
-    client = ApolloClient(networkTransport: websocketTransport, store: store)
-  }
-
-  private func connectWebSocket() {
-    websocketTransport.socketConnectionState.mutate { $0 = .connected }
-  }
-
-  private func ackConnection() {
-    let ackMessage = OperationMessage(type: .connectionAck).rawMessage!
-    websocketTransport.websocketDidReceiveMessage(socket: mockWebSocket, text: ackMessage)
+    return request
   }
 
   // MARK: Initializer Tests
@@ -66,7 +24,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
         request: URLRequest(url: TestURL.mockServer.url),
         protocol: .graphql_transport_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-transport-ws"))
+    ).to(equal(`protocol`))
   }
 
   func test__convenienceInitializers__shouldSetRequestProtocolHeader() {
@@ -75,7 +33,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
         url: TestURL.mockServer.url,
         protocol: .graphql_transport_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-transport-ws"))
+    ).to(equal(`protocol`))
 
     expect(
       WebSocket(
@@ -83,7 +41,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
         writeQueueQOS: .default,
         protocol: .graphql_transport_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
-    ).to(equal("graphql-transport-ws"))
+    ).to(equal(`protocol`))
   }
 
   // MARK: Protocol Tests
@@ -231,12 +189,11 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
         }
       }
 
-      let message = OperationMessage(
+      self.sendAsync(message: OperationMessage(
         payload: ["data": ["numberIncremented": 42]],
         id: "1",
         type: .next
-      ).rawMessage!
-      self.websocketTransport.websocketDidReceiveMessage(socket: self.mockWebSocket, text: message)
+      ))
     }
   }
 
@@ -256,19 +213,7 @@ class GraphqlTransportWsProtocolTests: XCTestCase {
       }
 
       // when
-      let message = OperationMessage(payload: ["sample": "data"], type: .ping).rawMessage!
-      self.websocketTransport.websocketDidReceiveMessage(socket: self.mockWebSocket, text: message)
+      self.sendAsync(message: OperationMessage(payload: ["sample": "data"], type: .ping))
     }
-  }
-}
-
-private extension GraphQLOperation {
-  var requestBody: GraphQLMap {
-    ApolloRequestBodyCreator().requestBody(
-      for: self,
-      sendOperationIdentifiers: false,
-      sendQueryDocument: true,
-      autoPersistQuery: false
-    )
   }
 }

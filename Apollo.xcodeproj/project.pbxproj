@@ -254,6 +254,7 @@
 		E63C03DF27BDDC3D00D675C6 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */; };
 		E63C03E227BDE00400D675C6 /* SubscriptionAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */; };
 		E63C67A327C8AA2A00B1654E /* OperationMessageMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658546527C6277600339378 /* OperationMessageMatchers.swift */; };
+		E63F15CD27C96D6D006879ED /* WSProtocolTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63F15CC27C96D6D006879ED /* WSProtocolTestsBase.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
 		E658545B27C5C1EE00339378 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E658545A27C5C1EE00339378 /* Nimble */; };
 		E658545C27C5CA1C00339378 /* SubscriptionAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */; };
@@ -851,6 +852,7 @@
 		E63C03D627BDBA8900D675C6 /* operation_ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operation_ids.json; sourceTree = "<group>"; };
 		E63C03DB27BDD99100D675C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTests.swift; sourceTree = "<group>"; };
+		E63F15CC27C96D6D006879ED /* WSProtocolTestsBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSProtocolTestsBase.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
 		E658545D27C6028100339378 /* MockWebSocketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWebSocketDelegate.swift; sourceTree = "<group>"; };
 		E658546527C6277600339378 /* OperationMessageMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMessageMatchers.swift; sourceTree = "<group>"; };
@@ -1816,6 +1818,7 @@
 				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
 				E6B9BDDA27C5693300CF911D /* GraphqlWsProtocolTests.swift */,
 				E658546B27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift */,
+				E63F15CC27C96D6D006879ED /* WSProtocolTestsBase.swift */,
 			);
 			path = WebSocket;
 			sourceTree = "<group>";
@@ -2828,6 +2831,7 @@
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
 				DED45DE9261B96B70086EF63 /* LoadQueryFromStoreTests.swift in Sources */,
+				E63F15CD27C96D6D006879ED /* WSProtocolTestsBase.swift in Sources */,
 				9BF6C94325194DE2000D5B93 /* MultipartFormData+Testing.swift in Sources */,
 				DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */,
 				19E9F6AC26D58A9A003AB80E /* OperationMessageIdCreatorTests.swift in Sources */,
