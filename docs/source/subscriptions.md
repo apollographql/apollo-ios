@@ -44,7 +44,7 @@ class Apollo {
   /// A web socket transport to use for subscriptions  
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
-    let webSocketClient = WebSocket(url: url, webSocketProtocol: .graphql_transport_ws)
+    let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
     return WebSocketTransport(websocket: webSocketClient)
   }()
   
@@ -168,7 +168,7 @@ class Apollo {
   // initializes the connection as an authorized channel.
   private lazy var webSocketTransport: WebSocketTransport = {
     let url = URL(string: "ws://localhost:8080/websocket")!
-    let webSocketClient = WebSocket(url: url, webSocketProtocol: .graphql_transport_ws)
+    let webSocketClient = WebSocket(url: url, protocol: .graphql_transport_ws)
     let authPayload = ["authToken": magicToken]
     return WebSocketTransport(websocket: webSocketClient, connectingPayload: authPayload)
   }()

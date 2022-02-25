@@ -23,7 +23,7 @@ class StarWarsWebSocketTests: XCTestCase, CacheDependentTesting {
     
     let networkTransport = WebSocketTransport(
       websocket: WebSocket(request: URLRequest(url: TestServerURL.starWarsWebSocket.url),
-                           webSocketProtocol: .graphql_ws),
+                           protocol: .graphql_ws),
       store: store
     )
     

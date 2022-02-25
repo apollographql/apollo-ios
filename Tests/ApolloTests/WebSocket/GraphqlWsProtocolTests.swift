@@ -66,7 +66,7 @@ class GraphqlWsProtocolTests: XCTestCase {
     expect(
       WebSocket(
         request: URLRequest(url: TestURL.mockServer.url),
-        webSocketProtocol: .graphql_ws
+        protocol: .graphql_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
     ).to(equal("graphql-ws"))
   }
@@ -75,7 +75,7 @@ class GraphqlWsProtocolTests: XCTestCase {
     expect(
       WebSocket(
         url: TestURL.mockServer.url,
-        webSocketProtocol: .graphql_ws
+        protocol: .graphql_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
     ).to(equal("graphql-ws"))
 
@@ -83,7 +83,7 @@ class GraphqlWsProtocolTests: XCTestCase {
       WebSocket(
         url: TestURL.mockServer.url,
         writeQueueQOS: .default,
-        webSocketProtocol: .graphql_ws
+        protocol: .graphql_ws
       ).request.value(forHTTPHeaderField: "Sec-WebSocket-Protocol")
     ).to(equal("graphql-ws"))
   }
