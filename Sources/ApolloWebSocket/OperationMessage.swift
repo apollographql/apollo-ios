@@ -7,6 +7,7 @@ final class OperationMessage {
   enum Types : String {
     case connectionInit = "connection_init"            // Client -> Server
     case connectionTerminate = "connection_terminate"  // Client -> Server
+    case subscribe = "subscribe"                       // Client -> Server
     case start = "start"                               // Client -> Server
     case stop = "stop"                                 // Client -> Server
 
@@ -17,6 +18,10 @@ final class OperationMessage {
     case data = "data"                                 // Server -> Client
     case error = "error"                               // Server -> Client
     case complete = "complete"                         // Server -> Client
+    case next = "next"                                 // Server -> Client
+
+    case ping = "ping"                                 // Bidirectional
+    case pong = "pong"                                 // Bidirectional
   }
 
   let serializationFormat = JSONSerializationFormat.self
@@ -34,7 +39,7 @@ final class OperationMessage {
 
   init(payload: GraphQLMap? = nil,
        id: String? = nil,
-       type: Types = .start) {
+       type: Types) {
     var message: GraphQLMap = [:]
     if let payload = payload {
       message["payload"] = payload
@@ -96,6 +101,12 @@ final class OperationMessage {
                                           error: error,
                                           kind: .unprocessedMessage(serialized))))
     }
+  }
+}
+
+extension OperationMessage: CustomDebugStringConvertible {
+  var debugDescription: String {
+    rawMessage!
   }
 }
 

@@ -251,9 +251,22 @@
 		DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCE2CFA1E6C213D00E34457 /* StarWarsAPI.framework */; };
 		E616B6D126C3335600DB049E /* ExecutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E616B6D026C3335600DB049E /* ExecutionTests.swift */; };
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
+		E63C03DF27BDDC3D00D675C6 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */; };
+		E63C03E227BDE00400D675C6 /* SubscriptionAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */; };
+		E63C67A327C8AA2A00B1654E /* OperationMessageMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658546527C6277600339378 /* OperationMessageMatchers.swift */; };
+		E63F15CD27C96D6D006879ED /* WSProtocolTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63F15CC27C96D6D006879ED /* WSProtocolTestsBase.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
+		E658545B27C5C1EE00339378 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E658545A27C5C1EE00339378 /* Nimble */; };
+		E658545C27C5CA1C00339378 /* SubscriptionAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */; };
+		E658545E27C6028100339378 /* MockWebSocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658545D27C6028100339378 /* MockWebSocketDelegate.swift */; };
+		E658546C27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658546B27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
+		E6A19C6227BEDAE00099C6E3 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E6A19C6127BEDAE00099C6E3 /* Nimble */; };
+		E6A19C6727BF0E1C0099C6E3 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A19C6527BF0E1C0099C6E3 /* API.swift */; };
+		E6A901D727BDAFA100931C9E /* SubscriptionAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = E6A901D627BDAFA100931C9E /* SubscriptionAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6A901DC27BDB01200931C9E /* Apollo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC750441D2A532C00458D91 /* Apollo.framework */; };
+		E6B9BDDB27C5693300CF911D /* GraphqlWsProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B9BDDA27C5693300CF911D /* GraphqlWsProtocolTests.swift */; };
 		E6C4267B26F16CB400904AD2 /* introspection_response.json in Resources */ = {isa = PBXBuildFile; fileRef = E6C4267A26F16CB400904AD2 /* introspection_response.json */; };
 		E6D79AB826E9D59C0094434A /* URLDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
@@ -478,6 +491,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9FCE2CF91E6C213D00E34457;
 			remoteInfo = StarWarsAPI;
+		};
+		E63C03E027BDDFEF00D675C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E6A901D327BDAFA100931C9E;
+			remoteInfo = SubscriptionAPI;
+		};
+		E6A901DE27BDB01200931C9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FC750431D2A532C00458D91;
+			remoteInfo = Apollo;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -821,9 +848,23 @@
 		DED45FB3261CDEC60086EF63 /* Apollo-CodegenTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Apollo-CodegenTestPlan.xctestplan"; sourceTree = "<group>"; };
 		E616B6D026C3335600DB049E /* ExecutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionTests.swift; sourceTree = "<group>"; };
 		E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDotSwiftDatabaseBehaviorTests.swift; sourceTree = "<group>"; };
+		E63C03D327BDB55900D675C6 /* subscription.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = subscription.graphql; sourceTree = "<group>"; };
+		E63C03D627BDBA8900D675C6 /* operation_ids.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = operation_ids.json; sourceTree = "<group>"; };
+		E63C03DB27BDD99100D675C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTests.swift; sourceTree = "<group>"; };
+		E63F15CC27C96D6D006879ED /* WSProtocolTestsBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSProtocolTestsBase.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
+		E658545D27C6028100339378 /* MockWebSocketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWebSocketDelegate.swift; sourceTree = "<group>"; };
+		E658546527C6277600339378 /* OperationMessageMatchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMessageMatchers.swift; sourceTree = "<group>"; };
+		E658546B27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphqlTransportWsProtocolTests.swift; sourceTree = "<group>"; };
+		E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-SubscriptionAPI.xcconfig"; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
+		E6A19C6527BF0E1C0099C6E3 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubscriptionAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6A901D627BDAFA100931C9E /* SubscriptionAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubscriptionAPI.h; sourceTree = "<group>"; };
+		E6B9BDDA27C5693300CF911D /* GraphqlWsProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphqlWsProtocolTests.swift; sourceTree = "<group>"; };
 		E6C4267A26F16CB400904AD2 /* introspection_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = introspection_response.json; sourceTree = "<group>"; };
+		E6CE3DBA27BDB26E00B43E0A /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
 		E6D79AB626E97D0D0094434A /* URLDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDownloaderTests.swift; sourceTree = "<group>"; };
 		E6D79AB926EC05290094434A /* MockNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkSession.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
@@ -915,6 +956,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E658545C27C5CA1C00339378 /* SubscriptionAPI.framework in Frameworks */,
+				E658545B27C5C1EE00339378 /* Nimble in Frameworks */,
 				9B2DFBCD24E201A800ED3AE6 /* UploadAPI.framework in Frameworks */,
 				9FC7504F1D2A532D00458D91 /* Apollo.framework in Frameworks */,
 				9F8A958D1EC0FFAB00304A2D /* ApolloTestSupport.framework in Frameworks */,
@@ -941,10 +984,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E63C03E227BDE00400D675C6 /* SubscriptionAPI.framework in Frameworks */,
 				DECD498F262F840700924527 /* ApolloCodegenTestSupport.framework in Frameworks */,
 				DECD4736262F668500924527 /* UploadAPI.framework in Frameworks */,
 				DECD46FB262F659500924527 /* ApolloCodegenLib.framework in Frameworks */,
 				DED46051261CEAD20086EF63 /* StarWarsAPI.framework in Frameworks */,
+				E6A19C6227BEDAE00099C6E3 /* Nimble in Frameworks */,
 				DED46035261CEA660086EF63 /* ApolloTestSupport.framework in Frameworks */,
 				DED45FE7261CE8C50086EF63 /* ApolloWebSocket.framework in Frameworks */,
 				DED45FD0261CE88C0086EF63 /* ApolloSQLite.framework in Frameworks */,
@@ -957,6 +1002,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECD49C9262F88FE00924527 /* ApolloCodegenLib.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6A901D127BDAFA100931C9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6A901DC27BDB01200931C9E /* Apollo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -984,6 +1037,7 @@
 				DECD492F262F820500924527 /* Apollo-Target-CodegenTestSupport.xcconfig */,
 				90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */,
 				9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */,
+				E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */,
 				9B7BDAD923FDECB400ACD198 /* ApolloSQLite-Project-Debug.xcconfig */,
 				9B7BDADC23FDECB400ACD198 /* ApolloSQLite-Project-Release.xcconfig */,
 				9B7BDAD823FDECB300ACD198 /* ApolloSQLite-Target-Framework.xcconfig */,
@@ -1006,6 +1060,7 @@
 				9BF6C99B25195019000D5B93 /* String+IncludesForTesting.swift */,
 				C3279FC52345233000224790 /* TestCustomRequestBodyCreator.swift */,
 				9B64F6752354D219002D1BB5 /* URL+QueryDict.swift */,
+				E658546527C6277600339378 /* OperationMessageMatchers.swift */,
 			);
 			name = TestHelpers;
 			sourceTree = "<group>";
@@ -1302,6 +1357,7 @@
 				9FBE0D3F25407B64002ED0B1 /* AsyncResultObserver.swift */,
 				9F68F9F025415827004F26D0 /* XCTestCase+Helpers.swift */,
 				9B2061162591B3550020D1E0 /* Resources */,
+				E658545D27C6028100339378 /* MockWebSocketDelegate.swift */,
 			);
 			name = ApolloTestSupport;
 			path = Sources/ApolloTestSupport;
@@ -1434,6 +1490,7 @@
 				9BDF200723FDC37600153E2B /* GitHubAPI */,
 				9BCF0CE923FC9F060031D2A2 /* StarWarsAPI */,
 				9B2DFBC424E1FA3E00ED3AE6 /* UploadAPI */,
+				E6A901D527BDAFA100931C9E /* SubscriptionAPI */,
 				DECD490C262F81BF00924527 /* ApolloCodegenTestSupport */,
 				9B7BDAF923FDEE8A00ACD198 /* Frameworks */,
 				90690D04224333DA00FC2E54 /* Configuration */,
@@ -1462,6 +1519,7 @@
 				DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */,
 				DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */,
 				DE058621266978A100265760 /* ApolloAPI.framework */,
+				E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1669,6 +1727,7 @@
 				DED45F49261CDBFC0086EF63 /* UploadTests.swift */,
 				DECD46CF262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift */,
 				E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */,
+				E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */,
 			);
 			path = ApolloServerIntegrationTests;
 			sourceTree = "<group>";
@@ -1757,6 +1816,9 @@
 				D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */,
 				DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */,
 				19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */,
+				E6B9BDDA27C5693300CF911D /* GraphqlWsProtocolTests.swift */,
+				E658546B27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift */,
+				E63F15CC27C96D6D006879ED /* WSProtocolTestsBase.swift */,
 			);
 			path = WebSocket;
 			sourceTree = "<group>";
@@ -1773,12 +1835,34 @@
 			path = DefaultImplementation;
 			sourceTree = "<group>";
 		};
+		E6A901D527BDAFA100931C9E /* SubscriptionAPI */ = {
+			isa = PBXGroup;
+			children = (
+				E6CE3DB927BDB26E00B43E0A /* graphql */,
+				E6A19C6527BF0E1C0099C6E3 /* API.swift */,
+				E63C03DB27BDD99100D675C6 /* Info.plist */,
+				E6A901D627BDAFA100931C9E /* SubscriptionAPI.h */,
+			);
+			name = SubscriptionAPI;
+			path = Sources/SubscriptionAPI;
+			sourceTree = SOURCE_ROOT;
+		};
 		E6BE04ED26F11B3500CF858D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				E6C4267A26F16CB400904AD2 /* introspection_response.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E6CE3DB927BDB26E00B43E0A /* graphql */ = {
+			isa = PBXGroup;
+			children = (
+				E63C03D627BDBA8900D675C6 /* operation_ids.json */,
+				E6CE3DBA27BDB26E00B43E0A /* schema.graphqls */,
+				E63C03D327BDB55900D675C6 /* subscription.graphql */,
+			);
+			path = graphql;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1864,6 +1948,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECD490F262F81BF00924527 /* ApolloCodegenTestSupport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6A901CF27BDAFA100931C9E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6A901D727BDAFA100931C9E /* SubscriptionAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2096,6 +2188,9 @@
 				9FCE2D081E6C254000E34457 /* PBXTargetDependency */,
 			);
 			name = ApolloTests;
+			packageProductDependencies = (
+				E658545A27C5C1EE00339378 /* Nimble */,
+			);
 			productName = ApolloTests;
 			productReference = 9FC7504E1D2A532D00458D91 /* ApolloTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -2149,6 +2244,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E63C03E127BDDFEF00D675C6 /* PBXTargetDependency */,
 				DECD498E262F840100924527 /* PBXTargetDependency */,
 				DECD4735262F668200924527 /* PBXTargetDependency */,
 				DECD46FA262F659100924527 /* PBXTargetDependency */,
@@ -2160,6 +2256,7 @@
 			);
 			name = ApolloServerIntegrationTests;
 			packageProductDependencies = (
+				E6A19C6127BEDAE00099C6E3 /* Nimble */,
 			);
 			productName = ApolloServerIntegrationTests;
 			productReference = DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */;
@@ -2182,6 +2279,25 @@
 			name = ApolloCodegenTestSupport;
 			productName = ApolloCodegenTestSupport;
 			productReference = DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E6A901D327BDAFA100931C9E /* SubscriptionAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6A901D827BDAFA100931C9E /* Build configuration list for PBXNativeTarget "SubscriptionAPI" */;
+			buildPhases = (
+				E6A901CF27BDAFA100931C9E /* Headers */,
+				E6A901D027BDAFA100931C9E /* Sources */,
+				E6A901D127BDAFA100931C9E /* Frameworks */,
+				E6A901D227BDAFA100931C9E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E6A901DF27BDB01200931C9E /* PBXTargetDependency */,
+			);
+			name = SubscriptionAPI;
+			productName = SubscriptionAPI;
+			productReference = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -2248,6 +2364,10 @@
 					DECD490A262F81BF00924527 = {
 						CreatedOnToolsVersion = 12.4;
 					};
+					E6A901D327BDAFA100931C9E = {
+						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
+					};
 				};
 			};
 			buildConfigurationList = 9FC7503E1D2A532C00458D91 /* Build configuration list for PBXProject "Apollo" */;
@@ -2261,6 +2381,7 @@
 			mainGroup = 9FC7503A1D2A532C00458D91;
 			packageReferences = (
 				9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				E6A19C6027BEDAE00099C6E3 /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
 			productRefGroup = 9FC750451D2A532C00458D91 /* Products */;
 			projectDirPath = "";
@@ -2278,6 +2399,7 @@
 				9FCE2CF91E6C213D00E34457 /* StarWarsAPI */,
 				9FACA9B71F42E67200AE2DBD /* GitHubAPI */,
 				9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */,
+				E6A901D327BDAFA100931C9E /* SubscriptionAPI */,
 				9B7B6F46233C26D100F32205 /* ApolloCodegenLib */,
 				9BAEEBFB234BB8FD00808306 /* ApolloCodegenTests */,
 				DECD490A262F81BF00924527 /* ApolloCodegenTestSupport */,
@@ -2386,6 +2508,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DECD4909262F81BF00924527 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6A901D227BDAFA100931C9E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2567,6 +2696,7 @@
 				DED4600D261CE9260086EF63 /* TestFileHelper.swift in Sources */,
 				9BCF0CE023FC9CA50031D2A2 /* TestCacheProvider.swift in Sources */,
 				9BCF0CE323FC9CA50031D2A2 /* XCTAssertHelpers.swift in Sources */,
+				E658545E27C6028100339378 /* MockWebSocketDelegate.swift in Sources */,
 				9F68F9F125415827004F26D0 /* XCTestCase+Helpers.swift in Sources */,
 				9BCF0CE523FC9CA50031D2A2 /* MockNetworkTransport.swift in Sources */,
 				DE05862D2669800000265760 /* Matchable.swift in Sources */,
@@ -2672,6 +2802,7 @@
 				9F533AB31E6C4A4200CBE097 /* BatchedLoadTests.swift in Sources */,
 				DED45DEE261B96B70086EF63 /* FetchQueryTests.swift in Sources */,
 				C3279FC72345234D00224790 /* TestCustomRequestBodyCreator.swift in Sources */,
+				E658546C27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift in Sources */,
 				DED45DED261B96B70086EF63 /* StoreConcurrencyTests.swift in Sources */,
 				9B95EDC022CAA0B000702BB2 /* GETTransformerTests.swift in Sources */,
 				9FF90A6F1DDDEB420034C3B6 /* GraphQLMapEncodingTests.swift in Sources */,
@@ -2687,6 +2818,7 @@
 				E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */,
 				2EE7FFD0276802E30035DC39 /* CacheKeyConstructionTests.swift in Sources */,
 				9F8622FA1EC2117C00C38162 /* FragmentConstructionAndConversionTests.swift in Sources */,
+				E6B9BDDB27C5693300CF911D /* GraphqlWsProtocolTests.swift in Sources */,
 				DED45C2A2615319E0086EF63 /* DefaultInterceptorProviderTests.swift in Sources */,
 				9F21730E2567E6F000566121 /* DataLoaderTests.swift in Sources */,
 				DED45DEC261B96B70086EF63 /* CacheDependentInterceptorTests.swift in Sources */,
@@ -2695,9 +2827,11 @@
 				F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */,
 				9BF6C97025194ED7000D5B93 /* MultipartFormDataTests.swift in Sources */,
 				9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */,
+				E63C67A327C8AA2A00B1654E /* OperationMessageMatchers.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
 				DED45DE9261B96B70086EF63 /* LoadQueryFromStoreTests.swift in Sources */,
+				E63F15CD27C96D6D006879ED /* WSProtocolTestsBase.swift in Sources */,
 				9BF6C94325194DE2000D5B93 /* MultipartFormData+Testing.swift in Sources */,
 				DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */,
 				19E9F6AC26D58A9A003AB80E /* OperationMessageIdCreatorTests.swift in Sources */,
@@ -2738,6 +2872,7 @@
 				DED45D852616759C0086EF63 /* TestConfigs.swift in Sources */,
 				DED45D9626167F020086EF63 /* StarWarsServerCachingRoundtripTests.swift in Sources */,
 				DECD46D0262F64D000924527 /* StarWarsApolloSchemaDownloaderTests.swift in Sources */,
+				E63C03DF27BDDC3D00D675C6 /* SubscriptionTests.swift in Sources */,
 				DE6B15AF26152BE10068D642 /* DefaultInterceptorProviderIntegrationTests.swift in Sources */,
 				DED46000261CE9080086EF63 /* HTTPBinAPI.swift in Sources */,
 				DED45F4A261CDBFC0086EF63 /* UploadTests.swift in Sources */,
@@ -2754,6 +2889,14 @@
 			files = (
 				DECD4921262F81CE00924527 /* CodegenTestHelper.swift in Sources */,
 				E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6A901D027BDAFA100931C9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6A19C6727BF0E1C0099C6E3 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2922,6 +3065,16 @@
 			isa = PBXTargetDependency;
 			target = 9FCE2CF91E6C213D00E34457 /* StarWarsAPI */;
 			targetProxy = DED4606A261CEDD10086EF63 /* PBXContainerItemProxy */;
+		};
+		E63C03E127BDDFEF00D675C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E6A901D327BDAFA100931C9E /* SubscriptionAPI */;
+			targetProxy = E63C03E027BDDFEF00D675C6 /* PBXContainerItemProxy */;
+		};
+		E6A901DF27BDB01200931C9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FC750431D2A532C00458D91 /* Apollo */;
+			targetProxy = E6A901DE27BDB01200931C9E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3262,6 +3415,27 @@
 			};
 			name = PerformanceTesting;
 		};
+		E6A901D927BDAFA100931C9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E6A901DA27BDAFA100931C9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E6A901DB27BDAFA100931C9E /* PerformanceTesting */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E661C2D427BDAC500078BEBD /* Apollo-Target-SubscriptionAPI.xcconfig */;
+			buildSettings = {
+			};
+			name = PerformanceTesting;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3425,6 +3599,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E6A901D827BDAFA100931C9E /* Build configuration list for PBXNativeTarget "SubscriptionAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6A901D927BDAFA100931C9E /* Debug */,
+				E6A901DA27BDAFA100931C9E /* Release */,
+				E6A901DB27BDAFA100931C9E /* PerformanceTesting */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -3434,6 +3618,14 @@
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 0.13.1;
+			};
+		};
+		E6A19C6027BEDAE00099C6E3 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.2.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -3453,6 +3645,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9B7BDAF423FDEE2600ACD198 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
+		};
+		E658545A27C5C1EE00339378 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6A19C6027BEDAE00099C6E3 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		E6A19C6127BEDAE00099C6E3 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6A19C6027BEDAE00099C6E3 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

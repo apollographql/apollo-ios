@@ -74,19 +74,3 @@ class WebSocketTransportTests: XCTestCase {
     }
   }
 }
-
-private final class MockWebSocketDelegate: WebSocketClientDelegate {
-  
-  var didReceiveMessage: ((String) -> Void)?
-
-  func websocketDidConnect(socket: WebSocketClient) {}
-
-  func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {}
-
-  func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-    didReceiveMessage?(text)
-  }
-
-  func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
-
-}

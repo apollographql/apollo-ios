@@ -68,14 +68,30 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     public let code: Int
   }
 
-  private struct Constants {
+  /// The GraphQL over WebSocket protocols supported by apollo-ios.
+  public enum WSProtocol: CustomStringConvertible {
+    /// WebSocket protocol `graphql-ws`. This is implemented by the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws)
+    /// and AWS AppSync libraries.
+    case graphql_ws
+    /// WebSocket protocol `graphql-transport-ws`. This is implemented by the [graphql-ws](https://github.com/enisdenjo/graphql-ws)
+    /// library.
+    case graphql_transport_ws
+
+    public var description: String {
+      switch self {
+      case .graphql_ws: return "graphql-ws"
+      case .graphql_transport_ws: return "graphql-transport-ws"
+      }
+    }
+  }
+
+  struct Constants {
     static let headerWSUpgradeName     = "Upgrade"
     static let headerWSUpgradeValue    = "websocket"
     static let headerWSHostName        = "Host"
     static let headerWSConnectionName  = "Connection"
     static let headerWSConnectionValue = "Upgrade"
     static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
-    static let headerWSProtocolValue   = "graphql-ws"
     static let headerWSVersionName     = "Sec-WebSocket-Version"
     static let headerWSVersionValue    = "13"
     static let headerWSExtensionName   = "Sec-WebSocket-Extensions"
@@ -183,8 +199,12 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     return canWork
   }
 
-  /// Used for setting protocols.
-  public init(request: URLRequest) {
+  /// Designated initializer.
+  ///
+  /// - Parameters:
+  ///   - request: A URL request object that provides request-specific information such as the URL.
+  ///   - protocol: Protocol to use for communication over the web socket.
+  public init(request: URLRequest, protocol: WSProtocol) {
     self.request = request
     self.stream = FoundationStream()
     if request.value(forHTTPHeaderField: Constants.headerOriginName) == nil {
@@ -197,20 +217,36 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
       self.request.setValue(origin, forHTTPHeaderField: Constants.headerOriginName)
     }
 
-    self.request.setValue(Constants.headerWSProtocolValue,
-                          forHTTPHeaderField: Constants.headerWSProtocolName)
+    self.request.setValue(`protocol`.description, forHTTPHeaderField: Constants.headerWSProtocolName)
+
     writeQueue.maxConcurrentOperationCount = 1
   }
 
-  public convenience init(url: URL) {
+  /// Convenience initializer to specify the URL and web socket protocol.
+  ///
+  /// - Parameters:
+  ///   - url: The destination URL to connect to.
+  ///   - protocol: Protocol to use for communication over the web socket.
+  public convenience init(url: URL, protocol: WSProtocol) {
     var request = URLRequest(url: url)
     request.timeoutInterval = 5
-    self.init(request: request)
+
+    self.init(request: request, protocol: `protocol`)
   }
 
-  // Used for specifically setting the QOS for the write queue.
-  public convenience init(url: URL, writeQueueQOS: QualityOfService) {
-    self.init(url: url)
+  /// Convenience initializer to specify the URL and web socket protocol with a specific quality of
+  /// service on the write queue.
+  ///
+  /// - Parameters:
+  ///   - url: The destination URL to connect to.
+  ///   - writeQueueQOS: Specifies the quality of service for the write queue.
+  ///   - protocol: Protocol to use for communication over the web socket.
+  public convenience init(
+    url: URL,
+    writeQueueQOS: QualityOfService,
+    protocol: WSProtocol
+  ) {
+    self.init(url: url, protocol: `protocol`)
     writeQueue.qualityOfService = writeQueueQOS
   }
 

@@ -73,14 +73,19 @@ Next, in the lazy declaration of the `apollo` variable, immediately after `trans
 
 ```swift:title=Network.swift
 // 1
-let webSocket = WebSocket(url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!)
+let webSocket = WebSocket(
+  url: URL(string: "wss://apollo-fullstack-tutorial.herokuapp.com/graphql")!,
+  protocol: .graphql_ws
+)
 
 // 2
 let webSocketTransport = WebSocketTransport(websocket: webSocket)
 
 // 3
-let splitTransport = SplitNetworkTransport(uploadingNetworkTransport: transport,
-                                                   webSocketNetworkTransport: webSocketTransport)
+let splitTransport = SplitNetworkTransport(
+  uploadingNetworkTransport: transport,
+  webSocketNetworkTransport: webSocketTransport
+)
 
 // 4
 return ApolloClient(networkTransport: splitTransport, store: store)
