@@ -253,12 +253,11 @@
 		E61DD76526D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD76426D60C1800C41614 /* SQLiteDotSwiftDatabaseBehaviorTests.swift */; };
 		E63C03DF27BDDC3D00D675C6 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63C03DD27BDDC3400D675C6 /* SubscriptionTests.swift */; };
 		E63C03E227BDE00400D675C6 /* SubscriptionAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */; };
+		E63C67A327C8AA2A00B1654E /* OperationMessageMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658546527C6277600339378 /* OperationMessageMatchers.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
 		E658545B27C5C1EE00339378 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E658545A27C5C1EE00339378 /* Nimble */; };
 		E658545C27C5CA1C00339378 /* SubscriptionAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6A901D427BDAFA100931C9E /* SubscriptionAPI.framework */; };
 		E658545E27C6028100339378 /* MockWebSocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658545D27C6028100339378 /* MockWebSocketDelegate.swift */; };
-		E658546627C6277600339378 /* OperationMessageMatchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658546527C6277600339378 /* OperationMessageMatchers.swift */; };
-		E658546827C62A8700339378 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = E658546727C62A8700339378 /* Nimble */; };
 		E658546C27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E658546B27C77B8B00339378 /* GraphqlTransportWsProtocolTests.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
@@ -938,7 +937,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F65B1211EC106F30090B25F /* Apollo.framework in Frameworks */,
-				E658546827C62A8700339378 /* Nimble in Frameworks */,
 				DED45EE4261BA1FB0086EF63 /* ApolloSQLite.framework in Frameworks */,
 				DED45EE5261BA1FB0086EF63 /* ApolloWebSocket.framework in Frameworks */,
 			);
@@ -2124,7 +2122,6 @@
 			);
 			name = ApolloTestSupport;
 			packageProductDependencies = (
-				E658546727C62A8700339378 /* Nimble */,
 			);
 			productName = ApolloTestSupport;
 			productReference = 9F8A95781EC0FC1200304A2D /* ApolloTestSupport.framework */;
@@ -2697,7 +2694,6 @@
 				9BCF0CE023FC9CA50031D2A2 /* TestCacheProvider.swift in Sources */,
 				9BCF0CE323FC9CA50031D2A2 /* XCTAssertHelpers.swift in Sources */,
 				E658545E27C6028100339378 /* MockWebSocketDelegate.swift in Sources */,
-				E658546627C6277600339378 /* OperationMessageMatchers.swift in Sources */,
 				9F68F9F125415827004F26D0 /* XCTestCase+Helpers.swift in Sources */,
 				9BCF0CE523FC9CA50031D2A2 /* MockNetworkTransport.swift in Sources */,
 				DE05862D2669800000265760 /* Matchable.swift in Sources */,
@@ -2828,6 +2824,7 @@
 				F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */,
 				9BF6C97025194ED7000D5B93 /* MultipartFormDataTests.swift in Sources */,
 				9FF90A711DDDEB420034C3B6 /* ReadFieldValueTests.swift in Sources */,
+				E63C67A327C8AA2A00B1654E /* OperationMessageMatchers.swift in Sources */,
 				9F295E311E27534800A24949 /* NormalizeQueryResults.swift in Sources */,
 				9FF90A731DDDEB420034C3B6 /* ParseQueryResponseTests.swift in Sources */,
 				DED45DE9261B96B70086EF63 /* LoadQueryFromStoreTests.swift in Sources */,
@@ -3646,11 +3643,6 @@
 			productName = SQLite;
 		};
 		E658545A27C5C1EE00339378 /* Nimble */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6A19C6027BEDAE00099C6E3 /* XCRemoteSwiftPackageReference "Nimble" */;
-			productName = Nimble;
-		};
-		E658546727C62A8700339378 /* Nimble */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E6A19C6027BEDAE00099C6E3 /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
