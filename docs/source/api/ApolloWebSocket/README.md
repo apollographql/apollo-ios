@@ -29,6 +29,7 @@
 
 -   [WSError.ErrorType](enums/WSError.ErrorType/)
 -   [WebSocket.OpCode](enums/WebSocket.OpCode/)
+-   [WebSocket.WSProtocol](enums/WebSocket.WSProtocol/)
 -   [WebSocketError.ErrorKind](enums/WebSocketError.ErrorKind/)
 
 ## Extensions
