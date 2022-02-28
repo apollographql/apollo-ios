@@ -6,6 +6,7 @@ public enum Target: CaseIterable {
   case gitHub
   case upload
   case animalKingdom
+  case ccnAnimalKingdom
 
   public init?(name: String) {
     switch name {
@@ -17,6 +18,8 @@ public enum Target: CaseIterable {
       self = .upload
     case "AnimalKingdom":
       self = .animalKingdom
+    case "CCNAnimalKingdom":
+      self = .ccnAnimalKingdom
     default:
       return nil
     }
@@ -28,6 +31,21 @@ public enum Target: CaseIterable {
     case .gitHub: return "GitHubAPI"
     case .upload: return "UploadAPI"
     case .animalKingdom: return "AnimalKingdomAPI"
+    case .ccnAnimalKingdom: return "AnimalKingdomAPICCN"
+    }
+  }
+
+  var ccnEnabled: Bool {
+    switch self {
+    case .starWars, .gitHub, .upload, .animalKingdom: return false
+    case .ccnAnimalKingdom: return true
+    }
+  }
+
+  var packageName: String {
+    switch self {
+    case .starWars, .gitHub, .upload, .animalKingdom: return "Generated"
+    case .ccnAnimalKingdom: return "GeneratedCCN"
     }
   }
 
@@ -46,6 +64,10 @@ public enum Target: CaseIterable {
         .apollo.childFolderURL(folderName: "Sources")
         .apollo.childFolderURL(folderName: moduleName)
     case .animalKingdom:
+      return sourceRootURL
+        .apollo.childFolderURL(folderName: "Sources")
+        .apollo.childFolderURL(folderName: moduleName)
+    case .ccnAnimalKingdom:
       return sourceRootURL
         .apollo.childFolderURL(folderName: "Sources")
         .apollo.childFolderURL(folderName: moduleName)
@@ -90,6 +112,13 @@ public enum Target: CaseIterable {
 
       return ApolloCodegenConfiguration.FileInput(
         schemaPath: schemaURL(fromTargetRoot: targetRootURL).path,
+        searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
+      )
+    case .ccnAnimalKingdom:
+      let graphQLFolder = targetRootURL.apollo.childFolderURL(folderName: "ccnGraphql")
+
+      return ApolloCodegenConfiguration.FileInput(
+        schemaPath: graphQLFolder.appendingPathComponent("AnimalSchema.graphqls").path,
         searchPaths: [graphQLFolder.appendingPathComponent("**/*.graphql").path]
       )
     }

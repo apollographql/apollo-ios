@@ -13,4 +13,20 @@ public struct Module {
     }
   }
 
+  func outputConfig(
+    toTargetRoot targetRootURL: Foundation.URL,
+    schemaName: String
+  ) -> ApolloCodegenConfiguration.FileOutput {
+    let targetPath = targetRootURL.appendingPathComponent(schemaName).path
+
+    return ApolloCodegenConfiguration.FileOutput(
+      schemaTypes: .init(
+        path: targetPath,
+        schemaName: schemaName,
+        moduleType: module
+      ),
+      operations: .inSchemaModule,
+      operationIdentifiersPath: nil
+    )
+  }
 }
