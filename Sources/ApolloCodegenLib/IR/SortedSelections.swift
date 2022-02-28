@@ -121,8 +121,9 @@ extension IR {
 
     typealias MergedSources = Set<MergedSource>
 
-    let directSelections: DirectSelections.ReadOnly?
+    private let directSelections: DirectSelections.ReadOnly?
     let typeInfo: SelectionSet.TypeInfo
+    
     fileprivate(set) var mergedSources: MergedSources = []
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:]
