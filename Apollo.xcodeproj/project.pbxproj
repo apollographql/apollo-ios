@@ -1487,6 +1487,7 @@
 		90690D04224333DA00FC2E54 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				96F32CB027CC4A2D00F3383C /* Apollo-Target-AnimalKingdomAPICCN.xcconfig */,
 				DE6B15F926152D210068D642 /* Shared */,
 				90690D05224333DA00FC2E54 /* Apollo-Project-Debug.xcconfig */,
 				90690D08224333DA00FC2E54 /* Apollo-Project-Performance-Testing.xcconfig */,
