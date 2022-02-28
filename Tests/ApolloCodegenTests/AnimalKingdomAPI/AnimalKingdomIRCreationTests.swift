@@ -24,7 +24,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
   static func operationCCNDocuments(experimentalClientControlledNullability: Bool = false) -> GraphQLDocument {
     try! frontend.mergeDocuments(
-      ApolloCodegenTestSupport.Resources.GraphQLCCNOperations.map {
+      ApolloCodegenTestSupport.Resources.CCNGraphQLOperations.map {
         try! frontend.parseDocument(
           from: $0,
           experimentalClientControlledNullability: experimentalClientControlledNullability

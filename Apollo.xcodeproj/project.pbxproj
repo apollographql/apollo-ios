@@ -15,17 +15,13 @@
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
 		96F32C4827CC436B00F3383C /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
 		96F32C4927CC436B00F3383C /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
-		96F32C4B27CC436B00F3383C /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		96F32CA827CC45C900F3383C /* PetAdoptionMutation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */; };
-		96F32CA927CC45C900F3383C /* HeightInMeters.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */; };
-		96F32CAA27CC45C900F3383C /* PetDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */; };
-		96F32CAB27CC45C900F3383C /* AllAnimalsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */; };
-		96F32CAC27CC45C900F3383C /* AnimalSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */; };
-		96F32CAD27CC45C900F3383C /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
-		96F32CAE27CC45C900F3383C /* PetSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */; };
-		96F32CAF27CC45C900F3383C /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
-		96F32CB527CC4D8F00F3383C /* Generated in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6427CC444100F3383C /* Generated */; };
-		96F32CB627CC4D9500F3383C /* AllAnimalsQueryCCN.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6C27CC444100F3383C /* AllAnimalsQueryCCN.graphql */; };
+		96F32CB527CC4D8F00F3383C /* GeneratedCCN in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6427CC444100F3383C /* GeneratedCCN */; };
+		96F32CB927CC52E100F3383C /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F32C5C27CC444100F3383C /* AnimalKingdomAPI.h */; };
+		96F32CBA27CC53BC00F3383C /* GeneratedCCN in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6427CC444100F3383C /* GeneratedCCN */; };
+		96F32D3827CCB9EA00F3383C /* ccnGraphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32D3727CCB9EA00F3383C /* ccnGraphql */; };
+		96F32D3927CCB9FE00F3383C /* ccnGraphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32D3727CCB9EA00F3383C /* ccnGraphql */; };
+		96F32D3B27CCD16B00F3383C /* graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32D3A27CCD16B00F3383C /* graphql */; };
+		96F32D3C27CCD16D00F3383C /* graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32D3A27CCD16B00F3383C /* graphql */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEA245A020300562176 /* ApolloInterceptor.swift */; };
@@ -769,6 +765,11 @@
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
 		96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPICCN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96F32C5C27CC444100F3383C /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
+		96F32C6427CC444100F3383C /* GeneratedCCN */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeneratedCCN; sourceTree = "<group>"; };
+		96F32CB027CC4A2D00F3383C /* Apollo-Target-AnimalKingdomAPICCN.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPICCN.xcconfig"; sourceTree = "<group>"; };
+		96F32D3727CCB9EA00F3383C /* ccnGraphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ccnGraphql; sourceTree = "<group>"; };
+		96F32D3A27CCD16B00F3383C /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B2061172591B3550020D1E0 /* c.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c.txt; sourceTree = "<group>"; };
 		9B2061182591B3550020D1E0 /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
@@ -1042,12 +1043,6 @@
 		DE2FCF2526E8083A0057EA67 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		DE2FCF2626E8083A0057EA67 /* Field.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		DE2FCF2B26E808560057EA67 /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
-		DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnimalSchema.graphqls; sourceTree = "<group>"; };
-		DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllAnimalsQuery.graphql; sourceTree = "<group>"; };
-		DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ClassroomPets.graphql; sourceTree = "<group>"; };
-		DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = WarmBloodedDetails.graphql; sourceTree = "<group>"; };
-		DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetDetails.graphql; sourceTree = "<group>"; };
-		DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = HeightInMeters.graphql; sourceTree = "<group>"; };
 		DE2FCF3626E809BB0057EA67 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
 		DE2FCF3726E809BB0057EA67 /* HeightInMeters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.swift; sourceTree = "<group>"; };
 		DE2FCF3826E809BB0057EA67 /* ClassroomPetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetails.swift; sourceTree = "<group>"; };
@@ -1117,8 +1112,6 @@
 		DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLInputField+Rendered.swift"; sourceTree = "<group>"; };
 		DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDefinition_VariableDefinition_Tests.swift; sourceTree = "<group>"; };
 		DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputVariableRenderable.swift; sourceTree = "<group>"; };
-		DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetAdoptionMutation.graphql; sourceTree = "<group>"; };
-		DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PetSearchQuery.graphql; sourceTree = "<group>"; };
 		DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+RootFieldBuilder.swift"; sourceTree = "<group>"; };
 		DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRNamedFragmentBuilderTests.swift; sourceTree = "<group>"; };
 		DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+NamedFragmentBuilder.swift"; sourceTree = "<group>"; };
@@ -1519,6 +1512,17 @@
 			);
 			name = Configuration;
 			path = Configuration/Apollo;
+			sourceTree = "<group>";
+		};
+		96E2F1C32807BE8300FAFC67 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				96F32C5C27CC444100F3383C /* AnimalKingdomAPI.h */,
+				96F32D3727CCB9EA00F3383C /* ccnGraphql */,
+				96F32C6427CC444100F3383C /* GeneratedCCN */,
+				DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		9B0417812390320A00C9EC4E /* TestHelpers */ = {
@@ -1974,6 +1978,7 @@
 				9B7BDAF923FDEE8A00ACD198 /* Frameworks */,
 				90690D04224333DA00FC2E54 /* Configuration */,
 				9FC750451D2A532C00458D91 /* Products */,
+				96E2F1C32807BE8300FAFC67 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -2320,30 +2325,14 @@
 			children = (
 				E66C014127FEB84F00FF5FA1 /* Operations */,
 				E66C015427FEB86800FF5FA1 /* Schema */,
+				96F32D3A27CCD16B00F3383C /* graphql */,
 				DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */,
 				DEE1B3EF273B08D8007350E5 /* LegacyGenerated */,
 				DE3C79AA260A6ACD00D2F4FF /* Info.plist */,
-				DE3C7AB7260A6D3E00D2F4FF /* graphql */,
 				DE223C23271F335D004A0148 /* Resources.swift */,
 			);
 			name = AnimalKingdomAPI;
 			path = Sources/AnimalKingdomAPI;
-			sourceTree = "<group>";
-		};
-		DE3C7AB7260A6D3E00D2F4FF /* graphql */ = {
-			isa = PBXGroup;
-			children = (
-				DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */,
-				DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */,
-				DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */,
-				DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */,
-				DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */,
-				DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */,
-				DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */,
-				DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */,
-				DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */,
-			);
-			path = graphql;
 			sourceTree = "<group>";
 		};
 		DE46A55926F13B4100357C52 /* Interceptors */ = {
@@ -2891,7 +2880,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F32C4B27CC436B00F3383C /* AnimalKingdomAPI.h in Headers */,
+				96F32CB927CC52E100F3383C /* AnimalKingdomAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3467,8 +3456,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F32CB627CC4D9500F3383C /* AllAnimalsQueryCCN.graphql in Resources */,
-				96F32CB527CC4D8F00F3383C /* Generated in Resources */,
+				96F32D3827CCB9EA00F3383C /* ccnGraphql in Resources */,
+				96F32CB527CC4D8F00F3383C /* GeneratedCCN in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3558,14 +3547,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F32CAE27CC45C900F3383C /* PetSearchQuery.graphql in Resources */,
-				96F32CA927CC45C900F3383C /* HeightInMeters.graphql in Resources */,
-				96F32CAB27CC45C900F3383C /* AllAnimalsQuery.graphql in Resources */,
-				96F32CAF27CC45C900F3383C /* WarmBloodedDetails.graphql in Resources */,
-				96F32CAC27CC45C900F3383C /* AnimalSchema.graphqls in Resources */,
-				96F32CA827CC45C900F3383C /* PetAdoptionMutation.graphql in Resources */,
-				96F32CAA27CC45C900F3383C /* PetDetails.graphql in Resources */,
-				96F32CAD27CC45C900F3383C /* ClassroomPets.graphql in Resources */,
+				96F32D3B27CCD16B00F3383C /* graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3591,6 +3573,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEA9A22C27CD96CE00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */,
+				96F32D3927CCB9FE00F3383C /* ccnGraphql in Resources */,
+				96F32D3C27CCD16D00F3383C /* graphql in Resources */,
+				96F32CBA27CC53BC00F3383C /* GeneratedCCN in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4114,6 +4099,7 @@
 				E66C017227FEB86800FF5FA1 /* Cat.swift in Sources */,
 				E66C017327FEB86800FF5FA1 /* Mutation.swift in Sources */,
 				E66C017127FEB86800FF5FA1 /* Human.swift in Sources */,
+				DE223C24271F335D004A0148 /* Resources.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4359,19 +4345,22 @@
 		96F32C5627CC436B00F3383C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
-			buildSettings = {};
+			buildSettings = {
+			};
 			name = Debug;
 		};
 		96F32C5727CC436B00F3383C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
-			buildSettings = {};
+			buildSettings = {
+			};
 			name = Release;
 		};
 		96F32C5827CC436B00F3383C /* PerformanceTesting */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
-			buildSettings = {};
+			buildSettings = {
+			};
 			name = PerformanceTesting;
 		};
 		9B2DFBBB24E1FA0D00ED3AE6 /* Debug */ = {

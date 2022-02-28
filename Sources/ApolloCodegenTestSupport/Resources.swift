@@ -8,16 +8,23 @@ public struct Resources {
 
   public static let GraphQLOperations: [URL] = Bundle.urls(
     forResourcesWithExtension: "graphql",
-    subdirectory: nil
-  )!.filter { !$0.path.contains("CCN") }
-
-  public static let GraphQLCCNOperations: [URL] = Bundle.urls(
-    forResourcesWithExtension: "graphql",
-    subdirectory: nil
-  )!.filter { $0.path.contains("CCN") }
+    subdirectory: "graphql"
+  )!
 
   public static let AnimalKingdomSchema = Bundle.url(
     forResource: "AnimalSchema",
-    withExtension: "graphqls"
+    withExtension: "graphqls",
+    subdirectory: "graphql"
+  )!
+
+  public static let CCNGraphQLOperations: [URL] = Bundle.urls(
+    forResourcesWithExtension: "graphql",
+    subdirectory: "ccnGraphql"
+  )!
+
+  public static let CCNAnimalKingdomSchema = Bundle.url(
+    forResource: "AnimalSchema",
+    withExtension: "graphqls",
+    subdirectory: "ccnGraphql"
   )!
 }
