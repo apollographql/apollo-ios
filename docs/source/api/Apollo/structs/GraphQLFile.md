@@ -45,6 +45,14 @@ public let fileURL: URL?
 public let contentLength: UInt64
 ```
 
+### `octetStreamMimeType`
+
+```swift
+public static let octetStreamMimeType = "application/octet-stream"
+```
+
+A convenience constant for declaring your mimetype is octet-stream.
+
 ## Methods
 ### `init(fieldName:originalName:mimeType:data:)`
 

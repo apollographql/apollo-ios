@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/eneko/SourceDocs.git",
         "state": {
           "branch": null,
-          "revision": "6c6443434ef04328dc18ac71c73e7a2ec0d531d1",
-          "version": "1.2.1"
+          "revision": "3a38adfe18ca73dfc2136b4b8c49407d1a812d50",
+          "version": "2.0.0"
         }
       },
       {
@@ -87,26 +87,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "92646c0cdbaca076c8d3d0207891785b3379cbff",
-          "version": "0.3.1"
-        }
-      },
-      {
-        "package": "llbuild",
-        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
-        "state": {
-          "branch": null,
-          "revision": "f1c9ad9a253cdf1aa89a7f5c99c30b4513b06ddb",
-          "version": "0.1.1"
-        }
-      },
-      {
-        "package": "SwiftPM",
-        "repositoryURL": "https://github.com/apple/swift-package-manager",
-        "state": {
-          "branch": null,
-          "revision": "8656a25cb906c1896339f950ac960ee1b4fe8034",
-          "version": "0.4.0"
+          "revision": "e1465042f195f374b94f915ba8ca49de24300a0d",
+          "version": "1.0.2"
         }
       },
       {

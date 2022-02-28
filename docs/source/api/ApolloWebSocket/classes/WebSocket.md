@@ -125,25 +125,69 @@ public var respondToPingWithPong: Bool = true
 ```
 
 ## Methods
-### `init(request:)`
+### `init(request:protocol:)`
 
 ```swift
-public init(request: URLRequest)
+public init(request: URLRequest, protocol: WSProtocol)
 ```
 
-Used for setting protocols.
+Designated initializer.
 
-### `init(url:)`
+- Parameters:
+  - request: A URL request object that provides request-specific information such as the URL.
+  - protocol: Protocol to use for communication over the web socket.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| request | A URL request object that provides request-specific information such as the URL. |
+| protocol | Protocol to use for communication over the web socket. |
+
+### `init(url:protocol:)`
 
 ```swift
-public convenience init(url: URL)
+public convenience init(url: URL, protocol: WSProtocol)
 ```
 
-### `init(url:writeQueueQOS:)`
+Convenience initializer to specify the URL and web socket protocol.
+
+- Parameters:
+  - url: The destination URL to connect to.
+  - protocol: Protocol to use for communication over the web socket.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| url | The destination URL to connect to. |
+| protocol | Protocol to use for communication over the web socket. |
+
+### `init(url:writeQueueQOS:protocol:)`
 
 ```swift
-public convenience init(url: URL, writeQueueQOS: QualityOfService)
+public convenience init(
+  url: URL,
+  writeQueueQOS: QualityOfService,
+  protocol: WSProtocol
+)
 ```
+
+Convenience initializer to specify the URL and web socket protocol with a specific quality of
+service on the write queue.
+
+- Parameters:
+  - url: The destination URL to connect to.
+  - writeQueueQOS: Specifies the quality of service for the write queue.
+  - protocol: Protocol to use for communication over the web socket.
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| url | The destination URL to connect to. |
+| writeQueueQOS | Specifies the quality of service for the write queue. |
+| protocol | Protocol to use for communication over the web socket. |
 
 ### `connect()`
 
