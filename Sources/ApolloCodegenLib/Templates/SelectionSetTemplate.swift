@@ -88,8 +88,8 @@ struct SelectionSetTemplate {
       \(if: !selections.fields.values.isEmpty, """
         \(selections.fields.values.map { FieldSelectionTemplate($0) }),
         """)
-      \(if: !selections.typeCases.values.isEmpty, """
-        \(selections.typeCases.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
+      \(if: !selections.conditionalSelectionSets.values.isEmpty, """
+        \(selections.conditionalSelectionSets.values.map { TypeCaseSelectionTemplate($0.typeInfo) }),
         """)
       \(if: !selections.fragments.values.isEmpty, """
         \(selections.fragments.values.map { FragmentSelectionTemplate($0) }),
@@ -160,10 +160,10 @@ struct SelectionSetTemplate {
     _ selections: IR.SelectionSet.Selections
   ) -> TemplateString {
     """
-    \(ifLet: selections.direct?.typeCases.values, {
+    \(ifLet: selections.direct?.conditionalSelectionSets.values, {
         "\($0.map { TypeCaseAccessorTemplate($0) }, separator: "\n")"
       })
-    \(selections.merged.typeCases.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
+    \(selections.merged.conditionalSelectionSets.values.map { TypeCaseAccessorTemplate($0) }, separator: "\n")
     """
   }
 
@@ -219,10 +219,10 @@ struct SelectionSetTemplate {
 
   private func ChildTypeCaseSelectionSets(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     """
-    \(ifLet: selections.direct?.typeCases.values, {
+    \(ifLet: selections.direct?.conditionalSelectionSets.values, {
         "\($0.map { render(typeCase: $0) }, separator: "\n\n")"
       })
-    \(selections.merged.typeCases.values.map { render(typeCase: $0) }, separator: "\n\n")
+    \(selections.merged.conditionalSelectionSets.values.map { render(typeCase: $0) }, separator: "\n\n")
     """    
   }
 

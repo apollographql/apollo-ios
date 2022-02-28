@@ -6,7 +6,7 @@ extension IR.DirectSelections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    typeCases[typeCase]
+    conditionalSelectionSets[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
@@ -20,7 +20,7 @@ extension IR.MergedSelections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    typeCases[typeCase]
+    conditionalSelectionSets[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
@@ -79,7 +79,7 @@ extension IR.SelectionSet.Selections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    direct?.typeCases[typeCase] ?? merged.typeCases[typeCase]
+    direct?.conditionalSelectionSets[typeCase] ?? merged.conditionalSelectionSets[typeCase]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
