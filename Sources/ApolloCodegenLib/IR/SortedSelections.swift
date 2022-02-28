@@ -7,7 +7,7 @@ extension IR {
     typealias TypeCase = IR.SelectionSet
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase> = [:]
+    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, TypeCase> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init() {}
@@ -34,7 +34,7 @@ extension IR {
 
     func mergeIn(_ selections: DirectSelections) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.typeCases.values)
+      mergeIn(selections.conditionalSelectionSets.values)
       mergeIn(selections.fragments.values)
     }
 
@@ -55,12 +55,12 @@ extension IR {
     func mergeIn(_ typeCase: TypeCase) {
       let keyInScope = typeCase.hashForSelectionSetScope
 
-      if let existingTypeCase = typeCases[keyInScope] {
+      if let existingTypeCase = conditionalSelectionSets[keyInScope] {
         existingTypeCase.selections.direct!
           .mergeIn(typeCase.selections.direct!)
 
       } else {
-        typeCases[keyInScope] = typeCase
+        conditionalSelectionSets[keyInScope] = typeCase
       }
     }
 
@@ -81,19 +81,19 @@ extension IR {
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+      fields.isEmpty && conditionalSelectionSets.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: DirectSelections, rhs: DirectSelections) -> Bool {
       lhs.fields == rhs.fields &&
-      lhs.typeCases == rhs.typeCases &&
+      lhs.conditionalSelectionSets == rhs.conditionalSelectionSets &&
       lhs.fragments == rhs.fragments
     }
 
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      TypeCases: \(typeCases.values.elements.map(\.typeInfo.parentType))
+      TypeCases: \(conditionalSelectionSets.values.elements.map(\.typeInfo.parentType))
       Fragments: \(fragments.values.elements.map(\.definition.name))
       """
     }
@@ -106,15 +106,13 @@ extension IR {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
-      var typeCases: OrderedDictionary<String, TypeCase> { value.typeCases }
+      var typeCases: OrderedDictionary<String, TypeCase> { value.conditionalSelectionSets }
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
     }
 
   }
 
   class MergedSelections: Equatable, CustomDebugStringConvertible {
-
-    typealias TypeCase = IR.SelectionSet
 
     struct MergedSource: Hashable {
       let typeInfo: SelectionSet.TypeInfo
@@ -127,7 +125,7 @@ extension IR {
     let typeInfo: SelectionSet.TypeInfo
     fileprivate(set) var mergedSources: MergedSources = []
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var typeCases: OrderedDictionary<String, TypeCase> = [:]
+    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init(
@@ -201,10 +199,10 @@ extension IR {
         return
       }
 
-      typeCases[keyInScope] = createShallowlyMergedTypeCase(withType: type)
+      conditionalSelectionSets[keyInScope] = createShallowlyMergedTypeCase(withType: type)
     }
 
-    private func createShallowlyMergedTypeCase(withType type: GraphQLCompositeType) -> TypeCase {
+    private func createShallowlyMergedTypeCase(withType type: GraphQLCompositeType) -> SelectionSet {
       IR.SelectionSet(
         entity: self.typeInfo.entity,
         parentType: type,
@@ -214,13 +212,13 @@ extension IR {
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && typeCases.isEmpty && fragments.isEmpty
+      fields.isEmpty && conditionalSelectionSets.isEmpty && fragments.isEmpty
     }
 
     static func == (lhs: MergedSelections, rhs: MergedSelections) -> Bool {
       lhs.mergedSources == rhs.mergedSources &&
       lhs.fields == rhs.fields &&
-      lhs.typeCases == rhs.typeCases &&
+      lhs.conditionalSelectionSets == rhs.conditionalSelectionSets &&
       lhs.fragments == rhs.fragments
     }
 
@@ -228,7 +226,7 @@ extension IR {
       """
       Merged Sources: \(mergedSources)
       Fields: \(fields.values.elements)
-      TypeCases: \(typeCases.values.elements.map(\.typeInfo.parentType))
+      TypeCases: \(conditionalSelectionSets.values.elements.map(\.typeInfo.parentType))
       Fragments: \(fragments.values.elements.map(\.definition.name))
       """
     }

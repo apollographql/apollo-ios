@@ -10,7 +10,7 @@ protocol SelectionShallowMatchable {
   typealias Fragment = IR.FragmentSpread
 
   var fields: OrderedDictionary<String, Field> { get }
-  var typeCases: OrderedDictionary<String, TypeCase> { get }
+  var conditionalSelectionSets: OrderedDictionary<String, TypeCase> { get }
   var fragments: OrderedDictionary<String, Fragment> { get }
 
   var isEmpty: Bool { get }
@@ -19,7 +19,7 @@ protocol SelectionShallowMatchable {
 extension IR.DirectSelections: SelectionShallowMatchable { }
 extension IR.MergedSelections: SelectionShallowMatchable { }
 extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
-  var typeCases: OrderedDictionary<String, TypeCase> { [:] }
+  var conditionalSelectionSets: OrderedDictionary<String, TypeCase> { [:] }
 }
 
 // MARK - Custom Matchers
@@ -34,7 +34,7 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
 ) -> Predicate<T> {
   return satisfyAllOf([
     shallowlyMatch(expectedValue.fields).mappingActualTo { $0?.fields },
-    shallowlyMatch(expectedValue.typeCases).mappingActualTo { $0?.typeCases },
+    shallowlyMatch(expectedValue.typeCases).mappingActualTo { $0?.conditionalSelectionSets },
     shallowlyMatch(expectedValue.fragments).mappingActualTo { $0?.fragments }
   ])
 }
