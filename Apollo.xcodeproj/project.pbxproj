@@ -13,8 +13,17 @@
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
-		96F32C2227C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */; };
-		96F32C2327C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */; };
+		96F32C4827CC436B00F3383C /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
+		96F32C4927CC436B00F3383C /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
+		96F32C4B27CC436B00F3383C /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE3C79A9260A6ACD00D2F4FF /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96F32CA827CC45C900F3383C /* PetAdoptionMutation.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE6D080227BD9933009F5F33 /* PetAdoptionMutation.graphql */; };
+		96F32CA927CC45C900F3383C /* HeightInMeters.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */; };
+		96F32CAA27CC45C900F3383C /* PetDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */; };
+		96F32CAB27CC45C900F3383C /* AllAnimalsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */; };
+		96F32CAC27CC45C900F3383C /* AnimalSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */; };
+		96F32CAD27CC45C900F3383C /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
+		96F32CAE27CC45C900F3383C /* PetSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */; };
+		96F32CAF27CC45C900F3383C /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEA245A020300562176 /* ApolloInterceptor.swift */; };
@@ -195,12 +204,6 @@
 		DE181A3426C5D8D4000C0B9C /* CompressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3326C5D8D4000C0B9C /* CompressionTests.swift */; };
 		DE181A3626C5DE4F000C0B9C /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A3526C5DE4F000C0B9C /* WebSocketStream.swift */; };
 		DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C1B271F3288004A0148 /* AnimalKingdomIRCreationTests.swift */; };
-		DE223C1D271F332D004A0148 /* AllAnimalsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */; };
-		DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */; };
-		DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
-		DE223C20271F332D004A0148 /* HeightInMeters.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */; };
-		DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */; };
-		DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
 		DE223C24271F335D004A0148 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C23271F335D004A0148 /* Resources.swift */; };
 		DE223C292720B897004A0148 /* StringInterpolation+NestedIndentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C282720B897004A0148 /* StringInterpolation+NestedIndentation.swift */; };
 		DE223C2D2721FCE8004A0148 /* ScopedSelectionSetHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */; };
@@ -234,12 +237,6 @@
 		DE4D54E727A3504B00D26B68 /* OperationFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */; };
 		DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
-		DE5B313927A482920051C9D3 /* AllAnimalsQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */; };
-		DE5B313A27A482950051C9D3 /* AnimalSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */; };
-		DE5B313B27A482980051C9D3 /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
-		DE5B313C27A4829C0051C9D3 /* HeightInMeters.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3226E8092B0057EA67 /* HeightInMeters.graphql */; };
-		DE5B313D27A4829F0051C9D3 /* PetDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3126E8092B0057EA67 /* PetDetails.graphql */; };
-		DE5B313E27A482A30051C9D3 /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
 		DE5B314027A482C80051C9D3 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B313F27A482C80051C9D3 /* Resources.swift */; };
 		DE5EB9C026EFCB010004176A /* TestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9BF26EFCB010004176A /* TestObserver.swift */; };
 		DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EB9C126EFCBD40004176A /* MockApolloStore.swift */; };
@@ -264,7 +261,6 @@
 		DE6D07F927BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07F827BC3B6D009F5F33 /* GraphQLInputField+Rendered.swift */; };
 		DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */; };
 		DE6D07FF27BC7F78009F5F33 /* InputVariableRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6D07FE27BC7F78009F5F33 /* InputVariableRenderable.swift */; };
-		DE72867A27BEEC4D00577A0E /* PetSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */; };
 		DE736F4626FA6EE6007187F2 /* InflectorKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6E4209126A7DF4200B82624 /* InflectorKit */; };
 		DE796429276998B000978A03 /* IR+RootFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */; };
 		DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */; };
@@ -284,7 +280,6 @@
 		DE9C04AF26EAAEE800EC35E7 /* CacheReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04AE26EAAEE800EC35E7 /* CacheReference.swift */; };
 		DE9C04B226EAB02C00EC35E7 /* JSONDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9C04B026EAAFF900EC35E7 /* JSONDecodingError.swift */; };
 		DEA6A83426F298660091AF8A /* ParentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA6A83326F298660091AF8A /* ParentType.swift */; };
-		DEA9A22B27CD96CD00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */; };
 		DEA9A22C27CD96CE00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */; };
 		DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */; };
 		DEA9A23227D822E600F96C36 /* IR+InclusionConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A23127D822E600F96C36 /* IR+InclusionConditions.swift */; };
@@ -500,6 +495,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		96F32C2827CC436B00F3383C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE058606266978A100265760;
+			remoteInfo = ApolloAPI;
+		};
+		96F32C2A27CC436B00F3383C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B68353D2463481A00337AE6;
+			remoteInfo = ApolloCore;
+		};
 		9B2DFBCB24E201A000ED3AE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9FC7503B1D2A532C00458D91 /* Project object */;
@@ -757,7 +766,7 @@
 		90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-GitHubAPI.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
-		96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllAnimalsQueryCCN.graphql; sourceTree = "<group>"; };
+		96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPICCN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Helpers.swift"; sourceTree = "<group>"; };
 		9B2061172591B3550020D1E0 /* c.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = c.txt; sourceTree = "<group>"; };
 		9B2061182591B3550020D1E0 /* b.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = b.txt; sourceTree = "<group>"; };
@@ -1321,6 +1330,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		96F32C4727CC436B00F3383C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96F32C4827CC436B00F3383C /* ApolloAPI.framework in Frameworks */,
+				96F32C4927CC436B00F3383C /* ApolloUtils.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B2DFBB324E1FA0D00ED3AE6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1498,14 +1516,6 @@
 			);
 			name = Configuration;
 			path = Configuration/Apollo;
-			sourceTree = "<group>";
-		};
-		96F32C2427C6FDA900F3383C /* CCNQueries */ = {
-			isa = PBXGroup;
-			children = (
-				96F32C2127C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql */,
-			);
-			path = CCNQueries;
 			sourceTree = "<group>";
 		};
 		9B0417812390320A00C9EC4E /* TestHelpers */ = {
@@ -1986,6 +1996,7 @@
 				DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */,
 				DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */,
 				DE058621266978A100265760 /* ApolloAPI.framework */,
+				96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2319,7 +2330,6 @@
 		DE3C7AB7260A6D3E00D2F4FF /* graphql */ = {
 			isa = PBXGroup;
 			children = (
-				96F32C2427C6FDA900F3383C /* CCNQueries */,
 				DE2FCF2E26E8092B0057EA67 /* AllAnimalsQuery.graphql */,
 				DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */,
 				DE2FCF2D26E8092B0057EA67 /* AnimalSchema.graphqls */,
@@ -2874,6 +2884,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		96F32C4A27CC436B00F3383C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96F32C4B27CC436B00F3383C /* AnimalKingdomAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B2DFBB124E1FA0D00ED3AE6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2968,6 +2986,26 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		96F32C2627CC436B00F3383C /* AnimalKingdomAPICCN */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96F32C5527CC436B00F3383C /* Build configuration list for PBXNativeTarget "AnimalKingdomAPICCN" */;
+			buildPhases = (
+				96F32C2B27CC436B00F3383C /* Sources */,
+				96F32C4727CC436B00F3383C /* Frameworks */,
+				96F32C4A27CC436B00F3383C /* Headers */,
+				96F32C4C27CC436B00F3383C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96F32C2727CC436B00F3383C /* PBXTargetDependency */,
+				96F32C2927CC436B00F3383C /* PBXTargetDependency */,
+			);
+			name = AnimalKingdomAPICCN;
+			productName = StarWarsAPI;
+			productReference = 96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B2DFBBE24E1FA0D00ED3AE6 /* Build configuration list for PBXNativeTarget "UploadAPI" */;
@@ -3416,11 +3454,19 @@
 				9B7B6F46233C26D100F32205 /* ApolloCodegenLib */,
 				9BAEEBFB234BB8FD00808306 /* ApolloCodegenTests */,
 				DECD490A262F81BF00924527 /* ApolloCodegenTestSupport */,
+				96F32C2627CC436B00F3383C /* AnimalKingdomAPICCN */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		96F32C4C27CC436B00F3383C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B2DFBB424E1FA0D00ED3AE6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3507,15 +3553,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE223C1D271F332D004A0148 /* AllAnimalsQuery.graphql in Resources */,
-				DE223C1E271F332D004A0148 /* AnimalSchema.graphqls in Resources */,
-				DE223C1F271F332D004A0148 /* ClassroomPets.graphql in Resources */,
-				DE223C20271F332D004A0148 /* HeightInMeters.graphql in Resources */,
-				DE72867A27BEEC4D00577A0E /* PetSearchQuery.graphql in Resources */,
-				DE223C21271F332D004A0148 /* PetDetails.graphql in Resources */,
-				DEA9A22B27CD96CD00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */,
-				DE223C22271F332D004A0148 /* WarmBloodedDetails.graphql in Resources */,
-				96F32C2227C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */,
+				96F32CAE27CC45C900F3383C /* PetSearchQuery.graphql in Resources */,
+				96F32CA927CC45C900F3383C /* HeightInMeters.graphql in Resources */,
+				96F32CAB27CC45C900F3383C /* AllAnimalsQuery.graphql in Resources */,
+				96F32CAF27CC45C900F3383C /* WarmBloodedDetails.graphql in Resources */,
+				96F32CAC27CC45C900F3383C /* AnimalSchema.graphqls in Resources */,
+				96F32CA827CC45C900F3383C /* PetAdoptionMutation.graphql in Resources */,
+				96F32CAA27CC45C900F3383C /* PetDetails.graphql in Resources */,
+				96F32CAD27CC45C900F3383C /* ClassroomPets.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3540,14 +3585,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE5B313B27A482980051C9D3 /* ClassroomPets.graphql in Resources */,
-				96F32C2327C6CEBF00F3383C /* AllAnimalsQueryCCN.graphql in Resources */,
-				DE5B313A27A482950051C9D3 /* AnimalSchema.graphqls in Resources */,
-				DE5B313927A482920051C9D3 /* AllAnimalsQuery.graphql in Resources */,
-				DE5B313E27A482A30051C9D3 /* WarmBloodedDetails.graphql in Resources */,
-				DE5B313D27A4829F0051C9D3 /* PetDetails.graphql in Resources */,
 				DEA9A22C27CD96CE00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */,
-				DE5B313C27A4829C0051C9D3 /* HeightInMeters.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3575,6 +3613,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		96F32C2B27CC436B00F3383C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B2DFBB224E1FA0D00ED3AE6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4111,6 +4156,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		96F32C2727CC436B00F3383C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE058606266978A100265760 /* ApolloAPI */;
+			targetProxy = 96F32C2827CC436B00F3383C /* PBXContainerItemProxy */;
+		};
+		96F32C2927CC436B00F3383C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9B68353D2463481A00337AE6 /* ApolloUtils */;
+			targetProxy = 96F32C2A27CC436B00F3383C /* PBXContainerItemProxy */;
+		};
 		9B2DFBCC24E201A000ED3AE6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */;
@@ -4296,6 +4351,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		96F32C5627CC436B00F3383C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
+			buildSettings = {};
+			name = Debug;
+		};
+		96F32C5727CC436B00F3383C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
+			buildSettings = {};
+			name = Release;
+		};
+		96F32C5827CC436B00F3383C /* PerformanceTesting */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */;
+			buildSettings = {};
+			name = PerformanceTesting;
+		};
 		9B2DFBBB24E1FA0D00ED3AE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B2DFBC824E1FA7E00ED3AE6 /* Apollo-Target-UploadAPI.xcconfig */;
@@ -4656,6 +4729,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		96F32C5527CC436B00F3383C /* Build configuration list for PBXNativeTarget "AnimalKingdomAPICCN" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96F32C5627CC436B00F3383C /* Debug */,
+				96F32C5727CC436B00F3383C /* Release */,
+				96F32C5827CC436B00F3383C /* PerformanceTesting */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9B2DFBBE24E1FA0D00ED3AE6 /* Build configuration list for PBXNativeTarget "UploadAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

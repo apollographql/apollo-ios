@@ -168,10 +168,10 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: authorsData, named: "authors-operation.graphql")
 
-    let config = ApolloCodegenConfiguration.FileInput(
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
-    )
+    )))
     let compiledDocument = try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: true)
 
     // then
@@ -192,10 +192,10 @@ class ApolloCodegenTests: XCTestCase {
       """.data(using: .utf8)!
     createFile(containing: authorsData, named: "authors-operation.graphql")
 
-    let config = ApolloCodegenConfiguration.FileInput(
+    let config = ReferenceWrapped(value: ApolloCodegenConfiguration.mock(input: .init(
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
-    )
+    )))
 
     // then
     expect(try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: false).operations).to(throwError { error in
