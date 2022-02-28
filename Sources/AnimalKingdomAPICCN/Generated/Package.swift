@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "AnimalKingdomAPI",
+  name: "AnimalKingdomAPICCN",
   platforms: [
     .iOS(.v12),
     .macOS(.v10_14),
@@ -11,14 +11,14 @@ let package = Package(
     .watchOS(.v5),
   ],
   products: [
-    .library(name: "AnimalKingdomAPI", targets: ["AnimalKingdomAPI"]),
+    .library(name: "AnimalKingdomAPICCN", targets: ["AnimalKingdomAPICCN"]),
   ],
   dependencies: [
     .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0-alpha.1"),
   ],
   targets: [
     .target(
-      name: "AnimalKingdomAPI",
+      name: "AnimalKingdomAPICCN",
       dependencies: [
         .product(name: "ApolloAPI", package: "apollo-ios"),
       ],

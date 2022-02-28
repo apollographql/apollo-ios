@@ -24,6 +24,8 @@
 		96F32CAD27CC45C900F3383C /* ClassroomPets.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF2F26E8092B0057EA67 /* ClassroomPets.graphql */; };
 		96F32CAE27CC45C900F3383C /* PetSearchQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE72867927BEEC4D00577A0E /* PetSearchQuery.graphql */; };
 		96F32CAF27CC45C900F3383C /* WarmBloodedDetails.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DE2FCF3026E8092B0057EA67 /* WarmBloodedDetails.graphql */; };
+		96F32CB527CC4D8F00F3383C /* Generated in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6427CC444100F3383C /* Generated */; };
+		96F32CB627CC4D9500F3383C /* AllAnimalsQueryCCN.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6C27CC444100F3383C /* AllAnimalsQueryCCN.graphql */; };
 		9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CCDD82360F02C007C9032 /* Bundle+Helpers.swift */; };
 		9B21FD752422C29D00998B5C /* GraphQLFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B21FD742422C29D00998B5C /* GraphQLFileTests.swift */; };
 		9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B260BEA245A020300562176 /* ApolloInterceptor.swift */; };
@@ -3449,13 +3451,13 @@
 				DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */,
 				9F8A95771EC0FC1200304A2D /* ApolloTestSupport */,
 				DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */,
+				96F32C2627CC436B00F3383C /* AnimalKingdomAPICCN */,
 				9FCE2CF91E6C213D00E34457 /* StarWarsAPI */,
 				9FACA9B71F42E67200AE2DBD /* GitHubAPI */,
 				9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */,
 				9B7B6F46233C26D100F32205 /* ApolloCodegenLib */,
 				9BAEEBFB234BB8FD00808306 /* ApolloCodegenTests */,
 				DECD490A262F81BF00924527 /* ApolloCodegenTestSupport */,
-				96F32C2627CC436B00F3383C /* AnimalKingdomAPICCN */,
 			);
 		};
 /* End PBXProject section */
@@ -3465,6 +3467,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F32CB627CC4D9500F3383C /* AllAnimalsQueryCCN.graphql in Resources */,
+				96F32CB527CC4D8F00F3383C /* Generated in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
