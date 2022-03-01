@@ -4,6 +4,7 @@ extension IR {
 
   class Field: Equatable, CustomDebugStringConvertible {
     let underlyingField: CompilationResult.Field
+    let inclusionConditions: [InclusionCondition]? = nil
 
     var name: String { underlyingField.name }
     var alias: String? { underlyingField.alias }
