@@ -10,12 +10,17 @@ import {
   DirectiveNode,
   FragmentDefinitionNode,
   getNamedType,
+  GraphQLArgument,
   GraphQLCompositeType,
+  GraphQLDirective,
   GraphQLError,
+  GraphQLField,
+  GraphQLIncludeDirective,
   GraphQLInputObjectType,  
   GraphQLNamedType,
   GraphQLObjectType,
   GraphQLSchema,
+  GraphQLSkipDirective,
   GraphQLType,
   isCompositeType,
   isInputObjectType,
@@ -25,10 +30,7 @@ import {
   print,
   SelectionNode,
   SelectionSetNode,
-  typeFromAST,
-  GraphQLField,
-  GraphQLDirective,
-  GraphQLArgument,
+  typeFromAST
 } from "graphql";
 import * as ir from "./ir";
 import { valueFromValueNode } from "./values";
@@ -236,17 +238,18 @@ export function compileToIR(
 
         const { description, deprecationReason } = fieldDef;
         const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);
+        const [directives, inclusionConditions] = compileDirectives(selectionNode.directives) ?? [undefined, undefined];
 
         let field: ir.Field = {
           kind: "Field",
           name,
           alias,
-          arguments: args,
           type: fieldType,
-          description:
-            !isMetaFieldName(name) && description ? description : undefined,
+          arguments: args,
+          inclusionConditions: inclusionConditions,
+          description: !isMetaFieldName(name) && description ? description : undefined,
           deprecationReason: deprecationReason || undefined,
-          directives: compileDirectives(selectionNode.directives)
+          directives: directives,
         };
 
         if (isCompositeType(unwrappedFieldType)) {
@@ -293,7 +296,7 @@ export function compileToIR(
         if (!fragment) {
           throw new GraphQLError(
             `Unknown fragment "${fragmentName}".`,
-            selectionNode.name
+            { nodes: selectionNode.name }
           );
         }
 
@@ -338,12 +341,15 @@ export function compileToIR(
 
   function compileDirectives(
     directives?: ReadonlyArray<DirectiveNode>
-  ): ir.Directive[] | undefined {    
-    return directives && directives.length > 0
-      ? directives.map ( (directive) => {
+  ): [ir.Directive[], ir.InclusionCondition[]?] | undefined {
+    if (directives && directives.length > 0) {
+      const compiledDirectives: ir.Directive[] = [];
+      const inclusionConditions: ir.InclusionCondition[] = [];
+
+      for (const directive of directives) {
         const name = directive.name.value;
         const directiveDef = schema.getDirective(name)
-
+        
         if (!directiveDef) {
           throw new GraphQLError(
             `Cannot find directive "${name}".`,
@@ -351,12 +357,53 @@ export function compileToIR(
           );
         }
 
-        return {
-          name: name,
-          arguments: compileArguments(directiveDef, directive.arguments)
-        }
-      })
-      : undefined;
+        compiledDirectives.push(
+          {
+            name: name,
+            arguments: compileArguments(directiveDef, directive.arguments)
+          }
+        );   
+
+        const condition = compileInclusionCondition(directive, directiveDef);
+        if (condition) { inclusionConditions.push(condition) };              
+      }
+
+      return [
+        compiledDirectives,
+        inclusionConditions.length > 0 ? inclusionConditions : undefined
+      ]
+
+    } else {
+      return undefined;
+    }           
+  }
+
+  function compileInclusionCondition(
+    directiveNode: DirectiveNode,
+    directiveDef: GraphQLDirective
+  ): ir.InclusionCondition | undefined {
+    if (directiveDef == GraphQLIncludeDirective || directiveDef == GraphQLSkipDirective) {      
+      const condition = directiveNode.arguments?.[0].value;
+      switch (condition?.kind) {
+        case Kind.BOOLEAN:
+          return condition.value ? "INCLUDED" : "SKIPPED";          
+
+        case Kind.VARIABLE:
+          return {
+            variable: condition.name.value,
+            isInverted: directiveDef == GraphQLSkipDirective
+          }
+
+        default:
+          throw new GraphQLError(
+            `Conditional inclusion directive has invalid "if" argument.`,
+            { nodes: directiveNode }
+          );
+          break;
+      }    
+    } else {
+      return undefined
+    }    
   }
 
   function addReferencedTypesFromInputObject(
