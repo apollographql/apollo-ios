@@ -183,6 +183,8 @@ public class CompilationResult: JavaScriptObject {
 
     lazy var arguments: [Argument]? = self["arguments"]
 
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
     lazy var directives: [Directive]? = self["directives"]
     
     lazy var selectionSet: SelectionSet? = self["selectionSet"]
@@ -284,6 +286,31 @@ public class CompilationResult: JavaScriptObject {
           "(\($0.map { "\($0.name): \($0.value)" }, separator: ","))"
         })
       """).description
+    }
+  }
+
+  public enum InclusionCondition: JavaScriptValueDecodable {
+    case included
+    case skipped
+    case variable(String, isInverted: Bool)
+
+    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+      if jsValue.isString, let value = jsValue.toString() {
+        switch value {
+        case "INCLUDED":
+          self = .included
+          return
+        case "SKIPPED":
+          self = .skipped
+          return
+        default:
+          preconditionFailure("Unrecognized value for include condition. Got \(value)")          
+        }
+      }
+
+      precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
+
+      self = .variable(jsValue["variable"].toString(), isInverted: jsValue["isInverted"].toBool())
     }
   }
 
