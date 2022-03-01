@@ -180,7 +180,9 @@ public class CompilationResult: JavaScriptObject {
     }
     
     lazy var arguments: [Argument]? = self["arguments"]
-    
+
+    lazy var directives: [Directive]? = self["directives"]
+
     lazy var type: GraphQLType = self["type"]!
     
     lazy var selectionSet: SelectionSet? = self["selectionSet"]
@@ -197,6 +199,7 @@ public class CompilationResult: JavaScriptObject {
       name: String,
       alias: String? = nil,
       arguments: [Argument]? = nil,
+      directives: [Directive]? = nil,
       type: GraphQLType,
       selectionSet: SelectionSet? = nil,
       deprecationReason: String? = nil,
@@ -206,6 +209,7 @@ public class CompilationResult: JavaScriptObject {
       self.name = name
       self.alias = alias
       self.arguments = arguments
+      self.directives = directives
       self.type = type
       self.selectionSet = selectionSet
       self.deprecationReason = deprecationReason
@@ -213,7 +217,11 @@ public class CompilationResult: JavaScriptObject {
     }
 
     public var debugDescription: String {
-      "\(name): \(type)"
+      TemplateString("""
+      \(name): \(type.debugDescription)\(ifLet: directives, {
+          " \($0.map{"\($0.debugDescription)"}, separator: " ")"
+        })
+      """).description
     }
 
     public func hash(into hasher: inout Hasher) {
@@ -242,12 +250,38 @@ public class CompilationResult: JavaScriptObject {
 
     public func hash(into hasher: inout Hasher) {
       hasher.combine(name)
+      hasher.combine(type)
       hasher.combine(value)
     }
 
     public static func ==(lhs: Argument, rhs: Argument) -> Bool {
       return lhs.name == rhs.name &&
+      lhs.type == rhs.type &&
       lhs.value == rhs.value
+    }
+  }
+
+  public class Directive: JavaScriptObject, Hashable {
+    lazy var name: String = self["name"]
+
+    lazy var arguments: [Argument]? = self["arguments"]
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+      hasher.combine(arguments)
+    }
+
+    public static func == (lhs: Directive, rhs: Directive) -> Bool {
+      return lhs.name == rhs.name &&
+      lhs.arguments == rhs.arguments
+    }
+
+    public override var debugDescription: String {
+      TemplateString("""
+      "@\(name)\(ifLet: arguments, {
+          "(\($0.map { "\($0.name): \($0.value)" }, separator: ","))"
+        })
+      """).description
     }
   }
 
