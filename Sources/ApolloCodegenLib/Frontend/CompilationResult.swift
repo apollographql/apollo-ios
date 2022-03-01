@@ -179,11 +179,11 @@ public class CompilationResult: JavaScriptObject {
       alias ?? name
     }
     
+    lazy var type: GraphQLType = self["type"]!
+
     lazy var arguments: [Argument]? = self["arguments"]
 
     lazy var directives: [Directive]? = self["directives"]
-
-    lazy var type: GraphQLType = self["type"]!
     
     lazy var selectionSet: SelectionSet? = self["selectionSet"]
     
@@ -208,9 +208,9 @@ public class CompilationResult: JavaScriptObject {
       self.init(nil)
       self.name = name
       self.alias = alias
+      self.type = type
       self.arguments = arguments
       self.directives = directives
-      self.type = type
       self.selectionSet = selectionSet
       self.deprecationReason = deprecationReason
       self.description = description
@@ -227,16 +227,18 @@ public class CompilationResult: JavaScriptObject {
     public func hash(into hasher: inout Hasher) {
       hasher.combine(name)
       hasher.combine(alias)
-      hasher.combine(arguments)
       hasher.combine(type)
+      hasher.combine(arguments)
+      hasher.combine(directives)
       hasher.combine(selectionSet)
     }
 
     public static func ==(lhs: Field, rhs: Field) -> Bool {
       return lhs.name == rhs.name &&
       lhs.alias == rhs.alias &&
-      lhs.arguments == rhs.arguments &&
       lhs.type == rhs.type &&
+      lhs.arguments == rhs.arguments &&
+      lhs.directives == rhs.directives &&
       lhs.selectionSet == rhs.selectionSet
     }
   }

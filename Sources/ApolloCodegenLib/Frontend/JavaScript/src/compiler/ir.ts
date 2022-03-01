@@ -44,8 +44,9 @@ export interface Field {
   kind: "Field";
   name: string;
   alias?: string;
-  arguments?: Argument[];
   type: GraphQLOutputType;
+  arguments?: Argument[];
+  inclusionConditions?: InclusionCondition[]
   description?: string;
   deprecationReason?: string;
   selectionSet?: SelectionSet;
@@ -74,4 +75,12 @@ export interface FragmentSpread {
 export interface Directive {
   name: string;
   arguments?: Argument[];
+}
+
+export type InclusionCondition = InclusionConditionIncluded | InclusionConditionSkipped | InclusionConditionVariable;
+export type InclusionConditionIncluded = "INCLUDED";
+export type InclusionConditionSkipped = "SKIPPED";
+export interface InclusionConditionVariable {
+  variable: string;
+  isInverted: Boolean;
 }
