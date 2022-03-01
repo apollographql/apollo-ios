@@ -4,8 +4,10 @@ import {
   isNotNullOrUndefined,
 } from "../utilities";
 import {
-  ASTNode,
+  ArgumentNode,
+  ASTNode,  
   DocumentNode,
+  DirectiveNode,
   FragmentDefinitionNode,
   getNamedType,
   GraphQLCompositeType,
@@ -230,30 +232,7 @@ export function compileToIR(
         addReferencedType(getNamedType(unwrappedFieldType));
 
         const { description, deprecationReason } = fieldDef;
-
-        const args: ir.Field["arguments"] =
-          selectionNode.arguments && selectionNode.arguments.length > 0
-            ? selectionNode.arguments.map((arg) => {
-                const name = arg.name.value;
-                const argDef = fieldDef.args.find(
-                  (argDef) => argDef.name === arg.name.value
-                );
-                const argDefType = argDef?.type;
-
-                if (!argDefType) {
-                  throw new GraphQLError(
-                    `Cannot find argument type for argument "${name}" on field "${selectionNode.name.value}"`,
-                    { nodes: [selectionNode, arg] }
-                  )
-                }
-                
-                return {
-                  name,
-                  value: valueFromValueNode(arg.value),
-                  type: argDefType,
-                };
-              })
-            : undefined;
+        const args: ir.Field["arguments"] = compileArguments(selectionNode.arguments);          
 
         let field: ir.Field = {
           kind: "Field",
@@ -264,6 +243,7 @@ export function compileToIR(
           description:
             !isMetaFieldName(name) && description ? description : undefined,
           deprecationReason: deprecationReason || undefined,
+          directives: compileDirectives(selectionNode.directives)
         };
 
         if (isCompositeType(unwrappedFieldType)) {
@@ -323,6 +303,45 @@ export function compileToIR(
     }
   }
 
+  function compileArguments(
+    args?: ReadonlyArray<ArgumentNode>
+  ): ir.Argument[] | undefined {
+    return args && args.length > 0
+      ? args.map((arg) => {
+          const name = arg.name.value;
+          const argDef = fieldDef.args.find(
+            (argDef) => argDef.name === arg.name.value
+          );
+          const argDefType = argDef?.type;
+
+          if (!argDefType) {
+            throw new GraphQLError(
+              `Cannot find argument type for argument "${name}" on field "${selectionNode.name.value}"`,
+              { nodes: [selectionNode, arg] }
+            )
+          }
+          
+          return {
+            name,
+            value: valueFromValueNode(arg.value),
+            type: argDefType,
+          };
+        })
+      : undefined;
+  }
+
+  function compileDirectives(
+    directives?: ReadonlyArray<DirectiveNode>
+  ): ir.Directive[] | undefined {
+    return directives && directives.length > 0
+      ? directives.map ( (directive) => {
+        return {
+          name: directive.name.value,          
+        }
+      })
+      : undefined;
+  }
+
   function addReferencedTypesFromInputObject(
     inputObject: GraphQLInputObjectType
   ) {
@@ -334,4 +353,5 @@ export function compileToIR(
       }    
     }
   }
+  
 }
