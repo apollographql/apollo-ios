@@ -49,7 +49,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     )
   }
 
-  func test__selections__givenIncludeIfVariable_createsConditionalSelectionSet() throws {
+  func test__selections__givenIncludeIfVariable_onField_createsSelectionWithInclusionCondition() throws {
     // given
     schemaSDL = """
     type Query {
@@ -72,14 +72,11 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     // when
     try buildSubjectRootField()
 
-    guard case let CompilationResult.Selection.field(field) = self.operation.selectionSet.selections[0] else {
-      fail()
-      return
-    }
-    
-    let allAnimals = self.subject[field: "allAnimals"]?.selectionSet
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    let expected: [IR.InclusionCondition] = [.include("a")]
 
     // then
-    expect(allAnimals?.selections.direct?.conditionalSelectionSets).toNot(beEmpty())
+    expect(actual?.inclusionConditions).to(equal(expected))
   }
 }
