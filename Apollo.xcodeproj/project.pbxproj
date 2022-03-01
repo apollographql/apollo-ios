@@ -286,6 +286,7 @@
 		DEA9A22B27CD96CD00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */; };
 		DEA9A22C27CD96CE00F96C36 /* AllAnimalsIncludeSkipQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */; };
 		DEA9A22E27CD981F00F96C36 /* AllAnimalsIncludeSkipQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A22D27CD981F00F96C36 /* AllAnimalsIncludeSkipQuery.swift */; };
+		DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */; };
 		DEAFB77B2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAFB77A2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift */; };
 		DEAFB77F2706474C00BE02F3 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = DEAFB77E2706474C00BE02F3 /* Nimble */; };
 		DEAFB781270647D400BE02F3 /* MockCompilationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAFB780270647D400BE02F3 /* MockCompilationResult.swift */; };
@@ -1036,6 +1037,7 @@
 		DEA6A83326F298660091AF8A /* ParentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentType.swift; sourceTree = "<group>"; };
 		DEA9A22A27CD96C300F96C36 /* AllAnimalsIncludeSkipQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AllAnimalsIncludeSkipQuery.graphql; sourceTree = "<group>"; };
 		DEA9A22D27CD981F00F96C36 /* AllAnimalsIncludeSkipQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsIncludeSkipQuery.swift; sourceTree = "<group>"; };
+		DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRSelectionSet_IncludeSkip_Tests.swift; sourceTree = "<group>"; };
 		DEAFB77A2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRRootEntityFieldBuilderTests.swift; sourceTree = "<group>"; };
 		DEAFB780270647D400BE02F3 /* MockCompilationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompilationResult.swift; sourceTree = "<group>"; };
 		DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGraphQLType.swift; sourceTree = "<group>"; };
@@ -2240,6 +2242,7 @@
 				DEAFB77A2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift */,
 				DE79642E2769A1EB00978A03 /* IROperationBuilderTests.swift */,
 				DE79642A276999E700978A03 /* IRNamedFragmentBuilderTests.swift */,
+				DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */,
 			);
 			path = CodeGenIR;
 			sourceTree = "<group>";
@@ -3333,6 +3336,7 @@
 				DE223C3327221144004A0148 /* IRMatchers.swift in Sources */,
 				E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */,
 				DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */,
+				DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */,
 				E68D824527A1D8A60040A46F /* ObjectTemplateTests.swift in Sources */,
 				DE29653B279B3B8200BF9B49 /* SelectionSetTemplate_RenderOperation_Tests.swift in Sources */,
 				E61F4BF827A8FC8E0049886A /* FragmentFileGeneratorTests.swift in Sources */,
