@@ -53,9 +53,6 @@ public class CompilationResult: JavaScriptObject {
     case subscription
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-      // No way to use guard when delegating to a failable initializer directly, but since this is a value type
-      // we can initialize a local variable instead and assign it to `self` on success.
-      // See https://forums.swift.org/t/theres-no-way-to-channel-a-fail-able-initializer-to-a-throwing-one-is-there/19322
       let rawValue: String = .fromJSValue(jsValue, bridge: bridge)
       guard let operationType = Self(rawValue: rawValue) else {
         preconditionFailure("Unknown GraphQL operation type: \(rawValue)")

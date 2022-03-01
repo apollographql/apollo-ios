@@ -26,6 +26,9 @@ import {
   SelectionNode,
   SelectionSetNode,
   typeFromAST,
+  GraphQLField,
+  GraphQLDirective,
+  GraphQLArgument,
 } from "graphql";
 import * as ir from "./ir";
 import { valueFromValueNode } from "./values";
@@ -232,7 +235,7 @@ export function compileToIR(
         addReferencedType(getNamedType(unwrappedFieldType));
 
         const { description, deprecationReason } = fieldDef;
-        const args: ir.Field["arguments"] = compileArguments(selectionNode.arguments);          
+        const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);
 
         let field: ir.Field = {
           kind: "Field",
@@ -254,7 +257,7 @@ export function compileToIR(
               `Composite field "${name}" on type "${String(
                 parentType
               )}" requires selection set`,
-              selectionNode
+              { nodes: selectionNode }
             );
           }
 
@@ -304,39 +307,53 @@ export function compileToIR(
   }
 
   function compileArguments(
-    args?: ReadonlyArray<ArgumentNode>
+    ...args: 
+    [fieldDef: GraphQLField<any, any, any>, args?: ReadonlyArray<ArgumentNode>] |
+    [directiveDef: GraphQLDirective, args?: ReadonlyArray<ArgumentNode>]
   ): ir.Argument[] | undefined {
-    return args && args.length > 0
-      ? args.map((arg) => {
-          const name = arg.name.value;
-          const argDef = fieldDef.args.find(
-            (argDef) => argDef.name === arg.name.value
-          );
-          const argDefType = argDef?.type;
+    const argDefs: ReadonlyArray<GraphQLArgument> = args[0].args      
+    return args[1] && args[1].length > 0
+      ? args[1].map((arg) => {
+        const name = arg.name.value;
+        const argDef = argDefs.find(
+          (argDef) => argDef.name === arg.name.value
+        );
+        const argDefType = argDef?.type;
 
-          if (!argDefType) {
-            throw new GraphQLError(
-              `Cannot find argument type for argument "${name}" on field "${selectionNode.name.value}"`,
-              { nodes: [selectionNode, arg] }
-            )
-          }
-          
-          return {
-            name,
-            value: valueFromValueNode(arg.value),
-            type: argDefType,
-          };
-        })
+        if (!argDefType) {
+          throw new GraphQLError(
+            `Cannot find directive argument type for argument "${name}".`,
+            { nodes: [arg] }
+          );
+        }
+
+        return {
+          name,
+          value: valueFromValueNode(arg.value),
+          type: argDefType,
+        };
+      })
       : undefined;
   }
 
   function compileDirectives(
     directives?: ReadonlyArray<DirectiveNode>
-  ): ir.Directive[] | undefined {
+  ): ir.Directive[] | undefined {    
     return directives && directives.length > 0
       ? directives.map ( (directive) => {
+        const name = directive.name.value;
+        const directiveDef = schema.getDirective(name)
+
+        if (!directiveDef) {
+          throw new GraphQLError(
+            `Cannot find directive "${name}".`,
+            { nodes: directive }
+          );
+        }
+
         return {
-          name: directive.name.value,          
+          name: name,
+          arguments: compileArguments(directiveDef, directive.arguments)
         }
       })
       : undefined;
@@ -353,5 +370,5 @@ export function compileToIR(
       }    
     }
   }
-  
+
 }
