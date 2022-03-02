@@ -1,6 +1,6 @@
 import Foundation
 
-struct SchemaModuleFileGenerator {
+struct DependencyManagerFileGenerator {
   /// Generates a package manifest file for the releveant depdency manager.
   ///
   /// - Parameters:

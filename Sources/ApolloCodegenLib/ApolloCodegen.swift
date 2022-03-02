@@ -160,7 +160,7 @@ public class ApolloCodegen {
       }
     }
 
-    try SchemaModuleFileGenerator.generate(
+    try DependencyManagerFileGenerator.generate(
       config.output.schemaTypes,
       fileManager: fileManager
     )

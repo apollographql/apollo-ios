@@ -3,7 +3,7 @@ import XCTest
 import ApolloCodegenTestSupport
 import Nimble
 
-class SchemaModuleFileGeneratorTests: XCTestCase {
+class DependencyManagerFileGeneratorTests: XCTestCase {
   override func tearDown() {
     CodegenTestHelper.deleteExistingOutputFolder()
 
@@ -28,7 +28,7 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     }))
 
     // then
-    try SchemaModuleFileGenerator.generate(
+    try DependencyManagerFileGenerator.generate(
       configuration.output.schemaTypes,
       fileManager: mockFileManager
     )
@@ -37,15 +37,15 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
   }
 
   func test__generate__givenUnimplementedConfigurations_shouldThrow() throws {
-    expect(try SchemaModuleFileGenerator.generate(
+    expect(try DependencyManagerFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.cocoaPods(moduleName: "TestModule")).output.schemaTypes
     )).to(throwError())
 
-    expect(try SchemaModuleFileGenerator.generate(
+    expect(try DependencyManagerFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.carthage(moduleName: "TestModule")).output.schemaTypes
     )).to(throwError())
 
-    expect(try SchemaModuleFileGenerator.generate(
+    expect(try DependencyManagerFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.manuallyLinked(namespace: "TestModule")).output.schemaTypes
     )).to(throwError())
   }
