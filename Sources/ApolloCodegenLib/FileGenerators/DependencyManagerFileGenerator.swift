@@ -1,7 +1,7 @@
 import Foundation
 
 struct DependencyManagerFileGenerator {
-  /// Generates a package manifest file for the releveant depdency manager.
+  /// Generates a package manifest file for the relevant dependency manager.
   ///
   /// - Parameters:
   ///   - config: A configuration object specifying output behavior.
@@ -10,39 +10,60 @@ struct DependencyManagerFileGenerator {
     _ config: ApolloCodegenConfiguration.SchemaTypesFileOutput,
     fileManager: FileManager = FileManager.default
   ) throws {
+
     switch config.dependencyAutomation {
-    case let .swiftPackageManager(moduleName):
-      try SwiftPackageManagerFileGenerator.generate(
-        moduleName,
-        directoryPath: config.path,
-        fileManager: fileManager
+    case .manuallyLinked, .carthage, .cocoaPods:
+      throw NSError(
+        domain: "ApolloCodegen",
+        code: -1,
+        userInfo: [NSLocalizedDescriptionKey: "\(config.dependencyAutomation.description) module is not supported at the moment!"]
       )
 
     default:
-      throw NSError(domain: "ApolloCodegen", code: -1, userInfo: [NSLocalizedDescriptionKey: "Only Swift Package Manager is supported at the moment!"])
+      break
+    }
+
+    guard
+      let filename = config.dependencyAutomation.filename,
+      let rendered = config.dependencyAutomation.rendered
+    else { return }
+
+    try fileManager.apollo.createFile(
+      atPath: URL(fileURLWithPath: config.path).appendingPathComponent(filename).path,
+      data: rendered.data(using: .utf8)
+    )
+  }
+}
+
+extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType: CustomStringConvertible {
+  public var description: String {
+    switch self {
+    case .manuallyLinked(_): return "Manually linked"
+    case .cocoaPods(_): return "CocoaPods"
+    case .carthage(_): return "Carthage"
+    case .swiftPackageManager(_): return "Swift Package Manager"
     }
   }
 }
 
-fileprivate struct SwiftPackageManagerFileGenerator {
-  /// Generates a Package.swift file for Swift Package Manager support of the generated schema module files.
-  ///
-  /// - Parameters:
-  ///   - moduleName: The name of the library and target of the module.
-  ///   - directoryPath: The **directory** path that the file should be written to, used to build the `path` property value.
-  ///   - fileManager: `FileManager` object used to create the file.
-  static func generate(
-    _ moduleName: String,
-    directoryPath: String,
-    fileManager: FileManager
-  ) throws {
-    let filePath = URL(fileURLWithPath: directoryPath)
-      .appendingPathComponent("Package.swift").path
+fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType {
+  var filename: String? {
+    switch self {
+    case .swiftPackageManager(_):
+      return "Package.swift"
 
-    let data = SwiftPackageManagerModuleTemplate(
-      moduleName: moduleName
-    ).render().data(using: .utf8)
+    case .cocoaPods, .carthage, .manuallyLinked:
+      return nil
+    }
+  }
 
-    try fileManager.apollo.createFile(atPath: filePath, data: data)
+  var rendered: String? {
+    switch self {
+    case let .swiftPackageManager(moduleName):
+      return SwiftPackageManagerModuleTemplate(moduleName: moduleName).render()
+
+    case .cocoaPods, .carthage, .manuallyLinked:
+      return nil
+    }
   }
 }
