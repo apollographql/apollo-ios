@@ -12,7 +12,7 @@ struct DependencyManagerFileGenerator {
   ) throws {
 
     switch config.dependencyAutomation {
-    case .manuallyLinked, .carthage, .cocoaPods:
+    case .manuallyLinked, .carthage:
       throw NSError(
         domain: "ApolloCodegen",
         code: -1,
@@ -52,7 +52,10 @@ fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleTyp
     case .swiftPackageManager(_):
       return "Package.swift"
 
-    case .cocoaPods, .carthage, .manuallyLinked:
+    case let .cocoaPods(moduleName):
+      return "\(moduleName).podspec"
+
+    case .carthage, .manuallyLinked:
       return nil
     }
   }
@@ -62,7 +65,10 @@ fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleTyp
     case let .swiftPackageManager(moduleName):
       return SwiftPackageManagerModuleTemplate(moduleName: moduleName).render()
 
-    case .cocoaPods, .carthage, .manuallyLinked:
+    case .cocoaPods:
+      return ""
+
+    case .carthage, .manuallyLinked:
       return nil
     }
   }
