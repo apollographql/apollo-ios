@@ -13,7 +13,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   public let serializationFormat = JSONSerializationFormat.self
   
   /// Designated initializer
-  /// 
+  ///
   /// - Parameters:
   ///   - operation: The GraphQL Operation to execute
   ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
@@ -58,48 +58,31 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
   open override func toURLRequest() throws -> URLRequest {
     var request = try super.toURLRequest()
-        
     let useGetMethod: Bool
-    let sendQueryDocument: Bool
-    let autoPersistQueries: Bool
+    let body = self.body
+    
     switch operation.operationType {
     case .query:
       if isPersistedQueryRetry {
         useGetMethod = self.useGETForPersistedQueryRetry
-        sendQueryDocument = true
-        autoPersistQueries = true
       } else {
         useGetMethod = self.useGETForQueries || (self.autoPersistQueries && self.useGETForPersistedQueryRetry)
-        sendQueryDocument = !self.autoPersistQueries
-        autoPersistQueries = self.autoPersistQueries
-      }
-    case .mutation:
-      useGetMethod = false
-      if isPersistedQueryRetry {
-        sendQueryDocument = true
-        autoPersistQueries = true
-      } else {
-        sendQueryDocument = !self.autoPersistQueries
-        autoPersistQueries = self.autoPersistQueries
       }
     default:
       useGetMethod = false
-      sendQueryDocument = true
-      autoPersistQueries = false
     }
     
-    let body = self.requestBodyCreator.requestBody(for: operation,
-                                               sendOperationIdentifiers: self.sendOperationIdentifier,
-                                               sendQueryDocument: sendQueryDocument,
-                                               autoPersistQuery: autoPersistQueries)
-    
     let httpMethod: GraphQLHTTPMethod = useGetMethod ? .GET : .POST
+    
     switch httpMethod {
     case .GET:
       let transformer = GraphQLGETTransformer(body: body, url: self.graphQLEndpoint)
       if let urlForGet = transformer.createGetURL() {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
+        
+        // GET requests shouldn't have a content-type since they do not provide actual content.
+        request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
       } else {
         throw GraphQLHTTPRequestError.serializedQueryParamsMessageError
       }
@@ -114,4 +97,37 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     
     return request
   }
+  
+  public private(set) lazy var body: GraphQLMap = {
+    let sendQueryDocument: Bool
+    let autoPersistQueries: Bool
+    switch operation.operationType {
+    case .query:
+      if isPersistedQueryRetry {
+        sendQueryDocument = true
+        autoPersistQueries = true
+      } else {
+        sendQueryDocument = !self.autoPersistQueries
+        autoPersistQueries = self.autoPersistQueries
+      }
+    case .mutation:
+      if isPersistedQueryRetry {
+        sendQueryDocument = true
+        autoPersistQueries = true
+      } else {
+        sendQueryDocument = !self.autoPersistQueries
+        autoPersistQueries = self.autoPersistQueries
+      }
+    default:
+      sendQueryDocument = true
+      autoPersistQueries = false
+    }
+    
+    let body = self.requestBodyCreator.requestBody(for: operation,
+                                                      sendOperationIdentifiers: self.sendOperationIdentifier,
+                                                      sendQueryDocument: sendQueryDocument,
+                                                      autoPersistQuery: autoPersistQueries)
+    
+    return body
+  }()
 }
