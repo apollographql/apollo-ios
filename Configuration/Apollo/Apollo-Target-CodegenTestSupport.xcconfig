@@ -1,0 +1,4 @@
+#include "../Shared/Workspace-Target-TestSupport.xcconfig"
+#include "../Shared/Workspace-Target-Codegen.xcconfig"
+
+INFOPLIST_FILE = Sources/ApolloCodegenTestSupport/Info.plist

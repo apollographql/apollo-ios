@@ -1,3 +1,0 @@
-#include "../Shared/Workspace-Universal-Test.xcconfig"
-
-INFOPLIST_FILE = Tests/ApolloSQLiteTests/Info.plist

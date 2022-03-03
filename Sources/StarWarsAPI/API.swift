@@ -347,6 +347,107 @@ public final class CreateAwesomeReviewMutation: GraphQLMutation {
   }
 }
 
+public final class CreateReviewWithNullFieldMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation CreateReviewWithNullField {
+      createReview(episode: JEDI, review: {stars: 10, commentary: null}) {
+        __typename
+        stars
+        commentary
+      }
+    }
+    """
+
+  public let operationName: String = "CreateReviewWithNullField"
+
+  public let operationIdentifier: String? = "a9600d176cd7e4671b8689f1d01fe79ea896932bfafb8a925af673f0e4111828"
+
+  public init() {
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("createReview", arguments: ["episode": "JEDI", "review": ["stars": 10, "commentary": nil]], type: .object(CreateReview.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(createReview: CreateReview? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "createReview": createReview.flatMap { (value: CreateReview) -> ResultMap in value.resultMap }])
+    }
+
+    public var createReview: CreateReview? {
+      get {
+        return (resultMap["createReview"] as? ResultMap).flatMap { CreateReview(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "createReview")
+      }
+    }
+
+    public struct CreateReview: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Review"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("stars", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("commentary", type: .scalar(String.self)),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(stars: Int, commentary: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Review", "stars": stars, "commentary": commentary])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The number of stars this review gave, 1-5
+      public var stars: Int {
+        get {
+          return resultMap["stars"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "stars")
+        }
+      }
+
+      /// Comment about the movie
+      public var commentary: String? {
+        get {
+          return resultMap["commentary"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "commentary")
+        }
+      }
+    }
+  }
+}
+
 public final class HeroAndFriendsNamesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -1048,7 +1149,11 @@ public final class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + FriendsNames.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + FriendsNames.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -1228,6 +1333,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           ...CharacterName
         }
         ... on Droid {
+          __typename
           friends {
             __typename
             ...CharacterName
@@ -1239,9 +1345,13 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
 
   public let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
 
-  public let operationIdentifier: String? = "e02ef22e116ad1ca35f0298ed3badb60eeb986203f0088575a5f137768c322fc"
+  public let operationIdentifier: String? = "b5f4eca712a136f0d5d9f96203ef7d03cd119d8388f093f4b78ae124acb904cb"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterName.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterName.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -1418,6 +1528,7 @@ public final class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("friends", type: .list(.object(Friend.selections))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("friends", type: .list(.object(Friend.selections))),
           ]
         }
@@ -1636,7 +1747,11 @@ public final class HeroAppearsInWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterAppearsIn.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterAppearsIn.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -2175,6 +2290,7 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
       hero {
         __typename
         ... @include(if: $includeDetails) {
+          __typename
           name
           appearsIn
         }
@@ -2184,7 +2300,7 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
 
   public let operationName: String = "HeroDetailsInlineConditionalInclusion"
 
-  public let operationIdentifier: String? = "fcd9d7acb4e7c97e3ae5ad3cbf4e83556626149de589f0c2fce2f8ede31b0d90"
+  public let operationIdentifier: String? = "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c"
 
   public var includeDetails: Bool
 
@@ -2231,6 +2347,7 @@ public final class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLBooleanCondition(variableName: "includeDetails", inverted: false, selections: [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
             GraphQLField("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
           ]),
@@ -2297,9 +2414,13 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 
   public let operationName: String = "HeroDetailsFragmentConditionalInclusion"
 
-  public let operationIdentifier: String? = "b31aec7d977249e185922e4cc90318fd2c7197631470904bf937b0626de54b4f"
+  public let operationIdentifier: String? = "b0fa7927ff93b4a579c3460fb04d093072d34c8018e41197c7e080aeeec5e19b"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + HeroDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + HeroDetails.fragmentDefinition)
+    return document
+  }
 
   public var includeDetails: Bool
 
@@ -2442,6 +2563,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("height", type: .scalar(Double.self)),
             ]),
           ]
@@ -2539,6 +2661,7 @@ public final class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("primaryFunction", type: .scalar(String.self)),
             ]),
           ]
@@ -2622,6 +2745,7 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         __typename
         name @include(if: $includeName)
         ... on Droid {
+          __typename
           name
         }
       }
@@ -2630,7 +2754,7 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
 
   public let operationName: String = "HeroNameTypeSpecificConditionalInclusion"
 
-  public let operationIdentifier: String? = "4d465fbc6e3731d011025048502f16278307d73300ea9329a709d7e2b6815e40"
+  public let operationIdentifier: String? = "76aecc75265295818d3990000b17e32d5524ca85a4bc159ae8a3f8ec7ce91cc3"
 
   public var episode: Episode?
   public var includeName: Bool
@@ -2742,6 +2866,7 @@ public final class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
             GraphQLBooleanCondition(variableName: "includeName", inverted: false, selections: [
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
             ]),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
           ]
         }
@@ -2790,6 +2915,7 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           __typename
           name
           ... on Droid {
+            __typename
             primaryFunction
           }
         }
@@ -2799,7 +2925,7 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
   public let operationName: String = "HeroFriendsDetailsConditionalInclusion"
 
-  public let operationIdentifier: String? = "9bdfeee789c1d22123402a9c3e3edefeb66799b3436289751be8f47905e3babd"
+  public let operationIdentifier: String? = "8cada231691ff2f5a0a07c54b7332114588f11b947795da345c5b054211fbcfd"
 
   public var includeFriendsDetails: Bool
 
@@ -2950,6 +3076,7 @@ public final class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("primaryFunction", type: .scalar(String.self)),
             ]
           }
@@ -3013,6 +3140,7 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
           __typename
           name
           ... on Droid {
+            __typename
             primaryFunction
           }
         }
@@ -3022,7 +3150,7 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
 
   public let operationName: String = "HeroFriendsDetailsUnconditionalAndConditionalInclusion"
 
-  public let operationIdentifier: String? = "501fcb710e5ffeeab2c65b7935fbded394ffea92e7b5dd904d05d5deab6f39c6"
+  public let operationIdentifier: String? = "65381a20574db4b458a0821328252deb0da1a107f9ab77c99fb2467e66a5f12d"
 
   public var includeFriendsDetails: Bool
 
@@ -3185,6 +3313,7 @@ public final class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: 
               GraphQLBooleanCondition(variableName: "includeFriendsDetails", inverted: false, selections: [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("primaryFunction", type: .scalar(String.self)),
               ]),
             ]
@@ -3243,9 +3372,11 @@ public final class HeroDetailsQuery: GraphQLQuery {
         __typename
         name
         ... on Human {
+          __typename
           height
         }
         ... on Droid {
+          __typename
           primaryFunction
         }
       }
@@ -3254,7 +3385,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
 
   public let operationName: String = "HeroDetails"
 
-  public let operationIdentifier: String? = "2b67111fd3a1c6b2ac7d1ef7764e5cefa41d3f4218e1d60cb67c22feafbd43ec"
+  public let operationIdentifier: String? = "207d29944f5822bff08a07db4a55274ea14035bacfe20699da41a47454f1181e"
 
   public var episode: Episode?
 
@@ -3360,6 +3491,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("height", type: .scalar(Double.self)),
           ]
         }
@@ -3422,6 +3554,7 @@ public final class HeroDetailsQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("primaryFunction", type: .scalar(String.self)),
           ]
         }
@@ -3483,9 +3616,13 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
 
   public let operationName: String = "HeroDetailsWithFragment"
 
-  public let operationIdentifier: String? = "d20fa2f460058b8eec3d227f2f6088a708cf35dfa2b5ebf1414e34f9674ecfce"
+  public let operationIdentifier: String? = "b55bd9d56d1b5972345412b6adb88ceb64d6086c8051d2588d8ab701f0ee7c2f"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + HeroDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + HeroDetails.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -3621,6 +3758,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("height", type: .scalar(Double.self)),
           ]
         }
@@ -3712,6 +3850,7 @@ public final class HeroDetailsWithFragmentQuery: GraphQLQuery {
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("primaryFunction", type: .scalar(String.self)),
           ]
         }
@@ -3801,7 +3940,11 @@ public final class DroidDetailsWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + DroidDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + DroidDetails.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4432,7 +4575,11 @@ public final class HeroNameWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "b952f0054915a32ec524ac0dde0244bcda246649debe149f9e32e303e21c8266"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterName.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterName.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4562,7 +4709,11 @@ public final class HeroNameWithFragmentAndIdQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterName.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterName.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4814,7 +4965,11 @@ public final class HeroNameAndAppearsInWithFragmentQuery: GraphQLQuery {
 
   public let operationIdentifier: String? = "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + CharacterNameAndAppearsIn.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + CharacterNameAndAppearsIn.fragmentDefinition)
+    return document
+  }
 
   public var episode: Episode?
 
@@ -4947,19 +5102,23 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
         __typename
         name
         ... on Human {
+          __typename
           friends {
             __typename
             name
             ... on Human {
+              __typename
               height(unit: FOOT)
             }
           }
         }
         ... on Droid {
+          __typename
           friends {
             __typename
             name
             ... on Human {
+              __typename
               height(unit: METER)
             }
           }
@@ -4970,7 +5129,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
 
   public let operationName: String = "HeroParentTypeDependentField"
 
-  public let operationIdentifier: String? = "561e22ac4da5209f254779b70e01557fb2fc57916b9914088429ec809e166cad"
+  public let operationIdentifier: String? = "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b"
 
   public var episode: Episode?
 
@@ -5076,6 +5235,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("friends", type: .list(.object(Friend.selections))),
           ]
         }
@@ -5185,6 +5345,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               return [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("height", arguments: ["unit": "FOOT"], type: .scalar(Double.self)),
               ]
             }
@@ -5249,6 +5410,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("friends", type: .list(.object(Friend.selections))),
           ]
         }
@@ -5358,6 +5520,7 @@ public final class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               return [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("height", arguments: ["unit": "METER"], type: .scalar(Double.self)),
               ]
             }
@@ -5415,9 +5578,11 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       hero(episode: $episode) {
         __typename
         ... on Human {
+          __typename
           property: homePlanet
         }
         ... on Droid {
+          __typename
           property: primaryFunction
         }
       }
@@ -5426,7 +5591,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 
   public let operationName: String = "HeroTypeDependentAliasedField"
 
-  public let operationIdentifier: String? = "b5838c22bac1c5626023dac4412ca9b86bebfe16608991fb632a37c44e12811e"
+  public let operationIdentifier: String? = "eac5a52f9020fc2e9b5dc5facfd6a6295683b8d57ea62ee84254069fcd5e504c"
 
   public var episode: Episode?
 
@@ -5520,6 +5685,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("homePlanet", alias: "property", type: .scalar(String.self)),
           ]
         }
@@ -5570,6 +5736,7 @@ public final class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
 
         public static var selections: [GraphQLSelection] {
           return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("primaryFunction", alias: "property", type: .scalar(String.self)),
           ]
@@ -5767,14 +5934,17 @@ public final class SearchQuery: GraphQLQuery {
       search(text: $term) {
         __typename
         ... on Human {
+          __typename
           id
           name
         }
         ... on Droid {
+          __typename
           id
           name
         }
         ... on Starship {
+          __typename
           id
           name
         }
@@ -5784,7 +5954,7 @@ public final class SearchQuery: GraphQLQuery {
 
   public let operationName: String = "Search"
 
-  public let operationIdentifier: String? = "73536da2eec4d83e6e1003e674cb2299d9da2798f7bd310e57339a6bcd713b77"
+  public let operationIdentifier: String? = "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a"
 
   public var term: String?
 
@@ -5882,6 +6052,7 @@ public final class SearchQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
           ]
@@ -5944,6 +6115,7 @@ public final class SearchQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
           ]
@@ -6005,6 +6177,7 @@ public final class SearchQuery: GraphQLQuery {
 
         public static var selections: [GraphQLSelection] {
           return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
@@ -6954,6 +7127,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
       __typename
       name
       ... on Droid {
+        __typename
         appearsIn
       }
     }
@@ -7024,6 +7198,7 @@ public struct CharacterNameAndDroidAppearsIn: GraphQLFragment {
       return [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("appearsIn", type: .nonNull(.list(.scalar(Episode.self)))),
       ]
     }
@@ -7416,12 +7591,14 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
     fragment CharacterNameWithInlineFragment on Character {
       __typename
       ... on Human {
+        __typename
         friends {
           __typename
           appearsIn
         }
       }
       ... on Droid {
+        __typename
         ...CharacterName
         ...FriendsNames
       }
@@ -7480,6 +7657,7 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
 
     public static var selections: [GraphQLSelection] {
       return [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("friends", type: .list(.object(Friend.selections))),
       ]
@@ -7575,6 +7753,7 @@ public struct CharacterNameWithInlineFragment: GraphQLFragment {
 
     public static var selections: [GraphQLSelection] {
       return [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
@@ -7864,9 +8043,11 @@ public struct HeroDetails: GraphQLFragment {
       __typename
       name
       ... on Human {
+        __typename
         height
       }
       ... on Droid {
+        __typename
         primaryFunction
       }
     }
@@ -7937,6 +8118,7 @@ public struct HeroDetails: GraphQLFragment {
       return [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("height", type: .scalar(Double.self)),
       ]
     }
@@ -7999,6 +8181,7 @@ public struct HeroDetails: GraphQLFragment {
       return [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("primaryFunction", type: .scalar(String.self)),
       ]
     }

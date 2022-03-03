@@ -6,7 +6,7 @@
 public class HTTPResponse<Operation: GraphQLOperation>
 ```
 
-> Data about a response received by an HTTP request.
+Data about a response received by an HTTP request.
 
 ## Properties
 ### `httpResponse`
@@ -15,7 +15,7 @@ public class HTTPResponse<Operation: GraphQLOperation>
 public var httpResponse: HTTPURLResponse
 ```
 
-> The `HTTPURLResponse` received from the URL loading system
+The `HTTPURLResponse` received from the URL loading system
 
 ### `rawData`
 
@@ -23,7 +23,7 @@ public var httpResponse: HTTPURLResponse
 public var rawData: Data
 ```
 
-> The raw data received from the URL loading system
+The raw data received from the URL loading system
 
 ### `parsedResponse`
 
@@ -31,7 +31,7 @@ public var rawData: Data
 public var parsedResponse: GraphQLResult<Operation.Data>?
 ```
 
-> [optional] The data as parsed into a `GraphQLResult`, which can eventually be returned to the UI. Will be nil if not yet parsed.
+[optional] The data as parsed into a `GraphQLResult`, which can eventually be returned to the UI. Will be nil if not yet parsed.
 
 ### `legacyResponse`
 
@@ -39,8 +39,8 @@ public var parsedResponse: GraphQLResult<Operation.Data>?
 public var legacyResponse: GraphQLResponse<Operation.Data>? = nil
 ```
 
-> [optional] The data as parsed into a `GraphQLResponse` for legacy caching purposes. If you're not using the `LegacyParsingInterceptor`, you probably shouldn't be using this property.
-> **NOTE:** This property will be removed when the transition to a Codable-based Codegen is complete.
+[optional] The data as parsed into a `GraphQLResponse` for legacy caching purposes. If you're not using the `JSONResponseParsingInterceptor`, you probably shouldn't be using this property.
+**NOTE:** This property will be removed when the transition to the Swift Codegen is complete.
 
 ## Methods
 ### `init(response:rawData:parsedResponse:)`
@@ -51,12 +51,12 @@ public init(response: HTTPURLResponse,
             parsedResponse: GraphQLResult<Operation.Data>?)
 ```
 
-> Designated initializer
->
-> - Parameters:
->   - response: The `HTTPURLResponse` received from the server.
->   - rawData: The raw, unparsed data received from the server.
->   - parsedResponse: [optional] The response parsed into the `ParsedValue` type. Will be nil if not yet parsed, or if parsing failed.
+Designated initializer
+
+- Parameters:
+  - response: The `HTTPURLResponse` received from the server.
+  - rawData: The raw, unparsed data received from the server.
+  - parsedResponse: [optional] The response parsed into the `ParsedValue` type. Will be nil if not yet parsed, or if parsing failed.
 
 #### Parameters
 

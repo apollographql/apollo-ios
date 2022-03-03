@@ -8,16 +8,13 @@ private let serializedReferenceKey = "$reference"
 
 final class SQLiteSerialization {
   static func serialize(fields: Record.Fields) throws -> Data {
-    var objectToSerialize = JSONObject()
-    for (key, value) in fields {
-      objectToSerialize[key] = try serialize(fieldValue: value)
-    }
-    return try JSONSerialization.data(withJSONObject: objectToSerialize, options: [])
+    let jsonObject = try fields.compactMapValues(serialize(fieldValue:))
+    return try JSONSerialization.data(withJSONObject: jsonObject, options: [])
   }
 
-  private static func serialize(fieldValue: Record.Value) throws -> JSONValue {
+  private static func serialize(fieldValue: Record.Value) throws -> Any {
     switch fieldValue {
-    case let reference as Reference:
+    case let reference as CacheReference:
       return [serializedReferenceKey: reference.key]
     case let array as [Record.Value]:
       return try array.map { try serialize(fieldValue: $0) }
@@ -44,7 +41,7 @@ final class SQLiteSerialization {
       guard let reference = dictionary[serializedReferenceKey] as? String else {
         return fieldJSONValue
       }
-      return Reference(key: reference)
+      return CacheReference(key: reference)
     case let array as [JSONValue]:
       return try array.map { try deserialize(fieldJSONValue: $0) }
     default:

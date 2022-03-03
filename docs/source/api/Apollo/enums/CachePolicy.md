@@ -6,7 +6,7 @@
 public enum CachePolicy
 ```
 
-> A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
+A cache policy that specifies whether results should be fetched from the server or loaded from the local cache.
 
 ## Cases
 ### `returnCacheDataElseFetch`
@@ -15,7 +15,7 @@ public enum CachePolicy
 case returnCacheDataElseFetch
 ```
 
-> Return data from the cache if available, else fetch results from the server.
+Return data from the cache if available, else fetch results from the server.
 
 ### `fetchIgnoringCacheData`
 
@@ -23,7 +23,7 @@ case returnCacheDataElseFetch
 case fetchIgnoringCacheData
 ```
 
-> Always fetch results from the server.
+Always fetch results from the server.
 
 ### `fetchIgnoringCacheCompletely`
 
@@ -31,7 +31,7 @@ case fetchIgnoringCacheData
 case fetchIgnoringCacheCompletely
 ```
 
-> Always fetch results from the server, and don't store these in the cache.
+Always fetch results from the server, and don't store these in the cache.
 
 ### `returnCacheDataDontFetch`
 
@@ -39,7 +39,7 @@ case fetchIgnoringCacheCompletely
 case returnCacheDataDontFetch
 ```
 
-> Return data from the cache if available, else return nil.
+Return data from the cache if available, else return nil.
 
 ### `returnCacheDataAndFetch`
 
@@ -47,4 +47,13 @@ case returnCacheDataDontFetch
 case returnCacheDataAndFetch
 ```
 
-> Return data from the cache if available, and always fetch results from the server.
+Return data from the cache if available, and always fetch results from the server.
+
+## Properties
+### `default`
+
+```swift
+public static var `default`: CachePolicy = .returnCacheDataElseFetch
+```
+
+The current default cache policy.

@@ -12,6 +12,12 @@ public struct GraphQLField: GraphQLSelection
 ```swift
 public init(_ name: String,
             alias: String? = nil,
-            arguments: [String: GraphQLInputValue]? = nil,
+            arguments: FieldArguments? = nil,
             type: GraphQLOutputType)
+```
+
+### `cacheKey(with:)`
+
+```swift
+public func cacheKey(with variables: [String: JSONEncodable]?) throws -> String
 ```

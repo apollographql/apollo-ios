@@ -36,3 +36,9 @@ case serializedMessageError
 ```swift
 case neitherErrorNorPayloadReceived
 ```
+
+### `upgradeError(code:)`
+
+```swift
+case upgradeError(code: Int)
+```

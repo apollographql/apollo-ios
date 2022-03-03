@@ -75,6 +75,61 @@ public func XCTAssertFailureResult<Success>(_ expression: @autoclosure () throws
   }
 }
 
+/// Checks that the condition is eventually true with a given timeout (default 1 second).
+///
+/// This assertion runs the run loop for 0.01 second after each time it checks the condition until
+/// the condition is true or the timeout is reached.
+///
+/// - Parameters:
+///   - test: An autoclosure for the condition to test for truthiness.
+///   - timeout: The timeout, at which point the test will fail. Defaults to 1 second.
+///   - message: A message to send on failure.
+public func XCTAssertTrueEventually(_ test: @autoclosure () -> Bool, timeout: TimeInterval = 1.0, message: String = "", file: StaticString = #file, line: UInt = #line) {
+  let runLoop = RunLoop.current
+  let timeoutDate = Date(timeIntervalSinceNow: timeout)
+  repeat {
+    if test() {
+      return
+    }
+    runLoop.run(until: Date(timeIntervalSinceNow: 0.01))
+  } while Date().compare(timeoutDate) == .orderedAscending
+  
+  XCTFail(message, file: file, line: line)
+}
+
+/// Checks that the condition is eventually false with a given timeout (default 1 second).
+///
+/// This assertion runs the run loop for 0.01 second after each time it checks the condition until
+/// the condition is false or the timeout is reached.
+///
+/// - Parameters:
+///   - test: An autoclosure for the condition to test for falsiness.
+///   - timeout: The timeout, at which point the test will fail. Defaults to 1 second.
+///   - message: A message to send on failure.
+public func XCTAssertFalseEventually(_ test: @autoclosure () -> Bool, timeout: TimeInterval = 1.0, message: String = "", file: StaticString = #file, line: UInt = #line) {
+  XCTAssertTrueEventually(!test(), timeout: timeout, message: message, file: file, line: line)
+}
+
+/// Downcast an expression to a specified type.
+///
+/// Generates a failure when the downcast doesn't succeed.
+///
+/// - Parameters:
+///   - expression: An expression to downcast to `ExpectedType`.
+///   - file: The file in which failure occurred. Defaults to the file name of the test case in which this function was called.
+///   - line: The line number on which failure occurred. Defaults to the line number on which this function was called.
+/// - Returns: A value of type `ExpectedType`, the result of evaluating and downcasting the given `expression`.
+/// - Throws: An error when the downcast doesn't succeed. It will also rethrow any error thrown while evaluating the given expression.
+public func XCTDowncast<ExpectedType: AnyObject>(_ expression: @autoclosure () throws -> AnyObject, to type: ExpectedType.Type, file: StaticString = #filePath, line: UInt = #line) throws -> ExpectedType {
+  let object = try expression()
+  
+  guard let expected = object as? ExpectedType else {
+    throw XCTFailure("Expected type to be \(ExpectedType.self), but found \(Swift.type(of: object))", file: file, line: line)
+  }
+  
+  return expected
+}
+
 /// An error which causes the current test to cease executing and fail when it is thrown.
 /// Similar to `XCTSkip`, but without marking the test as skipped.
 public struct XCTFailure: Error, CustomNSError {

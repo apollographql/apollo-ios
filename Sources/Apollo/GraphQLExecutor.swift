@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 /// A field resolver is responsible for resolving a value for a field.
@@ -10,7 +10,7 @@ typealias GraphQLFieldResolver = (_ object: JSONObject, _ info: GraphQLResolveIn
 /// Because data may be loaded from a database, these loads are batched for performance reasons.
 /// By returning a `PossiblyDeferred` wrapper, we allow `ApolloStore` to use a `DataLoader` that
 /// will defer loading the next batch of records from the cache until they are needed.
-typealias ReferenceResolver = (Reference) -> PossiblyDeferred<JSONObject>
+typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<JSONObject>
 
 struct GraphQLResolveInfo {
   let variables: GraphQLMap?
@@ -312,7 +312,7 @@ final class GraphQLExecutor {
         try accumulator.accept(list: $0, info: info)
       }
     case .object:
-      if let reference = value as? Reference, let resolveReference = resolveReference {
+      if let reference = value as? CacheReference, let resolveReference = resolveReference {
         return resolveReference(reference).flatMap {
           self.complete(value: $0,
                         ofType: returnType,

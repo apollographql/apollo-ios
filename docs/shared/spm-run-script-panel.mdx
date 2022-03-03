@@ -6,11 +6,14 @@ import {
 
 <ExpansionPanel title="Swift Package Manager Run Script">
 
-> **NOTE**: If your Derived Data is in a custom location, stop, go back, and use the [Swift Scripting](./swift-scripting) method instead. This script relies on Derived Data being in the default location. Swift Scripting doesn't rely on Derived Data at all.
+> **Note:** If your Derived Data is in a custom location, go back and use the [Swift Scripting](./swift-scripting) method instead. This script relies on Derived Data being in the default location. Swift Scripting doesn't rely on Derived Data at all.
 
-If you're using Xcode 11 or higher, SPM will check out the appropriate build script along with the rest of the files when it checks out the repo. Add the following to your Run Script build phase: 
+If you're using Xcode 11 or higher, SPM checks out the appropriate build script along with the rest of the files when it checks out the repo. Add the following to your Run Script build phase:
 
-```sh
+```bash
+# Don't run this during index builds
+if [ $ACTION = "indexbuild" ]; then exit 0; fi
+
 # Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.
 DERIVED_DATA_CANDIDATE="${BUILD_ROOT}"
 
@@ -35,6 +38,6 @@ cd "${SRCROOT}/${TARGET_NAME}"
 "${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile="schema.json" API.swift
 ```
 
-> NOTE: If you try to use this with command line SPM, when you regenerate your `xcodeproj` this build script will get wiped out. We strongly recommend using Xcode 11's built-in SPM handling rather than the command line because of this.
+> **Note:** If you try to use this with command line SPM, when you regenerate your `xcodeproj` this build script will get wiped out. We strongly recommend using Xcode 11's built-in SPM handling instead of the command line because of this.
 
 </ExpansionPanel>

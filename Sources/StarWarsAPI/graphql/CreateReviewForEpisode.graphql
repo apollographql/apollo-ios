@@ -1,0 +1,20 @@
+mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {
+  createReview(episode: $episode, review: $review) {
+    stars
+    commentary
+  }
+}
+
+mutation CreateAwesomeReview {
+  createReview(episode: JEDI, review: { stars: 10, commentary: "This is awesome!" }) {
+    stars
+    commentary
+  }
+}
+
+mutation CreateReviewWithNullField {
+  createReview(episode: JEDI, review: { stars: 10, commentary: null }) {
+    stars
+    commentary
+  }
+}

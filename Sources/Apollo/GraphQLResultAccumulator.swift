@@ -1,4 +1,4 @@
-protocol GraphQLResultAccumulator: class {
+protocol GraphQLResultAccumulator: AnyObject {
   associatedtype PartialResult
   associatedtype FieldEntry
   associatedtype ObjectResult

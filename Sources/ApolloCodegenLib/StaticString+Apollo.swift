@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 extension StaticString: ApolloCompatible {}

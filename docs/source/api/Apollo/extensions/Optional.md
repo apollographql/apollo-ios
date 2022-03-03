@@ -2,7 +2,7 @@
 
 # `Optional`
 ```swift
-extension Optional: GraphQLInputValue
+extension Optional where Wrapped: JSONDecodable
 ```
 
 ## Properties
@@ -13,12 +13,6 @@ public var jsonValue: JSONValue
 ```
 
 ## Methods
-### `evaluate(with:)`
-
-```swift
-public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue
-```
-
 ### `init(jsonValue:)`
 
 ```swift

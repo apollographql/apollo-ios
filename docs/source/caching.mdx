@@ -95,6 +95,24 @@ apollo.cacheKeyForObject = { $0["id"] }
 ```
 
 > **NOTE:** In some cases, just using `cacheKeyForObject` is not enough for your application UI to update correctly. For example, if you want to add something to a list of objects without refetching the entire list, or if there are some objects that to which you can't assign an object identifier, Apollo cannot automatically update existing queries for you.
+> 
+
+## Cache normalization concepts
+
+There are 2 primary ways you will want to manually update the cache. Either you'll want to update the cache for a query, or you will want to update a cached object directly.
+
+Manual Scenario A
+
+1. You use the id of the object (after setting up the afore mentioned `apollo.cacheKeyForObject = { $0["id"] }`) to fetch and change the object. This will update any query where this object is referenced. This works well for updating queries which reference this object, but in the case of a create mutation, your queries won't contain this object to update. Which leads us into Scenario B.
+
+Manual Scenario B
+
+1. You fire off a mutation which creates a new object.
+2. You may then want to update the cache for a List that should contain this new object. This is a bit fiddly at the moment, as `Droid` for `CreateDroidsMutation` is strongly typed: `CreateDroidsMutation.Droid`. When inserting this object into the cache for `ListDroidsQuery` you need to init a `ListDroidsQuery.Droid` object from a `CreateDroidsMutation.Droid` or the types won't match. Your alternative to this is to manually refetch queries on a mutation which will trigger any watchers to update.
+
+Where you may not need to manually update the cache:
+
+If you use fragments which contain ID's then a query which returns or mutates this fragment and returns a new state for this object will automatically be merged into your cache and any query which references that object will be updated. It may therefore be advantageous to plan your schemas so Fragments are reused in List / Detail queries and then the same Fragment is returned as the result of a mutation.
 
 ## Specifying a cache policy
 
@@ -108,6 +126,8 @@ Other cache polices which you can specify are:
 - **`.fetchIgnoringCacheCompletely`** to always fetch from the server and not store results from the cache. If you're not using the cache at all, this method is preferred to `fetchIgnoringCacheData` for performance reasons.
 - **`.returnCacheDataDontFetch`** to return data from the cache and never fetch from the server. This policy will return an error if cached data is not available.
 - **`.returnCacheDataAndFetch`** to return cached data immediately, *then* perform a fetch to see if there are any updates. This is mostly useful if you're watching queries, since those will be updated when the call to the server returns. 
+
+If you're interested in returning cached data after a failed fetch, the current recommended approach is to use an `additionalErrorInterceptor` on your interceptor chain to examine if the error is one it makes sense to show old data for rather than something that needs to be passed on to the user, and then retrying with a `returnCacheDataDontFetch` retry policy. An example of this setup can be found in the [Cache-dependent interceptor tests](https://github.com/apollographql/apollo-ios/blob/main/Tests/ApolloTests/Cache/CacheDependentInterceptorTests.swift). 
 
 ## Watching queries
 
@@ -175,3 +195,34 @@ store.withinReadWriteTransaction({ transaction in
   }
 })
 ```
+
+### delete
+
+Delete functionality is limited at this time. There are presently three deletion methods available on `ApolloStore`, which are supported by both the in memory and the `SQLite` caches:
+
+1. `clear` - Removes everything from the cache immediately. This is basically the "Nuke it from orbit, it's the only way to be sure" option. 
+2. `removeObject(for:)` on `ReadWriteTransaction`. Removes a single object for the given `CacheKey`. 
+3. `removeObjects(matching:)` on `ReadWriteTransaction`. Removes all objects with a `CacheKey` that matches the given pattern. Pattern matching is **not** case sensitive. For an in memory cache it is the equivalent of checking whether the cache key _contains_ the pattern and `SQLite` caches will perform a `LIKE` query to remove the objects. This method can be very slow depending on the number of records in the cache, it is recommended that this method be called in a background queue.
+
+`removeObject(for:)` and `removeObjects(matching:)` will only remove things at the level of an object - that is, they cannot remove individual properties from an object, and cannot remove outside references **to** an object. 
+
+You will need to have an understanding of how you are generating cache keys to be able to use these methods effectively. If you're taking advantage of our `cacheKeyForObject` function, that will help significantly: You'll have a clear understanding of how cache keys are generated, so you can easily figure out how to construct a cache key or pattern to delete.
+
+For instance, let's say your `cacheKeyForObject` function looks like this: 
+
+```swift
+apollo.cacheKeyForObject = { $0["id"] }
+```
+
+This would indicate that for every object which has an `id` property, it will be cached with that `id` as the key. This would be ideal for an API which uses globally unique identifiers, as our Star Wars API does. 
+
+This means that if you have previously fetched an object with the ID `"2001"`, you can:
+
+1. Call `transaction.removeObject(for: "2001")` on a `ReadWriteTransaction` to remove any object cached with that key, along with all of its associated scalar properties and the references to other objects it stores. 
+2. Call `transaction.removeObjects(matching: "200")` on a `ReadWriteTransaction` and all objects with `200` somewhere in their cache key would be removed, such as `2001`, `2002`, and `3200`.
+
+`removeObject(for:)` and `removeObjects(matching:)` do _not_ cascade removals - if you remove an object which has reference to another object, the reference will be removed, but that other object will not be removed and will remain in the cache. Likewise, if you delete an object, references _to_ that object will not be deleted, they will simply fail, causing a cache miss, when you attempt to load the object again. 
+
+This means that if you are planning to remove something, be sure that you either a) Know for sure you no longer need it, or b) Are fine with your cache policy potentially triggering an additional fetch if the missing value causes a read to fail. 
+
+> Note: As of right now, there is not a way to delete a single property's value. For instance, calling `try transaction.removeRecord(for: "2001.name")` will result in no action, as there would not be a record with the cache key `"2001.name"`, since `name` is a scalar field on the `"2001"` record.

@@ -1,5 +1,5 @@
 import XCTest
-@testable import Apollo
+import Apollo
 import ApolloTestSupport
 import StarWarsAPI
 
@@ -19,23 +19,43 @@ class CacheKeyForFieldTests: XCTestCase {
     let field = GraphQLField("hero", alias: "r2", type: .scalar(String.self))
     XCTAssertEqual(field.cacheKey, "hero")
   }
-  
-  func testFieldWithArgument() {
-    let field = GraphQLField("hero", arguments: ["episode": Episode.jedi], type: .scalar(String.self))
-    XCTAssertEqual(field.cacheKey, "hero(episode:JEDI)")
-  }
-  
+
   func testFieldWithAliasAndArgument() {
-    let field = GraphQLField("hero", alias: "r2", arguments: ["episode": Episode.jedi], type: .scalar(String.self))
+    let field = GraphQLField("hero", alias: "r2", arguments: ["episode": "JEDI"], type: .scalar(String.self))
     XCTAssertEqual(field.cacheKey, "hero(episode:JEDI)")
   }
   
-  func testFieldWithInputObjectArgument() throws {
+  func testFieldWithStringArgument() {
+    let field = GraphQLField("hero", arguments: ["episode": "JEDI"], type: .scalar(String.self))
+    XCTAssertEqual(field.cacheKey, "hero(episode:JEDI)")
+  }
+
+  func testFieldWithIntegerArgument() {
+    let field = GraphQLField("hero", arguments: ["episode": 1], type: .scalar(String.self))
+    XCTAssertEqual(field.cacheKey, "hero(episode:1)")
+  }
+
+  func testFieldWithFloatArgument() {
+    let field = GraphQLField("hero", arguments: ["episode": 1.99], type: .scalar(String.self))
+    XCTAssertEqual(field.cacheKey, "hero(episode:1.99)")
+  }
+
+  func testFieldWithNilArgument() {
+    let field = GraphQLField("hero", arguments: ["episode": nil], type: .scalar(String.self))
+    XCTAssertEqual(field.cacheKey, "hero")
+  }
+
+  func testFieldWithListArgument() {
+    let field = GraphQLField("hero", arguments: ["episodes": [1, 1, 2]], type: .scalar(String.self))
+    XCTAssertEqual(field.cacheKey, "hero(episodes:[1, 1, 2])")
+  }
+  
+  func testFieldWithDictionaryArgument() throws {
     let field = GraphQLField("hero", arguments: ["nested": ["foo": 1, "bar": 2]], type: .scalar(String.self))
     XCTAssertEqual(field.cacheKey, "hero([nested:bar:2,foo:1])")
   }
   
-  func testFieldWithInputObjectArgumentWithVariables() throws {
+  func testFieldWithDictionaryArgumentWithVariables() throws {
     let field = GraphQLField("hero", arguments: ["nested": ["foo": GraphQLVariable("a"), "bar": GraphQLVariable("b")]], type: .scalar(String.self))
     let variables: GraphQLMap = ["a": 1, "b": 2]
     XCTAssertEqual(try field.cacheKey(with: variables), "hero([nested:bar:2,foo:1])")
@@ -48,8 +68,8 @@ class CacheKeyForFieldTests: XCTestCase {
   }
   
   func testFieldWithInputObjectArgumentIsOrderIndependent() {
-    let field1 = GraphQLField("hero", arguments: ["episode": Episode.jedi, "nested": ["foo": "a", "bar": "b"]], type: .scalar(String.self))
-    let field2 = GraphQLField("hero", arguments: ["episode": Episode.jedi, "nested": ["bar": "b", "foo": "a"]], type: .scalar(String.self))
+    let field1 = GraphQLField("hero", arguments: ["episode": "JEDI", "nested": ["foo": "a", "bar": "b"]], type: .scalar(String.self))
+    let field2 = GraphQLField("hero", arguments: ["episode": "JEDI", "nested": ["bar": "b", "foo": "a"]], type: .scalar(String.self))
     XCTAssertEqual(field1.cacheKey, field2.cacheKey)
   }
   

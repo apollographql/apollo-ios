@@ -12,8 +12,20 @@ import ApolloTestSupport
 import StarWarsAPI
 
 class GETTransformerTests: XCTestCase {
-  private let requestBodyCreator = ApolloRequestBodyCreator()
-  private lazy var url = TestURL.starWarsServer.url
+  private var requestBodyCreator: ApolloRequestBodyCreator!
+  private static let url = TestURL.mockPort8080.url
+
+  override func setUp() {
+    super.setUp()
+
+    requestBodyCreator = ApolloRequestBodyCreator()
+  }
+
+  override func tearDown() {
+    requestBodyCreator = nil
+
+    super.tearDown()
+  }
   
   func testEncodingQueryWithSingleParameter() {
     let operation = HeroNameQuery(episode: .empire)
@@ -22,7 +34,7 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -36,55 +48,13 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
-    if JSONSerialization.dataCanBeSorted() {
-      // Here, we know that everything should be encoded in a stable order,
-      // and we can check the encoded URL string directly.
-          XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
-    } else {
-      // We can't guarantee order of encoding, so we need to pull the JSON back
-      // out and check that it has the correct and correctly typed properties.
-      let transformedURL = try XCTUnwrap(url,
-                                         "URL not created!")
-      
-      let urlComponents = try XCTUnwrap(URLComponents(url: transformedURL, resolvingAgainstBaseURL: false),
-                                        "Couldn't access URL components")
-      
-      let queryItems = try XCTUnwrap(urlComponents.queryItems,
-                                     "No query items!")
-      
-      guard
-        let operationNameItem = queryItems.first(where: { $0.name == "operationName" }),
-        let operationName = operationNameItem.value else {
-          XCTFail("Query items did not contain operation name!")
-          return
-      }
-      
-      XCTAssertEqual(operationName, "HeroNameTypeSpecificConditionalInclusion")
-      
-      guard
-        let variablesQueryItem = queryItems.first(where: { $0.name == "variables" }),
-        let variables = variablesQueryItem.value else {
-          XCTFail("Query items did not contain variables!")
-          return
-      }
-      
-      let data = try XCTUnwrap(variables.data(using: .utf8),
-                               "Couldn't convert data to UTF8 string!")
-      
-      guard
-        let object = try? JSONSerialization.jsonObject(with: data),
-        let dict = object as? [String: Any] else {
-          XCTFail("Couldn't get dictionary out of json!")
-          return
-      }
-      
-      XCTAssertEqual(dict["includeName"] as? Bool, true)
-      XCTAssertEqual(dict["episode"] as? String, "JEDI")
-    }
+    // Here, we know that everything should be encoded in a stable order,
+    // and we can check the encoded URL string directly.
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?operationName=HeroNameTypeSpecificConditionalInclusion&query=query%20HeroNameTypeSpecificConditionalInclusion($episode:%20Episode,%20$includeName:%20Boolean!)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%20@include(if:%20$includeName)%0A%20%20%20%20...%20on%20Droid%20%7B%0A%20%20%20%20%20%20__typename%0A%20%20%20%20%20%20name%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22JEDI%22,%22includeName%22:true%7D")
   }
   
   func testEncodingQueryWith2DParameter() throws {
@@ -105,44 +75,57 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
-      let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+    let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+    
+    XCTAssertTrue(queryString)
+  }
 
-      XCTAssertTrue(queryString)
-    } else {
-      let query = try XCTUnwrap(url?.queryItemDictionary?["query"],
-                                "query should not be nil")
-      XCTAssertTrue(query == operation.queryDocument)
-      
-      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
-                                    "variables should not nil")
-      XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
-      
-      guard
-        let ext = url?.queryItemDictionary?["extensions"],
-        let data = ext.data(using: .utf8),
-        let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-        else {
-          XCTFail("extensions json data should not be nil")
-          return
-      }
-      
-      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
-                                                "persistedQuery is missing")
-      
-      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing")
-      
-      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
-                                  "version is missing")
-      
-      XCTAssertEqual(version, 1)
-      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
-    }
+  func testEncodingQueryWithParameterWithPlusSignEncoded() throws {
+    let operation = HeroNameQuery(episode: .empire)
+
+    let extensions: GraphQLMap = [
+      "testParam": "+Test+Test"
+    ]
+
+    let body: GraphQLMap = [
+      "query": operation.queryDocument,
+      "variables": operation.variables,
+      "extensions": extensions
+    ]
+
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
+
+    let url = transformer.createGetURL()
+
+    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22%2BTest%2BTest%22%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+
+    XCTAssertEqual(url?.absoluteString, expected)
+  }
+
+  func testEncodingQueryWithParameterWithAmpersandEncoded() throws {
+    let operation = HeroNameQuery(episode: .empire)
+
+    let extensions: GraphQLMap = [
+      "testParam": "Test&Test"
+    ]
+
+    let body: GraphQLMap = [
+      "query": operation.queryDocument,
+      "variables": operation.variables,
+      "extensions": extensions
+    ]
+
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
+
+    let url = transformer.createGetURL()
+
+    let expected = "http://localhost:8080/graphql?extensions=%7B%22testParam%22:%22Test%26Test%22%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+
+    XCTAssertEqual(url?.absoluteString, expected)
   }
   
   func testEncodingQueryWith2DWOQueryParameter() throws {
@@ -162,41 +145,12 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
-      let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
-      XCTAssertTrue(queryString)
-    } else {
-
-      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
-                                    "variables should not nil")
-
-      XCTAssertEqual(variables, "{\"episode\":\"EMPIRE\"}")
-      
-      guard
-        let ext = url?.queryItemDictionary?["extensions"],
-        let data = ext.data(using: .utf8),
-        let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-        else {
-          XCTFail("extensions json data should not be nil")
-          return
-      }
-      
-      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
-                                                "persistedQuery is missing")
-      
-      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing")
-      
-      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
-                                  "version is missing")
-      
-      XCTAssertEqual(version, 1)
-      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
-    }
+    let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D"
+    XCTAssertTrue(queryString)
   }
   
   func testEncodingQueryWithNullDefaultParameter() {
@@ -206,7 +160,7 @@ class GETTransformerTests: XCTestCase {
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
@@ -231,38 +185,36 @@ class GETTransformerTests: XCTestCase {
       "extensions": extensions
     ]
     
-    let transformer = GraphQLGETTransformer(body: body, url: self.url)
+    let transformer = GraphQLGETTransformer(body: body, url: Self.url)
     
     let url = transformer.createGetURL()
     
-    if #available(iOS 11, macOS 13, watchOS 4, tvOS 11, *) {
     let queryString = url?.absoluteString == "http://localhost:8080/graphql?extensions=%7B%22persistedQuery%22:%7B%22sha256Hash%22:%22f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671%22,%22version%22:1%7D%7D&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:null%7D"
-      XCTAssertTrue(queryString)
-    } else {
-      let variables = try XCTUnwrap(url?.queryItemDictionary?["variables"],
-                                    "variables should not nil")
-      XCTAssertEqual(variables, "{\"episode\":null}")
-      
-      guard
-        let ext = url?.queryItemDictionary?["extensions"],
-        let data = ext.data(using: .utf8),
-        let jsonBody = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-        else {
-          XCTFail("extensions json data should not be nil")
-          return
-      }
-      
-      let comparePersistedQuery = try XCTUnwrap(jsonBody["persistedQuery"] as? JSONObject,
-                                                "persistedQuery is missing")
-      
-      let sha256Hash = try XCTUnwrap(comparePersistedQuery["sha256Hash"] as? String,
-                                     "sha256Hash is missing")
-      
-      let version = try XCTUnwrap(comparePersistedQuery["version"] as? Int,
-                                  "version is missing")
-      
-      XCTAssertEqual(version, 1)
-      XCTAssertEqual(sha256Hash, "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671")
-    }
+    XCTAssertTrue(queryString)
   }
+
+  func testEncodingQueryWithExistingParameters() throws {
+    let operation = HeroNameQuery(episode: .empire)
+    let body = requestBodyCreator.requestBody(for: operation,
+                                              sendOperationIdentifiers: false,
+                                              sendQueryDocument: true,
+                                              autoPersistQuery: false)
+
+    var components = URLComponents(string: Self.url.absoluteString)!
+    components.queryItems = [URLQueryItem(name: "foo", value: "bar")]
+
+    let transformer = GraphQLGETTransformer(body: body, url: components.url!)
+
+    let url = transformer.createGetURL()
+
+    XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql?foo=bar&operationName=HeroName&query=query%20HeroName($episode:%20Episode)%20%7B%0A%20%20hero(episode:%20$episode)%20%7B%0A%20%20%20%20__typename%0A%20%20%20%20name%0A%20%20%7D%0A%7D&variables=%7B%22episode%22:%22EMPIRE%22%7D")
+  }
+
+	func testEncodingWithEmptyQueryParameter() throws {
+		let body: GraphQLMap = ["variables": nil]
+		let transformer = GraphQLGETTransformer(body: body, url: Self.url)
+		let url = transformer.createGetURL()
+
+		XCTAssertEqual(url?.absoluteString, "http://localhost:8080/graphql")
+	}
 }

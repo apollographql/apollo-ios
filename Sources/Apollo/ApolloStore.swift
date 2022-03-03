@@ -15,7 +15,7 @@ func rootCacheKey<Operation: GraphQLOperation>(for operation: Operation) -> Stri
   }
 }
 
-protocol ApolloStoreSubscriber: class {
+protocol ApolloStoreSubscriber: AnyObject {
   
   /// A callback that can be received by subscribers when keys are changed within the database
   ///
@@ -54,7 +54,9 @@ public final class ApolloStore {
 
   /// Clears the instance of the cache. Note that a cache can be shared across multiple `ApolloClient` objects, so clearing that underlying cache will clear it for all clients.
   ///
-  /// - Returns: A promise which fulfills when the Cache is cleared.
+  /// - Parameters:
+  ///   - callbackQueue: The queue to call the completion block on. Defaults to `DispatchQueue.main`.
+  ///   - completion: [optional] A completion block to be called after records are merged into the cache.
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       let result = Result { try self.cache.clear() }
@@ -64,7 +66,14 @@ public final class ApolloStore {
     }
   }
 
-  func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
+  /// Merges a `RecordSet` into the normalized cache.
+  /// - Parameters:
+  ///   - records: The records to be merged into the cache.
+  ///   - identifier: [optional] A unique identifier for the request that kicked off this change,
+  ///                 to assist in de-duping cache hits for watchers.
+  ///   - callbackQueue: The queue to call the completion block on. Defaults to `DispatchQueue.main`.
+  ///   - completion: [optional] A completion block to be called after records are merged into the cache.
+  public func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       do {
         let changedKeys = try self.cache.merge(records: records)
@@ -240,6 +249,33 @@ public final class ApolloStore {
                                   variables: variables)
       try body(&object)
       try write(object: object, withKey: key, variables: variables)
+    }
+    
+    /// Removes the object for the specified cache key. Does not cascade
+    /// or allow removal of only certain fields. Does nothing if an object
+    /// does not exist for the given key.
+    ///
+    /// - Parameters:
+    ///   - key: The cache key to remove the object for
+    public func removeObject(for key: CacheKey) throws {
+      try self.cache.removeRecord(for: key)
+    }
+
+    /// Removes records with keys that match the specified pattern. This method will only
+    /// remove whole records, it does not perform cascading deletes. This means only the
+    /// records with matched keys will be removed, and not any references to them. Key
+    /// matching is case-insensitive.
+    ///
+    /// If you attempt to pass a cache path for a single field, this method will do nothing
+    /// since it won't be able to locate a record to remove based on that path.
+    ///
+    /// - Note: This method can be very slow depending on the number of records in the cache.
+    /// It is recommended that this method be called in a background queue.
+    ///
+    /// - Parameters:
+    ///   - pattern: The pattern that will be applied to find matching keys.
+    public func removeObjects(matching pattern: CacheKey) throws {
+      try self.cache.removeRecords(matching: pattern)
     }
 
     public func write<Query: GraphQLQuery>(data: Query.Data, forQuery query: Query) throws {

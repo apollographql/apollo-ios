@@ -13,8 +13,16 @@ public final class InMemoryNormalizedCache: NormalizedCache {
     }
   }
 
+  public func removeRecord(for key: CacheKey) throws {
+    records.removeRecord(for: key)
+  }
+  
   public func merge(records newRecords: RecordSet) throws -> Set<CacheKey> {
     return records.merge(records: newRecords)
+  }
+
+  public func removeRecords(matching pattern: CacheKey) throws {
+    records.removeRecords(matching: pattern)
   }
 
   public func clear() {

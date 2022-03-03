@@ -2,18 +2,8 @@
 
 # `ApolloExtension`
 ```swift
-public extension ApolloExtension where Base: DictionaryType, Base.KeyType: RawRepresentable, Base.KeyType.RawValue == String, Base.ValueType: Any
+extension ApolloExtension where Base == FileManager
 ```
-
-## Properties
-### `toStringKeyedDict`
-
-```swift
-var toStringKeyedDict: [String: Any]
-```
-
-> Transforms a dictionary keyed by a String enum into a dictionary keyed by the
-> string values of that enum.
 
 ## Methods
 ### `fileExists(at:)`
@@ -22,10 +12,10 @@ var toStringKeyedDict: [String: Any]
 public func fileExists(at path: String) -> Bool
 ```
 
-> Checks if a file exists (and is not a folder) at the given path
->
-> - Parameter path: The path to check
-> - Returns: `true` if there is something at the path and it is a file, not a folder.
+Checks if a file exists (and is not a folder) at the given path
+
+- Parameter path: The path to check
+- Returns: `true` if there is something at the path and it is a file, not a folder.
 
 #### Parameters
 
@@ -39,10 +29,10 @@ public func fileExists(at path: String) -> Bool
 public func fileExists(at url: URL) -> Bool
 ```
 
-> Checks if a file exists (and is not a folder) at the given URL
->
-> - Parameter url: The URL to check
-> - Returns: `true` if there is something at the URL and it is a file, not a folder.
+Checks if a file exists (and is not a folder) at the given URL
+
+- Parameter url: The URL to check
+- Returns: `true` if there is something at the URL and it is a file, not a folder.
 
 #### Parameters
 
@@ -56,10 +46,10 @@ public func fileExists(at url: URL) -> Bool
 public func folderExists(at path: String) -> Bool
 ```
 
-> Checks if a folder exists (and is not a file) at the given path.
->
-> - Parameter path: The path to check
-> - Returns: `true` if there is something at the path and it is a folder, not a file.
+Checks if a folder exists (and is not a file) at the given path.
+
+- Parameter path: The path to check
+- Returns: `true` if there is something at the path and it is a folder, not a file.
 
 #### Parameters
 
@@ -73,10 +63,10 @@ public func folderExists(at path: String) -> Bool
 public func folderExists(at url: URL) -> Bool
 ```
 
-> Checks if a folder exists (and is not a file) at the given URL.
->
-> - Parameter url: The URL to check
-> - Returns: `true` if there is something at the URL and it is a folder, not a file.
+Checks if a folder exists (and is not a file) at the given URL.
+
+- Parameter url: The URL to check
+- Returns: `true` if there is something at the URL and it is a folder, not a file.
 
 #### Parameters
 
@@ -90,9 +80,9 @@ public func folderExists(at url: URL) -> Bool
 public func deleteFolder(at url: URL) throws
 ```
 
-> Checks if a folder exists then attempts to delete it if it's there.
->
-> - Parameter url: The URL to delete the folder for
+Checks if a folder exists then attempts to delete it if it's there.
+
+- Parameter url: The URL to delete the folder for
 
 #### Parameters
 
@@ -106,9 +96,9 @@ public func deleteFolder(at url: URL) throws
 public func deleteFile(at url: URL) throws
 ```
 
-> Checks if a file exists then attempts to delete it if it's there.
->
-> - Parameter url: The URL to delete the file for
+Checks if a file exists then attempts to delete it if it's there.
+
+- Parameter url: The URL to delete the file for
 
 #### Parameters
 
@@ -122,9 +112,9 @@ public func deleteFile(at url: URL) throws
 public func createContainingFolderIfNeeded(for fileURL: URL) throws
 ```
 
-> Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
->
-> - Parameter fileURL: The URL of the file to create a containing folder for if necessary.
+Creates the containing folder (including all intermediate directories) for the given file URL if necessary.
+
+- Parameter fileURL: The URL of the file to create a containing folder for if necessary.
 
 #### Parameters
 
@@ -138,9 +128,9 @@ public func createContainingFolderIfNeeded(for fileURL: URL) throws
 public func createFolderIfNeeded(at url: URL) throws
 ```
 
-> Creates the folder (including all intermediate directories) for the given URL if necessary.
->
-> - Parameter url: The URL of the folder to create if necessary.
+Creates the folder (including all intermediate directories) for the given URL if necessary.
+
+- Parameter url: The URL of the folder to create if necessary.
 
 #### Parameters
 
@@ -154,9 +144,9 @@ public func createFolderIfNeeded(at url: URL) throws
 public func shasum(at fileURL: URL) throws -> String
 ```
 
-> Calculates the SHASUM (ie, SHA256 hash) of the given file
->
-> - Parameter fileURL: The file to calculate the SHASUM for.
+Calculates the SHASUM (ie, SHA256 hash) of the given file
+
+- Parameter fileURL: The file to calculate the SHASUM for.
 
 #### Parameters
 
@@ -170,7 +160,7 @@ public func shasum(at fileURL: URL) throws -> String
 public func parentFolderURL() -> URL
 ```
 
-> - Returns: the URL to the parent folder of the current URL.
+- Returns: the URL to the parent folder of the current URL.
 
 ### `childFolderURL(folderName:)`
 
@@ -178,8 +168,8 @@ public func parentFolderURL() -> URL
 public func childFolderURL(folderName: String) -> URL
 ```
 
-> - Parameter folderName: The name of the child folder to append to the current URL
-> - Returns: The full URL including the appended child folder.
+- Parameter folderName: The name of the child folder to append to the current URL
+- Returns: The full URL including the appended child folder.
 
 #### Parameters
 
@@ -193,11 +183,11 @@ public func childFolderURL(folderName: String) -> URL
 public func childFileURL(fileName: String) throws -> URL
 ```
 
-> Adds the filename to the caller to get the full URL of a file
->
-> - Parameters:
->   - fileName: The name of the child file, with an extension, for example `"API.swift"`. Note: For hidden files just pass `".filename"`.
-> - Returns: The full URL including the full file.
+Adds the filename to the caller to get the full URL of a file
+
+- Parameters:
+  - fileName: The name of the child file, with an extension, for example `"API.swift"`. Note: For hidden files just pass `".filename"`.
+- Returns: The full URL including the full file.
 
 #### Parameters
 

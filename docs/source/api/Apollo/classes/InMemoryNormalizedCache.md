@@ -25,6 +25,18 @@ public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record
 | ---- | ----------- |
 | key | The cache keys to load data for |
 
+### `removeRecord(for:)`
+
+```swift
+public func removeRecord(for key: CacheKey) throws
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| key | The cache key to remove the record for |
+
 ### `merge(records:)`
 
 ```swift
@@ -36,6 +48,18 @@ public func merge(records newRecords: RecordSet) throws -> Set<CacheKey>
 | Name | Description |
 | ---- | ----------- |
 | records | The set of records to merge. |
+
+### `removeRecords(matching:)`
+
+```swift
+public func removeRecords(matching pattern: CacheKey) throws
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| pattern | The pattern that will be applied to find matching keys. |
 
 ### `clear()`
 

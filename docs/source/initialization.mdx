@@ -1,0 +1,44 @@
+---
+title: Creating a client
+---
+
+Before you can execute GraphQL operations in your app, you need to initialize an `ApolloClient` instance.
+
+## Basic client creation
+
+In most cases, you can create a single shared instance of `ApolloClient` and point it at your GraphQL server. The recommended way to do this is to create a singleton like so:
+
+```swift
+import Foundation
+import Apollo
+
+class Network {
+  static let shared = Network()
+
+  private(set) lazy var apollo = ApolloClient(url: URL(string: "http://localhost:4000/graphql")!)
+}
+```
+
+Under the hood, this creates a client using the default network transport (`RequestChainNetworkTransport`) and default configuration. You can then use this client from anywhere in your code with `Network.shared.apollo`.
+
+> You should use this initializer unless you need to customize your client's network communication, such as to enable subscription operations.
+
+## Advanced client creation
+
+For advanced use cases, you can use a different `ApolloClient` initializer that enables you to customize your client's network transport:
+
+```swift
+public init(networkTransport: NetworkTransport,
+            store: ApolloStore)
+```
+
+Apollo iOS provides the following classes that conform to the [`NetworkTransport` protocol](https://github.com/apollographql/apollo-ios/blob/main/Sources/Apollo/NetworkTransport.swift):
+
+| Class | Description |
+|-------|-------------|
+| `RequestChainNetworkTransport` | Passes a request through a chain of interceptors that can interact with the request both before and after it's transmitted. Uses standard HTTP requests to communicate with the server. |
+| `WebSocketTransport` | Transmits _all_ GraphQL operations via WebSocket. Requires the `Apollo/WebSocket` sub-spec. |
+| `SplitNetworkTransport` | Transmits subscription operations via WebSocket and other operations via HTTP. Requires the `Apollo/WebSocket` sub-spec. |
+
+> * For more information on `RequestChainNetworkTransport`, see [Request pipeline in Apollo iOS](/request-pipeline/).
+> * For more information on `WebSocketTransport` and `SplitNetworkTransport`, see [Subscriptions](/subscriptions/).

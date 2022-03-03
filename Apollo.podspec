@@ -15,13 +15,14 @@ Pod::Spec.new do |s|
 
   s.default_subspecs = 'Core'
 
-  s.ios.deployment_target = '9.0'
-  s.osx.deployment_target = '10.10'
-  s.tvos.deployment_target = '9.1'
-  s.watchos.deployment_target = '3.0'
+  s.ios.deployment_target = '12.0'
+  s.osx.deployment_target = '10.14'
+  s.tvos.deployment_target = '12.0'
+  s.watchos.deployment_target = '5.0'
 
   s.subspec 'Core' do |ss|
-    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloCore/*.swift'
+    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloUtils/*.swift','Sources/ApolloAPI/*.swift'
+    ss.exclude_files = 'Sources/ApolloAPI/CodegenV1/*.swift'
     ss.preserve_paths = [
       'scripts/run-bundled-codegen.sh',
     ]
@@ -32,14 +33,13 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'SQLite.swift', '~>0.12.2'
+    ss.dependency 'SQLite.swift', '~>0.13.1'
   end
 
   # Websocket and subscription support based on Starscream
   s.subspec 'WebSocket' do |ss|
-    ss.source_files = 'Sources/ApolloWebSocket/*.swift'
+    ss.source_files = 'Sources/ApolloWebSocket/**/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'Starscream', '~>3.1.1'
   end
 
 end

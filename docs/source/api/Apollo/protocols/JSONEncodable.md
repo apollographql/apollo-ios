@@ -3,7 +3,7 @@
 # `JSONEncodable`
 
 ```swift
-public protocol JSONEncodable: GraphQLInputValue
+public protocol JSONEncodable
 ```
 
 ## Properties

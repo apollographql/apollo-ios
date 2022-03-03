@@ -6,7 +6,7 @@
 public struct Record
 ```
 
-> A cache record.
+A cache record.
 
 ## Properties
 ### `key`

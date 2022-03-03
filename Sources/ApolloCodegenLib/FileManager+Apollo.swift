@@ -1,7 +1,7 @@
 import Foundation
 import CommonCrypto
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 extension FileManager: ApolloCompatible {}

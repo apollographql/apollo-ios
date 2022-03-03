@@ -6,7 +6,7 @@
 public struct Location
 ```
 
-> Represents a location in a GraphQL document.
+Represents a location in a GraphQL document.
 
 ## Properties
 ### `line`
@@ -15,7 +15,7 @@ public struct Location
 public let line: Int
 ```
 
-> The line number of a syntax element.
+The line number of a syntax element.
 
 ### `column`
 
@@ -23,4 +23,4 @@ public let line: Int
 public let column: Int
 ```
 
-> The column number of a syntax element.
+The column number of a syntax element.

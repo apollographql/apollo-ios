@@ -1,4 +1,7 @@
 import Foundation
+#if !COCOAPODS
+import ApolloUtils
+#endif
 
 public struct GraphQLGETTransformer {
 
@@ -23,12 +26,12 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    var queryItems: [URLQueryItem] = []
+    var queryItems: [URLQueryItem] = components.queryItems ?? []
 
     do {
       _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
         if let value = arg.value as? GraphQLMap {
-          let data = try JSONSerialization.dataSortedIfPossible(withJSONObject: value.jsonValue)
+          let data = try JSONSerialization.sortedData(withJSONObject: value.jsonValue)
           if let string = String(data: data, encoding: .utf8) {
             queryItems.append(URLQueryItem(name: arg.key, value: string))
           }
@@ -42,7 +45,12 @@ public struct GraphQLGETTransformer {
       return nil
     }
 
-    components.queryItems = queryItems
+    if queryItems.apollo.isNotEmpty {
+      components.queryItems = queryItems
+    }
+
+    components.percentEncodedQuery =
+      components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
 
     return components.url
   }

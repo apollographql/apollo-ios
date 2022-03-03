@@ -33,11 +33,30 @@ public func send<Operation: GraphQLOperation>(
 public func websocketDidConnect(socket: WebSocketClient)
 ```
 
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| socket | The `WebSocketClient` that sent the delegate event. |
+
+### `handleConnection()`
+
+```swift
+public func handleConnection()
+```
+
 ### `websocketDidDisconnect(socket:error:)`
 
 ```swift
 public func websocketDidDisconnect(socket: WebSocketClient, error: Error?)
 ```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| socket | The `WebSocketClient` that sent the delegate event. |
+| error | An optional error if an error occured. |
 
 ### `websocketDidReceiveMessage(socket:text:)`
 
@@ -45,8 +64,22 @@ public func websocketDidDisconnect(socket: WebSocketClient, error: Error?)
 public func websocketDidReceiveMessage(socket: WebSocketClient, text: String)
 ```
 
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| socket | The `WebSocketClient` that sent the delegate event. |
+| text | The text received from the server. |
+
 ### `websocketDidReceiveData(socket:data:)`
 
 ```swift
 public func websocketDidReceiveData(socket: WebSocketClient, data: Data)
 ```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| socket | The `WebSocketClient` that sent the delegate event. |
+| data | The data received from the server. |

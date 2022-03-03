@@ -8,6 +8,7 @@
 
 import XCTest
 import Apollo
+import ApolloTestSupport
 
 class MultipartFormDataTests: XCTestCase {
   func testSingleFile() throws {

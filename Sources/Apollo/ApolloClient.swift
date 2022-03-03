@@ -15,9 +15,7 @@ public enum CachePolicy {
   case returnCacheDataAndFetch
   
   /// The current default cache policy.
-  public static var `default`: CachePolicy {
-    .returnCacheDataElseFetch
-  }
+  public static var `default`: CachePolicy = .returnCacheDataElseFetch
 }
 
 /// A handler for operation results.
@@ -59,7 +57,7 @@ public class ApolloClient {
   /// - Parameter url: The URL of a GraphQL server to connect to.
   public convenience init(url: URL) {
     let store = ApolloStore(cache: InMemoryNormalizedCache())
-    let provider = LegacyInterceptorProvider(store: store)
+    let provider = DefaultInterceptorProvider(store: store)
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: url)
     
@@ -82,13 +80,13 @@ extension ApolloClient: ApolloClientProtocol {
 
   public func clearCache(callbackQueue: DispatchQueue = .main,
                          completion: ((Result<Void, Error>) -> Void)? = nil) {
-    self.store.clearCache(completion: completion)
+    self.store.clearCache(callbackQueue: callbackQueue, completion: completion)
   }
   
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
-                                                            cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                                            cachePolicy: CachePolicy = .default,
                                                             contextIdentifier: UUID? = nil,
-                                                            queue: DispatchQueue = DispatchQueue.main,
+                                                            queue: DispatchQueue = .main,
                                                             resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: query,
                                       cachePolicy: cachePolicy,
@@ -99,10 +97,12 @@ extension ApolloClient: ApolloClientProtocol {
   }
 
   public func watch<Query: GraphQLQuery>(query: Query,
-                                         cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                         cachePolicy: CachePolicy = .default,
+                                         callbackQueue: DispatchQueue = .main,
                                          resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query> {
     let watcher = GraphQLQueryWatcher(client: self,
                                       query: query,
+                                      callbackQueue: callbackQueue,
                                       resultHandler: resultHandler)
     watcher.fetch(cachePolicy: cachePolicy)
     return watcher

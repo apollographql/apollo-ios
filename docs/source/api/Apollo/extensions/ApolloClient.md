@@ -31,9 +31,9 @@ public func clearCache(callbackQueue: DispatchQueue = .main,
 
 ```swift
 @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
-                                                          cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                                          cachePolicy: CachePolicy = .default,
                                                           contextIdentifier: UUID? = nil,
-                                                          queue: DispatchQueue = DispatchQueue.main,
+                                                          queue: DispatchQueue = .main,
                                                           resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable
 ```
 
@@ -43,15 +43,16 @@ public func clearCache(callbackQueue: DispatchQueue = .main,
 | ---- | ----------- |
 | query | The query to fetch. |
 | cachePolicy | A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache. |
-| queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
+| queue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | contextIdentifier | [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`. |
 | resultHandler | [optional] A closure that is called when query results are available or when an error occurs. |
 
-### `watch(query:cachePolicy:resultHandler:)`
+### `watch(query:cachePolicy:callbackQueue:resultHandler:)`
 
 ```swift
 public func watch<Query: GraphQLQuery>(query: Query,
-                                       cachePolicy: CachePolicy = .returnCacheDataElseFetch,
+                                       cachePolicy: CachePolicy = .default,
+                                       callbackQueue: DispatchQueue = .main,
                                        resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 ```
 
@@ -61,6 +62,7 @@ public func watch<Query: GraphQLQuery>(query: Query,
 | ---- | ----------- |
 | query | The query to fetch. |
 | cachePolicy | A cache policy that specifies when results should be fetched from the server or from the local cache. |
+| callbackQueue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | resultHandler | [optional] A closure that is called when query results are available or when an error occurs. |
 
 ### `perform(mutation:publishResultToStore:queue:resultHandler:)`
@@ -78,7 +80,7 @@ public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
 | ---- | ----------- |
 | mutation | The mutation to perform. |
 | publishResultToStore | If `true`, this will publish the result returned from the operation to the cache store. Default is `true`. |
-| queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
+| queue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | resultHandler | An optional closure that is called when mutation results are available or when an error occurs. |
 
 ### `upload(operation:files:queue:resultHandler:)`
@@ -113,5 +115,5 @@ public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscript
 | ---- | ----------- |
 | subscription | The subscription to subscribe to. |
 | fetchHTTPMethod | The HTTP Method to be used. |
-| queue | A dispatch queue on which the result handler will be called. Defaults to the main queue. |
+| queue | A dispatch queue on which the result handler will be called. Should default to the main queue. |
 | resultHandler | An optional closure that is called when mutation results are available or when an error occurs. |

@@ -6,26 +6,23 @@
 public struct ApolloSchemaDownloader
 ```
 
-> A wrapper to facilitate downloading a schema with the Apollo node CLI
+A wrapper to facilitate downloading a schema with the Apollo node CLI
 
 ## Methods
-### `run(with:options:)`
+### `fetch(with:)`
 
 ```swift
-public static func run(with cliFolderURL: URL,
-                       options: ApolloSchemaOptions) throws -> String
+public static func fetch(with configuration: ApolloSchemaDownloadConfiguration) throws
 ```
 
-> Runs code generation from the given folder with the passed-in options
->
-> - Parameters:
->   - cliFolderURL: The folder where the Apollo CLI is/should be downloaded.
->   - options: The `ApolloSchemaOptions` object to use to download the schema.
-> - Returns: Output from a successful run
+Downloads your schema using the specified configuration object.
+
+- Parameters:
+  - configuration: The `ApolloSchemaDownloadConfiguration` object to use to download the schema.
+- Returns: Output from a successful run
 
 #### Parameters
 
 | Name | Description |
 | ---- | ----------- |
-| cliFolderURL | The folder where the Apollo CLI is/should be downloaded. |
-| options | The `ApolloSchemaOptions` object to use to download the schema. |
+| configuration | The `ApolloSchemaDownloadConfiguration` object to use to download the schema. |

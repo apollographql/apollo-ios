@@ -18,7 +18,7 @@ final class GraphQLSelectionSetMapper<SelectionSet: GraphQLSelectionSet>: GraphQ
   }
 
   func accept(fieldEntries: [(key: String, value: Any?)], info: GraphQLResolveInfo) throws -> ResultMap {
-    return ResultMap(fieldEntries)
+    return ResultMap(fieldEntries, uniquingKeysWith: { (_, last) in last })
   }
 
   func finish(rootValue: ResultMap, info: GraphQLResolveInfo) -> SelectionSet {

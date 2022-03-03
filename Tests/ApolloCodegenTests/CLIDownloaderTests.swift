@@ -1,55 +1,44 @@
-//
-//  CLIDownloaderTests.swift
-//  Apollo
-//
-//  Created by Ellen Shapiro on 10/22/19.
-//  Copyright © 2019 Apollo GraphQL. All rights reserved.
-//
-
 @testable import ApolloCodegenLib
+import ApolloCodegenTestSupport
 import XCTest
 
 class CLIDownloaderTests: XCTestCase {
-  
-  func testRedownloading() throws {
+  func testForceRedownloading_withExistingFile_shouldOverwriteWithExpectedChecksum() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
-    
-    try CLIDownloader.forceRedownload(cliFolderURL: scriptsURL, timeout: CodegenTestHelper.timeout)
-    
     let zipFileURL = ApolloFilePathHelper.zipFileURL(fromCLIFolder: scriptsURL)
-    XCTAssertTrue(FileManager.default.apollo.fileExists(at: zipFileURL))
+
+    try "Dummy file".data(using: .utf8)?.write(to: zipFileURL)
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: zipFileURL), "Created dummy file to be overwritten")
+
+    try CLIDownloader.forceRedownload(to: scriptsURL, timeout: CodegenTestHelper.timeout)
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: zipFileURL), "Downloaded Apollo CLI")
     XCTAssertEqual(try FileManager.default.apollo.shasum(at: zipFileURL), CLIExtractor.expectedSHASUM)
   }
   
-  func testDownloadingToFolderThatDoesntAlreadyExistWorks() throws {
+  func testDownloading_toFolderThatDoesNotExist_shouldCreateFolder() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
     try FileManager.default.apollo.deleteFolder(at: scriptsURL)
-    
     XCTAssertFalse(FileManager.default.apollo.folderExists(at: scriptsURL))
-    
-    try CLIDownloader.downloadIfNeeded(cliFolderURL: scriptsURL, timeout: 90.0)
-    
+
+    try CLIDownloader.downloadIfNeeded(to: scriptsURL, timeout: 90.0)
     XCTAssertTrue(FileManager.default.apollo.folderExists(at: scriptsURL))
   }
   
-  func testTimeoutThrowsCorrectError() throws {
+  func testTimeout_shouldThrowCorrectError() throws {
     let scriptsURL = CodegenTestHelper.cliFolderURL()
     
-    // This file is big enough that unless both you and the server have a terabyte connection, 2 seconds won't be enough time to download it.
     do {
-      try CLIDownloader.forceRedownload(cliFolderURL: scriptsURL, timeout: 2.0)
+      try CLIDownloader.forceRedownload(to: scriptsURL, timeout: 0.5)
     } catch {
-      guard let downloaderError = error as? CLIDownloader.CLIDownloaderError else {
+      guard
+        let DownloadError = error as? URLDownloader.DownloadError,
+        case .downloadTimedOut(let seconds) = DownloadError
+      else {
         XCTFail("Wrong type of error")
         return
       }
-      
-      switch downloaderError {
-      case .downloadTimedOut(let seconds):
-        XCTAssertEqual(seconds, 2.0, accuracy: 0.0001)
-      default:
-        XCTFail("Wrong type of error")
-      }
+
+      XCTAssertEqual(seconds, 0.5, accuracy: 0.0001)
     }
   }
 }

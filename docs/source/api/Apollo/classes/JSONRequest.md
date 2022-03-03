@@ -6,7 +6,7 @@
 open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation>
 ```
 
-> A request which sends JSON related to a GraphQL operation.
+A request which sends JSON related to a GraphQL operation.
 
 ## Properties
 ### `requestBodyCreator`
@@ -68,20 +68,20 @@ public init(operation: Operation,
             requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator())
 ```
 
-> Designated initializer
->
-> - Parameters:
->   - operation: The GraphQL Operation to execute
->   - graphQLEndpoint: The endpoint to make a GraphQL request to
->   - contextIdentifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
->   - clientName: The name of the client to send with the `"apollographql-client-name"` header
->   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
->   - additionalHeaders: Any additional headers you wish to add by default to this request
->   - cachePolicy: The `CachePolicy` to use for this request.
->   - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
->   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
->   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
->   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
+Designated initializer
+
+- Parameters:
+  - operation: The GraphQL Operation to execute
+  - graphQLEndpoint: The endpoint to make a GraphQL request to
+  - contextIdentifier:  [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Defaults to `nil`.
+  - clientName: The name of the client to send with the `"apollographql-client-name"` header
+  - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
+  - additionalHeaders: Any additional headers you wish to add by default to this request
+  - cachePolicy: The `CachePolicy` to use for this request.
+  - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
+  - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
+  - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
+  - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
 
 #### Parameters
 

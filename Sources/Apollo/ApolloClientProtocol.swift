@@ -1,7 +1,7 @@
 import Foundation
 
 /// The `ApolloClientProtocol` provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
-public protocol ApolloClientProtocol: class {
+public protocol ApolloClientProtocol: AnyObject {
 
   ///  A store used as a local cache.
   var store: ApolloStore { get }
@@ -22,7 +22,7 @@ public protocol ApolloClientProtocol: class {
   /// - Parameters:
   ///   - query: The query to fetch.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
-  ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
@@ -37,10 +37,12 @@ public protocol ApolloClientProtocol: class {
   /// - Parameters:
   ///   - query: The query to fetch.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the local cache.
+  ///   - callbackQueue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   func watch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
+                                  callbackQueue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 
   /// Performs a mutation by sending it to the server.
@@ -48,7 +50,7 @@ public protocol ApolloClientProtocol: class {
   /// - Parameters:
   ///   - mutation: The mutation to perform.
   ///   - publishResultToStore: If `true`, this will publish the result returned from the operation to the cache store. Default is `true`.
-  ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
@@ -74,7 +76,7 @@ public protocol ApolloClientProtocol: class {
   /// - Parameters:
   ///   - subscription: The subscription to subscribe to.
   ///   - fetchHTTPMethod: The HTTP Method to be used.
-  ///   - queue: A dispatch queue on which the result handler will be called. Defaults to the main queue.
+  ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress subscription.
   func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,

@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 /// A class to handle URL Session calls that will support background execution,
@@ -90,7 +90,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameter identifier: The identifier of the task to clear.
   open func clear(task identifier: Int) {
-    self.tasks.mutate { $0.removeValue(forKey: identifier) }
+    self.tasks.mutate { _ = $0.removeValue(forKey: identifier) }
   }
   
   /// Clears underlying dictionaries of any data related to all tasks.
@@ -154,7 +154,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     self.clearAllTasks()
   }
   
-  @available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        didFinishCollecting metrics: URLSessionTaskMetrics) {
@@ -234,7 +233,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     // No default implementation
   }
   
-  @available(iOS 11.0, OSXApplicationExtension 10.13, OSX 10.13, tvOS 11.0, watchOS 4.0, *)
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
                        willBeginDelayedRequest request: URLRequest,
@@ -255,6 +253,11 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didReceive data: Data) {
+    guard dataTask.state != .canceling else {
+      // Task is in the process of cancelling, don't bother handling its data.
+      return
+    }
+    
     self.tasks.mutate {
       guard let taskData = $0[dataTask.taskIdentifier] else {
         assertionFailure("No data found for task \(dataTask.taskIdentifier), cannot append received data")
@@ -265,7 +268,6 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
   }
   
-  @available(iOS 9.0, OSXApplicationExtension 10.11, OSX 10.11, *)
   open func urlSession(_ session: URLSession,
                        dataTask: URLSessionDataTask,
                        didBecome streamTask: URLSessionStreamTask) {

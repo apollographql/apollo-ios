@@ -13,7 +13,7 @@ open class HTTPRequest<Operation: GraphQLOperation> {
   open var additionalHeaders: [String: String]
   
   /// The `CachePolicy` to use for this request.
-  public let cachePolicy: CachePolicy
+  open var cachePolicy: CachePolicy
   
   /// [optional] A unique identifier for this request, to help with deduping cache hits for watchers.
   public let contextIdentifier: UUID?

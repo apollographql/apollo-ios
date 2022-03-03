@@ -1,2 +1,3 @@
-/ /docs/ios/
-/docs/ios/tutorial /docs/ios/tutorial/tutorial-introduction
+/tutorial /docs/ios/tutorial/tutorial-introduction
+/tutorial/tutorial-create-project /docs/ios/tutorial/tutorial-add-sdk
+/docs/ios/tutorial/tutorial-create-project /docs/ios/tutorial/tutorial-add-sdk

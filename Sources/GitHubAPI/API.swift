@@ -11,9 +11,13 @@ public final class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
   public let operationName: String = "IssuesAndCommentsForRepository"
 
-  public let operationIdentifier: String? = "ac49a25de6d750d9343c9ddd127a6fc77de480dcb85ad7aedfd1984eb50a4bd6"
+  public let operationIdentifier: String? = "187f0f83986b0269e8d0860e24c1b40ef4243ccbc86c15495076dabfef7a70c1"
 
-  public var queryDocument: String { return operationDefinition.appending("\n" + AuthorDetails.fragmentDefinition) }
+  public var queryDocument: String {
+    var document: String = operationDefinition
+    document.append("\n" + AuthorDetails.fragmentDefinition)
+    return document
+  }
 
   public init() {
   }
@@ -316,6 +320,7 @@ public final class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
                   GraphQLField("login", type: .nonNull(.scalar(String.self))),
                   GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                   GraphQLField("login", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                   GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                   GraphQLField("name", type: .scalar(String.self)),
                 ]
@@ -594,6 +599,7 @@ public final class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
                       GraphQLField("login", type: .nonNull(.scalar(String.self))),
                       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                       GraphQLField("login", type: .nonNull(.scalar(String.self))),
+                      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                       GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
                       GraphQLField("name", type: .scalar(String.self)),
                     ]
@@ -685,11 +691,11 @@ public final class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 public final class RepositoryQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
-    "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { body ... on UniformResourceLocatable { url } author { __typename avatarUrl } } ... on Reactable { viewerCanReact ... on Comment { author { __typename login } } } } } }"
+    "query Repository { repository(owner: \"apollographql\", name: \"apollo-ios\") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { __typename body ... on UniformResourceLocatable { __typename url } author { __typename avatarUrl } } ... on Reactable { __typename viewerCanReact ... on Comment { __typename author { __typename login } } } } } }"
 
   public let operationName: String = "Repository"
 
-  public let operationIdentifier: String? = "63e25c339275a65f43b847e692e42caed8c06e25fbfb3dc8db6d4897b180c9ef"
+  public let operationIdentifier: String? = "68de6d66c791c0d7b4fe4c21496b4623acb91c0086366aded49366f57e9f0b68"
 
   public init() {
   }
@@ -771,7 +777,9 @@ public final class RepositoryQuery: GraphQLQuery {
               variants: ["Issue": AsIssue.selections],
               default: [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("viewerCanReact", type: .nonNull(.scalar(Bool.self))),
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("author", type: .object(Author.selections)),
               ]
             )
@@ -894,10 +902,14 @@ public final class RepositoryQuery: GraphQLQuery {
           public static var selections: [GraphQLSelection] {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("body", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("url", type: .nonNull(.scalar(String.self))),
               GraphQLField("author", type: .object(Author.selections)),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("viewerCanReact", type: .nonNull(.scalar(Bool.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
               GraphQLField("author", type: .object(Author.selections)),
             ]
           }
@@ -1120,7 +1132,7 @@ public final class RepoUrlQuery: GraphQLQuery {
 public struct AuthorDetails: GraphQLFragment {
   /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition: String =
-    "fragment AuthorDetails on Actor { __typename login ... on User { id name } }"
+    "fragment AuthorDetails on Actor { __typename login ... on User { __typename id name } }"
 
   public static let possibleTypes: [String] = ["Bot", "EnterpriseUserAccount", "Mannequin", "Organization", "User"]
 
@@ -1199,6 +1211,7 @@ public struct AuthorDetails: GraphQLFragment {
       return [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("login", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("name", type: .scalar(String.self)),
       ]

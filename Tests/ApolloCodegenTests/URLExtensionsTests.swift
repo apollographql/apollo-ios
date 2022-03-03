@@ -8,8 +8,9 @@
 
 import Foundation
 import XCTest
-import ApolloCodegenLib
-import ApolloCore
+import ApolloCodegenTestSupport
+@testable import ApolloCodegenLib
+import ApolloUtils
 
 class URLExtensionsTests: XCTestCase {
  
@@ -68,4 +69,39 @@ class URLExtensionsTests: XCTestCase {
     
     XCTAssertEqual(child, expectedFile)
   }
+  
+  func testIsDirectoryForExistingDirectory() {
+    let parentDirectory = FileFinder.findParentFolder()
+    XCTAssertTrue(FileManager.default.apollo.folderExists(at: parentDirectory))
+    XCTAssertTrue(parentDirectory.apollo.isDirectoryURL)
+  }
+  
+  func testIsDirectoryForExistingFile() {
+    let currentFileURL = FileFinder.fileURL()
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: currentFileURL))
+    XCTAssertFalse(currentFileURL.apollo.isDirectoryURL)
+  }
+  
+  func testIsSwiftFileForExistingFile() {
+    let currentFileURL = FileFinder.fileURL()
+    XCTAssertTrue(FileManager.default.apollo.fileExists(at: currentFileURL))
+    XCTAssertTrue(currentFileURL.apollo.isSwiftFileURL)
+  }
+  
+  func testIsSwiftFileForNonExistentFileWithSingleExtension() {
+    let currentDirectory = FileFinder.findParentFolder()
+    let doesntExist = currentDirectory.appendingPathComponent("test.swift")
+    
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: doesntExist))
+    XCTAssertTrue(doesntExist.apollo.isSwiftFileURL)
+  }
+  
+  func testIsSwiftFileForNonExistentFileWithMultipleExtensions() {
+    let currentDirectory = FileFinder.findParentFolder()
+    let doesntExist = currentDirectory.appendingPathComponent("test.graphql.swift")
+    
+    XCTAssertFalse(FileManager.default.apollo.fileExists(at: doesntExist))
+    XCTAssertTrue(doesntExist.apollo.isSwiftFileURL)
+  }
+  
 }

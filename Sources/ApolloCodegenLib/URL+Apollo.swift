@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 extension URL: ApolloCompatible {}
@@ -17,6 +17,25 @@ public enum ApolloURLError: Error, LocalizedError {
 }
 
 extension ApolloExtension where Base == URL {
+  
+  /// Determines if the URL passed in is a directory URL.
+  ///
+  /// NOTE: Only works if something at the URL already exists.
+  ///
+  /// - Returns: True if the URL is a directory URL, false if it isn't.
+  var isDirectoryURL: Bool {
+    guard
+      let resourceValues = try? base.resourceValues(forKeys: [.isDirectoryKey]),
+      let isDirectory = resourceValues.isDirectory else {
+        return false
+    }
+    
+    return isDirectory
+  }
+  
+  var isSwiftFileURL: Bool {
+    base.pathExtension == "swift"
+  }
   
   /// - Returns: the URL to the parent folder of the current URL.
   public func parentFolderURL() -> URL {

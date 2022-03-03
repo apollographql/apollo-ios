@@ -1,5 +1,5 @@
 #if !COCOAPODS
-import ApolloCore
+import ApolloAPI
 #endif
 
 public typealias ResultMap = [String: Any?]
@@ -29,13 +29,19 @@ extension GraphQLSelectionSet {
   }
 }
 
+/// For backwards compatibility with legacy codegen.
+/// The `GraphQLVariable` class has been replaced by `InputValue.variable`
+public func GraphQLVariable(_ name: String) -> InputValue {
+  return .variable(name)
+}
+
 public protocol GraphQLSelection {
 }
 
 public struct GraphQLField: GraphQLSelection {
   let name: String
   let alias: String?
-  let arguments: [String: GraphQLInputValue]?
+  let arguments: FieldArguments?
 
   var responseKey: String {
     return alias ?? name
@@ -45,7 +51,7 @@ public struct GraphQLField: GraphQLSelection {
 
   public init(_ name: String,
               alias: String? = nil,
-              arguments: [String: GraphQLInputValue]? = nil,
+              arguments: FieldArguments? = nil,
               type: GraphQLOutputType) {
     self.name = name
     self.alias = alias
@@ -55,7 +61,7 @@ public struct GraphQLField: GraphQLSelection {
     self.type = type
   }
 
-  func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
+  public func cacheKey(with variables: [String: JSONEncodable]?) throws -> String {
     if
       let argumentValues = try arguments?.evaluate(with: variables),
       argumentValues.apollo.isNotEmpty {
@@ -64,6 +70,22 @@ public struct GraphQLField: GraphQLSelection {
     } else {
       return name
     }
+  }
+}
+
+public struct FieldArguments: ExpressibleByDictionaryLiteral {
+  let arguments: InputValue
+
+  public init(dictionaryLiteral elements: (String, InputValue)...) {
+    arguments = .object(Dictionary(elements, uniquingKeysWith: { (_, last) in last }))
+  }
+
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONValue {
+    return try arguments.evaluate(with: variables)
+  }
+
+  public func evaluate(with variables: [String: JSONEncodable]?) throws -> JSONObject {
+    return try arguments.evaluate(with: variables) as! JSONObject
   }
 }
 

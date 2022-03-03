@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 /// A chain that allows a single network request to be created and executed.
@@ -111,6 +111,11 @@ public class RequestChain: Cancellable {
   
   /// Cancels the entire chain of interceptors.
   public func cancel() {
+    guard self.isNotCancelled else {
+      // Do not proceed, this chain has been cancelled.
+      return
+    }
+    
     self.isCancelled.mutate { $0 = true }
     
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.

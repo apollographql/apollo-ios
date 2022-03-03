@@ -5,6 +5,11 @@ import Foundation
 
 /// Wrapper for calling the bundled node-based Apollo CLI.
 public struct ApolloCLI {
+
+  enum ApolloCLIError: Error {
+    case lockInitializationFailed(URL)
+    case timedOutWaitingOnLock(URL)
+  }
   
   /// Creates an instance of `ApolloCLI`, downloading and extracting if needed
   ///
@@ -12,17 +17,46 @@ public struct ApolloCLI {
   ///   - cliFolderURL: The URL to the folder which contains the zip file with the CLI.
   ///   - timeout: The maximum time to wait before indicating that the download timed out, in seconds.
   public static func createCLI(cliFolderURL: URL, timeout: Double) throws -> ApolloCLI {
-    try CLIDownloader.downloadIfNeeded(cliFolderURL: cliFolderURL, timeout: timeout)
+    let lock = try waitForCLIFolderLock(cliFolderURL: cliFolderURL, timeout: timeout)
+    defer { lock.unlock() }
+
+    try CLIDownloader.downloadIfNeeded(to: cliFolderURL, timeout: timeout)
     
     if !(try CLIExtractor.validateSHASUMOfDownloadedFile(in: cliFolderURL)) {
       CodegenLogger.log("Downloaded zip file has incorrect SHASUM, forcing redownload")
-      try CLIDownloader.forceRedownload(cliFolderURL: cliFolderURL, timeout: timeout)
+      try CLIDownloader.forceRedownload(to: cliFolderURL, timeout: timeout)
     }
     
     let binaryFolderURL = try CLIExtractor.extractCLIIfNeeded(from: cliFolderURL)
     return ApolloCLI(binaryFolderURL: binaryFolderURL)
   }
-  
+
+  private static func waitForCLIFolderLock(cliFolderURL: URL, timeout: Double) throws -> NSDistributedLock {
+    guard let lock = NSDistributedLock(path: cliFolderURL.path + ".lock") else {
+      throw ApolloCLIError.lockInitializationFailed(cliFolderURL)
+    }
+
+    let maxPollCount = Int(timeout*2)
+    var pollCount = 0
+
+    repeat {
+      if lock.try() {
+        return lock
+
+      } else {
+        pollCount += 1
+
+        if pollCount <= maxPollCount {
+          usleep(500_000) // sleep 0.5 seconds
+        } else {
+          throw ApolloCLIError.timedOutWaitingOnLock(cliFolderURL)
+        }
+      }
+    } while pollCount <= maxPollCount
+
+    return lock
+  }
+
   public let binaryFolderURL: URL
   
   /// Designated initializer

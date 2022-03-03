@@ -14,12 +14,9 @@ public struct ApolloCodegenOptions {
   }
   
   /// Enum to select which code generation you wish to use
-  public enum CodeGenerationEngine {
+  public enum CodeGenerationEngine: Equatable {
     /// The default, tried and true code generation engine
     case typescript
-    
-    /// The VERY WORK IN PROGRESS Swift code generation engine. Use at your own risk!
-    case swiftExperimental
     
     /// The current default for the code generation engine.
     public static var `default`: CodeGenerationEngine {
@@ -30,8 +27,6 @@ public struct ApolloCodegenOptions {
       switch self {
       case .typescript:
         return "swift"
-      case .swiftExperimental:
-        return "json-modern"
       }
     }
   }
@@ -63,7 +58,6 @@ public struct ApolloCodegenOptions {
   }
   
   let codegenEngine: CodeGenerationEngine
-  let additionalInflectionRules: [InflectionRule]
   let includes: String
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
@@ -92,11 +86,9 @@ public struct ApolloCodegenOptions {
   ///  - outputFormat: The `OutputFormat` enum option to use to output generated code.
   ///  - customScalarFormat: How to handle properties using a custom scalar from the schema.
   ///  - suppressSwiftMultilineStringLiterals: Don't use multi-line string literals when generating code. Defaults to false.
-  ///  - urlToSchemaFile: The URL to your schema file.
+  ///  - urlToSchemaFile: The URL to your schema file. Accepted file types are `.json` for JSON files, or either `.graphqls` or `.sdl` for Schema Definition Language files.
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
-  ///  - additionalInflectionRules: [EXPERIMENTAL SWIFT CODEGEN ONLY] - Any non-default rules for pluralization or singularization you wish to include. Defaults to an empty array.
   public init(codegenEngine: CodeGenerationEngine = .default,
-              additionalInflectionRules: [InflectionRule] = [],
               includes: String = "./**/*.graphql",
               mergeInFieldsFromFragmentSpreads: Bool = true,
               modifier: AccessModifier = .public,
@@ -110,7 +102,6 @@ public struct ApolloCodegenOptions {
               urlToSchemaFile: URL,
               downloadTimeout: Double = 30.0) {
     self.codegenEngine = codegenEngine
-    self.additionalInflectionRules = additionalInflectionRules
     self.includes = includes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.modifier = modifier
@@ -139,14 +130,12 @@ public struct ApolloCodegenOptions {
   public init(targetRootURL folder: URL,
               codegenEngine: CodeGenerationEngine = .default,
               downloadTimeout: Double = 30.0) {
-    let schema = folder.appendingPathComponent("schema.json")
+    let schema = folder.appendingPathComponent("schema.graphqls")
     
     let outputFileURL: URL
     switch codegenEngine {
     case .typescript:
       outputFileURL = folder.appendingPathComponent("API.swift")
-    case .swiftExperimental:
-      outputFileURL = folder.appendingPathComponent("API.json")
     }
     
     let operationIDsURL = folder.appendingPathComponent("operationIDs.json")

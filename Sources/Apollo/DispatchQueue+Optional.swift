@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloCore
+import ApolloUtils
 #endif
 
 extension DispatchQueue: ApolloCompatible {}
@@ -27,7 +27,7 @@ public extension ApolloExtension where Base == DispatchQueue {
         action(result)
       }
     } else if case .failure(let error) = result {
-      assertionFailure("Encountered failure result, but no completion handler was defined to handle it: \(error)")
+      debugPrint("Apollo: Encountered failure result, but no completion handler was defined to handle it: \(error)")
     }
   }
 }

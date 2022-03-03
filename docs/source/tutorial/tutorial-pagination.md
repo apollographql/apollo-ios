@@ -2,33 +2,33 @@
 title: "5. Paginate results"
 ---
 
-As you might have noticed, the object returned from the `LaunchListQuery` is a `LaunchConnection`. This object has a list of launches, a pagination cursor, and a boolean to indicate whether more launches exist. 
+As mentioned earlier, the object returned from the `LaunchListQuery` is a `LaunchConnection`. This object has a list of launches, a pagination cursor, and a boolean to indicate whether more launches exist. 
 
 When using a cursor-based pagination system, it's important to remember that the cursor gives you a place where you can get all results after a certain spot, regardless of whether more items have been added in the interim. 
 
 You're going to use a second section in the TableView to allow your user to load more launches as long as they exist. But how will you know if they exist? First, you need to hang on to the most recently received `LaunchConnection` object.
 
-Add a variable to hold on to this object at the top of the `MasterViewController.swift` file near your `launches` variable:
+Add a variable to hold on to this object at the top of the `LaunchesViewController.swift` file near your `launches` variable:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private var lastConnection: LaunchListQuery.Data.Launch?
 ```
 
 Next, you're going to take advantage of a type from the Apollo library. Add the following to the top of the file:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 import Apollo
 ```
 
 Then, below `lastConnection`, add a variable to hang on to the most recent request: 
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private var activeRequest: Cancellable?
 ```
 
 Next, add a second case to your `ListSection` enum:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 enum ListSection: Int, CaseIterable {
   case launches
   case loading
@@ -37,9 +37,11 @@ enum ListSection: Int, CaseIterable {
 
 This allows loading state to be displayed and selected in a separate section, keeping your `launches` section tied to the `launches` variable. 
 
-Next, in `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case, which returns `0` if there are no more launches to load: 
+This will also cause a number of errors because you're no longer exhaustively handling all the cases in the enum - let's fix that.
 
-```swift:title=MasterViewController.swift
+In `tableView(_:, numberOfRowsInSection:)`, add handling for the `.loading` case, which returns `0` if there are no more launches to load: 
+
+```swift:title=LaunchesViewController.swift
 case .loading:
   if self.lastConnection?.hasMore == false {
     return 0
@@ -52,7 +54,7 @@ Remember here that if `lastConnection` is nil, there *are* more launches to load
 
 Next, add handling for the `.loading` case to `tableView(_, cellForRowAt:)`, showing a different message based on whether there's an active request or not:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 case .loading:
   if self.activeRequest == nil {
     cell.textLabel?.text = "Tap to load more"
@@ -72,11 +74,11 @@ query LaunchList($cursor:String) {
   launches(after:$cursor) {
 ```
 
-Build the application so the code generation picks up on this new parameter. You'll see an error for a non-exhaustive switch, but this is something we'll fix shortly.
+Build the application so the code generation picks up on this new parameter. You'll still see one error for a non-exhaustive switch, but this is something we'll fix shortly.
 
-Next, go back to `MasterViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
+Next, go back to `LaunchesViewController.swift` and update `loadLaunches()` to be `loadMoreLaunches(from cursor: String?)`, hanging on to the active request (and nil'ing it out when it completes), and updating the last received connection: 
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private func loadMoreLaunches(from cursor: String?) {
   self.activeRequest = Network.shared.apollo.fetch(query: LaunchListQuery(cursor: cursor)) { [weak self] result in
     guard let self = self else {
@@ -99,12 +101,12 @@ private func loadMoreLaunches(from cursor: String?) {
         let message = errors
                         .map { $0.localizedDescription }
                         .joined(separator: "\n")
-        self.showErrorAlert(title: "GraphQL Error(s)",
-                            message: message)
+        self.showAlert(title: "GraphQL Error(s)",
+                       message: message)
     }
     case .failure(let error):
-      self.showErrorAlert(title: "Network Error",
-                          message: error.localizedDescription)
+      self.showAlert(title: "Network Error",
+                     message: error.localizedDescription)
     }
   }
 }
@@ -112,7 +114,7 @@ private func loadMoreLaunches(from cursor: String?) {
 
 Then, add a new method to figure out if new launches need to be loaded:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 private func loadMoreLaunchesIfTheyExist() {
   guard let connection = self.lastConnection else {
     // We don't have stored launch details, load from scratch
@@ -131,7 +133,7 @@ private func loadMoreLaunchesIfTheyExist() {
 
 Update `viewDidLoad` to use this new method rather than calling `loadMoreLaunches(from:)` directly:
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 override func viewDidLoad() {
   super.viewDidLoad()
   self.loadMoreLaunchesIfTheyExist()
@@ -140,22 +142,17 @@ override func viewDidLoad() {
 
 Next, you need to add some handling when the cell is tapped. Normally that's handled by `prepare(for segue:)`, but because you're going to be reloading things in the current view controller, you won't want the segue to perform at all. 
 
-Luckily, you can override the `shouldPerformSegue(withIdentifier:sender:)` method to say, "In this case, don't perform this segue, and take these other actions instead."
+Luckily, you can use `UIViewController`'s  `shouldPerformSegue(withIdentifier:sender:)` method to say, "In this case, don't perform this segue, and take these other actions instead."
 
-Override this method, and add code that performs the segue for anything in the `.launches` section and _doesn't_ perform it (instead loading more launches if needed) for the `.loading` section:
+This method was already overridden in the starter project. Update the code within it to perform the segue for anything in the `.launches` section and _not_ perform it (instead loading more launches if needed) for the `.loading` section. Replace the `TODO` and everything below it with: 
 
 
-```swift:title=MasterViewController.swift
-override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-  guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
-    return false
-  }
-          
-  guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
-    assertionFailure("Invalid section")
-    return false
-  }
-        
+```swift:title=LaunchesViewController.swift     
+ guard let listSection = ListSection(rawValue: selectedIndexPath.section) else {
+  assertionFailure("Invalid section")
+  return false
+}
+
 switch listSection {
   case .launches:
     return true
@@ -180,23 +177,20 @@ However, your code should theoretically never reach this point, so it's a good p
 
 Add the following to the `switch` statement in `prepare(for segue:)`
 
-```swift:title=MasterViewController.swift
+```swift:title=LaunchesViewController.swift
 case .loading:
   assertionFailure("Shouldn't have gotten here!")
 ```
 
 Now, when you build and run and scroll down to the bottom of the list, you'll see a cell you can tap to load more rows: 
 
-
-<img src="images/tap_to_load_more.png" alt="Screenshot with loading cell" class="screenshot" width="300">
-</img>
+<img src="images/tap_to_load_more.png" alt="Screenshot with loading cell" class="screenshot" width="300"/>
 
 
 When you tap that cell, the rows will load and then redisplay. If you tap it several times, it reaches a point where the loading cell is no longer displayed, and the last launch was SpaceX's original FalconSat launch from Kwajalien Atoll:
 
 
-<img src="images/list_all_loaded.png" alt="List with all launches loaded and no loading cell" class="screenshot" width="300">
-</img>
+<img src="images/list_all_loaded.png" alt="List with all launches loaded and no loading cell" class="screenshot" width="300"/>
 
 
 Congratulations, you've loaded all of the possible launches! But when you tap one, you still get the same boring detail page. 

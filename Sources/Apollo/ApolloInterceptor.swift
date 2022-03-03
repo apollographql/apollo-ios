@@ -1,5 +1,5 @@
 /// A protocol to set up a chainable unit of networking work.
-public protocol ApolloInterceptor: class {
+public protocol ApolloInterceptor {
   
   /// Called when this interceptor should do its work.
   ///

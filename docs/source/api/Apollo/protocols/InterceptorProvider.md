@@ -6,7 +6,7 @@
 public protocol InterceptorProvider
 ```
 
-> A protocol to allow easy creation of an array of interceptors for a given operation.
+A protocol to allow easy creation of an array of interceptors for a given operation.
 
 ## Methods
 ### `interceptors(for:)`
@@ -15,9 +15,9 @@ public protocol InterceptorProvider
 func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor]
 ```
 
-> Creates a new array of interceptors when called
->
-> - Parameter operation: The operation to provide interceptors for
+Creates a new array of interceptors when called
+
+- Parameter operation: The operation to provide interceptors for
 
 #### Parameters
 
@@ -31,9 +31,9 @@ func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [Apo
 func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor?
 ```
 
-> Provides an additional error interceptor for any additional handling of errors
-> before returning to the UI, such as logging.
-> - Parameter operation: The operation to provide an additional error interceptor for
+Provides an additional error interceptor for any additional handling of errors
+before returning to the UI, such as logging.
+- Parameter operation: The operation to provide an additional error interceptor for
 
 #### Parameters
 

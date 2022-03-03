@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "8F157DCD-D977-4EAA-80AD-D947EF785D9D",
+      "name" : "Configuration 1",
+      "options" : {
+        "environmentVariableEntries" : [
+
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "StarWarsSubscriptionTests\/testConcurrentSubscribing()"
+      ],
+      "target" : {
+        "containerPath" : "container:Apollo.xcodeproj",
+        "identifier" : "DE6B15AB26152BE10068D642",
+        "name" : "ApolloServerIntegrationTests"
+      }
+    }
+  ],
+  "version" : 1
+}

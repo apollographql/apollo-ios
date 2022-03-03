@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "72DF6CB1-DEC6-49C8-91E1-2EE002E10612",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Apollo.xcodeproj",
+        "identifier" : "9F54C8B3255D760B0065AFD6",
+        "name" : "ApolloPerformanceTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -10,23 +10,26 @@ let sourceRootURL = parentFolderOfScriptFile
     .deletingLastPathComponent() // SwiftScripts
     .deletingLastPathComponent() // apollo-ios
 
-let cliFolderURL = sourceRootURL
-    .appendingPathComponent("SwiftScripts")
-    .appendingPathComponent("ApolloCLI")
-
 let endpoint = URL(string: "http://localhost:4000/")!
 
 let output = sourceRootURL
     .appendingPathComponent("Sources")
     .appendingPathComponent("UploadAPI")
 
-let options = ApolloSchemaOptions(schemaFileName: "schema",
-                                  endpointURL: endpoint,
-                                  outputFolderURL: output)
+// Introspection download:
+let configuration = ApolloSchemaDownloadConfiguration(using: .introspection(endpointURL: endpoint),
+                                                      outputFolderURL: output,
+                                                      schemaFilename: "schema")
+
+// Registry download:
+//let registrySettings = ApolloSchemaDownloadConfiguration.DownloadMethod.RegistrySettings(apiKey: <#Replace Me For Testing#>,
+//                                                                                         graphID: "Apollo-Fullstack-8zo5jl")
+//
+//let configuration = ApolloSchemaDownloadConfiguration(using: .registry(registrySettings),
+//                                                      outputFolderURL: output)
 
 do {
-    try ApolloSchemaDownloader.run(with: cliFolderURL,
-                                   options: options)
+    try ApolloSchemaDownloader.fetch(with: configuration)
 } catch {
     exit(1)
 }

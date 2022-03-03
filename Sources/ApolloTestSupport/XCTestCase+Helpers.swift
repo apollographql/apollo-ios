@@ -1,5 +1,5 @@
 import XCTest
-import ApolloCore
+import ApolloUtils
 
 extension ApolloExtension where Base: XCTestExpectation {
   /// Private API for accessing the number of times an expectation has been fulfilled.
@@ -53,8 +53,12 @@ public extension XCTestCase {
 }
 
 public protocol StoreLoading {
-  var defaultWaitTimeout: TimeInterval { get }
+  static var defaultWaitTimeout: TimeInterval { get }
   var store: ApolloStore! { get }
+}
+
+public extension StoreLoading {
+  static var defaultWaitTimeout: TimeInterval { 1.0 }
 }
 
 extension StoreLoading where Self: XCTestCase {
@@ -70,6 +74,6 @@ extension StoreLoading where Self: XCTestCase {
     
     store.load(query: query, resultHandler: resultObserver.handler)
     
-    wait(for: [expectation], timeout: defaultWaitTimeout)
+    wait(for: [expectation], timeout: Self.defaultWaitTimeout)
   }
 }

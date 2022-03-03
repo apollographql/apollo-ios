@@ -1,5 +1,6 @@
 import XCTest
 @testable import Apollo
+import ApolloTestSupport
 
 class JSONTests: XCTestCase {
   func testMissingValueMatchable() {
