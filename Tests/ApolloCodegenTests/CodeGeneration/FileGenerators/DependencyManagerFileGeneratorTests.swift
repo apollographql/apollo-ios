@@ -58,7 +58,13 @@ class DependencyManagerFileGeneratorTests: XCTestCase {
 
   func test__generate__givenCocoaPodsConfiguration_shouldGeneratePodspecFile() throws {
     // given
-    buildConfig(.cocoaPods(moduleName: "PodsModule"))
+    buildConfig(.cocoaPods(
+      name: "PodsModule",
+      version: "0.1.2",
+      license: "Internal",
+      homepage: URL(string: "https://www.apollographql.com/")!,
+      source: URL(string: "https://github.com/apollographql/apollo-ios.git")!
+    ))
 
     mockFileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(self.rootURL.appendingPathComponent("PodsModule.podspec").path))

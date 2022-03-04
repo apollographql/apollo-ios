@@ -154,8 +154,12 @@ public struct ApolloCodegenConfiguration {
       /// Generates a module with a podspec file that is suitable for linking to your project using CocoaPods.
       ///
       /// - Parameters:
-      ///  - moduleName: The name for the new shared module that will be created.
-      case cocoaPods(moduleName: String)
+      ///  - name: The name of the Pod.
+      ///  - version: Used as both the version of the Pod and the source tag. Recommended to follow [semantic versioning](http://semver.org/).
+      ///  - license: The license of the Pod.
+      ///  - homepage: The URL of the homepage of the Pod.
+      ///  - source: The location from where the Pod should be retrieved.
+      case cocoaPods(name: String, version: String, license: String, homepage: URL, source: URL)
       /// Generates a module with a cartfile that is suitable for linking to your project using Carthage.
       ///
       /// - Parameters:
@@ -426,7 +430,7 @@ extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
     case
       let .manuallyLinked(name),
       let .carthage(name),
-      let .cocoaPods(name),
+      let .cocoaPods(name, _, _, _, _),
       let .swiftPackageManager(name):
         return name
     }

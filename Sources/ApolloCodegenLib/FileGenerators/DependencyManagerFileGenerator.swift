@@ -38,10 +38,10 @@ struct DependencyManagerFileGenerator {
 extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType: CustomStringConvertible {
   public var description: String {
     switch self {
-    case .manuallyLinked(_): return "Manually linked"
-    case .cocoaPods(_): return "CocoaPods"
-    case .carthage(_): return "Carthage"
-    case .swiftPackageManager(_): return "Swift Package Manager"
+    case .manuallyLinked: return "Manually linked"
+    case .cocoaPods: return "CocoaPods"
+    case .carthage: return "Carthage"
+    case .swiftPackageManager: return "Swift Package Manager"
     }
   }
 }
@@ -52,7 +52,7 @@ fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleTyp
     case .swiftPackageManager(_):
       return "Package.swift"
 
-    case let .cocoaPods(moduleName):
+    case let .cocoaPods(moduleName, _, _, _, _):
       return "\(moduleName).podspec"
 
     case .carthage, .manuallyLinked:
@@ -65,8 +65,14 @@ fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleTyp
     case let .swiftPackageManager(moduleName):
       return SwiftPackageManagerModuleTemplate(moduleName: moduleName).render()
 
-    case .cocoaPods:
-      return ""
+    case let .cocoaPods(moduleName, version, license, homepage, source):
+      return CocoaPodsModuleTemplate(
+        name: moduleName,
+        version: version,
+        license: license,
+        homepage: homepage,
+        source: source
+      ).render()
 
     case .carthage, .manuallyLinked:
       return nil

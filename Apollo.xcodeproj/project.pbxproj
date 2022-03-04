@@ -375,6 +375,8 @@
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
 		E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */; };
 		E66F8899276C15580000BDA8 /* ObjectFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */; };
+		E67148C527D01C9100FA6ECC /* CocoaPodsModuleTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67148C427D01C9100FA6ECC /* CocoaPodsModuleTemplate.swift */; };
+		E67148C727D0271600FA6ECC /* CocoaPodsModuleTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67148C627D0271600FA6ECC /* CocoaPodsModuleTemplateTests.swift */; };
 		E674DB41274C0A9B009BB90E /* Glob.swift in Sources */ = {isa = PBXBuildFile; fileRef = E674DB40274C0A9B009BB90E /* Glob.swift */; };
 		E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E674DB42274C0AD9009BB90E /* GlobTests.swift */; };
 		E68D824527A1D8A60040A46F /* ObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */; };
@@ -1103,6 +1105,8 @@
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectFileGenerator.swift; sourceTree = "<group>"; };
+		E67148C427D01C9100FA6ECC /* CocoaPodsModuleTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsModuleTemplate.swift; sourceTree = "<group>"; };
+		E67148C627D0271600FA6ECC /* CocoaPodsModuleTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsModuleTemplateTests.swift; sourceTree = "<group>"; };
 		E674DB40274C0A9B009BB90E /* Glob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glob.swift; sourceTree = "<group>"; };
 		E674DB42274C0AD9009BB90E /* GlobTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobTests.swift; sourceTree = "<group>"; };
 		E68D824627A228A80040A46F /* DependencyManagerFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyManagerFileGenerator.swift; sourceTree = "<group>"; };
@@ -2058,6 +2062,7 @@
 			isa = PBXGroup;
 			children = (
 				DE6D07FC27BC3C81009F5F33 /* RenderingHelpers */,
+				E67148C427D01C9100FA6ECC /* CocoaPodsModuleTemplate.swift */,
 				E6C9849227929EBE009481BE /* EnumTemplate.swift */,
 				DE5FD60A276970FC0033EE23 /* FragmentTemplate.swift */,
 				E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */,
@@ -2078,14 +2083,15 @@
 			isa = PBXGroup;
 			children = (
 				DE296535279B3B8200BF9B49 /* SelectionSet */,
+				E67148C627D0271600FA6ECC /* CocoaPodsModuleTemplateTests.swift */,
 				E6C9849427929FED009481BE /* EnumTemplateTests.swift */,
 				DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */,
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
 				E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
-				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
-				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
+				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
+				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
@@ -2424,6 +2430,7 @@
 		E66F8895276C13330000BDA8 /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E6B42D0A27A4746800A3BD58 /* DependencyManagerFileGeneratorTests.swift */,
 				E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */,
 				E61F4BF727A8FC8E0049886A /* FragmentFileGeneratorTests.swift */,
 				E6D90D08278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift */,
@@ -2431,7 +2438,6 @@
 				E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */,
 				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
 				E6D90D0C278FFE35009CAC5D /* SchemaFileGeneratorTests.swift */,
-				E6B42D0A27A4746800A3BD58 /* DependencyManagerFileGeneratorTests.swift */,
 				E610D8E0278F8F3D0023E495 /* UnionFileGeneratorTests.swift */,
 			);
 			path = FileGenerators;
@@ -2460,6 +2466,7 @@
 		E6E3BBDC276A8D6200E5218B /* FileGenerators */ = {
 			isa = PBXGroup;
 			children = (
+				E68D824627A228A80040A46F /* DependencyManagerFileGenerator.swift */,
 				E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */,
 				E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */,
 				DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */,
@@ -2468,7 +2475,6 @@
 				E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */,
 				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
 				E6D90D0A278FFDDA009CAC5D /* SchemaFileGenerator.swift */,
-				E68D824627A228A80040A46F /* DependencyManagerFileGenerator.swift */,
 				E610D8DE278F8F1E0023E495 /* UnionFileGenerator.swift */,
 			);
 			path = FileGenerators;
@@ -3236,6 +3242,7 @@
 				E6D90D0B278FFDDA009CAC5D /* SchemaFileGenerator.swift in Sources */,
 				DE7C183C272A12EB00727031 /* TypeScopeDescriptor.swift in Sources */,
 				DE7C183E272A154400727031 /* IR.swift in Sources */,
+				E67148C527D01C9100FA6ECC /* CocoaPodsModuleTemplate.swift in Sources */,
 				9F628E9525935BE600F94F9D /* GraphQLType.swift in Sources */,
 				9BFE8DA9265D5D8F000BBF81 /* URLDownloader.swift in Sources */,
 				E6C9849327929EBE009481BE /* EnumTemplate.swift in Sources */,
@@ -3342,6 +3349,7 @@
 				9BAEEC19234C297800808306 /* ApolloCodegenConfigurationTests.swift in Sources */,
 				E610D8E1278F8F3D0023E495 /* UnionFileGeneratorTests.swift in Sources */,
 				E6CA12C327ABBBDB00B7C998 /* ApolloCodegenConfiguration_ResolvePath_Tests.swift in Sources */,
+				E67148C727D0271600FA6ECC /* CocoaPodsModuleTemplateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

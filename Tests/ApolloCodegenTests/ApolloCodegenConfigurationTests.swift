@@ -240,7 +240,13 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     // given
     let moduleName = "PodsModule"
     let config = ApolloCodegenConfiguration.mock(
-      .cocoaPods(moduleName: moduleName),
+      .cocoaPods(
+        name: moduleName,
+        version: "0.1.2",
+        license: "Internal",
+        homepage: URL(string: "https://www.apollographql.com/")!,
+        source: URL(string: "https://github.com/apollographql/apollo-ios.git")!
+      ),
       to: directoryURL.path
     )
 
