@@ -51,6 +51,43 @@ public let serializationFormat = JSONSerializationFormat.self
 open var sendOperationIdentifier: Bool
 ```
 
+### `body`
+
+```swift
+public private(set) lazy var body: GraphQLMap = {
+  let sendQueryDocument: Bool
+  let autoPersistQueries: Bool
+  switch operation.operationType {
+  case .query:
+    if isPersistedQueryRetry {
+      sendQueryDocument = true
+      autoPersistQueries = true
+    } else {
+      sendQueryDocument = !self.autoPersistQueries
+      autoPersistQueries = self.autoPersistQueries
+    }
+  case .mutation:
+    if isPersistedQueryRetry {
+      sendQueryDocument = true
+      autoPersistQueries = true
+    } else {
+      sendQueryDocument = !self.autoPersistQueries
+      autoPersistQueries = self.autoPersistQueries
+    }
+  default:
+    sendQueryDocument = true
+    autoPersistQueries = false
+  }
+  
+  let body = self.requestBodyCreator.requestBody(for: operation,
+                                                    sendOperationIdentifiers: self.sendOperationIdentifier,
+                                                    sendQueryDocument: sendQueryDocument,
+                                                    autoPersistQuery: autoPersistQueries)
+  
+  return body
+}()
+```
+
 ## Methods
 ### `init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)`
 
