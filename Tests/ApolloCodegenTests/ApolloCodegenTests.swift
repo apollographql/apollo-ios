@@ -180,6 +180,7 @@ class ApolloCodegenTests: XCTestCase {
     }))
 
     let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("Operations/AllAnimalsIncludeSkipQuery.swift").path,
       directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
       directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
       directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
