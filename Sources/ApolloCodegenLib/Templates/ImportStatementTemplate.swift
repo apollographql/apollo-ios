@@ -14,7 +14,7 @@ struct ImportStatementTemplate {
     static func render(_ config: ApolloCodegenConfiguration.FileOutput) -> TemplateString {
       """
       \(template.description)
-      \(if: shouldImportSchemaModule(config), "import \(config.schemaTypes.moduleName)")
+      \(if: shouldImportSchemaModule(config), "import \(config.schemaTypes.schemaName)")
       """
     }
 
@@ -28,9 +28,9 @@ struct ImportStatementTemplate {
 
 fileprivate extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
   var isInModule: Bool {
-    switch dependencyAutomation {
-    case .manuallyLinked: return false
-    case .swiftPackageManager, .cocoaPods, .carthage: return true
+    switch moduleType {
+    case .none: return false
+    case .swiftPackageManager, .other: return true
     }
   }
 }
