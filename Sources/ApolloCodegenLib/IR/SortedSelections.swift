@@ -4,31 +4,30 @@ import ApolloUtils
 
 extension IR {
   class DirectSelections: Equatable, CustomDebugStringConvertible {
-    typealias TypeCase = IR.SelectionSet
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, TypeCase> = [:]
+    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init() {}
 
     init(
       fields: [Field] = [],
-      typeCases: [TypeCase] = [],
+      conditionalSelectionSets: [SelectionSet] = [],
       fragments: [FragmentSpread] = []
     ) {
       mergeIn(fields)
-      mergeIn(typeCases)
+      mergeIn(conditionalSelectionSets)
       mergeIn(fragments)
     }
 
     init(
       fields: OrderedDictionary<String, Field> = [:],
-      typeCases: OrderedDictionary<String, TypeCase> = [:],
+      conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:],
       fragments: OrderedDictionary<String, FragmentSpread> = [:]
     ) {
       mergeIn(fields.values)
-      mergeIn(typeCases.values)
+      mergeIn(conditionalSelectionSets.values)
       mergeIn(fragments.values)
     }
 
@@ -52,15 +51,15 @@ extension IR {
       }
     }
 
-    func mergeIn(_ typeCase: TypeCase) {
-      let keyInScope = typeCase.hashForSelectionSetScope
+    func mergeIn(_ conditionalSelectionSet: SelectionSet) {
+      let keyInScope = conditionalSelectionSet.hashForSelectionSetScope
 
       if let existingTypeCase = conditionalSelectionSets[keyInScope] {
         existingTypeCase.selections.direct!
-          .mergeIn(typeCase.selections.direct!)
+          .mergeIn(conditionalSelectionSet.selections.direct!)
 
       } else {
-        conditionalSelectionSets[keyInScope] = typeCase
+        conditionalSelectionSets[keyInScope] = conditionalSelectionSet
       }
     }
 
@@ -72,8 +71,8 @@ extension IR {
       fields.forEach { mergeIn($0) }
     }
 
-    func mergeIn<T: Sequence>(_ typeCases: T) where T.Element == TypeCase {
-      typeCases.forEach { mergeIn($0) }
+    func mergeIn<T: Sequence>(_ conditionalSelectionSets: T) where T.Element == SelectionSet {
+      conditionalSelectionSets.forEach { mergeIn($0) }
     }
 
     func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
@@ -106,7 +105,7 @@ extension IR {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
-      var typeCases: OrderedDictionary<String, TypeCase> { value.conditionalSelectionSets }
+      var typeCases: OrderedDictionary<String, SelectionSet> { value.conditionalSelectionSets }
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
     }
 
