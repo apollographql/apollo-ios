@@ -145,43 +145,45 @@ public struct ApolloCodegenConfiguration {
     /// Compatible dependency manager automation.
     public enum ModuleType {
       /// No module will be created for the generated schema types.
-      /// Generated files must be manually added to the main application target.
-      /// The generated files will be namespaced to prevent naming conflicts.
       ///
-      /// - Parameters:
-      ///  - namespace: The namespace to use for generated operation objects.
-      case manuallyLinked(namespace: String)
-      /// Generates a module with a podspec file that is suitable for linking to your project using CocoaPods.
+      /// Generated files must be manually added to your application target. The generated schema
+      /// types files will be namespaced with the value of `schemaName` to prevent naming conflicts.
+      case none
+      /// Generates a `package.swift` file that is suitable for linking the generated schema types
+      /// files to your project using Swift Package Manager.
+      case swiftPackageManager
+      /// No module will be created for the generated types and you are required to create the
+      /// module to support your preferred dependency manager. You must specify the name of the
+      /// module you will create in the `schemaName` property as this will be used in `import`
+      /// statements of generated operation files.
       ///
-      /// - Parameters:
-      ///  - moduleName: The name for the new shared module that will be created.
-      case cocoaPods(moduleName: String)
-      /// Generates a module with a cartfile that is suitable for linking to your project using Carthage.
-      ///
-      /// - Parameters:
-      ///  - moduleName: The name for the new shared module that will be created.
-      case carthage(moduleName: String)
-      /// Generates a module with a package.swift file that is suitable for linking to your project using Swift Package Manager
-      ///
-      /// - Parameters:
-      ///  - moduleName: The name for the new shared module that will be created.
-      case swiftPackageManager(moduleName: String)
+      /// Use this option for dependency managers, such as CocoaPods or Carthage. Example usage
+      /// would be to create the podspec file (CocoaPods) or Xcode project file (Carthage) that
+      /// is expecting the generated files in the configured output location.
+      case other
     }
 
     /// Local path where the generated schema types files should be stored.
     public let path: String
     /// Automation to ease the integration of the generated schema types file with compatible dependency managers.
-    public let dependencyAutomation: ModuleType
+    public let moduleType: ModuleType
+    /// Name used to scope the generated schema type files.
+    public let schemaName: String
 
     /// Designated initializer.
     ///
     /// - Parameters:
     ///  - path: Local path where the generated schema type files should be stored.
-    ///  - dependencyAutomation: Automation to ease the integration of the generated schema types file with compatible
-    ///  dependency managers. Defaults to `.manuallyLinked` with a `namespace` of `"API"`.
-    public init(path: String, dependencyAutomation: ModuleType = .manuallyLinked(namespace: "API")) {
+    ///  - schemaName: Name used to scope the generated schema type files.
+    ///  - moduleType: Type of module that will be created for the schema types files. Defaults to `.none`.
+    public init(
+      path: String,
+      schemaName: String,
+      moduleType: ModuleType = .none
+    ) {
       self.path = path
-      self.dependencyAutomation = dependencyAutomation
+      self.schemaName = schemaName
+      self.moduleType = moduleType
     }
   }
 
@@ -416,19 +418,4 @@ extension ApolloCodegenConfiguration {
         .logging(withPath: path)
     }
   }
-}
-
-// MARK: Helper Extensions (Internal Only)
-
-extension ApolloCodegenConfiguration.SchemaTypesFileOutput {
-  var moduleName: String {
-    switch self.dependencyAutomation {
-    case
-      let .manuallyLinked(name),
-      let .carthage(name),
-      let .cocoaPods(name),
-      let .swiftPackageManager(name):
-        return name
-    }
-  }  
 }
