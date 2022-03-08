@@ -384,14 +384,20 @@ export function compileToIR(
   ): ir.InclusionCondition | undefined {
     if (directiveDef == GraphQLIncludeDirective || directiveDef == GraphQLSkipDirective) {      
       const condition = directiveNode.arguments?.[0].value;
+      const isInverted = directiveDef == GraphQLSkipDirective;
+
       switch (condition?.kind) {
         case Kind.BOOLEAN:
-          return condition.value ? "INCLUDED" : "SKIPPED";          
-
+          if (isInverted) {
+            return condition.value ? "SKIPPED" : "INCLUDED";  
+          } else {
+            return condition.value ? "INCLUDED" : "SKIPPED";
+          }
+          
         case Kind.VARIABLE:
           return {
             variable: condition.name.value,
-            isInverted: directiveDef == GraphQLSkipDirective
+            isInverted: isInverted
           }
 
         default:
