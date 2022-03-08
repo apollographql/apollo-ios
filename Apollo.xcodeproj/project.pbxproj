@@ -2252,11 +2252,11 @@
 				DE5FD606276950CC0033EE23 /* IR+Schema.swift */,
 				DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */,
 				DEFBBC85273470F70088AABC /* IR+Field.swift */,
-				DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */,
-				DE09114D27288B1F000648E5 /* SortedSelections.swift */,
 				DE3484612746FF8F0065B77E /* IR+OperationBuilder.swift */,
 				DE79642C27699A6A00978A03 /* IR+NamedFragmentBuilder.swift */,
 				DE796428276998B000978A03 /* IR+RootFieldBuilder.swift */,
+				DE223C2C2721FCE8004A0148 /* ScopedSelectionSetHashable.swift */,
+				DE09114D27288B1F000648E5 /* SortedSelections.swift */,
 				DE7C183B272A12EB00727031 /* TypeScopeDescriptor.swift */,
 			);
 			path = IR;

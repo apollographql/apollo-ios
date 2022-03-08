@@ -212,6 +212,68 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?.inclusionConditions).to(equal(expected))
   }
 
+  func test__selections__givenDuplicateSelection_includeWithSameVariableFirst_onScalarField_createsSelectionWithNoInclusionConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        species @include(if: $a)
+        species
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.inclusionConditions).to(beNil())
+  }
+
+  func test__selections__givenDuplicateSelection_includeWithSameVariableSecond_onScalarField_includeFieldWithNoConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        species
+        species @include(if: $a)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.inclusionConditions).to(beNil())
+  }
+
   // MARK: - Omit Skipped Fields
 
   func test__selections__givenIncludeIfFalse_onScalarField_omitFieldFromSelectionSet() throws {
@@ -363,5 +425,38 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals).toNot(beNil())
     expect(allAnimals?[field: "species"]).to(beNil())
   }
+
+  func test__selections__givenDuplicateSelectionIncludeAndSkipOnSameVariable_onScalarField_includeFieldWithNoConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @include(if: $a)
+        species @skip(if: $a)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.inclusionConditions).to(beNil())
+  }
+
+  // MARK: - Merged Selections
 
 }
