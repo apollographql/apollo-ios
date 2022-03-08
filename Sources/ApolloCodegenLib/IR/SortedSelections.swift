@@ -174,7 +174,11 @@ extension IR {
         typePath: self.typeInfo.typePath.appending(field.selectionSet.typeInfo.typeScope),
         mergedSelectionsOnly: true
       )
-      return IR.EntityField(field.underlyingField, selectionSet: newSelectionSet)
+      return IR.EntityField(
+        field.underlyingField,
+        inclusionConditions: nil,
+        selectionSet: newSelectionSet
+      )
     }
 
     private func mergeIn(_ fragment: IR.FragmentSpread) -> Bool {

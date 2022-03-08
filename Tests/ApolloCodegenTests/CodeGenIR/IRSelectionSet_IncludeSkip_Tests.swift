@@ -49,7 +49,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     )
   }
 
-  func test__selections__givenIncludeIfVariable_onField_createsSelectionWithInclusionCondition() throws {
+  func test__selections__givenIncludeIfVariable_onScalarField_createsSelectionWithInclusionCondition() throws {
     // given
     schemaSDL = """
     type Query {
@@ -74,9 +74,294 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: [IR.InclusionCondition] = [.include("a")]
+    let expected: OrderedSet<IR.InclusionCondition> = [.include(if: "a")]
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
   }
+
+  func test__selections__givenSkipIfVariable_onScalarField_createsSelectionWithInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @skip(if: $a)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    let expected: OrderedSet<IR.InclusionCondition> = [.skip(if: "a")]
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(expected))
+  }
+
+  func test__selections__givenTwoIncludeVariables_onScalarField_createsSelectionWithBothInclusionConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        species @include(if: $a) @include(if: $b)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    let expected: OrderedSet<IR.InclusionCondition> = [
+      .include(if: "a"),
+      .include(if: "b"),
+    ]
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(expected))
+  }
+
+  func test__selections__givenTwoSkipVariables_onScalarField_createsSelectionWithBothInclusionConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        species @skip(if: $a) @skip(if: $b)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    let expected: OrderedSet<IR.InclusionCondition> = [
+      .skip(if: "a"),
+      .skip(if: "b"),
+    ]
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(expected))
+  }
+
+  func test__selections__givenTwoIncludeWithSameVariable_onScalarField_createsSelectionWithOneInclusionConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!, $b: Boolean!) {
+      allAnimals {
+        species @include(if: $a) @include(if: $a)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    let expected: OrderedSet<IR.InclusionCondition> = [
+      .include(if: "a")
+    ]
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(expected))
+  }
+
+  // MARK: - Omit Skipped Fields
+
+  func test__selections__givenIncludeIfFalse_onScalarField_omitFieldFromSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @include(if: false)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    // then
+    expect(allAnimals).toNot(beNil())
+    expect(allAnimals?[field: "species"]).to(beNil())
+  }
+
+  func test__selections__givenIncludeIfTrue_onScalarField_doesNotOmitFieldFromSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @include(if: true)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.inclusionConditions).to(beNil())
+  }
+
+  func test__selections__givenSkipIfTrue_onScalarField_omitFieldFromSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @skip(if: true)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    // then
+    expect(allAnimals).toNot(beNil())
+    expect(allAnimals?[field: "species"]).to(beNil())
+  }
+
+  func test__selections__givenSkipIfFalse_onScalarField_doesNotOmitFieldFromSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @skip(if: false)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.inclusionConditions).to(beNil())
+  }
+
+  func test__selections__givenIncludeAndSkipOnSameVariable_onScalarField_omitFieldFromSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @include(if: $a) @skip(if: $a)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    // then
+    expect(allAnimals).toNot(beNil())
+    expect(allAnimals?[field: "species"]).to(beNil())
+  }
+
 }

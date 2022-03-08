@@ -113,7 +113,7 @@ class IR {
 
   /// A condition representing an `@include` or `@skip` directive to determine if a field
   /// or fragment should be included.
-  struct InclusionCondition: Equatable {
+  struct InclusionCondition: Hashable {
 
     /// The name of variable used to determine if the inclusion condition is met.
     let variable: String
@@ -128,12 +128,12 @@ class IR {
     }
 
     /// Creates an `InclusionCondition` representing an `@include` directive.
-    static func include(_ variable: String) -> InclusionCondition {
+    static func include(if variable: String) -> InclusionCondition {
       .init(variable, isInverted: false)
     }
 
     /// Creates an `InclusionCondition` representing a `@skip` directive.
-    static func skip(_ variable: String) -> InclusionCondition {
+    static func skip(if variable: String) -> InclusionCondition {
       .init(variable, isInverted: true)
     }
   }

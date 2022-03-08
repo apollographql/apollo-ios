@@ -1,10 +1,11 @@
 import Foundation
+import OrderedCollections
 
 extension IR {
 
   class Field: Equatable, CustomDebugStringConvertible {
     let underlyingField: CompilationResult.Field
-    let inclusionConditions: [InclusionCondition]? = nil
+    let inclusionConditions: OrderedSet<InclusionCondition>?
 
     var name: String { underlyingField.name }
     var alias: String? { underlyingField.alias }
@@ -12,8 +13,12 @@ extension IR {
     var type: GraphQLType { underlyingField.type }
     var arguments: [CompilationResult.Argument]? { underlyingField.arguments }
 
-    fileprivate init(_ field: CompilationResult.Field) {
+    fileprivate init(
+      _ field: CompilationResult.Field,
+      inclusionConditions: OrderedSet<InclusionCondition>?
+    ) {
       self.underlyingField = field
+      self.inclusionConditions = inclusionConditions
     }
 
     static func ==(lhs: Field, rhs: Field) -> Bool {
@@ -26,8 +31,11 @@ extension IR {
   }
 
   final class ScalarField: Field {
-    override init(_ field: CompilationResult.Field) {
-      super.init(field)
+    override init(
+      _ field: CompilationResult.Field,
+      inclusionConditions: OrderedSet<InclusionCondition>?
+    ) {
+      super.init(field, inclusionConditions: inclusionConditions)
     }
   }
 
@@ -35,9 +43,13 @@ extension IR {
     let selectionSet: SelectionSet
     var entity: Entity { selectionSet.typeInfo.entity }
 
-    init(_ field: CompilationResult.Field, selectionSet: SelectionSet) {
+    init(
+      _ field: CompilationResult.Field,
+      inclusionConditions: OrderedSet<InclusionCondition>?,
+      selectionSet: SelectionSet
+    ) {
       self.selectionSet = selectionSet
-      super.init(field)
+      super.init(field, inclusionConditions: inclusionConditions)
     }
 
     static func ==(lhs: EntityField, rhs: EntityField) -> Bool {
