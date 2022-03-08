@@ -52,7 +52,7 @@ extension IR {
       )
 
       return (
-        EntityField(rootField, selectionSet: rootIrSelectionSet),
+        EntityField(rootField, inclusionConditions: nil, selectionSet: rootIrSelectionSet),
         referencedFragments
       )
     }
@@ -82,12 +82,13 @@ extension IR {
       for selection in selections {
         switch selection {
         case let .field(field):
-          let irField = buildField(
+          if let irField = buildField(
             from: field,
             on: selectionSet,
             inFragmentSpread: fragmentSpread
-          )
-          selectionSet.selections.direct!.mergeIn(irField)
+          ) {
+            selectionSet.selections.direct!.mergeIn(irField)
+          }
 
         case let .inlineFragment(typeCaseSelectionSet):
           if selectionSet.typeInfo.typeScope.matches(typeCaseSelectionSet.parentType) {
@@ -136,7 +137,10 @@ extension IR {
       from field: CompilationResult.Field,
       on selectionSet: SelectionSet,
       inFragmentSpread fragmentSpread: FragmentSpread?
-    ) -> Field {
+    ) -> Field? {
+      let (omitField, inclusionConditions) = buildInclusionConditions(for: field)
+      if omitField { return nil }
+
       if field.type.namedType is GraphQLCompositeType {
         let irSelectionSet = buildSelectionSet(
           forField: field,
@@ -144,11 +148,46 @@ extension IR {
           inFragmentSpread: fragmentSpread
         )
 
-        return EntityField(field, selectionSet: irSelectionSet)
+        return EntityField(
+          field,
+          inclusionConditions: inclusionConditions,
+          selectionSet: irSelectionSet
+        )
 
       } else {
-        return ScalarField(field)
+        return ScalarField(field, inclusionConditions: inclusionConditions)
       }
+    }
+
+    private func buildInclusionConditions(
+      for field: CompilationResult.Field
+    ) -> (omitField: Bool, OrderedSet<InclusionCondition>?) {
+      guard let conditions = field.inclusionConditions else {
+        return (false, nil)
+      }
+
+      var irConditions: OrderedSet<InclusionCondition> = []
+      irConditions.reserveCapacity(conditions.count)
+
+      iterateConditions: for condition in conditions {
+        switch condition {
+        case .skipped:
+          return (true, nil)
+
+        case .included:
+          continue
+
+        case let .variable(variable, isInverted):
+          guard !irConditions.contains(.init(variable, isInverted: !isInverted)) else {
+            // If both an include & skip exist with the same variable, we can omit the field.
+            return (true, nil)
+          }
+
+          irConditions.append(.init(variable, isInverted: isInverted))
+        }
+      }
+
+      return (false, irConditions.isEmpty ? nil : irConditions)
     }
 
     private func buildSelectionSet(

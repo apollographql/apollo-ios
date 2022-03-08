@@ -201,6 +201,7 @@ public class CompilationResult: JavaScriptObject {
       name: String,
       alias: String? = nil,
       arguments: [Argument]? = nil,
+      inclusionConditions: [InclusionCondition]? = nil,
       directives: [Directive]? = nil,
       type: GraphQLType,
       selectionSet: SelectionSet? = nil,
@@ -212,6 +213,7 @@ public class CompilationResult: JavaScriptObject {
       self.alias = alias
       self.type = type
       self.arguments = arguments
+      self.inclusionConditions = inclusionConditions
       self.directives = directives
       self.selectionSet = selectionSet
       self.deprecationReason = deprecationReason
