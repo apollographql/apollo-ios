@@ -1,7 +1,7 @@
 import Foundation
 
 struct SchemaModuleFileGenerator {
-  /// Generates a package manifest file for the releveant depdency manager.
+  /// Generates a module for the chosen dependency manager.
   ///
   /// - Parameters:
   ///   - config: A configuration object specifying output behavior.
@@ -10,10 +10,10 @@ struct SchemaModuleFileGenerator {
     _ config: ApolloCodegenConfiguration.SchemaTypesFileOutput,
     fileManager: FileManager = FileManager.default
   ) throws {
-    switch config.dependencyAutomation {
-    case let .swiftPackageManager(moduleName):
+    switch config.moduleType {
+    case .swiftPackageManager:
       try SwiftPackageManagerFileGenerator.generate(
-        moduleName,
+        config.schemaName,
         directoryPath: config.path,
         fileManager: fileManager
       )

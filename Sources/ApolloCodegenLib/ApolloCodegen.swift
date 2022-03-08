@@ -32,7 +32,7 @@ public class ApolloCodegen {
     let compilationResult = try compileGraphQLResult(configuration.input)
 
     let ir = IR(
-      schemaName: configuration.output.schemaTypes.moduleName,
+      schemaName: configuration.output.schemaTypes.schemaName,
       compilationResult: compilationResult
     )
 
@@ -111,7 +111,7 @@ public class ApolloCodegen {
       try autoreleasepool {
         try UnionFileGenerator.generate(
           graphQLUnion,
-          moduleName: config.output.schemaTypes.moduleName,
+          moduleName: config.output.schemaTypes.schemaName,
           directoryPath: config.output.resolvePath(.union),
           fileManager: fileManager
         )

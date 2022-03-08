@@ -165,7 +165,8 @@ class ApolloCodegenTests: XCTestCase {
     let config = ApolloCodegenConfiguration(
       input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
       output: .mock(
-        moduleType: .swiftPackageManager(moduleName: "AnimalKingdomAPI"),
+        moduleType: .swiftPackageManager,
+        schemaName: "AnimalKingdomAPI",
         operations: .inSchemaModule,
         path: directoryURL.path
       )
@@ -207,7 +208,7 @@ class ApolloCodegenTests: XCTestCase {
     let compilationResult = try ApolloCodegen.compileGraphQLResult(config.input)
 
     let ir = IR(
-      schemaName: config.output.schemaTypes.moduleName,
+      schemaName: config.output.schemaTypes.schemaName,
       compilationResult: compilationResult
     )
 
