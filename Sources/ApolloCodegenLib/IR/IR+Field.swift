@@ -5,7 +5,7 @@ extension IR {
 
   class Field: Equatable, CustomDebugStringConvertible {
     let underlyingField: CompilationResult.Field
-    let inclusionConditions: OrderedSet<InclusionCondition>?
+    var inclusionConditions: InclusionCondition.AnyOf
 
     var name: String { underlyingField.name }
     var alias: String? { underlyingField.alias }
@@ -15,7 +15,7 @@ extension IR {
 
     fileprivate init(
       _ field: CompilationResult.Field,
-      inclusionConditions: OrderedSet<InclusionCondition>?
+      inclusionConditions: InclusionCondition.AnyOf = .included
     ) {
       self.underlyingField = field
       self.inclusionConditions = inclusionConditions
@@ -33,7 +33,7 @@ extension IR {
   final class ScalarField: Field {
     override init(
       _ field: CompilationResult.Field,
-      inclusionConditions: OrderedSet<InclusionCondition>?
+      inclusionConditions: InclusionCondition.AnyOf = .included
     ) {
       super.init(field, inclusionConditions: inclusionConditions)
     }
@@ -45,7 +45,7 @@ extension IR {
 
     init(
       _ field: CompilationResult.Field,
-      inclusionConditions: OrderedSet<InclusionCondition>?,
+      inclusionConditions: InclusionCondition.AnyOf = .included,
       selectionSet: SelectionSet
     ) {
       self.selectionSet = selectionSet

@@ -74,7 +74,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: OrderedSet<IR.InclusionCondition> = [.include(if: "a")]
+    let expected: IR.InclusionCondition.AnyOf = .allOf([.include(if: "a")])
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -105,7 +105,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: OrderedSet<IR.InclusionCondition> = [.skip(if: "a")]
+    let expected: IR.InclusionCondition.AnyOf = .allOf([.skip(if: "a")])
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -136,10 +136,10 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: OrderedSet<IR.InclusionCondition> = [
+    let expected: IR.InclusionCondition.AnyOf = .allOf([
       .include(if: "a"),
       .include(if: "b"),
-    ]
+    ])
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -170,10 +170,10 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: OrderedSet<IR.InclusionCondition> = [
+    let expected: IR.InclusionCondition.AnyOf = .allOf([
       .skip(if: "a"),
       .skip(if: "b"),
-    ]
+    ])
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -204,9 +204,9 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: OrderedSet<IR.InclusionCondition> = [
+    let expected: IR.InclusionCondition.AnyOf = .allOf([
       .include(if: "a")
-    ]
+    ])
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -240,7 +240,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual).toNot(beNil())
-    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.inclusionConditions).to(equal(.included))
   }
 
   func test__selections__givenDuplicateSelection_includeWithSameVariableSecond_onScalarField_includeFieldWithNoConditions() throws {
@@ -271,7 +271,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual).toNot(beNil())
-    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.inclusionConditions).to(equal(.included))
   }
 
   // MARK: - Omit Skipped Fields
@@ -333,7 +333,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual).toNot(beNil())
-    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.inclusionConditions).to(equal(.included))
   }
 
   func test__selections__givenSkipIfTrue_onScalarField_omitFieldFromSelectionSet() throws {
@@ -393,7 +393,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual).toNot(beNil())
-    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.inclusionConditions).to(equal(.included))
   }
 
   func test__selections__givenIncludeAndSkipOnSameVariable_onScalarField_omitFieldFromSelectionSet() throws {
@@ -454,7 +454,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual).toNot(beNil())
-    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.inclusionConditions).to(equal(.included))
   }
 
   // MARK: - Merged Selections
