@@ -52,7 +52,7 @@ extension IR {
       )
 
       return (
-        EntityField(rootField, inclusionConditions: nil, selectionSet: rootIrSelectionSet),
+        EntityField(rootField, selectionSet: rootIrSelectionSet),
         referencedFragments
       )
     }
@@ -138,8 +138,8 @@ extension IR {
       on selectionSet: SelectionSet,
       inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> Field? {
-      let (omitField, inclusionConditions) = buildInclusionConditions(for: field)
-      if omitField { return nil }
+      let inclusionConditions = buildInclusionConditions(for: field)
+      if inclusionConditions == .skipped { return nil }
 
       if field.type.namedType is GraphQLCompositeType {
         let irSelectionSet = buildSelectionSet(
@@ -157,37 +157,17 @@ extension IR {
       } else {
         return ScalarField(field, inclusionConditions: inclusionConditions)
       }
-    }
+    }    
 
     private func buildInclusionConditions(
       for field: CompilationResult.Field
-    ) -> (omitField: Bool, OrderedSet<InclusionCondition>?) {
-      guard let conditions = field.inclusionConditions else {
-        return (false, nil)
+    ) -> InclusionCondition.AnyOf {
+      if let conditions = field.inclusionConditions {
+        return InclusionCondition.AnyOf.allOf(conditions)
+
+      } else {
+        return .included
       }
-
-      var irConditions: OrderedSet<InclusionCondition> = []
-      irConditions.reserveCapacity(conditions.count)
-
-      iterateConditions: for condition in conditions {
-        switch condition {
-        case .skipped:
-          return (true, nil)
-
-        case .included:
-          continue
-
-        case let .variable(variable, isInverted):
-          guard !irConditions.contains(.init(variable, isInverted: !isInverted)) else {
-            // If both an include & skip exist with the same variable, we can omit the field.
-            return (true, nil)
-          }
-
-          irConditions.append(.init(variable, isInverted: isInverted))
-        }
-      }
-
-      return (false, irConditions.isEmpty ? nil : irConditions)
     }
 
     private func buildSelectionSet(

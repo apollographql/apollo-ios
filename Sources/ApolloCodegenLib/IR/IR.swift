@@ -110,32 +110,5 @@ class IR {
       hasher.combine(ObjectIdentifier(selectionSet))
     }
   }
-
-  /// A condition representing an `@include` or `@skip` directive to determine if a field
-  /// or fragment should be included.
-  struct InclusionCondition: Hashable {
-
-    /// The name of variable used to determine if the inclusion condition is met.
-    let variable: String
-
-    /// If isInverted is `true`, this condition represents a `@skip` directive and is included
-    /// if the variable resolves to `false`.
-    let isInverted: Bool
-
-    init(_ variable: String, isInverted: Bool) {
-      self.variable = variable
-      self.isInverted = isInverted
-    }
-
-    /// Creates an `InclusionCondition` representing an `@include` directive.
-    static func include(if variable: String) -> InclusionCondition {
-      .init(variable, isInverted: false)
-    }
-
-    /// Creates an `InclusionCondition` representing a `@skip` directive.
-    static func skip(if variable: String) -> InclusionCondition {
-      .init(variable, isInverted: true)
-    }
-  }
   
 }

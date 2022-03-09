@@ -40,8 +40,11 @@ extension IR {
     func mergeIn(_ field: Field) {
       let keyInScope = field.hashForSelectionSetScope
 
-      if let existingField = fields[keyInScope] as? EntityField {
-        if let field = field as? EntityField {
+      if let existingField = fields[keyInScope] {
+        existingField.inclusionConditions += field.inclusionConditions
+
+        if let existingField = existingField as? EntityField,
+           let field = field as? EntityField {
           existingField.selectionSet.selections.direct!
             .mergeIn(field.selectionSet.selections.direct!)
         }
@@ -174,8 +177,7 @@ extension IR {
         mergedSelectionsOnly: true
       )
       return IR.EntityField(
-        field.underlyingField,
-        inclusionConditions: nil,
+        field.underlyingField,        
         selectionSet: newSelectionSet
       )
     }
