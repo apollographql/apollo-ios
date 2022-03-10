@@ -79,6 +79,7 @@ extension IR {
       return Result(AllOf(conditions))
     }
 
+    #warning("TODO: Use or remove")
     //    static func ||(_ lhs: Self, rhs: CompilationResult.InclusionCondition) -> Self {
     //      switch rhs {
     //      case .included:
