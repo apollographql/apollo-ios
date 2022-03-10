@@ -39,7 +39,7 @@ public func equalLineByLine(
         } else {
           return PredicateResult(
             status: .fail,
-            message: .fail("Expected \(expectedLines.count), actual ended at line \(index).")
+            message: .fail("Expected \(expectedLines.count), actual ended at line \(actualLines.count)")
           )
         }
       }
@@ -50,6 +50,13 @@ public func equalLineByLine(
           message: .fail("Line \(index + 1) did not match. Expected \"\(expectedLine)\", got \"\(actualLine)\".")
         )
       }
+    }
+
+    guard expectedLinesBuffer.isEmpty else {
+      return PredicateResult(
+        status: .fail,
+        message: .fail("Expected \(expectedLines.count), actual ended at line \(actualLines.count).")
+      )
     }
 
     return PredicateResult(

@@ -18,6 +18,10 @@ struct SchemaModuleFileGenerator {
         fileManager: fileManager
       )
 
+    case .other:
+      // no-op - the implementation is import statements in the generated operation files
+      return
+
     default:
       throw NSError(domain: "ApolloCodegen", code: -1, userInfo: [NSLocalizedDescriptionKey: "Only Swift Package Manager is supported at the moment!"])
     }
