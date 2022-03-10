@@ -32,90 +32,89 @@ extension IR {
       InclusionCondition(variable, isInverted: !isInverted)
     }
 
-    enum AnyOf: Hashable {
+  }
+
+  struct InclusionConditions: Hashable {
+    typealias ConditionGroups = OrderedSet<OrderedSet<InclusionCondition>>
+
+    fileprivate(set) var value: ConditionGroups
+
+    init(_ conditions: ConditionGroups) {
+      self.value = conditions
+    }
+
+    enum Result: Hashable {
       case included
       case skipped
-      case conditions(OrderedSet<OrderedSet<InclusionCondition>>)
+      case conditional(InclusionConditions)
 
-      static func allOf<T: Sequence>(
-        _ allOfConditions: T
-      ) -> Self where T.Element == InclusionCondition {
-        return .init(AllOf(allOfConditions))
-      }
-
-      static func allOf<T: Sequence>(
-        _ allOfConditions: T
-      ) -> Self where T.Element == CompilationResult.InclusionCondition {
-        return .init(AllOf(allOfConditions))
-      }
-
-      init(_ allOfConditions: AllOf) {
-        switch allOfConditions {
+      fileprivate init(_ conditions: AllOf) {
+        switch conditions {
         case .included:
           self = .included
         case .skipped:
           self = .skipped
         case .conditions(let conditions):
-          self = .conditions([conditions])
+          self = .conditional(.init([conditions]))
         }
       }
 
-      static func ||(_ lhs: Self, rhs: CompilationResult.InclusionCondition) -> Self {
-        switch rhs {
-        case .included:
-          return .included
-
-        case .skipped:
-          return lhs
-
-        case let .variable(variable, isInverted):
-          let newCondition = InclusionCondition(variable, isInverted: isInverted)
-          return lhs || AllOf.conditions([newCondition])
+      var conditions: InclusionConditions? {
+        guard case let .conditional(conditions) = self else {
+          return nil
         }
-      }
-
-      static func ||(_ lhs: Self, rhs: AllOf) -> Self {
-        switch (lhs, rhs) {
-        case (.included, _), (_, .included):
-          return .included
-
-        case (.skipped, .skipped):
-          return .skipped
-
-        case let (.skipped, .conditions(conditions)):
-          return .conditions([conditions])
-
-        case (.conditions, .skipped):
-          return lhs
-
-        case (.conditions(var conditions), .conditions(let newConditions)):
-          conditions.append(newConditions)
-          return .conditions(conditions)
-        }
-      }
-
-      static func +=(_ lhs: inout Self, rhs: Self) {
-        switch (lhs, rhs) {
-        case (.included, _), (_, .included):
-          lhs = .included
-
-        case (.skipped, .skipped):
-          lhs = .skipped
-
-        case (.skipped, .conditions):
-          lhs = rhs
-
-        case (.conditions, .skipped):
-          return
-
-        case (.conditions(var conditions), .conditions(let newConditions)):
-          conditions.append(contentsOf: newConditions)
-          lhs = .conditions(conditions)
-        }
+        return conditions
       }
     }
 
-    enum AllOf: Hashable {
+    static func allOf<T: Sequence>(
+      _ conditions: T
+    ) -> Result where T.Element == InclusionCondition {
+      return Result(AllOf(conditions))
+    }
+
+    static func allOf<T: Sequence>(
+      _ conditions: T
+    ) -> Result where T.Element == CompilationResult.InclusionCondition {
+      return Result(AllOf(conditions))
+    }
+
+    //    static func ||(_ lhs: Self, rhs: CompilationResult.InclusionCondition) -> Self {
+    //      switch rhs {
+    //      case .included:
+    //        return .included
+    //
+    //      case .skipped:
+    //        return lhs
+    //
+    //      case let .variable(variable, isInverted):
+    //        let newCondition = InclusionCondition(variable, isInverted: isInverted)
+    //        return lhs || AllOf.conditions([newCondition])
+    //      }
+    //    }
+    //
+    //    fileprivate static func ||(_ lhs: Self, rhs: AllOf) -> Self {
+    //      switch (lhs, rhs) {
+    //      case (.included, _), (_, .included):
+    //        return .included
+    //
+    //      case (.skipped, .skipped):
+    //        return .skipped
+    //
+    //      case let (.skipped, .conditions(conditions)):
+    //        return .conditions([conditions])
+    //
+    //      case (.conditions, .skipped):
+    //        return lhs
+    //
+    //      case (.conditions(var conditions), .conditions(let newConditions)):
+    //        conditions.append(newConditions)
+    //        return .conditions(conditions)
+    //      }
+    //    }
+    //
+
+    fileprivate enum AllOf: Hashable {
       case included
       case skipped
       case conditions(OrderedSet<InclusionCondition>)
@@ -168,4 +167,15 @@ extension IR {
       }
     }
   }
+}
+
+infix operator ||= : LogicalDisjunctionPrecedence
+
+func ||=(_ lhs: inout IR.InclusionConditions?, rhs: IR.InclusionConditions?) {
+  guard var lhs = lhs, let rhs = rhs else {
+    lhs = nil
+    return
+  }
+
+  lhs.value.append(contentsOf: rhs.value)
 }
