@@ -37,11 +37,13 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
     expect(mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__generate__givenUnimplementedConfigurations_shouldThrow() throws {
+  func test__generate__givenOtherConfiguration_shouldReturn() throws {
     expect(try SchemaModuleFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.other, schemaName: "TestModule").output.schemaTypes
-    )).to(throwError())
+    )).notTo(throwError())
+  }
 
+  func test__generate__givenUnimplementedConfigurations_shouldThrow() throws {
     expect(try SchemaModuleFileGenerator.generate(
       ApolloCodegenConfiguration.mock(.none, schemaName: "TestModule").output.schemaTypes
     )).to(throwError())
