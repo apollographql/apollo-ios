@@ -49,6 +49,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     )
   }
 
+  // MARK: - Scalar Fields
+
   func test__selections__givenIncludeIfVariable_onScalarField_createsSelectionWithInclusionCondition() throws {
     // given
     schemaSDL = """
@@ -507,6 +509,97 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?.inclusionConditions).to(equal(expected))
   }
 
-  // MARK: - Merged Selections
+  // MARK: - Entity Fields
 
+  func test__selections__givenIncludeIfVariable_onEntityField_createsSelectionWithInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        friend @include(if: $a) {
+          species
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "friend"]
+
+    let expected: IR.InclusionConditions? = .init([[.include(if: "a")]])
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(expected))
+  }
+
+  func test__selections__givenTwoEntityFieldsIncludeIfVariableAndSkipIfSameVariable_onEntityField_createsSelectionWithInclusionConditionsWithNestedSelectionSetsWithEachInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String!
+      b: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        friend @include(if: $a) {
+          a
+        }
+        friend @skip(if: $a) {
+          b
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "friend"]
+
+    let friend_expected: IR.InclusionConditions? = .init([
+      [
+        .include(if: "a"),
+      ],
+      [
+        .skip(if: "a")
+      ]
+    ])
+
+    let friend_ifA_expected: IR.InclusionConditions? = .init([
+      [
+        .include(if: "a"),
+      ],
+    ])
+
+    let friend_ifNotA_expected: IR.InclusionConditions? = .init([
+      [
+        .skip(if: "a")
+      ]
+    ])
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(friend_expected))
+//    expect(actual?)
+  }
 }
