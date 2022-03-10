@@ -169,13 +169,11 @@ extension IR {
   }
 }
 
-infix operator ||= : LogicalDisjunctionPrecedence
-
-func ||=(_ lhs: inout IR.InclusionConditions?, rhs: IR.InclusionConditions?) {
+func ||(_ lhs: IR.InclusionConditions?, rhs: IR.InclusionConditions?) -> IR.InclusionConditions? {
   guard var lhs = lhs, let rhs = rhs else {
-    lhs = nil
-    return
+    return nil
   }
 
   lhs.value.append(contentsOf: rhs.value)
+  return lhs
 }
