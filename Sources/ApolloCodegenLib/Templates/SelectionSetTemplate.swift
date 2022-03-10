@@ -355,7 +355,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
 }
 
 private func generatedSelectionSetName(
-  from typePathNode: LinkedList<TypeScopeDescriptor>.Node,
+  from typePathNode: LinkedList<IR.TypeScopeDescriptor>.Node,
   withFieldPath fieldPath: [String],
   removingFirst: Bool = false
 ) -> String {
@@ -370,7 +370,7 @@ private func generatedSelectionSetName(
 
     var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.typePath.head
     while let typeCaseNode = currentTypeScopeNode.next {
-      components.append("As\(typeCaseNode.value.name.firstUppercased)")
+      components.append(typeCaseNode.value.selectionSetNameComponent)
       currentTypeScopeNode = typeCaseNode
     }
 
@@ -381,4 +381,15 @@ private func generatedSelectionSetName(
   if removingFirst { components.removeFirst() }
 
   return components.joined(separator: ".")
+}
+
+fileprivate extension IR.ScopeCondition {
+
+  var selectionSetNameComponent: String {
+    switch self {
+    case let .type(type): return "As\(type.name.firstUppercased)"
+    case let .inclusion(conditions): return "If\(conditions.description)"
+    }
+  }
+  
 }

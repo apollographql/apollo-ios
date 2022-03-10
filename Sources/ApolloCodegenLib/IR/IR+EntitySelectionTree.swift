@@ -4,7 +4,7 @@ import OrderedCollections
 
 fileprivate protocol EntitySelectionTreeNode {
   func mergeSelections(
-    matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
+    matchingTypePath typePath: LinkedList<IR.TypeScopeDescriptor>.Node,
     into selections: IR.MergedSelections
   )
 }
@@ -62,7 +62,7 @@ extension IR {
       selections: DirectSelections,
       from source: MergedSelections.MergedSource,
       atEnclosingEntityScope currentEntityScope: LinkedList<TypeScopeDescriptor>.Node,
-      withEntityTypePath currentEntityTypePath: LinkedList<GraphQLCompositeType>.Node,
+      withEntityTypePath currentEntityTypePath: LinkedList<ScopeCondition>.Node,
       to node: EnclosingEntityNode,
       ofType currentNodeType: GraphQLCompositeType,
       withRootTypePath currentNodeRootTypePath: LinkedList<GraphQLCompositeType>.Node
@@ -98,7 +98,10 @@ extension IR {
       }
 
       // Advance to next type case in current entity
-      let nextTypeForCurrentEntity = nextTypePathForCurrentEntity.value
+      guard case let .type(nextTypeForCurrentEntity) = nextTypePathForCurrentEntity.value else {
+        fatalError("Implement inclusion conditions!")
+      }
+
       let nextNodeForCurrentEntity = currentNodeType != nextTypeForCurrentEntity
       ? node.typeCaseNode(forType: nextTypeForCurrentEntity) : node
 
@@ -116,12 +119,14 @@ extension IR {
     private func mergeIn(
       selections: DirectSelections,
       from source: IR.MergedSelections.MergedSource,
-      withTypeScope currentSelectionScopeTypeCase: LinkedList<GraphQLCompositeType>.Node,
+      withTypeScope currentSelectionScopeTypeCase: LinkedList<ScopeCondition>.Node,
       toFieldNode node: FieldScopeNode,
       ofType fieldNodeType: GraphQLCompositeType
     ) {
       guard let nextTypeCaseInScope = currentSelectionScopeTypeCase.next else {
-        let typeForSelections = currentSelectionScopeTypeCase.value
+        guard case let .type(typeForSelections) = currentSelectionScopeTypeCase.value else {
+          fatalError("Implement inclusion conditions!")
+        }
 
         if fieldNodeType == typeForSelections {
           node.mergeIn(selections, from: source)
@@ -134,15 +139,19 @@ extension IR {
         }
       }
 
-      let nextNodeForField = fieldNodeType != nextTypeCaseInScope.value
-      ? node.typeCaseNode(forType: nextTypeCaseInScope.value) : node
+      guard case let .type(nextTypeCaseInScopeValue) = nextTypeCaseInScope.value else {
+        fatalError("Implement inclusion conditions!")
+      }
+
+      let nextNodeForField = fieldNodeType != nextTypeCaseInScopeValue
+      ? node.typeCaseNode(forType: nextTypeCaseInScopeValue) : node
 
       mergeIn(
         selections: selections,
         from: source,
         withTypeScope: nextTypeCaseInScope,
         toFieldNode: nextNodeForField,
-        ofType: nextTypeCaseInScope.value
+        ofType: nextTypeCaseInScopeValue
       )
     }
 

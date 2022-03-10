@@ -34,7 +34,7 @@ extension IR {
 
   }
 
-  struct InclusionConditions: Hashable {
+  struct InclusionConditions: Hashable, CustomDebugStringConvertible {
     typealias ConditionGroups = OrderedSet<OrderedSet<InclusionCondition>>
 
     fileprivate(set) var value: ConditionGroups
@@ -114,6 +114,10 @@ extension IR {
     //      }
     //    }
     //
+
+    var debugDescription: String {
+      value.debugDescription
+    }
 
     fileprivate enum AllOf: Hashable {
       case included
