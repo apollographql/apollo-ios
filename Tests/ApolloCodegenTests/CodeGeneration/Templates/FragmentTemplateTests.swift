@@ -63,7 +63,8 @@ class FragmentTemplateTests: XCTestCase {
   func test__render__generatesHeaderComment() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .manuallyLinked(namespace: "TestModuleName"),
+      moduleType: .none,
+      schemaName: "TestModuleName",
       operations: .inSchemaModule
     ))
 
@@ -88,7 +89,8 @@ class FragmentTemplateTests: XCTestCase {
   func test__render__givenFileOutput_inSchemaModule_schemaModuleManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .manuallyLinked(namespace: "TestModuleName"),
+      moduleType: .none,
+      schemaName: "TestModuleName",
       operations: .inSchemaModule
     ))
 
@@ -110,7 +112,8 @@ class FragmentTemplateTests: XCTestCase {
   func test__render__givenFileOutput_inSchemaModule_schemaModuleNotManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .swiftPackageManager(moduleName: "TestModuleName"),
+      moduleType: .swiftPackageManager,
+      schemaName: "TestModuleName",
       operations: .inSchemaModule
     ))
 
@@ -132,7 +135,8 @@ class FragmentTemplateTests: XCTestCase {
   func test__render__givenFileOutput_notInSchemaModule_schemaModuleNotManuallyLinked_generatesImportIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .swiftPackageManager(moduleName: "TestModuleName"),
+      moduleType: .swiftPackageManager,
+      schemaName: "TestModuleName",
       operations: .absolute(path: "")
     ))
 

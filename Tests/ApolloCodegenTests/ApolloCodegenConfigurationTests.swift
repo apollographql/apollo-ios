@@ -6,105 +6,152 @@ import Nimble
 class ApolloCodegenConfigurationTests: XCTestCase {
   let directoryURL = CodegenTestHelper.outputFolderURL().appendingPathComponent("Configuration")
 
+  var filename: String!
+  var fileURL: URL!
+  var input: ApolloCodegenConfiguration.FileInput!
+  var output: ApolloCodegenConfiguration.FileOutput!
+  var config: ApolloCodegenConfiguration!
+
   // MARK: Lifecycle
 
   override func setUpWithError() throws {
     try FileManager.default.apollo.createDirectoryIfNeeded(atPath: directoryURL.path)
+
+    filename = UUID().uuidString
+    fileURL = directoryURL.appendingPathComponent(filename)
+
+    input = .init(schemaPath: fileURL.path)
+    output = .init(schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"))
   }
 
   override func tearDownWithError() throws {
+    config = nil
+    output = nil
+    input = nil
+    fileURL = nil
+    filename = nil
+
     try FileManager.default.apollo.deleteDirectory(atPath: directoryURL.path)
+  }
+
+  // MARK: Test Helpers
+
+  func buildConfig() {
+    config = ApolloCodegenConfiguration(
+      input: input,
+      output: output
+    )
   }
 
   // MARK: Initializer Tests
 
-  func test_init_givenBasePathAndSchemaFilename_shouldBuildDefaultPaths() {
+  func test__initializer__givenMinimalFileInput_buildsDefaults() {
     // given
-    let schemafilename = "could_be_anything.graphqls"
-    let includeFilename = "file.ext"
-    let expectedSchemaURL = directoryURL.appendingPathComponent(schemafilename)
-    let expectedIncludeURL = directoryURL.appendingPathComponent(includeFilename)
+    let input = ApolloCodegenConfiguration.FileInput(schemaPath: fileURL.path)
 
-    let config = ApolloCodegenConfiguration(
-      input: .init(
-        schemaPath: directoryURL.appendingPathComponent(schemafilename).path,
-        searchPaths: [directoryURL.appendingPathComponent(includeFilename).path]),
-      output: .init(schemaTypes: .init(path: directoryURL.path))
+    // then
+    expect(input.searchPaths).to(equal(["**/*.graphql"]))
+  }
+
+  func test__initializer__givenMinimalSchemaTypesFileOutput_buildsDefaults() {
+    // given
+    let schemaTypes = ApolloCodegenConfiguration.SchemaTypesFileOutput(
+      path: directoryURL.path,
+      schemaName: "MockSchema"
     )
 
     // then
-    expect(config.input.schemaPath).to(equal(expectedSchemaURL.path))
-    expect(config.input.searchPaths).to(equal([expectedIncludeURL.path]))
-    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
+    expect(schemaTypes.moduleType).to(equal(ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType.none))
+  }
+
+  func test__initializer__givenMinimalFileOutput_buildsCorrectDefaults() {
+    // given
+    let output = ApolloCodegenConfiguration.FileOutput(
+      schemaTypes: .init(path: directoryURL.path, schemaName: "MockAPI", moduleType: .other)
+    )
+
+    // then
+    expect(output.operationIdentifiersPath).to(beNil())
+    expect(output.operations).to(equal(.relative(subpath: nil)))
+  }
+
+  func test__initializer__givenMinimalApolloCodegenConfiguration_buildsCorrectDefaults() {
+    // given
+    let config = ApolloCodegenConfiguration(
+      input: .init(schemaPath: fileURL.path),
+      output: .init(schemaTypes: .init(path: directoryURL.path, schemaName: "MockAPI", moduleType: .other))
+    )
+
+    // then
+    expect(config.additionalInflectionRules).to(beEmpty())
+    expect(config.queryStringLiteralFormat).to(equal(.multiline))
+    expect(config.customScalarFormat).to(equal(.defaultAsString))
+    expect(config.deprecatedEnumCases).to(equal(.include))
+    expect(config.schemaDocumentation).to(equal(.include))
+    expect(config.apqs).to(equal(.disabled))
   }
 
   // MARK: Validation Tests
 
   func test_validation_givenSchemaFilename_doesNotExist_shouldThrow() throws {
     // given
-    let filename = UUID().uuidString
-    let config = ApolloCodegenConfiguration(
-      input: .init(schemaPath: directoryURL.appendingPathComponent("\(filename).graphqls").path),
-      output: .init(schemaTypes: .init(path: directoryURL.path))
-    )
+    buildConfig()
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
     )
   }
 
   func test_validation_givenSchemaPath_doesNotExist_shouldThrow() throws {
     // given
-    let schemaPath = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: schemaPath.path),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path)))
+    buildConfig()
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
     )
   }
 
   func test_validation_givenSchemaPath_isDirectory_shouldThrow() throws {
     // given
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: directoryURL.path),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path)))
+    input = .init(schemaPath: directoryURL.path)
+
+    buildConfig()
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError(ApolloCodegenConfiguration.PathError.notAFile(.schema))
     )
   }
 
   func test_validation_givenSchemaTypesPath_isFile_shouldThrow() throws {
     // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         searchPaths: ["**/*.graphql"]),
-                                            output: .init(schemaTypes: .init(path: fileURL.path)))
+    output = .init(schemaTypes: .init(path: fileURL.path, schemaName: "TestSchema"))
+
+    buildConfig()
 
     // when
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError(ApolloCodegenConfiguration.PathError.notADirectory(.schemaTypes))
     )
   }
 
   func test_validation_givenSchemaTypesPath_isInvalidPath_shouldThrow() throws {
     // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let invalidURL = fileURL.appendingPathComponent("nested")
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
-                                            output: .init(schemaTypes: .init(path: invalidURL.path)))
+    output = .init(schemaTypes: .init(path: invalidURL.path, schemaName: "TestSchema"))
+
+    buildConfig()
 
     // when
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError { error in
         guard case let ApolloCodegenConfiguration.PathError
                 .folderCreationFailed(pathType, _) = error else {
@@ -118,37 +165,39 @@ class ApolloCodegenConfigurationTests: XCTestCase {
 
   func test_validation_givenOperations_absolutePath_isFile_shouldThrow() throws {
     // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path),
-                                                          operations: .absolute(path: fileURL.path),
-                                                          operationIdentifiersPath: nil))
+    output = .init(
+      schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"),
+      operations: .absolute(path: fileURL.path)
+    )
+
+    buildConfig()
 
     // when
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError(ApolloCodegenConfiguration.PathError.notADirectory(.operations))
     )
   }
 
   func test_validation_givenOperations_absolutePath_isInvalidPath_shouldThrow() throws {
     // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let invalidURL = fileURL.appendingPathComponent("nested")
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path,
-                                                         searchPaths: ["**/*.graphql"]),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path),
-                                                          operations: .absolute(path: invalidURL.path),
-                                                          operationIdentifiersPath: nil))
+
+    output = .init(
+      schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"),
+      operations: .absolute(path: invalidURL.path)
+    )
+
+    buildConfig()
 
     // when
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try config.validate() }.to(
-      throwError { error in        
+    expect { try self.config.validate() }.to(
+      throwError { error in
         guard case let ApolloCodegenConfiguration.PathError
                 .folderCreationFailed(pathType, _) = error else {
                   fail()
@@ -162,116 +211,20 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   // failing - operations identifier output path as directory
   func test_validation_givenOperationIdentifiersPath_isDirectory_shouldThrow() throws {
     // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path),
-                                                          operations: .relative(subpath: nil),
-                                                          operationIdentifiersPath: directoryURL.path))
+    output = .init(
+      schemaTypes: .init(path: directoryURL.path, schemaName: "TestSchema"),
+      operations: .relative(subpath: nil),
+      operationIdentifiersPath: directoryURL.path
+    )
+
+    buildConfig()
 
     // when
     try FileManager.default.apollo.createFile(atPath: fileURL.path)
 
     // then
-    expect { try config.validate() }.to(
+    expect { try self.config.validate() }.to(
       throwError(ApolloCodegenConfiguration.PathError.notAFile(.operationIdentifiers))
     )
-  }
-
-  func test_validation_givenValidConfiguration_convenienceInitializer_shouldNotThrow() throws {
-    // given
-    let filename = UUID().uuidString
-    let config = ApolloCodegenConfiguration(
-      input: .init(schemaPath: directoryURL.appendingPathComponent("\(filename).graphqls").path),
-      output: .init(schemaTypes: .init(path: directoryURL.path))
-    )
-
-    // when
-    let expectedSchemaURL = directoryURL.appendingPathComponent("\(filename).graphqls")
-    try FileManager.default.apollo.createFile(atPath: expectedSchemaURL.path)
-
-    // then
-    expect { try config.validate() }.notTo(throwError())
-  }
-
-  func test_validation_givenValidConfiguration_designatedInitializer_shouldNotThrow() throws {
-    // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(input: .init(schemaPath: fileURL.path),
-                                            output: .init(schemaTypes: .init(path: directoryURL.path),
-                                                          operations: .absolute(path: directoryURL.path),
-                                                          operationIdentifiersPath: fileURL.path))
-
-    // when
-    try FileManager.default.apollo.createFile(atPath: fileURL.path)
-
-    // then
-    expect { try config.validate() }.notTo(throwError())
-  }
-
-  // MARK: Helper Tests
-
-  func test_givenDefaultConfiguration_shouldBuildDefaultSchemaModuleProperties() {
-    // given
-    let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
-    let config = ApolloCodegenConfiguration(
-      input: .init(schemaPath: fileURL.appendingPathComponent("different_schema.graphql").path),
-      output: .init(schemaTypes: .init(path: fileURL.path))
-    )
-
-    // then
-    expect(config.output.schemaTypes.moduleName).to(equal("API"))
-    expect(config.output.schemaTypes.path).to(equal(fileURL.path))
-  }
-
-  func test_givenSwiftPackageManagerConfiguration_shouldBuildSchemaModuleProperties() {
-    // given
-    let moduleName = "SPMModule"
-    let config = ApolloCodegenConfiguration.mock(
-      .swiftPackageManager(moduleName: moduleName),
-      to: directoryURL.path
-    )
-
-    // then
-    expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
-    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
-  }
-
-  func test_givenCocoaPodsConfiguration_shouldBuildSchemaModuleProperties() {
-    // given
-    let moduleName = "PodsModule"
-    let config = ApolloCodegenConfiguration.mock(
-      .cocoaPods(moduleName: moduleName),
-      to: directoryURL.path
-    )
-
-    // then
-    expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
-    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
-  }
-
-  func test_givenCarthageConfiguration_shouldBuildSchemaModuleProperties() {
-    // given
-    let moduleName = "CarthageModule"
-    let config = ApolloCodegenConfiguration.mock(
-      .carthage(moduleName: moduleName),
-      to: directoryURL.path
-    )
-
-    // then
-    expect(config.output.schemaTypes.moduleName).to(equal(moduleName))
-    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
-  }
-
-  func test_givenManuallyLinkedConfiguration_shouldBuildSchemaModuleProperties() {
-    // given
-    let namespace = "NamespaceModule"
-    let config = ApolloCodegenConfiguration.mock(
-      .manuallyLinked(namespace: namespace),
-      to: directoryURL.path
-    )
-
-    // then
-    expect(config.output.schemaTypes.moduleName).to(equal(namespace))
-    expect(config.output.schemaTypes.path).to(equal(directoryURL.path))
   }
 }

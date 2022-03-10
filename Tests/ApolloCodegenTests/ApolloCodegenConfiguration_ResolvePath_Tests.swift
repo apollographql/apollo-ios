@@ -9,10 +9,15 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
   var config: ApolloCodegenConfiguration.FileOutput!
 
   private func buildOutputConfig(
-    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .manuallyLinked(namespace: "TestAPI"),
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .none,
     operations: ApolloCodegenConfiguration.OperationsFileOutput
   ) {
-    config = .mock(moduleType: moduleType, operations: operations, path: directoryURL.path)
+    config = .mock(
+      moduleType: moduleType,
+      schemaName: "TestAPI",
+      operations: operations,
+      path: directoryURL.path
+    )
   }
 
   // MARK: OperationsFileOutput.relative
@@ -323,7 +328,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
   func test_resolvePath_givenFragmentFilenameWithExtension_shouldNotIncludeExtension() throws {
     // given
     let config = ApolloCodegenConfiguration.FileOutput(
-      schemaTypes: .init(path: directoryURL.path, dependencyAutomation: .swiftPackageManager(moduleName: "API")),
+      schemaTypes: .init(path: directoryURL.path, schemaName: "API", moduleType: .swiftPackageManager),
       operations: .relative(subpath: nil),
       operationIdentifiersPath: nil
     )
@@ -339,7 +344,7 @@ class ApolloCodegenConfiguration_ResolvePath_Tests: XCTestCase {
   func test_resolvePath_givenOperationFilenameWithExtension_shouldNotIncludeExtension() throws {
     // given
     let config = ApolloCodegenConfiguration.FileOutput(
-      schemaTypes: .init(path: directoryURL.path, dependencyAutomation: .swiftPackageManager(moduleName: "API")),
+      schemaTypes: .init(path: directoryURL.path, schemaName: "API", moduleType: .swiftPackageManager),
       operations: .relative(subpath: nil),
       operationIdentifiersPath: nil
     )

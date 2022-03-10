@@ -83,7 +83,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
   func test__generate__givenFileOutput_inSchemaModule_schemaModuleManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .manuallyLinked(namespace: "TestModuleName"),
+      moduleType: .none,
+      schemaName: "TestModuleName",
       operations: .inSchemaModule
     ))
 
@@ -105,7 +106,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
   func test__generate__givenFileOutput_inSchemaModule_schemaModuleNotManuallyLinked_generatesImportNotIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .swiftPackageManager(moduleName: "TestModuleName"),
+      moduleType: .swiftPackageManager,
+      schemaName: "TestModuleName",
       operations: .inSchemaModule
     ))
 
@@ -127,7 +129,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
   func test__generate__givenFileOutput_notInSchemaModule_schemaModuleNotManuallyLinked_generatesImportIncludingSchemaModule() throws {
     // given
     config = .mock(output: .mock(
-      moduleType: .swiftPackageManager(moduleName: "TestModuleName"),
+      moduleType: .swiftPackageManager,
+      schemaName: "TestModuleName",
       operations: .absolute(path: "")
     ))
 
