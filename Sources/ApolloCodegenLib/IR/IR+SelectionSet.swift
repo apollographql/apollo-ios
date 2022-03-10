@@ -24,6 +24,7 @@ extension IR {
       /// If `true`, the `SelectionSet` belongs to a type case enclosed in a field's `SelectionSet`.
       /// If `false`, the `SelectionSet` belongs to a field directly.
       var isTypeCase: Bool { typeScope.typePath.head.next != nil }
+      #warning("TODO: ^ This is no longer accurate ^")
 
       init(
         entity: Entity,
