@@ -138,8 +138,10 @@ extension IR {
       on selectionSet: SelectionSet,
       inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> Field? {
-      let inclusionConditions = buildInclusionConditions(for: field)
-      if inclusionConditions == .skipped { return nil }
+      let inclusionResult = inclusionResult(for: field)
+      guard inclusionResult != .skipped else {
+        return nil
+      }
 
       if field.type.namedType is GraphQLCompositeType {
         let irSelectionSet = buildSelectionSet(
@@ -150,24 +152,23 @@ extension IR {
 
         return EntityField(
           field,
-          inclusionConditions: inclusionConditions,
+          inclusionConditions: inclusionResult.conditions,
           selectionSet: irSelectionSet
         )
 
       } else {
-        return ScalarField(field, inclusionConditions: inclusionConditions)
+        return ScalarField(field, inclusionConditions: inclusionResult.conditions)
       }
     }    
 
-    private func buildInclusionConditions(
+    private func inclusionResult(
       for field: CompilationResult.Field
-    ) -> InclusionCondition.AnyOf {
-      if let conditions = field.inclusionConditions {
-        return InclusionCondition.AnyOf.allOf(conditions)
-
-      } else {
+    ) -> InclusionConditions.Result {
+      guard let conditions = field.inclusionConditions else {
         return .included
       }
+
+      return InclusionConditions.allOf(conditions)
     }
 
     private func buildSelectionSet(
