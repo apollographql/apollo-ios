@@ -41,7 +41,8 @@ extension IR {
       let keyInScope = field.hashForSelectionSetScope
 
       if let existingField = fields[keyInScope] {
-        existingField.inclusionConditions ||= field.inclusionConditions
+        existingField.inclusionConditions =
+        (existingField.inclusionConditions || field.inclusionConditions)
 
         if let existingField = existingField as? EntityField,
            let field = field as? EntityField {

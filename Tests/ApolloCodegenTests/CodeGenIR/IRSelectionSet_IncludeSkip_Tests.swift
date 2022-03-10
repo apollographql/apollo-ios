@@ -426,7 +426,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(allAnimals?[field: "species"]).to(beNil())
   }
 
-  func test__selections__givenDuplicateSelectionIncludeAndSkipOnSameVariable_onScalarField_includeFieldWithNoConditions() throws {
+  func test__selections__givenDuplicateSelectionIncludeAndSkipOnSameVariable_onScalarField_includeFieldWithConditions() throws {
     // given
     schemaSDL = """
     type Query {
@@ -451,10 +451,60 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     try buildSubjectRootField()
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
+    let expected: IR.InclusionConditions? = .init([
+      [
+        .include(if: "a"),
+      ],
+      [
+        .skip(if: "a")
+      ]
+    ])
+
 
     // then
     expect(actual).toNot(beNil())
-    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.inclusionConditions).to(equal(expected))
+  }
+
+  func test__selections__givenDuplicateSelectionIncludeAndSkipOnSameVariableWithOtherInclude_onScalarField_doesNotReduceConditions() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        species @include(if: $a) @include(if: $b)
+        species @skip(if: $a)
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let actual = self.subject[field: "allAnimals"]?[field: "species"]
+
+    let expected: IR.InclusionConditions? = .init([
+      [
+        .include(if: "a"),
+        .include(if: "b"),
+      ],
+      [
+        .skip(if: "a")
+      ]
+    ])
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.inclusionConditions).to(equal(expected))
   }
 
   // MARK: - Merged Selections
