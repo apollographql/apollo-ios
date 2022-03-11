@@ -102,7 +102,7 @@ extension JavaScriptObject: CustomDebugStringConvertible {
 /// Can be used as an alternative to subclassing `JavaScriptObject` when you
 /// need to be able to create a non-javascript backed version of the class also.
 public class JavaScriptWrapper: JavaScriptValueDecodable {
-  let _underlyingObject: JavaScriptObject?
+  let _underlyingObject: JavaScriptObject!
 
   required init(_ underlyingObject: JavaScriptObject? = nil) {
     self._underlyingObject = underlyingObject
@@ -120,8 +120,8 @@ public class JavaScriptWrapper: JavaScriptValueDecodable {
     return _underlyingObject?[property]
   }
 
-  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable? {
-    return _underlyingObject?[property]
+  subscript<Decodable: JavaScriptValueDecodable>(property: Any) -> Decodable {
+    return _underlyingObject[property]
   }
 
 }

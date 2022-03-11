@@ -6,7 +6,7 @@ extension IR {
   class DirectSelections: Equatable, CustomDebugStringConvertible {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:]
+    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init() {}
@@ -23,7 +23,7 @@ extension IR {
 
     init(
       fields: OrderedDictionary<String, Field> = [:],
-      conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:],
+      conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:],
       fragments: OrderedDictionary<String, FragmentSpread> = [:]
     ) {
       mergeIn(fields.values)
@@ -56,14 +56,21 @@ extension IR {
     }
 
     func mergeIn(_ conditionalSelectionSet: SelectionSet) {
-      let keyInScope = conditionalSelectionSet.hashForSelectionSetScope
+      #warning("""
+      TODO: I think this is wrong. TDD.
 
-      if let existingTypeCase = conditionalSelectionSets[keyInScope] {
+      The last Scope Condition i think is not enough info.
+      You'll need the parentType no matter what,
+      PLUS (I think) ALL the nested inclusion conditions combined.
+      """)
+      let scopeCondition = conditionalSelectionSet.typeScope.typePath.last.value
+
+      if let existingTypeCase = conditionalSelectionSets[scopeCondition] {
         existingTypeCase.selections.direct!
           .mergeIn(conditionalSelectionSet.selections.direct!)
 
       } else {
-        conditionalSelectionSets[keyInScope] = conditionalSelectionSet
+        conditionalSelectionSets[scopeCondition] = conditionalSelectionSet
       }
     }
 
@@ -109,7 +116,7 @@ extension IR {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
-      var typeCases: OrderedDictionary<String, SelectionSet> { value.conditionalSelectionSets }
+      var conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> { value.conditionalSelectionSets }
       var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
     }
 
@@ -129,7 +136,7 @@ extension IR {
     
     fileprivate(set) var mergedSources: MergedSources = []
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<String, SelectionSet> = [:]
+    fileprivate(set) var conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
     init(
@@ -195,27 +202,32 @@ extension IR {
       return true
     }
 
-    func addMergedTypeCase(withType type: GraphQLCompositeType) {
+    func addMergedConditionalSelectionSet(with condition: ScopeCondition) {
       guard !typeInfo.isTypeCase else {
         return
       }
 
-      let keyInScope = type.hashForSelectionSetScope
       if let directSelections = directSelections,
-         directSelections.typeCases.keys.contains(keyInScope) {
+         directSelections.conditionalSelectionSets.keys.contains(condition) {
         return
       }
 
-      conditionalSelectionSets[keyInScope] = createShallowlyMergedTypeCase(withType: type)
+      conditionalSelectionSets[condition] = createShallowlyMergedConditionalSelectionSet(
+        with: condition
+      )
     }
 
-    private func createShallowlyMergedTypeCase(withType type: GraphQLCompositeType) -> SelectionSet {
-      IR.SelectionSet(
+    private func createShallowlyMergedConditionalSelectionSet(
+      with condition: ScopeCondition
+    ) -> SelectionSet {
+      let parentType = condition.type ?? self.typeInfo.parentType
+      return IR.SelectionSet(
         entity: self.typeInfo.entity,
-        parentType: type,
-        typePath: self.typeInfo.typePath.mutatingLast { $0.appending(type) },
+        parentType: parentType,
+        typePath: self.typeInfo.typePath.mutatingLast { $0.appending(parentType) },
         mergedSelectionsOnly: true
       )
+      #warning("TODO: Type Path needs to append the whole ScopeCondition not just parentType.")
     }
 
     var isEmpty: Bool {

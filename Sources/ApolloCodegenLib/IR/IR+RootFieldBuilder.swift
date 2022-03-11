@@ -76,7 +76,7 @@ extension IR {
 
     private func buildDirectSelections(
       forSelectionSet selectionSet: SelectionSet,
-      inFragmentSpread fragmentSpread: FragmentSpread?,
+      inFragmentSpread containingFragmentSpread: FragmentSpread?,
       from selections: [CompilationResult.Selection]
     ) {
       for selection in selections {
@@ -85,33 +85,41 @@ extension IR {
           if let irField = buildField(
             from: field,
             on: selectionSet,
-            inFragmentSpread: fragmentSpread
+            inFragmentSpread: containingFragmentSpread
           ) {
             selectionSet.selections.direct!.mergeIn(irField)
           }
 
         case let .inlineFragment(typeCaseSelectionSet):
-          if selectionSet.typeInfo.typeScope.matches(typeCaseSelectionSet.parentType) {
+          guard let scope = scopeCondition(for: typeCaseSelectionSet, in: selectionSet) else {
+            continue
+          }
+
+          if selectionSet.typeInfo.typeScope.matches(scope) {
             buildSortedSelections(
               forSelectionSet: selectionSet,
-              inFragmentSpread: fragmentSpread,
+              inFragmentSpread: containingFragmentSpread,
               from: typeCaseSelectionSet.selections
             )
 
           } else {
             let irTypeCase = buildTypeCaseSelectionSet(
               fromSelectionSet: typeCaseSelectionSet,
-              inFragmentSpread: fragmentSpread,
+              inFragmentSpread: containingFragmentSpread,
               onParent: selectionSet
             )
             selectionSet.selections.direct!.mergeIn(irTypeCase)
           }
 
-        case let .fragmentSpread(fragment):
-          if selectionSet.typeInfo.typeScope.matches(fragment.type) {
-            referencedFragments.append(fragment)
+        case let .fragmentSpread(fragmentSpread):
+          guard let scope = scopeCondition(for: fragmentSpread, in: selectionSet) else {
+            continue
+          }
+
+          if selectionSet.typeInfo.typeScope.matches(scope) {
+            referencedFragments.append(fragmentSpread.fragment)
             let irFragmentSpread = buildFragmentSpread(
-              fromFragment: fragment,
+              fromFragment: fragmentSpread,
               spreadIntoParent: selectionSet
             )
 
@@ -120,10 +128,10 @@ extension IR {
           } else {
             let irTypeCaseEnclosingFragment = buildTypeCaseSelectionSet(
               fromSelectionSet: CompilationResult.SelectionSet(
-                parentType: fragment.type,
+                parentType: fragmentSpread.parentType,
                 selections: [selection]
               ),
-              inFragmentSpread: fragmentSpread,
+              inFragmentSpread: containingFragmentSpread,
               onParent: selectionSet
             )
 
@@ -133,12 +141,37 @@ extension IR {
       }
     }
 
+    private func scopeCondition(
+      for conditionalSelectionSet: ConditionallyIncludable,
+      in parent: IR.SelectionSet
+    ) -> ScopeCondition? {
+      let inclusionResult = inclusionResult(for: conditionalSelectionSet.inclusionConditions)
+      guard inclusionResult != .skipped else {
+        return nil
+      }
+
+      let type = parent.parentType == conditionalSelectionSet.parentType ?
+      nil : conditionalSelectionSet.parentType
+
+      return ScopeCondition(type: type, conditions: inclusionResult.conditions)
+    }
+
+    private func inclusionResult(
+      for conditions: [CompilationResult.InclusionCondition]?
+    ) -> InclusionConditions.Result {
+      guard let conditions = conditions else {
+        return .included
+      }
+
+      return InclusionConditions.allOf(conditions)
+    }
+
     private func buildField(
       from field: CompilationResult.Field,
       on selectionSet: SelectionSet,
       inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> Field? {
-      let inclusionResult = inclusionResult(for: field)
+      let inclusionResult = inclusionResult(for: field.inclusionConditions)
       guard inclusionResult != .skipped else {
         return nil
       }
@@ -159,16 +192,6 @@ extension IR {
       } else {
         return ScalarField(field, inclusionConditions: inclusionResult.conditions)
       }
-    }    
-
-    private func inclusionResult(
-      for field: CompilationResult.Field
-    ) -> InclusionConditions.Result {
-      guard let conditions = field.inclusionConditions else {
-        return .included
-      }
-
-      return InclusionConditions.allOf(conditions)
     }
 
     private func buildSelectionSet(
@@ -248,9 +271,11 @@ extension IR {
     }
 
     private func buildFragmentSpread(
-      fromFragment fragment: CompilationResult.FragmentDefinition,
+      fromFragment fragmentSpread: CompilationResult.FragmentSpread,
       spreadIntoParent parentSelectionSet: SelectionSet
     ) -> FragmentSpread {
+      let fragment = fragmentSpread.fragment
+
       let irSelectionSet = SelectionSet(
         entity: parentSelectionSet.typeInfo.entity,
         parentType: fragment.selectionSet.parentType,
@@ -271,3 +296,13 @@ extension IR {
     }
   }
 }
+
+// MARK: - Helpers
+
+fileprivate protocol ConditionallyIncludable {
+  var parentType: GraphQLCompositeType { get }
+  var inclusionConditions: [CompilationResult.InclusionCondition]? { get }
+}
+
+extension CompilationResult.SelectionSet: ConditionallyIncludable {}
+extension CompilationResult.FragmentSpread: ConditionallyIncludable {}

@@ -95,9 +95,13 @@ public class CompilationResult: JavaScriptObject {
   }
   
   public class SelectionSet: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
-    lazy var parentType: GraphQLCompositeType = self["parentType"]!
+    lazy var parentType: GraphQLCompositeType = self["parentType"]
     
-    lazy var selections: [Selection] = self["selections"]!
+    lazy var selections: [Selection] = self["selections"]
+
+    #warning("TODO: Compile these in TS frontend.")
+    lazy var inclusionConditions: [InclusionCondition]? = nil
+//    self["inclusionConditions"]
 
     required convenience init(parentType: GraphQLCompositeType, selections: [Selection]) {
       self.init(nil)
@@ -124,11 +128,36 @@ public class CompilationResult: JavaScriptObject {
       lhs.selections == rhs.selections
     }
   }
+
+  /// Represents an individual selection that includes a named fragment in a selection set.
+  /// (ie. `...FragmentName`)
+  #warning("TODO: Compile these in TS frontend.")
+  public class FragmentSpread: JavaScriptObject, Hashable {
+    lazy var fragment: FragmentDefinition = self["fragment"]
+
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
+    lazy var directives: [Directive]? = self["directives"]
+
+    var parentType: GraphQLCompositeType { fragment.type }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(fragment)
+      hasher.combine(inclusionConditions)
+      hasher.combine(directives)
+    }
+
+    public static func ==(lhs: FragmentSpread, rhs: FragmentSpread) -> Bool {
+      return lhs.fragment == rhs.fragment &&
+      lhs.inclusionConditions == rhs.inclusionConditions &&
+      lhs.directives == rhs.directives
+    }
+  }
   
   public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
     case inlineFragment(SelectionSet)
-    case fragmentSpread(FragmentDefinition)
+    case fragmentSpread(FragmentSpread)
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
       precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
@@ -137,12 +166,13 @@ public class CompilationResult: JavaScriptObject {
 
       switch kind {
       case "Field":
-        self = .field(Field(JavaScriptObject(jsValue, bridge: bridge)))
+        self = .field(Field(jsValue, bridge: bridge))
       case "InlineFragment":
         let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
         self = .inlineFragment(selectionSet)
       case "FragmentSpread":
-        self = .fragmentSpread(bridge.fromJSValue(jsValue["fragment"]))
+        #warning("TODO: Compile these in TS frontend.")
+        self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
       default:
         preconditionFailure("""
           Unknown GraphQL selection of kind "\(kind)"
@@ -154,7 +184,7 @@ public class CompilationResult: JavaScriptObject {
       switch self {
       case let .field(field): return field.selectionSet
       case let .inlineFragment(selectionSet): return selectionSet
-      case let .fragmentSpread(fragment): return fragment.selectionSet
+      case let .fragmentSpread(fragmentSpread): return fragmentSpread.fragment.selectionSet
       }
     }
 
@@ -291,7 +321,7 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
-  public enum InclusionCondition: JavaScriptValueDecodable {
+  public enum InclusionCondition: JavaScriptValueDecodable, Hashable {
     case included
     case skipped
     case variable(String, isInverted: Bool)

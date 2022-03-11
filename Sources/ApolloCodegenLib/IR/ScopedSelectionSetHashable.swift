@@ -13,12 +13,6 @@ protocol ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String { get }
 }
 
-extension IR.SelectionSet: ScopedSelectionSetHashable {
-  var hashForSelectionSetScope: String {
-    typeInfo.parentType.hashForSelectionSetScope
-  }
-}
-
 extension GraphQLCompositeType: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     name
@@ -36,3 +30,29 @@ extension IR.FragmentSpread: ScopedSelectionSetHashable {
     definition.name
   }
 }
+
+#warning("TODO: remove?")
+//extension IR.InclusionCondition: ScopedSelectionSetHashable {
+//  var hashForSelectionSetScope: String {
+//    "\(isInverted ? "!" : "")$\(variable)"
+//  }
+//}
+//
+//extension IR.InclusionConditions: ScopedSelectionSetHashable {
+//  var hashForSelectionSetScope: String {
+//    hashValue
+//  }
+//
+////  private static func hash(for group: OrderedSet<IR.InclusionCondition>) -> String {
+////
+////  }
+//}
+//
+//extension IR.ScopeCondition: ScopedSelectionSetHashable {
+//  var hashForSelectionSetScope: String {
+//    switch {
+//    case let .type(type): return type.hashForSelectionSetScope
+//    case let .inclusion(condition): return condition.hashForSelectionSetScope
+//    }
+//  }
+//}
