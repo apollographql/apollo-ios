@@ -572,20 +572,6 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     }
     """
 
-
-    document = """
-    query Test($a: Boolean!) {
-      allAnimals {
-        friend @include(if: $a) {
-          a
-        }
-        friend @skip(if: $a) {
-          b
-        }
-      }
-    }
-    """
-
     // when
     try buildSubjectRootField()
 
@@ -617,4 +603,5 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?.selectionSet?.typeScope.inclusionConditions).to(equal(friend_expected))
     
   }
+  
 }

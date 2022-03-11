@@ -4,15 +4,17 @@ import ApolloUtils
 
 extension IR {
 
-  enum ScopeCondition: Hashable, CustomDebugStringConvertible {
-    case type(GraphQLCompositeType)
-    case inclusion(InclusionConditions)
+  struct ScopeCondition: Hashable, CustomDebugStringConvertible {
+    let type: GraphQLCompositeType?
+    let conditions: InclusionConditions?
+
+    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions? = nil) {
+      self.type = type
+      self.conditions = conditions
+    }
 
     var debugDescription: String {
-      switch self {
-      case let .type(type): return type.debugDescription
-      case let .inclusion(conditions): return conditions.debugDescription
-      }
+      "\(type.debugDescription) \(conditions?.debugDescription ?? "")"
     }
   }
 
@@ -21,6 +23,12 @@ extension IR {
   /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the operation the
   /// selection set is located and what types the `SelectionSet` implements.
   struct TypeScopeDescriptor: Hashable {
+
+    /// The parentType of the `SelectionSet`.
+    ///
+    /// Should always be equivalent to the last "type" value of the `typePath`.
+    let type: GraphQLCompositeType
+
     /// A list of the parent types for the selection set and it's parents on the same entity.
     ///
     /// The last element in the list is equal to the parent type for the `SelectionSet`
@@ -44,11 +52,6 @@ extension IR {
     /// `typePath`, all of those types implemented interfaces, and all unions that include
     /// those types.
     let matchingTypes: TypeScope
-
-    /// The parentType of the `SelectionSet`.
-    ///
-    /// Should always be equivalent to the last `.type` value of the `typePath`.
-    let type: GraphQLCompositeType
 
     let inclusionConditions: InclusionConditions?
 
@@ -84,7 +87,7 @@ extension IR {
     ) -> TypeScopeDescriptor {
       let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
       return TypeScopeDescriptor(
-        typePath: LinkedList(.type(type)),
+        typePath: LinkedList(.init(type: type)),
         type: type,
         matchingTypes: scope,
         inclusionConditions: nil,
@@ -123,7 +126,7 @@ extension IR {
                                  to: self.matchingTypes,
                                  givenAllTypes: self.allTypesInSchema)
       return TypeScopeDescriptor(
-        typePath: typePath.appending(.type(newType)),
+        typePath: typePath.appending(.init(type: newType)),
         type: newType,
         matchingTypes: scope,
         inclusionConditions: nil,
@@ -141,8 +144,12 @@ extension IR {
     /// Indicates if the receiver is of the given type. If the receiver matches a given type,
     /// then selections for a `SelectionSet` of that type can be merged in to the receiver's
     /// `SelectionSet`.
-    func matches(_ otherType: GraphQLCompositeType) -> Bool {
-      self.matchingTypes.contains(otherType)
+    func matches(_ condition: ScopeCondition) -> Bool {
+      #warning("TODO: handle inclusion conditions")
+      if let otherType = condition.type {
+        return self.matchingTypes.contains(otherType)
+      }
+      return true
     }
 
     static func == (lhs: TypeScopeDescriptor, rhs: TypeScopeDescriptor) -> Bool {

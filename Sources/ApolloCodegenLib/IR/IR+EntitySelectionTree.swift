@@ -2,6 +2,7 @@ import ApolloUtils
 import Darwin
 import OrderedCollections
 
+#warning("TODO: Can we remove protocol?")
 fileprivate protocol EntitySelectionTreeNode {
   func mergeSelections(
     matchingTypePath typePath: LinkedList<IR.TypeScopeDescriptor>.Node,
@@ -253,7 +254,7 @@ extension IR {
 
     class FieldScopeNode: EntitySelectionTreeNode {
       var selections: OrderedDictionary<MergedSelections.MergedSource, EntityTreeScopeSelections> = [:]
-      var typeCases: OrderedDictionary<GraphQLCompositeType, FieldScopeNode>?
+      var conditionalScopes: OrderedDictionary<ScopeCondition, FieldScopeNode>?
 
       fileprivate func mergeIn(
         _ selections: DirectSelections,
@@ -265,27 +266,27 @@ extension IR {
       }
 
       func mergeSelections(
-        matchingTypePath typePath: LinkedList<TypeScopeDescriptor>.Node,
+        matchingTypePath typePathNode: LinkedList<TypeScopeDescriptor>.Node,
         into selections: IR.MergedSelections
       ) {
         for (source, scopeSelections) in self.selections {
           selections.mergeIn(scopeSelections, from: source)
         }
 
-        if let typeCases = typeCases {
-          for (typeCase, node) in typeCases {
-            if typePath.value.matches(typeCase) {
-              node.mergeSelections(matchingTypePath: typePath, into: selections)
+        if let conditionalScopes = conditionalScopes {
+          for (condition, node) in conditionalScopes {
+            if typePathNode.value.matches(condition) {
+              node.mergeSelections(matchingTypePath: typePathNode, into: selections)
 
             } else {
-              selections.addMergedTypeCase(withType: typeCase)
+              selections.addMergedConditionalSelectionSet(with: condition)
             }
           }
         }
       }
 
       fileprivate func typeCaseNode(forType type: GraphQLCompositeType) -> FieldScopeNode {
-        guard var typeCases = typeCases else {
+        guard var typeCases = conditionalScopes else {
           let node = FieldScopeNode()
           self.typeCases = [type: node]
           return node
@@ -294,7 +295,7 @@ extension IR {
         guard let node = typeCases[type] else {
           let node = FieldScopeNode()
           typeCases[type] = node
-          self.typeCases = typeCases
+          self.conditionalScopedSelections = typeCases
           return node
         }
 
@@ -303,8 +304,7 @@ extension IR {
     }
   }
 
-  struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible
-  {
+  struct EntityTreeScopeSelections: Equatable, CustomDebugStringConvertible {
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
 
@@ -359,7 +359,7 @@ extension IR.EntitySelectionTree.EnclosingEntityNode: CustomDebugStringConvertib
     {
       child:
         \(indented: child?.debugDescription ?? "nil")
-      typeCases:
+      conditionalScopes:
         \(indented: typeCases?.debugDescription ?? "[]")
     }
     """
@@ -372,8 +372,8 @@ extension IR.EntitySelectionTree.FieldScopeNode: CustomDebugStringConvertible {
     {
       selections:
         \(indented: selections.debugDescription)
-      typeCases:
-        \(indented: typeCases?.debugDescription ?? "[]")
+      conditionalScopes:
+        \(indented: conditionalScopes?.debugDescription ?? "[]")
     }
     """
   }

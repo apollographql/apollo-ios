@@ -101,6 +101,8 @@ extension IR {
       }
     }
 
+    // MARK:  - SelectionSet
+
     let typeInfo: TypeInfo
     let selections: Selections
 

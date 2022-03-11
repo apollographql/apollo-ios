@@ -386,10 +386,7 @@ private func generatedSelectionSetName(
 fileprivate extension IR.ScopeCondition {
 
   var selectionSetNameComponent: String {
-    switch self {
-    case let .type(type): return "As\(type.name.firstUppercased)"
-    case let .inclusion(conditions): return "If\(conditions.description)"
-    }
+    "As\(type!.name.firstUppercased)"
   }
   
 }
