@@ -4,23 +4,23 @@ import ApolloCodegenTestSupport
 import Nimble
 
 class SchemaModuleFileGeneratorTests: XCTestCase {
+  let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
+  let mockFileManager = MockFileManager(strict: false)
+
   override func tearDown() {
     CodegenTestHelper.deleteExistingOutputFolder()
 
     super.tearDown()
   }
 
-  func test__generate__givenSwiftPackageManagerConfiguration_shouldGenerateManifest() throws {
+  func test__generate__givenModuleType_swiftPackageManager_shouldGeneratePackageFile() throws {
     // given
-    let rootURL = URL(fileURLWithPath: CodegenTestHelper.outputFolderURL().path)
     let fileURL = rootURL.appendingPathComponent("Package.swift")
 
     let configuration = ApolloCodegenConfiguration.mock(
       .swiftPackageManager,
-      schemaName: "TestModule",
       to: rootURL.path
     )
-    let mockFileManager = MockFileManager(strict: false)
 
     mockFileManager.mock(closure: .createFile({ path, data, attributes in
       expect(path).to(equal(fileURL.path))
@@ -34,18 +34,37 @@ class SchemaModuleFileGeneratorTests: XCTestCase {
       fileManager: mockFileManager
     )
 
-    expect(mockFileManager.allClosuresCalled).to(beTrue())
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
   }
 
-  func test__generate__givenOtherConfiguration_shouldReturn() throws {
+  func test__generate__givenModuleType_none_shouldGenerateEnumFile() throws {
+    // given
+    let fileURL = rootURL.appendingPathComponent("ModuleTestSchema.swift")
+
+    let configuration = ApolloCodegenConfiguration.mock(
+      .none,
+      schemaName: "ModuleTestSchema",
+      to: rootURL.path
+    )
+
+    mockFileManager.mock(closure: .createFile({ path, data, attributes in
+      expect(path).to(equal(fileURL.path))
+
+      return true
+    }))
+
+    // then
+    try SchemaModuleFileGenerator.generate(
+      configuration.output.schemaTypes,
+      fileManager: mockFileManager
+    )
+
+    expect(self.mockFileManager.allClosuresCalled).to(beTrue())
+  }
+
+  func test__generate__givenModuleType_other_shouldReturn() throws {
     expect(try SchemaModuleFileGenerator.generate(
-      ApolloCodegenConfiguration.mock(.other, schemaName: "TestModule").output.schemaTypes
+      ApolloCodegenConfiguration.mock(.other).output.schemaTypes
     )).notTo(throwError())
-  }
-
-  func test__generate__givenUnimplementedConfigurations_shouldThrow() throws {
-    expect(try SchemaModuleFileGenerator.generate(
-      ApolloCodegenConfiguration.mock(.none, schemaName: "TestModule").output.schemaTypes
-    )).to(throwError())
   }
 }
