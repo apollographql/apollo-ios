@@ -16,6 +16,7 @@ extension IR {
     var debugDescription: String {
       "\(type.debugDescription) \(conditions?.debugDescription ?? "")"
     }
+
   }
 
   typealias TypeScope = Set<GraphQLCompositeType>

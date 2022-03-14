@@ -53,6 +53,8 @@ public extension CompilationResult.Field {
     mock.arguments = arguments
     mock.type = type
     mock.selectionSet = selectionSet
+    mock.directives = nil
+    mock.inclusionConditions = nil
     return mock
   }
 
