@@ -1,5 +1,6 @@
 {
   "title": "Client (iOS)",
+  "version": "0.X",
   "sidebar": {
     "Introduction": "/",
     "Installation": "/installation",
