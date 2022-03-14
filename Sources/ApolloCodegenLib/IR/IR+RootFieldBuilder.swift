@@ -34,7 +34,7 @@ extension IR {
 
       entitiesForFields[rootEntity.fieldPath] = rootEntity
 
-      let rootTypePath = TypeScopeDescriptor.descriptor(
+      let rootTypePath = ScopeDescriptor.descriptor(
         forType: rootEntity.rootType,
         givenAllTypesInSchema: schema.referencedTypes
       )
@@ -205,7 +205,7 @@ extension IR {
 
       let entity = entity(for: field, on: enclosingSelectionSet.typeInfo.entity)
 
-      let typeScope = TypeScopeDescriptor.descriptor(
+      let typeScope = ScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
         givenAllTypesInSchema: schema.referencedTypes
       )

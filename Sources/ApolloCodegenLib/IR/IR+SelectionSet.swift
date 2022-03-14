@@ -14,11 +14,11 @@ extension IR {
       /// A list of the type scopes for the `SelectionSet` and its enclosing entities.
       ///
       /// The selection set's type scope is the last element in the list.
-      let typePath: LinkedList<TypeScopeDescriptor>
+      let typePath: LinkedList<ScopeDescriptor>
 
       /// Describes all of the types the selection set matches.
       /// Derived from all the selection set's parents.
-      var typeScope: TypeScopeDescriptor { typePath.last.value }
+      var typeScope: ScopeDescriptor { typePath.last.value }
 
       /// Indicates if the `SelectionSet` represents a type case.
       /// If `true`, the `SelectionSet` belongs to a type case enclosed in a field's `SelectionSet`.
@@ -29,7 +29,7 @@ extension IR {
       init(
         entity: Entity,
         parentType: GraphQLCompositeType,
-        typePath: LinkedList<TypeScopeDescriptor>
+        typePath: LinkedList<ScopeDescriptor>
       ) {
         self.entity = entity
         self.parentType = parentType
@@ -109,7 +109,7 @@ extension IR {
     init(
       entity: Entity,
       parentType: GraphQLCompositeType,
-      typePath: LinkedList<TypeScopeDescriptor>,
+      typePath: LinkedList<ScopeDescriptor>,
       mergedSelectionsOnly: Bool = false
     ) {
       self.typeInfo = TypeInfo(

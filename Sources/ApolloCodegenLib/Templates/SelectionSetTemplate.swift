@@ -355,7 +355,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
 }
 
 private func generatedSelectionSetName(
-  from typePathNode: LinkedList<IR.TypeScopeDescriptor>.Node,
+  from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
   withFieldPath fieldPath: [String],
   removingFirst: Bool = false
 ) -> String {
