@@ -24,7 +24,8 @@
       "Using fragments": "/fragments",
       "Client-side caching": "/caching",
       "Subscriptions": "/subscriptions",
-      "Swift scripting": "/swift-scripting"
+      "Swift scripting": "/swift-scripting",
+      "Request pipeline (advanced)": "/request-pipeline"
     }
   }
 }
