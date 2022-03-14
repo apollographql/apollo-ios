@@ -96,6 +96,25 @@ public extension CompilationResult.FragmentDefinition {
   }
 }
 
+public extension CompilationResult.FragmentSpread {
+  class func mock(
+    _ fragment: CompilationResult.FragmentDefinition = .mock()
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.fragment = fragment
+    return mock
+  }
+}
+
+public extension CompilationResult.Selection {
+  static func fragmentSpread(
+  _ fragment: CompilationResult.FragmentDefinition
+  ) -> CompilationResult.Selection {
+    .fragmentSpread(CompilationResult.FragmentSpread.mock(fragment))
+  }
+}
+
+
 public extension CompilationResult.VariableDefinition {
   class func mock(
     _ name: String,

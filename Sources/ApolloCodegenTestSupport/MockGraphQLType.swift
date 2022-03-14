@@ -1,6 +1,17 @@
 @testable import ApolloCodegenLib
 import OrderedCollections
 
+public extension GraphQLCompositeType {
+  class func mock(
+    _ name: String = ""
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.name = name
+    return mock
+  }
+}
+
+
 public extension GraphQLObjectType {
   class func mock(
     _ name: String = "",
