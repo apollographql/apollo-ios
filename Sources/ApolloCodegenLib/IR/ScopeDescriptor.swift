@@ -22,7 +22,7 @@ extension IR {
 
   /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the operation the
   /// selection set is located and what types the `SelectionSet` implements.
-  struct TypeScopeDescriptor: Hashable {
+  struct ScopeDescriptor: Hashable {
 
     /// The parentType of the `SelectionSet`.
     ///
@@ -71,9 +71,9 @@ extension IR {
       self.allTypesInSchema = allTypesInSchema
     }
 
-    /// Creates a `TypeScopeDescriptor` for a root `SelectionSet`.
+    /// Creates a `ScopeDescriptor` for a root `SelectionSet`.
     ///
-    /// This should only be used to create a `TypeScopeDescriptor` for a root `SelectionSet`.
+    /// This should only be used to create a `ScopeDescriptor` for a root `SelectionSet`.
     /// Nested type cases should be created by calling `appending(_:)` on the
     /// parent `SelectionSet`'s `typeScope`.
     ///
@@ -84,9 +84,9 @@ extension IR {
     static func descriptor(
       forType type: GraphQLCompositeType,
       givenAllTypesInSchema allTypes: IR.Schema.ReferencedTypes
-    ) -> TypeScopeDescriptor {
+    ) -> ScopeDescriptor {
       let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
-      return TypeScopeDescriptor(
+      return ScopeDescriptor(
         typePath: LinkedList(.init(type: type)),
         type: type,
         matchingTypes: scope,
@@ -116,16 +116,16 @@ extension IR {
       return newScope
     }
 
-    /// Returns a new `TypeScopeDescriptor` appending the new type to the `typePath` and
+    /// Returns a new `ScopeDescriptor` appending the new type to the `typePath` and
     /// `matchingTypes`.
     ///
-    /// This should be used to create a `TypeScopeDescriptor` for a type case `SelectionSet` inside
+    /// This should be used to create a `ScopeDescriptor` for a type case `SelectionSet` inside
     /// of an entity, by appending the type case's type to the parent `SelectionSet`'s `typeScope`.
-    func appending(_ newType: GraphQLCompositeType) -> TypeScopeDescriptor {
+    func appending(_ newType: GraphQLCompositeType) -> ScopeDescriptor {
       let scope = Self.typeScope(addingType: newType,
                                  to: self.matchingTypes,
                                  givenAllTypes: self.allTypesInSchema)
-      return TypeScopeDescriptor(
+      return ScopeDescriptor(
         typePath: typePath.appending(.init(type: newType)),
         type: newType,
         matchingTypes: scope,
@@ -152,7 +152,7 @@ extension IR {
       return true
     }
 
-    static func == (lhs: TypeScopeDescriptor, rhs: TypeScopeDescriptor) -> Bool {
+    static func == (lhs: ScopeDescriptor, rhs: ScopeDescriptor) -> Bool {
       lhs.typePath == rhs.typePath &&
       lhs.matchingTypes == rhs.matchingTypes
     }
@@ -165,7 +165,7 @@ extension IR {
   }
 }
 
-extension IR.TypeScopeDescriptor: CustomDebugStringConvertible {
+extension IR.ScopeDescriptor: CustomDebugStringConvertible {
   var debugDescription: String {
     typePath.debugDescription
   }
