@@ -6,7 +6,8 @@ extension IR.DirectSelections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    conditionalSelectionSets[typeCase]
+    let type = GraphQLCompositeType.mock(typeCase)
+    return conditionalSelectionSets[IR.ScopeCondition(type: type)]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
@@ -20,7 +21,8 @@ extension IR.MergedSelections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    conditionalSelectionSets[typeCase]
+    let type = GraphQLCompositeType.mock(typeCase)
+    return conditionalSelectionSets[IR.ScopeCondition(type: type)]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {
@@ -79,7 +81,8 @@ extension IR.SelectionSet.Selections {
   }
 
   public subscript(as typeCase: String) -> IR.SelectionSet? {
-    direct?.conditionalSelectionSets[typeCase] ?? merged.conditionalSelectionSets[typeCase]
+    let condition = IR.ScopeCondition(type: GraphQLCompositeType.mock(typeCase))
+    return direct?.conditionalSelectionSets[condition] ?? merged.conditionalSelectionSets[condition]
   }
 
   public subscript(fragment fragment: String) -> IR.FragmentSpread? {

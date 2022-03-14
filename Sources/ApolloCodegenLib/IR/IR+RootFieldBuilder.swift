@@ -283,7 +283,7 @@ extension IR {
       )
 
       let fragmentSpread = FragmentSpread(
-        definition: fragment,
+        fragmentSpread: fragmentSpread,
         selectionSet: irSelectionSet
       )
       buildSortedSelections(

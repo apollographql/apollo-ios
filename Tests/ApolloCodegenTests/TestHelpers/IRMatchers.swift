@@ -10,7 +10,7 @@ protocol SelectionShallowMatchable {
   typealias Fragment = IR.FragmentSpread
 
   var fields: OrderedDictionary<String, Field> { get }
-  var conditionalSelectionSets: OrderedDictionary<String, TypeCase> { get }
+  var conditionalSelectionSets: OrderedDictionary<IR.ScopeCondition, TypeCase> { get }
   var fragments: OrderedDictionary<String, Fragment> { get }
 
   var isEmpty: Bool { get }
@@ -19,7 +19,7 @@ protocol SelectionShallowMatchable {
 extension IR.DirectSelections: SelectionShallowMatchable { }
 extension IR.MergedSelections: SelectionShallowMatchable { }
 extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
-  var conditionalSelectionSets: OrderedDictionary<String, TypeCase> { [:] }
+  var conditionalSelectionSets: OrderedDictionary<IR.ScopeCondition, TypeCase> { [:] }
 }
 
 // MARK - Custom Matchers
@@ -50,7 +50,7 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
     switch selection {
     case let .field(field): expectedFields.append(field)
     case let .inlineFragment(typeCase): expectedTypeCases.append(typeCase)
-    case let .fragmentSpread(fragment): expectedFragments.append(fragment)
+    case let .fragmentSpread(fragment): expectedFragments.append(fragment.fragment)
     }
   }
 
@@ -160,7 +160,7 @@ fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: Compi
 
 public func shallowlyMatch(
   _ expectedValue: [CompilationResult.SelectionSet]
-) -> Predicate<OrderedDictionary<String, IR.SelectionSet>> {
+) -> Predicate<OrderedDictionary<IR.ScopeCondition, IR.SelectionSet>> {
   return Predicate.define { actual in
     return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate())
   }
@@ -168,7 +168,7 @@ public func shallowlyMatch(
 
 fileprivate func shallowlyMatch(
   expected: [CompilationResult.SelectionSet],
-  actual: OrderedDictionary<String, IR.SelectionSet>?
+  actual: OrderedDictionary<IR.ScopeCondition, IR.SelectionSet>?
 ) -> PredicateResult {
   let message: ExpectationMessage = .expectedActualValueTo("have typeCases equal to \(expected)")
   guard let actual = actual,
@@ -220,7 +220,7 @@ fileprivate func shallowlyMatch(
   }
 
   for (index, fragment) in zip(expected, actual).enumerated() {
-    guard shallowlyMatch(expected: fragment.0, actual: fragment.1.value) else {
+    guard shallowlyMatch(expected: fragment.0, actual: fragment.1.value.definition) else {
       return PredicateResult(
         status: .fail,
         message: message.appended(
@@ -234,11 +234,18 @@ fileprivate func shallowlyMatch(
 }
 
 fileprivate func shallowlyMatch(expected: IR.FragmentSpread, actual: IR.FragmentSpread) -> Bool {
+  #warning("TODO: all of these matchers aren't properly accounting for type paths")
   return shallowlyMatch(expected: expected.definition, actual: actual.definition)
 }
 
-fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, actual: IR.FragmentSpread) -> Bool {
-  return shallowlyMatch(expected: expected, actual: actual.definition)
+fileprivate func shallowlyMatch(expected: CompilationResult.FragmentSpread, actual: IR.FragmentSpread) -> Bool {
+  return shallowlyMatch(expected: expected, actual: actual.underlyingFragmentSpread)
+}
+
+fileprivate func shallowlyMatch(expected: CompilationResult.FragmentSpread, actual: CompilationResult.FragmentSpread) -> Bool {
+  return shallowlyMatch(expected: expected.fragment, actual: actual.fragment) &&
+  expected.inclusionConditions == actual.inclusionConditions &&
+  expected.directives == actual.directives
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.FragmentDefinition, actual: CompilationResult.FragmentDefinition) -> Bool {
