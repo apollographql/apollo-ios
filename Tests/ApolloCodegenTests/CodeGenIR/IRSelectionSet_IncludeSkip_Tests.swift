@@ -612,8 +612,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?[field: "a"]).to(beNil())
     expect(actual?[field: "b"]).to(beNil())
 
-//    expect(actual?[field: "a"]?[if: "a"]).to(beNil())
-//    expect(actual?[field: "b"]?[if: !"a"]).to(beNil())
+    expect(actual?[field: "a"]?[if: "a"]).toNot(beNil())
+    expect(actual?[field: "b"]?[if: !"a"]).toNot(beNil())
   }
   
 }

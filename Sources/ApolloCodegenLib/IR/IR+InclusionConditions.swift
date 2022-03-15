@@ -18,11 +18,6 @@ extension IR {
       self.isInverted = isInverted
     }
 
-    init(stringLiteral: String) {
-      self.variable = stringLiteral
-      self.isInverted = false
-    }
-
     /// Creates an `InclusionCondition` representing an `@include` directive.
     static func include(if variable: String) -> InclusionCondition {
       .init(variable, isInverted: false)
@@ -35,11 +30,7 @@ extension IR {
 
     func inverted() -> InclusionCondition {
       InclusionCondition(variable, isInverted: !isInverted)
-    }
-
-    static prefix func !(value: InclusionCondition) -> InclusionCondition {
-      value.inverted()
-    }
+    }    
 
   }
 
@@ -51,6 +42,10 @@ extension IR {
 
     private init(_ conditions: OrderedSet<InclusionCondition>) {
       self.conditions = conditions
+    }
+
+    init(_ condition: InclusionCondition) {
+      self.conditions = [condition]
     }
 
     static func allOf<T: Sequence>(
@@ -84,6 +79,10 @@ extension IR {
     subscript(position: Int) -> IR.InclusionCondition { conditions[position] }
 
     // MARK: - Joining Operators
+
+    static func &&(_ lhs: Self, rhs: InclusionCondition) -> Result {
+      Result.conditional(lhs) && rhs
+    }
 
 #warning("TODO: Use or remove")
 //    static func ||(_ lhs: Self, rhs: CompilationResult.InclusionCondition) -> Self {
