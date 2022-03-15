@@ -18,6 +18,11 @@ extension IR {
       self.isInverted = isInverted
     }
 
+    init(stringLiteral: String) {
+      self.variable = stringLiteral
+      self.isInverted = false
+    }
+
     /// Creates an `InclusionCondition` representing an `@include` directive.
     static func include(if variable: String) -> InclusionCondition {
       .init(variable, isInverted: false)
@@ -30,6 +35,10 @@ extension IR {
 
     func inverted() -> InclusionCondition {
       InclusionCondition(variable, isInverted: !isInverted)
+    }
+
+    static prefix func !(value: InclusionCondition) -> InclusionCondition {
+      value.inverted()
     }
 
   }

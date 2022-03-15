@@ -543,6 +543,16 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
+    /// The field is conditonally included, so the inclusion conditions should be on the field.
+    /// But the field's selection set is not conditionally included - if the field is present,
+    /// the selection set is present, so the selection set has `nil` inclusion conditions.
+    ///
+    /// When merging conditionally included fields together the field root, will have
+    /// `nil` inclusion conditions and also empty direct selections. The selection set will have
+    /// multiple nested selection sets with conditional inclusion conditions.
+    expect(actual?.selectionSet?.typeScope.inclusionConditions).to(beNil())
+
+    expect(actual?[field: "species"]).toNot(beNil())
   }
 
   func test__selections__givenTwoEntityFieldsIncludeIfVariableAndSkipIfSameVariable_onEntityField_createsSelectionWithInclusionConditionsWithNestedSelectionSetsWithEachInclusionCondition() throws {
@@ -600,8 +610,13 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual?.inclusionConditions).to(equal(friend_expected))
-    expect(actual?.selectionSet?.typeScope.inclusionConditions).to(equal(friend_expected))
-    
+    expect(actual?.selectionSet?.typeScope.inclusionConditions).to(beNil())
+
+    expect(actual?[field: "a"]).to(beNil())
+    expect(actual?[field: "b"]).to(beNil())
+
+    expect(actual?[field: "a"]?[if: "a"]).to(beNil())
+    expect(actual?[field: "b"]?[if: !"a"]).to(beNil())
   }
   
 }
