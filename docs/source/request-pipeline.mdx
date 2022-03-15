@@ -1,13 +1,10 @@
 ---
 title: Request pipeline in Apollo iOS
-sidebar_title: Request pipeline (advanced)
 ---
-
-import {ExpansionPanel} from 'gatsby-theme-apollo-docs';
 
 In Apollo iOS, most `ApolloClient` instances use the `RequestChainNetworkTransport` to execute GraphQL queries and mutations on a remote server. Appropriately, this network transport uses a structure called a **request chain** to process each operation in individual steps.
 
-> For more information on the _subscription_ request pipeline, see [Subscriptions](/subscriptions/).
+> For more information on the _subscription_ request pipeline, see [Subscriptions](./subscriptions/).
 
 ## Request chains
 
@@ -465,7 +462,7 @@ struct NetworkInterceptorProvider: InterceptorProvider {
 
 ### Example `Network` singleton
 
-As when initializing a [basic client](/initialization/#basic-client-creation), it's recommended to create a `Network` singleton to use a single `ApolloClient` instance across your app.
+As when initializing a [basic client](./initialization/#basic-client-creation), it's recommended to create a `Network` singleton to use a single `ApolloClient` instance across your app.
 
 Here's what that singleton might look like for an advanced client:
 

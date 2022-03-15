@@ -14,7 +14,7 @@ You can use the [Apollo CLI](https://www.apollographql.com/docs/devtools/cli/) t
 apollo schema:download --endpoint=http://localhost:8080/graphql schema.json
 ```
 
-Note that if you're using the local version set up for codegen, you should use the same method you're using in the [Add a code generation build step](/installation/#5-add-a-code-generation-build-step) instructions to access that specific CLI. For example, if you're using CocoaPods, you can set it up like this to download your schema:
+Note that if you're using the local version set up for codegen, you should use the same method you're using in the [Add a code generation build step](./installation/#5-add-a-code-generation-build-step) instructions to access that specific CLI. For example, if you're using CocoaPods, you can set it up like this to download your schema:
 
 ```bash
 SCRIPT_PATH="${PODS_ROOT}/Apollo/scripts"

@@ -4,22 +4,23 @@ sidebar_title: Introduction
 description: A strongly-typed, caching GraphQL client for iOS, written in Swift
 ---
 
-import { Button } from '@apollo/space-kit/Button';
 import { Link } from 'gatsby';
-import { colors } from 'gatsby-theme-apollo-core';
 
 **Apollo iOS** is an [open-source](https://github.com/apollographql/apollo-ios) GraphQL client for native iOS apps, written in Swift. It enables you to execute queries and mutations against a GraphQL server and returns results as operation-specific Swift types.
 
 <p>
   <Button
-    color={colors.primary}
-    as={<Link to="/tutorial/tutorial-introduction/" />}
-    style={{marginRight: 16, marginBottom: 16}}
+    colorScheme="indigo"
+    as={Link}
+    to="./tutorial/tutorial-introduction/"
+    mr="4"
+    mb="4"
   >
     Start the tutorial
   </Button>
   <Button
-    as={<Link to="/installation/" />}
+    as={Link}
+    to="./installation/"
   >
     Installation
   </Button>
@@ -43,6 +44,6 @@ Apollo iOS normalizes operation results to build a client-side cache of your dat
 
 ## Related libraries
 
-[Apollo Kotlin](https://www.apollographql.com/docs/kotlin/) is a GraphQL client for native Android apps written in Java and Kotlin. It offers Kotlin Multi-Platform integration as well.
+[Apollo Kotlin](/kotlin/) is a GraphQL client for native Android apps written in Java and Kotlin. It offers Kotlin Multi-Platform integration as well.
 
-Apollo Client for JavaScript's [React integration](https://apollographql.com/docs/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android.
+Apollo Client for JavaScript's [React integration](/react) works with [React Native](https://facebook.github.io/react-native/) on both iOS and Android.
