@@ -1,6 +1,9 @@
 {
   "title": "Client (iOS)",
   "version": "1.0 (Alpha)",
+  "algoliaFilters": [
+    "docset:ios"
+  ],
   "sidebar": {
     "Introduction": "/",
     "Installation": "/installation",
