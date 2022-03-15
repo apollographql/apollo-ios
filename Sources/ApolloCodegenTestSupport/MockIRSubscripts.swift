@@ -30,7 +30,6 @@ extension IR.MergedSelections {
   }
 }
 
-
 extension IR.EntityTreeScopeSelections {
   public subscript(field field: String) -> IR.Field? {
     fields[field]
