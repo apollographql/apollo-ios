@@ -125,13 +125,13 @@ Now that you've generated code and had a chance to see what's in there, it's tim
 
 To use the generated operations in `API.swift`, you first create an instance of `ApolloClient`. This instance takes your generated code and uses it to make network calls to your server. It's recommended that this instance is a singleton or static instance that's accessible from anywhere in your codebase.
 
-1. Create a new Swift file called `Network.swift` and copy the code from [Basic client creation](/initialization/#basic-client-creation) into it. Make sure to add `import Apollo` to the top of the file.
+1. Create a new Swift file called `Network.swift` and copy the code from [Basic client creation](../initialization/#basic-client-creation) into it. Make sure to add `import Apollo` to the top of the file.
 
 2. Update the URL string to be `https://apollo-fullstack-tutorial.herokuapp.com/graphql` instead of the `localhost` URL in the example.
 
 3. To make sure your `ApolloClient` instance is communicating correctly with the server, add the following code to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method, above `return true`:
 
-    ```swift:title=AppDelegate.swift
+    ```swift title="AppDelegate.swift"
     Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
       switch result {
       case .success(let graphQLResult):

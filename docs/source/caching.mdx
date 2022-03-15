@@ -29,7 +29,7 @@ This type of cache is used by default when setting up an `ApolloClient`. If you 
 
 If for some reason you find you need to instantiate the in-memory cache yourself, you can do so with one line:
 
-```swift:title=Cache%20Setup
+```swift title="Cache Setup"
 import Apollo
 
 let cache = InMemoryNormalizedCache()
@@ -52,7 +52,7 @@ Once added, you can do the following:
 3. Use that SQLite cache to instantiate an `ApolloStore`.
 4. Pass that `ApolloStore` into the initializer of `ApolloClient`: 
 
-```swift:title=Client%20Setup
+```swift title="Client Setup"
 import Apollo
 
 // NOTE: You need this import line if you are **NOT** using CocoaPods. In CocoaPods, 

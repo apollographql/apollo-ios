@@ -156,7 +156,7 @@ Again, make sure to define this in a file that is outside of your generated code
 
 ## Specifying a cache policy
 
-[This section has moved to the Caching documentation](/caching/). 
+[This section has moved to the Caching documentation](./caching/). 
 
 ## Using `GET` instead of `POST` for queries
 
