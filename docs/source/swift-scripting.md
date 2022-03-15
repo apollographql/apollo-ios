@@ -1,6 +1,5 @@
 ---
 title: Swift scripting
-sidebar_title: Swift scripting
 ---
 
 Apollo Client for iOS enables you to use Swift scripting to perform certain operations that otherwise require the command line. 
@@ -47,7 +46,7 @@ When you unzip the downloaded repo, you'll see that there's a folder called **`A
 
 If you're using the default target structure for an Xcode project, your project's file structure will look essentially like this in Finder: 
 
-```txt:title=Sample%20Project%20Structure
+```txt title="Sample Project Structure"
 📂 MyProject                 // Source root
   ┃ 📄 MyProject.xcodeproj
   ┣ 📁 MyProject            // Contains app target source files
@@ -57,7 +56,7 @@ If you're using the default target structure for an Xcode project, your project'
 
 Drag the `ApolloCodegen` folder in **at the same level as your other targets** (in Finder, not in Xcode): 
 
-```txt:title=Sample%20Project%20Structure
+```txt title="Sample Project Structure"
 📂 MyProject                 // Source root
   ┃ 📄 MyProject.xcodeproj
   ┣ 📁 MyProject            // Contains app target source files
@@ -70,7 +69,7 @@ Double-click `Package.swift` in the `ApolloCodegen` folder to open the executabl
 
 **Important!** Since a particular version of code generation is tied to a particular version of the SDK, you need to make sure that the `dependencies` section of `Package.swift` is set to grab the same version of the `apollo-ios` library you're using in your main application: 
 
-```swift:title=Package.swift
+```swift title="Package.swift"
 .package(name: "Apollo",
          url: "https://github.com/apollographql/apollo-ios.git", 
          from: "1.0.0-alpha-1")
@@ -125,7 +124,7 @@ swift run ApolloCodegen downloadSchema
 
 If you're using the template code and following the sample project structure, the schema should download here: 
 
-```txt:title=Sample%20Project%20Structure
+```txt title="Sample Project Structure"
 📂 MyProject                // SourceRoot
   ┃ 📄 MyProject.xcodeproj
   ┣ 📂  MyProject          // Contains app target source files
@@ -143,7 +142,7 @@ If you're not familiar with creating an operation in graphQL, please check out t
 
 Make sure you've added the operation file to the project files, ideally at or above the level of the `schema.json` (Otherwise, you'll need to manually pass the URL of your GraphQL files to your code generation step):
 
-```txt:title=Sample%20Project%20Structure
+```txt title="Sample Project Structure"
 📂 MyProject               // SourceRoot
   ┃ 📄 MyProject.xcodeproj
   ┣ 📂 MyProject          // Contains app target source files

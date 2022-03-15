@@ -44,7 +44,7 @@ Click the Submit Operation button your mutation. You'll see that  since you sent
 
 Now, replace `null` in the Query Variables section with an actual email address:
 
-```json:title=(Sandbox%20Explorer)
+```json title="(Sandbox Explorer)"
 { "loginEmail": "me@example.com" }
 ```
 
@@ -62,7 +62,7 @@ Now it's time to actually log the user in, using `LoginViewController.swift`. Yo
 
 Still in `submitTapped`, replace the `TODO` with a call to perform the login mutation:
 
-```swift:title=LoginViewController.swift
+```swift title="LoginViewController.swift"
  Network.shared.apollo.perform(mutation: LoginMutation(loginEmail: email)) { [weak self] result in
   defer {
     // Re-enable the submit button when this scope exits
@@ -95,7 +95,7 @@ Next, you need to store the login credential that's returned by the server. Logi
 
 At the top of `LoginViewController.swift`, import the `KeychainSwift` library:
 
-```swift:title=LoginViewController.swift
+```swift title="LoginViewController.swift"
 import KeychainSwift
 ```
 
@@ -103,7 +103,7 @@ Next, note that there's a `static let` at the top of the view controller that wi
 
 Replace the `TODO` after unwrapping the token with the following: 
 
-```swift:title=LoginViewController.swift
+```swift title="LoginViewController.swift"
 let keychain = KeychainSwift()
 keychain.set(token, forKey: LoginViewController.loginKeychainKey)
 self?.dismiss(animated: true)
@@ -117,13 +117,13 @@ Now, it's time to show the login view controller whenever someone attempts to bo
 
 At the top of `DetailViewController.swift`, import the `KeychainSwift` library:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 import KeychainSwift
 ```
 
 Then, find the `isLoggedIn` method and replace its contents with the following: 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func isLoggedIn() -> Bool {
   let keychain = KeychainSwift()
   return keychain.get(LoginViewController.loginKeychainKey) != nil
@@ -134,7 +134,7 @@ This code checks if there is any value stored in the keychain under the login ke
 
 Find the `bookOrCancelTapped` method and start by determining what to do if the user is logged in or not: 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 @IBAction private func bookOrCancelTapped() {
   guard self.isLoggedIn() else {
     self.performSegue(withIdentifier: "showLogin", sender: self)
@@ -147,7 +147,7 @@ Find the `bookOrCancelTapped` method and start by determining what to do if the 
 
 Then, replace the `TODO` in the above code with logic to figure out whether a trip on the current launched needs to be booked or cancelled: 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 guard let launch = self.launch else {
   // We don't have enough information yet to know
   // if we're booking or cancelling, bail.

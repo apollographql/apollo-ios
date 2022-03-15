@@ -52,7 +52,7 @@ Let's go through what's been added here:
 
 Now, switch back to Sandbox Explorer. Start by using the checkboxes or typing to add the properties you're already requesting in the `LaunchList` query. One difference: Use `LARGE` for the mission patch size since the patch will be displayed in a much larger `ImageView`:
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 query LaunchDetails($id:ID!) {
   launch(id: $id) {
     id
@@ -75,7 +75,7 @@ Click the buttons to check off `name` and `type`. Next, go back to `Launch` by c
 
 Finally, check off the `isBooked` property on the `Launch`. Your final query should look like this: 
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 query LaunchDetails($launchId: ID!) {
   launch(id: $launchId) {
     id
@@ -95,7 +95,7 @@ query LaunchDetails($launchId: ID!) {
 
 At the bottom of the Operations section, update the Variables section to pass in an ID for a launch. In this case, it needs to be a string that contains a number:
 
-```json:title=(Sandbox%20Explorer)
+```json title="(Sandbox Explorer)"
 { "id": "25" }
 ```
 
@@ -107,13 +107,13 @@ Now that you've confirmed it worked, copy the query (either by selecting all the
 
 Now that you know what you're planning to ask for, it's time to set up the UI for the detail screen. Go to `DetailViewController.swift`. First, add a place to hang on to the result of the query. Add the following property to the top of the class: 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private var launch: LaunchDetailsQuery.Data.Launch?
 ```
 
 Next, update the `viewDidLoad` function to clear out anything from the storyboard before attempting to configure the view:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 override func viewDidLoad() {
   super.viewDidLoad()
 
@@ -126,7 +126,7 @@ override func viewDidLoad() {
 
 Delete the existing contents of `configureView()`. In their place, start by adding a check that we have something to display, and a place to display it:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 guard
   self.missionNameLabel != nil,
   let launch = self.launch else {
@@ -138,7 +138,7 @@ Next, it's time to display all the information you've gotten from your GraphQL s
 
 Add the following code below the `guard` statement you just added:
    
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 self.missionNameLabel.text = launch.mission?.name
 self.title = launch.mission?.name
 
@@ -176,7 +176,7 @@ if launch.isBooked {
 
 Then, find the `loadLaunchDetails()`  method. Replace the `TODO` with the following, which loads the details using the `LaunchDetailsQuery` you created earlier:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func loadLaunchDetails() {
   guard
     let launchID = self.launchID,
@@ -213,7 +213,7 @@ private func loadLaunchDetails() {
 
 Finally, update the `didSet` for `launchID` to load the launch details if we don't already have them: 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 var launchID: GraphQLID? {
   didSet {
     self.loadLaunchDetails()
@@ -223,7 +223,7 @@ var launchID: GraphQLID? {
 
 and add a `didSet` on the `launch` property to load the UI once the launch is actually loaded. 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private var launch: LaunchDetailsQuery.Data.Launch? {
   didSet {
     self.configureView()

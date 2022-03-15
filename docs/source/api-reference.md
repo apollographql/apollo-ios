@@ -1,6 +1,5 @@
 ---
 title: API Reference
-description: ''
 ---
 
 * [Apollo.framework](../api/Apollo/README/)

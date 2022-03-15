@@ -10,7 +10,7 @@ Now let's add properties to display the results of the `LaunchListQuery` you bui
 
 At the top of `LaunchesViewController.swift`, add a new property to store the launches that the query returns: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 var launches = [LaunchListQuery.Data.Launch.Launch]()
 ```
 
@@ -18,7 +18,7 @@ Why the long name? Each query returns its own nested object structure to ensure 
 
 Next, add an enum that helps handle dealing with sections (we'll add more items to the enum later): 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 enum ListSection: Int, CaseIterable {
   case launches
 }
@@ -30,7 +30,7 @@ Now we can update the various `UITableViewDataSource` methods to use the result 
 
 For `numberOfSections(in:)`, you can use the `allCases` property from `CaseIterable` to provide the appropriate number of sections:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 override func numberOfSections(in tableView: UITableView) -> Int {
   return ListSection.allCases.count
 }
@@ -38,7 +38,7 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 
 For `tableView(_:numberOfRowsInSection:)`, you can try instantiating a `ListSection` enum object. If it doesn't work, that's an invalid section, and if it does, you can `switch` directly on the result. In this case, you'll want to return the count of launches:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
   guard let listSection = ListSection(rawValue: section) else {
     assertionFailure("Invalid section")
@@ -56,7 +56,7 @@ For `tableView(_:cellForRowAt:)`, you can use the existing cell dequeueing mecha
 
 For this initial section, grab a launch out of the `launches` array at the index of `indexPath.row`, and update the `textLabel` to display the launch site:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
   let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
@@ -83,7 +83,7 @@ However, you need to make sure that a call doesn't try to call back and use elem
 
 Replace the `TODO` in `loadLaunches` with the following: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 private func loadLaunches() {
   Network.shared.apollo
     .fetch(query: LaunchListQuery()) { [weak self] result in
@@ -117,7 +117,7 @@ This is why when you get a `GraphQLResult`, you generally want to check both the
 
 Replace the `// TODO` in the code above with the following code to handle both data and errors:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 if let launchConnection = graphQLResult.data?.launches {
   self.launches.append(contentsOf: launchConnection.launches.compactMap { $0 })
 }
@@ -133,7 +133,7 @@ if let errors = graphQLResult.errors {
 
 Finally, you'd normally need to actually call the method you just added to kick off the call to the network when the view is first loaded. Take a look at your `viewDidLoad` and note that it's already set up to call `loadLaunches`: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 override func viewDidLoad() {
   super.viewDidLoad()
   self.loadLaunches()
@@ -158,7 +158,7 @@ Let's update the `DetailViewController` to be able to handle information about a
 
 Open `DetailViewController.swift` and note that there's a  property below the list of `IBOutlet`s:  
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 var launchID: GraphQLID? {
   didSet {
     self.loadLaunchDetails()
@@ -170,7 +170,7 @@ This settable property allows the `LaunchesViewController` to pass along the ide
 
 For now, update the `configureView()` method to use this property (if it's there) to show the launch's identifier: 
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 func configureView() {
   // Update the user interface for the detail item.
   guard
@@ -188,7 +188,7 @@ func configureView() {
 
 Next, back in `LaunchesViewController.swift`, update the `prepareForSegue` method to obtain the most recently selected row and pass its corresponding launch details to the detail view controller. Replace the `TODO` and below with the following: 
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 guard let selectedIndexPath = self.tableView.indexPathForSelectedRow else {
   // Nothing is selected, nothing to do
   return
@@ -228,7 +228,7 @@ Looking at the schema in Sandbox Explorer , you can see that `Launch` has a prop
 
 Because loading a table view with large images can impact performance, ask for the name and a `SMALL` mission patch. Update your query to look like the following:
 
-```graphql:title=LaunchList.graphql
+```graphql title="LaunchList.graphql"
 query LaunchList {
   launches {
     hasMore
@@ -249,7 +249,7 @@ When you recompile, if you look in `API.swift`, you'll see a new nested type, `M
 
 Go back to `LaunchesViewController.swift` and add the following import of one of the libraries that was already in your project to the top of the file:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 import SDWebImage
 ```
 
@@ -263,7 +263,7 @@ You'll use this image as a placeholder to show while the mission patch images ar
 
 Now go back to `LaunchesViewController.swift`. In `tableView(cellForRowAt:)`, once the cell is loaded, add the following code to help make sure that before the cell is configured, it clears out any stale data:
 
-```swift:title=LaunchesViewController.swift
+```swift title="LaunchesViewController.swift"
 cell.imageView?.image = nil
 cell.textLabel?.text = nil
 cell.detailTextLabel?.text = nil
@@ -273,7 +273,7 @@ cell.detailTextLabel?.text = nil
 
 Next, in the same method, go down to where you're setting up the cell based on the section. Update the code to use the launch mission name as the primary text label, the launch site as the detail text label, and to load the mission patch if it exists:
     
-```swift:title=LaunchesViewController.swift 
+```swift title="LaunchesViewController.swift" 
 switch listSection {
 case .launches:
   let launch = self.launches[indexPath.row]
