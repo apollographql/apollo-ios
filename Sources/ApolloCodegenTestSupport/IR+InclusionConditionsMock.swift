@@ -11,3 +11,19 @@ extension IR.InclusionConditions {
   }
 
 }
+
+extension IR.InclusionCondition: ExpressibleByStringLiteral {
+
+  public init(stringLiteral: String) {
+    self.init(stringLiteral, isInverted: false)
+  }
+
+  public static prefix func !(value: IR.InclusionCondition) -> IR.InclusionCondition {
+    value.inverted()
+  }
+
+  public static func &&(_ lhs: Self, rhs: Self) -> IR.InclusionConditions.Result {
+    IR.InclusionConditions.allOf([lhs, rhs])
+  }
+
+}
