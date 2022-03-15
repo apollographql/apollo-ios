@@ -76,7 +76,9 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: IR.InclusionConditions? = .init([[.include(if: "a")]])
+    let expected: AnyOf<IR.InclusionConditions> = try XCTUnwrap(
+      AnyOf(.mock([.include(if: "a")]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -107,7 +109,11 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: IR.InclusionConditions? = .init([[.skip(if: "a")]])
+    let expected: AnyOf<IR.InclusionConditions> = try XCTUnwrap(
+      AnyOf(.mock([
+        .skip(if: "a")
+      ]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -138,10 +144,12 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: IR.InclusionConditions? = .init([[
-      .include(if: "a"),
-      .include(if: "b"),
-    ]])
+    let expected: AnyOf<IR.InclusionConditions> = try XCTUnwrap(
+      AnyOf(.mock([
+        .include(if: "a"),
+        .include(if: "b"),
+      ]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -172,10 +180,12 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: IR.InclusionConditions? = .init([[
-      .skip(if: "a"),
-      .skip(if: "b"),
-    ]])
+    let expected: AnyOf<IR.InclusionConditions> = try XCTUnwrap(
+      AnyOf(.mock([
+        .skip(if: "a"),
+        .skip(if: "b"),
+      ]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -206,9 +216,11 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: IR.InclusionConditions? = .init([[
-      .include(if: "a")
-    ]])
+    let expected: AnyOf<IR.InclusionConditions> = try XCTUnwrap(
+      AnyOf(.mock([
+        .include(if: "a")
+      ]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -453,15 +465,11 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     try buildSubjectRootField()
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
-    let expected: IR.InclusionConditions? = .init([
-      [
-        .include(if: "a"),
-      ],
-      [
-        .skip(if: "a")
-      ]
-    ])
 
+    let expected: AnyOf<IR.InclusionConditions> = try AnyOf([
+      XCTUnwrap(.mock([.include(if: "a")])),
+      XCTUnwrap(.mock([.skip(if: "a")])),
+    ])
 
     // then
     expect(actual).toNot(beNil())
@@ -494,14 +502,9 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "species"]
 
-    let expected: IR.InclusionConditions? = .init([
-      [
-        .include(if: "a"),
-        .include(if: "b"),
-      ],
-      [
-        .skip(if: "a")
-      ]
+    let expected: AnyOf<IR.InclusionConditions> = try AnyOf([
+      XCTUnwrap(.mock([.include(if: "a"), .include(if: "b")])),
+      XCTUnwrap(.mock([.skip(if: "a")])),
     ])
 
     // then
@@ -539,7 +542,9 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "friend"]
 
-    let expected: IR.InclusionConditions? = .init([[.include(if: "a")]])
+    let expected: AnyOf<IR.InclusionConditions> = try AnyOf(
+      XCTUnwrap(.mock([.include(if: "a")]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(expected))
@@ -587,26 +592,18 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "friend"]
 
-    let friend_expected: IR.InclusionConditions? = .init([
-      [
-        .include(if: "a"),
-      ],
-      [
-        .skip(if: "a")
-      ]
+    let friend_expected: AnyOf<IR.InclusionConditions> = try AnyOf([
+      XCTUnwrap(.mock([.include(if: "a")])),
+      XCTUnwrap(.mock([.skip(if: "a")]))
     ])
 
-    let friend_ifA_expected: IR.InclusionConditions? = .init([
-      [
-        .include(if: "a"),
-      ],
-    ])
+    let friend_ifA_expected: AnyOf<IR.InclusionConditions> = try AnyOf(
+      XCTUnwrap(.mock([.include(if: "a")]))
+    )
 
-    let friend_ifNotA_expected: IR.InclusionConditions? = .init([
-      [
-        .skip(if: "a")
-      ]
-    ])
+    let friend_ifNotA_expected: AnyOf<IR.InclusionConditions> = try AnyOf(
+      XCTUnwrap(.mock([.skip(if: "a")]))
+    )
 
     // then
     expect(actual?.inclusionConditions).to(equal(friend_expected))
@@ -615,8 +612,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?[field: "a"]).to(beNil())
     expect(actual?[field: "b"]).to(beNil())
 
-    expect(actual?[field: "a"]?[if: "a"]).to(beNil())
-    expect(actual?[field: "b"]?[if: !"a"]).to(beNil())
+//    expect(actual?[field: "a"]?[if: "a"]).to(beNil())
+//    expect(actual?[field: "b"]?[if: !"a"]).to(beNil())
   }
   
 }

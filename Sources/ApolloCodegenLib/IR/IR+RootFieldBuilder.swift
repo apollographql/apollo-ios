@@ -175,6 +175,7 @@ extension IR {
       guard inclusionResult != .skipped else {
         return nil
       }
+      let inclusionConditions = AnyOf(inclusionResult.conditions)
 
       if field.type.namedType is GraphQLCompositeType {
         let irSelectionSet = buildSelectionSet(
@@ -185,12 +186,12 @@ extension IR {
 
         return EntityField(
           field,
-          inclusionConditions: inclusionResult.conditions,
+          inclusionConditions: inclusionConditions,
           selectionSet: irSelectionSet
         )
 
       } else {
-        return ScalarField(field, inclusionConditions: inclusionResult.conditions)
+        return ScalarField(field, inclusionConditions: inclusionConditions)
       }
     }
 
