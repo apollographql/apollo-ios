@@ -66,7 +66,7 @@ Click the button next to the `launches` field at the bottom of the left column. 
 
 The fields you add in this set of brackets will be fetched for every launch in the list. Click the buttons next to `id` and `site` properties to add those two fields. When you're done, your operation should look like this:
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 query LaunchList {
   launches {
     cursor
@@ -131,7 +131,7 @@ To use the generated operations in `API.swift`, you first create an instance of 
 
 3. To make sure your `ApolloClient` instance is communicating correctly with the server, add the following code to `AppDelegate.swift` in the `application:didFinishLaunchingWithOptions` method, above `return true`:
 
-    ```swift:title=AppDelegate.swift
+    ```swift title="AppDelegate.swift"
     Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
       switch result {
       case .success(let graphQLResult):

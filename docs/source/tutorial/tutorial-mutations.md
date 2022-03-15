@@ -18,7 +18,7 @@ The nice thing is that you can also add your own interceptors to the chain anywh
 
 First, create the new interceptor. Go to **File > New > File...** and create a new **Swift File**. Name it **TokenAddingInterceptor.swift**, and make sure it's added to the **RocketReserver** target. Open that file, and add the following code:
 
-```swift:title=TokenAddingInterceptor.swift
+```swift title="TokenAddingInterceptor.swift"
 import Foundation
 import Apollo
 
@@ -36,13 +36,13 @@ class TokenAddingInterceptor: ApolloInterceptor {
 
 Next, import `KeychainSwift` at the top of the file so you can access the key you stored in the keychain in the last step of the tutorial:
 
-```swift:title=TokenAddingInterceptor.swift
+```swift title="TokenAddingInterceptor.swift"
 import KeychainSwift
 ```
 
 Then, replace the `TODO` within the `interceptAsync` method with code to get the token from the keychain, and add it to your headers if it exists:
 
-```swift:title=TokenAddingInterceptor.swift
+```swift title="TokenAddingInterceptor.swift"
 let keychain = KeychainSwift()
 if let token = keychain.get(LoginViewController.loginKeychainKey) {
     request.addHeader(name: "Authorization", value: token)
@@ -59,7 +59,7 @@ You can also make your own object conforming to `InterceptorProvider` - or, in t
 
 Go to **File > New > File...** and create a new **Swift File**. Name it **NetworkInterceptorProvider.swift**, and make sure it's added to the **RocketReserver** target. Add code which inserts your `TokenAddingInterceptor` before the other interceptors provided by the `DefaultInterceptorProvider`:
 
-```swift:title=NetworkInterceptorProvider.swift
+```swift title="NetworkInterceptorProvider.swift"
 import Foundation
 import Apollo
 
@@ -76,7 +76,7 @@ class NetworkInterceptorProvider: DefaultInterceptorProvider {
 
 Next, go back to your `Network` class. Replace the `ApolloClient` with an updated `lazy var` which creates the `RequestChainNetworkTransport` manually, using your custom interceptor provider:
 
-```swift:title=Network.swift
+```swift title="Network.swift"
 class Network {
     static let shared = Network()
 
@@ -120,7 +120,7 @@ Click the plus signs next to `success` and `message` to add those to your operat
 
 In the "Variables" section of Sandbox Explorer, add an array of identifiers. In this case, we'll use a single identifier to book one trip:
 
-```json:title=(Sandbox%20Explorer)
+```json title="(Sandbox Explorer)"
 {"bookTripsLaunchIds": ["25"]}
 ```
 
@@ -138,7 +138,7 @@ With a mutation written like this, you can book any number of trips you want at 
 
 Luckily, there's an easy way to update the mutation so it's required to only take a single object. First, update the name of your operation in Explorer to the singular `BookTrip` (and remove `Mutation` since that will be added for us by code generation). Next, update the mutationto take a single `$id`, then pass an array containing that `$id` to the `bookTrips` mutation:
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 mutation BookTrip($id:ID!) {
   bookTrips(launchIds:[$id]) {
     success
@@ -151,7 +151,7 @@ This is helpful because the Swift code generation will now generate a method tha
 
 In the Variables section of Sandbox Explorer, update the JSON dictionary to use `id` as the key, and remove the array brackets from around the identifier:
 
-```json:title=(Sandbox%20Explorer)
+```json title="(Sandbox Explorer)"
 {"id": "25"}
 ```
 
@@ -163,7 +163,7 @@ Now that you've fleshed out your operation, it's time to put it into the app. Go
 
 Build the application to run the code generation. Then, in `DetailViewController.swift`, fill in the `bookTrip` method with the code to book your trip based on the flight's ID:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func bookTrip(with id: GraphQLID) {
   Network.shared.apollo.perform(mutation: BookTripMutation(id: id)) { [weak self] result in
     guard let self = self else {
@@ -190,7 +190,7 @@ private func bookTrip(with id: GraphQLID) {
 
 Then, update the `cancelTrip` method print the ID of the flight being cancelled (you'll be adding the actual cancellation in the next step):
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func cancelTrip(with id: GraphQLID) {
   print("Cancel trip \(id)")
   // TODO: Add code to cancel trip
@@ -199,7 +199,7 @@ private func cancelTrip(with id: GraphQLID) {
 
 Next, update the `bookOrCancelTapped` method to use the two methods you've just added instead of `print`ing:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 if launch.isBooked {
   self.cancelTrip(with: launch.id)
 } else {
@@ -209,7 +209,7 @@ if launch.isBooked {
 
 In `bookTrip`, replace the `TODO` with code to handle what comes back in the `success` property:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 if bookingResult.success {
   self.showAlert(title: "Success!",
                  message: bookingResult.message ?? "Trip booked successfully")
@@ -235,7 +235,7 @@ Check off `success` and `message` again to add those properties to the list of o
 
 Again, Explorer's gotten a little verbose here, so update your operation's name and variables to be a little shorter:
 
-```graphql:title=(Sandbox%20Explorer)
+```graphql title="(Sandbox Explorer)"
 mutation CancelTrip($id: ID!) {
   cancelTrip(launchId: $id) {
     success
@@ -248,7 +248,7 @@ One key difference from `bookTrips` is that you're only allowed to cancel one tr
 
 In the Variables section of Sandbox Explorer, you can use the exact same JSON that you used for `BookTrip` (because it also used a single identifier called "id"):
 
-```json:title=(GraphiQL)
+```json title="(GraphiQL)"
 {"id": "25"}
 ```
 
@@ -264,7 +264,7 @@ It works! Once again, go back to Xcode and create a new empty file, and name it 
 
 Next, go to the `cancelTrip(with id:)` method in `DetailViewController.swift`. Replace the `print` statement with code that makes the call to cancel the trip:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self] result in
   guard let self = self else {
     return
@@ -291,7 +291,7 @@ Network.shared.apollo.perform(mutation: CancelTripMutation(id: id)) { [weak self
 
 In `cancelTrip(with id:)`, replace the `TODO` with code to handle what comes back in that mutation's `success` property:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 if cancelResult.success {
   self.showAlert(title: "Trip cancelled",
                  message: cancelResult.message ?? "Your trip has been officially cancelled.")
@@ -319,7 +319,7 @@ There are [several different cache policies available to you](../caching/#specif
 
 Update the `loadLaunchDetails` method to take a parameter to determine if it should force reload. If it should force reload, update the cache policy from the default `.returnCacheDataElseFetch`, which will return data from the cache if it exists, to `.fetchIgnoringCacheData`:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 private func loadLaunchDetails(forceReload: Bool = false) {
   guard
     let launchID = self.launchID,
@@ -343,10 +343,10 @@ private func loadLaunchDetails(forceReload: Bool = false) {
 
 Next, add the following line to **both** the `bookingResult.success` and `cancelResult.success` branches in their respective methods before showing the alerts:
 
-```swift:title=DetailViewController.swift
+```swift title="DetailViewController.swift"
 self.loadLaunchDetails(forceReload: true)
 ```
 
 Run the application. When you book or cancel a trip, the application will fetch the updated state and update the UI with the correct state. When you go out and back in, the cache will be updated with the most recent state, and the most recent state will display.
 
-In the next section, you'll learn how to use [subscriptions](/tutorial/tutorial-subscriptions/) with the Apollo client.
+In the next section, you'll learn how to use [subscriptions](./tutorial-subscriptions/) with the Apollo client.
