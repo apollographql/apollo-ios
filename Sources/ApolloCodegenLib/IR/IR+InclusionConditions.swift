@@ -4,7 +4,7 @@ extension IR {
 
   /// A condition representing an `@include` or `@skip` directive to determine if a field
   /// or fragment should be included.
-  struct InclusionCondition: Hashable {
+  struct InclusionCondition: Hashable, CustomDebugStringConvertible {
 
     /// The name of variable used to determine if the inclusion condition is met.
     let variable: String
@@ -30,7 +30,13 @@ extension IR {
 
     func inverted() -> InclusionCondition {
       InclusionCondition(variable, isInverted: !isInverted)
-    }    
+    }
+
+    var debugDescription: String {
+      TemplateString("""
+      "@\(if: isInverted, "skip", else: "include")(if: $\(variable))
+      """).description
+    }
 
   }
 
@@ -61,7 +67,7 @@ extension IR {
     }
 
     var debugDescription: String {
-      conditions.debugDescription
+      TemplateString("\(conditions.map(\.debugDescription), separator: " && ")").description
     }
 
     mutating func append(_ condition: InclusionCondition) {
@@ -201,6 +207,25 @@ struct AnyOf<T: Hashable>: Hashable {
 
   mutating func append(contentsOf other: AnyOf<T>) {
     elements.append(contentsOf: other.elements)
+  }
+}
+
+extension AnyOf: CustomDebugStringConvertible where T: CustomDebugStringConvertible {
+  var debugDescription: String {
+    let wrapInParens = elements.count > 1
+    var string = ""
+    for (index, element) in elements.enumerated() {
+      if index > 0 {
+        string += " || "
+      }
+
+      if wrapInParens {
+        string += "(\(element.debugDescription))"
+      } else {
+        string += element.debugDescription
+      }
+    }
+    return string
   }
 }
 
