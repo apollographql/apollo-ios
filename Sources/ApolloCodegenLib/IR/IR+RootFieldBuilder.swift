@@ -41,7 +41,6 @@ extension IR {
 
       let rootIrSelectionSet = SelectionSet(
         entity: rootEntity,
-        parentType: rootEntity.rootType,
         typePath: LinkedList(rootTypePath)
       )
       
@@ -214,7 +213,6 @@ extension IR {
 
       let irSelectionSet = SelectionSet(
         entity: entity,
-        parentType: fieldSelectionSet.parentType,
         typePath: typePath
       )
       buildSortedSelections(
@@ -260,7 +258,6 @@ extension IR {
 
       let irSelectionSet = SelectionSet(
         entity: parentSelectionSet.typeInfo.entity,
-        parentType: selectionSet.parentType,
         typePath: typePath
       )
       buildSortedSelections(
@@ -278,8 +275,7 @@ extension IR {
       let fragment = fragmentSpread.fragment
 
       let irSelectionSet = SelectionSet(
-        entity: parentSelectionSet.typeInfo.entity,
-        parentType: fragment.selectionSet.parentType,
+        entity: parentSelectionSet.typeInfo.entity,        
         typePath: parentSelectionSet.typeInfo.scopePath
       )
 

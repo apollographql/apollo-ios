@@ -180,7 +180,6 @@ extension IR {
     private func createShallowlyMergedNestedEntityField(from field: IR.EntityField) -> IR.EntityField {
       let newSelectionSet = IR.SelectionSet(
         entity: field.entity,
-        parentType: field.selectionSet.typeInfo.parentType,
         typePath: self.typeInfo.scopePath.appending(field.selectionSet.typeInfo.scope),
         mergedSelectionsOnly: true
       )
@@ -220,8 +219,7 @@ extension IR {
     ) -> SelectionSet {
       let parentType = condition.type ?? self.typeInfo.parentType
       return IR.SelectionSet(
-        entity: self.typeInfo.entity,
-        parentType: parentType,
+        entity: self.typeInfo.entity,        
         typePath: self.typeInfo.scopePath.mutatingLast { $0.appending(parentType) },
         mergedSelectionsOnly: true
       )
