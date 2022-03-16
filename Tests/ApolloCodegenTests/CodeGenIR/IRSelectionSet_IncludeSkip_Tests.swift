@@ -600,11 +600,10 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?.inclusionConditions).to(equal(friend_expected))
     expect(actual?.selectionSet?.inclusionConditions).to(beNil())
 
-    expect(actual?[field: "a"]).to(beNil())
-    expect(actual?[field: "b"]).to(beNil())
+    expect(actual?.selectionSet?.selections.direct?.fields).to(beEmpty())    
 
-    expect(actual?[field: "a"]?[if: "a"]?.inclusionConditions).to(equal(friend_ifA_expected))
-    expect(actual?[field: "b"]?[if: !"a"]?.inclusionConditions).to(equal(friend_ifNotA_expected))
+    expect(actual?[if: "a"]?.inclusionConditions).to(equal(friend_ifA_expected))
+    expect(actual?[if: !"a"]?.inclusionConditions).to(equal(friend_ifNotA_expected))
   }
   
 }

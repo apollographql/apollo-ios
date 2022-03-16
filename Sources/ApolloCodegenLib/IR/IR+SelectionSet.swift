@@ -81,10 +81,10 @@ extension IR {
 
       fileprivate init(
         typeInfo: TypeInfo,
-        mergedSelectionsOnly: Bool = false
+        directSelections: DirectSelections?
       ) {
         self.typeInfo = typeInfo
-        self.direct = mergedSelectionsOnly ? nil : DirectSelections()
+        self.direct = directSelections
       }
 
       var debugDescription: String {
@@ -115,7 +115,22 @@ extension IR {
       )
       self.selections = Selections(
         typeInfo: self.typeInfo,
-        mergedSelectionsOnly: mergedSelectionsOnly
+        directSelections: mergedSelectionsOnly ? nil : DirectSelections()
+      )
+    }
+
+    init(
+      entity: Entity,
+      scopePath: LinkedList<ScopeDescriptor>,
+      selections: DirectSelections
+    ) {
+      self.typeInfo = TypeInfo(
+        entity: entity,
+        scopePath: scopePath
+      )
+      self.selections = Selections(
+        typeInfo: self.typeInfo,
+        directSelections: selections
       )
     }
 
