@@ -2587,10 +2587,12 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let query_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: operation.rootType,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
     let allAnimals_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     )
 
@@ -3463,19 +3465,23 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let query_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: operation.rootType,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
     let allAnimals_asCat_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[object: "Cat"]!)
 
     let allAnimals_asCat_predator_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
     let allAnimals_asCat_predator_height_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[object: "Height"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
     let allAnimals_asCat_predator_expectedTypePath = LinkedList(array: [
@@ -3558,25 +3564,30 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let query_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: operation.rootType,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
     let allAnimals_asCat_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[object: "Cat"]!)
 
     let allAnimals_asCat_predator_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     )
 
     let allAnimals_asCat_predator_asPet_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[interface: "Animal"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     ).appending(schema[interface: "Pet"]!)
 
     let allAnimals_asCat_predator_asPet_height_TypeScope = IR.ScopeDescriptor.descriptor(
       forType: schema[object: "Height"]!,
+      inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes
     )
 

@@ -55,22 +55,17 @@ extension IR {
     /// those types.
     let matchingTypes: TypeScope
 
-    #warning("TODO, do we need this, or just the ones on the ScopeCondition?")
-    let inclusionConditions: InclusionConditions?
-
-    private let allTypesInSchema: IR.Schema.ReferencedTypes
+    let allTypesInSchema: IR.Schema.ReferencedTypes
 
     private init(
       typePath: LinkedList<ScopeCondition>,
       type: GraphQLCompositeType,
       matchingTypes: TypeScope,
-      inclusionConditions: InclusionConditions?,
       allTypesInSchema: IR.Schema.ReferencedTypes
     ) {
       self.scopePath = typePath
       self.type = type
       self.matchingTypes = matchingTypes
-      self.inclusionConditions = inclusionConditions
       self.allTypesInSchema = allTypesInSchema
     }
 
@@ -86,14 +81,14 @@ extension IR {
     ///                            the types in the schema.
     static func descriptor(
       forType type: GraphQLCompositeType,
+      inclusionConditions: InclusionConditions?,
       givenAllTypesInSchema allTypes: IR.Schema.ReferencedTypes
     ) -> ScopeDescriptor {
       let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
       return ScopeDescriptor(
-        typePath: LinkedList(.init(type: type)),
+        typePath: LinkedList(.init(type: type, conditions: inclusionConditions)),
         type: type,
         matchingTypes: scope,
-        inclusionConditions: nil,
         allTypesInSchema: allTypes
       )
     }
@@ -147,7 +142,6 @@ extension IR {
         typePath: scopePath.appending(scopeCondition),
         type: scopeCondition.type ?? self.type,
         matchingTypes: matchingTypes,
-        inclusionConditions: nil,
         allTypesInSchema: self.allTypesInSchema
       )
     }
