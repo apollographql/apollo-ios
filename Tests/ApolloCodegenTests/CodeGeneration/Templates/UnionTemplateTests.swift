@@ -46,7 +46,7 @@ class UnionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_gneratesImportStatement() throws {
+  func test_render_generatesImportStatement() throws {
     // given
     buildSubject()
 
