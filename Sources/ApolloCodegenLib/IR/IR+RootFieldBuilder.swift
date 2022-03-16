@@ -187,12 +187,12 @@ extension IR {
 
         return EntityField(
           field,
-          inclusionConditions: inclusionConditions,
+          inclusionConditions: AnyOf(inclusionConditions),
           selectionSet: irSelectionSet
         )
 
       } else {
-        return ScalarField(field, inclusionConditions: inclusionConditions)
+        return ScalarField(field, inclusionConditions: AnyOf(inclusionConditions))
       }
     }
 
