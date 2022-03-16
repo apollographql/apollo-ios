@@ -26,7 +26,11 @@ extension IR {
     }
 
     var debugDescription: String {
-      underlyingField.debugDescription
+      TemplateString("""
+      \(name): \(type.debugDescription)\(ifLet: inclusionConditions, {
+        " \($0.debugDescription)"
+        })
+      """).description
     }
   }
 
