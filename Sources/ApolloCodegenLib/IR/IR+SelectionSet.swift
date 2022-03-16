@@ -30,10 +30,10 @@ extension IR {
 
       init(
         entity: Entity,
-        typePath: LinkedList<ScopeDescriptor>
+        scopePath: LinkedList<ScopeDescriptor>
       ) {
         self.entity = entity
-        self.scopePath = typePath
+        self.scopePath = scopePath
       }
 
       static func == (lhs: TypeInfo, rhs: TypeInfo) -> Bool {
@@ -106,12 +106,12 @@ extension IR {
 
     init(
       entity: Entity,
-      typePath: LinkedList<ScopeDescriptor>,
+      scopePath: LinkedList<ScopeDescriptor>,
       mergedSelectionsOnly: Bool = false
     ) {
       self.typeInfo = TypeInfo(
         entity: entity,
-        typePath: typePath
+        scopePath: scopePath
       )
       self.selections = Selections(
         typeInfo: self.typeInfo,
