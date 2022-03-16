@@ -36,6 +36,7 @@ extension IR {
 
       let rootTypePath = ScopeDescriptor.descriptor(
         forType: rootEntity.rootType,
+        inclusionConditions: nil,
         givenAllTypesInSchema: schema.referencedTypes
       )
 
@@ -174,28 +175,30 @@ extension IR {
       guard inclusionResult != .skipped else {
         return nil
       }
-      let inclusionConditions = AnyOf(inclusionResult.conditions)
+      let inclusionConditions = inclusionResult.conditions
 
       if field.type.namedType is GraphQLCompositeType {
         let irSelectionSet = buildSelectionSet(
           forField: field,
+          with: inclusionConditions,
           on: selectionSet,
           inFragmentSpread: fragmentSpread
         )
 
         return EntityField(
           field,
-          inclusionConditions: inclusionConditions,
+          inclusionConditions: AnyOf(inclusionConditions),
           selectionSet: irSelectionSet
         )
 
       } else {
-        return ScalarField(field, inclusionConditions: inclusionConditions)
+        return ScalarField(field, inclusionConditions: AnyOf(inclusionConditions))
       }
     }
 
     private func buildSelectionSet(
       forField field: CompilationResult.Field,
+      with inclusionConditions: InclusionConditions?,
       on enclosingSelectionSet: SelectionSet,
       inFragmentSpread fragmentSpread: FragmentSpread?
     ) -> SelectionSet {
@@ -207,6 +210,7 @@ extension IR {
 
       let typeScope = ScopeDescriptor.descriptor(
         forType: fieldSelectionSet.parentType,
+        inclusionConditions: inclusionConditions,
         givenAllTypesInSchema: schema.referencedTypes
       )
       let typePath = enclosingSelectionSet.typeInfo.scopePath.appending(typeScope)

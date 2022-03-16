@@ -12,7 +12,7 @@ extension IR {
     var responseKey: String { underlyingField.responseKey }
     var type: GraphQLType { underlyingField.type }
     var arguments: [CompilationResult.Argument]? { underlyingField.arguments }
-
+    
     fileprivate init(
       _ field: CompilationResult.Field,
       inclusionConditions: AnyOf<InclusionConditions>? = nil

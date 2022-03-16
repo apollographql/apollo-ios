@@ -41,18 +41,59 @@ extension IR {
       let keyInScope = field.hashForSelectionSetScope
 
       if let existingField = fields[keyInScope] {
-        existingField.inclusionConditions =
-        (existingField.inclusionConditions || field.inclusionConditions)
 
-        if let existingField = existingField as? EntityField,
-           let field = field as? EntityField {
-          existingField.selectionSet.selections.direct!
-            .mergeIn(field.selectionSet.selections.direct!)
+        if let existingField = existingField as? EntityField, let field = field as? EntityField {
+          fields[keyInScope] = merge(field, with: existingField)
+
+        } else {
+          existingField.inclusionConditions =
+          (existingField.inclusionConditions || field.inclusionConditions)
+
         }
-
       } else {
         fields[keyInScope] = field
       }
+    }
+
+    private func merge(_ newField: EntityField, with existingField: EntityField) -> EntityField {
+      var mergedField = existingField
+
+      switch (existingField.inclusionConditions, newField.inclusionConditions) {
+      case let (oldConditions?, newConditions?):
+        let wrapperScope = existingField.selectionSet.scopePath.mutatingLast { _ in
+          ScopeDescriptor.descriptor(
+            forType: existingField.selectionSet.parentType,
+            inclusionConditions: nil,
+            givenAllTypesInSchema: existingField.selectionSet.scope.allTypesInSchema
+          )
+        }
+
+        let wrapperSelectionSet = SelectionSet(
+          entity: existingField.entity,
+          scopePath: wrapperScope
+        )
+
+        mergedField = EntityField(
+          existingField.underlyingField,
+          inclusionConditions: (oldConditions || newConditions),
+          selectionSet: wrapperSelectionSet
+        )
+
+        mergedField.selectionSet.selections.direct?.mergeIn(existingField.selectionSet)
+        mergedField.selectionSet.selections.direct?.mergeIn(newField.selectionSet)
+
+        break
+
+      case (nil, nil):
+        mergedField.selectionSet.selections.direct!
+          .mergeIn(newField.selectionSet.selections.direct!)
+        break
+
+      default:
+        break
+      }
+
+      return mergedField
     }
 
     func mergeIn(_ conditionalSelectionSet: SelectionSet) {
