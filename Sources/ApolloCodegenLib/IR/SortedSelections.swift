@@ -79,8 +79,24 @@ extension IR {
           selectionSet: wrapperSelectionSet
         )
 
-        mergedField.selectionSet.selections.direct?.mergeIn(existingField.selectionSet)
-        mergedField.selectionSet.selections.direct?.mergeIn(newField.selectionSet)
+        let existingFieldSelectionSet = SelectionSet(
+          entity: existingField.entity,
+          scopePath: wrapperScope.mutatingLast {
+            $0.appending(existingField.selectionSet.inclusionConditions.unsafelyUnwrapped)
+          },
+          selections: existingField.selectionSet.selections.direct.unsafelyUnwrapped
+        )
+
+        mergedField.selectionSet.selections.direct?.mergeIn(existingFieldSelectionSet)
+
+        let newFieldSelectionSet = SelectionSet(
+          entity: newField.entity,
+          scopePath: wrapperScope.mutatingLast {
+            $0.appending(newField.selectionSet.inclusionConditions.unsafelyUnwrapped)
+          },
+          selections: newField.selectionSet.selections.direct.unsafelyUnwrapped
+        )
+        mergedField.selectionSet.selections.direct?.mergeIn(newFieldSelectionSet)
 
         break
 
