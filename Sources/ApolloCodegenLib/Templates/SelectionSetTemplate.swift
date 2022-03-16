@@ -45,7 +45,7 @@ struct SelectionSetTemplate {
   func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
     """
     /// \(generatedSelectionSetName(
-    from: selectionSet.typePath.head,
+    from: selectionSet.scopePath.head,
     withFieldPath: selectionSet.entity.fieldPath.toArray(),
     removingFirst: true))
     """
@@ -304,8 +304,8 @@ fileprivate extension IR.MergedSelections.MergedSource {
       return generatedSelectionSetNameForMergedEntity(in: fragment)
     }
 
-    var targetTypePathCurrentNode = selectionSet.typeInfo.typePath.last
-    var sourceTypePathCurrentNode = typeInfo.typePath.last
+    var targetTypePathCurrentNode = selectionSet.typeInfo.scopePath.last
+    var sourceTypePathCurrentNode = typeInfo.scopePath.last
     var nodesToSharedRoot = 0
 
     while targetTypePathCurrentNode.value == sourceTypePathCurrentNode.value {
@@ -333,8 +333,8 @@ fileprivate extension IR.MergedSelections.MergedSource {
   }
 
   private func generatedSelectionSetNameForMergedEntity(in fragment: IR.FragmentSpread) -> String {
-    var fragmentTypePathCurrentNode = fragment.selectionSet.typeInfo.typePath.head
-    var sourceTypePathCurrentNode = typeInfo.typePath.head
+    var fragmentTypePathCurrentNode = fragment.selectionSet.typeInfo.scopePath.head
+    var sourceTypePathCurrentNode = typeInfo.scopePath.head
     var nodesToFragment = 0
 
     while let nextNode = fragmentTypePathCurrentNode.next {
@@ -368,7 +368,7 @@ private func generatedSelectionSetName(
     let fieldName = fieldPath[fieldPathIndex]
     components.append(StringInflector.default.singularize(fieldName.firstUppercased))
 
-    var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.typePath.head
+    var currentTypeScopeNode = currentNode.unsafelyUnwrapped.value.scopePath.head
     while let typeCaseNode = currentTypeScopeNode.next {
       components.append(typeCaseNode.value.selectionSetNameComponent)
       currentTypeScopeNode = typeCaseNode

@@ -43,8 +43,8 @@ extension IR {
       mergeIn(
         selections: directSelections,
         from: source,
-        atEnclosingEntityScope: selectionSet.typeInfo.typePath.head,
-        withEntityScopePath: selectionSet.typeInfo.typePath.head.value.typePath.head,
+        atEnclosingEntityScope: selectionSet.typeInfo.scopePath.head,
+        withEntityScopePath: selectionSet.typeInfo.scopePath.head.value.scopePath.head,
         to: rootNode,
         withCondition: ScopeCondition(type: rootTypePath.head.value),
         withRootTypePath: rootTypePath.head
@@ -66,7 +66,7 @@ extension IR {
         mergeIn(
           selections: selections,
           from: source,
-          withConditionScopePath: currentEntityScope.value.typePath.head,
+          withConditionScopePath: currentEntityScope.value.scopePath.head,
           toFieldNode: fieldNode,
           withCondition: ScopeCondition(type: currentNodeRootTypePath.value)
         )
@@ -82,7 +82,7 @@ extension IR {
           selections: selections,
           from: source,
           atEnclosingEntityScope: nextEntityScope,
-          withEntityScopePath: nextEntityScope.value.typePath.head,
+          withEntityScopePath: nextEntityScope.value.scopePath.head,
           to: nextEntityNode,
           withCondition: ScopeCondition(type: nextEntityTypePath.value),
           withRootTypePath: nextEntityTypePath
@@ -144,7 +144,7 @@ extension IR {
     // MARK: - Calculate Merged Selections From Tree
 
     func addMergedSelections(into selections: IR.MergedSelections) {
-      let rootTypePath = selections.typeInfo.typePath.head
+      let rootTypePath = selections.typeInfo.scopePath.head
       rootNode.mergeSelections(matchingScopePath: rootTypePath, into: selections)
     }
 

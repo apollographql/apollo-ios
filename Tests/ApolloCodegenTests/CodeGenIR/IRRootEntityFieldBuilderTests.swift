@@ -2600,7 +2600,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     ])
 
     // then
-    expect(actual?.selectionSet.typeInfo.typePath).to(equal(expectedTypePath))
+    expect(actual?.selectionSet.typeInfo.scopePath).to(equal(expectedTypePath))
   }
 
   func test__mergedSelections__givenChildIsNamedFragmentOnMoreSpecificType_doesNotMergeFragmentFields_hasTypeCaseForNamedFragmentType() throws {
@@ -3496,9 +3496,9 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asCat_predator_height_actual = allAnimals?[as: "Cat"]?[field: "predator"]?[field: "height"]?.selectionSet
 
     // then
-    expect(allAnimals_asCat_predator_actual?.typePath).to(equal(allAnimals_asCat_predator_expectedTypePath))
+    expect(allAnimals_asCat_predator_actual?.scopePath).to(equal(allAnimals_asCat_predator_expectedTypePath))
 
-    expect(allAnimals_asCat_predator_height_actual?.typePath).to(equal(allAnimals_asCat_predator_height_expectedTypePath))
+    expect(allAnimals_asCat_predator_height_actual?.scopePath).to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
   func test__mergedSelections__givenEntityFieldInMatchingTypeCaseOnTypeWithOnlyMergedSelections_mergedOnlyEntityFieldHasCorrectTypePath() throws {
@@ -3598,10 +3598,10 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let allAnimals_asCat_predator_height_actual = allAnimals?[as: "Cat"]?[field: "predator"]?[as: "Pet"]?[field: "height"]?.selectionSet
 
     // then
-    expect(allAnimals_asCat_predator_actual?.typePath)
+    expect(allAnimals_asCat_predator_actual?.scopePath)
       .to(equal(allAnimals_asCat_predator_expectedTypePath))
 
-    expect(allAnimals_asCat_predator_height_actual?.typePath)
+    expect(allAnimals_asCat_predator_height_actual?.scopePath)
       .to(equal(allAnimals_asCat_predator_height_expectedTypePath))
   }
 
