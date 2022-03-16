@@ -20,7 +20,7 @@ class SwiftPackageManagerModuleTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_boilerplate__generatesRequiredImports() {
+  func test__boilerplate__generatesRequiredImports() {
     // given
     let expected = """
     import PackageDescription
