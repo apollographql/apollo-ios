@@ -21,7 +21,7 @@ struct SchemaModuleFileGenerator {
 
     case .none:
       path = URL(fileURLWithPath: config.path).appendingPathComponent("\(config.schemaName).swift").path
-      rendered = SchemaModuleNamespaceTemplate(moduleName: config.schemaName).render()
+      rendered = SchemaModuleNamespaceTemplate.Definition.render(config.schemaName)
 
     case .other:
       // no-op - the implementation is import statements in the generated operation files

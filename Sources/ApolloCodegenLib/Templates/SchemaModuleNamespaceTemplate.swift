@@ -1,11 +1,13 @@
 import Foundation
 
 struct SchemaModuleNamespaceTemplate {
-  let moduleName: String
+  enum Definition {
+    static func render(_ moduleName: String) -> String {
+      TemplateString("""
+      public enum \(moduleName) { }
+      """).description
+    }
+  }
 
-  func render() -> String {
-    TemplateString("""
-    
-    """).description
   }
 }
