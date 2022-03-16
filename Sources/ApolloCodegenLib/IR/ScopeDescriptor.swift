@@ -119,19 +119,34 @@ extension IR {
       return newScope
     }
 
-    /// Returns a new `ScopeDescriptor` appending the new type to the `typePath` and
+    /// Returns a new `ScopeDescriptor` appending the new type to the `scopePath` and
     /// `matchingTypes`.
     ///
     /// This should be used to create a `ScopeDescriptor` for a type case `SelectionSet` inside
     /// of an entity, by appending the type case's type to the parent `SelectionSet`'s `typeScope`.
     func appending(_ newType: GraphQLCompositeType) -> ScopeDescriptor {
-      let scope = Self.typeScope(addingType: newType,
-                                 to: self.matchingTypes,
-                                 givenAllTypes: self.allTypesInSchema)
+      self.appending(.init(type: newType))
+    }
+
+    /// Returns a new `ScopeDescriptor` appending the new `ScopeCondition` to the `scopePath` and
+    /// any new types added to the `matchingTypes`.
+    ///
+    /// This should be used to create a `ScopeDescriptor` for a type case `SelectionSet` inside
+    /// of an entity, by appending the type case's type to the parent `SelectionSet`'s `typeScope`.
+    func appending(_ scopeCondition: ScopeCondition) -> ScopeDescriptor {
+      let matchingTypes: TypeScope
+      if let newType = scopeCondition.type {
+        matchingTypes = Self.typeScope(addingType: newType,
+                               to: self.matchingTypes,
+                               givenAllTypes: self.allTypesInSchema)
+      } else {
+        matchingTypes = self.matchingTypes
+      }
+
       return ScopeDescriptor(
-        typePath: scopePath.appending(.init(type: newType)),
-        type: newType,
-        matchingTypes: scope,
+        typePath: scopePath.appending(scopeCondition),
+        type: scopeCondition.type ?? self.type,
+        matchingTypes: matchingTypes,
         inclusionConditions: nil,
         allTypesInSchema: self.allTypesInSchema
       )
