@@ -12,13 +12,13 @@ extension IR {
     var responseKey: String { underlyingField.responseKey }
     var type: GraphQLType { underlyingField.type }
     var arguments: [CompilationResult.Argument]? { underlyingField.arguments }
-
+    
     fileprivate init(
       _ field: CompilationResult.Field,
-      inclusionConditions: InclusionConditions? = nil
+      inclusionConditions: AnyOf<InclusionConditions>? = nil
     ) {
       self.underlyingField = field
-      self.inclusionConditions = AnyOf(inclusionConditions)
+      self.inclusionConditions = inclusionConditions
     }
 
     static func ==(lhs: Field, rhs: Field) -> Bool {
@@ -33,7 +33,7 @@ extension IR {
   final class ScalarField: Field {
     override init(
       _ field: CompilationResult.Field,
-      inclusionConditions: InclusionConditions? = nil
+      inclusionConditions: AnyOf<InclusionConditions>? = nil
     ) {
       super.init(field, inclusionConditions: inclusionConditions)
     }
@@ -45,7 +45,7 @@ extension IR {
 
     init(
       _ field: CompilationResult.Field,
-      inclusionConditions: InclusionConditions? = nil,
+      inclusionConditions: AnyOf<InclusionConditions>? = nil,
       selectionSet: SelectionSet
     ) {
       self.selectionSet = selectionSet
