@@ -95,7 +95,7 @@ extension IR {
             continue
           }
 
-          if selectionSet.typeInfo.typeScope.matches(scope) {
+          if selectionSet.typeInfo.scope.matches(scope) {
             buildSortedSelections(
               forSelectionSet: selectionSet,
               inFragmentSpread: containingFragmentSpread,
@@ -116,7 +116,7 @@ extension IR {
             continue
           }
 
-          if selectionSet.typeInfo.typeScope.matches(scope) {
+          if selectionSet.typeInfo.scope.matches(scope) {
             referencedFragments.append(fragmentSpread.fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragmentSpread,
@@ -210,7 +210,7 @@ extension IR {
         forType: fieldSelectionSet.parentType,
         givenAllTypesInSchema: schema.referencedTypes
       )
-      let typePath = enclosingSelectionSet.typeInfo.typePath.appending(typeScope)
+      let typePath = enclosingSelectionSet.typeInfo.scopePath.appending(typeScope)
 
       let irSelectionSet = SelectionSet(
         entity: entity,
@@ -254,7 +254,7 @@ extension IR {
       inFragmentSpread fragmentSpread: FragmentSpread?,
       onParent parentSelectionSet: SelectionSet
     ) -> SelectionSet {
-      let typePath = parentSelectionSet.typeInfo.typePath.mutatingLast {
+      let typePath = parentSelectionSet.typeInfo.scopePath.mutatingLast {
         $0.appending(selectionSet.parentType)
       }
 
@@ -280,7 +280,7 @@ extension IR {
       let irSelectionSet = SelectionSet(
         entity: parentSelectionSet.typeInfo.entity,
         parentType: fragment.selectionSet.parentType,
-        typePath: parentSelectionSet.typeInfo.typePath
+        typePath: parentSelectionSet.typeInfo.scopePath
       )
 
       let fragmentSpread = FragmentSpread(

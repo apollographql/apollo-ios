@@ -21,8 +21,9 @@ extension IR {
 
   typealias TypeScope = Set<GraphQLCompositeType>
 
-  /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the operation the
-  /// selection set is located and what types the `SelectionSet` implements.
+  /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the entity the
+  /// selection set is located, what types the `SelectionSet` implements, and what inclusion
+  /// conditions it requires.
   struct ScopeDescriptor: Hashable {
 
     /// The parentType of the `SelectionSet`.
@@ -47,13 +48,14 @@ extension IR {
     /// ```
     /// The typePath for the `SelectionSet` that includes field `fieldOnABC` would be:
     /// `[A, B, C]`.
-    let typePath: LinkedList<ScopeCondition>
+    let scopePath: LinkedList<ScopeCondition>
 
     /// All of the types that the `SelectionSet` implements. That is, all of the types in the
     /// `typePath`, all of those types implemented interfaces, and all unions that include
     /// those types.
     let matchingTypes: TypeScope
 
+    #warning("TODO, do we need this, or just the ones on the ScopeCondition?")
     let inclusionConditions: InclusionConditions?
 
     private let allTypesInSchema: IR.Schema.ReferencedTypes
@@ -65,7 +67,7 @@ extension IR {
       inclusionConditions: InclusionConditions?,
       allTypesInSchema: IR.Schema.ReferencedTypes
     ) {
-      self.typePath = typePath
+      self.scopePath = typePath
       self.type = type
       self.matchingTypes = matchingTypes
       self.inclusionConditions = inclusionConditions
@@ -127,7 +129,7 @@ extension IR {
                                  to: self.matchingTypes,
                                  givenAllTypes: self.allTypesInSchema)
       return ScopeDescriptor(
-        typePath: typePath.appending(.init(type: newType)),
+        typePath: scopePath.appending(.init(type: newType)),
         type: newType,
         matchingTypes: scope,
         inclusionConditions: nil,
@@ -154,12 +156,12 @@ extension IR {
     }
 
     static func == (lhs: ScopeDescriptor, rhs: ScopeDescriptor) -> Bool {
-      lhs.typePath == rhs.typePath &&
+      lhs.scopePath == rhs.scopePath &&
       lhs.matchingTypes == rhs.matchingTypes
     }
 
     func hash(into hasher: inout Hasher) {
-      hasher.combine(typePath)
+      hasher.combine(scopePath)
       hasher.combine(matchingTypes)
     }
 
@@ -168,7 +170,7 @@ extension IR {
 
 extension IR.ScopeDescriptor: CustomDebugStringConvertible {
   var debugDescription: String {
-    typePath.debugDescription
+    scopePath.debugDescription
   }
 }
 

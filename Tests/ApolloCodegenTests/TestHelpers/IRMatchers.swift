@@ -192,7 +192,7 @@ fileprivate func shallowlyMatch(
 
 fileprivate func shallowlyMatch(expected: IR.SelectionSet, actual: IR.SelectionSet) -> Bool {
   return expected.typeInfo.parentType == actual.typeInfo.parentType &&
-  expected.typeInfo.typePath == actual.typeInfo.typePath
+  expected.typeInfo.scopePath == actual.typeInfo.scopePath
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: IR.SelectionSet) -> Bool {

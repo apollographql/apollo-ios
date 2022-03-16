@@ -63,7 +63,7 @@ extension IR {
       You'll need the parentType no matter what,
       PLUS (I think) ALL the nested inclusion conditions combined.
       """)
-      let scopeCondition = conditionalSelectionSet.typeScope.typePath.last.value
+      let scopeCondition = conditionalSelectionSet.scope.scopePath.last.value
 
       if let existingTypeCase = conditionalSelectionSets[scopeCondition] {
         existingTypeCase.selections.direct!
@@ -181,7 +181,7 @@ extension IR {
       let newSelectionSet = IR.SelectionSet(
         entity: field.entity,
         parentType: field.selectionSet.typeInfo.parentType,
-        typePath: self.typeInfo.typePath.appending(field.selectionSet.typeInfo.typeScope),
+        typePath: self.typeInfo.scopePath.appending(field.selectionSet.typeInfo.scope),
         mergedSelectionsOnly: true
       )
       return IR.EntityField(
@@ -203,9 +203,7 @@ extension IR {
     }
 
     func addMergedConditionalSelectionSet(with condition: ScopeCondition) {
-      guard !typeInfo.isTypeCase else {
-        return
-      }
+      guard typeInfo.isEntityRoot else { return }
 
       if let directSelections = directSelections,
          directSelections.conditionalSelectionSets.keys.contains(condition) {
@@ -224,7 +222,7 @@ extension IR {
       return IR.SelectionSet(
         entity: self.typeInfo.entity,
         parentType: parentType,
-        typePath: self.typeInfo.typePath.mutatingLast { $0.appending(parentType) },
+        typePath: self.typeInfo.scopePath.mutatingLast { $0.appending(parentType) },
         mergedSelectionsOnly: true
       )
       #warning("TODO: Type Path needs to append the whole ScopeCondition not just parentType.")

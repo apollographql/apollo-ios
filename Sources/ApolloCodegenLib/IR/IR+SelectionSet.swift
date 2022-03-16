@@ -14,17 +14,17 @@ extension IR {
       /// A list of the type scopes for the `SelectionSet` and its enclosing entities.
       ///
       /// The selection set's type scope is the last element in the list.
-      let typePath: LinkedList<ScopeDescriptor>
+      let scopePath: LinkedList<ScopeDescriptor>
 
       /// Describes all of the types the selection set matches.
       /// Derived from all the selection set's parents.
-      var typeScope: ScopeDescriptor { typePath.last.value }
+      var scope: ScopeDescriptor { scopePath.last.value }
 
-      /// Indicates if the `SelectionSet` represents a type case.
-      /// If `true`, the `SelectionSet` belongs to a type case enclosed in a field's `SelectionSet`.
-      /// If `false`, the `SelectionSet` belongs to a field directly.
-      var isTypeCase: Bool { typeScope.typePath.head.next != nil }
-      #warning("TODO: ^ This is no longer accurate ^")
+      /// Indicates if the `SelectionSet` represents a root selection set.
+      /// If `true`, the `SelectionSet` belongs to a field directly.
+      /// If `false`, the `SelectionSet` belongs to a conditional selection set enclosed
+      /// in a field's `SelectionSet`.
+      var isEntityRoot: Bool { scope.scopePath.head.next == nil }
 
       init(
         entity: Entity,
@@ -33,23 +33,23 @@ extension IR {
       ) {
         self.entity = entity
         self.parentType = parentType
-        self.typePath = typePath
+        self.scopePath = typePath
       }
 
       static func == (lhs: TypeInfo, rhs: TypeInfo) -> Bool {
         lhs.entity === rhs.entity &&
         lhs.parentType == rhs.parentType &&
-        lhs.typePath == rhs.typePath
+        lhs.scopePath == rhs.scopePath
       }
 
       func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(entity))
         hasher.combine(parentType)
-        hasher.combine(typePath)
+        hasher.combine(scopePath)
       }
 
       var debugDescription: String {
-        typePath.debugDescription
+        scopePath.debugDescription
       }
     }
 
@@ -134,7 +134,7 @@ extension IR {
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
       lhs.typeInfo.entity == rhs.typeInfo.entity &&
       lhs.typeInfo.parentType == rhs.typeInfo.parentType &&
-      lhs.typeInfo.typePath == rhs.typeInfo.typePath &&
+      lhs.typeInfo.scopePath == rhs.typeInfo.scopePath &&
       lhs.selections.direct == rhs.selections.direct
     }
 

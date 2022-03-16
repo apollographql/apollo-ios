@@ -555,7 +555,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     /// When merging conditionally included fields together the field root, will have
     /// `nil` inclusion conditions and also empty direct selections. The selection set will have
     /// multiple nested selection sets with conditional inclusion conditions.
-    expect(actual?.selectionSet?.typeScope.inclusionConditions).to(beNil())
+    expect(actual?.selectionSet?.scope.inclusionConditions).to(beNil())
 
     expect(actual?[field: "species"]).toNot(beNil())
   }
@@ -607,7 +607,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     // then
     expect(actual?.inclusionConditions).to(equal(friend_expected))
-    expect(actual?.selectionSet?.typeScope.inclusionConditions).to(beNil())
+    expect(actual?.selectionSet?.scope.inclusionConditions).to(beNil())
 
     expect(actual?[field: "a"]).to(beNil())
     expect(actual?[field: "b"]).to(beNil())
