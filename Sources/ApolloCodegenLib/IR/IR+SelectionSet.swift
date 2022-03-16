@@ -9,8 +9,6 @@ extension IR {
       /// Multiple `SelectionSet`s may reference the same `Entity`
       let entity: Entity
 
-      let parentType: GraphQLCompositeType
-
       /// A list of the type scopes for the `SelectionSet` and its enclosing entities.
       ///
       /// The selection set's type scope is the last element in the list.
@@ -20,6 +18,10 @@ extension IR {
       /// Derived from all the selection set's parents.
       var scope: ScopeDescriptor { scopePath.last.value }
 
+      var parentType: GraphQLCompositeType { scope.type }
+
+      var inclusionConditions: InclusionConditions? { scope.scopePath.last.value.conditions }
+
       /// Indicates if the `SelectionSet` represents a root selection set.
       /// If `true`, the `SelectionSet` belongs to a field directly.
       /// If `false`, the `SelectionSet` belongs to a conditional selection set enclosed
@@ -28,23 +30,19 @@ extension IR {
 
       init(
         entity: Entity,
-        parentType: GraphQLCompositeType,
         typePath: LinkedList<ScopeDescriptor>
       ) {
         self.entity = entity
-        self.parentType = parentType
         self.scopePath = typePath
       }
 
       static func == (lhs: TypeInfo, rhs: TypeInfo) -> Bool {
         lhs.entity === rhs.entity &&
-        lhs.parentType == rhs.parentType &&
         lhs.scopePath == rhs.scopePath
       }
 
       func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(entity))
-        hasher.combine(parentType)
+        hasher.combine(ObjectIdentifier(entity))        
         hasher.combine(scopePath)
       }
 
@@ -108,13 +106,11 @@ extension IR {
 
     init(
       entity: Entity,
-      parentType: GraphQLCompositeType,
       typePath: LinkedList<ScopeDescriptor>,
       mergedSelectionsOnly: Bool = false
     ) {
       self.typeInfo = TypeInfo(
         entity: entity,
-        parentType: parentType,
         typePath: typePath
       )
       self.selections = Selections(
@@ -133,7 +129,6 @@ extension IR {
 
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
       lhs.typeInfo.entity == rhs.typeInfo.entity &&
-      lhs.typeInfo.parentType == rhs.typeInfo.parentType &&
       lhs.typeInfo.scopePath == rhs.typeInfo.scopePath &&
       lhs.selections.direct == rhs.selections.direct
     }
