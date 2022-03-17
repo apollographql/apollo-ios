@@ -58,20 +58,21 @@ extension IR {
     private func merge(_ newField: EntityField, with existingField: EntityField) -> EntityField {
       var mergedField = existingField
 
-      if let existingConditions = existingField.inclusionConditions,
-          newField.inclusionConditions != existingConditions {
-
-        mergedField = createWrapperField(wrapping: existingField, mergingIn: newField)
-
-      } else {
+      if existingField.inclusionConditions == newField.inclusionConditions {
         mergedField.selectionSet.selections.direct!
           .mergeIn(newField.selectionSet.selections.direct!)
+
+      } else if existingField.inclusionConditions != nil {
+        mergedField = createInclusionWrapperField(wrapping: existingField, mergingIn: newField)
+
+      } else {
+        merge(field: newField, intoInclusionWrapperField: existingField)
       }
 
       return mergedField
     }
 
-    private func createWrapperField(
+    private func createInclusionWrapperField(
       wrapping existingField: EntityField,
       mergingIn newField: EntityField
     ) -> EntityField {
@@ -92,21 +93,18 @@ extension IR {
         )
       )
 
-      let existingFieldSelectionSet = SelectionSet(
-        entity: existingField.entity,
-        scopePath: wrapperScope.mutatingLast {
-          $0.appending(existingField.selectionSet.inclusionConditions.unsafelyUnwrapped)
-        },
-        selections: existingField.selectionSet.selections.direct.unsafelyUnwrapped
-      )
+      merge(field: existingField, intoInclusionWrapperField: wrapperField)
+      merge(field: newField, intoInclusionWrapperField: wrapperField)
 
-      wrapperField.selectionSet.selections.direct?.mergeIn(existingFieldSelectionSet)
+      return wrapperField
+    }
 
-      if let newConditions = newField.selectionSet.inclusionConditions {
+    private func merge(field newField: EntityField, intoInclusionWrapperField wrapperField: EntityField) {
+      if let newFieldConditions = newField.selectionSet.inclusionConditions {
         let newFieldSelectionSet = SelectionSet(
           entity: newField.entity,
-          scopePath: wrapperScope.mutatingLast {
-            $0.appending(newConditions)
+          scopePath: wrapperField.selectionSet.scopePath.mutatingLast {
+            $0.appending(newFieldConditions)
           },
           selections: newField.selectionSet.selections.direct.unsafelyUnwrapped
         )
@@ -115,8 +113,6 @@ extension IR {
       } else {
         wrapperField.selectionSet.selections.direct?.mergeIn(newField.selectionSet.selections.direct.unsafelyUnwrapped)
       }
-
-      return wrapperField
     }
 
     func mergeIn(_ conditionalSelectionSet: SelectionSet) {
