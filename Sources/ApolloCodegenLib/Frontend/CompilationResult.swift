@@ -103,9 +103,14 @@ public class CompilationResult: JavaScriptObject {
     lazy var inclusionConditions: [InclusionCondition]? = nil
 //    self["inclusionConditions"]
 
-    required convenience init(parentType: GraphQLCompositeType, selections: [Selection]) {
+    required convenience init(
+      parentType: GraphQLCompositeType,
+      inclusionConditions: [InclusionCondition]? = nil,
+      selections: [Selection] = []
+    ) {
       self.init(nil)
       self.parentType = parentType
+      self.inclusionConditions = inclusionConditions
       self.selections = selections
     }
 
@@ -343,6 +348,14 @@ public class CompilationResult: JavaScriptObject {
       precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
 
       self = .variable(jsValue["variable"].toString(), isInverted: jsValue["isInverted"].toBool())
+    }
+
+    static func include(_ variable: String) -> Self {
+      .variable(variable, isInverted: false)
+    }
+
+    static func skip(_ variable: String) -> Self {
+      .variable(variable, isInverted: true)
     }
   }
 

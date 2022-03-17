@@ -137,22 +137,27 @@ public func shallowlyMatch(
 }
 
 fileprivate func shallowlyMatch(expected: IR.Field, actual: IR.Field) -> Bool {
-  return shallowlyMatch(expected: expected.underlyingField, actual: actual.underlyingField)
+  return shallowlyMatch(expected: expected.underlyingField, actual: actual.underlyingField) &&
+  expected.inclusionConditions == actual.inclusionConditions
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.Selection, actual: IR.Field) -> Bool {
   guard case let .field(field) = expected else { return false }
-  return shallowlyMatch(expected: field, actual: actual.underlyingField)
+  return shallowlyMatch(expected: field, actual: actual)
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: IR.Field) -> Bool {
-  return shallowlyMatch(expected: expected, actual: actual.underlyingField)
+  let expectedConditions = AnyOf(IR.InclusionConditions.allOf(expected.inclusionConditions ?? []).conditions)
+  return shallowlyMatch(expected: expected, actual: actual.underlyingField) &&
+  expectedConditions == actual.inclusionConditions
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: CompilationResult.Field) -> Bool {
   return expected.name == actual.name &&
   expected.alias == actual.alias &&
   expected.arguments == actual.arguments &&
+  expected.directives == actual.directives &&
+  expected.inclusionConditions == actual.inclusionConditions &&
   expected.type == actual.type
 }
 
@@ -191,12 +196,13 @@ fileprivate func shallowlyMatch(
 }
 
 fileprivate func shallowlyMatch(expected: IR.SelectionSet, actual: IR.SelectionSet) -> Bool {
-  return expected.typeInfo.parentType == actual.typeInfo.parentType &&
+  return expected.typeInfo.entity === actual.typeInfo.entity &&
   expected.typeInfo.scopePath == actual.typeInfo.scopePath
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: IR.SelectionSet) -> Bool {
-  return expected.parentType == actual.typeInfo.parentType
+  return expected.parentType == actual.typeInfo.parentType &&
+  IR.InclusionConditions.allOf(expected.inclusionConditions ?? []).conditions == actual.inclusionConditions
 }
 
 // MARK: Fragment Matchers
