@@ -585,10 +585,11 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "friend"]
 
-    let expected_friend_selections: [CompilationResult.Selection] = [
+    let expected_friend_selections:
+    [CompilationResult.Selection] = [
       .field(.mock("b", type: .nonNull(.scalar(.string())))),
       .inlineFragment(.init(parentType: Interface_Animal,
-                            inclusionConditions: [.include("a")]))
+                            inclusionConditions: [.include(if: "a")]))
     ]
 
     let expected_friendIfA_selections: [CompilationResult.Selection] = [
@@ -643,28 +644,29 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let actual = self.subject[field: "allAnimals"]?[field: "friend"]
 
-    let expected_friend_selections: [CompilationResult.Selection] = [
-      .field(.mock("b", type: .nonNull(.scalar(.string())))),
-      .inlineFragment(.init(parentType: Interface_Animal,
-                            inclusionConditions: [.include("a")]))
-    ]
+    let expected_friend = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: nil,
+      directSelections: [
+        .field(.mock("b", type: .nonNull(.scalar(.string())))),
+        .inlineFragment(.init(parentType: Interface_Animal,
+                              inclusionConditions: [.include(if: "a")]))
+      ]
+    )
 
-    let expected_friendIfA_selections: [CompilationResult.Selection] = [
-      .field(.mock("a", type: .nonNull(.scalar(.string())))),
-    ]
-
-    let friend_ifA_expectedConditions: IR.InclusionConditions = try XCTUnwrap(.mock([
-      .include(if: "a")
-    ]))
+    let expected_friendIfA = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "a")],
+      directSelections: [
+        .field(.mock("a", type: .nonNull(.scalar(.string())))),
+      ]
+    )
 
     // then
     expect(actual?.inclusionConditions).to(beNil())
-    expect(actual?.selectionSet?.inclusionConditions).to(beNil())
-    expect(actual?.selectionSet?.selections.direct).to(shallowlyMatch(expected_friend_selections))
+    expect(actual?.selectionSet).to(shallowlyMatch(expected_friend))
 
-    expect(actual?[if: "a"]?.inclusionConditions).to(equal(friend_ifA_expectedConditions))
-    expect(actual?[if: "a"]?.selections.direct)
-      .to(shallowlyMatch(expected_friendIfA_selections))
+    expect(actual?[if: "a"]).to(shallowlyMatch(expected_friendIfA))
   }
 
   func test__selections__givenTwoEntityFieldsIncludeIfVariableAndSkipIfSameVariable_onEntityField_createsSelectionWithInclusionConditionsWithNestedSelectionSetsWithEachInclusionCondition() throws {
@@ -720,6 +722,85 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     expect(actual?[if: "a"]?.inclusionConditions).to(equal(friend_ifA_expected))
     expect(actual?[if: !"a"]?.inclusionConditions).to(equal(friend_ifNotA_expected))
+  }
+
+  func test__selections__givenMergeThreeFieldsWithConditions_onEntityField_createsSelectionWithInclusionConditionsWithNestedSelectionSetsWithEachInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String!
+      b: String!
+      c: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        friend @include(if: $a) {
+          a
+        }
+        friend @skip(if: $b) {
+          b
+        }
+        friend @include(if: $c) {
+          c
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+
+    let actual = self.subject[field: "allAnimals"]?[field: "friend"]
+
+    let friend_expected: AnyOf<IR.InclusionConditions> = try AnyOf([
+      XCTUnwrap(.mock([.include(if: "a")])),
+      XCTUnwrap(.mock([.skip(if: "b")])),
+      XCTUnwrap(.mock([.include(if: "c")])),
+    ])
+
+    let friend_ifA_expected = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "a")],
+      directSelections: [
+        .field(.mock("a", type: .nonNull(.scalar(.string())))),
+      ]
+    )
+
+    let friend_ifNotB_expected = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: [.skip(if: "b")],
+      directSelections: [
+        .field(.mock("b", type: .nonNull(.scalar(.string())))),
+      ]
+    )
+
+    let friend_ifC_expected = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "c")],
+      directSelections: [
+        .field(.mock("c", type: .nonNull(.scalar(.string())))),
+      ]
+    )
+
+    // then
+    expect(actual?.inclusionConditions).to(equal(friend_expected))
+    expect(actual?.selectionSet?.inclusionConditions).to(beNil())
+
+    expect(actual?.selectionSet?.selections.direct?.fields).to(beEmpty())
+
+    expect(actual?[if: "a"]).to(shallowlyMatch(friend_ifA_expected))
+    expect(actual?[if: !"b"]).to(shallowlyMatch(friend_ifNotB_expected))
+    expect(actual?[if: "c"]).to(shallowlyMatch(friend_ifC_expected))
   }
   
 }

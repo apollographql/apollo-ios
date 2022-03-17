@@ -87,6 +87,96 @@ func shallowlyMatch(
   ])
 }
 
+
+struct SelectionSetMatcher {
+  let parentType: GraphQLCompositeType
+  let inclusionConditions: [CompilationResult.InclusionCondition]?
+  let directSelections: [CompilationResult.Selection]?
+  let mergedSelections: [CompilationResult.Selection]
+  let mergedSources: Set<IR.MergedSelections.MergedSource>
+
+  let ignoreMergedSelections: Bool
+
+  public init(
+    parentType: GraphQLCompositeType,
+    inclusionConditions: [CompilationResult.InclusionCondition]? = nil,
+    directSelections: [CompilationResult.Selection]? = [],
+    mergedSelections: [CompilationResult.Selection] = [],
+    mergedSources: Set<IR.MergedSelections.MergedSource> = []
+  ) {
+    self.init(
+      parentType: parentType,
+      inclusionConditions: inclusionConditions,
+      directSelections: directSelections,
+      mergedSelections: mergedSelections,
+      mergedSources: mergedSources,
+      ignoreMergedSelections: false
+    )
+  }
+
+  private init(
+    parentType: GraphQLCompositeType,
+    inclusionConditions: [CompilationResult.InclusionCondition]?,
+    directSelections: [CompilationResult.Selection]?,
+    mergedSelections: [CompilationResult.Selection],
+    mergedSources: Set<IR.MergedSelections.MergedSource>,
+    ignoreMergedSelections: Bool
+  ) {
+    self.parentType = parentType
+    self.inclusionConditions = inclusionConditions
+    self.directSelections = directSelections
+    self.mergedSelections = mergedSelections
+    self.mergedSources = mergedSources
+    self.ignoreMergedSelections = ignoreMergedSelections
+  }
+
+  public static func directOnly(
+    parentType: GraphQLCompositeType,
+    inclusionConditions: [CompilationResult.InclusionCondition]? = nil,
+    directSelections: [CompilationResult.Selection]? = []
+  ) -> SelectionSetMatcher {
+    self.init(
+      parentType: parentType,
+      inclusionConditions: inclusionConditions,
+      directSelections: directSelections,
+      mergedSelections: [],
+      mergedSources: [],
+      ignoreMergedSelections: true
+    )
+  }
+}
+
+func shallowlyMatch(
+  _ expectedValue: SelectionSetMatcher
+) -> Predicate<IR.SelectionSet> {
+  let directPredicate: Predicate<IR.DirectSelections> = expectedValue.directSelections == nil
+  ? beNil()
+  : shallowlyMatch(expectedValue.directSelections!)
+
+  let expectedInclusionConditions = IR.InclusionConditions.allOf(
+    expectedValue.inclusionConditions ?? []
+  ).conditions
+
+  let inclusionPredicate: Predicate<IR.InclusionConditions> = expectedInclusionConditions == nil
+  ? beNil()
+  : equal(expectedInclusionConditions!)
+
+  var matchers: [Predicate<IR.SelectionSet>] = [
+    equal(expectedValue.parentType).mappingActualTo { $0?.parentType },
+    inclusionPredicate.mappingActualTo { $0?.inclusionConditions },
+    directPredicate.mappingActualTo { $0?.selections.direct },
+  ]
+
+  if !expectedValue.ignoreMergedSelections {
+    matchers.append(contentsOf: [
+      shallowlyMatch(expectedValue.mergedSelections).mappingActualTo { $0?.selections.merged },
+      equal(expectedValue.mergedSources).mappingActualTo { $0?.selections.merged.mergedSources }
+    ])
+  }
+
+  return satisfyAllOf(matchers)
+}
+
 // MARK: Field Matchers
 
 public func shallowlyMatch(

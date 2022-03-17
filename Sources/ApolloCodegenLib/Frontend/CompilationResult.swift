@@ -350,11 +350,11 @@ public class CompilationResult: JavaScriptObject {
       self = .variable(jsValue["variable"].toString(), isInverted: jsValue["isInverted"].toBool())
     }
 
-    static func include(_ variable: String) -> Self {
+    static func include(if variable: String) -> Self {
       .variable(variable, isInverted: false)
     }
 
-    static func skip(_ variable: String) -> Self {
+    static func skip(if variable: String) -> Self {
       .variable(variable, isInverted: true)
     }
   }
