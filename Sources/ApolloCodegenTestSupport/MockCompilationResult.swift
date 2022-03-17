@@ -29,12 +29,14 @@ public extension CompilationResult.SelectionSet {
 
   class func mock(
     parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
+    inclusionConditions: [CompilationResult.InclusionCondition]? = nil,
     selections: [CompilationResult.Selection] = []
   ) -> Self {
-    let mock = Self(nil)
-    mock.parentType = parentType
-    mock.selections = selections
-    return mock
+    Self(
+      parentType: parentType,
+      inclusionConditions: inclusionConditions,
+      selections: selections
+    )
   }
 }
 
