@@ -55,7 +55,7 @@ class IR {
   ///
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
   /// be selected on the same object share the same `Entity`.
-  class Entity: Equatable {
+  class Entity {
     /// The selections that are selected for the entity across all type scopes in the operation.
     /// Represented as a tree.
     let selectionTree: EntitySelectionTree
@@ -74,10 +74,6 @@ class IR {
     ) {
       self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
       self.fieldPath = fieldPath
-    }
-
-    static func == (lhs: IR.Entity, rhs: IR.Entity) -> Bool {
-      lhs.selectionTree === rhs.selectionTree
     }
   }
 
