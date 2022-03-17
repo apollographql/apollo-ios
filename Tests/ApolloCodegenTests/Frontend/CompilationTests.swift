@@ -71,6 +71,7 @@ class CompilationTests: XCTestCase {
         human(id: $id) {
           name
           mass!
+          appearsIn[!]?
         }
       }
       """, filePath: "HeroAndFriendsNames.graphql")
@@ -102,8 +103,12 @@ class CompilationTests: XCTestCase {
     XCTAssertEqual(friendsField.name, "mass")
     XCTAssertEqual(friendsField.type.typeReference, "Float!")
 
+    let appearsInField = try XCTUnwrap(heroField.selectionSet?.firstField(for: "appearsIn"))
+    XCTAssertEqual(appearsInField.name, "appearsIn")
+    XCTAssertEqual(appearsInField.type.typeReference, "[Episode!]")
+
     XCTAssertEqualUnordered(compilationResult.referencedTypes.map(\.name),
-                            ["ID", "Query", "Human", "String", "Float"])
+                            ["ID", "Query", "Human", "String", "Float", "Episode"])
   }
 }
 
