@@ -143,7 +143,7 @@ extension IR {
     }
 
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
-      lhs.typeInfo.entity == rhs.typeInfo.entity &&
+      lhs.typeInfo.entity === rhs.typeInfo.entity &&
       lhs.typeInfo.scopePath == rhs.typeInfo.scopePath &&
       lhs.selections.direct == rhs.selections.direct
     }

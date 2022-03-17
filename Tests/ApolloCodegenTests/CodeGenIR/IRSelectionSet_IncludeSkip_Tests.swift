@@ -551,6 +551,58 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     expect(actual?[field: "species"]).toNot(beNil())
   }
 
+  func test__selections__givenTwoEntityFieldsIncludeIfVariableAndNoCondition_onEntityField_createsSelectionSets() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      a: String!
+      b: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        friend @include(if: $a) {
+          a
+        }
+        friend {
+          b
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+
+    let actual = self.subject[field: "allAnimals"]?[field: "friend"]
+
+    let expected_selections: [CompilationResult.Selection] = [
+      .field(.mock("b", type: .nonNull(.scalar(.string())))),
+      .inlineFragment(.init(parentType: Interface_Animal,
+                            inclusionConditions: [.include("a")]))
+    ]
+
+    let friend_ifA_expectedConditions: IR.InclusionConditions = try XCTUnwrap(.mock([
+      .include(if: "a")
+    ]))
+
+    // then
+    expect(actual?.inclusionConditions).to(beNil())
+    expect(actual?.selectionSet?.inclusionConditions).to(beNil())
+    expect(actual?.selectionSet?.selections.direct).to(shallowlyMatch(expected_selections))
+
+    expect(actual?[if: "a"]?.inclusionConditions).to(equal(friend_ifA_expectedConditions))
+  }
+
   func test__selections__givenTwoEntityFieldsIncludeIfVariableAndSkipIfSameVariable_onEntityField_createsSelectionWithInclusionConditionsWithNestedSelectionSetsWithEachInclusionCondition() throws {
     // given
     schemaSDL = """

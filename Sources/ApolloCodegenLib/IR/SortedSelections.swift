@@ -58,58 +58,65 @@ extension IR {
     private func merge(_ newField: EntityField, with existingField: EntityField) -> EntityField {
       var mergedField = existingField
 
-      switch (existingField.inclusionConditions, newField.inclusionConditions) {
-      case let (oldConditions?, newConditions?):
-        let wrapperScope = existingField.selectionSet.scopePath.mutatingLast { _ in
-          ScopeDescriptor.descriptor(
-            forType: existingField.selectionSet.parentType,
-            inclusionConditions: nil,
-            givenAllTypesInSchema: existingField.selectionSet.scope.allTypesInSchema
-          )
-        }
+      if let existingConditions = existingField.inclusionConditions,
+          newField.inclusionConditions != existingConditions {
 
-        let wrapperSelectionSet = SelectionSet(
-          entity: existingField.entity,
-          scopePath: wrapperScope
-        )
+        mergedField = createWrapperField(wrapping: existingField, mergingIn: newField)
 
-        mergedField = EntityField(
-          existingField.underlyingField,
-          inclusionConditions: (oldConditions || newConditions),
-          selectionSet: wrapperSelectionSet
-        )
-
-        let existingFieldSelectionSet = SelectionSet(
-          entity: existingField.entity,
-          scopePath: wrapperScope.mutatingLast {
-            $0.appending(existingField.selectionSet.inclusionConditions.unsafelyUnwrapped)
-          },
-          selections: existingField.selectionSet.selections.direct.unsafelyUnwrapped
-        )
-
-        mergedField.selectionSet.selections.direct?.mergeIn(existingFieldSelectionSet)
-
-        let newFieldSelectionSet = SelectionSet(
-          entity: newField.entity,
-          scopePath: wrapperScope.mutatingLast {
-            $0.appending(newField.selectionSet.inclusionConditions.unsafelyUnwrapped)
-          },
-          selections: newField.selectionSet.selections.direct.unsafelyUnwrapped
-        )
-        mergedField.selectionSet.selections.direct?.mergeIn(newFieldSelectionSet)
-
-        break
-
-      case (nil, nil):
+      } else {
         mergedField.selectionSet.selections.direct!
           .mergeIn(newField.selectionSet.selections.direct!)
-        break
-
-      default:
-        break
       }
 
       return mergedField
+    }
+
+    private func createWrapperField(
+      wrapping existingField: EntityField,
+      mergingIn newField: EntityField
+    ) -> EntityField {
+      let wrapperScope = existingField.selectionSet.scopePath.mutatingLast { _ in
+        ScopeDescriptor.descriptor(
+          forType: existingField.selectionSet.parentType,
+          inclusionConditions: nil,
+          givenAllTypesInSchema: existingField.selectionSet.scope.allTypesInSchema
+        )
+      }
+
+      let wrapperField = EntityField(
+        existingField.underlyingField,
+        inclusionConditions: (existingField.inclusionConditions || newField.inclusionConditions),
+        selectionSet: SelectionSet(
+          entity: existingField.entity,
+          scopePath: wrapperScope
+        )
+      )
+
+      let existingFieldSelectionSet = SelectionSet(
+        entity: existingField.entity,
+        scopePath: wrapperScope.mutatingLast {
+          $0.appending(existingField.selectionSet.inclusionConditions.unsafelyUnwrapped)
+        },
+        selections: existingField.selectionSet.selections.direct.unsafelyUnwrapped
+      )
+
+      wrapperField.selectionSet.selections.direct?.mergeIn(existingFieldSelectionSet)
+
+      if let newConditions = newField.selectionSet.inclusionConditions {
+        let newFieldSelectionSet = SelectionSet(
+          entity: newField.entity,
+          scopePath: wrapperScope.mutatingLast {
+            $0.appending(newConditions)
+          },
+          selections: newField.selectionSet.selections.direct.unsafelyUnwrapped
+        )
+        wrapperField.selectionSet.selections.direct?.mergeIn(newFieldSelectionSet)
+
+      } else {
+        wrapperField.selectionSet.selections.direct?.mergeIn(newField.selectionSet.selections.direct.unsafelyUnwrapped)
+      }
+
+      return wrapperField
     }
 
     func mergeIn(_ conditionalSelectionSet: SelectionSet) {
