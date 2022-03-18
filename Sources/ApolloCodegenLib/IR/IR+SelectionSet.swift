@@ -90,7 +90,7 @@ extension IR {
       var debugDescription: String {
         """
         direct: {
-          \(indented: direct.debugDescription)
+          \(indented: direct?.debugDescription ?? "nil")
         }
         merged: {
           \(indented: merged.debugDescription)
