@@ -116,7 +116,7 @@ export function compileToIR(
     operationDefinition: OperationDefinitionNode
   ): ir.OperationDefinition {
     if (!operationDefinition.name) {
-      throw new GraphQLError("Operations should be named", operationDefinition);
+      throw new GraphQLError("Operations should be named", { nodes: operationDefinition });
     }
 
     const filePath = filePathForNode(operationDefinition);
