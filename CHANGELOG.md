@@ -1,6 +1,9 @@
 # Change log
 
 ## v0.51.1
+- **Fixed - APQ Retrying Failing in 0.51.1**: Fixes a bug introduced in the last version that broke APQs. _Thanks to [Kyle Browning](https://github.com/kylebrowning) for bringing this to our attention._
+
+## v0.51.1
 - **Expose request body creation to better support custom interceptors**: Enable lazy access to the request body creation for leverage in custom built interceptors, since JSONRequest.toURLRequest() encapsulates the creation. This enables the GraphQLMap to be accessed without re-creating the body. [#2184](https://github.com/apollographql/apollo-ios/pull/2184) - _Thanks to [Rick Fast](https://github.com/rickfast) for the contribution._
 
 ## v0.51.0
