@@ -63,12 +63,14 @@ export interface InlineFragment {
   kind: "InlineFragment";
   typeCondition?: GraphQLCompositeType;
   selectionSet: SelectionSet;
+  inclusionConditions?: InclusionCondition[];
   directives?: Directive[];
 }
 
 export interface FragmentSpread {
   kind: "FragmentSpread";
   fragment: FragmentDefinition;
+  inclusionConditions?: InclusionCondition[];
   directives?: Directive[];
 }
 

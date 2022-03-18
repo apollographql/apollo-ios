@@ -218,6 +218,8 @@ export function compileToIR(
     parentType: GraphQLCompositeType,
     visitedFragments: Set<string>
   ): ir.Selection | undefined {
+    const [directives, inclusionConditions] = compileDirectives(selectionNode.directives) ?? [undefined, undefined];
+
     switch (selectionNode.kind) {
       case Kind.FIELD: {
         const name = selectionNode.name.value;
@@ -237,8 +239,7 @@ export function compileToIR(
         addReferencedType(getNamedType(unwrappedFieldType));
 
         const { description, deprecationReason } = fieldDef;
-        const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);
-        const [directives, inclusionConditions] = compileDirectives(selectionNode.directives) ?? [undefined, undefined];
+        const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);        
 
         let field: ir.Field = {
           kind: "Field",
@@ -285,6 +286,8 @@ export function compileToIR(
             selectionNode.selectionSet,
             typeCondition
           ),
+          inclusionConditions: inclusionConditions,
+          directives: directives
         };
       }
       case Kind.FRAGMENT_SPREAD: {
@@ -303,6 +306,8 @@ export function compileToIR(
         const fragmentSpread: ir.FragmentSpread = {
           kind: "FragmentSpread",
           fragment,
+          inclusionConditions: inclusionConditions,
+          directives: directives
         };
         return fragmentSpread;
       }
