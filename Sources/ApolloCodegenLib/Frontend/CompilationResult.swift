@@ -136,10 +136,10 @@ public class CompilationResult: JavaScriptObject {
 
   /// Represents an individual selection that includes a named fragment in a selection set.
   /// (ie. `...FragmentName`)
-  #warning("TODO: Compile these in TS frontend.")
   public class FragmentSpread: JavaScriptObject, Hashable {
     lazy var fragment: FragmentDefinition = self["fragment"]
 
+#warning("TODO: Compile these in TS frontend.")
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
@@ -176,7 +176,6 @@ public class CompilationResult: JavaScriptObject {
         let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
         self = .inlineFragment(selectionSet)
       case "FragmentSpread":
-        #warning("TODO: Compile these in TS frontend.")
         self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
       default:
         preconditionFailure("""
