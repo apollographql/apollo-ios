@@ -98,10 +98,8 @@ public class CompilationResult: JavaScriptObject {
     lazy var parentType: GraphQLCompositeType = self["parentType"]
     
     lazy var selections: [Selection] = self["selections"]
-
-    #warning("TODO: Compile these in TS frontend.")
-    lazy var inclusionConditions: [InclusionCondition]? = nil
-//    self["inclusionConditions"]
+    
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     required convenience init(
       parentType: GraphQLCompositeType,

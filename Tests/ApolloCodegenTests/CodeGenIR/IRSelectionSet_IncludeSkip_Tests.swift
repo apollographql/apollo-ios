@@ -990,4 +990,62 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     expect(actual?[if: "a"]).to(shallowlyMatch(expected_friendIfA))
   }
+
+  // MARK: - Inline Fragments
+
+  func test__selections__givenIncludeIfVariable_onInlineFragment_createsSelectionWithInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      friend: Animal!
+    }
+    """
+
+    document = """
+    query Test($a: Boolean!) {
+      allAnimals {
+        ... @include(if: $a) {
+          species
+        }
+      }
+    }
+    """
+
+    // when
+    try buildSubjectRootField()
+
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
+
+    let allAnimals = self.subject[field: "allAnimals"]
+
+    let expected_allAnimal = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: nil,
+      directSelections: [
+        .field(.mock("b", type: .nonNull(.scalar(.string())))),
+        .inlineFragment(.init(parentType: Interface_Animal,
+                              inclusionConditions: [.include(if: "a")]))
+      ]
+    )
+
+    let expected_allAnimal_ifA = SelectionSetMatcher.directOnly(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "a")],
+      directSelections: [
+        .field(.mock("species", type: .nonNull(.scalar(.string())))),
+      ]
+    )
+
+    // then
+    expect(allAnimals?.inclusionConditions).to(beNil())
+    expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
+
+    expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifA))
+  }
+
 }

@@ -161,10 +161,15 @@ extension IR {
     /// then selections for a `SelectionSet` of that type can be merged in to the receiver's
     /// `SelectionSet`.
     func matches(_ condition: ScopeCondition) -> Bool {
-      #warning("TODO: handle inclusion conditions")
-      if let otherType = condition.type {
-        return self.matchingTypes.contains(otherType)
+      if let type = condition.type,
+         !self.matchingTypes.contains(type) {
+        return false
       }
+
+      if let inclusionConditions = condition.conditions {
+        return false
+      }
+
       return true
     }
 
