@@ -1,6 +1,6 @@
 # Change log
 
-## v0.51.1
+## v0.51.2
 - **Fixed - APQ Retrying Failing in 0.51.1**: Fixes a bug introduced in the last version that broke APQs. _Thanks to [Kyle Browning](https://github.com/kylebrowning) for bringing this to our attention._
 
 ## v0.51.1
