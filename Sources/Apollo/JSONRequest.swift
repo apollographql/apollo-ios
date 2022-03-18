@@ -8,7 +8,19 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   public let autoPersistQueries: Bool
   public let useGETForQueries: Bool
   public let useGETForPersistedQueryRetry: Bool
-  public var isPersistedQueryRetry = false
+  public var isPersistedQueryRetry = false {
+    didSet {
+      _body = nil
+    }
+  }
+
+  private var _body: GraphQLMap?
+  public var body: GraphQLMap {
+      if _body == nil {
+        _body = createBody()
+      }
+      return _body!
+  }
   
   public let serializationFormat = JSONSerializationFormat.self
   
@@ -97,8 +109,8 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     
     return request
   }
-  
-  public private(set) lazy var body: GraphQLMap = {
+
+  private func createBody() -> GraphQLMap {
     let sendQueryDocument: Bool
     let autoPersistQueries: Bool
     switch operation.operationType {
@@ -129,5 +141,5 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
                                                       autoPersistQuery: autoPersistQueries)
     
     return body
-  }()
+  }
 }
