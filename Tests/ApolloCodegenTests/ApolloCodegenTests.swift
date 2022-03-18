@@ -69,6 +69,7 @@ class ApolloCodegenTests: XCTestCase {
     
     let options = ApolloCodegenOptions(codegenEngine: .typescript,
                                        includes: "*.graphql",
+                                       excludes: "*.*.graphql",
                                        mergeInFieldsFromFragmentSpreads: false,
                                        modifier: .internal,
                                        namespace: namespace,
@@ -104,6 +105,7 @@ class ApolloCodegenTests: XCTestCase {
       "--namespace=\(namespace)",
       "--only='\(only.path)'",
       "--operationIdsPath='\(operationIDsURL.path)'",
+      "--excludes='*.*.graphql'",
       "--omitDeprecatedEnumCases",
       "--passthroughCustomScalars",
       "--customScalarsPrefix='\(prefix)'",
