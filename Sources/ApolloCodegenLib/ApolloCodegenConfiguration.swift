@@ -177,6 +177,33 @@ public struct ApolloCodegenConfiguration {
     case persistedOperationsOnly
   }
 
+  public struct ParseOptions {
+    /**
+     * EXPERIMENTAL: If enabled, the parser will understand and parse Client Controlled Nullability
+     * Designators contained in Fields. They'll be represented in the
+     * `required` field of the FieldNode.
+     *
+     * The syntax looks like the following:
+     *
+     * ```graphql
+     *   {
+     *     nullableField!
+     *     nonNullableField?
+     *     nonNullableSelectionSet? {
+     *       childField!
+     *     }
+     *   }
+     * ```
+     * Note: this feature is experimental and may change or be removed in the
+     * future.
+     */
+    public let experimentalClientControlledNullability: Bool
+
+    public init(experimentalClientControlledNullability: Bool = false) {
+      self.experimentalClientControlledNullability = experimentalClientControlledNullability
+    }
+  }
+
   // MARK: Properties
 
   /// The input files required for code generation.
@@ -198,8 +225,8 @@ public struct ApolloCodegenConfiguration {
   ///
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   public let apqs: APQConfig
-
-  public let experimentalClientControlledNullability: Bool
+  /// Options to pass to the GraphQL parser. Allows users to enable experimental features.
+  public let parseOptions: ParseOptions
 
   // MARK: Initializers
 
@@ -229,7 +256,7 @@ public struct ApolloCodegenConfiguration {
     deprecatedEnumCases: Composition = .include,
     schemaDocumentation: Composition = .include,
     apqs: APQConfig = .disabled,
-    experimentalClientControlledNullability: Bool = false
+    parseOptions: ParseOptions = ParseOptions()
   ) {
     self.input = input
     self.output = output
@@ -239,7 +266,7 @@ public struct ApolloCodegenConfiguration {
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.apqs = apqs
-    self.experimentalClientControlledNullability = experimentalClientControlledNullability
+    self.parseOptions = parseOptions
   }
 
 }
