@@ -414,6 +414,8 @@
 		E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */; };
 		E6EE62F327DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */; };
 		E6EFDD0927E5624600B17FE5 /* ReferenceWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */; };
+		E6EFDD0B27E8328E00B17FE5 /* TemplateRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0A27E8328E00B17FE5 /* TemplateRendererTests.swift */; };
+		E6EFDD0D27E8377200B17FE5 /* MockTemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0C27E8377200B17FE5 /* MockTemplateRenderer.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -1156,6 +1158,8 @@
 		E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplate.swift; sourceTree = "<group>"; };
 		E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplateTests.swift; sourceTree = "<group>"; };
 		E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceWrapped.swift; sourceTree = "<group>"; };
+		E6EFDD0A27E8328E00B17FE5 /* TemplateRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRendererTests.swift; sourceTree = "<group>"; };
+		E6EFDD0C27E8377200B17FE5 /* MockTemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTemplateRenderer.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -2105,8 +2109,8 @@
 				DE5FD60427694FA70033EE23 /* SchemaTemplate.swift */,
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
 				E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */,
-				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
 				E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */,
+				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2117,17 +2121,18 @@
 				DE296535279B3B8200BF9B49 /* SelectionSet */,
 				E6C9849427929FED009481BE /* EnumTemplateTests.swift */,
 				DE5FD60C2769711E0033EE23 /* FragmentTemplateTests.swift */,
+				E686B0D127D951630095D04E /* ImportStatementTemplateTests.swift */,
 				E69BEDA62798B89600000D10 /* InputObjectTemplateTests.swift */,
 				E623FD2B2797A700008B4CED /* InterfaceTemplateTests.swift */,
 				E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */,
-				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
-				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
+				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
+				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
+				E6EFDD0A27E8328E00B17FE5 /* TemplateRendererTests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
-				E686B0D127D951630095D04E /* ImportStatementTemplateTests.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -2420,6 +2425,7 @@
 				DEAFB78227064F6900BE02F3 /* MockGraphQLType.swift */,
 				E6BF98FB272C8FFC00C1FED8 /* MockFileManager.swift */,
 				DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */,
+				E6EFDD0C27E8377200B17FE5 /* MockTemplateRenderer.swift */,
 				DE5B313F27A482C80051C9D3 /* Resources.swift */,
 				DECD490E262F81BF00924527 /* Info.plist */,
 			);
@@ -3419,6 +3425,7 @@
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
 				DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */,
 				E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */,
+				E6EFDD0B27E8328E00B17FE5 /* TemplateRendererTests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
 				E6D90D0D278FFE35009CAC5D /* SchemaFileGeneratorTests.swift in Sources */,
 				E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */,
@@ -3690,6 +3697,7 @@
 			files = (
 				DE296BA527A07C37004F571F /* MockMergedSelections.swift in Sources */,
 				DE5FD603276926EF0033EE23 /* IR+Mocking.swift in Sources */,
+				E6EFDD0D27E8377200B17FE5 /* MockTemplateRenderer.swift in Sources */,
 				DE5EEC83279796EA00AF5913 /* MockApolloCodegenConfiguration.swift in Sources */,
 				DE363CB327640FBA001EC05B /* GraphQLJSFrontend+TestHelpers.swift in Sources */,
 				DE09F9C3270269E800795949 /* MockJavaScriptObject.swift in Sources */,

@@ -17,7 +17,16 @@ extension TemplateRenderer {
   }
 
   private func render() -> String {
-    template.description
+    TemplateString(
+    """
+    \(HeaderCommentTemplate.render())
+
+    \(ImportStatementTemplate.SchemaType.render())
+
+    \(template)
+    """
+    ).description
+
   }
 
   private func render(wrappedInNamespace namespace: String) -> String {
