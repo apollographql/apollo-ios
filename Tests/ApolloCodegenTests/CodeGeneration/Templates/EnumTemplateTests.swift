@@ -12,70 +12,17 @@ class EnumTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  private func buildSubject(name: String, values: [String]) {
+  private func buildSubject(name: String = "TestEnum", values: [String] = ["ONE", "TWO"]) {
     subject = EnumTemplate(
       graphqlEnum: GraphQLEnumType.mock(name: name, values: values)
     )
   }
 
-  // MARK: Boilerplate Tests
-
-  func test_render_generatesHeaderComment() {
-    // given
-    buildSubject(name: "TestEnum", values: ["ONE", "TWO"])
-
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-    
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_generatesImportStatement() {
-    // given
-    buildSubject(name: "TestEnum", values: ["ONE", "TWO"])
-
-    let expected = """
-    import ApolloAPI
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
-
-  // MARK: Enum Casing Tests
-
-  func test_render_givenSchemaEnum_generatesSwiftEnumNameFirstUppercased() throws {
-    // given
-    buildSubject(name: "testEnum", values: ["ONE", "TWO"])
-
-    let expected = """
-    public enum TestEnum: String, EnumType {
-      case ONE
-      case TWO
-    }
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6))
-  }
+  // MARK: Enum Tests
 
   func test_render_givenSchemaEnum_generatesSwiftEnum() throws {
     // given
-    buildSubject(name: "TestEnum", values: ["ONE", "TWO"])
+    buildSubject()
 
     let expected = """
     public enum TestEnum: String, EnumType {
@@ -85,10 +32,27 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = subject.template.description
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6))
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  // MARK: Casing Tests
+
+  func test_render_givenSchemaEnum_generatesSwiftEnumNameFirstUppercased() throws {
+    // given
+    buildSubject(name: "testEnum")
+
+    let expected = """
+    public enum TestEnum: String, EnumType {
+    """
+
+    // when
+    let actual = subject.template.description
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test_render_givenSchemaEnum_generatesSwiftEnumRespectingCase() throws {
@@ -104,9 +68,9 @@ class EnumTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = subject.template.description
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6))
+    expect(actual).to(equalLineByLine(expected))
   }
 }
