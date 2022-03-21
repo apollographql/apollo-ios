@@ -366,6 +366,7 @@
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
 		E607AD8E27A88F340026742A /* OperationFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */; };
 		E608FBA527B1EFDF00493756 /* HeaderCommentTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */; };
+		E60AE2EE27E3FC6C003C093A /* TemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */; };
 		E610D8D7278EA2390023E495 /* EnumFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */; };
 		E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */; };
 		E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */; };
@@ -412,6 +413,7 @@
 		E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */; };
 		E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */; };
 		E6EE62F327DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */; };
+		E6EFDD0927E5624600B17FE5 /* ReferenceWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -1107,6 +1109,7 @@
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
 		E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E608FBA427B1EFDF00493756 /* HeaderCommentTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCommentTemplate.swift; sourceTree = "<group>"; };
+		E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer.swift; sourceTree = "<group>"; };
 		E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGenerator.swift; sourceTree = "<group>"; };
 		E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceFileGenerator.swift; sourceTree = "<group>"; };
@@ -1152,6 +1155,7 @@
 		E6E3BBDD276A8D6200E5218B /* FileGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator.swift; sourceTree = "<group>"; };
 		E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplate.swift; sourceTree = "<group>"; };
 		E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplateTests.swift; sourceTree = "<group>"; };
+		E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceWrapped.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -1524,6 +1528,7 @@
 				DE4841A82745BBF10001E594 /* LinkedList.swift */,
 				9F7BA89822927A3700999B3B /* ResponsePath.swift */,
 				DE296BA627A09A11004F571F /* IsEverTrue.swift */,
+				E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */,
 			);
 			name = ApolloUtils;
 			path = Sources/ApolloUtils;
@@ -2101,6 +2106,7 @@
 				DE2739102769AEBA00B886EF /* SelectionSetTemplate.swift */,
 				E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */,
 				E64F7EB727A0854E0059C021 /* UnionTemplate.swift */,
+				E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -3261,6 +3267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6EFDD0927E5624600B17FE5 /* ReferenceWrapped.swift in Sources */,
 				DE4841A92745BBF10001E594 /* LinkedList.swift in Sources */,
 				DE296BA727A09A11004F571F /* IsEverTrue.swift in Sources */,
 				DE4841AA2745EF530001E594 /* ResponsePath.swift in Sources */,
@@ -3293,6 +3300,7 @@
 				E6B42D0927A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift in Sources */,
 				E6D90D07278FA595009CAC5D /* InputObjectFileGenerator.swift in Sources */,
 				E64F7EB827A0854E0059C021 /* UnionTemplate.swift in Sources */,
+				E60AE2EE27E3FC6C003C093A /* TemplateRenderer.swift in Sources */,
 				9BCA8C0926618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift in Sources */,
 				DE5FD60527694FA70033EE23 /* SchemaTemplate.swift in Sources */,
 				DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */,
