@@ -20,7 +20,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
   var compilationResult: CompilationResult!
 
   var expected: (fields: [CompilationResult.Field],
-                 typeCases: [CompilationResult.SelectionSet],
+                 typeCases: [CompilationResult.InlineFragment],
                  fragments: [CompilationResult.FragmentDefinition])!
 
   override func setUp() {

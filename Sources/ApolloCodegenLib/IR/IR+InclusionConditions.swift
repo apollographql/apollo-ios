@@ -74,6 +74,22 @@ extension IR {
       conditions.append(condition)
     }
 
+    func appending(_ condition: InclusionCondition) -> InclusionConditions {
+      var conditions = self.conditions
+      conditions.append(condition)
+      return InclusionConditions(conditions)
+    }
+
+    mutating func append(_ newConditions: InclusionConditions) {
+      conditions.append(contentsOf: newConditions.conditions)
+    }
+
+    func appending(_ newConditions: InclusionConditions) -> InclusionConditions {
+      var conditions = self.conditions
+      conditions.append(contentsOf: newConditions.conditions)
+      return InclusionConditions(conditions)
+    }
+
     // MARK: Collection Conformance
 
     var startIndex: Int { conditions.startIndex }
@@ -83,6 +99,10 @@ extension IR {
     func index(after i: Int) -> Int { conditions.index(after: i) }
 
     subscript(position: Int) -> IR.InclusionCondition { conditions[position] }
+
+    func isSubset(of other: InclusionConditions?) -> Bool {
+      conditions.isSubset(of: other?.conditions ?? [])
+    }
 
     // MARK: - Joining Operators
 

@@ -588,7 +588,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     let expected_friend_selections:
     [CompilationResult.Selection] = [
       .field(.mock("b", type: .nonNull(.scalar(.string())))),
-      .inlineFragment(.init(parentType: Interface_Animal,
+      .inlineFragment(.mock(parentType: Interface_Animal,
                             inclusionConditions: [.include(if: "a")]))
     ]
 
@@ -649,7 +649,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       inclusionConditions: nil,
       directSelections: [
         .field(.mock("b", type: .nonNull(.scalar(.string())))),
-        .inlineFragment(.init(parentType: Interface_Animal,
+        .inlineFragment(.mock(parentType: Interface_Animal,
                               inclusionConditions: [.include(if: "a")]))
       ]
     )
@@ -971,7 +971,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       inclusionConditions: nil,
       directSelections: [
         .field(.mock("b", type: .nonNull(.scalar(.string())))),
-        .inlineFragment(.init(parentType: Interface_Animal,
+        .inlineFragment(.mock(parentType: Interface_Animal,
                               inclusionConditions: [.include(if: "a")]))
       ]
     )
@@ -1027,8 +1027,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .field(.mock("b", type: .nonNull(.scalar(.string())))),
-        .inlineFragment(.init(parentType: Interface_Animal,
+        .inlineFragment(.mock(parentType: Interface_Animal,
                               inclusionConditions: [.include(if: "a")]))
       ]
     )

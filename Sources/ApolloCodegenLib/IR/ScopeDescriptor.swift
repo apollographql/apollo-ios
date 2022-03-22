@@ -54,6 +54,8 @@ extension IR {
     /// `typePath`, all of those types implemented interfaces, and all unions that include
     /// those types.
     let matchingTypes: TypeScope
+    
+    let matchingConditions: InclusionConditions?
 
     let allTypesInSchema: IR.Schema.ReferencedTypes
 
@@ -61,11 +63,13 @@ extension IR {
       typePath: LinkedList<ScopeCondition>,
       type: GraphQLCompositeType,
       matchingTypes: TypeScope,
+      matchingConditions: InclusionConditions?,
       allTypesInSchema: IR.Schema.ReferencedTypes
     ) {
       self.scopePath = typePath
       self.type = type
       self.matchingTypes = matchingTypes
+      self.matchingConditions = matchingConditions
       self.allTypesInSchema = allTypesInSchema
     }
 
@@ -89,6 +93,7 @@ extension IR {
         typePath: LinkedList(.init(type: type, conditions: inclusionConditions)),
         type: type,
         matchingTypes: scope,
+        matchingConditions: inclusionConditions,
         allTypesInSchema: allTypes
       )
     }
@@ -122,17 +127,25 @@ extension IR {
     func appending(_ scopeCondition: ScopeCondition) -> ScopeDescriptor {
       let matchingTypes: TypeScope
       if let newType = scopeCondition.type {
-        matchingTypes = Self.typeScope(addingType: newType,
-                               to: self.matchingTypes,
-                               givenAllTypes: self.allTypesInSchema)
+        matchingTypes = Self.typeScope(
+          addingType: newType,
+          to: self.matchingTypes,
+          givenAllTypes: self.allTypesInSchema
+        )
       } else {
         matchingTypes = self.matchingTypes
+      }
+
+      var matchingConditions = self.matchingConditions
+      if let newConditions = scopeCondition.conditions {
+        matchingConditions = matchingConditions?.appending(newConditions) ?? newConditions
       }
 
       return ScopeDescriptor(
         typePath: scopePath.appending(scopeCondition),
         type: scopeCondition.type ?? self.type,
         matchingTypes: matchingTypes,
+        matchingConditions: matchingConditions,
         allTypesInSchema: self.allTypesInSchema
       )
     }
@@ -166,7 +179,8 @@ extension IR {
         return false
       }
 
-      if let inclusionConditions = condition.conditions {
+      if let inclusionConditions = condition.conditions,
+         !inclusionConditions.isSubset(of: self.matchingConditions) {
         return false
       }
 
