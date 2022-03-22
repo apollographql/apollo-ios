@@ -10,7 +10,7 @@ public extension CompilationResult.OperationDefinition {
     let mock = Self.emptyMockObject()
     mock.operationType = type
     mock.rootType = type.mockRootType()
-    mock.selectionSet = CompilationResult.SelectionSet.mock(
+    mock.selectionSet = CompilationResult.SelectionSet(
       parentType: mock.rootType,
       selections: selections
     )
@@ -25,16 +25,31 @@ public extension CompilationResult.OperationType {
   }
 }
 
-public extension CompilationResult.SelectionSet {
+public extension CompilationResult.InlineFragment {
 
   class func mock(
     parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
     inclusionConditions: [CompilationResult.InclusionCondition]? = nil,
     selections: [CompilationResult.Selection] = []
   ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.selectionSet = CompilationResult.SelectionSet(
+      parentType: parentType,
+      selections: selections
+    )
+    mock.inclusionConditions = inclusionConditions
+    return mock
+  }
+}
+
+public extension CompilationResult.SelectionSet {
+
+  class func mock(
+    parentType: GraphQLCompositeType = GraphQLObjectType.mock(),
+    selections: [CompilationResult.Selection] = []
+  ) -> Self {
     Self(
       parentType: parentType,
-      inclusionConditions: inclusionConditions,
       selections: selections
     )
   }

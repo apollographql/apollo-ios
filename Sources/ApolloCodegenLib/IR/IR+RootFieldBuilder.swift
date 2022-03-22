@@ -90,8 +90,9 @@ extension IR {
             selectionSet.selections.direct!.mergeIn(irField)
           }
 
-        case let .inlineFragment(inlineSelectionSet):
-          guard let scope = scopeCondition(for: inlineSelectionSet, in: selectionSet) else {
+        case let .inlineFragment(inlineFragment):
+          let inlineSelectionSet = inlineFragment.selectionSet
+          guard let scope = scopeCondition(for: inlineFragment, in: selectionSet) else {
             continue
           }
 
@@ -132,7 +133,7 @@ extension IR {
                 parentType: fragmentSpread.parentType,
                 selections: [selection]
               ),
-              with: .init(),
+              with: scope,
               inFragmentSpread: containingFragmentSpread,
               onParent: selectionSet
             )
@@ -308,5 +309,7 @@ fileprivate protocol ConditionallyIncludable {
   var inclusionConditions: [CompilationResult.InclusionCondition]? { get }
 }
 
-extension CompilationResult.SelectionSet: ConditionallyIncludable {}
+extension CompilationResult.InlineFragment: ConditionallyIncludable {
+  var parentType: GraphQLCompositeType { selectionSet.parentType }
+}
 extension CompilationResult.FragmentSpread: ConditionallyIncludable {}

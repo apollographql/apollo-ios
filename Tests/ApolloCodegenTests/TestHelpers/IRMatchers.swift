@@ -29,7 +29,7 @@ extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
 /// checking the `MergedSelections` without having to mock out the entire nested selection sets.
 func shallowlyMatch<T: SelectionShallowMatchable>(
   _ expectedValue: (fields: [CompilationResult.Field],
-                    typeCases: [CompilationResult.SelectionSet],
+                    typeCases: [CompilationResult.InlineFragment],
                     fragments: [CompilationResult.FragmentDefinition])
 ) -> Predicate<T> {
   return satisfyAllOf([
@@ -43,13 +43,13 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
   _ expectedValue: [CompilationResult.Selection]
 ) -> Predicate<T> {
   var expectedFields: [CompilationResult.Field] = []
-  var expectedTypeCases: [CompilationResult.SelectionSet] = []
+  var expectedTypeCases: [CompilationResult.InlineFragment] = []
   var expectedFragments: [CompilationResult.FragmentDefinition] = []
 
   for selection in expectedValue {
     switch selection {
     case let .field(field): expectedFields.append(field)
-    case let .inlineFragment(typeCase): expectedTypeCases.append(typeCase)
+    case let .inlineFragment(inlineFragment): expectedTypeCases.append(inlineFragment)
     case let .fragmentSpread(fragment): expectedFragments.append(fragment.fragment)
     }
   }
@@ -251,10 +251,10 @@ fileprivate func shallowlyMatch(expected: CompilationResult.Field, actual: Compi
   expected.type == actual.type
 }
 
-// MARK: TypeCase Matchers
+// MARK: InlineFragment Matchers
 
 public func shallowlyMatch(
-  _ expectedValue: [CompilationResult.SelectionSet]
+  _ expectedValue: [CompilationResult.InlineFragment]
 ) -> Predicate<OrderedDictionary<IR.ScopeCondition, IR.SelectionSet>> {
   return Predicate.define { actual in
     return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate())
@@ -262,7 +262,7 @@ public func shallowlyMatch(
 }
 
 fileprivate func shallowlyMatch(
-  expected: [CompilationResult.SelectionSet],
+  expected: [CompilationResult.InlineFragment],
   actual: OrderedDictionary<IR.ScopeCondition, IR.SelectionSet>?
 ) -> PredicateResult {
   let message: ExpectationMessage = .expectedActualValueTo("have typeCases equal to \(expected)")
@@ -290,7 +290,7 @@ fileprivate func shallowlyMatch(expected: IR.SelectionSet, actual: IR.SelectionS
   expected.typeInfo.scopePath == actual.typeInfo.scopePath
 }
 
-fileprivate func shallowlyMatch(expected: CompilationResult.SelectionSet, actual: IR.SelectionSet) -> Bool {
+fileprivate func shallowlyMatch(expected: CompilationResult.InlineFragment, actual: IR.SelectionSet) -> Bool {
   return expected.parentType == actual.typeInfo.parentType &&
   IR.InclusionConditions.allOf(expected.inclusionConditions ?? []).conditions == actual.inclusionConditions
 }

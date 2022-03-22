@@ -416,7 +416,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
     let aField = subject[field: "aField"] as? IR.EntityField
 
     let expected = [
-      CompilationResult.SelectionSet.mock(
+      CompilationResult.InlineFragment.mock(
         parentType: Object_B,
         selections: [
           .field(.mock("B", type: .scalar(Scalar_String))),
@@ -2641,7 +2641,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let expected = SelectionMatcher(
       direct: [
-        .inlineFragment(.init(parentType: Object_Bird,
+        .inlineFragment(.mock(parentType: Object_Bird,
                               selections: [.fragmentSpread(Fragment_BirdDetails)]))
       ],
       merged: [
@@ -2804,7 +2804,7 @@ class IRRootEntityFieldBuilderTests: XCTestCase {
 
     let expected = SelectionMatcher(
       direct: [
-        .inlineFragment(.init(parentType: Object_Bird,
+        .inlineFragment(.mock(parentType: Object_Bird,
                               selections: [.fragmentSpread(Fragment_BirdDetails)]))
       ],
       merged: [

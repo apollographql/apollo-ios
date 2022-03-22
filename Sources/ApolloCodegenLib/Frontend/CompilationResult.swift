@@ -98,17 +98,13 @@ public class CompilationResult: JavaScriptObject {
     lazy var parentType: GraphQLCompositeType = self["parentType"]
     
     lazy var selections: [Selection] = self["selections"]
-    
-    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     required convenience init(
       parentType: GraphQLCompositeType,
-      inclusionConditions: [InclusionCondition]? = nil,
       selections: [Selection] = []
     ) {
       self.init(nil)
       self.parentType = parentType
-      self.inclusionConditions = inclusionConditions
       self.selections = selections
     }
 
@@ -132,12 +128,31 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
+  public class InlineFragment: JavaScriptObject, Hashable {
+    lazy var selectionSet: SelectionSet = self["selectionSet"]
+
+    lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
+    public override var debugDescription: String {
+      selectionSet.debugDescription
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(selectionSet)
+      hasher.combine(inclusionConditions)
+    }
+
+    public static func ==(lhs: InlineFragment, rhs: InlineFragment) -> Bool {
+      return lhs.selectionSet == rhs.selectionSet &&
+      lhs.inclusionConditions == rhs.inclusionConditions
+    }
+  }
+
   /// Represents an individual selection that includes a named fragment in a selection set.
   /// (ie. `...FragmentName`)
   public class FragmentSpread: JavaScriptObject, Hashable {
     lazy var fragment: FragmentDefinition = self["fragment"]
 
-#warning("TODO: Compile these in TS frontend.")
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
@@ -159,7 +174,7 @@ public class CompilationResult: JavaScriptObject {
   
   public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
-    case inlineFragment(SelectionSet)
+    case inlineFragment(InlineFragment)
     case fragmentSpread(FragmentSpread)
     
     init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
@@ -171,8 +186,7 @@ public class CompilationResult: JavaScriptObject {
       case "Field":
         self = .field(Field(jsValue, bridge: bridge))
       case "InlineFragment":
-        let selectionSet: SelectionSet = bridge.fromJSValue(jsValue["selectionSet"])
-        self = .inlineFragment(selectionSet)
+        self = .inlineFragment(InlineFragment(jsValue, bridge: bridge))
       case "FragmentSpread":
         self = .fragmentSpread(FragmentSpread(jsValue, bridge: bridge))
       default:
@@ -185,7 +199,7 @@ public class CompilationResult: JavaScriptObject {
     var selectionSet: SelectionSet? {
       switch self {
       case let .field(field): return field.selectionSet
-      case let .inlineFragment(selectionSet): return selectionSet
+      case let .inlineFragment(inlineFragment): return inlineFragment.selectionSet
       case let .fragmentSpread(fragmentSpread): return fragmentSpread.fragment.selectionSet
       }
     }
@@ -195,7 +209,7 @@ public class CompilationResult: JavaScriptObject {
       case let .field(field):
         return "field - " + field.debugDescription
       case let .inlineFragment(fragment):
-        return "fragment - " + fragment.debugDescription
+        return "inlineFragment - " + fragment.debugDescription
       case let .fragmentSpread(fragment):
         return "fragment - " + fragment.debugDescription
       }
