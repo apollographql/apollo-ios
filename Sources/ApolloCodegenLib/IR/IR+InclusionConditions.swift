@@ -34,7 +34,7 @@ extension IR {
 
     var debugDescription: String {
       TemplateString("""
-      "@\(if: isInverted, "skip", else: "include")(if: $\(variable))
+      @\(if: isInverted, "skip", else: "include")(if: $\(variable))
       """).description
     }
 

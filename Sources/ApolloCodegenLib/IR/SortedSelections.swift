@@ -163,7 +163,7 @@ extension IR {
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      TypeCases: \(conditionalSelectionSets.values.elements.map(\.typeInfo.parentType))
+      InlineFragments: \(conditionalSelectionSets.values.elements.map(\.conditionalSelectionSetDebugDescription))
       Fragments: \(fragments.values.elements.map(\.definition.name))
       """
     }
@@ -301,11 +301,21 @@ extension IR {
       """
       Merged Sources: \(mergedSources)
       Fields: \(fields.values.elements)
-      TypeCases: \(conditionalSelectionSets.values.elements.map(\.typeInfo.parentType))
+      InlineFragments: \(conditionalSelectionSets.values.elements.map(\.conditionalSelectionSetDebugDescription))
       Fragments: \(fragments.values.elements.map(\.definition.name))
       """
     }
 
   }
 
+}
+
+fileprivate extension IR.SelectionSet {
+  var conditionalSelectionSetDebugDescription: String {
+    var string = typeInfo.parentType.debugDescription
+    if let conditions = typeInfo.inclusionConditions {
+      string += " \(conditions.debugDescription)"
+    }
+    return string    
+  }
 }
