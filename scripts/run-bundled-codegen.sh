@@ -80,7 +80,7 @@ validate_codegen_and_extract_if_needed() {
     # The file exists, let's see if it's the same SHASUM
     FILE_CONTENTS="$(cat "${SHASUM_FILE}")"
     if [[ ${FILE_CONTENTS} = ${EXPECTED_SHASUM}* ]]; then
-      echo "Current verson of CLI is already extracted!"
+      echo "Current version of CLI is already extracted!"
     else
       echo "Extracting updated version of the Apollo CLI. This may take a minute..."
       remove_existing_apollo
@@ -99,7 +99,7 @@ download_apollo_cli_if_needed
 # Make sure we're using an up-to-date and valid version of the Apollo CLI
 validate_codegen_and_extract_if_needed
 
-# Add the binary directory to the beginning of PATH so included binary verson of node is used.
+# Add the binary directory to the beginning of PATH so included binary version of node is used.
 PATH="${SCRIPT_DIR}/apollo/bin:${PATH}"
 
 # Use the bundled executable of the Apollo CLI to generate code
