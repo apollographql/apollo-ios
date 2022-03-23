@@ -59,6 +59,7 @@ public struct ApolloCodegenOptions {
   
   let codegenEngine: CodeGenerationEngine
   let includes: String
+  let excludes: String?
   let mergeInFieldsFromFragmentSpreads: Bool
   let namespace: String?
   let modifier: AccessModifier
@@ -77,6 +78,7 @@ public struct ApolloCodegenOptions {
   /// - Parameters:
   ///  - codegenEngine: The code generation engine to use. Defaults to `CodeGenerationEngine.default`
   ///  - includes: Glob of files to search for GraphQL operations. This should be used to find queries *and* any client schema extensions. Defaults to `./**/*.graphql`, which will search for `.graphql` files throughout all subfolders of the folder where the script is run.
+  ///  - excludes: Glob of files to exclude for GraphQL operations. Caveat: this doesn't currently work in watch mode
   ///  - mergeInFieldsFromFragmentSpreads: Set true to merge fragment fields onto its enclosing type. Defaults to true.
   ///  - modifier: [EXPERIMENTAL SWIFT CODEGEN ONLY] - The access modifier to use on everything created by this tool. Defaults to `.public`.
   ///  - namespace: [optional] The namespace to emit generated code into. Defaults to nil.
@@ -90,6 +92,7 @@ public struct ApolloCodegenOptions {
   ///  - downloadTimeout: The maximum time to wait before indicating that the download timed out, in seconds. Defaults to 30 seconds.
   public init(codegenEngine: CodeGenerationEngine = .default,
               includes: String = "./**/*.graphql",
+              excludes: String? = nil,
               mergeInFieldsFromFragmentSpreads: Bool = true,
               modifier: AccessModifier = .public,
               namespace: String? = nil,
@@ -103,6 +106,7 @@ public struct ApolloCodegenOptions {
               downloadTimeout: Double = 30.0) {
     self.codegenEngine = codegenEngine
     self.includes = includes
+    self.excludes = excludes
     self.mergeInFieldsFromFragmentSpreads = mergeInFieldsFromFragmentSpreads
     self.modifier = modifier
     self.namespace = namespace
@@ -155,7 +159,7 @@ public struct ApolloCodegenOptions {
       "--includes='\(self.includes)'",
       "--localSchemaFile='\(self.urlToSchemaFile.path)'"
     ]
-    
+
     if let namespace = self.namespace {
       arguments.append("--namespace=\(namespace)")
     }
@@ -168,6 +172,10 @@ public struct ApolloCodegenOptions {
       arguments.append("--operationIdsPath='\(idsURL.path)'")
     }
     
+    if let excludes = self.excludes {
+      arguments.append("--excludes='\(excludes)'")
+    }
+
     if self.omitDeprecatedEnumCases {
       arguments.append("--omitDeprecatedEnumCases")
     }
