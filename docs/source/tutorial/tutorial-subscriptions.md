@@ -4,6 +4,7 @@ title: "9. Write your first subscription"
 
 In this section, you will use subscriptions to get notified whenever someone books a flight 🚀! [Subscriptions](https://graphql.org/blog/subscriptions-in-graphql-and-relay/) allow you to be notified in real time whenever an event happens on your server. The [fullstack backend](https://apollo-fullstack-tutorial.herokuapp.com/graphql) supports subscriptions based on [WebSockets](https://en.wikipedia.org/wiki/WebSocket).
 
+
 ## Write your subscription
 
 Open your [Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com/graphql) back up, click on the Schema tab at the far left. In addition to `queries` and `mutations`, you will see a third type of operations, `subscriptions`. Click on subscriptions to see the `tripsBooked` subscription:
@@ -30,7 +31,7 @@ Open a new tab in Explorer. In this new tab, add code to book a trip like on [st
 
 ```graphql
 mutation BookTrip {
-  bookTrips(launchIds: ["93"]) {
+  bookTrips(launchIds: ["93"]){
     message
   }
 }
@@ -200,5 +201,5 @@ Feel free to ask questions by either [opening an issue on our GitHub repo](https
 
 And if you want dig more and see GraphQL in real-world apps, you can take a look at these open source projects using Apollo iOS:
 
-- https://github.com/GitHawkApp/GitHawk
-- [open a PR if you have an example app that should be here!]
+* https://github.com/GitHawkApp/GitHawk
+* [open a PR if you have an example app that should be here!]
