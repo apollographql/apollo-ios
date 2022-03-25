@@ -25,10 +25,10 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
     public static var __parentType: ParentType { .Object(AnimalKingdomAPI.Query.self) }
     public static var selections: [Selection] { [
-      .field("classroomPets", [ClassroomPet].self),
+      .field("classroomPets", [ClassroomPet?]?.self),
     ] }
 
-    public var classroomPets: [ClassroomPet] { data["classroomPets"] }
+    public var classroomPets: [ClassroomPet?]? { data["classroomPets"] }
 
     /// ClassroomPet
     public struct ClassroomPet: AnimalKingdomAPI.SelectionSet {
