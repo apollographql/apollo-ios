@@ -61,7 +61,7 @@ Build your project, and the subscription will be picked up and added to your `AP
 
 ## Configure your ApolloClient to use subscriptions
 
-> This tutorial uses the `graphql-ws` protocol, implemented by the `subscriptions-transport-ws` library. **This library is no longer actively maintained.** We recommend using the [`graphql-ws`](https://www.npmjs.com/package/graphql-ws) library instead, which implements its own WebSocket subprotocol, `graphql-transport-ws`. Note that the two libraries do not use the same WebSocket subprotocol, so you need to ensure that your servers, clients, and tools use the **same library and subprotocol**. For more information and examples, see [GraphQL over WebSocket protocols](../subscriptions#graphql-over-websocket-protocols).
+> This tutorial uses the [`graphql-ws`](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) protocol, implemented by the [`subscriptions-transport-ws`](https://github.com/apollographql/subscriptions-transport-ws) library. **That library is no longer actively maintained.** We recommend using the [`graphql-ws`](https://www.npmjs.com/package/graphql-ws) library instead, which implements its own WebSocket subprotocol, `graphql-transport-ws`. Note that the two libraries do not use the same WebSocket subprotocol and you need to ensure that your servers, clients, and tools use the **same library and subprotocol**. For more information and examples, see [GraphQL over WebSocket protocols](../subscriptions#graphql-over-websocket-protocols).
 
 In `Network.swift`, you'll need to set up a transport which supports subscriptions in addition to general network usage. In practice, this means adding a `WebSocketTransport` which will allow real-time communication with your server.
 
