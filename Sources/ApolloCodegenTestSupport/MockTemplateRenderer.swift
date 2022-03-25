@@ -2,6 +2,8 @@ import Foundation
 @testable import ApolloCodegenLib
 
 public struct MockTemplate: TemplateRenderer {
+  public var target: TemplateTarget
+
   public var template: TemplateString {
     TemplateString(
     """
@@ -10,5 +12,9 @@ public struct MockTemplate: TemplateRenderer {
     }
     """
     )
+  }
+
+  public static func mock(target: TemplateTarget) -> Self {
+    MockTemplate(target: target)
   }
 }

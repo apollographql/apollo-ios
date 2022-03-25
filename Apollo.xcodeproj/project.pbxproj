@@ -402,8 +402,10 @@
 		E6EE62F127DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */; };
 		E6EE62F327DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */; };
 		E6EFDD0927E5624600B17FE5 /* ReferenceWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */; };
-		E6EFDD0B27E8328E00B17FE5 /* TemplateRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0A27E8328E00B17FE5 /* TemplateRendererTests.swift */; };
+		E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */; };
 		E6EFDD0D27E8377200B17FE5 /* MockTemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD0C27E8377200B17FE5 /* MockTemplateRenderer.swift */; };
+		E6EFDD1427EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */; };
+		E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */; };
 		E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86D8E03214B32DA0028EFE1 /* JSONTests.swift */; };
 		F16D083C21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */; };
 		F82E62E122BCD223000C311B /* AutomaticPersistedQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */; };
@@ -1135,8 +1137,10 @@
 		E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplate.swift; sourceTree = "<group>"; };
 		E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaModuleNamespaceTemplateTests.swift; sourceTree = "<group>"; };
 		E6EFDD0827E5624600B17FE5 /* ReferenceWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceWrapped.swift; sourceTree = "<group>"; };
-		E6EFDD0A27E8328E00B17FE5 /* TemplateRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRendererTests.swift; sourceTree = "<group>"; };
+		E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_SchemaFile_Tests.swift; sourceTree = "<group>"; };
 		E6EFDD0C27E8377200B17FE5 /* MockTemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTemplateRenderer.swift; sourceTree = "<group>"; };
+		E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_ModuleFile_Tests.swift; sourceTree = "<group>"; };
+		E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_OperationFile_Tests.swift; sourceTree = "<group>"; };
 		E86D8E03214B32DA0028EFE1 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		F16D083B21EF6F7300C458B8 /* QueryFromJSONBuildingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryFromJSONBuildingTests.swift; sourceTree = "<group>"; };
 		F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutomaticPersistedQueriesTests.swift; sourceTree = "<group>"; };
@@ -2107,7 +2111,9 @@
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaTemplateTests.swift */,
 				E6B42D0C27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift */,
-				E6EFDD0A27E8328E00B17FE5 /* TemplateRendererTests.swift */,
+				E6EFDD1227EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift */,
+				E6EFDD1327EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift */,
+				E6EFDD0A27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
 			);
 			path = Templates;
@@ -3330,10 +3336,12 @@
 				E610D8DD278EB1500023E495 /* InterfaceFileGeneratorTests.swift in Sources */,
 				9F62DFAE2590557F00E6E808 /* DocumentParsingAndValidationTests.swift in Sources */,
 				9F62E0102590728000E6E808 /* CompilationTests.swift in Sources */,
+				E6EFDD1527EAB55B00B17FE5 /* TemplateRenderer_OperationFile_Tests.swift in Sources */,
 				DEAFB77B2706444B00BE02F3 /* IRRootEntityFieldBuilderTests.swift in Sources */,
 				E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */,
 				9F62DFBF2590560000E6E808 /* Helpers.swift in Sources */,
 				DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */,
+				E6EFDD1427EAB55B00B17FE5 /* TemplateRenderer_ModuleFile_Tests.swift in Sources */,
 				E686B0D227D951630095D04E /* ImportStatementTemplateTests.swift in Sources */,
 				E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */,
 				DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */,
@@ -3357,7 +3365,7 @@
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
 				DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */,
 				E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */,
-				E6EFDD0B27E8328E00B17FE5 /* TemplateRendererTests.swift in Sources */,
+				E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */,
 				9F62DF8E2590539A00E6E808 /* SchemaIntrospectionTests.swift in Sources */,
 				E6D90D0D278FFE35009CAC5D /* SchemaFileGeneratorTests.swift in Sources */,
 				E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */,
