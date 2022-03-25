@@ -70,7 +70,7 @@ struct Codegen: ParsableCommand {
       with: ApolloCodegenConfiguration(
         input: inputConfig,
         output: outputConfig,
-        parseOptions: .init(clientControlledNullability: target.ccnEnabled)
+        experimentalFeatures: .init(clientControlledNullability: target.ccnEnabled)
       )
     )
   }
