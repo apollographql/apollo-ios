@@ -1,16 +1,12 @@
-struct FragmentTemplate {
-
+struct FragmentTemplate: TemplateRenderer {
   let fragment: IR.NamedFragment
   let schema: IR.Schema
-  let config: ApolloCodegenConfiguration.FileOutput
 
-  func render() -> String {
+  var target: TemplateTarget { .operationFile }
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.Operation.render(config))
-
     public struct \(fragment.name): \(schema.name).SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
@@ -18,7 +14,6 @@ struct FragmentTemplate {
 
       \(SelectionSetTemplate(schema: schema).BodyTemplate(fragment.rootField.selectionSet))
     }
-    """).description
+    """)
   }
-
 }
