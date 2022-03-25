@@ -93,7 +93,8 @@ public final class GraphQLJSFrontend {
   ) throws -> GraphQLDocument {
     return try library.call(
       "parseDocument",
-      with: source, experimentalClientControlledNullability
+      with: source,
+      experimentalClientControlledNullability
     )
   }
 
@@ -105,7 +106,8 @@ public final class GraphQLJSFrontend {
   ) throws -> GraphQLDocument {
     return try library.call(
       "parseDocument",
-      with: makeSource(from: fileURL), experimentalClientControlledNullability
+      with: makeSource(from: fileURL),
+      experimentalClientControlledNullability
     )
   }
 

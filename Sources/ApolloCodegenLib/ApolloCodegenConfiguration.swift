@@ -177,7 +177,7 @@ public struct ApolloCodegenConfiguration {
     case persistedOperationsOnly
   }
 
-  public struct ParseOptions {
+  public struct ExperimentalFeatures {
     /**
      * EXPERIMENTAL: If enabled, the parser will understand and parse Client Controlled Nullability
      * Designators contained in Fields. They'll be represented in the
@@ -197,10 +197,10 @@ public struct ApolloCodegenConfiguration {
      * Note: this feature is experimental and may change or be removed in the
      * future.
      */
-    public let experimentalClientControlledNullability: Bool
+    public let clientControlledNullability: Bool
 
-    public init(experimentalClientControlledNullability: Bool = false) {
-      self.experimentalClientControlledNullability = experimentalClientControlledNullability
+    public init(clientControlledNullability: Bool = false) {
+      self.clientControlledNullability = clientControlledNullability
     }
   }
 
@@ -226,7 +226,7 @@ public struct ApolloCodegenConfiguration {
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   public let apqs: APQConfig
   /// Options to pass to the GraphQL parser. Allows users to enable experimental features.
-  public let parseOptions: ParseOptions
+  public let parseOptions: ExperimentalFeatures
 
   // MARK: Initializers
 
@@ -256,7 +256,7 @@ public struct ApolloCodegenConfiguration {
     deprecatedEnumCases: Composition = .include,
     schemaDocumentation: Composition = .include,
     apqs: APQConfig = .disabled,
-    parseOptions: ParseOptions = ParseOptions()
+    parseOptions: ExperimentalFeatures = ExperimentalFeatures()
   ) {
     self.input = input
     self.output = output

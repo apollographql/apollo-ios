@@ -33,7 +33,7 @@ public class ApolloCodegen {
     let referenceConfig = ReferenceWrapped(value: configuration)
     let compilationResult = try compileGraphQLResult(
       referenceConfig,
-      experimentalClientControlledNullability: configuration.experimentalClientControlledNullability
+      experimentalClientControlledNullability: configuration.parseOptions.clientControlledNullability
     )
 
     let ir = IR(
