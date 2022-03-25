@@ -375,7 +375,9 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
       directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
 
-      directoryURL.appendingPathComponent("Operations/AllAnimalsQueryCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/AllAnimalsCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetsCCNQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetDetailsCCN.swift").path,
 
       directoryURL.appendingPathComponent("Package.swift").path,
     ]

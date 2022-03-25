@@ -1,6 +1,6 @@
 type Query {
   allAnimals: [Animal!]!
-  classroomPets: [ClassroomPet!]!
+  classroomPets: [ClassroomPet]
   pets(filters: PetSearchFilters!): [Pet!]!
 }
 

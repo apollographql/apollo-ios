@@ -1,6 +1,6 @@
-query AllAnimalsQueryCCN {
+query AllAnimalsCCN {
   allAnimals {
-    height {
+    height? {
       feet?
       inches!
     }

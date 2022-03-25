@@ -19,7 +19,11 @@ public struct Resources {
 
   public static let CCNGraphQLOperations: [URL] = Bundle.urls(
     forResourcesWithExtension: "graphql",
-    subdirectory: "ccnGraphql"
+    subdirectory: "graphql/ccnGraphql"
+  )! +
+  Bundle.urls(
+    forResourcesWithExtension: "graphql",
+    subdirectory: "graphql"
   )!
 
 //  public static let CCNAnimalKingdomSchema = Bundle.url(

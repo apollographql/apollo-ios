@@ -1002,7 +1002,7 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
         experimentalClientControlledNullability: true
       )
     )
-    let operation = compilationResult.operations.first { $0.name == "AllAnimalsQueryCCN" }
+    let operation = compilationResult.operations.first { $0.name == "AllAnimalsCCN" }
     let ir = IR.mock(compilationResult: compilationResult)
     let rootSelectionSet = ir.build(operation: try XCTUnwrap(operation)).rootField.selectionSet!
 
