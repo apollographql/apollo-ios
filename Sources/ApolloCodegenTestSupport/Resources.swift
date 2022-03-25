@@ -25,10 +25,4 @@ public struct Resources {
     forResourcesWithExtension: "graphql",
     subdirectory: "graphql"
   )!
-
-//  public static let CCNAnimalKingdomSchema = Bundle.url(
-//    forResource: "AnimalSchema",
-//    withExtension: "graphqls",
-//    subdirectory: "ccnGraphql"
-//  )!
 }
