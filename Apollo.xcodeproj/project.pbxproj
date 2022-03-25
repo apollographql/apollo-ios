@@ -13,7 +13,6 @@
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
-		96B1EFB927EE70D500680D73 /* ccnGraphql in Resources */ = {isa = PBXBuildFile; fileRef = 96B1EFB827EE70D500680D73 /* ccnGraphql */; };
 		96F32C4827CC436B00F3383C /* ApolloAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE058621266978A100265760 /* ApolloAPI.framework */; };
 		96F32C4927CC436B00F3383C /* ApolloUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B68353E2463481A00337AE6 /* ApolloUtils.framework */; };
 		96F32CB527CC4D8F00F3383C /* GeneratedCCN in Resources */ = {isa = PBXBuildFile; fileRef = 96F32C6427CC444100F3383C /* GeneratedCCN */; };
@@ -766,7 +765,6 @@
 		90690D2222433C2800FC2E54 /* Apollo-Target-GitHubAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-GitHubAPI.xcconfig"; sourceTree = "<group>"; };
 		90690D2422433C8000FC2E54 /* Apollo-Target-PerformanceTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-PerformanceTests.xcconfig"; sourceTree = "<group>"; };
 		90690D2522433CAF00FC2E54 /* Apollo-Target-TestSupport.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-TestSupport.xcconfig"; sourceTree = "<group>"; };
-		96B1EFB827EE70D500680D73 /* ccnGraphql */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ccnGraphql; path = Sources/AnimalKingdomAPI/graphql/ccnGraphql; sourceTree = "<group>"; };
 		96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPICCN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F32C5C27CC444100F3383C /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
 		96F32C6427CC444100F3383C /* GeneratedCCN */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeneratedCCN; sourceTree = "<group>"; };
