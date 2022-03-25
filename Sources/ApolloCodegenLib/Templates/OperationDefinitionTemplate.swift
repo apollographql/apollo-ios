@@ -1,18 +1,17 @@
 import OrderedCollections
+import ApolloUtils
 
-struct OperationDefinitionTemplate {
+struct OperationDefinitionTemplate: TemplateRenderer {
 
   let operation: IR.Operation
   let schema: IR.Schema
-  let config: ApolloCodegenConfiguration
+  let config: ReferenceWrapped<ApolloCodegenConfiguration>
 
-  func render() -> String {
+  var target: TemplateTarget = .operationFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.Operation.render(config.output))
-
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(operation.definition, fragments: operation.referencedFragments, apq: config.apqs))
 
@@ -24,10 +23,10 @@ struct OperationDefinitionTemplate {
 
       \(SelectionSetTemplate(schema: schema).render(for: operation))
     }
-    """).description
+    """)
   }
 
-  func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
+  private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
     public class \(operation.nameWithSuffix): \(operation.operationType.renderedProtocolName) {
       public let operationName: String = "\(operation.name)"
