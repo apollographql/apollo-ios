@@ -3,6 +3,8 @@ import ApolloUtils
 struct EnumTemplate: TemplateRenderer {
   let graphqlEnum: GraphQLEnumType
 
+  var target: TemplateTarget { .schemaFile }
+
   var template: TemplateString {
     TemplateString(
     """
