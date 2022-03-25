@@ -77,7 +77,7 @@ type Height {
   centimeters: Int!
   meters: Int!
   feet: Int!
-  inches: Int!
+  inches: Int
   yards: Int!
 }
 

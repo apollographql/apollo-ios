@@ -314,4 +314,89 @@ class ApolloCodegenTests: XCTestCase {
     expect(filePaths).to(equal(expectedPaths))
     expect(fileManager.allClosuresCalled).to(beTrue())
   }
+
+  func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
+    // given
+    let schemaPath = ApolloCodegenTestSupport.Resources.AnimalKingdomSchema.path
+    let operationsPath = ApolloCodegenTestSupport.Resources.url
+      .appendingPathComponent("graphql")
+      .appendingPathComponent("**/*.graphql").path
+
+    let config = ApolloCodegenConfiguration(
+      input: .init(schemaPath: schemaPath, searchPaths: [operationsPath]),
+      output: .mock(
+        moduleType: .swiftPackageManager,
+        schemaName: "AnimalKingdomAPI",
+        operations: .inSchemaModule,
+        path: directoryURL.path
+      )
+    )
+
+    let fileManager = MockFileManager(strict: false)
+
+    var filePaths: Set<String> = []
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      filePaths.insert(path)
+      return true
+    }))
+
+    let expectedPaths: Set<String> = [
+      directoryURL.appendingPathComponent("Schema/Schema.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Interfaces/Pet.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/Animal.swift").path,
+      directoryURL.appendingPathComponent("Schema/Interfaces/WarmBlooded.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Enums/SkinCovering.swift").path,
+      directoryURL.appendingPathComponent("Schema/Enums/RelativeSize.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Unions/ClassroomPet.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/InputObjects/PetAdoptionInput.swift").path,
+      directoryURL.appendingPathComponent("Schema/InputObjects/PetSearchFilters.swift").path,
+      directoryURL.appendingPathComponent("Schema/InputObjects/MeasurementsInput.swift").path,
+
+      directoryURL.appendingPathComponent("Schema/Objects/Height.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Query.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Cat.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Human.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Bird.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Rat.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/PetRock.swift").path,
+      directoryURL.appendingPathComponent("Schema/Objects/Mutation.swift").path,
+
+      directoryURL.appendingPathComponent("Operations/AllAnimalsQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetsQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/ClassroomPetDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetAdoptionMutation.swift").path,
+      directoryURL.appendingPathComponent("Operations/HeightInMeters.swift").path,
+      directoryURL.appendingPathComponent("Operations/WarmBloodedDetails.swift").path,
+      directoryURL.appendingPathComponent("Operations/PetSearchQuery.swift").path,
+
+      directoryURL.appendingPathComponent("Operations/AllAnimalsQueryCCNQuery.swift").path,
+
+      directoryURL.appendingPathComponent("Package.swift").path,
+    ]
+
+    // when
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(config.input, experimentalClientControlledNullability: true)
+
+    let ir = IR(
+      schemaName: config.output.schemaTypes.schemaName,
+      compilationResult: compilationResult
+    )
+
+    try ApolloCodegen.generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: config,
+      fileManager: fileManager
+    )
+
+    // then
+    expect(filePaths).to(equal(expectedPaths))
+    expect(fileManager.allClosuresCalled).to(beTrue())
+  }
 }

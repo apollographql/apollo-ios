@@ -22,9 +22,9 @@ public struct Resources {
     subdirectory: "ccnGraphql"
   )!
 
-  public static let CCNAnimalKingdomSchema = Bundle.url(
-    forResource: "AnimalSchema",
-    withExtension: "graphqls",
-    subdirectory: "ccnGraphql"
-  )!
+//  public static let CCNAnimalKingdomSchema = Bundle.url(
+//    forResource: "AnimalSchema",
+//    withExtension: "graphqls",
+//    subdirectory: "ccnGraphql"
+//  )!
 }
