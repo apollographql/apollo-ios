@@ -53,7 +53,7 @@ public class ApolloCodegen {
   /// Performs GraphQL source validation and compiles the schema and operation source documents. 
   static func compileGraphQLResult(
     _ config: ReferenceWrapped<ApolloCodegenConfiguration>,
-    experimentalClientControlledNullability: Bool = false
+    experimentalFeatures: ApolloCodegenConfiguration.ExperimentalFeatures = .init()
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
 
@@ -64,7 +64,7 @@ public class ApolloCodegen {
     let documents = try matches.map({ path in
       return try frontend.parseDocument(
         from: URL(fileURLWithPath: path),
-        experimentalClientControlledNullability: experimentalClientControlledNullability
+        experimentalClientControlledNullability: experimentalFeatures.clientControlledNullability
       )
     })
     let mergedDocument = try frontend.mergeDocuments(documents)

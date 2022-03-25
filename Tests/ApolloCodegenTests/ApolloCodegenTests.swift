@@ -172,7 +172,11 @@ class ApolloCodegenTests: XCTestCase {
       schemaPath: schemaPath,
       searchPaths: [directoryURL.appendingPathComponent("*.graphql").path]
     )))
-    let compiledDocument = try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: true)
+
+    let compiledDocument = try ApolloCodegen.compileGraphQLResult(
+      config,
+      experimentalFeatures: .init(clientControlledNullability: true)
+    )
 
     // then
     expect(compiledDocument.operations).to(haveCount(1))
@@ -198,7 +202,7 @@ class ApolloCodegenTests: XCTestCase {
     )))
 
     // then
-    expect(try ApolloCodegen.compileGraphQLResult(config, experimentalClientControlledNullability: false).operations).to(throwError { error in
+    expect(try ApolloCodegen.compileGraphQLResult(config).operations).to(throwError { error in
       guard let error = error as? GraphQLError else {
         fail("Expected .graphQLSourceValidationFailure, got .\(error)")
         return
@@ -383,7 +387,10 @@ class ApolloCodegenTests: XCTestCase {
     ]
 
     // when
-    let compilationResult = try ApolloCodegen.compileGraphQLResult(config.input, experimentalClientControlledNullability: true)
+    let compilationResult = try ApolloCodegen.compileGraphQLResult(
+      config.input,
+      experimentalFeatures: .init(clientControlledNullability: true)
+    )
 
     let ir = IR(
       schemaName: config.output.schemaTypes.schemaName,

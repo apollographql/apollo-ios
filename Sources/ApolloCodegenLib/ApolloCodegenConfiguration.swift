@@ -226,7 +226,7 @@ public struct ApolloCodegenConfiguration {
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   public let apqs: APQConfig
   /// Options to pass to the GraphQL parser. Allows users to enable experimental features.
-  public let parseOptions: ExperimentalFeatures
+  public let experimentalFeatures: ExperimentalFeatures
 
   // MARK: Initializers
 
@@ -256,7 +256,7 @@ public struct ApolloCodegenConfiguration {
     deprecatedEnumCases: Composition = .include,
     schemaDocumentation: Composition = .include,
     apqs: APQConfig = .disabled,
-    parseOptions: ExperimentalFeatures = ExperimentalFeatures()
+    experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
   ) {
     self.input = input
     self.output = output
@@ -266,7 +266,7 @@ public struct ApolloCodegenConfiguration {
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.apqs = apqs
-    self.parseOptions = parseOptions
+    self.experimentalFeatures = experimentalFeatures
   }
 
 }
