@@ -1326,15 +1326,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		96F32C4727CC436B00F3383C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				96F32C4827CC436B00F3383C /* ApolloAPI.framework in Frameworks */,
-				96F32C4927CC436B00F3383C /* ApolloUtils.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9B2DFBB324E1FA0D00ED3AE6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2005,7 +1996,6 @@
 				DE6B15AC26152BE10068D642 /* ApolloServerIntegrationTests.xctest */,
 				DECD490B262F81BF00924527 /* ApolloCodegenTestSupport.framework */,
 				DE058621266978A100265760 /* ApolloAPI.framework */,
-				96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2877,13 +2867,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		96F32C4A27CC436B00F3383C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9B2DFBB124E1FA0D00ED3AE6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2978,26 +2961,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		96F32C2627CC436B00F3383C /* AnimalKingdomAPICCN */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 96F32C5527CC436B00F3383C /* Build configuration list for PBXNativeTarget "AnimalKingdomAPICCN" */;
-			buildPhases = (
-				96F32C2B27CC436B00F3383C /* Sources */,
-				96F32C4727CC436B00F3383C /* Frameworks */,
-				96F32C4A27CC436B00F3383C /* Headers */,
-				96F32C4C27CC436B00F3383C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				96F32C2727CC436B00F3383C /* PBXTargetDependency */,
-				96F32C2927CC436B00F3383C /* PBXTargetDependency */,
-			);
-			name = AnimalKingdomAPICCN;
-			productName = StarWarsAPI;
-			productReference = 96F32C5927CC436B00F3383C /* AnimalKingdomAPICCN.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B2DFBBE24E1FA0D00ED3AE6 /* Build configuration list for PBXNativeTarget "UploadAPI" */;
@@ -3440,7 +3403,6 @@
 				DE6B15AB26152BE10068D642 /* ApolloServerIntegrationTests */,
 				9F8A95771EC0FC1200304A2D /* ApolloTestSupport */,
 				DE3C7A00260A6B9800D2F4FF /* AnimalKingdomAPI */,
-				96F32C2627CC436B00F3383C /* AnimalKingdomAPICCN */,
 				9FCE2CF91E6C213D00E34457 /* StarWarsAPI */,
 				9FACA9B71F42E67200AE2DBD /* GitHubAPI */,
 				9B2DFBB524E1FA0D00ED3AE6 /* UploadAPI */,
@@ -3452,13 +3414,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		96F32C4C27CC436B00F3383C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9B2DFBB424E1FA0D00ED3AE6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3601,13 +3556,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		96F32C2B27CC436B00F3383C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9B2DFBB224E1FA0D00ED3AE6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4721,16 +4669,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96F32C5527CC436B00F3383C /* Build configuration list for PBXNativeTarget "AnimalKingdomAPICCN" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				96F32C5627CC436B00F3383C /* Debug */,
-				96F32C5727CC436B00F3383C /* Release */,
-				96F32C5827CC436B00F3383C /* PerformanceTesting */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		9B2DFBBE24E1FA0D00ED3AE6 /* Build configuration list for PBXNativeTarget "UploadAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
