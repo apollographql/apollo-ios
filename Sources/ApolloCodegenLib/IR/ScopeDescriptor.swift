@@ -170,17 +170,23 @@ extension IR {
       otherScope.isSubset(of: self.matchingTypes)
     }
 
+    func matches(_ otherType: GraphQLCompositeType) -> Bool {
+      self.matchingTypes.contains(otherType)
+    }
+
+    func matches(_ otherConditions: InclusionConditions) -> Bool {
+      otherConditions.isSubset(of: self.matchingConditions)
+    }
+
     /// Indicates if the receiver is of the given type. If the receiver matches a given type,
     /// then selections for a `SelectionSet` of that type can be merged in to the receiver's
     /// `SelectionSet`.
     func matches(_ condition: ScopeCondition) -> Bool {
-      if let type = condition.type,
-         !self.matchingTypes.contains(type) {
+      if let type = condition.type, !self.matches(type) {
         return false
       }
 
-      if let inclusionConditions = condition.conditions,
-         !inclusionConditions.isSubset(of: self.matchingConditions) {
+      if let inclusionConditions = condition.conditions, !self.matches(inclusionConditions) {
         return false
       }
 

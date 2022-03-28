@@ -117,19 +117,25 @@ public extension CompilationResult.FragmentDefinition {
 
 public extension CompilationResult.FragmentSpread {
   class func mock(
-    _ fragment: CompilationResult.FragmentDefinition = .mock()
+    _ fragment: CompilationResult.FragmentDefinition = .mock(),
+    inclusionConditions: [CompilationResult.InclusionCondition]? = nil
   ) -> Self {
     let mock = Self.emptyMockObject()
     mock.fragment = fragment
+    mock.inclusionConditions = inclusionConditions
     return mock
   }
 }
 
 public extension CompilationResult.Selection {
   static func fragmentSpread(
-  _ fragment: CompilationResult.FragmentDefinition
+  _ fragment: CompilationResult.FragmentDefinition,
+  inclusionConditions: [CompilationResult.InclusionCondition]? = nil
   ) -> CompilationResult.Selection {
-    .fragmentSpread(CompilationResult.FragmentSpread.mock(fragment))
+    .fragmentSpread(CompilationResult.FragmentSpread.mock(
+      fragment,
+      inclusionConditions: inclusionConditions
+    ))
   }
 }
 
