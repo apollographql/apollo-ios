@@ -1,14 +1,14 @@
-struct UnionTemplate {
+import Foundation
+
+struct UnionTemplate: TemplateRenderer {
   let moduleName: String
   let graphqlUnion: GraphQLUnionType
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-
     public enum \(graphqlUnion.name): UnionType, Equatable {
       \(graphqlUnion.types.map({ type in
       "case \(type.name.firstUppercased)(\(type.name.firstUppercased))"
@@ -39,6 +39,6 @@ struct UnionTemplate {
       ]
     }
     """
-    ).description
+    )
   }
 }
