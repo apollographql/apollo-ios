@@ -1,15 +1,13 @@
 import Foundation
 
-struct ObjectTemplate {
+struct ObjectTemplate: TemplateRenderer {
   let graphqlObject: GraphQLObjectType
 
-  func render() -> String {
+  var target: TemplateTarget = .schemaFile
+
+  var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-    
     public final class \(graphqlObject.name.firstUppercased): Object {
       override public class var __typename: String { \"\(graphqlObject.name.firstUppercased)\" }
 
@@ -20,6 +18,6 @@ struct ObjectTemplate {
         }), separator: ",\n")
       ])
     }
-    """).description
+    """)
   }
 }
