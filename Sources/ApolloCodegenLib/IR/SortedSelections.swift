@@ -186,8 +186,7 @@ extension IR {
 
     struct MergedSource: Hashable {
       let typeInfo: SelectionSet.TypeInfo
-      #warning("TODO: make fragment unowned?")
-      let fragment: FragmentSpread?
+      unowned let fragment: FragmentSpread?
     }
 
     typealias MergedSources = Set<MergedSource>
