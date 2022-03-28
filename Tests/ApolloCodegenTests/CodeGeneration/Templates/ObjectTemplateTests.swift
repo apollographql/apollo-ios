@@ -12,53 +12,26 @@ class ObjectTemplateTests: XCTestCase {
     super.tearDown()
   }
 
+  // MARK: Helpers
+
   private func buildSubject(name: String = "Dog", interfaces: [GraphQLInterfaceType] = []) {
     subject = ObjectTemplate(
       graphqlObject: GraphQLObjectType.mock(name, interfaces: interfaces)
     )
   }
 
+  private func renderSubject() -> String {
+    subject.template.description
+  }
+
   // MARK: Boilerplate tests
-
-  func test_render_generatesHeaderComment() {
-    // given
-    buildSubject()
-
-    let expected = """
-    // @generated
-    // This file was automatically generated and should not be edited.
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_generatesImportStatement() {
-    // given
-    buildSubject()
-
-    let expected = """
-    import ApolloAPI
-
-    """
-
-    // when
-    let actual = subject.render()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
-  }
 
   func test_render_generatesClosingBrace() {
     // given
     buildSubject()
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
     expect(String(actual.reversed())).to(equalLineByLine("}", ignoringExtraLines: true))
@@ -77,10 +50,10 @@ class ObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Metadata Tests
@@ -102,9 +75,9 @@ class ObjectTemplateTests: XCTestCase {
     """
 
     // when
-    let actual = subject.render()
+    let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 4, ignoringExtraLines: true))
   }
 }
