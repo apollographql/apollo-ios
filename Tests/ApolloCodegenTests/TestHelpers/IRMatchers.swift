@@ -335,7 +335,8 @@ fileprivate func shallowlyMatch(expected: IR.FragmentSpread, actual: IR.Fragment
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.FragmentSpread, actual: IR.FragmentSpread) -> Bool {
-  return shallowlyMatch(expected: expected, actual: actual.underlyingFragmentSpread)
+  return shallowlyMatch(expected: expected.fragment, actual: actual.definition) &&
+  AnyOf(IR.InclusionConditions.allOf(expected.inclusionConditions ?? []).conditions) == actual.inclusionConditions
 }
 
 fileprivate func shallowlyMatch(expected: CompilationResult.FragmentSpread, actual: CompilationResult.FragmentSpread) -> Bool {

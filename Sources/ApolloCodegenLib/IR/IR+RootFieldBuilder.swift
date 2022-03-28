@@ -117,8 +117,22 @@ extension IR {
           guard let scope = scopeCondition(for: fragmentSpread, in: selectionSet) else {
             continue
           }
+          let selectionSetScope = selectionSet.typeInfo.scope
 
-          if selectionSet.typeInfo.scope.matches(scope) {
+          let matchesType: Bool = {
+            guard let typeCondition = scope.type else { return true }
+            return selectionSetScope.matches(typeCondition)
+          }()
+
+          let matchesInclusion: Bool = {
+            guard let inclusionConditions = scope.conditions else { return true }
+            return selectionSetScope.matches(inclusionConditions)
+          }()
+
+          switch (matchesType, matchesInclusion) {
+          case (true, false):
+            fallthrough
+          case (true, true):
             referencedFragments.append(fragmentSpread.fragment)
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragmentSpread,
@@ -127,7 +141,11 @@ extension IR {
 
             selectionSet.selections.direct!.mergeIn(irFragmentSpread)
 
-          } else {
+            return
+
+          case (false, false):
+            fallthrough
+          case (false, true):
             let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
               from: CompilationResult.SelectionSet(
                 parentType: fragmentSpread.parentType,
@@ -139,6 +157,7 @@ extension IR {
             )
 
             selectionSet.selections.direct!.mergeIn(irTypeCaseEnclosingFragment)
+            return
           }
         }
       }
@@ -289,7 +308,8 @@ extension IR {
 
       let fragmentSpread = FragmentSpread(
         fragmentSpread: fragmentSpread,
-        selectionSet: irSelectionSet
+        selectionSet: irSelectionSet,
+        inclusionConditions: nil
       )
       buildSortedSelections(
         forSelectionSet: fragmentSpread.selectionSet,

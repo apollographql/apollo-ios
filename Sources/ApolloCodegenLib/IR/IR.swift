@@ -90,23 +90,29 @@ class IR {
     /// It's `typePath` and `entity` reference are scoped to the operation it belongs to.
     let selectionSet: SelectionSet
 
+    var inclusionConditions: AnyOf<InclusionConditions>?
+
     var definition: CompilationResult.FragmentDefinition { underlyingFragmentSpread.fragment }
 
     init(
       fragmentSpread: CompilationResult.FragmentSpread,
-      selectionSet: SelectionSet
+      selectionSet: SelectionSet,
+      inclusionConditions: AnyOf<InclusionConditions>?
     ) {
       self.underlyingFragmentSpread = fragmentSpread
       self.selectionSet = selectionSet
+      self.inclusionConditions = inclusionConditions
     }
 
     static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
       lhs.underlyingFragmentSpread == rhs.underlyingFragmentSpread &&
+      lhs.inclusionConditions == rhs.inclusionConditions &&
       lhs.selectionSet == rhs.selectionSet
     }
 
     func hash(into hasher: inout Hasher) {
       hasher.combine(underlyingFragmentSpread)
+      hasher.combine(inclusionConditions)
       hasher.combine(ObjectIdentifier(selectionSet))
     }
   }
