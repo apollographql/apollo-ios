@@ -8,10 +8,6 @@ struct InterfaceTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(HeaderCommentTemplate.render())
-
-    \(ImportStatementTemplate.SchemaType.render())
-
     public final class \(graphqlInterface.name): Interface { }
     """
     )
