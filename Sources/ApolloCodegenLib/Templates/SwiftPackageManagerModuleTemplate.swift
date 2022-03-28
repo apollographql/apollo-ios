@@ -1,9 +1,11 @@
 import Foundation
 
-struct SwiftPackageManagerModuleTemplate {
+struct SwiftPackageManagerModuleTemplate: TemplateRenderer {
   let moduleName: String
 
-  func render() -> String {
+  var target: TemplateTarget = .moduleFile
+
+  var template: TemplateString {
     TemplateString("""
     // swift-tools-version:5.3
 
@@ -33,6 +35,6 @@ struct SwiftPackageManagerModuleTemplate {
         ),
       ]
     )
-    """).description
+    """)
   }
 }
