@@ -19,6 +19,9 @@ extension IR {
         .joined(separator: " ")
     }
 
+    var isEmpty: Bool {
+      type == nil && (conditions?.isEmpty ?? true)
+    }
   }
 
   typealias TypeScope = Set<GraphQLCompositeType>

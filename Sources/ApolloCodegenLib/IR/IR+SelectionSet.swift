@@ -42,7 +42,7 @@ extension IR {
       }
 
       func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(entity))        
+        hasher.combine(ObjectIdentifier(entity))
         hasher.combine(scopePath)
       }
 
@@ -135,11 +135,11 @@ extension IR {
     }
 
     var debugDescription: String {
-      """
-      SelectionSet on \(typeInfo.parentType) {
-        \(indented: self.selections.debugDescription)
+      TemplateString("""
+      SelectionSet on \(typeInfo.parentType.debugDescription) \(ifLet: typeInfo.inclusionConditions, { " \($0.debugDescription)"})  {
+        \(self.selections.debugDescription)
       }
-      """
+      """).description
     }
 
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {

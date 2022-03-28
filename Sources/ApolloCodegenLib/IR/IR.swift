@@ -82,7 +82,7 @@ class IR {
   ///
   /// While a `NamedFragment` can be shared between operations, a `FragmentSpread` represents a
   /// `NamedFragment` included in a specific operation.
-  class FragmentSpread: Hashable {
+  class FragmentSpread: Hashable, CustomDebugStringConvertible {
 
     let underlyingFragmentSpread: CompilationResult.FragmentSpread
 
@@ -114,6 +114,10 @@ class IR {
       hasher.combine(underlyingFragmentSpread)
       hasher.combine(inclusionConditions)
       hasher.combine(ObjectIdentifier(selectionSet))
+    }
+
+    var debugDescription: String {
+      definition.name
     }
   }
   

@@ -1607,7 +1607,6 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     )
 
     // then
-    expect(allAnimals?.inclusionConditions).to(beNil())
     expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
 
     expect(allAnimals?[as: "Pet", if: "b"]).to(shallowlyMatch(expected_allAnimal_asPet))
@@ -1687,7 +1686,6 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     )
 
     // then
-    expect(allAnimals?.inclusionConditions).to(beNil())
     expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
 
     expect(allAnimals?[as: "Pet", if: "a"]).to(shallowlyMatch(expected_allAnimal_asPet))
@@ -1729,7 +1727,7 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
      let allAnimals = self.subject[field: "allAnimals"]
 
-     let expected_allAnimal = try SelectionSetMatcher(
+     let expected_allAnimal = SelectionSetMatcher(
        parentType: Interface_Animal,
        inclusionConditions: nil,
        directSelections: [
@@ -1739,26 +1737,24 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
         .inlineFragment(.mock(parentType: Interface_Animal,
                               inclusionConditions: [.include(if: "a")])),
        ],
-       mergedSources: [
-        .mock(allAnimals?[if: "a"])
-       ]
+       mergedSources: []
      )
 
      let expected_allAnimal_ifA = try SelectionSetMatcher(
        parentType: Interface_Animal,
        inclusionConditions: [.include(if: "a")],
-       directSelections: [],
+       directSelections: nil,
        mergedSelections: [
         .field(.mock("a", type: .nonNull(.scalar(.string())))),
-        .fragmentSpread(FragmentA, inclusionConditions: nil),
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
        ],
        mergedSources: [
-        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"])
+        .mock(allAnimals),
+        .mock(allAnimals?[fragment: "FragmentA"]),
        ]
      )
 
      // then
-     expect(allAnimals?.inclusionConditions).to(beNil())
      expect(allAnimals?.selectionSet).to(shallowlyMatch(expected_allAnimal))
 
      expect(allAnimals?[if: "a"]).to(shallowlyMatch(expected_allAnimal_ifA))

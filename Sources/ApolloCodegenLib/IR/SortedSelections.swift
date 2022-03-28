@@ -186,7 +186,8 @@ extension IR {
 
     struct MergedSource: Hashable {
       let typeInfo: SelectionSet.TypeInfo
-      unowned let fragment: FragmentSpread?
+      #warning("TODO: make fragment unowned?")
+      let fragment: FragmentSpread?
     }
 
     typealias MergedSources = Set<MergedSource>
@@ -277,13 +278,11 @@ extension IR {
     private func createShallowlyMergedConditionalSelectionSet(
       with condition: ScopeCondition
     ) -> SelectionSet {
-      let parentType = condition.type ?? self.typeInfo.parentType
       return IR.SelectionSet(
         entity: self.typeInfo.entity,        
-        scopePath: self.typeInfo.scopePath.mutatingLast { $0.appending(parentType) },
+        scopePath: self.typeInfo.scopePath.mutatingLast { $0.appending(condition) },
         mergedSelectionsOnly: true
       )
-      #warning("TODO: Type Path needs to append the whole ScopeCondition not just parentType.")
     }
 
     var isEmpty: Bool {
@@ -302,7 +301,7 @@ extension IR {
       Merged Sources: \(mergedSources)
       Fields: \(fields.values.elements)
       InlineFragments: \(conditionalSelectionSets.values.elements.map(\.conditionalSelectionSetDebugDescription))
-      Fragments: \(fragments.values.elements.map(\.definition.name))
+      Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
 
