@@ -124,11 +124,6 @@ extension IR {
             return selectionSetScope.matches(typeCondition)
           }
 
-//          var matchesInclusion: Bool {
-//            guard let inclusionConditions = scope.conditions else { return true }
-//            return selectionSetScope.matches(inclusionConditions)
-//          }
-
           if matchesType {
             let irFragmentSpread = buildFragmentSpread(
               fromFragment: fragmentSpread,
@@ -150,41 +145,6 @@ extension IR {
 
             selectionSet.selections.direct!.mergeIn(irTypeCaseEnclosingFragment)
           }
-//          switch (matchesType, matchesInclusion) {
-//          case (true, false):
-//
-//            let irFragmentSpread = buildFragmentSpread(
-//              fromFragment: fragmentSpread,
-//              spreadIntoParent: selectionSet
-//            )
-//            fallthrough
-//
-//          case (true, true):
-//            let irFragmentSpread = buildFragmentSpread(
-//              fromFragment: fragmentSpread,
-//              spreadIntoParent: selectionSet
-//            )
-//
-//            selectionSet.selections.direct!.mergeIn(irFragmentSpread)
-//
-//            return
-//
-//          case (false, false):
-//            fallthrough
-//          case (false, true):
-//            let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
-//              from: CompilationResult.SelectionSet(
-//                parentType: fragmentSpread.parentType,
-//                selections: [selection]
-//              ),
-//              with: scope,
-//              inFragmentSpread: containingFragmentSpread,
-//              onParent: selectionSet
-//            )
-//
-//            selectionSet.selections.direct!.mergeIn(irTypeCaseEnclosingFragment)
-//            return
-//          }
         }
       }
     }
